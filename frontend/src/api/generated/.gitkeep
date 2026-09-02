@@ -1,0 +1,5 @@
+# openapi-typescript output. NEVER edited by hand.
+#
+# Regenerate with `make types`. CI fails if the committed output drifts from
+# the API schema, which is what keeps the two languages honest without a shared
+# package or a build-order dependency.

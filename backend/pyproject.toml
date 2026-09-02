@@ -1,0 +1,91 @@
+[project]
+name = "sourcehub"
+version = "0.1.0"
+description = "SourceHub — a marketplace connecting clients who need real-world data with delivery partners who fulfil it"
+requires-python = ">=3.12"
+
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "pydantic[email]>=2.9",
+    "pydantic-settings>=2.6",
+    "sqlalchemy[asyncio]>=2.0.36",
+    "asyncpg>=0.30",
+    "alembic>=1.14",
+    "celery[redis]>=5.4",
+    "redis>=5.2",
+    "argon2-cffi>=23.1",          # argon2id, the hash config.py declares
+    "bcrypt>=4.2",                # verifies the bcrypt rows db/900_seed.sql creates
+    "python-jose[cryptography]>=3.3",
+    "python-multipart>=0.0.12",
+    "minio>=7.2",
+    "structlog>=24.4",
+    "httpx>=0.27",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3",
+    "pytest-asyncio>=0.24",
+    "pytest-cov>=6.0",
+    "testcontainers[postgres,redis,minio]>=4.8",
+    "ruff>=0.8",
+    "mypy>=1.13",
+    "import-linter>=2.1",
+    "types-python-jose",
+]
+
+# -----------------------------------------------------------------------------
+# src-layout. The package is `sourcehub`, which is what .importlinter's
+# root_package refers to — moving it under backend/ changed the repo tree, not
+# the import path.
+# -----------------------------------------------------------------------------
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/sourcehub"]
+
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP", "B", "A", "C4", "SIM", "TCH", "RUF"]
+ignore = [
+    "A003",   # class attribute shadowing a builtin — `id` is the right column name
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["sourcehub"]
+
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unreachable = true
+plugins = ["pydantic.mypy"]
+mypy_path = "src"
+packages = ["sourcehub"]
+
+[[tool.mypy.overrides]]
+module = ["celery.*", "minio.*", "testcontainers.*"]
+ignore_missing_imports = true
+
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+pythonpath = ["src"]
+markers = [
+    "isolation: cross-tenant RLS checks. Never skipped — see tests/isolation/.",
+    "integration: needs real Postgres, Redis and MinIO via testcontainers.",
+    "adapters: the same contract test run against two backend implementations.",
+]
+
+[tool.coverage.run]
+source = ["src/sourcehub"]
+branch = true

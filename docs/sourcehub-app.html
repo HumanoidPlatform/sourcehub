@@ -1,0 +1,2983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="color-scheme" content="light dark" />
+<title>SourceHub Console</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* ============================================================================
+   SOURCEHUB CONSOLE — production reference implementation
+   ----------------------------------------------------------------------------
+   LAYER 1 · TOKENS      every colour, size and duration used by the product
+   LAYER 2 · PRIMITIVES  reset, typography, focus
+   LAYER 3 · COMPONENTS  rail, topbar, panel, table, pill, button, field, ...
+   LAYER 4 · UTILITIES   grid and spacing helpers
+   Components read tokens only. No component declares a colour inside a
+   @media or [data-theme] block — themes swap the token values, nothing else.
+   ============================================================================ */
+
+/* ---------------------------------------------------------------------------
+   LAYER 1 · TOKENS — light is the base definition
+--------------------------------------------------------------------------- */
+:root{
+  /* --- surfaces & ink (neutrals biased cool-green, not pure grey) --- */
+  --ground:#f4f6f5;
+  --surface:#ffffff;
+  --surface-2:#eef1ef;
+  --surface-3:#e6eae8;
+  --line:#dde3e0;
+  --line-strong:#c3ccc8;
+  --ink:#0f1a1c;
+  --ink-2:#3a4a4d;
+  --ink-3:#66787b;
+  --ink-4:#8c9c9e;
+
+  /* --- accent: petrol teal, from survey instrumentation --- */
+  --accent:#0a6c60;
+  --accent-hover:#085248;
+  --accent-ink:#ffffff;
+  --accent-tint:#e2efec;
+  --accent-line:#a9cfc8;
+
+  /* --- status taxonomy: five tones, deliberately distinct from the accent
+         neutral   inert, nothing is happening
+         active    progressing, no one is blocked
+         attention waiting on a human decision
+         success   terminal, good
+         critical  terminal, bad — or a breach                       --- */
+  --t-neutral:#5b6b6e;    --t-neutral-bg:#eceeed;   --t-neutral-line:#d3d9d7;
+  --t-active:#0a6c60;     --t-active-bg:#e2efec;    --t-active-line:#a9cfc8;
+  --t-attention:#8f5000;  --t-attention-bg:#faeedb;  --t-attention-line:#e6cb9c;
+  --t-success:#1a6f45;    --t-success-bg:#e4f1ea;   --t-success-line:#a6d3bb;
+  --t-critical:#a9312a;   --t-critical-bg:#fbe9e7;  --t-critical-line:#eeb8b2;
+
+  /* --- data visualisation --- */
+  --meter-track:#e0e5e3;
+  --chart-grid:#e6eae8;
+
+  /* --- geometry --- */
+  --r-control:4px; --r-panel:6px; --r-pill:999px;
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px; --s-6:32px; --s-7:48px;
+  --rail-w:264px; --rail-w-min:64px; --topbar-h:56px; --view-max:1440px;
+
+  /* --- elevation: flat product, shadow reserved for things that float --- */
+  --shadow-pop:0 4px 12px rgba(15,26,28,.10), 0 1px 3px rgba(15,26,28,.08);
+  --shadow-overlay:0 24px 48px -12px rgba(15,26,28,.28), 0 0 0 1px var(--line);
+
+  /* --- motion --- */
+  --fast:120ms; --base:180ms; --ease:cubic-bezier(.2,.6,.35,1);
+
+  /* --- type --- */
+  --font-ui:"IBM Plex Sans","Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular","Cascadia Mono",Consolas,monospace;
+}
+
+/* dark, for viewers on the system default (no data-theme stamp present) */
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0d1315; --surface:#141c1e; --surface-2:#1a2427; --surface-3:#213033;
+    --line:#253134; --line-strong:#3a4d51;
+    --ink:#e8efed; --ink-2:#b6c5c3; --ink-3:#85989a; --ink-4:#6b7d7f;
+    --accent:#3fb8a6; --accent-hover:#5cccbb; --accent-ink:#06201d;
+    --accent-tint:#0f2b28; --accent-line:#1f4a45;
+    --t-neutral:#93a4a6;   --t-neutral-bg:#1c2427;   --t-neutral-line:#2e3b3e;
+    --t-active:#3fb8a6;    --t-active-bg:#0f2b28;    --t-active-line:#1f4a45;
+    --t-attention:#dda75a; --t-attention-bg:#2b2010; --t-attention-line:#4a3a1b;
+    --t-success:#59bd8a;   --t-success-bg:#10281d;   --t-success-line:#20452f;
+    --t-critical:#e58179;  --t-critical-bg:#2d1614;  --t-critical-line:#4d2723;
+    --meter-track:#26312f; --chart-grid:#1f2a2c;
+    --shadow-pop:0 4px 12px rgba(0,0,0,.5), 0 1px 3px rgba(0,0,0,.4);
+    --shadow-overlay:0 24px 48px -12px rgba(0,0,0,.7), 0 0 0 1px var(--line);
+  }
+}
+/* dark, chosen explicitly — must win over a light OS */
+:root[data-theme="dark"]{
+  --ground:#0d1315; --surface:#141c1e; --surface-2:#1a2427; --surface-3:#213033;
+  --line:#253134; --line-strong:#3a4d51;
+  --ink:#e8efed; --ink-2:#b6c5c3; --ink-3:#85989a; --ink-4:#6b7d7f;
+  --accent:#3fb8a6; --accent-hover:#5cccbb; --accent-ink:#06201d;
+  --accent-tint:#0f2b28; --accent-line:#1f4a45;
+  --t-neutral:#93a4a6;   --t-neutral-bg:#1c2427;   --t-neutral-line:#2e3b3e;
+  --t-active:#3fb8a6;    --t-active-bg:#0f2b28;    --t-active-line:#1f4a45;
+  --t-attention:#dda75a; --t-attention-bg:#2b2010; --t-attention-line:#4a3a1b;
+  --t-success:#59bd8a;   --t-success-bg:#10281d;   --t-success-line:#20452f;
+  --t-critical:#e58179;  --t-critical-bg:#2d1614;  --t-critical-line:#4d2723;
+  --meter-track:#26312f; --chart-grid:#1f2a2c;
+  --shadow-pop:0 4px 12px rgba(0,0,0,.5), 0 1px 3px rgba(0,0,0,.4);
+  --shadow-overlay:0 24px 48px -12px rgba(0,0,0,.7), 0 0 0 1px var(--line);
+}
+
+/* ---------------------------------------------------------------------------
+   LAYER 2 · PRIMITIVES
+--------------------------------------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--font-ui); background:var(--ground); color:var(--ink);
+  font-size:14px; line-height:1.5; -webkit-font-smoothing:antialiased;
+  font-feature-settings:"cv05" 1;
+}
+h1,h2,h3,h4{margin:0;font-weight:600;letter-spacing:-.015em;text-wrap:balance}
+h1{font-size:22px;line-height:1.25}
+h2{font-size:17px;line-height:1.3}
+h3{font-size:14px;line-height:1.35}
+p{margin:0}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+button,input,select,textarea{font:inherit;color:inherit}
+ul,ol,dl,dd{margin:0;padding:0}
+li{list-style:none}
+svg{display:block}
+
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px}
+.skip{position:absolute;left:-9999px;top:8px;z-index:300;background:var(--surface);
+  border:1px solid var(--line);border-radius:var(--r-control);padding:8px 14px;font-weight:600}
+.skip:focus{left:8px}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;scroll-behavior:auto !important}
+}
+
+/* type roles ---------------------------------------------------------------- */
+.mono{font-family:var(--font-mono);font-variant-ligatures:none}
+.eyebrow{font-family:var(--font-mono);font-size:10.5px;font-weight:500;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.num{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+.muted{color:var(--ink-3)}
+.small{font-size:12.5px}
+
+/* ---------------------------------------------------------------------------
+   LAYER 3 · COMPONENTS
+--------------------------------------------------------------------------- */
+
+/* --- app frame ------------------------------------------------------------ */
+.app{display:grid;grid-template-columns:var(--rail-w) minmax(0,1fr);min-height:100vh}
+
+/* --- left rail ------------------------------------------------------------ */
+.rail{background:var(--surface);border-right:1px solid var(--line);
+  display:flex;flex-direction:column;position:sticky;top:0;height:100vh;z-index:60}
+.rail-head{padding:var(--s-4);border-bottom:1px solid var(--line)}
+.mark{display:flex;align-items:center;gap:10px}
+.mark-glyph{width:28px;height:28px;flex:none;border-radius:var(--r-control);
+  background:var(--accent);color:var(--accent-ink);display:grid;place-items:center}
+.mark-name{font-weight:600;font-size:14.5px;letter-spacing:-.02em}
+.rail-ctx{margin-top:var(--s-3);padding:10px;border:1px solid var(--line);
+  border-radius:var(--r-control);background:var(--surface-2)}
+.rail-ctx .eyebrow{display:block;margin-bottom:3px}
+.rail-ctx-name{font-weight:600;font-size:13px;line-height:1.3}
+.rail-ctx-meta{font-size:11.5px;color:var(--ink-3);margin-top:2px}
+.rail-nav{flex:1;overflow-y:auto;padding:var(--s-3) var(--s-2)}
+.rail-group{padding:var(--s-3) 10px 5px}
+.rail-item{display:flex;align-items:center;gap:10px;width:100%;text-align:left;
+  padding:7px 10px;border:0;border-radius:var(--r-control);background:transparent;
+  color:var(--ink-2);font-size:13.5px;font-weight:500;cursor:pointer;
+  transition:background var(--fast) var(--ease),color var(--fast) var(--ease)}
+.rail-item:hover{background:var(--surface-2);color:var(--ink)}
+.rail-item[aria-current="page"]{background:var(--accent-tint);color:var(--accent);font-weight:600}
+.rail-item .gl{flex:none;width:16px;height:16px;opacity:.85}
+.rail-item .lbl{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rail-item .tally{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);
+  background:var(--surface-2);border-radius:var(--r-pill);padding:1px 7px}
+.rail-item[aria-current="page"] .tally{background:var(--surface);color:var(--accent)}
+.rail-foot{border-top:1px solid var(--line);padding:var(--s-3) var(--s-2)}
+
+/* --- topbar --------------------------------------------------------------- */
+.topbar{position:sticky;top:0;z-index:50;height:var(--topbar-h);
+  background:var(--surface);border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:var(--s-3);padding:0 var(--s-5)}
+.crumbs{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink-3);min-width:0}
+.crumbs b{color:var(--ink-2);font-weight:600}
+.crumbs .sep{opacity:.5}
+.topbar-spacer{flex:1}
+.topbar-tools{display:flex;align-items:center;gap:var(--s-2)}
+
+.searchcue{display:flex;align-items:center;gap:var(--s-2);height:32px;padding:0 10px;
+  background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-control);
+  color:var(--ink-3);font-size:12.5px;cursor:pointer;min-width:196px;
+  transition:border-color var(--fast) var(--ease)}
+.searchcue:hover{border-color:var(--line-strong)}
+.searchcue .k{margin-left:auto}
+.kbd{font-family:var(--font-mono);font-size:10.5px;border:1px solid var(--line-strong);
+  border-bottom-width:2px;border-radius:3px;padding:1px 5px;color:var(--ink-3);background:var(--surface)}
+
+.iconbtn{width:32px;height:32px;display:grid;place-items:center;border:1px solid var(--line);
+  border-radius:var(--r-control);background:var(--surface);color:var(--ink-2);cursor:pointer;
+  position:relative;transition:background var(--fast) var(--ease)}
+.iconbtn:hover{background:var(--surface-2)}
+.iconbtn .ping{position:absolute;top:-3px;right:-3px;min-width:15px;height:15px;padding:0 4px;
+  border-radius:var(--r-pill);background:var(--t-critical);color:var(--surface);
+  font-family:var(--font-mono);font-size:9.5px;line-height:15px;font-weight:600}
+:root[data-theme="dark"] .iconbtn .ping,
+:root:not([data-theme="light"]) .iconbtn .ping{color:var(--ground)}
+
+.identity{display:flex;align-items:center;gap:var(--s-2);height:32px;padding:0 4px 0 8px;
+  border:1px solid var(--line);border-radius:var(--r-control);background:var(--surface)}
+.identity label{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-3)}
+.identity select{border:0;background:transparent;font-size:12.5px;font-weight:600;
+  padding:0 2px;cursor:pointer;max-width:190px}
+.identity select:focus-visible{outline-offset:0}
+
+/* --- main / view ---------------------------------------------------------- */
+.main{display:flex;flex-direction:column;min-width:0}
+.view{padding:var(--s-5) var(--s-5) var(--s-7);max-width:var(--view-max);width:100%;
+  display:flex;flex-direction:column;gap:var(--s-4)}
+.view-head{display:flex;align-items:flex-start;gap:var(--s-4);flex-wrap:wrap}
+.view-head .titles{flex:1;min-width:260px;display:flex;flex-direction:column;gap:3px}
+.view-head .sub{color:var(--ink-3);font-size:13px;max-width:78ch}
+.view-actions{display:flex;gap:var(--s-2);flex-wrap:wrap;align-items:center}
+
+/* --- panel ---------------------------------------------------------------- */
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-panel);
+  display:flex;flex-direction:column;min-width:0}
+.panel-head{display:flex;align-items:center;gap:var(--s-3);padding:var(--s-3) var(--s-4);
+  border-bottom:1px solid var(--line);flex-wrap:wrap}
+.panel-head .titles{flex:1;min-width:180px;display:flex;flex-direction:column;gap:2px}
+.panel-head .sub{font-size:12.5px;color:var(--ink-3)}
+.panel-body{padding:var(--s-4);display:flex;flex-direction:column;gap:var(--s-3)}
+.panel-body.flush{padding:0}
+.panel-foot{border-top:1px solid var(--line);padding:var(--s-3) var(--s-4);
+  display:flex;gap:var(--s-2);align-items:center;flex-wrap:wrap;background:var(--surface-2);
+  border-radius:0 0 var(--r-panel) var(--r-panel)}
+
+/* --- metric --------------------------------------------------------------- */
+.metric{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-panel);
+  padding:var(--s-4);display:flex;flex-direction:column;gap:var(--s-1);min-width:0}
+.metric .val{font-family:var(--font-mono);font-size:25px;font-weight:500;
+  letter-spacing:-.02em;line-height:1.1;font-variant-numeric:tabular-nums}
+.metric .val .unit{font-size:14px;color:var(--ink-3);letter-spacing:0}
+.metric .foot{font-size:12px;color:var(--ink-3);display:flex;align-items:center;gap:6px}
+
+/* --- table ---------------------------------------------------------------- */
+.tablewrap{overflow-x:auto;width:100%}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+thead th{position:sticky;top:0;z-index:1;text-align:left;background:var(--surface-2);
+  border-bottom:1px solid var(--line);padding:9px var(--s-4);white-space:nowrap;
+  font-family:var(--font-mono);font-size:10.5px;font-weight:500;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--ink-3)}
+thead th.sortable{cursor:pointer;user-select:none}
+thead th.sortable:hover{color:var(--ink)}
+thead th .arrow{opacity:0;margin-left:5px}
+thead th[aria-sort] .arrow{opacity:1;color:var(--accent)}
+tbody td{padding:11px var(--s-4);border-bottom:1px solid var(--line);vertical-align:middle}
+tbody tr:last-child td{border-bottom:0}
+tbody tr.tap{cursor:pointer}
+tbody tr.tap:hover{background:var(--surface-2)}
+td.right,th.right{text-align:right}
+.cell-primary{font-weight:600;color:var(--ink)}
+.cell-meta{font-size:12px;color:var(--ink-3);margin-top:2px;display:flex;
+  align-items:center;gap:6px;flex-wrap:wrap}
+.rowactions{display:flex;gap:6px;justify-content:flex-end}
+
+/* --- identifier ------------------------------------------------------------ */
+.id{font-family:var(--font-mono);font-size:11.5px;color:var(--ink-3);
+  background:var(--surface-2);border:1px solid var(--line);border-radius:3px;padding:0 5px}
+
+/* --- status pill ---------------------------------------------------------- */
+.pill{display:inline-flex;align-items:center;gap:6px;padding:2px 9px 2px 7px;
+  border-radius:var(--r-pill);font-size:11.5px;font-weight:600;white-space:nowrap;
+  border:1px solid var(--t-neutral-line);background:var(--t-neutral-bg);color:var(--t-neutral)}
+.pill::before{content:"";width:5px;height:5px;border-radius:50%;background:currentColor;flex:none}
+.pill[data-tone="active"]{border-color:var(--t-active-line);background:var(--t-active-bg);color:var(--t-active)}
+.pill[data-tone="attention"]{border-color:var(--t-attention-line);background:var(--t-attention-bg);color:var(--t-attention)}
+.pill[data-tone="success"]{border-color:var(--t-success-line);background:var(--t-success-bg);color:var(--t-success)}
+.pill[data-tone="critical"]{border-color:var(--t-critical-line);background:var(--t-critical-bg);color:var(--t-critical)}
+
+.chip{display:inline-flex;align-items:center;gap:5px;padding:2px 8px;border-radius:var(--r-control);
+  border:1px solid var(--line);background:var(--surface-2);font-size:11.5px;color:var(--ink-2)}
+
+/* --- buttons -------------------------------------------------------------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  height:32px;padding:0 13px;border-radius:var(--r-control);border:1px solid var(--line);
+  background:var(--surface);color:var(--ink);font-size:13px;font-weight:600;cursor:pointer;
+  white-space:nowrap;transition:background var(--fast) var(--ease),border-color var(--fast) var(--ease)}
+.btn:hover{background:var(--surface-2);border-color:var(--line-strong)}
+.btn[data-variant="primary"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn[data-variant="primary"]:hover{background:var(--accent-hover);border-color:var(--accent-hover)}
+.btn[data-variant="success"]{background:var(--t-success);border-color:var(--t-success);color:var(--surface)}
+:root[data-theme="dark"] .btn[data-variant="success"],
+:root:not([data-theme="light"]) .btn[data-variant="success"]{color:var(--ground)}
+.btn[data-variant="success"]:hover{filter:brightness(1.08)}
+.btn[data-variant="danger"]{color:var(--t-critical);border-color:var(--t-critical-line);background:var(--surface)}
+.btn[data-variant="danger"]:hover{background:var(--t-critical-bg)}
+.btn[data-variant="quiet"]{border-color:transparent;background:transparent;color:var(--accent);padding:0 9px}
+.btn[data-variant="quiet"]:hover{background:var(--accent-tint)}
+.btn[data-size="sm"]{height:26px;padding:0 9px;font-size:12px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btnrow{display:flex;gap:var(--s-2);flex-wrap:wrap}
+
+/* --- fields --------------------------------------------------------------- */
+.field{display:flex;flex-direction:column;gap:5px;min-width:0}
+.field > label{font-size:12.5px;font-weight:600;color:var(--ink-2)}
+.field .req{color:var(--t-critical);margin-left:2px}
+.field .hint{font-size:11.5px;color:var(--ink-3)}
+.field .err{font-size:11.5px;color:var(--t-critical);font-weight:500;display:none}
+.field[data-invalid] .err{display:block}
+.input,.select,.textarea{width:100%;min-height:32px;padding:6px 10px;border:1px solid var(--line-strong);
+  border-radius:var(--r-control);background:var(--surface);color:var(--ink);
+  transition:border-color var(--fast) var(--ease),box-shadow var(--fast) var(--ease)}
+.textarea{min-height:78px;resize:vertical;line-height:1.5}
+.input:hover,.select:hover,.textarea:hover{border-color:var(--ink-4)}
+.input:focus,.select:focus,.textarea:focus{outline:none;border-color:var(--accent);
+  box-shadow:0 0 0 3px var(--accent-tint)}
+.field[data-invalid] .input,.field[data-invalid] .select,.field[data-invalid] .textarea{border-color:var(--t-critical)}
+.input::placeholder,.textarea::placeholder{color:var(--ink-4)}
+.checkline{display:flex;align-items:flex-start;gap:9px;padding:7px 9px;border:1px solid var(--line);
+  border-radius:var(--r-control);cursor:pointer;background:var(--surface);font-size:13px}
+.checkline:hover{background:var(--surface-2)}
+.checkline input{margin:2px 0 0;accent-color:var(--accent);flex:none}
+.checkline .cl-sub{display:block;font-size:11.5px;color:var(--ink-3);margin-top:1px}
+.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s-4)}
+.formgrid .span{grid-column:1/-1}
+
+/* --- tabs ----------------------------------------------------------------- */
+[role="tablist"]{display:flex;gap:var(--s-1);border-bottom:1px solid var(--line);
+  padding:0 var(--s-4);overflow-x:auto}
+[role="tab"]{border:0;background:transparent;padding:11px 10px 9px;font-size:13px;font-weight:600;
+  color:var(--ink-3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
+[role="tab"]:hover{color:var(--ink)}
+[role="tab"][aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent)}
+
+/* --- description list ----------------------------------------------------- */
+.dl{display:grid;grid-template-columns:minmax(120px,190px) minmax(0,1fr);gap:10px var(--s-4);font-size:13px}
+.dl dt{color:var(--ink-3);font-size:12.5px;font-weight:500}
+.dl dd{color:var(--ink-2)}
+
+/* --- meter ---------------------------------------------------------------- */
+.meter{height:5px;border-radius:var(--r-pill);background:var(--meter-track);overflow:hidden}
+.meter > i{display:block;height:100%;background:var(--accent);border-radius:var(--r-pill);
+  transition:width var(--base) var(--ease)}
+.meter[data-tone="success"] > i{background:var(--t-success)}
+.meter[data-tone="attention"] > i{background:var(--t-attention)}
+
+/* --- stage rail (lifecycle) ----------------------------------------------- */
+.stagerail{display:flex;overflow-x:auto;padding:var(--s-2) 0 var(--s-1);gap:0}
+.stage{flex:1;min-width:112px;position:relative;display:flex;flex-direction:column;
+  align-items:center;text-align:center;gap:7px;padding:0 4px}
+.stage .track{position:absolute;top:11px;right:50%;width:100%;height:2px;background:var(--line)}
+.stage:first-child .track{display:none}
+.stage[data-state="done"] .track,.stage[data-state="here"] .track{background:var(--accent)}
+.stage .node{position:relative;z-index:1;width:24px;height:24px;border-radius:50%;
+  display:grid;place-items:center;background:var(--surface);border:2px solid var(--line);
+  font-family:var(--font-mono);font-size:11px;color:var(--ink-4)}
+.stage[data-state="done"] .node{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.stage[data-state="here"] .node{border-color:var(--accent);color:var(--accent);
+  box-shadow:0 0 0 4px var(--accent-tint)}
+.stage .name{font-size:11.5px;font-weight:600;color:var(--ink-4);line-height:1.25}
+.stage[data-state="done"] .name,.stage[data-state="here"] .name{color:var(--ink-2)}
+.stage .when{font-family:var(--font-mono);font-size:10px;color:var(--ink-4)}
+
+/* --- activity timeline ---------------------------------------------------- */
+.timeline{display:flex;flex-direction:column}
+.event{display:grid;grid-template-columns:22px minmax(0,1fr);gap:var(--s-3);
+  padding-bottom:var(--s-4);position:relative}
+.event:last-child{padding-bottom:0}
+.event .spine{position:absolute;left:10px;top:20px;bottom:0;width:1px;background:var(--line)}
+.event:last-child .spine{display:none}
+.event .dot{width:20px;height:20px;border-radius:50%;background:var(--surface-2);
+  border:1px solid var(--line);display:grid;place-items:center;font-size:10px;z-index:1}
+.event .what{font-size:13px;color:var(--ink)}
+.event .who{font-size:11.5px;color:var(--ink-3);margin-top:2px;display:flex;gap:7px;flex-wrap:wrap}
+
+/* --- assets (simulated captured media) ------------------------------------ */
+.assetgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:var(--s-2)}
+.asset{aspect-ratio:4/3;border:1px solid var(--line);border-radius:var(--r-control);
+  background:var(--surface-2);display:grid;place-items:center;color:var(--ink-4);position:relative}
+.asset .tag{position:absolute;bottom:3px;left:3px;font-family:var(--font-mono);
+  font-size:9px;color:var(--ink-3);background:var(--surface);border-radius:2px;padding:0 3px}
+
+/* --- empty / skeleton ----------------------------------------------------- */
+.empty{display:flex;flex-direction:column;align-items:center;gap:var(--s-3);
+  padding:var(--s-7) var(--s-4);text-align:center}
+.empty .glyph{width:40px;height:40px;border-radius:50%;background:var(--surface-2);
+  border:1px solid var(--line);display:grid;place-items:center;color:var(--ink-4)}
+.empty .title{font-weight:600}
+.empty .body{font-size:13px;color:var(--ink-3);max-width:46ch}
+.skeleton{background:linear-gradient(90deg,var(--surface-2) 25%,var(--surface-3) 37%,var(--surface-2) 63%);
+  background-size:400% 100%;animation:shimmer 1.3s linear infinite;border-radius:3px;height:11px}
+@keyframes shimmer{from{background-position:100% 0}to{background-position:0 0}}
+
+/* --- callout -------------------------------------------------------------- */
+.callout{border:1px solid var(--t-active-line);background:var(--t-active-bg);color:var(--t-active);
+  border-radius:var(--r-control);padding:10px 12px;font-size:12.5px;display:flex;gap:9px;align-items:flex-start}
+.callout[data-tone="attention"]{border-color:var(--t-attention-line);background:var(--t-attention-bg);color:var(--t-attention)}
+.callout[data-tone="critical"]{border-color:var(--t-critical-line);background:var(--t-critical-bg);color:var(--t-critical)}
+.callout .ct{font-weight:600;display:block;margin-bottom:2px}
+
+/* --- overlay: dialog & palette -------------------------------------------- */
+.overlay{position:fixed;inset:0;z-index:200;background:rgba(9,17,18,.5);
+  display:none;justify-content:center;padding:var(--s-6) var(--s-4);overflow-y:auto}
+.overlay[data-open]{display:flex}
+.overlay[data-align="top"]{align-items:flex-start;padding-top:11vh}
+.dialog{background:var(--surface);border-radius:var(--r-panel);box-shadow:var(--shadow-overlay);
+  width:100%;max-width:640px;align-self:flex-start;animation:rise var(--base) var(--ease)}
+.dialog[data-size="wide"]{max-width:980px}
+@keyframes rise{from{transform:translateY(-6px);opacity:0}to{transform:none;opacity:1}}
+.dialog-head{display:flex;align-items:flex-start;gap:var(--s-3);padding:var(--s-4);
+  border-bottom:1px solid var(--line)}
+.dialog-head .titles{flex:1;display:flex;flex-direction:column;gap:2px}
+.dialog-head .sub{font-size:12.5px;color:var(--ink-3)}
+.dialog-body{padding:var(--s-4);display:flex;flex-direction:column;gap:var(--s-4);
+  max-height:64vh;overflow-y:auto}
+.dialog-foot{display:flex;gap:var(--s-2);justify-content:flex-end;padding:var(--s-3) var(--s-4);
+  border-top:1px solid var(--line);background:var(--surface-2);
+  border-radius:0 0 var(--r-panel) var(--r-panel);flex-wrap:wrap}
+
+.palette{background:var(--surface);border-radius:var(--r-panel);box-shadow:var(--shadow-overlay);
+  width:100%;max-width:560px;align-self:flex-start;overflow:hidden;animation:rise var(--base) var(--ease)}
+.palette input{width:100%;border:0;border-bottom:1px solid var(--line);padding:14px var(--s-4);
+  font-size:15px;background:transparent}
+.palette input:focus{outline:none}
+.palette ul{max-height:340px;overflow-y:auto;padding:var(--s-2)}
+.palette li{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--r-control);
+  cursor:pointer;font-size:13px}
+.palette li[data-active]{background:var(--accent-tint);color:var(--accent)}
+.palette li .where{margin-left:auto;font-family:var(--font-mono);font-size:10.5px;color:var(--ink-3)}
+.palette li[data-active] .where{color:var(--accent)}
+.palette .pfoot{border-top:1px solid var(--line);padding:8px var(--s-4);font-size:11.5px;
+  color:var(--ink-3);display:flex;gap:var(--s-3);background:var(--surface-2)}
+
+/* --- popover menu --------------------------------------------------------- */
+.pop{position:absolute;top:calc(100% + 6px);right:0;z-index:70;width:320px;background:var(--surface);
+  border:1px solid var(--line);border-radius:var(--r-panel);box-shadow:var(--shadow-pop);overflow:hidden}
+.pop-head{padding:10px var(--s-3);border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:var(--s-2)}
+.pop-list{max-height:320px;overflow-y:auto}
+.pop-item{display:flex;gap:10px;padding:10px var(--s-3);border-bottom:1px solid var(--line);
+  width:100%;text-align:left;background:transparent;border-left:0;border-right:0;border-top:0;cursor:pointer}
+.pop-item:last-child{border-bottom:0}
+.pop-item:hover{background:var(--surface-2)}
+.pop-item .txt{font-size:12.5px;line-height:1.4}
+.pop-item .ts{font-family:var(--font-mono);font-size:10.5px;color:var(--ink-3);margin-top:3px}
+.hostrel{position:relative}
+
+/* --- toasts --------------------------------------------------------------- */
+.toasts{position:fixed;right:var(--s-5);bottom:var(--s-5);z-index:250;
+  display:flex;flex-direction:column;gap:var(--s-2);max-width:min(400px,calc(100vw - 48px))}
+.toast{display:flex;gap:10px;align-items:flex-start;background:var(--surface);
+  border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:var(--r-control);
+  padding:11px 13px;box-shadow:var(--shadow-pop);animation:slidein var(--base) var(--ease)}
+.toast[data-tone="success"]{border-left-color:var(--t-success)}
+.toast[data-tone="critical"]{border-left-color:var(--t-critical)}
+.toast .tt{font-size:13px;font-weight:600}
+.toast .tb{font-size:12px;color:var(--ink-3);margin-top:1px}
+@keyframes slidein{from{transform:translateX(12px);opacity:0}to{transform:none;opacity:1}}
+
+/* --- design-system reference page ----------------------------------------- */
+.swatchgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:var(--s-3)}
+.swatch{border:1px solid var(--line);border-radius:var(--r-control);overflow:hidden}
+.swatch .chipc{height:52px}
+.swatch .meta{padding:7px 9px;font-size:11px;border-top:1px solid var(--line)}
+.swatch .meta b{display:block;font-size:12px;font-weight:600}
+.swatch .meta code{font-family:var(--font-mono);color:var(--ink-3);font-size:10.5px}
+.specrow{display:flex;align-items:center;gap:var(--s-4);padding:var(--s-3) 0;
+  border-bottom:1px solid var(--line);flex-wrap:wrap}
+.specrow:last-child{border-bottom:0}
+.specrow .demo{flex:1;min-width:220px;display:flex;gap:var(--s-2);align-items:center;flex-wrap:wrap}
+.specrow .note{width:280px;font-size:12px;color:var(--ink-3)}
+.specrow .note b{color:var(--ink-2);display:block;font-size:12.5px}
+
+/* ---------------------------------------------------------------------------
+   LAYER 4 · UTILITIES
+--------------------------------------------------------------------------- */
+.row{display:flex;gap:var(--s-3);align-items:center;flex-wrap:wrap}
+.row.tight{gap:var(--s-2)}
+.col{display:flex;flex-direction:column;gap:var(--s-3);min-width:0}
+.grid{display:grid;gap:var(--s-4)}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.g-main{grid-template-columns:minmax(0,1.7fr) minmax(0,1fr)}
+.push{margin-left:auto}
+.divide{height:1px;background:var(--line)}
+
+/* ---------------------------------------------------------------------------
+   RESPONSIVE — rail: full (>1180) → icons (841–1180) → drawer (<=840)
+--------------------------------------------------------------------------- */
+@media (max-width:1240px){
+  .g4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .g-main{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:1180px){
+  .app{grid-template-columns:var(--rail-w-min) minmax(0,1fr)}
+  .rail-head{padding:var(--s-3) 10px}
+  .mark-name,.rail-ctx,.rail-group,.rail-item .lbl,.rail-item .tally{display:none}
+  .rail-item{justify-content:center;padding:9px 0}
+  .searchcue{min-width:0}
+  .searchcue .lbl,.searchcue .k{display:none}
+}
+@media (max-width:980px){
+  .g3{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .formgrid{grid-template-columns:minmax(0,1fr)}
+  .identity label{display:none}
+}
+@media (max-width:840px){
+  .app{grid-template-columns:minmax(0,1fr)}
+  .rail{position:fixed;left:0;top:0;width:var(--rail-w);transform:translateX(-100%);
+    transition:transform var(--base) var(--ease);box-shadow:var(--shadow-overlay)}
+  .rail[data-open]{transform:none}
+  .rail-head{padding:var(--s-4)}
+  .mark-name,.rail-ctx,.rail-group,.rail-item .lbl,.rail-item .tally{display:revert}
+  .rail-item{justify-content:flex-start;padding:7px 10px}
+  .view{padding:var(--s-4) var(--s-4) var(--s-6)}
+  .topbar{padding:0 var(--s-4)}
+  .g2,.g3,.g4{grid-template-columns:minmax(0,1fr)}
+  .dl{grid-template-columns:minmax(0,1fr)}
+  .dl dt{margin-top:var(--s-2)}
+  .scrim{position:fixed;inset:0;background:rgba(9,17,18,.5);z-index:55}
+}
+@media (min-width:841px){ .railtoggle,.scrim{display:none} }
+</style>
+</head>
+<body>
+<a class="skip" href="#view">Skip to content</a>
+<div class="app">
+  <aside class="rail" id="rail" aria-label="Primary">
+    <div class="rail-head">
+      <div class="mark">
+        <span class="mark-glyph" aria-hidden="true">
+          <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.6 14 5v6l-6 3.4L2 11V5z"/><path d="M2 5l6 3.4L14 5M8 8.4v6"/></svg>
+        </span>
+        <span class="mark-name">SourceHub</span>
+      </div>
+      <div class="rail-ctx">
+        <span class="eyebrow" id="ctxRole">Client</span>
+        <div class="rail-ctx-name" id="ctxName">—</div>
+        <div class="rail-ctx-meta" id="ctxMeta">—</div>
+      </div>
+    </div>
+    <nav class="rail-nav" id="railNav"></nav>
+    <div class="rail-foot" id="railFoot"></div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <button class="iconbtn railtoggle" id="railToggle" aria-label="Open navigation" aria-expanded="false"></button>
+      <nav class="crumbs" id="crumbs" aria-label="Breadcrumb"></nav>
+      <div class="topbar-spacer"></div>
+      <div class="topbar-tools">
+        <button class="searchcue" id="searchCue" aria-label="Search — Control K">
+          <span class="gl" aria-hidden="true"></span>
+          <span class="lbl">Search</span>
+          <span class="k"><kbd class="kbd">Ctrl K</kbd></span>
+        </button>
+        <div class="hostrel">
+          <button class="iconbtn" id="bellBtn" aria-label="Notifications" aria-expanded="false"></button>
+          <div id="bellPop"></div>
+        </div>
+        <button class="iconbtn" id="themeBtn" aria-label="Switch colour theme"></button>
+        <div class="identity">
+          <label for="roleSel">Role</label>
+          <select id="roleSel" aria-label="Switch role"></select>
+        </div>
+        <div class="identity">
+          <label for="orgSel">Account</label>
+          <select id="orgSel" aria-label="Switch account"></select>
+        </div>
+      </div>
+    </header>
+    <main class="view" id="view" tabindex="-1"></main>
+  </div>
+</div>
+
+<div class="overlay" id="dialogOverlay" role="dialog" aria-modal="true" aria-labelledby="dialogTitle">
+  <div class="dialog" id="dialog"></div>
+</div>
+<div class="overlay" id="paletteOverlay" data-align="top" role="dialog" aria-modal="true" aria-label="Search SourceHub">
+  <div class="palette">
+    <input id="paletteInput" type="text" placeholder="Jump to a page, request, contract or partner…"
+           role="combobox" aria-expanded="true" aria-controls="paletteList" aria-autocomplete="list" autocomplete="off">
+    <ul id="paletteList" role="listbox" aria-label="Results"></ul>
+    <div class="pfoot"><span><kbd class="kbd">↑↓</kbd> navigate</span><span><kbd class="kbd">↵</kbd> open</span><span><kbd class="kbd">esc</kbd> close</span></div>
+  </div>
+</div>
+<div class="toasts" id="toasts" role="status" aria-live="polite" aria-atomic="false"></div>
+
+<script>
+/* ============================================================================
+   SOURCEHUB CONSOLE — reference implementation of the SourceHub design system
+   ----------------------------------------------------------------------------
+   Client-side only. `state` is the whole database; every action mutates it and
+   calls render(), which repaints from state. Structure:
+
+     §1  STATUS       status taxonomy — tone + who the ball is with
+     §2  STATE        seed database
+     §3  RBAC         role → capability matrix, enforced in the UI
+     §4  HELPERS      formatting, icons, DOM
+     §5  PARTS        reusable view fragments built from the design system
+     §6  NAV          role → sidebar, breadcrumbs, permissions
+     §7  VIEWS        one render function per screen, grouped by role
+     §8  ACTIONS      every mutation, each ending in render()
+     §9  CHROME       rail, topbar, theme, palette, dialog, toasts
+     §10 BOOT
+   ============================================================================ */
+
+/* ---------------------------------------------------------------------------
+   §1 STATUS TAXONOMY
+   Five tones carry state; `owner` names the party that must act next, which
+   drives the "Waiting on" column and the personal work queues.
+--------------------------------------------------------------------------- */
+const STATUS = {
+  /* request lifecycle */
+  'Draft':              { tone:'neutral',   owner:'client'   },
+  'Published':          { tone:'active',    owner:'tenant'   },
+  'Proposals Received': { tone:'attention', owner:'client'   },
+  'Accepted':           { tone:'active',    owner:'tenant'   },
+  'In Progress':        { tone:'active',    owner:'tenant'   },
+  'Delivered':          { tone:'attention', owner:'client'   },
+  'Completed':          { tone:'success',   owner:null       },
+  /* proposals */
+  'Submitted':          { tone:'attention', owner:'client'   },
+  'Rejected':           { tone:'critical',  owner:null       },
+  'Withdrawn':          { tone:'neutral',   owner:null       },
+  /* contracts */
+  'Active':             { tone:'active',    owner:'tenant'   },
+  'In QA':              { tone:'attention', owner:'tenant'   },
+  /* tasks */
+  'Assigned':           { tone:'neutral',   owner:'supplier' },
+  'QA Passed':          { tone:'success',   owner:null       },
+  'QA Failed':          { tone:'critical',  owner:'supplier' },
+  /* equipment */
+  'Pending':            { tone:'attention', owner:'sponsor'  },
+  'Approved':           { tone:'success',   owner:null       },
+  'Available':          { tone:'success',   owner:null       },
+  'In Use':             { tone:'active',    owner:null       },
+  'Returned':           { tone:'neutral',   owner:null       },
+  'Maintenance':        { tone:'critical',  owner:null       },
+  /* people & billing */
+  'On Shift':           { tone:'success',   owner:null       },
+  'On Break':           { tone:'attention', owner:null       },
+  'Offboarded':         { tone:'neutral',   owner:null       },
+  'Current':            { tone:'success',   owner:null       },
+  'Overdue':            { tone:'critical',  owner:null       },
+  'Paid':               { tone:'success',   owner:null       },
+  'Scheduled':          { tone:'active',    owner:null       }
+};
+const LIFECYCLE = ['Draft','Published','Proposals Received','Accepted','In Progress','Delivered','Completed'];
+const CATEGORIES = ['Image','Video','Structured Data','Unstructured Data','People-based Deliverable'];
+
+/* ---------------------------------------------------------------------------
+   §2 STATE — the seed database
+   Platform registers and bills CLIENTS and TENANTS only. Aggregators,
+   businesses and device sponsors belong to a tenant's own network.
+--------------------------------------------------------------------------- */
+const state = {
+  session: { role:'client', orgId:'CL-01', page:'overview', params:{}, tab:null, sort:{}, query:'' },
+  ui: { theme:'system', booting:true, railOpen:false, bellOpen:false },
+
+  clients: [
+    { id:'CL-01', name:'Acme Retail Analytics', industry:'Retail / CPG', country:'United States',
+      plan:'Enterprise', billing:'Current', rating:4.6, since:'2024-03-11', residency:'US', dpa:true },
+    { id:'CL-02', name:'Voltra Mobility', industry:'Autonomous driving', country:'Germany',
+      plan:'Enterprise', billing:'Current', rating:4.8, since:'2024-07-02', residency:'EU', dpa:true },
+    { id:'CL-03', name:'MediScan Health AI', industry:'Healthcare AI', country:'Singapore',
+      plan:'Growth', billing:'Overdue', rating:4.2, since:'2025-01-19', residency:'APAC', dpa:true }
+  ],
+  tenants: [
+    { id:'TN-01', name:'NorthStar Delivery Partners', hq:'Bengaluru, India', plan:'Partner Pro',
+      billing:'Current', rating:4.7, since:'2024-02-01', capabilities:'Image & video capture, field operations',
+      onTime:96, qaPass:94 },
+    { id:'TN-02', name:'Meridian Field Ops', hq:'Manila, Philippines', plan:'Partner Pro',
+      billing:'Current', rating:4.5, since:'2024-05-20', capabilities:'People-based deliverables, annotation',
+      onTime:92, qaPass:97 },
+    { id:'TN-03', name:'Helix Data Collective', hq:'Nairobi, Kenya', plan:'Partner Starter',
+      billing:'Current', rating:4.3, since:'2025-02-14', capabilities:'Structured data, survey panels',
+      onTime:88, qaPass:91 }
+  ],
+  aggregators: [
+    { id:'AG-01', tenantId:'TN-01', name:'Bengaluru Crowd Collective', crowdSize:820, region:'South India', focus:'Street-level imagery', rating:4.6 },
+    { id:'AG-02', tenantId:'TN-01', name:'Delhi Field Network',        crowdSize:540, region:'North India', focus:'Retail shelf photography', rating:4.4 },
+    { id:'AG-03', tenantId:'TN-02', name:'Luzon Gig Guild',            crowdSize:1200,region:'Luzon, PH',   focus:'Voice capture & transcription', rating:4.5 },
+    { id:'AG-04', tenantId:'TN-03', name:'Rift Valley Surveyors',      crowdSize:310, region:'East Africa', focus:'Household surveys', rating:4.2 }
+  ],
+  businesses: [
+    { id:'BZ-01', tenantId:'TN-01', name:'Vertex Imaging Services', specialty:'Studio & drone video', capacity:'40 crews / week', rating:4.8 },
+    { id:'BZ-02', tenantId:'TN-01', name:'Cobalt Data Works',       specialty:'Structured data extraction', capacity:'25,000 records / week', rating:4.5 },
+    { id:'BZ-03', tenantId:'TN-02', name:'Pacific Linguistics Ltd', specialty:'Multilingual annotation', capacity:'60 linguists', rating:4.6 }
+  ],
+  deviceSponsors: [
+    { id:'DS-01', tenantId:'TN-01', name:'OptiGear Devices', contact:'ops@optigear.example', devices:[
+      { id:'DV-01', type:'Helmet camera, 4K',   qty:120, status:'Available',   calibrated:'2026-07-14' },
+      { id:'DV-02', type:'360° body camera',    qty:45,  status:'In Use',      calibrated:'2026-06-30' },
+      { id:'DV-03', type:'Rugged tablet, 10in', qty:80,  status:'Available',   calibrated:'2026-08-02' }]},
+    { id:'DS-02', tenantId:'TN-01', name:'FieldSense Sensors', contact:'hello@fieldsense.example', devices:[
+      { id:'DV-04', type:'LiDAR backpack',      qty:14,  status:'In Use',      calibrated:'2026-08-11' },
+      { id:'DV-05', type:'GPS logger',          qty:200, status:'Available',   calibrated:'2026-05-22' },
+      { id:'DV-06', type:'Thermal camera',      qty:22,  status:'Maintenance', calibrated:'2026-03-08' }]},
+    { id:'DS-03', tenantId:'TN-02', name:'Archipelago Audio Kit', contact:'kit@archipelago.example', devices:[
+      { id:'DV-07', type:'Field recorder, pro', qty:65,  status:'Available',   calibrated:'2026-07-30' },
+      { id:'DV-08', type:'Noise-cancel headset',qty:150, status:'In Use',      calibrated:'2026-06-15' }]}
+  ],
+
+  rfps: [
+    { id:'RFP-1001', clientId:'CL-01', title:'Retail shelf imagery across 12 metro markets', category:'Image',
+      spec:{ format:'JPEG, minimum 12MP', quantity:'25,000 images', quality:'Sharp, no glare, full shelf in frame, EXIF geotag required' },
+      people:{ headcount:180, training:'2-hour shelf-capture module', experience:'Prior retail audit work preferred', certification:'None' },
+      geography:'United States — 12 metro areas', budgetMin:60000, budgetMax:85000,
+      timeline:{ start:'2026-09-07', delivery:'2026-11-15' },
+      acceptance:'95% or better pass on the automated blur and occlusion check; 5% manual audit sample',
+      compliance:'No shoppers or faces in frame. Store permission letter attached.',
+      status:'Proposals Received', createdAt:'2026-08-12' },
+    { id:'RFP-1002', clientId:'CL-02', title:'Urban dashcam video — rainy-night edge cases', category:'Video',
+      spec:{ format:'MP4 H.264, 60fps, 1080p or better', quantity:'900 hours', quality:'Continuous clips of 8 minutes or more, timestamp and GPS overlay' },
+      people:{ headcount:60, training:'Mandatory safety and route briefing', experience:'Licensed drivers, 3+ years', certification:'Valid commercial licence' },
+      geography:'Germany, Netherlands, Poland', budgetMin:120000, budgetMax:160000,
+      timeline:{ start:'2026-08-20', delivery:'2026-12-01' },
+      acceptance:'Night and precipitation confirmed in 80% or more of footage; corrupt-frame rate below 0.5%',
+      compliance:'GDPR — licence plates and faces blurred on device before upload.',
+      status:'In Progress', createdAt:'2026-07-28' },
+    { id:'RFP-1003', clientId:'CL-03', title:'Multilingual clinical intake transcripts', category:'Unstructured Data',
+      spec:{ format:'UTF-8 JSONL with speaker labels', quantity:'12,000 transcripts', quality:'Word error rate at or below 2%, PHI redacted' },
+      people:{ headcount:90, training:'HIPAA handling module', experience:'Medical transcription, 2+ years', certification:'HIPAA attestation signed' },
+      geography:'Philippines, India (remote)', budgetMin:45000, budgetMax:62000,
+      timeline:{ start:'2026-08-01', delivery:'2026-10-20' },
+      acceptance:'Dual-pass review; 10% gold-standard audit at 98% agreement or better',
+      compliance:'HIPAA and local health-data residency. Business associate agreement required.',
+      status:'Delivered', createdAt:'2026-07-05' },
+    { id:'RFP-1004', clientId:'CL-01', title:'Cold-chain sensor readings from 300 stores', category:'Structured Data',
+      spec:{ format:'CSV, one row per reading', quantity:'300 stores × 90 days, hourly', quality:'Under 1% missing intervals, calibrated probes' },
+      people:{ headcount:40, training:'Probe placement walkthrough', experience:'Field technician background', certification:'Food-safety handling card' },
+      geography:'United States — Midwest and Northeast', budgetMin:30000, budgetMax:44000,
+      timeline:{ start:'2026-09-15', delivery:'2026-12-20' },
+      acceptance:'Calibration certificate per device; drift under 0.4°C against reference',
+      compliance:'Store access limited to 06:00–09:00 local time.',
+      status:'Published', createdAt:'2026-08-21' },
+    { id:'RFP-1005', clientId:'CL-02', title:'Parking-garage 3D scan panel', category:'People-based Deliverable',
+      spec:{ format:'LiDAR point cloud (.las) plus walkthrough video', quantity:'150 garages', quality:'Point spacing at or below 2cm, full ramp coverage' },
+      people:{ headcount:25, training:'LiDAR backpack operation', experience:'Surveying or GIS background', certification:'Site safety induction' },
+      geography:'Germany — 8 cities', budgetMin:88000, budgetMax:110000,
+      timeline:{ start:'2026-10-01', delivery:'2027-01-30' },
+      acceptance:'Registration error under 3cm; every level captured',
+      compliance:'Garage operator consent on file before scanning.',
+      status:'Draft', createdAt:'2026-08-26' },
+    { id:'RFP-1006', clientId:'CL-03', title:'Dermatology reference photo set', category:'Image',
+      spec:{ format:'PNG with colour-calibration card in frame', quantity:'8,000 images', quality:'Consistent lighting, ruler for scale' },
+      people:{ headcount:35, training:'Clinical photography protocol', experience:'Clinic staff', certification:'Consent-handling training' },
+      geography:'Singapore, Malaysia', budgetMin:52000, budgetMax:70000,
+      timeline:{ start:'2026-06-01', delivery:'2026-08-10' },
+      acceptance:'Dermatologist spot-review of a 5% sample',
+      compliance:'Written patient consent per image; faces excluded.',
+      status:'Completed', createdAt:'2026-05-14' }
+  ],
+
+  proposals: [
+    { id:'PRO-01', rfpId:'RFP-1001', tenantId:'TN-01', price:72500, days:64, status:'Submitted', submittedAt:'2026-08-15',
+      methodology:'820-strong Bengaluru crowd plus Vertex crews for flagship stores. Helmet cameras from OptiGear for hands-free capture, with an automated blur check at aggregator level before tenant QA.',
+      notes:'Can start 3 days after award. 5% buffer capture included at no charge.' },
+    { id:'PRO-02', rfpId:'RFP-1001', tenantId:'TN-02', price:66000, days:78, status:'Submitted', submittedAt:'2026-08-16',
+      methodology:'Two-wave capture using Luzon Gig Guild coordinators managing a US-based partner crowd. Manual audit of an 8% sample.',
+      notes:'Lower price, longer runway. Needs the client store list 10 days ahead of start.' },
+    { id:'PRO-03', rfpId:'RFP-1001', tenantId:'TN-03', price:81000, days:55, status:'Submitted', submittedAt:'2026-08-18',
+      methodology:'Fast-track model: a dedicated field supervisor per metro, daily delivery batches and a live coverage dashboard.',
+      notes:'Fastest timeline of the three. Weekly QA report included.' },
+    { id:'PRO-04', rfpId:'RFP-1002', tenantId:'TN-01', price:141000, days:103, status:'Accepted', submittedAt:'2026-07-30',
+      methodology:'60 licensed drivers across 3 countries with LiDAR-equipped vehicles from FieldSense. On-device plate and face blurring, nightly upload.',
+      notes:'GDPR data processing agreement attached.' },
+    { id:'PRO-05', rfpId:'RFP-1002', tenantId:'TN-03', price:155000, days:96, status:'Rejected', submittedAt:'2026-07-31',
+      methodology:'Partner fleet with retrofitted dashcams and weather-triggered dispatch.', notes:'' },
+    { id:'PRO-06', rfpId:'RFP-1003', tenantId:'TN-02', price:54000, days:80, status:'Accepted', submittedAt:'2026-07-08',
+      methodology:'Pacific Linguistics dual-pass transcription with a HIPAA-trained pool, then a PHI redaction pass before delivery.',
+      notes:'Business associate agreement countersigned.' },
+    { id:'PRO-07', rfpId:'RFP-1006', tenantId:'TN-02', price:61000, days:70, status:'Accepted', submittedAt:'2026-05-18',
+      methodology:'Clinic partnership model with per-image consent tracking.', notes:'' }
+  ],
+
+  contracts: [
+    { id:'CTR-01', rfpId:'RFP-1002', tenantId:'TN-01', proposalId:'PRO-04', value:141000, status:'Active',
+      startedAt:'2026-08-04', deliveredAt:null, completedAt:null },
+    { id:'CTR-02', rfpId:'RFP-1003', tenantId:'TN-02', proposalId:'PRO-06', value:54000, status:'Delivered',
+      startedAt:'2026-07-12', deliveredAt:'2026-08-24', completedAt:null },
+    { id:'CTR-03', rfpId:'RFP-1006', tenantId:'TN-02', proposalId:'PRO-07', value:61000, status:'Completed',
+      startedAt:'2026-05-20', deliveredAt:'2026-08-04', completedAt:'2026-08-09' }
+  ],
+
+  tasks: [
+    { id:'TSK-01', contractId:'CTR-01', title:'Berlin and Hamburg night routes', target:'320 hours',
+      assigneeType:'aggregator', assigneeId:'AG-01', deviceIds:['DV-02'], status:'Submitted', assets:34, due:'2026-09-20',
+      note:'Rain window hit on 6 of 8 scheduled nights.' },
+    { id:'TSK-02', contractId:'CTR-01', title:'Amsterdam and Rotterdam routes', target:'280 hours',
+      assigneeType:'business', assigneeId:'BZ-01', deviceIds:['DV-04'], status:'In Progress', assets:19, due:'2026-10-04', note:'' },
+    { id:'TSK-03', contractId:'CTR-01', title:'Kraków and Warsaw routes', target:'300 hours',
+      assigneeType:'aggregator', assigneeId:'AG-02', deviceIds:[], status:'Assigned', assets:0, due:'2026-10-18', note:'' },
+    { id:'TSK-04', contractId:'CTR-02', title:'Tagalog and Cebuano transcript batch', target:'6,000 transcripts',
+      assigneeType:'business', assigneeId:'BZ-03', deviceIds:['DV-07'], status:'QA Passed', assets:120, due:'2026-08-18',
+      note:'Dual pass complete, word error rate 1.4%.' },
+    { id:'TSK-05', contractId:'CTR-02', title:'Hindi and Tamil transcript batch', target:'6,000 transcripts',
+      assigneeType:'aggregator', assigneeId:'AG-03', deviceIds:['DV-08'], status:'QA Passed', assets:118, due:'2026-08-18',
+      note:'Redaction verified against the gold set.' },
+    { id:'TSK-06', contractId:'CTR-03', title:'Singapore clinic network capture', target:'5,000 images',
+      assigneeType:'aggregator', assigneeId:'AG-03', deviceIds:[], status:'QA Passed', assets:96, due:'2026-07-24', note:'' },
+    { id:'TSK-07', contractId:'CTR-03', title:'Malaysia clinic network capture', target:'3,000 images',
+      assigneeType:'business', assigneeId:'BZ-03', deviceIds:[], status:'QA Passed', assets:61, due:'2026-07-24', note:'' }
+  ],
+
+  deviceRequests: [
+    { id:'EQR-01', sponsorId:'DS-01', requesterType:'aggregator', requesterId:'AG-01', deviceId:'DV-01', qty:40,
+      taskId:'TSK-01', status:'Pending', neededBy:'2026-09-05', note:'Night-route capture, 8-week loan.' },
+    { id:'EQR-02', sponsorId:'DS-02', requesterType:'business', requesterId:'BZ-01', deviceId:'DV-04', qty:6,
+      taskId:'TSK-02', status:'Approved', neededBy:'2026-08-25', note:'LiDAR backpacks for garage scans.' },
+    { id:'EQR-03', sponsorId:'DS-01', requesterType:'aggregator', requesterId:'AG-02', deviceId:'DV-03', qty:25,
+      taskId:'TSK-03', status:'Pending', neededBy:'2026-09-12', note:'Tablets for on-site data entry.' },
+    { id:'EQR-04', sponsorId:'DS-02', requesterType:'aggregator', requesterId:'AG-01', deviceId:'DV-06', qty:10,
+      taskId:null, status:'Rejected', neededBy:'2026-08-10', note:'Thermal units are in maintenance until October.' }
+  ],
+
+  workers: [
+    { id:'WKR-01', aggregatorId:'AG-01', name:'Priya Nair',     skill:'Street imagery',   status:'On Shift',   tasks:3, rating:4.8, trained:true },
+    { id:'WKR-02', aggregatorId:'AG-01', name:'Rahul Menon',    skill:'Night driving',    status:'On Shift',   tasks:2, rating:4.6, trained:true },
+    { id:'WKR-03', aggregatorId:'AG-01', name:'Sana Kulkarni',  skill:'Shelf capture',    status:'On Break',   tasks:0, rating:4.4, trained:true },
+    { id:'WKR-04', aggregatorId:'AG-01', name:'Vikram Rao',     skill:'Drone operation',  status:'On Shift',   tasks:1, rating:4.9, trained:true },
+    { id:'WKR-05', aggregatorId:'AG-02', name:'Aditi Sharma',   skill:'Retail audit',     status:'On Shift',   tasks:2, rating:4.5, trained:true },
+    { id:'WKR-06', aggregatorId:'AG-02', name:'Karan Gill',     skill:'Field survey',     status:'Offboarded', tasks:0, rating:4.1, trained:false },
+    { id:'WKR-07', aggregatorId:'AG-03', name:'Josefa Mendoza', skill:'Transcription',    status:'On Shift',   tasks:4, rating:4.7, trained:true },
+    { id:'WKR-08', aggregatorId:'AG-03', name:'Ramon Cruz',     skill:'Voice capture',    status:'On Shift',   tasks:3, rating:4.6, trained:true },
+    { id:'WKR-09', aggregatorId:'AG-04', name:'Amina Otieno',   skill:'Household survey', status:'On Shift',   tasks:1, rating:4.3, trained:true }
+  ],
+
+  ratings: [
+    { id:'RAT-01', contractId:'CTR-03', fromType:'client', fromId:'CL-03', toType:'tenant', toId:'TN-02', score:5,
+      comment:'Delivered ahead of schedule and the consent tracking was flawless.' },
+    { id:'RAT-02', contractId:'CTR-03', fromType:'tenant', fromId:'TN-02', toType:'client', toId:'CL-03', score:4,
+      comment:'Clear specification, though approvals came back slowly.' }
+  ],
+  invoices: [
+    { id:'INV-01', party:'CL-03', contractId:'CTR-03', amount:61000, status:'Paid',    kind:'Contract value', issued:'2026-08-04' },
+    { id:'INV-02', party:'TN-02', contractId:'CTR-03', amount:5490,  status:'Paid',    kind:'Platform fee, 9%', issued:'2026-08-09' },
+    { id:'INV-03', party:'CL-02', contractId:'CTR-01', amount:70500, status:'Pending', kind:'Milestone 1 of 2', issued:'2026-08-04' }
+  ],
+
+  /* append-only audit trail — every state change writes one entry */
+  activity: [
+    { id:'ACT-01', at:'2026-08-24T09:12', actor:'TN-02', text:'Delivered contract CTR-02 to MediScan Health AI', scope:['CTR-02','CL-03','TN-02'] },
+    { id:'ACT-02', at:'2026-08-21T16:40', actor:'CL-01', text:'Published RFP-1004, cold-chain sensor readings', scope:['RFP-1004','CL-01'] },
+    { id:'ACT-03', at:'2026-08-18T11:05', actor:'TN-03', text:'Submitted proposal PRO-03 against RFP-1001', scope:['RFP-1001','TN-03','CL-01'] },
+    { id:'ACT-04', at:'2026-08-16T08:22', actor:'TN-02', text:'Submitted proposal PRO-02 against RFP-1001', scope:['RFP-1001','TN-02','CL-01'] },
+    { id:'ACT-05', at:'2026-08-15T14:31', actor:'TN-01', text:'Submitted proposal PRO-01 against RFP-1001', scope:['RFP-1001','TN-01','CL-01'] },
+    { id:'ACT-06', at:'2026-08-14T17:03', actor:'AG-01', text:'Submitted 34 assets on TSK-01 for tenant QA', scope:['TSK-01','CTR-01','TN-01','AG-01'] },
+    { id:'ACT-07', at:'2026-08-09T10:00', actor:'CL-03', text:'Approved delivery of CTR-03 and released payment', scope:['CTR-03','CL-03','TN-02'] }
+  ],
+
+  notifications: [
+    { id:'NTF-01', role:'client', orgId:'CL-01', text:'Three proposals are ready to compare on RFP-1001.', at:'2026-08-18T11:06', read:false, page:'requestDetail', params:{id:'RFP-1001'} },
+    { id:'NTF-02', role:'client', orgId:'CL-03', text:'Meridian Field Ops delivered CTR-02. Your approval releases payment.', at:'2026-08-24T09:12', read:false, page:'deliveries', params:{} },
+    { id:'NTF-03', role:'tenant', orgId:'TN-01', text:'Bengaluru Crowd Collective submitted TSK-01 for QA.', at:'2026-08-14T17:03', read:false, page:'qa', params:{} },
+    { id:'NTF-04', role:'tenant', orgId:'TN-01', text:'RFP-1004 is open for proposals and matches your capabilities.', at:'2026-08-21T16:41', read:false, page:'opportunities', params:{} },
+    { id:'NTF-05', role:'sponsor', orgId:'DS-01', text:'Two equipment requests are waiting on your decision.', at:'2026-08-22T07:30', read:false, page:'requests', params:{} },
+    { id:'NTF-06', role:'aggregator', orgId:'AG-02', text:'TSK-03 was assigned to you by NorthStar Delivery Partners.', at:'2026-08-20T12:15', read:false, page:'tasks', params:{} }
+  ],
+
+  seq: { rfp:1006, pro:7, ctr:3, tsk:7, ag:4, bz:3, ds:3, dv:8, eqr:4, inv:3, rat:2, act:7, ntf:6 }
+};
+
+/* ---------------------------------------------------------------------------
+   §3 RBAC — capability matrix.
+   The UI asks can('rfp.create') rather than checking the role directly, so a
+   new role is a row in this table rather than a hunt through the views.
+--------------------------------------------------------------------------- */
+const CAPS = {
+  client:     ['rfp.create','rfp.publish','rfp.read','proposal.read','proposal.accept',
+               'contract.read','contract.approve','delivery.track','invoice.read','rating.write'],
+  tenant:     ['rfp.read.published','proposal.create','contract.read','contract.deliver',
+               'task.create','task.assign','qa.review','network.manage','equipment.read','invoice.read','rating.write'],
+  aggregator: ['task.read','task.start','task.submit','roster.manage','equipment.request'],
+  business:   ['task.read','task.start','task.submit','profile.manage','equipment.request'],
+  sponsor:    ['equipment.manage','equipment.decide'],
+  admin:      ['account.read','billing.read','activity.read']
+};
+const can = cap => CAPS[state.session.role].includes(cap);
+
+/* ---------------------------------------------------------------------------
+   §4 HELPERS
+--------------------------------------------------------------------------- */
+const $  = (sel, root=document) => root.querySelector(sel);
+const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c =>
+  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const byId = (arr,id) => arr.find(x => x.id === id);
+const money = n => '$' + Number(n||0).toLocaleString('en-US');
+const compact = n => n >= 1000 ? (n/1000).toFixed(n >= 10000 ? 0 : 1).replace(/\.0$/,'') + 'k' : String(n);
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function fmtDate(iso){
+  if (!iso) return '—';
+  const [y,m,d] = iso.slice(0,10).split('-');
+  return Number(d) + ' ' + MONTHS[Number(m)-1] + ' ' + y;
+}
+function fmtWhen(iso){
+  if (!iso) return '—';
+  const t = iso.length > 10 ? ' · ' + iso.slice(11,16) : '';
+  return fmtDate(iso) + t;
+}
+const TODAY = '2026-08-29';
+const nid = (prefix,key) => prefix + '-' + String(++state.seq[key]).padStart(2,'0');
+
+/* entity lookups */
+const client  = id => byId(state.clients,id)        || {name:'Unknown client'};
+const tenant  = id => byId(state.tenants,id)        || {name:'Unknown tenant'};
+const agg     = id => byId(state.aggregators,id)    || {name:'Unknown aggregator'};
+const biz     = id => byId(state.businesses,id)     || {name:'Unknown business'};
+const sponsor = id => byId(state.deviceSponsors,id) || {name:'Unknown sponsor'};
+const rfpOf   = id => byId(state.rfps,id)           || {title:'Unknown request', spec:{}, people:{}, timeline:{}};
+const supplier = t => t.assigneeType === 'aggregator' ? agg(t.assigneeId) : biz(t.assigneeId);
+function findDevice(deviceId){
+  for (const s of state.deviceSponsors){
+    const d = s.devices.find(x => x.id === deviceId);
+    if (d) return { device:d, sponsor:s };
+  }
+  return { device:null, sponsor:null };
+}
+const deviceName = id => (findDevice(id).device || {}).type || id;
+
+/* the organisation currently signed in */
+function me(){
+  const list = ROLES[state.session.role].accounts();
+  return byId(list, state.session.orgId) || list[0] || { id:'?', name:'—' };
+}
+const myContracts = () => state.contracts.filter(c => c.tenantId === state.session.orgId);
+const myContractIds = () => myContracts().map(c => c.id);
+
+/* contract completion, derived from its tasks */
+function progressOf(contractId){
+  const tasks = state.tasks.filter(t => t.contractId === contractId);
+  const done  = tasks.filter(t => t.status === 'QA Passed').length;
+  return { tasks, done, total:tasks.length, pct: tasks.length ? Math.round(done/tasks.length*100) : 0 };
+}
+/* a contract can be handed to the client once every task has cleared QA */
+const deliverable = c => ['Active','In QA'].includes(c.status) &&
+  progressOf(c.id).total > 0 && progressOf(c.id).done === progressOf(c.id).total;
+
+/* --- icons: one 16px grid, stroked with currentColor ---------------------- */
+const ICONS = {
+  grid:'<rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/>',
+  doc:'<path d="M3.5 1.5h6l3 3v10h-9z"/><path d="M9.5 1.5v3h3"/>',
+  plus:'<path d="M8 3.2v9.6M3.2 8h9.6"/>',
+  truck:'<rect x="1" y="4" width="8.5" height="7" rx="1"/><path d="M9.5 6.5h2.6L15 9v2H9.5z"/><circle cx="4.3" cy="12.6" r="1.4"/><circle cx="11.6" cy="12.6" r="1.4"/>',
+  inbox:'<path d="M2 2.5h12l1 6.5v5H1v-5z"/><path d="M1 9h4l1 2h4l1-2h4"/>',
+  file:'<path d="M3.5 1.5h9v13h-9z"/><path d="M5.8 5h4.4M5.8 8h4.4M5.8 11h2.6"/>',
+  package:'<path d="M8 1.5 14.5 5v6L8 14.5 1.5 11V5z"/><path d="M1.5 5 8 8.5 14.5 5M8 8.5v6"/>',
+  link:'<circle cx="4" cy="4" r="2.2"/><circle cx="12" cy="12" r="2.2"/><circle cx="12" cy="4" r="2.2"/><path d="M5.6 5.6 10.4 10.4M6.2 4h3.6"/>',
+  check:'<circle cx="8" cy="8" r="6.2"/><path d="m5.2 8.2 1.9 1.9 3.7-4"/>',
+  list:'<path d="M5.5 4h9M5.5 8h9M5.5 12h9M2.2 4h.01M2.2 8h.01M2.2 12h.01"/>',
+  users:'<circle cx="6" cy="5.5" r="2.4"/><path d="M1.8 13.6c0-2.3 1.9-3.9 4.2-3.9s4.2 1.6 4.2 3.9"/><path d="M11 4.3a2.4 2.4 0 0 1 0 4.4M11.7 10.3c1.6.4 2.5 1.7 2.5 3.3"/>',
+  camera:'<path d="M1.5 5h3l1-1.6h5L11.5 5h3v8.5h-13z"/><circle cx="8" cy="9" r="2.6"/>',
+  box:'<rect x="1.5" y="4.5" width="13" height="9.5" rx="1"/><path d="M1.5 7.6h13M5.5 4.5V2h5v2.5"/>',
+  mail:'<rect x="1.5" y="3.5" width="13" height="9" rx="1"/><path d="m1.8 4.4 6.2 4.3 6.2-4.3"/>',
+  building:'<path d="M2.5 14.5v-12h7v12M9.5 6.6h4v7.9"/><path d="M4.6 5.2h2.8M4.6 8h2.8M4.6 10.8h2.8M11.1 9h1.2M11.1 11.6h1.2"/>',
+  shield:'<path d="M8 1.5 13.5 3.5v5c0 3.2-2.4 5.5-5.5 6.2-3.1-.7-5.5-3-5.5-6.2v-5z"/>',
+  activity:'<path d="M1.5 8.5h3l2-5.5 3 10.5 2-5h3"/>',
+  card:'<rect x="1.5" y="3.5" width="13" height="9" rx="1"/><path d="M1.5 6.8h13M4 10h3"/>',
+  swatch:'<rect x="1.5" y="1.5" width="5.6" height="5.6" rx="1"/><rect x="8.9" y="1.5" width="5.6" height="5.6" rx="1"/><rect x="1.5" y="8.9" width="5.6" height="5.6" rx="1"/><circle cx="11.7" cy="11.7" r="2.8"/>',
+  search:'<circle cx="7" cy="7" r="4.6"/><path d="m10.4 10.4 3.6 3.6"/>',
+  bell:'<path d="M4.2 6.6a3.8 3.8 0 0 1 7.6 0c0 3 1.1 4 1.1 4H3.1s1.1-1 1.1-4z"/><path d="M6.5 13a1.7 1.7 0 0 0 3 0"/>',
+  sun:'<circle cx="8" cy="8" r="3"/><path d="M8 1v1.7M8 13.3V15M15 8h-1.7M2.7 8H1M12.9 3.1l-1.2 1.2M4.3 11.7l-1.2 1.2M12.9 12.9l-1.2-1.2M4.3 4.3 3.1 3.1"/>',
+  moon:'<path d="M13.6 9.6A5.9 5.9 0 0 1 6.4 2.4a6 6 0 1 0 7.2 7.2z"/>',
+  auto:'<circle cx="8" cy="8" r="6.2"/><path d="M8 1.8v12.4" /><path d="M8 1.8a6.2 6.2 0 0 1 0 12.4z" fill="currentColor" stroke="none"/>',
+  menu:'<path d="M2 4h12M2 8h12M2 12h12"/>',
+  x:'<path d="m4.2 4.2 7.6 7.6M11.8 4.2l-7.6 7.6"/>',
+  arrow:'<path d="M2.8 8h10.4M9.2 4l4 4-4 4"/>',
+  back:'<path d="M13.2 8H2.8M6.8 4l-4 4 4 4"/>',
+  clock:'<circle cx="8" cy="8" r="6.2"/><path d="M8 4.6V8l2.4 1.5"/>',
+  alert:'<path d="M8 1.9 15 14H1z"/><path d="M8 6.4v3.4M8 11.9h.01"/>',
+  image:'<rect x="1.5" y="2.5" width="13" height="11" rx="1"/><circle cx="5.5" cy="6.3" r="1.3"/><path d="m1.9 11.4 3.6-3 3 2.4 2.6-2.2 3 2.6"/>',
+  video:'<rect x="1.5" y="3.5" width="9" height="9" rx="1"/><path d="m10.5 7.4 4-2.4v6l-4-2.4z"/>',
+  table:'<rect x="1.5" y="2.5" width="13" height="11" rx="1"/><path d="M1.5 6.2h13M6 6.2v7.3"/>',
+  send:'<path d="M14.2 1.8 7 9M14.2 1.8 9.6 14.2 7 9 1.8 6.4z"/>'
+};
+function icon(name, size=16){
+  const p = ICONS[name] || ICONS.grid;
+  return '<svg class="gl" viewBox="0 0 16 16" width="' + size + '" height="' + size + '" fill="none" ' +
+         'stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" ' +
+         'aria-hidden="true" focusable="false">' + p + '</svg>';
+}
+const categoryIcon = c => c === 'Video' ? 'video' : c === 'Image' ? 'image'
+  : c === 'People-based Deliverable' ? 'users' : 'table';
+/* ---------------------------------------------------------------------------
+   §5 PARTS — reusable fragments. Every screen is assembled from these, which
+   is what keeps the product visually consistent as it grows.
+--------------------------------------------------------------------------- */
+const tone = s => (STATUS[s] || {}).tone || 'neutral';
+const pill = s => `<span class="pill" data-tone="${tone(s)}">${esc(s)}</span>`;
+const idTag = s => `<span class="id">${esc(s)}</span>`;
+const star = n => `<span class="num" style="white-space:nowrap">${n.toFixed(1)}<span class="muted"> / 5</span></span>`;
+
+function metric({ label, value, unit, foot, tone:t }){
+  return `<div class="metric">
+    <span class="eyebrow">${esc(label)}</span>
+    <span class="val"${t ? ` style="color:var(--t-${t})"` : ''}>${value}${unit ? `<span class="unit"> ${esc(unit)}</span>` : ''}</span>
+    ${foot ? `<span class="foot">${foot}</span>` : ''}
+  </div>`;
+}
+
+function panel({ title, sub, actions, body, foot, flush, id }){
+  return `<section class="panel"${id ? ` id="${id}"` : ''}>
+    ${title ? `<header class="panel-head">
+        <div class="titles"><h2>${esc(title)}</h2>${sub ? `<span class="sub">${esc(sub)}</span>` : ''}</div>
+        ${actions ? `<div class="row tight push">${actions}</div>` : ''}
+      </header>` : ''}
+    <div class="panel-body${flush ? ' flush' : ''}">${body}</div>
+    ${foot ? `<footer class="panel-foot">${foot}</footer>` : ''}
+  </section>`;
+}
+
+function viewHead({ title, sub, actions, back }){
+  return `<div class="view-head">
+    <div class="titles">
+      ${back ? `<button class="btn" data-size="sm" style="align-self:flex-start;margin-bottom:6px" onclick="${back.onclick}">${icon('back',13)} ${esc(back.label)}</button>` : ''}
+      <h1>${esc(title)}</h1>
+      ${sub ? `<p class="sub">${sub}</p>` : ''}
+    </div>
+    ${actions ? `<div class="view-actions">${actions}</div>` : ''}
+  </div>`;
+}
+
+function emptyState({ glyph='inbox', title, body, action }){
+  return `<div class="empty">
+    <span class="glyph">${icon(glyph,18)}</span>
+    <span class="title">${esc(title)}</span>
+    ${body ? `<span class="body">${esc(body)}</span>` : ''}
+    ${action || ''}
+  </div>`;
+}
+
+function meter(pct, t){
+  return `<div class="meter"${t ? ` data-tone="${t}"` : ''} role="progressbar" aria-valuenow="${pct}"
+    aria-valuemin="0" aria-valuemax="100"><i style="width:${pct}%"></i></div>`;
+}
+
+function dl(pairs){
+  return `<dl class="dl">${pairs.filter(Boolean).map(([k,v]) =>
+    `<dt>${esc(k)}</dt><dd>${v}</dd>`).join('')}</dl>`;
+}
+
+/* the lifecycle rail — the product's signature component */
+function stageRail(current, marks={}){
+  const at = LIFECYCLE.indexOf(current);
+  return `<div class="stagerail">${LIFECYCLE.map((s,i) => {
+    const st = i < at ? 'done' : i === at ? 'here' : 'todo';
+    return `<div class="stage" data-state="${st}">
+      <span class="track"></span>
+      <span class="node">${i < at ? icon('check',12) : i+1}</span>
+      <span class="name">${s}</span>
+      ${marks[s] ? `<span class="when">${fmtDate(marks[s])}</span>` : ''}
+    </div>`;
+  }).join('')}</div>`;
+}
+
+function timeline(events){
+  if (!events.length) return emptyState({ glyph:'activity', title:'No activity yet' });
+  return `<div class="timeline">${events.map(e => `<div class="event">
+    <span class="spine"></span><span class="dot">${icon('activity',11)}</span>
+    <div><div class="what">${esc(e.text)}</div>
+      <div class="who"><span class="mono">${esc(e.actor)}</span><span>${fmtWhen(e.at)}</span></div></div>
+  </div>`).join('')}</div>`;
+}
+
+/* stand-in tiles for captured media — the prototype has no real uploads */
+function assetGrid(count, kind='image'){
+  const n = Math.min(count, 12);
+  return `<div class="assetgrid">${Array.from({length:n}, (_,i) =>
+    `<div class="asset">${icon(kind,17)}<span class="tag">${String(i+1).padStart(3,'0')}</span></div>`).join('')}
+    ${count > n ? `<div class="asset"><span class="num small muted">+${count-n}</span></div>` : ''}</div>`;
+}
+
+function callout(t, title, body){
+  return `<div class="callout"${t ? ` data-tone="${t}"` : ''}>${icon(t==='critical'?'alert':t==='attention'?'clock':'check',15)}
+    <div><b class="ct">${esc(title)}</b>${esc(body)}</div></div>`;
+}
+
+/* --- data table with client-side sorting ---------------------------------- */
+function sortState(id){ return state.session.sort[id] || {}; }
+function sortTable(id, key){
+  const cur = sortState(id);
+  state.session.sort[id] = { key, dir: cur.key === key && cur.dir === 'asc' ? 'desc' : 'asc' };
+  render();
+}
+function dataTable({ id, cols, items, row, empty, onRow }){
+  const s = sortState(id);
+  let list = items.slice();
+  const col = cols.find(c => c.key === s.key);
+  if (col && col.sort){
+    list.sort((a,b) => {
+      const av = col.sort(a), bv = col.sort(b);
+      const r = typeof av === 'number' ? av - bv : String(av).localeCompare(String(bv));
+      return s.dir === 'desc' ? -r : r;
+    });
+  }
+  const head = cols.map(c => {
+    const active = s.key === c.key;
+    const cls = [c.align === 'right' ? 'right' : '', c.sort ? 'sortable' : ''].filter(Boolean).join(' ');
+    const sortAttrs = c.sort
+      ? ` onclick="sortTable('${id}','${c.key}')" tabindex="0"` +
+        ` onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('${id}','${c.key}')}"`
+      : '';
+    return `<th${cls ? ` class="${cls}"` : ''}` +
+      `${active ? ` aria-sort="${s.dir === 'asc' ? 'ascending' : 'descending'}"` : ''}` +
+      `${sortAttrs}${c.width ? ` style="width:${c.width}"` : ''}>` +
+      `${esc(c.label)}${c.sort ? `<span class="arrow">${active && s.dir === 'desc' ? '\u2193' : '\u2191'}</span>` : ''}</th>`;
+  }).join('');
+  const body = list.length
+    ? list.map(item => `<tr${onRow ? ` class="tap" onclick="${onRow(item)}"` : ''}>${row(item).map(cell =>
+        typeof cell === 'string' ? `<td>${cell}</td>` : `<td class="${cell.cls||''}">${cell.html}</td>`).join('')}</tr>`).join('')
+    : `<tr><td colspan="${cols.length}">${emptyState(empty)}</td></tr>`;
+  return `<div class="tablewrap"><table><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>`;
+}
+
+/* --- form fields ----------------------------------------------------------- */
+function field({ id, label, type='text', value='', placeholder='', required, hint, options, rows, span, suffix }){
+  const ctl = type === 'select'
+    ? `<select class="select" id="${id}">${options.map(o =>
+        `<option value="${esc(o)}"${String(o)===String(value)?' selected':''}>${esc(o)}</option>`).join('')}</select>`
+    : type === 'textarea'
+    ? `<textarea class="textarea" id="${id}" placeholder="${esc(placeholder)}"${rows?` rows="${rows}"`:''}>${esc(value)}</textarea>`
+    : `<input class="input" id="${id}" type="${type}" value="${esc(value)}" placeholder="${esc(placeholder)}">`;
+  return `<div class="field${span ? ' span' : ''}" id="fw_${id}">
+    <label for="${id}">${esc(label)}${required ? '<span class="req" aria-hidden="true">*</span>' : ''}</label>
+    ${ctl}${suffix || ''}
+    ${hint ? `<span class="hint">${esc(hint)}</span>` : ''}
+    <span class="err" id="err_${id}"></span>
+  </div>`;
+}
+const val = id => { const el = document.getElementById(id); return el ? el.value.trim() : ''; };
+function invalid(id, msg){
+  const w = document.getElementById('fw_' + id), e = document.getElementById('err_' + id);
+  if (w){ w.setAttribute('data-invalid',''); }
+  if (e){ e.textContent = msg; }
+  const f = document.getElementById(id); if (f) f.focus();
+  return false;
+}
+function clearInvalid(ids){ ids.forEach(id => {
+  const w = document.getElementById('fw_' + id); if (w) w.removeAttribute('data-invalid');
+}); }
+
+/* --- audit trail & notifications ------------------------------------------ */
+function log(text, scope){
+  state.activity.unshift({ id:nid('ACT','act'), at:TODAY + 'T' +
+    new Date().toTimeString().slice(0,5), actor: me().id, text, scope: scope || [] });
+}
+function notify(role, orgId, text, page, params){
+  state.notifications.unshift({ id:nid('NTF','ntf'), role, orgId, text,
+    at:TODAY + 'T' + new Date().toTimeString().slice(0,5), read:false, page, params:params||{} });
+}
+const myNotifications = () => state.notifications.filter(n =>
+  n.role === state.session.role && n.orgId === state.session.orgId);
+
+/* ---------------------------------------------------------------------------
+   §6 NAV — roles, sidebar and breadcrumbs
+--------------------------------------------------------------------------- */
+const ROLES = {
+  client:     { label:'Client',        workspace:'Client',          accounts:() => state.clients },
+  tenant:     { label:'Tenant',        workspace:'Delivery partner', accounts:() => state.tenants },
+  aggregator: { label:'Aggregator',    workspace:'Aggregator',      accounts:() => state.aggregators },
+  business:   { label:'Business',      workspace:'Business partner', accounts:() => state.businesses },
+  sponsor:    { label:'Device sponsor',workspace:'Device sponsor',  accounts:() => state.deviceSponsors },
+  admin:      { label:'Platform admin',workspace:'Platform operations', accounts:() => [{ id:'OPS', name:'SourceHub Operations' }] }
+};
+
+const NAV = {
+  client: [
+    ['overview','Overview','grid'],
+    ['requests','Requests','doc', () => state.rfps.filter(r => r.clientId === me().id).length],
+    ['create','New request','plus'],
+    ['deliveries','Deliveries','truck', () => state.contracts.filter(c => rfpOf(c.rfpId).clientId === me().id && c.status !== 'Completed').length],
+    ['invoices','Billing','card']
+  ],
+  tenant: [
+    ['overview','Overview','grid'],
+    ['opportunities','Opportunities','inbox', () => openRfps().length],
+    ['proposals','Proposals','file', () => state.proposals.filter(p => p.tenantId === me().id).length],
+    ['contracts','Contracts','package', () => myContracts().filter(c => c.status !== 'Completed').length],
+    ['network','Network','link'],
+    ['qa','QA and delivery','check', () => qaQueue().length]
+  ],
+  aggregator: [
+    ['overview','Overview','grid'],
+    ['tasks','Tasks','list', () => myTasks().filter(t => t.status !== 'QA Passed').length],
+    ['roster','Crowd roster','users', () => state.workers.filter(w => w.aggregatorId === me().id).length],
+    ['equipment','Equipment','camera']
+  ],
+  business: [
+    ['overview','Overview','grid'],
+    ['tasks','Engagements','list', () => myTasks().filter(t => t.status !== 'QA Passed').length],
+    ['capacity','Capacity','building'],
+    ['equipment','Equipment','camera']
+  ],
+  sponsor: [
+    ['overview','Overview','grid'],
+    ['inventory','Inventory','box', () => (me().devices||[]).length],
+    ['requests','Requests','mail', () => state.deviceRequests.filter(r => r.sponsorId === me().id && r.status === 'Pending').length]
+  ],
+  admin: [
+    ['overview','Accounts','shield'],
+    ['billing','Billing','card'],
+    ['activity','Activity','activity']
+  ]
+};
+const CRUMB = { requestDetail:'Request', deliveryDetail:'Delivery', contractDetail:'Contract', designsystem:'Design system' };
+
+/* shared selectors used by nav counts and several views */
+const openRfps = () => state.rfps.filter(r => ['Published','Proposals Received'].includes(r.status));
+const qaQueue  = () => state.tasks.filter(t => t.status === 'Submitted' && myContractIds().includes(t.contractId));
+const myTasks  = () => state.tasks.filter(t => t.assigneeType === state.session.role && t.assigneeId === state.session.orgId);
+
+function go(page, params){
+  state.session.page = page;
+  state.session.params = params || {};
+  state.session.tab = null;
+  state.ui.railOpen = false;
+  render();
+  window.scrollTo(0,0);
+  const v = $('#view'); if (v) v.focus({ preventScroll:true });
+}
+function setTab(t){ state.session.tab = t; render(); }
+
+/* ---------------------------------------------------------------------------
+   §7 VIEWS
+--------------------------------------------------------------------------- */
+const PAGES = { client:{}, tenant:{}, aggregator:{}, business:{}, sponsor:{}, admin:{}, shared:{} };
+
+/* ============================ CLIENT ====================================== */
+PAGES.client.overview = () => {
+  const mine = state.rfps.filter(r => r.clientId === me().id);
+  const contracts = state.contracts.filter(c => rfpOf(c.rfpId).clientId === me().id);
+  const toReview = mine.filter(r => r.status === 'Proposals Received');
+  const toApprove = contracts.filter(c => c.status === 'Delivered');
+  const committed = contracts.reduce((s,c) => s + c.value, 0);
+  const acts = state.activity.filter(a => a.scope.includes(me().id)).slice(0,6);
+
+  const queue = [
+    ...toReview.map(r => ({ text:`Compare ${state.proposals.filter(p=>p.rfpId===r.id&&p.status==='Submitted').length} proposals on ${r.title}`,
+      cta:'Review proposals', go:`go('requestDetail',{id:'${r.id}'})`, id:r.id })),
+    ...toApprove.map(c => ({ text:`${tenant(c.tenantId).name} delivered ${rfpOf(c.rfpId).title}`,
+      cta:'Review and approve', go:`go('deliveryDetail',{id:'${c.id}'})`, id:c.id }))
+  ];
+
+  return viewHead({ title:me().name, sub:`${mine.length} requests · ${contracts.length} awarded contracts · ${esc(me().industry)}`,
+    actions: can('rfp.create') ? `<button class="btn" data-variant="primary" onclick="go('create')">${icon('plus',14)} New request</button>` : '' })
+  + `<div class="grid g4">
+      ${metric({ label:'Open requests', value:mine.filter(r => !['Completed','Draft'].includes(r.status)).length, foot:`${mine.length} lifetime` })}
+      ${metric({ label:'Awaiting your decision', value:queue.length, tone: queue.length ? 'attention' : null, foot:'proposals and deliveries' })}
+      ${metric({ label:'In delivery', value:contracts.filter(c => !['Completed'].includes(c.status)).length, foot:`${contracts.length} contracts total` })}
+      ${metric({ label:'Committed spend', value:money(committed), foot:'across awarded contracts' })}
+    </div>`
+  + `<div class="grid g-main">
+      ${panel({ title:'Waiting on you', sub:'Nothing moves until you act on these',
+        body: queue.length ? `<div class="col">${queue.map(q => `<div class="row" style="padding:4px 0">
+            <span style="flex:1;min-width:200px">${esc(q.text)}</span>
+            <button class="btn" data-size="sm" data-variant="primary" onclick="${q.go}">${esc(q.cta)}</button></div>`).join('')}</div>`
+          : emptyState({ glyph:'check', title:'You are all caught up', body:'Proposals and completed deliveries will appear here when they need your decision.' }) })}
+      ${panel({ title:'Recent activity', body: timeline(acts) })}
+    </div>`
+  + panel({ title:'Requests', sub:'Most recent first', flush:true,
+      actions:`<button class="btn" data-size="sm" onclick="go('requests')">View all ${icon('arrow',13)}</button>`,
+      body: dataTable({
+        id:'cl-recent',
+        cols:[{key:'t',label:'Request'},{key:'s',label:'Stage'},{key:'w',label:'Waiting on'},
+              {key:'p',label:'Proposals',align:'right'},{key:'b',label:'Budget',align:'right'},{key:'d',label:'Delivery',align:'right'}],
+        items: mine.slice(0,5),
+        onRow: r => `go('requestDetail',{id:'${r.id}'})`,
+        row: r => [
+          `<div class="cell-primary">${esc(r.title)}</div><div class="cell-meta">${idTag(r.id)} ${esc(r.category)}</div>`,
+          pill(r.status),
+          `<span class="small muted">${waitingOn(r.status)}</span>`,
+          { cls:'right num', html:String(state.proposals.filter(p => p.rfpId === r.id).length) },
+          { cls:'right num', html:`${compact(r.budgetMin)}–${compact(r.budgetMax)}` },
+          { cls:'right num', html:fmtDate(r.timeline.delivery) }
+        ],
+        empty:{ glyph:'doc', title:'No requests yet', body:'Create a request to start receiving proposals from delivery partners.',
+          action:`<button class="btn" data-variant="primary" onclick="go('create')">New request</button>` } }) });
+};
+function waitingOn(status){
+  const o = (STATUS[status] || {}).owner;
+  return o === 'client' ? 'You' : o === 'tenant' ? 'Delivery partner'
+    : o === 'supplier' ? 'Supplier' : o === 'sponsor' ? 'Device sponsor' : 'No one';
+}
+
+PAGES.client.requests = () => {
+  const mine = state.rfps.filter(r => r.clientId === me().id);
+  const q = state.session.query.toLowerCase();
+  const shown = q ? mine.filter(r => (r.title + r.id + r.category).toLowerCase().includes(q)) : mine;
+  return viewHead({ title:'Requests', sub:'Every request you have raised, with live proposal counts.',
+    actions:`<input class="input" id="requestFilter" style="width:220px" placeholder="Filter requests"
+        value="${esc(state.session.query)}" aria-label="Filter requests" oninput="filterRequests(this.value)">
+      <button class="btn" data-variant="primary" onclick="go('create')">${icon('plus',14)} New request</button>` })
+  + panel({ flush:true, body: dataTable({
+      id:'cl-requests',
+      cols:[{key:'t',label:'Request',sort:r=>r.title},{key:'c',label:'Category',sort:r=>r.category},
+            {key:'s',label:'Stage',sort:r=>LIFECYCLE.indexOf(r.status)},{key:'p',label:'Proposals',align:'right',sort:r=>state.proposals.filter(p=>p.rfpId===r.id).length},
+            {key:'b',label:'Budget',align:'right',sort:r=>r.budgetMax},{key:'d',label:'Delivery',align:'right',sort:r=>r.timeline.delivery},
+            {key:'a',label:'',align:'right'}],
+      items: shown,
+      row: r => {
+        const ct = state.contracts.find(c => c.rfpId === r.id);
+        return [
+          `<div class="cell-primary">${esc(r.title)}</div><div class="cell-meta">${idTag(r.id)} raised ${fmtDate(r.createdAt)}</div>`,
+          `<span class="chip">${icon(categoryIcon(r.category),12)} ${esc(r.category)}</span>`,
+          pill(r.status),
+          { cls:'right num', html:String(state.proposals.filter(p => p.rfpId === r.id).length) },
+          { cls:'right num', html:`${compact(r.budgetMin)}–${compact(r.budgetMax)}` },
+          { cls:'right num', html:fmtDate(r.timeline.delivery) },
+          { cls:'right', html:`<div class="rowactions">
+              ${r.status === 'Draft' && can('rfp.publish') ? `<button class="btn" data-size="sm" data-variant="primary" onclick="publishRequest('${r.id}')">Publish</button>` : ''}
+              ${ct ? `<button class="btn" data-size="sm" onclick="go('deliveryDetail',{id:'${ct.id}'})">Track</button>` : ''}
+              <button class="btn" data-size="sm" onclick="go('requestDetail',{id:'${r.id}'})">Open</button></div>` }
+        ];
+      },
+      empty:{ glyph:'doc', title: q ? 'No requests match that filter' : 'No requests yet',
+        body: q ? 'Try a different word, or clear the filter.' : 'Create a request to start receiving proposals.' } }) });
+};
+
+/* --- multi-step request builder ------------------------------------------- */
+let draft = blankDraft();
+function blankDraft(){
+  return { step:1, title:'', category:'Image', geography:'', compliance:'',
+    format:'', quantity:'', quality:'', acceptance:'',
+    headcount:'', training:'', experience:'', certification:'',
+    budgetMin:'', budgetMax:'', start:'', delivery:'' };
+}
+const STEPS = [
+  { n:1, name:'Basics',        ids:['d_title','d_category','d_geography','d_compliance'] },
+  { n:2, name:'Specification', ids:['d_format','d_quantity','d_quality','d_acceptance'] },
+  { n:3, name:'People',        ids:['d_headcount','d_certification','d_training','d_experience'] },
+  { n:4, name:'Commercials',   ids:['d_budgetMin','d_budgetMax','d_start','d_delivery'] },
+  { n:5, name:'Review',        ids:[] }
+];
+function captureStep(){
+  STEPS.forEach(s => s.ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) draft[id.slice(2)] = el.value.trim();
+  }));
+}
+function stepNav(dir){
+  captureStep();
+  if (dir > 0){
+    const s = draft.step;
+    if (s === 1 && !draft.title) return invalid('d_title','Give the request a title so partners can identify it.');
+    if (s === 2 && !draft.quantity) return invalid('d_quantity','State how much data you need — partners price against volume.');
+    if (s === 4){
+      const lo = Number(draft.budgetMin), hi = Number(draft.budgetMax);
+      if (lo && hi && hi < lo) return invalid('d_budgetMax','The maximum must be at least the minimum.');
+      if (draft.start && draft.delivery && draft.delivery < draft.start)
+        return invalid('d_delivery','The delivery date must fall after the start date.');
+    }
+  }
+  draft.step = Math.min(5, Math.max(1, draft.step + dir));
+  render();
+}
+
+PAGES.client.create = () => {
+  const s = draft.step;
+  const rail = `<div class="stagerail" style="margin-bottom:4px">${STEPS.map(st => `
+    <div class="stage" data-state="${st.n < s ? 'done' : st.n === s ? 'here' : 'todo'}">
+      <span class="track"></span><span class="node">${st.n < s ? icon('check',12) : st.n}</span>
+      <span class="name">${st.name}</span></div>`).join('')}</div>`;
+
+  let body = '';
+  if (s === 1) body = `<div class="formgrid">
+      ${field({ id:'d_title', label:'Request title', value:draft.title, required:true, span:true,
+        placeholder:'Retail shelf imagery across 12 metro markets',
+        hint:'Delivery partners see this first — name the deliverable and the market.' })}
+      ${field({ id:'d_category', label:'Category', type:'select', options:CATEGORIES, value:draft.category })}
+      ${field({ id:'d_geography', label:'Geography', value:draft.geography, placeholder:'Countries or metro areas' })}
+      ${field({ id:'d_compliance', label:'Compliance notes', type:'textarea', value:draft.compliance, span:true,
+        placeholder:'Consent, privacy, site access rules, data residency' })}
+    </div>`;
+  else if (s === 2) body = `<div class="formgrid">
+      ${field({ id:'d_format', label:'Deliverable format', value:draft.format, placeholder:'JPEG 12MP · MP4 1080p · CSV' })}
+      ${field({ id:'d_quantity', label:'Quantity', value:draft.quantity, required:true, placeholder:'25,000 images · 900 hours' })}
+      ${field({ id:'d_quality', label:'Resolution, duration and quality bar', type:'textarea', value:draft.quality, span:true,
+        placeholder:'Framing, resolution, clip length, tolerances' })}
+      ${field({ id:'d_acceptance', label:'Acceptance criteria', type:'textarea', value:draft.acceptance, span:true,
+        placeholder:'How submissions will be judged at QA', hint:'This becomes the checklist your delivery partner grades against.' })}
+    </div>`;
+  else if (s === 3) body = callout('active','People requirements travel with the request',
+      'Partners size their crowd, vendor teams and equipment pool from these four fields.')
+    + `<div class="formgrid">
+      ${field({ id:'d_headcount', label:'Headcount required', type:'number', value:draft.headcount, placeholder:'180' })}
+      ${field({ id:'d_certification', label:'Certification required', value:draft.certification, placeholder:'None · HIPAA attestation · Commercial licence' })}
+      ${field({ id:'d_training', label:'Training required', value:draft.training, span:true, placeholder:'2-hour shelf-capture module' })}
+      ${field({ id:'d_experience', label:'Experience required', value:draft.experience, span:true, placeholder:'Prior retail audit work preferred' })}
+    </div>`;
+  else if (s === 4) body = `<div class="formgrid">
+      ${field({ id:'d_budgetMin', label:'Budget minimum (USD)', type:'number', value:draft.budgetMin, placeholder:'60000' })}
+      ${field({ id:'d_budgetMax', label:'Budget maximum (USD)', type:'number', value:draft.budgetMax, placeholder:'85000' })}
+      ${field({ id:'d_start', label:'Project start', type:'date', value:draft.start })}
+      ${field({ id:'d_delivery', label:'Delivery deadline', type:'date', value:draft.delivery })}
+    </div>`;
+  else body = dl([
+      ['Title', esc(draft.title || '—')], ['Category', esc(draft.category)], ['Geography', esc(draft.geography || '—')],
+      ['Format', esc(draft.format || '—')], ['Quantity', esc(draft.quantity || '—')], ['Quality bar', esc(draft.quality || '—')],
+      ['Acceptance criteria', esc(draft.acceptance || '—')], ['Headcount', esc(draft.headcount || '—')],
+      ['Training', esc(draft.training || '—')], ['Experience', esc(draft.experience || '—')],
+      ['Certification', esc(draft.certification || '—')],
+      ['Budget', (draft.budgetMin || draft.budgetMax) ? `${money(draft.budgetMin)} – ${money(draft.budgetMax)}` : '—'],
+      ['Timeline', `${draft.start ? fmtDate(draft.start) : '—'} → ${draft.delivery ? fmtDate(draft.delivery) : '—'}`],
+      ['Compliance', esc(draft.compliance || '—')]
+    ]);
+
+  const foot = `${s > 1 ? `<button class="btn" onclick="stepNav(-1)">${icon('back',13)} Back</button>` : ''}
+    <span class="push"></span>
+    ${s < 5 ? `<button class="btn" data-variant="primary" onclick="stepNav(1)">Continue ${icon('arrow',13)}</button>`
+      : `<button class="btn" onclick="saveRequest(false)">Save as draft</button>
+         <button class="btn" data-variant="primary" onclick="saveRequest(true)">${icon('send',13)} Publish to partners</button>`}`;
+
+  return viewHead({ title:'New request', sub:`Step ${s} of 5 — ${STEPS[s-1].name}` })
+    + panel({ body: rail + body, foot });
+};
+
+PAGES.client.requestDetail = () => {
+  const r = rfpOf(state.session.params.id);
+  const props = state.proposals.filter(p => p.rfpId === r.id);
+  const ct = state.contracts.find(c => c.rfpId === r.id);
+  const best = props.length ? Math.min(...props.map(p => p.price)) : 0;
+  const fast = props.length ? Math.min(...props.map(p => p.days)) : 0;
+
+  const comparison = props.length ? dataTable({
+    id:'cl-props',
+    cols:[{key:'t',label:'Delivery partner',sort:p=>tenant(p.tenantId).name},
+          {key:'p',label:'Price',align:'right',sort:p=>p.price},
+          {key:'d',label:'Timeline',align:'right',sort:p=>p.days},
+          {key:'q',label:'Track record',align:'right',sort:p=>tenant(p.tenantId).qaPass},
+          {key:'m',label:'Method'},{key:'s',label:'Status'},{key:'a',label:'',align:'right'}],
+    items: props,
+    row: p => {
+      const t = tenant(p.tenantId);
+      return [
+        `<div class="cell-primary">${esc(t.name)}</div><div class="cell-meta">${esc(t.hq)} · ${star(t.rating)}</div>`,
+        { cls:'right num', html:`${money(p.price)}${p.price === best && props.length > 1 ? ' <span class="pill" data-tone="success">lowest</span>' : ''}` },
+        { cls:'right num', html:`${p.days}d${p.days === fast && props.length > 1 ? ' <span class="pill" data-tone="active">fastest</span>' : ''}` },
+        { cls:'right num', html:`${t.qaPass}% QA` },
+        `<span class="small muted">${esc(p.methodology.slice(0,110))}${p.methodology.length > 110 ? '…' : ''}</span>`,
+        pill(p.status),
+        { cls:'right', html:`<div class="rowactions">
+            <button class="btn" data-size="sm" onclick="viewProposal('${p.id}')">Detail</button>
+            ${p.status === 'Submitted' && !ct && can('proposal.accept')
+              ? `<button class="btn" data-size="sm" data-variant="primary" onclick="acceptProposal('${p.id}')">Award</button>` : ''}
+            ${p.status === 'Accepted' && ct ? `<button class="btn" data-size="sm" onclick="go('deliveryDetail',{id:'${ct.id}'})">Track</button>` : ''}</div>` }
+      ];
+    },
+    empty:{ glyph:'file', title:'No proposals yet',
+      body: r.status === 'Draft' ? 'Publish the request and partners can start bidding.' : 'Partners can see this request and are preparing proposals.' }
+  }) : emptyState({ glyph:'file', title:'No proposals yet',
+      body: r.status === 'Draft' ? 'Publish the request and partners can start bidding.' : 'Partners can see this request and are preparing proposals.',
+      action: r.status === 'Draft' ? `<button class="btn" data-variant="primary" onclick="publishRequest('${r.id}')">Publish to partners</button>` : '' });
+
+  return viewHead({ title:r.title,
+    sub:`${idTag(r.id)} · ${esc(r.category)} · raised ${fmtDate(r.createdAt)}`,
+    back:{ label:'Requests', onclick:"go('requests')" },
+    actions:`${pill(r.status)}${r.status === 'Draft' && can('rfp.publish')
+      ? `<button class="btn" data-variant="primary" onclick="publishRequest('${r.id}')">${icon('send',13)} Publish to partners</button>` : ''}` })
+  + `<div class="grid g2">
+      ${panel({ title:'Specification', body: dl([
+        ['Format', esc(r.spec.format)], ['Quantity', esc(r.spec.quantity)], ['Quality bar', esc(r.spec.quality)],
+        ['Geography', esc(r.geography)], ['Acceptance criteria', esc(r.acceptance)], ['Compliance', esc(r.compliance)] ]) })}
+      ${panel({ title:'People, budget and timeline', body: dl([
+        ['Headcount', `<span class="num">${r.people.headcount}</span> people`],
+        ['Training', esc(r.people.training)], ['Experience', esc(r.people.experience)],
+        ['Certification', esc(r.people.certification)],
+        ['Budget range', `<span class="num">${money(r.budgetMin)} – ${money(r.budgetMax)}</span>`],
+        ['Start', `<span class="num">${fmtDate(r.timeline.start)}</span>`],
+        ['Delivery deadline', `<span class="num">${fmtDate(r.timeline.delivery)}</span>`] ]) })}
+    </div>`
+  + panel({ title:'Proposals', sub: props.length ? `${props.length} received${ct ? ` · awarded to ${tenant(ct.tenantId).name}` : ''}` : 'None yet',
+      flush: props.length > 0, body: comparison });
+};
+
+PAGES.client.deliveries = () => {
+  const cs = state.contracts.filter(c => rfpOf(c.rfpId).clientId === me().id);
+  if (!cs.length) return viewHead({ title:'Deliveries', sub:'Awarded work, tracked end to end.' })
+    + panel({ body: emptyState({ glyph:'truck', title:'No awarded contracts yet',
+        body:'Award a proposal and the delivery appears here with a live lifecycle.',
+        action:`<button class="btn" data-variant="primary" onclick="go('requests')">Review your requests</button>` }) });
+
+  return viewHead({ title:'Deliveries', sub:'Awarded contracts and their current lifecycle stage.' })
+    + cs.map(c => {
+      const r = rfpOf(c.rfpId), pr = progressOf(c.id);
+      return panel({ title:r.title, sub:`${c.id} · ${tenant(c.tenantId).name} · ${money(c.value)}`,
+        actions:`${pill(c.status)}
+          ${c.status === 'Delivered' && can('contract.approve')
+            ? `<button class="btn" data-size="sm" data-variant="success" onclick="approveDelivery('${c.id}')">Approve and pay</button>` : ''}
+          <button class="btn" data-size="sm" onclick="go('deliveryDetail',{id:'${c.id}'})">Open ${icon('arrow',13)}</button>`,
+        body: stageRail(r.status, { Accepted:c.startedAt, Delivered:c.deliveredAt, Completed:c.completedAt })
+          + `<div class="divide"></div>
+             <div class="grid g3">
+               <div class="col" style="gap:6px"><span class="eyebrow">Task progress</span>
+                 <span class="num" style="font-size:19px">${pr.done} / ${pr.total}</span>${meter(pr.pct, pr.pct === 100 ? 'success' : null)}</div>
+               <div class="col" style="gap:6px"><span class="eyebrow">Delivery due</span>
+                 <span class="num" style="font-size:19px">${fmtDate(r.timeline.delivery)}</span></div>
+               <div class="col" style="gap:6px"><span class="eyebrow">Assets accepted</span>
+                 <span class="num" style="font-size:19px">${pr.tasks.reduce((s,t) => s + (t.status === 'QA Passed' ? t.assets : 0), 0)}</span></div>
+             </div>` });
+    }).join('');
+};
+
+PAGES.client.deliveryDetail = () => {
+  const c = byId(state.contracts, state.session.params.id);
+  if (!c) return PAGES.client.deliveries();
+  const r = rfpOf(c.rfpId), pr = progressOf(c.id);
+  const rts = state.ratings.filter(x => x.contractId === c.id);
+  const acts = state.activity.filter(a => a.scope.includes(c.id));
+
+  return viewHead({ title:r.title, sub:`Contract ${idTag(c.id)} · delivered by ${esc(tenant(c.tenantId).name)}`,
+    back:{ label:'Deliveries', onclick:"go('deliveries')" },
+    actions:`${pill(c.status)}${c.status === 'Delivered' && can('contract.approve')
+      ? `<button class="btn" data-variant="success" onclick="approveDelivery('${c.id}')">${icon('check',14)} Approve and release payment</button>` : ''}` })
+  + panel({ title:'Lifecycle', sub:`Current stage: ${r.status} · waiting on ${waitingOn(r.status).toLowerCase()}`,
+      body: stageRail(r.status, { Accepted:c.startedAt, Delivered:c.deliveredAt, Completed:c.completedAt }) })
+  + `<div class="grid g4">
+      ${metric({ label:'Contract value', value:money(c.value) })}
+      ${metric({ label:'Tasks cleared QA', value:`${pr.done} / ${pr.total}` })}
+      ${metric({ label:'Completion', value:`${pr.pct}%`, tone: pr.pct === 100 ? 'success' : null })}
+      ${metric({ label:'Delivery deadline', value:fmtDate(r.timeline.delivery) })}
+    </div>`
+  + panel({ title:'Work breakdown', sub:'How your delivery partner distributed the work across its network', flush:true,
+      body: dataTable({ id:'cl-tasks',
+        cols:[{key:'t',label:'Task',sort:t=>t.title},{key:'w',label:'Fulfilled by'},{key:'s',label:'Status'},
+              {key:'a',label:'Assets',align:'right',sort:t=>t.assets},{key:'d',label:'Due',align:'right',sort:t=>t.due}],
+        items: pr.tasks,
+        row: t => [
+          `<div class="cell-primary">${esc(t.title)}</div><div class="cell-meta">${idTag(t.id)} target ${esc(t.target)}</div>`,
+          `<span class="chip">${t.assigneeType === 'aggregator' ? 'Aggregator' : 'Business'}</span> ${esc(supplier(t).name)}`,
+          pill(t.status),
+          { cls:'right num', html:String(t.assets) },
+          { cls:'right num', html:fmtDate(t.due) }
+        ],
+        empty:{ glyph:'list', title:'No tasks yet', body:'Your delivery partner has not broken this contract down yet.' } }) })
+  + `<div class="grid g2">
+      ${panel({ title:'Audit trail', sub:'Every state change on this contract', body: timeline(acts) })}
+      ${panel({ title:'Ratings', body: rts.length
+        ? rts.map(x => `<div class="col" style="gap:3px;padding:6px 0;border-bottom:1px solid var(--line)">
+            <div class="row tight"><span class="num" style="color:var(--t-success)">${'★'.repeat(x.score)}</span>
+            <span class="small muted">${x.fromType === 'client' ? 'You rated the partner' : 'The partner rated you'}</span></div>
+            <span class="small">${esc(x.comment)}</span></div>`).join('')
+        : emptyState({ glyph:'check', title:'Ratings open at completion',
+            body:'Both sides rate each other once you approve the delivery.' }) })}
+    </div>`;
+};
+
+PAGES.client.invoices = () => {
+  const mine = state.invoices.filter(i => i.party === me().id);
+  return viewHead({ title:'Billing', sub:`Plan: ${esc(me().plan)} · account status ${esc(me().billing.toLowerCase())}`,
+    actions: pill(me().billing) })
+  + `<div class="grid g3">
+      ${metric({ label:'Outstanding', value:money(mine.filter(i => i.status === 'Pending').reduce((s,i)=>s+i.amount,0)),
+        tone: mine.some(i => i.status === 'Pending') ? 'attention' : null })}
+      ${metric({ label:'Paid to date', value:money(mine.filter(i => i.status === 'Paid').reduce((s,i)=>s+i.amount,0)) })}
+      ${metric({ label:'Data residency', value:esc(me().residency), foot:'processing region' })}
+    </div>`
+  + panel({ flush:true, title:'Invoices', body: dataTable({ id:'cl-inv',
+      cols:[{key:'i',label:'Invoice'},{key:'k',label:'For'},{key:'c',label:'Contract'},
+            {key:'a',label:'Amount',align:'right',sort:i=>i.amount},{key:'s',label:'Status'},{key:'d',label:'Issued',align:'right',sort:i=>i.issued}],
+      items: mine,
+      row: i => [ idTag(i.id), esc(i.kind),
+        `<span class="mono small">${esc(i.contractId)}</span>`,
+        { cls:'right num', html:money(i.amount) }, pill(i.status),
+        { cls:'right num', html:fmtDate(i.issued) } ],
+      empty:{ glyph:'card', title:'No invoices yet', body:'Invoices are raised when you award a contract.' } }) });
+};
+
+/* ============================ TENANT ====================================== */
+PAGES.tenant.overview = () => {
+  const myProps = state.proposals.filter(p => p.tenantId === me().id);
+  const cts = myContracts();
+  const open = openRfps().filter(r => !myProps.some(p => p.rfpId === r.id));
+  const queue = qaQueue();
+  const ready = cts.filter(deliverable);
+  const network = state.aggregators.filter(a => a.tenantId === me().id).length
+    + state.businesses.filter(b => b.tenantId === me().id).length
+    + state.deviceSponsors.filter(d => d.tenantId === me().id).length;
+
+  return viewHead({ title:me().name, sub:`${esc(me().capabilities)} · ${esc(me().hq)}`,
+    actions:`<button class="btn" data-variant="primary" onclick="go('opportunities')">${icon('inbox',14)} Browse opportunities</button>` })
+  + `<div class="grid g4">
+      ${metric({ label:'Open opportunities', value:open.length, foot:'not yet bid on' })}
+      ${metric({ label:'Win rate', value:`${myProps.length ? Math.round(myProps.filter(p=>p.status==='Accepted').length/myProps.length*100) : 0}%`,
+        foot:`${myProps.filter(p=>p.status==='Accepted').length} of ${myProps.length} proposals` })}
+      ${metric({ label:'Awaiting your QA', value:queue.length, tone: queue.length ? 'attention' : null, foot:'submissions from your network' })}
+      ${metric({ label:'Booked value', value:money(cts.reduce((s,c)=>s+c.value,0)), foot:`${cts.length} contracts` })}
+    </div>`
+  + `<div class="grid g-main">
+      ${panel({ title:'QA queue', sub:'Two-level QA: your network checks first, you check before the client sees anything',
+        actions:`<button class="btn" data-size="sm" onclick="go('qa')">Open QA ${icon('arrow',13)}</button>`,
+        body: queue.length ? `<div class="col">${queue.map(t => `<div class="row" style="padding:5px 0">
+            <span class="chip">${icon('image',12)} ${t.assets}</span>
+            <div style="flex:1;min-width:180px"><div class="cell-primary">${esc(t.title)}</div>
+              <div class="cell-meta">${esc(supplier(t).name)} · due ${fmtDate(t.due)}</div></div>
+            <button class="btn" data-size="sm" data-variant="primary" onclick="qaReview('${t.id}')">Review</button></div>`).join('')}</div>`
+          : emptyState({ glyph:'check', title:'QA queue is clear', body:'Submissions from your aggregators and business partners land here.' }) })}
+      ${panel({ title:'Your network', sub:'You register and manage these — SourceHub bills only you',
+        actions:`<button class="btn" data-size="sm" onclick="go('network')">Manage</button>`,
+        body:`<div class="col">
+          ${[['Aggregators', state.aggregators.filter(a=>a.tenantId===me().id).length, `${state.aggregators.filter(a=>a.tenantId===me().id).reduce((s,a)=>s+a.crowdSize,0).toLocaleString()} crowd workers`],
+             ['Business partners', state.businesses.filter(b=>b.tenantId===me().id).length, 'vendor-led delivery'],
+             ['Device sponsors', state.deviceSponsors.filter(d=>d.tenantId===me().id).length, `${state.deviceSponsors.filter(d=>d.tenantId===me().id).reduce((s,d)=>s+d.devices.length,0)} equipment types`]]
+            .map(([k,v,sub]) => `<div class="row" style="padding:6px 0;border-bottom:1px solid var(--line)">
+              <div style="flex:1"><div class="cell-primary">${k}</div><div class="cell-meta">${sub}</div></div>
+              <span class="num" style="font-size:19px">${v}</span></div>`).join('')}
+          <div class="row"><span class="small muted">${network} entities in your network</span></div>
+        </div>` })}
+    </div>`
+  + (ready.length ? panel({ title:'Ready to deliver', sub:'Every task has cleared your QA',
+      body:`<div class="col">${ready.map(c => `<div class="row" style="padding:4px 0">
+        <div style="flex:1;min-width:200px"><div class="cell-primary">${esc(rfpOf(c.rfpId).title)}</div>
+          <div class="cell-meta">${idTag(c.id)} ${money(c.value)}</div></div>
+        <button class="btn" data-size="sm" data-variant="success" onclick="deliverContract('${c.id}')">Deliver to client</button></div>`).join('')}</div>` }) : '')
+  + panel({ title:'Opportunities you have not bid on', flush:true,
+      body: dataTable({ id:'tn-open',
+        cols:[{key:'t',label:'Request'},{key:'c',label:'Client'},{key:'b',label:'Budget',align:'right',sort:r=>r.budgetMax},
+              {key:'h',label:'Headcount',align:'right',sort:r=>r.people.headcount},{key:'d',label:'Delivery',align:'right',sort:r=>r.timeline.delivery},{key:'a',label:'',align:'right'}],
+        items: open.slice(0,5),
+        row: r => [
+          `<div class="cell-primary">${esc(r.title)}</div><div class="cell-meta">${idTag(r.id)} ${esc(r.category)}</div>`,
+          esc(client(r.clientId).name),
+          { cls:'right num', html:`${compact(r.budgetMin)}–${compact(r.budgetMax)}` },
+          { cls:'right num', html:String(r.people.headcount) },
+          { cls:'right num', html:fmtDate(r.timeline.delivery) },
+          { cls:'right', html:`<button class="btn" data-size="sm" data-variant="primary" onclick="proposalForm('${r.id}')">Propose</button>` }
+        ],
+        empty:{ glyph:'inbox', title:'You have bid on everything open', body:'New requests will appear here as clients publish them.' } }) });
+};
+
+PAGES.tenant.opportunities = () => {
+  const myProps = state.proposals.filter(p => p.tenantId === me().id);
+  const list = state.rfps.filter(r => ['Published','Proposals Received','Accepted','In Progress'].includes(r.status));
+  return viewHead({ title:'Opportunities', sub:'Requests published by clients across the marketplace.' })
+  + panel({ flush:true, body: dataTable({ id:'tn-opps',
+      cols:[{key:'t',label:'Request',sort:r=>r.title},{key:'c',label:'Client',sort:r=>client(r.clientId).name},
+            {key:'g',label:'Geography'},{key:'s',label:'Stage'},{key:'b',label:'Budget',align:'right',sort:r=>r.budgetMax},
+            {key:'n',label:'Bids',align:'right',sort:r=>state.proposals.filter(p=>p.rfpId===r.id).length},{key:'a',label:'',align:'right'}],
+      items: list,
+      row: r => {
+        const mine = myProps.find(p => p.rfpId === r.id);
+        const biddable = ['Published','Proposals Received'].includes(r.status);
+        return [
+          `<div class="cell-primary">${esc(r.title)}</div><div class="cell-meta">${idTag(r.id)} <span class="chip">${icon(categoryIcon(r.category),12)} ${esc(r.category)}</span></div>`,
+          esc(client(r.clientId).name),
+          `<span class="small muted">${esc(r.geography)}</span>`,
+          pill(r.status),
+          { cls:'right num', html:`${compact(r.budgetMin)}–${compact(r.budgetMax)}` },
+          { cls:'right num', html:String(state.proposals.filter(p => p.rfpId === r.id).length) },
+          { cls:'right', html:`<div class="rowactions">
+              <button class="btn" data-size="sm" onclick="viewBrief('${r.id}')">Brief</button>
+              ${mine ? pill(mine.status === 'Accepted' ? 'Accepted' : 'Submitted')
+                : biddable && can('proposal.create') ? `<button class="btn" data-size="sm" data-variant="primary" onclick="proposalForm('${r.id}')">Propose</button>`
+                : `<button class="btn" data-size="sm" disabled>Closed</button>`}</div>` }
+        ];
+      },
+      empty:{ glyph:'inbox', title:'No open requests', body:'Clients have not published anything yet.' } }) });
+};
+
+PAGES.tenant.proposals = () => {
+  const mine = state.proposals.filter(p => p.tenantId === me().id);
+  return viewHead({ title:'Proposals', sub:'Everything you have bid on and where it stands.' })
+  + panel({ flush:true, body: dataTable({ id:'tn-props',
+      cols:[{key:'r',label:'Request',sort:p=>rfpOf(p.rfpId).title},{key:'c',label:'Client'},
+            {key:'p',label:'Price',align:'right',sort:p=>p.price},{key:'d',label:'Timeline',align:'right',sort:p=>p.days},
+            {key:'s',label:'Status'},{key:'w',label:'Submitted',align:'right',sort:p=>p.submittedAt},{key:'a',label:'',align:'right'}],
+      items: mine,
+      row: p => {
+        const r = rfpOf(p.rfpId), ct = state.contracts.find(c => c.proposalId === p.id);
+        return [
+          `<div class="cell-primary">${esc(r.title)}</div><div class="cell-meta">${idTag(p.id)}</div>`,
+          esc(client(r.clientId).name),
+          { cls:'right num', html:money(p.price) },
+          { cls:'right num', html:`${p.days}d` },
+          pill(p.status),
+          { cls:'right num', html:fmtDate(p.submittedAt) },
+          { cls:'right', html: ct ? `<button class="btn" data-size="sm" onclick="go('contractDetail',{id:'${ct.id}'})">Contract</button>`
+              : `<button class="btn" data-size="sm" onclick="viewProposal('${p.id}')">Detail</button>` }
+        ];
+      },
+      empty:{ glyph:'file', title:'No proposals yet', body:'Bid on an open opportunity to see it here.',
+        action:`<button class="btn" data-variant="primary" onclick="go('opportunities')">Browse opportunities</button>` } }) });
+};
+
+PAGES.tenant.contracts = () => {
+  const cs = myContracts();
+  if (!cs.length) return viewHead({ title:'Contracts', sub:'Awarded work, broken into tasks across your network.' })
+    + panel({ body: emptyState({ glyph:'package', title:'No awarded contracts yet',
+        body:'Win a proposal and the contract appears here, ready to break into tasks.',
+        action:`<button class="btn" data-variant="primary" onclick="go('opportunities')">Browse opportunities</button>` }) });
+
+  return viewHead({ title:'Contracts', sub:'Break each contract into tasks and assign them across your network.' })
+    + cs.map(c => {
+      const r = rfpOf(c.rfpId), pr = progressOf(c.id);
+      return panel({ title:r.title, sub:`${c.id} · ${client(r.clientId).name} · ${money(c.value)} · due ${fmtDate(r.timeline.delivery)}`,
+        actions:`${pill(c.status)}
+          ${c.status !== 'Completed' && c.status !== 'Delivered' && can('task.create')
+            ? `<button class="btn" data-size="sm" data-variant="primary" onclick="assignTaskForm('${c.id}')">${icon('plus',13)} Assign task</button>` : ''}
+          ${deliverable(c) && can('contract.deliver')
+            ? `<button class="btn" data-size="sm" data-variant="success" onclick="deliverContract('${c.id}')">Deliver to client</button>` : ''}
+          <button class="btn" data-size="sm" onclick="go('contractDetail',{id:'${c.id}'})">Open ${icon('arrow',13)}</button>`,
+        body:`<div class="grid g4">
+            ${metric({ label:'Completion', value:`${pr.pct}%`, tone: pr.pct === 100 ? 'success' : null })}
+            ${metric({ label:'Tasks cleared QA', value:`${pr.done} / ${pr.total}` })}
+            ${metric({ label:'Assets collected', value:String(pr.tasks.reduce((s,t)=>s+t.assets,0)) })}
+            ${metric({ label:'Awaiting QA', value:String(pr.tasks.filter(t=>t.status==='Submitted').length),
+              tone: pr.tasks.some(t=>t.status==='Submitted') ? 'attention' : null })}
+          </div>` + taskTable(c.id, pr.tasks) });
+    }).join('');
+};
+
+function taskTable(contractId, tasks){
+  return dataTable({ id:'tn-tasks-' + contractId,
+    cols:[{key:'t',label:'Task',sort:t=>t.title},{key:'w',label:'Assigned to'},{key:'e',label:'Equipment'},
+          {key:'s',label:'Status'},{key:'a',label:'Assets',align:'right',sort:t=>t.assets},
+          {key:'d',label:'Due',align:'right',sort:t=>t.due},{key:'x',label:'',align:'right'}],
+    items: tasks,
+    row: t => [
+      `<div class="cell-primary">${esc(t.title)}</div><div class="cell-meta">${idTag(t.id)} target ${esc(t.target)}</div>`,
+      `<span class="chip">${t.assigneeType === 'aggregator' ? 'Aggregator' : 'Business'}</span> ${esc(supplier(t).name)}`,
+      t.deviceIds.length ? t.deviceIds.map(d => `<span class="chip">${icon('camera',12)} ${esc(deviceName(d))}</span>`).join(' ')
+        : '<span class="muted small">—</span>',
+      pill(t.status),
+      { cls:'right num', html:String(t.assets) },
+      { cls:'right num', html:fmtDate(t.due) },
+      { cls:'right', html: t.status === 'Submitted' && can('qa.review')
+          ? `<button class="btn" data-size="sm" data-variant="primary" onclick="qaReview('${t.id}')">QA review</button>` : '' }
+    ],
+    empty:{ glyph:'list', title:'No tasks yet', body:'Assign work to an aggregator or business partner to start delivery.',
+      action:`<button class="btn" data-variant="primary" onclick="assignTaskForm('${contractId}')">Assign the first task</button>` } });
+}
+
+PAGES.tenant.contractDetail = () => {
+  const c = byId(state.contracts, state.session.params.id);
+  if (!c) return PAGES.tenant.contracts();
+  const r = rfpOf(c.rfpId), pr = progressOf(c.id);
+  return viewHead({ title:r.title, sub:`Contract ${idTag(c.id)} · client ${esc(client(r.clientId).name)}`,
+    back:{ label:'Contracts', onclick:"go('contracts')" },
+    actions:`${pill(c.status)}
+      <button class="btn" data-variant="primary" onclick="assignTaskForm('${c.id}')">${icon('plus',14)} Assign task</button>
+      ${deliverable(c) ? `<button class="btn" data-variant="success" onclick="deliverContract('${c.id}')">Deliver to client</button>` : ''}` })
+  + `<div class="grid g2">
+      ${panel({ title:'Client brief', body: dl([
+        ['Category', esc(r.category)], ['Format', esc(r.spec.format)], ['Quantity', esc(r.spec.quantity)],
+        ['Acceptance criteria', esc(r.acceptance)], ['Compliance', esc(r.compliance)],
+        ['Delivery deadline', `<span class="num">${fmtDate(r.timeline.delivery)}</span>`] ]) })}
+      ${panel({ title:'Delivery health', body:
+        `<div class="col" style="gap:8px"><span class="num" style="font-size:30px">${pr.pct}%</span>
+          ${meter(pr.pct, pr.pct === 100 ? 'success' : null)}</div><div class="divide"></div>`
+        + dl([ ['Contract value', `<span class="num">${money(c.value)}</span>`],
+               ['Tasks', `<span class="num">${pr.total}</span>`],
+               ['Cleared QA', `<span class="num">${pr.done}</span>`],
+               ['Awaiting QA', `<span class="num">${pr.tasks.filter(t=>t.status==='Submitted').length}</span>`],
+               ['Started', `<span class="num">${fmtDate(c.startedAt)}</span>`] ]) })}
+    </div>`
+  + panel({ title:'Tasks', flush:true, body: taskTable(c.id, pr.tasks) })
+  + panel({ title:'Audit trail', body: timeline(state.activity.filter(a => a.scope.includes(c.id))) });
+};
+
+PAGES.tenant.network = () => {
+  const tab = state.session.tab || 'aggregators';
+  const tabs = `<div role="tablist" aria-label="Network type">${
+    [['aggregators','Aggregators'],['businesses','Business partners'],['sponsors','Device sponsors']].map(([k,l]) =>
+      `<button role="tab" id="tab_${k}" aria-selected="${tab===k}" aria-controls="netpanel" onclick="setTab('${k}')">${l}</button>`).join('')}</div>`;
+
+  let body, add;
+  if (tab === 'aggregators'){
+    const list = state.aggregators.filter(a => a.tenantId === me().id);
+    add = `<button class="btn" data-variant="primary" onclick="addPartnerForm('aggregator')">${icon('plus',14)} Add aggregator</button>`;
+    body = dataTable({ id:'tn-ag',
+      cols:[{key:'n',label:'Aggregator',sort:a=>a.name},{key:'r',label:'Region'},{key:'c',label:'Crowd size',align:'right',sort:a=>a.crowdSize},
+            {key:'f',label:'Focus'},{key:'q',label:'Rating',align:'right',sort:a=>a.rating},
+            {key:'o',label:'Open tasks',align:'right'},{key:'x',label:'',align:'right'}],
+      items:list,
+      row: a => [
+        `<div class="cell-primary">${esc(a.name)}</div><div class="cell-meta">${idTag(a.id)}</div>`,
+        esc(a.region), { cls:'right num', html:a.crowdSize.toLocaleString() },
+        `<span class="small muted">${esc(a.focus)}</span>`, { cls:'right num', html:a.rating.toFixed(1) },
+        { cls:'right num', html:String(state.tasks.filter(t => t.assigneeType==='aggregator' && t.assigneeId===a.id && t.status!=='QA Passed').length) },
+        { cls:'right', html:`<button class="btn" data-size="sm" data-variant="danger" onclick="removePartner('aggregator','${a.id}')">Remove</button>` }
+      ],
+      empty:{ glyph:'users', title:'No aggregators yet', body:'Add a crowd partner to start assigning field work.' } });
+  } else if (tab === 'businesses'){
+    const list = state.businesses.filter(b => b.tenantId === me().id);
+    add = `<button class="btn" data-variant="primary" onclick="addPartnerForm('business')">${icon('plus',14)} Add business partner</button>`;
+    body = dataTable({ id:'tn-bz',
+      cols:[{key:'n',label:'Business',sort:b=>b.name},{key:'s',label:'Specialty'},{key:'c',label:'Capacity'},
+            {key:'q',label:'Rating',align:'right',sort:b=>b.rating},{key:'o',label:'Open work',align:'right'},{key:'x',label:'',align:'right'}],
+      items:list,
+      row: b => [
+        `<div class="cell-primary">${esc(b.name)}</div><div class="cell-meta">${idTag(b.id)}</div>`,
+        esc(b.specialty), esc(b.capacity), { cls:'right num', html:b.rating.toFixed(1) },
+        { cls:'right num', html:String(state.tasks.filter(t => t.assigneeType==='business' && t.assigneeId===b.id && t.status!=='QA Passed').length) },
+        { cls:'right', html:`<button class="btn" data-size="sm" data-variant="danger" onclick="removePartner('business','${b.id}')">Remove</button>` }
+      ],
+      empty:{ glyph:'building', title:'No business partners yet', body:'Add a vendor for company-led delivery.' } });
+  } else {
+    const list = state.deviceSponsors.filter(d => d.tenantId === me().id);
+    add = `<button class="btn" data-variant="primary" onclick="addPartnerForm('sponsor')">${icon('plus',14)} Add device sponsor</button>`;
+    body = dataTable({ id:'tn-ds',
+      cols:[{key:'n',label:'Sponsor',sort:s=>s.name},{key:'d',label:'Equipment offered'},
+            {key:'u',label:'Units',align:'right',sort:s=>s.devices.reduce((n,d)=>n+d.qty,0)},
+            {key:'p',label:'Open requests',align:'right'},{key:'x',label:'',align:'right'}],
+      items:list,
+      row: s => [
+        `<div class="cell-primary">${esc(s.name)}</div><div class="cell-meta">${esc(s.contact)}</div>`,
+        `<div class="row tight">${s.devices.map(d => `<span class="chip">${icon('camera',12)} ${esc(d.type)} ${pill(d.status)}</span>`).join('')}</div>`,
+        { cls:'right num', html:s.devices.reduce((n,d)=>n+d.qty,0).toLocaleString() },
+        { cls:'right num', html:String(state.deviceRequests.filter(r => r.sponsorId===s.id && r.status==='Pending').length) },
+        { cls:'right', html:`<button class="btn" data-size="sm" data-variant="danger" onclick="removePartner('sponsor','${s.id}')">Remove</button>` }
+      ],
+      empty:{ glyph:'camera', title:'No device sponsors yet', body:'Register a sponsor to supply cameras, sensors and tablets to your network.' } });
+  }
+
+  return viewHead({ title:'Network',
+    sub:'Aggregators, business partners and device sponsors you register and manage. SourceHub bills you, not them.',
+    actions: can('network.manage') ? add : '' })
+  + `<section class="panel">${tabs}<div class="panel-body flush" id="netpanel" role="tabpanel" aria-labelledby="tab_${tab}">${body}</div></section>`;
+};
+
+PAGES.tenant.qa = () => {
+  const all = state.tasks.filter(t => myContractIds().includes(t.contractId));
+  const pending = all.filter(t => t.status === 'Submitted');
+  const ready = myContracts().filter(deliverable);
+  return viewHead({ title:'QA and delivery', sub:'Tenant-level quality control — the last gate before the client sees anything.' })
+  + `<div class="grid g4">
+      ${metric({ label:'Awaiting review', value:pending.length, tone: pending.length ? 'attention' : null })}
+      ${metric({ label:'Cleared', value:all.filter(t=>t.status==='QA Passed').length, tone:'success' })}
+      ${metric({ label:'Sent back', value:all.filter(t=>t.status==='QA Failed').length, tone: all.some(t=>t.status==='QA Failed') ? 'critical' : null })}
+      ${metric({ label:'Contracts ready to deliver', value:ready.length })}
+    </div>`
+  + (ready.length ? panel({ title:'Ready for the client', sub:'All tasks have cleared QA',
+      body:`<div class="col">${ready.map(c => `<div class="row" style="padding:4px 0">
+        <div style="flex:1;min-width:200px"><div class="cell-primary">${esc(rfpOf(c.rfpId).title)}</div>
+          <div class="cell-meta">${idTag(c.id)} ${money(c.value)} · ${client(rfpOf(c.rfpId).clientId).name}</div></div>
+        <button class="btn" data-size="sm" data-variant="success" onclick="deliverContract('${c.id}')">Deliver to client</button></div>`).join('')}</div>` }) : '')
+  + panel({ title:'Submission queue', flush:true, body: dataTable({ id:'tn-qa',
+      cols:[{key:'t',label:'Task',sort:t=>t.title},{key:'s',label:'Submitted by'},{key:'a',label:'Assets',align:'right',sort:t=>t.assets},
+            {key:'st',label:'Status'},{key:'n',label:'Supplier note'},{key:'x',label:'',align:'right'}],
+      items: all,
+      row: t => {
+        const c = byId(state.contracts, t.contractId), r = c ? rfpOf(c.rfpId) : {};
+        return [
+          `<div class="row tight"><span class="chip">${icon(categoryIcon(r.category),12)}</span>
+            <div><div class="cell-primary">${esc(t.title)}</div><div class="cell-meta">${esc(r.title || '')}</div></div></div>`,
+          esc(supplier(t).name),
+          { cls:'right num', html:String(t.assets) },
+          pill(t.status),
+          `<span class="small muted">${esc(t.note || '—')}</span>`,
+          { cls:'right', html: t.status === 'Submitted'
+              ? `<button class="btn" data-size="sm" data-variant="primary" onclick="qaReview('${t.id}')">Review</button>`
+              : t.status === 'QA Failed' ? '<span class="small muted">with supplier</span>' : '' }
+        ];
+      },
+      empty:{ glyph:'check', title:'Nothing in the queue', body:'Submissions appear here as your network completes tasks.' } }) });
+};
+
+/* ================= AGGREGATOR AND BUSINESS (shared shape) ================== */
+function supplierOverview(kind){
+  const mine = myTasks();
+  const isAgg = kind === 'aggregator';
+  const crew = isAgg ? state.workers.filter(w => w.aggregatorId === me().id) : [];
+  return viewHead({ title:me().name,
+    sub: isAgg ? `${esc(me().region)} · ${me().crowdSize.toLocaleString()} registered crowd workers · ${esc(me().focus)}`
+               : `${esc(me().specialty)} · capacity ${esc(me().capacity)}`,
+    actions:`<button class="btn" onclick="requestEquipmentForm(null)">${icon('camera',14)} Request equipment</button>` })
+  + `<div class="grid g4">
+      ${metric({ label: isAgg ? 'Assigned tasks' : 'Engagements', value:mine.length, foot:`${mine.filter(t=>t.status==='Assigned').length} not started` })}
+      ${metric({ label:'In progress', value:mine.filter(t=>t.status==='In Progress').length })}
+      ${metric({ label:'Awaiting tenant QA', value:mine.filter(t=>t.status==='Submitted').length,
+        tone: mine.some(t=>t.status==='Submitted') ? 'attention' : null })}
+      ${isAgg ? metric({ label:'Crowd on shift', value:`${crew.filter(w=>w.status==='On Shift').length} / ${crew.length}`, foot:'on your roster' })
+              : metric({ label:'Accepted', value:mine.filter(t=>t.status==='QA Passed').length, tone:'success' })}
+    </div>`
+  + panel({ title: isAgg ? 'Current work' : 'Live engagements',
+      actions:`<button class="btn" data-size="sm" onclick="go('tasks')">All ${isAgg ? 'tasks' : 'engagements'} ${icon('arrow',13)}</button>`,
+      body: mine.length ? `<div class="col">${mine.map(t => {
+        const c = byId(state.contracts, t.contractId);
+        return `<div class="row" style="padding:6px 0;border-bottom:1px solid var(--line)">
+          <div style="flex:1;min-width:200px"><div class="cell-primary">${esc(t.title)}</div>
+            <div class="cell-meta">${c ? esc(tenant(c.tenantId).name) : '—'} · target ${esc(t.target)} · due ${fmtDate(t.due)}</div></div>
+          ${pill(t.status)}
+          ${t.status === 'Assigned' ? `<button class="btn" data-size="sm" onclick="startTask('${t.id}')">${isAgg ? 'Start' : 'Accept'}</button>` : ''}
+          ${['In Progress','QA Failed'].includes(t.status) ? `<button class="btn" data-size="sm" data-variant="primary" onclick="submitTaskForm('${t.id}')">Submit</button>` : ''}
+        </div>`; }).join('')}</div>`
+        : emptyState({ glyph:'list', title:'Nothing assigned yet',
+            body:'Delivery partners assign work here once they win a contract.' }) });
+}
+function supplierTasks(kind){
+  const mine = myTasks();
+  const isAgg = kind === 'aggregator';
+  return viewHead({ title: isAgg ? 'Tasks' : 'Engagements',
+    sub: isAgg ? 'Work handed to you by delivery partners, and the data you have collected.'
+               : 'Vendor-led delivery contracted through your delivery partner.',
+    actions:`<button class="btn" onclick="requestEquipmentForm(null)">${icon('camera',14)} Request equipment</button>` })
+  + panel({ flush:true, body: dataTable({ id:'sp-tasks',
+      cols:[{key:'t',label: isAgg ? 'Task' : 'Engagement',sort:t=>t.title},{key:'p',label:'Delivery partner'},
+            {key:'g',label:'Target'},{key:'e',label:'Equipment'},{key:'s',label:'Status'},
+            {key:'a',label:'Assets',align:'right',sort:t=>t.assets},{key:'d',label:'Due',align:'right',sort:t=>t.due},{key:'x',label:'',align:'right'}],
+      items: mine,
+      row: t => {
+        const c = byId(state.contracts, t.contractId), r = c ? rfpOf(c.rfpId) : {};
+        return [
+          `<div class="row tight"><span class="chip">${icon(categoryIcon(r.category),12)}</span>
+            <div><div class="cell-primary">${esc(t.title)}</div><div class="cell-meta">${idTag(t.id)} ${esc(r.title || '')}</div></div></div>`,
+          c ? esc(tenant(c.tenantId).name) : '—',
+          `<span class="small">${esc(t.target)}</span>`,
+          t.deviceIds.length ? t.deviceIds.map(d => `<span class="chip">${icon('camera',12)} ${esc(deviceName(d))}</span>`).join(' ')
+            : '<span class="muted small">—</span>',
+          pill(t.status),
+          { cls:'right num', html:String(t.assets) },
+          { cls:'right num', html:fmtDate(t.due) },
+          { cls:'right', html:`<div class="rowactions">
+              ${t.status === 'Assigned' ? `<button class="btn" data-size="sm" onclick="startTask('${t.id}')">${isAgg ? 'Start' : 'Accept'}</button>` : ''}
+              ${['In Progress','QA Failed'].includes(t.status) ? `<button class="btn" data-size="sm" data-variant="primary" onclick="submitTaskForm('${t.id}')">Submit data</button>` : ''}
+              <button class="btn" data-size="sm" onclick="requestEquipmentForm('${t.id}')">Equipment</button></div>` }
+        ];
+      },
+      empty:{ glyph:'list', title:'Nothing assigned yet', body:'Work appears here when a delivery partner assigns it to you.' } }) });
+}
+function equipmentPage(kind){
+  const reqs = state.deviceRequests.filter(r => r.requesterType === kind && r.requesterId === me().id);
+  return viewHead({ title:'Equipment', sub:'Cameras, sensors and tablets borrowed from your delivery partner’s device sponsors.',
+    actions:`<button class="btn" data-variant="primary" onclick="requestEquipmentForm(null)">${icon('plus',14)} New request</button>` })
+  + panel({ flush:true, body: dataTable({ id:'sp-eq',
+      cols:[{key:'d',label:'Equipment'},{key:'s',label:'Sponsor'},{key:'q',label:'Qty',align:'right',sort:r=>r.qty},
+            {key:'b',label:'Needed by',align:'right',sort:r=>r.neededBy},{key:'t',label:'For'},{key:'st',label:'Status'},{key:'n',label:'Note'}],
+      items: reqs,
+      row: r => [
+        `<div class="cell-primary">${esc(deviceName(r.deviceId))}</div><div class="cell-meta">${idTag(r.id)}</div>`,
+        esc(sponsor(r.sponsorId).name),
+        { cls:'right num', html:String(r.qty) },
+        { cls:'right num', html:fmtDate(r.neededBy) },
+        r.taskId ? `<span class="small">${esc((byId(state.tasks, r.taskId)||{title:'—'}).title)}</span>` : '<span class="muted small">—</span>',
+        pill(r.status),
+        `<span class="small muted">${esc(r.note || '—')}</span>`
+      ],
+      empty:{ glyph:'camera', title:'No equipment requests', body:'Request cameras, sensors or tablets when a task needs them.',
+        action:`<button class="btn" data-variant="primary" onclick="requestEquipmentForm(null)">New request</button>` } }) });
+}
+
+PAGES.aggregator.overview  = () => supplierOverview('aggregator');
+PAGES.aggregator.tasks     = () => supplierTasks('aggregator');
+PAGES.aggregator.equipment = () => equipmentPage('aggregator');
+PAGES.business.overview    = () => supplierOverview('business');
+PAGES.business.tasks       = () => supplierTasks('business');
+PAGES.business.equipment   = () => equipmentPage('business');
+
+PAGES.aggregator.roster = () => {
+  const crew = state.workers.filter(w => w.aggregatorId === me().id);
+  return viewHead({ title:'Crowd roster',
+    sub:`${crew.length} workers on your active books, drawn from a pool of ${me().crowdSize.toLocaleString()}.` })
+  + `<div class="grid g4">
+      ${metric({ label:'On shift', value:crew.filter(w=>w.status==='On Shift').length, tone:'success' })}
+      ${metric({ label:'On break', value:crew.filter(w=>w.status==='On Break').length })}
+      ${metric({ label:'Trained and certified', value:`${crew.filter(w=>w.trained).length} / ${crew.length}` })}
+      ${metric({ label:'Mean rating', value: crew.length ? (crew.reduce((s,w)=>s+w.rating,0)/crew.length).toFixed(1) : '—', unit:'/ 5' })}
+    </div>`
+  + panel({ flush:true, body: dataTable({ id:'ag-roster',
+      cols:[{key:'n',label:'Worker',sort:w=>w.name},{key:'s',label:'Skill',sort:w=>w.skill},{key:'st',label:'Status'},
+            {key:'t',label:'Live tasks',align:'right',sort:w=>w.tasks},{key:'r',label:'Rating',align:'right',sort:w=>w.rating},{key:'x',label:'',align:'right'}],
+      items: crew,
+      row: w => [
+        `<div class="cell-primary">${esc(w.name)}</div><div class="cell-meta">${idTag(w.id)}${w.trained ? ' · certified' : ' · training outstanding'}</div>`,
+        esc(w.skill), pill(w.status),
+        { cls:'right num', html:String(w.tasks) },
+        { cls:'right num', html:w.rating.toFixed(1) },
+        { cls:'right', html: w.status !== 'Offboarded'
+            ? `<button class="btn" data-size="sm" onclick="toggleWorker('${w.id}')">${w.status === 'On Shift' ? 'Set on break' : 'Set on shift'}</button>` : '' }
+      ],
+      empty:{ glyph:'users', title:'No workers on the roster' } }) });
+};
+
+PAGES.business.capacity = () => {
+  const mine = myTasks();
+  const openWork = mine.filter(t => t.status !== 'QA Passed').length;
+  return viewHead({ title:'Capacity and profile', sub:'What delivery partners see when they consider assigning you work.' })
+  + `<div class="grid g2">
+      ${panel({ title:'Company profile', body: dl([
+        ['Company', esc(me().name)], ['Delivery partner', esc(tenant(me().tenantId).name)],
+        ['Specialty', esc(me().specialty)], ['Stated capacity', esc(me().capacity)],
+        ['Rating', star(me().rating)] ]) })}
+      ${panel({ title:'Utilisation', sub:'Live engagement load', body:
+        `<div class="col" style="gap:8px">
+          <span class="num" style="font-size:30px">${openWork}<span class="unit muted" style="font-size:14px"> of ${mine.length} open</span></span>
+          ${meter(mine.length ? Math.round(openWork/mine.length*100) : 0, openWork ? 'attention' : 'success')}
+        </div><div class="divide"></div>
+        <div class="row tight">${mine.length ? mine.map(t => `<span class="chip">${esc(t.title)} ${pill(t.status)}</span>`).join('')
+          : '<span class="small muted">No engagements yet.</span>'}</div>` })}
+    </div>`;
+};
+
+/* ========================= DEVICE SPONSOR ================================= */
+PAGES.sponsor.overview = () => {
+  const devs = me().devices || [];
+  const reqs = state.deviceRequests.filter(r => r.sponsorId === me().id);
+  const pending = reqs.filter(r => r.status === 'Pending');
+  return viewHead({ title:me().name, sub:`Equipment sponsor for ${esc(tenant(me().tenantId).name)} · ${esc(me().contact)}` })
+  + `<div class="grid g4">
+      ${metric({ label:'Equipment types', value:devs.length })}
+      ${metric({ label:'Total units', value:devs.reduce((s,d)=>s+d.qty,0).toLocaleString() })}
+      ${metric({ label:'Awaiting your decision', value:pending.length, tone: pending.length ? 'attention' : null })}
+      ${metric({ label:'Units deployed', value:devs.filter(d=>d.status==='In Use').reduce((s,d)=>s+d.qty,0).toLocaleString(), foot:'in the field now' })}
+    </div>`
+  + `<div class="grid g2">
+      ${panel({ title:'Inventory', actions:`<button class="btn" data-size="sm" onclick="go('inventory')">Manage</button>`,
+        body: devs.length ? `<div class="col">${devs.map(d => `<div class="row" style="padding:6px 0;border-bottom:1px solid var(--line)">
+            <span class="chip">${icon('camera',12)}</span>
+            <div style="flex:1"><div class="cell-primary">${esc(d.type)}</div>
+              <div class="cell-meta"><span class="num">${d.qty}</span> units · calibrated ${fmtDate(d.calibrated)}</div></div>
+            ${pill(d.status)}</div>`).join('')}</div>`
+          : emptyState({ glyph:'box', title:'No equipment listed' }) })}
+      ${panel({ title:'Requests needing action', actions:`<button class="btn" data-size="sm" onclick="go('requests')">All requests</button>`,
+        body: pending.length ? `<div class="col">${pending.map(r => `<div class="col" style="gap:8px;padding:8px 0;border-bottom:1px solid var(--line)">
+            <div class="row"><div style="flex:1;min-width:170px">
+              <div class="cell-primary">${esc(deviceName(r.deviceId))} × ${r.qty}</div>
+              <div class="cell-meta">${esc(r.requesterType === 'aggregator' ? agg(r.requesterId).name : biz(r.requesterId).name)} · needed by ${fmtDate(r.neededBy)}</div></div>
+              <button class="btn" data-size="sm" data-variant="success" onclick="decideRequest('${r.id}','Approved')">Approve</button>
+              <button class="btn" data-size="sm" data-variant="danger" onclick="decideRequest('${r.id}','Rejected')">Reject</button></div>
+            <span class="small muted">${esc(r.note)}</span></div>`).join('')}</div>`
+          : emptyState({ glyph:'check', title:'No requests waiting', body:'Requests from the network appear here for approval.' }) })}
+    </div>`;
+};
+
+PAGES.sponsor.inventory = () => {
+  const devs = me().devices || [];
+  return viewHead({ title:'Inventory', sub:'Equipment you make available to your delivery partner’s network.',
+    actions: can('equipment.manage') ? `<button class="btn" data-variant="primary" onclick="addDeviceForm()">${icon('plus',14)} Add equipment type</button>` : '' })
+  + panel({ flush:true, body: dataTable({ id:'ds-inv',
+      cols:[{key:'t',label:'Equipment',sort:d=>d.type},{key:'q',label:'Units',align:'right',sort:d=>d.qty},
+            {key:'s',label:'Status'},{key:'c',label:'Last calibrated',align:'right',sort:d=>d.calibrated},
+            {key:'o',label:'On loan',align:'right'},{key:'x',label:'',align:'right'}],
+      items: devs,
+      row: d => [
+        `<div class="row tight"><span class="chip">${icon('camera',12)}</span>
+          <div><div class="cell-primary">${esc(d.type)}</div><div class="cell-meta">${idTag(d.id)}</div></div></div>`,
+        { cls:'right num', html:String(d.qty) },
+        pill(d.status),
+        { cls:'right num', html:fmtDate(d.calibrated) },
+        { cls:'right num', html:String(state.deviceRequests.filter(r => r.deviceId===d.id && r.status==='Approved').reduce((s,r)=>s+r.qty,0)) },
+        { cls:'right', html:`<div class="rowactions">
+            <button class="btn" data-size="sm" onclick="cycleDevice('${d.id}')">Change status</button>
+            <button class="btn" data-size="sm" data-variant="danger" onclick="removeDevice('${d.id}')">Remove</button></div>` }
+      ],
+      empty:{ glyph:'box', title:'No equipment listed yet', body:'Add a type so the network can request it.',
+        action:`<button class="btn" data-variant="primary" onclick="addDeviceForm()">Add equipment type</button>` } }) });
+};
+
+PAGES.sponsor.requests = () => {
+  const reqs = state.deviceRequests.filter(r => r.sponsorId === me().id);
+  return viewHead({ title:'Requests', sub:'Equipment requests from aggregators and business partners working your delivery partner’s contracts.' })
+  + panel({ flush:true, body: dataTable({ id:'ds-req',
+      cols:[{key:'d',label:'Equipment'},{key:'w',label:'Requested by',sort:r=>r.requesterId},
+            {key:'q',label:'Qty',align:'right',sort:r=>r.qty},{key:'b',label:'Needed by',align:'right',sort:r=>r.neededBy},
+            {key:'t',label:'For task'},{key:'s',label:'Status'},{key:'x',label:'',align:'right'}],
+      items: reqs,
+      row: r => {
+        const who = r.requesterType === 'aggregator' ? agg(r.requesterId) : biz(r.requesterId);
+        const task = r.taskId ? byId(state.tasks, r.taskId) : null;
+        return [
+          `<div class="cell-primary">${esc(deviceName(r.deviceId))}</div><div class="cell-meta">${idTag(r.id)}</div>`,
+          `<div class="cell-primary">${esc(who.name)}</div><div class="cell-meta">${r.requesterType === 'aggregator' ? 'Aggregator' : 'Business partner'}</div>`,
+          { cls:'right num', html:String(r.qty) },
+          { cls:'right num', html:fmtDate(r.neededBy) },
+          `<span class="small muted">${esc(task ? task.title : '—')}</span>`,
+          pill(r.status),
+          { cls:'right', html:`<div class="rowactions">${
+            r.status === 'Pending'
+              ? `<button class="btn" data-size="sm" data-variant="success" onclick="decideRequest('${r.id}','Approved')">Approve</button>
+                 <button class="btn" data-size="sm" data-variant="danger" onclick="decideRequest('${r.id}','Rejected')">Reject</button>`
+              : r.status === 'Approved'
+              ? `<button class="btn" data-size="sm" onclick="decideRequest('${r.id}','Returned')">Mark returned</button>` : ''}</div>` }
+        ];
+      },
+      empty:{ glyph:'mail', title:'No requests received', body:'The network has not asked for equipment yet.' } }) });
+};
+
+/* ========================== PLATFORM ADMIN ================================ */
+PAGES.admin.overview = () => {
+  const netCount = state.aggregators.length + state.businesses.length + state.deviceSponsors.length;
+  return viewHead({ title:'Accounts',
+    sub:'SourceHub registers and bills clients and delivery partners. Aggregators, business partners and device sponsors belong to a partner’s own network and are never billed by the platform.' })
+  + `<div class="grid g4">
+      ${metric({ label:'Clients', value:state.clients.length, foot:`${state.clients.filter(c=>c.billing==='Overdue').length} overdue`,
+        tone: state.clients.some(c=>c.billing==='Overdue') ? 'critical' : null })}
+      ${metric({ label:'Delivery partners', value:state.tenants.length })}
+      ${metric({ label:'Sub-network entities', value:netCount, foot:'partner-managed, not billed' })}
+      ${metric({ label:'Gross contract value', value:money(state.contracts.reduce((s,c)=>s+c.value,0)) })}
+    </div>`
+  + panel({ title:'Clients', flush:true, body: dataTable({ id:'ad-cl',
+      cols:[{key:'n',label:'Client',sort:c=>c.name},{key:'c',label:'Country'},{key:'p',label:'Plan'},
+            {key:'r',label:'Residency'},{key:'b',label:'Billing'},{key:'q',label:'Rating',align:'right',sort:c=>c.rating},
+            {key:'x',label:'Requests',align:'right'},{key:'v',label:'Awarded',align:'right'}],
+      items: state.clients,
+      row: c => [
+        `<div class="cell-primary">${esc(c.name)}</div><div class="cell-meta">${idTag(c.id)} ${esc(c.industry)}</div>`,
+        esc(c.country), `<span class="chip">${esc(c.plan)}</span>`, `<span class="mono small">${esc(c.residency)}</span>`,
+        pill(c.billing), { cls:'right num', html:c.rating.toFixed(1) },
+        { cls:'right num', html:String(state.rfps.filter(r=>r.clientId===c.id).length) },
+        { cls:'right num', html:money(state.contracts.filter(x=>rfpOf(x.rfpId).clientId===c.id).reduce((s,x)=>s+x.value,0)) }
+      ], empty:{ title:'No clients' } }) })
+  + panel({ title:'Delivery partners', flush:true, body: dataTable({ id:'ad-tn',
+      cols:[{key:'n',label:'Partner',sort:t=>t.name},{key:'h',label:'HQ'},{key:'p',label:'Plan'},{key:'b',label:'Billing'},
+            {key:'o',label:'On time',align:'right',sort:t=>t.onTime},{key:'q',label:'QA pass',align:'right',sort:t=>t.qaPass},
+            {key:'s',label:'Network',align:'right'},{key:'v',label:'Booked',align:'right'}],
+      items: state.tenants,
+      row: t => [
+        `<div class="cell-primary">${esc(t.name)}</div><div class="cell-meta">${idTag(t.id)} ${esc(t.capabilities)}</div>`,
+        esc(t.hq), `<span class="chip">${esc(t.plan)}</span>`, pill(t.billing),
+        { cls:'right num', html:`${t.onTime}%` }, { cls:'right num', html:`${t.qaPass}%` },
+        { cls:'right num', html:String(state.aggregators.filter(a=>a.tenantId===t.id).length
+            + state.businesses.filter(b=>b.tenantId===t.id).length + state.deviceSponsors.filter(d=>d.tenantId===t.id).length) },
+        { cls:'right num', html:money(state.contracts.filter(c=>c.tenantId===t.id).reduce((s,c)=>s+c.value,0)) }
+      ], empty:{ title:'No partners' } }) });
+};
+
+PAGES.admin.billing = () => viewHead({ title:'Billing', sub:'Invoices raised against registered accounts only.' })
+  + panel({ flush:true, body: dataTable({ id:'ad-inv',
+      cols:[{key:'i',label:'Invoice'},{key:'p',label:'Account'},{key:'k',label:'For'},{key:'c',label:'Contract'},
+            {key:'a',label:'Amount',align:'right',sort:i=>i.amount},{key:'s',label:'Status'},{key:'d',label:'Issued',align:'right',sort:i=>i.issued}],
+      items: state.invoices,
+      row: i => [ idTag(i.id),
+        esc((byId(state.clients,i.party) || byId(state.tenants,i.party) || { name:i.party }).name),
+        esc(i.kind), `<span class="mono small">${esc(i.contractId)}</span>`,
+        { cls:'right num', html:money(i.amount) }, pill(i.status), { cls:'right num', html:fmtDate(i.issued) } ],
+      empty:{ glyph:'card', title:'No invoices' } }) });
+
+PAGES.admin.activity = () => viewHead({ title:'Activity', sub:'The append-only audit trail across every account.' })
+  + panel({ body: timeline(state.activity.slice(0,40)) });
+
+/* ---------------------------------------------------------------------------
+   §7b DESIGN SYSTEM — the living spec, reachable from every role
+--------------------------------------------------------------------------- */
+PAGES.shared.designsystem = () => {
+  const swatch = (name, v, note) => `<div class="swatch">
+    <div class="chipc" style="background:var(${v})"></div>
+    <div class="meta"><b>${name}</b><code>${v}</code><div class="muted" style="margin-top:2px">${note}</div></div></div>`;
+  const spec = (demo, title, note) => `<div class="specrow"><div class="demo">${demo}</div>
+    <div class="note"><b>${title}</b>${note}</div></div>`;
+
+  return viewHead({ title:'Design system',
+    sub:'The tokens and components every SourceHub screen is assembled from. This page is generated from the same code the product uses, so it cannot drift from the implementation.' })
+  + panel({ title:'Colour · surfaces and ink', sub:'Neutrals carry a slight green bias so they read as chosen rather than default',
+      body:`<div class="swatchgrid">
+        ${swatch('Ground','--ground','Page background')}
+        ${swatch('Surface','--surface','Panels, tables, dialogs')}
+        ${swatch('Surface 2','--surface-2','Table headers, insets')}
+        ${swatch('Line','--line','Hairline borders')}
+        ${swatch('Ink','--ink','Primary text')}
+        ${swatch('Ink 3','--ink-3','Secondary text')}
+        ${swatch('Accent','--accent','Primary action, active nav')}
+        ${swatch('Accent tint','--accent-tint','Selected states')}
+      </div>` })
+  + panel({ title:'Colour · status taxonomy',
+      sub:'Five tones, kept separate from the accent so state never competes with navigation',
+      body:`<div class="swatchgrid">
+        ${swatch('Neutral','--t-neutral','Inert — nothing is happening')}
+        ${swatch('Active','--t-active','Progressing — no one is blocked')}
+        ${swatch('Attention','--t-attention','Waiting on a human decision')}
+        ${swatch('Success','--t-success','Terminal, good')}
+        ${swatch('Critical','--t-critical','Terminal bad, or a breach')}
+      </div>
+      <div class="divide"></div>
+      <div class="row tight">${Object.keys(STATUS).map(s => pill(s)).join('')}</div>
+      <p class="small muted">Every status string in the product maps to exactly one tone and one owner. The owner drives the
+      “waiting on” column and each role’s personal queue — which is why a status can never be invented at the call site.</p>` })
+  + panel({ title:'Typography', sub:'IBM Plex Sans for interface, IBM Plex Mono for identifiers, metrics and labels', body:
+      `<div class="col" style="gap:14px">
+        <div><h1 style="margin-bottom:2px">Display · 22px / 600</h1><span class="small muted">Page titles</span></div>
+        <div><h2 style="margin-bottom:2px">Section · 17px / 600</h2><span class="small muted">Panel headers</span></div>
+        <div><div style="font-size:14px">Body · 14px / 400 — the default for prose, table cells and form values.</div></div>
+        <div><span class="num" style="font-size:25px">1,284</span> <span class="small muted">Metric · IBM Plex Mono 25px, tabular numerals so columns align</span></div>
+        <div><span class="eyebrow">Eyebrow · mono 10.5px, 0.09em tracking</span></div>
+        <div class="row tight">${idTag('RFP-1001')}${idTag('CTR-01')}${idTag('TSK-04')}<span class="small muted">Identifiers are always mono, always chip-framed</span></div>
+      </div>` })
+  + panel({ title:'Components', flush:false, body:
+      spec(`<button class="btn" data-variant="primary">Primary</button>
+            <button class="btn">Secondary</button>
+            <button class="btn" data-variant="success">Confirm</button>
+            <button class="btn" data-variant="danger">Destructive</button>
+            <button class="btn" data-variant="quiet">Quiet</button>
+            <button class="btn" disabled>Disabled</button>`,
+        'Buttons', 'One primary per view. Destructive actions never take the primary style; confirmation lives in a dialog.')
+    + spec(`${pill('Draft')}${pill('In Progress')}${pill('Proposals Received')}${pill('QA Passed')}${pill('QA Failed')}`,
+        'Status pills', 'Colour plus a dot, so state survives greyscale printing and colour-vision deficiency.')
+    + spec(`<div style="flex:1;max-width:260px">${meter(64)}</div><span class="num small">64%</span>`,
+        'Meter', 'Contract completion, derived from tasks that cleared QA. Never a decorative bar.')
+    + spec(`<span class="chip">${icon('camera',12)} Helmet camera, 4K</span><span class="chip">Aggregator</span>${idTag('EQR-01')}`,
+        'Chips and identifiers', 'Chips carry a fact; identifiers are monospaced and copyable.')
+    + spec(`<div style="flex:1"><div class="skeleton" style="width:60%"></div>
+            <div class="skeleton" style="width:85%;margin-top:8px"></div></div>`,
+        'Skeleton', 'Shown while the first payload loads. Matches the shape of the content that replaces it.')
+    + spec(`<div class="callout" style="flex:1">${icon('check',15)}<div><b class="ct">Informational</b>Explains a rule of the marketplace.</div></div>`,
+        'Callout', 'Three tones only: informational, attention, critical. Never used for decoration.') })
+  + panel({ title:'Lifecycle rail', sub:'The product’s signature component — one shared vocabulary for clients and partners',
+      body: stageRail('In Progress', { Accepted:'2026-08-04' }) })
+  + `<div class="grid g2">
+      ${panel({ title:'Accessibility commitments', body:`<div class="col" style="gap:9px">
+        ${[['Contrast','Body text meets WCAG 2.2 AA (4.5:1); large text and UI boundaries meet 3:1, in both themes.'],
+           ['Keyboard','Every action is reachable by Tab. Dialogs trap focus and restore it on close; Escape always exits.'],
+           ['Focus','A 2px accent ring on :focus-visible, never removed — mouse users do not see it, keyboard users always do.'],
+           ['Semantics','Real landmarks, one h1 per view, tabs and dialogs carry ARIA roles, toasts announce via a live region.'],
+           ['Motion','All transitions are 120–180ms and collapse to zero under prefers-reduced-motion.'],
+           ['Colour','No state is signalled by hue alone — every pill pairs colour with a label and a dot.']]
+          .map(([k,v]) => `<div><b style="font-size:12.5px">${k}</b><div class="small muted">${v}</div></div>`).join('')}
+      </div>` })}
+      ${panel({ title:'Layout and spacing', body: dl([
+        ['Spacing scale','<span class="num">4 · 8 · 12 · 16 · 24 · 32 · 48</span> — no arbitrary values'],
+        ['Radii','<span class="num">4px</span> controls · <span class="num">6px</span> panels · pill for status only'],
+        ['Rail','264px → 64px icon rail below 1180px → off-canvas drawer below 840px'],
+        ['Content','Capped at 1440px; tables scroll inside their own container so the page never scrolls sideways'],
+        ['Elevation','Flat surfaces with hairline borders. Shadow is reserved for things that genuinely float'],
+        ['Density','Table rows at 11px vertical padding — an operations console, read in bulk']
+      ]) })}
+    </div>`;
+};
+
+/* ---------------------------------------------------------------------------
+   §8 ACTIONS — every mutation. Each one writes to the audit trail, notifies
+   the party whose turn it now is, gives feedback, and re-renders.
+--------------------------------------------------------------------------- */
+
+/* --- client: publish and create ------------------------------------------ */
+function publishRequest(id){
+  const r = rfpOf(id);
+  r.status = 'Published';
+  log(`Published ${r.id}, ${r.title}`, [r.id, r.clientId]);
+  state.tenants.forEach(t => notify('tenant', t.id, `${r.title} is open for proposals.`, 'opportunities'));
+  toast('Request published', `${state.tenants.length} delivery partners can now bid on ${r.id}.`, 'success');
+  render();
+}
+function saveRequest(publish){
+  captureStep();
+  if (!draft.title) { draft.step = 1; render(); return invalid('d_title','Give the request a title so partners can identify it.'); }
+  const r = {
+    id: nid('RFP','rfp'), clientId: me().id, title: draft.title, category: draft.category,
+    spec:{ format: draft.format || 'To be agreed', quantity: draft.quantity || 'To be agreed',
+           quality: draft.quality || 'Standard acceptance applies' },
+    people:{ headcount: Number(draft.headcount) || 0, training: draft.training || 'None specified',
+             experience: draft.experience || 'None specified', certification: draft.certification || 'None' },
+    geography: draft.geography || 'Not specified',
+    budgetMin: Number(draft.budgetMin) || 0, budgetMax: Number(draft.budgetMax) || 0,
+    timeline:{ start: draft.start || TODAY, delivery: draft.delivery || TODAY },
+    acceptance: draft.acceptance || 'Client review on delivery',
+    compliance: draft.compliance || 'None specified',
+    status: publish ? 'Published' : 'Draft', createdAt: TODAY
+  };
+  state.rfps.unshift(r);
+  log(`${publish ? 'Published' : 'Drafted'} ${r.id}, ${r.title}`, [r.id, r.clientId]);
+  if (publish) state.tenants.forEach(t => notify('tenant', t.id, `${r.title} is open for proposals.`, 'opportunities'));
+  draft = blankDraft();
+  toast(publish ? 'Request published' : 'Saved as draft',
+    publish ? 'Delivery partners can start bidding now.' : 'Publish it when you are ready for proposals.', 'success');
+  go('requestDetail', { id:r.id });
+}
+
+/* --- tenant: briefs and proposals ---------------------------------------- */
+function viewBrief(id){
+  const r = rfpOf(id);
+  const already = state.proposals.some(p => p.rfpId === r.id && p.tenantId === me().id);
+  openDialog({ title:r.title, sub:`${r.id} · ${client(r.clientId).name} · ${r.category}`, size:'wide',
+    body:`<div class="grid g2">
+      ${dl([ ['Format', esc(r.spec.format)], ['Quantity', esc(r.spec.quantity)], ['Quality bar', esc(r.spec.quality)],
+             ['Acceptance', esc(r.acceptance)], ['Geography', esc(r.geography)], ['Compliance', esc(r.compliance)] ])}
+      ${dl([ ['Headcount', `<span class="num">${r.people.headcount}</span>`], ['Training', esc(r.people.training)],
+             ['Experience', esc(r.people.experience)], ['Certification', esc(r.people.certification)],
+             ['Budget', `<span class="num">${money(r.budgetMin)} – ${money(r.budgetMax)}</span>`],
+             ['Window', `<span class="num">${fmtDate(r.timeline.start)} → ${fmtDate(r.timeline.delivery)}</span>`] ])}
+    </div>`,
+    foot:`<button class="btn" onclick="closeDialog()">Close</button>
+      ${['Published','Proposals Received'].includes(r.status) && !already
+        ? `<button class="btn" data-variant="primary" onclick="proposalForm('${r.id}')">Submit a proposal</button>` : ''}` });
+}
+function proposalForm(rfpId){
+  const r = rfpOf(rfpId);
+  openDialog({ title:'Submit a proposal', sub:`${r.title} · client budget ${money(r.budgetMin)} – ${money(r.budgetMax)}`,
+    body:`<div class="formgrid">
+        ${field({ id:'p_price', label:'Your price (USD)', type:'number', required:true, placeholder:String(r.budgetMax || 50000) })}
+        ${field({ id:'p_days', label:'Delivery timeline (days)', type:'number', required:true, placeholder:'60' })}
+        ${field({ id:'p_method', label:'Methodology', type:'textarea', required:true, span:true,
+          placeholder:'Which aggregators, business partners and equipment you will use, and how QA works.',
+          hint:'Clients compare on method as much as price — name the parts of your network you will deploy.' })}
+        ${field({ id:'p_notes', label:'Notes to the client', type:'textarea', span:true,
+          placeholder:'Assumptions, dependencies, earliest start date' })}
+      </div>`,
+    foot:`<button class="btn" onclick="closeDialog()">Cancel</button>
+      <button class="btn" data-variant="primary" onclick="submitProposal('${rfpId}')">${icon('send',13)} Submit proposal</button>` });
+}
+function submitProposal(rfpId){
+  clearInvalid(['p_price','p_days','p_method']);
+  const price = Number(val('p_price')), days = Number(val('p_days')), method = val('p_method');
+  const r = rfpOf(rfpId);
+  if (!price) return invalid('p_price','Enter the price you are bidding.');
+  if (!days)  return invalid('p_days','Enter how many days delivery will take.');
+  if (!method) return invalid('p_method','Describe how you will deliver this — clients reject bids without a method.');
+  const p = { id:nid('PRO','pro'), rfpId, tenantId:me().id, price, days, methodology:method,
+              notes:val('p_notes'), status:'Submitted', submittedAt:TODAY };
+  state.proposals.push(p);
+  if (r.status === 'Published') r.status = 'Proposals Received';
+  log(`Submitted proposal ${p.id} against ${r.id}`, [r.id, p.id, me().id, r.clientId]);
+  notify('client', r.clientId, `${me().name} submitted a proposal on ${r.title}.`, 'requestDetail', { id:r.id });
+  closeDialog();
+  toast('Proposal submitted', `${client(r.clientId).name} has been notified.`, 'success');
+  go('proposals');
+}
+function viewProposal(id){
+  const p = byId(state.proposals, id), r = rfpOf(p.rfpId), t = tenant(p.tenantId);
+  openDialog({ title:`Proposal ${p.id}`, sub:r.title,
+    body: dl([ ['Delivery partner', `${esc(t.name)} <span class="small muted">${esc(t.hq || '')}</span>`],
+      ['Price', `<span class="num">${money(p.price)}</span>`],
+      ['Timeline', `<span class="num">${p.days}</span> days`],
+      ['Track record', t.qaPass ? `<span class="num">${t.qaPass}%</span> QA pass · <span class="num">${t.onTime}%</span> on time` : '—'],
+      ['Status', pill(p.status)], ['Submitted', fmtDate(p.submittedAt)],
+      ['Methodology', esc(p.methodology)], ['Notes', esc(p.notes || '—')] ]),
+    foot:`<button class="btn" onclick="closeDialog()">Close</button>
+      ${state.session.role === 'client' && p.status === 'Submitted' && !state.contracts.some(c => c.rfpId === p.rfpId)
+        ? `<button class="btn" data-variant="primary" onclick="acceptProposal('${p.id}')">Award this proposal</button>` : ''}` });
+}
+
+/* --- client: award ------------------------------------------------------- */
+function acceptProposal(propId){
+  const p = byId(state.proposals, propId), r = rfpOf(p.rfpId);
+  const others = state.proposals.filter(x => x.rfpId === p.rfpId && x.id !== p.id && x.status === 'Submitted');
+  openDialog({ title:'Award this contract', sub:`${tenant(p.tenantId).name} · ${money(p.price)} · ${p.days} days`,
+    body: callout('attention','This closes the request to other bidders',
+      `${others.length} other ${others.length === 1 ? 'proposal is' : 'proposals are'} still open and will be declined automatically.`)
+      + dl([ ['Request', esc(r.title)], ['Contract value', `<span class="num">${money(p.price)}</span>`],
+             ['Delivery window', `<span class="num">${p.days}</span> days from award`],
+             ['First invoice', `<span class="num">${money(Math.round(p.price*0.5))}</span> — milestone 1 of 2`] ]),
+    foot:`<button class="btn" onclick="closeDialog()">Cancel</button>
+      <button class="btn" data-variant="primary" onclick="confirmAward('${propId}')">Award and open the contract</button>` });
+}
+function confirmAward(propId){
+  const p = byId(state.proposals, propId), r = rfpOf(p.rfpId);
+  p.status = 'Accepted';
+  state.proposals.filter(x => x.rfpId === p.rfpId && x.id !== p.id && x.status === 'Submitted')
+    .forEach(x => { x.status = 'Rejected'; notify('tenant', x.tenantId, `${r.title} was awarded to another partner.`, 'proposals'); });
+  const c = { id:nid('CTR','ctr'), rfpId:p.rfpId, tenantId:p.tenantId, proposalId:p.id,
+              value:p.price, status:'Active', startedAt:TODAY, deliveredAt:null, completedAt:null };
+  state.contracts.push(c);
+  r.status = 'Accepted';
+  state.invoices.push({ id:nid('INV','inv'), party:r.clientId, contractId:c.id,
+    amount:Math.round(p.price*0.5), status:'Pending', kind:'Milestone 1 of 2', issued:TODAY });
+  log(`Awarded ${c.id} to ${tenant(p.tenantId).name} for ${money(p.price)}`, [c.id, r.id, r.clientId, p.tenantId]);
+  notify('tenant', p.tenantId, `You won ${r.title}. Break the contract into tasks to begin.`, 'contracts');
+  closeDialog();
+  toast('Contract awarded', `${c.id} is open with ${tenant(p.tenantId).name}.`, 'success');
+  go('deliveryDetail', { id:c.id });
+}
+
+/* --- tenant: assign work ------------------------------------------------- */
+function assignTaskForm(contractId){
+  const c = byId(state.contracts, contractId);
+  const aggs = state.aggregators.filter(a => a.tenantId === c.tenantId);
+  const bzs  = state.businesses.filter(b => b.tenantId === c.tenantId);
+  const devs = state.deviceSponsors.filter(s => s.tenantId === c.tenantId)
+    .flatMap(s => s.devices.map(d => ({ ...d, sponsorName:s.name })));
+  const r = rfpOf(c.rfpId);
+
+  openDialog({ title:'Assign a task', sub:`${r.title} · ${c.id}`,
+    body:`<div class="formgrid">
+        ${field({ id:'t_title', label:'Task title', required:true, span:true, placeholder:'Kraków and Warsaw routes' })}
+        ${field({ id:'t_target', label:'Target volume', placeholder:'300 hours · 5,000 images' })}
+        ${field({ id:'t_due', label:'Due date', type:'date', value:r.timeline.delivery })}
+      </div>
+      <div class="field">
+        <label for="t_assignee">Assign to<span class="req" aria-hidden="true">*</span></label>
+        <select class="select" id="t_assignee">
+          ${aggs.length ? `<optgroup label="Aggregators">${aggs.map(a =>
+            `<option value="aggregator:${a.id}">${esc(a.name)} — ${a.crowdSize.toLocaleString()} crowd workers</option>`).join('')}</optgroup>` : ''}
+          ${bzs.length ? `<optgroup label="Business partners">${bzs.map(b =>
+            `<option value="business:${b.id}">${esc(b.name)} — ${esc(b.specialty)}</option>`).join('')}</optgroup>` : ''}
+        </select>
+        <span class="hint">Only partners in your own network appear here.</span>
+      </div>
+      <div class="field">
+        <label>Attach equipment</label>
+        <div class="col" style="gap:6px">${devs.length ? devs.map(d =>
+          `<label class="checkline"><input type="checkbox" class="t_dev" value="${d.id}">
+            <span>${esc(d.type)}<span class="cl-sub">${esc(d.sponsorName)} · ${d.qty} units · ${d.status}</span></span></label>`).join('')
+          : '<span class="small muted">No device sponsors registered in your network yet.</span>'}</div>
+        <span class="hint">Equipment is drawn from your registered device sponsors and released on their approval.</span>
+      </div>`,
+    foot:`<button class="btn" onclick="closeDialog()">Cancel</button>
+      <button class="btn" data-variant="primary" onclick="createTask('${contractId}')">Assign task</button>` });
+}
+function createTask(contractId){
+  clearInvalid(['t_title']);
+  const title = val('t_title');
+  if (!title) return invalid('t_title','Name the task so the supplier knows what to deliver.');
+  const sel = document.getElementById('t_assignee');
+  if (!sel || !sel.value) { toast('No supplier available', 'Add an aggregator or business partner to your network first.', 'critical'); return; }
+  const [type, id] = sel.value.split(':');
+  const deviceIds = Array.from(document.querySelectorAll('.t_dev:checked')).map(x => x.value);
+  const c = byId(state.contracts, contractId), r = rfpOf(c.rfpId);
+  const t = { id:nid('TSK','tsk'), contractId, title, target: val('t_target') || 'To be agreed',
+              assigneeType:type, assigneeId:id, deviceIds, status:'Assigned', assets:0,
+              due: val('t_due') || r.timeline.delivery, note:'' };
+  state.tasks.push(t);
+  if (r.status === 'Accepted') r.status = 'In Progress';
+  log(`Assigned ${t.id} to ${supplier(t).name}`, [t.id, c.id, r.id, me().id, id]);
+  notify(type, id, `${t.title} was assigned to you by ${me().name}.`, 'tasks');
+  closeDialog();
+  toast('Task assigned', `${supplier(t).name} has been notified.`, 'success');
+  render();
+}
+
+/* --- supplier: execute --------------------------------------------------- */
+function startTask(taskId){
+  const t = byId(state.tasks, taskId);
+  t.status = 'In Progress';
+  log(`Started ${t.id}, ${t.title}`, [t.id, t.contractId, me().id]);
+  toast('Task started', `${t.title} is now in progress.`, 'success');
+  render();
+}
+function submitTaskForm(taskId){
+  const t = byId(state.tasks, taskId);
+  const c = byId(state.contracts, t.contractId), r = c ? rfpOf(c.rfpId) : { category:'Image' };
+  openDialog({ title:'Submit collected data', sub:`${t.title} · target ${t.target}`,
+    body: callout(null,'Uploads are simulated in this reference build',
+      'In production these tiles are the real capture manifest, checksummed on the client and virus-scanned on ingest.')
+      + assetGrid(Math.max(t.assets, 8), categoryIcon(r.category))
+      + `<div class="formgrid">
+        ${field({ id:'s_count', label:'Assets collected', type:'number', value:String(t.assets || 25), required:true })}
+        ${field({ id:'s_window', label:'Collection window', placeholder:'12–26 September' })}
+        ${field({ id:'s_note', label:'Note for tenant QA', type:'textarea', span:true, value:t.note,
+          placeholder:'Coverage achieved, exceptions, anything QA should know' })}
+      </div>`,
+    foot:`<button class="btn" onclick="closeDialog()">Cancel</button>
+      <button class="btn" data-variant="primary" onclick="submitTask('${taskId}')">${icon('send',13)} Submit for QA</button>` });
+}
+function submitTask(taskId){
+  clearInvalid(['s_count']);
+  const n = Number(val('s_count'));
+  if (!n) return invalid('s_count','Enter how many assets you are submitting.');
+  const t = byId(state.tasks, taskId);
+  t.assets = n; t.note = val('s_note'); t.status = 'Submitted';
+  const c = byId(state.contracts, t.contractId);
+  if (c && c.status === 'Active') c.status = 'In QA';
+  log(`Submitted ${n} assets on ${t.id} for tenant QA`, [t.id, t.contractId, me().id, c ? c.tenantId : null].filter(Boolean));
+  if (c) notify('tenant', c.tenantId, `${me().name} submitted ${t.title} for QA.`, 'qa');
+  closeDialog();
+  toast('Submitted for QA', 'Your delivery partner reviews it before the client sees anything.', 'success');
+  render();
+}
+
+/* --- tenant: QA and delivery --------------------------------------------- */
+function qaReview(taskId){
+  const t = byId(state.tasks, taskId);
+  const c = byId(state.contracts, t.contractId), r = c ? rfpOf(c.rfpId) : {};
+  openDialog({ title:'QA review', sub:`${t.title} · submitted by ${supplier(t).name}`, size:'wide',
+    body: assetGrid(t.assets, categoryIcon(r.category))
+      + `<div class="grid g2">
+        ${dl([ ['Assets submitted', `<span class="num">${t.assets}</span>`], ['Target', esc(t.target)],
+               ['Due', fmtDate(t.due)], ['Supplier note', esc(t.note || '—')] ])}
+        ${dl([ ['Client acceptance criteria', esc(r.acceptance || '—')], ['Compliance', esc(r.compliance || '—')] ])}
+      </div>
+      ${field({ id:'q_note', label:'QA note', type:'textarea', span:true,
+        placeholder:'Sampling result, defects found, what must change on rework' })}`,
+    foot:`<button class="btn" onclick="closeDialog()">Cancel</button>
+      <button class="btn" data-variant="danger" onclick="qaDecide('${taskId}',false)">Send back for rework</button>
+      <button class="btn" data-variant="success" onclick="qaDecide('${taskId}',true)">${icon('check',13)} Pass QA</button>` });
+}
+function qaDecide(taskId, pass){
+  const t = byId(state.tasks, taskId);
+  const note = val('q_note');
+  if (!pass && !note) return invalid('q_note','Say what must change — the supplier cannot act on a blank rejection.');
+  t.status = pass ? 'QA Passed' : 'QA Failed';
+  if (note) t.note = note;
+  log(`${pass ? 'Passed' : 'Failed'} QA on ${t.id}${note ? ` — ${note}` : ''}`, [t.id, t.contractId, me().id, t.assigneeId]);
+  notify(t.assigneeType, t.assigneeId, pass ? `${t.title} cleared QA.` : `${t.title} was sent back: ${note}`, 'tasks');
+  closeDialog();
+  toast(pass ? 'QA passed' : 'Sent back for rework',
+    pass ? 'Ready to include in the client delivery.' : `${supplier(t).name} has been notified.`, pass ? 'success' : 'critical');
+  render();
+}
+function deliverContract(contractId){
+  const c = byId(state.contracts, contractId), r = rfpOf(c.rfpId), pr = progressOf(c.id);
+  openDialog({ title:'Deliver to the client', sub:`${r.title} · ${money(c.value)}`,
+    body: callout('active','All tasks have cleared your QA',
+      `${pr.total} tasks, ${pr.tasks.reduce((s,t)=>s+t.assets,0)} assets. ${client(r.clientId).name} will be asked to approve and release payment.`)
+      + dl([ ['Client', esc(client(r.clientId).name)], ['Contract value', `<span class="num">${money(c.value)}</span>`],
+             ['Deadline', `<span class="num">${fmtDate(r.timeline.delivery)}</span>`],
+             ['Delivering', `<span class="num">${TODAY <= r.timeline.delivery ? 'on time' : 'late'}</span>`] ]),
+    foot:`<button class="btn" onclick="closeDialog()">Cancel</button>
+      <button class="btn" data-variant="success" onclick="confirmDelivery('${contractId}')">Deliver now</button>` });
+}
+function confirmDelivery(contractId){
+  const c = byId(state.contracts, contractId), r = rfpOf(c.rfpId);
+  c.status = 'Delivered'; c.deliveredAt = TODAY; r.status = 'Delivered';
+  log(`Delivered ${c.id} to ${client(r.clientId).name}`, [c.id, r.id, r.clientId, c.tenantId]);
+  notify('client', r.clientId, `${me().name} delivered ${r.title}. Your approval releases payment.`, 'deliveries');
+  closeDialog();
+  toast('Delivered', `${client(r.clientId).name} has been asked to approve.`, 'success');
+  render();
+}
+
+/* --- client: approve, pay, rate ------------------------------------------ */
+function approveDelivery(contractId){
+  const c = byId(state.contracts, contractId), r = rfpOf(c.rfpId);
+  openDialog({ title:'Approve the delivery', sub:`${r.title} · ${money(c.value)}`,
+    body: callout('attention','Approving releases payment',
+      `${tenant(c.tenantId).name} is paid ${money(c.value)} and the contract closes. This cannot be undone.`)
+      + `<div class="formgrid">
+        ${field({ id:'a_score', label:'Rate your delivery partner', type:'select',
+          options:['5 — Excellent','4 — Good','3 — Fair','2 — Poor','1 — Unacceptable'] })}
+        ${field({ id:'a_comment', label:'Comment', type:'textarea', span:true, required:true,
+          placeholder:'What went well, what to improve next time', hint:'Shared with the partner and shown on their profile.' })}
+      </div>`,
+    foot:`<button class="btn" onclick="closeDialog()">Cancel</button>
+      <button class="btn" data-variant="success" onclick="confirmApproval('${contractId}')">${icon('check',13)} Approve and release payment</button>` });
+}
+function confirmApproval(contractId){
+  clearInvalid(['a_comment']);
+  const comment = val('a_comment');
+  if (!comment) return invalid('a_comment','Add a comment — ratings without one are not published.');
+  const c = byId(state.contracts, contractId), r = rfpOf(c.rfpId);
+  c.status = 'Completed'; c.completedAt = TODAY; r.status = 'Completed';
+  state.ratings.push({ id:nid('RAT','rat'), contractId:c.id, fromType:'client', fromId:r.clientId,
+    toType:'tenant', toId:c.tenantId, score:Number(val('a_score').charAt(0)) || 5, comment });
+  state.invoices.filter(i => i.contractId === c.id).forEach(i => i.status = 'Paid');
+  state.invoices.push({ id:nid('INV','inv'), party:c.tenantId, contractId:c.id,
+    amount:Math.round(c.value*0.09), status:'Paid', kind:'Platform fee, 9%', issued:TODAY });
+  log(`Approved ${c.id}, released ${money(c.value)} and rated the partner`, [c.id, r.id, r.clientId, c.tenantId]);
+  notify('tenant', c.tenantId, `${me().name} approved ${r.title}. Payment of ${money(c.value)} released.`, 'contracts');
+  closeDialog();
+  toast('Contract completed', `${money(c.value)} released to ${tenant(c.tenantId).name}.`, 'success');
+  render();
+}
+
+/* --- tenant: network management ------------------------------------------ */
+function addPartnerForm(kind){
+  const forms = {
+    aggregator: { title:'Add an aggregator', body:`<div class="formgrid">
+      ${field({ id:'n_name', label:'Aggregator name', required:true, span:true, placeholder:'Pune Field Crew' })}
+      ${field({ id:'n_size', label:'Crowd size', type:'number', placeholder:'500' })}
+      ${field({ id:'n_region', label:'Region', placeholder:'West India' })}
+      ${field({ id:'n_focus', label:'Focus', span:true, placeholder:'Street-level imagery' })}</div>` },
+    business: { title:'Add a business partner', body:`<div class="formgrid">
+      ${field({ id:'n_name', label:'Company name', required:true, span:true, placeholder:'Atlas Survey Group' })}
+      ${field({ id:'n_spec', label:'Specialty', placeholder:'Drone video' })}
+      ${field({ id:'n_cap', label:'Capacity', placeholder:'20 crews / week' })}</div>` },
+    sponsor: { title:'Add a device sponsor', body:`<div class="formgrid">
+      ${field({ id:'n_name', label:'Sponsor name', required:true, span:true, placeholder:'Northwind Optics' })}
+      ${field({ id:'n_contact', label:'Contact', placeholder:'ops@example.com' })}
+      ${field({ id:'n_dev', label:'First equipment type', placeholder:'Helmet camera, 4K' })}
+      ${field({ id:'n_qty', label:'Units', type:'number', placeholder:'50' })}</div>` }
+  };
+  const f = forms[kind];
+  openDialog({ title:f.title, sub:`Registered under ${me().name} — SourceHub does not bill this account`,
+    body: f.body,
+    foot:`<button class="btn" onclick="closeDialog()">Cancel</button>
+      <button class="btn" data-variant="primary" onclick="addPartner('${kind}')">Add to network</button>` });
+}
+function addPartner(kind){
+  clearInvalid(['n_name']);
+  const name = val('n_name');
+  if (!name) return invalid('n_name','Enter a name for this partner.');
+  if (kind === 'aggregator'){
+    state.aggregators.push({ id:nid('AG','ag'), tenantId:me().id, name, crowdSize:Number(val('n_size'))||0,
+      region: val('n_region') || 'Not specified', focus: val('n_focus') || 'General field work', rating:4.0 });
+    state.session.tab = 'aggregators';
+  } else if (kind === 'business'){
+    state.businesses.push({ id:nid('BZ','bz'), tenantId:me().id, name,
+      specialty: val('n_spec') || 'General delivery', capacity: val('n_cap') || 'Not stated', rating:4.0 });
+    state.session.tab = 'businesses';
+  } else {
+    const devType = val('n_dev');
+    state.deviceSponsors.push({ id:nid('DS','ds'), tenantId:me().id, name, contact: val('n_contact') || 'Not provided',
+      devices: devType ? [{ id:nid('DV','dv'), type:devType, qty:Number(val('n_qty'))||0, status:'Available', calibrated:TODAY }] : [] });
+    state.session.tab = 'sponsors';
+  }
+  log(`Added ${name} to the network as a ${kind}`, [me().id]);
+  closeDialog();
+  toast('Added to your network', `${name} can now be assigned work.`, 'success');
+  render();
+}
+function removePartner(kind, id){
+  const key = { aggregator:'aggregators', business:'businesses', sponsor:'deviceSponsors' }[kind];
+  const entity = byId(state[key], id);
+  if (!entity) return;
+  const openWork = kind === 'sponsor' ? 0
+    : state.tasks.filter(t => t.assigneeType === kind && t.assigneeId === id && t.status !== 'QA Passed').length;
+  openDialog({ title:`Remove ${entity.name}?`, sub:'They lose access to your contracts immediately.',
+    body: openWork
+      ? callout('critical','This partner has open work',
+          `${openWork} ${openWork === 1 ? 'task is' : 'tasks are'} still assigned. Reassign them first or the work is orphaned.`)
+      : callout(null,'No open work','Nothing is currently assigned to this partner, so removing them is safe.'),
+    foot:`<button class="btn" onclick="closeDialog()">Keep them</button>
+      <button class="btn" data-variant="danger" onclick="confirmRemovePartner('${kind}','${id}')">Remove from network</button>` });
+}
+function confirmRemovePartner(kind, id){
+  const key = { aggregator:'aggregators', business:'businesses', sponsor:'deviceSponsors' }[kind];
+  const i = state[key].findIndex(x => x.id === id);
+  if (i < 0) return;
+  const name = state[key][i].name;
+  state[key].splice(i,1);
+  log(`Removed ${name} from the network`, [me().id]);
+  closeDialog();
+  toast('Removed from your network', `${name} no longer has access to your contracts.`, 'critical');
+  render();
+}
+
+/* --- device sponsor ------------------------------------------------------ */
+function addDeviceForm(){
+  openDialog({ title:'Add an equipment type', sub:me().name,
+    body:`<div class="formgrid">
+      ${field({ id:'d_type', label:'Equipment type', required:true, span:true, placeholder:'Helmet camera, 4K' })}
+      ${field({ id:'d_qty', label:'Units available', type:'number', placeholder:'50' })}
+      ${field({ id:'d_status', label:'Status', type:'select', options:['Available','In Use','Maintenance'] })}
+      ${field({ id:'d_cal', label:'Last calibrated', type:'date', value:TODAY, span:true })}
+    </div>`,
+    foot:`<button class="btn" onclick="closeDialog()">Cancel</button>
+      <button class="btn" data-variant="primary" onclick="addDevice()">Add to inventory</button>` });
+}
+function addDevice(){
+  clearInvalid(['d_type']);
+  const type = val('d_type');
+  if (!type) return invalid('d_type','Name the equipment type.');
+  me().devices.push({ id:nid('DV','dv'), type, qty:Number(val('d_qty'))||0,
+    status: val('d_status') || 'Available', calibrated: val('d_cal') || TODAY });
+  log(`Listed ${type} in inventory`, [me().id]);
+  closeDialog();
+  toast('Added to inventory', `${type} is now visible to the network.`, 'success');
+  render();
+}
+function cycleDevice(deviceId){
+  const cycle = ['Available','In Use','Returned','Maintenance'];
+  const d = (me().devices || []).find(x => x.id === deviceId);
+  if (!d) return;
+  d.status = cycle[(cycle.indexOf(d.status) + 1) % cycle.length];
+  toast('Status updated', `${d.type} is now ${d.status.toLowerCase()}.`);
+  render();
+}
+function removeDevice(deviceId){
+  const devs = me().devices || [];
+  const i = devs.findIndex(d => d.id === deviceId);
+  if (i < 0) return;
+  const name = devs[i].type;
+  devs.splice(i,1);
+  toast('Removed from inventory', `${name} is no longer available to request.`, 'critical');
+  render();
+}
+function decideRequest(reqId, decision){
+  const r = byId(state.deviceRequests, reqId);
+  r.status = decision;
+  const { device } = findDevice(r.deviceId);
+  if (device){
+    if (decision === 'Approved') device.status = 'In Use';
+    if (decision === 'Returned') device.status = 'Available';
+  }
+  const who = r.requesterType === 'aggregator' ? agg(r.requesterId) : biz(r.requesterId);
+  log(`${decision} equipment request ${r.id} from ${who.name}`, [r.id, me().id, r.requesterId]);
+  notify(r.requesterType, r.requesterId,
+    `${deviceName(r.deviceId)} × ${r.qty} was ${decision.toLowerCase()}.`, 'equipment');
+  toast(`Request ${decision.toLowerCase()}`, `${who.name} has been notified.`, decision === 'Rejected' ? 'critical' : 'success');
+  render();
+}
+
+/* --- supplier: request equipment ----------------------------------------- */
+function requestEquipmentForm(taskId){
+  const parent = me().tenantId;
+  const sponsors = state.deviceSponsors.filter(s => s.tenantId === parent);
+  const options = sponsors.flatMap(s => s.devices.map(d =>
+    `<option value="${s.id}:${d.id}">${esc(d.type)} — ${esc(s.name)} (${d.qty} units, ${d.status})</option>`)).join('');
+  const mine = myTasks();
+  openDialog({ title:'Request equipment', sub:`From device sponsors registered under ${tenant(parent).name}`,
+    body: options ? `<div class="field span"><label for="r_dev">Equipment</label>
+        <select class="select" id="r_dev">${options}</select></div>
+      <div class="formgrid">
+        ${field({ id:'r_qty', label:'Quantity', type:'number', required:true, placeholder:'10' })}
+        ${field({ id:'r_by', label:'Needed by', type:'date', value:TODAY })}
+      </div>
+      <div class="field"><label for="r_task">For which task</label>
+        <select class="select" id="r_task"><option value="">Not task specific</option>
+        ${mine.map(t => `<option value="${t.id}"${t.id === taskId ? ' selected' : ''}>${esc(t.title)}</option>`).join('')}</select></div>
+      ${field({ id:'r_note', label:'Note to the sponsor', type:'textarea', span:true,
+        placeholder:'Why you need it and how long you will hold it' })}`
+      : emptyState({ glyph:'camera', title:'No device sponsors available',
+          body:'Your delivery partner has not registered any equipment sponsors yet.' }),
+    foot:`<button class="btn" onclick="closeDialog()">Cancel</button>
+      ${options ? `<button class="btn" data-variant="primary" onclick="submitEquipmentRequest()">${icon('send',13)} Send request</button>` : ''}` });
+}
+function submitEquipmentRequest(){
+  clearInvalid(['r_qty']);
+  const qty = Number(val('r_qty'));
+  if (!qty) return invalid('r_qty','Enter how many units you need.');
+  const [sponsorId, deviceId] = document.getElementById('r_dev').value.split(':');
+  const req = { id:nid('EQR','eqr'), sponsorId, requesterType:state.session.role, requesterId:me().id, deviceId, qty,
+    taskId: val('r_task') || null, status:'Pending', neededBy: val('r_by') || TODAY, note: val('r_note') };
+  state.deviceRequests.push(req);
+  log(`Requested ${qty} × ${deviceName(deviceId)} from ${sponsor(sponsorId).name}`, [req.id, me().id, sponsorId]);
+  notify('sponsor', sponsorId, `${me().name} requested ${qty} × ${deviceName(deviceId)}.`, 'requests');
+  closeDialog();
+  toast('Request sent', `${sponsor(sponsorId).name} will approve or decline it.`, 'success');
+  render();
+}
+
+/* --- aggregator roster --------------------------------------------------- */
+function toggleWorker(id){
+  const w = byId(state.workers, id);
+  w.status = w.status === 'On Shift' ? 'On Break' : 'On Shift';
+  render();
+}
+
+/* --- request filter (keeps the caret where the typist left it) ----------- */
+function filterRequests(v){
+  state.session.query = v;
+  render();
+  const el = $('#requestFilter');
+  if (el){ el.focus(); el.setSelectionRange(el.value.length, el.value.length); }
+}
+
+/* ---------------------------------------------------------------------------
+   §9 CHROME — rail, topbar, theme, dialog, palette, toasts
+--------------------------------------------------------------------------- */
+function switchRole(role){
+  state.session.role = role;
+  state.session.orgId = ROLES[role].accounts()[0].id;
+  state.session.page = NAV[role][0][0];
+  state.session.params = {}; state.session.tab = null; state.session.query = '';
+  state.ui.bellOpen = false;
+  render();
+}
+function switchAccount(orgId){
+  state.session.orgId = orgId;
+  state.session.page = NAV[state.session.role][0][0];
+  state.session.params = {}; state.session.tab = null; state.session.query = '';
+  state.ui.bellOpen = false;
+  render();
+}
+
+function contextLine(){
+  const role = state.session.role, m = me();
+  if (role === 'client')     return `${m.industry} · ${m.plan}`;
+  if (role === 'tenant')     return `${m.hq} · ${m.qaPass}% QA pass`;
+  if (role === 'aggregator') return `${m.region} · ${m.crowdSize.toLocaleString()} workers`;
+  if (role === 'business')   return `${m.specialty}`;
+  if (role === 'sponsor')    return `${(m.devices||[]).length} equipment types`;
+  return 'All accounts';
+}
+
+function renderChrome(){
+  const role = state.session.role;
+  $('#ctxRole').textContent = ROLES[role].workspace;
+  $('#ctxName').textContent = me().name;
+  $('#ctxMeta').textContent = contextLine();
+
+  $('#roleSel').innerHTML = Object.keys(ROLES).map(r =>
+    `<option value="${r}"${r === role ? ' selected' : ''}>${ROLES[r].label}</option>`).join('');
+  $('#orgSel').innerHTML = ROLES[role].accounts().map(o =>
+    `<option value="${o.id}"${o.id === state.session.orgId ? ' selected' : ''}>${esc(o.name)}</option>`).join('');
+
+  $('#railNav').innerHTML = `<div class="rail-group eyebrow">${ROLES[role].label}</div>` +
+    NAV[role].map(([page,label,ic,count]) => {
+      let n = ''; try { const c = count && count(); if (c) n = `<span class="tally">${c}</span>`; } catch(e){}
+      const active = state.session.page === page;
+      return `<button class="rail-item"${active ? ' aria-current="page"' : ''} onclick="go('${page}')">
+        ${icon(ic)}<span class="lbl">${label}</span>${n}</button>`;
+    }).join('');
+
+  $('#railFoot').innerHTML = `<button class="rail-item"${state.session.page === 'designsystem' ? ' aria-current="page"' : ''}
+    onclick="go('designsystem')">${icon('swatch')}<span class="lbl">Design system</span></button>`;
+
+  const navItem = NAV[role].find(n => n[0] === state.session.page);
+  const label = navItem ? navItem[1] : (CRUMB[state.session.page] || state.session.page);
+  $('#crumbs').innerHTML = `<b>${esc(me().name)}</b><span class="sep">/</span><span>${esc(label)}</span>`;
+
+  const unread = myNotifications().filter(n => !n.read).length;
+  $('#bellBtn').innerHTML = icon('bell') + (unread ? `<span class="ping">${unread}</span>` : '');
+  $('#bellBtn').setAttribute('aria-expanded', String(state.ui.bellOpen));
+  $('#bellPop').innerHTML = state.ui.bellOpen ? notificationPop() : '';
+
+  $('#themeBtn').innerHTML = icon(state.ui.theme === 'dark' ? 'moon' : state.ui.theme === 'light' ? 'sun' : 'auto');
+  $('#themeBtn').setAttribute('aria-label',
+    `Colour theme: ${state.ui.theme}. Activate to switch.`);
+  $('#searchCue').innerHTML = `${icon('search',14)}<span class="lbl">Search</span><span class="k"><kbd class="kbd">Ctrl K</kbd></span>`;
+  $('#railToggle').innerHTML = icon('menu');
+  $('#rail').toggleAttribute('data-open', state.ui.railOpen);
+}
+
+function notificationPop(){
+  const list = myNotifications();
+  return `<div class="pop" role="region" aria-label="Notifications">
+    <div class="pop-head"><b style="flex:1;font-size:13px">Notifications</b>
+      ${list.some(n => !n.read) ? `<button class="btn" data-size="sm" onclick="markAllRead()">Mark all read</button>` : ''}</div>
+    <div class="pop-list">${list.length ? list.map(n => `<button class="pop-item" onclick="openNotification('${n.id}')">
+        <span style="color:var(--${n.read ? 'ink-4' : 'accent'});margin-top:2px">${icon(n.read ? 'check' : 'bell',13)}</span>
+        <span class="txt">${esc(n.text)}<span class="ts">${fmtWhen(n.at)}</span></span></button>`).join('')
+      : `<div class="empty" style="padding:26px 16px"><span class="body">Nothing new for this account.</span></div>`}</div>
+  </div>`;
+}
+function toggleBell(){ state.ui.bellOpen = !state.ui.bellOpen; renderChrome(); }
+function markAllRead(){ myNotifications().forEach(n => n.read = true); renderChrome(); }
+function openNotification(id){
+  const n = byId(state.notifications, id);
+  n.read = true; state.ui.bellOpen = false;
+  go(n.page, n.params);
+}
+
+/* --- theme: light / dark / system ---------------------------------------- */
+function applyTheme(){
+  const t = state.ui.theme;
+  if (t === 'system') document.documentElement.removeAttribute('data-theme');
+  else document.documentElement.setAttribute('data-theme', t);
+  try { localStorage.setItem('sourcehub.theme', t); } catch(e){}
+}
+function cycleTheme(){
+  const order = ['system','light','dark'];
+  state.ui.theme = order[(order.indexOf(state.ui.theme) + 1) % order.length];
+  applyTheme();
+  renderChrome();
+  toast('Theme: ' + state.ui.theme, state.ui.theme === 'system' ? 'Following your operating system.' : '');
+}
+
+/* --- toasts --------------------------------------------------------------- */
+function toast(title, body, t){
+  const el = document.createElement('div');
+  el.className = 'toast';
+  if (t) el.setAttribute('data-tone', t);
+  el.innerHTML = `<span style="margin-top:1px;color:var(--t-${t || 'active'})">${icon(t === 'critical' ? 'alert' : 'check',15)}</span>
+    <div><div class="tt">${esc(title)}</div>${body ? `<div class="tb">${esc(body)}</div>` : ''}</div>`;
+  $('#toasts').appendChild(el);
+  setTimeout(() => el.remove(), 4200);
+}
+
+/* --- dialog with a focus trap --------------------------------------------- */
+let lastFocused = null;
+function openDialog({ title, sub, body, foot, size }){
+  lastFocused = document.activeElement;
+  const d = $('#dialog');
+  d.setAttribute('data-size', size || 'default');
+  d.innerHTML = `<header class="dialog-head">
+      <div class="titles"><h2 id="dialogTitle">${esc(title)}</h2>${sub ? `<span class="sub">${esc(sub)}</span>` : ''}</div>
+      <button class="iconbtn" onclick="closeDialog()" aria-label="Close">${icon('x',14)}</button>
+    </header>
+    <div class="dialog-body">${body}</div>
+    ${foot ? `<footer class="dialog-foot">${foot}</footer>` : ''}`;
+  $('#dialogOverlay').setAttribute('data-open','');
+  const first = d.querySelector('input,select,textarea,button:not([aria-label="Close"])');
+  (first || d.querySelector('button')).focus();
+}
+function closeDialog(){
+  $('#dialogOverlay').removeAttribute('data-open');
+  $('#dialog').innerHTML = '';
+  if (lastFocused && lastFocused.focus) lastFocused.focus();
+  lastFocused = null;
+}
+const FOCUSABLE = 'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
+function trapFocus(e, container){
+  const items = Array.from(container.querySelectorAll(FOCUSABLE)).filter(el => el.offsetParent !== null);
+  if (!items.length) return;
+  const first = items[0], last = items[items.length - 1];
+  if (e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+}
+
+/* --- command palette ------------------------------------------------------ */
+let paletteItems = [], paletteIndex = 0;
+function buildPaletteItems(){
+  const role = state.session.role;
+  const items = NAV[role].map(([page,label]) => ({ label, where:'Page', run:() => go(page) }));
+  items.push({ label:'Design system', where:'Page', run:() => go('designsystem') });
+  Object.keys(ROLES).filter(r => r !== role).forEach(r =>
+    items.push({ label:`Switch to ${ROLES[r].label}`, where:'Role', run:() => switchRole(r) }));
+  if (role === 'client'){
+    state.rfps.filter(r => r.clientId === state.session.orgId).forEach(r =>
+      items.push({ label:`${r.id} · ${r.title}`, where:'Request', run:() => go('requestDetail',{ id:r.id }) }));
+    state.contracts.filter(c => rfpOf(c.rfpId).clientId === state.session.orgId).forEach(c =>
+      items.push({ label:`${c.id} · ${rfpOf(c.rfpId).title}`, where:'Delivery', run:() => go('deliveryDetail',{ id:c.id }) }));
+  }
+  if (role === 'tenant'){
+    myContracts().forEach(c =>
+      items.push({ label:`${c.id} · ${rfpOf(c.rfpId).title}`, where:'Contract', run:() => go('contractDetail',{ id:c.id }) }));
+    openRfps().forEach(r =>
+      items.push({ label:`${r.id} · ${r.title}`, where:'Opportunity', run:() => viewBrief(r.id) }));
+  }
+  return items;
+}
+function openPalette(){
+  paletteItems = buildPaletteItems(); paletteIndex = 0;
+  $('#paletteOverlay').setAttribute('data-open','');
+  const input = $('#paletteInput');
+  input.value = ''; renderPalette(''); input.focus();
+}
+function closePalette(){ $('#paletteOverlay').removeAttribute('data-open'); }
+function renderPalette(q){
+  const needle = q.toLowerCase();
+  const hits = paletteItems.filter(i => i.label.toLowerCase().includes(needle)).slice(0,30);
+  paletteIndex = Math.min(paletteIndex, Math.max(0, hits.length - 1));
+  $('#paletteList').innerHTML = hits.length
+    ? hits.map((i,n) => `<li role="option" aria-selected="${n === paletteIndex}"${n === paletteIndex ? ' data-active' : ''}
+        onclick="runPalette(${n})" onmousemove="paletteIndex=${n};renderPalette(document.getElementById('paletteInput').value)">
+        <span>${esc(i.label)}</span><span class="where">${i.where}</span></li>`).join('')
+    : `<li aria-disabled="true"><span class="muted">Nothing matches “${esc(q)}”</span></li>`;
+  $('#paletteList').dataset.count = hits.length;
+}
+function runPalette(n){
+  const q = $('#paletteInput').value.toLowerCase();
+  const hits = paletteItems.filter(i => i.label.toLowerCase().includes(q));
+  const item = hits[n];
+  if (!item) return;
+  closePalette();
+  item.run();
+}
+
+/* --- rail (mobile drawer) ------------------------------------------------- */
+function toggleRail(){ state.ui.railOpen = !state.ui.railOpen; renderChrome(); }
+
+/* ---------------------------------------------------------------------------
+   §10 RENDER AND BOOT
+--------------------------------------------------------------------------- */
+function bootSkeleton(){
+  const bar = w => `<div class="skeleton" style="width:${w}"></div>`;
+  return `<div class="view-head"><div class="titles">${bar('280px')}<div style="height:6px"></div>${bar('420px')}</div></div>
+    <div class="grid g4">${Array.from({length:4}, () => `<div class="metric">${bar('60%')}<div style="height:10px"></div>${bar('40%')}</div>`).join('')}</div>
+    <section class="panel"><div class="panel-body">${Array.from({length:5}, () => `<div style="padding:7px 0">${bar((60 + Math.random()*35).toFixed(0) + '%')}</div>`).join('')}</div></section>`;
+}
+function render(){
+  renderChrome();
+  if (state.ui.booting){ $('#view').innerHTML = bootSkeleton(); return; }
+  const role = state.session.role, page = state.session.page;
+  const fn = PAGES[role][page] || PAGES.shared[page] || PAGES[role].overview;
+  $('#view').innerHTML = fn();
+}
+
+/* event wiring */
+$('#roleSel').addEventListener('change', e => switchRole(e.target.value));
+$('#orgSel').addEventListener('change', e => switchAccount(e.target.value));
+$('#themeBtn').addEventListener('click', cycleTheme);
+$('#bellBtn').addEventListener('click', e => { e.stopPropagation(); toggleBell(); });
+$('#searchCue').addEventListener('click', openPalette);
+$('#railToggle').addEventListener('click', toggleRail);
+$('#paletteInput').addEventListener('input', e => { paletteIndex = 0; renderPalette(e.target.value); });
+
+document.addEventListener('click', e => {
+  if (state.ui.bellOpen && !e.target.closest('.hostrel')) { state.ui.bellOpen = false; renderChrome(); }
+  if (state.ui.railOpen && !e.target.closest('.rail') && !e.target.closest('.railtoggle')) { state.ui.railOpen = false; renderChrome(); }
+});
+$('#dialogOverlay').addEventListener('mousedown', e => { if (e.target.id === 'dialogOverlay') closeDialog(); });
+$('#paletteOverlay').addEventListener('mousedown', e => { if (e.target.id === 'paletteOverlay') closePalette(); });
+
+document.addEventListener('keydown', e => {
+  const paletteOpen = $('#paletteOverlay').hasAttribute('data-open');
+  const dialogOpen  = $('#dialogOverlay').hasAttribute('data-open');
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k'){ e.preventDefault(); paletteOpen ? closePalette() : openPalette(); return; }
+  if (e.key === 'Escape'){ if (paletteOpen) closePalette(); else if (dialogOpen) closeDialog(); return; }
+  if (paletteOpen){
+    const count = Number($('#paletteList').dataset.count || 0);
+    if (e.key === 'ArrowDown'){ e.preventDefault(); paletteIndex = Math.min(paletteIndex + 1, count - 1); renderPalette($('#paletteInput').value); }
+    if (e.key === 'ArrowUp'){ e.preventDefault(); paletteIndex = Math.max(paletteIndex - 1, 0); renderPalette($('#paletteInput').value); }
+    if (e.key === 'Enter'){ e.preventDefault(); runPalette(paletteIndex); }
+    if (e.key === 'Tab') trapFocus(e, $('#paletteOverlay'));
+    return;
+  }
+  if (dialogOpen && e.key === 'Tab') trapFocus(e, $('#dialog'));
+});
+
+/* boot: restore the theme, show the skeleton, then paint the real thing */
+try {
+  const saved = localStorage.getItem('sourcehub.theme');
+  if (saved) state.ui.theme = saved;
+} catch(e){}
+applyTheme();
+render();
+setTimeout(() => { state.ui.booting = false; render(); }, 550);
+</script>
+</body>
+</html>

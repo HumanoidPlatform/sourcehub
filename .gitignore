@@ -1,0 +1,43 @@
+# =============================================================================
+# Three .env files, three ignores. Each sits beside its committed .env.example.
+#
+# The frontend one matters as much as the others despite holding no secrets:
+# a developer pointing VITE_API_BASE_URL at a colleague's machine should not be
+# committing that for everyone.
+# =============================================================================
+.env
+*.env
+!.env.example
+backend/.env
+frontend/.env
+infra/.env
+
+# --- Python ------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
+
+# --- Node --------------------------------------------------------------------
+node_modules/
+frontend/dist/
+*.tsbuildinfo
+npm-debug.log*
+
+# --- Editors and OS ----------------------------------------------------------
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# --- Local artefacts ---------------------------------------------------------
+*.log
+.claude/

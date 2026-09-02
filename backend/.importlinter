@@ -1,0 +1,70 @@
+# =============================================================================
+# Module boundaries, enforced in CI.
+#
+# The blueprint calls for a modular monolith. The build guide is blunt about
+# what makes that survive a delivery schedule:
+#
+#   "Enforced by import-linter in CI with a layered contract, so a cross-module
+#    model import is a failing build rather than a code-review argument. This is
+#    what keeps 'extract a service later' a real option instead of a hopeful
+#    one."
+#
+# Run with `make lint`. If this file is ever disabled to unblock a branch, the
+# folder structure becomes decoration.
+# =============================================================================
+
+[importlinter]
+root_package = sourcehub
+
+# -----------------------------------------------------------------------------
+# Dependencies point downward only.
+#
+#   api       routers, task definitions — no business rules
+#   modules   the domain
+#   platform  the adapters — the only vendor-aware code
+#   db        session, base, model support
+#
+# A domain module may never import boto3, azure-storage-blob or smtplib. It
+# depends on a Protocol in platform/. That single rule is what reduces the
+# Azure migration to "five adapter implementations, a Bicep template and a
+# connection-string change".
+# -----------------------------------------------------------------------------
+[importlinter:contract:layers]
+name = Layered architecture
+type = layers
+layers =
+    sourcehub.api
+    sourcehub.modules
+    sourcehub.platform
+    sourcehub.db
+
+# -----------------------------------------------------------------------------
+# Two domain modules that must cooperate call a public service function or
+# publish an event — never reach into each other's tables.
+# -----------------------------------------------------------------------------
+[importlinter:contract:module-independence]
+name = Domain modules do not import each other's internals
+type = forbidden
+source_modules =
+    sourcehub.modules.*.models
+forbidden_modules =
+    sourcehub.modules.*.models
+allow_indirect_imports = False
+
+# -----------------------------------------------------------------------------
+# The vendor SDKs. Only platform/ may know whether we are on a laptop or Azure.
+# -----------------------------------------------------------------------------
+[importlinter:contract:no-vendor-sdks-in-domain]
+name = Domain and API never import a vendor SDK directly
+type = forbidden
+source_modules =
+    sourcehub.modules
+    sourcehub.api
+forbidden_modules =
+    boto3
+    botocore
+    minio
+    azure
+    smtplib
+    redis
+allow_indirect_imports = False

@@ -1,0 +1,124 @@
+/* ============================================================================
+   SourceHub design tokens
+   ============================================================================
+
+   Ported UNCHANGED from the prototype's :root block (docs/sourcehub-app.html).
+   The build guide is specific about this:
+
+     "The reference build's CSS token layer transfers unchanged — it is plain
+      custom properties with no framework assumptions. Port it to a single
+      tokens.css, build the components as React components over the same class
+      names, and keep the design-system page as a route so it stays generated
+      from live code."
+
+   So: values are not adjusted here. If a colour needs to change, it changes in
+   the prototype first, because that file remains normative for tokens and
+   state machines.
+
+   Three theme states, and all three must be handled:
+     - explicit light  :root[data-theme="light"]
+     - explicit dark   :root[data-theme="dark"]
+     - system default  no attribute, decided by prefers-color-scheme
+   ========================================================================= */
+
+:root {
+  /* --- surfaces & ink (neutrals biased cool-green, not pure grey) --- */
+  --ground: #f4f6f5;
+  --surface: #ffffff;
+  --surface-2: #eef1ef;
+  --surface-3: #e6eae8;
+  --line: #dde3e0;
+  --line-strong: #c3ccc8;
+  --ink: #0f1a1c;
+  --ink-2: #3a4a4d;
+  --ink-3: #66787b;
+  --ink-4: #8c9c9e;
+
+  /* --- accent: petrol teal, from survey instrumentation --- */
+  --accent: #0a6c60;
+  --accent-hover: #085248;
+  --accent-ink: #ffffff;
+  --accent-tint: #e2efec;
+  --accent-line: #a9cfc8;
+
+  /* --- status taxonomy: five tones, deliberately distinct from the accent
+         neutral   inert, nothing is happening
+         active    progressing, no one is blocked
+         attention waiting on a human decision
+         success   terminal, good
+         critical  terminal, bad — or a breach                            ---
+
+     NOTE the tones are five; the STATUS VALUES are per-entity. The prototype
+     keeps one flat map of 28 status strings, and it is ambiguous: 'Submitted'
+     belongs to both a proposal (awaiting the client) and a task (awaiting the
+     partner's QA) but declares a single owner. The database splits these into
+     per-entity enums; src/shared/status/ must match the database, not the
+     prototype. These tokens are only the paint.                          --- */
+  --t-neutral: #5b6b6e;    --t-neutral-bg: #eceeed;    --t-neutral-line: #d3d9d7;
+  --t-active: #0a6c60;     --t-active-bg: #e2efec;     --t-active-line: #a9cfc8;
+  --t-attention: #8f5000;  --t-attention-bg: #faeedb;  --t-attention-line: #e6cb9c;
+  --t-success: #1a6f45;    --t-success-bg: #e4f1ea;    --t-success-line: #a6d3bb;
+  --t-critical: #a9312a;   --t-critical-bg: #fbe9e7;   --t-critical-line: #eeb8b2;
+
+  /* --- data visualisation --- */
+  --meter-track: #e0e5e3;
+  --chart-grid: #e6eae8;
+
+  /* --- geometry --- */
+  --r-control: 4px; --r-panel: 6px; --r-pill: 999px;
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px;
+  --s-5: 24px; --s-6: 32px; --s-7: 48px;
+  --rail-w: 264px; --rail-w-min: 64px; --topbar-h: 56px; --view-max: 1440px;
+
+  /* --- elevation: flat product, shadow reserved for things that float --- */
+  --shadow-pop: 0 4px 12px rgba(15, 26, 28, .10), 0 1px 3px rgba(15, 26, 28, .08);
+  --shadow-overlay: 0 24px 48px -12px rgba(15, 26, 28, .28), 0 0 0 1px var(--line);
+
+  /* --- motion --- */
+  --fast: 120ms; --base: 180ms; --ease: cubic-bezier(.2, .6, .35, 1);
+
+  /* --- type --- */
+  --font-ui: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", "Cascadia Mono", Consolas, monospace;
+}
+
+/* System preference, unless the user has explicitly chosen light. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #0d1315; --surface: #141c1e; --surface-2: #1a2427; --surface-3: #213033;
+    --line: #253134; --line-strong: #3a4d51;
+    --ink: #e8efed; --ink-2: #b6c5c3; --ink-3: #85989a; --ink-4: #6b7d7f;
+    --accent: #3fb8a6; --accent-hover: #5cccbb; --accent-ink: #06201d;
+    --accent-tint: #0f2b28; --accent-line: #1f4a45;
+    --t-neutral: #93a4a6;   --t-neutral-bg: #1c2427;   --t-neutral-line: #2e3b3e;
+    --t-active: #3fb8a6;    --t-active-bg: #0f2b28;    --t-active-line: #1f4a45;
+    --t-attention: #dda75a; --t-attention-bg: #2b2010; --t-attention-line: #4a3a1b;
+    --t-success: #59bd8a;   --t-success-bg: #10281d;   --t-success-line: #20452f;
+    --t-critical: #e58179;  --t-critical-bg: #2d1614;  --t-critical-line: #4d2723;
+    --meter-track: #26312f; --chart-grid: #1f2a2c;
+    --shadow-pop: 0 4px 12px rgba(0, 0, 0, .5), 0 1px 3px rgba(0, 0, 0, .4);
+    --shadow-overlay: 0 24px 48px -12px rgba(0, 0, 0, .7), 0 0 0 1px var(--line);
+  }
+}
+
+/* Explicit dark. Repeated rather than shared so the toggle wins in both
+   directions — a system-light user choosing dark must still get dark. */
+:root[data-theme="dark"] {
+  --ground: #0d1315; --surface: #141c1e; --surface-2: #1a2427; --surface-3: #213033;
+  --line: #253134; --line-strong: #3a4d51;
+  --ink: #e8efed; --ink-2: #b6c5c3; --ink-3: #85989a; --ink-4: #6b7d7f;
+  --accent: #3fb8a6; --accent-hover: #5cccbb; --accent-ink: #06201d;
+  --accent-tint: #0f2b28; --accent-line: #1f4a45;
+  --t-neutral: #93a4a6;   --t-neutral-bg: #1c2427;   --t-neutral-line: #2e3b3e;
+  --t-active: #3fb8a6;    --t-active-bg: #0f2b28;    --t-active-line: #1f4a45;
+  --t-attention: #dda75a; --t-attention-bg: #2b2010; --t-attention-line: #4a3a1b;
+  --t-success: #59bd8a;   --t-success-bg: #10281d;   --t-success-line: #20452f;
+  --t-critical: #e58179;  --t-critical-bg: #2d1614;  --t-critical-line: #4d2723;
+  --meter-track: #26312f; --chart-grid: #1f2a2c;
+  --shadow-pop: 0 4px 12px rgba(0, 0, 0, .5), 0 1px 3px rgba(0, 0, 0, .4);
+  --shadow-overlay: 0 24px 48px -12px rgba(0, 0, 0, .7), 0 0 0 1px var(--line);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}

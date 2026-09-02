@@ -1,0 +1,472 @@
+"""marketplace — requests (the RFP) and proposals.
+
+Business rules, and the ONLY public surface of this module.
+
+One deliberate departure from the prototype, per the schema plan: the request
+row stores only the states its OWNER can produce — draft, published, accepted,
+cancelled. Everything after award is DERIVED from the contract, and
+"proposals_received" from the proposal count. The prototype mutated
+request.status and contract.status in lockstep from the same actions, which is
+a duplicated state machine waiting to drift, and half those writes belonged to
+orgs RLS rightly stops from touching a client's request row.
+"""
+
+from __future__ import annotations
+
+import datetime as dt
+import uuid
+from decimal import Decimal
+from typing import Any
+
+from sqlalchemy import func, select, text
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from sourcehub.api.security import AccessClaims
+from sourcehub.modules.audit import service as audit
+from sourcehub.modules.marketplace.models import Proposal, Request
+from sourcehub.modules.notify import service as notifier
+
+
+class MarketplaceError(Exception):
+    pass
+
+
+# ---------------------------------------------------------------------------
+# Derived status
+# ---------------------------------------------------------------------------
+
+_CONTRACT_TO_REQUEST = {
+    "active": "in_progress",
+    "in_qa": "in_progress",
+    "delivered": "delivered",
+    "completed": "completed",
+    "disputed": "in_progress",
+    "cancelled": "accepted",
+}
+
+
+async def _status_maps(
+    session: AsyncSession, request_ids: list[uuid.UUID]
+) -> tuple[dict[uuid.UUID, str], dict[uuid.UUID, int]]:
+    """(contract status by request, proposal count by request)."""
+    if not request_ids:
+        return {}, {}
+    contracts = (
+        await session.execute(
+            text(
+                "SELECT request_id, status, "
+                "  (SELECT count(*) FROM task t WHERE t.contract_id = contract.id "
+                "     AND t.deleted_at IS NULL) AS task_count "
+                "FROM contract WHERE request_id = ANY(:ids) AND deleted_at IS NULL"
+            ),
+            {"ids": request_ids},
+        )
+    ).mappings().all()
+    cmap: dict[uuid.UUID, str] = {}
+    for row in contracts:
+        derived = _CONTRACT_TO_REQUEST[row["status"]]
+        if row["status"] == "active" and row["task_count"] == 0:
+            derived = "accepted"  # awarded, work not yet broken down
+        cmap[row["request_id"]] = derived
+    counts = (
+        await session.execute(
+            select(Proposal.request_id, func.count())
+            .where(Proposal.request_id.in_(request_ids), Proposal.deleted_at.is_(None))
+            .group_by(Proposal.request_id)
+        )
+    ).all()
+    return cmap, dict(counts)
+
+
+def _effective(stored: str, derived: str | None, proposal_count: int) -> str:
+    if derived:
+        return derived
+    if stored == "published" and proposal_count > 0:
+        return "proposals_received"
+    return stored
+
+
+def _row(r: Request, effective: str, proposal_count: int) -> dict[str, Any]:
+    return {
+        "id": r.id,
+        "reference_code": r.reference_code,
+        "client_org_id": r.client_org_id,
+        "title": r.title,
+        "category": r.category,
+        "status": effective,
+        "stored_status": r.status,
+        "proposal_count": proposal_count,
+        "geography": r.geography,
+        "compliance_notes": r.compliance_notes,
+        "spec": {"format": r.spec_format, "quantity": r.spec_quantity, "quality": r.spec_quality},
+        "acceptance": r.acceptance,
+        "people": {
+            "headcount": r.people_headcount,
+            "training": r.people_training,
+            "experience": r.people_experience,
+            "certification": r.people_certification,
+        },
+        "budget_min": r.budget_min,
+        "budget_max": r.budget_max,
+        "currency": r.currency,
+        "starts_on": r.starts_on,
+        "delivery_due_on": r.delivery_due_on,
+        "published_at": r.published_at,
+        "created_at": r.created_at,
+    }
+
+
+# ---------------------------------------------------------------------------
+# Requests
+# ---------------------------------------------------------------------------
+
+_DEFAULTS = {
+    "spec_format": "To be agreed",
+    "spec_quantity": "To be agreed",
+    "spec_quality": "Standard acceptance applies",
+    "people_training": "None specified",
+    "people_experience": "None specified",
+    "people_certification": "None",
+    "geography": "Not specified",
+    "acceptance": "Client review on delivery",
+    "compliance_notes": "None specified",
+}
+
+
+async def create_request(
+    session: AsyncSession, claims: AccessClaims, data: dict[str, Any], publish: bool
+) -> dict[str, Any]:
+    ref = (
+        await session.execute(text("SELECT next_reference_code('RFP','seq_ref_request', 4)"))
+    ).scalar_one()
+    # the prototype applies honest defaults on save rather than storing blanks
+    fields = {k: (data.get(k) or v) for k, v in _DEFAULTS.items()}
+    r = Request(
+        reference_code=ref,
+        client_org_id=claims.org_id,
+        title=data["title"],
+        category=data["category"],
+        status="published" if publish else "draft",
+        people_headcount=int(data.get("people_headcount") or 0),
+        budget_min=data.get("budget_min"),
+        budget_max=data.get("budget_max"),
+        starts_on=data.get("starts_on"),
+        delivery_due_on=data.get("delivery_due_on"),
+        residency_region=data.get("residency_region"),
+        published_at=dt.datetime.now(dt.timezone.utc) if publish else None,
+        created_by=claims.user_id,
+        **fields,
+    )
+    session.add(r)
+    await session.flush()
+    if publish:
+        await _announce_publish(session, claims, r)
+    else:
+        await audit.log(session, "request.drafted", f"Drafted {r.reference_code}, {r.title}",
+                        [r.id, claims.org_id])
+    return _row(r, r.status, 0)
+
+
+async def _announce_publish(session: AsyncSession, claims: AccessClaims, r: Request) -> None:
+    await audit.log(
+        session, "request.published",
+        f"Published {r.reference_code}, {r.title}", [r.id, claims.org_id],
+    )
+    # every active tenant hears about a new opportunity, as in the prototype
+    tenants = (
+        await session.execute(
+            text("SELECT id FROM organisation WHERE kind = 'tenant' AND status = 'active' "
+                 "AND deleted_at IS NULL")
+        )
+    ).scalars().all()
+    for tid in tenants:
+        await notifier.notify(
+            session, tid,
+            f"{r.title} is open for proposals.",
+            "opportunities", {"id": str(r.id)},
+        )
+
+
+async def publish_request(
+    session: AsyncSession, claims: AccessClaims, request_id: uuid.UUID
+) -> dict[str, Any]:
+    r = await _get_owned(session, request_id)
+    if r.status != "draft":
+        raise MarketplaceError(f"A {r.status} request cannot be published.")
+    r.status = "published"
+    r.published_at = dt.datetime.now(dt.timezone.utc)
+    r.updated_by = claims.user_id
+    await _announce_publish(session, claims, r)
+    return _row(r, "published", 0)
+
+
+async def _get_owned(session: AsyncSession, request_id: uuid.UUID) -> Request:
+    r = (
+        await session.execute(
+            select(Request).where(Request.id == request_id, Request.deleted_at.is_(None))
+        )
+    ).scalar_one_or_none()
+    if r is None:
+        raise LookupError("request not found")
+    return r
+
+
+async def list_requests(
+    session: AsyncSession, claims: AccessClaims, open_only: bool = False
+) -> list[dict[str, Any]]:
+    """A client sees its own; a tenant the open marketplace (RLS enforces the
+    split — open_only merely narrows the tenant's view to what it can bid on)."""
+    stmt = select(Request).where(Request.deleted_at.is_(None)).order_by(Request.created_at.desc())
+    if open_only:
+        stmt = stmt.where(Request.status == "published")
+    rows = (await session.execute(stmt)).scalars().all()
+    cmap, counts = await _status_maps(session, [r.id for r in rows])
+    out = []
+    for r in rows:
+        eff = _effective(r.status, cmap.get(r.id), counts.get(r.id, 0))
+        if open_only and eff not in ("published", "proposals_received"):
+            continue  # awarded work is no longer an opportunity
+        out.append(_row(r, eff, counts.get(r.id, 0)))
+    return out
+
+
+async def get_request(
+    session: AsyncSession, claims: AccessClaims, request_id: uuid.UUID
+) -> dict[str, Any] | None:
+    r = (
+        await session.execute(
+            select(Request).where(Request.id == request_id, Request.deleted_at.is_(None))
+        )
+    ).scalar_one_or_none()
+    if r is None:
+        return None
+    cmap, counts = await _status_maps(session, [r.id])
+    out = _row(r, _effective(r.status, cmap.get(r.id), counts.get(r.id, 0)), counts.get(r.id, 0))
+    out["proposals"] = await list_proposals(session, claims, request_id)
+    return out
+
+
+# ---------------------------------------------------------------------------
+# Proposals
+# ---------------------------------------------------------------------------
+
+def _proposal_row(p: Proposal, partner_name: str | None = None,
+                  qa_pass_rate: int | None = None) -> dict[str, Any]:
+    return {
+        "id": p.id,
+        "reference_code": p.reference_code,
+        "request_id": p.request_id,
+        "partner_org_id": p.partner_org_id,
+        "partner_name": partner_name,
+        "partner_qa_pass_rate": qa_pass_rate,
+        "price": p.price,
+        "currency": p.currency,
+        "duration_days": p.duration_days,
+        "methodology": p.methodology,
+        "notes": p.notes,
+        "status": p.status,
+        "submitted_at": p.submitted_at,
+    }
+
+
+async def submit_proposal(
+    session: AsyncSession,
+    claims: AccessClaims,
+    request_id: uuid.UUID,
+    price: Decimal,
+    duration_days: int,
+    methodology: str,
+    notes: str | None,
+) -> dict[str, Any]:
+    r = (
+        await session.execute(select(Request).where(Request.id == request_id))
+    ).scalar_one_or_none()
+    if r is None:
+        raise LookupError("request not found")
+    cmap, counts = await _status_maps(session, [request_id])
+    eff = _effective(r.status, cmap.get(request_id), counts.get(request_id, 0))
+    if eff not in ("published", "proposals_received"):
+        raise MarketplaceError("This request is no longer open for proposals.")
+    existing = (
+        await session.execute(
+            select(Proposal).where(
+                Proposal.request_id == request_id,
+                Proposal.partner_org_id == claims.org_id,
+                Proposal.deleted_at.is_(None),
+            )
+        )
+    ).scalar_one_or_none()
+    if existing is not None:
+        raise MarketplaceError("You have already proposed on this request.")
+
+    ref = (
+        await session.execute(text("SELECT next_reference_code('PRO','seq_ref_proposal')"))
+    ).scalar_one()
+    p = Proposal(
+        reference_code=ref,
+        request_id=request_id,
+        partner_org_id=claims.org_id,
+        price=price,
+        duration_days=duration_days,
+        methodology=methodology,
+        notes=notes,
+        created_by=claims.user_id,
+    )
+    session.add(p)
+    await session.flush()
+    await notifier.notify(
+        session, r.client_org_id,
+        f"A proposal arrived on {r.title}.",
+        "requestDetail", {"id": str(r.id)},
+    )
+    await audit.log(
+        session, "proposal.submitted",
+        f"Submitted {ref} on {r.reference_code} at {p.currency} {price}",
+        [p.id, r.id, claims.org_id, r.client_org_id],
+    )
+    return _proposal_row(p)
+
+
+async def withdraw_proposal(
+    session: AsyncSession, claims: AccessClaims, proposal_id: uuid.UUID
+) -> dict[str, Any]:
+    p = (
+        await session.execute(select(Proposal).where(Proposal.id == proposal_id))
+    ).scalar_one_or_none()
+    if p is None:
+        raise LookupError("proposal not found")
+    if p.status != "submitted":
+        raise MarketplaceError(f"A {p.status} proposal cannot be withdrawn.")
+    p.status = "withdrawn"
+    p.decided_at = dt.datetime.now(dt.timezone.utc)
+    p.updated_by = claims.user_id
+    await audit.log(session, "proposal.withdrawn",
+                    f"Withdrew {p.reference_code}", [p.id, p.request_id, claims.org_id])
+    return _proposal_row(p)
+
+
+async def list_proposals(
+    session: AsyncSession, claims: AccessClaims, request_id: uuid.UUID | None = None
+) -> list[dict[str, Any]]:
+    """RLS: a partner sees only its own bids; the client every bid on its
+    request — competitors never see each other."""
+    q = text(
+        "SELECT p.*, o.name AS partner_name, tp.qa_pass_rate "
+        "FROM proposal p "
+        "JOIN organisation o ON o.id = p.partner_org_id "
+        "LEFT JOIN tenant_profile tp ON tp.org_id = p.partner_org_id "
+        "WHERE p.deleted_at IS NULL "
+        + ("AND p.request_id = :rid " if request_id else "")
+        + "ORDER BY p.submitted_at DESC"
+    )
+    rows = (
+        await session.execute(q, {"rid": request_id} if request_id else {})
+    ).mappings().all()
+    return [
+        {
+            "id": r["id"],
+            "reference_code": r["reference_code"],
+            "request_id": r["request_id"],
+            "partner_org_id": r["partner_org_id"],
+            "partner_name": r["partner_name"],
+            "partner_qa_pass_rate": r["qa_pass_rate"],
+            "price": r["price"],
+            "currency": r["currency"],
+            "duration_days": r["duration_days"],
+            "methodology": r["methodology"],
+            "notes": r["notes"],
+            "status": r["status"],
+            "submitted_at": r["submitted_at"],
+        }
+        for r in rows
+    ]
+
+
+async def my_proposals(session: AsyncSession, claims: AccessClaims) -> list[dict[str, Any]]:
+    rows = (
+        await session.execute(
+            text(
+                "SELECT p.*, r.title AS request_title, r.reference_code AS request_ref "
+                "FROM proposal p JOIN request r ON r.id = p.request_id "
+                "WHERE p.partner_org_id = :org AND p.deleted_at IS NULL "
+                "ORDER BY p.submitted_at DESC"
+            ),
+            {"org": claims.org_id},
+        )
+    ).mappings().all()
+    return [dict(r) for r in rows]
+
+
+# ---------------------------------------------------------------------------
+# Award — the transaction the whole marketplace exists for
+# ---------------------------------------------------------------------------
+
+async def award(
+    session: AsyncSession, claims: AccessClaims, proposal_id: uuid.UUID
+) -> dict[str, Any]:
+    """Winner accepted, every sibling auto-rejected and told, contract created,
+    milestone 1 invoiced into escrow. One transaction, mirroring confirmAward().
+    """
+    from sourcehub.modules.delivery import service as delivery
+
+    p = (
+        await session.execute(select(Proposal).where(Proposal.id == proposal_id))
+    ).scalar_one_or_none()
+    if p is None:
+        raise LookupError("proposal not found")
+    if p.status != "submitted":
+        raise MarketplaceError(f"A {p.status} proposal cannot be awarded.")
+
+    r = await _get_owned(session, p.request_id)
+    if r.client_org_id != claims.org_id:
+        raise MarketplaceError("Only the requesting client can award.")
+    cmap, _ = await _status_maps(session, [r.id])
+    if cmap.get(r.id):
+        raise MarketplaceError("This request already has a contract.")
+
+    now = dt.datetime.now(dt.timezone.utc)
+    p.status = "accepted"
+    p.decided_at = now
+    p.updated_by = claims.user_id
+
+    siblings = (
+        await session.execute(
+            select(Proposal).where(
+                Proposal.request_id == r.id,
+                Proposal.id != p.id,
+                Proposal.status == "submitted",
+            )
+        )
+    ).scalars().all()
+    for s in siblings:
+        s.status = "rejected"
+        s.decided_at = now
+        await notifier.notify(
+            session, s.partner_org_id,
+            f"{r.title} was awarded to another partner.",
+            "proposals", {},
+        )
+
+    r.status = "accepted"
+    r.updated_by = claims.user_id
+
+    contract = await delivery.create_contract_from_award(
+        session, claims,
+        request_id=r.id, request_ref=r.reference_code, request_title=r.title,
+        proposal_id=p.id, client_org_id=r.client_org_id,
+        partner_org_id=p.partner_org_id, value=p.price,
+        acceptance=r.acceptance, compliance=r.compliance_notes,
+    )
+
+    await notifier.notify(
+        session, p.partner_org_id,
+        f"You won {r.title}. Break the contract into tasks to begin.",
+        "contracts", {"id": str(contract["id"])},
+    )
+    await audit.log(
+        session, "contract.awarded",
+        f"Awarded {contract['reference_code']} to the winning partner for "
+        f"{p.currency} {p.price}",
+        [contract["id"], r.id, r.client_org_id, p.partner_org_id],
+    )
+    return contract

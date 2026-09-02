@@ -1,0 +1,990 @@
+<title>SourceHub Data Model</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+/* ============================================================================
+   SourceHub Data Model — the schema reference. Fourth document in the family:
+   prototype → blueprint → build guide → this. Shares the product's palette and
+   type so the reference and the thing it describes read as one system.
+   ============================================================================ */
+:root{
+  --ground:#f4f6f5; --surface:#ffffff; --surface-2:#eef1ef; --surface-3:#e6eae8;
+  --line:#dde3e0; --line-strong:#c3ccc8;
+  --ink:#0f1a1c; --ink-2:#33474a; --ink-3:#62767a; --ink-4:#8b9d9f;
+  --accent:#0a6c60; --accent-tint:#e2efec; --accent-line:#a9cfc8; --accent-ink:#ffffff;
+  --t-neutral:#5b6b6e;   --t-neutral-bg:#eceeed;   --t-neutral-line:#d3d9d7;
+  --t-active:#0a6c60;    --t-active-bg:#e2efec;    --t-active-line:#a9cfc8;
+  --t-attention:#8f5000; --t-attention-bg:#faeedb; --t-attention-line:#e6cb9c;
+  --t-success:#1a6f45;   --t-success-bg:#e4f1ea;   --t-success-line:#a6d3bb;
+  --t-critical:#a9312a;  --t-critical-bg:#fbe9e7;  --t-critical-line:#eeb8b2;
+  --code-bg:#0f1a1c; --code-ink:#d9e4e2; --code-k:#7fd4c6; --code-c:#6b8a85; --code-s:#e6c98a;
+  --sans:"IBM Plex Sans","Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
+  --r:5px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0d1315; --surface:#141c1e; --surface-2:#1a2427; --surface-3:#213033;
+    --line:#253134; --line-strong:#3a4d51;
+    --ink:#e8efed; --ink-2:#b6c5c3; --ink-3:#8b9fa1; --ink-4:#6b7d7f;
+    --accent:#43bcaa; --accent-tint:#0f2b28; --accent-line:#1f4a45; --accent-ink:#06201d;
+    --t-neutral:#93a4a6;   --t-neutral-bg:#1c2427;   --t-neutral-line:#2e3b3e;
+    --t-active:#43bcaa;    --t-active-bg:#0f2b28;    --t-active-line:#1f4a45;
+    --t-attention:#dda75a; --t-attention-bg:#2b2010; --t-attention-line:#4a3a1b;
+    --t-success:#59bd8a;   --t-success-bg:#10281d;   --t-success-line:#20452f;
+    --t-critical:#e58179;  --t-critical-bg:#2d1614;  --t-critical-line:#4d2723;
+    --code-bg:#0a1113; --code-ink:#cfdedb; --code-k:#6fcabb; --code-c:#5d7a75; --code-s:#d9bd82;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0d1315; --surface:#141c1e; --surface-2:#1a2427; --surface-3:#213033;
+  --line:#253134; --line-strong:#3a4d51;
+  --ink:#e8efed; --ink-2:#b6c5c3; --ink-3:#8b9fa1; --ink-4:#6b7d7f;
+  --accent:#43bcaa; --accent-tint:#0f2b28; --accent-line:#1f4a45; --accent-ink:#06201d;
+  --t-neutral:#93a4a6;   --t-neutral-bg:#1c2427;   --t-neutral-line:#2e3b3e;
+  --t-active:#43bcaa;    --t-active-bg:#0f2b28;    --t-active-line:#1f4a45;
+  --t-attention:#dda75a; --t-attention-bg:#2b2010; --t-attention-line:#4a3a1b;
+  --t-success:#59bd8a;   --t-success-bg:#10281d;   --t-success-line:#20452f;
+  --t-critical:#e58179;  --t-critical-bg:#2d1614;  --t-critical-line:#4d2723;
+  --code-bg:#0a1113; --code-ink:#cfdedb; --code-k:#6fcabb; --code-c:#5d7a75; --code-s:#d9bd82;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);
+  font-size:15px;line-height:1.62;-webkit-font-smoothing:antialiased}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:2px}
+code{font-family:var(--mono);font-size:.92em;background:var(--surface-2);
+  border:1px solid var(--line);border-radius:3px;padding:.05em .35em}
+
+.wrap{max-width:1200px;margin:0 auto;padding:0 28px 96px;
+  display:grid;grid-template-columns:200px minmax(0,1fr);gap:44px;align-items:start}
+@media (max-width:900px){.wrap{grid-template-columns:minmax(0,1fr)}.toc{display:none}}
+
+.toc{position:sticky;top:24px;padding-top:24px;max-height:calc(100vh - 48px);overflow-y:auto}
+.toc h2{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);margin:0 0 10px;font-weight:500}
+.toc ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px}
+.toc a{display:block;padding:4px 8px;border-radius:4px;font-size:12.5px;color:var(--ink-3);
+  text-decoration:none;border-left:2px solid transparent;line-height:1.35}
+.toc a:hover{color:var(--ink);background:var(--surface-2)}
+.toc .lead{color:var(--ink-2);font-weight:600;margin-top:12px}
+.toc .lead:first-child{margin-top:0}
+main{min-width:0;padding-top:24px}
+
+.mast{border-bottom:2px solid var(--ink);padding-bottom:20px;margin-bottom:34px}
+.kicker{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:12px}
+.mast h1{font-family:var(--serif);font-size:clamp(34px,5vw,48px);line-height:1.05;margin:0;
+  font-weight:600;letter-spacing:-.02em;text-wrap:balance}
+.standfirst{font-family:var(--serif);font-size:17.5px;line-height:1.5;color:var(--ink-2);
+  margin:16px 0 0;max-width:62ch}
+.facts{display:flex;flex-wrap:wrap;margin-top:22px;border-top:1px solid var(--line)}
+.fact{flex:1 1 130px;padding:11px 16px 0 0;border-right:1px solid var(--line);margin-right:16px}
+.fact:last-child{border-right:0}
+.fact dt{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);margin:0 0 3px}
+.fact dd{margin:0;font-size:13.5px;font-weight:600;font-variant-numeric:tabular-nums}
+
+.part{margin-top:60px;padding-top:22px;border-top:1px solid var(--line-strong)}
+.part-no{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:6px}
+.part h2{font-family:var(--serif);font-size:27px;font-weight:600;margin:0;letter-spacing:-.01em;text-wrap:balance}
+.intro{font-family:var(--serif);font-size:15.5px;color:var(--ink-2);max-width:66ch;margin:10px 0 0}
+section{margin-top:34px}
+section h3{font-size:16.5px;margin:0 0 10px;letter-spacing:-.005em}
+p{max-width:66ch;margin:10px 0}
+.small{font-size:12.5px}
+.muted{color:var(--ink-3)}
+
+.tbl{overflow-x:auto;margin:16px 0 6px;border:1px solid var(--line);border-radius:var(--r);
+  background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;background:var(--surface-2);border-bottom:1px solid var(--line);
+  padding:8px 13px;white-space:nowrap;font-family:var(--mono);font-size:10px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+td{padding:8px 13px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.tname{font-family:var(--mono);font-size:12.5px;font-weight:600;white-space:nowrap}
+td .cols{font-family:var(--mono);font-size:11px;color:var(--ink-3);display:block;margin-top:3px;line-height:1.7}
+td .cols b{color:var(--ink-2);font-weight:500}
+caption{caption-side:bottom;text-align:left;padding:9px 13px;font-size:12px;color:var(--ink-3);
+  border-top:1px solid var(--line)}
+.num{font-variant-numeric:tabular-nums}
+
+.pill{display:inline-flex;align-items:center;gap:6px;padding:1px 9px 1px 7px;margin:2px 3px 2px 0;
+  border-radius:999px;font-size:11px;font-weight:600;white-space:nowrap;
+  border:1px solid var(--t-neutral-line);background:var(--t-neutral-bg);color:var(--t-neutral)}
+.pill::before{content:"";width:5px;height:5px;border-radius:50%;background:currentColor;flex:none}
+.pill[data-tone="active"]{border-color:var(--t-active-line);background:var(--t-active-bg);color:var(--t-active)}
+.pill[data-tone="attention"]{border-color:var(--t-attention-line);background:var(--t-attention-bg);color:var(--t-attention)}
+.pill[data-tone="success"]{border-color:var(--t-success-line);background:var(--t-success-bg);color:var(--t-success)}
+.pill[data-tone="critical"]{border-color:var(--t-critical-line);background:var(--t-critical-bg);color:var(--t-critical)}
+
+.decision{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:0 var(--r) var(--r) 0;padding:14px 18px;margin:18px 0;max-width:74ch}
+.decision .lbl{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent);display:block;margin-bottom:5px;font-weight:500}
+.decision p{margin:0;font-size:14px}
+.decision p + p{margin-top:8px;color:var(--ink-2);font-size:13px}
+.decision[data-kind="risk"]{border-left-color:var(--t-attention)}
+.decision[data-kind="risk"] .lbl{color:var(--t-attention)}
+
+.code{margin:16px 0;border-radius:var(--r);overflow:hidden;border:1px solid var(--line)}
+.code .name{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--ink-3);
+  background:var(--surface-2);padding:7px 14px;border-bottom:1px solid var(--line)}
+.code pre{margin:0;padding:14px 16px;overflow-x:auto;background:var(--code-bg);color:var(--code-ink);
+  font-family:var(--mono);font-size:12px;line-height:1.65}
+.code .k{color:var(--code-k)} .code .c{color:var(--code-c);font-style:italic} .code .s{color:var(--code-s)}
+
+/* stores strip */
+.stores{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:18px 0}
+.store{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
+.store .eyebrow{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:6px;font-weight:500}
+.store h4{margin:0 0 6px;font-size:15px}
+.store p{font-size:12.5px;color:var(--ink-2);margin:0}
+.store .never{margin-top:10px;padding-top:8px;border-top:1px dashed var(--line);font-size:11.5px;color:var(--ink-3)}
+.store .never b{color:var(--t-critical);font-weight:600}
+
+/* rule cards */
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px;margin:18px 0}
+.rule{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:15px 17px}
+.rule .no{font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:.1em;font-weight:600}
+.rule h4{margin:5px 0 6px;font-size:14.5px}
+.rule p{font-size:12.8px;color:var(--ink-2);margin:0}
+
+/* spine flow */
+.spine{display:flex;align-items:stretch;gap:0;overflow-x:auto;padding:6px 2px 14px;margin:16px 0 4px}
+.snode{flex:1;min-width:118px;position:relative;text-align:center;padding:0 6px}
+.snode .box{background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--r);
+  padding:9px 8px 8px;position:relative;z-index:1}
+.snode .box b{font-family:var(--mono);font-size:11.5px;display:block}
+.snode .box span{font-size:10.5px;color:var(--ink-3);display:block;margin-top:2px;line-height:1.35}
+.snode::before{content:"";position:absolute;top:50%;left:-50%;width:100%;height:2px;background:var(--accent-line)}
+.snode:first-child::before{display:none}
+.snode .owner{margin-top:7px;font-family:var(--mono);font-size:9px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-4)}
+
+/* tenancy axes */
+.axes{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:18px 0}
+.axis{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
+.axis h4{margin:0 0 4px;font-size:14.5px}
+.axis .pred{font-family:var(--mono);font-size:11.5px;background:var(--surface-2);
+  border:1px solid var(--line);border-radius:4px;padding:6px 10px;margin:9px 0;display:inline-block}
+.axis p{font-size:12.8px;color:var(--ink-2);margin:6px 0 0}
+.orgtree{margin-top:12px;font-family:var(--mono);font-size:11.5px;line-height:1.9;color:var(--ink-2)}
+.orgtree .t{color:var(--accent);font-weight:600}
+.orgtree .x{color:var(--t-critical)}
+
+.fieldnotes{counter-reset:fn;margin:16px 0;padding:0;list-style:none;max-width:74ch}
+.fieldnotes li{counter-increment:fn;position:relative;padding:11px 0 11px 44px;border-bottom:1px dashed var(--line);font-size:13.5px}
+.fieldnotes li:last-child{border-bottom:0}
+.fieldnotes li::before{content:counter(fn,decimal-leading-zero);position:absolute;left:0;top:12px;
+  font-family:var(--mono);font-size:11px;color:var(--accent);font-weight:600}
+.fieldnotes b{display:block;margin-bottom:2px}
+.fieldnotes span{color:var(--ink-2);font-size:12.8px}
+
+figure.erd{margin:18px 0;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+figure.erd svg{display:block;width:100%;height:auto;background:var(--surface)}
+figure.erd figcaption{padding:9px 14px;font-size:12px;color:var(--ink-3);border-top:1px solid var(--line)}
+.erd .ebox{fill:var(--surface);stroke:var(--line-strong);stroke-width:1.2}
+.erd .esep{stroke:var(--line)}
+.erd .etitle{font:600 11.5px var(--mono);fill:var(--ink)}
+.erd .eattr{font:10.5px var(--mono);fill:var(--ink-3)}
+.erd .fk{fill:var(--accent);font-weight:600}
+.erd .rel{stroke:var(--ink-4);fill:none;stroke-width:1.3}
+.erd .acc{stroke:var(--accent);stroke-dasharray:4 3}
+.erd .lbl{font:10px var(--sans);fill:var(--ink-2)}
+.erd .keynote{font-family:var(--mono);font-size:10.5px}
+svg .keynote{font:10.5px var(--mono);fill:var(--ink-3)}
+.legend{display:flex;flex-wrap:wrap;gap:4px 6px;margin:12px 0}
+.endnote{margin-top:64px;padding-top:18px;border-top:1px solid var(--line-strong);
+  font-size:12.5px;color:var(--ink-3);max-width:74ch}
+.endnote code{font-size:.95em}
+</style>
+
+<div class="wrap">
+<nav class="toc" aria-label="Contents">
+  <h2>Contents</h2>
+  <ol>
+    <li><a class="lead" href="#stores">1 · Where things live</a></li>
+    <li><a class="lead" href="#rules">2 · The six rules</a></li>
+    <li><a class="lead" href="#spine">3 · The spine</a></li>
+    <li><a href="#erd">ER diagrams</a></li>
+    <li><a href="#statuses">Status vocabularies</a></li>
+    <li><a class="lead" href="#modules">4 · Module reference</a></li>
+    <li><a href="#m-identity">identity &amp; rbac</a></li>
+    <li><a href="#m-onboarding">onboarding</a></li>
+    <li><a href="#m-marketplace">marketplace</a></li>
+    <li><a href="#m-delivery">delivery</a></li>
+    <li><a href="#m-qa">qa</a></li>
+    <li><a href="#m-network">network</a></li>
+    <li><a href="#m-ledger">ledger</a></li>
+    <li><a href="#m-notify">notify &amp; audit</a></li>
+    <li><a class="lead" href="#login">5 · How a login works</a></li>
+    <li><a class="lead" href="#tenancy">6 · Tenancy &amp; RLS</a></li>
+    <li><a href="#definer">The 20 sanctioned holes</a></li>
+    <li><a href="#fieldnotes">Field notes</a></li>
+    <li><a class="lead" href="#money">7 · How money moves</a></li>
+    <li><a class="lead" href="#scale">8 · Append-only &amp; scale</a></li>
+  </ol>
+</nav>
+
+<main>
+<header class="mast">
+  <div class="kicker">Schema reference · document four of four</div>
+  <h1>SourceHub Data Model</h1>
+  <p class="standfirst">Where every fact in the marketplace lives, the rules it obeys, and why.
+  Companion to the blueprint and the build guide; the running database is the one this document
+  was written against, not a plan for one.</p>
+  <dl class="facts">
+    <div class="fact"><dt>Engine</dt><dd>PostgreSQL 16</dd></div>
+    <div class="fact"><dt>Tables</dt><dd class="num">56 + 4 views</dd></div>
+    <div class="fact"><dt>RLS policies</dt><dd class="num">89</dd></div>
+    <div class="fact"><dt>Enums</dt><dd class="num">26</dd></div>
+    <div class="fact"><dt>Source</dt><dd>db/*.sql · 15 files</dd></div>
+    <div class="fact"><dt>Verified</dt><dd>1 Sep 2026</dd></div>
+  </dl>
+</header>
+
+<!-- ================================ PART 1 ================================ -->
+<div class="part" id="stores">
+  <div class="part-no">Part one</div>
+  <h2>Where things live</h2>
+  <p class="intro">Three stores, a strict division of labour, and one connection rule that decides
+  whether any of the isolation below actually works.</p>
+</div>
+
+<div class="stores">
+  <div class="store">
+    <div class="eyebrow">Postgres 16 · docker volume</div>
+    <h4>Every fact</h4>
+    <p>Organisations, users, hashed credentials, role grants, the RFP→proposal→contract→task chain,
+    equipment custody, double-entry money, the audit chain. One database, one shared schema,
+    row-level security as the tenancy boundary.</p>
+    <div class="never">Never holds: <b>file bytes</b></div>
+  </div>
+  <div class="store">
+    <div class="eyebrow">MinIO · 3 buckets</div>
+    <h4>Bytes, eventually</h4>
+    <p><code>sourcehub-assets</code>, <code>-documents</code>, <code>-bundles</code>. When the media
+    plane lands (milestone 3), captured files go straight here via pre-signed URLs; the database keeps
+    only <code>storage_key</code>, <code>sha256</code> and the manifest. Bytes never traverse the API.</p>
+    <div class="never">Never holds: <b>anything queryable</b></div>
+  </div>
+  <div class="store">
+    <div class="eyebrow">Redis</div>
+    <h4>Work in motion</h4>
+    <p>Celery queues (media · qa · notify) and cache. Rebuildable from Postgres at any moment.</p>
+    <div class="never">Never holds: <b>anything that must survive a restart</b></div>
+  </div>
+</div>
+
+<div class="decision">
+  <span class="lbl">The connection rule</span>
+  <p>The application connects as <code>sourcehub_app</code> — a role that is neither the table owner
+  nor holds <code>BYPASSRLS</code>. Migrations and isolation tests use the owner.</p>
+  <p>A superuser bypasses row-level security unconditionally, so an API using the
+  <code>postgres</code> account has all 89 policies enabled and entirely ineffective — the most
+  common way this control fails silently. This is also why proving isolation by querying as
+  <code>postgres</code> proves nothing.</p>
+</div>
+
+<!-- ================================ PART 2 ================================ -->
+<div class="part" id="rules">
+  <div class="part-no">Part two</div>
+  <h2>The six rules every table obeys</h2>
+  <p class="intro">Stated once here; assumed everywhere below.</p>
+</div>
+
+<div class="rules">
+  <div class="rule"><span class="no">R1</span>
+    <h4>UUID keys, human codes</h4>
+    <p>Primary keys are <code>uuid</code> (<code>gen_random_uuid()</code>). Beside each sits a
+    <code>reference_code</code> from a real sequence — <code>CL-01</code>, <code>RFP-1002</code>,
+    <code>CTR-01</code>. People and support tickets say codes; machines join UUIDs.</p>
+  </div>
+  <div class="rule"><span class="no">R2</span>
+    <h4>One status enum per entity</h4>
+    <p>The prototype shared 28 status strings across every table — ambiguous, because
+    <i>submitted</i> on a proposal awaits the client while on a task it awaits the partner's QA.
+    Here each entity has its own Postgres enum; an illegal value cannot be written at all.</p>
+  </div>
+  <div class="rule"><span class="no">R3</span>
+    <h4>Soft delete; three tables append-only</h4>
+    <p>Deletion is <code>deleted_at</code>, never a lost row. <code>qa_review</code>,
+    <code>ledger_entry</code> and <code>audit_event</code> go further: rewrite rules forbid UPDATE
+    and DELETE outright. A correction is a new row.</p>
+  </div>
+  <div class="rule"><span class="no">R4</span>
+    <h4>Audit columns everywhere</h4>
+    <p><code>created_at</code>, <code>updated_at</code> (trigger-maintained),
+    <code>created_by</code>, <code>updated_by</code> on every mutable table.</p>
+  </div>
+  <div class="rule"><span class="no">R5</span>
+    <h4>Derived beats duplicated</h4>
+    <p>The request row stores only what its owner can write (<code>draft · published · accepted
+    · cancelled</code>). Everything after award — in&nbsp;progress, delivered, completed — is derived
+    from the contract, so two state machines can never drift apart.</p>
+  </div>
+  <div class="rule"><span class="no">R6</span>
+    <h4>jsonb only for genuinely open shapes</h4>
+    <p><code>onboarding_request.payload</code>, <code>contract.rubric_snapshot</code>,
+    <code>notification.link_params</code>, future <code>asset.metadata</code>. Anything filtered,
+    sorted or joined on gets a real column — which is why each org kind has a typed profile table
+    instead of a blob.</p>
+  </div>
+</div>
+
+<!-- ================================ PART 3 ================================ -->
+<div class="part" id="spine">
+  <div class="part-no">Part three</div>
+  <h2>The spine</h2>
+  <p class="intro">One chain of six tables carries the entire marketplace. Everything else hangs
+  off it or serves it.</p>
+</div>
+
+<div class="spine" role="img" aria-label="request to proposal to contract to task to submission to qa_review">
+  <div class="snode"><div class="box"><b>request</b><span>the RFP a client publishes</span></div><div class="owner">client writes</div></div>
+  <div class="snode"><div class="box"><b>proposal</b><span>a tenant's bid · immutable once in</span></div><div class="owner">tenant writes</div></div>
+  <div class="snode"><div class="box"><b>contract</b><span>born at award · carries the rubric snapshot</span></div><div class="owner">award creates</div></div>
+  <div class="snode"><div class="box"><b>task</b><span>unit of assignment · never spans suppliers</span></div><div class="owner">tenant writes</div></div>
+  <div class="snode"><div class="box"><b>submission</b><span>one row per attempt · note kept</span></div><div class="owner">supplier writes</div></div>
+  <div class="snode"><div class="box"><b>qa_review</b><span>one verdict per gate · append-only</span></div><div class="owner">reviewer appends</div></div>
+</div>
+
+<p class="small muted">Two joins carry tenancy through the spine: <code>contract.client_org_id</code> and
+<code>contract.partner_org_id</code> are denormalised onto the contract because the RLS predicate lives
+on them, and <code>task.assignee_org_id</code> is how a supplier reaches anything at all.</p>
+
+<section id="erd">
+  <h3>ER diagrams</h3>
+  <p class="small muted" style="margin-top:-4px">Three views instead of one 56-table hairball —
+  each shows the keys an argument actually hinges on. <span class="keynote">
+  <b style="color:var(--accent)">▸</b> FK to organisation · ⊕ unique within parent · ! CHECK-required · ⇢ optional FK</span></p>
+
+  <!-- ============ ERD 1 · identity & access ============ -->
+  <figure class="erd">
+  <svg viewBox="0 0 900 560" role="img" aria-label="Identity and access: app_user joins organisation through user_role_grant; role, role_permission and permission resolve capabilities; onboarding approval creates the organisation, its first user and an invitation in one transaction">
+    <defs><marker id="a1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L8 4L0 8z" fill="var(--ink-4)"/></marker>
+    <marker id="a1c" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L8 4L0 8z" fill="var(--accent)"/></marker></defs>
+
+    <g transform="translate(40,30)"><rect class="ebox" width="210" height="90" rx="5"/><line class="esep" x1="0" y1="22" x2="210" y2="22"/>
+      <text class="etitle" x="10" y="15">app_user</text>
+      <text class="eattr" x="10" y="38">email · citext, unique</text>
+      <text class="eattr" x="10" y="53">password_hash · argon2id</text>
+      <text class="eattr" x="10" y="68">status · lockout counters</text>
+      <text class="eattr" x="10" y="83">external_idp_subject · seam</text></g>
+
+    <g transform="translate(330,30)"><rect class="ebox" width="220" height="75" rx="5"/><line class="esep" x1="0" y1="22" x2="220" y2="22"/>
+      <text class="etitle" x="10" y="15">user_session</text>
+      <text class="eattr" x="10" y="38">token_hash · sha256 only</text>
+      <text class="eattr" x="10" y="53"><tspan class="fk">▸</tspan> org_id · one org / session</text>
+      <text class="eattr" x="10" y="68">revoked_at · rotation trail</text></g>
+    <line class="rel" x1="330" y1="67" x2="252" y2="67" marker-end="url(#a1)"/>
+    <text class="lbl" x="291" y="61" text-anchor="middle">belongs to</text>
+
+    <g transform="translate(640,30)"><rect class="ebox" width="220" height="60" rx="5"/><line class="esep" x1="0" y1="22" x2="220" y2="22"/>
+      <text class="etitle" x="10" y="15">role</text>
+      <text class="eattr" x="10" y="38">code · 6 system roles</text>
+      <text class="eattr" x="10" y="53">applies_to_kind</text></g>
+
+    <g transform="translate(640,120)"><rect class="ebox" width="220" height="45" rx="5"/><line class="esep" x1="0" y1="22" x2="220" y2="22"/>
+      <text class="etitle" x="10" y="15">role_permission</text>
+      <text class="eattr" x="10" y="38">66 rows · pure join</text></g>
+    <line class="rel" x1="750" y1="90" x2="750" y2="118" marker-end="url(#a1)"/>
+
+    <g transform="translate(640,195)"><rect class="ebox" width="220" height="60" rx="5"/><line class="esep" x1="0" y1="22" x2="220" y2="22"/>
+      <text class="etitle" x="10" y="15">permission</text>
+      <text class="eattr" x="10" y="38">code · 'proposal.accept'</text>
+      <text class="eattr" x="10" y="53">requires_mfa · money moves</text></g>
+    <line class="rel" x1="750" y1="165" x2="750" y2="193" marker-end="url(#a1)"/>
+
+    <g transform="translate(330,160)"><rect class="ebox" width="220" height="90" rx="5"/><line class="esep" x1="0" y1="22" x2="220" y2="22"/>
+      <text class="etitle" x="10" y="15">user_role_grant</text>
+      <text class="eattr" x="10" y="38">user_id · org_id · role_id</text>
+      <text class="eattr" x="10" y="53">scope · owner mgr member</text>
+      <text class="eattr" x="10" y="68">⊕ one live grant / triple</text>
+      <text class="eattr" x="10" y="83">revoked_at · never DELETE</text></g>
+    <polyline class="rel" points="250,100 290,100 290,175 328,175" marker-end="url(#a1)"/>
+    <text class="lbl" x="296" y="140">holds</text>
+    <line class="rel" x1="250" y1="205" x2="328" y2="205" marker-end="url(#a1)"/>
+    <text class="lbl" x="289" y="199" text-anchor="middle">in</text>
+    <polyline class="rel" points="640,55 600,55 600,190 552,190" marker-end="url(#a1)"/>
+    <text class="lbl" x="606" y="126">as</text>
+
+    <g transform="translate(40,180)"><rect class="ebox" width="210" height="75" rx="5"/><line class="esep" x1="0" y1="22" x2="210" y2="22"/>
+      <text class="etitle" x="10" y="15">organisation</text>
+      <text class="eattr" x="10" y="38">kind · all 6, one table</text>
+      <text class="eattr" x="10" y="53">status · pending→active…</text>
+      <text class="eattr" x="10" y="68">parent_org_id ⟲ network</text></g>
+    <path class="rel" d="M 40 245 C 12 245 12 212 37 212" marker-end="url(#a1)"/>
+    <text class="lbl" x="8" y="266">network axis</text>
+
+    <g transform="translate(40,300)"><rect class="ebox" width="210" height="60" rx="5"/><line class="esep" x1="0" y1="22" x2="210" y2="22"/>
+      <text class="etitle" x="10" y="15">&lt;kind&gt;_profile ×5</text>
+      <text class="eattr" x="10" y="38">typed columns, no jsonb</text>
+      <text class="eattr" x="10" y="53">1:1 · CASCADE with org</text></g>
+    <line class="rel" x1="145" y1="300" x2="145" y2="258" marker-end="url(#a1)"/>
+    <text class="lbl" x="152" y="283">1:1</text>
+
+    <g transform="translate(330,300)"><rect class="ebox" width="220" height="75" rx="5"/><line class="esep" x1="0" y1="22" x2="220" y2="22"/>
+      <text class="etitle" x="10" y="15">invitation</text>
+      <text class="eattr" x="10" y="38">token_hash · emailed link</text>
+      <text class="eattr" x="10" y="53"><tspan class="fk">▸</tspan> org_id · role_id · user_id</text>
+      <text class="eattr" x="10" y="68">accepted_at → user active</text></g>
+
+    <g transform="translate(40,430)"><rect class="ebox" width="250" height="90" rx="5"/><line class="esep" x1="0" y1="22" x2="250" y2="22"/>
+      <text class="etitle" x="10" y="15">onboarding_request</text>
+      <text class="eattr" x="10" y="38">target_org_kind + parent CHECK</text>
+      <text class="eattr" x="10" y="53">payload · jsonb → profile</text>
+      <text class="eattr" x="10" y="68">contact → the first user</text>
+      <text class="eattr" x="10" y="83">status · 8-state machine</text></g>
+
+    <g transform="translate(330,445)"><rect class="ebox" width="220" height="75" rx="5"/><line class="esep" x1="0" y1="22" x2="220" y2="22"/>
+      <text class="etitle" x="10" y="15">onboarding_approval</text>
+      <text class="eattr" x="10" y="38">decision · 3 outcomes</text>
+      <text class="eattr" x="10" y="53">reason ! unless approved</text>
+      <text class="eattr" x="10" y="68">append-only trail</text></g>
+    <line class="rel" x1="330" y1="482" x2="292" y2="482" marker-end="url(#a1)"/>
+    <text class="lbl" x="311" y="476" text-anchor="middle">on</text>
+
+    <polyline class="rel acc" points="290,442 310,442 310,405 400,405 400,377" marker-end="url(#a1c)"/>
+    <text class="lbl" x="318" y="399">approve(): one transaction —</text>
+    <text class="lbl" x="318" y="411" style="fill:var(--accent)">org + profile + user + grant + invitation</text>
+    <polyline class="rel acc" points="20,470 20,217 37,217" marker-end="url(#a1c)"/>
+    <line class="rel acc" x1="40" y1="470" x2="22" y2="470"/>
+    <text class="lbl" transform="rotate(-90 14 350)" x="14" y="350" text-anchor="middle" style="fill:var(--accent)">creates org</text>
+  </svg>
+  <figcaption><b>Identity &amp; access.</b> A person becomes a principal only through
+  <code>user_role_grant</code> (user × org × role); capabilities resolve through the role chain and
+  ride in the token. The teal path is the onboarding approval — one transaction that creates the
+  organisation, its typed profile, its first (invited) user, the owner grant and the emailed
+  invitation, or nothing at all.</figcaption>
+  </figure>
+
+  <!-- ============ ERD 2 · the marketplace spine ============ -->
+  <figure class="erd">
+  <svg viewBox="0 0 940 585" role="img" aria-label="The marketplace spine: request to proposal to contract to task to submission to qa_review, with equipment, loan, crowd_worker and rating hanging off it">
+    <defs><marker id="b1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L8 4L0 8z" fill="var(--ink-4)"/></marker></defs>
+
+    <g transform="translate(40,36)"><rect class="ebox" width="215" height="90" rx="5"/><line class="esep" x1="0" y1="22" x2="215" y2="22"/>
+      <text class="etitle" x="10" y="15">request</text>
+      <text class="eattr" x="10" y="38"><tspan class="fk">▸</tspan> client_org_id</text>
+      <text class="eattr" x="10" y="53">category · 5 kinds</text>
+      <text class="eattr" x="10" y="68">status · stored ≤ accepted</text>
+      <text class="eattr" x="10" y="83">budget · timeline CHECKs</text></g>
+
+    <g transform="translate(300,36)"><rect class="ebox" width="215" height="90" rx="5"/><line class="esep" x1="0" y1="22" x2="215" y2="22"/>
+      <text class="etitle" x="10" y="15">proposal</text>
+      <text class="eattr" x="10" y="38"><tspan class="fk">▸</tspan> partner_org_id</text>
+      <text class="eattr" x="10" y="53">price · duration_days</text>
+      <text class="eattr" x="10" y="68">methodology · required</text>
+      <text class="eattr" x="10" y="83">⊕ one live bid / partner</text></g>
+    <line class="rel" x1="300" y1="80" x2="257" y2="80" marker-end="url(#b1)"/>
+    <text class="lbl" x="278" y="73" text-anchor="middle">bids on</text>
+
+    <g transform="translate(560,36)"><rect class="ebox" width="340" height="105" rx="5"/><line class="esep" x1="0" y1="22" x2="340" y2="22"/>
+      <text class="etitle" x="10" y="15">contract</text>
+      <text class="eattr" x="10" y="38">request_id ⊕ · proposal_id ⊕ (1:1)</text>
+      <text class="eattr" x="10" y="53"><tspan class="fk">▸</tspan> client_org · <tspan class="fk">▸</tspan> partner_org — RLS hot path</text>
+      <text class="eattr" x="10" y="68">rubric_snapshot · frozen at award</text>
+      <text class="eattr" x="10" y="83">value · milestone_pct 50</text>
+      <text class="eattr" x="10" y="98">platform_fee_pct 9.00</text></g>
+    <polyline class="rel" points="660,36 660,14 147,14 147,34" marker-end="url(#b1)"/>
+    <text class="lbl" x="400" y="10">1:1 · born at award</text>
+    <line class="rel" x1="560" y1="95" x2="517" y2="95" marker-end="url(#b1)"/>
+    <text class="lbl" x="538" y="88" text-anchor="middle">winner</text>
+
+    <g transform="translate(560,210)"><rect class="ebox" width="260" height="75" rx="5"/><line class="esep" x1="0" y1="22" x2="260" y2="22"/>
+      <text class="etitle" x="10" y="15">task</text>
+      <text class="eattr" x="10" y="38"><tspan class="fk">▸</tspan> assignee_org · in-network CHECK</text>
+      <text class="eattr" x="10" y="53">status · 6 states</text>
+      <text class="eattr" x="10" y="68">due_on · never spans suppliers</text></g>
+    <line class="rel" x1="690" y1="141" x2="690" y2="208" marker-end="url(#b1)"/>
+    <text class="lbl" x="698" y="180">breaks into n</text>
+
+    <g transform="translate(560,330)"><rect class="ebox" width="260" height="75" rx="5"/><line class="esep" x1="0" y1="22" x2="260" y2="22"/>
+      <text class="etitle" x="10" y="15">submission</text>
+      <text class="eattr" x="10" y="38">attempt_no ⊕ per task</text>
+      <text class="eattr" x="10" y="53">supplier_note · kept forever</text>
+      <text class="eattr" x="10" y="68">asset_count · until media plane</text></g>
+    <line class="rel" x1="690" y1="285" x2="690" y2="328" marker-end="url(#b1)"/>
+    <text class="lbl" x="698" y="312">n attempts</text>
+
+    <g transform="translate(560,450)"><rect class="ebox" width="260" height="90" rx="5"/><line class="esep" x1="0" y1="22" x2="260" y2="22"/>
+      <text class="etitle" x="10" y="15">qa_review</text>
+      <text class="eattr" x="10" y="38">gate · 1 supplier 2 partner 3 client</text>
+      <text class="eattr" x="10" y="53">outcome · pass fail waived</text>
+      <text class="eattr" x="10" y="68">note ! on failure</text>
+      <text class="eattr" x="10" y="83"><tspan class="fk">▸</tspan> reviewer_org · append-only</text></g>
+    <line class="rel" x1="690" y1="405" x2="690" y2="448" marker-end="url(#b1)"/>
+    <text class="lbl" x="698" y="432">verdict / gate</text>
+
+    <g transform="translate(40,210)"><rect class="ebox" width="230" height="75" rx="5"/><line class="esep" x1="0" y1="22" x2="230" y2="22"/>
+      <text class="etitle" x="10" y="15">equipment</text>
+      <text class="eattr" x="10" y="38"><tspan class="fk">▸</tspan> sponsor_org_id</text>
+      <text class="eattr" x="10" y="53">total_units · type-level count</text>
+      <text class="eattr" x="10" y="68">calibration_expires · blocks loans</text></g>
+
+    <g transform="translate(40,330)"><rect class="ebox" width="230" height="90" rx="5"/><line class="esep" x1="0" y1="22" x2="230" y2="22"/>
+      <text class="etitle" x="10" y="15">loan</text>
+      <text class="eattr" x="10" y="38"><tspan class="fk">▸</tspan> requester_org_id</text>
+      <text class="eattr" x="10" y="53">units · trigger ≤ stock</text>
+      <text class="eattr" x="10" y="68">status · chain of custody</text>
+      <text class="eattr" x="10" y="83">task_id ⇢</text></g>
+    <line class="rel" x1="150" y1="330" x2="150" y2="287" marker-end="url(#b1)"/>
+    <text class="lbl" x="158" y="312">draws units</text>
+    <polyline class="rel" points="270,352 430,352 430,247 558,247" marker-end="url(#b1)" stroke-dasharray="4 3"/>
+    <text class="lbl" x="438" y="340">for a task · 0..1</text>
+
+    <g transform="translate(40,460)"><rect class="ebox" width="230" height="60" rx="5"/><line class="esep" x1="0" y1="22" x2="230" y2="22"/>
+      <text class="etitle" x="10" y="15">crowd_worker</text>
+      <text class="eattr" x="10" y="38"><tspan class="fk">▸</tspan> aggregator_org · roster only</text>
+      <text class="eattr" x="10" y="53">no credential · never a login</text></g>
+
+    <g transform="translate(300,460)"><rect class="ebox" width="215" height="75" rx="5"/><line class="esep" x1="0" y1="22" x2="215" y2="22"/>
+      <text class="etitle" x="10" y="15">rating</text>
+      <text class="eattr" x="10" y="38"><tspan class="fk">▸</tspan> from_org · <tspan class="fk">▸</tspan> to_org</text>
+      <text class="eattr" x="10" y="53">score 1–5 · comment !</text>
+      <text class="eattr" x="10" y="68">⊕ per contract · pair</text></g>
+    <polyline class="rel" points="410,460 410,430 543,430 543,122 558,122" marker-end="url(#b1)"/>
+    <text class="lbl" transform="rotate(-90 550 290)" x="550" y="290" text-anchor="middle">rates the contract</text>
+
+    <text class="keynote" x="40" y="568"><tspan class="fk">▸</tspan> FK to organisation · ⊕ unique within parent · ! CHECK-required · ⇢ optional · dashed = optional link</text>
+  </svg>
+  <figcaption><b>The marketplace spine.</b> One chain carries the transaction; every hop changes
+  who may write. <code>contract</code> denormalises both org ids because the row-level security
+  predicate lives on them; the network tables on the left plug into the spine only at
+  <code>task</code> — a loan may cite the task it serves, a roster never does.</figcaption>
+  </figure>
+
+  <!-- ============ ERD 3 · money ============ -->
+  <figure class="erd">
+  <svg viewBox="0 0 900 345" role="img" aria-label="Money: ledger_transaction groups balanced ledger_entry legs posted to ledger_account; invoice is a projection of the ledger against a contract">
+    <defs><marker id="c1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L8 4L0 8z" fill="var(--ink-4)"/></marker></defs>
+
+    <g transform="translate(40,120)"><rect class="ebox" width="210" height="75" rx="5"/><line class="esep" x1="0" y1="22" x2="210" y2="22"/>
+      <text class="etitle" x="10" y="15">contract</text>
+      <text class="eattr" x="10" y="38">value · currency</text>
+      <text class="eattr" x="10" y="53">milestone_pct · 50</text>
+      <text class="eattr" x="10" y="68">platform_fee_pct · 9.00</text></g>
+
+    <g transform="translate(320,40)"><rect class="ebox" width="240" height="75" rx="5"/><line class="esep" x1="0" y1="22" x2="240" y2="22"/>
+      <text class="etitle" x="10" y="15">ledger_transaction</text>
+      <text class="eattr" x="10" y="38">entry_type · 7 kinds</text>
+      <text class="eattr" x="10" y="53">description · human trail</text>
+      <text class="eattr" x="10" y="68">occurred_at</text></g>
+    <polyline class="rel" points="320,77 285,77 285,140 252,140" marker-end="url(#c1)"/>
+    <text class="lbl" x="292" y="112">about · 0..1</text>
+
+    <g transform="translate(630,40)"><rect class="ebox" width="240" height="75" rx="5"/><line class="esep" x1="0" y1="22" x2="240" y2="22"/>
+      <text class="etitle" x="10" y="15">ledger_entry</text>
+      <text class="eattr" x="10" y="38">direction · debit | credit</text>
+      <text class="eattr" x="10" y="53">amount &gt; 0</text>
+      <text class="eattr" x="10" y="68">append-only · reversals fix</text></g>
+    <line class="rel" x1="630" y1="77" x2="562" y2="77" marker-end="url(#c1)"/>
+    <text class="lbl" x="596" y="60" text-anchor="middle">legs · n</text>
+    <text class="lbl" x="596" y="72" text-anchor="middle" style="fill:var(--accent)">Σdebit = Σcredit</text>
+
+    <g transform="translate(630,225)"><rect class="ebox" width="240" height="75" rx="5"/><line class="esep" x1="0" y1="22" x2="240" y2="22"/>
+      <text class="etitle" x="10" y="15">ledger_account</text>
+      <text class="eattr" x="10" y="38"><tspan class="fk">▸</tspan> org_id · NULL = platform</text>
+      <text class="eattr" x="10" y="53">code · receivable payable</text>
+      <text class="eattr" x="10" y="68">escrow · cash · fee_income</text></g>
+    <line class="rel" x1="750" y1="115" x2="750" y2="223" marker-end="url(#c1)"/>
+    <text class="lbl" x="758" y="174">posts to</text>
+
+    <g transform="translate(320,225)"><rect class="ebox" width="240" height="90" rx="5"/><line class="esep" x1="0" y1="22" x2="240" y2="22"/>
+      <text class="etitle" x="10" y="15">invoice</text>
+      <text class="eattr" x="10" y="38"><tspan class="fk">▸</tspan> party_org_id</text>
+      <text class="eattr" x="10" y="53">kind · 'Milestone 1 of 2'</text>
+      <text class="eattr" x="10" y="68">status · pending → paid</text>
+      <text class="eattr" x="10" y="83">transaction_id ⇢</text></g>
+    <polyline class="rel" points="320,255 145,255 145,197" marker-end="url(#c1)"/>
+    <text class="lbl" x="152" y="230">bills</text>
+    <line class="rel acc" x1="440" y1="225" x2="440" y2="117" marker-end="url(#c1)"/>
+    <text class="lbl" x="448" y="175" style="fill:var(--accent)">projection of</text>
+  </svg>
+  <figcaption><b>Money.</b> The document a party sees (<code>invoice</code>) is a projection; the
+  truth is double-entry — a deferred trigger refuses any commit whose legs don't balance, and the
+  <code>ledger_imbalance</code> view must stay empty forever. Only the platform context writes here;
+  RLS turns every other org away.</figcaption>
+  </figure>
+</section>
+
+<section id="statuses">
+  <h3>Status vocabularies (R2, drawn live from the enums)</h3>
+  <p class="small muted" style="margin-top:-4px">Tone is presentation; the <i>owner</i> — who must act
+  next — is what drives every “Waiting on” column in the console.</p>
+  <div class="legend"><b class="small" style="min-width:86px">request</b>
+    <span class="pill">draft</span><span class="pill" data-tone="active">published</span>
+    <span class="pill" data-tone="attention">proposals_received</span><span class="pill" data-tone="active">accepted</span>
+    <span class="pill" data-tone="active">in_progress*</span><span class="pill" data-tone="attention">delivered*</span>
+    <span class="pill" data-tone="success">completed*</span><span class="pill">cancelled</span>
+  </div>
+  <div class="legend"><b class="small" style="min-width:86px">proposal</b>
+    <span class="pill" data-tone="attention">submitted</span><span class="pill" data-tone="success">accepted</span>
+    <span class="pill" data-tone="critical">rejected</span><span class="pill">withdrawn</span>
+  </div>
+  <div class="legend"><b class="small" style="min-width:86px">contract</b>
+    <span class="pill" data-tone="active">active</span><span class="pill" data-tone="attention">in_qa*</span>
+    <span class="pill" data-tone="attention">delivered</span><span class="pill" data-tone="success">completed</span>
+    <span class="pill" data-tone="critical">disputed</span><span class="pill">cancelled</span>
+  </div>
+  <div class="legend"><b class="small" style="min-width:86px">task</b>
+    <span class="pill">assigned</span><span class="pill" data-tone="active">in_progress</span>
+    <span class="pill" data-tone="attention">submitted</span><span class="pill" data-tone="success">qa_passed</span>
+    <span class="pill" data-tone="critical">qa_failed</span><span class="pill">cancelled</span>
+  </div>
+  <div class="legend"><b class="small" style="min-width:86px">loan</b>
+    <span class="pill" data-tone="attention">pending</span><span class="pill" data-tone="success">approved</span>
+    <span class="pill" data-tone="critical">rejected</span><span class="pill" data-tone="active">issued</span>
+    <span class="pill">returned</span><span class="pill" data-tone="critical">overdue</span>
+  </div>
+  <div class="legend"><b class="small" style="min-width:86px">onboarding</b>
+    <span class="pill">draft</span><span class="pill" data-tone="attention">submitted</span>
+    <span class="pill" data-tone="attention">under_review</span><span class="pill" data-tone="critical">changes_requested</span>
+    <span class="pill" data-tone="success">approved</span><span class="pill" data-tone="critical">rejected</span>
+    <span class="pill">withdrawn</span><span class="pill">expired</span>
+  </div>
+  <p class="small muted">* derived, never stored (R5): <code>in_progress</code>/<code>delivered</code>/<code>completed</code>
+  on a request come from its contract; <code>in_qa</code> on a contract from open submissions;
+  <code>proposals_received</code> from the bid count.</p>
+</section>
+
+<!-- ================================ PART 4 ================================ -->
+<div class="part" id="modules">
+  <div class="part-no">Part four</div>
+  <h2>Module reference</h2>
+  <p class="intro">Nine modules, one SQL file each, and the backend mirrors the same names —
+  a change that spans database and code touches two files with one name.</p>
+</div>
+
+<section id="m-identity">
+  <h3>identity &amp; rbac — <span class="muted">db/010, db/020</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Table</th><th>Holds</th></tr></thead>
+    <tbody>
+      <tr><td class="tname">organisation</td><td>Every party, all six kinds, one table.
+        <span class="cols"><b>kind</b> client·tenant·aggregator·business·sponsor·platform &nbsp;·&nbsp;
+        <b>parent_org_id</b> the network axis — a supplier belongs to exactly one tenant (CHECK-enforced) &nbsp;·&nbsp;
+        <b>status</b> pending_approval → active → suspended → terminated</span></td></tr>
+      <tr><td class="tname">client_profile … sponsor_profile</td><td>Five typed 1-to-1 satellites for kind-specific fields the console filters on.
+        <span class="cols"><b>client</b> industry·plan·dpa_signed·residency &nbsp;·&nbsp; <b>tenant</b> hq·on_time_rate·qa_pass_rate·fair_work_attested &nbsp;·&nbsp;
+        <b>aggregator</b> crowd_size·region·focus &nbsp;·&nbsp; <b>business</b> specialty·capacity &nbsp;·&nbsp; <b>sponsor</b> contact_email</span></td></tr>
+      <tr><td class="tname">app_user</td><td>A person — not a membership.
+        <span class="cols"><b>email</b> citext, unique among the living &nbsp;·&nbsp; <b>password_hash + password_algo</b> argon2id; seeded bcrypt rows upgrade on first login &nbsp;·&nbsp;
+        <b>failed_login_count · locked_until</b> lockout &nbsp;·&nbsp; <b>external_idp_subject</b> the dormant Keycloak seam</span></td></tr>
+      <tr><td class="tname">user_role_grant</td><td>The row that makes a person <i>someone</i>: user × org × role.
+        <span class="cols"><b>scope</b> owner·manager·member &nbsp;·&nbsp; <b>revoked_at</b> a timestamp, never a DELETE — “who could do what, when” must survive revocation</span></td></tr>
+      <tr><td class="tname">role · permission · role_permission</td><td>The capability matrix as data: 6 system roles × 38 permissions through 66 join rows.
+        <span class="cols"><b>permission.requires_mfa</b> marks anything that moves money or approves a delivery &nbsp;·&nbsp; adding a role is an INSERT, not a deploy</span></td></tr>
+      <tr><td class="tname">user_session</td><td>Refresh tokens — as sha256 only; a dump yields nothing usable.
+        <span class="cols"><b>token_hash</b> unique &nbsp;·&nbsp; <b>org_id</b> one session, one org &nbsp;·&nbsp; <b>revoked_at·revoke_reason</b> rotation trail</span></td></tr>
+      <tr><td class="tname">user_token · user_password_history · user_mfa · login_attempt</td><td>Reset/verify tokens (hashed, single-use) · reuse prevention · TOTP seat (enrolment ships later) · append-only forensics, successes and failures both.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="m-onboarding">
+  <h3>onboarding — <span class="muted">db/030</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Table</th><th>Holds</th></tr></thead>
+    <tbody>
+      <tr><td class="tname">onboarding_request</td><td>One table for every org kind — the flow the prototype faked.
+        <span class="cols"><b>target_org_kind + parent_org_id</b> a CHECK mirrors the network rule one step early &nbsp;·&nbsp;
+        <b>payload</b> jsonb, unpacked into a typed profile at approval (R6) &nbsp;·&nbsp;
+        <b>contact</b> becomes the org's first user &nbsp;·&nbsp; <b>created_org_id·created_user_id</b> set by approval</span></td></tr>
+      <tr><td class="tname">onboarding_approval</td><td>Append-only decision trail; a resubmitted request keeps every earlier verdict.
+        <span class="cols"><b>decision</b> approved·rejected·changes_requested &nbsp;·&nbsp; <b>reason</b> CHECK-required on anything but approval &nbsp;·&nbsp;
+        <b>step</b> multi-step chains later without a migration</span></td></tr>
+      <tr><td class="tname">invitation</td><td>How the first user gets in: hashed expiring token, emailed as a link; the invitee sets their own password — no admin ever knows a credential.</td></tr>
+    </tbody>
+    <caption><code>approve_onboarding_request()</code> creates org + profile + invited user + owner grant +
+    invitation in ONE transaction, running with the <i>caller's</i> rights — a tenant invoking it dies on
+    <code>organisation_insert</code>. Ops-only is enforced three times: capability, RLS insert policy, and this.</caption>
+  </table></div>
+</section>
+
+<section id="m-marketplace">
+  <h3>marketplace — <span class="muted">db/040</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Table</th><th>Holds</th></tr></thead>
+    <tbody>
+      <tr><td class="tname">request</td><td>The RFP, flattened from the prototype's nested spec/people/timeline — every field is filtered or sorted somewhere, so none hides in jsonb.
+        <span class="cols"><b>category</b> image·video·structured_data·unstructured_data·people_deliverable &nbsp;·&nbsp;
+        <b>budget_min ≤ budget_max</b>, <b>starts_on ≤ delivery_due_on</b> as CHECKs &nbsp;·&nbsp;
+        <b>residency_region</b> pins where work may go</span></td></tr>
+      <tr><td class="tname">proposal</td><td>A tenant's bid — immutable once submitted.
+        <span class="cols"><b>one live bid</b> per (request, partner): partial unique index &nbsp;·&nbsp;
+        <b>one winner</b> per request: unique index WHERE status='accepted' &nbsp;·&nbsp;
+        <b>methodology</b> required — it is what the client compares</span></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="m-delivery">
+  <h3>delivery — <span class="muted">db/050</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Table</th><th>Holds</th></tr></thead>
+    <tbody>
+      <tr><td class="tname">contract</td><td>Born at award; 1:1 with request and winning proposal.
+        <span class="cols"><b>client_org_id · partner_org_id</b> denormalised for the RLS hot path &nbsp;·&nbsp;
+        <b>rubric_snapshot</b> jsonb frozen at award — disputes are arbitrated against this, not the request as later edited &nbsp;·&nbsp;
+        <b>milestone_pct</b> 50 default · <b>platform_fee_pct</b> 9.00</span></td></tr>
+      <tr><td class="tname">task</td><td>Unit of assignment, QA and rework; never spans suppliers.
+        <span class="cols"><b>assignee_org_id</b> plain FK — the prototype's polymorphic type/id pair collapsed once all org kinds shared one table</span></td></tr>
+      <tr><td class="tname">submission</td><td>One row per <i>attempt</i>. Fixes the prototype's overloaded note, where the QA verdict overwrote the supplier's own account.
+        <span class="cols"><b>attempt_no</b> unique per task &nbsp;·&nbsp; <b>supplier_note</b> preserved forever &nbsp;·&nbsp;
+        <b>asset_count</b> stands in until the media plane</span></td></tr>
+      <tr><td class="tname">asset</td><td>One captured file + manifest — range-partitioned by month for the 40-million-row year-one target.
+        <span class="cols"><b>sha256 · storage_key · storage_region</b> &nbsp;·&nbsp; <b>status</b> pending·ready·quarantined·rejected·erased &nbsp;·&nbsp;
+        <b>redaction</b> device-side, verified by sampling</span></td></tr>
+      <tr><td class="tname">consent_artefact</td><td>One per identifiable subject; deliberately <i>not</i> a hard FK to asset — proof of consent must survive erasure of the thing consented to.</td></tr>
+    </tbody>
+    <caption>View <code>contract_progress</code> computes done/total/deliverable live — the delivery gate
+    (“every task has cleared QA”) is a query, not a counter that can rot.</caption>
+  </table></div>
+</section>
+
+<section id="m-qa">
+  <h3>qa — <span class="muted">db/060</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Table</th><th>Holds</th></tr></thead>
+    <tbody>
+      <tr><td class="tname">qa_review</td><td>One verdict per gate per submission — append-only by rewrite rule, because <i>which gate caught a defect decides who pays for the rework</i>.
+        <span class="cols"><b>gate</b> gate1_supplier·gate2_partner·gate3_client &nbsp;·&nbsp;
+        <b>outcome</b> pass·fail·waived &nbsp;·&nbsp; <b>note</b> CHECK-required on failure — a supplier cannot act on a blank rejection</span></td></tr>
+      <tr><td class="tname">rubric · rubric_rule · sampling_plan · gold_set</td><td>The machine-checkable acceptance criteria (versioned; the contract snapshots one), per-defect thresholds, ISO-2859-style sampling, and known-good/bad reference items that score the <i>reviewers</i>. Populated fully at milestone 3.</td></tr>
+      <tr><td class="tname">defect_code</td><td>A lookup table, not an enum — operators extend the taxonomy without a migration. Seeded with the 9 automated checks (blur, exposure, occlusion, geotag…) + 2 manual.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="m-network">
+  <h3>network — <span class="muted">db/070</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Table</th><th>Holds</th></tr></thead>
+    <tbody>
+      <tr><td class="tname">equipment</td><td>A type with a unit count (the domain never tracks serial numbers).
+        <span class="cols"><b>total_units</b> &nbsp;·&nbsp; <b>calibration_expires_on</b> — expiry blocks new loans, in the trigger</span></td></tr>
+      <tr><td class="tname">loan</td><td>The chain of custody: request → decide → issue → return.
+        <span class="cols"><b>trigger-enforced stock</b>: approved+issued units can never exceed total_units — arithmetic the prototype simply didn't have &nbsp;·&nbsp;
+        <b>decision_reason</b> CHECK-required on rejection</span></td></tr>
+      <tr><td class="tname">crowd_worker</td><td>An aggregator's roster. Records about people, never principals — no credential, no grant, no login; the crowd authenticates through its aggregator.</td></tr>
+      <tr><td class="tname">rating</td><td>Bidirectional, one per (contract, from, to); comment CHECK-required — “ratings without one are not published”.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="m-ledger">
+  <h3>ledger — <span class="muted">db/080</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Table</th><th>Holds</th></tr></thead>
+    <tbody>
+      <tr><td class="tname">ledger_account</td><td>One per org per purpose (<code>receivable</code>, <code>payable</code>) plus platform-internal <code>escrow</code>, <code>cash</code>, <code>fee_income</code>.</td></tr>
+      <tr><td class="tname">ledger_transaction · ledger_entry</td><td>Double entry. Every transaction's debit legs equal its credit legs — a DEFERRED trigger refuses the commit otherwise; entries are append-only, corrections are reversing transactions.</td></tr>
+      <tr><td class="tname">invoice</td><td>The document a party sees — a projection over the ledger, not the source of truth.
+        <span class="cols"><b>kind</b> “Milestone 1 of 2” · “Platform fee, 9%” &nbsp;·&nbsp; <b>status</b> pending·paid·overdue·void</span></td></tr>
+    </tbody>
+    <caption>Views <code>ledger_account_balance</code> and <code>ledger_imbalance</code> — the second must
+    always return zero rows, and does. Not an SLO; an invariant.</caption>
+  </table></div>
+</section>
+
+<section id="m-notify">
+  <h3>notify &amp; audit — <span class="muted">db/090</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Table</th><th>Holds</th></tr></thead>
+    <tbody>
+      <tr><td class="tname">notification</td><td>The bell. Carries a deep link (<code>link_page</code> + <code>link_params</code>) so it can take the reader to the thing itself — kept from the prototype.</td></tr>
+      <tr><td class="tname">audit_event</td><td>Hash-chained, append-only, range-partitioned. <span class="cols"><b>row_hash</b> covers the previous row's hash — deleting or editing any row breaks every hash after it &nbsp;·&nbsp; <b>scope uuid[]</b> + GIN index: every entity an event touches, and the visibility key for every audit panel</span></td></tr>
+      <tr><td class="tname">event_outbox</td><td>Events written in the same transaction as the change they announce, drained by a worker — an event cannot be lost between commit and broker.</td></tr>
+      <tr><td class="tname">retention_policy · legal_hold · erasure_request</td><td>24-month default retention, per-client override, legal-hold gate, and the 30-day erasure window that leaves a tombstone in the chain of custody.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================================ PART 5 ================================ -->
+<div class="part" id="login">
+  <div class="part-no">Part five</div>
+  <h2>How a login becomes a permission set</h2>
+  <p class="intro">“Logins controlled from the database table” is four tables and three functions —
+  no role name is ever checked in code.</p>
+</div>
+
+<div class="code"><div class="name">the resolution chain — every step is a table lookup</div>
+<pre><span class="c">-- 1 · who are you?           (SECURITY DEFINER: no org context exists yet)</span>
+<span class="k">SELECT</span> * <span class="k">FROM</span> authenticate_lookup(<span class="s">'partner@northstar.example'</span>);
+<span class="c">   → app_user: password_hash (argon2id), status, locked_until</span>
+
+<span class="c">-- 2 · who may you be?</span>
+<span class="k">SELECT</span> * <span class="k">FROM</span> user_organisations(:user_id);
+<span class="c">   → user_role_grant ⋈ organisation ⋈ role — one row per live grant;</span>
+<span class="c">     one org auto-selects, several make the console ask</span>
+
+<span class="c">-- 3 · what may you do there?</span>
+<span class="k">SELECT</span> code, requires_mfa <span class="k">FROM</span> user_capabilities(:user_id, :org_id);
+<span class="c">   → grant ⋈ role_permission ⋈ permission — the capability set the JWT carries,</span>
+<span class="c">     re-resolved on every refresh so a revoked grant dies within one token TTL</span></pre></div>
+
+<p>The token then carries <code>{user_id, org_id, org_kind, role, caps[]}</code>; the API checks
+<code>can('proposal.accept')</code> and Postgres checks the rows. Moving one
+<code>user_role_grant</code> row makes the same email log in as something else — no deploy.</p>
+
+<div class="decision">
+  <span class="lbl">Decision</span>
+  <p>Credentials live in Postgres <b>now</b>; Keycloak is a seam, not a dependency.</p>
+  <p><code>app_user.external_idp / external_idp_subject</code> sit dormant. Adopting an IdP later means
+  populating them and swapping one adapter — roles, grants and capabilities stay exactly where they
+  are, in these tables.</p>
+</div>
+
+<!-- ================================ PART 6 ================================ -->
+<div class="part" id="tenancy">
+  <div class="part-no">Part six</div>
+  <h2>Tenancy — two axes, enforced in the database</h2>
+  <p class="intro">Conflating these two is the most likely data-leak bug in this product, which is
+  why neither lives in application WHERE clauses.</p>
+</div>
+
+<div class="axes">
+  <div class="axis">
+    <h4>Account axis</h4>
+    <span class="pred">org_id = current_org_id()</span>
+    <p>One client from another, one tenant from another. Every request opens a transaction and pins
+    <code>app.org_id</code>, <code>app.role</code>, <code>app.user_id</code> with
+    <code>SET&nbsp;LOCAL</code>; with no context set, <code>current_setting(…,&nbsp;true)</code>
+    returns NULL and every policy <b>fails closed to zero rows</b>.</p>
+  </div>
+  <div class="axis">
+    <h4>Network axis</h4>
+    <span class="pred">parent_org_id = current_org_id()</span>
+    <p>A supplier belongs to exactly one tenant and is invisible to every rival — including one
+    bidding on the same request. Siblings under the same tenant do see each other (an aggregator
+    borrows from <i>its</i> network's sponsors); a rival network has a different parent.</p>
+    <div class="orgtree">
+      <span class="t">TN-01 NorthStar</span> ── AG-01 · AG-02 · BZ-01 · BZ-02 · DS-01 · DS-02<br>
+      <span class="t">TN-02 Meridian</span>&nbsp; ── AG-03 · BZ-03 · DS-03&nbsp;&nbsp;<span class="x">⟂ no path across</span>
+    </div>
+  </div>
+</div>
+
+<p>A client reaches a supplier only by traversing a contract it owns — which is what makes supplier
+attribution safe to show on the delivery breakdown. Verified live: TN-01 sees 7 organisations
+(itself + its 6), TN-02 sees 4, and with no context every table returns nothing.</p>
+
+<section id="definer">
+  <h3>The 20 sanctioned holes</h3>
+  <p>SECURITY DEFINER functions are the only code that sees past RLS, each one narrow and named:
+  the pre-context steps (<code>authenticate_lookup</code>, <code>session_lookup</code>,
+  <code>invitation_accept</code>, password reset), the helpers policies need to avoid recursing into
+  themselves (<code>current_org_parent_id</code>, <code>org_visible_via_contract</code>, …), the
+  audit chain head, and the platform's own id. Everything else queries as you.</p>
+</section>
+
+<section id="fieldnotes">
+  <h3>Field notes — what testing the policies actually caught</h3>
+  <p class="small muted" style="margin-top:-4px">All eight live in
+  <code>db/110_auth_functions.sql</code> with their reasoning; they are the difference between RLS
+  that works and RLS that decorates.</p>
+  <ol class="fieldnotes">
+    <li><b>Policies default to FOR ALL, and permissive policies OR together.</b>
+      <span>A read predicate silently became a write grant — a tenant could insert its own approval.
+      Every read policy is now explicitly FOR SELECT; writes have their own, narrower policies.
+      42 policies became 89.</span></li>
+    <li><b>INSERT … RETURNING must also pass the SELECT policy.</b>
+      <span>A notification addressed to another org failed at commit — after the 2xx had gone out.
+      Cross-org inserts avoid RETURNING; the API commits before responding.</span></li>
+    <li><b>An audit chain read under RLS forks per org.</b>
+      <span>Each org chained onto <i>its own</i> last visible event — no single tamper-evident chain.
+      The append is DEFINER; the actor recorded is still the caller.</span></li>
+    <li><b>A deferred trigger runs under whatever context commits.</b>
+      <span>The ledger balance check saw only the client-side leg of a balanced transaction and
+      refused it. An integrity invariant is about all rows by definition — DEFINER.</span></li>
+    <li><b>Bidders must be visible to the client they bid to</b> — before any contract exists,
+      <span>or the comparison table joins to org rows the client cannot see and shows nothing.</span></li>
+    <li><b>Bidding on a request is a durable reason to see it,</b>
+      <span>or a losing bidder's own proposal history goes dark the moment the award lands.</span></li>
+    <li><b>Network siblings see each other.</b>
+      <span>An aggregator must browse its own network's sponsor inventory before any loan exists.</span></li>
+    <li><b>The reviewer moves the thing it reviews.</b>
+      <span>Gate 2 closes a submission, and the reviewer is the partner, not the supplier —
+      without its own UPDATE policy the verdict updated zero rows, silently.</span></li>
+  </ol>
+</section>
+
+<!-- ================================ PART 7 ================================ -->
+<div class="part" id="money">
+  <div class="part-no">Part seven</div>
+  <h2>How money moves</h2>
+  <p class="intro">Two moments touch money, both written under a transaction-local platform
+  elevation inside the caller's own transaction — atomic with the business change, and only because
+  RLS says organisations never write ledger rows themselves.</p>
+</div>
+
+<div class="tbl"><table>
+  <thead><tr><th>Moment</th><th>Ledger effect (every transaction balances)</th><th>Invoice effect</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><b>Award</b><br><span class="small muted">client accepts a proposal</span></td>
+      <td>debit <code>client.receivable</code> · credit <code>platform.escrow</code> — the 50% milestone held</td>
+      <td>“Milestone 1 of 2” <span class="pill" data-tone="attention">pending</span></td>
+    </tr>
+    <tr>
+      <td><b>Approval</b><br><span class="small muted">client accepts the delivery</span></td>
+      <td>remainder joins escrow → client payment settles the receivable into <code>cash</code> →
+      escrow empties: <code>partner.payable</code> gets value − fee, <code>fee_income</code> gets the fee</td>
+      <td>all contract invoices <span class="pill" data-tone="success">paid</span> · “Platform fee, 9%”
+      raised against the partner, <span class="pill" data-tone="success">paid</span></td>
+    </tr>
+  </tbody>
+  <caption>After completion, live: receivable 0 · escrow 0 · cash +value · payable value−fee ·
+  fee_income +fee · <code>ledger_imbalance</code> = 0 rows.</caption>
+</table></div>
+
+<!-- ================================ PART 8 ================================ -->
+<div class="part" id="scale">
+  <div class="part-no">Part eight</div>
+  <h2>Append-only structures and scale</h2>
+  <p class="intro">Three tables where history is the product, and the physical design for the two
+  that grow without bound.</p>
+</div>
+
+<div class="tbl"><table>
+  <thead><tr><th>Table</th><th>Mechanism</th><th>Why</th></tr></thead>
+  <tbody>
+    <tr><td class="tname">audit_event</td>
+      <td>rewrite rules block UPDATE/DELETE · <code>row_hash</code> chains over the previous row ·
+      range-partitioned by quarter · GIN on <code>scope[]</code> · BRIN on time</td>
+      <td>tampering must be detectable, not merely discouraged; panels filter by “events touching
+      this entity” at any size</td></tr>
+    <tr><td class="tname">ledger_entry</td>
+      <td>rewrite rules · deferred balance trigger · corrections are reversing transactions</td>
+      <td>money history is evidence; an edited ledger is not a ledger</td></tr>
+    <tr><td class="tname">qa_review</td>
+      <td>rewrite rules · one row per gate per attempt</td>
+      <td>which gate caught a defect decides who absorbs the rework — collapsing verdicts into one
+      flag loses who owes what</td></tr>
+    <tr><td class="tname">asset</td>
+      <td>range-partitioned by month (<code>PRIMARY KEY (id, created_at)</code>) · BRIN on time ·
+      bytes in MinIO, manifest here</td>
+      <td>the year-one target is 40&nbsp;million rows and 80&nbsp;TB/month of ingest; old ranges
+      detach for archive without touching the live set</td></tr>
+  </tbody>
+</table></div>
+
+<p class="endnote">Source of truth: <code>db/000</code>–<code>110</code> apply in filename order on a
+fresh volume (56 tables, 89 policies); <code>db/900_seed.sql</code> is the minimum a deployment needs —
+38 permissions, 6 roles, the platform org, one admin; <code>db/910_seed_demo.sql</code> is the
+prototype's world and is deleted before any real deployment. Where this document and the running
+schema disagree, the schema is right and this document needs a revision — the same contract the
+blueprint makes with the prototype.</p>
+</main>
+</div>

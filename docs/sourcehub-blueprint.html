@@ -1,0 +1,1002 @@
+<title>SourceHub Blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+/* ============================================================================
+   SourceHub Blueprint — the production specification for the SourceHub
+   marketplace. Shares the product's palette and type so the document and the
+   thing it specifies read as one system.
+   ============================================================================ */
+:root{
+  --ground:#f4f6f5; --surface:#ffffff; --surface-2:#eef1ef; --surface-3:#e6eae8;
+  --line:#dde3e0; --line-strong:#c3ccc8;
+  --ink:#0f1a1c; --ink-2:#33474a; --ink-3:#62767a; --ink-4:#8b9d9f;
+  --accent:#0a6c60; --accent-tint:#e2efec; --accent-line:#a9cfc8; --accent-ink:#ffffff;
+  --warn:#8f5000; --warn-tint:#faeedb; --warn-line:#e6cb9c;
+  --crit:#a9312a; --crit-tint:#fbe9e7; --crit-line:#eeb8b2;
+  --good:#1a6f45; --good-tint:#e4f1ea;
+  --sans:"IBM Plex Sans","Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
+  --r:5px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0d1315; --surface:#141c1e; --surface-2:#1a2427; --surface-3:#213033;
+    --line:#253134; --line-strong:#3a4d51;
+    --ink:#e8efed; --ink-2:#b6c5c3; --ink-3:#8b9fa1; --ink-4:#6b7d7f;
+    --accent:#43bcaa; --accent-tint:#0f2b28; --accent-line:#1f4a45; --accent-ink:#06201d;
+    --warn:#dda75a; --warn-tint:#2b2010; --warn-line:#4a3a1b;
+    --crit:#e58179; --crit-tint:#2d1614; --crit-line:#4d2723;
+    --good:#59bd8a; --good-tint:#10281d;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0d1315; --surface:#141c1e; --surface-2:#1a2427; --surface-3:#213033;
+  --line:#253134; --line-strong:#3a4d51;
+  --ink:#e8efed; --ink-2:#b6c5c3; --ink-3:#8b9fa1; --ink-4:#6b7d7f;
+  --accent:#43bcaa; --accent-tint:#0f2b28; --accent-line:#1f4a45; --accent-ink:#06201d;
+  --warn:#dda75a; --warn-tint:#2b2010; --warn-line:#4a3a1b;
+  --crit:#e58179; --crit-tint:#2d1614; --crit-line:#4d2723;
+  --good:#59bd8a; --good-tint:#10281d;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);
+  font-size:15px;line-height:1.62;-webkit-font-smoothing:antialiased}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* ---------- shell ---------- */
+.wrap{max-width:1200px;margin:0 auto;padding:0 28px 96px;
+  display:grid;grid-template-columns:196px minmax(0,1fr);gap:44px;align-items:start}
+.toc{position:sticky;top:28px;padding-top:24px}
+.toc h2{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);margin:0 0 10px;font-weight:500}
+.toc ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px}
+.toc a{display:block;padding:4px 8px;border-radius:4px;font-size:12.5px;color:var(--ink-3);
+  text-decoration:none;border-left:2px solid transparent;line-height:1.35}
+.toc a:hover{color:var(--ink);background:var(--surface-2)}
+.toc .lead{color:var(--ink-2);font-weight:600;margin-top:12px}
+.toc .lead:first-child{margin-top:0}
+main{min-width:0;padding-top:24px}
+
+/* ---------- masthead ---------- */
+.mast{border-bottom:2px solid var(--ink);padding-bottom:20px;margin-bottom:34px}
+.mast .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:12px}
+.mast h1{font-family:var(--serif);font-size:clamp(34px,5vw,50px);line-height:1.04;margin:0;
+  font-weight:600;letter-spacing:-.02em;text-wrap:balance}
+.mast .standfirst{font-family:var(--serif);font-size:18px;line-height:1.5;color:var(--ink-2);
+  margin:16px 0 0;max-width:60ch}
+.facts{display:flex;flex-wrap:wrap;gap:0;margin-top:22px;border-top:1px solid var(--line)}
+.fact{flex:1 1 150px;padding:11px 16px 11px 0;border-right:1px solid var(--line)}
+.fact:last-child{border-right:0}
+.fact dt{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:3px}
+.fact dd{margin:0;font-size:13.5px;font-weight:600}
+
+/* ---------- structure ---------- */
+.part{margin-top:64px;padding-top:22px;border-top:1px solid var(--line-strong)}
+.part-no{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--accent);
+  text-transform:uppercase}
+.part h2{font-family:var(--serif);font-size:31px;line-height:1.12;margin:6px 0 8px;font-weight:600;
+  letter-spacing:-.015em}
+.part .intro{color:var(--ink-2);max-width:66ch;font-size:15.5px}
+section{margin-top:38px;scroll-margin-top:20px}
+h3{font-size:19px;margin:0 0 10px;font-weight:600;letter-spacing:-.01em}
+h4{font-size:14px;margin:26px 0 8px;font-weight:600}
+p{margin:0 0 14px;max-width:68ch}
+ul,ol{margin:0 0 14px;padding-left:20px;max-width:68ch}
+li{margin-bottom:6px}
+li::marker{color:var(--ink-4)}
+strong{font-weight:600}
+code{font-family:var(--mono);font-size:.87em;background:var(--surface-2);border:1px solid var(--line);
+  border-radius:3px;padding:1px 5px;color:var(--ink-2)}
+a{color:var(--accent)}
+
+/* ---------- decision block: the choice, then why ---------- */
+.decision{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:0 var(--r) var(--r) 0;padding:15px 18px;margin:0 0 18px;max-width:74ch}
+.decision .lbl{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent);display:block;margin-bottom:5px}
+.decision p{margin:0;font-size:14.5px}
+.decision p + p{margin-top:9px;color:var(--ink-2);font-size:13.5px}
+.decision[data-kind="risk"]{border-left-color:var(--warn)}
+.decision[data-kind="risk"] .lbl{color:var(--warn)}
+
+/* ---------- tables ---------- */
+.tbl{overflow-x:auto;margin:0 0 20px;border:1px solid var(--line);border-radius:var(--r);
+  background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{text-align:left;background:var(--surface-2);border-bottom:1px solid var(--line);
+  padding:9px 14px;white-space:nowrap;font-family:var(--mono);font-size:10px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+td.mono,th.mono{font-family:var(--mono);font-size:12.5px;white-space:nowrap}
+td.num{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tick{color:var(--good);font-weight:600}
+.cross{color:var(--ink-4)}
+caption{caption-side:bottom;text-align:left;padding:9px 14px;font-size:12px;color:var(--ink-3);
+  border-top:1px solid var(--line)}
+
+/* ---------- figures ---------- */
+figure{margin:0 0 24px;background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--r);padding:20px 20px 0;overflow-x:auto}
+figure svg{max-width:100%;height:auto;display:block;margin:0 auto;color:var(--ink-2)}
+figcaption{border-top:1px solid var(--line);margin:18px -20px 0;padding:11px 20px;
+  font-size:12.5px;color:var(--ink-3);line-height:1.5}
+figcaption b{color:var(--ink-2);font-weight:600}
+
+/* ---------- misc ---------- */
+.pillrow{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.pill{font-size:11.5px;font-weight:600;padding:2px 9px;border-radius:99px;
+  background:var(--surface-2);border:1px solid var(--line);color:var(--ink-2)}
+.pill[data-t="a"]{background:var(--accent-tint);border-color:var(--accent-line);color:var(--accent)}
+.pill[data-t="w"]{background:var(--warn-tint);border-color:var(--warn-line);color:var(--warn)}
+.pill[data-t="c"]{background:var(--crit-tint);border-color:var(--crit-line);color:var(--crit)}
+.pill[data-t="g"]{background:var(--good-tint);border-color:var(--accent-line);color:var(--good)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:20px;margin-bottom:20px}
+.cols > div{min-width:0}
+.cols h4{margin-top:0}
+.phase{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);padding:16px 18px}
+.phase .no{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.phase h4{margin:5px 0 4px;font-size:15px}
+.phase .when{font-family:var(--mono);font-size:11.5px;color:var(--ink-3);margin-bottom:9px}
+.phase ul{padding-left:16px;margin:0;font-size:13px}
+.phase li{margin-bottom:4px}
+.endnote{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--ink-3)}
+.endnote p{max-width:72ch}
+
+@media (max-width:960px){
+  .wrap{grid-template-columns:minmax(0,1fr);gap:0;padding:0 20px 72px}
+  .toc{position:static;padding-top:20px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:8px}
+  .toc ol{flex-direction:row;flex-wrap:wrap;gap:4px}
+  .toc a{border-left:0;background:var(--surface-2);border:1px solid var(--line)}
+  .toc .lead{display:none}
+  .facts{display:grid;grid-template-columns:1fr 1fr}
+  .fact{border-right:0;border-bottom:1px solid var(--line)}
+}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="wrap">
+<nav class="toc" aria-label="Contents">
+  <h2>Contents</h2>
+  <ol>
+    <li><a class="lead" href="#model">1 · The marketplace</a></li>
+    <li><a href="#topology">Topology and money</a></li>
+    <li><a href="#lifecycle">Lifecycle and QA gates</a></li>
+    <li><a href="#domain">Domain model</a></li>
+    <li><a class="lead" href="#system">2 · The system</a></li>
+    <li><a href="#services">Service decomposition</a></li>
+    <li><a href="#tenancy">Tenancy and isolation</a></li>
+    <li><a href="#ingest">Capture to delivery</a></li>
+    <li><a href="#api">API and events</a></li>
+    <li><a href="#identity">Identity and access</a></li>
+    <li><a href="#money">Payments and payouts</a></li>
+    <li><a href="#trust">Security and compliance</a></li>
+    <li><a href="#ops">SLOs and scale</a></li>
+    <li><a class="lead" href="#design">3 · The interface</a></li>
+    <li><a href="#tokens">Tokens and taxonomy</a></li>
+    <li><a href="#components">Components and a11y</a></li>
+    <li><a class="lead" href="#plan">4 · Getting there</a></li>
+    <li><a href="#phases">Delivery phases</a></li>
+    <li><a href="#gaps">What the prototype fakes</a></li>
+  </ol>
+</nav>
+
+<main>
+<header class="mast">
+  <div class="kicker">Production specification</div>
+  <h1>SourceHub Blueprint</h1>
+  <p class="standfirst">SourceHub connects clients who need real-world data — imagery, video, sensor readings,
+  people-based field work — with delivery partners who fulfil it through their own networks of crowd
+  aggregators, vendor businesses and equipment sponsors. This document specifies the production system
+  behind that marketplace: the domain, the architecture, the money, the trust posture and the interface.</p>
+  <dl class="facts">
+    <div class="fact"><dt>Document</dt><dd>v1.0 · 29 Aug 2026</dd></div>
+    <div class="fact"><dt>Status</dt><dd>For build approval</dd></div>
+    <div class="fact"><dt>Supersedes</dt><dd>Clickable prototype</dd></div>
+    <div class="fact"><dt>Reference build</dt><dd>sourcehub-app.html</dd></div>
+  </dl>
+</header>
+
+<!-- ============================ PART 1 ============================ -->
+<div class="part" id="model">
+  <div class="part-no">Part one</div>
+  <h2>The marketplace</h2>
+  <p class="intro">Two things make SourceHub structurally different from a generic services marketplace, and
+  almost every decision downstream falls out of them: the platform contracts with only two of the five
+  parties, and work passes two independent quality gates before a client ever sees it.</p>
+</div>
+
+<section id="topology">
+  <h3>Topology and money</h3>
+  <p>SourceHub registers, bills and holds a contractual relationship with <strong>clients</strong> and
+  <strong>delivery partners</strong> only. A partner's aggregators, business partners and device sponsors
+  are that partner's own commercial relationships. They authenticate into SourceHub and do real work in it,
+  but the platform never invoices them and never pays them.</p>
+
+  <figure>
+    <svg viewBox="0 0 880 408" role="img" aria-label="Clients and delivery partners contract with the platform and are billed by it. A partner's aggregators, businesses and device sponsors work inside the platform but are settled directly by the partner, outside the platform's billing boundary.">
+      <defs>
+        <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="currentColor"/>
+        </marker>
+        <marker id="arA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="var(--accent)"/>
+        </marker>
+      </defs>
+
+      <!-- billing boundary -->
+      <rect x="18" y="14" width="844" height="152" rx="7" fill="none" stroke="var(--accent)" stroke-width="1.3"/>
+      <text x="34" y="36" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="var(--accent)" letter-spacing="1.2">PLATFORM BILLING BOUNDARY &#8212; REGISTERED, INVOICED, PAID</text>
+
+      <rect x="46" y="58" width="180" height="78" rx="5" fill="var(--surface-2)" stroke="currentColor" stroke-width="1.2"/>
+      <text x="136" y="90" text-anchor="middle" font-size="14" font-weight="600" fill="currentColor">Client</text>
+      <text x="136" y="110" text-anchor="middle" font-size="11" fill="currentColor" opacity=".72">buys the data</text>
+
+      <rect x="350" y="52" width="180" height="90" rx="5" fill="var(--accent-tint)" stroke="var(--accent)" stroke-width="1.6"/>
+      <text x="440" y="84" text-anchor="middle" font-size="14" font-weight="600" fill="var(--accent)">SourceHub</text>
+      <text x="440" y="103" text-anchor="middle" font-size="11" fill="var(--accent)" opacity=".85">escrow &#183; 9% fee</text>
+      <text x="440" y="120" text-anchor="middle" font-size="11" fill="var(--accent)" opacity=".7">arbitrates disputes</text>
+
+      <rect x="654" y="58" width="180" height="78" rx="5" fill="var(--surface-2)" stroke="currentColor" stroke-width="1.2"/>
+      <text x="744" y="90" text-anchor="middle" font-size="14" font-weight="600" fill="currentColor">Delivery partner</text>
+      <text x="744" y="110" text-anchor="middle" font-size="11" fill="currentColor" opacity=".72">wins and fulfils the work</text>
+
+      <line x1="226" y1="82" x2="344" y2="82" stroke="currentColor" stroke-width="1.3" marker-end="url(#ar)"/>
+      <text x="285" y="74" text-anchor="middle" font-size="10.5" fill="currentColor" opacity=".8">publishes request</text>
+      <line x1="344" y1="114" x2="226" y2="114" stroke="var(--accent)" stroke-width="1.4" marker-end="url(#arA)"/>
+      <text x="285" y="131" text-anchor="middle" font-size="10.5" fill="var(--accent)">invoice</text>
+
+      <line x1="648" y1="82" x2="536" y2="82" stroke="currentColor" stroke-width="1.3" marker-end="url(#ar)"/>
+      <text x="592" y="74" text-anchor="middle" font-size="10.5" fill="currentColor" opacity=".8">proposal</text>
+      <line x1="536" y1="114" x2="648" y2="114" stroke="var(--accent)" stroke-width="1.4" marker-end="url(#arA)"/>
+      <text x="592" y="131" text-anchor="middle" font-size="10.5" fill="var(--accent)">payout &#8722; fee</text>
+
+      <!-- partner-managed network -->
+      <rect x="18" y="196" width="844" height="148" rx="7" fill="none" stroke="currentColor" stroke-width="1.1" stroke-dasharray="5 4" opacity=".55"/>
+      <text x="34" y="218" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="currentColor" opacity=".72" letter-spacing="1.2">PARTNER-MANAGED NETWORK &#8212; NEVER BILLED BY THE PLATFORM</text>
+
+      <rect x="40" y="234" width="250" height="56" rx="4" fill="var(--surface-2)" stroke="currentColor" stroke-width="1"/>
+      <text x="165" y="256" text-anchor="middle" font-size="12.5" font-weight="600" fill="currentColor">Aggregator</text>
+      <text x="165" y="274" text-anchor="middle" font-size="10.5" fill="currentColor" opacity=".72">manages a crowd workforce</text>
+
+      <rect x="310" y="234" width="250" height="56" rx="4" fill="var(--surface-2)" stroke="currentColor" stroke-width="1"/>
+      <text x="435" y="256" text-anchor="middle" font-size="12.5" font-weight="600" fill="currentColor">Business partner</text>
+      <text x="435" y="274" text-anchor="middle" font-size="10.5" fill="currentColor" opacity=".72">vendor-led crews</text>
+
+      <rect x="580" y="234" width="250" height="56" rx="4" fill="var(--surface-2)" stroke="currentColor" stroke-width="1"/>
+      <text x="705" y="256" text-anchor="middle" font-size="12.5" font-weight="600" fill="currentColor">Device sponsor</text>
+      <text x="705" y="274" text-anchor="middle" font-size="10.5" fill="currentColor" opacity=".72">cameras, sensors, tablets</text>
+
+      <line x1="744" y1="136" x2="744" y2="190" stroke="currentColor" stroke-width="1.3" marker-end="url(#ar)"/>
+      <text x="756" y="166" font-size="10.5" fill="currentColor" opacity=".8">assigns tasks</text>
+
+      <path d="M165 290 v16 H705 v-16" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 3" opacity=".75"/>
+      <path d="M435 290 v16" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 3" opacity=".75"/>
+      <text x="435" y="327" text-anchor="middle" font-size="10.5" fill="currentColor" opacity=".8">the partner settles with its own network directly &#8212; never on SourceHub&#8217;s ledger</text>
+
+      <text x="18" y="368" font-size="10.5" fill="currentColor" opacity=".62">Crowd workers authenticate through their aggregator. They do real work in SourceHub and never contract with it.</text>
+
+      <!-- key -->
+      <line x1="20" y1="392" x2="52" y2="392" stroke="currentColor" stroke-width="1.3" marker-end="url(#ar)"/>
+      <text x="60" y="396" font-size="10.5" fill="currentColor" opacity=".8">workflow</text>
+      <line x1="150" y1="392" x2="182" y2="392" stroke="var(--accent)" stroke-width="1.4" marker-end="url(#arA)"/>
+      <text x="190" y="396" font-size="10.5" fill="var(--accent)">money on the platform ledger</text>
+      <line x1="392" y1="392" x2="424" y2="392" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 3" opacity=".75"/>
+      <text x="432" y="396" font-size="10.5" fill="currentColor" opacity=".8">settled off-platform</text>
+    </svg>
+    <figcaption><b>Figure 1 — the billing boundary.</b> Solid lines are platform-mediated flows; dashed lines
+    are settled between the partner and its own network and never touch SourceHub's ledger. This single
+    boundary is why the platform needs no KYC on aggregators, carries no worker-classification exposure for
+    them, and can still show a client exactly which supplier produced each asset.</figcaption>
+  </figure>
+
+  <div class="decision">
+    <span class="lbl">Decision</span>
+    <p>The platform takes a <strong>9% fee on contract value</strong>, deducted at payout to the delivery
+    partner. Clients are invoiced the contract value; partners receive value minus fee.</p>
+    <p>Charging one side keeps the client's budget comparison clean — the number a partner bids is the number
+    the client pays — while the fee sits where the margin is. It also keeps the platform out of the partner's
+    own cost structure, which varies wildly between a 1,200-person crowd guild and a 40-crew vendor.</p>
+  </div>
+
+  <div class="decision">
+    <span class="lbl">Decision</span>
+    <p>Supplier attribution is <strong>visible to the client by default</strong>. The delivery breakdown names
+    the aggregator or business behind each task.</p>
+    <p>Clients buying field data are buying provenance; hiding the chain of custody undermines the audit
+    trail they need for their own compliance. Partners who treat their network as commercially sensitive can
+    switch a contract to anonymised attribution, which substitutes a stable pseudonym so lineage still holds.</p>
+  </div>
+</section>
+
+<section id="lifecycle">
+  <h3>Lifecycle and QA gates</h3>
+  <p>A request moves through seven stages — <code>Draft</code>, <code>Published</code>,
+  <code>Proposals&nbsp;Received</code>, <code>Accepted</code>, <code>In&nbsp;Progress</code>,
+  <code>Delivered</code>, <code>Completed</code> — but the interesting mechanism is underneath, at task level,
+  where captured data can be rejected at three different points by three different parties.</p>
+
+  <figure>
+    <svg viewBox="0 0 880 276" role="img" aria-label="Captured data passes a supplier self-check, then a delivery partner QA gate, then client acceptance. Each gate can reject, and each rejection returns the work to capture along its own path, with a different party bearing the cost.">
+      <defs>
+        <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="currentColor"/>
+        </marker>
+        <marker id="ar2c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="var(--crit)"/>
+        </marker>
+      </defs>
+
+      <text x="24" y="26" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="currentColor" opacity=".72" letter-spacing="1.2">WHO PAYS FOR REWORK DEPENDS ON WHICH GATE CAUGHT IT</text>
+      <line x1="24" y1="38" x2="856" y2="38" stroke="currentColor" stroke-width="1" opacity=".22"/>
+
+      <rect x="24" y="76" width="132" height="60" rx="5" fill="var(--surface-2)" stroke="currentColor" stroke-width="1.2"/>
+      <text x="90" y="101" text-anchor="middle" font-size="12.5" font-weight="600" fill="currentColor">Capture</text>
+      <text x="90" y="119" text-anchor="middle" font-size="10" fill="currentColor" opacity=".7">crowd or crew</text>
+
+      <rect x="212" y="76" width="132" height="60" rx="5" fill="var(--surface)" stroke="currentColor" stroke-width="1.2"/>
+      <text x="278" y="97" text-anchor="middle" font-size="12.5" font-weight="600" fill="currentColor">Gate 1</text>
+      <text x="278" y="113" text-anchor="middle" font-size="10" fill="currentColor" opacity=".72">supplier self-check</text>
+      <text x="278" y="127" text-anchor="middle" font-size="9.5" fill="currentColor" opacity=".55">automated rules</text>
+
+      <rect x="400" y="76" width="132" height="60" rx="5" fill="var(--accent-tint)" stroke="var(--accent)" stroke-width="1.5"/>
+      <text x="466" y="97" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--accent)">Gate 2</text>
+      <text x="466" y="113" text-anchor="middle" font-size="10" fill="var(--accent)" opacity=".85">partner QA</text>
+      <text x="466" y="127" text-anchor="middle" font-size="9.5" fill="var(--accent)" opacity=".7">sample + gold set</text>
+
+      <rect x="588" y="76" width="132" height="60" rx="5" fill="var(--surface)" stroke="currentColor" stroke-width="1.2"/>
+      <text x="654" y="97" text-anchor="middle" font-size="12.5" font-weight="600" fill="currentColor">Gate 3</text>
+      <text x="654" y="113" text-anchor="middle" font-size="10" fill="currentColor" opacity=".72">client acceptance</text>
+      <text x="654" y="127" text-anchor="middle" font-size="9.5" fill="currentColor" opacity=".55">contractual window</text>
+
+      <rect x="776" y="76" width="80" height="60" rx="5" fill="var(--good-tint)" stroke="var(--accent-line)" stroke-width="1.2"/>
+      <text x="816" y="103" text-anchor="middle" font-size="12" font-weight="600" fill="var(--good)">Paid</text>
+      <text x="816" y="120" text-anchor="middle" font-size="9.5" fill="var(--good)" opacity=".8">escrow released</text>
+
+      <line x1="156" y1="106" x2="206" y2="106" stroke="currentColor" stroke-width="1.4" marker-end="url(#ar2)"/>
+      <line x1="344" y1="106" x2="394" y2="106" stroke="currentColor" stroke-width="1.4" marker-end="url(#ar2)"/>
+      <line x1="532" y1="106" x2="582" y2="106" stroke="currentColor" stroke-width="1.4" marker-end="url(#ar2)"/>
+      <line x1="720" y1="106" x2="770" y2="106" stroke="currentColor" stroke-width="1.4" marker-end="url(#ar2)"/>
+
+      <path d="M278 136 v32 H120 v-26" fill="none" stroke="var(--crit)" stroke-width="1.3" marker-end="url(#ar2c)"/>
+      <text x="199" y="162" text-anchor="middle" font-size="10" fill="var(--crit)">recapture &#183; supplier absorbs</text>
+
+      <path d="M466 136 v64 H90 v-58" fill="none" stroke="var(--crit)" stroke-width="1.3" marker-end="url(#ar2c)"/>
+      <text x="278" y="194" text-anchor="middle" font-size="10" fill="var(--crit)">rework &#183; supplier absorbs, partner tracks the rework rate</text>
+
+      <path d="M654 136 v96 H60 v-90" fill="none" stroke="var(--crit)" stroke-width="1.3" marker-end="url(#ar2c)"/>
+      <text x="357" y="226" text-anchor="middle" font-size="10" fill="var(--crit)">dispute &#183; partner absorbs, escrow held, the platform arbitrates against the rubric snapshot</text>
+
+      <text x="24" y="262" font-size="10.5" fill="currentColor" opacity=".62">Each rejection has its own return path because each one is recorded separately &#8212; a single &#8220;approved&#8221; flag would lose who owes the rework.</text>
+    </svg>
+    <figcaption><b>Figure 2 — three gates, three different cost owners.</b> The gate that catches a defect
+    determines who absorbs the rework, which is why the gates must be independently recorded rather than
+    collapsed into a single "approved" flag. Gate 3 is the only one that can move money.</figcaption>
+  </figure>
+
+  <div class="decision">
+    <span class="lbl">Decision</span>
+    <p>The client's acceptance criteria are captured as a <strong>machine-checkable rubric plus a sampling
+    plan</strong>, not free text, from the moment the request is drafted.</p>
+    <p>"95% or better pass on the automated blur and occlusion check; 5% manual audit sample" is executable:
+    it compiles to a threshold on an automated check and an ISO 2859-1 style sampling plan the partner's QA
+    queue enforces. Free-text criteria are the root cause of acceptance disputes, and disputes are the most
+    expensive thing that can happen on a data-sourcing contract.</p>
+  </div>
+</section>
+
+<section id="domain">
+  <h3>Domain model</h3>
+  <p>Twelve core entities. Everything else is a projection, a join table, or an event.</p>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Entity</th><th>Owned by</th><th>Key relationships</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">organisation</td><td>platform</td><td>has many <code>user</code></td><td>Polymorphic root: client, partner, aggregator, business, sponsor. One table, one <code>kind</code>.</td></tr>
+        <tr><td class="mono">user</td><td>organisation</td><td>belongs to one org, has many <code>role_grant</code></td><td>An individual may hold grants in several orgs; the session carries exactly one.</td></tr>
+        <tr><td class="mono">request</td><td>client</td><td>has many <code>proposal</code></td><td>The RFP. Spec, people requirements, budget, timeline, rubric, compliance profile.</td></tr>
+        <tr><td class="mono">proposal</td><td>partner</td><td>belongs to <code>request</code></td><td>Price, days, methodology, named network resources. Immutable once submitted.</td></tr>
+        <tr><td class="mono">contract</td><td>platform</td><td>one <code>request</code>, one <code>proposal</code></td><td>Created on award. Carries value, escrow state and the agreed rubric snapshot.</td></tr>
+        <tr><td class="mono">task</td><td>partner</td><td>belongs to <code>contract</code>, assigned to an org</td><td>The unit of assignment, QA and rework. Never spans suppliers.</td></tr>
+        <tr><td class="mono">submission</td><td>supplier</td><td>belongs to <code>task</code></td><td>One attempt. A reworked task has several; the trail keeps every one.</td></tr>
+        <tr><td class="mono">asset</td><td>submission</td><td>belongs to <code>submission</code></td><td>One captured file plus its manifest: checksum, geotag, device, capture time, redaction state.</td></tr>
+        <tr><td class="mono">qa_review</td><td>reviewer org</td><td>belongs to <code>submission</code></td><td>Gate, sample drawn, outcome, defect codes, reviewer. Append-only.</td></tr>
+        <tr><td class="mono">equipment</td><td>sponsor</td><td>has many <code>loan</code></td><td>Type, units, calibration date, status. Calibration expiry blocks new loans.</td></tr>
+        <tr><td class="mono">loan</td><td>sponsor</td><td><code>equipment</code> → requesting org, optional <code>task</code></td><td>Request, approval, issue, return. The chain of custody for a device.</td></tr>
+        <tr><td class="mono">ledger_entry</td><td>platform</td><td>references <code>contract</code></td><td>Double-entry. Invoices, escrow holds, releases, fees and payouts are all rows here.</td></tr>
+      </tbody>
+      <caption>Every table carries <code>id</code>, <code>created_at</code>, <code>updated_at</code>, and the tenancy discriminators described in §2.2. Soft deletion only; nothing in the chain of custody is ever hard-deleted outside a lawful erasure request.</caption>
+    </table>
+  </div>
+</section>
+
+<!-- ============================ PART 2 ============================ -->
+<div class="part" id="system">
+  <div class="part-no">Part two</div>
+  <h2>The system</h2>
+  <p class="intro">A modular monolith with an asynchronous media plane. The transactional side of this
+  product is small — thousands of contracts, not millions — while the media side is genuinely large.
+  Splitting along that line, rather than along org-chart lines, is the whole architectural argument.</p>
+</div>
+
+<section id="services">
+  <h3>Service decomposition</h3>
+  <div class="decision">
+    <span class="lbl">Decision</span>
+    <p>Ship a <strong>modular monolith</strong> for the transactional domain and a <strong>separately scaled
+    media plane</strong> for ingest and processing. Do not start with microservices.</p>
+    <p>Requests, proposals, contracts and tasks are one tightly-coupled transactional cluster; splitting them
+    across services buys distributed transactions and buys nothing else at this volume. Ingest is the opposite:
+    bursty, CPU-heavy, failure-prone, and needs to scale on a completely different curve. Enforce module
+    boundaries in code — one schema namespace per module, no cross-module table reads — so extraction stays
+    cheap when a module earns it.</p>
+  </div>
+
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Module</th><th>Owns</th><th>Scaling profile</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">identity</td><td>Organisations, users, role grants, SSO, SCIM, invitations</td><td>Flat, read-heavy, cached</td></tr>
+        <tr><td class="mono">marketplace</td><td>Requests, proposals, matching, partner discovery</td><td>Flat</td></tr>
+        <tr><td class="mono">delivery</td><td>Contracts, tasks, assignment, progress</td><td>Flat</td></tr>
+        <tr><td class="mono">network</td><td>Aggregators, businesses, sponsors, equipment, loans, rosters</td><td>Flat</td></tr>
+        <tr><td class="mono">qa</td><td>Rubrics, sampling plans, gold sets, reviews, defect taxonomy</td><td>Moderate, bursty at delivery</td></tr>
+        <tr><td class="mono">ingest</td><td>Upload orchestration, checksums, scanning, transcode, derivation</td><td><strong>Independent</strong> — queue-driven workers</td></tr>
+        <tr><td class="mono">ledger</td><td>Invoices, escrow, fees, payouts, double-entry ledger</td><td>Flat, strongly consistent</td></tr>
+        <tr><td class="mono">notify</td><td>In-app, email, webhooks, digests</td><td>Independent — queue-driven</td></tr>
+        <tr><td class="mono">audit</td><td>Append-only event log, hash-chained</td><td>Write-heavy, append-only</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="tenancy">
+  <h3>Tenancy and isolation</h3>
+  <p>SourceHub has <strong>two independent tenancy axes</strong>, and conflating them is the most likely
+  source of a data-leak bug in this product. The account axis separates one client from another and one
+  partner from another. The network axis says an aggregator belongs to exactly one partner and must be
+  invisible to every other partner — including partners bidding on the same request.</p>
+
+  <figure>
+    <svg viewBox="0 0 880 336" role="img" aria-label="Every query carries an authenticated org context. Row-level security applies an account predicate and a network predicate, so partner A cannot see partner B's aggregators and a client sees only the suppliers attached to its own contracts.">
+      <defs>
+        <marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="currentColor"/>
+        </marker>
+      </defs>
+
+      <!-- request path -->
+      <rect x="20" y="34" width="136" height="52" rx="5" fill="var(--surface-2)" stroke="currentColor" stroke-width="1.2"/>
+      <text x="88" y="56" text-anchor="middle" font-size="12" font-weight="600" fill="currentColor">Request</text>
+      <text x="88" y="73" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="currentColor" opacity=".7">bearer token</text>
+
+      <rect x="196" y="34" width="150" height="52" rx="5" fill="var(--surface)" stroke="currentColor" stroke-width="1.2"/>
+      <text x="271" y="56" text-anchor="middle" font-size="12" font-weight="600" fill="currentColor">Session context</text>
+      <text x="271" y="73" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="currentColor" opacity=".7">org_id · kind · role</text>
+
+      <rect x="386" y="26" width="196" height="68" rx="5" fill="var(--accent-tint)" stroke="var(--accent)" stroke-width="1.6"/>
+      <text x="484" y="48" text-anchor="middle" font-size="12" font-weight="600" fill="var(--accent)">Row-level security</text>
+      <text x="484" y="66" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--accent)" opacity=".9">org_id = current_org()</text>
+      <text x="484" y="80" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--accent)" opacity=".9">OR owner_partner = current_partner()</text>
+
+      <line x1="156" y1="60" x2="190" y2="60" stroke="currentColor" stroke-width="1.3" marker-end="url(#ar3)"/>
+      <line x1="346" y1="60" x2="380" y2="60" stroke="currentColor" stroke-width="1.3" marker-end="url(#ar3)"/>
+      <line x1="582" y1="60" x2="616" y2="60" stroke="currentColor" stroke-width="1.3" marker-end="url(#ar3)"/>
+
+      <rect x="622" y="34" width="120" height="52" rx="5" fill="var(--surface-2)" stroke="currentColor" stroke-width="1.2"/>
+      <text x="682" y="56" text-anchor="middle" font-size="12" font-weight="600" fill="currentColor">Postgres</text>
+      <text x="682" y="73" text-anchor="middle" font-size="9.5" fill="currentColor" opacity=".7">shared schema</text>
+
+      <!-- partitions -->
+      <line x1="20" y1="126" x2="860" y2="126" stroke="currentColor" stroke-width="1" opacity=".25"/>
+      <text x="20" y="148" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="currentColor" opacity=".7" letter-spacing="1.2">WHAT EACH CONTEXT CAN REACH</text>
+
+      <!-- partner A -->
+      <rect x="20" y="164" width="252" height="146" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <text x="36" y="186" font-size="12" font-weight="600" fill="currentColor">Partner A</text>
+      <rect x="36" y="200" width="106" height="38" rx="4" fill="var(--surface-2)" stroke="currentColor" stroke-width="1" opacity=".9"/>
+      <text x="89" y="223" text-anchor="middle" font-size="10.5" fill="currentColor">Aggregator A1</text>
+      <rect x="152" y="200" width="104" height="38" rx="4" fill="var(--surface-2)" stroke="currentColor" stroke-width="1" opacity=".9"/>
+      <text x="204" y="223" text-anchor="middle" font-size="10.5" fill="currentColor">Sponsor A2</text>
+      <rect x="36" y="250" width="220" height="38" rx="4" fill="var(--surface-2)" stroke="currentColor" stroke-width="1" opacity=".9"/>
+      <text x="146" y="273" text-anchor="middle" font-size="10.5" fill="currentColor">Contracts where tenant = A</text>
+
+      <!-- partner B -->
+      <rect x="292" y="164" width="252" height="146" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <text x="308" y="186" font-size="12" font-weight="600" fill="currentColor">Partner B</text>
+      <rect x="308" y="200" width="106" height="38" rx="4" fill="var(--surface-2)" stroke="currentColor" stroke-width="1" opacity=".9"/>
+      <text x="361" y="223" text-anchor="middle" font-size="10.5" fill="currentColor">Aggregator B1</text>
+      <rect x="424" y="200" width="104" height="38" rx="4" fill="var(--surface-2)" stroke="currentColor" stroke-width="1" opacity=".9"/>
+      <text x="476" y="223" text-anchor="middle" font-size="10.5" fill="currentColor">Business B2</text>
+      <rect x="308" y="250" width="220" height="38" rx="4" fill="var(--surface-2)" stroke="currentColor" stroke-width="1" opacity=".9"/>
+      <text x="418" y="273" text-anchor="middle" font-size="10.5" fill="currentColor">Contracts where tenant = B</text>
+
+      <!-- mutual invisibility -->
+      <path d="M282 237 h0" stroke="none"/>
+      <line x1="272" y1="200" x2="292" y2="274" stroke="var(--crit)" stroke-width="1.4"/>
+      <line x1="292" y1="200" x2="272" y2="274" stroke="var(--crit)" stroke-width="1.4"/>
+      <text x="282" y="160" text-anchor="middle" font-size="10" fill="var(--crit)">no path</text>
+
+      <!-- client -->
+      <rect x="564" y="164" width="296" height="146" rx="6" fill="none" stroke="var(--accent)" stroke-width="1.3"/>
+      <text x="580" y="186" font-size="12" font-weight="600" fill="var(--accent)">Client</text>
+      <rect x="580" y="200" width="264" height="38" rx="4" fill="var(--accent-tint)" stroke="var(--accent-line)" stroke-width="1"/>
+      <text x="712" y="223" text-anchor="middle" font-size="10.5" fill="var(--accent)">Its own requests and contracts</text>
+      <rect x="580" y="250" width="264" height="38" rx="4" fill="var(--accent-tint)" stroke="var(--accent-line)" stroke-width="1"/>
+      <text x="712" y="267" text-anchor="middle" font-size="10.5" fill="var(--accent)">Suppliers attached to those contracts —</text>
+      <text x="712" y="281" text-anchor="middle" font-size="10.5" fill="var(--accent)">and no others in the partner's network</text>
+    </svg>
+    <figcaption><b>Figure 3 — two predicates, not one.</b> The account predicate isolates orgs from each other;
+    the network predicate scopes a partner's suppliers to that partner. A client reaches a supplier only by
+    traversing a contract it owns, which is what makes attribution safe to expose.</figcaption>
+  </figure>
+
+  <div class="decision">
+    <span class="lbl">Decision</span>
+    <p>Shared database, shared schema, <strong>Postgres row-level security</strong> as the enforcement point —
+    not application-layer filtering.</p>
+    <p>Application filters are one forgotten <code>WHERE</code> away from a cross-tenant leak, and this
+    product has an unusually high number of list endpoints. RLS makes the safe path the default: a query that
+    forgets the predicate returns nothing rather than everything. Enterprise clients with residency
+    obligations get a dedicated schema in their region; the code path is identical because the predicate is
+    in the database either way.</p>
+  </div>
+
+  <div class="decision" data-kind="risk">
+    <span class="lbl">Known risk</span>
+    <p>RLS predicates are invisible in application code, so a developer reading a repository method cannot see
+    why a row is missing.</p>
+    <p>Mitigation: a test harness that runs every list endpoint under three contexts — owner, sibling org,
+    unrelated org — and fails the build if a sibling or unrelated context sees a single row. This is cheap
+    and catches the class of bug that would otherwise reach production.</p>
+  </div>
+</section>
+
+<section id="ingest">
+  <h3>Capture to delivery</h3>
+  <p>The media plane is where the volume lives: a single 900-hour dashcam contract is tens of terabytes,
+  arriving over weeks from sixty drivers on unreliable connections.</p>
+
+  <figure>
+    <svg viewBox="0 0 880 264" role="img" aria-label="Capture devices redact on the edge, upload directly to region-pinned object storage with pre-signed multipart URLs, and a worker pool then verifies checksums, scans, extracts metadata and runs automated quality checks before the QA sampler draws a review sample.">
+      <defs>
+        <marker id="ar4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="currentColor"/>
+        </marker>
+        <marker id="ar4c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="var(--crit)"/>
+        </marker>
+      </defs>
+
+      <rect x="16" y="60" width="118" height="60" rx="5" fill="var(--surface-2)" stroke="currentColor" stroke-width="1.2"/>
+      <text x="75" y="82" text-anchor="middle" font-size="11.5" font-weight="600" fill="currentColor">Device</text>
+      <text x="75" y="98" text-anchor="middle" font-size="9.5" fill="currentColor" opacity=".72">edge redaction:</text>
+      <text x="75" y="110" text-anchor="middle" font-size="9.5" fill="currentColor" opacity=".72">faces, plates</text>
+
+      <rect x="170" y="60" width="118" height="60" rx="5" fill="var(--surface)" stroke="currentColor" stroke-width="1.2"/>
+      <text x="229" y="84" text-anchor="middle" font-size="11.5" font-weight="600" fill="currentColor">Capture app</text>
+      <text x="229" y="101" text-anchor="middle" font-size="9.5" fill="currentColor" opacity=".72">SHA-256 manifest</text>
+
+      <rect x="324" y="52" width="140" height="76" rx="5" fill="var(--accent-tint)" stroke="var(--accent)" stroke-width="1.6"/>
+      <text x="394" y="76" text-anchor="middle" font-size="11.5" font-weight="600" fill="var(--accent)">Object storage</text>
+      <text x="394" y="93" text-anchor="middle" font-size="9.5" fill="var(--accent)" opacity=".85">region-pinned bucket</text>
+      <text x="394" y="107" text-anchor="middle" font-size="9.5" fill="var(--accent)" opacity=".85">pre-signed multipart</text>
+      <text x="394" y="120" text-anchor="middle" font-size="9.5" fill="var(--accent)" opacity=".7">resumable</text>
+
+      <rect x="500" y="52" width="150" height="76" rx="5" fill="var(--surface)" stroke="currentColor" stroke-width="1.2"/>
+      <text x="575" y="74" text-anchor="middle" font-size="11.5" font-weight="600" fill="currentColor">Worker pool</text>
+      <text x="575" y="90" text-anchor="middle" font-size="9.5" fill="currentColor" opacity=".72">checksum · malware scan</text>
+      <text x="575" y="103" text-anchor="middle" font-size="9.5" fill="currentColor" opacity=".72">EXIF/GPS · transcode</text>
+      <text x="575" y="116" text-anchor="middle" font-size="9.5" fill="currentColor" opacity=".72">blur, occlusion, bitrate</text>
+
+      <rect x="686" y="60" width="86" height="60" rx="5" fill="var(--surface-2)" stroke="currentColor" stroke-width="1.2"/>
+      <text x="729" y="84" text-anchor="middle" font-size="11.5" font-weight="600" fill="currentColor">QA sampler</text>
+      <text x="729" y="101" text-anchor="middle" font-size="9.5" fill="currentColor" opacity=".72">draws the plan</text>
+
+      <rect x="796" y="60" width="68" height="60" rx="5" fill="var(--good-tint)" stroke="var(--accent-line)" stroke-width="1.2"/>
+      <text x="830" y="84" text-anchor="middle" font-size="11" font-weight="600" fill="var(--good)">Bundle</text>
+      <text x="830" y="101" text-anchor="middle" font-size="9.5" fill="var(--good)" opacity=".8">to client</text>
+
+      <line x1="134" y1="90" x2="164" y2="90" stroke="currentColor" stroke-width="1.3" marker-end="url(#ar4)"/>
+      <line x1="288" y1="90" x2="318" y2="90" stroke="currentColor" stroke-width="1.3" marker-end="url(#ar4)"/>
+      <text x="303" y="80" text-anchor="middle" font-size="9" fill="currentColor" opacity=".6">direct</text>
+      <line x1="464" y1="90" x2="494" y2="90" stroke="currentColor" stroke-width="1.3" marker-end="url(#ar4)"/>
+      <text x="479" y="80" text-anchor="middle" font-size="9" fill="currentColor" opacity=".6">event</text>
+      <line x1="650" y1="90" x2="680" y2="90" stroke="currentColor" stroke-width="1.3" marker-end="url(#ar4)"/>
+      <line x1="772" y1="90" x2="790" y2="90" stroke="currentColor" stroke-width="1.3" marker-end="url(#ar4)"/>
+
+      <path d="M575 128 v46 H229 v-48" fill="none" stroke="var(--crit)" stroke-width="1.3" marker-end="url(#ar4c)"/>
+      <text x="402" y="190" text-anchor="middle" font-size="10" fill="var(--crit)">automated check failed — asset quarantined, supplier told which rule and which frames</text>
+
+      <text x="16" y="34" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="currentColor" opacity=".7" letter-spacing="1.2">BYTES NEVER TRAVERSE THE APPLICATION TIER</text>
+      <line x1="16" y1="44" x2="864" y2="44" stroke="currentColor" stroke-width="1" opacity=".25"/>
+
+      <text x="16" y="228" font-size="10.5" fill="currentColor" opacity=".65">Redaction happens on the device, before upload, so unredacted personal data never crosses a border or lands in a bucket.</text>
+      <text x="16" y="246" font-size="10.5" fill="currentColor" opacity=".65">The worker pool verifies a sample of redactions rather than trusting the device — a device that fails verification is suspended.</text>
+    </svg>
+    <figcaption><b>Figure 4 — the media plane.</b> Uploads go straight from the capture device to region-pinned
+    object storage using short-lived pre-signed multipart URLs; the application tier only ever handles
+    manifests and events. This is what lets a 60-driver contract run without the API tier scaling at all.</figcaption>
+  </figure>
+
+  <div class="decision">
+    <span class="lbl">Decision</span>
+    <p>Privacy redaction runs <strong>on the capture device</strong>, and the server verifies a sample rather
+    than performing the redaction itself.</p>
+    <p>For a GDPR request like the dashcam contract, doing redaction server-side means unredacted footage of
+    identifiable faces and plates is transmitted, stored and processed — creating exactly the liability the
+    requirement exists to avoid. Verifying a sample keeps the device honest without ever holding the raw data.
+    The trade-off is a heavier capture app and a hardware floor, which belongs in the partner's proposal.</p>
+  </div>
+</section>
+
+<section id="api">
+  <h3>API and events</h3>
+  <p>REST over HTTPS, <code>/v1</code> in the path, cursor pagination, <code>Idempotency-Key</code> required
+  on every unsafe method, RFC 9457 problem details for errors. Webhooks are signed and replayable.</p>
+
+  <div class="cols">
+    <div>
+      <h4>Principal resources</h4>
+      <div class="tbl">
+        <table>
+          <thead><tr><th class="mono">Resource</th><th>Notable</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">/requests</td><td>Draft, publish, close</td></tr>
+            <tr><td class="mono">/requests/:id/proposals</td><td>Submit, withdraw, award</td></tr>
+            <tr><td class="mono">/contracts</td><td>Read, deliver, accept, dispute</td></tr>
+            <tr><td class="mono">/contracts/:id/tasks</td><td>Assign, reassign, cancel</td></tr>
+            <tr><td class="mono">/tasks/:id/submissions</td><td>Open, complete, list attempts</td></tr>
+            <tr><td class="mono">/submissions/:id/uploads</td><td>Mint pre-signed URLs</td></tr>
+            <tr><td class="mono">/submissions/:id/reviews</td><td>Record a gate outcome</td></tr>
+            <tr><td class="mono">/network/*</td><td>Aggregators, businesses, sponsors</td></tr>
+            <tr><td class="mono">/equipment/:id/loans</td><td>Request, approve, issue, return</td></tr>
+            <tr><td class="mono">/ledger/invoices</td><td>Read-only to orgs</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <h4>Published events</h4>
+      <div class="tbl">
+        <table>
+          <thead><tr><th class="mono">Event</th><th>Consumers</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">request.published</td><td>Matching, partner digests</td></tr>
+            <tr><td class="mono">proposal.submitted</td><td>Client notifications</td></tr>
+            <tr><td class="mono">contract.awarded</td><td>Ledger, partner onboarding</td></tr>
+            <tr><td class="mono">task.assigned</td><td>Supplier apps, rosters</td></tr>
+            <tr><td class="mono">asset.ingested</td><td>QA sampler, progress</td></tr>
+            <tr><td class="mono">asset.rejected</td><td>Supplier, rework tracking</td></tr>
+            <tr><td class="mono">review.recorded</td><td>Gate state machine</td></tr>
+            <tr><td class="mono">contract.delivered</td><td>Client, acceptance clock</td></tr>
+            <tr><td class="mono">contract.accepted</td><td>Ledger release, ratings</td></tr>
+            <tr><td class="mono">loan.state_changed</td><td>Sponsor inventory</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="decision">
+    <span class="lbl">Decision</span>
+    <p>The audit trail is <strong>derived from the same event stream</strong> the webhooks publish, not written
+    separately by each handler.</p>
+    <p>An audit log maintained by hand drifts from reality the first time someone adds a code path and forgets
+    the log line. Deriving it from events that already have to exist for notifications means the trail is
+    complete by construction — and every "who changed this and when" question a client's compliance team asks
+    has an answer.</p>
+  </div>
+</section>
+
+<section id="identity">
+  <h3>Identity and access</h3>
+  <p>OIDC for platform accounts, SAML 2.0 and SCIM for enterprise clients and partners, TOTP or WebAuthn as a
+  second factor, enforced for any role that can move money or approve a delivery. Aggregator crowd workers
+  authenticate through their aggregator, not through the platform.</p>
+
+  <div class="tbl">
+    <table>
+      <thead>
+        <tr><th>Capability</th><th>Client</th><th>Partner</th><th>Aggregator</th><th>Business</th><th>Sponsor</th><th>Ops</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Create and publish a request</td><td class="tick">●</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td></tr>
+        <tr><td>Submit a proposal</td><td class="cross">—</td><td class="tick">●</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td></tr>
+        <tr><td>Award a contract</td><td class="tick">●</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td></tr>
+        <tr><td>Assign a task</td><td class="cross">—</td><td class="tick">●</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td></tr>
+        <tr><td>Submit captured data</td><td class="cross">—</td><td class="cross">—</td><td class="tick">●</td><td class="tick">●</td><td class="cross">—</td><td class="cross">—</td></tr>
+        <tr><td>Record a QA outcome</td><td class="cross">—</td><td class="tick">●</td><td class="tick">gate 1</td><td class="tick">gate 1</td><td class="cross">—</td><td class="cross">—</td></tr>
+        <tr><td>Deliver to the client</td><td class="cross">—</td><td class="tick">●</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td></tr>
+        <tr><td>Accept and release payment</td><td class="tick">●</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td></tr>
+        <tr><td>Manage the partner network</td><td class="cross">—</td><td class="tick">●</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td></tr>
+        <tr><td>Approve an equipment loan</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="tick">●</td><td class="cross">—</td></tr>
+        <tr><td>Read any org's billing</td><td class="cross">own</td><td class="cross">own</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="tick">●</td></tr>
+        <tr><td>Arbitrate a dispute</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="tick">●</td></tr>
+      </tbody>
+      <caption>Capability names, not role names, are what the code checks — the reference build calls
+      <code>can('proposal.accept')</code> rather than testing the role — so adding a role is a row in this
+      table rather than a search through the views. Within an org, grants further split into owner, manager
+      and member.</caption>
+    </table>
+  </div>
+</section>
+
+<section id="money">
+  <h3>Payments and payouts</h3>
+  <ul>
+    <li><strong>On award</strong> — milestone 1 (50% by default, negotiable per contract) is invoiced to the
+      client and held in escrow. The contract cannot start until it clears.</li>
+    <li><strong>On acceptance</strong> — escrow releases, the 9% platform fee is deducted, and the balance is
+      queued for payout to the partner.</li>
+    <li><strong>On dispute</strong> — escrow is frozen. Ops arbitrates against the rubric snapshot taken at
+      award, which is why the rubric must be immutable from that moment.</li>
+    <li><strong>Never</strong> — the platform does not pay aggregators, businesses, sponsors or crowd workers.
+      That settlement is the partner's, off-platform.</li>
+  </ul>
+  <p>KYB and payout rails through a marketplace payment provider (Stripe Connect or Adyen for Platforms), which
+  also carries sanctions screening. Tax handling covers W-8/W-9 collection, VAT and GST determination by
+  client region, and <strong>DAC7</strong> reporting for EU-resident partners — a marketplace reporting
+  obligation that is easy to discover far too late.</p>
+
+  <div class="decision" data-kind="risk">
+    <span class="lbl">Known risk</span>
+    <p>Escrow makes SourceHub look like a money transmitter in several jurisdictions.</p>
+    <p>Mitigation: hold funds through the payment provider's regulated escrow product rather than in a
+    platform-controlled account, and take a written legal opinion per launch market before the first contract
+    is awarded there. This gates market expansion, not the build.</p>
+  </div>
+</section>
+
+<section id="trust">
+  <h3>Security and compliance</h3>
+  <div class="cols">
+    <div>
+      <h4>Certifications and frameworks</h4>
+      <ul>
+        <li>SOC 2 Type II — target within 12 months of general availability</li>
+        <li>ISO/IEC 27001 — follows SOC 2, driven by EU enterprise demand</li>
+        <li>GDPR — DPA, standard contractual clauses, DPIA for any capture involving identifiable people</li>
+        <li>HIPAA — BAA and a segregated processing path for clinical categories</li>
+        <li>CCPA/CPRA — consumer requests routed through the client of record</li>
+      </ul>
+      <h4>Controls</h4>
+      <ul>
+        <li>Envelope encryption at rest with per-tenant data keys; TLS 1.3 in transit</li>
+        <li>Pre-signed URLs scoped to one object with a 15-minute TTL</li>
+        <li>Hash-chained audit log; tampering is detectable, not merely discouraged</li>
+        <li>Annual third-party penetration test; critical findings fixed within 7 days</li>
+        <li>Least-privilege service accounts; no standing production data access for engineers</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Obligations specific to this product</h4>
+      <ul>
+        <li><strong>Consent capture</strong> — people-based deliverables carry a consent artefact per subject,
+          stored with the asset and surviving deletion of the asset itself</li>
+        <li><strong>Data residency</strong> — object storage and the processing schema are pinned per client
+          region; a task cannot be assigned to a supplier outside the permitted region</li>
+        <li><strong>Right to erasure</strong> — propagates through derived assets and delivered bundles, with a
+          documented 30-day window and a tombstone in the chain of custody</li>
+        <li><strong>Retention</strong> — default 24 months post-contract, configurable down per client, with
+          legal-hold override</li>
+        <li><strong>Fair work</strong> — partners attest to pay-rate transparency and a minimum effective
+          hourly rate for crowd work. The platform cannot enforce employment terms it is not party to, but it
+          can and does make attestation a condition of listing.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="ops">
+  <h3>SLOs and scale</h3>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Indicator</th><th>Objective</th><th class="mono">Window</th><th>Why this number</th></tr></thead>
+      <tbody>
+        <tr><td>API availability</td><td class="num">99.9%</td><td class="mono">30d</td><td>Field capture is asynchronous; brief API loss does not lose data</td></tr>
+        <tr><td>Upload success rate</td><td class="num">99.5%</td><td class="mono">7d</td><td>Failures here mean a crew re-shoots — the most expensive failure mode</td></tr>
+        <tr><td>p95 read latency</td><td class="num">300 ms</td><td class="mono">7d</td><td>Operations consoles are scanned, not read; sluggish tables get abandoned</td></tr>
+        <tr><td>Ingest to QA-ready</td><td class="num">15 min</td><td class="mono">p95</td><td>Same-day feedback keeps a defect from repeating across a whole shift</td></tr>
+        <tr><td>Webhook delivery</td><td class="num">99.9%</td><td class="mono">30d</td><td>Partners automate against these; silent loss corrupts their state</td></tr>
+        <tr><td>Ledger correctness</td><td class="num">100%</td><td class="mono">always</td><td>Not an SLO — a reconciliation job that pages on any imbalance</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p><strong>Year-one capacity target:</strong> 300 client organisations, 120 delivery partners, 2,000 network
+  entities, 40,000 concurrent crowd workers at peak, 80 TB monthly ingest, 40 million assets under management.
+  The transactional tier handles this on a single primary with read replicas; the media plane is the only
+  component that needs elastic scaling. OpenTelemetry throughout, RED metrics on services, USE metrics on
+  workers, and error budgets that gate feature releases.</p>
+</section>
+
+<!-- ============================ PART 3 ============================ -->
+<div class="part" id="design">
+  <div class="part-no">Part three</div>
+  <h2>The interface</h2>
+  <p class="intro">Six roles, one product. The interface has to be legible to a procurement lead at a retail
+  analytics firm and to an operations manager running 820 crowd workers, without becoming two products. The
+  design system is what holds that together, and it ships as running code rather than a picture of code.</p>
+</div>
+
+<section id="tokens">
+  <h3>Tokens and taxonomy</h3>
+  <p>Every colour, size and duration in the product is a CSS custom property. Components read tokens and
+  nothing else, which is what makes the dark theme a swap of values rather than a second stylesheet.</p>
+
+  <div class="cols">
+    <div>
+      <h4>The palette</h4>
+      <p>Neutrals carry a slight green bias so they read as chosen rather than inherited. The accent is a
+      petrol teal drawn from survey instrumentation — the world this product actually operates in.</p>
+      <div class="pillrow">
+        <span class="pill" data-t="a">accent · petrol teal</span>
+        <span class="pill">ground · #f4f6f5</span>
+        <span class="pill">ink · #0f1a1c</span>
+      </div>
+      <h4>Type</h4>
+      <p>IBM Plex Sans for interface, IBM Plex Mono for every identifier, metric and uppercase label.
+      Monospacing the identifiers is not decoration: <code>RFP-1001</code> and <code>CTR-01</code> are read,
+      compared and quoted into support tickets all day, and tabular figures make columns of money and counts
+      scan vertically.</p>
+    </div>
+    <div>
+      <h4>The status taxonomy</h4>
+      <p>Five tones, deliberately held apart from the accent so state never competes with navigation. Every
+      status string in the product maps to exactly one tone <em>and one owner</em> — the party who must act
+      next.</p>
+      <div class="pillrow">
+        <span class="pill">neutral · inert</span>
+        <span class="pill" data-t="a">active · progressing</span>
+        <span class="pill" data-t="w">attention · waiting on a human</span>
+        <span class="pill" data-t="g">success · terminal, good</span>
+        <span class="pill" data-t="c">critical · terminal, bad</span>
+      </div>
+      <p>The owner field is the load-bearing half. It generates the "waiting on" column, each role's personal
+      queue, and the escalation rules — which is why a status can never be invented at the call site.</p>
+    </div>
+  </div>
+
+  <div class="decision">
+    <span class="lbl">Decision</span>
+    <p>The design system documentation page is <strong>generated from the running product's own code</strong>,
+    and reachable from inside every role.</p>
+    <p>A design system maintained as a separate artefact is out of date the week after it ships. Rendering the
+    swatches from the live tokens and the pills from the live status table means the documentation cannot
+    drift: if a token changes, the page changes, and if someone adds a status without a tone the page shows
+    the gap immediately.</p>
+  </div>
+</section>
+
+<section id="components">
+  <h3>Components and accessibility</h3>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Commitment</th><th>Standard</th><th>How it is held</th></tr></thead>
+      <tbody>
+        <tr><td>Contrast</td><td class="mono">WCAG 2.2 AA</td><td>4.5:1 body, 3:1 large text and UI boundaries, verified in both themes</td></tr>
+        <tr><td>Keyboard</td><td class="mono">2.1.1, 2.4.3</td><td>Every action Tab-reachable; dialogs trap focus and restore it; Escape always exits</td></tr>
+        <tr><td>Focus visible</td><td class="mono">2.4.7</td><td>2px accent ring on <code>:focus-visible</code>, never removed</td></tr>
+        <tr><td>Colour independence</td><td class="mono">1.4.1</td><td>Every status pill pairs hue with a text label and a dot</td></tr>
+        <tr><td>Motion</td><td class="mono">2.3.3</td><td>120–180ms transitions, collapsed to zero under <code>prefers-reduced-motion</code></td></tr>
+        <tr><td>Semantics</td><td class="mono">1.3.1, 4.1.2</td><td>Landmarks, one <code>h1</code> per view, ARIA on tabs and dialogs, live region for toasts</td></tr>
+        <tr><td>Target size</td><td class="mono">2.5.8</td><td>24px minimum for pointer targets, 44px on touch breakpoints</td></tr>
+      </tbody>
+      <caption>Enforced by axe-core in CI on every view at both themes and three breakpoints, plus a manual
+      keyboard-only pass each release. Automated checks catch roughly 40% of real issues; the manual pass is
+      not optional.</caption>
+    </table>
+  </div>
+
+  <h4>Layout</h4>
+  <p>A 264px navigation rail collapses to a 64px icon rail below 1180px and becomes an off-canvas drawer below
+  840px. Content is capped at 1440px. Wide content — tables, diagrams — scrolls inside its own container so
+  the page body never scrolls sideways. Spacing comes from a 4/8/12/16/24/32/48 scale with no arbitrary
+  values; radii are 4px for controls and 6px for panels, with the pill radius reserved exclusively for status.
+  Surfaces are flat with hairline borders and shadow is reserved for things that genuinely float, which is
+  what keeps a dense operations table readable at 11px row padding.</p>
+
+  <h4>Internationalisation</h4>
+  <p>Supplier-facing surfaces need Hindi, Tagalog, Bahasa, Swahili and Portuguese at launch — that is where
+  the crowd is. All strings externalised, ICU message format for plurals and gender, logical CSS properties
+  throughout so an RTL locale is a <code>dir</code> attribute rather than a stylesheet fork, and dates
+  rendered in the reader's locale while identifiers stay in Latin script.</p>
+</section>
+
+<!-- ============================ PART 4 ============================ -->
+<div class="part" id="plan">
+  <div class="part-no">Part four</div>
+  <h2>Getting there</h2>
+  <p class="intro">Four phases. Each one ends with something a real client and a real partner can complete a
+  transaction on, because a marketplace that cannot close a loop teaches you nothing.</p>
+</div>
+
+<section id="phases">
+  <h3>Delivery phases</h3>
+  <div class="cols">
+    <div class="phase">
+      <div class="no">Phase 1</div>
+      <h4>Close one loop</h4>
+      <div class="when">Months 1–3</div>
+      <ul>
+        <li>Identity, orgs, RBAC, RLS with the isolation test harness</li>
+        <li>Requests, proposals, award, contracts, tasks</li>
+        <li>Manual QA at both gates, no automation</li>
+        <li>Invoicing only — no escrow, settlement handled by finance</li>
+        <li>Two design partners, one category, one region</li>
+      </ul>
+    </div>
+    <div class="phase">
+      <div class="no">Phase 2</div>
+      <h4>Make the media real</h4>
+      <div class="when">Months 4–7</div>
+      <ul>
+        <li>Capture app, pre-signed multipart upload, resumable transfer</li>
+        <li>Worker pool: checksum, scan, metadata, transcode</li>
+        <li>Automated quality checks and the rubric compiler</li>
+        <li>Sampling plans and gold sets</li>
+        <li>Escrow through the payment provider; DAC7 groundwork</li>
+      </ul>
+    </div>
+    <div class="phase">
+      <div class="no">Phase 3</div>
+      <h4>Earn the enterprise</h4>
+      <div class="when">Months 8–12</div>
+      <ul>
+        <li>SAML, SCIM, audit export, per-region residency</li>
+        <li>SOC 2 Type II evidence collection and audit</li>
+        <li>Public API, signed webhooks, partner sandbox</li>
+        <li>Dispute arbitration workflow and ops console</li>
+        <li>Supplier-facing localisation</li>
+      </ul>
+    </div>
+    <div class="phase">
+      <div class="no">Phase 4</div>
+      <h4>Make the market liquid</h4>
+      <div class="when">Year 2</div>
+      <ul>
+        <li>Partner matching and ranking on delivered outcomes, not self-description</li>
+        <li>Reusable capability profiles so partners stop retyping their method</li>
+        <li>Forward capacity: partners publish availability, clients book against it</li>
+        <li>Benchmark pricing from settled contracts</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="gaps">
+  <h3>What the prototype fakes</h3>
+  <p>The reference build in <code>sourcehub-app.html</code> is a faithful implementation of the interface,
+  the state machines and the design system — and an honest fiction everywhere else. Anyone estimating from it
+  should price these in:</p>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>In the reference build</th><th>In production</th><th class="mono">Effort</th></tr></thead>
+      <tbody>
+        <tr><td>State lives in a JavaScript object, resets on reload</td><td>Postgres with RLS, migrations, backups, PITR</td><td class="mono">L</td></tr>
+        <tr><td>Role switcher swaps identity instantly</td><td>OIDC, SAML, SCIM, MFA, session management</td><td class="mono">L</td></tr>
+        <tr><td>Asset tiles are placeholder glyphs</td><td>Capture app, resumable upload, the entire media plane</td><td class="mono">XL</td></tr>
+        <tr><td>QA review is a pass/fail button</td><td>Rubric compiler, sampling plans, gold sets, defect taxonomy</td><td class="mono">L</td></tr>
+        <tr><td>Acceptance criteria are free text</td><td>Executable rubric, immutable at award</td><td class="mono">M</td></tr>
+        <tr><td>Invoices appear as rows</td><td>Escrow, PSP integration, KYB, tax, payouts, reconciliation</td><td class="mono">XL</td></tr>
+        <tr><td>Notifications are in-memory</td><td>Email, digests, signed webhooks, delivery guarantees</td><td class="mono">M</td></tr>
+        <tr><td>Audit trail is an array</td><td>Hash-chained event log with export</td><td class="mono">M</td></tr>
+        <tr><td>One currency, one locale, one region</td><td>Multi-currency, five supplier locales, three residency regions</td><td class="mono">L</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="endnote">
+  <p><strong>SourceHub Blueprint</strong> v1.0 · 29 August 2026. Companion to the reference implementation in
+  <code>sourcehub-app.html</code>, which is the normative source for tokens, components and state machines —
+  where this document and that build disagree, the build is right and this document needs a revision.</p>
+</div>
+</main>
+</div>
