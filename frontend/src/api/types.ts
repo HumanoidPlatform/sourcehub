@@ -16,6 +16,17 @@ export interface Org {
   profile: Record<string, unknown>;
 }
 
+// tenant_profile, as GET /organisations/{id} returns it. `plan` is deliberately
+// absent: the API withholds it from anyone but Ops and the partner itself.
+export interface TenantProfile {
+  hq: string | null;
+  capabilities: string | null;
+  on_time_rate: number | null;
+  qa_pass_rate: number | null;
+  fair_work_attested: boolean;
+  since: string | null;
+}
+
 export interface Rfp {
   id: string;
   reference_code: string;

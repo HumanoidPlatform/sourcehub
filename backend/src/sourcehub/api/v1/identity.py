@@ -39,7 +39,7 @@ async def my_organisation(
     principal: Principal = Depends(get_principal),
     session: AsyncSession = Depends(get_session),
 ):
-    org = await identity.get_org(session, principal.org_id)
+    org = await identity.get_org(session, principal.org_id, principal)
     if org is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Organisation not found")
     return org
@@ -51,7 +51,7 @@ async def get_organisation(
     principal: Principal = Depends(get_principal),
     session: AsyncSession = Depends(get_session),
 ):
-    org = await identity.get_org(session, org_id)
+    org = await identity.get_org(session, org_id, principal)
     if org is None:
         # an RLS denial and a missing row answer identically — existence is
         # exactly what the policy hides

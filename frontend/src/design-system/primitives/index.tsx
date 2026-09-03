@@ -6,6 +6,7 @@
 
 import {
   createContext,
+  Fragment,
   useCallback,
   useContext,
   useEffect,
@@ -177,16 +178,20 @@ export function StageRail({ stages, current }: { stages: readonly string[]; curr
 
 /* --- definition list -------------------------------------------------------- */
 
+// dt and dd must be DIRECT children of .dl: the grid is one narrow label column
+// and one wide value column, so a wrapper per row would make each pair a single
+// cell and land pairs two-across. Fragment adds no DOM node; it only carries the
+// key. .dl dt, .dl dd and the responsive collapse all hang off this shape.
 export function Dl({ rows }: { rows: [string, ReactNode][] }) {
   return (
-    <div className="dl">
+    <dl className="dl">
       {rows.map(([k, v]) => (
-        <div key={k} className="specrow">
-          <span className="muted small">{k}</span>
-          <span>{v}</span>
-        </div>
+        <Fragment key={k}>
+          <dt>{k}</dt>
+          <dd>{v}</dd>
+        </Fragment>
       ))}
-    </div>
+    </dl>
   );
 }
 
@@ -242,9 +247,11 @@ export function Dialog({
     <div className="overlay" data-open="" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
       <div className="dialog" role="dialog" aria-modal="true" aria-label={title} ref={ref}>
         <header className="dialog-head">
-          <div>
+          {/* .titles is load-bearing: .dialog-head has no justify-content, so
+              its flex:1 is the only thing pushing the close button right. */}
+          <div className="titles">
             <h2 style={{ margin: 0, fontSize: 15 }}>{title}</h2>
-            {sub && <div className="small muted">{sub}</div>}
+            {sub && <span className="sub">{sub}</span>}
           </div>
           <button type="button" className="iconbtn" aria-label="Close" onClick={onClose}>×</button>
         </header>
