@@ -5,14 +5,16 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { get, post } from "@api/client";
-import type { Proposal, Rfp } from "@api/types";
+import type { Org, Proposal, Rfp, TenantProfile } from "@api/types";
 import {
-  Button, Callout, Dialog, Dl, Empty, Field, inputCls, Panel, Pill,
+  Button, Callout, Dialog, Dl, Empty, Field, inputCls, Meter, Panel, Pill,
   StageRail, TableWrap, textareaCls, useToast, View,
 } from "@ds/primitives";
 import { useSession } from "@shared/auth";
 import { fmtDate, money, titleCase } from "@shared/format";
-import { LIFECYCLE, proposalStatus, requestStatus, statusMeta, waitingOn } from "@shared/status";
+import {
+  LIFECYCLE, orgStatus, proposalStatus, requestStatus, statusMeta, waitingOn,
+} from "@shared/status";
 
 const CATEGORIES = [
   ["image", "Image"],
@@ -268,6 +270,7 @@ export function RequestDetailPage() {
   const toast = useToast();
   const navigate = useNavigate();
   const [awarding, setAwarding] = useState<Proposal | null>(null);
+  const [viewing, setViewing] = useState<Proposal | null>(null);
   const [proposing, setProposing] = useState(false);
 
   const request = useQuery({
@@ -358,7 +361,7 @@ export function RequestDetailPage() {
               <thead>
                 <tr>
                   <th>Partner</th><th>Price</th><th>Days</th><th>QA track record</th>
-                  <th>Methodology</th><th>Status</th>{canAward && <th />}
+                  <th>Methodology</th><th>Status</th>{isClient && <th />}
                 </tr>
               </thead>
               <tbody>
@@ -378,9 +381,10 @@ export function RequestDetailPage() {
                       <td className="num">{p.partner_qa_pass_rate != null ? `${p.partner_qa_pass_rate}% QA pass` : "—"}</td>
                       <td style={{ maxWidth: 380 }}>{p.methodology}</td>
                       <td><Pill tone={pm.tone}>{pm.label}</Pill></td>
-                      {canAward && (
+                      {isClient && (
                         <td className="rowactions">
-                          {p.status === "submitted" && (
+                          <Button size="sm" onClick={() => setViewing(p)}>Profile</Button>
+                          {canAward && p.status === "submitted" && (
                             <Button size="sm" variant="primary" onClick={() => setAwarding(p)}>Award</Button>
                           )}
                         </td>
@@ -393,6 +397,8 @@ export function RequestDetailPage() {
           </TableWrap>
         )}
       </Panel>
+
+      {viewing && <PartnerProfileDialog proposal={viewing} onClose={() => setViewing(null)} />}
 
       {awarding && (
         <Dialog
@@ -419,6 +425,72 @@ export function RequestDetailPage() {
         <ProposeDialog requestId={id} title={r.title} onClose={() => setProposing(false)} />
       )}
     </View>
+  );
+}
+
+/* --- the partner behind a proposal -------------------------------------------- */
+
+// A bidder is disclosed to the client it bids to and to nobody else — the
+// database says so (org_visible_via_proposal, db/110_auth_functions.sql), so
+// this asks for the org and lets a 404 mean "not yours to see".
+function PartnerProfileDialog({ proposal, onClose }: { proposal: Proposal; onClose: () => void }) {
+  const org = useQuery({
+    queryKey: ["org", proposal.partner_org_id],
+    queryFn: () => get<Org>(`/organisations/${proposal.partner_org_id}`),
+  });
+
+  const o = org.data;
+  const profile = (o?.profile ?? {}) as Partial<TenantProfile>;
+  const meta = statusMeta(orgStatus, o?.status);
+
+  return (
+    <Dialog
+      // seeded from the row so the dialog opens named, then fills in underneath
+      title={o?.name ?? proposal.partner_name ?? "Delivery partner"}
+      // .id is a chip for the reference code alone — anything else put inside it
+      // gets boxed and rendered monospace along with it
+      sub={
+        <>
+          <span className="id">{o?.reference_code ?? "—"}</span>
+          {o?.country ? ` · ${o.country}` : ""}{" "}
+          {o && <Pill tone={meta.tone}>{meta.label}</Pill>}
+        </>
+      }
+      onClose={onClose}
+      foot={<Button onClick={onClose}>Close</Button>}
+    >
+      {org.isError ? (
+        <Callout tone="critical" title="Profile not available">
+          A partner is visible to you through their proposal. If it has been deleted, so has your
+          view of them.
+        </Callout>
+      ) : !o ? (
+        <p className="muted">Loading…</p>
+      ) : (
+        <Dl rows={[
+          ["Headquarters", profile.hq ?? "—"],
+          ["Capabilities", profile.capabilities ?? "—"],
+          ["Fair work", profile.fair_work_attested ? "Attested" : "Not attested"],
+          ["Partner since", fmtDate(profile.since)],
+          ["Rating", o.rating ? `★ ${o.rating}` : "—"],
+          ["On-time delivery", rate(profile.on_time_rate)],
+          ["QA pass rate", rate(profile.qa_pass_rate ?? proposal.partner_qa_pass_rate)],
+        ]} />
+      )}
+    </Dialog>
+  );
+}
+
+// A percentage over its bar. <dd> is flow content, so the Meter div is valid here.
+function rate(pct?: number | null) {
+  if (pct == null) return "—";
+  return (
+    <>
+      <span className="num">{pct}%</span>
+      <div style={{ marginTop: 4 }}>
+        <Meter pct={pct} tone={pct >= 90 ? "success" : undefined} />
+      </div>
+    </>
   );
 }
 

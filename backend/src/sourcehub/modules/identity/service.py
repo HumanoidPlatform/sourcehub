@@ -399,17 +399,39 @@ _PROFILE_MODEL = {
 }
 
 
-def _profile_dict(profile: Any) -> dict[str, Any]:
+def _may_see_commercials(org: Organisation, claims: AccessClaims | None) -> bool:
+    """Whether the viewer may see what this organisation pays the platform.
+
+    RLS decides which organisations you may see at all; this decides which of
+    their columns are the platform's business with them rather than yours. A
+    bidder is disclosed to the client it bids to (organisation_select_bidders,
+    db/110_auth_functions.sql) — that discloses who they are, not whether they
+    are behind on their SourceHub invoices.
+
+    Ops sees every account's commercials, an organisation sees its own, and
+    claims=None means an internal caller that has already decided.
+    """
+    if claims is None:
+        return True
+    return claims.role == "platform_admin" or org.id == claims.org_id
+
+
+def _profile_dict(profile: Any, *, commercials: bool = True) -> dict[str, Any]:
     if profile is None:
         return {}
+    hidden = {"org_id", "created_at", "updated_at"}
+    if not commercials:
+        hidden.add("plan")  # tenant_profile.plan — the partner's platform tier
     return {
-        c.key: getattr(profile, c.key)
-        for c in profile.__table__.columns
-        if c.key not in ("org_id", "created_at", "updated_at")
+        c.key: getattr(profile, c.key) for c in profile.__table__.columns if c.key not in hidden
     }
 
 
-async def get_org(session: AsyncSession, org_id: uuid.UUID) -> dict[str, Any] | None:
+async def get_org(
+    session: AsyncSession, org_id: uuid.UUID, claims: AccessClaims | None = None
+) -> dict[str, Any] | None:
+    """Pass claims wherever the caller may be looking at someone else's org —
+    it is what keeps the commercial columns out of the answer."""
     org = (
         await session.execute(
             select(Organisation).where(Organisation.id == org_id, Organisation.deleted_at.is_(None))
@@ -423,11 +445,14 @@ async def get_org(session: AsyncSession, org_id: uuid.UUID) -> dict[str, Any] | 
         profile = (
             await session.execute(select(model).where(model.org_id == org_id))
         ).scalar_one_or_none()
-    return _org_dict(org, profile)
+    return _org_dict(org, profile, claims)
 
 
-def _org_dict(org: Organisation, profile: Any = None) -> dict[str, Any]:
-    return {
+def _org_dict(
+    org: Organisation, profile: Any = None, claims: AccessClaims | None = None
+) -> dict[str, Any]:
+    commercials = _may_see_commercials(org, claims)
+    out: dict[str, Any] = {
         "id": org.id,
         "reference_code": org.reference_code,
         "kind": org.kind,
@@ -439,8 +464,11 @@ def _org_dict(org: Organisation, profile: Any = None) -> dict[str, Any]:
         "billing_status": org.billing_status,
         "rating": org.rating,
         "onboarded_at": org.onboarded_at,
-        "profile": _profile_dict(profile),
+        "profile": _profile_dict(profile, commercials=commercials),
     }
+    if not commercials:
+        del out["billing_status"]
+    return out
 
 
 async def list_orgs_of_kind(session: AsyncSession, kind: str) -> list[dict[str, Any]]:
