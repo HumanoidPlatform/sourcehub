@@ -42,6 +42,8 @@ class SessionOut(BaseModel):
     refresh_token: str
     token_type: str = "bearer"
     user_id: uuid.UUID
+    full_name: str
+    email: str
     org_id: uuid.UUID
     org_kind: str
     org_name: str
@@ -90,6 +92,8 @@ def _session_out(result: identity.LoginSuccess) -> SessionOut:
         access_token=issue_access_token(c),
         refresh_token=result.refresh_token_raw,
         user_id=c.user_id,
+        full_name=c.full_name,
+        email=c.email,
         org_id=c.org_id,
         org_kind=c.org_kind,
         org_name=c.org_name,
@@ -153,6 +157,8 @@ async def me(principal: Principal = Depends(get_principal)):
         access_token="",
         refresh_token="",
         user_id=principal.user_id,
+        full_name=principal.full_name,
+        email=principal.email,
         org_id=principal.org_id,
         org_kind=principal.org_kind,
         org_name=principal.org_name,

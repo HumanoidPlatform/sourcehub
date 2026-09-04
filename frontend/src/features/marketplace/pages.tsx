@@ -4,16 +4,17 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { get, post } from "@api/client";
-import type { Org, Proposal, Rfp, TenantProfile } from "@api/types";
+import { get, post, putFile } from "@api/client";
+import type { Proposal, Rfp, SamplePresign } from "@api/types";
 import {
-  Button, Callout, Dialog, Dl, Empty, Field, inputCls, Meter, Panel, Pill,
+  Button, Callout, Dialog, Dl, Empty, Field, FileField, inputCls, Panel, Pill,
   StageRail, TableWrap, textareaCls, useToast, View,
 } from "@ds/primitives";
 import { useSession } from "@shared/auth";
-import { fmtDate, money, titleCase } from "@shared/format";
+import { fmtDate, fmtDateTime, money, titleCase } from "@shared/format";
+import { OrgProfileDialog } from "@shared/org-profile";
 import {
-  LIFECYCLE, orgStatus, proposalStatus, requestStatus, statusMeta, waitingOn,
+  LIFECYCLE, proposalStatus, requestStatus, statusMeta, waitingOn,
 } from "@shared/status";
 
 const CATEGORIES = [
@@ -106,9 +107,25 @@ const BLANK: Draft = {
   budget_min: "", budget_max: "", starts_on: "", delivery_due_on: "",
 };
 
+// Mirrors the server's rules (marketplace service) so most violations are
+// caught before a byte moves. The server re-checks everything.
+const MAX_SAMPLE_BYTES = 25 * 1024 * 1024;
+const MAX_SAMPLES = 5;
+const SAMPLE_ACCEPT =
+  ".csv,.tsv,.json,.jsonl,.xml,.txt,.md,.pdf,.png,.jpg,.jpeg,.webp,.gif,.mp4,.mov,.mp3,.wav,.zip,.xlsx,.docx,.parquet";
+
+interface SampleDraft {
+  key: string; // storage_key once presigned
+  filename: string;
+  content_type: string | null;
+  size_bytes: number;
+  status: "uploading" | "done" | "error";
+}
+
 export function RequestNewPage() {
   const [step, setStep] = useState(0);
   const [d, setD] = useState<Draft>(BLANK);
+  const [samples, setSamples] = useState<SampleDraft[]>([]);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   const toast = useToast();
@@ -116,6 +133,48 @@ export function RequestNewPage() {
 
   const set = (k: keyof Draft) => (e: { target: { value: string } }) =>
     setD((x) => ({ ...x, [k]: e.target.value }));
+
+  const pickSamples = (files: FileList) => {
+    setError(null);
+    const room = MAX_SAMPLES - samples.length;
+    const picked = Array.from(files);
+    if (picked.length > room) {
+      setError(`At most ${MAX_SAMPLES} sample files per request.`);
+      return;
+    }
+    for (const file of picked) {
+      if (file.size > MAX_SAMPLE_BYTES) {
+        setError(`${file.name} is over the 25 MB cap.`);
+        continue;
+      }
+      const ext = "." + (file.name.split(".").pop() ?? "").toLowerCase();
+      if (!SAMPLE_ACCEPT.split(",").includes(ext)) {
+        setError(`Files of type ${ext} are not accepted.`);
+        continue;
+      }
+      const draft: SampleDraft = {
+        key: "", filename: file.name, content_type: file.type || null,
+        size_bytes: file.size, status: "uploading",
+      };
+      setSamples((xs) => [...xs, draft]);
+      void (async () => {
+        try {
+          const p = await post<SamplePresign>("/requests/samples/presign", {
+            filename: file.name, content_type: file.type || null, size_bytes: file.size,
+          });
+          await putFile(p.url, file);
+          setSamples((xs) =>
+            xs.map((s) => (s === draft ? { ...s, key: p.storage_key, filename: p.filename, status: "done" } : s)),
+          );
+        } catch (err) {
+          setSamples((xs) => xs.map((s) => (s === draft ? { ...s, status: "error" } : s)));
+          setError(err instanceof Error ? err.message : `Could not upload ${file.name}`);
+        }
+      })();
+    }
+  };
+
+  const doneSamples = samples.filter((s) => s.status === "done");
 
   const save = useMutation({
     mutationFn: (publish: boolean) =>
@@ -127,6 +186,10 @@ export function RequestNewPage() {
         starts_on: d.starts_on || null,
         delivery_due_on: d.delivery_due_on || null,
         publish,
+        samples: doneSamples.map((s) => ({
+          storage_key: s.key, filename: s.filename,
+          content_type: s.content_type, size_bytes: s.size_bytes,
+        })),
       }),
     onSuccess: (r, publish) => {
       void qc.invalidateQueries({ queryKey: ["requests"] });
@@ -143,6 +206,8 @@ export function RequestNewPage() {
   const validateStep = (): string | null => {
     if (step === 0 && !d.title.trim()) return "Give the request a title.";
     if (step === 1 && !d.spec_quantity.trim()) return "Say how much you need — partners cannot price a blank quantity.";
+    if ((step === 1 || step === 4) && samples.some((s) => s.status === "uploading"))
+      return "Wait for sample uploads to finish.";
     if (step === 3) {
       if (d.budget_min && d.budget_max && Number(d.budget_max) < Number(d.budget_min))
         return "Budget maximum must be at least the minimum.";
@@ -197,6 +262,18 @@ export function RequestNewPage() {
             <Field label="Acceptance criteria" span hint="Frozen into the contract at award — disputes are arbitrated against this.">
               {(id) => <textarea id={id} className={textareaCls} rows={2} value={d.acceptance} onChange={set("acceptance")} placeholder="95% or better pass on the automated blur check; 5% manual audit sample" />}
             </Field>
+            <Field label="Sample data (optional)" span hint={`Up to ${MAX_SAMPLES} files, 25 MB each — partners download these to gauge the work.`}>
+              {() => (
+                <FileField
+                  label="Attach sample files"
+                  accept={SAMPLE_ACCEPT}
+                  disabled={samples.length >= MAX_SAMPLES}
+                  files={samples.map((s) => ({ name: s.filename, size: s.size_bytes, status: s.status }))}
+                  onPick={pickSamples}
+                  onRemove={(i) => setSamples((xs) => xs.filter((_, j) => j !== i))}
+                />
+              )}
+            </Field>
           </div>
         )}
         {step === 2 && (
@@ -241,6 +318,7 @@ export function RequestNewPage() {
             ["Timeline", `${fmtDate(d.starts_on || null)} → ${fmtDate(d.delivery_due_on || null)}`],
             ["Acceptance", d.acceptance || "Client review on delivery"],
             ["Compliance", d.compliance_notes || "None specified"],
+            ["Sample files", doneSamples.length ? doneSamples.map((s) => s.filename).join(", ") : "None"],
           ]} />
         )}
         {error && <Callout tone="critical" title={error} />}
@@ -250,8 +328,8 @@ export function RequestNewPage() {
         {step < STEPS.length - 1 && <Button variant="primary" onClick={next}>Continue</Button>}
         {step === STEPS.length - 1 && (
           <>
-            <Button onClick={() => save.mutate(false)} disabled={save.isPending}>Save as draft</Button>
-            <Button variant="primary" onClick={() => save.mutate(true)} disabled={save.isPending}>
+            <Button onClick={() => save.mutate(false)} disabled={save.isPending || samples.some((s) => s.status === "uploading")}>Save as draft</Button>
+            <Button variant="primary" onClick={() => save.mutate(true)} disabled={save.isPending || samples.some((s) => s.status === "uploading")}>
               Publish to partners
             </Button>
           </>
@@ -349,6 +427,38 @@ export function RequestDetailPage() {
         </Panel>
       </div>
 
+      {(r.samples ?? []).length > 0 && (
+        <Panel title="Sample data" sub="Provided by the client to gauge the work. Download links are single-use and expire.">
+          <TableWrap>
+            <table>
+              <thead><tr><th>File</th><th>Type</th><th>Size</th><th>Uploaded</th><th /></tr></thead>
+              <tbody>
+                {(r.samples ?? []).map((s) => (
+                  <tr key={s.id}>
+                    <td className="cell-primary">{s.filename}</td>
+                    <td className="small muted">{s.content_type ?? "—"}</td>
+                    <td className="num">{(s.size_bytes / (1024 * 1024)).toFixed(s.size_bytes < 1024 * 1024 ? 2 : 1)} MB</td>
+                    <td className="num">{fmtDate(s.uploaded_at)}</td>
+                    <td className="rowactions">
+                      <Button
+                        size="sm"
+                        onClick={() => {
+                          void get<{ url: string }>(`/requests/${r.id}/samples/${s.id}/download`)
+                            .then(({ url }) => window.open(url, "_blank", "noopener"))
+                            .catch((e) => toast("Download failed", e instanceof Error ? e.message : "", "critical"));
+                        }}
+                      >
+                        Download
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </TableWrap>
+        </Panel>
+      )}
+
       <Panel
         title={isClient ? "Proposals" : "Your proposal"}
         sub={isClient ? "Competitors never see each other's bids — only you compare them." : undefined}
@@ -431,66 +541,17 @@ export function RequestDetailPage() {
 /* --- the partner behind a proposal -------------------------------------------- */
 
 // A bidder is disclosed to the client it bids to and to nobody else — the
-// database says so (org_visible_via_proposal, db/110_auth_functions.sql), so
-// this asks for the org and lets a 404 mean "not yours to see".
+// database says so (org_visible_via_proposal, db/110_auth_functions.sql).
+// The shared OrgProfileDialog asks for the org and lets a 404 mean "not
+// yours to see"; the proposal seeds the name and QA rate.
 function PartnerProfileDialog({ proposal, onClose }: { proposal: Proposal; onClose: () => void }) {
-  const org = useQuery({
-    queryKey: ["org", proposal.partner_org_id],
-    queryFn: () => get<Org>(`/organisations/${proposal.partner_org_id}`),
-  });
-
-  const o = org.data;
-  const profile = (o?.profile ?? {}) as Partial<TenantProfile>;
-  const meta = statusMeta(orgStatus, o?.status);
-
   return (
-    <Dialog
-      // seeded from the row so the dialog opens named, then fills in underneath
-      title={o?.name ?? proposal.partner_name ?? "Delivery partner"}
-      // .id is a chip for the reference code alone — anything else put inside it
-      // gets boxed and rendered monospace along with it
-      sub={
-        <>
-          <span className="id">{o?.reference_code ?? "—"}</span>
-          {o?.country ? ` · ${o.country}` : ""}{" "}
-          {o && <Pill tone={meta.tone}>{meta.label}</Pill>}
-        </>
-      }
+    <OrgProfileDialog
+      orgId={proposal.partner_org_id}
+      seedName={proposal.partner_name ?? "Delivery partner"}
+      seedQa={proposal.partner_qa_pass_rate}
       onClose={onClose}
-      foot={<Button onClick={onClose}>Close</Button>}
-    >
-      {org.isError ? (
-        <Callout tone="critical" title="Profile not available">
-          A partner is visible to you through their proposal. If it has been deleted, so has your
-          view of them.
-        </Callout>
-      ) : !o ? (
-        <p className="muted">Loading…</p>
-      ) : (
-        <Dl rows={[
-          ["Headquarters", profile.hq ?? "—"],
-          ["Capabilities", profile.capabilities ?? "—"],
-          ["Fair work", profile.fair_work_attested ? "Attested" : "Not attested"],
-          ["Partner since", fmtDate(profile.since)],
-          ["Rating", o.rating ? `★ ${o.rating}` : "—"],
-          ["On-time delivery", rate(profile.on_time_rate)],
-          ["QA pass rate", rate(profile.qa_pass_rate ?? proposal.partner_qa_pass_rate)],
-        ]} />
-      )}
-    </Dialog>
-  );
-}
-
-// A percentage over its bar. <dd> is flow content, so the Meter div is valid here.
-function rate(pct?: number | null) {
-  if (pct == null) return "—";
-  return (
-    <>
-      <span className="num">{pct}%</span>
-      <div style={{ marginTop: 4 }}>
-        <Meter pct={pct} tone={pct >= 90 ? "success" : undefined} />
-      </div>
-    </>
+    />
   );
 }
 
@@ -600,12 +661,35 @@ export function OpportunitiesPage() {
   );
 }
 
+function ProposalDetailDialog({ p, onClose }: { p: Proposal; onClose: () => void }) {
+  const pm = statusMeta(proposalStatus, p.status);
+  return (
+    <Dialog
+      title={p.request_title ?? p.request_ref ?? "Proposal"}
+      sub={<span className="id">{p.reference_code}</span>}
+      onClose={onClose}
+      foot={<Button onClick={onClose}>Close</Button>}
+    >
+      <Dl rows={[
+        ["Request", <Link key="r" to={`/requests/${p.request_id}`}>{p.request_title ?? p.request_ref ?? "Open request"}</Link>],
+        ["Price", `${money(p.price, p.currency)}`],
+        ["Delivery time", `${p.duration_days} days`],
+        ["Methodology", p.methodology],
+        ["Notes", p.notes ?? "—"],
+        ["Status", <Pill key="s" tone={pm.tone}>{pm.label}</Pill>],
+        ["Submitted", fmtDateTime(p.submitted_at)],
+      ]} />
+    </Dialog>
+  );
+}
+
 export function MyProposalsPage() {
   const mine = useQuery({ queryKey: ["proposals-mine"], queryFn: () => get<Proposal[]>("/proposals/mine") });
   const withdraw = useMutation({
     mutationFn: (pid: string) => post(`/proposals/${pid}/withdraw`),
   });
   const qc = useQueryClient();
+  const [viewing, setViewing] = useState<Proposal | null>(null);
   const wins = useMemo(
     () => (mine.data ?? []).filter((p) => p.status === "accepted").length,
     [mine.data],
@@ -623,13 +707,14 @@ export function MyProposalsPage() {
                 {(mine.data ?? []).map((p) => {
                   const pm = statusMeta(proposalStatus, p.status);
                   return (
-                    <tr key={p.id}>
+                    <tr key={p.id} className="tap" onClick={() => setViewing(p)}>
                       <td className="id">{p.reference_code}</td>
                       <td className="cell-primary">{p.request_title ?? p.request_ref}</td>
                       <td className="num">{money(p.price)}</td>
                       <td className="num">{p.duration_days}</td>
                       <td><Pill tone={pm.tone}>{pm.label}</Pill></td>
-                      <td className="rowactions">
+                      <td className="rowactions" onClick={(e) => e.stopPropagation()}>
+                        <Button size="sm" onClick={() => setViewing(p)}>Details</Button>
                         {p.status === "submitted" && (
                           <Button size="sm" onClick={() => withdraw.mutate(p.id, { onSuccess: () => void qc.invalidateQueries({ queryKey: ["proposals-mine"] }) })}>
                             Withdraw
@@ -644,6 +729,7 @@ export function MyProposalsPage() {
           </TableWrap>
         )}
       </Panel>
+      {viewing && <ProposalDetailDialog p={viewing} onClose={() => setViewing(null)} />}
     </View>
   );
 }

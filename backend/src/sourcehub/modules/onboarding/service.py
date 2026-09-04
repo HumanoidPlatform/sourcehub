@@ -23,7 +23,7 @@ from sqlalchemy import select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.security import AccessClaims, new_opaque_token
-from sourcehub.config import settings
+from sourcehub.config import BRAND, settings
 from sourcehub.modules.audit import service as audit
 from sourcehub.modules.notify import service as notifier
 from sourcehub.modules.onboarding.models import Invitation, OnboardingApproval, OnboardingRequest
@@ -329,12 +329,12 @@ async def _approve(
         try:
             await send_mail(
                 email,
-                f"You're invited to SourceHub — {r.proposed_name}",
+                f"You're invited to {BRAND} — {r.proposed_name}",
                 f"Hello {(r.contact or {}).get('full_name', '')},\n\n"
-                f"{r.proposed_name} has been approved on SourceHub and you are its first\n"
+                f"{r.proposed_name} has been approved on {BRAND} and you are its first\n"
                 f"user. Set your password within {settings.invitation_ttl_days} days:\n\n"
                 f"  {link}\n\n"
-                f"No one at SourceHub knows this link's token or your future password.",
+                f"No one at {BRAND} knows this link's token or your future password.",
             )
         except OSError:
             pass
@@ -376,7 +376,7 @@ async def resend_invitation(
     try:
         await send_mail(
             inv.email,
-            f"Reminder: your SourceHub invitation — {r.proposed_name}",
+            f"Reminder: your {BRAND} invitation — {r.proposed_name}",
             f"Your invitation link was refreshed. Set your password here:\n\n  {link}\n",
         )
     except OSError:

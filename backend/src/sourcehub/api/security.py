@@ -34,6 +34,8 @@ def new_opaque_token() -> tuple[str, str]:
 @dataclass(frozen=True, slots=True)
 class AccessClaims:
     user_id: uuid.UUID
+    full_name: str
+    email: str
     org_id: uuid.UUID
     org_kind: str
     org_name: str
@@ -48,6 +50,8 @@ def issue_access_token(claims: AccessClaims) -> str:
     now = dt.datetime.now(dt.timezone.utc)
     payload = {
         "sub": str(claims.user_id),
+        "name": claims.full_name,
+        "email": claims.email,
         "org": str(claims.org_id),
         "org_kind": claims.org_kind,
         "org_name": claims.org_name,
@@ -70,6 +74,9 @@ def decode_access_token(token: str) -> AccessClaims:
         raise JWTError("not an access token")
     return AccessClaims(
         user_id=uuid.UUID(payload["sub"]),
+        # .get: tokens issued before these claims existed must still decode
+        full_name=payload.get("name", ""),
+        email=payload.get("email", ""),
         org_id=uuid.UUID(payload["org"]),
         org_kind=payload["org_kind"],
         org_name=payload.get("org_name", ""),

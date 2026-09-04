@@ -66,6 +66,7 @@ export function ContractDetailPage() {
   const toast = useToast();
   const [assigning, setAssigning] = useState(false);
   const [approving, setApproving] = useState(false);
+  const [viewingTask, setViewingTask] = useState<Task | null>(null);
 
   const contract = useQuery({
     queryKey: ["contract", id],
@@ -130,12 +131,12 @@ export function ContractDetailPage() {
         ) : (
           <TableWrap>
             <table>
-              <thead><tr><th>Task</th><th>Fulfilled by</th><th>Target</th><th>Attempt</th><th>Assets</th><th>Due</th><th>Status</th></tr></thead>
+              <thead><tr><th>Task</th><th>Fulfilled by</th><th>Target</th><th>Attempt</th><th>Assets</th><th>Due</th><th>Status</th><th /></tr></thead>
               <tbody>
                 {(c.tasks ?? []).map((t) => {
                   const tm = statusMeta(taskStatus, t.status);
                   return (
-                    <tr key={t.id}>
+                    <tr key={t.id} className="tap" onClick={() => setViewingTask(t)}>
                       <td className="cell-primary">{t.title}<div className="cell-meta id">{t.reference_code}</div></td>
                       <td>{t.assignee_name}<div className="cell-meta">{t.assignee_kind}</div></td>
                       <td>{t.target ?? "—"}</td>
@@ -143,6 +144,9 @@ export function ContractDetailPage() {
                       <td className="num">{t.last_submission?.asset_count ?? 0}</td>
                       <td className="num">{fmtDate(t.due_on)}</td>
                       <td><Pill tone={tm.tone}>{tm.label}</Pill></td>
+                      <td className="rowactions" onClick={(e) => e.stopPropagation()}>
+                        <Button size="sm" onClick={() => setViewingTask(t)}>Details</Button>
+                      </td>
                     </tr>
                   );
                 })}
@@ -190,6 +194,7 @@ export function ContractDetailPage() {
       {approving && id && (
         <ApproveDialog contract={c} onClose={() => setApproving(false)} />
       )}
+      {viewingTask && <TaskDetailDialog t={viewingTask} onClose={() => setViewingTask(null)} />}
     </View>
   );
 }
@@ -329,6 +334,56 @@ function ApproveDialog({ contract, onClose }: { contract: Contract; onClose: () 
   );
 }
 
+/* --- task detail --------------------------------------------------------------- */
+
+// One dialog for both task tables — the contract work breakdown and the
+// supplier's board. Row data carries everything but the QA trail, which the
+// existing reviews endpoint provides.
+function TaskDetailDialog({ t, onClose }: { t: Task; onClose: () => void }) {
+  const tm = statusMeta(taskStatus, t.status);
+  const reviews = useQuery({
+    queryKey: ["reviews", t.id],
+    queryFn: () => get<{ outcome: string; note: string | null }[]>(`/tasks/${t.id}/reviews`),
+  });
+  const sub = t.last_submission;
+  return (
+    <Dialog
+      title={t.title}
+      sub={<span className="id">{t.reference_code}</span>}
+      onClose={onClose}
+      foot={<Button onClick={onClose}>Close</Button>}
+    >
+      <Dl rows={[
+        ["Contract", t.contract_ref ?? "—"],
+        ...(t.assignee_name
+          ? ([["Fulfilled by", `${t.assignee_name}${t.assignee_kind ? ` (${t.assignee_kind})` : ""}`]] as [string, React.ReactNode][])
+          : []),
+        ["Target", t.target ?? "—"],
+        ["Due", fmtDate(t.due_on)],
+        ["Status", <Pill key="s" tone={tm.tone}>{tm.label}</Pill>],
+        ["Last submission", sub
+          ? `Attempt ${sub.attempt_no} · ${sub.asset_count} asset(s) · ${fmtDateTime(sub.submitted_at)}`
+          : "None yet"],
+        ...(sub?.supplier_note
+          ? ([["Supplier note", sub.supplier_note]] as [string, React.ReactNode][])
+          : []),
+        ["QA reviews", (reviews.data ?? []).length === 0
+          ? "None yet"
+          : (
+            <div key="qa" style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+              {(reviews.data ?? []).map((r, i) => (
+                <div key={i} className="small">
+                  <b>{r.outcome === "fail" ? "Fail" : "Pass"}</b>
+                  {r.note ? ` — ${r.note}` : ""}
+                </div>
+              ))}
+            </div>
+          )],
+      ]} />
+    </Dialog>
+  );
+}
+
 /* --- supplier: tasks ----------------------------------------------------------- */
 
 export function TasksPage() {
@@ -336,6 +391,7 @@ export function TasksPage() {
   const qc = useQueryClient();
   const toast = useToast();
   const [submitting, setSubmitting] = useState<Task | null>(null);
+  const [viewing, setViewing] = useState<Task | null>(null);
 
   const tasks = useQuery({ queryKey: ["tasks"], queryFn: () => get<Task[]>("/tasks") });
 
@@ -359,7 +415,7 @@ export function TasksPage() {
                 {(tasks.data ?? []).map((t) => {
                   const tm = statusMeta(taskStatus, t.status);
                   return (
-                    <tr key={t.id}>
+                    <tr key={t.id} className="tap" onClick={() => setViewing(t)}>
                       <td className="cell-primary">{t.title}<div className="cell-meta id">{t.reference_code}</div></td>
                       <td className="id">{t.contract_ref}</td>
                       <td>{t.target ?? "—"}</td>
@@ -368,7 +424,8 @@ export function TasksPage() {
                       <td style={{ maxWidth: 260 }} className="small muted">
                         {t.status === "qa_failed" ? <QaNote taskId={t.id} /> : t.last_submission?.supplier_note ?? "—"}
                       </td>
-                      <td className="rowactions">
+                      <td className="rowactions" onClick={(e) => e.stopPropagation()}>
+                        <Button size="sm" onClick={() => setViewing(t)}>Details</Button>
                         {["assigned", "qa_failed"].includes(t.status) && (
                           <Button size="sm" onClick={() => start.mutate(t.id)}>Start</Button>
                         )}
@@ -396,6 +453,7 @@ export function TasksPage() {
           }}
         />
       )}
+      {viewing && <TaskDetailDialog t={viewing} onClose={() => setViewing(null)} />}
     </View>
   );
 }

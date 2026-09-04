@@ -11,9 +11,77 @@ import {
 } from "@ds/primitives";
 import { useSession } from "@shared/auth";
 import { fmtDate, titleCase } from "@shared/format";
+import { OrgProfileDialog } from "@shared/org-profile";
 import {
   equipmentStatus, loanStatus, onboardingStatus, orgStatus, statusMeta, workerStatus,
 } from "@shared/status";
+
+/* --- entity detail dialogs (row-fed; RLS already decided what the list holds) --- */
+
+function EquipmentDetailDialog({ e, onClose }: { e: EquipmentRow; onClose: () => void }) {
+  const m = statusMeta(equipmentStatus, e.status);
+  return (
+    <Dialog
+      title={e.equipment_type}
+      sub={<span className="id">{e.reference_code}</span>}
+      onClose={onClose}
+      foot={<Button onClick={onClose}>Close</Button>}
+    >
+      <Dl rows={[
+        ["Sponsor", e.sponsor_name],
+        ["Total units", <span key="t" className="num">{e.total_units}</span>],
+        ["On loan", <span key="l" className="num">{e.units_on_loan}</span>],
+        ["Available", <span key="a" className="num">{e.units_available}</span>],
+        ["Calibrated on", fmtDate(e.calibrated_on)],
+        ["Calibration expires", fmtDate(e.calibration_expires_on)],
+        ["Status", <Pill key="s" tone={m.tone}>{m.label}</Pill>],
+      ]} />
+    </Dialog>
+  );
+}
+
+function LoanDetailDialog({ l, onClose }: { l: LoanRow; onClose: () => void }) {
+  const m = statusMeta(loanStatus, l.status);
+  return (
+    <Dialog
+      title={`${l.equipment_type} · ${l.units} unit(s)`}
+      sub={<span className="id">{l.reference_code}</span>}
+      onClose={onClose}
+      foot={<Button onClick={onClose}>Close</Button>}
+    >
+      <Dl rows={[
+        ["Equipment", `${l.equipment_type} (${l.equipment_ref})`],
+        ["Sponsor", l.sponsor_name],
+        ["Requester", l.requester_name],
+        ["Units", <span key="u" className="num">{l.units}</span>],
+        ["Needed by", fmtDate(l.needed_by)],
+        ["Note", l.note ?? "—"],
+        ["Task", l.task_ref ?? "—"],
+        ["Status", <Pill key="s" tone={m.tone}>{m.label}</Pill>],
+        ["Decision reason", l.decision_reason ?? "—"],
+      ]} />
+    </Dialog>
+  );
+}
+
+function WorkerDetailDialog({ w, onClose }: { w: WorkerRow; onClose: () => void }) {
+  const m = statusMeta(workerStatus, w.status);
+  return (
+    <Dialog
+      title={w.display_name}
+      sub={<span className="id">{w.reference_code}</span>}
+      onClose={onClose}
+      foot={<Button onClick={onClose}>Close</Button>}
+    >
+      <Dl rows={[
+        ["Skill", w.skill ?? "—"],
+        ["Trained", w.trained ? "Yes" : "No"],
+        ["Rating", w.rating ?? "—"],
+        ["Status", <Pill key="s" tone={m.tone}>{m.label}</Pill>],
+      ]} />
+    </Dialog>
+  );
+}
 
 /* --- tenant: network with approval-based onboarding --------------------------- */
 
@@ -28,6 +96,7 @@ const KIND_LABEL: Record<NetKind, string> = {
 export function NetworkPage() {
   const [tab, setTab] = useState<NetKind>("aggregator");
   const [requesting, setRequesting] = useState(false);
+  const [viewing, setViewing] = useState<Org | null>(null);
   const qc = useQueryClient();
   const toast = useToast();
 
@@ -57,7 +126,7 @@ export function NetworkPage() {
   return (
     <View
       title="Network"
-      sub="Registered under you — SourceHub does not bill these accounts. New entries need platform approval."
+      sub="Registered under you — Cosarathi does not bill these accounts. New entries need platform approval."
       actions={<Button variant="primary" onClick={() => setRequesting(true)}>Request onboarding</Button>}
     >
       <div className="btnrow" role="tablist">
@@ -77,7 +146,7 @@ export function NetworkPage() {
       </div>
 
       {openRequests.length > 0 && (
-        <Panel title="Awaiting platform approval" sub="The request goes to SourceHub operations; you are notified of the decision.">
+        <Panel title="Awaiting platform approval" sub="The request goes to Cosarathi operations; you are notified of the decision.">
           <TableWrap>
             <table>
               <thead><tr><th>Reference</th><th>Proposed</th><th>Kind</th><th>Status</th><th>Latest reason</th></tr></thead>
@@ -119,7 +188,7 @@ export function NetworkPage() {
                 {(orgs.data ?? []).map((o) => {
                   const m = statusMeta(orgStatus, o.status);
                   return (
-                    <tr key={o.id}>
+                    <tr key={o.id} className="tap" onClick={() => setViewing(o)}>
                       <td className="id">{o.reference_code}</td>
                       <td className="cell-primary">{o.name}</td>
                       {tab === "aggregator" && (
@@ -137,7 +206,8 @@ export function NetworkPage() {
                       )}
                       {tab === "sponsor" && <td>{(o.profile.contact_email as string) ?? "—"}</td>}
                       <td><Pill tone={m.tone}>{m.label}</Pill></td>
-                      <td className="rowactions">
+                      <td className="rowactions" onClick={(e) => e.stopPropagation()}>
+                        <Button size="sm" onClick={() => setViewing(o)}>Details</Button>
                         <Button
                           size="sm"
                           variant="danger"
@@ -161,6 +231,7 @@ export function NetworkPage() {
       </Panel>
 
       {requesting && <OnboardRequestDialog kind={tab} onClose={() => setRequesting(false)} />}
+      {viewing && <OrgProfileDialog orgId={viewing.id} seedName={viewing.name} onClose={() => setViewing(null)} />}
     </View>
   );
 }
@@ -193,7 +264,7 @@ function OnboardRequestDialog({ kind, onClose }: { kind: NetKind; onClose: () =>
       }),
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: ["onboarding-mine"] });
-      toast("Request submitted", "SourceHub operations will review it.", "success");
+      toast("Request submitted", "Cosarathi operations will review it.", "success");
       onClose();
     },
     onError: (e) => setError(e instanceof Error ? e.message : "Could not submit"),
@@ -250,6 +321,8 @@ export function EquipmentPage() {
   const toast = useToast();
   const [borrowing, setBorrowing] = useState<EquipmentRow | null>(null);
   const [adding, setAdding] = useState(false);
+  const [viewingEq, setViewingEq] = useState<EquipmentRow | null>(null);
+  const [viewingLoan, setViewingLoan] = useState<LoanRow | null>(null);
 
   const equipment = useQuery({ queryKey: ["equipment"], queryFn: () => get<EquipmentRow[]>("/network/equipment") });
   const loans = useQuery({ queryKey: ["loans"], queryFn: () => get<LoanRow[]>("/network/loans") });
@@ -286,7 +359,7 @@ export function EquipmentPage() {
                 {(equipment.data ?? []).map((e) => {
                   const m = statusMeta(equipmentStatus, e.status);
                   return (
-                    <tr key={e.id}>
+                    <tr key={e.id} className="tap" onClick={() => setViewingEq(e)}>
                       <td className="id">{e.reference_code}</td>
                       <td className="cell-primary">{e.equipment_type}</td>
                       {!isSponsor && <td>{e.sponsor_name}</td>}
@@ -295,7 +368,8 @@ export function EquipmentPage() {
                       <td className="num">{e.units_available}</td>
                       <td className="num">{fmtDate(e.calibrated_on)}</td>
                       <td><Pill tone={m.tone}>{m.label}</Pill></td>
-                      <td className="rowactions">
+                      <td className="rowactions" onClick={(ev) => ev.stopPropagation()}>
+                        <Button size="sm" onClick={() => setViewingEq(e)}>Details</Button>
                         {isSponsor ? (
                           <Button size="sm" onClick={() => {
                             const order = ["available", "in_use", "maintenance", "available"];
@@ -326,12 +400,12 @@ export function EquipmentPage() {
           ) : (
             <TableWrap>
               <table>
-                <thead><tr><th>Ref</th><th>Equipment</th><th>Sponsor</th><th>Units</th><th>Needed by</th><th>Status</th><th>Reason</th></tr></thead>
+                <thead><tr><th>Ref</th><th>Equipment</th><th>Sponsor</th><th>Units</th><th>Needed by</th><th>Status</th><th>Reason</th><th /></tr></thead>
                 <tbody>
                   {myLoans.map((l) => {
                     const m = statusMeta(loanStatus, l.status);
                     return (
-                      <tr key={l.id}>
+                      <tr key={l.id} className="tap" onClick={() => setViewingLoan(l)}>
                         <td className="id">{l.reference_code}</td>
                         <td>{l.equipment_type}</td>
                         <td>{l.sponsor_name}</td>
@@ -339,6 +413,9 @@ export function EquipmentPage() {
                         <td className="num">{fmtDate(l.needed_by)}</td>
                         <td><Pill tone={m.tone}>{m.label}</Pill></td>
                         <td className="small muted">{l.decision_reason ?? "—"}</td>
+                        <td className="rowactions" onClick={(ev) => ev.stopPropagation()}>
+                          <Button size="sm" onClick={() => setViewingLoan(l)}>Details</Button>
+                        </td>
                       </tr>
                     );
                   })}
@@ -363,6 +440,8 @@ export function EquipmentPage() {
           toast("Equipment added", undefined, "success");
         }} />
       )}
+      {viewingEq && <EquipmentDetailDialog e={viewingEq} onClose={() => setViewingEq(null)} />}
+      {viewingLoan && <LoanDetailDialog l={viewingLoan} onClose={() => setViewingLoan(null)} />}
     </View>
   );
 }
@@ -467,6 +546,7 @@ function AddEquipmentDialog({ onClose, onDone }: { onClose: () => void; onDone: 
 export function LoanQueuePage() {
   const qc = useQueryClient();
   const toast = useToast();
+  const [viewing, setViewing] = useState<LoanRow | null>(null);
   const loans = useQuery({ queryKey: ["loans"], queryFn: () => get<LoanRow[]>("/network/loans") });
 
   const decide = useMutation({
@@ -500,7 +580,7 @@ export function LoanQueuePage() {
                 {rows.map((l) => {
                   const m = statusMeta(loanStatus, l.status);
                   return (
-                    <tr key={l.id}>
+                    <tr key={l.id} className="tap" onClick={() => setViewing(l)}>
                       <td className="id">{l.reference_code}</td>
                       <td>{l.equipment_type}</td>
                       <td>{l.requester_name}</td>
@@ -508,7 +588,8 @@ export function LoanQueuePage() {
                       <td className="num">{fmtDate(l.needed_by)}</td>
                       <td className="small" style={{ maxWidth: 220 }}>{l.note ?? "—"}</td>
                       <td><Pill tone={m.tone}>{m.label}</Pill></td>
-                      <td className="rowactions">
+                      <td className="rowactions" onClick={(ev) => ev.stopPropagation()}>
+                        <Button size="sm" onClick={() => setViewing(l)}>Details</Button>
                         {l.status === "pending" && (
                           <>
                             <Button size="sm" variant="success" onClick={() => decide.mutate({ id: l.id, decision: "approved" })}>Approve</Button>
@@ -530,6 +611,7 @@ export function LoanQueuePage() {
           </TableWrap>
         )}
       </Panel>
+      {viewing && <LoanDetailDialog l={viewing} onClose={() => setViewing(null)} />}
     </View>
   );
 }
@@ -540,6 +622,7 @@ export function RosterPage() {
   const qc = useQueryClient();
   const toast = useToast();
   const [adding, setAdding] = useState(false);
+  const [viewing, setViewing] = useState<WorkerRow | null>(null);
   const workers = useQuery({ queryKey: ["workers"], queryFn: () => get<WorkerRow[]>("/network/workers") });
 
   const setStatus = useMutation({
@@ -555,7 +638,7 @@ export function RosterPage() {
   return (
     <View
       title="Crowd roster"
-      sub="Roster records, not platform users — your crowd authenticates through you, never through SourceHub."
+      sub="Roster records, not platform users — your crowd authenticates through you, never through Cosarathi."
       actions={<Button variant="primary" onClick={() => setAdding(true)}>Add worker</Button>}
     >
       <div className="g3">
@@ -574,14 +657,15 @@ export function RosterPage() {
                 {rows.map((w) => {
                   const m = statusMeta(workerStatus, w.status);
                   return (
-                    <tr key={w.id}>
+                    <tr key={w.id} className="tap" onClick={() => setViewing(w)}>
                       <td className="id">{w.reference_code}</td>
                       <td className="cell-primary">{w.display_name}</td>
                       <td>{w.skill ?? "—"}</td>
                       <td>{w.trained ? "Yes" : "No"}</td>
                       <td className="num">{w.rating ?? "—"}</td>
                       <td><Pill tone={m.tone}>{m.label}</Pill></td>
-                      <td className="rowactions">
+                      <td className="rowactions" onClick={(ev) => ev.stopPropagation()}>
+                        <Button size="sm" onClick={() => setViewing(w)}>Details</Button>
                         {w.status !== "offboarded" && (
                           <>
                             <Button size="sm" onClick={() => setStatus.mutate({ id: w.id, status: w.status === "on_shift" ? "on_break" : "on_shift" })}>
@@ -607,6 +691,7 @@ export function RosterPage() {
         void qc.invalidateQueries({ queryKey: ["workers"] });
         toast("Added to the roster", undefined, "success");
       }} />}
+      {viewing && <WorkerDetailDialog w={viewing} onClose={() => setViewing(null)} />}
     </View>
   );
 }

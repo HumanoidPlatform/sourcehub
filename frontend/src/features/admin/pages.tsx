@@ -2,10 +2,12 @@
 // (Billing reuses the ledger feature; onboarding has its own.)
 
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import { get } from "@api/client";
 import type { ActivityRow, Org } from "@api/types";
-import { Empty, Metric, Panel, Pill, TableWrap, View } from "@ds/primitives";
+import { Button, Empty, Metric, Panel, Pill, TableWrap, View } from "@ds/primitives";
 import { fmtDateTime } from "@shared/format";
+import { OrgProfileDialog } from "@shared/org-profile";
 import { orgStatus, statusMeta } from "@shared/status";
 
 export function AccountsPage() {
@@ -50,6 +52,7 @@ export function AccountsPage() {
 }
 
 function OrgTable({ rows, cols }: { rows: Org[]; cols: [string, (o: Org) => React.ReactNode][] }) {
+  const [viewing, setViewing] = useState<Org | null>(null);
   if (rows.length === 0) return <Empty title="None yet" />;
   return (
     <TableWrap>
@@ -58,25 +61,29 @@ function OrgTable({ rows, cols }: { rows: Org[]; cols: [string, (o: Org) => Reac
           <tr>
             <th>Reference</th><th>Name</th>
             {cols.map(([h]) => <th key={h}>{h}</th>)}
-            <th>Rating</th><th>Billing</th><th>Status</th>
+            <th>Rating</th><th>Billing</th><th>Status</th><th />
           </tr>
         </thead>
         <tbody>
           {rows.map((o) => {
             const m = statusMeta(orgStatus, o.status);
             return (
-              <tr key={o.id}>
+              <tr key={o.id} className="tap" onClick={() => setViewing(o)}>
                 <td className="id">{o.reference_code}</td>
                 <td className="cell-primary">{o.name}</td>
                 {cols.map(([h, f]) => <td key={h}>{f(o)}</td>)}
                 <td className="num">{o.rating ?? "—"}</td>
                 <td>{o.billing_status ?? "—"}</td>
                 <td><Pill tone={m.tone}>{m.label}</Pill></td>
+                <td className="rowactions" onClick={(e) => e.stopPropagation()}>
+                  <Button size="sm" onClick={() => setViewing(o)}>Details</Button>
+                </td>
               </tr>
             );
           })}
         </tbody>
       </table>
+      {viewing && <OrgProfileDialog orgId={viewing.id} seedName={viewing.name} onClose={() => setViewing(null)} />}
     </TableWrap>
   );
 }

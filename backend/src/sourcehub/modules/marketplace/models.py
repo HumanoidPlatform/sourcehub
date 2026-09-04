@@ -10,7 +10,7 @@ import datetime as dt
 import uuid
 from decimal import Decimal
 
-from sqlalchemy import CHAR, Date, DateTime, ForeignKey, Integer, Numeric, Text, text
+from sqlalchemy import CHAR, BigInteger, Date, DateTime, ForeignKey, Integer, Numeric, Text, text
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -53,6 +53,19 @@ class Request(Base):
     created_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
     updated_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
     deleted_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
+
+
+class RequestSample(Base):
+    __tablename__ = "request_sample"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, server_default=GEN_UUID)
+    request_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("request.id"))
+    filename: Mapped[str] = mapped_column(Text)
+    storage_key: Mapped[str] = mapped_column(Text, unique=True)
+    content_type: Mapped[str | None] = mapped_column(Text)
+    size_bytes: Mapped[int] = mapped_column(BigInteger)
+    uploaded_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
+    uploaded_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
 
 
 class Proposal(Base):

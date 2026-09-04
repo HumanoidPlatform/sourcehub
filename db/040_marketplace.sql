@@ -124,3 +124,23 @@ CREATE TABLE proposal_resource (
   created_at   timestamptz NOT NULL DEFAULT now(),
   UNIQUE (proposal_id, org_id)
 );
+
+
+-- ---------------------------------------------------------------------------
+-- request_sample — optional sample files a client attaches while drafting a
+-- request, so partners can gauge the work before proposing. Object storage
+-- holds the bytes (bucket sourcehub-documents, presigned URLs); this row is
+-- the pointer and the audit trail. Append-only: no update, no delete.
+-- ---------------------------------------------------------------------------
+CREATE TABLE request_sample (
+  id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  request_id    uuid NOT NULL REFERENCES request(id) ON DELETE CASCADE,
+  filename      text NOT NULL,
+  storage_key   text NOT NULL UNIQUE,        -- object storage key, never the bytes
+  content_type  text,
+  size_bytes    bigint NOT NULL CHECK (size_bytes > 0 AND size_bytes <= 26214400),  -- 25 MiB
+  uploaded_by   uuid REFERENCES app_user(id),
+  uploaded_at   timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE INDEX request_sample_request_idx ON request_sample (request_id);

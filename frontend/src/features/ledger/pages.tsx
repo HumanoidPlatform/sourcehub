@@ -2,16 +2,43 @@
 // are Ops. Same endpoint, RLS decides.
 
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { get } from "@api/client";
 import type { InvoiceRow } from "@api/types";
-import { Empty, Metric, Panel, Pill, TableWrap, View } from "@ds/primitives";
+import { Button, Dialog, Dl, Empty, Metric, Panel, Pill, TableWrap, View } from "@ds/primitives";
 import { useSession } from "@shared/auth";
-import { fmtDate, money } from "@shared/format";
+import { fmtDate, fmtDateTime, money, titleCase } from "@shared/format";
 import { invoiceStatus, statusMeta } from "@shared/status";
+
+function InvoiceDetailDialog({ i, isOps, onClose }: { i: InvoiceRow; isOps: boolean; onClose: () => void }) {
+  const m = statusMeta(invoiceStatus, i.status);
+  return (
+    <Dialog
+      title={`Invoice ${i.reference_code}`}
+      sub={<span className="id">{i.reference_code}</span>}
+      onClose={onClose}
+      foot={<Button onClick={onClose}>Close</Button>}
+    >
+      <Dl rows={[
+        ...(isOps ? ([["Party", i.party_name ?? "—"]] as [string, React.ReactNode][]) : []),
+        ["Kind", titleCase(i.kind)],
+        ["Amount", money(i.amount, i.currency)],
+        ["Issued", fmtDate(i.issued_on)],
+        ["Paid", i.paid_at ? fmtDateTime(i.paid_at) : "Not yet"],
+        ["Status", <Pill key="s" tone={m.tone}>{m.label}</Pill>],
+        ["Contract", i.contract_id
+          ? <Link key="c" to={`/contracts/${i.contract_id}`}>{i.contract_ref ?? "Open contract"}</Link>
+          : i.contract_ref ?? "—"],
+      ]} />
+    </Dialog>
+  );
+}
 
 export function BillingPage() {
   const session = useSession();
   const isOps = session.role === "platform_admin";
+  const [viewing, setViewing] = useState<InvoiceRow | null>(null);
   const invoices = useQuery({ queryKey: ["invoices"], queryFn: () => get<InvoiceRow[]>("/invoices") });
 
   const rows = invoices.data ?? [];
@@ -41,21 +68,28 @@ export function BillingPage() {
               <thead>
                 <tr>
                   <th>Reference</th>{isOps && <th>Party</th>}<th>Contract</th><th>Kind</th>
-                  <th>Amount</th><th>Issued</th><th>Status</th>
+                  <th>Amount</th><th>Issued</th><th>Status</th><th />
                 </tr>
               </thead>
               <tbody>
                 {rows.map((i) => {
                   const m = statusMeta(invoiceStatus, i.status);
                   return (
-                    <tr key={i.id}>
+                    <tr key={i.id} className="tap" onClick={() => setViewing(i)}>
                       <td className="id">{i.reference_code}</td>
                       {isOps && <td>{i.party_name ?? "—"}</td>}
-                      <td className="id">{i.contract_ref ?? "—"}</td>
+                      <td className="id" onClick={(e) => e.stopPropagation()}>
+                        {i.contract_id
+                          ? <Link to={`/contracts/${i.contract_id}`}>{i.contract_ref ?? "Open"}</Link>
+                          : i.contract_ref ?? "—"}
+                      </td>
                       <td>{i.kind}</td>
                       <td className="num">{money(i.amount, i.currency)}</td>
                       <td className="num">{fmtDate(i.issued_on)}</td>
                       <td><Pill tone={m.tone}>{m.label}</Pill></td>
+                      <td className="rowactions" onClick={(e) => e.stopPropagation()}>
+                        <Button size="sm" onClick={() => setViewing(i)}>Details</Button>
+                      </td>
                     </tr>
                   );
                 })}
@@ -64,6 +98,7 @@ export function BillingPage() {
           </TableWrap>
         )}
       </Panel>
+      {viewing && <InvoiceDetailDialog i={viewing} isOps={isOps} onClose={() => setViewing(null)} />}
     </View>
   );
 }

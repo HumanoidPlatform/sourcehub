@@ -19,7 +19,7 @@ from sqlalchemy import select, text, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.security import AccessClaims, hash_token, new_opaque_token
-from sourcehub.config import settings
+from sourcehub.config import BRAND, settings
 from sourcehub.db.session import anonymous_session, org_session
 from sourcehub.modules.identity.models import (
     AggregatorProfile,
@@ -135,8 +135,15 @@ async def resolve_claims(
         )
     ).scalar_one()
     mfa_satisfied = (not needs_mfa) or (not settings.mfa_enforcement)
+    who = (
+        await session.execute(
+            select(AppUser.full_name, AppUser.email).where(AppUser.id == user_id)
+        )
+    ).one()
     return AccessClaims(
         user_id=user_id,
+        full_name=who.full_name,
+        email=who.email,
         org_id=choice.org_id,
         org_kind=choice.org_kind,
         org_name=choice.org_name,
@@ -365,7 +372,7 @@ async def request_password_reset(email: str, ip: str | None) -> None:
     try:
         await send_mail(
             email,
-            "Reset your SourceHub password",
+            f"Reset your {BRAND} password",
             f"Hello {row['full_name']},\n\n"
             f"Someone asked to reset the password for this account. If it was you,\n"
             f"open the link below within one hour:\n\n  {link}\n\n"
@@ -406,7 +413,7 @@ def _may_see_commercials(org: Organisation, claims: AccessClaims | None) -> bool
     their columns are the platform's business with them rather than yours. A
     bidder is disclosed to the client it bids to (organisation_select_bidders,
     db/110_auth_functions.sql) — that discloses who they are, not whether they
-    are behind on their SourceHub invoices.
+    are behind on their platform invoices.
 
     Ops sees every account's commercials, an organisation sees its own, and
     claims=None means an internal caller that has already decided.

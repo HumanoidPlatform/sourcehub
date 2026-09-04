@@ -18,6 +18,12 @@ from typing import Literal
 from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+# The user-facing brand, in one place. Internal names (package, DB, buckets,
+# storage keys) deliberately stay "sourcehub" — renaming those is a migration,
+# not a rebrand.
+BRAND = "Cosarathi"
+BRAND_FULL = "Cosarathi Data Platform"
+
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(

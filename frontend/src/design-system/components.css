@@ -114,6 +114,12 @@ svg{display:block}
 :root[data-theme="dark"] .iconbtn .ping,
 :root:not([data-theme="light"]) .iconbtn .ping{color:var(--ground)}
 
+.avatarbtn{width:32px;height:32px;display:grid;place-items:center;border:1px solid var(--line);
+  border-radius:var(--r-pill);background:var(--surface-2);color:var(--ink-2);cursor:pointer;
+  font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.04em;
+  text-transform:uppercase;transition:background var(--fast) var(--ease)}
+.avatarbtn:hover{background:var(--surface);border-color:var(--line-strong)}
+
 .identity{display:flex;align-items:center;gap:var(--s-2);height:32px;padding:0 4px 0 8px;
   border:1px solid var(--line);border-radius:var(--r-control);background:var(--surface)}
 .identity label{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;
@@ -121,6 +127,17 @@ svg{display:block}
 .identity select{border:0;background:transparent;font-size:12.5px;font-weight:600;
   padding:0 2px;cursor:pointer;max-width:190px}
 .identity select:focus-visible{outline-offset:0}
+
+/* --- file field ------------------------------------------------------------ */
+.filefield{display:flex;flex-direction:column;gap:var(--s-2);align-items:flex-start}
+.filelist{display:flex;flex-direction:column;gap:6px;width:100%}
+.filelist-row{display:flex;align-items:center;gap:var(--s-2);padding:6px 10px;
+  border:1px solid var(--line);border-radius:var(--r-control);background:var(--surface-2)}
+.filelist-row[data-status="error"]{border-color:var(--t-critical)}
+.filelist-name{font-size:12.5px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.filelist-size{font-family:var(--font-mono);font-size:10.5px;color:var(--ink-3);flex:none}
+.filelist-row .chip{flex:none;margin-left:auto}
+.filelist-row .iconbtn{width:24px;height:24px;flex:none}
 
 /* --- main / view ---------------------------------------------------------- */
 .main{display:flex;flex-direction:column;min-width:0}

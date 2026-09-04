@@ -119,6 +119,73 @@ export function Field({
 export const inputCls = "input";
 export const textareaCls = "textarea";
 
+/* --- file picker ------------------------------------------------------------- */
+
+export interface FileItem {
+  name: string;
+  size: number;
+  status: "uploading" | "done" | "error";
+}
+
+function fmtBytes(n: number): string {
+  if (n < 1024) return `${n} B`;
+  if (n < 1024 * 1024) return `${(n / 1024).toFixed(0)} KB`;
+  return `${(n / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+// Dumb by design: the caller owns the list, the uploads and the rules.
+export function FileField({
+  label,
+  accept,
+  disabled,
+  files,
+  onPick,
+  onRemove,
+}: {
+  label: string;
+  accept?: string;
+  disabled?: boolean;
+  files: FileItem[];
+  onPick: (files: FileList) => void;
+  onRemove: (index: number) => void;
+}) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  return (
+    <div className="filefield">
+      <input
+        ref={inputRef}
+        type="file"
+        multiple
+        accept={accept}
+        hidden
+        onChange={(e) => {
+          if (e.target.files?.length) onPick(e.target.files);
+          e.target.value = ""; // allow re-picking the same file
+        }}
+      />
+      <button type="button" className="btn" disabled={disabled} onClick={() => inputRef.current?.click()}>
+        {label}
+      </button>
+      {files.length > 0 && (
+        <div className="filelist">
+          {files.map((f, i) => (
+            <div key={`${f.name}-${i}`} className="filelist-row" data-status={f.status}>
+              <span className="filelist-name">{f.name}</span>
+              <span className="filelist-size">{fmtBytes(f.size)}</span>
+              <span className="chip">
+                {f.status === "uploading" ? "Uploading…" : f.status === "error" ? "Failed" : "Ready"}
+              </span>
+              <button type="button" className="iconbtn" aria-label={`Remove ${f.name}`} onClick={() => onRemove(i)}>
+                ×
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 /* --- meter ------------------------------------------------------------------ */
 
 export function Meter({ pct, tone }: { pct: number; tone?: Tone }) {
@@ -203,12 +270,14 @@ export function Dialog({
   onClose,
   children,
   foot,
+  size,
 }: {
   title: string;
   sub?: ReactNode;
   onClose: () => void;
   children: ReactNode;
   foot: ReactNode;
+  size?: "wide";
 }) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -245,7 +314,7 @@ export function Dialog({
     // the overlay conditionally instead, so it must mount already-open, or
     // every dialog in the app renders invisible.
     <div className="overlay" data-open="" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
-      <div className="dialog" role="dialog" aria-modal="true" aria-label={title} ref={ref}>
+      <div className="dialog" data-size={size} role="dialog" aria-modal="true" aria-label={title} ref={ref}>
         <header className="dialog-head">
           {/* .titles is load-bearing: .dialog-head has no justify-content, so
               its flex:1 is the only thing pushing the close button right. */}

@@ -22,13 +22,44 @@ from sqlalchemy import func, select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.security import AccessClaims
+from sourcehub.config import settings
 from sourcehub.modules.audit import service as audit
-from sourcehub.modules.marketplace.models import Proposal, Request
+from sourcehub.modules.marketplace.models import Proposal, Request, RequestSample
 from sourcehub.modules.notify import service as notifier
 
 
 class MarketplaceError(Exception):
     pass
+
+
+# ---------------------------------------------------------------------------
+# Sample files — pointers to object storage, never bytes
+# ---------------------------------------------------------------------------
+
+MAX_SAMPLE_BYTES = 25 * 1024 * 1024
+MAX_SAMPLES_PER_REQUEST = 5
+
+# Content-type is advisory (browsers lie); the extension is what we gate on.
+_SAMPLE_EXTENSIONS = {
+    ".csv", ".tsv", ".json", ".jsonl", ".xml", ".txt", ".md", ".pdf",
+    ".png", ".jpg", ".jpeg", ".webp", ".gif", ".mp4", ".mov", ".mp3", ".wav",
+    ".zip", ".xlsx", ".docx", ".parquet",
+}
+
+
+def _safe_filename(name: str) -> str:
+    # basename only — a path in a filename is someone probing the key scheme
+    name = name.replace("\\", "/").rsplit("/", 1)[-1]
+    name = "".join(c for c in name if c.isprintable() and c not in '<>:"|?*').strip()
+    if len(name) > 200:
+        stem, _, ext = name.rpartition(".")
+        name = stem[: 200 - len(ext) - 1] + "." + ext if ext else name[:200]
+    if not name or "." not in name:
+        raise MarketplaceError("Sample files need a real filename with an extension.")
+    ext = "." + name.rsplit(".", 1)[-1].lower()
+    if ext not in _SAMPLE_EXTENSIONS:
+        raise MarketplaceError(f"Sample files of type {ext} are not accepted.")
+    return name
 
 
 # ---------------------------------------------------------------------------
@@ -116,6 +147,124 @@ def _row(r: Request, effective: str, proposal_count: int) -> dict[str, Any]:
     }
 
 
+def _sample_row(s: RequestSample) -> dict[str, Any]:
+    return {
+        "id": s.id,
+        "request_id": s.request_id,
+        "filename": s.filename,
+        "content_type": s.content_type,
+        "size_bytes": s.size_bytes,
+        "uploaded_at": s.uploaded_at,
+    }
+
+
+async def presign_sample_upload(
+    session: AsyncSession, claims: AccessClaims,
+    filename: str, content_type: str | None, size_bytes: int,
+) -> dict[str, Any]:
+    """Mint a one-object upload URL under the caller's own org prefix.
+
+    The key is server-generated — the client never chooses where bytes land —
+    and the request row need not exist yet: the wizard uploads first and the
+    final POST /requests attaches the keys.
+    """
+    from sourcehub.platform.storage import minio_store
+
+    if size_bytes > MAX_SAMPLE_BYTES:
+        raise MarketplaceError("Sample files are capped at 25 MB each.")
+    safe = _safe_filename(filename)
+    key = f"rfp-samples/{claims.org_id}/{uuid.uuid4()}/{safe}"
+    url = await minio_store.presign_put(settings.storage_bucket_documents, key)
+    return {
+        "storage_key": key,
+        "url": url,
+        "filename": safe,
+        "content_type": content_type,
+        "expires_in": settings.storage_presign_ttl_seconds,
+    }
+
+
+async def _attach_samples(
+    session: AsyncSession, claims: AccessClaims, r: Request, samples: list[dict[str, Any]]
+) -> list[dict[str, Any]]:
+    """Record the uploaded objects as child rows, inside create_request's
+    transaction. The MinIO stat is the real size enforcement — a presigned PUT
+    cannot cap what was uploaded, so the recorded size comes from storage."""
+    from sourcehub.platform.storage import minio_store
+
+    if len(samples) > MAX_SAMPLES_PER_REQUEST:
+        raise MarketplaceError(f"At most {MAX_SAMPLES_PER_REQUEST} sample files per request.")
+    keys = [s["storage_key"] for s in samples]
+    if len(set(keys)) != len(keys):
+        raise MarketplaceError("Duplicate sample files in the request.")
+    own_prefix = f"rfp-samples/{claims.org_id}/"
+    out: list[RequestSample] = []
+    for s in samples:
+        key: str = s["storage_key"]
+        if not key.startswith(own_prefix):
+            raise MarketplaceError("Sample file does not belong to your organisation.")
+        safe = _safe_filename(s["filename"])
+        try:
+            size, stored_ct = await minio_store.stat(settings.storage_bucket_documents, key)
+        except LookupError:
+            raise MarketplaceError(f"Sample file {safe} was never uploaded.") from None
+        if size <= 0 or size > MAX_SAMPLE_BYTES:
+            raise MarketplaceError(f"Sample file {safe} exceeds the 25 MB cap.")
+        row = RequestSample(
+            request_id=r.id,
+            filename=safe,
+            storage_key=key,
+            content_type=s.get("content_type") or stored_ct,
+            size_bytes=size,
+            uploaded_by=claims.user_id,
+        )
+        session.add(row)
+        out.append(row)
+    await session.flush()
+    await audit.log(
+        session, "request.samples_attached",
+        f"Attached {len(out)} sample file(s) to {r.reference_code}",
+        [r.id, claims.org_id],
+    )
+    return [_sample_row(s) for s in out]
+
+
+async def list_samples(
+    session: AsyncSession, claims: AccessClaims, request_id: uuid.UUID
+) -> list[dict[str, Any]]:
+    """RLS filters: whoever can see the request sees its samples."""
+    rows = (
+        await session.execute(
+            select(RequestSample)
+            .where(RequestSample.request_id == request_id)
+            .order_by(RequestSample.uploaded_at)
+        )
+    ).scalars().all()
+    return [_sample_row(s) for s in rows]
+
+
+async def sample_download_url(
+    session: AsyncSession, claims: AccessClaims, request_id: uuid.UUID, sample_id: uuid.UUID
+) -> dict[str, Any]:
+    """A short-TTL download URL. The RLS'd select is the whole access check."""
+    from sourcehub.platform.storage import minio_store
+
+    s = (
+        await session.execute(
+            select(RequestSample).where(
+                RequestSample.id == sample_id, RequestSample.request_id == request_id
+            )
+        )
+    ).scalar_one_or_none()
+    if s is None:
+        raise LookupError("sample not found")
+    url = await minio_store.presign_get(
+        settings.storage_bucket_documents, s.storage_key, s.filename
+    )
+    return {"url": url, "filename": s.filename,
+            "expires_in": settings.storage_presign_ttl_seconds}
+
+
 # ---------------------------------------------------------------------------
 # Requests
 # ---------------------------------------------------------------------------
@@ -134,7 +283,8 @@ _DEFAULTS = {
 
 
 async def create_request(
-    session: AsyncSession, claims: AccessClaims, data: dict[str, Any], publish: bool
+    session: AsyncSession, claims: AccessClaims, data: dict[str, Any], publish: bool,
+    samples: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     ref = (
         await session.execute(text("SELECT next_reference_code('RFP','seq_ref_request', 4)"))
@@ -159,12 +309,15 @@ async def create_request(
     )
     session.add(r)
     await session.flush()
+    sample_rows = await _attach_samples(session, claims, r, samples) if samples else []
     if publish:
         await _announce_publish(session, claims, r)
     else:
         await audit.log(session, "request.drafted", f"Drafted {r.reference_code}, {r.title}",
                         [r.id, claims.org_id])
-    return _row(r, r.status, 0)
+    out = _row(r, r.status, 0)
+    out["samples"] = sample_rows
+    return out
 
 
 async def _announce_publish(session: AsyncSession, claims: AccessClaims, r: Request) -> None:
@@ -243,6 +396,7 @@ async def get_request(
     cmap, counts = await _status_maps(session, [r.id])
     out = _row(r, _effective(r.status, cmap.get(r.id), counts.get(r.id, 0)), counts.get(r.id, 0))
     out["proposals"] = await list_proposals(session, claims, request_id)
+    out["samples"] = await list_samples(session, claims, request_id)
     return out
 
 

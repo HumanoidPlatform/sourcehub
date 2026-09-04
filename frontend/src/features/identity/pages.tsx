@@ -7,16 +7,14 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { get, post, saveSession, type Session } from "@api/client";
 import { Button, Callout, Field, inputCls, useToast } from "@ds/primitives";
 import { useAuth, type OrgChoice } from "@shared/auth";
+import { BRAND, BrandMark } from "@shared/brand";
 
 function AuthFrame({ title, sub, children }: { title: string; sub?: string; children: React.ReactNode }) {
   return (
     <div style={{ minHeight: "100vh", display: "grid", placeItems: "center", background: "var(--ground)", padding: 24 }}>
       <div className="panel" style={{ width: 420, maxWidth: "100%" }}>
         <div className="panel-body" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-          <div className="mark">
-            <span className="mark-glyph" aria-hidden="true">S</span>
-            <span className="mark-name">SourceHub</span>
-          </div>
+          <BrandMark />
           <div>
             <h1 style={{ margin: 0, fontSize: 19 }}>{title}</h1>
             {sub && <p className="small muted" style={{ margin: "4px 0 0" }}>{sub}</p>}
@@ -74,7 +72,7 @@ export function LoginPage() {
   }
 
   return (
-    <AuthFrame title="Sign in" sub="The demo seed uses SourceHub#2026 for every account.">
+    <AuthFrame title="Sign in" sub="Every demo account uses the password SourceHub#2026.">
       <form onSubmit={(e) => void submit(e)} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
         <Field label="Email" required>
           {(id) => (
@@ -125,7 +123,7 @@ export function AcceptInvitationPage() {
   const accept = useMutation({
     mutationFn: () => post("/auth/invitation/accept", { token, password }),
     onSuccess: () => {
-      toast("Welcome to SourceHub", "Your password is set — sign in to begin.", "success");
+      toast(`Welcome to ${BRAND}`, "Your password is set — sign in to begin.", "success");
       navigate("/login");
     },
     onError: (e) => setError(e instanceof Error ? e.message : "Could not accept"),
@@ -153,7 +151,7 @@ export function AcceptInvitationPage() {
           }}
           style={{ display: "flex", flexDirection: "column", gap: 12 }}
         >
-          <Field label="Choose a password" required hint="At least 10 characters. Nobody at SourceHub ever sees it.">
+          <Field label="Choose a password" required hint={`At least 10 characters. Nobody at ${BRAND} ever sees it.`}>
             {(id) => (
               <input id={id} className={inputCls} type="password" autoComplete="new-password"
                 value={password} onChange={(e) => setPassword(e.target.value)} />

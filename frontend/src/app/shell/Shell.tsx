@@ -6,9 +6,11 @@
 
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { get, post } from "@api/client";
-import { useAuth, useSession } from "@shared/auth";
+import { useSession } from "@shared/auth";
+import { BrandMark } from "@shared/brand";
+import { ProfileMenu } from "./ProfileMenu";
 
 interface NavItem {
   to: string;
@@ -56,7 +58,7 @@ const NAV: Record<string, NavItem[]> = {
   ],
 };
 
-const WORKSPACE: Record<string, string> = {
+export const WORKSPACE: Record<string, string> = {
   client: "Client",
   tenant: "Delivery partner",
   aggregator: "Aggregator",
@@ -83,8 +85,6 @@ interface NotificationRow {
 
 export function Shell({ children }: { children: ReactNode }) {
   const session = useSession();
-  const { logout } = useAuth();
-  const navigate = useNavigate();
   const qc = useQueryClient();
   const [theme, setTheme] = useState<Theme>(() => {
     try {
@@ -128,10 +128,7 @@ export function Shell({ children }: { children: ReactNode }) {
       <a className="skip" href="#main">Skip to content</a>
       <aside className="rail">
         <div className="rail-head">
-          <div className="mark">
-            <span className="mark-glyph" aria-hidden="true">S</span>
-            <span className="mark-name">SourceHub</span>
-          </div>
+          <BrandMark />
         </div>
         <div className="rail-ctx">
           <div className="rail-ctx-name">{session.org_name}</div>
@@ -155,15 +152,6 @@ export function Shell({ children }: { children: ReactNode }) {
           <NavLink to="/design" className="rail-item">Design system</NavLink>
           <button type="button" className="rail-item" onClick={cycleTheme}>
             Theme: {theme}
-          </button>
-          <button
-            type="button"
-            className="rail-item"
-            onClick={() => {
-              void logout().then(() => navigate("/login"));
-            }}
-          >
-            Sign out
           </button>
         </div>
       </aside>
@@ -216,6 +204,7 @@ export function Shell({ children }: { children: ReactNode }) {
               </div>
             )}
           </div>
+          <ProfileMenu />
         </header>
         <main id="main">{children}</main>
       </div>

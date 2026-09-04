@@ -17,6 +17,19 @@ from sourcehub.modules.marketplace import service as marketplace
 router = APIRouter(route_class=TxRoute)
 
 
+class SamplePresignIn(BaseModel):
+    filename: str = Field(min_length=1, max_length=255)
+    content_type: str | None = None
+    size_bytes: int = Field(gt=0, le=25 * 1024 * 1024)
+
+
+class SampleAttachIn(BaseModel):
+    storage_key: str = Field(min_length=1, max_length=512)
+    filename: str = Field(min_length=1, max_length=255)
+    content_type: str | None = None
+    size_bytes: int = Field(gt=0, le=25 * 1024 * 1024)
+
+
 class RequestIn(BaseModel):
     title: str = Field(min_length=3)
     category: Literal["image", "video", "structured_data", "unstructured_data", "people_deliverable"]
@@ -36,6 +49,7 @@ class RequestIn(BaseModel):
     delivery_due_on: dt.date | None = None
     residency_region: str | None = None
     publish: bool = False
+    samples: list[SampleAttachIn] = Field(default_factory=list, max_length=5)
 
 
 class ProposalIn(BaseModel):
@@ -59,9 +73,48 @@ async def create_request(
         raise HTTPException(422, "budget_max must be at least budget_min")
     if body.starts_on and body.delivery_due_on and body.delivery_due_on < body.starts_on:
         raise HTTPException(422, "delivery_due_on must be on or after starts_on")
-    return await marketplace.create_request(
-        session, principal, body.model_dump(exclude={"publish"}), body.publish
-    )
+    try:
+        return await marketplace.create_request(
+            session, principal, body.model_dump(exclude={"publish", "samples"}), body.publish,
+            samples=[s.model_dump() for s in body.samples],
+        )
+    except marketplace.MarketplaceError as e:
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, str(e)) from None
+
+
+@router.post("/requests/samples/presign")
+async def presign_sample(
+    body: SamplePresignIn,
+    principal: Principal = Depends(require_capability("rfp.create")),
+    session: AsyncSession = Depends(get_session),
+):
+    """A one-object, short-TTL upload URL — the browser PUTs bytes straight to
+    object storage; they never traverse the API. The request row may not exist
+    yet: the wizard uploads first and attaches the keys on the final POST."""
+    try:
+        return await marketplace.presign_sample_upload(
+            session, principal, body.filename, body.content_type, body.size_bytes
+        )
+    except marketplace.MarketplaceError as e:
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, str(e)) from None
+
+
+@router.get("/requests/{request_id}/samples/{sample_id}/download")
+async def download_sample(
+    request_id: uuid.UUID,
+    sample_id: uuid.UUID,
+    # No capability gate, matching get_request: RLS arbitrates whether this
+    # caller — client, bidding tenant, awarded partner — sees the sample row.
+    principal: Principal = Depends(get_principal),
+    session: AsyncSession = Depends(get_session),
+):
+    """Returns {url, filename} rather than a redirect: a 307 would make the
+    browser forward the Authorization header to MinIO, which rejects requests
+    carrying both a header and a query signature."""
+    try:
+        return await marketplace.sample_download_url(session, principal, request_id, sample_id)
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Sample not found") from None
 
 
 @router.get("/requests")

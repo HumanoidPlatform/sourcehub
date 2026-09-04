@@ -10,12 +10,12 @@ from __future__ import annotations
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from sourcehub.config import settings
+from sourcehub.config import BRAND_FULL, settings
 
 
 def create_app() -> FastAPI:
     app = FastAPI(
-        title="SourceHub API",
+        title=f"{BRAND_FULL} API",
         version="0.1.0",
         description=(
             "A marketplace connecting clients who need real-world data with "

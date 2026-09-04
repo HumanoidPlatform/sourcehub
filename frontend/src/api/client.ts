@@ -9,6 +9,10 @@ export interface Session {
   access_token: string;
   refresh_token: string;
   user_id: string;
+  // Optional: a session stored before these fields existed lacks them; the UI
+  // falls back and the values arrive with the next token refresh.
+  full_name?: string;
+  email?: string;
   org_id: string;
   org_kind: string;
   org_name: string;
@@ -123,3 +127,11 @@ export async function api<T = unknown>(
 export const get = <T = unknown>(path: string) => api<T>("GET", path);
 export const post = <T = unknown>(path: string, body?: unknown) => api<T>("POST", path, body);
 export const patch = <T = unknown>(path: string, body?: unknown) => api<T>("PATCH", path, body);
+
+// The one deliberate exception to "only api() calls fetch": a presigned-URL
+// upload sends bytes straight to object storage. No auth header — the URL is
+// the credential — and no JSON wrapper.
+export async function putFile(url: string, file: File): Promise<void> {
+  const r = await fetch(url, { method: "PUT", body: file });
+  if (!r.ok) throw new ApiError(r.status, "Upload failed — try the file again");
+}

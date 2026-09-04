@@ -52,6 +52,24 @@ export interface Rfp {
   delivery_due_on: string | null;
   created_at: string;
   proposals?: Proposal[];
+  samples?: RequestSample[];
+}
+
+export interface RequestSample {
+  id: string;
+  request_id: string;
+  filename: string;
+  content_type: string | null;
+  size_bytes: number;
+  uploaded_at: string;
+}
+
+export interface SamplePresign {
+  storage_key: string;
+  url: string;
+  filename: string;
+  content_type: string | null;
+  expires_in: number;
 }
 
 export interface Proposal {
