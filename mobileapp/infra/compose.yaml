@@ -1,0 +1,79 @@
+name: cosaarthi-mobile
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: cosaarthi-mobile-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-cosaarthi_mobile}
+      POSTGRES_USER: ${POSTGRES_USER:-cosaarthi_mobile_owner}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-cosaarthi_mobile_owner_dev_password}
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C"
+    ports:
+      - "${POSTGRES_PORT:-55432}:5432"
+    volumes:
+      - cosaarthi_mobile_postgres:/var/lib/postgresql/data
+      - ../database/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USER:-cosaarthi_mobile_owner} -d ${POSTGRES_DB:-cosaarthi_mobile}",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+    networks: [cosaarthi-mobile]
+
+  minio:
+    image: minio/minio:latest
+    container_name: cosaarthi-mobile-minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-cosaarthi}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-cosaarthi_mobile_dev_password}
+    ports:
+      - "${MINIO_API_PORT:-59000}:9000"
+      - "${MINIO_CONSOLE_PORT:-59001}:9001"
+    volumes:
+      - cosaarthi_mobile_minio:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+    networks: [cosaarthi-mobile]
+
+  minio-init:
+    image: minio/mc:latest
+    container_name: cosaarthi-mobile-minio-init
+    depends_on:
+      - minio
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-cosaarthi}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-cosaarthi_mobile_dev_password}
+      MINIO_BUCKET_MEDIA: ${MINIO_BUCKET_MEDIA:-cosaarthi-mobile-media}
+    entrypoint: >
+      /bin/sh -c "
+      until mc alias set local http://minio:9000 $$MINIO_ROOT_USER $$MINIO_ROOT_PASSWORD; do
+        echo 'waiting for cosaarthi mobile minio';
+        sleep 2;
+      done;
+      mc mb --ignore-existing local/$$MINIO_BUCKET_MEDIA;
+      mc anonymous set none local/$$MINIO_BUCKET_MEDIA;
+      echo 'cosaarthi mobile bucket ready';
+      "
+    restart: "no"
+    networks: [cosaarthi-mobile]
+
+volumes:
+  cosaarthi_mobile_postgres:
+  cosaarthi_mobile_minio:
+
+networks:
+  cosaarthi-mobile:
+    driver: bridge

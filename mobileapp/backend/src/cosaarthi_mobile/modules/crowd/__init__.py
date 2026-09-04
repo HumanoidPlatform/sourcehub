@@ -1,0 +1,2 @@
+"""Crowd worker mobile module."""
+

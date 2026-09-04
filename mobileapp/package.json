@@ -1,0 +1,16 @@
+{
+  "name": "cosaarthi-data-platform",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "app:start": "npm --prefix app start",
+    "backend:dev": "cd backend && .venv/bin/uvicorn cosaarthi_mobile.main:app --host 0.0.0.0 --port 8001 --reload",
+    "backend:test": "cd backend && .venv/bin/pytest",
+    "expo-doctor": "cd app && ./node_modules/.bin/expo-doctor",
+    "lint": "npm --prefix app run lint",
+    "setup": "./scripts/setup-local.sh",
+    "test": "npm --prefix app test",
+    "typecheck": "npm --prefix app run typecheck",
+    "verify:local": "cd backend && .venv/bin/python scripts/verify_local.py"
+  }
+}

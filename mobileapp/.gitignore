@@ -1,0 +1,6 @@
+app/.env
+app/.expo/
+app/node_modules/
+backend/.env
+backend/.venv/
+infra/.env
