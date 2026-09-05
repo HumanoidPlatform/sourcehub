@@ -27,7 +27,10 @@ class QaReview(Base):
     __tablename__ = "qa_review"
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, server_default=GEN_UUID)
-    submission_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("submission.id"))
+    # exactly one of the two: gates 2 and 3 review a submission, gate 1 a
+    # worker's assignment (CHECK qa_review_one_subject)
+    submission_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("submission.id"))
+    assignment_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("task_assignment.id"))
     gate: Mapped[str] = mapped_column(QaGate)
     outcome: Mapped[str] = mapped_column(QaOutcome)
     reviewer_org_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("organisation.id"))

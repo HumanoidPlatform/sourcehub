@@ -5,14 +5,16 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { get, post } from "@api/client";
-import type { ActivityRow, Contract, Org, Task } from "@api/types";
+import type { ActivityRow, Assignment, Contract, Org, Task } from "@api/types";
 import {
   Button, Callout, Dialog, Dl, Empty, Field, inputCls, Meter, Metric, Panel,
   Pill, TableWrap, textareaCls, useToast, View,
 } from "@ds/primitives";
 import { useSession } from "@shared/auth";
 import { fmtDate, fmtDateTime, money } from "@shared/format";
-import { contractStatus, statusMeta, taskStatus, waitingOn } from "@shared/status";
+import { assignmentStatus, contractStatus, statusMeta, taskStatus, waitingOn } from "@shared/status";
+import { AssetGallery, useTaskAssets } from "./components/AssetGallery";
+import { SubmitToPartnerDialog, TaskAssignmentsDialog } from "./components/assignments";
 
 /* --- contracts / deliveries list --------------------------------------------- */
 
@@ -204,6 +206,9 @@ function AssignTaskDialog({ contractId, onClose }: { contractId: string; onClose
   const [target, setTarget] = useState("");
   const [due, setDue] = useState("");
   const [assignee, setAssignee] = useState("");
+  const [qty, setQty] = useState("");
+  const [unit, setUnit] = useState("photos");
+  const [instructions, setInstructions] = useState("");
   const [error, setError] = useState<string | null>(null);
   const toast = useToast();
   const qc = useQueryClient();
@@ -215,6 +220,8 @@ function AssignTaskDialog({ contractId, onClose }: { contractId: string; onClose
     mutationFn: () =>
       post(`/contracts/${contractId}/tasks`, {
         assignee_org_id: assignee, title, target: target || null, due_on: due || null,
+        target_quantity: qty ? Number(qty) : null, target_unit: qty ? unit : null,
+        instructions: instructions || null,
       }),
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: ["contract", contractId] });
@@ -247,6 +254,22 @@ function AssignTaskDialog({ contractId, onClose }: { contractId: string; onClose
         </Field>
         <Field label="Due date">
           {(id) => <input id={id} className={inputCls} type="date" value={due} onChange={(e) => setDue(e.target.value)} />}
+        </Field>
+        <Field label="Countable target" hint="How many units the supplier splits among its workers.">
+          {(id) => (
+            <div style={{ display: "flex", gap: 8 }}>
+              <input id={id} className={inputCls} type="number" min={1} value={qty} onChange={(e) => setQty(e.target.value)} placeholder="100" style={{ flex: 1 }} />
+              <select className={inputCls} value={unit} onChange={(e) => setUnit(e.target.value)} aria-label="Unit" style={{ width: 130 }}>
+                <option value="photos">photos</option>
+                <option value="videos">videos</option>
+                <option value="records">records</option>
+                <option value="hours">hours</option>
+              </select>
+            </div>
+          )}
+        </Field>
+        <Field label="Instructions for the field" span hint="Shown to every worker on their phone.">
+          {(id) => <textarea id={id} className={textareaCls} rows={2} value={instructions} onChange={(e) => setInstructions(e.target.value)} placeholder="Full shelf in frame, no shoppers, landscape." />}
         </Field>
         <Field label="Assign to" required span>
           {(id) => (
@@ -343,11 +366,16 @@ function TaskDetailDialog({ t, onClose }: { t: Task; onClose: () => void }) {
   const tm = statusMeta(taskStatus, t.status);
   const reviews = useQuery({
     queryKey: ["reviews", t.id],
-    queryFn: () => get<{ outcome: string; note: string | null }[]>(`/tasks/${t.id}/reviews`),
+    queryFn: () =>
+      get<{ gate: string; outcome: string; note: string | null; worker_name: string | null }[]>(`/tasks/${t.id}/reviews`),
   });
+  const assets = useTaskAssets(t.id);
   const sub = t.last_submission;
+  const summary = t.assignment_summary;
+  const unit = t.target_unit ?? "units";
   return (
     <Dialog
+      size="wide"
       title={t.title}
       sub={<span className="id">{t.reference_code}</span>}
       onClose={onClose}
@@ -358,9 +386,15 @@ function TaskDetailDialog({ t, onClose }: { t: Task; onClose: () => void }) {
         ...(t.assignee_name
           ? ([["Fulfilled by", `${t.assignee_name}${t.assignee_kind ? ` (${t.assignee_kind})` : ""}`]] as [string, React.ReactNode][])
           : []),
-        ["Target", t.target ?? "—"],
+        ["Target", t.target_quantity != null
+          ? `${t.target_quantity} ${unit}${t.target ? ` · ${t.target}` : ""}`
+          : t.target ?? "—"],
+        ...(t.instructions ? ([["Instructions", t.instructions]] as [string, React.ReactNode][]) : []),
         ["Due", fmtDate(t.due_on)],
         ["Status", <Pill key="s" tone={tm.tone}>{tm.label}</Pill>],
+        ...(summary && summary.total - summary.cancelled > 0
+          ? ([["Workers", `${summary.total - summary.cancelled} assigned · ${summary.accepted} accepted · ${summary.submitted} awaiting review`]] as [string, React.ReactNode][])
+          : []),
         ["Last submission", sub
           ? `Attempt ${sub.attempt_no} · ${sub.asset_count} asset(s) · ${fmtDateTime(sub.submitted_at)}`
           : "None yet"],
@@ -373,13 +407,22 @@ function TaskDetailDialog({ t, onClose }: { t: Task; onClose: () => void }) {
             <div key="qa" style={{ display: "flex", flexDirection: "column", gap: 6 }}>
               {(reviews.data ?? []).map((r, i) => (
                 <div key={i} className="small">
-                  <b>{r.outcome === "fail" ? "Fail" : "Pass"}</b>
+                  <b>{r.gate === "gate1_supplier" ? "Gate 1" : "Gate 2"} · {r.outcome === "fail" ? "Fail" : "Pass"}</b>
+                  {r.worker_name ? ` · ${r.worker_name}` : ""}
                   {r.note ? ` — ${r.note}` : ""}
                 </div>
               ))}
             </div>
           )],
       ]} />
+      <div style={{ marginTop: 14 }}>
+        <div className="eyebrow" style={{ marginBottom: 8 }}>Captured assets</div>
+        <AssetGallery
+          assets={assets.data ?? []}
+          loading={assets.isLoading}
+          emptyHint="Files confirmed from the capture app appear here."
+        />
+      </div>
     </Dialog>
   );
 }
@@ -390,35 +433,68 @@ export function TasksPage() {
   const session = useSession();
   const qc = useQueryClient();
   const toast = useToast();
+  const isAggregator = session.org_kind === "aggregator";
   const [submitting, setSubmitting] = useState<Task | null>(null);
   const [viewing, setViewing] = useState<Task | null>(null);
+  const [workersFor, setWorkersFor] = useState<Task | null>(null);
 
   const tasks = useQuery({ queryKey: ["tasks"], queryFn: () => get<Task[]>("/tasks") });
 
   const start = useMutation({
     mutationFn: (tid: string) => post(`/tasks/${tid}/start`),
     onSuccess: () => void qc.invalidateQueries({ queryKey: ["tasks"] }),
+    onError: (e) => toast("Cannot start", e instanceof Error ? e.message : "", "critical"),
   });
 
   const label = session.org_kind === "business" ? "Engagements" : "Tasks";
+  const sub = isAggregator
+    ? "Assign units to your crowd, review their captures at gate 1, then submit the accepted set to your delivery partner."
+    : "Start a task, capture, submit for the partner's QA. A rejection always says what must change.";
+
+  // a dialog reads the live row, so its counts move as uploads and verdicts land
+  const live = (t: Task) => (tasks.data ?? []).find((x) => x.id === t.id) ?? t;
 
   return (
-    <View title={label} sub="Start a task, capture, submit for the partner's QA. A rejection always says what must change.">
+    <View title={label} sub={sub}>
       <Panel>
         {(tasks.data ?? []).length === 0 ? (
           <Empty title="Nothing assigned" hint="Your delivery partner assigns work here." />
         ) : (
           <TableWrap>
             <table>
-              <thead><tr><th>Task</th><th>Contract</th><th>Target</th><th>Due</th><th>Status</th><th>Last note</th><th /></tr></thead>
+              <thead>
+                <tr>
+                  <th>Task</th><th>Contract</th><th>Target</th>
+                  {isAggregator && <th>Workers</th>}
+                  <th>Due</th><th>Status</th><th>Last note</th><th />
+                </tr>
+              </thead>
               <tbody>
                 {(tasks.data ?? []).map((t) => {
                   const tm = statusMeta(taskStatus, t.status);
+                  const s = t.assignment_summary;
+                  const a = t.asset_summary;
+                  const workers = s ? s.total - s.cancelled : 0;
                   return (
                     <tr key={t.id} className="tap" onClick={() => setViewing(t)}>
                       <td className="cell-primary">{t.title}<div className="cell-meta id">{t.reference_code}</div></td>
                       <td className="id">{t.contract_ref}</td>
-                      <td>{t.target ?? "—"}</td>
+                      <td>{t.target_quantity != null ? `${t.target_quantity} ${t.target_unit ?? ""}`.trim() : t.target ?? "—"}</td>
+                      {isAggregator && (
+                        <td>
+                          {workers > 0 ? (
+                            <>
+                              {workers} worker{workers === 1 ? "" : "s"}
+                              <div className="cell-meta">
+                                {a?.ready ?? 0}{t.target_quantity ? ` / ${t.target_quantity}` : ""} ready
+                                {s?.submitted ? ` · ${s.submitted} to review` : ""}
+                              </div>
+                            </>
+                          ) : (
+                            <span className="muted">—</span>
+                          )}
+                        </td>
+                      )}
                       <td className="num">{fmtDate(t.due_on)}</td>
                       <td><Pill tone={tm.tone}>{tm.label}</Pill></td>
                       <td style={{ maxWidth: 260 }} className="small muted">
@@ -426,11 +502,16 @@ export function TasksPage() {
                       </td>
                       <td className="rowactions" onClick={(e) => e.stopPropagation()}>
                         <Button size="sm" onClick={() => setViewing(t)}>Details</Button>
+                        {isAggregator && (
+                          <Button size="sm" onClick={() => setWorkersFor(t)}>Workers</Button>
+                        )}
                         {["assigned", "qa_failed"].includes(t.status) && (
                           <Button size="sm" onClick={() => start.mutate(t.id)}>Start</Button>
                         )}
                         {["in_progress", "qa_failed", "assigned"].includes(t.status) && (
-                          <Button size="sm" variant="primary" onClick={() => setSubmitting(t)}>Submit</Button>
+                          <Button size="sm" variant="primary" onClick={() => setSubmitting(t)}>
+                            {isAggregator ? "Submit to partner" : "Submit"}
+                          </Button>
                         )}
                       </td>
                     </tr>
@@ -442,7 +523,18 @@ export function TasksPage() {
         )}
       </Panel>
 
-      {submitting && (
+      {submitting && isAggregator && (
+        <SubmitToPartnerDialog
+          task={live(submitting)}
+          onClose={() => setSubmitting(null)}
+          onDone={() => {
+            setSubmitting(null);
+            void qc.invalidateQueries();
+            toast("Submitted for QA", "The delivery partner has been notified.", "success");
+          }}
+        />
+      )}
+      {submitting && !isAggregator && (
         <SubmitDialog
           task={submitting}
           onClose={() => setSubmitting(null)}
@@ -453,6 +545,7 @@ export function TasksPage() {
           }}
         />
       )}
+      {workersFor && <TaskAssignmentsDialog task={live(workersFor)} onClose={() => setWorkersFor(null)} />}
       {viewing && <TaskDetailDialog t={viewing} onClose={() => setViewing(null)} />}
     </View>
   );
@@ -502,5 +595,54 @@ function SubmitDialog({ task, onClose, onDone }: { task: Task; onClose: () => vo
       </div>
       {error && <Callout tone="critical" title={error} />}
     </Dialog>
+  );
+}
+
+/* --- a worker who signs in on the web ---------------------------------------- */
+
+// Capture happens in the phone app; the console shows a worker their
+// assignments read-only, so a sign-in here is harmless and informative.
+export function WorkerAssignmentsPage() {
+  const session = useSession();
+  const rows = useQuery({ queryKey: ["my-assignments"], queryFn: () => get<Assignment[]>("/me/assignments") });
+  const list = rows.data ?? [];
+  return (
+    <View
+      title={`Good day, ${session.full_name ?? session.email ?? "there"}`}
+      sub={`Your assignments at ${session.org_name}.`}
+    >
+      <Callout tone="attention" title="Capture happens in the Cosarathi Capture app">
+        Sign in to the app on your phone with the same email and password to start an assignment,
+        capture, and submit. This page only shows where things stand.
+      </Callout>
+      <Panel>
+        {list.length === 0 ? (
+          <Empty title="Nothing assigned yet" hint="Your aggregator assigns work to you here." />
+        ) : (
+          <TableWrap>
+            <table>
+              <thead><tr><th>Task</th><th>Units</th><th>Ready</th><th>Status</th><th>Due</th><th>Note</th></tr></thead>
+              <tbody>
+                {list.map((a) => {
+                  const m = statusMeta(assignmentStatus, a.status);
+                  return (
+                    <tr key={a.id}>
+                      <td className="cell-primary">{a.task.title}<div className="cell-meta id">{a.task.reference_code}</div></td>
+                      <td className="num">{a.quantity}</td>
+                      <td className="num">{a.assets.ready}</td>
+                      <td><Pill tone={m.tone}>{m.label}</Pill></td>
+                      <td className="num">{fmtDate(a.due_on ?? a.task.due_on)}</td>
+                      <td className="small muted" style={{ maxWidth: 260 }}>
+                        {a.status === "rejected" ? a.decision_note : a.instructions ?? a.task.instructions ?? "—"}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </TableWrap>
+        )}
+      </Panel>
+    </View>
   );
 }

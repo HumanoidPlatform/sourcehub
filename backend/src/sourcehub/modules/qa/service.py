@@ -2,10 +2,11 @@
 
 Business rules, and the ONLY public surface of this module.
 
-Gate 2 (partner QA) is live; gates 1 and 3 exist in the schema and arrive with
-the media plane. A review is one APPEND-ONLY row — who caught a defect, at
-which gate, is what decides who pays for the rework, so a verdict is never
-edited, only followed by another.
+Gate 1 (the supplier's own check of a worker's batch) and gate 2 (partner QA
+of a submission) are live; gate 3 exists in the schema. A review is one
+APPEND-ONLY row — who caught a defect, at which gate, is what decides who
+pays for the rework, so a verdict is never edited, only followed by another.
+Gate 1 reviews a task_assignment; gates 2 and 3 review a submission.
 """
 
 from __future__ import annotations
@@ -138,14 +139,133 @@ async def decide(
 
 
 async def reviews_for_task(session: AsyncSession, task_id: uuid.UUID) -> list[dict[str, Any]]:
+    """Every verdict on a task, at every gate: gate-1 rows hang off an
+    assignment, gate-2 rows off a submission."""
     rows = (
         await session.execute(
             text(
-                "SELECT q.id, q.gate, q.outcome, q.note, q.reviewed_at, s.attempt_no "
-                "FROM qa_review q JOIN submission s ON s.id = q.submission_id "
-                "WHERE s.task_id = :tid ORDER BY q.reviewed_at"
+                "SELECT q.id, q.gate, q.outcome, q.note, q.reviewed_at, s.attempt_no, "
+                "       q.assignment_id, coalesce(w.display_name, u.full_name) AS worker_name "
+                "FROM qa_review q "
+                "LEFT JOIN submission s ON s.id = q.submission_id "
+                "LEFT JOIN task_assignment a ON a.id = q.assignment_id "
+                "LEFT JOIN crowd_worker w ON w.user_id = a.worker_user_id "
+                "LEFT JOIN app_user u ON u.id = a.worker_user_id "
+                "WHERE coalesce(s.task_id, a.task_id) = :tid ORDER BY q.reviewed_at"
             ),
             {"tid": task_id},
         )
     ).mappings().all()
     return [dict(r) for r in rows]
+
+
+# ---------------------------------------------------------------------------
+# Gate 1 — the supplier reviews its own worker's batch
+# ---------------------------------------------------------------------------
+
+async def gate1_queue(session: AsyncSession, claims: AccessClaims) -> list[dict[str, Any]]:
+    """Every assignment awaiting this supplier's verdict, oldest first."""
+    rows = (
+        await session.execute(
+            text(
+                "SELECT a.id AS assignment_id, a.task_id, t.reference_code AS task_ref, "
+                "       t.title AS task_title, t.target_unit, "
+                "       a.worker_user_id, coalesce(w.display_name, u.full_name) AS worker_name, "
+                "       w.reference_code AS worker_ref, a.quantity, a.worker_note, a.submitted_at, "
+                "       coalesce(x.ready, 0) AS ready_assets "
+                "FROM task_assignment a "
+                "JOIN task t ON t.id = a.task_id "
+                "LEFT JOIN crowd_worker w ON w.user_id = a.worker_user_id "
+                "LEFT JOIN app_user u ON u.id = a.worker_user_id "
+                "LEFT JOIN LATERAL (SELECT count(*) AS ready FROM asset s "
+                "                   WHERE s.assignment_id = a.id AND s.status = 'ready' "
+                "                     AND s.deleted_at IS NULL) x ON true "
+                "WHERE a.status = 'submitted' AND a.supplier_org_id = :me "
+                "ORDER BY a.submitted_at"
+            ),
+            {"me": claims.org_id},
+        )
+    ).mappings().all()
+    return [{**dict(r), "ready_assets": int(r["ready_assets"])} for r in rows]
+
+
+async def decide_gate1(
+    session: AsyncSession,
+    claims: AccessClaims,
+    assignment_id: uuid.UUID,
+    outcome: str,  # 'accept' | 'reject'
+    note: str | None,
+) -> dict[str, Any]:
+    """Record the gate-1 verdict on a worker's batch. The same rule as gate 2,
+    enforced here and by CHECKs on qa_review and task_assignment: a rejection
+    without a note is refused, because the worker cannot act on one."""
+    if outcome not in ("accept", "reject"):
+        raise QaError("Outcome must be accept or reject.")
+    if outcome == "reject" and not (note and note.strip()):
+        raise QaError("Say what must change — the worker cannot act on a blank rejection.")
+
+    a = (
+        await session.execute(
+            text(
+                "SELECT a.id, a.status, a.task_id, a.contract_id, a.supplier_org_id, "
+                "       a.worker_user_id, t.reference_code AS task_ref, t.title "
+                "FROM task_assignment a JOIN task t ON t.id = a.task_id WHERE a.id = :a"
+            ),
+            {"a": assignment_id},
+        )
+    ).mappings().one_or_none()
+    if a is None:
+        raise LookupError("assignment not found")
+    if a["supplier_org_id"] != claims.org_id:
+        raise QaError("Only the supplier reviews at gate 1.")
+    if a["status"] != "submitted":
+        raise QaError(f"A {a['status'].replace('_', ' ')} assignment cannot be decided.")
+
+    accepted = outcome == "accept"
+    session.add(
+        QaReview(
+            assignment_id=assignment_id,
+            submission_id=None,
+            gate="gate1_supplier",
+            outcome="pass" if accepted else "fail",
+            reviewer_org_id=claims.org_id,
+            reviewer_user_id=claims.user_id,
+            note=note,
+        )
+    )
+    await session.flush()
+    await session.execute(
+        text(
+            "UPDATE task_assignment SET status = :st, decided_at = now(), decided_by = :me, "
+            "       decision_note = :note WHERE id = :a"
+        ),
+        {
+            "st": "accepted" if accepted else "rejected",
+            "me": claims.user_id, "note": note, "a": assignment_id,
+        },
+    )
+
+    await notifier.notify(
+        session,
+        claims.org_id,
+        f"Your work on {a['title']} was accepted."
+        if accepted
+        else f"Your work on {a['title']} was sent back: {note}",
+        "assignment",
+        {"id": str(assignment_id)},
+        user_id=a["worker_user_id"],
+    )
+    await audit.log(
+        session,
+        "review.recorded",
+        f"{'Accepted' if accepted else 'Rejected'} a worker's batch on {a['task_ref']} at gate 1"
+        + (f" — {note}" if note else ""),
+        [assignment_id, a["task_id"], a["contract_id"], claims.org_id],
+        {"gate": "gate1_supplier"},
+    )
+    return {
+        "assignment_id": assignment_id,
+        "task_id": a["task_id"],
+        "outcome": outcome,
+        "assignment_status": "accepted" if accepted else "rejected",
+    }

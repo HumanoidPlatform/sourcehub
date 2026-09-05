@@ -14,12 +14,21 @@ from __future__ import annotations
 
 import asyncio
 import datetime as dt
+from typing import NamedTuple
 from urllib.parse import urlparse
 
 from minio import Minio
 from minio.error import S3Error
 
 from sourcehub.config import settings
+
+
+class ObjectStat(NamedTuple):
+    """What storage actually holds for a key — never what the client claimed."""
+
+    size: int
+    content_type: str | None
+    etag: str | None
 
 
 def _client() -> Minio:
@@ -43,28 +52,44 @@ async def presign_put(bucket: str, key: str) -> str:
     )
 
 
-async def presign_get(bucket: str, key: str, filename: str) -> str:
-    """A one-object, short-TTL download URL that saves under the given name."""
+async def presign_get(bucket: str, key: str, filename: str, inline: bool = False) -> str:
+    """A one-object, short-TTL download URL.
+
+    attachment (the default) makes a browser save the file under the given
+    name; inline lets an <img> or <video> render it in place, which is what
+    the capture galleries need.
+    """
+    disposition = "inline" if inline else "attachment"
     return await asyncio.to_thread(
         lambda: _client().presigned_get_object(
             bucket,
             key,
             expires=_ttl(),
             response_headers={
-                "response-content-disposition": f'attachment; filename="{filename}"'
+                "response-content-disposition": f'{disposition}; filename="{filename}"'
             },
         )
     )
 
 
-def _stat_sync(bucket: str, key: str) -> tuple[int, str | None]:
+def _head_sync(bucket: str, key: str) -> ObjectStat:
     try:
         s = _client().stat_object(bucket, key)
     except S3Error as e:
         if e.code in ("NoSuchKey", "NoSuchObject"):
             raise LookupError(key) from None
         raise
-    return s.size or 0, s.content_type
+    etag = (s.etag or "").strip('"') or None
+    return ObjectStat(size=s.size or 0, content_type=s.content_type, etag=etag)
+
+
+async def head(bucket: str, key: str) -> ObjectStat:
+    """Size, content type and etag of a stored object; LookupError if absent.
+
+    The confirm step of a capture upload records these, never the client's
+    claim: a presigned PUT cannot cap what was uploaded.
+    """
+    return await asyncio.to_thread(_head_sync, bucket, key)
 
 
 async def stat(bucket: str, key: str) -> tuple[int, str | None]:
@@ -73,4 +98,5 @@ async def stat(bucket: str, key: str) -> tuple[int, str | None]:
     This is the real size enforcement — a presigned PUT cannot cap what the
     client uploads, so the recorded size comes from here, never the claim.
     """
-    return await asyncio.to_thread(_stat_sync, bucket, key)
+    s = await head(bucket, key)
+    return s.size, s.content_type

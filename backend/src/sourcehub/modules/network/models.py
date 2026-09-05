@@ -14,7 +14,7 @@ import uuid
 from decimal import Decimal
 
 from sqlalchemy import Boolean, Date, DateTime, ForeignKey, Integer, Numeric, SmallInteger, Text, text
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.dialects.postgresql import CITEXT, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
 from sourcehub.db.base import Base
@@ -76,6 +76,10 @@ class CrowdWorker(Base):
     skill: Mapped[str | None] = mapped_column(Text)
     status: Mapped[str] = mapped_column(WorkerStatus, server_default=text("'on_shift'"))
     trained: Mapped[bool] = mapped_column(Boolean, server_default=text("false"))
+    # a roster row that is also a person who signs in (db/120_workers_media.sql)
+    user_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("app_user.id"))
+    email: Mapped[str | None] = mapped_column(CITEXT)
+    phone: Mapped[str | None] = mapped_column(Text)
     rating: Mapped[Decimal | None] = mapped_column(Numeric(2, 1))
     created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
     updated_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)

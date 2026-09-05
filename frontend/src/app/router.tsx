@@ -20,7 +20,7 @@ import {
   CapacityPage, EquipmentPage, LoanQueuePage, NetworkPage, RosterPage,
 } from "@features/network/pages";
 import { OnboardingQueuePage } from "@features/onboarding/pages";
-import { QaQueuePage } from "@features/qa/pages";
+import { Gate1Page, QaQueuePage } from "@features/qa/pages";
 import { useAuth } from "@shared/auth";
 import { OverviewPage } from "./overview";
 import { Shell } from "./shell/Shell";
@@ -64,8 +64,9 @@ export function AppRouter() {
         <Route path="/deliveries/:id" element={<ContractDetailPage />} />
         <Route path="/tasks" element={<TasksPage />} />
 
-        {/* qa */}
+        {/* qa — gate 2 for the delivery partner, gate 1 for the supplier */}
         <Route path="/qa" element={<QaQueuePage />} />
+        <Route path="/review" element={<Gate1Page />} />
 
         {/* network */}
         <Route path="/network" element={<NetworkPage />} />

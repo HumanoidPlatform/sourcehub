@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import datetime as dt
 import uuid
+from typing import Any, Literal
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, Field
@@ -22,10 +23,32 @@ class TaskIn(BaseModel):
     title: str = Field(min_length=3)
     target: str | None = None
     due_on: dt.date | None = None
+    # countable work, so the supplier can split it among workers
+    target_quantity: int | None = Field(default=None, gt=0)
+    target_unit: str | None = Field(default=None, max_length=40)
+    instructions: str | None = None
+    capture_spec: dict[str, Any] = Field(default_factory=dict)
 
 
 class SubmitIn(BaseModel):
-    asset_count: int = Field(gt=0)
+    # required only for a task with no worker assignments; otherwise derived
+    asset_count: int | None = Field(default=None, gt=0)
+    note: str | None = None
+
+
+class AssignmentIn(BaseModel):
+    worker_user_id: uuid.UUID
+    quantity: int = Field(gt=0)
+    instructions: str | None = None
+    due_on: dt.date | None = None
+
+
+class AssignmentNoteIn(BaseModel):
+    note: str | None = None
+
+
+class AssignmentDecideIn(BaseModel):
+    outcome: Literal["accept", "reject"]
     note: str | None = None
 
 
@@ -70,6 +93,8 @@ async def create_task(
         return await delivery.create_task(
             session, principal, contract_id, body.assignee_org_id,
             body.title, body.target, body.due_on,
+            target_quantity=body.target_quantity, target_unit=body.target_unit,
+            instructions=body.instructions, capture_spec=body.capture_spec,
         )
     except LookupError:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Contract not found") from None
@@ -121,6 +146,140 @@ async def submit_task(
         )
     except LookupError:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Task not found") from None
+    except delivery.DeliveryError as e:
+        raise _conflict(e) from None
+
+
+# --- assignments: the aggregator → worker hop ---------------------------------
+
+@router.post("/tasks/{task_id}/assignments", status_code=status.HTTP_201_CREATED)
+async def create_assignment(
+    task_id: uuid.UUID,
+    body: AssignmentIn,
+    principal: Principal = Depends(require_capability("assignment.assign")),
+    session: AsyncSession = Depends(get_session),
+):
+    try:
+        return await delivery.create_assignment(
+            session, principal, task_id, body.worker_user_id,
+            body.quantity, body.instructions, body.due_on,
+        )
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Task not found") from None
+    except delivery.DeliveryError as e:
+        raise _conflict(e) from None
+
+
+@router.get("/tasks/{task_id}/assignments")
+async def task_assignments(
+    task_id: uuid.UUID,
+    principal: Principal = Depends(get_principal),
+    session: AsyncSession = Depends(get_session),
+):
+    try:
+        return await delivery.list_assignments(session, principal, task_id)
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Task not found") from None
+
+
+@router.get("/me/assignments")
+async def my_assignments(
+    principal: Principal = Depends(require_capability("assignment.read")),
+    session: AsyncSession = Depends(get_session),
+):
+    """The worker's board. RLS shows a worker their own rows and nothing else."""
+    return await delivery.my_assignments(session, principal)
+
+
+@router.get("/assignments/{assignment_id}")
+async def get_assignment(
+    assignment_id: uuid.UUID,
+    principal: Principal = Depends(get_principal),
+    session: AsyncSession = Depends(get_session),
+):
+    try:
+        return await delivery.get_assignment(session, principal, assignment_id)
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Assignment not found") from None
+
+
+@router.post("/assignments/{assignment_id}/start")
+async def start_assignment(
+    assignment_id: uuid.UUID,
+    principal: Principal = Depends(require_capability("assignment.start")),
+    session: AsyncSession = Depends(get_session),
+):
+    try:
+        return await delivery.start_assignment(session, principal, assignment_id)
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Assignment not found") from None
+    except delivery.DeliveryError as e:
+        raise _conflict(e) from None
+
+
+@router.post("/assignments/{assignment_id}/submit")
+async def submit_assignment(
+    assignment_id: uuid.UUID,
+    body: AssignmentNoteIn | None = None,
+    principal: Principal = Depends(require_capability("assignment.submit")),
+    session: AsyncSession = Depends(get_session),
+):
+    try:
+        return await delivery.submit_assignment(
+            session, principal, assignment_id, body.note if body else None
+        )
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Assignment not found") from None
+    except delivery.DeliveryError as e:
+        raise _conflict(e) from None
+
+
+@router.post("/assignments/{assignment_id}/decide")
+async def decide_assignment(
+    assignment_id: uuid.UUID,
+    body: AssignmentDecideIn,
+    principal: Principal = Depends(require_capability("qa.review.gate1")),
+    session: AsyncSession = Depends(get_session),
+):
+    """Gate 1: the supplier's own verdict on a worker's batch."""
+    try:
+        return await qa.decide_gate1(session, principal, assignment_id, body.outcome, body.note)
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Assignment not found") from None
+    except qa.QaError as e:
+        raise _conflict(e) from None
+
+
+@router.post("/assignments/{assignment_id}/cancel")
+async def cancel_assignment(
+    assignment_id: uuid.UUID,
+    body: AssignmentNoteIn | None = None,
+    principal: Principal = Depends(require_capability("assignment.assign")),
+    session: AsyncSession = Depends(get_session),
+):
+    try:
+        return await delivery.cancel_assignment(
+            session, principal, assignment_id, body.note if body else None
+        )
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Assignment not found") from None
+    except delivery.DeliveryError as e:
+        raise _conflict(e) from None
+
+
+@router.post("/assignments/{assignment_id}/reopen")
+async def reopen_assignment(
+    assignment_id: uuid.UUID,
+    body: AssignmentNoteIn | None = None,
+    principal: Principal = Depends(require_capability("assignment.assign")),
+    session: AsyncSession = Depends(get_session),
+):
+    try:
+        return await delivery.reopen_assignment(
+            session, principal, assignment_id, body.note if body else None
+        )
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Assignment not found") from None
     except delivery.DeliveryError as e:
         raise _conflict(e) from None
 

@@ -36,8 +36,14 @@ const NAV: Record<string, NavItem[]> = {
   aggregator: [
     { to: "/", label: "Overview" },
     { to: "/tasks", label: "Tasks" },
+    { to: "/review", label: "Review" },
     { to: "/roster", label: "Crowd roster" },
     { to: "/equipment", label: "Equipment" },
+  ],
+  // a field worker who signs in here sees their assignments read-only;
+  // capture happens in the phone app
+  worker: [
+    { to: "/", label: "My assignments" },
   ],
   business: [
     { to: "/", label: "Overview" },
@@ -65,6 +71,7 @@ export const WORKSPACE: Record<string, string> = {
   business: "Business partner",
   sponsor: "Device sponsor",
   platform_admin: "Platform operations",
+  worker: "Crowd worker",
 };
 
 type Theme = "system" | "light" | "dark";

@@ -30,6 +30,15 @@ async def review_queue(
     return await qa.review_queue(session, principal)
 
 
+@router.get("/gate1")
+async def gate1_queue(
+    principal: Principal = Depends(require_capability("qa.review.gate1")),
+    session: AsyncSession = Depends(get_session),
+):
+    """The supplier's own queue: worker batches awaiting its verdict."""
+    return await qa.gate1_queue(session, principal)
+
+
 @router.post("/submissions/{submission_id}/decide")
 async def decide(
     submission_id: uuid.UUID,

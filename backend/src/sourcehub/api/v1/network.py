@@ -7,7 +7,7 @@ import uuid
 from typing import Literal
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, EmailStr, Field
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.deps import Principal, TxRoute, get_principal, get_session, require_capability
@@ -44,6 +44,10 @@ class WorkerIn(BaseModel):
     display_name: str = Field(min_length=2)
     skill: str | None = None
     trained: bool = False
+    # With an email the worker is invited to sign in to the capture app;
+    # without one this is a roster-only record.
+    email: EmailStr | None = None
+    phone: str | None = Field(default=None, max_length=40)
 
 
 class WorkerStatusIn(BaseModel):
@@ -145,7 +149,34 @@ async def add_worker(
     principal: Principal = Depends(require_capability("roster.manage")),
     session: AsyncSession = Depends(get_session),
 ):
-    return await network.add_worker(session, principal, body.display_name, body.skill, body.trained)
+    """With an email: the worker is created as a user of this organisation and
+    emailed an invitation. Without: a roster-only record, as before."""
+    if body.email is None:
+        return await network.add_worker(
+            session, principal, body.display_name, body.skill, body.trained
+        )
+    try:
+        return await network.invite_worker(
+            session, principal,
+            email=str(body.email), full_name=body.display_name, phone=body.phone,
+            skill=body.skill, trained=body.trained,
+        )
+    except network.NetworkError as e:
+        raise _conflict(e) from None
+
+
+@router.post("/workers/{worker_id}/resend-invitation", status_code=status.HTTP_204_NO_CONTENT)
+async def resend_worker_invitation(
+    worker_id: uuid.UUID,
+    principal: Principal = Depends(require_capability("roster.manage")),
+    session: AsyncSession = Depends(get_session),
+):
+    try:
+        await network.resend_worker_invitation(session, principal, worker_id)
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Worker not found") from None
+    except network.NetworkError as e:
+        raise _conflict(e) from None
 
 
 @router.post("/workers/{worker_id}/status", status_code=status.HTTP_204_NO_CONTENT)

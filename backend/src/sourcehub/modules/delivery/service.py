@@ -20,12 +20,14 @@ from decimal import Decimal
 from typing import Any
 
 from sqlalchemy import func, select, text
+from sqlalchemy.exc import DBAPIError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.security import AccessClaims
 from sourcehub.modules.audit import service as audit
-from sourcehub.modules.delivery.models import Contract, Submission, Task
+from sourcehub.modules.delivery.models import Contract, Submission, Task, TaskAssignment
 from sourcehub.modules.ledger import service as ledger
+from sourcehub.modules.media import service as media
 from sourcehub.modules.notify import service as notifier
 
 
@@ -184,6 +186,9 @@ async def get_contract(
 # ---------------------------------------------------------------------------
 
 async def _task_row(session: AsyncSession, t: Task) -> dict[str, Any]:
+    """The task as the console shows it. The two summaries roll up the worker
+    assignments and the captures; a client, who may never see a roster, gets
+    zeros for the first and real counts for the second (RLS decides)."""
     extra = (
         await session.execute(
             text(
@@ -193,7 +198,25 @@ async def _task_row(session: AsyncSession, t: Task) -> dict[str, Any]:
                 "     SELECT s.id, s.attempt_no, s.status, s.supplier_note, s.asset_count, "
                 "            s.submitted_at "
                 "     FROM submission s WHERE s.task_id = :tid "
-                "     ORDER BY s.attempt_no DESC LIMIT 1) x) AS last_submission "
+                "     ORDER BY s.attempt_no DESC LIMIT 1) x) AS last_submission, "
+                "  (SELECT row_to_json(y) FROM ("
+                "     SELECT count(*) AS total, "
+                "            count(*) FILTER (WHERE a.status = 'assigned')    AS assigned, "
+                "            count(*) FILTER (WHERE a.status = 'in_progress') AS in_progress, "
+                "            count(*) FILTER (WHERE a.status = 'submitted')   AS submitted, "
+                "            count(*) FILTER (WHERE a.status = 'accepted')    AS accepted, "
+                "            count(*) FILTER (WHERE a.status = 'rejected')    AS rejected, "
+                "            count(*) FILTER (WHERE a.status = 'cancelled')   AS cancelled, "
+                "            coalesce(sum(a.quantity) FILTER (WHERE a.status <> 'cancelled'), 0) "
+                "              AS quantity_assigned "
+                "     FROM task_assignment a WHERE a.task_id = :tid) y) AS assignment_summary, "
+                "  (SELECT row_to_json(z) FROM ("
+                "     SELECT count(*) FILTER (WHERE s.status = 'pending')     AS pending, "
+                "            count(*) FILTER (WHERE s.status = 'ready')       AS ready, "
+                "            count(*) FILTER (WHERE s.status = 'quarantined') AS quarantined, "
+                "            count(*) FILTER (WHERE s.status = 'ready' AND s.submission_id IS NOT NULL) "
+                "              AS bundled "
+                "     FROM asset s WHERE s.task_id = :tid AND s.deleted_at IS NULL) z) AS asset_summary "
                 "FROM task tk "
                 "JOIN organisation o ON o.id = tk.assignee_org_id "
                 "JOIN contract c ON c.id = tk.contract_id "
@@ -212,9 +235,15 @@ async def _task_row(session: AsyncSession, t: Task) -> dict[str, Any]:
         "assignee_kind": extra.get("assignee_kind"),
         "title": t.title,
         "target": t.target,
+        "target_quantity": t.target_quantity,
+        "target_unit": t.target_unit,
+        "instructions": t.instructions,
+        "capture_spec": t.capture_spec or {},
         "status": t.status,
         "due_on": t.due_on,
         "last_submission": extra.get("last_submission"),
+        "assignment_summary": extra.get("assignment_summary"),
+        "asset_summary": extra.get("asset_summary"),
         "created_at": t.created_at,
     }
 
@@ -242,6 +271,11 @@ async def create_task(
     title: str,
     target: str | None,
     due_on: dt.date | None,
+    *,
+    target_quantity: int | None = None,
+    target_unit: str | None = None,
+    instructions: str | None = None,
+    capture_spec: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     c = (
         await session.execute(select(Contract).where(Contract.id == contract_id))
@@ -276,6 +310,10 @@ async def create_task(
         assignee_org_id=assignee_org_id,
         title=title,
         target=target,
+        target_quantity=target_quantity,
+        target_unit=target_unit,
+        instructions=instructions,
+        capture_spec=capture_spec or {},
         due_on=due_on,
         created_by=claims.user_id,
     )
@@ -314,16 +352,53 @@ async def submit_task(
     session: AsyncSession,
     claims: AccessClaims,
     task_id: uuid.UUID,
-    asset_count: int,
+    asset_count: int | None,
     note: str | None,
 ) -> dict[str, Any]:
     """One attempt, one submission row. A resubmission after qa_failed gets the
-    next attempt number; every earlier attempt survives untouched."""
+    next attempt number; every earlier attempt survives untouched.
+
+    Two paths, decided by whether the task was split among workers:
+      * no assignments (a business partner, or a legacy task): the supplier
+        states the asset count, exactly as before;
+      * assignments: every one must be accepted at gate 1 (or cancelled), and
+        the submission bundles the ready captures of the accepted ones. The
+        count is derived, never typed. A resubmission after a gate-2 failure
+        re-bundles the accepted material as it stands at that moment.
+    """
     t = await _get_task(session, task_id)
     if t.assignee_org_id != claims.org_id:
         raise DeliveryError("Only the assignee submits a task.")
     if t.status not in ("in_progress", "assigned", "qa_failed"):
         raise DeliveryError(f"A {t.status} task cannot be submitted.")
+
+    n_assign = (
+        await session.execute(
+            text(
+                "SELECT count(*) FROM task_assignment "
+                "WHERE task_id = :t AND status <> 'cancelled'"
+            ),
+            {"t": task_id},
+        )
+    ).scalar_one()
+    if n_assign == 0 and asset_count is None:
+        raise DeliveryError("asset_count is required for a task with no worker assignments.")
+    if n_assign:
+        blockers = (
+            await session.execute(
+                text(
+                    "SELECT status, count(*) AS n FROM task_assignment "
+                    "WHERE task_id = :t AND status NOT IN ('accepted','cancelled') "
+                    "GROUP BY status ORDER BY status"
+                ),
+                {"t": task_id},
+            )
+        ).all()
+        if blockers:
+            listed = ", ".join(f"{n} {st.replace('_', ' ')}" for st, n in blockers)
+            raise DeliveryError(
+                f"Not ready: {listed} assignment(s). Accept or cancel them at gate 1 first."
+            )
 
     attempt = (
         await session.execute(
@@ -340,7 +415,7 @@ async def submit_task(
         supplier_org_id=claims.org_id,
         status="submitted",
         supplier_note=note,
-        asset_count=asset_count,
+        asset_count=asset_count or 0,
         submitted_at=now,
         created_by=claims.user_id,
     )
@@ -348,6 +423,11 @@ async def submit_task(
     t.status = "submitted"
     t.updated_by = claims.user_id
     await session.flush()
+
+    if n_assign:
+        s.asset_count = await media.attach_to_submission(session, task_id, s.id)
+        await session.flush()
+    asset_count = s.asset_count
 
     partner = (
         await session.execute(
@@ -376,6 +456,338 @@ async def _get_task(session: AsyncSession, task_id: uuid.UUID) -> Task:
     if t is None:
         raise LookupError("task not found")
     return t
+
+
+# ---------------------------------------------------------------------------
+# Assignments — the aggregator → person hop
+#
+#   assigned --worker start--> in_progress --worker submit--> submitted
+#   submitted --accept--> accepted | --reject (note)--> rejected --start--> in_progress
+#   accepted --reopen (task qa_failed)--> in_progress
+#   assigned | in_progress | rejected --cancel--> cancelled
+#
+# A worker's session runs under the aggregator's org with role 'worker'; RLS
+# narrows it to their own rows, so every query below joins nothing a worker
+# cannot see (crowd_worker and app_user are the worker's own; task is theirs
+# through worker_holds_assignment()).
+# ---------------------------------------------------------------------------
+
+_ASSIGNMENT_ROWS = (
+    "SELECT a.id, a.task_id, a.contract_id, a.supplier_org_id, a.worker_user_id, a.quantity, "
+    "       a.status, a.instructions, a.due_on, a.worker_note, a.decision_note, "
+    "       a.assigned_at, a.started_at, a.submitted_at, a.decided_at, "
+    "       coalesce(w.display_name, u.full_name) AS worker_name, w.reference_code AS worker_ref, "
+    "       t.reference_code AS task_ref, t.title AS task_title, "
+    "       t.instructions AS task_instructions, t.capture_spec, t.target_unit, "
+    "       t.due_on AS task_due_on, t.status AS task_status, "
+    "       coalesce(x.pending, 0) AS pending, coalesce(x.ready, 0) AS ready, "
+    "       coalesce(x.quarantined, 0) AS quarantined, coalesce(x.total, 0) AS total "
+    "FROM task_assignment a "
+    "JOIN task t ON t.id = a.task_id "
+    "LEFT JOIN crowd_worker w ON w.user_id = a.worker_user_id "
+    "LEFT JOIN app_user u ON u.id = a.worker_user_id "
+    "LEFT JOIN LATERAL (SELECT count(*) FILTER (WHERE s.status = 'pending')     AS pending, "
+    "                          count(*) FILTER (WHERE s.status = 'ready')       AS ready, "
+    "                          count(*) FILTER (WHERE s.status = 'quarantined') AS quarantined, "
+    "                          count(*) AS total "
+    "                   FROM asset s WHERE s.assignment_id = a.id AND s.deleted_at IS NULL) x "
+    "          ON true "
+)
+
+
+def _assignment_dict(r: Any) -> dict[str, Any]:
+    return {
+        "id": r["id"],
+        "task_id": r["task_id"],
+        "contract_id": r["contract_id"],
+        "supplier_org_id": r["supplier_org_id"],
+        "worker_user_id": r["worker_user_id"],
+        "worker_name": r["worker_name"],
+        "worker_ref": r["worker_ref"],
+        "quantity": r["quantity"],
+        "status": r["status"],
+        "instructions": r["instructions"],
+        "due_on": r["due_on"],
+        "worker_note": r["worker_note"],
+        "decision_note": r["decision_note"],
+        "assigned_at": r["assigned_at"],
+        "started_at": r["started_at"],
+        "submitted_at": r["submitted_at"],
+        "decided_at": r["decided_at"],
+        "assets": {
+            "pending": int(r["pending"]), "ready": int(r["ready"]),
+            "quarantined": int(r["quarantined"]), "total": int(r["total"]),
+        },
+        "task": {
+            "id": r["task_id"],
+            "reference_code": r["task_ref"],
+            "title": r["task_title"],
+            "instructions": r["task_instructions"],
+            "capture_spec": r["capture_spec"] or {},
+            "target_unit": r["target_unit"],
+            "due_on": r["task_due_on"],
+            "status": r["task_status"],
+        },
+    }
+
+
+async def _assignments(
+    session: AsyncSession, where: str, params: dict[str, Any], order: str = "a.assigned_at"
+) -> list[dict[str, Any]]:
+    rows = (
+        await session.execute(text(_ASSIGNMENT_ROWS + "WHERE " + where + " ORDER BY " + order), params)
+    ).mappings().all()
+    return [_assignment_dict(r) for r in rows]
+
+
+async def _assignment_by_id(session: AsyncSession, assignment_id: uuid.UUID) -> dict[str, Any]:
+    rows = await _assignments(session, "a.id = :id", {"id": assignment_id})
+    if not rows:
+        raise LookupError("assignment not found")
+    return rows[0]
+
+
+async def _get_assignment(session: AsyncSession, assignment_id: uuid.UUID) -> TaskAssignment:
+    a = (
+        await session.execute(select(TaskAssignment).where(TaskAssignment.id == assignment_id))
+    ).scalar_one_or_none()
+    if a is None:
+        raise LookupError("assignment not found")
+    return a
+
+
+async def create_assignment(
+    session: AsyncSession,
+    claims: AccessClaims,
+    task_id: uuid.UUID,
+    worker_user_id: uuid.UUID,
+    quantity: int,
+    instructions: str | None,
+    due_on: dt.date | None,
+) -> dict[str, Any]:
+    t = await _get_task(session, task_id)
+    if t.assignee_org_id != claims.org_id:
+        raise DeliveryError("Only the assigned supplier assigns its workers.")
+    if t.status not in ("assigned", "in_progress", "qa_failed"):
+        raise DeliveryError(f"A {t.status} task cannot take new assignments.")
+
+    # A live worker grant in THIS organisation — invited from the roster.
+    ok = (
+        await session.execute(
+            text(
+                "SELECT EXISTS (SELECT 1 FROM user_role_grant g JOIN role r ON r.id = g.role_id "
+                "WHERE g.user_id = :u AND g.org_id = :me AND r.code = 'worker' "
+                "  AND g.revoked_at IS NULL)"
+            ),
+            {"u": worker_user_id, "me": claims.org_id},
+        )
+    ).scalar_one()
+    if not ok:
+        raise DeliveryError(
+            "Not an active worker in your organisation. Invite them from the crowd roster first."
+        )
+
+    if t.target_quantity:
+        assigned = (
+            await session.execute(
+                text(
+                    "SELECT coalesce(sum(quantity), 0) FROM task_assignment "
+                    "WHERE task_id = :t AND status <> 'cancelled'"
+                ),
+                {"t": task_id},
+            )
+        ).scalar_one()
+        if assigned + quantity > t.target_quantity:
+            unit = t.target_unit or "units"
+            raise DeliveryError(
+                f"Assigning {quantity} exceeds the task target of {t.target_quantity} {unit} "
+                f"by {assigned + quantity - t.target_quantity}."
+            )
+
+    a = TaskAssignment(
+        task_id=t.id,
+        contract_id=t.contract_id,
+        supplier_org_id=claims.org_id,
+        worker_user_id=worker_user_id,
+        quantity=quantity,
+        instructions=instructions,
+        due_on=due_on,
+        assigned_by=claims.user_id,
+    )
+    session.add(a)
+    try:
+        await session.flush()
+    except DBAPIError as e:
+        msg = str(e.orig) if e.orig else str(e)
+        if "task_assignment_one_open_key" in msg:
+            raise DeliveryError("This worker already has an open assignment on this task.") from None
+        raise
+
+    unit = t.target_unit or "units"
+    await notifier.notify(
+        session, claims.org_id,
+        f"New assignment: {t.title} — {quantity} {unit}."
+        + (f" Due {due_on.isoformat()}." if due_on else ""),
+        "assignment", {"id": str(a.id)},
+        user_id=worker_user_id,
+    )
+    await audit.log(
+        session, "assignment.created",
+        f"Assigned {quantity} {unit} of {t.reference_code} to a worker",
+        [a.id, t.id, t.contract_id, claims.org_id, worker_user_id],
+    )
+    return await _assignment_by_id(session, a.id)
+
+
+async def list_assignments(
+    session: AsyncSession, claims: AccessClaims, task_id: uuid.UUID
+) -> list[dict[str, Any]]:
+    """404 when the task itself is out of sight; otherwise RLS decides which
+    assignments appear (the client sees the task and none of these)."""
+    await _get_task(session, task_id)
+    return await _assignments(session, "a.task_id = :t", {"t": task_id})
+
+
+async def my_assignments(session: AsyncSession, claims: AccessClaims) -> list[dict[str, Any]]:
+    return await _assignments(
+        session,
+        "a.worker_user_id = :me AND a.status <> 'cancelled'",
+        {"me": claims.user_id},
+        order="a.assigned_at DESC",
+    )
+
+
+async def get_assignment(
+    session: AsyncSession, claims: AccessClaims, assignment_id: uuid.UUID
+) -> dict[str, Any]:
+    return await _assignment_by_id(session, assignment_id)
+
+
+async def start_assignment(
+    session: AsyncSession, claims: AccessClaims, assignment_id: uuid.UUID
+) -> dict[str, Any]:
+    """The worker's first move, and the rework move after a rejection. The
+    first start on a task moves the task itself to in_progress."""
+    a = await _get_assignment(session, assignment_id)
+    if a.worker_user_id != claims.user_id:
+        raise DeliveryError("Only the assigned worker starts an assignment.")
+    if a.status not in ("assigned", "rejected"):
+        raise DeliveryError(f"A {a.status.replace('_', ' ')} assignment cannot be started.")
+    a.status = "in_progress"
+    a.started_at = a.started_at or dt.datetime.now(dt.timezone.utc)
+    await session.execute(
+        text(
+            "UPDATE task SET status = 'in_progress', started_at = coalesce(started_at, now()) "
+            "WHERE id = :t AND status IN ('assigned','qa_failed')"
+        ),
+        {"t": a.task_id},
+    )
+    await session.flush()
+    row = await _assignment_by_id(session, a.id)
+    await audit.log(
+        session, "assignment.started",
+        f"Started an assignment on {row['task']['reference_code']}",
+        [a.id, a.task_id, a.contract_id, a.supplier_org_id],
+    )
+    return row
+
+
+async def submit_assignment(
+    session: AsyncSession, claims: AccessClaims, assignment_id: uuid.UUID, note: str | None
+) -> dict[str, Any]:
+    a = await _get_assignment(session, assignment_id)
+    if a.worker_user_id != claims.user_id:
+        raise DeliveryError("Only the assigned worker submits an assignment.")
+    if a.status in ("assigned", "rejected"):
+        raise DeliveryError("Start the assignment before submitting.")
+    if a.status != "in_progress":
+        raise DeliveryError(f"A {a.status} assignment cannot be submitted.")
+    n = await media.ready_count(session, a.id)
+    if n < 1:
+        raise DeliveryError("Upload at least one file before submitting.")
+
+    a.status = "submitted"
+    a.submitted_at = dt.datetime.now(dt.timezone.utc)
+    a.worker_note = note
+    await session.flush()
+    row = await _assignment_by_id(session, a.id)
+
+    await notifier.notify(
+        session, a.supplier_org_id,
+        f"{row['worker_name']} submitted {n} file(s) on {row['task']['title']} for review.",
+        "gate1", {"assignment_id": str(a.id)},
+    )
+    await audit.log(
+        session, "assignment.submitted",
+        f"Submitted {n} file(s) on {row['task']['reference_code']}",
+        [a.id, a.task_id, a.contract_id, a.supplier_org_id],
+        {"assets": n},
+    )
+    return row
+
+
+async def cancel_assignment(
+    session: AsyncSession, claims: AccessClaims, assignment_id: uuid.UUID, reason: str | None
+) -> dict[str, Any]:
+    a = await _get_assignment(session, assignment_id)
+    if a.supplier_org_id != claims.org_id:
+        raise DeliveryError("Only the supplier cancels an assignment.")
+    if a.status not in ("assigned", "in_progress", "rejected"):
+        raise DeliveryError(f"A {a.status} assignment cannot be cancelled.")
+    a.status = "cancelled"
+    a.decided_at = dt.datetime.now(dt.timezone.utc)
+    a.decided_by = claims.user_id
+    await session.flush()
+    row = await _assignment_by_id(session, a.id)
+    await notifier.notify(
+        session, claims.org_id,
+        f"Your assignment on {row['task']['title']} was cancelled."
+        + (f" {reason}" if reason else ""),
+        "assignment", {"id": str(a.id)},
+        user_id=a.worker_user_id,
+    )
+    await audit.log(
+        session, "assignment.cancelled",
+        f"Cancelled an assignment on {row['task']['reference_code']}",
+        [a.id, a.task_id, a.contract_id, claims.org_id],
+    )
+    return row
+
+
+async def reopen_assignment(
+    session: AsyncSession, claims: AccessClaims, assignment_id: uuid.UUID, note: str | None
+) -> dict[str, Any]:
+    """After the delivery partner fails the task at gate 2, the aggregator
+    sends an accepted assignment back to the worker for rework."""
+    a = await _get_assignment(session, assignment_id)
+    if a.supplier_org_id != claims.org_id:
+        raise DeliveryError("Only the supplier reopens an assignment.")
+    if a.status != "accepted":
+        raise DeliveryError(f"A {a.status} assignment cannot be reopened.")
+    task_status = (
+        await session.execute(text("SELECT status FROM task WHERE id = :t"), {"t": a.task_id})
+    ).scalar_one()
+    if task_status != "qa_failed":
+        raise DeliveryError("An assignment is reopened only after the task failed partner QA.")
+    a.status = "in_progress"
+    a.decision_note = note
+    a.decided_at = dt.datetime.now(dt.timezone.utc)
+    a.decided_by = claims.user_id
+    await session.flush()
+    row = await _assignment_by_id(session, a.id)
+    await notifier.notify(
+        session, claims.org_id,
+        f"{row['task']['title']} came back from partner QA and needs rework."
+        + (f" {note}" if note else ""),
+        "assignment", {"id": str(a.id)},
+        user_id=a.worker_user_id,
+    )
+    await audit.log(
+        session, "assignment.reopened",
+        f"Reopened an assignment on {row['task']['reference_code']} after gate 2",
+        [a.id, a.task_id, a.contract_id, claims.org_id],
+    )
+    return row
 
 
 # ---------------------------------------------------------------------------

@@ -25,6 +25,7 @@ async def notify(
     body: str,
     link_page: str | None = None,
     link_params: dict[str, Any] | None = None,
+    user_id: uuid.UUID | None = None,
 ) -> None:
     """Core INSERT, deliberately without RETURNING.
 
@@ -35,15 +36,18 @@ async def notify(
     failure then surfaces at COMMIT, after the response has gone out, and the
     whole transaction rolls back silently. A plain INSERT needs only the
     WITH CHECK, which any authenticated org passes.
+
+    user_id addresses one person rather than the whole organisation: a field
+    worker's bell shows only rows addressed to them.
     """
     import json
 
     await session.execute(
         text(
-            "INSERT INTO notification (org_id, body, link_page, link_params) "
-            "VALUES (:org, :body, :page, CAST(:params AS jsonb))"
+            "INSERT INTO notification (org_id, user_id, body, link_page, link_params) "
+            "VALUES (:org, :user, :body, :page, CAST(:params AS jsonb))"
         ),
-        {"org": org_id, "body": body, "page": link_page,
+        {"org": org_id, "user": user_id, "body": body, "page": link_page,
          "params": json.dumps(link_params or {}, default=str)},
     )
 

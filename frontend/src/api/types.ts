@@ -133,6 +133,10 @@ export interface Task {
   assignee_kind: string | null;
   title: string;
   target: string | null;
+  target_quantity: number | null;
+  target_unit: string | null;
+  instructions: string | null;
+  capture_spec: Record<string, unknown>;
   status: string;
   due_on: string | null;
   last_submission: {
@@ -143,6 +147,113 @@ export interface Task {
     asset_count: number;
     submitted_at: string | null;
   } | null;
+  // worker assignments and captures rolled up; a client gets zeros for the
+  // first (it never sees a roster) and real counts for the second
+  assignment_summary: AssignmentSummary | null;
+  asset_summary: AssetSummary | null;
+}
+
+export interface AssignmentSummary {
+  total: number;
+  assigned: number;
+  in_progress: number;
+  submitted: number;
+  accepted: number;
+  rejected: number;
+  cancelled: number;
+  quantity_assigned: number;
+}
+
+export interface AssetSummary {
+  pending: number;
+  ready: number;
+  quarantined: number;
+  bundled: number;
+}
+
+export interface AssignmentAssets {
+  pending: number;
+  ready: number;
+  quarantined: number;
+  total: number;
+}
+
+// task_assignment — one worker's share of a task, as GET /tasks/{id}/assignments
+// and GET /me/assignments return it.
+export interface Assignment {
+  id: string;
+  task_id: string;
+  contract_id: string;
+  supplier_org_id: string;
+  worker_user_id: string;
+  worker_name: string | null;
+  worker_ref: string | null;
+  quantity: number;
+  status: string;
+  instructions: string | null;
+  due_on: string | null;
+  worker_note: string | null;
+  decision_note: string | null;
+  assigned_at: string;
+  started_at: string | null;
+  submitted_at: string | null;
+  decided_at: string | null;
+  assets: AssignmentAssets;
+  task: {
+    id: string;
+    reference_code: string;
+    title: string;
+    instructions: string | null;
+    capture_spec: Record<string, unknown>;
+    target_unit: string | null;
+    due_on: string | null;
+    status: string;
+  };
+}
+
+// GET /qa/gate1 — a worker batch awaiting the supplier's own verdict
+export interface Gate1Row {
+  assignment_id: string;
+  task_id: string;
+  task_ref: string;
+  task_title: string;
+  target_unit: string | null;
+  worker_user_id: string;
+  worker_name: string | null;
+  worker_ref: string | null;
+  quantity: number;
+  worker_note: string | null;
+  submitted_at: string;
+  ready_assets: number;
+}
+
+// asset — one capture, as GET /tasks/{id}/assets and GET /assignments/{id}/assets return it
+export interface AssetRow {
+  id: string;
+  task_id: string;
+  assignment_id: string | null;
+  submission_id: string | null;
+  captured_by_user_id: string | null;
+  captured_by_name: string | null;
+  filename: string | null;
+  mime_type: string | null;
+  size_bytes: number | null;
+  sha256: string;
+  etag: string | null;
+  status: string;
+  quarantine_reason: string | null;
+  captured_at: string | null;
+  captured_lat: string | null;
+  captured_lon: string | null;
+  uploaded_at: string | null;
+  created_at: string;
+}
+
+export interface AssetUrl {
+  url: string;
+  filename: string | null;
+  mime_type: string | null;
+  expires_in: number;
 }
 
 export interface QaQueueRow {
@@ -197,6 +308,12 @@ export interface WorkerRow {
   status: string;
   trained: boolean;
   rating: string | null;
+  // a roster row with a login: invited by email, signs in to the capture app
+  email: string | null;
+  phone: string | null;
+  user_id: string | null;
+  invitation_status: "none" | "pending" | "accepted" | "expired";
+  open_assignments: number;
 }
 
 export interface InvoiceRow {

@@ -51,7 +51,12 @@ TaskStatus = db_enum(
 SubmissionStatus = db_enum(
     "submission_status", "open", "submitted", "under_review", "accepted", "rejected", "superseded"
 )
-AssetStatus = db_enum("asset_status", "pending", "ready", "quarantined", "rejected", "erased")
+AssetStatus = db_enum(
+    "asset_status", "pending", "uploaded", "ready", "quarantined", "rejected", "erased"
+)
+AssignmentStatus = db_enum(
+    "assignment_status", "assigned", "in_progress", "submitted", "accepted", "rejected", "cancelled"
+)
 RedactionState = db_enum(
     "redaction_state", "not_required", "device_redacted", "verified", "failed_verification"
 )

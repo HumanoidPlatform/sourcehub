@@ -4,12 +4,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { get } from "@api/client";
-import type { Contract, EquipmentRow, LoanRow, Proposal, QaQueueRow, Rfp, Task, WorkerRow } from "@api/types";
+import type { Contract, EquipmentRow, Gate1Row, LoanRow, Proposal, QaQueueRow, Rfp, Task, WorkerRow } from "@api/types";
 import { Empty, Meter, Metric, Panel, Pill, TableWrap, View } from "@ds/primitives";
 import { useSession } from "@shared/auth";
 import { fmtDate, money } from "@shared/format";
 import { contractStatus, requestStatus, statusMeta, taskStatus, waitingOn } from "@shared/status";
 import { AccountsPage } from "@features/admin/pages";
+import { WorkerAssignmentsPage } from "@features/delivery/pages";
 
 export function OverviewPage() {
   const { role } = useSession();
@@ -17,6 +18,7 @@ export function OverviewPage() {
   if (role === "client") return <ClientOverview />;
   if (role === "tenant") return <TenantOverview />;
   if (role === "sponsor") return <SponsorOverview />;
+  if (role === "worker") return <WorkerAssignmentsPage />;
   return <SupplierOverview />;
 }
 
@@ -115,6 +117,11 @@ function SupplierOverview() {
     queryFn: () => get<WorkerRow[]>("/network/workers"),
     enabled: session.org_kind === "aggregator",
   });
+  const gate1 = useQuery({
+    queryKey: ["gate1"],
+    queryFn: () => get<Gate1Row[]>("/qa/gate1"),
+    enabled: session.org_kind === "aggregator",
+  });
 
   const ts = tasks.data ?? [];
   const openTasks = ts.filter((t) => !["qa_passed", "cancelled"].includes(t.status));
@@ -125,11 +132,16 @@ function SupplierOverview() {
       <div className="g4">
         <Metric label="Open tasks" value={openTasks.length} />
         <Metric label="Sent back for rework" value={sentBack} />
-        <Metric label="Equipment on loan" value={(loans.data ?? []).filter((l) => ["approved", "issued"].includes(l.status)).length} />
         {session.org_kind === "aggregator" ? (
-          <Metric label="Crowd on shift" value={(workers.data ?? []).filter((w) => w.status === "on_shift").length} />
+          <>
+            <Metric label="Awaiting your review" value={gate1.data?.length ?? "…"} sub={<Link to="/review">Gate 1 queue</Link>} />
+            <Metric label="Crowd on shift" value={(workers.data ?? []).filter((w) => w.status === "on_shift").length} />
+          </>
         ) : (
-          <Metric label="All-time tasks" value={ts.length} />
+          <>
+            <Metric label="Equipment on loan" value={(loans.data ?? []).filter((l) => ["approved", "issued"].includes(l.status)).length} />
+            <Metric label="All-time tasks" value={ts.length} />
+          </>
         )}
       </div>
       <Panel title="Work queue" actions={<Link className="btn" data-size="sm" to="/tasks">Open tasks</Link>}>

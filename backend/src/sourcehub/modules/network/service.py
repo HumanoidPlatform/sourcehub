@@ -4,8 +4,14 @@ Business rules, and the ONLY public surface of this module.
 
 The stock arithmetic the prototype never had lives in the database (the
 check_loan_availability trigger); this service translates its refusals into
-messages a person can act on. Crowd workers are roster records, never platform
-users — they have no credential and no grant, by design.
+messages a person can act on.
+
+Crowd workers began as roster records with no credential. Since
+db/120_workers_media.sql a roster row may also be a person who signs in to
+the capture app: invite_worker() creates the app_user, the 'worker' grant in
+this organisation, the roster row and the invitation in one database function,
+and the worker uses the same accept-invitation page and the same login as
+everyone else.
 """
 
 from __future__ import annotations
@@ -18,7 +24,8 @@ from sqlalchemy import select, text
 from sqlalchemy.exc import DBAPIError
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from sourcehub.api.security import AccessClaims
+from sourcehub.api.security import AccessClaims, new_opaque_token
+from sourcehub.config import BRAND, settings
 from sourcehub.modules.audit import service as audit
 from sourcehub.modules.network.models import CrowdWorker, Equipment, Loan, Rating
 from sourcehub.modules.notify import service as notifier
@@ -247,31 +254,71 @@ def _friendly_stock_error(e: DBAPIError) -> str:
 
 
 # ---------------------------------------------------------------------------
-# Crowd roster — aggregator-internal, never platform users
+# Crowd roster
+#
+# A roster row with user_id is a person who can sign in (role 'worker' in
+# this organisation); one without is a legacy record. The tenant may read its
+# supplier's roster; app_user rows are visible only to orgs the person holds
+# a grant in, so the LEFT JOIN below yields NULLs for the tenant and the
+# invitation status degrades to what the roster row alone can say.
 # ---------------------------------------------------------------------------
 
+_WORKER_ROWS = text(
+    "SELECT w.id, w.reference_code, w.display_name, w.skill, w.status, w.trained, w.rating, "
+    "       w.email, w.phone, w.user_id, u.status AS user_status, "
+    "       inv.accepted_at, inv.expires_at, coalesce(ta.open_count, 0) AS open_assignments "
+    "FROM crowd_worker w "
+    "LEFT JOIN app_user u ON u.id = w.user_id "
+    "LEFT JOIN LATERAL (SELECT i.accepted_at, i.expires_at FROM invitation i "
+    "                    WHERE i.user_id = w.user_id AND i.revoked_at IS NULL "
+    "                    ORDER BY i.invited_at DESC LIMIT 1) inv ON true "
+    "LEFT JOIN LATERAL (SELECT count(*) AS open_count FROM task_assignment a "
+    "                    WHERE a.worker_user_id = w.user_id "
+    "                      AND a.status IN ('assigned','in_progress','submitted','rejected')) ta "
+    "          ON true "
+    "WHERE w.deleted_at IS NULL "
+    "  AND (CAST(:wid AS uuid) IS NULL OR w.id = CAST(:wid AS uuid)) "
+    "ORDER BY w.reference_code"
+)
+
+
+def _invitation_status(r: Any) -> str:
+    if r["user_id"] is None:
+        return "none"
+    if r["user_status"] == "active" or r["accepted_at"] is not None:
+        return "accepted"
+    if r["expires_at"] is not None and r["expires_at"] < dt.datetime.now(dt.timezone.utc):
+        return "expired"
+    return "pending"
+
+
+def _worker_dict(r: Any) -> dict[str, Any]:
+    return {
+        "id": r["id"], "reference_code": r["reference_code"],
+        "display_name": r["display_name"], "skill": r["skill"],
+        "status": r["status"], "trained": r["trained"], "rating": r["rating"],
+        "email": r["email"], "phone": r["phone"], "user_id": r["user_id"],
+        "invitation_status": _invitation_status(r),
+        "open_assignments": int(r["open_assignments"]),
+    }
+
+
 async def list_workers(session: AsyncSession, claims: AccessClaims) -> list[dict[str, Any]]:
-    rows = (
-        await session.execute(
-            select(CrowdWorker)
-            .where(CrowdWorker.deleted_at.is_(None))
-            .order_by(CrowdWorker.reference_code)
-        )
-    ).scalars().all()
-    return [
-        {
-            "id": w.id, "reference_code": w.reference_code,
-            "display_name": w.display_name, "skill": w.skill,
-            "status": w.status, "trained": w.trained, "rating": w.rating,
-        }
-        for w in rows
-    ]
+    rows = (await session.execute(_WORKER_ROWS, {"wid": None})).mappings().all()
+    return [_worker_dict(r) for r in rows]
+
+
+async def _worker_by_id(session: AsyncSession, worker_id: uuid.UUID) -> dict[str, Any]:
+    row = (await session.execute(_WORKER_ROWS, {"wid": worker_id})).mappings().one()
+    return _worker_dict(row)
 
 
 async def add_worker(
     session: AsyncSession, claims: AccessClaims,
     display_name: str, skill: str | None, trained: bool,
 ) -> dict[str, Any]:
+    """A roster-only entry: no email, no login. Kept for records about people
+    who never use the app."""
     ref = (
         await session.execute(text("SELECT next_reference_code('WKR','seq_ref_worker')"))
     ).scalar_one()
@@ -281,8 +328,115 @@ async def add_worker(
     )
     session.add(w)
     await session.flush()
-    return {"id": w.id, "reference_code": ref, "display_name": display_name,
-            "skill": skill, "status": w.status, "trained": trained, "rating": None}
+    return await _worker_by_id(session, w.id)
+
+
+async def _send_worker_invitation(
+    email: str, full_name: str, org_name: str, raw_token: str
+) -> None:
+    """Best-effort, like the onboarding invitation: the worker exists either
+    way, and the invitation can be re-sent. A dead SMTP must not roll back
+    the invite."""
+    from sourcehub.platform.mail.smtp import send_mail
+
+    link = f"{settings.app_base_url}/accept-invitation?token={raw_token}"
+    try:
+        await send_mail(
+            email,
+            f"You're invited to {BRAND} — {org_name}",
+            f"Hello {full_name},\n\n"
+            f"{org_name} has added you as a field worker on {BRAND}. Set your password\n"
+            f"within {settings.invitation_ttl_days} days, then sign in to the {BRAND} Capture app\n"
+            f"with this email address:\n\n  {link}\n\n"
+            f"No one at {BRAND} knows this link's token or your future password.",
+        )
+    except OSError:
+        pass
+
+
+async def invite_worker(
+    session: AsyncSession,
+    claims: AccessClaims,
+    *,
+    email: str,
+    full_name: str,
+    phone: str | None,
+    skill: str | None,
+    trained: bool,
+) -> dict[str, Any]:
+    """One call into the database function: app_user (invited), worker grant,
+    roster row and invitation, all or nothing. RLS applies inside it, so only
+    an organisation that may write its own roster gets through."""
+    raw, digest = new_opaque_token()
+    try:
+        row = (
+            await session.execute(
+                text(
+                    "SELECT * FROM invite_worker(CAST(:email AS citext), :name, :phone, :skill, "
+                    ":trained, :uid, :thash, make_interval(days => :ttl))"
+                ),
+                {
+                    "email": email, "name": full_name, "phone": phone, "skill": skill,
+                    "trained": trained, "uid": claims.user_id, "thash": digest,
+                    "ttl": settings.invitation_ttl_days,
+                },
+            )
+        ).mappings().one()
+    except DBAPIError as e:
+        msg = str(e.orig) if e.orig else str(e)
+        if "app_user_email_key" in msg or "crowd_worker_user_id_key" in msg:
+            raise NetworkError("A user with this email already exists.") from None
+        raise
+
+    await audit.log(
+        session, "worker.invited",
+        f"Invited {full_name} ({row['reference_code']}) as a field worker",
+        [row["worker_id"], row["user_id"], claims.org_id],
+    )
+    await _send_worker_invitation(email, full_name, claims.org_name, raw)
+    return await _worker_by_id(session, row["worker_id"])
+
+
+async def resend_worker_invitation(
+    session: AsyncSession, claims: AccessClaims, worker_id: uuid.UUID
+) -> None:
+    """Rotate the token and send the email again. The invitation row belongs
+    to the onboarding module, so it is addressed by SQL rather than by its
+    ORM model."""
+    w = (
+        await session.execute(select(CrowdWorker).where(CrowdWorker.id == worker_id))
+    ).scalar_one_or_none()
+    if w is None:
+        raise LookupError("worker not found")
+    if w.user_id is None or not w.email:
+        raise NetworkError("This roster entry has no login to invite.")
+    inv = (
+        await session.execute(
+            text(
+                "SELECT id, accepted_at FROM invitation "
+                "WHERE user_id = :u AND revoked_at IS NULL "
+                "ORDER BY invited_at DESC LIMIT 1"
+            ),
+            {"u": w.user_id},
+        )
+    ).mappings().one_or_none()
+    if inv is None or inv["accepted_at"] is not None:
+        raise NetworkError("The invitation was already accepted.")
+
+    raw, digest = new_opaque_token()
+    await session.execute(
+        text(
+            "UPDATE invitation SET token_hash = :h, "
+            "       expires_at = now() + make_interval(days => :ttl), "
+            "       reminder_count = reminder_count + 1, last_reminder_at = now() "
+            "WHERE id = :id"
+        ),
+        {"h": digest, "ttl": settings.invitation_ttl_days, "id": inv["id"]},
+    )
+    await audit.log(session, "worker.invitation_resent",
+                    f"Re-sent the invitation to {w.display_name} ({w.reference_code})",
+                    [w.id, w.user_id, claims.org_id])
+    await _send_worker_invitation(w.email, w.display_name, claims.org_name, raw)
 
 
 async def set_worker_status(
@@ -294,6 +448,19 @@ async def set_worker_status(
     if w is None:
         raise LookupError("worker not found")
     w.status = status
+    if status == "offboarded" and w.user_id is not None:
+        # An offboarded worker can no longer sign in to this organisation. A
+        # live access token dies at its own TTL; refresh re-resolves grants.
+        await session.execute(
+            text(
+                "UPDATE user_role_grant SET revoked_at = now(), revoked_by = :me "
+                "WHERE user_id = :u AND org_id = :org AND revoked_at IS NULL"
+            ),
+            {"me": claims.user_id, "u": w.user_id, "org": claims.org_id},
+        )
+        await audit.log(session, "worker.offboarded",
+                        f"Offboarded {w.display_name} ({w.reference_code})",
+                        [w.id, w.user_id, claims.org_id])
 
 
 # ---------------------------------------------------------------------------

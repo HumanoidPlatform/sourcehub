@@ -76,6 +76,31 @@ export const workerStatus: StatusMap = {
   offboarded: { label: "Offboarded", tone: "neutral", owner: null },
 };
 
+export const assignmentStatus: StatusMap = {
+  assigned: { label: "Assigned", tone: "neutral", owner: "supplier" },
+  in_progress: { label: "In progress", tone: "active", owner: "supplier" },
+  submitted: { label: "Awaiting review", tone: "attention", owner: "supplier" },
+  accepted: { label: "Accepted", tone: "success", owner: null },
+  rejected: { label: "Sent back", tone: "critical", owner: "supplier" },
+  cancelled: { label: "Cancelled", tone: "neutral", owner: null },
+};
+
+export const invitationStatus: StatusMap = {
+  none: { label: "No login", tone: "neutral", owner: null },
+  pending: { label: "Invited", tone: "attention", owner: "supplier" },
+  accepted: { label: "Signed up", tone: "success", owner: null },
+  expired: { label: "Invitation expired", tone: "critical", owner: "supplier" },
+};
+
+export const assetStatus: StatusMap = {
+  pending: { label: "Uploading", tone: "neutral", owner: "supplier" },
+  uploaded: { label: "Uploaded", tone: "active", owner: null },
+  ready: { label: "Ready", tone: "success", owner: null },
+  quarantined: { label: "Quarantined", tone: "critical", owner: "supplier" },
+  rejected: { label: "Discarded", tone: "neutral", owner: null },
+  erased: { label: "Erased", tone: "neutral", owner: null },
+};
+
 export const invoiceStatus: StatusMap = {
   pending: { label: "Pending", tone: "attention", owner: "client" },
   paid: { label: "Paid", tone: "success", owner: null },

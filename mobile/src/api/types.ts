@@ -1,0 +1,117 @@
+// API shapes the app renders, mirrored from the console's types.ts and the
+// routers in backend/src/sourcehub/api/v1.
+
+export interface Session {
+  access_token: string;
+  refresh_token: string;
+  user_id: string;
+  full_name: string;
+  email: string;
+  org_id: string;
+  org_kind: string;
+  org_name: string;
+  role: string;
+  scope: string;
+  capabilities: string[];
+  must_change_password: boolean;
+}
+
+export interface OrgChoice {
+  org_id: string;
+  org_kind: string;
+  org_name: string;
+  reference_code: string;
+  role_code: string;
+}
+
+export type AssignmentStatus =
+  | "assigned"
+  | "in_progress"
+  | "submitted"
+  | "accepted"
+  | "rejected"
+  | "cancelled";
+
+export interface AssignmentAssets {
+  pending: number;
+  ready: number;
+  quarantined: number;
+  total: number;
+}
+
+export interface CaptureSpec {
+  media?: "photo" | "video" | "both";
+  max_duration_s?: number;
+  require_gps?: boolean;
+  min_resolution?: string;
+  notes?: string;
+  [key: string]: unknown;
+}
+
+export interface Assignment {
+  id: string;
+  task_id: string;
+  quantity: number;
+  status: AssignmentStatus;
+  instructions: string | null;
+  due_on: string | null;
+  worker_note: string | null;
+  decision_note: string | null;
+  assigned_at: string;
+  started_at: string | null;
+  submitted_at: string | null;
+  decided_at: string | null;
+  assets: AssignmentAssets;
+  task: {
+    id: string;
+    reference_code: string;
+    title: string;
+    instructions: string | null;
+    capture_spec: CaptureSpec;
+    target_unit: string | null;
+    due_on: string | null;
+    status: string;
+  };
+}
+
+export type AssetStatus = "pending" | "uploaded" | "ready" | "quarantined" | "rejected" | "erased";
+
+export interface AssetRow {
+  id: string;
+  assignment_id: string | null;
+  filename: string | null;
+  mime_type: string | null;
+  size_bytes: number | null;
+  sha256: string;
+  status: AssetStatus;
+  quarantine_reason: string | null;
+  captured_at: string | null;
+  uploaded_at: string | null;
+  created_at: string;
+}
+
+export interface Presign {
+  asset_id: string;
+  storage_key: string;
+  url: string | null;
+  method: "PUT";
+  headers: Record<string, string>;
+  expires_in: number;
+  status: AssetStatus;
+}
+
+export interface AssetUrl {
+  url: string;
+  filename: string | null;
+  mime_type: string | null;
+  expires_in: number;
+}
+
+export interface NotificationRow {
+  id: string;
+  body: string;
+  link_page: string | null;
+  link_params: Record<string, string>;
+  read: boolean;
+  created_at: string;
+}

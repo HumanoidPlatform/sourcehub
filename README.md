@@ -4,6 +4,8 @@ A marketplace connecting clients who need real-world data — imagery, video, se
 
 The design sources are in [docs/](docs/): `sourcehub-blueprint.html` (domain and architecture), `sourcehub-build-guide.html` (stack and RLS mechanics) and `sourcehub-app.html` (the clickable prototype, which remains **normative for state machines and design tokens**).
 
+> **Just cloned, or updating from the previous push?** Read [README-PILOT.md](README-PILOT.md) first: what the field half adds, the database changes and whether your local database picks them up, and how to run the phone app.
+
 ---
 
 ## Quick start
@@ -71,7 +73,8 @@ Local development only. Password for all: `SourceHub#2026`
 SourceHub/
 ├── backend/      Python 3.12 · FastAPI · SQLAlchemy 2.0 async · Celery
 ├── frontend/     React 18 · Vite · TypeScript · TanStack Query
-├── db/           the SQL bootstrap — 14 files, 56 tables, 82 RLS policies
+├── db/           the SQL bootstrap — 17 files, 52 tables, 120 RLS policies
+├── mobile/       Expo React Native — the crowd worker's capture app
 ├── infra/        compose.yaml and the Azure Bicep that will replace it
 ├── docs/         blueprint, build guide, prototype
 └── Makefile      the entire developer interface
@@ -88,7 +91,7 @@ backend/src/sourcehub/modules/<module>/
                   (absent where the module owns no ORM tables, e.g. audit)
 ```
 
-Nine modules today: `identity` `onboarding` `marketplace` `delivery` `qa` `network` `ledger` `notify` `audit` — `ingest/` and the Celery `worker/` return with the media plane (milestone 3). Request/response schemas live beside their routers in `api/v1/`; capability checks are `require_capability()` in `api/deps.py`. A file earns its place by having code in it, and a module that outgrows this shape gets split, not restructured.
+Ten modules today: `identity` `onboarding` `marketplace` `delivery` `media` `qa` `network` `ledger` `notify` `audit` — the Celery `worker/` returns when ingest becomes asynchronous. Request/response schemas live beside their routers in `api/v1/`; capability checks are `require_capability()` in `api/deps.py`. A file earns its place by having code in it, and a module that outgrows this shape gets split, not restructured.
 
 **2. Every frontend feature is one folder named after its backend module.**
 
@@ -139,7 +142,7 @@ This is a safety property. **Vite inlines every `VITE_`-prefixed variable into t
 
 ## The database
 
-56 tables, 82 RLS policies, applied in filename order:
+52 tables and 120 RLS policies (25 of them RESTRICTIVE, narrowing a field worker to their own rows), applied in filename order:
 
 | File | Contents |
 |---|---|
@@ -155,7 +158,10 @@ This is a safety property. **Vite inlines every `VITE_`-prefixed variable into t
 | `080_ledger.sql` | Double-entry ledger, invoices, balance views |
 | `090_notify_audit.sql` | Hash-chained `audit_event`, outbox, notifications, retention |
 | `100_rls.sql` | Every policy, hand-written |
+| `110_auth_functions.sql` | The anonymous paths (login, invitation, reset) as SECURITY DEFINER functions, and the policy fixes found by running real flows |
+| `120_workers_media.sql` | Field workers as principals, `task_assignment`, the capture manifest on `asset`, gate 1 on `qa_review`, the worker scope, the audit chain lock |
 | `900_seed.sql` | Permissions, system roles, the platform org, the first admin |
+| `905_seed_workers.sql` | The `worker` role and the assignment capabilities |
 | `910_seed_demo.sql` | The prototype's data — **delete before any real deployment** |
 
 ### Login and roles are data
@@ -243,15 +249,18 @@ verbatim (`tokens.css`, `components.css`) and the React components render over
 the same class names. Six personas, each with its own navigation and overview;
 the status vocabulary is per-entity, matching the database enums.
 
-Verified end to end through the API (scratch script, 26 steps, all green):
+Verified end to end through the API (`backend/tests/e2e_loop.py`, 57 steps, all green):
 
 ```
 publish → 2 proposals → competitor isolation → award (sibling auto-rejected,
 milestone invoiced into escrow) → task assigned → equipment loan approved
 (over-lend refused by the stock trigger) → submit → QA fail with note →
-resubmit → QA pass (both attempts kept) → deliver → client approves + rates →
-invoices settle, 9% fee booked, ledger_imbalance = 0 rows → 10 audit event
-kinds on the hash chain
+resubmit → QA pass (both attempts kept) → [worker invited by email → assigns
+3 of 4 units → captures PUT straight to MinIO and confirmed → sibling worker
+sees nothing → gate 1 reject with note → rework → accept → bundled into the
+submission → partner views the originals → gate 2 pass] → deliver → client
+approves + rates → invoices settle, 9% fee booked, ledger_imbalance = 0 rows
+→ 14 audit event kinds on the hash chain
 ```
 
 And the onboarding loop: tenant request → Ops queue → approve → org + profile +
@@ -259,10 +268,70 @@ invited user + emailed invitation (Mailpit) → invitee sets password → signs 
 with the right capability set. A tenant deciding its own request is refused by
 RLS, not by an if-statement.
 
+## The field half: crowd workers and the capture app
+
+A tenant assigns a task to an aggregator; the aggregator splits it among
+people. Since `db/120_workers_media.sql`:
+
+- **A worker is a person who signs in.** The aggregator adds a roster entry
+  with an email; `invite_worker()` creates the `app_user`, a `worker` grant in
+  the aggregator's organisation, the roster row and the invitation in one
+  transaction. The worker sets a password from the emailed link and signs in
+  to the app with the same login as everyone else. RESTRICTIVE policies
+  narrow a `worker` session to its own assignments, captures and
+  notifications; it cannot read a contract, a submission or the roster.
+- **`task_assignment`** is one worker's share of a task, with its own
+  lifecycle: assigned → in progress → submitted → accepted | sent back.
+- **Captures never pass through the API.** The phone asks for a presigned
+  PUT (`POST /assignments/{id}/assets/presign`), uploads straight to object
+  storage, then confirms; the API HEADs the object and records what storage
+  holds. Presign is idempotent on `(assignment, sha256)`, confirm on a ready
+  asset is a no-op, so a phone on a bad connection can retry freely.
+- **Gate 1 is the aggregator's own review** (`GET /qa/gate1`, `POST
+  /assignments/{id}/decide`). Submitting the task to the delivery partner
+  bundles the ready captures of accepted assignments into the submission;
+  `asset_count` is derived, never typed.
+
+Console: the aggregator's Tasks page gains **Workers** (assign, progress,
+gate 1) and **Submit to partner**; a **Review** page holds the gate-1 queue;
+every task detail, the partner's QA dialog and the client's delivery drawer
+show the captures through short-lived signed URLs.
+
+### Running the pilot with a phone
+
+Presigned URLs embed `STORAGE_ENDPOINT`, and the signature covers the host,
+so the phone must reach the same address the API signs for:
+
+```bash
+ipconfig                                   # the Wi-Fi IPv4, e.g. 192.168.1.20
+# backend/.env
+STORAGE_ENDPOINT=http://192.168.1.20:9000
+# then the API on every interface
+.venv/Scripts/python -m uvicorn sourcehub.main:app --host 0.0.0.0 --port 8000 --app-dir src
+```
+
+Allow inbound TCP 8000 and 9000 on the private network profile of the
+Windows firewall. From the phone's browser, `http://192.168.1.20:8000/health`
+must answer before the app will. The console keeps working on the LAN
+address too.
+
+```bash
+cd mobile
+cp .env.example .env         # EXPO_PUBLIC_API_URL=http://192.168.1.20:8000
+npm install
+npx expo start               # scan with Expo Go on the same Wi-Fi
+```
+
+Invitations for workers land in Mailpit (http://localhost:8025) in
+development; open the link on the dev machine to set the worker's password.
+
 ## Still deliberately out
 
-- **The media plane** (milestone 3): uploads, checksums, transcodes, automated
-  checks. Submissions carry an asset count, exactly as the prototype did.
+- **Asynchronous ingest**: the pilot confirms an upload synchronously (a HEAD
+  on storage; size and etag recorded). Checksum verification, malware
+  scanning, thumbnails and the automated checks wait for the Celery worker
+  pool.
+- **Push notifications**: the app polls the bell and refreshes on focus.
 - **TOTP enrolment**: `permission.requires_mfa` is live data and the check is
   wired (`require_mfa`), but enforcement ships off (`MFA_ENFORCEMENT=false`)
   until enrolment exists.

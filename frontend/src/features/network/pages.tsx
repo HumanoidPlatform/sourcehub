@@ -13,7 +13,7 @@ import { useSession } from "@shared/auth";
 import { fmtDate, titleCase } from "@shared/format";
 import { OrgProfileDialog } from "@shared/org-profile";
 import {
-  equipmentStatus, loanStatus, onboardingStatus, orgStatus, statusMeta, workerStatus,
+  equipmentStatus, invitationStatus, loanStatus, onboardingStatus, orgStatus, statusMeta, workerStatus,
 } from "@shared/status";
 
 /* --- entity detail dialogs (row-fed; RLS already decided what the list holds) --- */
@@ -74,6 +74,10 @@ function WorkerDetailDialog({ w, onClose }: { w: WorkerRow; onClose: () => void 
       foot={<Button onClick={onClose}>Close</Button>}
     >
       <Dl rows={[
+        ["Email", w.email ?? "—"],
+        ["Phone", w.phone ?? "—"],
+        ["App access", <Pill key="i" tone={statusMeta(invitationStatus, w.invitation_status).tone}>{statusMeta(invitationStatus, w.invitation_status).label}</Pill>],
+        ["Open assignments", <span key="o" className="num">{w.open_assignments}</span>],
         ["Skill", w.skill ?? "—"],
         ["Trained", w.trained ? "Yes" : "No"],
         ["Rating", w.rating ?? "—"],
@@ -630,42 +634,62 @@ export function RosterPage() {
       post(`/network/workers/${vars.id}/status`, { status: vars.status }),
     onSuccess: () => void qc.invalidateQueries({ queryKey: ["workers"] }),
   });
+  const resend = useMutation({
+    mutationFn: (id: string) => post(`/network/workers/${id}/resend-invitation`),
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: ["workers"] });
+      toast("Invitation sent again", undefined, "success");
+    },
+    onError: (e) => toast("Could not resend", e instanceof Error ? e.message : "", "critical"),
+  });
 
   const rows = workers.data ?? [];
   const onShift = rows.filter((w) => w.status === "on_shift").length;
-  const trained = rows.filter((w) => w.trained).length;
+  const signedUp = rows.filter((w) => w.invitation_status === "accepted").length;
+  const invited = rows.filter((w) => w.invitation_status === "pending" || w.invitation_status === "expired").length;
 
   return (
     <View
       title="Crowd roster"
-      sub="Roster records, not platform users — your crowd authenticates through you, never through Cosarathi."
+      sub="Invite a worker by email; they set a password and sign in to the capture app. Task units can be assigned to anyone who has signed up."
       actions={<Button variant="primary" onClick={() => setAdding(true)}>Add worker</Button>}
     >
-      <div className="g3">
+      <div className="g4">
         <Metric label="Roster" value={rows.length} />
         <Metric label="On shift" value={onShift} />
-        <Metric label="Trained" value={`${trained} / ${rows.length}`} />
+        <Metric label="Signed up" value={signedUp} />
+        <Metric label="Invited, not yet signed up" value={invited} />
       </div>
       <Panel>
         {rows.length === 0 ? (
-          <Empty title="No workers on the roster" />
+          <Empty title="No workers on the roster" hint="Add a worker with their email to invite them to the app." />
         ) : (
           <TableWrap>
             <table>
-              <thead><tr><th>Ref</th><th>Name</th><th>Skill</th><th>Trained</th><th>Rating</th><th>Status</th><th /></tr></thead>
+              <thead><tr><th>Ref</th><th>Name</th><th>Email</th><th>Skill</th><th>App access</th><th>Status</th><th /></tr></thead>
               <tbody>
                 {rows.map((w) => {
                   const m = statusMeta(workerStatus, w.status);
+                  const inv = statusMeta(invitationStatus, w.invitation_status);
+                  const canResend = (w.invitation_status === "pending" || w.invitation_status === "expired") && w.status !== "offboarded";
                   return (
                     <tr key={w.id} className="tap" onClick={() => setViewing(w)}>
                       <td className="id">{w.reference_code}</td>
-                      <td className="cell-primary">{w.display_name}</td>
+                      <td className="cell-primary">
+                        {w.display_name}
+                        {w.open_assignments > 0 && (
+                          <div className="cell-meta">{w.open_assignments} open assignment{w.open_assignments === 1 ? "" : "s"}</div>
+                        )}
+                      </td>
+                      <td className="small">{w.email ?? "—"}</td>
                       <td>{w.skill ?? "—"}</td>
-                      <td>{w.trained ? "Yes" : "No"}</td>
-                      <td className="num">{w.rating ?? "—"}</td>
+                      <td><Pill tone={inv.tone}>{inv.label}</Pill></td>
                       <td><Pill tone={m.tone}>{m.label}</Pill></td>
                       <td className="rowactions" onClick={(ev) => ev.stopPropagation()}>
                         <Button size="sm" onClick={() => setViewing(w)}>Details</Button>
+                        {canResend && (
+                          <Button size="sm" disabled={resend.isPending} onClick={() => resend.mutate(w.id)}>Resend invite</Button>
+                        )}
                         {w.status !== "offboarded" && (
                           <>
                             <Button size="sm" onClick={() => setStatus.mutate({ id: w.id, status: w.status === "on_shift" ? "on_break" : "on_shift" })}>
@@ -686,32 +710,59 @@ export function RosterPage() {
         )}
       </Panel>
 
-      {adding && <AddWorkerDialog onClose={() => setAdding(false)} onDone={() => {
-        setAdding(false);
-        void qc.invalidateQueries({ queryKey: ["workers"] });
-        toast("Added to the roster", undefined, "success");
-      }} />}
+      {adding && (
+        <AddWorkerDialog
+          onClose={() => setAdding(false)}
+          onDone={(invited) => {
+            setAdding(false);
+            void qc.invalidateQueries({ queryKey: ["workers"] });
+            toast(
+              invited ? "Invitation emailed" : "Added to the roster",
+              invited ? "They set a password from the link, then sign in to the app." : undefined,
+              "success",
+            );
+          }}
+        />
+      )}
       {viewing && <WorkerDetailDialog w={viewing} onClose={() => setViewing(null)} />}
     </View>
   );
 }
 
-function AddWorkerDialog({ onClose, onDone }: { onClose: () => void; onDone: () => void }) {
+function AddWorkerDialog({ onClose, onDone }: { onClose: () => void; onDone: (invited: boolean) => void }) {
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [skill, setSkill] = useState("");
   const [trained, setTrained] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const submit = useMutation({
-    mutationFn: () => post("/network/workers", { display_name: name, skill: skill || null, trained }),
-    onSuccess: onDone,
+    mutationFn: () =>
+      post("/network/workers", {
+        display_name: name, email: email.trim() || null, phone: phone.trim() || null,
+        skill: skill || null, trained,
+      }),
+    onSuccess: () => onDone(!!email.trim()),
+    onError: (e) => setError(e instanceof Error ? e.message : "Could not add the worker"),
   });
   return (
-    <Dialog title="Add a crowd worker" onClose={onClose}
+    <Dialog
+      title="Add a crowd worker"
+      sub="With an email they are invited to the capture app; without one this is a roster record only."
+      onClose={onClose}
       foot={<>
         <Button onClick={onClose}>Cancel</Button>
-        <Button variant="primary" disabled={!name.trim() || submit.isPending} onClick={() => submit.mutate()}>Add</Button>
-      </>}>
+        <Button variant="primary" disabled={!name.trim() || submit.isPending} onClick={() => submit.mutate()}>
+          {email.trim() ? "Add and invite" : "Add"}
+        </Button>
+      </>}
+    >
       <div className="formgrid">
         <Field label="Name" required span>{(id) => <input id={id} className={inputCls} value={name} onChange={(e) => setName(e.target.value)} />}</Field>
+        <Field label="Email" hint="The invitation goes here; it is also their sign-in.">
+          {(id) => <input id={id} className={inputCls} type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="priya@example.com" />}
+        </Field>
+        <Field label="Phone">{(id) => <input id={id} className={inputCls} value={phone} onChange={(e) => setPhone(e.target.value)} />}</Field>
         <Field label="Skill">{(id) => <input id={id} className={inputCls} value={skill} onChange={(e) => setSkill(e.target.value)} placeholder="Street imagery" />}</Field>
         <Field label="Trained">
           {(id) => (
@@ -722,6 +773,7 @@ function AddWorkerDialog({ onClose, onDone }: { onClose: () => void; onDone: () 
           )}
         </Field>
       </div>
+      {error && <Callout tone="critical" title={error} />}
     </Dialog>
   );
 }
