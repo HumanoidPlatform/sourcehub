@@ -82,6 +82,31 @@ async def create_request(
         raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, str(e)) from None
 
 
+@router.patch("/requests/{request_id}")
+async def update_request(
+    request_id: uuid.UUID,
+    body: RequestIn,
+    principal: Principal = Depends(require_capability("rfp.create")),
+    session: AsyncSession = Depends(get_session),
+):
+    """Edit a draft. Same body and same guards as creating one — a draft that
+    could be raised but not corrected was a dead end for the client."""
+    if body.budget_min and body.budget_max and body.budget_max < body.budget_min:
+        raise HTTPException(422, "budget_max must be at least budget_min")
+    if body.starts_on and body.delivery_due_on and body.delivery_due_on < body.starts_on:
+        raise HTTPException(422, "delivery_due_on must be on or after starts_on")
+    try:
+        return await marketplace.update_request(
+            session, principal, request_id,
+            body.model_dump(exclude={"publish", "samples"}),
+            samples=[s.model_dump() for s in body.samples],
+        )
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Request not found") from None
+    except marketplace.MarketplaceError as e:
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, str(e)) from None
+
+
 @router.post("/requests/samples/presign")
 async def presign_sample(
     body: SamplePresignIn,

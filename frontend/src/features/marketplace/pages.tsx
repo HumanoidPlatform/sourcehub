@@ -4,7 +4,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { get, post, putFile } from "@api/client";
+import { get, patch, post, putFile } from "@api/client";
 import type { ClientProfile, Org, Proposal, Rfp, SamplePresign } from "@api/types";
 import {
   Button, Callout, Dialog, Dl, Empty, Field, FileField, inputCls, Panel, Pill, RowMenu,
@@ -70,12 +70,16 @@ export function RequestsPage() {
                       <td className="id">{r.reference_code}</td>
                       <td className="cell-primary">{r.title}</td>
                       <td>{titleCase(r.category)}</td>
-                      <td className="num">{money(r.budget_min)} – {money(r.budget_max)}</td>
+                      <td className="num" style={{ whiteSpace: "nowrap" }}>{money(r.budget_min)} – {money(r.budget_max)}</td>
                       <td><Pill tone={meta.tone}>{meta.label}</Pill></td>
                       <td>{waitingOn(meta, "client")}</td>
                       <td className="num">{r.proposal_count}</td>
-                      <td className="rowactions">
+                      <td className="right"><div className="rowactions">
+                        {r.status === "draft" && (
+                          <Link className="btn" data-size="sm" to={`/requests/${r.id}/edit`}>Edit</Link>
+                        )}
                         <Link className="btn" data-size="sm" to={`/requests/${r.id}`}>Open</Link>
+                        </div>
                       </td>
                     </tr>
                   );
@@ -115,21 +119,60 @@ const SAMPLE_ACCEPT =
   ".csv,.tsv,.json,.jsonl,.xml,.txt,.md,.pdf,.png,.jpg,.jpeg,.webp,.gif,.mp4,.mov,.mp3,.wav,.zip,.xlsx,.docx,.parquet";
 
 interface SampleDraft {
-  key: string; // storage_key once presigned
+  key: string; // storage_key once presigned; empty for files already attached
+  /** already on the request — shown in the editor, never re-sent on save */
+  existing?: boolean;
   filename: string;
   content_type: string | null;
   size_bytes: number;
   status: "uploading" | "done" | "error";
 }
 
+// Doubles as the draft editor: with an :id in the path it loads that draft and
+// PATCHes instead of POSTing. Same fields, same validation — a second form for
+// editing would be the same form, drifting.
 export function RequestNewPage() {
+  const { id } = useParams();
   const [step, setStep] = useState(0);
   const [d, setD] = useState<Draft>(BLANK);
   const [samples, setSamples] = useState<SampleDraft[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [loaded, setLoaded] = useState(false);
   const navigate = useNavigate();
   const toast = useToast();
   const qc = useQueryClient();
+
+  const existing = useQuery({
+    queryKey: ["request", id],
+    queryFn: () => get<Rfp>(`/requests/${id}`),
+    enabled: !!id,
+  });
+
+  // populate once, so typing is never overwritten by a refetch
+  if (id && existing.data && !loaded) {
+    const r = existing.data;
+    setD({
+      title: r.title ?? "", category: r.category ?? "image",
+      geography: r.geography ?? "", compliance_notes: r.compliance_notes ?? "",
+      spec_format: r.spec?.format ?? "", spec_quantity: r.spec?.quantity ?? "",
+      spec_quality: r.spec?.quality ?? "", acceptance: r.acceptance ?? "",
+      people_headcount: String(r.people?.headcount ?? ""),
+      people_training: r.people?.training ?? "",
+      people_experience: r.people?.experience ?? "",
+      people_certification: r.people?.certification ?? "",
+      budget_min: r.budget_min ?? "", budget_max: r.budget_max ?? "",
+      starts_on: r.starts_on ?? "", delivery_due_on: r.delivery_due_on ?? "",
+    });
+    // files already attached, so the editor shows what the draft actually has
+    setSamples(
+      (r.samples ?? []).map((x) => ({
+        key: "", filename: x.filename,
+        content_type: x.content_type, size_bytes: x.size_bytes,
+        status: "done" as const, existing: true,
+      })),
+    );
+    setLoaded(true);
+  }
 
   const set = (k: keyof Draft) => (e: { target: { value: string } }) =>
     setD((x) => ({ ...x, [k]: e.target.value }));
@@ -175,10 +218,11 @@ export function RequestNewPage() {
   };
 
   const doneSamples = samples.filter((s) => s.status === "done");
+  const newSamples = doneSamples.filter((s) => !s.existing);
 
   const save = useMutation({
     mutationFn: (publish: boolean) =>
-      post<Rfp>("/requests", {
+      (id ? patch<Rfp> : post<Rfp>)(id ? `/requests/${id}` : "/requests", {
         ...d,
         people_headcount: Number(d.people_headcount) || 0,
         budget_min: d.budget_min || null,
@@ -186,7 +230,7 @@ export function RequestNewPage() {
         starts_on: d.starts_on || null,
         delivery_due_on: d.delivery_due_on || null,
         publish,
-        samples: doneSamples.map((s) => ({
+        samples: newSamples.map((s) => ({
           storage_key: s.key, filename: s.filename,
           content_type: s.content_type, size_bytes: s.size_bytes,
         })),
@@ -194,7 +238,7 @@ export function RequestNewPage() {
     onSuccess: (r, publish) => {
       void qc.invalidateQueries({ queryKey: ["requests"] });
       toast(
-        publish ? "Request published" : "Draft saved",
+        publish ? "Request published" : id ? "Draft updated" : "Draft saved",
         publish ? "Every delivery partner has been notified." : `${r.reference_code} is waiting in your requests.`,
         "success",
       );
@@ -203,23 +247,28 @@ export function RequestNewPage() {
     onError: (e) => setError(e instanceof Error ? e.message : "Save failed"),
   });
 
-  const validateStep = (): string | null => {
-    if (step === 0 && !d.title.trim()) return "Give the request a title.";
-    if (step === 1 && !d.spec_quantity.trim()) return "Say how much you need — partners cannot price a blank quantity.";
+  // Every problem on this step, not the first one found: fixing one field and
+  // being told about the next is a worse form than being told both at once.
+  const validateStep = (): string[] => {
+    const problems: string[] = [];
+    if (step === 0 && !d.title.trim()) problems.push("Give the request a title.");
+    if (step === 0 && !d.category.trim()) problems.push("Choose a category.");
+    if (step === 1 && !d.spec_quantity.trim())
+      problems.push("Say how much you need — partners cannot price a blank quantity.");
     if ((step === 1 || step === 4) && samples.some((s) => s.status === "uploading"))
-      return "Wait for sample uploads to finish.";
+      problems.push("Wait for sample uploads to finish.");
     if (step === 3) {
       if (d.budget_min && d.budget_max && Number(d.budget_max) < Number(d.budget_min))
-        return "Budget maximum must be at least the minimum.";
+        problems.push("Budget maximum must be at least the minimum.");
       if (d.starts_on && d.delivery_due_on && d.delivery_due_on < d.starts_on)
-        return "Delivery must be on or after the start.";
+        problems.push("Delivery must be on or after the start.");
     }
-    return null;
+    return problems;
   };
 
   const next = () => {
-    const problem = validateStep();
-    if (problem) return setError(problem);
+    const problems = validateStep();
+    if (problems.length) return setError(problems.join(" "));
     setError(null);
     setStep((s) => Math.min(s + 1, STEPS.length - 1));
   };
@@ -262,7 +311,7 @@ export function RequestNewPage() {
             <Field label="Acceptance criteria" span hint="Frozen into the contract at award — disputes are arbitrated against this.">
               {(id) => <textarea id={id} className={textareaCls} rows={2} value={d.acceptance} onChange={set("acceptance")} placeholder="95% or better pass on the automated blur check; 5% manual audit sample" />}
             </Field>
-            <Field label="Sample data (optional)" span hint={`Up to ${MAX_SAMPLES} files, 25 MB each — partners download these to gauge the work.`}>
+            <Field label="Sample data (optional)" span hint={`Reference material, not the deliverable — a spec sheet, a style guide, examples of what good looks like. Up to ${MAX_SAMPLES} files, 25 MB each.`}>
               {() => (
                 <FileField
                   label="Attach sample files"
@@ -439,7 +488,7 @@ export function RequestDetailPage() {
                     <td className="small muted">{s.content_type ?? "—"}</td>
                     <td className="num">{(s.size_bytes / (1024 * 1024)).toFixed(s.size_bytes < 1024 * 1024 ? 2 : 1)} MB</td>
                     <td className="num">{fmtDate(s.uploaded_at)}</td>
-                    <td className="rowactions">
+                    <td className="right"><div className="rowactions">
                       <Button
                         size="sm"
                         onClick={() => {
@@ -450,6 +499,7 @@ export function RequestDetailPage() {
                       >
                         Download
                       </Button>
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -496,11 +546,12 @@ export function RequestDetailPage() {
                       <td style={{ maxWidth: 380 }}>{p.methodology}</td>
                       <td><Pill tone={pm.tone}>{pm.label}</Pill></td>
                       {isClient && (
-                        <td className="rowactions">
+                        <td className="right"><div className="rowactions">
                           <Button size="sm" onClick={() => setViewing(p)}>Profile</Button>
                           {canAward && p.status === "submitted" && (
                             <Button size="sm" variant="primary" onClick={() => setAwarding(p)}>Award</Button>
                           )}
+                          </div>
                         </td>
                       )}
                     </tr>
@@ -653,7 +704,7 @@ export function OpportunitiesPage() {
                     <td>{titleCase(r.category)}</td>
                     <td className="num">{money(r.budget_min)} – {money(r.budget_max)}</td>
                     <td className="num">{fmtDate(r.delivery_due_on)}</td>
-                    <td className="rowactions"><Link className="btn" data-size="sm" to={`/requests/${r.id}`}>Brief</Link></td>
+                    <td className="right"><div className="rowactions"><Link className="btn" data-size="sm" to={`/requests/${r.id}`}>Brief</Link></div></td>
                   </tr>
                 ))}
               </tbody>
@@ -718,7 +769,7 @@ export function MyProposalsPage() {
                       <td className="num">{money(p.price)}</td>
                       <td className="num">{p.duration_days}</td>
                       <td><Pill tone={pm.tone}>{pm.label}</Pill></td>
-                      <td className="rowactions" onClick={(e) => e.stopPropagation()}>
+                      <td className="right" onClick={(e) => e.stopPropagation()}><div className="rowactions">
                         <RowMenu
                           label={`Actions for ${p.reference_code}`}
                           items={[
@@ -735,6 +786,7 @@ export function MyProposalsPage() {
                               : []),
                           ]}
                         />
+                        </div>
                       </td>
                     </tr>
                   );

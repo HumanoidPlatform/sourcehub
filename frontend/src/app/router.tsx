@@ -53,6 +53,8 @@ export function AppRouter() {
         {/* marketplace */}
         <Route path="/requests" element={<RequestsPage />} />
         <Route path="/requests/new" element={<RequestNewPage />} />
+        {/* same builder, loading an existing draft */}
+        <Route path="/requests/:id/edit" element={<RequestNewPage />} />
         <Route path="/requests/:id" element={<RequestDetailPage />} />
         <Route path="/opportunities" element={<OpportunitiesPage />} />
         <Route path="/proposals" element={<MyProposalsPage />} />

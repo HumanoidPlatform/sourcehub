@@ -320,6 +320,48 @@ async def create_request(
     return out
 
 
+async def update_request(
+    session: AsyncSession, claims: AccessClaims, request_id: uuid.UUID,
+    data: dict[str, Any], samples: list[dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    """Edit a draft. Only a draft — once published, partners are pricing
+    against these words and changing them under a live bid is a different
+    feature with a different name.
+    """
+    r = (
+        await session.execute(
+            select(Request).where(Request.id == request_id, Request.deleted_at.is_(None))
+        )
+    ).scalar_one_or_none()
+    if r is None:
+        raise LookupError("request not found")
+    if r.client_org_id != claims.org_id:
+        raise MarketplaceError("Only the client that raised a request may edit it.")
+    if r.status != "draft":
+        raise MarketplaceError("Only a draft can be edited.")
+
+    fields = {k: (data.get(k) or v) for k, v in _DEFAULTS.items()}
+    for k, v in fields.items():
+        setattr(r, k, v)
+    r.title = data["title"]
+    r.category = data["category"]
+    r.people_headcount = int(data.get("people_headcount") or 0)
+    r.budget_min = data.get("budget_min")
+    r.budget_max = data.get("budget_max")
+    r.starts_on = data.get("starts_on")
+    r.delivery_due_on = data.get("delivery_due_on")
+    r.residency_region = data.get("residency_region")
+    r.updated_by = claims.user_id
+    await session.flush()
+
+    sample_rows = await _attach_samples(session, claims, r, samples) if samples else []
+    await audit.log(session, "request.edited", f"Edited draft {r.reference_code}, {r.title}",
+                    [r.id, claims.org_id])
+    out = _row(r, r.status, 0)
+    out["samples"] = sample_rows
+    return out
+
+
 async def _announce_publish(session: AsyncSession, claims: AccessClaims, r: Request) -> None:
     await audit.log(
         session, "request.published",
