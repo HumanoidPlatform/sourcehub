@@ -12,7 +12,16 @@ import { assetStatus, captureStatus, meta, TONE_COLOR } from "@/status";
 import { C, s } from "@/ui";
 import { useUploadProgress } from "@/upload/progress";
 
-export function Gallery({ local, remote }: { local: CaptureRow[]; remote: AssetRow[] }) {
+export function Gallery({
+  local,
+  remote,
+  onRemove,
+}: {
+  local: CaptureRow[];
+  remote: AssetRow[];
+  /** Drop a capture before submitting. Undefined once the batch has gone. */
+  onRemove?: (opts: { captureId?: string; assetId?: string }) => void;
+}) {
   const localAssetIds = new Set(local.map((r) => r.asset_id).filter(Boolean));
   const localSha = new Set(local.map((r) => r.sha256).filter(Boolean));
   const remoteOnly = remote.filter((a) => !localAssetIds.has(a.id) && !localSha.has(a.sha256));
@@ -21,13 +30,27 @@ export function Gallery({ local, remote }: { local: CaptureRow[]; remote: AssetR
   }
   return (
     <View style={g.grid}>
-      {local.map((r) => <LocalTile key={r.id} row={r} />)}
-      {remoteOnly.map((a) => <RemoteTile key={a.id} asset={a} />)}
+      {local.map((r) => <LocalTile key={r.id} row={r} onRemove={onRemove} />)}
+      {remoteOnly.map((a) => <RemoteTile key={a.id} asset={a} onRemove={onRemove} />)}
     </View>
   );
 }
 
-function LocalTile({ row }: { row: CaptureRow }) {
+function RemoveButton({ onPress }: { onPress: () => void }) {
+  return (
+    <Pressable
+      onPress={onPress}
+      hitSlop={8}
+      accessibilityRole="button"
+      accessibilityLabel="Remove this capture"
+      style={g.remove}
+    >
+      <Text style={g.removeText}>×</Text>
+    </Pressable>
+  );
+}
+
+function LocalTile({ row, onRemove }: { row: CaptureRow; onRemove?: (o: { captureId?: string; assetId?: string }) => void }) {
   const progress = useUploadProgress();
   const m = meta(captureStatus, row.status);
   const pct = row.status === "uploading" ? Math.round((progress.get(row.id) ?? 0) * 100) : null;
@@ -43,11 +66,14 @@ function LocalTile({ row }: { row: CaptureRow }) {
       {row.status === "failed" && row.last_error ? (
         <Text numberOfLines={2} style={g.err}>{row.last_error}</Text>
       ) : null}
+      {onRemove && (
+        <RemoveButton onPress={() => onRemove({ captureId: row.id, assetId: row.asset_id ?? undefined })} />
+      )}
     </View>
   );
 }
 
-function RemoteTile({ asset }: { asset: AssetRow }) {
+function RemoteTile({ asset, onRemove }: { asset: AssetRow; onRemove?: (o: { captureId?: string; assetId?: string }) => void }) {
   const [wanted, setWanted] = useState(false);
   const viewable = asset.status === "ready";
   const url = useAssetUrl(asset.id, wanted && viewable);
@@ -69,6 +95,7 @@ function RemoteTile({ asset }: { asset: AssetRow }) {
         <View style={[g.img, g.ph]}><Text style={{ color: C.muted, fontSize: 20 }}>{isVideo ? "▶" : viewable ? "…" : "◌"}</Text></View>
       )}
       <Tag tone={m.tone} text={m.label} />
+      {onRemove && <RemoveButton onPress={() => onRemove({ assetId: asset.id })} />}
     </Pressable>
   );
 }
@@ -83,6 +110,11 @@ function Tag({ tone, text }: { tone: keyof typeof TONE_COLOR; text: string }) {
 }
 
 const g = StyleSheet.create({
+  remove: {
+    position: "absolute", top: 4, right: 4, width: 24, height: 24, borderRadius: 12,
+    backgroundColor: "rgba(0,0,0,0.62)", alignItems: "center", justifyContent: "center",
+  },
+  removeText: { color: "#fff", fontSize: 15, lineHeight: 17, fontWeight: "600" },
   grid: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
   tile: { width: "31%", aspectRatio: 1, borderRadius: 8, overflow: "hidden", backgroundColor: "#E7ECF0", borderWidth: 1, borderColor: C.line },
   img: { width: "100%", height: "100%" },

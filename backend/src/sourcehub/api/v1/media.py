@@ -67,6 +67,20 @@ async def confirm(
         raise _map(e) from None
 
 
+@router.delete("/assets/{asset_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def discard(
+    asset_id: uuid.UUID,
+    principal: Principal = Depends(require_capability("asset.upload")),
+    session: AsyncSession = Depends(get_session),
+):
+    """Drop a capture before submitting. The worker's own, and only while the
+    assignment is still in progress."""
+    try:
+        await media.discard_asset(session, principal, asset_id)
+    except (LookupError, media.MediaError) as e:
+        raise _map(e) from None
+
+
 @router.get("/assignments/{assignment_id}/assets")
 async def assignment_assets(
     assignment_id: uuid.UUID,

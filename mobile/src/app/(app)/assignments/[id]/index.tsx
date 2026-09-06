@@ -5,9 +5,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert, Text, TextInput, View } from "react-native";
-import { ApiError, post } from "@/api/client";
+import { ApiError, del, post } from "@/api/client";
 import type { Assignment, AssetRow } from "@/api/types";
-import { discardCapture, discardFailed, retryCapture, retryFailed, type CaptureRow } from "@/db/outbox";
+import { deleteCapture, discardCapture, discardFailed, retryCapture, retryFailed, type CaptureRow } from "@/db/outbox";
 import { deleteLocal } from "@/capture/files";
 import { useAssignmentAssets, useAssignments, useOutbox } from "@/query/hooks";
 import { assignmentStatus, meta } from "@/status";
@@ -51,6 +51,30 @@ export default function AssignmentDetail() {
   const m = meta(assignmentStatus, a.status);
   const unit = a.task.target_unit ?? "units";
   const spec = a.task.capture_spec ?? {};
+  // Remove a capture the worker does not want to send. The local row goes
+  // either way; the uploaded asset needs the server too, and freeing that slot
+  // is what lets them shoot a replacement against a full quota.
+  const removeCapture = ({ captureId, assetId }: { captureId?: string; assetId?: string }) => {
+    Alert.alert("Remove this capture?", "It will not be sent for review.", [
+      { text: "Keep", style: "cancel" },
+      {
+        text: "Remove",
+        style: "destructive",
+        onPress: () => {
+          void (async () => {
+            try {
+              if (assetId) await del(`/assets/${assetId}`);
+              if (captureId) await deleteCapture(captureId);
+              await Promise.all([assets.refetch(), list.refetch()]);
+            } catch (e) {
+              Alert.alert("Could not remove it", e instanceof Error ? e.message : "Try again.");
+            }
+          })();
+        },
+      },
+    ]);
+  };
+
   const pendingLocal = outbox.filter((r) => r.status !== "confirmed" && r.status !== "failed").length;
   const failedRows = outbox.filter((r) => r.status === "failed");
   const failedLocal = failedRows.length;
@@ -195,7 +219,11 @@ export default function AssignmentDetail() {
       )}
 
       <Text style={[s.label, { marginBottom: 8, marginTop: 6 }]}>Captures</Text>
-      <Gallery local={outbox} remote={(assets.data ?? []) as AssetRow[]} />
+      <Gallery
+        local={outbox}
+        remote={(assets.data ?? []) as AssetRow[]}
+        onRemove={a.status === "in_progress" || a.status === "rejected" ? removeCapture : undefined}
+      />
     </Screen>
   );
 }

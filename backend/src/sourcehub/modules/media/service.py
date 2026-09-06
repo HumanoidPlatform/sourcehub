@@ -149,7 +149,7 @@ async def _assignment_for_upload(
         await session.execute(
             text(
                 "SELECT ta.id, ta.task_id, ta.contract_id, ta.supplier_org_id, "
-                "       ta.worker_user_id, ta.status, "
+                "       ta.worker_user_id, ta.status, ta.quantity, "
                 "       t.target_unit, t.capture_spec "
                 "FROM task_assignment ta JOIN task t ON t.id = ta.task_id "
                 "WHERE ta.id = :a"
@@ -247,6 +247,14 @@ async def presign_capture(
     ).scalar_one()
     if n >= MAX_ASSETS_PER_ASSIGNMENT:
         raise MediaError(f"An assignment holds at most {MAX_ASSETS_PER_ASSIGNMENT} captures.")
+    # The aggregator asked for a number of units and reviews every one of them.
+    # Refusing here rather than at submit costs the worker a message instead of
+    # an upload over a field connection.
+    if a.get("quantity") and n >= a["quantity"]:
+        raise MediaError(
+            f"This assignment is for {a['quantity']} captures and already has {n}. "
+            "Remove one before adding another."
+        )
 
     asset_id = uuid.uuid4()
     key = f"captures/{a['contract_id']}/{a['task_id']}/{assignment_id}/{asset_id}/{safe}"
@@ -426,6 +434,37 @@ async def attach_to_submission(
         {"s": submission_id, "t": task_id},
     )
     return int(result.rowcount or 0)
+
+
+async def discard_asset(
+    session: AsyncSession, claims: AccessClaims, asset_id: uuid.UUID
+) -> None:
+    """Remove a capture the worker does not want to send.
+
+    Soft delete: the row stays for the audit trail, ready_count stops counting
+    it, and the slot frees for a replacement. Only the worker who captured it,
+    and only while the assignment is still theirs to change.
+    """
+    row = (
+        await session.execute(
+            text(
+                "SELECT a.id, ta.worker_user_id, ta.status "
+                "FROM asset a JOIN task_assignment ta ON ta.id = a.assignment_id "
+                "WHERE a.id = :id AND a.deleted_at IS NULL"
+            ),
+            {"id": asset_id},
+        )
+    ).mappings().one_or_none()
+    if row is None:
+        raise LookupError("asset not found")
+    if row["worker_user_id"] != claims.user_id:
+        raise MediaError("Only the worker who captured it can remove it.")
+    if row["status"] != "in_progress":
+        raise MediaError("A submitted assignment cannot be changed.")
+    await session.execute(
+        text("UPDATE asset SET deleted_at = now(), updated_at = now() WHERE id = :id"),
+        {"id": asset_id},
+    )
 
 
 async def ready_count(session: AsyncSession, assignment_id: uuid.UUID) -> int:
