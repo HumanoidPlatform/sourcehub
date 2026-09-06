@@ -16,6 +16,14 @@
 # is the one difference that is supposed to be there.
 set -eu
 
+# Git Bash rewrites anything that looks like a unix path before handing it to a
+# native binary, which turns the -v mount below into nonsense: the scratch
+# container then starts with no db/*.sql at all, comes up empty, and every
+# object in the real database reads as drift. Belongs in the script, not in the
+# caller's environment, because the caller has no way to know.
+export MSYS_NO_PATHCONV=1
+export MSYS2_ARG_CONV_EXCL='*'
+
 # Run from the repo root and keep paths relative: an absolute MSYS path
 # (/c/Users/...) reaches docker compose on Windows as a bad C: path.
 cd "$(dirname "$0")/.."
