@@ -185,6 +185,22 @@ async def record_completion(
                 "Milestone 2 of 2 due on delivery approval",
                 [(receivable, "debit", remainder), (escrow, "credit", remainder)],
             )
+        # The award invoice is labelled "1 of 2". Without this row the second
+        # half moved through the ledger and the client was never billed for it
+        # on paper — a promise in the first invoice's own name, unkept.
+        if remainder > 0:
+            await session.execute(
+                text(
+                    "INSERT INTO invoice (reference_code, contract_id, party_org_id, "
+                    "kind, amount, status) "
+                    "VALUES (:ref, :c, :p, :kind, :amt, 'pending')"
+                ),
+                {
+                    "ref": await _next_invoice_ref(session),
+                    "c": contract_id, "p": client_org_id,
+                    "kind": "Milestone 2 of 2", "amt": remainder,
+                },
+            )
         await _transaction(
             session, contract_id, "invoice",
             "Contract value settled by the client",

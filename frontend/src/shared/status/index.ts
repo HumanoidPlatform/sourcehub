@@ -21,7 +21,7 @@ export const requestStatus: StatusMap = {
   draft: { label: "Draft", tone: "neutral", owner: "client" },
   published: { label: "Published", tone: "active", owner: "partner" },
   proposals_received: { label: "Proposals received", tone: "attention", owner: "client" },
-  accepted: { label: "Accepted", tone: "active", owner: "partner" },
+  accepted: { label: "Awarded", tone: "active", owner: "partner" },
   in_progress: { label: "In progress", tone: "active", owner: "partner" },
   delivered: { label: "Delivered", tone: "attention", owner: "client" },
   completed: { label: "Completed", tone: "success", owner: null },

@@ -430,8 +430,14 @@ export function RequestDetailPage() {
   const meta = statusMeta(requestStatus, r.status);
   const isClient = session.org_kind === "client";
   const proposals = r.proposals ?? [];
-  const lowest = proposals.length ? Math.min(...proposals.map((p) => Number(p.price))) : null;
-  const fastest = proposals.length ? Math.min(...proposals.map((p) => p.duration_days)) : null;
+  // Only badge an outright winner. On a tie every tied bid gets the chip,
+  // which is the opposite of a comparison aid.
+  const prices = proposals.map((p) => Number(p.price));
+  const days = proposals.map((p) => p.duration_days);
+  const minPrice = prices.length ? Math.min(...prices) : null;
+  const minDays = days.length ? Math.min(...days) : null;
+  const lowest = prices.filter((x) => x === minPrice).length === 1 ? minPrice : null;
+  const fastest = days.filter((x) => x === minDays).length === 1 ? minDays : null;
   const canAward = isClient && ["published", "proposals_received"].includes(r.status);
   // a withdrawn bid does not count: the partner may propose again, and the
   // server revives that row rather than refusing (submit_proposal).
