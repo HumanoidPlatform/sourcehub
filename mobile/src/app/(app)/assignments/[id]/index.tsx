@@ -13,7 +13,7 @@ import { useAssignmentAssets, useAssignments, useOutbox } from "@/query/hooks";
 import { assignmentStatus, meta } from "@/status";
 import { Button, C, Callout, Field, Meter, Pill, Screen, inputStyle, s } from "@/ui";
 import { uploader } from "@/upload/uploader";
-import { Gallery } from "./gallery";
+import { Gallery } from "@/components/Gallery";
 
 export default function AssignmentDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
