@@ -459,8 +459,13 @@ async def discard_asset(
         raise LookupError("asset not found")
     if row["worker_user_id"] != claims.user_id:
         raise MediaError("Only the worker who captured it can remove it.")
-    if row["status"] != "in_progress":
-        raise MediaError("A submitted assignment cannot be changed.")
+    # 'rejected' means sent back for rework, and removing the frame the
+    # aggregator objected to is the whole point of that round. Capture already
+    # treats the two alike — the phone restarts the assignment on the way in.
+    if row["status"] not in ("in_progress", "rejected"):
+        raise MediaError(
+            "This batch is with your aggregator. You can change it if it comes back."
+        )
     await session.execute(
         text("UPDATE asset SET deleted_at = now(), updated_at = now() WHERE id = :id"),
         {"id": asset_id},
