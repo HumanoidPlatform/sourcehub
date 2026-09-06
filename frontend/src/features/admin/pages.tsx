@@ -104,9 +104,14 @@ export function ActivityPage() {
           <div className="timeline">
             {(activity.data ?? []).map((a) => (
               <div key={a.id} className="event">
-                <div>{a.summary}</div>
-                <div className="cell-meta">
-                  <span className="mono">{a.event_type}</span> · {fmtDateTime(a.occurred_at)}
+                <span className="spine" aria-hidden="true" />
+                <span className="dot" aria-hidden="true">·</span>
+                <div>
+                  <div className="what">{a.summary}</div>
+                  <div className="who">
+                    <span className="mono">{a.event_type}</span>
+                    <span>{fmtDateTime(a.occurred_at)}</span>
+                  </div>
                 </div>
               </div>
             ))}

@@ -287,6 +287,24 @@ async def create_task(
     if c.status not in ("active",):
         raise DeliveryError(f"A {c.status} contract cannot take new tasks.")
 
+    # A task due after the contract's own delivery date cannot be delivered on
+    # time by definition, and the partner is the one who answers for the miss.
+    if due_on is not None:
+        contract_due = (
+            await session.execute(
+                text(
+                    "SELECT r.delivery_due_on FROM contract c "
+                    "JOIN request r ON r.id = c.request_id WHERE c.id = :cid"
+                ),
+                {"cid": contract_id},
+            )
+        ).scalar_one_or_none()
+        if contract_due is not None and due_on > contract_due:
+            raise DeliveryError(
+                f"A task cannot be due after the contract's delivery date "
+                f"({contract_due.isoformat()})."
+            )
+
     # "Only partners in your own network appear here" — enforced, not hinted.
     ok = (
         await session.execute(

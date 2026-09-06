@@ -30,31 +30,55 @@ export function ContractsPage() {
         ? "Work in flight against your requests. Approving a delivery releases payment."
         : "Break each contract into tasks; deliver once every task clears QA."}
     >
-      {(contracts.data ?? []).length === 0 ? (
-        <Panel><Empty title={isClient ? "Nothing in delivery" : "No contracts yet"} hint={isClient ? "Award a proposal to open a contract." : "Win a proposal to open one."} /></Panel>
-      ) : (
-        (contracts.data ?? []).map((c) => {
-          const meta = statusMeta(contractStatus, c.status);
-          return (
-            <Panel
-              key={c.id}
-              title={<Link to={isClient ? `/deliveries/${c.id}` : `/contracts/${c.id}`}>{c.title ?? c.reference_code}</Link>}
-              sub={<span className="id">{c.reference_code} · {isClient ? c.partner_name : c.client_name}</span>}
-              actions={<Pill tone={meta.tone}>{meta.label}</Pill>}
-            >
-              <div className="g4">
-                <Metric label="Contract value" value={money(c.value)} />
-                <Metric label="Tasks cleared" value={`${c.progress.done} / ${c.progress.total}`} />
-                <Metric label="Assets accepted" value={c.progress.assets_accepted} />
-                <Metric label="Delivery due" value={fmtDate(c.delivery_due_on)} />
-              </div>
-              <div style={{ marginTop: 12 }}>
-                <Meter pct={c.progress.pct} tone={c.progress.pct === 100 ? "success" : undefined} />
-              </div>
-            </Panel>
-          );
-        })
-      )}
+      {/* One row per contract, like every other list in the product. Expanded
+          cards were unreadable past two or three and buried the one thing you
+          scan for — which contract needs attention. The detail page has the
+          metrics; this page has to be scannable. */}
+      <Panel>
+        {(contracts.data ?? []).length === 0 ? (
+          <Empty
+            title={isClient ? "Nothing in delivery" : "No contracts yet"}
+            hint={isClient ? "Award a proposal to open a contract." : "Win a proposal to open one."}
+          />
+        ) : (
+          <TableWrap>
+            <table>
+              <thead>
+                <tr>
+                  <th>Reference</th><th>Title</th><th>{isClient ? "Partner" : "Client"}</th>
+                  <th>Value</th><th>Tasks</th><th>Progress</th><th>Delivery due</th>
+                  <th>Status</th><th />
+                </tr>
+              </thead>
+              <tbody>
+                {(contracts.data ?? []).map((c) => {
+                  const meta = statusMeta(contractStatus, c.status);
+                  const to = isClient ? `/deliveries/${c.id}` : `/contracts/${c.id}`;
+                  return (
+                    <tr key={c.id}>
+                      <td className="id">{c.reference_code}</td>
+                      <td className="cell-primary">{c.title ?? c.reference_code}</td>
+                      <td>{isClient ? c.partner_name : c.client_name}</td>
+                      <td className="num" style={{ whiteSpace: "nowrap" }}>{money(c.value)}</td>
+                      <td className="num">{c.progress.done} / {c.progress.total}</td>
+                      <td style={{ minWidth: 96 }}>
+                        <Meter pct={c.progress.pct} tone={c.progress.pct === 100 ? "success" : undefined} />
+                      </td>
+                      <td className="num" style={{ whiteSpace: "nowrap" }}>{fmtDate(c.delivery_due_on)}</td>
+                      <td><Pill tone={meta.tone}>{meta.label}</Pill></td>
+                      <td className="right">
+                        <div className="rowactions">
+                          <Link className="btn" data-size="sm" to={to}>Open</Link>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </TableWrap>
+        )}
+      </Panel>
     </View>
   );
 }
@@ -170,9 +194,15 @@ export function ContractDetailPage() {
         <Panel title="Audit trail">
           <div className="timeline">
             {(trail.data ?? []).map((a) => (
+              // .event is a 22px dot column plus content. Without the dot the
+              // summary lands in the 22px track, one word per line.
               <div key={a.id} className="event">
-                <div>{a.summary}</div>
-                <div className="cell-meta">{fmtDateTime(a.occurred_at)}</div>
+                <span className="spine" aria-hidden="true" />
+                <span className="dot" aria-hidden="true">·</span>
+                <div>
+                  <div className="what">{a.summary}</div>
+                  <div className="who">{fmtDateTime(a.occurred_at)}</div>
+                </div>
               </div>
             ))}
             {!trail.data?.length && <p className="muted small">Nothing yet.</p>}
@@ -184,8 +214,12 @@ export function ContractDetailPage() {
         <Panel title="Ratings">
           {(c.ratings ?? []).map((r) => (
             <div key={r.id} className="event">
-              <b>{r.from_name} → {r.to_name}: {r.score}/5</b>
-              <div className="small muted">{r.comment}</div>
+              <span className="spine" aria-hidden="true" />
+              <span className="dot" aria-hidden="true">·</span>
+              <div>
+                <div className="what"><b>{r.from_name} → {r.to_name}: {r.score}/5</b></div>
+                <div className="who">{r.comment}</div>
+              </div>
             </div>
           ))}
         </Panel>
