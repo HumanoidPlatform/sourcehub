@@ -32,6 +32,9 @@ const NAV: Record<string, NavItem[]> = {
     { to: "/contracts", label: "Contracts" },
     { to: "/network", label: "Network" },
     { to: "/qa", label: "QA and delivery" },
+    // what the partner is owed and what the platform took — the invoices
+    // exist against this org, and until now nothing linked to them
+    { to: "/billing", label: "Billing" },
   ],
   aggregator: [
     { to: "/", label: "Overview" },

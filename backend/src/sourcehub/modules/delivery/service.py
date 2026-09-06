@@ -399,8 +399,14 @@ async def submit_task(
             {"t": task_id},
         )
     ).scalar_one()
-    if n_assign == 0 and asset_count is None:
-        raise DeliveryError("asset_count is required for a task with no worker assignments.")
+    if n_assign == 0:
+        # A supplier with no crowd — a business partner — states the count
+        # itself. Zero is not a delivery: the partner would open a submission
+        # with nothing in it to review.
+        if asset_count is None:
+            raise DeliveryError("asset_count is required for a task with no worker assignments.")
+        if asset_count < 1:
+            raise DeliveryError("A submission needs at least one asset.")
     if n_assign:
         blockers = (
             await session.execute(
@@ -848,6 +854,46 @@ async def deliver_contract(
     await audit.log(
         session, "contract.delivered",
         f"Delivered {c.reference_code} to the client",
+        [c.id, c.request_id, c.client_org_id, c.partner_org_id],
+    )
+    return await _contract_row(session, c)
+
+
+async def dispute_delivery(
+    session: AsyncSession, claims: AccessClaims, contract_id: uuid.UUID, reason: str
+) -> dict[str, Any]:
+    """The client's other answer to a delivery.
+
+    Approval releases the money, so refusing had to be possible: without it the
+    only way to reject work was to withhold approval silently and leave the
+    partner guessing. The contract goes back to active, which is the state that
+    accepts new tasks and a later re-delivery — a dispute is a round of rework,
+    not a terminus.
+    """
+    c = (
+        await session.execute(select(Contract).where(Contract.id == contract_id))
+    ).scalar_one_or_none()
+    if c is None:
+        raise LookupError("contract not found")
+    if c.client_org_id != claims.org_id:
+        raise DeliveryError("Only the client can dispute a delivery.")
+    if c.status != "delivered":
+        raise DeliveryError(f"A {c.status} contract cannot be disputed.")
+    if not reason.strip():
+        raise DeliveryError("Say what is wrong with the delivery.")
+
+    c.status = "active"
+    c.disputed_at = dt.datetime.now(dt.timezone.utc)
+    c.delivered_at = None
+    c.updated_by = claims.user_id
+    await notifier.notify(
+        session, c.partner_org_id,
+        f"{c.reference_code} was sent back: {reason}",
+        "contracts", {"id": str(c.id)},
+    )
+    await audit.log(
+        session, "contract.disputed",
+        f"Client sent {c.reference_code} back: {reason}",
         [c.id, c.request_id, c.client_org_id, c.partner_org_id],
     )
     return await _contract_row(session, c)

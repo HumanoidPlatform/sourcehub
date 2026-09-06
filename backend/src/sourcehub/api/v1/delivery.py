@@ -298,6 +298,26 @@ async def deliver(
         raise _conflict(e) from None
 
 
+class DisputeIn(BaseModel):
+    reason: str = Field(min_length=3)
+
+
+@router.post("/contracts/{contract_id}/dispute")
+async def dispute(
+    contract_id: uuid.UUID,
+    body: DisputeIn,
+    principal: Principal = Depends(require_capability("contract.approve")),
+    session: AsyncSession = Depends(get_session),
+):
+    """The client sends a delivery back instead of releasing payment."""
+    try:
+        return await delivery.dispute_delivery(session, principal, contract_id, body.reason)
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Contract not found") from None
+    except delivery.DeliveryError as e:
+        raise _conflict(e) from None
+
+
 @router.post("/contracts/{contract_id}/approve")
 async def approve(
     contract_id: uuid.UUID,

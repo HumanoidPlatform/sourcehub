@@ -353,15 +353,36 @@ function ApproveDialog({ contract, onClose }: { contract: Contract; onClose: () 
     onError: (e) => setError(e instanceof Error ? e.message : "Could not approve"),
   });
 
+  // Approval is irreversible and releases money, so the client needs a way to
+  // say no. Without one the only refusal was silence, and the partner had no
+  // idea what to fix.
+  const dispute = useMutation({
+    mutationFn: () => post(`/contracts/${contract.id}/dispute`, { reason: comment }),
+    onSuccess: () => {
+      void qc.invalidateQueries();
+      toast("Sent back", `${contract.partner_name} has been told what to change.`, "attention");
+      onClose();
+    },
+    onError: (e) => setError(e instanceof Error ? e.message : "Could not send it back"),
+  });
+
   return (
     <Dialog
-      title="Approve the delivery"
+      title="Review the delivery"
       sub={`${contract.title} · ${money(contract.value)}`}
       onClose={onClose}
       foot={
         <>
           <Button onClick={onClose}>Cancel</Button>
-          <Button variant="success" disabled={!comment.trim() || approve.isPending} onClick={() => approve.mutate()}>
+          <Button
+            variant="danger"
+            disabled={!comment.trim() || dispute.isPending || approve.isPending}
+            title={comment.trim() ? undefined : "Say what needs to change"}
+            onClick={() => dispute.mutate()}
+          >
+            Send back
+          </Button>
+          <Button variant="success" disabled={!comment.trim() || approve.isPending || dispute.isPending} onClick={() => approve.mutate()}>
             Approve and release payment
           </Button>
         </>
