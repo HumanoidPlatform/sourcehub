@@ -146,8 +146,9 @@ export function ContractDetailPage() {
                       <td className="num">{t.last_submission?.asset_count ?? 0}</td>
                       <td className="num">{fmtDate(t.due_on)}</td>
                       <td><Pill tone={tm.tone}>{tm.label}</Pill></td>
-                      <td className="rowactions" onClick={(e) => e.stopPropagation()}>
+                      <td className="right" onClick={(e) => e.stopPropagation()}><div className="rowactions">
                         <Button size="sm" onClick={() => setViewingTask(t)}>Details</Button>
+                        </div>
                       </td>
                     </tr>
                   );
@@ -500,7 +501,7 @@ export function TasksPage() {
                       <td style={{ maxWidth: 260 }} className="small muted">
                         {t.status === "qa_failed" ? <QaNote taskId={t.id} /> : t.last_submission?.supplier_note ?? "—"}
                       </td>
-                      <td className="rowactions" onClick={(e) => e.stopPropagation()}>
+                      <td className="right" onClick={(e) => e.stopPropagation()}><div className="rowactions">
                         <Button size="sm" onClick={() => setViewing(t)}>Details</Button>
                         {isAggregator && (
                           <Button size="sm" onClick={() => setWorkersFor(t)}>Workers</Button>
@@ -513,6 +514,7 @@ export function TasksPage() {
                             {isAggregator ? "Submit to partner" : "Submit"}
                           </Button>
                         )}
+                        </div>
                       </td>
                     </tr>
                   );

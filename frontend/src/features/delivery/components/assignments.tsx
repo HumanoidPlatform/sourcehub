@@ -268,7 +268,7 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
                     <td><Pill tone={m.tone}>{m.label}</Pill></td>
                     <td className="num">{a.submitted_at ? fmtDateTime(a.submitted_at) : fmtDate(a.due_on) === "—" ? "—" : `due ${fmtDate(a.due_on)}`}</td>
                     <td style={{ maxWidth: 240 }} className="small muted">{a.status === "rejected" ? a.decision_note : a.worker_note ?? "—"}</td>
-                    <td className="rowactions">
+                    <td className="right"><div className="rowactions">
                       {a.status === "submitted" && (
                         <Button size="sm" variant="primary" onClick={() => setDeciding(a)}>Review</Button>
                       )}
@@ -278,6 +278,7 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
                       {a.status === "accepted" && task.status === "qa_failed" && (
                         <Button size="sm" disabled={act.isPending} onClick={() => act.mutate({ id: a.id, action: "reopen" })}>Send back</Button>
                       )}
+                      </div>
                     </td>
                   </tr>
                 );

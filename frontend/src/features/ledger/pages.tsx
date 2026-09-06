@@ -87,8 +87,9 @@ export function BillingPage() {
                       <td className="num">{money(i.amount, i.currency)}</td>
                       <td className="num">{fmtDate(i.issued_on)}</td>
                       <td><Pill tone={m.tone}>{m.label}</Pill></td>
-                      <td className="rowactions" onClick={(e) => e.stopPropagation()}>
+                      <td className="right" onClick={(e) => e.stopPropagation()}><div className="rowactions">
                         <Button size="sm" onClick={() => setViewing(i)}>Details</Button>
+                        </div>
                       </td>
                     </tr>
                   );

@@ -65,7 +65,7 @@ function QueueTable({ rows, onOpen }: { rows: OnboardingRow[]; onOpen: (r: Onboa
                 <td>{titleCase(r.target_org_kind)}</td>
                 <td className="num">{fmtDateTime(r.submitted_at)}</td>
                 <td><Pill tone={m.tone}>{m.label}</Pill></td>
-                <td className="rowactions"><Button size="sm" onClick={() => onOpen(r)}>Open</Button></td>
+                <td className="right"><div className="rowactions"><Button size="sm" onClick={() => onOpen(r)}>Open</Button></div></td>
               </tr>
             );
           })}

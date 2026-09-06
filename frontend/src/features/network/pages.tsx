@@ -158,12 +158,13 @@ export function NetworkPage() {
                       <td className="small muted" style={{ maxWidth: 340 }}>
                         {r.approvals?.at(-1)?.reason ?? "—"}
                       </td>
-                      <td className="rowactions">
+                      <td className="right"><div className="rowactions">
                         {r.status === "changes_requested" && (
                           <Button size="sm" variant="primary" onClick={() => setEditing(r)}>
                             Edit and resubmit
                           </Button>
                         )}
+                        </div>
                       </td>
                     </tr>
                   );
@@ -233,7 +234,7 @@ export function NetworkPage() {
                       )}
                       {tab === "sponsor" && <td>{(o.profile.contact_email as string) ?? "—"}</td>}
                       <td><Pill tone={m.tone}>{m.label}</Pill></td>
-                      <td className="rowactions" onClick={(e) => e.stopPropagation()}>
+                      <td className="right" onClick={(e) => e.stopPropagation()}><div className="rowactions">
                         <Button size="sm" onClick={() => setViewing(o)}>Details</Button>
                         <Button
                           size="sm"
@@ -247,6 +248,7 @@ export function NetworkPage() {
                         >
                           Remove
                         </Button>
+                        </div>
                       </td>
                     </tr>
                   );
@@ -484,7 +486,7 @@ export function EquipmentPage() {
                       <td className="num">{e.units_available}</td>
                       <td className="num">{fmtDate(e.calibrated_on)}</td>
                       <td><Pill tone={m.tone}>{m.label}</Pill></td>
-                      <td className="rowactions" onClick={(ev) => ev.stopPropagation()}>
+                      <td className="right" onClick={(ev) => ev.stopPropagation()}><div className="rowactions">
                         <Button size="sm" onClick={() => setViewingEq(e)}>Details</Button>
                         {isSponsor ? (
                           <Button size="sm" onClick={() => {
@@ -499,6 +501,7 @@ export function EquipmentPage() {
                             Request
                           </Button>
                         )}
+                        </div>
                       </td>
                     </tr>
                   );
@@ -529,8 +532,9 @@ export function EquipmentPage() {
                         <td className="num">{fmtDate(l.needed_by)}</td>
                         <td><Pill tone={m.tone}>{m.label}</Pill></td>
                         <td className="small muted">{l.decision_reason ?? "—"}</td>
-                        <td className="rowactions" onClick={(ev) => ev.stopPropagation()}>
+                        <td className="right" onClick={(ev) => ev.stopPropagation()}><div className="rowactions">
                           <Button size="sm" onClick={() => setViewingLoan(l)}>Details</Button>
+                          </div>
                         </td>
                       </tr>
                     );
@@ -704,7 +708,7 @@ export function LoanQueuePage() {
                       <td className="num">{fmtDate(l.needed_by)}</td>
                       <td className="small" style={{ maxWidth: 220 }}>{l.note ?? "—"}</td>
                       <td><Pill tone={m.tone}>{m.label}</Pill></td>
-                      <td className="rowactions" onClick={(ev) => ev.stopPropagation()}>
+                      <td className="right" onClick={(ev) => ev.stopPropagation()}><div className="rowactions">
                         <Button size="sm" onClick={() => setViewing(l)}>Details</Button>
                         {l.status === "pending" && (
                           <>
@@ -718,6 +722,7 @@ export function LoanQueuePage() {
                         {["approved", "issued", "overdue"].includes(l.status) && (
                           <Button size="sm" onClick={() => decide.mutate({ id: l.id, decision: "returned" })}>Mark returned</Button>
                         )}
+                        </div>
                       </td>
                     </tr>
                   );
@@ -797,7 +802,7 @@ export function RosterPage() {
                       <td>{w.skill ?? "—"}</td>
                       <td><Pill tone={inv.tone}>{inv.label}</Pill></td>
                       <td><Pill tone={m.tone}>{m.label}</Pill></td>
-                      <td className="rowactions" onClick={(ev) => ev.stopPropagation()}>
+                      <td className="right" onClick={(ev) => ev.stopPropagation()}><div className="rowactions">
                         <Button size="sm" onClick={() => setViewing(w)}>Details</Button>
                         {canResend && (
                           <Button size="sm" disabled={resend.isPending} onClick={() => resend.mutate(w.id)}>Resend invite</Button>
@@ -812,6 +817,7 @@ export function RosterPage() {
                             </Button>
                           </>
                         )}
+                        </div>
                       </td>
                     </tr>
                   );

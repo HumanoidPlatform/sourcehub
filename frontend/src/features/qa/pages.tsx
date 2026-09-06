@@ -50,8 +50,9 @@ export function QaQueuePage() {
                     <td className="num">{r.asset_count}</td>
                     <td style={{ maxWidth: 300 }} className="small">{r.supplier_note ?? "—"}</td>
                     <td className="num">{fmtDateTime(r.submitted_at)}</td>
-                    <td className="rowactions">
+                    <td className="right"><div className="rowactions">
                       <Button size="sm" variant="primary" onClick={() => setDeciding(r)}>Review</Button>
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -170,8 +171,9 @@ export function Gate1Page() {
                     <td className="num">{r.ready_assets}</td>
                     <td style={{ maxWidth: 300 }} className="small">{r.worker_note ?? "—"}</td>
                     <td className="num">{fmtDateTime(r.submitted_at)}</td>
-                    <td className="rowactions">
+                    <td className="right"><div className="rowactions">
                       <Button size="sm" variant="primary" onClick={() => setDeciding(r)}>Review</Button>
+                      </div>
                     </td>
                   </tr>
                 ))}

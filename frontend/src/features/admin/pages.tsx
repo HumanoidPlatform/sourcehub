@@ -75,8 +75,9 @@ function OrgTable({ rows, cols }: { rows: Org[]; cols: [string, (o: Org) => Reac
                 <td className="num">{o.rating ?? "—"}</td>
                 <td>{o.billing_status ?? "—"}</td>
                 <td><Pill tone={m.tone}>{m.label}</Pill></td>
-                <td className="rowactions" onClick={(e) => e.stopPropagation()}>
+                <td className="right" onClick={(e) => e.stopPropagation()}><div className="rowactions">
                   <Button size="sm" onClick={() => setViewing(o)}>Details</Button>
+                  </div>
                 </td>
               </tr>
             );
