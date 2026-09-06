@@ -540,8 +540,14 @@ async def my_proposals(session: AsyncSession, claims: AccessClaims) -> list[dict
     rows = (
         await session.execute(
             text(
-                "SELECT p.*, r.title AS request_title, r.reference_code AS request_ref "
+                # The client join is an ordinary RLS-scoped one: it resolves
+                # because Fix 9 (db/110_auth_functions.sql) makes the buyer
+                # visible to the partner that bid to it. LEFT, so a policy
+                # change can never silently drop a partner's own proposals.
+                "SELECT p.*, r.title AS request_title, r.reference_code AS request_ref, "
+                "       r.client_org_id, o.name AS client_name "
                 "FROM proposal p JOIN request r ON r.id = p.request_id "
+                "LEFT JOIN organisation o ON o.id = r.client_org_id "
                 "WHERE p.partner_org_id = :org AND p.deleted_at IS NULL "
                 "ORDER BY p.submitted_at DESC"
             ),

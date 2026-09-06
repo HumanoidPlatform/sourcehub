@@ -428,7 +428,10 @@ def _profile_dict(profile: Any, *, commercials: bool = True) -> dict[str, Any]:
         return {}
     hidden = {"org_id", "created_at", "updated_at"}
     if not commercials:
-        hidden.add("plan")  # tenant_profile.plan — the partner's platform tier
+        # The organisation's terms WITH THE PLATFORM: what tier they bought and
+        # whether they have signed the DPA. A counterparty is entitled to know
+        # who they are dealing with, not how they are billed for it.
+        hidden |= {"plan", "dpa_signed", "dpa_signed_at"}
     return {
         c.key: getattr(profile, c.key) for c in profile.__table__.columns if c.key not in hidden
     }

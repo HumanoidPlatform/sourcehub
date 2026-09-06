@@ -315,3 +315,42 @@ CREATE POLICY submission_update_reviewer ON submission FOR UPDATE
   WITH CHECK (EXISTS (SELECT 1 FROM task t JOIN contract c ON c.id = t.contract_id
                        WHERE t.id = submission.task_id
                          AND c.partner_org_id = current_org_id()));
+
+-- ---------------------------------------------------------------------------
+-- Fix 9 — the client is visible to the partner that bids to it.
+--
+-- The mirror of Fix 4, and a deliberate widening of the confidentiality model
+-- rather than a repair. Fix 4 made the marketplace one-directional: the client
+-- learned who bid, the bidder learned the client only on award, through
+-- org_visible_via_contract. A partner comparing opportunities has the same
+-- need in reverse — who is buying, in what industry, since when — and the
+-- console cannot show it while the client's row is invisible.
+--
+-- The cost is real and accepted: bidding now discloses the buyer, so a partner
+-- can enumerate clients by proposing on requests it has no intention of
+-- winning. If that becomes a problem the answer is rate-limiting or reputation,
+-- not re-hiding the row, because the console would go dark with it.
+--
+-- Scope: the organisation and its client_profile, and only for a client this
+-- org has actually bid to. Withdrawn and rejected bids still count — having
+-- bid is the durable fact, exactly as in Fix 4 and Fix 6.
+-- ---------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION org_visible_via_my_proposal(p_org_id uuid) RETURNS boolean
+LANGUAGE sql STABLE SECURITY DEFINER SET search_path = public AS $fn$
+  SELECT EXISTS (
+    SELECT 1 FROM request r
+    JOIN proposal p ON p.request_id = r.id
+    WHERE r.client_org_id = p_org_id
+      AND p.partner_org_id = current_org_id()
+      AND p.deleted_at IS NULL
+  )
+$fn$;
+
+REVOKE EXECUTE ON FUNCTION org_visible_via_my_proposal(uuid) FROM PUBLIC;
+GRANT  EXECUTE ON FUNCTION org_visible_via_my_proposal(uuid) TO sourcehub_app, sourcehub_readonly;
+
+CREATE POLICY organisation_select_my_clients ON organisation FOR SELECT
+  USING (org_visible_via_my_proposal(id));
+
+CREATE POLICY client_profile_select_my_clients ON client_profile FOR SELECT
+  USING (org_visible_via_my_proposal(org_id));
