@@ -8,7 +8,7 @@ import { get } from "@api/client";
 import type { InvoiceRow } from "@api/types";
 import { Button, Dialog, Dl, Empty, Metric, Panel, Pill, TableWrap, View } from "@ds/primitives";
 import { useSession } from "@shared/auth";
-import { fmtDate, fmtDateTime, money, titleCase } from "@shared/format";
+import { fmtDate, fmtDateTime, money } from "@shared/format";
 import { invoiceStatus, statusMeta } from "@shared/status";
 
 function InvoiceDetailDialog({ i, isOps, onClose }: { i: InvoiceRow; isOps: boolean; onClose: () => void }) {
@@ -16,13 +16,13 @@ function InvoiceDetailDialog({ i, isOps, onClose }: { i: InvoiceRow; isOps: bool
   return (
     <Dialog
       title={`Invoice ${i.reference_code}`}
-      sub={<span className="id">{i.reference_code}</span>}
+      sub={i.contract_ref ? <span className="id">{i.contract_ref}</span> : undefined}
       onClose={onClose}
       foot={<Button onClick={onClose}>Close</Button>}
     >
       <Dl rows={[
         ...(isOps ? ([["Party", i.party_name ?? "—"]] as [string, React.ReactNode][]) : []),
-        ["Kind", titleCase(i.kind)],
+        ["Kind", i.kind],
         ["Amount", money(i.amount, i.currency)],
         ["Issued", fmtDate(i.issued_on)],
         ["Paid", i.paid_at ? fmtDateTime(i.paid_at) : "Not yet"],

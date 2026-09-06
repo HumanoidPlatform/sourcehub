@@ -45,12 +45,19 @@ export function Panel({
   title,
   sub,
   actions,
+  tabs,
+  flush,
   children,
   foot,
 }: {
   title?: ReactNode;
   sub?: ReactNode;
   actions?: ReactNode;
+  /** A [role="tablist"]. The prototype frames tabs as the panel head, which is
+   *  where [role="tablist"]'s border-bottom and s-4 inset come from. */
+  tabs?: ReactNode;
+  /** Drop the body padding, for a table or a tabbed body that owns its own. */
+  flush?: boolean;
   children: ReactNode;
   foot?: ReactNode;
 }) {
@@ -58,14 +65,17 @@ export function Panel({
     <section className="panel">
       {title !== undefined && (
         <header className="panel-head">
-          <div style={{ minWidth: 0 }}>
+          {/* .titles carries flex:1 — without the class the head needs a
+              margin-left:auto hack on the actions to push them right. */}
+          <div className="titles">
             <h2 style={{ margin: 0, fontSize: 14.5 }}>{title}</h2>
-            {sub && <div className="small muted">{sub}</div>}
+            {sub && <span className="sub">{sub}</span>}
           </div>
-          {actions && <div style={{ marginLeft: "auto" }} className="btnrow">{actions}</div>}
+          {actions && <div className="btnrow">{actions}</div>}
         </header>
       )}
-      <div className="panel-body">{children}</div>
+      {tabs}
+      <div className={flush ? "panel-body flush" : "panel-body"}>{children}</div>
       {foot && <footer className="panel-foot">{foot}</footer>}
     </section>
   );
@@ -262,6 +272,98 @@ export function Dl({ rows }: { rows: [string, ReactNode][] }) {
   );
 }
 
+/* --- row menu ---------------------------------------------------------------- */
+
+// The prototype has no row-actions menu — its rows carry inline size="sm"
+// buttons — so this is a deliberate new pattern rather than a port. It lives
+// here because focus, Escape and outside-click are design-system concerns.
+//
+// Positioned FIXED, not absolute like .pop's own rule: a row menu lives inside
+// .tablewrap, whose overflow-x:auto computes overflow-y to auto and would clip
+// an absolutely-positioned child. Fixed escapes that, since no ancestor
+// establishes a containing block.
+export function RowMenu({
+  label = "Actions",
+  items,
+}: {
+  label?: string;
+  items: { label: string; onSelect: () => void; tone?: "danger" }[];
+}) {
+  const [at, setAt] = useState<{ top: number; left: number } | null>(null);
+  const btnRef = useRef<HTMLButtonElement>(null);
+  const popRef = useRef<HTMLDivElement>(null);
+  const WIDTH = 200;
+
+  useEffect(() => {
+    if (!at) return;
+    const close = () => setAt(null);
+    const onDoc = (e: MouseEvent) => {
+      const t = e.target as Node;
+      if (!popRef.current?.contains(t) && !btnRef.current?.contains(t)) close();
+    };
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && (close(), btnRef.current?.focus());
+    document.addEventListener("mousedown", onDoc);
+    document.addEventListener("keydown", onKey);
+    // fixed coordinates go stale the moment anything moves underneath
+    window.addEventListener("scroll", close, true);
+    window.addEventListener("resize", close);
+    return () => {
+      document.removeEventListener("mousedown", onDoc);
+      document.removeEventListener("keydown", onKey);
+      window.removeEventListener("scroll", close, true);
+      window.removeEventListener("resize", close);
+    };
+  }, [at]);
+
+  const open = () => {
+    const r = btnRef.current?.getBoundingClientRect();
+    if (r) setAt({ top: r.bottom + 6, left: Math.max(8, r.right - WIDTH) });
+  };
+
+  return (
+    <>
+      <button
+        ref={btnRef}
+        type="button"
+        className="iconbtn"
+        aria-haspopup="menu"
+        aria-expanded={at !== null}
+        aria-label={label}
+        onClick={() => (at ? setAt(null) : open())}
+      >
+        ⋯
+      </button>
+      {at && (
+        <div
+          ref={popRef}
+          className="pop"
+          role="menu"
+          aria-label={label}
+          style={{ position: "fixed", top: at.top, left: at.left, width: WIDTH }}
+        >
+          <div className="pop-list">
+            {items.map((it) => (
+              <button
+                key={it.label}
+                type="button"
+                role="menuitem"
+                className="pop-item"
+                style={it.tone === "danger" ? { color: "var(--t-critical)" } : undefined}
+                onClick={() => {
+                  setAt(null);
+                  it.onSelect();
+                }}
+              >
+                <span className="txt">{it.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
 /* --- dialog ------------------------------------------------------------------ */
 
 export function Dialog({
@@ -283,7 +385,13 @@ export function Dialog({
 
   useEffect(() => {
     const el = ref.current;
-    el?.querySelector<HTMLElement>("input, select, textarea, button")?.focus();
+    // Focus the first field a person would actually fill. In a read-only
+    // dialog there is none, and the first button is the header's Close — so
+    // focusing "the first focusable" put focus on the control that dismisses
+    // the dialog, ringed it, and made Enter close it on arrival. Fall back to
+    // the dialog itself, which the focus trap below keeps hold of.
+    const first = el?.querySelector<HTMLElement>("input, select, textarea");
+    (first ?? el)?.focus();
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
       // a minimal focus trap: tab cycles inside the dialog
@@ -314,7 +422,19 @@ export function Dialog({
     // the overlay conditionally instead, so it must mount already-open, or
     // every dialog in the app renders invisible.
     <div className="overlay" data-open="" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
-      <div className="dialog" data-size={size} role="dialog" aria-modal="true" aria-label={title} ref={ref}>
+      <div
+        className="dialog"
+        data-size={size}
+        role="dialog"
+        aria-modal="true"
+        aria-label={title}
+        // focused on open so the trap has somewhere to start; it is not
+        // tab-reachable, so suppressing its ring costs keyboard users
+        // nothing — the controls inside still show theirs.
+        tabIndex={-1}
+        style={{ outline: "none" }}
+        ref={ref}
+      >
         <header className="dialog-head">
           {/* .titles is load-bearing: .dialog-head has no justify-content, so
               its flex:1 is the only thing pushing the close button right. */}

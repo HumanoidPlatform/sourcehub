@@ -133,22 +133,6 @@ export function NetworkPage() {
       sub="Registered under you — Cosarathi does not bill these accounts. New entries need platform approval."
       actions={<Button variant="primary" onClick={() => setRequesting(true)}>Request onboarding</Button>}
     >
-      <div className="btnrow" role="tablist">
-        {(Object.keys(KIND_LABEL) as NetKind[]).map((k) => (
-          <button
-            key={k}
-            type="button"
-            role="tab"
-            aria-selected={tab === k}
-            className="btn"
-            data-variant={tab === k ? "primary" : undefined}
-            onClick={() => setTab(k)}
-          >
-            {KIND_LABEL[k]}
-          </button>
-        ))}
-      </div>
-
       {openRequests.length > 0 && (
         <Panel title="Awaiting platform approval" sub="The request goes to Cosarathi operations; you are notified of the decision.">
           <TableWrap>
@@ -173,7 +157,29 @@ export function NetworkPage() {
         </Panel>
       )}
 
-      <Panel title={KIND_LABEL[tab]}>
+      {/* no title: the active tab already names the table, and the prototype
+          frames the tablist as the panel head rather than sitting under one. */}
+      <Panel
+        flush
+        tabs={
+          <div role="tablist" aria-label="Network type">
+            {(Object.keys(KIND_LABEL) as NetKind[]).map((k) => (
+              <button
+                key={k}
+                type="button"
+                role="tab"
+                id={`tab_${k}`}
+                aria-selected={tab === k}
+                aria-controls="netpanel"
+                onClick={() => setTab(k)}
+              >
+                {KIND_LABEL[k]}
+              </button>
+            ))}
+          </div>
+        }
+      >
+        <div id="netpanel" role="tabpanel" aria-labelledby={`tab_${tab}`}>
         {(orgs.data ?? []).length === 0 ? (
           <Empty title={`No ${KIND_LABEL[tab].toLowerCase()} yet`} hint="Request onboarding and the platform reviews it." />
         ) : (
@@ -232,6 +238,7 @@ export function NetworkPage() {
             </table>
           </TableWrap>
         )}
+        </div>
       </Panel>
 
       {requesting && <OnboardRequestDialog kind={tab} onClose={() => setRequesting(false)} />}

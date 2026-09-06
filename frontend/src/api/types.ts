@@ -27,6 +27,14 @@ export interface TenantProfile {
   since: string | null;
 }
 
+// client_profile, as GET /organisations/{id} returns it. `plan`, `dpa_signed`
+// and `dpa_signed_at` are deliberately absent: the API withholds the client's
+// terms with the platform from anyone but Ops and the client itself.
+export interface ClientProfile {
+  industry: string | null;
+  since: string | null;
+}
+
 export interface Rfp {
   id: string;
   reference_code: string;
@@ -88,6 +96,8 @@ export interface Proposal {
   submitted_at: string;
   request_title?: string;
   request_ref?: string;
+  client_org_id?: string;
+  client_name?: string | null;
 }
 
 export interface Progress {

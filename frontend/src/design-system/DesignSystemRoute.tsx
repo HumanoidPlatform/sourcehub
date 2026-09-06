@@ -1,7 +1,7 @@
 // The design system as a live route, generated from real code — the same
 // primitives every screen uses, so it cannot drift into a stale style guide.
 
-import { Button, Callout, Dl, Empty, Meter, Metric, Panel, Pill, StageRail, View } from "@ds/primitives";
+import { Button, Callout, Dl, Empty, Meter, Metric, Panel, Pill, RowMenu, StageRail, View } from "@ds/primitives";
 import { LIFECYCLE, requestStatus, statusMeta, taskStatus } from "@shared/status";
 
 const TONES = ["neutral", "active", "attention", "success", "critical"] as const;
@@ -44,6 +44,18 @@ export function DesignSystemRoute() {
         <Panel title="Meter"><Meter pct={64} /><div style={{ height: 8 }} /><Meter pct={100} tone="success" /></Panel>
         <Panel title="Callout"><Callout tone="attention" title="Waiting on a human decision">The attention tone means exactly this.</Callout></Panel>
       </div>
+
+      <Panel title="Row menu" sub="For table rows with more than one or two actions. Positioned fixed, so it escapes the scroll clipping of .tablewrap.">
+        <div className="rowactions">
+          <RowMenu
+            label="Example row actions"
+            items={[
+              { label: "View details", onSelect: () => {} },
+              { label: "Withdraw", tone: "danger", onSelect: () => {} },
+            ]}
+          />
+        </div>
+      </Panel>
 
       <Panel title="Lifecycle rail">
         <StageRail stages={LIFECYCLE} current="in_progress" />

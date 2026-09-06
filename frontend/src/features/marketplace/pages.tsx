@@ -5,9 +5,9 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { get, post, putFile } from "@api/client";
-import type { Proposal, Rfp, SamplePresign } from "@api/types";
+import type { ClientProfile, Org, Proposal, Rfp, SamplePresign } from "@api/types";
 import {
-  Button, Callout, Dialog, Dl, Empty, Field, FileField, inputCls, Panel, Pill,
+  Button, Callout, Dialog, Dl, Empty, Field, FileField, inputCls, Panel, Pill, RowMenu,
   StageRail, TableWrap, textareaCls, useToast, View,
 } from "@ds/primitives";
 import { useSession } from "@shared/auth";
@@ -481,10 +481,14 @@ export function RequestDetailPage() {
                     <tr key={p.id}>
                       <td className="cell-primary">
                         {p.partner_name ?? "—"}
-                        <div className="cell-meta">
-                          {Number(p.price) === lowest && <span className="chip">Lowest price</span>}{" "}
-                          {p.duration_days === fastest && <span className="chip">Fastest</span>}
-                        </div>
+                        {/* comparison, not decoration: meaningless to a partner
+                            who sees only its own bid, and to a sole bid. */}
+                        {isClient && proposals.length > 1 && (
+                          <div className="cell-meta">
+                            {Number(p.price) === lowest && <span className="chip">Lowest price</span>}{" "}
+                            {p.duration_days === fastest && <span className="chip">Fastest</span>}
+                          </div>
+                        )}
                       </td>
                       <td className="num">{money(p.price)}</td>
                       <td className="num">{p.duration_days}</td>
@@ -684,12 +688,13 @@ function ProposalDetailDialog({ p, onClose }: { p: Proposal; onClose: () => void
 }
 
 export function MyProposalsPage() {
+  const [viewing, setViewing] = useState<Proposal | null>(null);
+  const [viewingBrief, setViewingBrief] = useState<Proposal | null>(null);
   const mine = useQuery({ queryKey: ["proposals-mine"], queryFn: () => get<Proposal[]>("/proposals/mine") });
   const withdraw = useMutation({
     mutationFn: (pid: string) => post(`/proposals/${pid}/withdraw`),
   });
   const qc = useQueryClient();
-  const [viewing, setViewing] = useState<Proposal | null>(null);
   const wins = useMemo(
     () => (mine.data ?? []).filter((p) => p.status === "accepted").length,
     [mine.data],
@@ -714,12 +719,22 @@ export function MyProposalsPage() {
                       <td className="num">{p.duration_days}</td>
                       <td><Pill tone={pm.tone}>{pm.label}</Pill></td>
                       <td className="rowactions" onClick={(e) => e.stopPropagation()}>
-                        <Button size="sm" onClick={() => setViewing(p)}>Details</Button>
-                        {p.status === "submitted" && (
-                          <Button size="sm" onClick={() => withdraw.mutate(p.id, { onSuccess: () => void qc.invalidateQueries({ queryKey: ["proposals-mine"] }) })}>
-                            Withdraw
-                          </Button>
-                        )}
+                        <RowMenu
+                          label={`Actions for ${p.reference_code}`}
+                          items={[
+                            { label: "View bid", onSelect: () => setViewing(p) },
+                            { label: "View client & request", onSelect: () => setViewingBrief(p) },
+                            ...(p.status === "submitted"
+                              ? [{
+                                  label: "Withdraw",
+                                  tone: "danger" as const,
+                                  onSelect: () => withdraw.mutate(p.id, {
+                                    onSuccess: () => void qc.invalidateQueries({ queryKey: ["proposals-mine"] }),
+                                  }),
+                                }]
+                              : []),
+                          ]}
+                        />
                       </td>
                     </tr>
                   );
@@ -730,6 +745,88 @@ export function MyProposalsPage() {
         )}
       </Panel>
       {viewing && <ProposalDetailDialog p={viewing} onClose={() => setViewing(null)} />}
+      {viewingBrief && (
+        <ClientAndRequestDialog proposal={viewingBrief} onClose={() => setViewingBrief(null)} />
+      )}
     </View>
+  );
+}
+
+/* --- the client and the RFP behind one of my proposals ------------------------ */
+// Distinct from ProposalDetailDialog above, which shows the bid's own terms:
+// this answers "who is buying, and what did they actually ask for".
+
+// Two independent reads, both arbitrated by RLS: request_select_bidder keeps the
+// RFP visible to whoever bid on it, and Fix 9 makes the buyer visible the same
+// way. Either can 404, and a 404 means exactly "not yours to see".
+function ClientAndRequestDialog({ proposal, onClose }: { proposal: Proposal; onClose: () => void }) {
+  const rfp = useQuery({
+    queryKey: ["request", proposal.request_id],
+    queryFn: () => get<Rfp>(`/requests/${proposal.request_id}`),
+  });
+  const client = useQuery({
+    queryKey: ["org", proposal.client_org_id],
+    queryFn: () => get<Org>(`/organisations/${proposal.client_org_id}`),
+    enabled: !!proposal.client_org_id,
+  });
+
+  const r = rfp.data;
+  const o = client.data;
+  const cp = (o?.profile ?? {}) as Partial<ClientProfile>;
+  const pm = statusMeta(proposalStatus, proposal.status);
+
+  return (
+    <Dialog
+      title={proposal.request_title ?? proposal.request_ref ?? "Proposal"}
+      sub={
+        <>
+          <span className="id">{proposal.reference_code}</span>
+          {" · "}{money(proposal.price)} · {proposal.duration_days} days{" "}
+          <Pill tone={pm.tone}>{pm.label}</Pill>
+        </>
+      }
+      onClose={onClose}
+      foot={<Button onClick={onClose}>Close</Button>}
+    >
+      <Panel title="Client">
+        {client.isError ? (
+          <Callout tone="critical" title="Client not available">
+            A buyer is visible to you through your proposal. If it has been withdrawn from the
+            record, so has your view of them.
+          </Callout>
+        ) : !o ? (
+          <p className="muted">Loading…</p>
+        ) : (
+          <Dl rows={[
+            ["Name", o.name],
+            ["Reference", o.reference_code],
+            ["Country", o.country ?? "—"],
+            ["Industry", cp.industry ?? "—"],
+            ["Client since", fmtDate(cp.since)],
+          ]} />
+        )}
+      </Panel>
+
+      <Panel title="The request">
+        {rfp.isError ? (
+          <Callout tone="critical" title="Request not available" />
+        ) : !r ? (
+          <p className="muted">Loading…</p>
+        ) : (
+          <Dl rows={[
+            ["Reference", r.reference_code],
+            ["Category", titleCase(r.category)],
+            ["Format", r.spec.format ?? "—"],
+            ["Quantity", r.spec.quantity ?? "—"],
+            ["Quality bar", r.spec.quality ?? "—"],
+            ["Acceptance", r.acceptance ?? "—"],
+            ["Budget", `${money(r.budget_min)} – ${money(r.budget_max)}`],
+            ["Timeline", `${fmtDate(r.starts_on)} → ${fmtDate(r.delivery_due_on)}`],
+            ["Geography", r.geography ?? "—"],
+            ["Compliance", r.compliance_notes ?? "—"],
+          ]} />
+        )}
+      </Panel>
+    </Dialog>
   );
 }
