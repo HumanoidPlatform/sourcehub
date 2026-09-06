@@ -119,14 +119,40 @@ async def _get_asset(session: AsyncSession, asset_id: uuid.UUID) -> dict[str, An
     return _asset_dict(row) if row else None
 
 
+def _allowed_kinds(capture_spec: dict[str, Any] | None, target_unit: str | None) -> set[str]:
+    """What this task will accept.
+
+    capture_spec.media is the explicit answer where the partner set one. Where
+    they did not, the unit the task was written in is the answer: a task for
+    "2 photos" is not satisfied by a video, and letting one through means the
+    aggregator reviews it and the client is billed for it.
+    """
+    media = (capture_spec or {}).get("media")
+    if media in ("photo", "photos", "image"):
+        return {"image"}
+    if media in ("video", "videos"):
+        return {"video"}
+    if media == "both":
+        return {"image", "video"}
+    unit = (target_unit or "").lower()
+    if unit.startswith("photo") or unit.startswith("image"):
+        return {"image"}
+    if unit.startswith("video") or unit.startswith("clip"):
+        return {"video"}
+    return {"image", "video"}
+
+
 async def _assignment_for_upload(
     session: AsyncSession, claims: AccessClaims, assignment_id: uuid.UUID
 ) -> dict[str, Any]:
     a = (
         await session.execute(
             text(
-                "SELECT id, task_id, contract_id, supplier_org_id, worker_user_id, status "
-                "FROM task_assignment WHERE id = :a"
+                "SELECT ta.id, ta.task_id, ta.contract_id, ta.supplier_org_id, "
+                "       ta.worker_user_id, ta.status, "
+                "       t.target_unit, t.capture_spec "
+                "FROM task_assignment ta JOIN task t ON t.id = ta.task_id "
+                "WHERE ta.id = :a"
             ),
             {"a": assignment_id},
         )
@@ -172,6 +198,10 @@ async def presign_capture(
     if not _SHA256.match(sha):
         raise MediaInvalid("sha256 must be 64 hex characters.")
     safe, kind = _safe_filename(filename)
+    allowed = _allowed_kinds(a.get("capture_spec"), a.get("target_unit"))
+    if kind not in allowed:
+        want = " or ".join(sorted(allowed))
+        raise MediaInvalid(f"This task takes {want} captures; that file is a {kind}.")
     cap = MAX_VIDEO_BYTES if kind == "video" else MAX_IMAGE_BYTES
     if size_bytes <= 0 or size_bytes > cap:
         raise MediaInvalid(f"A {kind} capture is capped at {cap // (1024 * 1024)} MB.")

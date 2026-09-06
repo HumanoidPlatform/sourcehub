@@ -723,6 +723,13 @@ async def submit_assignment(
     n = await media.ready_count(session, a.id)
     if n < 1:
         raise DeliveryError("Upload at least one file before submitting.")
+    # The assignment carries the number of units this worker was given. Sending
+    # it short pushes the shortfall onto the aggregator's review, where it costs
+    # a rework round to discover.
+    if a.quantity and n < a.quantity:
+        raise DeliveryError(
+            f"{a.quantity} required, {n} uploaded — capture {a.quantity - n} more before submitting."
+        )
 
     a.status = "submitted"
     a.submitted_at = dt.datetime.now(dt.timezone.utc)

@@ -7,7 +7,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import {
   ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View, type StyleProp, type ViewStyle,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import { TONE_COLOR, type Tone } from "@/status";
 
 export const C = {
@@ -117,9 +117,13 @@ export function useOnline(): boolean {
 
 export function OfflineBanner() {
   const online = useOnline();
+  // The banner sits above the navigator, so nothing else pads it away from the
+  // clock and battery. Without the inset it renders underneath them and the
+  // message is unreadable exactly when it matters.
+  const insets = useSafeAreaInsets();
   if (online) return null;
   return (
-    <View style={s.offline}>
+    <View style={[s.offline, { paddingTop: insets.top + 8 }]}>
       <Text style={s.offlineText}>Offline — captures are saved and will upload when you reconnect.</Text>
     </View>
   );
