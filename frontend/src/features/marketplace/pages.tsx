@@ -433,7 +433,11 @@ export function RequestDetailPage() {
   const lowest = proposals.length ? Math.min(...proposals.map((p) => Number(p.price))) : null;
   const fastest = proposals.length ? Math.min(...proposals.map((p) => p.duration_days)) : null;
   const canAward = isClient && ["published", "proposals_received"].includes(r.status);
-  const alreadyMine = proposals.some((p) => p.partner_org_id === session.org_id);
+  // a withdrawn bid does not count: the partner may propose again, and the
+  // server revives that row rather than refusing (submit_proposal).
+  const alreadyMine = proposals.some(
+    (p) => p.partner_org_id === session.org_id && p.status !== "withdrawn",
+  );
 
   return (
     <View
@@ -739,6 +743,7 @@ function ProposalDetailDialog({ p, onClose }: { p: Proposal; onClose: () => void
 }
 
 export function MyProposalsPage() {
+  const navigate = useNavigate();
   const [viewing, setViewing] = useState<Proposal | null>(null);
   const [viewingBrief, setViewingBrief] = useState<Proposal | null>(null);
   const mine = useQuery({ queryKey: ["proposals-mine"], queryFn: () => get<Proposal[]>("/proposals/mine") });
@@ -775,6 +780,9 @@ export function MyProposalsPage() {
                           items={[
                             { label: "View bid", onSelect: () => setViewing(p) },
                             { label: "View client & request", onSelect: () => setViewingBrief(p) },
+                            ...(p.status === "withdrawn"
+                              ? [{ label: "Propose again", onSelect: () => navigate(`/requests/${p.request_id}`) }]
+                              : []),
                             ...(p.status === "submitted"
                               ? [{
                                   label: "Withdraw",
