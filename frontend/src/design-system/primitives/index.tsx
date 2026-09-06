@@ -243,10 +243,13 @@ export function StageRail({ stages, current }: { stages: readonly string[]; curr
   return (
     <div className="stagerail">
       {stages.map((s, i) => (
-        <div key={s} className="stage" data-state={i < idx ? "done" : i === idx ? "here" : undefined}>
+        // .node and .name, not .dot and .small: the stylesheet styles the
+        // former (a numbered 24px circle and an 11.5px label) and has no rule
+        // for the latter, which left the rail as bare text on a track line.
+        <div key={s} className="stage" data-state={i < idx ? "done" : i === idx ? "here" : "todo"}>
           <span className="track" aria-hidden="true" />
-          <span className="dot" aria-hidden="true" />
-          <span className="small" style={{ fontWeight: i === idx ? 600 : 400 }}>{s.replace(/_/g, " ")}</span>
+          <span className="node" aria-hidden="true">{i < idx ? "✓" : i + 1}</span>
+          <span className="name">{s.replace(/_/g, " ")}</span>
         </div>
       ))}
     </div>

@@ -493,7 +493,32 @@ async def submit_proposal(
         )
     ).scalar_one_or_none()
     if existing is not None:
-        raise MarketplaceError("You have already proposed on this request.")
+        if existing.status != "withdrawn":
+            raise MarketplaceError("You have already proposed on this request.")
+        # A withdrawn bid is revived rather than replaced: the unique index is
+        # one row per partner per request, and withdrawing in order to rethink
+        # your price is the whole point of the button. Barring the partner from
+        # the request afterwards made Withdraw a trap.
+        existing.price = price
+        existing.duration_days = duration_days
+        existing.methodology = methodology
+        existing.notes = notes
+        existing.status = "submitted"
+        existing.submitted_at = dt.datetime.now(dt.timezone.utc)
+        existing.decided_at = None
+        existing.updated_by = claims.user_id
+        await session.flush()
+        await audit.log(
+            session, "proposal.submitted",
+            f"Resubmitted {existing.reference_code} on {r.reference_code}",
+            [existing.id, r.id, claims.org_id, r.client_org_id],
+        )
+        await notifier.notify(
+            session, r.client_org_id,
+            f"A revised proposal arrived on {r.title}.",
+            "requestDetail", {"id": str(r.id)},
+        )
+        return _proposal_row(existing)
 
     ref = (
         await session.execute(text("SELECT next_reference_code('PRO','seq_ref_proposal')"))
