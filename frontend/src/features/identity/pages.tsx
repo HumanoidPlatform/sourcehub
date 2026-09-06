@@ -2,7 +2,7 @@
 // forced password change.
 
 import { useMutation } from "@tanstack/react-query";
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { get, post, saveSession, type Session } from "@api/client";
 import { Button, Callout, Field, inputCls, useToast } from "@ds/primitives";
@@ -107,6 +107,7 @@ export function AcceptInvitationPage() {
   const [params] = useSearchParams();
   const token = params.get("token") ?? "";
   const navigate = useNavigate();
+  useSignOutForToken();
   const toast = useToast();
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
@@ -173,7 +174,19 @@ export function AcceptInvitationPage() {
   );
 }
 
+// An invitation or a reset link is addressed to a person, not to a browser.
+// If someone is already signed in here, end that session before the token flow
+// begins — otherwise the page renders behind a live session and finishing it
+// leaves two identities half-applied.
+function useSignOutForToken(): void {
+  const { session, logout } = useAuth();
+  useEffect(() => {
+    if (session) void logout();
+  }, [session, logout]);
+}
+
 export function ResetPasswordPage() {
+  useSignOutForToken();
   const [params] = useSearchParams();
   const token = params.get("token");
   const navigate = useNavigate();

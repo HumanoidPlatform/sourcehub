@@ -28,13 +28,24 @@ import { Shell } from "./shell/Shell";
 export function AppRouter() {
   const { session } = useAuth();
 
+  // Token links belong to whoever holds the token, not to whoever happens to
+  // be signed in on this browser. They lived on the anonymous surface only, so
+  // following one while signed in fell through to the catch-all and dropped
+  // you in your OWN workspace — which read as "the invitation worked", however
+  // stale, wrong, or addressed to someone else it was.
+  const tokenRoutes = (
+    <>
+      <Route path="/accept-invitation" element={<AcceptInvitationPage />} />
+      <Route path="/reset-password" element={<ResetPasswordPage />} />
+    </>
+  );
+
   // anonymous surface
   if (!session) {
     return (
       <Routes>
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/accept-invitation" element={<AcceptInvitationPage />} />
-        <Route path="/reset-password" element={<ResetPasswordPage />} />
+        {tokenRoutes}
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     );
@@ -49,6 +60,8 @@ export function AppRouter() {
     <Shell>
       <Routes>
         <Route path="/" element={<OverviewPage />} />
+
+        {tokenRoutes}
 
         {/* marketplace */}
         <Route path="/requests" element={<RequestsPage />} />
