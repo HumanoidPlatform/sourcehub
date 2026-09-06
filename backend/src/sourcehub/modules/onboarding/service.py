@@ -119,6 +119,28 @@ async def _announce_submission(
     )
 
 
+async def _approvals_for(session: AsyncSession, request_id: uuid.UUID) -> list[dict[str, Any]]:
+    """The decision trail, oldest first. Read by both the list and the detail:
+    the requester needs the latest reason to know what to change."""
+    rows = (
+        await session.execute(
+            select(OnboardingApproval)
+            .where(OnboardingApproval.request_id == request_id)
+            .order_by(OnboardingApproval.decided_at)
+        )
+    ).scalars().all()
+    return [
+        {
+            "step": a.step,
+            "decision": a.decision,
+            "reason": a.reason,
+            "approver_role": a.approver_role,
+            "decided_at": a.decided_at,
+        }
+        for a in rows
+    ]
+
+
 async def list_requests(
     session: AsyncSession, status: str | None = None
 ) -> list[dict[str, Any]]:
@@ -130,7 +152,15 @@ async def list_requests(
     if status:
         stmt = stmt.where(OnboardingRequest.status == status)
     rows = (await session.execute(stmt)).scalars().all()
-    return [_row(r) for r in rows]
+    # The requester's own list renders the latest reason, so the trail has to
+    # travel with the list and not only with the detail read — otherwise a
+    # returned request shows "changes requested" and no way to learn why.
+    out = []
+    for r in rows:
+        row = _row(r)
+        row["approvals"] = await _approvals_for(session, r.id)
+        out.append(row)
+    return out
 
 
 async def get_request(session: AsyncSession, request_id: uuid.UUID) -> dict[str, Any] | None:
@@ -139,24 +169,8 @@ async def get_request(session: AsyncSession, request_id: uuid.UUID) -> dict[str,
     ).scalar_one_or_none()
     if r is None:
         return None
-    approvals = (
-        await session.execute(
-            select(OnboardingApproval)
-            .where(OnboardingApproval.request_id == request_id)
-            .order_by(OnboardingApproval.decided_at)
-        )
-    ).scalars().all()
     out = _row(r)
-    out["approvals"] = [
-        {
-            "step": a.step,
-            "decision": a.decision,
-            "reason": a.reason,
-            "approver_role": a.approver_role,
-            "decided_at": a.decided_at,
-        }
-        for a in approvals
-    ]
+    out["approvals"] = await _approvals_for(session, request_id)
     return out
 
 

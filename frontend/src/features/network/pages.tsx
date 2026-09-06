@@ -3,7 +3,7 @@
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { get, post } from "@api/client";
+import { get, patch, post } from "@api/client";
 import type { EquipmentRow, LoanRow, OnboardingRow, Org, WorkerRow } from "@api/types";
 import {
   Button, Callout, Dialog, Dl, Empty, Field, inputCls, Metric, Panel, Pill,
@@ -97,9 +97,17 @@ const KIND_LABEL: Record<NetKind, string> = {
   sponsor: "Device sponsors",
 };
 
+// The singular of each tab, for the button that opens a request for THAT kind.
+const KIND_ONE: Record<NetKind, string> = {
+  aggregator: "an aggregator",
+  business: "a business partner",
+  sponsor: "a device sponsor",
+};
+
 export function NetworkPage() {
   const [tab, setTab] = useState<NetKind>("aggregator");
   const [requesting, setRequesting] = useState(false);
+  const [editing, setEditing] = useState<OnboardingRow | null>(null);
   const [viewing, setViewing] = useState<Org | null>(null);
   const qc = useQueryClient();
   const toast = useToast();
@@ -131,13 +139,13 @@ export function NetworkPage() {
     <View
       title="Network"
       sub="Registered under you — Cosarathi does not bill these accounts. New entries need platform approval."
-      actions={<Button variant="primary" onClick={() => setRequesting(true)}>Request onboarding</Button>}
+      actions={<Button variant="primary" onClick={() => setRequesting(true)}>Request {KIND_ONE[tab]}</Button>}
     >
       {openRequests.length > 0 && (
         <Panel title="Awaiting platform approval" sub="The request goes to Cosarathi operations; you are notified of the decision.">
           <TableWrap>
             <table>
-              <thead><tr><th>Reference</th><th>Proposed</th><th>Kind</th><th>Status</th><th>Latest reason</th></tr></thead>
+              <thead><tr><th>Reference</th><th>Proposed</th><th>Kind</th><th>Status</th><th>Latest reason</th><th /></tr></thead>
               <tbody>
                 {openRequests.map((r) => {
                   const m = statusMeta(onboardingStatus, r.status);
@@ -147,7 +155,16 @@ export function NetworkPage() {
                       <td className="cell-primary">{r.proposed_name}</td>
                       <td>{titleCase(r.target_org_kind)}</td>
                       <td><Pill tone={m.tone}>{m.label}</Pill></td>
-                      <td className="small muted">{r.approvals?.at(-1)?.reason ?? "—"}</td>
+                      <td className="small muted" style={{ maxWidth: 340 }}>
+                        {r.approvals?.at(-1)?.reason ?? "—"}
+                      </td>
+                      <td className="rowactions">
+                        {r.status === "changes_requested" && (
+                          <Button size="sm" variant="primary" onClick={() => setEditing(r)}>
+                            Edit and resubmit
+                          </Button>
+                        )}
+                      </td>
                     </tr>
                   );
                 })}
@@ -242,8 +259,96 @@ export function NetworkPage() {
       </Panel>
 
       {requesting && <OnboardRequestDialog kind={tab} onClose={() => setRequesting(false)} />}
+      {editing && <ResubmitDialog row={editing} onClose={() => setEditing(null)} />}
       {viewing && <OrgProfileDialog orgId={viewing.id} seedName={viewing.name} onClose={() => setViewing(null)} />}
     </View>
+  );
+}
+
+// Shape only. A typo in the domain is still a valid address and no amount of
+// checking here will catch it — that is what the invitation email proves.
+const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+// A returned request is editable and can go round again — update_draft and
+// submit_request both accept changes_requested. Until now the API allowed it
+// and the console offered no way to do it, so a returned request was a dead end.
+function ResubmitDialog({ row, onClose }: { row: OnboardingRow; onClose: () => void }) {
+  const p = (row.payload ?? {}) as Record<string, unknown>;
+  const [name, setName] = useState(row.proposed_name ?? "");
+  const [contactName, setContactName] = useState(row.contact?.full_name ?? "");
+  const [contactEmail, setContactEmail] = useState(row.contact?.email ?? "");
+  const [extra1, setExtra1] = useState(String(p.crowd_size ?? p.specialty ?? p.contact_email ?? ""));
+  const [extra2, setExtra2] = useState(String(p.region ?? p.capacity ?? ""));
+  const [error, setError] = useState<string | null>(null);
+  const toast = useToast();
+  const qc = useQueryClient();
+  const kind = row.target_org_kind as NetKind;
+  const why = row.approvals?.at(-1)?.reason;
+
+  const payload: Record<string, unknown> =
+    kind === "aggregator"
+      ? { crowd_size: Number(extra1) || 0, region: extra2 }
+      : kind === "business"
+        ? { specialty: extra1, capacity: extra2 }
+        : { contact_email: contactEmail };
+
+  const save = useMutation({
+    mutationFn: async () => {
+      await patch(`/onboarding/${row.id}`, {
+        proposed_name: name,
+        payload,
+        contact: { full_name: contactName, email: contactEmail },
+      });
+      return post(`/onboarding/${row.id}/submit`);
+    },
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: ["onboarding-mine"] });
+      toast("Resubmitted", "Cosarathi operations will review it again.", "success");
+      onClose();
+    },
+    onError: (e) => setError(e instanceof Error ? e.message : "Could not resubmit"),
+  });
+
+  return (
+    <Dialog
+      title={`Resubmit ${row.proposed_name}`}
+      sub={<span className="id">{row.reference_code}</span>}
+      onClose={onClose}
+      foot={
+        <>
+          <Button onClick={onClose}>Cancel</Button>
+          <Button
+            variant="primary"
+            disabled={!name.trim() || !contactName.trim() || !EMAIL.test(contactEmail.trim()) || save.isPending}
+            onClick={() => save.mutate()}
+          >
+            Resubmit for approval
+          </Button>
+        </>
+      }
+    >
+      {why && <Callout tone="attention" title="Cosarathi operations asked for changes">{why}</Callout>}
+      <div className="formgrid">
+        <Field label="Organisation name" required span>
+          {(id) => <input id={id} className={inputCls} value={name} onChange={(e) => setName(e.target.value)} />}
+        </Field>
+        <Field label="Contact name" required>
+          {(id) => <input id={id} className={inputCls} value={contactName} onChange={(e) => setContactName(e.target.value)} />}
+        </Field>
+        <Field label="Contact email" required>
+          {(id) => <input id={id} type="email" className={inputCls} value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} />}
+        </Field>
+        <Field label={kind === "aggregator" ? "Crowd size" : kind === "business" ? "Specialty" : "Contact email"}>
+          {(id) => <input id={id} className={inputCls} value={extra1} onChange={(e) => setExtra1(e.target.value)} />}
+        </Field>
+        {kind !== "sponsor" && (
+          <Field label={kind === "aggregator" ? "Region" : "Capacity"}>
+            {(id) => <input id={id} className={inputCls} value={extra2} onChange={(e) => setExtra2(e.target.value)} />}
+          </Field>
+        )}
+      </div>
+      {error && <Callout tone="critical" title={error} />}
+    </Dialog>
   );
 }
 
@@ -289,7 +394,7 @@ function OnboardRequestDialog({ kind, onClose }: { kind: NetKind; onClose: () =>
       foot={
         <>
           <Button onClick={onClose}>Cancel</Button>
-          <Button variant="primary" disabled={!name.trim() || !contactName.trim() || !contactEmail.trim() || submit.isPending} onClick={() => submit.mutate()}>
+          <Button variant="primary" disabled={!name.trim() || !contactName.trim() || !EMAIL.test(contactEmail.trim()) || submit.isPending} onClick={() => submit.mutate()}>
             Submit for approval
           </Button>
         </>
@@ -315,7 +420,7 @@ function OnboardRequestDialog({ kind, onClose }: { kind: NetKind; onClose: () =>
           {(id) => <input id={id} className={inputCls} value={contactName} onChange={(e) => setContactName(e.target.value)} />}
         </Field>
         <Field label="First user — email" required>
-          {(id) => <input id={id} className={inputCls} value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} />}
+          {(id) => <input id={id} type="email" className={inputCls} value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} placeholder="ops@example.com" />}
         </Field>
       </div>
       {error && <Callout tone="critical" title={error} />}

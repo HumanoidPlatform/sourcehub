@@ -142,9 +142,12 @@ function DecideDialog({ row, onClose }: { row: OnboardingRow; onClose: () => voi
         <div style={{ marginTop: 12 }}>
           <b className="small">Decision trail</b>
           {(d.approvals ?? []).map((a, i) => (
-            <div key={i} className="event">
-              <span>{titleCase(a.decision)} · step {a.step}</span>
-              {a.reason && <div className="small muted">{a.reason}</div>}
+            // NOT .event — that is the activity timeline's 22px dot column plus
+            // content, and three children in it put the verdict and the date
+            // into the 22px track, one word per line.
+            <div key={i} style={{ padding: "8px 0", borderTop: i ? "1px solid var(--line)" : undefined }}>
+              <div className="small"><b>{titleCase(a.decision)}</b> · step {a.step}</div>
+              {a.reason && <div className="small muted" style={{ marginTop: 2 }}>{a.reason}</div>}
               <div className="cell-meta">{fmtDateTime(a.decided_at)}</div>
             </div>
           ))}
