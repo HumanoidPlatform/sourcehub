@@ -55,12 +55,19 @@ function LocalTile({ row, onRemove }: { row: CaptureRow; onRemove?: (o: { captur
   const m = meta(captureStatus, row.status);
   const pct = row.status === "uploading" ? Math.round((progress.get(row.id) ?? 0) * 100) : null;
   const isVideo = row.mime.startsWith("video/");
+  // The uploader deletes the local file once the bytes are confirmed, to keep
+  // the phone's storage free. This tile still owns the asset_id, so it fetches
+  // the signed URL the same way a remote tile does — otherwise a capture that
+  // uploaded SUCCESSFULLY is the one you cannot look at.
+  const needsRemote = !row.local_uri && !!row.asset_id && !isVideo;
+  const remote = useAssetUrl(row.asset_id ?? "", needsRemote);
+  const uri = row.local_uri ?? (needsRemote ? remote.data?.url : undefined);
   return (
     <View style={g.tile} accessibilityLabel={`${row.filename}, ${m.label}`}>
-      {row.local_uri && !isVideo ? (
-        <Image source={{ uri: row.local_uri }} style={g.img} contentFit="cover" />
+      {uri && !isVideo ? (
+        <Image source={{ uri }} style={g.img} contentFit="cover" cachePolicy="memory-disk" />
       ) : (
-        <View style={[g.img, g.ph]}><Text style={{ color: C.muted, fontSize: 20 }}>{isVideo ? "▶" : "✓"}</Text></View>
+        <View style={[g.img, g.ph]}><Text style={{ color: C.muted, fontSize: 20 }}>{isVideo ? "▶" : "…"}</Text></View>
       )}
       <Tag tone={m.tone} text={pct != null ? `${pct}%` : m.label} />
       {row.status === "failed" && row.last_error ? (
