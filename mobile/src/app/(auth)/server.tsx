@@ -39,7 +39,7 @@ export default function Server() {
         The address of the Cosarathi API as this phone can reach it. On the pilot Wi-Fi that is the
         dev machine's address, never localhost.
       </Text>
-      <Field label="API address" hint="e.g. http://192.168.1.20:8000">
+      <Field label="API address" hint="Port 8000 — the API. Not 8081, which is the Expo dev server.">
         <TextInput style={inputStyle} value={url} onChangeText={setUrl} autoCapitalize="none" autoCorrect={false} keyboardType="url" />
       </Field>
       {state === "ok" && <Callout tone="success" title="The server answered." />}

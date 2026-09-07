@@ -205,9 +205,14 @@ export async function logout(): Promise<void> {
 }
 
 export async function pingServer(url: string): Promise<boolean> {
+  // r.ok alone is not enough: Metro answers 200 on every path it does not
+  // know, so pointing this app at the Expo dev server on :8081 passed the
+  // test and then failed every real call. Ask the body who it is.
   try {
     const r = await fetch(`${url.replace(/\/+$/, "")}/health`);
-    return r.ok;
+    if (!r.ok) return false;
+    const body = (await r.json()) as { status?: string };
+    return body?.status === "ok";
   } catch {
     return false;
   }
