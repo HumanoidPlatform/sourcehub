@@ -1,5 +1,5 @@
-import { useRouter } from "expo-router";
-import { useEffect, useState } from "react";
+import { useFocusEffect, useRouter } from "expo-router";
+import { useCallback, useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
 import { ApiError, getBaseUrl } from "@/api/client";
 import type { OrgChoice } from "@/api/types";
@@ -16,9 +16,14 @@ export default function SignIn() {
   const [busy, setBusy] = useState(false);
   const [server, setServer] = useState("");
 
-  useEffect(() => {
-    void getBaseUrl().then(setServer);
-  }, []);
+  // Re-read on focus, not just on mount: this screen stays mounted underneath
+  // the server screen, so after saving a new address it kept displaying the old
+  // one — which reads as "Save did nothing" when the save in fact worked.
+  useFocusEffect(
+    useCallback(() => {
+      void getBaseUrl().then(setServer);
+    }, []),
+  );
 
   const submit = async (orgId?: string) => {
     setBusy(true);

@@ -7,7 +7,8 @@ import { Button, Callout, Field, Screen, inputStyle, s } from "@/ui";
 export default function Server() {
   const router = useRouter();
   const [url, setUrl] = useState("");
-  const [state, setState] = useState<"idle" | "testing" | "ok" | "bad">("idle");
+  const [state, setState] = useState<"idle" | "testing" | "ok" | "bad" | "saving" | "failed">("idle");
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     void getBaseUrl().then(setUrl);
@@ -19,8 +20,17 @@ export default function Server() {
   };
 
   const save = async () => {
-    await setBaseUrl(url);
-    router.back();
+    // void save() swallowed every failure, so a save that threw looked exactly
+    // like a button that did nothing. Say what happened either way.
+    setState("saving");
+    try {
+      await setBaseUrl(url);
+      if (router.canGoBack()) router.back();
+      else router.replace("/sign-in");
+    } catch (e) {
+      setState("failed");
+      setError(e instanceof Error ? e.message : "Could not save the address.");
+    }
   };
 
   return (
@@ -34,8 +44,15 @@ export default function Server() {
       </Field>
       {state === "ok" && <Callout tone="success" title="The server answered." />}
       {state === "bad" && <Callout tone="critical" title="No answer from that address.">Check the Wi-Fi, the address, and that the API is running with --host 0.0.0.0.</Callout>}
+      {state === "failed" && <Callout tone="critical" title="Could not save">{error}</Callout>}
       <Button title="Test" onPress={() => void test()} loading={state === "testing"} style={{ marginBottom: 10 }} />
-      <Button title="Save" variant="primary" onPress={() => void save()} disabled={!/^https?:\/\/.+/.test(url.trim())} />
+      <Button
+        title="Save"
+        variant="primary"
+        loading={state === "saving"}
+        onPress={() => void save()}
+        disabled={state === "saving" || !/^https?:\/\/.+/.test(url.trim())}
+      />
     </Screen>
   );
 }
