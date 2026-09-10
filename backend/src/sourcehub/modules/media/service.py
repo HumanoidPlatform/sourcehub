@@ -190,7 +190,8 @@ async def presign_capture(
     'pending' before the URL is handed out; confirm() turns it 'ready' once
     storage confirms the bytes.
     """
-    from sourcehub.platform.storage import minio_store
+    from sourcehub.modules.storage import service as storage_svc
+    from sourcehub.platform import storage
 
     a = await _assignment_for_upload(session, claims, assignment_id)
 
@@ -208,7 +209,10 @@ async def presign_capture(
     if captured_at.tzinfo is None:
         captured_at = captured_at.replace(tzinfo=dt.timezone.utc)
 
-    bucket = settings.storage_bucket_assets
+    # Where this contract's client asked for delivery. Resolved through a
+    # SECURITY DEFINER function: this runs in the worker's session, which
+    # cannot read storage_target and should not be able to.
+    target, target_id = await storage_svc.resolve_for_contract(session, a["contract_id"])
 
     # idempotent on (assignment, sha256): a retry or an expired URL reuses the row
     existing = (
@@ -229,10 +233,11 @@ async def presign_capture(
                 "url": None, "method": "PUT", "headers": {}, "expires_in": 0,
                 "status": "ready",
             }
-        url = await minio_store.presign_put(bucket, existing["storage_key"])
+        url, extra = await storage.presign_put(target, existing["storage_key"])
         return {
             "asset_id": existing["id"], "storage_key": existing["storage_key"],
-            "url": url, "method": "PUT", "headers": {"Content-Type": content_type},
+            "url": url, "method": "PUT",
+            "headers": {"Content-Type": content_type, **extra},
             "expires_in": settings.storage_presign_ttl_seconds, "status": existing["status"],
         }
 
@@ -257,14 +262,18 @@ async def presign_capture(
         )
 
     asset_id = uuid.uuid4()
-    key = f"captures/{a['contract_id']}/{a['task_id']}/{assignment_id}/{asset_id}/{safe}"
+    # The client's prefix, then our layout. They browse this bucket themselves.
+    key = target.key(
+        f"captures/{a['contract_id']}/{a['task_id']}/{assignment_id}/{asset_id}/{safe}"
+    )
     await session.execute(
         text(
             "INSERT INTO asset (id, task_id, assignment_id, captured_by_user_id, supplier_org_id, "
             "                   contract_id, storage_key, filename, mime_type, size_bytes, sha256, "
-            "                   status, captured_at, captured_lat, captured_lon, metadata) "
+            "                   status, captured_at, captured_lat, captured_lon, metadata, "
+            "                   storage_target_id) "
             "VALUES (:id, :task, :asg, :user, :org, :contract, :key, :name, :ct, :size, :sha, "
-            "        'pending', :cat, :lat, :lon, CAST(:meta AS jsonb))"
+            "        'pending', :cat, :lat, :lon, CAST(:meta AS jsonb), :target)"
         ),
         {
             "id": asset_id, "task": a["task_id"], "asg": assignment_id, "user": claims.user_id,
@@ -272,12 +281,14 @@ async def presign_capture(
             "ct": content_type, "size": size_bytes, "sha": sha, "cat": captured_at,
             "lat": _to_numeric(lat), "lon": _to_numeric(lon),
             "meta": json.dumps({"claimed_size": size_bytes, "kind": kind}),
+            "target": target_id,
         },
     )
-    url = await minio_store.presign_put(bucket, key)
+    url, extra = await storage.presign_put(target, key)
     return {
         "asset_id": asset_id, "storage_key": key,
-        "url": url, "method": "PUT", "headers": {"Content-Type": content_type},
+        "url": url, "method": "PUT",
+        "headers": {"Content-Type": content_type, **extra},
         "expires_in": settings.storage_presign_ttl_seconds, "status": "pending",
     }
 
@@ -291,12 +302,14 @@ async def confirm_asset(
     raising: TxRoute skips the commit on an exception, and the quarantine
     marker is exactly the thing that must persist.
     """
-    from sourcehub.platform.storage import minio_store
+    from sourcehub.modules.storage import service as storage_svc
+    from sourcehub.platform import storage
 
     row = (
         await session.execute(
             text(
-                "SELECT id, assignment_id, storage_key, filename, size_bytes, status "
+                "SELECT id, assignment_id, storage_key, filename, size_bytes, status, "
+                "       storage_target_id "
                 "FROM asset WHERE id = :id AND deleted_at IS NULL"
             ),
             {"id": asset_id},
@@ -318,7 +331,8 @@ async def confirm_asset(
         raise MediaError("The assignment is no longer taking uploads.")
 
     try:
-        s = await minio_store.head(settings.storage_bucket_assets, row["storage_key"])
+        target = await storage_svc.resolve_by_id(session, row["storage_target_id"])
+        s = await storage.head(target, row["storage_key"])
     except LookupError:
         raise MediaError("File not uploaded yet.") from None
 
@@ -395,12 +409,13 @@ async def asset_view_url(
     session: AsyncSession, claims: AccessClaims, asset_id: uuid.UUID
 ) -> dict[str, Any]:
     """A short-TTL inline URL. The RLS'd select is the whole access check."""
-    from sourcehub.platform.storage import minio_store
+    from sourcehub.modules.storage import service as storage_svc
+    from sourcehub.platform import storage
 
     row = (
         await session.execute(
             text(
-                "SELECT storage_key, filename, mime_type, status "
+                "SELECT storage_key, filename, mime_type, status, storage_target_id "
                 "FROM asset WHERE id = :id AND deleted_at IS NULL"
             ),
             {"id": asset_id},
@@ -410,8 +425,9 @@ async def asset_view_url(
         raise LookupError("asset not found")
     if row["status"] != "ready":
         raise MediaError(f"A {row['status']} asset cannot be viewed yet.")
-    url = await minio_store.presign_get(
-        settings.storage_bucket_assets, row["storage_key"], row["filename"], inline=True
+    target = await storage_svc.resolve_by_id(session, row["storage_target_id"])
+    url = await storage.presign_get(
+        target, row["storage_key"], row["filename"], inline=True
     )
     return {
         "url": url, "filename": row["filename"], "mime_type": row["mime_type"],

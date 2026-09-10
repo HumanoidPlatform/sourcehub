@@ -48,6 +48,9 @@ class RequestIn(BaseModel):
     starts_on: dt.date | None = None
     delivery_due_on: dt.date | None = None
     residency_region: str | None = None
+    # Where captured data is delivered. Required before publishing; a draft
+    # may be saved without one so the builder can be filled in any order.
+    storage_target_id: uuid.UUID | None = None
     publish: bool = False
     samples: list[SampleAttachIn] = Field(default_factory=list, max_length=5)
 

@@ -52,6 +52,7 @@ async def create_contract_from_award(
     value: Decimal,
     acceptance: str | None,
     compliance: str | None,
+    storage_target_id: uuid.UUID | None = None,
 ) -> dict[str, Any]:
     """Called by marketplace.award, in the same transaction. The rubric
     snapshot freezes the acceptance criteria at this moment — the blueprint's
@@ -72,6 +73,9 @@ async def create_contract_from_award(
             "compliance": compliance,
             "frozen_at_award_of": request_ref,
         },
+        # Pinned for the same reason as the rubric: the client may keep
+        # editing the request, but work under way must not move.
+        storage_target_id=storage_target_id,
         started_at=dt.datetime.now(dt.timezone.utc),
         created_by=claims.user_id,
     )

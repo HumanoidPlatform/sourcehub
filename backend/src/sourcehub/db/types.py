@@ -32,6 +32,8 @@ OnboardingDocumentKind = db_enum(
     "onboarding_document_kind", "kyb", "dpa", "tax_form", "fair_work_attestation", "insurance", "other"
 )
 
+StorageProvider = db_enum("storage_provider", "s3", "gcs", "azure_blob")
+
 RequestCategory = db_enum(
     "request_category", "image", "video", "structured_data", "unstructured_data", "people_deliverable"
 )

@@ -142,6 +142,7 @@ def _row(r: Request, effective: str, proposal_count: int) -> dict[str, Any]:
         "currency": r.currency,
         "starts_on": r.starts_on,
         "delivery_due_on": r.delivery_due_on,
+        "storage_target_id": r.storage_target_id,
         "published_at": r.published_at,
         "created_at": r.created_at,
     }
@@ -168,13 +169,17 @@ async def presign_sample_upload(
     and the request row need not exist yet: the wizard uploads first and the
     final POST /requests attaches the keys.
     """
-    from sourcehub.platform.storage import minio_store
+    from sourcehub.platform import storage
 
     if size_bytes > MAX_SAMPLE_BYTES:
         raise MarketplaceError("Sample files are capped at 25 MB each.")
     safe = _safe_filename(filename)
     key = f"rfp-samples/{claims.org_id}/{uuid.uuid4()}/{safe}"
-    url = await minio_store.presign_put(settings.storage_bucket_documents, key)
+    # Samples stay on platform storage: partners read them while bidding, long
+    # before any contract exists to say where the client wants data delivered.
+    url, _ = await storage.presign_put(
+        storage.platform_target(settings.storage_bucket_documents), key
+    )
     return {
         "storage_key": key,
         "url": url,
@@ -190,7 +195,7 @@ async def _attach_samples(
     """Record the uploaded objects as child rows, inside create_request's
     transaction. The MinIO stat is the real size enforcement — a presigned PUT
     cannot cap what was uploaded, so the recorded size comes from storage."""
-    from sourcehub.platform.storage import minio_store
+    from sourcehub.platform import storage
 
     if len(samples) > MAX_SAMPLES_PER_REQUEST:
         raise MarketplaceError(f"At most {MAX_SAMPLES_PER_REQUEST} sample files per request.")
@@ -205,7 +210,9 @@ async def _attach_samples(
             raise MarketplaceError("Sample file does not belong to your organisation.")
         safe = _safe_filename(s["filename"])
         try:
-            size, stored_ct = await minio_store.stat(settings.storage_bucket_documents, key)
+            size, stored_ct = await storage.stat(
+                storage.platform_target(settings.storage_bucket_documents), key
+            )
         except LookupError:
             raise MarketplaceError(f"Sample file {safe} was never uploaded.") from None
         if size <= 0 or size > MAX_SAMPLE_BYTES:
@@ -247,7 +254,7 @@ async def sample_download_url(
     session: AsyncSession, claims: AccessClaims, request_id: uuid.UUID, sample_id: uuid.UUID
 ) -> dict[str, Any]:
     """A short-TTL download URL. The RLS'd select is the whole access check."""
-    from sourcehub.platform.storage import minio_store
+    from sourcehub.platform import storage
 
     s = (
         await session.execute(
@@ -258,8 +265,8 @@ async def sample_download_url(
     ).scalar_one_or_none()
     if s is None:
         raise LookupError("sample not found")
-    url = await minio_store.presign_get(
-        settings.storage_bucket_documents, s.storage_key, s.filename
+    url = await storage.presign_get(
+        storage.platform_target(settings.storage_bucket_documents), s.storage_key, s.filename
     )
     return {"url": url, "filename": s.filename,
             "expires_in": settings.storage_presign_ttl_seconds}
@@ -303,10 +310,13 @@ async def create_request(
         starts_on=data.get("starts_on"),
         delivery_due_on=data.get("delivery_due_on"),
         residency_region=data.get("residency_region"),
+        storage_target_id=data.get("storage_target_id"),
         published_at=dt.datetime.now(dt.timezone.utc) if publish else None,
         created_by=claims.user_id,
         **fields,
     )
+    if publish:
+        await _assert_destination(session, r)
     session.add(r)
     await session.flush()
     sample_rows = await _attach_samples(session, claims, r, samples) if samples else []
@@ -351,6 +361,7 @@ async def update_request(
     r.starts_on = data.get("starts_on")
     r.delivery_due_on = data.get("delivery_due_on")
     r.residency_region = data.get("residency_region")
+    r.storage_target_id = data.get("storage_target_id")
     r.updated_by = claims.user_id
     await session.flush()
 
@@ -388,11 +399,28 @@ async def publish_request(
     r = await _get_owned(session, request_id)
     if r.status != "draft":
         raise MarketplaceError(f"A {r.status} request cannot be published.")
+    # Partners bid on the promise that captures have somewhere to land.
+    await _assert_destination(session, r)
     r.status = "published"
     r.published_at = dt.datetime.now(dt.timezone.utc)
     r.updated_by = claims.user_id
     await _announce_publish(session, claims, r)
     return _row(r, "published", 0)
+
+
+async def _assert_destination(session: AsyncSession, r: Request) -> None:
+    """A published request must name a destination that has actually worked.
+
+    Checked at publish rather than at save so a half-filled draft is still
+    saveable, and again at award, because a credential can be revoked in
+    between.
+    """
+    from sourcehub.modules.storage import service as storage_svc
+
+    try:
+        await storage_svc.assert_usable(session, r.storage_target_id)
+    except storage_svc.StorageTargetError as e:
+        raise MarketplaceError(str(e)) from None
 
 
 async def _get_owned(session: AsyncSession, request_id: uuid.UUID) -> Request:
@@ -650,6 +678,10 @@ async def award(
     cmap, _ = await _status_maps(session, [r.id])
     if cmap.get(r.id):
         raise MarketplaceError("This request already has a contract.")
+    # Re-probed here, not just at publish: a credential can be revoked while
+    # bids are open, and awarding is the last moment before a worker relies
+    # on the destination existing.
+    await _assert_destination(session, r)
 
     now = dt.datetime.now(dt.timezone.utc)
     p.status = "accepted"
@@ -683,6 +715,7 @@ async def award(
         proposal_id=p.id, client_org_id=r.client_org_id,
         partner_org_id=p.partner_org_id, value=p.price,
         acceptance=r.acceptance, compliance=r.compliance_notes,
+        storage_target_id=r.storage_target_id,
     )
 
     await notifier.notify(

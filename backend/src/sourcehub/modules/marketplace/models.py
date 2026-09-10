@@ -46,6 +46,9 @@ class Request(Base):
     starts_on: Mapped[dt.date | None] = mapped_column(Date)
     delivery_due_on: Mapped[dt.date | None] = mapped_column(Date)
     residency_region: Mapped[str | None] = mapped_column(Text)
+    storage_target_id: Mapped[uuid.UUID | None] = mapped_column(
+        ForeignKey("storage_target.id")
+    )
     published_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
     closed_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
     created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)

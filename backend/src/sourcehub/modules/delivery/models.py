@@ -43,6 +43,7 @@ class Contract(Base):
     rubric_snapshot: Mapped[dict[str, Any] | None] = mapped_column(JSONB)
     milestone_pct: Mapped[int] = mapped_column(SmallInteger, server_default=text("50"))
     platform_fee_pct: Mapped[Decimal] = mapped_column(Numeric(5, 2), server_default=text("9.00"))
+    storage_target_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("storage_target.id"))
     started_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
     delivered_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
     completed_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
