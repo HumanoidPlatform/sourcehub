@@ -25,6 +25,19 @@ import { progress } from "./progress";
 
 const STEP_LABEL: Record<string, string> = { hash: "hash", presign: "presign", put: "upload", confirm: "confirm" };
 
+/** The headers the API issued with this URL. Content-Type is ours; anything
+ *  else is the destination's requirement, so a bad row must not block the
+ *  upload — fall back to the defaults rather than failing the capture. */
+function parseHeaders(raw: string | null): Record<string, string> {
+  if (!raw) return {};
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    return parsed && typeof parsed === "object" ? (parsed as Record<string, string>) : {};
+  } catch {
+    return {};
+  }
+}
+
 class Uploader {
   private running = false;
   private dirty = false;
@@ -108,7 +121,14 @@ class Uploader {
             lat: row.lat,
             lon: row.lon,
           });
-          outcome = { type: "presigned", asset_id: p.asset_id, url: p.url, expires_in: p.expires_in, status: p.status };
+          outcome = {
+            type: "presigned",
+            asset_id: p.asset_id,
+            url: p.url,
+            headers: p.headers ?? {},
+            expires_in: p.expires_in,
+            status: p.status,
+          };
           break;
         }
         case "put":
@@ -162,7 +182,10 @@ class Uploader {
       {
         httpMethod: "PUT",
         uploadType: Legacy.FileSystemUploadType.BINARY_CONTENT,
-        headers: { "Content-Type": row.mime },
+        // Whatever the API asked for, not what we assume. Azure refuses an
+        // upload without x-ms-blob-type, and only the server knows which
+        // storage this particular capture is bound for.
+        headers: { "Content-Type": row.mime, ...parseHeaders(row.put_headers) },
       },
       (p) => progress.set(row.id, p.totalBytesSent / Math.max(1, p.totalBytesExpectedToSend)),
     );

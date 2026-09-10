@@ -20,6 +20,8 @@ export interface CaptureRow {
   lon: number | null;
   asset_id: string | null;
   put_url: string | null;
+  /** JSON: the headers the PUT must carry, as the API issued them. */
+  put_headers: string | null;
   url_expires_at: number | null;
   status: CaptureStatus;
   attempts: number;

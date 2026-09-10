@@ -29,7 +29,14 @@ export type Action =
 
 export type Outcome =
   | { type: "hashed"; sha256: string }
-  | { type: "presigned"; asset_id: string; url: string | null; expires_in: number; status: string }
+  | {
+      type: "presigned";
+      asset_id: string;
+      url: string | null;
+      headers: Record<string, string>;
+      expires_in: number;
+      status: string;
+    }
   | { type: "put_started" }
   | { type: "put_ok" }
   | { type: "put_rejected" } // the signature was refused (expired): presign again
@@ -84,12 +91,15 @@ export function applyResult(
     case "presigned":
       if (ev.status === "ready") {
         // the server already holds this exact file: skip straight to confirm
-        return { status: "uploaded", asset_id: ev.asset_id, put_url: null, url_expires_at: null, attempts: 0, last_error: null };
+        return { status: "uploaded", asset_id: ev.asset_id, put_url: null, put_headers: null, url_expires_at: null, attempts: 0, last_error: null };
       }
       return {
         status: "presigned",
         asset_id: ev.asset_id,
         put_url: ev.url,
+        // Kept with the URL they were issued for: which headers an upload
+        // needs depends on the client bucket this capture is bound for.
+        put_headers: JSON.stringify(ev.headers ?? {}),
         url_expires_at: now + ev.expires_in * 1000,
         attempts: 0,
         last_error: null,
@@ -99,7 +109,7 @@ export function applyResult(
     case "put_ok":
       return { status: "uploaded", last_error: null };
     case "put_rejected":
-      return { status: "captured", put_url: null, url_expires_at: null, attempts: row.attempts + 1, last_error: "Upload link expired; asking for a new one." };
+      return { status: "captured", put_url: null, put_headers: null, url_expires_at: null, attempts: row.attempts + 1, last_error: "Upload link expired; asking for a new one." };
     case "confirmed":
       return { status: "confirmed", last_error: null };
     case "not_in_storage":

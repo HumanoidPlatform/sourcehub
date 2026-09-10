@@ -1,5 +1,5 @@
 import * as SQLite from "expo-sqlite";
-import { SCHEMA_V1 } from "./schema";
+import { SCHEMA_V1, SCHEMA_V2 } from "./schema";
 
 let dbPromise: Promise<SQLite.SQLiteDatabase> | null = null;
 
@@ -20,5 +20,15 @@ async function migrate(db: SQLite.SQLiteDatabase): Promise<void> {
   if (version < 1) {
     await db.execAsync(SCHEMA_V1);
     await db.execAsync("PRAGMA user_version = 1");
+  }
+  if (version < 2) {
+    // A fresh install already has the column from SCHEMA_V1; an upgrade
+    // does not. Tolerate both rather than branching on which happened.
+    try {
+      await db.execAsync(SCHEMA_V2);
+    } catch {
+      // the column is already there
+    }
+    await db.execAsync("PRAGMA user_version = 2");
   }
 }

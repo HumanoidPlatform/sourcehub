@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS captures (
   lon             REAL,
   asset_id        TEXT,
   put_url         TEXT,
+  put_headers     TEXT,
   url_expires_at  INTEGER,
   status          TEXT NOT NULL
                   CHECK (status IN ('captured','presigned','uploading','uploaded','confirmed','failed')),
@@ -35,4 +36,12 @@ CREATE TABLE IF NOT EXISTS captures (
 );
 CREATE INDEX IF NOT EXISTS captures_assignment_idx ON captures (assignment_id, created_at);
 CREATE INDEX IF NOT EXISTS captures_queue_idx      ON captures (status, next_attempt_at);
+`;
+
+// Storage is no longer always ours: a capture may be written to the client's
+// own bucket, and Azure rejects an upload that does not carry
+// x-ms-blob-type. The API has always returned the headers an upload needs;
+// the phone now stores them with the URL they were issued alongside.
+export const SCHEMA_V2 = `
+ALTER TABLE captures ADD COLUMN put_headers TEXT;
 `;
