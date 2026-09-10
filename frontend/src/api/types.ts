@@ -58,6 +58,7 @@ export interface Rfp {
   currency: string;
   starts_on: string | null;
   delivery_due_on: string | null;
+  storage_target_id: string | null;
   created_at: string;
   proposals?: Proposal[];
   samples?: RequestSample[];
@@ -381,4 +382,24 @@ export interface RatingRow {
   created_at: string;
   from_name: string;
   to_name: string;
+}
+
+/** Where a client's captured data is delivered.
+
+    The credential is never in this shape — the API leaves it out of the query
+    that builds a response, so there is nothing here to leak. */
+export interface StorageTarget {
+  id: string;
+  owner_org_id: string;
+  label: string;
+  provider: "s3" | "gcs" | "azure_blob";
+  endpoint: string | null;
+  region: string | null;
+  bucket: string;
+  key_prefix: string;
+  /** null until a write-read-delete probe has actually succeeded */
+  verified_at: string | null;
+  verify_error: string | null;
+  created_at: string;
+  updated_at: string;
 }

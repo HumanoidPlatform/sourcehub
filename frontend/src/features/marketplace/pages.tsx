@@ -5,7 +5,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { get, patch, post, putFile } from "@api/client";
-import type { ClientProfile, Org, Proposal, Rfp, SamplePresign } from "@api/types";
+import type { ClientProfile, Org, Proposal, Rfp, SamplePresign, StorageTarget } from "@api/types";
 import {
   Button, Callout, Dialog, Dl, Empty, Field, FileField, inputCls, Panel, Pill, RowMenu,
   StageRail, TableWrap, textareaCls, useToast, View,
@@ -95,13 +95,14 @@ export function RequestsPage() {
 
 /* --- client: the five-step builder ------------------------------------------ */
 
-const STEPS = ["Basics", "Specification", "People", "Commercials", "Review"] as const;
+const STEPS = ["Basics", "Specification", "People", "Commercials", "Destination", "Review"] as const;
 
 interface Draft {
   title: string; category: string; geography: string; compliance_notes: string;
   spec_format: string; spec_quantity: string; spec_quality: string; acceptance: string;
   people_headcount: string; people_training: string; people_experience: string; people_certification: string;
   budget_min: string; budget_max: string; starts_on: string; delivery_due_on: string;
+  storage_target_id: string;
 }
 
 const BLANK: Draft = {
@@ -109,6 +110,7 @@ const BLANK: Draft = {
   spec_format: "", spec_quantity: "", spec_quality: "", acceptance: "",
   people_headcount: "", people_training: "", people_experience: "", people_certification: "",
   budget_min: "", budget_max: "", starts_on: "", delivery_due_on: "",
+  storage_target_id: "",
 };
 
 // Mirrors the server's rules (marketplace service) so most violations are
@@ -162,6 +164,7 @@ export function RequestNewPage() {
       people_certification: r.people?.certification ?? "",
       budget_min: r.budget_min ?? "", budget_max: r.budget_max ?? "",
       starts_on: r.starts_on ?? "", delivery_due_on: r.delivery_due_on ?? "",
+      storage_target_id: r.storage_target_id ?? "",
     });
     // files already attached, so the editor shows what the draft actually has
     setSamples(
@@ -229,6 +232,7 @@ export function RequestNewPage() {
         budget_max: d.budget_max || null,
         starts_on: d.starts_on || null,
         delivery_due_on: d.delivery_due_on || null,
+        storage_target_id: d.storage_target_id || null,
         publish,
         samples: newSamples.map((s) => ({
           storage_key: s.key, filename: s.filename,
@@ -255,8 +259,10 @@ export function RequestNewPage() {
     if (step === 0 && !d.category.trim()) problems.push("Choose a category.");
     if (step === 1 && !d.spec_quantity.trim())
       problems.push("Say how much you need — partners cannot price a blank quantity.");
-    if ((step === 1 || step === 4) && samples.some((s) => s.status === "uploading"))
+    if ((step === 1 || step === 5) && samples.some((s) => s.status === "uploading"))
       problems.push("Wait for sample uploads to finish.");
+    if (step === 4 && !d.storage_target_id)
+      problems.push("Choose where captured data should be delivered.");
     if (step === 3) {
       if (d.budget_min && d.budget_max && Number(d.budget_max) < Number(d.budget_min))
         problems.push("Budget maximum must be at least the minimum.");
@@ -358,6 +364,12 @@ export function RequestNewPage() {
           </div>
         )}
         {step === 4 && (
+          <DestinationStep
+            value={d.storage_target_id}
+            onChange={(v) => setD((x) => ({ ...x, storage_target_id: v }))}
+          />
+        )}
+        {step === 5 && (
           <Dl rows={[
             ["Title", d.title || "—"],
             ["Category", titleCase(d.category)],
@@ -368,6 +380,7 @@ export function RequestNewPage() {
             ["Acceptance", d.acceptance || "Client review on delivery"],
             ["Compliance", d.compliance_notes || "None specified"],
             ["Sample files", doneSamples.length ? doneSamples.map((s) => s.filename).join(", ") : "None"],
+            ["Delivered to", <DestinationSummary key="dest" id={d.storage_target_id} />],
           ]} />
         )}
         {error && <Callout tone="critical" title={error} />}
@@ -385,6 +398,222 @@ export function RequestNewPage() {
         )}
       </div>
     </View>
+  );
+}
+
+/* --- where captured data is delivered ---------------------------------------
+ *
+ * The client supplies the bucket, so the credential is never taken on trust:
+ * it is tested against the real endpoint before it can be saved, and a request
+ * cannot be published until that test has passed. The alternative is finding
+ * out a key is wrong when a worker is standing in a shop with a capture that
+ * will never upload.
+ *
+ * Which fields appear depends on the provider, because the three do not take
+ * the same kind of credential.
+ */
+
+const PROVIDERS = [
+  ["s3", "S3-compatible — AWS, MinIO, R2, Wasabi, GCS interop"],
+  ["gcs", "Google Cloud Storage — service account"],
+  ["azure_blob", "Azure Blob Storage"],
+] as const;
+
+function useTargets() {
+  return useQuery({
+    queryKey: ["storage-targets"],
+    queryFn: () => get<StorageTarget[]>("/storage-targets"),
+  });
+}
+
+function describeTarget(t: StorageTarget): string {
+  const where = t.key_prefix ? `${t.bucket}/${t.key_prefix}` : t.bucket;
+  return `${where}${t.region ? ` · ${t.region}` : ""}`;
+}
+
+function DestinationSummary({ id }: { id: string }) {
+  const targets = useTargets();
+  const t = (targets.data ?? []).find((x) => x.id === id);
+  if (!t) return <>Not chosen</>;
+  return <>{t.label} — {describeTarget(t)}</>;
+}
+
+function DestinationStep({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  const targets = useTargets();
+  const [adding, setAdding] = useState(false);
+  const rows = targets.data ?? [];
+
+  return (
+    <div className="stack">
+      <p className="muted">
+        Captured data is written straight to your own storage. SourceHub signs each upload
+        and keeps no copy.
+      </p>
+
+      {rows.length > 0 && (
+        <table className="table">
+          <thead>
+            <tr>
+              <th style={{ width: "2.5rem" }}><span className="sr-only">Use this destination</span></th>
+              <th>Destination</th>
+              <th>Where</th>
+              <th>Tested</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((t) => (
+              <tr key={t.id}>
+                <td>
+                  <input
+                    type="radio"
+                    name="destination"
+                    checked={value === t.id}
+                    onChange={() => onChange(t.id)}
+                    aria-label={`Deliver to ${t.label}`}
+                  />
+                </td>
+                <td>
+                  <strong>{t.label}</strong>
+                  <div className="sub">{PROVIDERS.find(([v]) => v === t.provider)?.[1]}</div>
+                </td>
+                <td>{describeTarget(t)}</td>
+                <td>
+                  {t.verified_at
+                    ? <Pill tone="success">Reachable</Pill>
+                    : <Pill tone="critical">{t.verify_error ?? "Not tested"}</Pill>}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+
+      {!adding && (
+        <div className="btnrow">
+          <Button onClick={() => setAdding(true)}>
+            {rows.length ? "Add another destination" : "Add a destination"}
+          </Button>
+        </div>
+      )}
+
+      {adding && (
+        <NewDestination
+          onCancel={() => setAdding(false)}
+          onCreated={(t) => { setAdding(false); onChange(t.id); }}
+        />
+      )}
+    </div>
+  );
+}
+
+function NewDestination({
+  onCancel, onCreated,
+}: { onCancel: () => void; onCreated: (t: StorageTarget) => void }) {
+  const qc = useQueryClient();
+  const toast = useToast();
+  const [error, setError] = useState<string | null>(null);
+  const [f, setF] = useState({
+    label: "", provider: "s3", bucket: "", endpoint: "", region: "", key_prefix: "",
+    access_key_id: "", secret_access_key: "",
+    service_account_json: "",
+    account_name: "", account_key: "",
+  });
+  const set = (k: keyof typeof f) => (e: { target: { value: string } }) =>
+    setF((x) => ({ ...x, [k]: e.target.value }));
+
+  const secretFor = (): Record<string, string> => {
+    if (f.provider === "gcs") return { service_account_json: f.service_account_json };
+    if (f.provider === "azure_blob") return { account_name: f.account_name, account_key: f.account_key };
+    return { access_key_id: f.access_key_id, secret_access_key: f.secret_access_key };
+  };
+
+  // One button, and it does both. There is no reason to save a destination
+  // that has not been proved to work.
+  const create = useMutation({
+    mutationFn: () => post<StorageTarget>("/storage-targets", {
+      label: f.label,
+      provider: f.provider,
+      bucket: f.bucket,
+      endpoint: f.endpoint || null,
+      region: f.region || null,
+      key_prefix: f.key_prefix || null,
+      secret: secretFor(),
+    }),
+    onSuccess: (t) => {
+      void qc.invalidateQueries({ queryKey: ["storage-targets"] });
+      toast("Destination ready", `Wrote and read back a test file in ${t.bucket}.`, "success");
+      onCreated(t);
+    },
+    onError: (e) => setError(e instanceof Error ? e.message : "Could not reach that storage"),
+  });
+
+  return (
+    <Panel title="Add a destination">
+      <div className="formgrid">
+        <Field label="Name" required span>
+          {(id) => <input id={id} className={inputCls} value={f.label} onChange={set("label")} placeholder="Field capture, Mumbai" />}
+        </Field>
+        <Field label="Provider" required>
+          {(id) => (
+            <select id={id} className={inputCls} value={f.provider} onChange={set("provider")}>
+              {PROVIDERS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+            </select>
+          )}
+        </Field>
+        <Field label={f.provider === "azure_blob" ? "Container" : "Bucket"} required>
+          {(id) => <input id={id} className={inputCls} value={f.bucket} onChange={set("bucket")} placeholder="acme-field-capture" />}
+        </Field>
+
+        {f.provider === "s3" && (
+          <>
+            <Field label="Region">
+              {(id) => <input id={id} className={inputCls} value={f.region} onChange={set("region")} placeholder="ap-south-1 — required outside us-east-1" />}
+            </Field>
+            <Field label="Endpoint">
+              {(id) => <input id={id} className={inputCls} value={f.endpoint} onChange={set("endpoint")} placeholder="Blank for AWS; set it for MinIO, R2 or GCS interop" />}
+            </Field>
+            <Field label="Access key ID" required>
+              {(id) => <input id={id} className={inputCls} value={f.access_key_id} onChange={set("access_key_id")} autoComplete="off" />}
+            </Field>
+            <Field label="Secret access key" required>
+              {(id) => <input id={id} type="password" className={inputCls} value={f.secret_access_key} onChange={set("secret_access_key")} autoComplete="off" />}
+            </Field>
+          </>
+        )}
+
+        {f.provider === "gcs" && (
+          <Field label="Service account key" required span>
+            {(id) => <textarea id={id} className={textareaCls} rows={5} value={f.service_account_json} onChange={set("service_account_json")} placeholder='The whole JSON key file for an account with object read and write on this bucket' />}
+          </Field>
+        )}
+
+        {f.provider === "azure_blob" && (
+          <>
+            <Field label="Account name" required>
+              {(id) => <input id={id} className={inputCls} value={f.account_name} onChange={set("account_name")} placeholder="acmefieldcapture" />}
+            </Field>
+            <Field label="Account key" required>
+              {(id) => <input id={id} type="password" className={inputCls} value={f.account_key} onChange={set("account_key")} autoComplete="off" />}
+            </Field>
+          </>
+        )}
+
+        <Field label="Folder" span>
+          {(id) => <input id={id} className={inputCls} value={f.key_prefix} onChange={set("key_prefix")} placeholder="Optional — captures are written under this prefix, e.g. sourcehub/" />}
+        </Field>
+      </div>
+
+      {error && (
+        <Callout tone="critical" title="That storage could not be used">{error}</Callout>
+      )}
+
+      <div className="btnrow">
+        <Button onClick={onCancel}>Cancel</Button>
+        <Button variant="primary" onClick={() => { setError(null); create.mutate(); }} disabled={create.isPending}>
+          {create.isPending ? "Testing the connection…" : "Test and save"}
+        </Button>
+      </div>
+    </Panel>
   );
 }
 
