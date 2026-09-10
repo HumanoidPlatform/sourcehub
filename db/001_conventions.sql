@@ -47,6 +47,18 @@ CREATE TYPE onboarding_document_kind AS ENUM
   ('kyb','dpa','tax_form','fair_work_attestation','insurance','other');
 
 -- ---------------------------------------------------------------------------
+-- Storage
+--
+-- Captures land in the client's own object storage, named on the request. The
+-- provider decides how a URL is signed, not where the bytes go: 's3' covers
+-- AWS, MinIO, R2, Wasabi and GCS's interoperability endpoint — anything the
+-- S3 SDK can presign against — while 'gcs' means native service-account
+-- signing and 'azure_blob' means a SAS token, which is a different mechanism.
+-- ---------------------------------------------------------------------------
+CREATE TYPE storage_provider AS ENUM
+  ('s3','gcs','azure_blob');
+
+-- ---------------------------------------------------------------------------
 -- Marketplace
 -- ---------------------------------------------------------------------------
 CREATE TYPE request_category AS ENUM

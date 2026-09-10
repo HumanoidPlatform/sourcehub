@@ -32,6 +32,7 @@ INSERT INTO permission (code, module, description, requires_mfa) VALUES
   ('delivery.track',      'delivery',    'Track delivery progress',                  false),
   ('invoice.read',        'ledger',      'Read own invoices',                        false),
   ('rating.write',        'network',     'Rate a counterparty',                      false),
+  ('storage.manage',      'storage',     'Manage where captured data is delivered',  false),
 
   -- tenant
   ('rfp.read.published',  'marketplace', 'Read the open marketplace',                false),
@@ -92,6 +93,7 @@ SELECT r.id, p.id FROM role r, permission p
 WHERE r.code = 'client' AND p.code IN (
   'rfp.create','rfp.publish','rfp.read','proposal.read','proposal.accept',
   'contract.read','contract.approve','delivery.track','invoice.read','rating.write',
+  'storage.manage',
   'onboarding.read','user.invite','user.manage','role.manage','profile.manage');
 
 INSERT INTO role_permission (role_id, permission_id)

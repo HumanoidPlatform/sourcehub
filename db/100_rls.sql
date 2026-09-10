@@ -332,6 +332,26 @@ CREATE POLICY invitation_write ON invitation FOR ALL
 
 
 -- ============================================================================
+-- Storage
+-- ============================================================================
+
+-- A destination never leaves the client that supplied it. Partners deliver
+-- into it without ever seeing it: every URL is signed by the API, so nothing
+-- downstream needs the bucket name, let alone the credential.
+ALTER TABLE storage_target ENABLE ROW LEVEL SECURITY;
+ALTER TABLE storage_target FORCE  ROW LEVEL SECURITY;
+
+CREATE POLICY storage_target_select ON storage_target FOR SELECT
+  USING (is_platform_admin() OR owner_org_id = current_org_id());
+
+CREATE POLICY storage_target_insert ON storage_target FOR INSERT
+  WITH CHECK (owner_org_id = current_org_id());
+
+CREATE POLICY storage_target_update ON storage_target FOR UPDATE
+  USING      (is_platform_admin() OR owner_org_id = current_org_id())
+  WITH CHECK (is_platform_admin() OR owner_org_id = current_org_id());
+
+-- ============================================================================
 -- Marketplace
 -- ============================================================================
 

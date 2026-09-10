@@ -250,7 +250,12 @@ ALTER TABLE asset
   ADD COLUMN captured_by_user_id uuid REFERENCES app_user(id)        ON DELETE SET NULL,
   ADD COLUMN supplier_org_id     uuid REFERENCES organisation(id)    ON DELETE RESTRICT,
   ADD COLUMN contract_id         uuid REFERENCES contract(id)        ON DELETE RESTRICT,
-  ADD COLUMN uploaded_at         timestamptz;
+  ADD COLUMN uploaded_at         timestamptz,
+  -- Which destination these bytes were actually written to. Stamped at presign
+  -- rather than resolved on read: a view URL minted years later must not depend
+  -- on what the request points at today. NULL means platform storage, which is
+  -- every asset captured before destinations existed.
+  ADD COLUMN storage_target_id   uuid REFERENCES storage_target(id)  ON DELETE RESTRICT;
 
 UPDATE asset a
    SET task_id = s.task_id, supplier_org_id = s.supplier_org_id, contract_id = t.contract_id
@@ -381,7 +386,8 @@ DO $w$
 DECLARE t text;
 BEGIN
   FOREACH t IN ARRAY ARRAY['contract','submission','invitation','qa_review','request','proposal',
-                           'loan','equipment','rating','invoice','onboarding_request','audit_event'] LOOP
+                           'loan','equipment','rating','invoice','onboarding_request','audit_event',
+                           'storage_target'] LOOP
     EXECUTE format(
       'CREATE POLICY %I ON %I AS RESTRICTIVE FOR ALL USING (NOT is_worker()) WITH CHECK (NOT is_worker())',
       t || '_worker_deny', t);

@@ -45,6 +45,13 @@ CREATE TABLE request (
   -- outside the permitted region."
   residency_region  text,
 
+  -- Where captured data is written. Chosen while drafting, required before the
+  -- request may be published, and copied onto the contract at award so that
+  -- editing the request later cannot move work already under way.
+  -- Nullable in the column so existing rows survive the migration; the API
+  -- requires it.
+  storage_target_id uuid REFERENCES storage_target(id) ON DELETE RESTRICT,
+
   published_at      timestamptz,
   closed_at         timestamptz,
 

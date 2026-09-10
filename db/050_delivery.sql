@@ -42,6 +42,11 @@ CREATE TABLE contract (
   milestone_pct   smallint NOT NULL DEFAULT 50 CHECK (milestone_pct BETWEEN 0 AND 100),
   platform_fee_pct numeric(5,2) NOT NULL DEFAULT 9.00,
 
+  -- The destination, pinned at award for the same reason as the rubric: the
+  -- client may keep editing the request, but work already under way must not
+  -- change where it is written.
+  storage_target_id uuid REFERENCES storage_target(id) ON DELETE RESTRICT,
+
   started_at      timestamptz,
   delivered_at    timestamptz,
   completed_at    timestamptz,

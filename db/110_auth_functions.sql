@@ -354,3 +354,43 @@ CREATE POLICY organisation_select_my_clients ON organisation FOR SELECT
 
 CREATE POLICY client_profile_select_my_clients ON client_profile FOR SELECT
   USING (org_visible_via_my_proposal(org_id));
+
+
+-- ---------------------------------------------------------------------------
+-- Fix 10 · Resolving a capture's destination from inside a worker's session.
+--
+-- Captures are written to the client's own storage, but the session doing the
+-- writing belongs to a worker in an aggregator org: storage_target_select is
+-- owner-only, and storage_target_worker_deny closes it further. Every one of
+-- those policies is correct — a supplier has no business reading a client's
+-- bucket credentials — and together they make the row unreadable by precisely
+-- the context that needs it.
+--
+-- The same shape as worker_holds_assignment: a definer function that answers
+-- one narrow question, rather than opening the table. These two take an id the
+-- caller has already been authorised for (media.presign_capture checks the
+-- assignment belongs to the caller before it gets here) and return the row.
+--
+-- Granted to sourcehub_app ONLY, never to sourcehub_readonly: unlike every
+-- other function in this file these return credential material, and the
+-- read-only role exists for analytics.
+-- ---------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION storage_destination_for_contract(p_contract uuid)
+RETURNS storage_target
+LANGUAGE sql STABLE SECURITY DEFINER SET search_path = public AS $fn$
+  SELECT st.* FROM storage_target st
+  JOIN contract c ON c.storage_target_id = st.id
+  WHERE c.id = p_contract AND st.deleted_at IS NULL
+$fn$;
+
+CREATE OR REPLACE FUNCTION storage_destination_by_id(p_target uuid)
+RETURNS storage_target
+LANGUAGE sql STABLE SECURITY DEFINER SET search_path = public AS $fn$
+  SELECT st.* FROM storage_target st
+  WHERE st.id = p_target AND st.deleted_at IS NULL
+$fn$;
+
+REVOKE EXECUTE ON FUNCTION storage_destination_for_contract(uuid) FROM PUBLIC;
+REVOKE EXECUTE ON FUNCTION storage_destination_by_id(uuid)        FROM PUBLIC;
+GRANT  EXECUTE ON FUNCTION storage_destination_for_contract(uuid) TO sourcehub_app;
+GRANT  EXECUTE ON FUNCTION storage_destination_by_id(uuid)        TO sourcehub_app;
