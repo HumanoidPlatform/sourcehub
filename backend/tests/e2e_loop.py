@@ -9,6 +9,8 @@ Needs the compose stack (Postgres, MinIO, Mailpit) and the API on :8000.
 Every step asserts, and every negative check must be REFUSED.
 """
 
+import os
+
 import httpx
 
 B = "http://127.0.0.1:8000/api/v1"
@@ -38,6 +40,36 @@ agg = login("crowd@bengaluru.example")
 sponsor = login("ops@optigear.example")
 admin = login("admin@sourcehub.local")
 
+# 0 — the client says where captured data should be delivered.
+#
+# A published request needs a destination that has actually been written to, so
+# this comes first. Locally the client's "own" bucket is the same MinIO the
+# platform runs, reached with the dev credentials — which still exercises the
+# real path end to end: resolve per contract, presign against that destination,
+# stamp the asset with it.
+#
+# Reused if it is already there. A destination is unique per client by name, so
+# a second run of this script would otherwise collide with its own first run.
+DEST_LABEL = "Acme capture bucket"
+dest = next(
+    (t for t in client.get("/storage-targets").json() if t["label"] == DEST_LABEL), None
+)
+if dest is None:
+    made = client.post("/storage-targets", json={
+        "label": DEST_LABEL,
+        "provider": "s3",
+        "bucket": os.environ.get("STORAGE_BUCKET_ASSETS", "sourcehub-assets"),
+        "endpoint": os.environ.get("STORAGE_ENDPOINT", "http://localhost:9000"),
+        "key_prefix": "acme/",
+        "secret": {
+            "access_key_id": os.environ.get("STORAGE_ACCESS_KEY", "sourcehub"),
+            "secret_access_key": os.environ.get("STORAGE_SECRET_KEY", "sourcehub_dev_password"),
+        },
+    })
+    assert made.status_code == 201, made.text
+    dest = made.json()
+ok("client names a destination", f"{dest['label']} -> {dest['bucket']}/{dest['key_prefix']}")
+
 # 1 — client publishes a request
 r = client.post("/requests", json={
     "title": "Retail shelf imagery across 12 metro markets",
@@ -51,6 +83,7 @@ r = client.post("/requests", json={
     "people_headcount": 180,
     "budget_min": 60000, "budget_max": 85000,
     "starts_on": "2026-09-07", "delivery_due_on": "2026-11-15",
+    "storage_target_id": dest["id"],
     "publish": True,
 })
 assert r.status_code == 201, r.text
@@ -328,9 +361,17 @@ r = worker1.post(f"/assignments/{a1['id']}/assets/presign", json={
     "filename": "shelf-03.jpg", "content_type": "image/jpeg", "size_bytes": 10,
     "sha256": "0" * 64, "captured_at": now_iso()})
 assert r.status_code == 200, r.text
-r = worker1.post(f"/assets/{r.json()['asset_id']}/confirm")
+stranded = r.json()["asset_id"]
+r = worker1.post(f"/assets/{stranded}/confirm")
 assert r.status_code == 409, f"CONFIRMED WITHOUT AN UPLOAD: {r.status_code} {r.text}"
 ok("confirm before upload refused")
+
+# That presign holds a slot: the quota counts what has been claimed, not only
+# what arrived. Taking the bad shot back is the worker's own escape hatch, and
+# without it the assignment is full at three with two usable photos.
+r = worker1.delete(f"/assets/{stranded}")
+assert r.status_code == 204, f"COULD NOT DISCARD A STRANDED CAPTURE: {r.status_code} {r.text}"
+ok("a presigned-but-never-uploaded capture can be discarded")
 
 r = worker1.post(f"/assignments/{a1['id']}/assets/presign", json={
     "filename": "payload.exe", "content_type": "application/octet-stream", "size_bytes": 10,
@@ -343,10 +384,19 @@ _, lie = capture(worker1, a1["id"], "shelf-lie.jpg", blob3, claim=len(blob3) + 5
 assert lie["status"] == "quarantined", lie
 ok("size mismatch quarantined, not trusted", lie["quarantine_reason"][:44])
 
+# A quarantined shot still occupies one of the three the worker promised, so
+# the way out is the same as in the field: throw it away and take it again.
+r = worker1.delete(f"/assets/{lie['id']}")
+assert r.status_code == 204, f"COULD NOT DISCARD A QUARANTINED CAPTURE: {r.status_code} {r.text}"
+blob4 = b"\xff\xd8\xff" + b"shelf-retake" * 300
+_, retake = capture(worker1, a1["id"], "shelf-03-retake.jpg", blob4)
+assert retake["status"] == "ready", retake
+ok("quarantined shot discarded and retaken", "3 ready")
+
 r = worker1.post(f"/assignments/{a1['id']}/submit", json={"note": "Aisles 1-2 done."})
 assert r.status_code == 200 and r.json()["status"] == "submitted", r.text
-assert r.json()["assets"]["ready"] == 2, r.json()["assets"]
-ok("worker submits the assignment", "2 ready")
+assert r.json()["assets"]["ready"] == 3, r.json()["assets"]
+ok("worker submits the assignment", "3 ready")
 
 r = worker1.post(f"/tasks/{task2['id']}/submit", json={})
 assert r.status_code == 403, f"WORKER COULD SUBMIT THE TASK: {r.status_code}"
@@ -368,7 +418,7 @@ assert bell and all(n["link_page"] == "assignment" for n in bell), bell
 ok("worker's bell carries only rows addressed to them", f"{len(bell)} item(s)")
 
 q = [x for x in agg.get("/qa/gate1").json() if x["assignment_id"] == a1["id"]]
-assert len(q) == 1 and q[0]["ready_assets"] == 2, q
+assert len(q) == 1 and q[0]["ready_assets"] == 3, q
 ok("gate-1 queue shows the batch", f"{q[0]['worker_name']}, {q[0]['ready_assets']} ready")
 
 r = agg.post(f"/assignments/{a1['id']}/decide", json={"outcome": "reject"})
@@ -387,6 +437,10 @@ assert mine["status"] == "rejected" and "glare" in mine["decision_note"], mine
 ok("gate 1 rejects with a note the worker can read")
 
 assert worker1.post(f"/assignments/{a1['id']}/start").json()["status"] == "in_progress"
+# Rework replaces a shot, it does not add a fourth: the assignment is still for
+# three. The glary one goes, then the retake takes its place.
+r = worker1.delete(f"/assets/{p1a['asset_id']}")
+assert r.status_code == 204, f"COULD NOT DISCARD DURING REWORK: {r.status_code} {r.text}"
 capture(worker1, a1["id"], "shelf-04.jpg", b"\xff\xd8\xff" + b"shelf-04" * 400)
 r = worker1.post(f"/assignments/{a1['id']}/submit", json={"note": "Retaken."})
 assert r.status_code == 200 and r.json()["assets"]["ready"] == 3, r.text
@@ -403,9 +457,10 @@ ok("aggregator bundles the accepted captures into the submission", "asset_count 
 
 assets = northstar.get(f"/tasks/{task2['id']}/assets").json()
 assert len(assets) == 3 and all(a["status"] == "ready" for a in assets), assets
-url = northstar.get(f"/assets/{p1a['asset_id']}/url").json()["url"]
+# The retake, not the first shot: that one was discarded during rework above.
+url = northstar.get(f"/assets/{retake['id']}/url").json()["url"]
 got = httpx.get(url, timeout=30)
-assert got.status_code == 200 and got.content == blob1, got.status_code
+assert got.status_code == 200 and got.content == blob4, got.status_code
 ok("partner views the originals through a signed inline URL", f"{len(got.content)} bytes match")
 
 sub3 = next(x for x in northstar.get("/qa/queue").json() if x["task_id"] == task2["id"])

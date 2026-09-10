@@ -16,6 +16,7 @@ import datetime as dt
 import re
 import sys
 import time
+import os
 import uuid
 
 import httpx
@@ -56,6 +57,28 @@ northstar = login("partner@northstar.example")
 agg = login("crowd@bengaluru.example")
 
 # --- the commercial half, straight through ---------------------------------
+# The client says where captured data should be delivered.
+#
+# A published request needs a destination that has actually been written to, so
+# this comes first. Locally the client's "own" bucket is the same MinIO the
+# platform runs, reached with the dev credentials — which still exercises the
+# real path end to end: resolve per contract, presign against that destination,
+# stamp the asset with it.
+dest = client.post("/storage-targets", json={
+    "label": "Acme capture bucket",
+    "provider": "s3",
+    "bucket": os.environ.get("STORAGE_BUCKET_ASSETS", "sourcehub-assets"),
+    "endpoint": os.environ.get("STORAGE_ENDPOINT", "http://localhost:9000"),
+    "key_prefix": "acme/",
+    "secret": {
+        "access_key_id": os.environ.get("STORAGE_ACCESS_KEY", "sourcehub"),
+        "secret_access_key": os.environ.get("STORAGE_SECRET_KEY", "sourcehub_dev_password"),
+    },
+})
+assert dest.status_code == 201, dest.text
+dest = dest.json()
+ok(f"destination {dest['label']} verified")
+
 req = client.post("/requests", json={
     "title": "Pilot: shelf imagery, aisle 1",
     "category": "image",
@@ -68,6 +91,7 @@ req = client.post("/requests", json={
     "budget_min": 500, "budget_max": 900,
     "starts_on": dt.date.today().isoformat(),
     "delivery_due_on": (dt.date.today() + dt.timedelta(days=14)).isoformat(),
+    "storage_target_id": dest["id"],
     "publish": True,
 })
 req.raise_for_status()
