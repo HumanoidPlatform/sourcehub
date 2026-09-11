@@ -462,3 +462,21 @@ $fn$;
 
 REVOKE EXECUTE ON FUNCTION invite_worker(citext,text,text,text,boolean,uuid,text,interval) FROM PUBLIC;
 GRANT  EXECUTE ON FUNCTION invite_worker(citext,text,text,text,boolean,uuid,text,interval) TO sourcehub_app;
+
+
+-- ---------------------------------------------------------------------------
+-- Attachments and the worker.
+--
+-- Read is deliberately NOT denied: a task's attachment is the shot list or the
+-- site map, and the phone is who needs it. attachment_parent_visible() runs
+-- under invoker rights, so a worker sees attachments on tasks they actually
+-- hold and nothing else — the task policies already decide that.
+--
+-- Writing is another matter. Nothing in the worker's surface attaches a file,
+-- and asset uploads have their own path with their own quotas.
+-- ---------------------------------------------------------------------------
+CREATE POLICY attachment_worker_no_insert ON attachment AS RESTRICTIVE
+  FOR INSERT WITH CHECK (NOT is_worker());
+
+CREATE POLICY attachment_worker_no_update ON attachment AS RESTRICTIVE
+  FOR UPDATE USING (NOT is_worker()) WITH CHECK (NOT is_worker());

@@ -60,6 +60,7 @@ async def decide(
     note: str | None,
     sample_size: int | None = None,
     sample_failed: int | None = None,
+    attachments: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """Record the gate-2 verdict. The prototype's rule holds, enforced twice —
     here and by a CHECK on qa_review: a failure without a note is refused,
@@ -87,8 +88,7 @@ async def decide(
         raise QaError(f"A {sub['status']} submission has already been decided.")
 
     passed = outcome == "pass"
-    session.add(
-        QaReview(
+    review = QaReview(
             submission_id=submission_id,
             gate="gate2_partner",
             outcome=outcome,
@@ -97,8 +97,12 @@ async def decide(
             sample_size=sample_size,
             sample_failed=sample_failed,
             note=note,
-        )
     )
+    session.add(review)
+    # Flushed here because the evidence hangs off this row's id, and a
+    # rejection is exactly where a screenshot earns its keep.
+    await session.flush()
+    await _attach_evidence(session, claims, review.id, attachments)
     await session.execute(
         text("UPDATE submission SET status = :st, closed_at = :now WHERE id = :sid"),
         {
@@ -269,3 +273,27 @@ async def decide_gate1(
         "outcome": outcome,
         "assignment_status": "accepted" if accepted else "rejected",
     }
+
+
+async def _attach_evidence(
+    session: AsyncSession, claims: AccessClaims, review_id: uuid.UUID,
+    items: list[dict[str, Any]] | None,
+) -> list[dict[str, Any]]:
+    """Files behind a verdict — the frame that shows the defect.
+
+    A rejection the supplier cannot act on is the failure this whole module
+    exists to prevent, and "the third shelf is out of frame" is much easier to
+    act on with the frame attached.
+    """
+    from sourcehub.modules.attachments import service as attachments
+
+    if not items:
+        return []
+    if {i.get("slot") for i in items} - {"verdict"}:
+        raise QaError("A QA review takes attachments on its verdict.")
+    try:
+        return await attachments.attach(
+            session, claims, entity_type="qa_review", entity_id=review_id, items=items
+        )
+    except attachments.AttachmentError as e:
+        raise QaError(str(e)) from None

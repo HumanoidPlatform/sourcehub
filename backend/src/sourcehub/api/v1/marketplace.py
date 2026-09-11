@@ -12,6 +12,7 @@ from pydantic import BaseModel, Field
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.deps import Principal, TxRoute, get_principal, get_session, require_capability
+from sourcehub.api.v1.attachments import AttachmentIn
 from sourcehub.modules.marketplace import service as marketplace
 
 router = APIRouter(route_class=TxRoute)
@@ -53,6 +54,9 @@ class RequestIn(BaseModel):
     storage_target_id: uuid.UUID | None = None
     publish: bool = False
     samples: list[SampleAttachIn] = Field(default_factory=list, max_length=5)
+    # Files hung off a FIELD — compliance notes, acceptance criteria —
+    # as distinct from samples, which are the brief's reference material.
+    attachments: list[AttachmentIn] = Field(default_factory=list, max_length=10)
 
 
 class ProposalIn(BaseModel):
@@ -60,6 +64,8 @@ class ProposalIn(BaseModel):
     duration_days: int = Field(gt=0)
     methodology: str = Field(min_length=10)
     notes: str | None = None
+    # a method statement, a capability deck — what the prose summarises
+    attachments: list[AttachmentIn] = Field(default_factory=list, max_length=5)
 
 
 def _conflict(e: Exception) -> HTTPException:
@@ -78,8 +84,10 @@ async def create_request(
         raise HTTPException(422, "delivery_due_on must be on or after starts_on")
     try:
         return await marketplace.create_request(
-            session, principal, body.model_dump(exclude={"publish", "samples"}), body.publish,
+            session, principal,
+            body.model_dump(exclude={"publish", "samples", "attachments"}), body.publish,
             samples=[s.model_dump() for s in body.samples],
+            attachments=[a.model_dump() for a in body.attachments],
         )
     except marketplace.MarketplaceError as e:
         raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, str(e)) from None
@@ -101,8 +109,9 @@ async def update_request(
     try:
         return await marketplace.update_request(
             session, principal, request_id,
-            body.model_dump(exclude={"publish", "samples"}),
+            body.model_dump(exclude={"publish", "samples", "attachments"}),
             samples=[s.model_dump() for s in body.samples],
+            attachments=[a.model_dump() for a in body.attachments],
         )
     except LookupError:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Request not found") from None
@@ -203,6 +212,7 @@ async def submit_proposal(
         return await marketplace.submit_proposal(
             session, principal, request_id, body.price, body.duration_days,
             body.methodology, body.notes,
+            attachments=[a.model_dump() for a in body.attachments],
         )
     except LookupError:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Request not found") from None

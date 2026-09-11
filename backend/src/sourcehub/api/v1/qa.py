@@ -6,10 +6,11 @@ import uuid
 from typing import Literal
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.deps import Principal, TxRoute, get_session, require_capability
+from sourcehub.api.v1.attachments import AttachmentIn
 from sourcehub.modules.qa import service as qa
 
 router = APIRouter(route_class=TxRoute)
@@ -20,6 +21,8 @@ class DecideIn(BaseModel):
     note: str | None = None
     sample_size: int | None = None
     sample_failed: int | None = None
+    # evidence for the verdict — the frame that shows the defect
+    attachments: list[AttachmentIn] = Field(default_factory=list, max_length=5)
 
 
 @router.get("/queue")
@@ -50,6 +53,7 @@ async def decide(
         return await qa.decide(
             session, principal, submission_id, body.outcome, body.note,
             body.sample_size, body.sample_failed,
+            attachments=[a.model_dump() for a in body.attachments],
         )
     except LookupError:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Submission not found") from None

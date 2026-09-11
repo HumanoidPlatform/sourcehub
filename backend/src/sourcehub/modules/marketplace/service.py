@@ -292,6 +292,7 @@ _DEFAULTS = {
 async def create_request(
     session: AsyncSession, claims: AccessClaims, data: dict[str, Any], publish: bool,
     samples: list[dict[str, Any]] | None = None,
+    attachments: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     ref = (
         await session.execute(text("SELECT next_reference_code('RFP','seq_ref_request', 4)"))
@@ -320,6 +321,7 @@ async def create_request(
     session.add(r)
     await session.flush()
     sample_rows = await _attach_samples(session, claims, r, samples) if samples else []
+    attachment_rows = await _attach_fields(session, claims, r.id, attachments)
     if publish:
         await _announce_publish(session, claims, r)
     else:
@@ -327,12 +329,14 @@ async def create_request(
                         [r.id, claims.org_id])
     out = _row(r, r.status, 0)
     out["samples"] = sample_rows
+    out["attachments"] = attachment_rows
     return out
 
 
 async def update_request(
     session: AsyncSession, claims: AccessClaims, request_id: uuid.UUID,
     data: dict[str, Any], samples: list[dict[str, Any]] | None = None,
+    attachments: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """Edit a draft. Only a draft — once published, partners are pricing
     against these words and changing them under a live bid is a different
@@ -366,11 +370,38 @@ async def update_request(
     await session.flush()
 
     sample_rows = await _attach_samples(session, claims, r, samples) if samples else []
+    attachment_rows = await _attach_fields(session, claims, r.id, attachments)
     await audit.log(session, "request.edited", f"Edited draft {r.reference_code}, {r.title}",
                     [r.id, claims.org_id])
     out = _row(r, r.status, 0)
     out["samples"] = sample_rows
+    out["attachments"] = attachment_rows
     return out
+
+
+async def _attach_fields(
+    session: AsyncSession, claims: AccessClaims, request_id: uuid.UUID,
+    items: list[dict[str, Any]] | None,
+) -> list[dict[str, Any]]:
+    """Files hung off a field of this request — compliance, acceptance.
+
+    Only the slots this form actually offers: an open slot list would let a
+    caller invent fields the console never renders and nobody ever reads.
+    """
+    from sourcehub.modules.attachments import service as attachments
+
+    if not items:
+        return []
+    allowed = {"compliance", "acceptance"}
+    bad = {i.get("slot") for i in items} - allowed
+    if bad:
+        raise MarketplaceError(f"A request takes attachments on {', '.join(sorted(allowed))}.")
+    try:
+        return await attachments.attach(
+            session, claims, entity_type="request", entity_id=request_id, items=items
+        )
+    except attachments.AttachmentError as e:
+        raise MarketplaceError(str(e)) from None
 
 
 async def _announce_publish(session: AsyncSession, claims: AccessClaims, r: Request) -> None:
@@ -467,7 +498,17 @@ async def get_request(
     out = _row(r, _effective(r.status, cmap.get(r.id), counts.get(r.id, 0)), counts.get(r.id, 0))
     out["proposals"] = await list_proposals(session, claims, request_id)
     out["samples"] = await list_samples(session, claims, request_id)
+    out["attachments"] = await _field_attachments(session, "request", [r.id])
     return out
+
+
+async def _field_attachments(
+    session: AsyncSession, entity_type: str, ids: list[uuid.UUID]
+) -> list[dict[str, Any]]:
+    from sourcehub.modules.attachments import service as attachments
+
+    grouped = await attachments.list_for(session, entity_type, ids)
+    return [a for i in ids for a in grouped.get(i, [])]
 
 
 # ---------------------------------------------------------------------------
@@ -501,6 +542,7 @@ async def submit_proposal(
     duration_days: int,
     methodology: str,
     notes: str | None,
+    attachments: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     r = (
         await session.execute(select(Request).where(Request.id == request_id))
@@ -546,7 +588,9 @@ async def submit_proposal(
             f"A revised proposal arrived on {r.title}.",
             "requestDetail", {"id": str(r.id)},
         )
-        return _proposal_row(existing)
+        out = _proposal_row(existing)
+        out["attachments"] = await _attach_proposal(session, claims, existing.id, attachments)
+        return out
 
     ref = (
         await session.execute(text("SELECT next_reference_code('PRO','seq_ref_proposal')"))
@@ -573,7 +617,28 @@ async def submit_proposal(
         f"Submitted {ref} on {r.reference_code} at {p.currency} {price}",
         [p.id, r.id, claims.org_id, r.client_org_id],
     )
-    return _proposal_row(p)
+    out = _proposal_row(p)
+    out["attachments"] = await _attach_proposal(session, claims, p.id, attachments)
+    return out
+
+
+async def _attach_proposal(
+    session: AsyncSession, claims: AccessClaims, proposal_id: uuid.UUID,
+    items: list[dict[str, Any]] | None,
+) -> list[dict[str, Any]]:
+    """The method statement behind the prose. One slot: a bid is one argument."""
+    from sourcehub.modules.attachments import service as attachments
+
+    if not items:
+        return []
+    if {i.get("slot") for i in items} - {"methodology"}:
+        raise MarketplaceError("A proposal takes attachments on its methodology.")
+    try:
+        return await attachments.attach(
+            session, claims, entity_type="proposal", entity_id=proposal_id, items=items
+        )
+    except attachments.AttachmentError as e:
+        raise MarketplaceError(str(e)) from None
 
 
 async def withdraw_proposal(
@@ -611,6 +676,12 @@ async def list_proposals(
     rows = (
         await session.execute(q, {"rid": request_id} if request_id else {})
     ).mappings().all()
+    # One query for every bid's attachments rather than one per row: the
+    # comparison table would otherwise fire a request per partner to show a
+    # paperclip.
+    from sourcehub.modules.attachments import service as attachments
+
+    files = await attachments.list_for(session, "proposal", [r["id"] for r in rows])
     return [
         {
             "id": r["id"],
@@ -626,6 +697,7 @@ async def list_proposals(
             "notes": r["notes"],
             "status": r["status"],
             "submitted_at": r["submitted_at"],
+            "attachments": files.get(r["id"], []),
         }
         for r in rows
     ]

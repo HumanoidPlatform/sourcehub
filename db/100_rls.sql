@@ -332,6 +332,33 @@ CREATE POLICY invitation_write ON invitation FOR ALL
 
 
 -- ============================================================================
+-- Attachments
+-- ============================================================================
+
+-- Visibility tracks the parent, computed by an INVOKER function so the
+-- parent's own policies do the deciding. The uploader's own org is included
+-- outright: a file presigned and attached is visible to the org that attached
+-- it even in the window before the parent row is readable to anyone else.
+ALTER TABLE attachment ENABLE ROW LEVEL SECURITY;
+ALTER TABLE attachment FORCE  ROW LEVEL SECURITY;
+
+CREATE POLICY attachment_select ON attachment FOR SELECT
+  USING (
+       is_platform_admin()
+    OR owner_org_id = current_org_id()
+    OR attachment_parent_visible(entity_type, entity_id)
+  );
+
+-- Only the uploading organisation writes its own rows. Whether it may attach
+-- to THAT parent is the service's business — it holds the parent row already.
+CREATE POLICY attachment_insert ON attachment FOR INSERT
+  WITH CHECK (owner_org_id = current_org_id());
+
+CREATE POLICY attachment_update ON attachment FOR UPDATE
+  USING      (is_platform_admin() OR owner_org_id = current_org_id())
+  WITH CHECK (is_platform_admin() OR owner_org_id = current_org_id());
+
+-- ============================================================================
 -- Storage
 -- ============================================================================
 

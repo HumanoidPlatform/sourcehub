@@ -11,6 +11,7 @@ from pydantic import BaseModel, Field
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.deps import Principal, TxRoute, get_principal, get_session, require_capability
+from sourcehub.api.v1.attachments import AttachmentIn
 from sourcehub.modules.delivery import service as delivery
 from sourcehub.modules.network import service as network
 from sourcehub.modules.qa import service as qa
@@ -28,6 +29,8 @@ class TaskIn(BaseModel):
     target_unit: str | None = Field(default=None, max_length=40)
     instructions: str | None = None
     capture_spec: dict[str, Any] = Field(default_factory=dict)
+    # a shot list, a site map — what the instructions refer to
+    attachments: list[AttachmentIn] = Field(default_factory=list, max_length=5)
 
 
 class SubmitIn(BaseModel):
@@ -95,6 +98,7 @@ async def create_task(
             body.title, body.target, body.due_on,
             target_quantity=body.target_quantity, target_unit=body.target_unit,
             instructions=body.instructions, capture_spec=body.capture_spec,
+            attachments=[a.model_dump() for a in body.attachments],
         )
     except LookupError:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Contract not found") from None

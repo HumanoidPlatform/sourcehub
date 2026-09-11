@@ -189,6 +189,18 @@ async def get_contract(
 # Tasks
 # ---------------------------------------------------------------------------
 
+async def _task_files(session: AsyncSession, task_id: uuid.UUID) -> list[dict[str, Any]]:
+    """The shot list or map behind the instructions.
+
+    Visible to whoever can see the task, which includes the worker holding an
+    assignment on it — that is the whole point of putting a map here.
+    """
+    from sourcehub.modules.attachments import service as attachments
+
+    grouped = await attachments.list_for(session, "task", [task_id])
+    return grouped.get(task_id, [])
+
+
 async def _task_row(session: AsyncSession, t: Task) -> dict[str, Any]:
     """The task as the console shows it. The two summaries roll up the worker
     assignments and the captures; a client, who may never see a roster, gets
@@ -245,6 +257,7 @@ async def _task_row(session: AsyncSession, t: Task) -> dict[str, Any]:
         "capture_spec": t.capture_spec or {},
         "status": t.status,
         "due_on": t.due_on,
+        "attachments": (await _task_files(session, t.id)),
         "last_submission": extra.get("last_submission"),
         "assignment_summary": extra.get("assignment_summary"),
         "asset_summary": extra.get("asset_summary"),
@@ -280,6 +293,7 @@ async def create_task(
     target_unit: str | None = None,
     instructions: str | None = None,
     capture_spec: dict[str, Any] | None = None,
+    attachments: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     c = (
         await session.execute(select(Contract).where(Contract.id == contract_id))
@@ -341,6 +355,7 @@ async def create_task(
     )
     session.add(t)
     await session.flush()
+    await _attach_instructions(session, claims, t.id, attachments)
     await notifier.notify(
         session, assignee_org_id,
         f"New task: {title}. Due {due_on.isoformat() if due_on else 'as agreed'}.",
@@ -951,3 +966,26 @@ async def approve_delivery(
         [c.id, c.request_id, c.client_org_id, c.partner_org_id],
     )
     return await _contract_row(session, c)
+
+
+async def _attach_instructions(
+    session: AsyncSession, claims: AccessClaims, task_id: uuid.UUID,
+    items: list[dict[str, Any]] | None,
+) -> list[dict[str, Any]]:
+    """Files behind a task's instructions — a shot list, a site map.
+
+    Workers can read these: attachment_parent_visible() runs under invoker
+    rights, so a phone sees the attachments on a task it actually holds.
+    """
+    from sourcehub.modules.attachments import service as attachments
+
+    if not items:
+        return []
+    if {i.get("slot") for i in items} - {"instructions"}:
+        raise DeliveryError("A task takes attachments on its instructions.")
+    try:
+        return await attachments.attach(
+            session, claims, entity_type="task", entity_id=task_id, items=items
+        )
+    except attachments.AttachmentError as e:
+        raise DeliveryError(str(e)) from None

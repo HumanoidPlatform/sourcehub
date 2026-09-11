@@ -33,6 +33,7 @@ OnboardingDocumentKind = db_enum(
 )
 
 StorageProvider = db_enum("storage_provider", "s3", "gcs", "azure_blob")
+AttachmentEntity = db_enum("attachment_entity", "request", "proposal", "task", "qa_review")
 
 RequestCategory = db_enum(
     "request_category", "image", "video", "structured_data", "unstructured_data", "people_deliverable"
