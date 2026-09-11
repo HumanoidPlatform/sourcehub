@@ -4,9 +4,16 @@
 # The frontend one matters as much as the others despite holding no secrets:
 # a developer pointing VITE_API_BASE_URL at a colleague's machine should not be
 # committing that for everyone.
+#
+# .env.* covers what people actually leave lying around while switching a
+# deployment: .env.local-backup, .env.azure, .env.old. *.env alone does not —
+# it only matches names ENDING in .env — so every one of those showed up as
+# untracked and a git add -A would have committed a database password. The
+# re-include for .env.example must stay last: git takes the final match.
 # =============================================================================
 .env
 *.env
+.env.*
 !.env.example
 backend/.env
 frontend/.env
