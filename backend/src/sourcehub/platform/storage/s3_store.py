@@ -157,6 +157,40 @@ async def head(t: StorageTarget, key: str) -> ObjectStat:
     return await asyncio.to_thread(_head_sync, t, key)
 
 
+def _copy_sync(t: StorageTarget, src: str, dst: str) -> None:
+    from minio.commonconfig import CopySource
+
+    c = _client(t, signing=False)
+    try:
+        c.copy_object(t.bucket, dst, CopySource(t.bucket, src))
+    except S3Error as e:
+        if e.code in ("NoSuchKey", "NoSuchObject"):
+            raise LookupError(src) from None
+        raise StorageError(f"Storage refused the copy: {e.code}") from None
+    except Exception as e:  # noqa: BLE001
+        raise _unreachable(t.endpoint, e) from None
+
+
+async def copy(t: StorageTarget, src: str, dst: str) -> None:
+    """Server-side copy. The bytes never pass through the API."""
+    await asyncio.to_thread(_copy_sync, t, src, dst)
+
+
+def _delete_sync(t: StorageTarget, key: str) -> None:
+    try:
+        _client(t, signing=False).remove_object(t.bucket, key)
+    except S3Error as e:
+        if e.code in ("NoSuchKey", "NoSuchObject"):
+            return  # already gone is the desired state
+        raise StorageError(f"Storage refused the delete: {e.code}") from None
+    except Exception as e:  # noqa: BLE001
+        raise _unreachable(t.endpoint, e) from None
+
+
+async def delete(t: StorageTarget, key: str) -> None:
+    await asyncio.to_thread(_delete_sync, t, key)
+
+
 def _verify_sync(t: StorageTarget) -> None:
     import io
 

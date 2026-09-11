@@ -23,6 +23,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.security import AccessClaims
 from sourcehub.config import settings
+from sourcehub.modules.attachments import folders
 from sourcehub.modules.audit import service as audit
 from sourcehub.modules.marketplace.models import Proposal, Request, RequestSample
 from sourcehub.modules.notify import service as notifier
@@ -174,7 +175,9 @@ async def presign_sample_upload(
     if size_bytes > MAX_SAMPLE_BYTES:
         raise MarketplaceError("Sample files are capped at 25 MB each.")
     safe = _safe_filename(filename)
-    key = f"rfp-samples/{claims.org_id}/{uuid.uuid4()}/{safe}"
+    # Staging: the request has no reference code until it is saved, so the
+    # final folder cannot be known here. _attach_samples moves it.
+    key = folders.staging_key(claims.org_id, safe)
     # Samples stay on platform storage: partners read them while bidding, long
     # before any contract exists to say where the client wants data delivered.
     url, _ = await storage.presign_put(
@@ -193,7 +196,7 @@ async def _attach_samples(
     session: AsyncSession, claims: AccessClaims, r: Request, samples: list[dict[str, Any]]
 ) -> list[dict[str, Any]]:
     """Record the uploaded objects as child rows, inside create_request's
-    transaction. The MinIO stat is the real size enforcement — a presigned PUT
+    transaction. The stat is the real size enforcement — a presigned PUT
     cannot cap what was uploaded, so the recorded size comes from storage."""
     from sourcehub.platform import storage
 
@@ -202,7 +205,12 @@ async def _attach_samples(
     keys = [s["storage_key"] for s in samples]
     if len(set(keys)) != len(keys):
         raise MarketplaceError("Duplicate sample files in the request.")
-    own_prefix = f"rfp-samples/{claims.org_id}/"
+    own_prefix = folders.staging_prefix(claims.org_id)
+    target = storage.platform_target(settings.storage_bucket_documents)
+    try:
+        folder = await folders.folder_for(session, "request", r.id)
+    except (LookupError, ValueError) as e:
+        raise MarketplaceError(str(e)) from None
     out: list[RequestSample] = []
     for s in samples:
         key: str = s["storage_key"]
@@ -210,17 +218,19 @@ async def _attach_samples(
             raise MarketplaceError("Sample file does not belong to your organisation.")
         safe = _safe_filename(s["filename"])
         try:
-            size, stored_ct = await storage.stat(
-                storage.platform_target(settings.storage_bucket_documents), key
-            )
+            size, stored_ct = await storage.stat(target, key)
         except LookupError:
-            raise MarketplaceError(f"Sample file {safe} was never uploaded.") from None
+            raise MarketplaceError(
+                f"Sample file {safe} is not in staging — it was never uploaded, "
+                "or has already been attached."
+            ) from None
         if size <= 0 or size > MAX_SAMPLE_BYTES:
             raise MarketplaceError(f"Sample file {safe} exceeds the 25 MB cap.")
+        final = await folders.move_into(target, key, folder, "samples", safe)
         row = RequestSample(
             request_id=r.id,
             filename=safe,
-            storage_key=key,
+            storage_key=final,
             content_type=s.get("content_type") or stored_ct,
             size_bytes=size,
             uploaded_by=claims.user_id,

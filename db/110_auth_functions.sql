@@ -394,3 +394,48 @@ REVOKE EXECUTE ON FUNCTION storage_destination_for_contract(uuid) FROM PUBLIC;
 REVOKE EXECUTE ON FUNCTION storage_destination_by_id(uuid)        FROM PUBLIC;
 GRANT  EXECUTE ON FUNCTION storage_destination_for_contract(uuid) TO sourcehub_app;
 GRANT  EXECUTE ON FUNCTION storage_destination_by_id(uuid)        TO sourcehub_app;
+
+
+-- ---------------------------------------------------------------------------
+-- Fix 11 · Which folder does a file belong in?
+--
+-- Platform storage is laid out for a person to read: one folder per client,
+-- one per RFP inside it. Every file uploaded for a request ends up there, no
+-- matter who uploaded it — so a partner's method statement lands in the
+-- CLIENT's folder, and so does an aggregator's shot list.
+--
+-- That is why this is SECURITY DEFINER. The four entity types reach a request
+-- by four different paths, and the party doing the attaching is frequently not
+-- the client whose name is on the folder. Requiring each of them to be able to
+-- read the client's organisation row, purely to compute a storage path, would
+-- mean widening visibility for a reason that has nothing to do with what
+-- anyone is allowed to see.
+--
+-- The caller has already been authorised to write the parent by the service
+-- that calls this; all this adds is a name and a reference code.
+--
+-- Every link in every chain is NOT NULL, and contract.request_id is UNIQUE, so
+-- each of the four is a single query with no ambiguity.
+-- ---------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION attachment_folder(p_type attachment_entity, p_id uuid)
+RETURNS TABLE (client_name text, request_ref text)
+LANGUAGE sql STABLE SECURITY DEFINER SET search_path = public AS $fn$
+  SELECT o.name, r.reference_code
+  FROM   request r
+  JOIN   organisation o ON o.id = r.client_org_id
+  WHERE  r.id = CASE p_type
+    WHEN 'request'   THEN p_id
+    WHEN 'proposal'  THEN (SELECT p.request_id FROM proposal p WHERE p.id = p_id)
+    WHEN 'task'      THEN (SELECT c.request_id FROM task t
+                            JOIN contract c ON c.id = t.contract_id
+                           WHERE t.id = p_id)
+    WHEN 'qa_review' THEN (SELECT c.request_id FROM qa_review q
+                            JOIN submission s ON s.id = q.submission_id
+                            JOIN task t       ON t.id = s.task_id
+                            JOIN contract c   ON c.id = t.contract_id
+                           WHERE q.id = p_id)
+  END
+$fn$;
+
+REVOKE EXECUTE ON FUNCTION attachment_folder(attachment_entity, uuid) FROM PUBLIC;
+GRANT  EXECUTE ON FUNCTION attachment_folder(attachment_entity, uuid) TO sourcehub_app;

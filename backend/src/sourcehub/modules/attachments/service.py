@@ -26,6 +26,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sourcehub.api.security import AccessClaims
 from sourcehub.config import settings
 
+from sourcehub.modules.attachments import folders
+
 # Imported for its side effect: registers the table in the shared MetaData, so
 # an ORM flush elsewhere can resolve foreign keys against it.
 from sourcehub.modules.attachments import models as _models  # noqa: F401
@@ -87,7 +89,9 @@ async def presign_upload(
     if size_bytes <= 0 or size_bytes > MAX_BYTES:
         raise AttachmentError("Attachments are capped at 25 MB each.")
     safe = _safe_filename(filename)
-    key = f"attachments/{claims.org_id}/{uuid.uuid4()}/{safe}"
+    # Staging, not the final home: the parent has no name yet. attach() moves
+    # it into {client}/{RFP}/{slot}/ once there is something to file it under.
+    key = folders.staging_key(claims.org_id, safe)
     url, extra = await storage.presign_put(
         storage.platform_target(settings.storage_bucket_documents), key
     )
@@ -118,7 +122,17 @@ async def attach(
     if not items:
         return []
 
-    own_prefix = f"attachments/{claims.org_id}/"
+    own_prefix = folders.staging_prefix(claims.org_id)
+    target = storage.platform_target(settings.storage_bucket_documents)
+    # Resolved once: every item in a call hangs off the same parent, and this
+    # is the point at which that parent finally has a client and a reference.
+    try:
+        folder = await folders.folder_for(session, entity_type, entity_id)
+    except LookupError:
+        raise AttachmentError("There is no request to file these against.") from None
+    except ValueError as e:
+        raise AttachmentError(str(e)) from None
+
     out: list[dict[str, Any]] = []
     by_slot: dict[str, int] = {}
 
@@ -134,11 +148,12 @@ async def attach(
         # The real size enforcement. A presigned PUT cannot cap what was sent,
         # so the number recorded here comes from storage, never the claim.
         try:
-            size, stored_ct = await storage.stat(
-                storage.platform_target(settings.storage_bucket_documents), key
-            )
+            size, stored_ct = await storage.stat(target, key)
         except LookupError:
-            raise AttachmentError(f"{safe} was never uploaded.") from None
+            raise AttachmentError(
+                f"{safe} is not in staging — it was never uploaded, or has "
+                "already been attached."
+            ) from None
         if size <= 0 or size > MAX_BYTES:
             raise AttachmentError(f"{safe} exceeds the 25 MB cap.")
 
@@ -156,6 +171,10 @@ async def attach(
         if existing + by_slot[slot] > MAX_PER_SLOT:
             raise AttachmentError(f"At most {MAX_PER_SLOT} attachments per field.")
 
+        # Last, once the file has passed every check: storage is outside the
+        # transaction, so a move made before a rejection could not be undone.
+        final = await folders.move_into(target, key, folder, slot, safe)
+
         row = (
             await session.execute(
                 text(
@@ -169,7 +188,7 @@ async def attach(
                 ),
                 {
                     "t": entity_type, "e": entity_id, "s": slot, "org": claims.org_id,
-                    "name": safe, "key": key, "ct": item.get("content_type") or stored_ct,
+                    "name": safe, "key": final, "ct": item.get("content_type") or stored_ct,
                     "size": size, "who": claims.user_id,
                 },
             )

@@ -48,10 +48,14 @@ class Settings(BaseSettings):
     celery_result_backend: str = "redis://localhost:6379/2"
 
     # --- Adapters ------------------------------------------------------------
-    # These three strings select an implementation in platform/. Changing
-    # storage_backend to "azure_blob" is the whole of the storage migration,
-    # provided nothing outside platform/ imports a vendor SDK.
-    storage_backend: Literal["minio", "azure_blob"] = "minio"
+    # These three strings select an implementation in platform/, and nothing
+    # outside platform/ imports a vendor SDK, so swapping one is a config
+    # change rather than a migration.
+    #
+    # storage_backend selects the PLATFORM's own storage. A client's delivery
+    # destination is a separate thing entirely: chosen per request, stored in
+    # storage_target, and unaffected by this.
+    storage_backend: Literal["minio", "s3", "azure_blob"] = "azure_blob"
     mail_backend: Literal["smtp", "azure_email"] = "smtp"
     auth_backend: Literal["database", "keycloak"] = "database"
 
@@ -79,6 +83,22 @@ class Settings(BaseSettings):
     storage_bucket_documents: str = "sourcehub-documents"
     storage_bucket_bundles: str = "sourcehub-bundles"
     storage_presign_ttl_seconds: int = 900
+
+    # --- Azure Blob, when storage_backend is azure_blob ----------------------
+    # One container holds everything the platform owns, foldered by client and
+    # RFP so it can be browsed by a person:
+    #
+    #   platform/Acme Retail Analytics/RFP-1001/compliance/dpa.pdf
+    #   platform/_staging/{org}/{uuid}/…   uploads with no parent row yet
+    #
+    # Endpoint is normally left unset — the account URL is derived from the
+    # name. Set it only for a custom domain or an emulator, and set the public
+    # one only when a device must call a different host than the API does.
+    storage_account_name: str = ""
+    storage_account_key: SecretStr = SecretStr("")
+    storage_container: str = "platform"
+    storage_endpoint_azure: str | None = None
+    storage_public_endpoint_azure: str | None = None
 
     smtp_host: str = "localhost"
     smtp_port: int = 1025

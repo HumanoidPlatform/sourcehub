@@ -21,6 +21,8 @@ __all__ = [
     "ObjectStat",
     "StorageError",
     "StorageTarget",
+    "copy",
+    "delete",
     "head",
     "platform_target",
     "presign_get",
@@ -49,15 +51,44 @@ def _adapter(provider: str) -> ModuleType:
         ) from None
 
 
-def platform_target(bucket: str) -> StorageTarget:
+# settings.storage_backend names an implementation; the adapters and the
+# storage_provider enum both key off "s3". The setting predates them and says
+# "minio", so the two vocabularies are reconciled in exactly one place.
+_BACKEND_PROVIDER = {"minio": "s3", "s3": "s3", "azure_blob": "azure_blob"}
+
+
+def platform_target(bucket: str | None = None) -> StorageTarget:
     """SourceHub's own storage, as a target.
 
-    Request samples and any asset captured before destinations existed live
-    here, so the same four functions serve both without a second code path.
+    The platform's files — request samples, field attachments — live here, and
+    so does any capture from a contract awarded before client destinations
+    existed. Which backend that is comes from settings; the caller does not
+    choose, and outside this function nothing knows which one it got.
     """
+    provider = _BACKEND_PROVIDER.get(settings.storage_backend)
+    if provider is None:
+        raise StorageError(f"Unknown storage backend {settings.storage_backend!r}.")
+
+    if provider == "azure_blob":
+        return StorageTarget(
+            provider="azure_blob",
+            # One container holds everything the platform owns, foldered by
+            # client and RFP inside it, so the bucket argument — which names
+            # one of three S3 buckets — has nothing to select here.
+            bucket=settings.storage_container,
+            endpoint=settings.storage_endpoint_azure,
+            public_endpoint=settings.storage_public_endpoint_azure
+            or settings.storage_endpoint_azure,
+            key_prefix="",
+            secret={
+                "account_name": settings.storage_account_name,
+                "account_key": settings.storage_account_key.get_secret_value(),
+            },
+        )
+
     return StorageTarget(
         provider="s3",
-        bucket=bucket,
+        bucket=bucket or settings.storage_bucket_documents,
         endpoint=settings.storage_endpoint,
         # Where a browser or a phone will actually call. Falls back to the
         # internal address, which is right whenever both sides see the same one.
@@ -106,3 +137,18 @@ async def verify(t: StorageTarget) -> None:
     will never upload.
     """
     await _adapter(t.provider).verify(t)
+
+
+async def copy(t: StorageTarget, src: str, dst: str) -> None:
+    """Server-side copy within one account. The bytes never reach the API.
+
+    Used by the staging move: a file is uploaded before the thing it belongs to
+    exists, so it lands under a scratch prefix and is copied into its real
+    folder once the parent has an identity.
+    """
+    await _adapter(t.provider).copy(t, src, dst)
+
+
+async def delete(t: StorageTarget, key: str) -> None:
+    """Remove an object. Already-gone counts as success."""
+    await _adapter(t.provider).delete(t, key)

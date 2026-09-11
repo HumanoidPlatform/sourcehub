@@ -113,3 +113,14 @@ def _verify_sync(t: StorageTarget) -> None:
 
 async def verify(t: StorageTarget) -> None:
     await asyncio.to_thread(_verify_sync, t)
+
+
+async def copy(t: StorageTarget, src: str, dst: str) -> None:
+    """Not implemented. The staging move is a platform-storage operation, and
+    platform storage is never GCS — a client's own destination receives
+    captures directly and never needs a file moved within it."""
+    raise StorageError("Copy is not supported on Google Cloud Storage destinations.")
+
+
+async def delete(t: StorageTarget, key: str) -> None:
+    raise StorageError("Delete is not supported on Google Cloud Storage destinations.")
