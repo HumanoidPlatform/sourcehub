@@ -10,6 +10,9 @@ import {
   Button, Callout, Dialog, Dl, Empty, Field, inputCls, Meter, Metric, Panel,
   Pill, TableWrap, textareaCls, useToast, View,
 } from "@ds/primitives";
+import {
+  AttachmentList, AttachmentsField, attachmentPayload, type AttachmentDraft,
+} from "@shared/attachments";
 import { useSession } from "@shared/auth";
 import { fmtDate, fmtDateTime, money } from "@shared/format";
 import { assignmentStatus, contractStatus, statusMeta, taskStatus, waitingOn } from "@shared/status";
@@ -244,6 +247,7 @@ function AssignTaskDialog({ contractId, onClose }: { contractId: string; onClose
   const [qty, setQty] = useState("");
   const [unit, setUnit] = useState("photos");
   const [instructions, setInstructions] = useState("");
+  const [files, setFiles] = useState<AttachmentDraft[]>([]);
   const [error, setError] = useState<string | null>(null);
   const toast = useToast();
   const qc = useQueryClient();
@@ -257,6 +261,7 @@ function AssignTaskDialog({ contractId, onClose }: { contractId: string; onClose
         assignee_org_id: assignee, title, target: target || null, due_on: due || null,
         target_quantity: qty ? Number(qty) : null, target_unit: qty ? unit : null,
         instructions: instructions || null,
+        attachments: attachmentPayload(files, "instructions"),
       }),
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: ["contract", contractId] });
@@ -306,6 +311,13 @@ function AssignTaskDialog({ contractId, onClose }: { contractId: string; onClose
         <Field label="Instructions for the field" span hint="Shown to every worker on their phone.">
           {(id) => <textarea id={id} className={textareaCls} rows={2} value={instructions} onChange={(e) => setInstructions(e.target.value)} placeholder="Full shelf in frame, no shoppers, landscape." />}
         </Field>
+        <AttachmentsField
+          label="Attach to the instructions"
+          span
+          hint="A shot list, a site map, an example frame. Workers on this task can open these on their phone."
+          items={files}
+          onChange={setFiles}
+        />
         <Field label="Assign to" required span>
           {(id) => (
             <select id={id} className={inputCls} value={assignee} onChange={(e) => setAssignee(e.target.value)}>
@@ -446,6 +458,11 @@ function TaskDetailDialog({ t, onClose }: { t: Task; onClose: () => void }) {
           ? `${t.target_quantity} ${unit}${t.target ? ` · ${t.target}` : ""}`
           : t.target ?? "—"],
         ...(t.instructions ? ([["Instructions", t.instructions]] as [string, React.ReactNode][]) : []),
+        // The shot list or map the instructions refer to. A worker on
+        // this task can open these too — the policy follows the task.
+        ...((t.attachments ?? []).length
+          ? ([["Attached", <AttachmentList key="ta" items={t.attachments ?? []} />]] as [string, React.ReactNode][])
+          : []),
         ["Due", fmtDate(t.due_on)],
         ["Status", <Pill key="s" tone={tm.tone}>{tm.label}</Pill>],
         ...(summary && summary.total - summary.cancelled > 0

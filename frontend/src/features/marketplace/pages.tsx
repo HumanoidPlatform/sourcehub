@@ -8,10 +8,13 @@ import { get, patch, post, putFile } from "@api/client";
 import type { ClientProfile, Org, Proposal, Rfp, SamplePresign, StorageTarget } from "@api/types";
 import {
   Button, Callout, Dialog, Dl, Empty, Field, FileField, inputCls, Panel, Pill, RowMenu,
-  StageRail, TableWrap, textareaCls, useToast, View,
+  Skeleton, StageRail, TableWrap, textareaCls, useToast, View,
 } from "@ds/primitives";
 import { useSession } from "@shared/auth";
 import { fmtDate, fmtDateTime, money, titleCase } from "@shared/format";
+import {
+  AttachmentList, AttachmentsField, attachmentPayload, fromServer, type AttachmentDraft,
+} from "@shared/attachments";
 import { OrgProfileDialog } from "@shared/org-profile";
 import {
   LIFECYCLE, proposalStatus, requestStatus, statusMeta, waitingOn,
@@ -51,8 +54,20 @@ export function RequestsPage() {
         aria-label="Filter requests"
       />
       <Panel>
-        {rows.length === 0 ? (
-          <Empty title="No requests yet" hint="Publish one and every delivery partner is notified." />
+        {requests.isLoading ? (
+          // Without this the empty state rendered while the query was in
+          // flight — "No requests yet" to a client who has ten.
+          <Skeleton rows={5} label="Loading your requests" />
+        ) : rows.length === 0 ? (
+          q ? (
+            <Empty title="Nothing matches that" hint="Clear the filter to see every request." />
+          ) : (
+            <Empty
+              title="No requests yet"
+              hint="Publish one and every delivery partner is notified."
+              action={<Link to="/requests/new" className="btn" data-variant="primary">New request</Link>}
+            />
+          )
         ) : (
           <TableWrap>
             <table>
@@ -140,6 +155,14 @@ export function RequestNewPage() {
   const [samples, setSamples] = useState<SampleDraft[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loaded, setLoaded] = useState(false);
+  const [confirming, setConfirming] = useState(false);
+  // Kept out of Draft because these are uploads, not form values: they
+  // exist in storage before the request row does.
+  const [complianceFiles, setComplianceFiles] = useState<AttachmentDraft[]>([]);
+  const [acceptanceFiles, setAcceptanceFiles] = useState<AttachmentDraft[]>([]);
+  const targets = useTargets();
+  const targetIsVerified = (tid: string) =>
+    !!(targets.data ?? []).find((t) => t.id === tid)?.verified_at;
   const navigate = useNavigate();
   const toast = useToast();
   const qc = useQueryClient();
@@ -166,6 +189,9 @@ export function RequestNewPage() {
       starts_on: r.starts_on ?? "", delivery_due_on: r.delivery_due_on ?? "",
       storage_target_id: r.storage_target_id ?? "",
     });
+    const files = r.attachments ?? [];
+    setComplianceFiles(fromServer(files.filter((a) => a.slot === "compliance")));
+    setAcceptanceFiles(fromServer(files.filter((a) => a.slot === "acceptance")));
     // files already attached, so the editor shows what the draft actually has
     setSamples(
       (r.samples ?? []).map((x) => ({
@@ -178,7 +204,9 @@ export function RequestNewPage() {
   }
 
   const set = (k: keyof Draft) => (e: { target: { value: string } }) =>
-    setD((x) => ({ ...x, [k]: e.target.value }));
+    // Clear the banner as soon as the person acts on it. It used to survive
+    // until the next Continue, so a corrected field sat under a stale error.
+    setD((x) => { if (error) setError(null); return { ...x, [k]: e.target.value }; });
 
   const pickSamples = (files: FileList) => {
     setError(null);
@@ -224,8 +252,8 @@ export function RequestNewPage() {
   const newSamples = doneSamples.filter((s) => !s.existing);
 
   const save = useMutation({
-    mutationFn: (publish: boolean) =>
-      (id ? patch<Rfp> : post<Rfp>)(id ? `/requests/${id}` : "/requests", {
+    mutationFn: async (publish: boolean) => {
+      const body = {
         ...d,
         people_headcount: Number(d.people_headcount) || 0,
         budget_min: d.budget_min || null,
@@ -233,17 +261,37 @@ export function RequestNewPage() {
         starts_on: d.starts_on || null,
         delivery_due_on: d.delivery_due_on || null,
         storage_target_id: d.storage_target_id || null,
+        attachments: [
+          ...attachmentPayload(complianceFiles, "compliance"),
+          ...attachmentPayload(acceptanceFiles, "acceptance"),
+        ],
         publish,
         samples: newSamples.map((s) => ({
           storage_key: s.key, filename: s.filename,
           content_type: s.content_type, size_bytes: s.size_bytes,
         })),
-      }),
+      };
+      if (!id) return post<Rfp>("/requests", body);
+
+      // PATCH cannot publish. The router drops `publish` from the body and
+      // update_request never reads it, so the old single call saved the draft,
+      // left it a draft, notified nobody — and still toasted "published". Save
+      // first, then publish through the endpoint that actually does it, which
+      // is also the one that checks the destination is reachable.
+      const saved = await patch<Rfp>(`/requests/${id}`, body);
+      return publish ? await post<Rfp>(`/requests/${id}/publish`) : saved;
+    },
     onSuccess: (r, publish) => {
       void qc.invalidateQueries({ queryKey: ["requests"] });
+      // The detail page we are about to land on reads this key, and with a
+      // 15s staleTime it would otherwise render what the request said before
+      // the edit.
+      void qc.invalidateQueries({ queryKey: ["request", r.id] });
       toast(
         publish ? "Request published" : id ? "Draft updated" : "Draft saved",
-        publish ? "Every delivery partner has been notified." : `${r.reference_code} is waiting in your requests.`,
+        publish
+          ? "Every delivery partner can bid on it now."
+          : `${r.reference_code} is waiting in your requests.`,
         "success",
       );
       navigate(`/requests/${r.id}`);
@@ -261,14 +309,36 @@ export function RequestNewPage() {
       problems.push("Say how much you need — partners cannot price a blank quantity.");
     if ((step === 1 || step === 5) && samples.some((s) => s.status === "uploading"))
       problems.push("Wait for sample uploads to finish.");
-    if (step === 4 && !d.storage_target_id)
-      problems.push("Choose where captured data should be delivered.");
+    if (step === 0 && complianceFiles.some((a) => a.status === "uploading"))
+      problems.push("Wait for the compliance attachment to finish uploading.");
+    if (step === 1 && acceptanceFiles.some((a) => a.status === "uploading"))
+      problems.push("Wait for the acceptance attachment to finish uploading.");
+    // Deliberately not checked here. A draft may be saved without a
+    // destination — the API says so in as many words — and blocking Continue
+    // meant there was no way to reach a save button without one. It is
+    // enforced at publish instead, by publishProblems() below.
     if (step === 3) {
       if (d.budget_min && d.budget_max && Number(d.budget_max) < Number(d.budget_min))
         problems.push("Budget maximum must be at least the minimum.");
       if (d.starts_on && d.delivery_due_on && d.delivery_due_on < d.starts_on)
         problems.push("Delivery must be on or after the start.");
     }
+    return problems;
+  };
+
+  // What publishing needs that a draft does not. Checked before the confirm
+  // dialog opens, so a request cannot get six steps in and fail on the server.
+  const publishProblems = (): string[] => {
+    const problems: string[] = [];
+    if (!d.title.trim()) problems.push("Give the request a title.");
+    if (d.title.trim().length < 3) problems.push("The title needs at least three characters.");
+    if (!d.spec_quantity.trim())
+      problems.push("Say how much you need — partners cannot price a blank quantity.");
+    if (!d.storage_target_id) problems.push("Choose where captured data should be delivered.");
+    else if (!targetIsVerified(d.storage_target_id))
+      problems.push("Test the connection to your delivery destination first.");
+    if (samples.some((s) => s.status === "uploading"))
+      problems.push("Wait for sample uploads to finish.");
     return problems;
   };
 
@@ -279,9 +349,48 @@ export function RequestNewPage() {
     setStep((s) => Math.min(s + 1, STEPS.length - 1));
   };
 
+  const askToPublish = () => {
+    const problems = publishProblems();
+    if (problems.length) return setError(problems.join(" "));
+    setError(null);
+    setConfirming(true);
+  };
+
+  // Editing shows a fully interactive blank form until the GET lands, and the
+  // hydration above then replaces the whole draft — so anything typed in that
+  // window was silently discarded.
+  if (id && existing.isLoading) {
+    return (
+      <View title="Loading the draft…">
+        <Panel><Skeleton rows={6} label="Loading this request" /></Panel>
+      </View>
+    );
+  }
+  if (id && existing.isError) {
+    return (
+      <View title="Request not found">
+        <Panel>
+          <Callout tone="critical" title="This request could not be opened">
+            It may have been published already, or belong to another organisation.
+            Only a draft can be edited.
+          </Callout>
+          <div className="btnrow"><Button onClick={() => navigate("/requests")}>Back to requests</Button></div>
+        </Panel>
+      </View>
+    );
+  }
+
   return (
-    <View title="New request" sub="Five steps, and the defaults are honest — anything you skip is marked 'to be agreed', never hidden.">
-      <div className="chip" aria-hidden="true">Step {step + 1} of {STEPS.length} · {STEPS[step]}</div>
+    <View
+      title={id ? `Edit ${existing.data?.reference_code ?? "draft"}` : "New request"}
+      sub="The defaults are honest — anything you skip is marked 'to be agreed', never hidden."
+    >
+      {/* The chip that used to live here was aria-hidden, so the only progress
+          affordance on the page was invisible to assistive tech. The rail is
+          what the prototype had, and this file already renders one. */}
+      <Panel flush>
+        <StageRail stages={STEPS} current={STEPS[step]!} />
+      </Panel>
       <Panel>
         {step === 0 && (
           <div className="formgrid">
@@ -301,6 +410,13 @@ export function RequestNewPage() {
             <Field label="Compliance notes" span>
               {(id) => <textarea id={id} className={textareaCls} rows={3} value={d.compliance_notes} onChange={set("compliance_notes")} placeholder="No shoppers or faces in frame." />}
             </Field>
+            <AttachmentsField
+              label="Compliance documents"
+              span
+              hint="A DPA, site-access rules, a privacy notice — whatever the notes above refer to. Partners can read these while bidding."
+              items={complianceFiles}
+              onChange={setComplianceFiles}
+            />
           </div>
         )}
         {step === 1 && (
@@ -314,6 +430,13 @@ export function RequestNewPage() {
             <Field label="Resolution, duration and quality bar" span>
               {(id) => <textarea id={id} className={textareaCls} rows={2} value={d.spec_quality} onChange={set("spec_quality")} />}
             </Field>
+            <AttachmentsField
+              label="Acceptance documents"
+              span
+              hint="A rubric, a spec sheet, a worked example of a pass and a fail."
+              items={acceptanceFiles}
+              onChange={setAcceptanceFiles}
+            />
             <Field label="Acceptance criteria" span hint="Frozen into the contract at award — disputes are arbitrated against this.">
               {(id) => <textarea id={id} className={textareaCls} rows={2} value={d.acceptance} onChange={set("acceptance")} placeholder="95% or better pass on the automated blur check; 5% manual audit sample" />}
             </Field>
@@ -323,9 +446,13 @@ export function RequestNewPage() {
                   label="Attach sample files"
                   accept={SAMPLE_ACCEPT}
                   disabled={samples.length >= MAX_SAMPLES}
-                  files={samples.map((s) => ({ name: s.filename, size: s.size_bytes, status: s.status }))}
+                  files={samples.map((s) => ({
+                    name: s.filename, size: s.size_bytes, status: s.status, locked: s.existing,
+                  }))}
                   onPick={pickSamples}
-                  onRemove={(i) => setSamples((xs) => xs.filter((_, j) => j !== i))}
+                  onRemove={(i) =>
+                    setSamples((xs) => (xs[i]?.existing ? xs : xs.filter((_, j) => j !== i)))
+                  }
                 />
               )}
             </Field>
@@ -369,16 +496,27 @@ export function RequestNewPage() {
             onChange={(v) => setD((x) => ({ ...x, storage_target_id: v }))}
           />
         )}
+        {/* Every row the server will fill a default into, including the six
+            that used to be missing here. The page promises that anything
+            skipped is "marked 'to be agreed', never hidden" — and partners
+            read these exact words in the brief, so this is the last chance to
+            see them. The fallbacks mirror _DEFAULTS in the marketplace service. */}
         {step === 5 && (
           <Dl rows={[
             ["Title", d.title || "—"],
             ["Category", titleCase(d.category)],
+            ["Geography", d.geography || "Not specified"],
+            ["Format", d.spec_format || "To be agreed"],
             ["Quantity", d.spec_quantity || "To be agreed"],
-            ["Headcount", d.people_headcount || "0"],
-            ["Budget", `${money(d.budget_min || null)} – ${money(d.budget_max || null)}`],
-            ["Timeline", `${fmtDate(d.starts_on || null)} → ${fmtDate(d.delivery_due_on || null)}`],
+            ["Quality bar", d.spec_quality || "Standard acceptance applies"],
             ["Acceptance", d.acceptance || "Client review on delivery"],
             ["Compliance", d.compliance_notes || "None specified"],
+            ["Headcount", d.people_headcount || "0"],
+            ["Certification", d.people_certification || "None"],
+            ["Training", d.people_training || "None specified"],
+            ["Experience", d.people_experience || "None specified"],
+            ["Budget", `${money(d.budget_min || null)} – ${money(d.budget_max || null)}`],
+            ["Timeline", `${fmtDate(d.starts_on || null)} → ${fmtDate(d.delivery_due_on || null)}`],
             ["Sample files", doneSamples.length ? doneSamples.map((s) => s.filename).join(", ") : "None"],
             ["Delivered to", <DestinationSummary key="dest" id={d.storage_target_id} />],
           ]} />
@@ -387,16 +525,49 @@ export function RequestNewPage() {
       </Panel>
       <div className="btnrow">
         {step > 0 && <Button onClick={() => { setError(null); setStep((s) => s - 1); }}>Back</Button>}
+        {/* Available on every step, not just the last. Everything typed lives
+            in component state with no autosave and no exit control, so hiding
+            the only save behind five Continues meant clicking "Requests" in
+            the rail silently destroyed the lot. */}
+        <Button
+          onClick={() => save.mutate(false)}
+          disabled={save.isPending || samples.some((s) => s.status === "uploading")}
+        >
+          {save.isPending && !confirming ? "Saving…" : "Save as draft"}
+        </Button>
         {step < STEPS.length - 1 && <Button variant="primary" onClick={next}>Continue</Button>}
         {step === STEPS.length - 1 && (
-          <>
-            <Button onClick={() => save.mutate(false)} disabled={save.isPending || samples.some((s) => s.status === "uploading")}>Save as draft</Button>
-            <Button variant="primary" onClick={() => save.mutate(true)} disabled={save.isPending || samples.some((s) => s.status === "uploading")}>
-              Publish to partners
-            </Button>
-          </>
+          <Button
+            variant="primary"
+            onClick={askToPublish}
+            disabled={save.isPending || samples.some((s) => s.status === "uploading")}
+          >
+            Publish to partners
+          </Button>
         )}
       </div>
+
+      {confirming && (
+        <Dialog
+          title="Publish to partners?"
+          sub={d.title}
+          busy={save.isPending}
+          onClose={() => setConfirming(false)}
+          foot={
+            <>
+              <Button onClick={() => setConfirming(false)} disabled={save.isPending}>Cancel</Button>
+              <Button variant="primary" onClick={() => save.mutate(true)} disabled={save.isPending}>
+                {save.isPending ? "Publishing…" : "Publish"}
+              </Button>
+            </>
+          }
+        >
+          <Callout tone="attention" title="Every delivery partner is notified, and this cannot be undone">
+            Partners start pricing against the words in this request. There is no way to
+            unpublish it or edit it afterwards — only to see it through or let it lapse.
+          </Callout>
+        </Dialog>
+      )}
     </View>
   );
 }
@@ -433,9 +604,36 @@ function describeTarget(t: StorageTarget): string {
 
 function DestinationSummary({ id }: { id: string }) {
   const targets = useTargets();
+  // Without the loading branch this said "Not chosen" for a destination the
+  // builder had just refused to let the client past without.
+  if (targets.isLoading) return <>Loading…</>;
   const t = (targets.data ?? []).find((x) => x.id === id);
   if (!t) return <>Not chosen</>;
   return <>{t.label} — {describeTarget(t)}</>;
+}
+
+// POST /storage-targets/{id}/verify has existed since destinations shipped and
+// nothing called it, so a destination whose credential had been revoked showed
+// a red pill with no way to re-test — the only escape was creating a duplicate.
+function RetestButton({ target }: { target: StorageTarget }) {
+  const qc = useQueryClient();
+  const toast = useToast();
+  const verify = useMutation({
+    mutationFn: () => post<StorageTarget>(`/storage-targets/${target.id}/verify`),
+    onSuccess: (t) => {
+      void qc.invalidateQueries({ queryKey: ["storage-targets"] });
+      toast("Destination reachable", `Wrote and read back a test file in ${t.bucket}.`, "success");
+    },
+    onError: (e) => {
+      void qc.invalidateQueries({ queryKey: ["storage-targets"] });
+      toast("Still not reachable", e instanceof Error ? e.message : "The test failed.", "critical");
+    },
+  });
+  return (
+    <Button size="sm" onClick={() => verify.mutate()} disabled={verify.isPending}>
+      {verify.isPending ? "Testing…" : "Test again"}
+    </Button>
+  );
 }
 
 function DestinationStep({ value, onChange }: { value: string; onChange: (v: string) => void }) {
@@ -444,20 +642,33 @@ function DestinationStep({ value, onChange }: { value: string; onChange: (v: str
   const rows = targets.data ?? [];
 
   return (
-    <div className="stack">
+    <div className="col">
       <p className="muted">
         Captured data is written straight to your own storage. SourceHub signs each upload
         and keeps no copy.
       </p>
 
+      {targets.isLoading && <Skeleton rows={3} label="Loading your destinations" />}
+
+      {/* A client without storage.manage gets a 403 here. Saying so beats an
+          empty step that reads as "you have none" and invites a duplicate. */}
+      {targets.isError && (
+        <Callout tone="critical" title="Could not load your destinations">
+          {targets.error instanceof Error ? targets.error.message : "Try again in a moment."}
+          {" "}You can still save this as a draft and choose a destination later.
+        </Callout>
+      )}
+
       {rows.length > 0 && (
-        <table className="table">
+        <TableWrap>
+        <table>
           <thead>
             <tr>
-              <th style={{ width: "2.5rem" }}><span className="sr-only">Use this destination</span></th>
+              <th style={{ width: "2.5rem" }}><span className="sr">Use this destination</span></th>
               <th>Destination</th>
               <th>Where</th>
               <th>Tested</th>
+              <th className="right"><span className="sr">Actions</span></th>
             </tr>
           </thead>
           <tbody>
@@ -474,18 +685,23 @@ function DestinationStep({ value, onChange }: { value: string; onChange: (v: str
                 </td>
                 <td>
                   <strong>{t.label}</strong>
-                  <div className="sub">{PROVIDERS.find(([v]) => v === t.provider)?.[1]}</div>
+                  <div className="small muted">{PROVIDERS.find(([v]) => v === t.provider)?.[1]}</div>
                 </td>
                 <td>{describeTarget(t)}</td>
                 <td>
                   {t.verified_at
                     ? <Pill tone="success">Reachable</Pill>
-                    : <Pill tone="critical">{t.verify_error ?? "Not tested"}</Pill>}
+                    : <Pill tone="critical">Not reachable</Pill>}
+                  {!t.verified_at && t.verify_error && (
+                    <div className="small muted">{t.verify_error}</div>
+                  )}
                 </td>
+                <td className="right"><div className="rowactions"><RetestButton target={t} /></div></td>
               </tr>
             ))}
           </tbody>
         </table>
+        </TableWrap>
       )}
 
       {!adding && (
@@ -628,6 +844,9 @@ export function RequestDetailPage() {
   const [awarding, setAwarding] = useState<Proposal | null>(null);
   const [viewing, setViewing] = useState<Proposal | null>(null);
   const [proposing, setProposing] = useState(false);
+  const [publishing, setPublishing] = useState(false);
+  const [publishError, setPublishError] = useState<string | null>(null);
+  const [awardError, setAwardError] = useState<string | null>(null);
 
   const request = useQuery({
     queryKey: ["request", id],
@@ -639,8 +858,14 @@ export function RequestDetailPage() {
     mutationFn: () => post<Rfp>(`/requests/${id}/publish`),
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: ["request", id] });
-      toast("Published", "Every delivery partner has been notified.", "success");
+      // The list caches for 15s and used to keep showing Draft after this.
+      void qc.invalidateQueries({ queryKey: ["requests"] });
+      setPublishing(false);
+      toast("Published", "Every delivery partner can bid on it now.", "success");
     },
+    // There was no onError at all, so a refused publish — an unreachable
+    // destination, a request already published — failed in total silence.
+    onError: (e) => setPublishError(e instanceof Error ? e.message : "Could not publish"),
   });
 
   const award = useMutation({
@@ -650,13 +875,16 @@ export function RequestDetailPage() {
       setAwarding(null);
       navigate(`/deliveries/${c.id}`);
     },
-    onError: (e) => toast("Could not award", e instanceof Error ? e.message : "", "critical"),
+    onError: (e) => setAwardError(e instanceof Error ? e.message : "The award was refused."),
   });
 
   const r = request.data;
   if (!r) return <View title="Request">{request.isError ? <Callout tone="critical" title="Not found or not yours to see" /> : <p className="muted">Loading…</p>}</View>;
 
   const meta = statusMeta(requestStatus, r.status);
+  const docs = r.attachments ?? [];
+  const complianceDocs = docs.filter((a) => a.slot === "compliance");
+  const acceptanceDocs = docs.filter((a) => a.slot === "acceptance");
   const isClient = session.org_kind === "client";
   const proposals = r.proposals ?? [];
   // Only badge an outright winner. On a tie every tied bid gets the chip,
@@ -681,7 +909,18 @@ export function RequestDetailPage() {
       actions={
         <>
           {isClient && r.status === "draft" && (
-            <Button variant="primary" onClick={() => publish.mutate()}>Publish</Button>
+            <>
+              <Link to={`/requests/${r.id}/edit`} className="btn">Edit</Link>
+              <Button variant="primary" onClick={() => { setPublishError(null); setPublishing(true); }}>
+                Publish
+              </Button>
+            </>
+          )}
+          {/* Once awarded this page becomes a read-only record with nothing
+              pointing at the work it produced — the only way through was the
+              rail. */}
+          {isClient && ["accepted", "in_progress", "delivered", "completed"].includes(r.status) && (
+            <Link to="/deliveries" className="btn" data-variant="primary">Track delivery</Link>
           )}
           {session.org_kind === "tenant" && ["published", "proposals_received"].includes(r.status) && !alreadyMine && (
             <Button variant="primary" onClick={() => setProposing(true)}>Propose</Button>
@@ -689,7 +928,15 @@ export function RequestDetailPage() {
         </>
       }
     >
-      <Panel><StageRail stages={LIFECYCLE} current={r.status} /></Panel>
+      {/* Labelled, not raw: the rail used to read "accepted" while the pill
+          beside it read "Awarded" — two names for one state on one screen. */}
+      <Panel>
+        <StageRail
+          stages={LIFECYCLE}
+          current={r.status}
+          label={(s) => requestStatus[s]?.label ?? s.replace(/_/g, " ")}
+        />
+      </Panel>
 
       <div className="g2">
         <Panel title="Specification">
@@ -698,7 +945,16 @@ export function RequestDetailPage() {
             ["Quantity", r.spec.quantity ?? "—"],
             ["Quality bar", r.spec.quality ?? "—"],
             ["Acceptance", r.acceptance ?? "—"],
+            // Shown under the prose they belong to rather than in a panel of
+            // their own: a rubric is part of the acceptance criteria, not a
+            // separate topic. A field with no files renders no row.
+            ...(acceptanceDocs.length
+              ? [["Acceptance documents", <AttachmentList key="ad" items={acceptanceDocs} />] as [string, React.ReactNode]]
+              : []),
             ["Compliance", r.compliance_notes ?? "—"],
+            ...(complianceDocs.length
+              ? [["Compliance documents", <AttachmentList key="cd" items={complianceDocs} />] as [string, React.ReactNode]]
+              : []),
             ["Geography", r.geography ?? "—"],
           ]} />
         </Panel>
@@ -782,7 +1038,16 @@ export function RequestDetailPage() {
                       <td className="num">{money(p.price)}</td>
                       <td className="num">{p.duration_days}</td>
                       <td className="num">{p.partner_qa_pass_rate != null ? `${p.partner_qa_pass_rate}% QA pass` : "—"}</td>
-                      <td style={{ maxWidth: 380 }}>{p.methodology}</td>
+                      <td style={{ maxWidth: 380 }}>
+                        {p.methodology}
+                        {/* The document the summary stands for. Only this
+                            client can open it — a rival gets a 404. */}
+                        {(p.attachments ?? []).length > 0 && (
+                          <div style={{ marginTop: 6 }}>
+                            <AttachmentList items={p.attachments ?? []} />
+                          </div>
+                        )}
+                      </td>
                       <td><Pill tone={pm.tone}>{pm.label}</Pill></td>
                       {isClient && (
                         <td className="right"><div className="rowactions">
@@ -804,24 +1069,52 @@ export function RequestDetailPage() {
 
       {viewing && <PartnerProfileDialog proposal={viewing} onClose={() => setViewing(null)} />}
 
+      {publishing && (
+        <Dialog
+          title="Publish to partners?"
+          sub={r.reference_code}
+          busy={publish.isPending}
+          onClose={() => setPublishing(false)}
+          foot={
+            <>
+              <Button onClick={() => setPublishing(false)} disabled={publish.isPending}>Cancel</Button>
+              <Button variant="primary" onClick={() => publish.mutate()} disabled={publish.isPending}>
+                {publish.isPending ? "Publishing…" : "Publish"}
+              </Button>
+            </>
+          }
+        >
+          <Callout tone="attention" title="Every delivery partner is notified, and this cannot be undone">
+            Partners start pricing against the words in this request. There is no way to
+            unpublish it or edit it afterwards — only to see it through or let it lapse.
+          </Callout>
+          {publishError && <Callout tone="critical" title="Could not publish">{publishError}</Callout>}
+        </Dialog>
+      )}
+
       {awarding && (
         <Dialog
           title={`Award to ${awarding.partner_name}?`}
           sub={`${money(awarding.price)} · ${awarding.duration_days} days`}
+          busy={award.isPending}
           onClose={() => setAwarding(null)}
           foot={
             <>
-              <Button onClick={() => setAwarding(null)}>Cancel</Button>
-              <Button variant="primary" onClick={() => award.mutate(awarding.id)} disabled={award.isPending}>
-                Award contract
+              <Button onClick={() => setAwarding(null)} disabled={award.isPending}>Cancel</Button>
+              <Button variant="primary" onClick={() => { setAwardError(null); award.mutate(awarding.id); }} disabled={award.isPending}>
+                {award.isPending ? "Awarding…" : "Award contract"}
               </Button>
             </>
           }
         >
           <Callout tone="attention" title="Awarding opens a contract and invoices milestone 1">
-            Every other proposal is automatically declined and its partner notified. 50% of the
+            Every other proposal is automatically declined and its partner notified. Half the
             value is invoiced to you and held in escrow until you approve the delivery.
           </Callout>
+          {/* The failure used to toast from the far corner while this dialog
+              stayed open with room to say it — every sibling dialog reports
+              inline. */}
+          {awardError && <Callout tone="critical" title="Could not award">{awardError}</Callout>}
         </Dialog>
       )}
 
@@ -856,6 +1149,7 @@ function ProposeDialog({ requestId, title, onClose }: { requestId: string; title
   const [days, setDays] = useState("");
   const [methodology, setMethodology] = useState("");
   const [notes, setNotes] = useState("");
+  const [files, setFiles] = useState<AttachmentDraft[]>([]);
   const [error, setError] = useState<string | null>(null);
   const toast = useToast();
   const qc = useQueryClient();
@@ -867,6 +1161,7 @@ function ProposeDialog({ requestId, title, onClose }: { requestId: string; title
         duration_days: Number(days),
         methodology,
         notes: notes || null,
+        attachments: attachmentPayload(files, "methodology"),
       }),
     onSuccess: () => {
       void qc.invalidateQueries();
@@ -886,7 +1181,10 @@ function ProposeDialog({ requestId, title, onClose }: { requestId: string; title
           <Button onClick={onClose}>Cancel</Button>
           <Button
             variant="primary"
-            disabled={submit.isPending || !price || !days || !methodology.trim()}
+            disabled={
+              submit.isPending || !price || !days || !methodology.trim() ||
+              files.some((f) => f.status === "uploading")
+            }
             onClick={() => {
               // the backend requires a real methodology (min 10 chars) — say so
               // instead of silently disabling the button
@@ -915,6 +1213,13 @@ function ProposeDialog({ requestId, title, onClose }: { requestId: string; title
           error={methodology.trim() && methodology.trim().length < 10 ? "A few words more — 10 characters minimum." : null}>
           {(id) => <textarea id={id} className={textareaCls} rows={4} value={methodology} onChange={(e) => setMethodology(e.target.value)} />}
         </Field>
+        <AttachmentsField
+          label="Method statement"
+          span
+          hint="The document behind the summary above — an approach note, a capability deck. Only this client sees it."
+          items={files}
+          onChange={setFiles}
+        />
         <Field label="Notes" span>
           {(id) => <textarea id={id} className={textareaCls} rows={2} value={notes} onChange={(e) => setNotes(e.target.value)} />}
         </Field>
@@ -969,6 +1274,9 @@ function ProposalDetailDialog({ p, onClose }: { p: Proposal; onClose: () => void
         ["Price", `${money(p.price, p.currency)}`],
         ["Delivery time", `${p.duration_days} days`],
         ["Methodology", p.methodology],
+        ...((p.attachments ?? []).length
+          ? [["Method statement", <AttachmentList key="m" items={p.attachments ?? []} />] as [string, React.ReactNode]]
+          : []),
         ["Notes", p.notes ?? "—"],
         ["Status", <Pill key="s" tone={pm.tone}>{pm.label}</Pill>],
         ["Submitted", fmtDateTime(p.submitted_at)],

@@ -6,7 +6,7 @@
 
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { get, post } from "@api/client";
 import { useSession } from "@shared/auth";
 import { BrandMark } from "@shared/brand";
@@ -89,8 +89,32 @@ interface NotificationRow {
   id: string;
   body: string;
   link_page: string | null;
+  link_params?: Record<string, string> | null;
   read: boolean;
   created_at: string;
+}
+
+// The backend stores a deep link on every notification — "so the bell can take
+// the reader to the thing itself", as notify/service.py puts it — in the
+// prototype's page vocabulary. Nothing ever translated it, so clicking a
+// "A proposal arrived" notification did nothing at all.
+function notificationHref(n: NotificationRow): string | null {
+  const id = n.link_params?.id;
+  switch (n.link_page) {
+    case "requestDetail": return id ? `/requests/${id}` : "/requests";
+    case "requests": return "/requests";
+    case "opportunities": return "/opportunities";
+    case "proposals": return "/proposals";
+    case "contracts": return id ? `/contracts/${id}` : "/contracts";
+    case "deliveries": return id ? `/deliveries/${id}` : "/deliveries";
+    case "deliveryDetail": return id ? `/deliveries/${id}` : "/deliveries";
+    case "tasks": return "/tasks";
+    case "qa": return "/qa";
+    case "equipment": return "/equipment";
+    case "loans": return "/loans";
+    case "billing": return "/billing";
+    default: return null;
+  }
 }
 
 export function Shell({ children }: { children: ReactNode }) {
@@ -181,7 +205,10 @@ export function Shell({ children }: { children: ReactNode }) {
               aria-label={`Notifications, ${bell.data?.unread ?? 0} unread`}
               onClick={() => setBellOpen((o) => !o)}
             >
-              ◔{(bell.data?.unread ?? 0) > 0 && <i className="push">{bell.data?.unread}</i>}
+              {/* .ping, not .push: the stylesheet's badge is .iconbtn .ping,
+                  and .push is the margin-left:auto utility — so the unread
+                  count rendered as bare text beside the glyph. */}
+              ◔{(bell.data?.unread ?? 0) > 0 && <i className="ping">{bell.data?.unread}</i>}
             </button>
             {bellOpen && (
               <div className="pop" role="menu">
@@ -202,11 +229,25 @@ export function Shell({ children }: { children: ReactNode }) {
                   </button>
                 </div>
                 <div className="pop-list">
-                  {(bell.data?.items ?? []).slice(0, 8).map((n) => (
-                    <div key={n.id} className="pop-item" data-unread={!n.read}>
-                      {n.body}
-                    </div>
-                  ))}
+                  {(bell.data?.items ?? []).slice(0, 8).map((n) => {
+                    const href = notificationHref(n);
+                    return href ? (
+                      <Link
+                        key={n.id}
+                        to={href}
+                        role="menuitem"
+                        className="pop-item"
+                        data-unread={!n.read}
+                        onClick={() => setBellOpen(false)}
+                      >
+                        {n.body}
+                      </Link>
+                    ) : (
+                      <div key={n.id} className="pop-item" data-unread={!n.read}>
+                        {n.body}
+                      </div>
+                    );
+                  })}
                   {!bell.data?.items?.length && (
                     <div className="pop-item muted">Nothing yet.</div>
                   )}

@@ -62,6 +62,7 @@ export interface Rfp {
   created_at: string;
   proposals?: Proposal[];
   samples?: RequestSample[];
+  attachments?: Attachment[];
 }
 
 export interface RequestSample {
@@ -95,6 +96,7 @@ export interface Proposal {
   notes: string | null;
   status: string;
   submitted_at: string;
+  attachments?: Attachment[];
   request_title?: string;
   request_ref?: string;
   client_org_id?: string;
@@ -150,6 +152,7 @@ export interface Task {
   capture_spec: Record<string, unknown>;
   status: string;
   due_on: string | null;
+  attachments?: Attachment[];
   last_submission: {
     id: string;
     attempt_no: number;
@@ -402,4 +405,19 @@ export interface StorageTarget {
   verify_error: string | null;
   created_at: string;
   updated_at: string;
+}
+
+/** A file hung off a field — a request's compliance notes, a bid's
+    methodology, a task's instructions, a QA verdict's evidence. */
+export interface Attachment {
+  id: string;
+  entity_type: "request" | "proposal" | "task" | "qa_review";
+  entity_id: string;
+  /** Which field it belongs to: compliance, acceptance, methodology, … */
+  slot: string;
+  owner_org_id: string;
+  filename: string;
+  content_type: string | null;
+  size_bytes: number;
+  uploaded_at: string;
 }

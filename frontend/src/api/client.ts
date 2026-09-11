@@ -127,11 +127,19 @@ export async function api<T = unknown>(
 export const get = <T = unknown>(path: string) => api<T>("GET", path);
 export const post = <T = unknown>(path: string, body?: unknown) => api<T>("POST", path, body);
 export const patch = <T = unknown>(path: string, body?: unknown) => api<T>("PATCH", path, body);
+export const del = <T = unknown>(path: string) => api<T>("DELETE", path);
 
 // The one deliberate exception to "only api() calls fetch": a presigned-URL
 // upload sends bytes straight to object storage. No auth header — the URL is
 // the credential — and no JSON wrapper.
-export async function putFile(url: string, file: File): Promise<void> {
-  const r = await fetch(url, { method: "PUT", body: file });
+export async function putFile(
+  url: string,
+  file: File,
+  // What the presign said this upload needs. Storage is no longer always ours,
+  // and the headers a PUT must carry depend on the provider behind the URL —
+  // the phone app learned this the hard way with Azure.
+  headers: Record<string, string> = {},
+): Promise<void> {
+  const r = await fetch(url, { method: "PUT", body: file, headers });
   if (!r.ok) throw new ApiError(r.status, "Upload failed — try the file again");
 }

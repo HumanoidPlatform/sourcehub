@@ -367,6 +367,13 @@ td.right,th.right{text-align:right}
   width:100%;text-align:left;background:transparent;border-left:0;border-right:0;border-top:0;cursor:pointer}
 .pop-item:last-child{border-bottom:0}
 .pop-item:hover{background:var(--surface-2)}
+/* The bell has always emitted data-unread and nothing styled it, so a row you
+   had read looked exactly like one you had not. */
+.pop-item[data-unread="true"]{font-weight:600;color:var(--ink)}
+.pop-item[data-unread="true"]::before{content:"";flex:none;align-self:center;width:6px;height:6px;
+  border-radius:50%;background:var(--t-active)}
+.pop-item[data-unread="false"]{color:var(--ink-2)}
+a.pop-item{text-decoration:none;color:inherit;display:flex;align-items:center}
 .pop-item .txt{font-size:12.5px;line-height:1.4}
 .pop-item .ts{font-family:var(--font-mono);font-size:10.5px;color:var(--ink-3);margin-top:3px}
 .hostrel{position:relative}

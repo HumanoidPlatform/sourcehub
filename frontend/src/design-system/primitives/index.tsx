@@ -135,6 +135,8 @@ export interface FileItem {
   name: string;
   size: number;
   status: "uploading" | "done" | "error";
+  /** Already saved on the record, so it cannot be removed from here. */
+  locked?: boolean;
 }
 
 function fmtBytes(n: number): string {
@@ -183,9 +185,25 @@ export function FileField({
               <span className="filelist-name">{f.name}</span>
               <span className="filelist-size">{fmtBytes(f.size)}</span>
               <span className="chip">
-                {f.status === "uploading" ? "Uploading…" : f.status === "error" ? "Failed" : "Ready"}
+                {f.status === "uploading"
+                  ? "Uploading…"
+                  : f.status === "error"
+                    ? "Failed"
+                    : f.locked
+                      ? "Attached"
+                      : "Ready"}
               </span>
-              <button type="button" className="iconbtn" aria-label={`Remove ${f.name}`} onClick={() => onRemove(i)}>
+              {/* A file already saved on the record cannot be removed: there
+                  is no delete endpoint, so the × used to drop it from the list
+                  and leave it attached — the row vanished and the file stayed. */}
+              <button
+                type="button"
+                className="iconbtn"
+                aria-label={f.locked ? `${f.name} is already attached` : `Remove ${f.name}`}
+                disabled={f.locked}
+                title={f.locked ? "Already attached to this request; it cannot be removed here." : undefined}
+                onClick={() => onRemove(i)}
+              >
                 ×
               </button>
             </div>
@@ -210,7 +228,10 @@ export function Meter({ pct, tone }: { pct: number; tone?: Tone }) {
 
 export function Callout({ tone, title, children }: { tone?: Tone; title: string; children?: ReactNode }) {
   return (
-    <div className="callout" data-tone={tone}>
+    // A critical callout is almost always the answer to something the person
+    // just did — a refused Continue, a failed save. Announce it, or pressing
+    // the button and going nowhere is silent for a screen reader.
+    <div className="callout" data-tone={tone} role={tone === "critical" ? "alert" : undefined}>
       <b>{title}</b>
       {children && <div className="small" style={{ marginTop: 4 }}>{children}</div>}
     </div>
@@ -238,7 +259,18 @@ export function TableWrap({ children }: { children: ReactNode }) {
 
 /* --- lifecycle stage rail --------------------------------------------------- */
 
-export function StageRail({ stages, current }: { stages: readonly string[]; current: string }) {
+export function StageRail({
+  stages,
+  current,
+  label,
+}: {
+  stages: readonly string[];
+  current: string;
+  /** How to render a stage. Without it the rail printed raw enum values, so a
+   *  request detail page showed "accepted" on the rail and "Awarded" in the
+   *  pill beside it — two names for one state on one screen. */
+  label?: (stage: string) => string;
+}) {
   const idx = stages.indexOf(current);
   return (
     <div className="stagerail">
@@ -246,11 +278,31 @@ export function StageRail({ stages, current }: { stages: readonly string[]; curr
         // .node and .name, not .dot and .small: the stylesheet styles the
         // former (a numbered 24px circle and an 11.5px label) and has no rule
         // for the latter, which left the rail as bare text on a track line.
-        <div key={s} className="stage" data-state={i < idx ? "done" : i === idx ? "here" : "todo"}>
+        <div
+          key={s}
+          className="stage"
+          data-state={i < idx ? "done" : i === idx ? "here" : "todo"}
+          aria-current={i === idx ? "step" : undefined}
+        >
           <span className="track" aria-hidden="true" />
           <span className="node" aria-hidden="true">{i < idx ? "✓" : i + 1}</span>
-          <span className="name">{s.replace(/_/g, " ")}</span>
+          <span className="name">{label ? label(s) : s.replace(/_/g, " ")}</span>
         </div>
+      ))}
+    </div>
+  );
+}
+
+/* --- loading ----------------------------------------------------------------- */
+
+// The stylesheet has shipped a .skeleton shimmer since the port and nothing
+// ever emitted it, so every list in the app showed its EMPTY state while the
+// query was still in flight — "No requests yet" to a client who has ten.
+export function Skeleton({ rows = 3, label = "Loading" }: { rows?: number; label?: string }) {
+  return (
+    <div className="col" role="status" aria-label={label}>
+      {Array.from({ length: rows }, (_, i) => (
+        <div key={i} className="skeleton" style={{ height: 14, width: i % 3 === 2 ? "60%" : "100%" }} />
       ))}
     </div>
   );
@@ -376,6 +428,7 @@ export function Dialog({
   children,
   foot,
   size,
+  busy,
 }: {
   title: string;
   sub?: ReactNode;
@@ -383,24 +436,65 @@ export function Dialog({
   children: ReactNode;
   foot: ReactNode;
   size?: "wide";
+  /** A mutation is in flight. Escape and the backdrop stop dismissing, because
+   *  a dialog that vanishes mid-request leaves the person unsure whether it
+   *  happened. Cancel and the × stay live — those are deliberate. */
+  busy?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const titleId = useRef(`dlg${++fieldSeq}`);
+  // Whoever opened this, so focus can go back there on close.
+  const opener = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const el = ref.current;
+    opener.current = document.activeElement as HTMLElement | null;
+
     // Focus the first field a person would actually fill. In a read-only
     // dialog there is none, and the first button is the header's Close — so
     // focusing "the first focusable" put focus on the control that dismisses
     // the dialog, ringed it, and made Enter close it on arrival. Fall back to
     // the dialog itself, which the focus trap below keeps hold of.
-    const first = el?.querySelector<HTMLElement>("input, select, textarea");
+    const first = el?.querySelector<HTMLElement>(
+      "input:not([disabled]):not([hidden]), select:not([disabled]), textarea:not([disabled])",
+    );
     (first ?? el)?.focus();
+
+    // The page behind must not scroll under the scrim.
+    const scrollY = window.scrollY;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.scrollTo({ top: scrollY });
+      // Without this every dismissal drops focus to <body> and a keyboard user
+      // restarts from the top of the page.
+      opener.current?.focus?.();
+    };
+  }, []);
+
+  useEffect(() => {
+    const el = ref.current;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape" && !busy) onClose();
       // a minimal focus trap: tab cycles inside the dialog
       if (e.key === "Tab" && el) {
-        const focusables = el.querySelectorAll<HTMLElement>(
-          "input, select, textarea, button, [href]",
+        // Filtering :disabled is the point. Every confirm dialog disables its
+        // primary while its mutation runs, and an unfiltered query made that
+        // disabled button the `last` element activeElement can never equal —
+        // so Tab went uncaught and focus escaped behind the scrim at exactly
+        // the moment the dialog was least dismissable.
+        const focusables = Array.from(
+          el.querySelectorAll<HTMLElement>(
+            "input, select, textarea, button, [href], [tabindex]",
+          ),
+        ).filter(
+          (f) =>
+            !f.hasAttribute("disabled") &&
+            !f.hasAttribute("hidden") &&
+            f.getAttribute("aria-hidden") !== "true" &&
+            f.getAttribute("tabindex") !== "-1",
         );
         if (!focusables.length) return;
         const first = focusables[0]!;
@@ -416,7 +510,7 @@ export function Dialog({
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [onClose]);
+  }, [onClose, busy]);
 
   return (
     // data-open is load-bearing: the ported CSS ships .overlay{display:none}
@@ -424,13 +518,18 @@ export function Dialog({
     // permanent overlay div and toggled the attribute from JS. React mounts
     // the overlay conditionally instead, so it must mount already-open, or
     // every dialog in the app renders invisible.
-    <div className="overlay" data-open="" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
+    <div
+      className="overlay"
+      data-open=""
+      onMouseDown={(e) => e.target === e.currentTarget && !busy && onClose()}
+    >
       <div
         className="dialog"
         data-size={size}
         role="dialog"
         aria-modal="true"
-        aria-label={title}
+        aria-labelledby={titleId.current}
+        aria-busy={busy || undefined}
         // focused on open so the trap has somewhere to start; it is not
         // tab-reachable, so suppressing its ring costs keyboard users
         // nothing — the controls inside still show theirs.
@@ -442,7 +541,7 @@ export function Dialog({
           {/* .titles is load-bearing: .dialog-head has no justify-content, so
               its flex:1 is the only thing pushing the close button right. */}
           <div className="titles">
-            <h2 style={{ margin: 0, fontSize: 15 }}>{title}</h2>
+            <h2 id={titleId.current} style={{ margin: 0, fontSize: 15 }}>{title}</h2>
             {sub && <span className="sub">{sub}</span>}
           </div>
           <button type="button" className="iconbtn" aria-label="Close" onClick={onClose}>×</button>

@@ -11,6 +11,7 @@ import {
   Button, Callout, Dialog, Empty, Field, Metric, Panel, TableWrap, textareaCls, useToast, View,
 } from "@ds/primitives";
 import { fmtDateTime } from "@shared/format";
+import { AttachmentsField, attachmentPayload, type AttachmentDraft } from "@shared/attachments";
 import { AssetGallery, useTaskAssets } from "@features/delivery/components/AssetGallery";
 import { DecideAssignmentDialog } from "@features/delivery/components/assignments";
 
@@ -83,6 +84,7 @@ export function QaQueuePage() {
 
 function DecideDialog({ row, onClose, onDone }: { row: QaQueueRow; onClose: () => void; onDone: (o: string) => void }) {
   const [note, setNote] = useState("");
+  const [files, setFiles] = useState<AttachmentDraft[]>([]);
   const [error, setError] = useState<string | null>(null);
   const assets = useTaskAssets(row.task_id);
   // the captures bundled into THIS attempt; a count-only submission has none
@@ -90,7 +92,9 @@ function DecideDialog({ row, onClose, onDone }: { row: QaQueueRow; onClose: () =
 
   const decide = useMutation({
     mutationFn: (outcome: "pass" | "fail") =>
-      post(`/qa/submissions/${row.submission_id}/decide`, { outcome, note: note || null }),
+      post(`/qa/submissions/${row.submission_id}/decide`, {
+        outcome, note: note || null, attachments: attachmentPayload(files, "verdict"),
+      }),
     onSuccess: (_d, outcome) => onDone(outcome),
     onError: (e) => setError(e instanceof Error ? e.message : "Could not record the verdict"),
   });
@@ -104,10 +108,18 @@ function DecideDialog({ row, onClose, onDone }: { row: QaQueueRow; onClose: () =
       foot={
         <>
           <Button onClick={onClose}>Cancel</Button>
-          <Button variant="danger" disabled={decide.isPending} onClick={() => decide.mutate("fail")}>
+          <Button
+            variant="danger"
+            disabled={decide.isPending || files.some((f) => f.status === "uploading")}
+            onClick={() => decide.mutate("fail")}
+          >
             Fail — send back
           </Button>
-          <Button variant="success" disabled={decide.isPending} onClick={() => decide.mutate("pass")}>
+          <Button
+            variant="success"
+            disabled={decide.isPending || files.some((f) => f.status === "uploading")}
+            onClick={() => decide.mutate("pass")}
+          >
             Pass
           </Button>
         </>
@@ -130,6 +142,13 @@ function DecideDialog({ row, onClose, onDone }: { row: QaQueueRow; onClose: () =
         >
           {(id) => <textarea id={id} className={textareaCls} rows={3} value={note} onChange={(e) => setNote(e.target.value)} />}
         </Field>
+        <AttachmentsField
+          label="Evidence"
+          span
+          hint="A marked-up frame, a measurement, a reference shot. Far easier to act on than a description of the defect."
+          items={files}
+          onChange={setFiles}
+        />
       </div>
       {error && <Callout tone="critical" title={error} />}
     </Dialog>

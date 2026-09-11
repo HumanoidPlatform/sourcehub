@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { get } from "@api/client";
 import type { Contract, EquipmentRow, Gate1Row, LoanRow, Proposal, QaQueueRow, Rfp, Task, WorkerRow } from "@api/types";
-import { Empty, Meter, Metric, Panel, Pill, TableWrap, View } from "@ds/primitives";
+import { Empty, Meter, Metric, Panel, Pill, Skeleton, TableWrap, View } from "@ds/primitives";
 import { useSession } from "@shared/auth";
 import { fmtDate, money } from "@shared/format";
 import { contractStatus, requestStatus, statusMeta, taskStatus, waitingOn } from "@shared/status";
@@ -43,8 +43,17 @@ function ClientOverview() {
         <Metric label="Committed spend" value={money(committed)} />
       </div>
       <Panel title="Recent requests" actions={<Link className="btn" data-size="sm" to="/requests">All requests</Link>}>
-        {rs.length === 0 ? (
-          <Empty title="Publish your first request" action={<Link to="/requests/new" className="btn" data-variant="primary">New request</Link>} />
+        {requests.isLoading ? (
+          // The metrics above read 0 while loading too, but they settle in
+          // place. This panel used to tell a returning client to "Publish your
+          // first request" every time they landed.
+          <Skeleton rows={4} label="Loading your requests" />
+        ) : rs.length === 0 ? (
+          <Empty
+            title="Publish your first request"
+            hint="Describe what you need captured and every delivery partner can bid on it."
+            action={<Link to="/requests/new" className="btn" data-variant="primary">New request</Link>}
+          />
         ) : (
           <TableWrap>
             <table>
