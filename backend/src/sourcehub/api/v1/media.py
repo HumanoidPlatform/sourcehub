@@ -16,6 +16,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.deps import Principal, TxRoute, get_principal, get_session, require_capability
 from sourcehub.modules.media import service as media
+from sourcehub.platform.storage import StorageError
 
 router = APIRouter(route_class=TxRoute)
 
@@ -51,6 +52,10 @@ async def presign(
             filename=body.filename, content_type=body.content_type, size_bytes=body.size_bytes,
             sha256=body.sha256, captured_at=body.captured_at, lat=body.lat, lon=body.lon,
         )
+    except StorageError as e:
+        # The capture presign runs against the CLIENT's bucket, so this is the
+        # most exposed of the three: their endpoint, their credential.
+        raise HTTPException(status.HTTP_502_BAD_GATEWAY, str(e)) from None
     except (LookupError, media.MediaError, media.MediaInvalid) as e:
         raise _map(e) from None
 

@@ -55,7 +55,24 @@ class Settings(BaseSettings):
     mail_backend: Literal["smtp", "azure_email"] = "smtp"
     auth_backend: Literal["database", "keycloak"] = "database"
 
+    # Two addresses, because one setting was doing two jobs that pull apart.
+    #
+    #   storage_endpoint        where the API itself connects — HEAD, stat, the
+    #                           destination probe. localhost is right here, and
+    #                           it never changes when the machine moves network.
+    #   storage_public_endpoint what gets baked into a presigned URL, because a
+    #                           phone cannot resolve localhost. Only whatever
+    #                           opens the link needs to reach it; the API never
+    #                           does, now that signing makes no network call.
+    #
+    # Unset falls back to storage_endpoint, which is correct for a deployment
+    # where both sides see the same address.
     storage_endpoint: str = "http://localhost:9000"
+    storage_public_endpoint: str | None = None
+    # Passing a region is what stops the SDK issuing a live GetBucketLocation
+    # before it will sign anything — see minio/api.py:486. us-east-1 is MinIO's
+    # own default and the correct value for it.
+    storage_region: str = "us-east-1"
     storage_access_key: str = ""
     storage_secret_key: SecretStr = SecretStr("")
     storage_bucket_assets: str = "sourcehub-assets"

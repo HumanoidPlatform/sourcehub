@@ -11,12 +11,17 @@ directly and file bytes never traverse the API tier. The SDK is blocking, so
 every call runs in a thread; the caller awaits a coroutine either way, the same
 shape every adapter here honours (see platform/mail/smtp.py).
 
-The endpoint must be reachable from the DEVICE, not just the API — presigned
-URLs embed its host, which is why a client's destination has to be a real
-public bucket and why localhost:9000 only ever works in development.
+Two addresses, not one. A presigned URL embeds the host it was signed against —
+SigV4 covers the Host header — so the URL must carry an address the DEVICE can
+resolve, while the calls the API makes for itself go somewhere it can reach.
+For platform storage those differ: localhost for us, the LAN address for a
+phone. For a client's own bucket they are the same, and public_endpoint is
+left unset.
 
-region is not optional in practice: SigV4 presigning against an S3 bucket
-outside us-east-1 produces URLs the service rejects.
+region is not optional in practice, for two reasons. SigV4 presigning against a
+bucket outside us-east-1 produces URLs the service rejects — and without a
+region the SDK fetches one over the network before it will sign anything, which
+made presigning depend on a host it has no business contacting.
 """
 
 from __future__ import annotations
@@ -27,6 +32,7 @@ import datetime as dt
 import uuid
 from urllib.parse import urlparse
 
+import urllib3
 from minio import Minio
 from minio.error import S3Error
 
@@ -35,10 +41,36 @@ from sourcehub.platform.storage.types import ObjectStat, StorageError, StorageTa
 
 _DEFAULT_HOST = "s3.amazonaws.com"
 
+# The SDK's default connect timeout is 300 seconds. An unreachable endpoint
+# therefore hung a request thread for five minutes and then returned a stack
+# trace. Five seconds is long enough for a real network and short enough that
+# the answer arrives while someone is still looking at the screen.
+_HTTP = urllib3.PoolManager(
+    timeout=urllib3.Timeout(connect=5.0, read=30.0),
+    # No retry. A host that refused to answer in five seconds will not answer
+    # in ten, and retrying only doubles how long someone waits to be told.
+    retries=False,
+)
 
-def _client(t: StorageTarget) -> Minio:
-    if t.endpoint:
-        u = urlparse(t.endpoint)
+
+def _client(t: StorageTarget, *, signing: bool) -> Minio:
+    """A client bound to one of the two addresses.
+
+    signing=True builds URLs for whoever opens them — a browser, a phone — so
+    it must use the public host: SigV4 covers the Host header, and a URL signed
+    against one host is rejected when called on another.
+
+    signing=False is for calls the API makes itself, which go to the address
+    the API can actually reach.
+
+    Passing region matters more than it looks. Without it the SDK issues a live
+    GetBucketLocation before signing anything, which turned presigning — pure
+    computation — into a network round trip against a host that need not be
+    reachable from here at all.
+    """
+    raw = (t.public_endpoint or t.endpoint) if signing else t.endpoint
+    if raw:
+        u = urlparse(raw)
         host, secure = (u.netloc or u.path), (u.scheme != "http")
     else:
         host, secure = _DEFAULT_HOST, True
@@ -48,7 +80,14 @@ def _client(t: StorageTarget) -> Minio:
         secret_key=str(t.secret.get("secret_access_key") or ""),
         secure=secure,
         region=t.region or None,
+        http_client=_HTTP,
     )
+
+
+def _unreachable(host: str | None, e: Exception) -> StorageError:
+    """One message for every way a host can fail to answer."""
+    where = host or "storage"
+    return StorageError(f"Could not reach {where}: {type(e).__name__}")
 
 
 def _ttl() -> dt.timedelta:
@@ -61,9 +100,14 @@ async def presign_put(t: StorageTarget, key: str) -> tuple[str, dict[str, str]]:
     Returns the extra request headers the upload must carry — none for S3, but
     the caller treats every provider the same way.
     """
-    url = await asyncio.to_thread(
-        lambda: _client(t).presigned_put_object(t.bucket, key, expires=_ttl())
-    )
+    try:
+        url = await asyncio.to_thread(
+            lambda: _client(t, signing=True).presigned_put_object(t.bucket, key, expires=_ttl())
+        )
+    except Exception as e:
+        # With a region set this is pure computation and should not fail. It
+        # still can, for a target whose region was never filled in.
+        raise _unreachable(t.public_endpoint or t.endpoint, e) from None
     return url, {}
 
 
@@ -75,25 +119,31 @@ async def presign_get(t: StorageTarget, key: str, filename: str, inline: bool = 
     the capture galleries need.
     """
     disposition = "inline" if inline else "attachment"
-    return await asyncio.to_thread(
-        lambda: _client(t).presigned_get_object(
-            t.bucket,
-            key,
-            expires=_ttl(),
-            response_headers={
-                "response-content-disposition": f'{disposition}; filename="{filename}"'
-            },
+    try:
+        return await asyncio.to_thread(
+            lambda: _client(t, signing=True).presigned_get_object(
+                t.bucket,
+                key,
+                expires=_ttl(),
+                response_headers={
+                    "response-content-disposition": f'{disposition}; filename="{filename}"'
+                },
+            )
         )
-    )
+    except Exception as e:
+        raise _unreachable(t.public_endpoint or t.endpoint, e) from None
 
 
 def _head_sync(t: StorageTarget, key: str) -> ObjectStat:
     try:
-        s = _client(t).stat_object(t.bucket, key)
+        s = _client(t, signing=False).stat_object(t.bucket, key)
     except S3Error as e:
         if e.code in ("NoSuchKey", "NoSuchObject"):
             raise LookupError(key) from None
-        raise
+        raise StorageError(f"Storage refused the request: {e.code}") from None
+    except Exception as e:
+        # A real call to a real host, so this one genuinely can be unreachable.
+        raise _unreachable(t.endpoint, e) from None
     etag = (s.etag or "").strip('"') or None
     return ObjectStat(size=s.size or 0, content_type=s.content_type, etag=etag)
 
@@ -110,7 +160,9 @@ async def head(t: StorageTarget, key: str) -> ObjectStat:
 def _verify_sync(t: StorageTarget) -> None:
     import io
 
-    c = _client(t)
+    # The probe writes and reads for real, so it uses the address the API can
+    # reach — not the one a phone would.
+    c = _client(t, signing=False)
     key = t.key(f".sourcehub-probe/{uuid.uuid4()}")
     body = b"sourcehub destination check"
     try:

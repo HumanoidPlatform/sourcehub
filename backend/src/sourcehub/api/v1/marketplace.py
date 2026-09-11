@@ -14,6 +14,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sourcehub.api.deps import Principal, TxRoute, get_principal, get_session, require_capability
 from sourcehub.api.v1.attachments import AttachmentIn
 from sourcehub.modules.marketplace import service as marketplace
+from sourcehub.platform.storage import StorageError
 
 router = APIRouter(route_class=TxRoute)
 
@@ -132,6 +133,9 @@ async def presign_sample(
         return await marketplace.presign_sample_upload(
             session, principal, body.filename, body.content_type, body.size_bytes
         )
+    except StorageError as e:
+        # Unreachable storage is not the caller's mistake.
+        raise HTTPException(status.HTTP_502_BAD_GATEWAY, str(e)) from None
     except marketplace.MarketplaceError as e:
         raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, str(e)) from None
 

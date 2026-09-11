@@ -31,6 +31,20 @@ def create_app() -> FastAPI:
         allow_headers=["*"],
     )
 
+    # Object storage being unreachable is an upstream failure, not a bad
+    # request — and it can surface from any route that presigns, attaches or
+    # confirms a file. Handled once here rather than in each of them, because
+    # the route that gets forgotten is the one that returns a stack trace.
+    from fastapi import Request
+    from fastapi.responses import JSONResponse
+
+    from sourcehub.platform.storage import StorageError
+
+    async def _storage_unavailable(_: Request, exc: Exception) -> JSONResponse:
+        return JSONResponse(status_code=502, content={"detail": str(exc)})
+
+    app.add_exception_handler(StorageError, _storage_unavailable)
+
     from sourcehub.api.v1 import (
         attachments, audit, auth, delivery, identity, ledger, marketplace, media, network, notify,
         onboarding, qa, storage,

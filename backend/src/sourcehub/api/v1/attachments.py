@@ -20,6 +20,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.deps import Principal, TxRoute, get_principal, get_session
 from sourcehub.modules.attachments import service as attachments
+from sourcehub.platform.storage import StorageError
 
 router = APIRouter(route_class=TxRoute)
 
@@ -47,6 +48,10 @@ class AttachmentIn(BaseModel):
 def _map(e: Exception) -> HTTPException:
     if isinstance(e, LookupError):
         return HTTPException(status.HTTP_404_NOT_FOUND, "Not found")
+    # Storage being unreachable is not the caller's mistake, and it used to
+    # escape as a raw 500 with a stack trace.
+    if isinstance(e, StorageError):
+        return HTTPException(status.HTTP_502_BAD_GATEWAY, str(e))
     return HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, str(e))
 
 
@@ -67,7 +72,7 @@ async def presign(
             session, principal,
             filename=body.filename, content_type=body.content_type, size_bytes=body.size_bytes,
         )
-    except attachments.AttachmentError as e:
+    except (attachments.AttachmentError, StorageError) as e:
         raise _map(e) from None
 
 
@@ -79,7 +84,7 @@ async def download(
 ):
     try:
         return await attachments.download_url(session, attachment_id)
-    except LookupError as e:
+    except (LookupError, StorageError) as e:
         raise _map(e) from None
 
 

@@ -59,7 +59,10 @@ def platform_target(bucket: str) -> StorageTarget:
         provider="s3",
         bucket=bucket,
         endpoint=settings.storage_endpoint,
-        region=None,
+        # Where a browser or a phone will actually call. Falls back to the
+        # internal address, which is right whenever both sides see the same one.
+        public_endpoint=settings.storage_public_endpoint or settings.storage_endpoint,
+        region=settings.storage_region,
         key_prefix="",
         secret={
             "access_key_id": settings.storage_access_key,
