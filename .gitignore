@@ -41,3 +41,8 @@ Thumbs.db
 # --- Local artefacts ---------------------------------------------------------
 *.log
 .claude/
+
+# --- Build artifacts ----------------------------------------------------------
+# Generated from db/*.sql by `make bundle`. Not committed: a second copy of the
+# schema is a second thing to keep in step.
+build/
