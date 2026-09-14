@@ -50,6 +50,20 @@ function RemoveButton({ onPress }: { onPress: () => void }) {
   );
 }
 
+/** What the phone flagged about this capture before queueing it, as one line.
+ *  A row written before the checks existed, or a column that will not parse,
+ *  simply has nothing to say. */
+function flagged(raw: string | null): string | null {
+  if (!raw) return null;
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    if (!Array.isArray(parsed) || parsed.length === 0) return null;
+    return parsed.map((f) => String((f as { message?: unknown }).message ?? "")).filter(Boolean).join(" ") || null;
+  } catch {
+    return null;
+  }
+}
+
 function LocalTile({ row, onRemove }: { row: CaptureRow; onRemove?: (o: { captureId?: string; assetId?: string }) => void }) {
   const progress = useUploadProgress();
   const m = meta(captureStatus, row.status);
@@ -59,6 +73,7 @@ function LocalTile({ row, onRemove }: { row: CaptureRow; onRemove?: (o: { captur
   // the phone's storage free. This tile still owns the asset_id, so it fetches
   // the signed URL the same way a remote tile does — otherwise a capture that
   // uploaded SUCCESSFULLY is the one you cannot look at.
+  const flags = flagged(row.checks);
   const needsRemote = !row.local_uri && !!row.asset_id && !isVideo;
   const remote = useAssetUrl(row.asset_id ?? "", needsRemote);
   const uri = row.local_uri ?? (needsRemote ? remote.data?.url : undefined);
@@ -72,6 +87,10 @@ function LocalTile({ row, onRemove }: { row: CaptureRow; onRemove?: (o: { captur
       <Tag tone={m.tone} text={pct != null ? `${pct}%` : m.label} />
       {row.status === "failed" && row.last_error ? (
         <Text numberOfLines={2} style={g.err}>{row.last_error}</Text>
+      ) : flags ? (
+        // The capture was kept and is uploading normally; this says why a
+        // reviewer may query it, while the worker is still on site to redo it.
+        <Text numberOfLines={2} style={g.flag}>{flags}</Text>
       ) : null}
       {onRemove && (
         <RemoveButton onPress={() => onRemove({ captureId: row.id, assetId: row.asset_id ?? undefined })} />
@@ -129,4 +148,5 @@ const g = StyleSheet.create({
   tag: { position: "absolute", left: 4, bottom: 4, paddingHorizontal: 5, paddingVertical: 2, borderRadius: 4 },
   tagText: { fontSize: 10, fontWeight: "700" },
   err: { position: "absolute", top: 4, left: 4, right: 4, fontSize: 9, color: "#fff", backgroundColor: "rgba(194,65,12,0.85)", padding: 3, borderRadius: 4 },
+  flag: { position: "absolute", top: 4, left: 4, right: 4, fontSize: 9, color: "#fff", backgroundColor: "rgba(154,98,16,0.85)", padding: 3, borderRadius: 4 },
 });

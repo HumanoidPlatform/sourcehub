@@ -38,6 +38,19 @@ function parseHeaders(raw: string | null): Record<string, string> {
   }
 }
 
+/** The device's own findings about this capture. A row that cannot be read
+ *  must not cost the worker the upload, so an unparseable column reports
+ *  nothing rather than failing the presign. */
+function parseChecks(raw: string | null): unknown[] {
+  if (!raw) return [];
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
 class Uploader {
   private running = false;
   private dirty = false;
@@ -120,6 +133,8 @@ class Uploader {
             captured_at: row.captured_at,
             lat: row.lat,
             lon: row.lon,
+            // what the phone found before queueing; lands in asset.check_results
+            checks: parseChecks(row.checks),
           });
           outcome = {
             type: "presigned",

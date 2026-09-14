@@ -199,6 +199,7 @@ async def presign_capture(
     captured_at: dt.datetime,
     lat: float | None,
     lon: float | None,
+    checks: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """Record the manifest and mint a one-object upload URL.
 
@@ -288,9 +289,10 @@ async def presign_capture(
             "INSERT INTO asset (id, task_id, assignment_id, captured_by_user_id, supplier_org_id, "
             "                   contract_id, storage_key, filename, mime_type, size_bytes, sha256, "
             "                   status, captured_at, captured_lat, captured_lon, metadata, "
-            "                   storage_target_id) "
+            "                   check_results, storage_target_id) "
             "VALUES (:id, :task, :asg, :user, :org, :contract, :key, :name, :ct, :size, :sha, "
-            "        'pending', :cat, :lat, :lon, CAST(:meta AS jsonb), :target)"
+            "        'pending', :cat, :lat, :lon, CAST(:meta AS jsonb), "
+            "        CAST(:checks AS jsonb), :target)"
         ),
         {
             "id": asset_id, "task": a["task_id"], "asg": assignment_id, "user": claims.user_id,
@@ -298,6 +300,10 @@ async def presign_capture(
             "ct": content_type, "size": size_bytes, "sha": sha, "cat": captured_at,
             "lat": _to_numeric(lat), "lon": _to_numeric(lon),
             "meta": json.dumps({"claimed_size": size_bytes, "kind": kind}),
+            # What the phone decided before it queued the file. Recorded, not
+            # trusted: everything enforced above was checked here, on the
+            # server, from the manifest the device sent.
+            "checks": json.dumps({"device": checks or []}),
             "target": target_id,
         },
     )

@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import datetime as dt
 import uuid
+from typing import Literal
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, Field
@@ -21,6 +22,18 @@ from sourcehub.platform.storage import StorageError
 router = APIRouter(route_class=TxRoute)
 
 
+class DeviceCheck(BaseModel):
+    """One thing the phone noticed about a capture before it queued it.
+
+    The device is not trusted to judge its own work — these are recorded, not
+    acted on. Everything the server actually enforces it checks itself, below.
+    """
+
+    code: str = Field(min_length=1, max_length=40)
+    severity: Literal["block", "warn"]
+    message: str = Field(min_length=1, max_length=300)
+
+
 class PresignIn(BaseModel):
     filename: str = Field(min_length=1, max_length=255)
     content_type: str = Field(min_length=3, max_length=120)
@@ -29,6 +42,8 @@ class PresignIn(BaseModel):
     captured_at: dt.datetime
     lat: float | None = Field(default=None, ge=-90, le=90)
     lon: float | None = Field(default=None, ge=-180, le=180)
+    # An older build sends no checks at all; that is an empty list, not a fault.
+    checks: list[DeviceCheck] = Field(default_factory=list, max_length=20)
 
 
 def _map(e: Exception) -> HTTPException:
@@ -51,6 +66,7 @@ async def presign(
             session, principal, assignment_id,
             filename=body.filename, content_type=body.content_type, size_bytes=body.size_bytes,
             sha256=body.sha256, captured_at=body.captured_at, lat=body.lat, lon=body.lon,
+            checks=[c.model_dump() for c in body.checks],
         )
     except StorageError as e:
         # The capture presign runs against the CLIENT's bucket, so this is the

@@ -7,10 +7,12 @@ import { useEffect, useRef, useState } from "react";
 import { Linking, Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ensureLocationPermission } from "@/capture/location";
-import { useCapture } from "@/capture/useCapture";
+import { CaptureRejected, useCapture } from "@/capture/useCapture";
 import { MAX_VIDEO_SECONDS } from "@/config";
 import { useAssignments } from "@/query/hooks";
+import { TONE_COLOR } from "@/status";
 import { Button, C, Callout, s } from "@/ui";
+import { mediaKinds } from "@/validation/rules";
 
 export default function Capture() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -25,19 +27,27 @@ export default function Capture() {
   const [busy, setBusy] = useState(false);
   const [count, setCount] = useState(0);
   const [error, setError] = useState<string | null>(null);
-  const save = useCapture(id ?? "", a?.task.reference_code ?? "capture");
+  const [notice, setNotice] = useState<string | null>(null);
+  const [locationOk, setLocationOk] = useState(true);
+  const spec = a?.task.capture_spec;
+  const save = useCapture(id ?? "", a?.task.reference_code ?? "capture", spec, a?.task.target_unit);
 
-  const media = a?.task.capture_spec?.media ?? "both";
-  const maxSeconds = Math.min(MAX_VIDEO_SECONDS, a?.task.capture_spec?.max_duration_s ?? MAX_VIDEO_SECONDS);
+  // The server sends a list; a task made before capture-spec inheritance sends
+  // a string. Reading it raw is what used to open a video-only task in photo
+  // mode and hide the toggle on a task that accepts both.
+  const kinds = mediaKinds(spec, a?.task.target_unit);
+  // A fresh array every render, so the effect below watches its contents.
+  const kindKey = kinds.join(",");
+  const maxSeconds = Math.min(MAX_VIDEO_SECONDS, spec?.max_duration_s ?? MAX_VIDEO_SECONDS);
 
   useEffect(() => {
     if (!camPerm?.granted) void requestCam();
-    void ensureLocationPermission();
+    void ensureLocationPermission().then(setLocationOk);
   }, [camPerm?.granted, requestCam]);
 
   useEffect(() => {
-    if (media === "video") setMode("video");
-  }, [media]);
+    if (kindKey === "video") setMode("video");
+  }, [kindKey]);
 
   if (!camPerm) return null;
   if (!camPerm.granted) {
@@ -52,6 +62,13 @@ export default function Capture() {
     );
   }
 
+  // A warning does not stop the capture — it is kept, flagged, and the reason
+  // travels with it to QA. Only a block throws, and the catch below renders it.
+  const kept = (warnings: { message: string }[]) => {
+    setCount((n) => n + 1);
+    setNotice(warnings.length > 0 ? warnings.map((w) => w.message).join(" ") : null);
+  };
+
   const shoot = async () => {
     if (!cam.current || busy) return;
     setError(null);
@@ -60,8 +77,7 @@ export default function Capture() {
         setBusy(true);
         const photo = await cam.current.takePictureAsync({ quality: 0.9, exif: true, skipProcessing: false });
         if (photo?.uri) {
-          await save({ uri: photo.uri }, "photo");
-          setCount((n) => n + 1);
+          kept(await save({ uri: photo.uri, width: photo.width, height: photo.height }, "photo"));
         }
       } else if (!recording) {
         if (!micPerm?.granted) {
@@ -76,14 +92,16 @@ export default function Capture() {
         setRecording(false);
         if (video?.uri) {
           setBusy(true);
-          await save({ uri: video.uri }, "video");
-          setCount((n) => n + 1);
+          kept(await save({ uri: video.uri }, "video"));
         }
       } else {
         cam.current.stopRecording();
       }
     } catch (e) {
       setRecording(false);
+      // A rejection has already deleted the file and left the queue untouched,
+      // so the counter not advancing is the correct outcome, not a failure.
+      if (e instanceof CaptureRejected) setNotice(null);
       setError(e instanceof Error ? e.message : "Capture failed.");
     } finally {
       setBusy(false);
@@ -99,13 +117,19 @@ export default function Capture() {
             <Text style={c.chipText}>Done</Text>
           </Pressable>
           <Text style={c.counter}>{count} saved</Text>
-          {media === "both" && (
+          {kinds.length > 1 && (
             <Pressable onPress={() => !recording && setMode(mode === "picture" ? "video" : "picture")} accessibilityRole="button" style={c.chip}>
               <Text style={c.chipText}>{mode === "picture" ? "Photo" : "Video"} ▾</Text>
             </Pressable>
           )}
         </View>
+        {/* Said once, before the run rather than after it: a whole shelf run
+            used to be capturable with no coordinates and nothing to show for it. */}
+        {spec?.require_gps && !locationOk ? (
+          <Text style={c.warn}>This task needs a location on every capture. Turn location on in settings.</Text>
+        ) : null}
         {error ? <Text style={c.error}>{error}</Text> : null}
+        {notice ? <Text style={c.warn}>{notice}</Text> : null}
         <View style={c.bottom}>
           <Pressable
             onPress={() => void shoot()}
@@ -130,6 +154,8 @@ const c = StyleSheet.create({
   chipText: { color: "#fff", fontWeight: "700", fontSize: 15 },
   counter: { color: "#fff", fontWeight: "700", fontSize: 15, textShadowColor: "#000", textShadowRadius: 4 },
   error: { color: "#fff", backgroundColor: C.danger, padding: 8, marginHorizontal: 12, borderRadius: 8, textAlign: "center" },
+  // The capture was kept: the attention tone, not the danger one.
+  warn: { color: TONE_COLOR.attention.fg, backgroundColor: TONE_COLOR.attention.bg, padding: 8, marginHorizontal: 12, marginTop: 6, borderRadius: 8, textAlign: "center" },
   bottom: { alignItems: "center", paddingBottom: 28 },
   shutter: { width: 76, height: 76, borderRadius: 38, backgroundColor: "#fff", borderWidth: 5, borderColor: "rgba(255,255,255,0.4)" },
   shutterVideo: { backgroundColor: "#E03B24" },

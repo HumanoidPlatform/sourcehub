@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS captures (
   mime            TEXT NOT NULL,
   size            INTEGER NOT NULL,
   sha256          TEXT,
+  checks          TEXT,
   captured_at     TEXT NOT NULL,
   lat             REAL,
   lon             REAL,
@@ -44,4 +45,12 @@ CREATE INDEX IF NOT EXISTS captures_queue_idx      ON captures (status, next_att
 // the phone now stores them with the URL they were issued alongside.
 export const SCHEMA_V2 = `
 ALTER TABLE captures ADD COLUMN put_headers TEXT;
+`;
+
+// What the phone decided about a capture before queueing it: a JSON array of
+// findings from validation/rules.ts, the same shape the presign call sends on
+// to asset.check_results. Stored as text alongside put_headers, for the same
+// reason — SQLite has no json column and the row only ever hands it back.
+export const SCHEMA_V3 = `
+ALTER TABLE captures ADD COLUMN checks TEXT;
 `;

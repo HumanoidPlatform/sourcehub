@@ -39,11 +39,18 @@ export interface AssignmentAssets {
   total: number;
 }
 
+// Mirrors CaptureSpec in backend api/v1/marketplace.py. Two shapes are live:
+// media has been a LIST since a task began inheriting the client's capture
+// spec, and tasks created before that still carry a bare string. Typing it as
+// the scalar alone is what silently locked a video task into photo mode, so
+// both are declared and validation/rules.ts normalises them.
 export interface CaptureSpec {
-  media?: "photo" | "video" | "both";
+  media?: string | string[];
   max_duration_s?: number;
   require_gps?: boolean;
-  min_resolution?: string;
+  min_megapixels?: number | null;
+  orientation?: string | null;
+  languages?: string[];
   notes?: string;
   [key: string]: unknown;
 }
