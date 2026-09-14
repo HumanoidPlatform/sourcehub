@@ -28,7 +28,10 @@ class TaskIn(BaseModel):
     target_quantity: int | None = Field(default=None, gt=0)
     target_unit: str | None = Field(default=None, max_length=40)
     instructions: str | None = None
-    capture_spec: dict[str, Any] = Field(default_factory=dict)
+    # None, not {}: "not supplied" has to be distinguishable from "supplied
+    # empty" for delivery.create_task to know whether to inherit the
+    # client's capture spec from the request.
+    capture_spec: dict[str, Any] | None = None
     # a shot list, a site map — what the instructions refer to
     attachments: list[AttachmentIn] = Field(default_factory=list, max_length=5)
 

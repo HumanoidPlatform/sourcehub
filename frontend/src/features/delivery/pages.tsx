@@ -5,7 +5,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { get, post } from "@api/client";
-import type { ActivityRow, Assignment, Contract, Org, Task } from "@api/types";
+import type { ActivityRow, Assignment, Contract, Org, Rfp, Task } from "@api/types";
 import {
   Button, Callout, Dialog, Dl, Empty, Field, inputCls, Meter, Metric, Panel,
   Pill, TableWrap, textareaCls, useToast, View,
@@ -229,7 +229,7 @@ export function ContractDetailPage() {
       )}
 
       {assigning && id && (
-        <AssignTaskDialog contractId={id} onClose={() => setAssigning(false)} />
+        <AssignTaskDialog contractId={id} requestId={c?.request_id} onClose={() => setAssigning(false)} />
       )}
       {approving && id && (
         <ApproveDialog contract={c} onClose={() => setApproving(false)} />
@@ -239,7 +239,9 @@ export function ContractDetailPage() {
   );
 }
 
-function AssignTaskDialog({ contractId, onClose }: { contractId: string; onClose: () => void }) {
+function AssignTaskDialog({
+  contractId, requestId, onClose,
+}: { contractId: string; requestId?: string; onClose: () => void }) {
   const [title, setTitle] = useState("");
   const [target, setTarget] = useState("");
   const [due, setDue] = useState("");
@@ -251,6 +253,19 @@ function AssignTaskDialog({ contractId, onClose }: { contractId: string; onClose
   const [error, setError] = useState<string | null>(null);
   const toast = useToast();
   const qc = useQueryClient();
+
+  // What the client asked for. A task inherits capture_spec and target_unit
+  // from the request unless this form overrides them (backend
+  // delivery.create_task), and what a worker's phone will accept follows from
+  // that — so the partner should be able to see what they are inheriting
+  // rather than discovering it when an upload is refused.
+  const brief = useQuery({
+    queryKey: ["request", requestId],
+    queryFn: () => get<Rfp>(`/requests/${requestId}`),
+    enabled: !!requestId,
+  });
+  const wantedMedia = brief.data?.spec.capture.media ?? [];
+  const wantedUnit = brief.data?.spec.target_unit ?? null;
 
   const aggs = useQuery({ queryKey: ["orgs", "aggregator"], queryFn: () => get<Org[]>("/organisations?kind=aggregator") });
   const bizs = useQuery({ queryKey: ["orgs", "business"], queryFn: () => get<Org[]>("/organisations?kind=business") });
@@ -286,6 +301,15 @@ function AssignTaskDialog({ contractId, onClose }: { contractId: string; onClose
       }
     >
       <div className="formgrid">
+        {(wantedMedia.length > 0 || wantedUnit) && (
+          <Callout tone="attention" title="Inherited from the request">
+            {wantedMedia.length > 0
+              ? `Workers on this task may upload ${wantedMedia.join(" and ")} only`
+              : "Workers on this task may upload anything visual"}
+            {wantedUnit ? `, counted in ${wantedUnit.replace(/_/g, " ")}` : ""}.
+            {" "}Setting a countable target below overrides the unit.
+          </Callout>
+        )}
         <Field label="Task title" required span>
           {(id) => <input id={id} className={inputCls} value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Kraków and Warsaw routes" />}
         </Field>

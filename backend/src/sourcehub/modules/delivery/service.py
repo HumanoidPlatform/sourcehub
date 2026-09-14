@@ -337,6 +337,36 @@ async def create_task(
     if not ok:
         raise DeliveryError("The assignee must be an active aggregator or business in your network.")
 
+    # What the CLIENT asked for, inherited where the partner did not override.
+    #
+    # media/service.py:_allowed_kinds decides what a worker's phone may upload
+    # from task.capture_spec and task.target_unit. Before this, both were typed
+    # fresh by the partner and the client's answers reached nothing — a request
+    # for video could become a task that happily accepted photographs. The
+    # partner can still override either; they simply cannot lose them by
+    # omission, which is what the console did on every task it created.
+    # `not capture_spec` rather than `is None`: the API model defaults it to
+    # {} (api/v1/delivery.py:31), so a console that never sends the field
+    # arrives here with an empty dict, and an `is None` test would inherit
+    # nothing while looking like it worked. An empty spec and no spec mean the
+    # same thing to _allowed_kinds anyway. A partner who genuinely wants no
+    # media restriction sends {"media": []}, which is truthy and overrides.
+    if not capture_spec or target_unit is None:
+        wanted = (
+            await session.execute(
+                text(
+                    "SELECT r.capture_spec, r.target_unit FROM contract c "
+                    "JOIN request r ON r.id = c.request_id WHERE c.id = :cid"
+                ),
+                {"cid": contract_id},
+            )
+        ).mappings().one_or_none()
+        if wanted is not None:
+            if capture_spec is None:
+                capture_spec = wanted["capture_spec"] or None
+            if target_unit is None:
+                target_unit = wanted["target_unit"]
+
     ref = (
         await session.execute(text("SELECT next_reference_code('TSK','seq_ref_task')"))
     ).scalar_one()

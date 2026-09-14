@@ -315,12 +315,17 @@ async def _attach_fields(
     a partner reads while deciding whether to bid. It goes through the same
     path as every other attachment now, which is where the staging move and the
     {client}/{RFP}/{slot}/ layout come from for free.
+
+    brief is the whole specification in one file, for a client who has already
+    written one. It is the reason the form can be short without being lossy: a
+    document carries far more than the questions a client will patiently answer,
+    and uploading it costs them a few seconds.
     """
     from sourcehub.modules.attachments import service as attachments
 
     if not items:
         return []
-    allowed = {"compliance", "acceptance", "capture_examples", "guidelines"}
+    allowed = {"brief", "compliance", "acceptance", "capture_examples", "guidelines"}
     bad = {i.get("slot") for i in items} - allowed
     if bad:
         raise MarketplaceError(f"A request takes attachments on {', '.join(sorted(allowed))}.")

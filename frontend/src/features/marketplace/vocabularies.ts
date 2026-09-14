@@ -33,16 +33,33 @@ export const USE_CASES: Choice<UseCase>[] = [
   { value: "other", label: "Something else" },
 ];
 
+// Six of the eight the database permits. audio_clips and audio_hours are left
+// out on purpose: the upload path accepts image and video extensions only
+// (backend media/service.py:_safe_filename), so offering them would let a
+// client commission work no worker could ever deliver.
+//
+// The CHECK constraint still allows all eight and labelOf() falls back to the
+// raw value, so a request stored earlier with an audio unit still renders.
+// Put them back the day audio capture exists.
 export const TARGET_UNITS: Choice<TargetUnit>[] = [
   { value: "photos", label: "photos" },
   { value: "videos", label: "videos" },
-  { value: "audio_clips", label: "audio clips" },
-  { value: "audio_hours", label: "hours of audio" },
   { value: "responses", label: "responses" },
   { value: "records", label: "records" },
   { value: "sites", label: "sites" },
   { value: "hours", label: "hours" },
 ];
+
+/** Units that already name a medium.
+ *
+ * Where one does, asking for the media as well is the same answer typed twice
+ * — "25,000 photos" cannot be anything but photographs. Where it does not,
+ * media is a real question: 120 *sites* might be captured as either.
+ */
+export const UNIT_IMPLIES_MEDIA: Partial<Record<TargetUnit, string[]>> = {
+  photos: ["photo"],
+  videos: ["video"],
+};
 
 export const LOCATION_TYPES: Choice<LocationType>[] = [
   { value: "public_outdoor", label: "Public outdoor space" },
@@ -103,14 +120,20 @@ export const PRICING_MODELS: Choice<PricingModel>[] = [
   { value: "open", label: "Open", hint: "Let partners propose how to price it." },
 ];
 
-// What a capture can be made of. Not a database constraint — capture_spec is
-// bare jsonb — but the task-side reader in modules/media keys off these words,
-// so offering anything else would produce a request no worker can fulfil.
+// What a capture can be made of.
+//
+// Two values, not four, and the limit is real rather than cautious: the upload
+// path accepts .jpg .jpeg .png .heic .webp as an image and .mp4 .mov as a
+// video, and raises MediaInvalid on everything else
+// (backend media/service.py:_safe_filename). A task now inherits this list
+// from the request, so offering Audio or Document here would let a client
+// specify work that no worker could ever upload — and they would find out in
+// the field, not on this form.
+//
+// Widen this the day the capture pipeline grows a third kind, not before.
 export const CAPTURE_MEDIA: Choice<string>[] = [
-  { value: "photo", label: "Photo" },
-  { value: "video", label: "Video" },
-  { value: "audio", label: "Audio" },
-  { value: "document", label: "Document" },
+  { value: "photo", label: "Photo", hint: "JPEG, PNG, HEIC or WebP · up to 25 MB each" },
+  { value: "video", label: "Video", hint: "MP4 or MOV · up to 100 MB each" },
 ];
 
 export const REWORK_BEARERS: Choice<"partner" | "client" | "shared">[] = [

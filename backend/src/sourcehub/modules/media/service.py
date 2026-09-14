@@ -122,22 +122,39 @@ async def _get_asset(session: AsyncSession, asset_id: uuid.UUID) -> dict[str, An
 def _allowed_kinds(capture_spec: dict[str, Any] | None, target_unit: str | None) -> set[str]:
     """What this task will accept.
 
-    capture_spec.media is the explicit answer where the partner set one. Where
-    they did not, the unit the task was written in is the answer: a task for
-    "2 photos" is not satisfied by a video, and letting one through means the
-    aggregator reviews it and the client is billed for it.
+    capture_spec.media is the explicit answer where one was set. Where it was
+    not, the unit the task was written in is the answer: a task for "2 photos"
+    is not satisfied by a video, and letting one through means the aggregator
+    reviews it and the client is billed for it.
+
+    media arrives as a LIST now that a task inherits the client's capture spec
+    (delivery.create_task) — the request builder has always stored it as one.
+    A scalar is still accepted because tasks created before that inheritance
+    carry the older shape, and a stored value never migrates itself.
+
+    Anything unrecognised falls through to the unit rather than narrowing to
+    nothing. An empty set would reject every upload a worker could possibly
+    make, and they would find out standing in a shop.
     """
-    media = (capture_spec or {}).get("media")
-    if media in ("photo", "photos", "image"):
-        return {"image"}
-    if media in ("video", "videos"):
-        return {"video"}
-    if media == "both":
-        return {"image", "video"}
+    raw = (capture_spec or {}).get("media")
+    media = [raw] if isinstance(raw, str) else list(raw or [])
+
+    kinds: set[str] = set()
+    for m in media:
+        m = str(m).strip().lower()
+        if m == "both":
+            kinds |= {"image", "video"}
+        elif m.startswith(("photo", "image")):
+            kinds.add("image")
+        elif m.startswith(("video", "clip")):
+            kinds.add("video")
+    if kinds:
+        return kinds
+
     unit = (target_unit or "").lower()
-    if unit.startswith("photo") or unit.startswith("image"):
+    if unit.startswith(("photo", "image")):
         return {"image"}
-    if unit.startswith("video") or unit.startswith("clip"):
+    if unit.startswith(("video", "clip")):
         return {"video"}
     return {"image", "video"}
 
