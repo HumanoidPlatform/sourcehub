@@ -21,7 +21,7 @@ help:  ## Show this help
 # --- stack -------------------------------------------------------------------
 up:  ## Start the stack and wait for health
 	$(COMPOSE) up -d
-	@echo "postgres  5432   ·  redis 6379  ·  minio 9000/9001  ·  mailpit 8025"
+	@echo "postgres  5432   ·  redis 6379  ·  minio 9000/9001"
 
 down:  ## Stop the stack, keep data
 	$(COMPOSE) down

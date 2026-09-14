@@ -33,7 +33,18 @@ def login(email: str) -> httpx.Client:
 
 
 def invitation_token(email: str) -> str:
-    """The invitation lands in Mailpit; the newest message wins."""
+    """The invitation token, read from a LOCAL MAIL CATCHER.
+
+    The token exists in exactly two places: the hash in `invitation`, and the
+    link in the recipient's mailbox. There is no third copy to look up, which
+    is the point of it.
+
+    So this only works while the API is pointed at a local catcher that exposes
+    the messages over HTTP. With a real provider configured (SMTP_HOST=
+    smtp.gmail.com and an app password) the mail leaves the machine and this
+    cannot see it — run the script against a catcher, or drive the invitation
+    by hand from the address it was sent to.
+    """
     for _ in range(60):
         msgs = httpx.get(f"{MP}/search", params={"query": f"to:{email}"}).json()["messages"]
         if msgs:
@@ -42,7 +53,11 @@ def invitation_token(email: str) -> str:
             if m:
                 return m.group(1)
         time.sleep(0.25)
-    raise SystemExit(f"no invitation email for {email} in Mailpit (http://localhost:8025)")
+    raise SystemExit(
+        f"No invitation mail for {email} at the local catcher ({MP}). "
+        "If backend/.env points SMTP_HOST at a real provider, the mail left the "
+        "machine and this script cannot read it back."
+    )
 
 
 def ok(msg: str) -> None:

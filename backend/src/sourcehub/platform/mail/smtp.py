@@ -1,29 +1,104 @@
-"""SMTP mail adapter. Points at Mailpit in development (localhost:1025).
+"""SMTP mail adapter — a local catcher in development, a real provider in the pilot.
+
+One adapter covers both. What varies is configuration, not code:
+
+    local catcher   host=localhost port=1025   no login, no TLS
+    Gmail           host=smtp.gmail.com:587    STARTTLS + app password
+    Gmail (SSL)     host=smtp.gmail.com:465    implicit TLS + app password
+
+An empty smtp_username selects the unauthenticated path, which is what keeps a
+developer with no mail account working exactly as before.
 
 smtplib is blocking, so sends run in a thread; the caller awaits a coroutine
-either way, which is the Protocol every adapter honours. Failures are logged
-and swallowed by the caller where mail is best-effort (an invitation email
-failing must not roll back the approval that created the org — the invitation
-can be re-sent; the org cannot be half-created).
+either way, which is the Protocol every adapter here honours.
+
+Failures are raised as SMTPDeliveryError and swallowed by the callers where
+mail is best-effort — an invitation email failing must not roll back the
+approval that created the org, because the invitation can be re-sent and the
+org cannot be half-created. That swallowing is why this module logs loudly on
+the way out: a misconfigured provider is otherwise completely silent, and the
+first sign of it is a person who never got their invitation.
 """
 
 from __future__ import annotations
 
 import asyncio
+import logging
 import smtplib
+import ssl
 from email.message import EmailMessage
+from email.utils import formataddr, make_msgid
 
 from sourcehub.config import settings
 
+log = logging.getLogger(__name__)
 
-def _send_sync(to: str, subject: str, body: str) -> None:
+
+class SMTPDeliveryError(OSError):
+    """The message could not be handed to the mail server.
+
+    Subclasses OSError so the existing best-effort callers keep catching it —
+    they already treat a dead SMTP as non-fatal, and that contract is load
+    bearing (see modules/network/service.py::_send_worker_invitation).
+
+    Carries no password: the text is the server's own refusal.
+    """
+
+
+def _build(to: str, subject: str, body: str) -> EmailMessage:
     msg = EmailMessage()
-    msg["From"] = settings.smtp_from
+    # Gmail rewrites From: to the authenticated mailbox regardless, so send
+    # what it expects rather than a fiction it will overwrite.
+    msg["From"] = formataddr((settings.smtp_from_name, settings.smtp_from))
     msg["To"] = to
     msg["Subject"] = subject
+    # A Message-ID with a real domain keeps this out of the obvious spam
+    # buckets; without one some providers generate a suspicious default.
+    msg["Message-ID"] = make_msgid(domain=settings.smtp_from.rsplit("@", 1)[-1])
     msg.set_content(body)
-    with smtplib.SMTP(settings.smtp_host, settings.smtp_port, timeout=10) as smtp:
-        smtp.send_message(msg)
+    return msg
+
+
+def _connect() -> smtplib.SMTP:
+    """Open the right kind of connection for the configured provider."""
+    timeout = settings.smtp_timeout_seconds
+    if settings.smtp_ssl:
+        return smtplib.SMTP_SSL(
+            settings.smtp_host, settings.smtp_port,
+            timeout=timeout, context=ssl.create_default_context(),
+        )
+    smtp = smtplib.SMTP(settings.smtp_host, settings.smtp_port, timeout=timeout)
+    if settings.smtp_starttls:
+        smtp.ehlo()
+        smtp.starttls(context=ssl.create_default_context())
+        smtp.ehlo()  # capabilities are re-read after the upgrade; AUTH appears here
+    return smtp
+
+
+def _send_sync(to: str, subject: str, body: str) -> None:
+    msg = _build(to, subject, body)
+    try:
+        with _connect() as smtp:
+            if settings.smtp_username:
+                smtp.login(settings.smtp_username, settings.smtp_password.get_secret_value())
+            smtp.send_message(msg)
+    except smtplib.SMTPAuthenticationError as e:
+        # The single most common misconfiguration, and the one whose default
+        # message ("Username and Password not accepted") sends people to reset
+        # an account password that was never the problem.
+        log.error(
+            "SMTP authentication refused by %s as %s. For Gmail this means an "
+            "app password is required — an account password is always refused, "
+            "and the app password is entered without its display spaces.",
+            settings.smtp_host, settings.smtp_username,
+        )
+        raise SMTPDeliveryError(f"Mail server refused the login: {e.smtp_code}") from None
+    except (smtplib.SMTPException, OSError) as e:
+        log.error("SMTP send to %s via %s failed: %s", to, settings.smtp_host, type(e).__name__)
+        raise SMTPDeliveryError(
+            f"Could not send mail via {settings.smtp_host}: {type(e).__name__}"
+        ) from None
+    log.info("sent %r to %s via %s", subject, to, settings.smtp_host)
 
 
 async def send_mail(to: str, subject: str, body: str) -> None:

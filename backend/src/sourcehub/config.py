@@ -79,9 +79,26 @@ class Settings(BaseSettings):
     storage_endpoint_azure: str | None = None
     storage_public_endpoint_azure: str | None = None
 
+    # A real provider needs a login and an encrypted channel; a local catcher
+    # needs neither. Both are the same adapter — leaving username blank is what
+    # selects the unauthenticated path, so there is no second backend to pick.
+    #
+    # Gmail: smtp.gmail.com:587 with STARTTLS, and an APP PASSWORD as the
+    # password — a Google account password is refused, and the app password is
+    # entered without its display spaces. Gmail also rewrites From: to the
+    # authenticated mailbox, so smtp_from must be that address or the header is
+    # silently replaced.
     smtp_host: str = "localhost"
     smtp_port: int = 1025
     smtp_from: str = "no-reply@sourcehub.local"
+    smtp_from_name: str = BRAND
+    smtp_username: str = ""
+    smtp_password: SecretStr = SecretStr("")
+    # STARTTLS on 587 (the usual), implicit TLS on 465. Both off for a local
+    # catcher on 1025.
+    smtp_starttls: bool = False
+    smtp_ssl: bool = False
+    smtp_timeout_seconds: int = 20
 
     # --- Authentication ------------------------------------------------------
     jwt_secret: SecretStr

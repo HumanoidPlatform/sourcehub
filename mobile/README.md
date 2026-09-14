@@ -30,8 +30,9 @@ From the phone's browser, `http://192.168.1.20:8000/health` must answer
 before the app will. The address can also be changed on the sign-in screen.
 
 A worker gets their login from the aggregator's Crowd roster (add with an
-email). In development the invitation lands in Mailpit at
-http://localhost:8025; open the link on the dev machine to set the password.
+email). The invitation is emailed through the configured SMTP provider; open
+the link to set the password. `APP_BASE_URL` in `backend/.env` must be an
+address the phone can reach, not `localhost`.
 
 ## How uploads work
 

@@ -254,7 +254,18 @@ MP = "http://localhost:8025/api/v1"
 
 
 def invitation_token(email: str) -> str:
-    """The invitation email lands in Mailpit; the token is in the link."""
+    """The invitation token, read from a LOCAL MAIL CATCHER.
+
+    The token exists in exactly two places: the hash in `invitation`, and the
+    link in the recipient's mailbox. There is no third copy to look up, which
+    is the point of it.
+
+    So this only works while the API is pointed at a local catcher that exposes
+    the messages over HTTP. With a real provider configured (SMTP_HOST=
+    smtp.gmail.com and an app password) the mail leaves the machine and this
+    cannot see it — run the script against a catcher, or drive the invitation
+    by hand from the address it was sent to.
+    """
     for _ in range(60):
         msgs = httpx.get(f"{MP}/search", params={"query": f"to:{email}"}).json()["messages"]
         if msgs:
@@ -263,7 +274,10 @@ def invitation_token(email: str) -> str:
             if m:
                 return m.group(1)
         time.sleep(0.25)
-    raise AssertionError(f"invitation email for {email} never arrived")
+    raise AssertionError(
+        f"No invitation mail for {email} at the local catcher ({MP}). "
+        "A real SMTP_HOST means the mail left the machine and cannot be read back."
+    )
 
 
 def invite_and_login(name: str, email: str):

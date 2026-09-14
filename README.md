@@ -47,10 +47,14 @@ make reset       # wipe and reapply db/*.sql
 | `postgres` | 5432 | The schema, and the tenancy boundary |
 | `redis` | 6379 | Celery broker and cache |
 | `minio` | 9000 / 9001 | A client delivery destination to develop against; console on 9001. **Not** the platform's storage — that is Azure Blob and needs a real account key. |
-| `mailpit` | 1025 / 8025 | Catches outbound mail — **UI at http://localhost:8025** |
 | `pgadmin` | 5050 | Optional: `docker compose -f infra/compose.yaml --profile tools up -d` |
 
-Mailpit is not optional in practice: onboarding issues an invitation token by email and the invitee sets their own password from that link.
+Outbound mail goes to a real SMTP provider — set `SMTP_*` in `backend/.env`
+(Gmail needs an app password; see `backend/.env.example`). This is not
+optional in practice: onboarding issues an invitation token by email and the
+invitee sets their own password from that link, so an address the recipient
+can actually receive is part of the setup. `APP_BASE_URL` must likewise be an
+address they can open — `localhost` only works if they read the mail here.
 
 ### Seeded credentials
 
@@ -265,7 +269,7 @@ approves + rates → invoices settle, 9% fee booked, ledger_imbalance = 0 rows
 ```
 
 And the onboarding loop: tenant request → Ops queue → approve → org + profile +
-invited user + emailed invitation (Mailpit) → invitee sets password → signs in
+invited user + emailed invitation → invitee sets password → signs in
 with the right capability set. A tenant deciding its own request is refused by
 RLS, not by an if-statement.
 
@@ -333,8 +337,9 @@ npm install
 npx expo start               # scan with Expo Go on the same Wi-Fi
 ```
 
-Invitations for workers land in Mailpit (http://localhost:8025) in
-development; open the link on the dev machine to set the worker's password.
+Worker invitations are emailed through the configured SMTP provider. Set
+`APP_BASE_URL` to an address the worker's phone can open (the dev machine's
+Wi-Fi address, not `localhost`), or the link in the mail will not resolve.
 
 ## Still deliberately out
 

@@ -133,7 +133,7 @@ cp infra/.env.example    infra/.env
 cp backend/.env.example  backend/.env
 cp frontend/.env.example frontend/.env
 
-docker compose -f infra/compose.yaml up -d      # Postgres (builds the schema), Redis, MinIO, Mailpit
+docker compose -f infra/compose.yaml up -d      # Postgres (builds the schema), Redis, MinIO
 
 cd backend
 python -m venv .venv
@@ -156,8 +156,8 @@ Sign in with any demo account; the password for all of them is
 | `crowd@bengaluru.example` | aggregator |
 | `admin@sourcehub.local` | platform admin |
 
-Mailpit at http://localhost:8025 catches every email, including worker
-invitations. MinIO's console is at http://localhost:9001 (`sourcehub` /
+Email, including worker invitations, goes out through the SMTP provider
+configured in `backend/.env`. MinIO's console is at http://localhost:9001 (`sourcehub` /
 `sourcehub_dev_password`); captures land in the bucket `sourcehub-assets`.
 
 ### Prove it works in 30 seconds
@@ -222,8 +222,8 @@ npx expo start                                   # prints a QR code
   must answer before the app will.
 
 Sign in on the phone with the worker that `pilot_seed.py` printed, or invite
-one from the console's Crowd roster (the invitation lands in Mailpit; open
-the link on the PC to set the password). The full step-by-step phone test is
+one from the console's Crowd roster (the invitation is emailed; open the link
+to set the password). The full step-by-step phone test is
 in `README.md` under "Running the pilot with a phone", and `mobile/README.md`
 explains how uploads work.
 

@@ -7,13 +7,37 @@ only public surface.
 
 from __future__ import annotations
 
+import logging
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from sourcehub.config import BRAND_FULL, settings
 
 
+def _configure_logging() -> None:
+    """Honour LOG_LEVEL for our own loggers.
+
+    uvicorn configures only its own ('uvicorn', 'uvicorn.error',
+    'uvicorn.access') and leaves the root logger untouched, so without this
+    every logging call under sourcehub.* is discarded. That is not cosmetic:
+    outbound mail is best-effort by design — a dead SMTP must not roll back the
+    approval that created an organisation — which makes a log line the only
+    evidence that an invitation was never delivered. Silent by default is the
+    one thing that must not be true of it.
+    """
+    root = logging.getLogger("sourcehub")
+    if root.handlers:  # reload under --reload calls create_app again
+        return
+    handler = logging.StreamHandler()
+    handler.setFormatter(logging.Formatter("%(levelname)s [%(name)s] %(message)s"))
+    root.addHandler(handler)
+    root.setLevel(settings.log_level.upper())
+    root.propagate = False
+
+
 def create_app() -> FastAPI:
+    _configure_logging()
     app = FastAPI(
         title=f"{BRAND_FULL} API",
         version="0.1.0",
