@@ -124,10 +124,15 @@ WHERE r.code = 'sponsor' AND p.code IN (
   'equipment.manage','equipment.decide','profile.manage',
   'user.invite','user.manage');
 
+-- invoice.read sits beside billing.read on purpose. They read like the same
+-- thing and are not: billing.read opens an organisation's billing status,
+-- while GET /invoices requires invoice.read (api/v1/ledger.py). Without both,
+-- Ops sees a Billing page in the rail and a 403 when they click it — which is
+-- exactly what happened until this line was added.
 INSERT INTO role_permission (role_id, permission_id)
 SELECT r.id, p.id FROM role r, permission p
 WHERE r.code = 'platform_admin' AND p.code IN (
-  'account.read','billing.read','activity.read','dispute.arbitrate',
+  'account.read','billing.read','invoice.read','activity.read','dispute.arbitrate',
   'onboarding.read','onboarding.approve','org.create','org.suspend',
   'user.invite','user.manage','role.manage','contract.read','delivery.track');
 
