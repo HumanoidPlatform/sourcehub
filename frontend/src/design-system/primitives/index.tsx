@@ -128,6 +128,128 @@ export function Field({
 
 export const inputCls = "input";
 export const textareaCls = "textarea";
+// The stylesheet has carried .select since the port; nothing in TS named it,
+// so every <select> was rendering unstyled next to its siblings.
+export const selectCls = "select";
+
+/* --- choosing several from a fixed list ------------------------------------ */
+
+/** A set of options, any number chosen.
+ *
+ * A fieldset rather than a Field: a group of checkboxes has no single control
+ * for a label to point at, and `htmlFor` on the first one would make clicking
+ * the group's name toggle an arbitrary member.
+ *
+ * The options come from one shared vocabulary per field, so what is offered
+ * here cannot drift from what the database will accept.
+ */
+export function CheckGroup<T extends string>({
+  label,
+  options,
+  value,
+  onChange,
+  hint,
+  columns = 2,
+}: {
+  label: string;
+  options: { value: T; label: string; hint?: string }[];
+  value: T[];
+  onChange: (next: T[]) => void;
+  hint?: string;
+  columns?: number;
+}) {
+  const toggle = (v: T) =>
+    onChange(value.includes(v) ? value.filter((x) => x !== v) : [...value, v]);
+  return (
+    <fieldset className="field span" style={{ border: 0, padding: 0, margin: 0 }}>
+      <legend>{label}</legend>
+      {hint && <span className="hint" style={{ display: "block", marginBottom: 6 }}>{hint}</span>}
+      <div style={{ display: "grid", gridTemplateColumns: `repeat(${columns}, minmax(0,1fr))`, gap: 6 }}>
+        {options.map((o) => (
+          <label className="checkline" key={o.value}>
+            <input
+              type="checkbox"
+              checked={value.includes(o.value)}
+              onChange={() => toggle(o.value)}
+            />
+            <span>
+              {o.label}
+              {o.hint && <span className="cl-sub">{o.hint}</span>}
+            </span>
+          </label>
+        ))}
+      </div>
+    </fieldset>
+  );
+}
+
+/** A free-text list — countries, regulations. Typing Enter or a comma commits
+ *  a tag; Backspace on an empty box removes the last one, which is what every
+ *  tag input does and what people try first.
+ *
+ *  Free text because the column it feeds has no CHECK: `regulations` is
+ *  deliberately open-ended, and a fixed list would go stale.
+ */
+export function TagInput({
+  id,
+  value,
+  onChange,
+  placeholder,
+  transform,
+}: {
+  id?: string;
+  value: string[];
+  onChange: (next: string[]) => void;
+  placeholder?: string;
+  /** e.g. upper-casing an ISO country code as it is committed. */
+  transform?: (raw: string) => string;
+}) {
+  const [draft, setDraft] = useState("");
+  const commit = () => {
+    const raw = draft.trim().replace(/,$/, "").trim();
+    if (!raw) return;
+    const next = transform ? transform(raw) : raw;
+    if (next && !value.includes(next)) onChange([...value, next]);
+    setDraft("");
+  };
+  return (
+    <div>
+      {value.length > 0 && (
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 5, marginBottom: 6 }}>
+          {value.map((v) => (
+            <span className="chip" key={v}>
+              {v}
+              <button
+                type="button"
+                onClick={() => onChange(value.filter((x) => x !== v))}
+                aria-label={`Remove ${v}`}
+                style={{ border: 0, background: "none", cursor: "pointer", padding: 0, lineHeight: 1 }}
+              >
+                ×
+              </button>
+            </span>
+          ))}
+        </div>
+      )}
+      <input
+        id={id}
+        className={inputCls}
+        value={draft}
+        placeholder={placeholder}
+        onChange={(e) => setDraft(e.target.value)}
+        onBlur={commit}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === ",") {
+            e.preventDefault();
+            commit();
+          } else if (e.key === "Backspace" && !draft && value.length) {
+            onChange(value.slice(0, -1));
+          }
+        }}
+      />
+    </div>
+  );
+}
 
 /* --- file picker ------------------------------------------------------------- */
 

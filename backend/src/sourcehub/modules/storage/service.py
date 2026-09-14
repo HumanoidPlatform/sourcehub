@@ -23,7 +23,6 @@ from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.security import AccessClaims
-from sourcehub.config import settings
 from sourcehub.modules.audit import service as audit
 
 # Imported for its side effect, not its name: this registers storage_target in
@@ -50,15 +49,18 @@ _COLUMNS = (
 # What each provider needs, and what the console must therefore ask for.
 _REQUIRED_SECRET_KEYS: dict[str, tuple[str, ...]] = {
     "s3": ("access_key_id", "secret_access_key"),
-    "gcs": ("service_account_json",),
     "azure_blob": ("account_name", "account_key"),
 }
 
 _PROVIDER_LABEL = {
     "s3": "S3-compatible storage",
-    "gcs": "Google Cloud Storage",
     "azure_blob": "Azure Blob storage",
 }
+
+# The two the platform can actually sign for. storage_target_provider_supported
+# says the same in db/035_storage.sql; saying it here first is what makes a
+# wrong provider a sentence rather than a constraint violation.
+SUPPORTED_PROVIDERS = frozenset(_REQUIRED_SECRET_KEYS)
 
 
 def _clean_prefix(prefix: str | None) -> str:
@@ -81,9 +83,11 @@ def _target_from_row(row: dict[str, Any]) -> StorageTarget:
     return StorageTarget(
         provider=row["provider"],
         bucket=row["bucket"],
+        # NULL on Azure — a container has no region to sign for. On S3 it is
+        # what keeps signing off the network; see db/035_storage.sql.
+        region=row["region"],
         secret=row["secret"] or {},
         endpoint=row["endpoint"],
-        region=row["region"],
         key_prefix=row["key_prefix"] or "",
     )
 
@@ -94,7 +98,7 @@ def _target_from_row(row: dict[str, Any]) -> StorageTarget:
 
 def platform_default() -> StorageTarget:
     """SourceHub's own bucket. Assets captured before destinations existed."""
-    return storage.platform_target(settings.storage_bucket_assets)
+    return storage.platform_target()
 
 
 async def resolve_by_id(session: AsyncSession, target_id: uuid.UUID | None) -> StorageTarget:
@@ -185,6 +189,10 @@ async def create_target(
         raise StorageTargetError("Give this destination a name you will recognise later.")
     if not bucket:
         raise StorageTargetError("Name the bucket or container to write to.")
+    if provider not in SUPPORTED_PROVIDERS:
+        raise StorageTargetError(
+            "A delivery destination must be S3-compatible storage or Azure Blob."
+        )
     _check_secret(provider, secret)
     prefix = _clean_prefix(key_prefix)
 

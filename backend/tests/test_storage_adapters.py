@@ -6,10 +6,14 @@ caught a single one of them. The failures live precisely where a mock is
 confident — a signature computed over a decoded resource, a URL signed for the
 wrong host, a header the service demands on upload.
 
-Run against whatever STORAGE_BACKEND selects, so the same file covers MinIO
-locally and Azure Blob in the deployment. It skips rather than fails when no
-credentials are configured, because a missing account key is a machine that has
-not been set up, not a broken adapter.
+Runs against the platform's own storage, which is Azure everywhere — there is
+no local substitute any more. It skips rather than fails when no credentials
+are configured, because a missing account key is a machine that has not been
+set up, not a broken adapter.
+
+This does not cover the S3 adapter. That one is reachable only through a
+client's own delivery destination, and exercising it needs a storage_target
+row; tests/e2e_loop.py is where that path is driven end to end.
 
     pytest -m adapters
 """
@@ -36,13 +40,12 @@ BODY = b"sourcehub adapter contract test\n" * 16
 
 
 def _configured() -> bool:
-    if settings.storage_backend == "azure_blob":
-        return bool(settings.storage_account_name and settings.storage_account_key)
-    return bool(settings.storage_access_key and settings.storage_secret_key)
+    """Platform storage is Azure and nothing else, so there is one thing to ask."""
+    return bool(settings.storage_account_name and settings.storage_account_key)
 
 
 pytestmark.append(
-    pytest.mark.skipif(not _configured(), reason=f"no credentials for {settings.storage_backend}")
+    pytest.mark.skipif(not _configured(), reason="no Azure storage credentials configured")
 )
 
 

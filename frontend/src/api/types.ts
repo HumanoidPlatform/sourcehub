@@ -45,42 +45,112 @@ export interface Rfp {
   proposal_count: number;
   geography: string | null;
   compliance_notes: string | null;
-  spec: { format: string | null; quantity: string | null; quality: string | null };
+  objective: string | null;
+  use_case: UseCase | null;
+  spec: {
+    quality: string | null;
+    target_quantity: number | null;
+    target_unit: TargetUnit | null;
+    capture: CaptureSpec;
+    countries: string[];
+    location_type: LocationType | null;
+    sampling_frame: SamplingFrame;
+  };
   acceptance: string | null;
+  quality: { thresholds: QualityThresholds; rejection_policy: RejectionPolicy };
+  compliance: {
+    people_in_frame: PeopleInFrame | null;
+    minors_policy: MinorsPolicy | null;
+    deidentification: Deidentification[];
+    regulations: string[];
+    lawful_basis: LawfulBasis | null;
+    permitted_uses: PermittedUse[];
+    partner_reuse_allowed: boolean;
+    biometric_processing: boolean;
+  };
   people: {
     headcount: number;
     training: string | null;
     experience: string | null;
     certification: string | null;
   };
+  pricing_model_requested: PricingModel;
+  budget_disclosed: boolean;
+  // null when budget_disclosed is false and you are not the client that
+  // raised it — the server withholds the range rather than the flag.
   budget_min: string | null;
   budget_max: string | null;
   currency: string;
+  milestones: Milestone[];
+  pilot: { required: boolean; quantity: number | null; due_on: string | null };
+  proposal_requirements: ProposalRequirement[];
+  proposals_close_at: string | null;
+  contact_user_id: string | null;
   starts_on: string | null;
   delivery_due_on: string | null;
   storage_target_id: string | null;
   created_at: string;
   proposals?: Proposal[];
-  samples?: RequestSample[];
   attachments?: Attachment[];
 }
 
-export interface RequestSample {
-  id: string;
-  request_id: string;
-  filename: string;
-  content_type: string | null;
-  size_bytes: number;
-  uploaded_at: string;
-}
+// Mirrors the CHECK constraints in db/040_marketplace.sql and the Literals in
+// backend/src/sourcehub/api/v1/marketplace.py. The runtime lists the console
+// builds its selects from live in features/marketplace/vocabularies.ts; these
+// are the types over them, so a typo in either one fails the build.
+export type UseCase =
+  | "ai_training" | "market_research" | "audit_compliance"
+  | "monitoring_evaluation" | "other";
+export type TargetUnit =
+  | "photos" | "videos" | "audio_clips" | "audio_hours"
+  | "responses" | "records" | "sites" | "hours";
+export type LocationType =
+  | "public_outdoor" | "retail_interior" | "private_premises" | "residential";
+export type PeopleInFrame = "none" | "incidental" | "consented";
+export type MinorsPolicy = "prohibited" | "with_parental_consent";
+export type LawfulBasis =
+  | "consent" | "contract" | "legitimate_interest" | "public_task"
+  | "legal_obligation" | "not_personal_data";
+export type Deidentification = "blur_faces" | "redact_plates" | "strip_gps";
+export type PermittedUse =
+  | "model_training" | "internal_analysis" | "research" | "audit" | "publication";
+export type ProposalRequirement =
+  | "method_statement" | "team_cv" | "sample_work"
+  | "insurance" | "dpa_acceptance" | "references";
+export type PricingModel = "fixed" | "per_unit" | "milestone" | "open";
 
-export interface SamplePresign {
-  storage_key: string;
-  url: string;
-  filename: string;
-  content_type: string | null;
-  expires_in: number;
+// The five jsonb columns. Their shape was read off deployed rows, not from the
+// DDL — the columns carry no CHECK — so every field is optional and unknown
+// keys are preserved rather than dropped.
+export interface CaptureSpec {
+  media?: string[];
+  languages?: string[];
+  notes?: string | null;
+  orientation?: string | null;
+  require_gps?: boolean | null;
+  min_megapixels?: number | null;
 }
+export interface Quota { label: string; quantity: number }
+export interface SamplingFrame {
+  subject_type?: string | null;
+  site_count?: number | null;
+  quotas?: Quota[];
+  conditions?: string[];
+  exclusions?: string[];
+}
+export interface QualityThresholds {
+  min_pass_rate_pct?: number | null;
+  qa_sample_pct_gate1?: number | null;
+  qa_sample_pct_gate2?: number | null;
+}
+export interface RejectionPolicy {
+  max_retakes?: number | null;
+  retake_window_days?: number | null;
+  rework_cost_bearer?: "partner" | "client" | "shared" | null;
+  partial_acceptance_allowed?: boolean | null;
+}
+// INFERRED, not recovered: milestones is jsonb that no row anywhere populates.
+export interface Milestone { label: string; amount?: string | null; due_on?: string | null }
 
 export interface Proposal {
   id: string;
@@ -91,6 +161,8 @@ export interface Proposal {
   partner_qa_pass_rate?: number | null;
   price: string;
   currency: string;
+  unit: string | null;
+  unit_price: string | null;
   duration_days: number;
   methodology: string;
   notes: string | null;
@@ -395,9 +467,12 @@ export interface StorageTarget {
   id: string;
   owner_org_id: string;
   label: string;
-  provider: "s3" | "gcs" | "azure_blob";
-  endpoint: string | null;
+  // The client's own storage. gcs is in the database enum and is not
+  // supported — see storage_target_provider_supported in db/035_storage.sql.
+  provider: "s3" | "azure_blob";
+  // S3 only; null on an Azure container, which has no region to sign for.
   region: string | null;
+  endpoint: string | null;
   bucket: string;
   key_prefix: string;
   /** null until a write-read-delete probe has actually succeeded */

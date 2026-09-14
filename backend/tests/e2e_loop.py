@@ -14,11 +14,16 @@ import os
 import httpx
 
 B = "http://127.0.0.1:8000/api/v1"
+# httpx defaults to 5s, which is fine against a local stack and not against a
+# database on a remote VM: argon2id hashing plus the round trip puts a single
+# login at about that. The per-session clients below already pass 30; these are
+# the calls made before there is a session to hang it on.
+T = 60
 PW = "SourceHub#2026"
 
 
 def login(email: str) -> httpx.Client:
-    r = httpx.post(f"{B}/auth/login", json={"email": email, "password": PW})
+    r = httpx.post(f"{B}/auth/login", json={"email": email, "password": PW}, timeout=T)
     r.raise_for_status()
     tok = r.json()["access_token"]
     c = httpx.Client(base_url=B, headers={"Authorization": f"Bearer {tok}"}, timeout=30)
@@ -55,16 +60,24 @@ dest = next(
     (t for t in client.get("/storage-targets").json() if t["label"] == DEST_LABEL), None
 )
 if dest is None:
+    # Azure Blob, because storage_target_azure_only says a client destination
+    # can be nothing else. There is no MinIO fallback: the constraint is the
+    # point, and a loop that exercised a provider the platform refuses would
+    # be testing a path no client can take.
+    account = os.environ.get("STORAGE_ACCOUNT_NAME", "")
+    key = os.environ.get("STORAGE_ACCOUNT_KEY", "")
+    if not account or not key:
+        raise SystemExit(
+            "This loop delivers to a real Azure container. Set STORAGE_ACCOUNT_NAME "
+            "and STORAGE_ACCOUNT_KEY (backend/.env is read by the API, not by this "
+            "script — export them, or run with them in the environment)."
+        )
     made = client.post("/storage-targets", json={
         "label": DEST_LABEL,
-        "provider": "s3",
-        "bucket": os.environ.get("STORAGE_BUCKET_ASSETS", "sourcehub-assets"),
-        "endpoint": os.environ.get("STORAGE_ENDPOINT", "http://localhost:9000"),
-        "key_prefix": "acme/",
-        "secret": {
-            "access_key_id": os.environ.get("STORAGE_ACCESS_KEY", "sourcehub"),
-            "secret_access_key": os.environ.get("STORAGE_SECRET_KEY", "sourcehub_dev_password"),
-        },
+        "provider": "azure_blob",
+        "bucket": os.environ.get("STORAGE_CONTAINER", "platform"),
+        "key_prefix": "e2e/",
+        "secret": {"account_name": account, "account_key": key},
     })
     assert made.status_code == 201, made.text
     dest = made.json()
@@ -75,8 +88,16 @@ r = client.post("/requests", json={
     "title": "Retail shelf imagery across 12 metro markets",
     "category": "image",
     "geography": "United States - 12 metro areas",
-    "spec_format": "JPEG, minimum 12MP",
-    "spec_quantity": "25,000 images",
+    "target_quantity": 25000,
+    "target_unit": "photos",
+    "capture_spec": {"media": ["photo"], "min_megapixels": 12, "require_gps": True},
+    "objective": "Train a shelf-recognition model across our top 12 markets.",
+    "use_case": "ai_training",
+    "countries": ["US"],
+    "location_type": "retail_interior",
+    "people_in_frame": "none",
+    "lawful_basis": "not_personal_data",
+    "permitted_uses": ["model_training"],
     "spec_quality": "Sharp, no glare, full shelf in frame",
     "acceptance": "95% or better pass on the blur check; 5% manual audit",
     "compliance_notes": "No shoppers or faces in frame.",
@@ -252,7 +273,8 @@ def invite_and_login(name: str, email: str):
     w = r.json()
     assert w["invitation_status"] == "pending" and w["user_id"], w
     tok = invitation_token(email)
-    r = httpx.post(f"{B}/auth/invitation/accept", json={"token": tok, "password": PW})
+    r = httpx.post(f"{B}/auth/invitation/accept", json={"token": tok, "password": PW},
+                   timeout=T)
     assert r.status_code == 204, r.text
     return w, login(email)
 
@@ -270,7 +292,11 @@ def capture(worker, assignment_id, name, blob, *, claim=None):
     assert r.status_code == 200, r.text
     p = r.json()
     put = httpx.put(p["url"], content=blob, headers=p["headers"], timeout=30)
-    assert put.status_code in (200, 204), f"PUT to storage failed: {put.status_code} {put.text}"
+    # 201 is Azure: a block blob PUT answers Created where S3 and MinIO answer
+    # 200. The destination is Azure now, so all three stay accepted rather than
+    # pinning the test to one provider's choice of success code.
+    assert put.status_code in (200, 201, 204), \
+        f"PUT to storage failed: {put.status_code} {put.text}"
     r = worker.post(f"/assets/{p['asset_id']}/confirm")
     assert r.status_code == 200, r.text
     return p, r.json()

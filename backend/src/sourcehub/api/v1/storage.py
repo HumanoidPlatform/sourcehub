@@ -25,14 +25,17 @@ router = APIRouter(route_class=TxRoute)
 
 class TargetIn(BaseModel):
     label: str = Field(min_length=1, max_length=120)
-    provider: Literal["s3", "gcs", "azure_blob"]
+    # The client's own storage, their choice. 'gcs' is in the enum and is not
+    # supported — see storage_target_provider_supported in db/035_storage.sql.
+    provider: Literal["s3", "azure_blob"]
     bucket: str = Field(min_length=1, max_length=255)
     # Shape depends on the provider; the service validates the keys it needs.
     #   s3          access_key_id, secret_access_key
-    #   gcs         service_account_json
     #   azure_blob  account_name, account_key
     secret: dict[str, Any]
     endpoint: str | None = Field(default=None, max_length=255)
+    # S3 only, and not optional in practice for a bucket outside us-east-1:
+    # without it SigV4 signs for the wrong region and the service refuses.
     region: str | None = Field(default=None, max_length=64)
     key_prefix: str | None = Field(default=None, max_length=200)
 

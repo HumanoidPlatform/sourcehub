@@ -21,9 +21,8 @@ CREATE TABLE request (
   geography         text,
   compliance_notes  text,
 
-  -- spec
-  spec_format       text,
-  spec_quantity     text,
+  -- spec. spec_format and spec_quantity were free text and are gone; see the
+  -- client requirements block at the foot of this table.
   spec_quality      text,
   acceptance        text,
 
@@ -61,8 +60,78 @@ CREATE TABLE request (
   updated_by        uuid REFERENCES app_user(id),
   deleted_at        timestamptz,
 
+  -- ---- client requirements -------------------------------------------------
+  -- Everything below this line is declared AFTER deleted_at on purpose, out of
+  -- logical order. They reached the deployed database as ALTER TABLE ADD
+  -- COLUMN, so they sit at the end in pg_attribute order, and pg_dump emits
+  -- columns in that order. Declaring them where they belong would read better
+  -- and would make infra/verify_schema.sh report a difference on every run
+  -- against a database that is in fact identical. Do not tidy this.
+  --
+  -- What is wanted. The two columns this replaces, spec_format and
+  -- spec_quantity, were free text — "25,000 images", "JPEG minimum 12MP" —
+  -- which reads well and cannot be bid against, filtered on, or checked at
+  -- delivery. A quantity with a unit can be. capture_spec stays jsonb because
+  -- its keys differ per medium (megapixels mean nothing to an audio clip) and
+  -- nothing queries inside it.
+  objective         text,
+  use_case          text CHECK (use_case IS NULL OR use_case IN
+                      ('ai_training','market_research','audit_compliance','monitoring_evaluation','other')),
+  target_quantity   integer CHECK (target_quantity IS NULL OR target_quantity > 0),
+  target_unit       text CHECK (target_unit IS NULL OR target_unit IN
+                      ('photos','videos','audio_clips','audio_hours','responses','records','sites','hours')),
+  capture_spec      jsonb NOT NULL DEFAULT '{}',
+  countries         text[] NOT NULL DEFAULT '{}',
+  sampling_frame    jsonb NOT NULL DEFAULT '{}',
+
+  -- The quality bar, and what happens when it is missed. Read whole by QA,
+  -- never filtered on, so jsonb rather than columns.
+  quality_thresholds jsonb NOT NULL DEFAULT '{}',
+  rejection_policy  jsonb NOT NULL DEFAULT '{}',
+
+  -- Privacy and lawfulness. A sourcing marketplace that does not settle these
+  -- before work starts is asking someone in the field to guess, which is where
+  -- consent failures come from. lawful_basis is the six GDPR Article 6 bases
+  -- plus an escape hatch for material that is not personal data at all.
+  people_in_frame   text CHECK (people_in_frame IS NULL OR people_in_frame IN
+                      ('none','incidental','consented')),
+  minors_policy     text CHECK (minors_policy IS NULL OR minors_policy IN
+                      ('prohibited','with_parental_consent')),
+  deidentification  text[] NOT NULL DEFAULT '{}'
+                      CHECK (deidentification <@ ARRAY['blur_faces','redact_plates','strip_gps']),
+  -- Deliberately unconstrained, unlike its three neighbours: the set of regimes
+  -- a client may need to name is open-ended and a CHECK would only go stale.
+  regulations       text[] NOT NULL DEFAULT '{}',
+  lawful_basis      text CHECK (lawful_basis IS NULL OR lawful_basis IN
+                      ('consent','contract','legitimate_interest','public_task','legal_obligation','not_personal_data')),
+  permitted_uses    text[] NOT NULL DEFAULT '{}'
+                      CHECK (permitted_uses <@ ARRAY['model_training','internal_analysis','research','audit','publication']),
+  partner_reuse_allowed boolean NOT NULL DEFAULT false,
+  biometric_processing  boolean NOT NULL DEFAULT false,
+  location_type     text CHECK (location_type IS NULL OR location_type IN
+                      ('public_outdoor','retail_interior','private_premises','residential')),
+
+  -- Commercials and process.
+  pricing_model_requested text NOT NULL DEFAULT 'fixed',
+  budget_disclosed  boolean NOT NULL DEFAULT true,
+  pilot_required    boolean NOT NULL DEFAULT false,
+  pilot_quantity    integer CHECK (pilot_quantity IS NULL OR pilot_quantity > 0),
+  pilot_due_on      date,
+  milestones        jsonb NOT NULL DEFAULT '[]',
+  proposals_close_at timestamptz,
+  contact_user_id   uuid REFERENCES app_user(id) ON DELETE SET NULL,
+  proposal_requirements text[] NOT NULL DEFAULT '{}'
+                      CHECK (proposal_requirements <@ ARRAY['method_statement','team_cv','sample_work','insurance','dpa_acceptance','references']),
+
   CONSTRAINT request_budget_order   CHECK (budget_max IS NULL OR budget_min IS NULL OR budget_max >= budget_min),
-  CONSTRAINT request_timeline_order CHECK (delivery_due_on IS NULL OR starts_on IS NULL OR delivery_due_on >= starts_on)
+  CONSTRAINT request_timeline_order CHECK (delivery_due_on IS NULL OR starts_on IS NULL OR delivery_due_on >= starts_on),
+  CONSTRAINT request_currency_shape CHECK (currency ~ '^[A-Z]{3}$'),
+  CONSTRAINT request_pricing_model_check CHECK (pricing_model_requested IN ('fixed','per_unit','milestone','open')),
+  -- A pilot nobody sized is not a pilot.
+  CONSTRAINT request_pilot_shape CHECK (NOT pilot_required OR pilot_quantity IS NOT NULL),
+  CONSTRAINT request_close_before_delivery CHECK (
+    proposals_close_at IS NULL OR delivery_due_on IS NULL
+    OR (proposals_close_at AT TIME ZONE 'UTC')::date <= delivery_due_on)
 );
 
 CREATE INDEX request_client_idx  ON request (client_org_id) WHERE deleted_at IS NULL;
@@ -71,6 +140,9 @@ CREATE INDEX request_status_idx  ON request (status) WHERE deleted_at IS NULL;
 CREATE INDEX request_open_idx    ON request (published_at DESC)
   WHERE status IN ('published','proposals_received') AND deleted_at IS NULL;
 CREATE INDEX request_title_trgm_idx ON request USING gin (title gin_trgm_ops);
+-- the sweep for requests whose bidding window has closed
+CREATE INDEX request_close_idx ON request (proposals_close_at)
+  WHERE status = 'published' AND deleted_at IS NULL;
 
 CREATE TRIGGER request_updated_at BEFORE UPDATE ON request
   FOR EACH ROW EXECUTE FUNCTION set_updated_at();
@@ -103,7 +175,14 @@ CREATE TABLE proposal (
   updated_at      timestamptz NOT NULL DEFAULT now(),
   created_by      uuid REFERENCES app_user(id),
   updated_by      uuid REFERENCES app_user(id),
-  deleted_at      timestamptz
+  deleted_at      timestamptz,
+
+  -- Per-unit bidding, for a request that asked for pricing_model 'per_unit'.
+  -- After deleted_at for the pg_attribute-order reason given on request.
+  -- price stays NOT NULL and authoritative: nothing yet computes one from the
+  -- other, and no deployed proposal populates these.
+  unit_price      numeric CHECK (unit_price IS NULL OR unit_price >= 0),
+  unit            text
 );
 
 CREATE UNIQUE INDEX proposal_one_per_partner_key
@@ -132,22 +211,14 @@ CREATE TABLE proposal_resource (
   UNIQUE (proposal_id, org_id)
 );
 
-
 -- ---------------------------------------------------------------------------
--- request_sample — optional sample files a client attaches while drafting a
--- request, so partners can gauge the work before proposing. Object storage
--- holds the bytes (bucket sourcehub-documents, presigned URLs); this row is
--- the pointer and the audit trail. Append-only: no update, no delete.
+-- request_sample used to live here: sample files a client attached while
+-- drafting, so partners could gauge the work before bidding. It is gone. The
+-- polymorphic attachment table (db/095) does the same job for every entity,
+-- and a client's sample files are now attachment rows with entity_type
+-- 'request' and slot 'capture_examples' or 'guidelines'.
+--
+-- The rows were carried over rather than dropped, storage_key untouched, so
+-- files uploaded under the old scheme are still reachable at the key they were
+-- written to. See backend/migrations/versions/0010_request_intake.py.
 -- ---------------------------------------------------------------------------
-CREATE TABLE request_sample (
-  id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  request_id    uuid NOT NULL REFERENCES request(id) ON DELETE CASCADE,
-  filename      text NOT NULL,
-  storage_key   text NOT NULL UNIQUE,        -- object storage key, never the bytes
-  content_type  text,
-  size_bytes    bigint NOT NULL CHECK (size_bytes > 0 AND size_bytes <= 26214400),  -- 25 MiB
-  uploaded_by   uuid REFERENCES app_user(id),
-  uploaded_at   timestamptz NOT NULL DEFAULT now()
-);
-
-CREATE INDEX request_sample_request_idx ON request_sample (request_id);

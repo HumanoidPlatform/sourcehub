@@ -17,7 +17,7 @@ a new folder (`mobile/`) with its own `npm install`.
 |---|---|---|
 | Crowd workers | roster rows with no login | real users with a `worker` role, invited by email from the roster, signing in to the phone app |
 | Task breakdown | a task assigned to an aggregator organisation only | the aggregator splits a task among workers (`task_assignment`), with a countable target ("5 photos") |
-| Captures | `asset` table existed in SQL with no code; suppliers typed an asset count | the phone uploads straight to MinIO on a presigned URL; the API confirms and records the manifest; counts are derived |
+| Captures | `asset` table existed in SQL with no code; suppliers typed an asset count | the phone uploads straight to the client's own storage on a presigned URL; the API confirms and records the manifest; counts are derived |
 | QA | gate 2 (delivery partner) only | gate 1 (the aggregator reviews each worker's batch) plus gate 2; the task submission bundles accepted captures |
 | Console | tasks, roster, gate-2 queue | invite workers, Workers dialog (assign, progress, gate 1), Review page, "Submit to partner", capture galleries on task detail, the QA dialog and the client's delivery drawer |
 | Phone app | none | `mobile/`: Expo React Native app (sign in, assignments, camera, offline outbox, upload loop, submit) |
@@ -37,7 +37,7 @@ backend/src/sourcehub/api/v1/media.py              its router
 backend/src/sourcehub/modules/delivery/service.py  assignments, bundling into submissions
 backend/src/sourcehub/modules/network/service.py   invite_worker, resend, roster with login state
 backend/src/sourcehub/modules/qa/service.py        gate 1 (decide_gate1, gate1_queue)
-backend/src/sourcehub/platform/storage/minio_store.py  head(), inline view URLs
+backend/src/sourcehub/platform/storage/s3_store.py  head(), inline view URLs
 backend/tests/e2e_loop.py         extended end to end
 backend/tests/pilot_seed.py       NEW: one command to seed a request, task, worker and assignment
 frontend/src/features/delivery/components/AssetGallery.tsx   NEW
@@ -189,15 +189,21 @@ npm install
 npm run typecheck && npm test                    # 23 tests
 ```
 
-To run it on a phone, the phone must reach **your PC's** API and MinIO. Two
-settings carry your machine's Wi-Fi address (find it with `ipconfig` or
-`ifconfig`):
+To run it on a phone, the phone must reach **your PC's** API, and whatever
+storage the client's destination names. Find your Wi-Fi address with `ipconfig`
+or `ifconfig`, then:
 
-1. `backend/.env`: `STORAGE_ENDPOINT=http://<your-wifi-ip>:9000`, then restart
-   the API with `--host 0.0.0.0`. Presigned upload URLs embed and sign this
-   host, so `localhost` can never work from a phone.
-2. `mobile/.env` (copy from `mobile/.env.example`):
-   `EXPO_PUBLIC_API_URL=http://<your-wifi-ip>:8000`.
+1. `mobile/.env` (copy from `mobile/.env.example`):
+   `EXPO_PUBLIC_API_URL=http://<your-wifi-ip>:8000`, and restart the API with
+   `--host 0.0.0.0`.
+2. Only if the pilot's destination is the local MinIO: set that destination's
+   **Endpoint** to `http://<your-wifi-ip>:9000` in the console. Presigned upload
+   URLs embed and sign the host, so `localhost` can never work from a phone.
+   A destination on Azure Blob needs nothing — the phone resolves it already.
+
+There is no `STORAGE_ENDPOINT` in `backend/.env` any more. The platform's own
+storage is Azure and is not configurable; a client's destination carries its
+own address, per row.
 
 Then:
 

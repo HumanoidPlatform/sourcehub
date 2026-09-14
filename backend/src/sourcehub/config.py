@@ -48,43 +48,22 @@ class Settings(BaseSettings):
     celery_result_backend: str = "redis://localhost:6379/2"
 
     # --- Adapters ------------------------------------------------------------
-    # These three strings select an implementation in platform/, and nothing
-    # outside platform/ imports a vendor SDK, so swapping one is a config
-    # change rather than a migration.
+    # These strings select an implementation in platform/, and nothing outside
+    # platform/ imports a vendor SDK, so swapping one is a config change rather
+    # than a migration.
     #
-    # storage_backend selects the PLATFORM's own storage. A client's delivery
-    # destination is a separate thing entirely: chosen per request, stored in
-    # storage_target, and unaffected by this.
-    storage_backend: Literal["minio", "s3", "azure_blob"] = "azure_blob"
+    # There is no storage_backend. The PLATFORM's own storage — attachments,
+    # sample files, method statements, QA evidence — is Azure Blob and nothing
+    # else, so there is nothing to select. A client's DELIVERY DESTINATION is a
+    # separate thing entirely: S3/MinIO or Azure, the client's choice, stored
+    # per row in storage_target with its own credential, and never configured
+    # here. Confusing the two is what this setting used to invite.
     mail_backend: Literal["smtp", "azure_email"] = "smtp"
     auth_backend: Literal["database", "keycloak"] = "database"
 
-    # Two addresses, because one setting was doing two jobs that pull apart.
-    #
-    #   storage_endpoint        where the API itself connects — HEAD, stat, the
-    #                           destination probe. localhost is right here, and
-    #                           it never changes when the machine moves network.
-    #   storage_public_endpoint what gets baked into a presigned URL, because a
-    #                           phone cannot resolve localhost. Only whatever
-    #                           opens the link needs to reach it; the API never
-    #                           does, now that signing makes no network call.
-    #
-    # Unset falls back to storage_endpoint, which is correct for a deployment
-    # where both sides see the same address.
-    storage_endpoint: str = "http://localhost:9000"
-    storage_public_endpoint: str | None = None
-    # Passing a region is what stops the SDK issuing a live GetBucketLocation
-    # before it will sign anything — see minio/api.py:486. us-east-1 is MinIO's
-    # own default and the correct value for it.
-    storage_region: str = "us-east-1"
-    storage_access_key: str = ""
-    storage_secret_key: SecretStr = SecretStr("")
-    storage_bucket_assets: str = "sourcehub-assets"
-    storage_bucket_documents: str = "sourcehub-documents"
-    storage_bucket_bundles: str = "sourcehub-bundles"
     storage_presign_ttl_seconds: int = 900
 
-    # --- Azure Blob, when storage_backend is azure_blob ----------------------
+    # --- Azure Blob — the platform's own storage -----------------------------
     # One container holds everything the platform owns, foldered by client and
     # RFP so it can be browsed by a person:
     #

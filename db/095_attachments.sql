@@ -17,10 +17,11 @@
 -- nothing: the parent's own RLS is what decides visibility here, through
 -- attachment_parent_visible() below.
 --
--- request_sample stays where it is. It is not the same thing — samples are the
--- brief's reference material, shown in their own panel and downloadable by
--- every bidder — and migrating a working table to prove a point is not worth
--- the risk. This is for attachments that belong to a FIELD.
+-- request_sample no longer exists. It held the brief's reference material and
+-- was kept separate on the argument that migrating a working table to prove a
+-- point was not worth the risk. That argument lost: the two were the same
+-- thing wearing different names, and one table with a slot says it once.
+-- Samples are now entity_type 'request' with slot 'capture_examples'.
 -- ============================================================================
 
 CREATE TYPE attachment_entity AS ENUM
@@ -43,7 +44,15 @@ CREATE TABLE attachment (
   filename      text NOT NULL,
   storage_key   text NOT NULL UNIQUE,        -- object storage key, never bytes
   content_type  text,
-  size_bytes    bigint NOT NULL CHECK (size_bytes > 0 AND size_bytes <= 26214400),
+  -- 25 MiB, except a task's deliverable, which is the finished dataset rather
+  -- than a supporting document and gets 500 MB.
+  -- Named, because this reads other columns and would otherwise be
+  -- auto-named attachment_check, which says nothing.
+  size_bytes    bigint NOT NULL CONSTRAINT attachment_size_bytes_check CHECK (
+                  size_bytes > 0
+                  AND (size_bytes <= 26214400
+                       OR (entity_type = 'task' AND slot = 'deliverable'
+                           AND size_bytes <= 524288000))),
 
   uploaded_by   uuid REFERENCES app_user(id),
   uploaded_at   timestamptz NOT NULL DEFAULT now(),
@@ -55,6 +64,10 @@ CREATE TABLE attachment (
 CREATE INDEX attachment_entity_idx ON attachment (entity_type, entity_id)
   WHERE deleted_at IS NULL;
 CREATE INDEX attachment_owner_idx  ON attachment (owner_org_id)
+  WHERE deleted_at IS NULL;
+-- Fetching one field's files. attachment_entity_idx covers the parent, but the
+-- per-slot count that enforces MAX_PER_SLOT runs on every attach.
+CREATE INDEX attachment_slot_idx ON attachment (entity_type, entity_id, slot)
   WHERE deleted_at IS NULL;
 
 -- ---------------------------------------------------------------------------

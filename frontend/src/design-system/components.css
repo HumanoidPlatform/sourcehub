@@ -228,7 +228,10 @@ td.right,th.right{text-align:right}
 
 /* --- fields --------------------------------------------------------------- */
 .field{display:flex;flex-direction:column;gap:5px;min-width:0}
-.field > label{font-size:12.5px;font-weight:600;color:var(--ink-2)}
+/* legend, because a group of checkboxes has no single control to label and
+   fieldset/legend is the markup for that — it should look like every other
+   field label, not like the browser default. */
+.field > label,.field > legend{font-size:12.5px;font-weight:600;color:var(--ink-2);padding:0}
 .field .req{color:var(--t-critical);margin-left:2px}
 .field .hint{font-size:11.5px;color:var(--ink-3)}
 .field .err{font-size:11.5px;color:var(--t-critical);font-weight:500;display:none}

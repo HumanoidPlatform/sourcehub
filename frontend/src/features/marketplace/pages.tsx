@@ -1,15 +1,24 @@
-// marketplace — the five-step request builder, requests, opportunities,
+// marketplace — the request builder, requests, opportunities,
 // proposal comparison and the award.
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { get, patch, post, putFile } from "@api/client";
-import type { ClientProfile, Org, Proposal, Rfp, SamplePresign, StorageTarget } from "@api/types";
+import { get, patch, post } from "@api/client";
+import type {
+  ClientProfile, Deidentification, LawfulBasis, LocationType, MinorsPolicy, Org,
+  PeopleInFrame, PermittedUse, PricingModel, Proposal, ProposalRequirement, Rfp,
+  StorageTarget, TargetUnit, UseCase,
+} from "@api/types";
 import {
-  Button, Callout, Dialog, Dl, Empty, Field, FileField, inputCls, Panel, Pill, RowMenu,
-  Skeleton, StageRail, TableWrap, textareaCls, useToast, View,
+  Button, Callout, CheckGroup, Dialog, Dl, Empty, Field, inputCls, Panel, Pill, RowMenu,
+  selectCls, Skeleton, StageRail, TableWrap, TagInput, textareaCls, useToast, View,
 } from "@ds/primitives";
+import {
+  CAPTURE_MEDIA, DEIDENTIFICATION, labelOf, labelsOf, LAWFUL_BASES, LOCATION_TYPES,
+  MINORS_POLICIES, PEOPLE_IN_FRAME, PERMITTED_USES, PRICING_MODELS,
+  PROPOSAL_REQUIREMENTS, REWORK_BEARERS, TARGET_UNITS, USE_CASES,
+} from "./vocabularies";
 import { useSession } from "@shared/auth";
 import { fmtDate, fmtDateTime, money, titleCase } from "@shared/format";
 import {
@@ -108,42 +117,85 @@ export function RequestsPage() {
   );
 }
 
-/* --- client: the five-step builder ------------------------------------------ */
+/* --- client: the request builder -------------------------------------------- */
 
-const STEPS = ["Basics", "Specification", "People", "Commercials", "Destination", "Review"] as const;
+// Privacy is its own step rather than a few fields tacked onto Specification.
+// Whether people are in frame, whether minors may be, and on what lawful basis
+// are the questions that decide whether the work can be done at all, and a
+// client who is not made to stop and answer them will not.
+const STEPS = [
+  "Basics", "Specification", "Quality", "Privacy",
+  "People", "Commercials", "Destination", "Review",
+] as const;
 
+// The jsonb columns are flattened into prefixed scalar fields here and
+// reassembled on save. Nested state would mean a bespoke setter per key, and
+// `set()` below is what keeps forty fields to one line each.
 interface Draft {
   title: string; category: string; geography: string; compliance_notes: string;
-  spec_format: string; spec_quantity: string; spec_quality: string; acceptance: string;
+  objective: string; use_case: string;
+  target_quantity: string; target_unit: string; location_type: string;
+  countries: string[];
+  capture_media: string[]; capture_notes: string;
+  capture_require_gps: boolean; capture_orientation: string; capture_min_megapixels: string;
+  sf_subject_type: string; sf_site_count: string;
+  spec_quality: string; acceptance: string;
+  qt_min_pass_rate_pct: string; qt_gate1: string; qt_gate2: string;
+  rp_max_retakes: string; rp_retake_window_days: string;
+  rp_rework_cost_bearer: string; rp_partial_acceptance_allowed: boolean;
+  people_in_frame: string; minors_policy: string;
+  deidentification: Deidentification[]; regulations: string[];
+  lawful_basis: string; permitted_uses: PermittedUse[];
+  partner_reuse_allowed: boolean; biometric_processing: boolean;
   people_headcount: string; people_training: string; people_experience: string; people_certification: string;
-  budget_min: string; budget_max: string; starts_on: string; delivery_due_on: string;
+  pricing_model_requested: string; budget_disclosed: boolean;
+  budget_min: string; budget_max: string;
+  pilot_required: boolean; pilot_quantity: string; pilot_due_on: string;
+  proposals_close_at: string;
+  proposal_requirements: ProposalRequirement[];
+  starts_on: string; delivery_due_on: string;
   storage_target_id: string;
 }
 
 const BLANK: Draft = {
   title: "", category: "image", geography: "", compliance_notes: "",
-  spec_format: "", spec_quantity: "", spec_quality: "", acceptance: "",
+  objective: "", use_case: "",
+  target_quantity: "", target_unit: "photos", location_type: "",
+  countries: [],
+  capture_media: [], capture_notes: "",
+  capture_require_gps: false, capture_orientation: "", capture_min_megapixels: "",
+  sf_subject_type: "", sf_site_count: "",
+  spec_quality: "", acceptance: "",
+  qt_min_pass_rate_pct: "", qt_gate1: "", qt_gate2: "",
+  rp_max_retakes: "", rp_retake_window_days: "",
+  rp_rework_cost_bearer: "", rp_partial_acceptance_allowed: false,
+  people_in_frame: "", minors_policy: "",
+  deidentification: [], regulations: [],
+  lawful_basis: "", permitted_uses: [],
+  partner_reuse_allowed: false, biometric_processing: false,
   people_headcount: "", people_training: "", people_experience: "", people_certification: "",
-  budget_min: "", budget_max: "", starts_on: "", delivery_due_on: "",
+  pricing_model_requested: "fixed", budget_disclosed: true,
+  budget_min: "", budget_max: "",
+  pilot_required: false, pilot_quantity: "", pilot_due_on: "",
+  proposals_close_at: "",
+  proposal_requirements: [],
+  starts_on: "", delivery_due_on: "",
   storage_target_id: "",
 };
 
-// Mirrors the server's rules (marketplace service) so most violations are
-// caught before a byte moves. The server re-checks everything.
-const MAX_SAMPLE_BYTES = 25 * 1024 * 1024;
-const MAX_SAMPLES = 5;
-const SAMPLE_ACCEPT =
-  ".csv,.tsv,.json,.jsonl,.xml,.txt,.md,.pdf,.png,.jpg,.jpeg,.webp,.gif,.mp4,.mov,.mp3,.wav,.zip,.xlsx,.docx,.parquet";
-
-interface SampleDraft {
-  key: string; // storage_key once presigned; empty for files already attached
-  /** already on the request — shown in the editor, never re-sent on save */
-  existing?: boolean;
-  filename: string;
-  content_type: string | null;
-  size_bytes: number;
-  status: "uploading" | "done" | "error";
-}
+/** A number field as the API wants it: absent rather than an empty string,
+ *  because every one of these columns is nullable and `""` is not a number. */
+const num = (v: string): number | null => (v.trim() === "" ? null : Number(v));
+/** Same for text, and for a select whose blank option means "not answered". */
+const str = (v: string): string | null => (v.trim() === "" ? null : v.trim());
+/** Drops keys the client never filled, so an untouched jsonb block is saved as
+ *  {} rather than as an object full of nulls. */
+const compact = <T extends Record<string, unknown>>(o: T): T | null => {
+  const kept = Object.fromEntries(
+    Object.entries(o).filter(([, v]) => v !== null && v !== "" && !(Array.isArray(v) && !v.length)),
+  );
+  return Object.keys(kept).length ? (kept as T) : null;
+};
 
 // Doubles as the draft editor: with an :id in the path it loads that draft and
 // PATCHes instead of POSTing. Same fields, same validation — a second form for
@@ -152,14 +204,17 @@ export function RequestNewPage() {
   const { id } = useParams();
   const [step, setStep] = useState(0);
   const [d, setD] = useState<Draft>(BLANK);
-  const [samples, setSamples] = useState<SampleDraft[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loaded, setLoaded] = useState(false);
   const [confirming, setConfirming] = useState(false);
   // Kept out of Draft because these are uploads, not form values: they
-  // exist in storage before the request row does.
+  // exist in storage before the request row does. captureExamples is what
+  // the old request_sample table held — reference material a partner reads
+  // while deciding whether to bid.
   const [complianceFiles, setComplianceFiles] = useState<AttachmentDraft[]>([]);
   const [acceptanceFiles, setAcceptanceFiles] = useState<AttachmentDraft[]>([]);
+  const [captureExamples, setCaptureExamples] = useState<AttachmentDraft[]>([]);
+  const [guidelineFiles, setGuidelineFiles] = useState<AttachmentDraft[]>([]);
   const targets = useTargets();
   const targetIsVerified = (tid: string) =>
     !!(targets.data ?? []).find((t) => t.id === tid)?.verified_at;
@@ -176,30 +231,58 @@ export function RequestNewPage() {
   // populate once, so typing is never overwritten by a refetch
   if (id && existing.data && !loaded) {
     const r = existing.data;
+    const cap = r.spec?.capture ?? {};
+    const sf = r.spec?.sampling_frame ?? {};
+    const qt = r.quality?.thresholds ?? {};
+    const rp = r.quality?.rejection_policy ?? {};
+    const co = r.compliance;
     setD({
       title: r.title ?? "", category: r.category ?? "image",
       geography: r.geography ?? "", compliance_notes: r.compliance_notes ?? "",
-      spec_format: r.spec?.format ?? "", spec_quantity: r.spec?.quantity ?? "",
+      objective: r.objective ?? "", use_case: r.use_case ?? "",
+      target_quantity: String(r.spec?.target_quantity ?? ""),
+      target_unit: r.spec?.target_unit ?? "photos",
+      location_type: r.spec?.location_type ?? "",
+      countries: r.spec?.countries ?? [],
+      capture_media: cap.media ?? [], capture_notes: cap.notes ?? "",
+      capture_require_gps: !!cap.require_gps,
+      capture_orientation: cap.orientation ?? "",
+      capture_min_megapixels: String(cap.min_megapixels ?? ""),
+      sf_subject_type: sf.subject_type ?? "", sf_site_count: String(sf.site_count ?? ""),
       spec_quality: r.spec?.quality ?? "", acceptance: r.acceptance ?? "",
+      qt_min_pass_rate_pct: String(qt.min_pass_rate_pct ?? ""),
+      qt_gate1: String(qt.qa_sample_pct_gate1 ?? ""),
+      qt_gate2: String(qt.qa_sample_pct_gate2 ?? ""),
+      rp_max_retakes: String(rp.max_retakes ?? ""),
+      rp_retake_window_days: String(rp.retake_window_days ?? ""),
+      rp_rework_cost_bearer: rp.rework_cost_bearer ?? "",
+      rp_partial_acceptance_allowed: !!rp.partial_acceptance_allowed,
+      people_in_frame: co?.people_in_frame ?? "", minors_policy: co?.minors_policy ?? "",
+      deidentification: co?.deidentification ?? [], regulations: co?.regulations ?? [],
+      lawful_basis: co?.lawful_basis ?? "", permitted_uses: co?.permitted_uses ?? [],
+      partner_reuse_allowed: !!co?.partner_reuse_allowed,
+      biometric_processing: !!co?.biometric_processing,
       people_headcount: String(r.people?.headcount ?? ""),
       people_training: r.people?.training ?? "",
       people_experience: r.people?.experience ?? "",
       people_certification: r.people?.certification ?? "",
+      pricing_model_requested: r.pricing_model_requested ?? "fixed",
+      budget_disclosed: r.budget_disclosed ?? true,
       budget_min: r.budget_min ?? "", budget_max: r.budget_max ?? "",
+      pilot_required: !!r.pilot?.required,
+      pilot_quantity: String(r.pilot?.quantity ?? ""),
+      pilot_due_on: r.pilot?.due_on ?? "",
+      // datetime-local wants YYYY-MM-DDTHH:mm; the API sends an ISO instant.
+      proposals_close_at: (r.proposals_close_at ?? "").slice(0, 16),
+      proposal_requirements: r.proposal_requirements ?? [],
       starts_on: r.starts_on ?? "", delivery_due_on: r.delivery_due_on ?? "",
       storage_target_id: r.storage_target_id ?? "",
     });
     const files = r.attachments ?? [];
     setComplianceFiles(fromServer(files.filter((a) => a.slot === "compliance")));
     setAcceptanceFiles(fromServer(files.filter((a) => a.slot === "acceptance")));
-    // files already attached, so the editor shows what the draft actually has
-    setSamples(
-      (r.samples ?? []).map((x) => ({
-        key: "", filename: x.filename,
-        content_type: x.content_type, size_bytes: x.size_bytes,
-        status: "done" as const, existing: true,
-      })),
-    );
+    setCaptureExamples(fromServer(files.filter((a) => a.slot === "capture_examples")));
+    setGuidelineFiles(fromServer(files.filter((a) => a.slot === "guidelines")));
     setLoaded(true);
   }
 
@@ -208,68 +291,89 @@ export function RequestNewPage() {
     // until the next Continue, so a corrected field sat under a stale error.
     setD((x) => { if (error) setError(null); return { ...x, [k]: e.target.value }; });
 
-  const pickSamples = (files: FileList) => {
-    setError(null);
-    const room = MAX_SAMPLES - samples.length;
-    const picked = Array.from(files);
-    if (picked.length > room) {
-      setError(`At most ${MAX_SAMPLES} sample files per request.`);
-      return;
-    }
-    for (const file of picked) {
-      if (file.size > MAX_SAMPLE_BYTES) {
-        setError(`${file.name} is over the 25 MB cap.`);
-        continue;
-      }
-      const ext = "." + (file.name.split(".").pop() ?? "").toLowerCase();
-      if (!SAMPLE_ACCEPT.split(",").includes(ext)) {
-        setError(`Files of type ${ext} are not accepted.`);
-        continue;
-      }
-      const draft: SampleDraft = {
-        key: "", filename: file.name, content_type: file.type || null,
-        size_bytes: file.size, status: "uploading",
-      };
-      setSamples((xs) => [...xs, draft]);
-      void (async () => {
-        try {
-          const p = await post<SamplePresign>("/requests/samples/presign", {
-            filename: file.name, content_type: file.type || null, size_bytes: file.size,
-          });
-          await putFile(p.url, file);
-          setSamples((xs) =>
-            xs.map((s) => (s === draft ? { ...s, key: p.storage_key, filename: p.filename, status: "done" } : s)),
-          );
-        } catch (err) {
-          setSamples((xs) => xs.map((s) => (s === draft ? { ...s, status: "error" } : s)));
-          setError(err instanceof Error ? err.message : `Could not upload ${file.name}`);
-        }
-      })();
-    }
-  };
 
-  const doneSamples = samples.filter((s) => s.status === "done");
-  const newSamples = doneSamples.filter((s) => !s.existing);
+  // Any attachment still in flight. Saving now would attach a key whose bytes
+  // are not in storage yet, and the server would reject it as never uploaded.
+  const uploading = [...complianceFiles, ...acceptanceFiles, ...captureExamples, ...guidelineFiles]
+    .some((a) => a.status === "uploading");
 
   const save = useMutation({
     mutationFn: async (publish: boolean) => {
       const body = {
-        ...d,
+        title: d.title,
+        category: d.category,
+        geography: str(d.geography),
+        compliance_notes: str(d.compliance_notes),
+
+        objective: str(d.objective),
+        use_case: str(d.use_case),
+        target_quantity: num(d.target_quantity),
+        target_unit: str(d.target_unit),
+        location_type: str(d.location_type),
+        countries: d.countries,
+        capture_spec: compact({
+          media: d.capture_media,
+          notes: str(d.capture_notes),
+          orientation: str(d.capture_orientation),
+          require_gps: d.capture_require_gps || null,
+          min_megapixels: num(d.capture_min_megapixels),
+        }),
+        sampling_frame: compact({
+          subject_type: str(d.sf_subject_type),
+          site_count: num(d.sf_site_count),
+        }),
+
+        spec_quality: str(d.spec_quality),
+        acceptance: str(d.acceptance),
+        quality_thresholds: compact({
+          min_pass_rate_pct: num(d.qt_min_pass_rate_pct),
+          qa_sample_pct_gate1: num(d.qt_gate1),
+          qa_sample_pct_gate2: num(d.qt_gate2),
+        }),
+        rejection_policy: compact({
+          max_retakes: num(d.rp_max_retakes),
+          retake_window_days: num(d.rp_retake_window_days),
+          rework_cost_bearer: str(d.rp_rework_cost_bearer),
+          partial_acceptance_allowed: d.rp_partial_acceptance_allowed || null,
+        }),
+
+        people_in_frame: str(d.people_in_frame),
+        minors_policy: str(d.minors_policy),
+        deidentification: d.deidentification,
+        regulations: d.regulations,
+        lawful_basis: str(d.lawful_basis),
+        permitted_uses: d.permitted_uses,
+        partner_reuse_allowed: d.partner_reuse_allowed,
+        biometric_processing: d.biometric_processing,
+
         people_headcount: Number(d.people_headcount) || 0,
+        people_training: str(d.people_training),
+        people_experience: str(d.people_experience),
+        people_certification: str(d.people_certification),
+
+        pricing_model_requested: d.pricing_model_requested,
+        budget_disclosed: d.budget_disclosed,
         budget_min: d.budget_min || null,
         budget_max: d.budget_max || null,
+        pilot_required: d.pilot_required,
+        pilot_quantity: d.pilot_required ? num(d.pilot_quantity) : null,
+        pilot_due_on: d.pilot_due_on || null,
+        // datetime-local gives a wall-clock string with no zone. The column is
+        // timestamptz, so say UTC explicitly rather than letting the server
+        // guess — the CHECK compares it against delivery_due_on as a date.
+        proposals_close_at: d.proposals_close_at ? `${d.proposals_close_at}:00Z` : null,
+        proposal_requirements: d.proposal_requirements,
+
         starts_on: d.starts_on || null,
         delivery_due_on: d.delivery_due_on || null,
         storage_target_id: d.storage_target_id || null,
         attachments: [
           ...attachmentPayload(complianceFiles, "compliance"),
           ...attachmentPayload(acceptanceFiles, "acceptance"),
+          ...attachmentPayload(captureExamples, "capture_examples"),
+          ...attachmentPayload(guidelineFiles, "guidelines"),
         ],
         publish,
-        samples: newSamples.map((s) => ({
-          storage_key: s.key, filename: s.filename,
-          content_type: s.content_type, size_bytes: s.size_bytes,
-        })),
       };
       if (!id) return post<Rfp>("/requests", body);
 
@@ -305,23 +409,32 @@ export function RequestNewPage() {
     const problems: string[] = [];
     if (step === 0 && !d.title.trim()) problems.push("Give the request a title.");
     if (step === 0 && !d.category.trim()) problems.push("Choose a category.");
-    if (step === 1 && !d.spec_quantity.trim())
+    if (step === 1 && !d.target_quantity.trim())
       problems.push("Say how much you need — partners cannot price a blank quantity.");
-    if ((step === 1 || step === 5) && samples.some((s) => s.status === "uploading"))
-      problems.push("Wait for sample uploads to finish.");
+    if (step === 1 && d.target_quantity.trim() && Number(d.target_quantity) <= 0)
+      problems.push("The quantity has to be more than zero.");
     if (step === 0 && complianceFiles.some((a) => a.status === "uploading"))
       problems.push("Wait for the compliance attachment to finish uploading.");
-    if (step === 1 && acceptanceFiles.some((a) => a.status === "uploading"))
+    if (step === 1 && [...captureExamples, ...guidelineFiles].some((a) => a.status === "uploading"))
+      problems.push("Wait for the reference files to finish uploading.");
+    if (step === 2 && acceptanceFiles.some((a) => a.status === "uploading"))
       problems.push("Wait for the acceptance attachment to finish uploading.");
+    // A pilot nobody sized is not a pilot — request_pilot_shape says the same
+    // in the database, but a person should hear it here rather than on save.
+    if (step === 5 && d.pilot_required && !d.pilot_quantity.trim())
+      problems.push("Say how large the pilot should be.");
     // Deliberately not checked here. A draft may be saved without a
     // destination — the API says so in as many words — and blocking Continue
     // meant there was no way to reach a save button without one. It is
     // enforced at publish instead, by publishProblems() below.
-    if (step === 3) {
+    if (step === 5) {
       if (d.budget_min && d.budget_max && Number(d.budget_max) < Number(d.budget_min))
         problems.push("Budget maximum must be at least the minimum.");
       if (d.starts_on && d.delivery_due_on && d.delivery_due_on < d.starts_on)
         problems.push("Delivery must be on or after the start.");
+      if (d.proposals_close_at && d.delivery_due_on
+          && d.proposals_close_at.slice(0, 10) > d.delivery_due_on)
+        problems.push("Bidding has to close before the delivery date.");
     }
     return problems;
   };
@@ -332,13 +445,16 @@ export function RequestNewPage() {
     const problems: string[] = [];
     if (!d.title.trim()) problems.push("Give the request a title.");
     if (d.title.trim().length < 3) problems.push("The title needs at least three characters.");
-    if (!d.spec_quantity.trim())
+    if (!d.target_quantity.trim())
       problems.push("Say how much you need — partners cannot price a blank quantity.");
+    if (d.pilot_required && !d.pilot_quantity.trim())
+      problems.push("Say how large the pilot should be.");
     if (!d.storage_target_id) problems.push("Choose where captured data should be delivered.");
     else if (!targetIsVerified(d.storage_target_id))
       problems.push("Test the connection to your delivery destination first.");
-    if (samples.some((s) => s.status === "uploading"))
-      problems.push("Wait for sample uploads to finish.");
+    if ([...complianceFiles, ...acceptanceFiles, ...captureExamples, ...guidelineFiles]
+        .some((a) => a.status === "uploading"))
+      problems.push("Wait for the attachments to finish uploading.");
     return problems;
   };
 
@@ -407,6 +523,17 @@ export function RequestNewPage() {
             <Field label="Geography">
               {(id) => <input id={id} className={inputCls} value={d.geography} onChange={set("geography")} placeholder="United States — 12 metro areas" />}
             </Field>
+            <Field label="What is this for?" span hint="One sentence. It is the first thing a partner reads.">
+              {(id) => <textarea id={id} className={textareaCls} rows={2} value={d.objective} onChange={set("objective")} placeholder="Train a shelf-recognition model across our top 12 markets." />}
+            </Field>
+            <Field label="Use case" hint="Shapes what a partner has to agree to downstream.">
+              {(id) => (
+                <select id={id} className={selectCls} value={d.use_case} onChange={set("use_case")}>
+                  <option value="">Not specified</option>
+                  {USE_CASES.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+                </select>
+              )}
+            </Field>
             <Field label="Compliance notes" span>
               {(id) => <textarea id={id} className={textareaCls} rows={3} value={d.compliance_notes} onChange={set("compliance_notes")} placeholder="No shoppers or faces in frame." />}
             </Field>
@@ -421,15 +548,125 @@ export function RequestNewPage() {
         )}
         {step === 1 && (
           <div className="formgrid">
-            <Field label="Deliverable format">
-              {(id) => <input id={id} className={inputCls} value={d.spec_format} onChange={set("spec_format")} placeholder="JPEG, minimum 12MP" />}
+            <Field label="How much" required hint="A number. The unit is next to it.">
+              {(id) => <input id={id} className={inputCls} type="number" min={1} value={d.target_quantity} onChange={set("target_quantity")} placeholder="25000" />}
             </Field>
-            <Field label="Quantity" required>
-              {(id) => <input id={id} className={inputCls} value={d.spec_quantity} onChange={set("spec_quantity")} placeholder="25,000 images" />}
+            <Field label="Of what" required>
+              {(id) => (
+                <select id={id} className={selectCls} value={d.target_unit} onChange={set("target_unit")}>
+                  {TARGET_UNITS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+                </select>
+              )}
             </Field>
-            <Field label="Resolution, duration and quality bar" span>
+            <CheckGroup
+              label="Media"
+              options={CAPTURE_MEDIA}
+              value={d.capture_media}
+              onChange={(v) => setD((x) => ({ ...x, capture_media: v }))}
+              hint="What a worker's device should produce. This is what their app will let them upload."
+              columns={4}
+            />
+            <Field label="Minimum megapixels" hint="Photo capture only. Leave blank for no floor.">
+              {(id) => <input id={id} className={inputCls} type="number" min={0} step="0.1" value={d.capture_min_megapixels} onChange={set("capture_min_megapixels")} placeholder="12" />}
+            </Field>
+            <Field label="Orientation">
+              {(id) => (
+                <select id={id} className={selectCls} value={d.capture_orientation} onChange={set("capture_orientation")}>
+                  <option value="">Either</option>
+                  <option value="landscape">Landscape</option>
+                  <option value="portrait">Portrait</option>
+                </select>
+              )}
+            </Field>
+            <Field label="Capture notes" span>
+              {(id) => <textarea id={id} className={textareaCls} rows={2} value={d.capture_notes} onChange={set("capture_notes")} placeholder="Full shelf in frame, no glare, shot square on." />}
+            </Field>
+            <label className="checkline span">
+              <input type="checkbox" checked={d.capture_require_gps} onChange={(e) => setD((x) => ({ ...x, capture_require_gps: e.target.checked }))} />
+              <span>
+                Require a GPS fix on every capture
+                <span className="cl-sub">Rejects anything taken with location switched off.</span>
+              </span>
+            </label>
+            <Field label="Where" hint="The kind of place, not the address.">
+              {(id) => (
+                <select id={id} className={selectCls} value={d.location_type} onChange={set("location_type")}>
+                  <option value="">Not specified</option>
+                  {LOCATION_TYPES.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+                </select>
+              )}
+            </Field>
+            <Field label="Sites" hint="Roughly how many distinct locations.">
+              {(id) => <input id={id} className={inputCls} type="number" min={1} value={d.sf_site_count} onChange={set("sf_site_count")} placeholder="120" />}
+            </Field>
+            <Field label="Countries" span hint="ISO codes — IN, AE, GB. Enter or comma to add.">
+              {(id) => (
+                <TagInput
+                  id={id}
+                  value={d.countries}
+                  onChange={(v) => setD((x) => ({ ...x, countries: v }))}
+                  placeholder="IN"
+                  transform={(raw) => raw.toUpperCase().slice(0, 3)}
+                />
+              )}
+            </Field>
+            <Field label="Subject" span hint="What is being captured, in the client's own words.">
+              {(id) => <input id={id} className={inputCls} value={d.sf_subject_type} onChange={set("sf_subject_type")} placeholder="retail shelf" />}
+            </Field>
+            <AttachmentsField
+              label="Capture examples"
+              span
+              hint="What good looks like — reference shots, a style guide. Every bidding partner can read these."
+              items={captureExamples}
+              onChange={setCaptureExamples}
+            />
+            <AttachmentsField
+              label="Guidelines"
+              span
+              hint="Site-access rules, a shot list, anything a worker in the field needs."
+              items={guidelineFiles}
+              onChange={setGuidelineFiles}
+            />
+          </div>
+        )}
+        {step === 2 && (
+          <div className="formgrid">
+            <Field label="Quality bar" span hint="Prose. What separates a usable capture from one you would send back.">
               {(id) => <textarea id={id} className={textareaCls} rows={2} value={d.spec_quality} onChange={set("spec_quality")} />}
             </Field>
+            <Field label="Acceptance criteria" span hint="Frozen into the contract at award — disputes are arbitrated against this.">
+              {(id) => <textarea id={id} className={textareaCls} rows={2} value={d.acceptance} onChange={set("acceptance")} placeholder="95% or better pass on the automated blur check; 5% manual audit sample" />}
+            </Field>
+            <Field label="Pass rate required (%)" hint="Below this, the batch is rejected rather than part-accepted.">
+              {(id) => <input id={id} className={inputCls} type="number" min={0} max={100} step="0.1" value={d.qt_min_pass_rate_pct} onChange={set("qt_min_pass_rate_pct")} placeholder="95" />}
+            </Field>
+            <Field label="First-gate QA sample (%)" hint="How much of the first delivery gets checked. 100 means all of it.">
+              {(id) => <input id={id} className={inputCls} type="number" min={0} max={100} step="0.1" value={d.qt_gate1} onChange={set("qt_gate1")} placeholder="100" />}
+            </Field>
+            <Field label="Steady-state QA sample (%)" hint="Once the partner is trusted.">
+              {(id) => <input id={id} className={inputCls} type="number" min={0} max={100} step="0.1" value={d.qt_gate2} onChange={set("qt_gate2")} placeholder="5" />}
+            </Field>
+            <Field label="Retakes allowed" hint="Per rejected capture.">
+              {(id) => <input id={id} className={inputCls} type="number" min={0} value={d.rp_max_retakes} onChange={set("rp_max_retakes")} placeholder="2" />}
+            </Field>
+            <Field label="Retake window (days)">
+              {(id) => <input id={id} className={inputCls} type="number" min={0} value={d.rp_retake_window_days} onChange={set("rp_retake_window_days")} placeholder="7" />}
+            </Field>
+            <Field label="Who bears rework cost">
+              {(id) => (
+                <select id={id} className={selectCls} value={d.rp_rework_cost_bearer} onChange={set("rp_rework_cost_bearer")}>
+                  <option value="">To be agreed</option>
+                  {REWORK_BEARERS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+                </select>
+              )}
+            </Field>
+            <label className="checkline span">
+              <input type="checkbox" checked={d.rp_partial_acceptance_allowed} onChange={(e) => setD((x) => ({ ...x, rp_partial_acceptance_allowed: e.target.checked }))} />
+              <span>
+                Accept a partial batch
+                <span className="cl-sub">Take and pay for what passed instead of returning the lot.</span>
+              </span>
+            </label>
             <AttachmentsField
               label="Acceptance documents"
               span
@@ -437,28 +674,82 @@ export function RequestNewPage() {
               items={acceptanceFiles}
               onChange={setAcceptanceFiles}
             />
-            <Field label="Acceptance criteria" span hint="Frozen into the contract at award — disputes are arbitrated against this.">
-              {(id) => <textarea id={id} className={textareaCls} rows={2} value={d.acceptance} onChange={set("acceptance")} placeholder="95% or better pass on the automated blur check; 5% manual audit sample" />}
+          </div>
+        )}
+        {step === 3 && (
+          <div className="formgrid">
+            <Callout tone="attention" title="These answers travel with the data">
+              They are shown to every bidder, copied onto the contract, and are what a
+              worker in the field is held to. A request that leaves them blank pushes
+              the judgement onto whoever is holding the camera.
+            </Callout>
+            <Field label="Are people in frame?" span>
+              {(id) => (
+                <select id={id} className={selectCls} value={d.people_in_frame} onChange={set("people_in_frame")}>
+                  <option value="">Not specified</option>
+                  {PEOPLE_IN_FRAME.map((o) => <option key={o.value} value={o.value}>{o.label} — {o.hint}</option>)}
+                </select>
+              )}
             </Field>
-            <Field label="Sample data (optional)" span hint={`Reference material, not the deliverable — a spec sheet, a style guide, examples of what good looks like. Up to ${MAX_SAMPLES} files, 25 MB each.`}>
-              {() => (
-                <FileField
-                  label="Attach sample files"
-                  accept={SAMPLE_ACCEPT}
-                  disabled={samples.length >= MAX_SAMPLES}
-                  files={samples.map((s) => ({
-                    name: s.filename, size: s.size_bytes, status: s.status, locked: s.existing,
-                  }))}
-                  onPick={pickSamples}
-                  onRemove={(i) =>
-                    setSamples((xs) => (xs[i]?.existing ? xs : xs.filter((_, j) => j !== i)))
-                  }
+            <Field label="Children">
+              {(id) => (
+                <select id={id} className={selectCls} value={d.minors_policy} onChange={set("minors_policy")}>
+                  <option value="">Not specified</option>
+                  {MINORS_POLICIES.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+                </select>
+              )}
+            </Field>
+            <Field label="Lawful basis" hint="Under GDPR Article 6, or the honest answer that none applies.">
+              {(id) => (
+                <select id={id} className={selectCls} value={d.lawful_basis} onChange={set("lawful_basis")}>
+                  <option value="">Not specified</option>
+                  {LAWFUL_BASES.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+                </select>
+              )}
+            </Field>
+            <CheckGroup
+              label="De-identification required"
+              options={DEIDENTIFICATION}
+              value={d.deidentification}
+              onChange={(v) => setD((x) => ({ ...x, deidentification: v }))}
+              hint="Applied before the data reaches you."
+              columns={3}
+            />
+            <CheckGroup
+              label="What the data may be used for"
+              options={PERMITTED_USES}
+              value={d.permitted_uses}
+              onChange={(v) => setD((x) => ({ ...x, permitted_uses: v }))}
+              hint="Anything not ticked is off-limits, including to you."
+              columns={3}
+            />
+            <Field label="Regulations that apply" span hint="GDPR, DPDP, CCPA — whatever governs this. Enter or comma to add.">
+              {(id) => (
+                <TagInput
+                  id={id}
+                  value={d.regulations}
+                  onChange={(v) => setD((x) => ({ ...x, regulations: v }))}
+                  placeholder="GDPR"
                 />
               )}
             </Field>
+            <label className="checkline span">
+              <input type="checkbox" checked={d.biometric_processing} onChange={(e) => setD((x) => ({ ...x, biometric_processing: e.target.checked }))} />
+              <span>
+                This involves biometric processing
+                <span className="cl-sub">Faces, voices or gait used to identify a person. A stricter regime applies.</span>
+              </span>
+            </label>
+            <label className="checkline span">
+              <input type="checkbox" checked={d.partner_reuse_allowed} onChange={(e) => setD((x) => ({ ...x, partner_reuse_allowed: e.target.checked }))} />
+              <span>
+                The partner may reuse this data
+                <span className="cl-sub">Off means they collect it for you and keep no rights to it.</span>
+              </span>
+            </label>
           </div>
         )}
-        {step === 2 && (
+        {step === 4 && (
           <div className="formgrid">
             <Field label="Headcount required">
               {(id) => <input id={id} className={inputCls} type="number" min={0} value={d.people_headcount} onChange={set("people_headcount")} />}
@@ -474,23 +765,65 @@ export function RequestNewPage() {
             </Field>
           </div>
         )}
-        {step === 3 && (
+        {step === 5 && (
           <div className="formgrid">
+            <Field label="How should partners price this?" span>
+              {(id) => (
+                <select id={id} className={selectCls} value={d.pricing_model_requested} onChange={set("pricing_model_requested")}>
+                  {PRICING_MODELS.map((o) => <option key={o.value} value={o.value}>{o.label} — {o.hint}</option>)}
+                </select>
+              )}
+            </Field>
             <Field label="Budget minimum (USD)">
               {(id) => <input id={id} className={inputCls} type="number" min={0} value={d.budget_min} onChange={set("budget_min")} />}
             </Field>
             <Field label="Budget maximum (USD)">
               {(id) => <input id={id} className={inputCls} type="number" min={0} value={d.budget_max} onChange={set("budget_max")} />}
             </Field>
+            <label className="checkline span">
+              <input type="checkbox" checked={!d.budget_disclosed} onChange={(e) => setD((x) => ({ ...x, budget_disclosed: !e.target.checked }))} />
+              <span>
+                Keep the budget to ourselves
+                <span className="cl-sub">Bidders see the request but not the range. You still see it here.</span>
+              </span>
+            </label>
             <Field label="Project start">
               {(id) => <input id={id} className={inputCls} type="date" value={d.starts_on} onChange={set("starts_on")} />}
             </Field>
             <Field label="Delivery deadline">
               {(id) => <input id={id} className={inputCls} type="date" value={d.delivery_due_on} onChange={set("delivery_due_on")} />}
             </Field>
+            <Field label="Bidding closes" span hint="Leave blank to keep it open until you award. Must be before the delivery deadline.">
+              {(id) => <input id={id} className={inputCls} type="datetime-local" value={d.proposals_close_at} onChange={set("proposals_close_at")} />}
+            </Field>
+            <label className="checkline span">
+              <input type="checkbox" checked={d.pilot_required} onChange={(e) => setD((x) => ({ ...x, pilot_required: e.target.checked }))} />
+              <span>
+                Start with a paid pilot
+                <span className="cl-sub">A small first batch, accepted before the rest proceeds.</span>
+              </span>
+            </label>
+            {d.pilot_required && (
+              <>
+                <Field label="Pilot size" required hint={`In ${labelOf(TARGET_UNITS, d.target_unit as TargetUnit)}.`}>
+                  {(id) => <input id={id} className={inputCls} type="number" min={1} value={d.pilot_quantity} onChange={set("pilot_quantity")} placeholder="500" />}
+                </Field>
+                <Field label="Pilot due">
+                  {(id) => <input id={id} className={inputCls} type="date" value={d.pilot_due_on} onChange={set("pilot_due_on")} />}
+                </Field>
+              </>
+            )}
+            <CheckGroup
+              label="What a bid must include"
+              options={PROPOSAL_REQUIREMENTS}
+              value={d.proposal_requirements}
+              onChange={(v) => setD((x) => ({ ...x, proposal_requirements: v }))}
+              hint="Shown to partners as the checklist for their proposal."
+              columns={3}
+            />
           </div>
         )}
-        {step === 4 && (
+        {step === 6 && (
           <DestinationStep
             value={d.storage_target_id}
             onChange={(v) => setD((x) => ({ ...x, storage_target_id: v }))}
@@ -501,23 +834,48 @@ export function RequestNewPage() {
             skipped is "marked 'to be agreed', never hidden" — and partners
             read these exact words in the brief, so this is the last chance to
             see them. The fallbacks mirror _DEFAULTS in the marketplace service. */}
-        {step === 5 && (
+        {step === 7 && (
           <Dl rows={[
             ["Title", d.title || "—"],
             ["Category", titleCase(d.category)],
+            ["Objective", d.objective || "Not specified"],
+            ["Use case", labelOf(USE_CASES, d.use_case as UseCase)],
             ["Geography", d.geography || "Not specified"],
-            ["Format", d.spec_format || "To be agreed"],
-            ["Quantity", d.spec_quantity || "To be agreed"],
+            ["Countries", d.countries.length ? d.countries.join(", ") : "Not specified"],
+            ["Quantity", d.target_quantity
+              ? `${d.target_quantity} ${labelOf(TARGET_UNITS, d.target_unit as TargetUnit)}`
+              : "To be agreed"],
+            ["Media", d.capture_media.length ? d.capture_media.map((m) => labelOf(CAPTURE_MEDIA, m)).join(", ") : "To be agreed"],
+            ["Location", labelOf(LOCATION_TYPES, d.location_type as LocationType)],
             ["Quality bar", d.spec_quality || "Standard acceptance applies"],
             ["Acceptance", d.acceptance || "Client review on delivery"],
+            ["Pass rate", d.qt_min_pass_rate_pct ? `${d.qt_min_pass_rate_pct}%` : "To be agreed"],
+            ["People in frame", labelOf(PEOPLE_IN_FRAME, d.people_in_frame as PeopleInFrame)],
+            ["Children", labelOf(MINORS_POLICIES, d.minors_policy as MinorsPolicy)],
+            ["Lawful basis", labelOf(LAWFUL_BASES, d.lawful_basis as LawfulBasis)],
+            ["De-identification", labelsOf(DEIDENTIFICATION, d.deidentification)],
+            ["Permitted uses", labelsOf(PERMITTED_USES, d.permitted_uses)],
+            ["Regulations", d.regulations.length ? d.regulations.join(", ") : "None specified"],
+            ["Biometric processing", d.biometric_processing ? "Yes" : "No"],
+            ["Partner may reuse", d.partner_reuse_allowed ? "Yes" : "No"],
             ["Compliance", d.compliance_notes || "None specified"],
             ["Headcount", d.people_headcount || "0"],
             ["Certification", d.people_certification || "None"],
             ["Training", d.people_training || "None specified"],
             ["Experience", d.people_experience || "None specified"],
-            ["Budget", `${money(d.budget_min || null)} – ${money(d.budget_max || null)}`],
+            ["Pricing", labelOf(PRICING_MODELS, d.pricing_model_requested as PricingModel)],
+            ["Budget", d.budget_disclosed
+              ? `${money(d.budget_min || null)} – ${money(d.budget_max || null)}`
+              : `${money(d.budget_min || null)} – ${money(d.budget_max || null)} · withheld from bidders`],
             ["Timeline", `${fmtDate(d.starts_on || null)} → ${fmtDate(d.delivery_due_on || null)}`],
-            ["Sample files", doneSamples.length ? doneSamples.map((s) => s.filename).join(", ") : "None"],
+            ["Bidding closes", d.proposals_close_at ? fmtDateTime(`${d.proposals_close_at}:00Z`) : "Open until awarded"],
+            ["Pilot", d.pilot_required
+              ? `${d.pilot_quantity || "?"} ${labelOf(TARGET_UNITS, d.target_unit as TargetUnit)}${d.pilot_due_on ? ` by ${fmtDate(d.pilot_due_on)}` : ""}`
+              : "None"],
+            ["A bid must include", labelsOf(PROPOSAL_REQUIREMENTS, d.proposal_requirements)],
+            ["Reference files", [...captureExamples, ...guidelineFiles].length
+              ? [...captureExamples, ...guidelineFiles].map((f) => f.filename).join(", ")
+              : "None"],
             ["Delivered to", <DestinationSummary key="dest" id={d.storage_target_id} />],
           ]} />
         )}
@@ -531,7 +889,7 @@ export function RequestNewPage() {
             the rail silently destroyed the lot. */}
         <Button
           onClick={() => save.mutate(false)}
-          disabled={save.isPending || samples.some((s) => s.status === "uploading")}
+          disabled={save.isPending || uploading}
         >
           {save.isPending && !confirming ? "Saving…" : "Save as draft"}
         </Button>
@@ -540,7 +898,7 @@ export function RequestNewPage() {
           <Button
             variant="primary"
             onClick={askToPublish}
-            disabled={save.isPending || samples.some((s) => s.status === "uploading")}
+            disabled={save.isPending || uploading}
           >
             Publish to partners
           </Button>
@@ -580,14 +938,17 @@ export function RequestNewPage() {
  * out a key is wrong when a worker is standing in a shop with a capture that
  * will never upload.
  *
- * Which fields appear depends on the provider, because the three do not take
- * the same kind of credential.
+ * Which fields appear depends on the provider, because the two do not take the
+ * same kind of credential.
+ *
+ * This is the CLIENT's own storage, and theirs to choose. SourceHub's own
+ * container — where attachments and capture examples go — is Azure, fixed, and
+ * never appears in this form.
  */
 
 const PROVIDERS = [
-  ["s3", "S3-compatible — AWS, MinIO, R2, Wasabi, GCS interop"],
-  ["gcs", "Google Cloud Storage — service account"],
   ["azure_blob", "Azure Blob Storage"],
+  ["s3", "S3-compatible — AWS, MinIO, R2, Wasabi, GCS interop"],
 ] as const;
 
 function useTargets() {
@@ -599,6 +960,7 @@ function useTargets() {
 
 function describeTarget(t: StorageTarget): string {
   const where = t.key_prefix ? `${t.bucket}/${t.key_prefix}` : t.bucket;
+  // Region only ever reads as noise on Azure, where there isn't one.
   return `${where}${t.region ? ` · ${t.region}` : ""}`;
 }
 
@@ -729,19 +1091,17 @@ function NewDestination({
   const toast = useToast();
   const [error, setError] = useState<string | null>(null);
   const [f, setF] = useState({
-    label: "", provider: "s3", bucket: "", endpoint: "", region: "", key_prefix: "",
+    label: "", provider: "azure_blob", bucket: "", endpoint: "", region: "", key_prefix: "",
     access_key_id: "", secret_access_key: "",
-    service_account_json: "",
     account_name: "", account_key: "",
   });
   const set = (k: keyof typeof f) => (e: { target: { value: string } }) =>
     setF((x) => ({ ...x, [k]: e.target.value }));
 
-  const secretFor = (): Record<string, string> => {
-    if (f.provider === "gcs") return { service_account_json: f.service_account_json };
-    if (f.provider === "azure_blob") return { account_name: f.account_name, account_key: f.account_key };
-    return { access_key_id: f.access_key_id, secret_access_key: f.secret_access_key };
-  };
+  const secretFor = (): Record<string, string> =>
+    f.provider === "azure_blob"
+      ? { account_name: f.account_name, account_key: f.account_key }
+      : { access_key_id: f.access_key_id, secret_access_key: f.secret_access_key };
 
   // One button, and it does both. There is no reason to save a destination
   // that has not been proved to work.
@@ -795,12 +1155,6 @@ function NewDestination({
               {(id) => <input id={id} type="password" className={inputCls} value={f.secret_access_key} onChange={set("secret_access_key")} autoComplete="off" />}
             </Field>
           </>
-        )}
-
-        {f.provider === "gcs" && (
-          <Field label="Service account key" required span>
-            {(id) => <textarea id={id} className={textareaCls} rows={5} value={f.service_account_json} onChange={set("service_account_json")} placeholder='The whole JSON key file for an account with object read and write on this bucket' />}
-          </Field>
         )}
 
         {f.provider === "azure_blob" && (
@@ -885,6 +1239,10 @@ export function RequestDetailPage() {
   const docs = r.attachments ?? [];
   const complianceDocs = docs.filter((a) => a.slot === "compliance");
   const acceptanceDocs = docs.filter((a) => a.slot === "acceptance");
+  // What request_sample used to hold. Both are the brief's reference material,
+  // readable by every bidder, so they belong beside the specification.
+  const captureExampleDocs = docs.filter((a) => a.slot === "capture_examples");
+  const guidelineDocs = docs.filter((a) => a.slot === "guidelines");
   const isClient = session.org_kind === "client";
   const proposals = r.proposals ?? [];
   // Only badge an outright winner. On a tie every tied bid gets the chip,
@@ -941,9 +1299,35 @@ export function RequestDetailPage() {
       <div className="g2">
         <Panel title="Specification">
           <Dl rows={[
-            ["Format", r.spec.format ?? "—"],
-            ["Quantity", r.spec.quantity ?? "—"],
+            ["Objective", r.objective ?? "—"],
+            ["Use case", labelOf(USE_CASES, r.use_case)],
+            ["Quantity", r.spec.target_quantity
+              ? `${r.spec.target_quantity} ${labelOf(TARGET_UNITS, r.spec.target_unit)}`
+              : "—"],
+            ["Media", (r.spec.capture.media ?? []).length
+              ? (r.spec.capture.media ?? []).map((m) => labelOf(CAPTURE_MEDIA, m)).join(", ")
+              : "—"],
+            ...(r.spec.capture.min_megapixels
+              ? [["Minimum resolution", `${r.spec.capture.min_megapixels} MP`] as [string, React.ReactNode]]
+              : []),
+            ...(r.spec.capture.require_gps
+              ? [["Location", "A GPS fix is required on every capture"] as [string, React.ReactNode]]
+              : []),
+            ...(r.spec.capture.notes
+              ? [["Capture notes", r.spec.capture.notes] as [string, React.ReactNode]]
+              : []),
+            ["Where", labelOf(LOCATION_TYPES, r.spec.location_type)],
+            ["Countries", r.spec.countries.length ? r.spec.countries.join(", ") : "—"],
+            ...(captureExampleDocs.length
+              ? [["Capture examples", <AttachmentList key="ce" items={captureExampleDocs} />] as [string, React.ReactNode]]
+              : []),
+            ...(guidelineDocs.length
+              ? [["Guidelines", <AttachmentList key="gl" items={guidelineDocs} />] as [string, React.ReactNode]]
+              : []),
             ["Quality bar", r.spec.quality ?? "—"],
+            ...(r.quality.thresholds.min_pass_rate_pct
+              ? [["Pass rate required", `${r.quality.thresholds.min_pass_rate_pct}%`] as [string, React.ReactNode]]
+              : []),
             ["Acceptance", r.acceptance ?? "—"],
             // Shown under the prose they belong to rather than in a panel of
             // their own: a rubric is part of the acceptance criteria, not a
@@ -970,39 +1354,6 @@ export function RequestDetailPage() {
           ]} />
         </Panel>
       </div>
-
-      {(r.samples ?? []).length > 0 && (
-        <Panel title="Sample data" sub="Provided by the client to gauge the work. Download links are single-use and expire.">
-          <TableWrap>
-            <table>
-              <thead><tr><th>File</th><th>Type</th><th>Size</th><th>Uploaded</th><th /></tr></thead>
-              <tbody>
-                {(r.samples ?? []).map((s) => (
-                  <tr key={s.id}>
-                    <td className="cell-primary">{s.filename}</td>
-                    <td className="small muted">{s.content_type ?? "—"}</td>
-                    <td className="num">{(s.size_bytes / (1024 * 1024)).toFixed(s.size_bytes < 1024 * 1024 ? 2 : 1)} MB</td>
-                    <td className="num">{fmtDate(s.uploaded_at)}</td>
-                    <td className="right"><div className="rowactions">
-                      <Button
-                        size="sm"
-                        onClick={() => {
-                          void get<{ url: string }>(`/requests/${r.id}/samples/${s.id}/download`)
-                            .then(({ url }) => window.open(url, "_blank", "noopener"))
-                            .catch((e) => toast("Download failed", e instanceof Error ? e.message : "", "critical"));
-                        }}
-                      >
-                        Download
-                      </Button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </TableWrap>
-        </Panel>
-      )}
 
       <Panel
         title={isClient ? "Proposals" : "Your proposal"}
@@ -1419,11 +1770,20 @@ function ClientAndRequestDialog({ proposal, onClose }: { proposal: Proposal; onC
           <Dl rows={[
             ["Reference", r.reference_code],
             ["Category", titleCase(r.category)],
-            ["Format", r.spec.format ?? "—"],
-            ["Quantity", r.spec.quantity ?? "—"],
+            ["Objective", r.objective ?? "—"],
+            ["Quantity", r.spec.target_quantity
+              ? `${r.spec.target_quantity} ${labelOf(TARGET_UNITS, r.spec.target_unit)}`
+              : "—"],
             ["Quality bar", r.spec.quality ?? "—"],
             ["Acceptance", r.acceptance ?? "—"],
-            ["Budget", `${money(r.budget_min)} – ${money(r.budget_max)}`],
+            ["Lawful basis", labelOf(LAWFUL_BASES, r.compliance.lawful_basis)],
+            ["People in frame", labelOf(PEOPLE_IN_FRAME, r.compliance.people_in_frame)],
+            // budget_min and budget_max come back null when the client chose
+            // not to disclose them, so this renders the withholding honestly
+            // rather than showing an empty range as if none were set.
+            ["Budget", r.budget_disclosed
+              ? `${money(r.budget_min)} – ${money(r.budget_max)}`
+              : "Not disclosed"],
             ["Timeline", `${fmtDate(r.starts_on)} → ${fmtDate(r.delivery_due_on)}`],
             ["Geography", r.geography ?? "—"],
             ["Compliance", r.compliance_notes ?? "—"],

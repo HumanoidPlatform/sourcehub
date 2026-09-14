@@ -46,7 +46,7 @@ make reset       # wipe and reapply db/*.sql
 |---|---|---|
 | `postgres` | 5432 | The schema, and the tenancy boundary |
 | `redis` | 6379 | Celery broker and cache |
-| `minio` | 9000 / 9001 | Object storage for assets; console on 9001 |
+| `minio` | 9000 / 9001 | A client delivery destination to develop against; console on 9001. **Not** the platform's storage — that is Azure Blob and needs a real account key. |
 | `mailpit` | 1025 / 8025 | Catches outbound mail — **UI at http://localhost:8025** |
 | `pgadmin` | 5050 | Optional: `docker compose -f infra/compose.yaml --profile tools up -d` |
 
@@ -256,7 +256,8 @@ publish → 2 proposals → competitor isolation → award (sibling auto-rejecte
 milestone invoiced into escrow) → task assigned → equipment loan approved
 (over-lend refused by the stock trigger) → submit → QA fail with note →
 resubmit → QA pass (both attempts kept) → [worker invited by email → assigns
-3 of 4 units → captures PUT straight to MinIO and confirmed → sibling worker
+3 of 4 units → captures PUT straight to the client's own storage and
+confirmed → sibling worker
 sees nothing → gate 1 reject with note → rework → accept → bundled into the
 submission → partner views the originals → gate 2 pass] → deliver → client
 approves + rates → invoices settle, 9% fee booked, ledger_imbalance = 0 rows
@@ -299,14 +300,24 @@ show the captures through short-lived signed URLs.
 
 ### Running the pilot with a phone
 
-Presigned URLs embed `STORAGE_ENDPOINT`, and the signature covers the host,
-so the phone must reach the same address the API signs for:
+Where a capture uploads to depends on the destination the client named on the
+request, and the signature covers the host — so the phone has to reach whatever
+that destination says.
+
+**If the client's destination is Azure Blob**, there is nothing to configure:
+the phone resolves `*.blob.core.windows.net` like any other public host.
+
+**If it is the local MinIO**, the destination's `endpoint` has to be an address
+the phone can reach, not `localhost`. Set it on the destination itself in the
+console (Requests → the destination form → Endpoint), not in `backend/.env` —
+there is no `STORAGE_ENDPOINT` setting any more, because the platform's own
+storage is Azure and a client's destination carries its own address:
 
 ```bash
-ipconfig                                   # the Wi-Fi IPv4, e.g. 192.168.1.20
-# backend/.env
-STORAGE_ENDPOINT=http://192.168.1.20:9000
-# then the API on every interface
+ipconfig                        # the Wi-Fi IPv4, e.g. 192.168.1.20
+# then in the console, the destination's Endpoint field:
+#   http://192.168.1.20:9000
+# and the API on every interface
 .venv/Scripts/python -m uvicorn sourcehub.main:app --host 0.0.0.0 --port 8000 --app-dir src
 ```
 

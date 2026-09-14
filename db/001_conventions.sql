@@ -54,6 +54,12 @@ CREATE TYPE onboarding_document_kind AS ENUM
 -- AWS, MinIO, R2, Wasabi and GCS's interoperability endpoint — anything the
 -- S3 SDK can presign against — while 'gcs' means native service-account
 -- signing and 'azure_blob' means a SAS token, which is a different mechanism.
+--
+-- 'gcs' is NOT supported. Its adapter was deleted and
+-- storage_target_provider_supported (db/035_storage.sql) refuses it. The label
+-- stays in the type only because Postgres cannot drop one without rewriting
+-- the column that uses it, which is not worth a migration to remove a value
+-- nothing has ever written.
 -- ---------------------------------------------------------------------------
 CREATE TYPE storage_provider AS ENUM
   ('s3','gcs','azure_blob');

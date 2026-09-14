@@ -439,30 +439,8 @@ CREATE POLICY proposal_resource_write ON proposal_resource FOR ALL
                        WHERE p.id = proposal_resource.proposal_id
                          AND p.partner_org_id = current_org_id()));
 
-ALTER TABLE request_sample ENABLE ROW LEVEL SECURITY;
-ALTER TABLE request_sample FORCE  ROW LEVEL SECURITY;
-
--- A sample is visible exactly where its request is (request_select, inlined
--- against the parent row the way onboarding_document does it).
-CREATE POLICY request_sample_select ON request_sample FOR SELECT
-  USING (
-       is_platform_admin()
-    OR EXISTS (SELECT 1 FROM request r
-                WHERE r.id = request_sample.request_id
-                  AND r.deleted_at IS NULL
-                  AND (r.client_org_id = current_org_id()          -- the buyer
-                    OR (r.status IN ('published','proposals_received')
-                        AND current_org_kind() = 'tenant')          -- the open marketplace
-                    OR EXISTS (SELECT 1 FROM contract c             -- the awarded partner
-                                WHERE c.request_id = r.id
-                                  AND c.partner_org_id = current_org_id())))
-  );
-
--- Only the buying client attaches samples; append-only (no UPDATE/DELETE policy).
-CREATE POLICY request_sample_insert ON request_sample FOR INSERT
-  WITH CHECK (EXISTS (SELECT 1 FROM request r
-                       WHERE r.id = request_sample.request_id
-                         AND r.client_org_id = current_org_id()));
+-- request_sample is gone; its files are attachment rows now, governed by
+-- attachment_select/insert above and attachment_parent_visible().
 
 
 -- ============================================================================

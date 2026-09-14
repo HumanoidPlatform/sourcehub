@@ -93,7 +93,7 @@ async def presign_upload(
     # it into {client}/{RFP}/{slot}/ once there is something to file it under.
     key = folders.staging_key(claims.org_id, safe)
     url, extra = await storage.presign_put(
-        storage.platform_target(settings.storage_bucket_documents), key
+        storage.platform_target(), key
     )
     return {
         "storage_key": key,
@@ -123,7 +123,7 @@ async def attach(
         return []
 
     own_prefix = folders.staging_prefix(claims.org_id)
-    target = storage.platform_target(settings.storage_bucket_documents)
+    target = storage.platform_target()
     # Resolved once: every item in a call hangs off the same parent, and this
     # is the point at which that parent finally has a client and a reference.
     try:
@@ -242,7 +242,7 @@ async def download_url(
     if row is None:
         raise LookupError("attachment not found")
     url = await storage.presign_get(
-        storage.platform_target(settings.storage_bucket_documents),
+        storage.platform_target(),
         row["storage_key"], row["filename"],
     )
     return {

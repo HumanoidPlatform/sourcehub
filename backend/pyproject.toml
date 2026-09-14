@@ -28,14 +28,15 @@ dependencies = [
     "httpx>=0.27",
 ]
 
-# A client names its own delivery destination, so the deployment has to be able
-# to speak whichever provider that client uses. These are separate extras
-# because platform/storage imports each adapter lazily: a deployment that never
-# sees an Azure destination does not need the SDK, and a missing one surfaces
-# as a message on that destination rather than an import error at boot.
+# A client names its own delivery destination, so the deployment has to speak
+# whichever of the two providers that client chose — minio for S3-compatible
+# storage, azure-storage-blob for Blob. Both are base dependencies rather than
+# extras: with only two, and the platform's own storage always Azure, an
+# install that cannot serve half the clients is not worth the saved megabyte.
+#
+# There was a `gcs` extra. It went with the adapter — see
+# storage_target_provider_supported in db/035_storage.sql.
 [project.optional-dependencies]
-gcs = ["google-cloud-storage>=2.18"]
-
 dev = [
     "pytest>=8.3",
     "pytest-asyncio>=0.24",
