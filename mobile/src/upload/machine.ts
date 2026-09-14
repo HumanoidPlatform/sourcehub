@@ -75,6 +75,26 @@ export function classify(status: number | null | undefined): "retryable" | "fata
   return "fatal";
 }
 
+/** What a storage PUT's status code means. Pure, so it can be tested.
+ *
+ * Any 2xx is a stored object: Azure Blob answers 201 Created to a PUT Blob
+ * where S3 and MinIO answer 200, and a capture goes to whichever of the two
+ * the client named. This lived inline in uploader.ts as `status === 200 ||
+ * status === 204`, which is why no test caught it rejecting every Azure
+ * upload that had actually succeeded.
+ *
+ * 403 is the expired signature, not a refusal of the bytes — re-presign.
+ */
+export function putOutcome(status: number | null | undefined, body?: string | null): Outcome {
+  const s = status ?? 0;
+  if (s >= 200 && s < 300) return { type: "put_ok" };
+  if (s === 403) return { type: "put_rejected" };
+  const detail = body ? `: ${body.slice(0, 120)}` : "";
+  return classify(s) === "retryable"
+    ? { type: "retryable", error: `upload: storage answered ${s}` }
+    : { type: "fatal", error: `upload: storage refused the file (${s}${detail})` };
+}
+
 function rollback(status: CaptureStatus): CaptureStatus {
   return status === "uploading" ? "presigned" : status;
 }

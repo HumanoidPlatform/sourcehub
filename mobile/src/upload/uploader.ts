@@ -20,7 +20,7 @@ import { nextRunnable, patchCapture, resetStuck, type CaptureRow } from "@/db/ou
 import { queryClient } from "@/query/queryClient";
 import { sha256Hex } from "./hash";
 import { logUpload } from "./log";
-import { applyResult, classify, planNext, type Outcome } from "./machine";
+import { applyResult, classify, planNext, putOutcome, type Outcome } from "./machine";
 import { progress } from "./progress";
 
 const STEP_LABEL: Record<string, string> = { hash: "hash", presign: "presign", put: "upload", confirm: "confirm" };
@@ -191,12 +191,9 @@ class Uploader {
     );
     const res = await task.uploadAsync();
     progress.clear(row.id);
-    const status = res?.status ?? 0;
-    if (status === 200 || status === 204) return { type: "put_ok" };
-    if (status === 403) return { type: "put_rejected" };
-    return classify(status) === "retryable"
-      ? { type: "retryable", error: `upload: storage answered ${status}` }
-      : { type: "fatal", error: `upload: storage refused the file (${status}${res?.body ? `: ${res.body.slice(0, 120)}` : ""})` };
+    // The status-to-outcome decision lives in machine.ts so it is unit-tested
+    // alongside the rest of the state machine.
+    return putOutcome(res?.status, res?.body);
   }
 
   private outcomeFromError(e: unknown, action: string): Outcome {

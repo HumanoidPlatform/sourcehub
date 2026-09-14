@@ -1,4 +1,4 @@
-import { applyResult, classify, planNext, type RowLike } from "../src/upload/machine";
+import { applyResult, classify, planNext, putOutcome, type RowLike } from "../src/upload/machine";
 
 const base: RowLike = {
   status: "captured",
@@ -83,5 +83,37 @@ describe("classify", () => {
   });
   it("does not retry client errors", () => {
     for (const s of [400, 401, 403, 404, 409, 413, 422]) expect(classify(s)).toBe("fatal");
+  });
+});
+
+describe("putOutcome", () => {
+  it("treats every 2xx as a stored object", () => {
+    // 200 = S3/MinIO, 201 = Azure Blob PUT Blob, 204 = some gateways.
+    // Azure's 201 was once read as a refusal, failing uploads that had worked.
+    for (const s of [200, 201, 202, 204]) {
+      expect(putOutcome(s)).toEqual({ type: "put_ok" });
+    }
+  });
+
+  it("re-presigns on an expired signature", () => {
+    expect(putOutcome(403)).toEqual({ type: "put_rejected" });
+  });
+
+  it("retries network and server failures", () => {
+    for (const s of [0, null, undefined, 429, 500, 503]) {
+      expect(putOutcome(s).type).toBe("retryable");
+    }
+  });
+
+  it("parks a genuine client-side refusal", () => {
+    for (const s of [400, 404, 409, 413]) {
+      expect(putOutcome(s).type).toBe("fatal");
+    }
+  });
+
+  it("carries the storage response body into a fatal error", () => {
+    const o = putOutcome(400, "InvalidBlobType");
+    expect(o.type).toBe("fatal");
+    expect("error" in o && o.error).toContain("InvalidBlobType");
   });
 });
