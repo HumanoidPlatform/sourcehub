@@ -64,10 +64,10 @@ describe("checkCapture", () => {
     expect(codes(checkCapture({ ...good, kind: "video", size: 101 * MB }, spec))).toEqual(["size"]);
   });
 
-  it("warns below the megapixel floor rather than blocking", () => {
+  it("refuses a capture below the megapixel floor", () => {
     const f = checkCapture({ ...good, width: 1280, height: 720 }, { media: ["photo"], min_megapixels: 12 });
     expect(codes(f)).toEqual(["resolution"]);
-    expect(f[0].severity).toBe("warn");
+    expect(f[0].severity).toBe("block");
   });
 
   // A "12 MP" sensor gives 4032x3024 = 12.19 MP, but a 12 MP ask against a
@@ -83,11 +83,11 @@ describe("checkCapture", () => {
     expect(checkCapture({ ...good, width: undefined, height: undefined }, spec)).toEqual([]);
   });
 
-  it("warns on the wrong orientation", () => {
+  it("refuses the wrong orientation", () => {
     const spec: CaptureSpec = { media: ["photo"], orientation: "landscape" };
     expect(checkCapture({ ...good, width: 3024, height: 4032 }, spec)[0]).toMatchObject({
       code: "orientation",
-      severity: "warn",
+      severity: "block",
     });
     expect(checkCapture(good, spec)).toEqual([]);
   });
@@ -104,20 +104,32 @@ describe("checkCapture · location", () => {
     expect(checkCapture({ ...good, fix: null }, { media: ["photo"] })).toEqual([]);
   });
 
-  // A worker indoors cannot conjure a fix, and a block would throw away a
-  // capture they cannot retake. Flag it and let a reviewer decide.
-  it("warns rather than blocks when a required fix is missing", () => {
+  // require_gps is a condition the client stated, so it gates like the rest.
+  // A worker indoors cannot capture at all on such a task — deliberate, and
+  // the reason the two fix-QUALITY signals below stay advisory.
+  it("refuses a capture when a required fix is missing", () => {
     const f = checkCapture({ ...good, fix: null }, spec);
     expect(codes(f)).toEqual(["gps_missing"]);
+    expect(codes(blocking(f))).toEqual(["gps_missing"]);
+  });
+
+  // These two describe the FIX, not the image, and the worker can do nothing
+  // about either: location.ts gives up on a fresh position after five seconds,
+  // and indoor accuracy is routinely poor. They stay advisory even though
+  // everything a client actually asked for now gates — pinned here so the
+  // distinction cannot quietly erode.
+  it("keeps a capture whose fix is the last known one, with a warning", () => {
+    const f = checkCapture({ ...good, fix: { accuracy: 8, stale: true } }, spec);
+    expect(codes(f)).toEqual(["gps_stale"]);
+    expect(f[0].severity).toBe("warn");
     expect(blocking(f)).toEqual([]);
   });
 
-  it("warns when the fix is the last known one", () => {
-    expect(codes(checkCapture({ ...good, fix: { accuracy: 8, stale: true } }, spec))).toEqual(["gps_stale"]);
-  });
-
-  it("warns when a fresh fix is too loose to mean anything", () => {
-    expect(codes(checkCapture({ ...good, fix: { accuracy: 2000, stale: false } }, spec))).toEqual(["gps_accuracy"]);
+  it("keeps a capture whose fix is too loose, with a warning", () => {
+    const f = checkCapture({ ...good, fix: { accuracy: 2000, stale: false } }, spec);
+    expect(codes(f)).toEqual(["gps_accuracy"]);
+    expect(f[0].severity).toBe("warn");
+    expect(blocking(f)).toEqual([]);
   });
 
   it("accepts a good fix, and one whose accuracy the platform withheld", () => {
@@ -137,10 +149,10 @@ describe("checkCapture · tilt", () => {
     expect(checkCapture({ ...good, tilt: { off: 6 } }, spec)).toEqual([]);
   });
 
-  it("warns rather than blocks beyond tolerance", () => {
+  it("refuses a capture beyond the tolerance", () => {
     const f = checkCapture({ ...good, tilt: { off: 23 } }, spec);
     expect(codes(f)).toEqual(["tilt"]);
-    expect(f[0].severity).toBe("warn");
+    expect(f[0].severity).toBe("block");
     expect(f[0].message).toContain("23");
   });
 
@@ -153,12 +165,23 @@ describe("checkCapture · tilt", () => {
 });
 
 describe("blocking", () => {
-  it("keeps only what the server would certainly refuse", () => {
+  // Every condition the client stated is a gate now, so a capture breaking
+  // three of them is refused three times over and reaches nothing.
+  it("keeps every stated condition", () => {
     const f = checkCapture(
       { kind: "video", size: 200 * MB, width: 640, height: 480, fix: null },
       { media: ["photo"], min_megapixels: 12, require_gps: true },
     );
     expect(codes(f)).toEqual(["media_kind", "size", "gps_missing"]);
-    expect(codes(blocking(f))).toEqual(["media_kind", "size"]);
+    expect(codes(blocking(f))).toEqual(["media_kind", "size", "gps_missing"]);
+  });
+
+  it("drops the two fix-quality warnings and nothing else", () => {
+    const f = checkCapture(
+      { ...good, width: 3024, height: 4032, fix: { accuracy: 8, stale: true } },
+      { media: ["photo"], orientation: "landscape", require_gps: true },
+    );
+    expect(codes(f)).toEqual(["orientation", "gps_stale"]);
+    expect(codes(blocking(f))).toEqual(["orientation"]);
   });
 });

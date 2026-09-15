@@ -54,3 +54,19 @@ ALTER TABLE captures ADD COLUMN put_headers TEXT;
 export const SCHEMA_V3 = `
 ALTER TABLE captures ADD COLUMN checks TEXT;
 `;
+
+// A capture refused on the device never becomes an outbox row and never
+// reaches the server, so this is the only record that it happened. Kept per
+// assignment so the worker can see what is being refused and why, rather than
+// facing a counter that will not move.
+export const SCHEMA_V4 = `
+CREATE TABLE IF NOT EXISTS rejections (
+  id            TEXT PRIMARY KEY,
+  user_id       TEXT NOT NULL,
+  assignment_id TEXT NOT NULL,
+  code          TEXT NOT NULL,
+  message       TEXT NOT NULL,
+  created_at    INTEGER NOT NULL
+);
+CREATE INDEX IF NOT EXISTS rejections_assignment_idx ON rejections (assignment_id, created_at);
+`;

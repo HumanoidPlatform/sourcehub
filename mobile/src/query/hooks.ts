@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { get } from "@/api/client";
 import type { Assignment, AssetRow, AssetUrl, NotificationRow } from "@/api/types";
 import { POLL_MS } from "@/config";
-import { listByAssignment, onOutboxChange, summaryByAssignment, type CaptureRow, type OutboxSummary } from "@/db/outbox";
+import { listByAssignment, onOutboxChange, summaryByAssignment, type CaptureRow, type OutboxSummary, rejectionsByAssignment, type RejectionCount } from "@/db/outbox";
 
 export function useAssignments() {
   return useQuery({
@@ -48,6 +48,24 @@ export function useOutbox(assignmentId: string | undefined): CaptureRow[] {
     if (!assignmentId) return;
     let alive = true;
     const load = () => void listByAssignment(assignmentId).then((r) => alive && setRows(r));
+    load();
+    const off = onOutboxChange(load);
+    return () => {
+      alive = false;
+      off();
+    };
+  }, [assignmentId]);
+  return rows;
+}
+
+/** what this phone refused for one assignment, counted by reason, live.
+ *  Rides the same change bus, so recording a rejection refreshes the screen. */
+export function useRejections(assignmentId: string | undefined): RejectionCount[] {
+  const [rows, setRows] = useState<RejectionCount[]>([]);
+  useEffect(() => {
+    if (!assignmentId) return;
+    let alive = true;
+    const load = () => void rejectionsByAssignment(assignmentId).then((r) => alive && setRows(r));
     load();
     const off = onOutboxChange(load);
     return () => {

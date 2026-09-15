@@ -10,7 +10,7 @@ import * as Crypto from "expo-crypto";
 import { useCallback } from "react";
 import { loadSession } from "@/api/client";
 import type { CaptureSpec } from "@/api/types";
-import { insertCapture } from "@/db/outbox";
+import { insertCapture, recordRejections } from "@/db/outbox";
 import { uploader } from "@/upload/uploader";
 import { blocking, checkCapture, type Finding } from "@/validation/rules";
 import { deleteLocal, moveIntoPrivateDir } from "./files";
@@ -73,6 +73,10 @@ export function useCapture(
       );
       const blocked = blocking(findings);
       if (blocked.length > 0) {
+        // The refusal is written first. Nothing else will remember it: the file
+        // is about to go, no outbox row is created, and the server never hears
+        // of a capture that did not reach it.
+        await recordRejections(session.user_id, assignmentId, blocked);
         // Nothing is queued, so the file has no other owner: take it with us.
         await deleteLocal(moved.uri);
         throw new CaptureRejected(blocked);

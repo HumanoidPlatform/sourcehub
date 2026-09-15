@@ -53,6 +53,45 @@ export function emitOutboxChange(): void {
   subscribers.forEach((fn) => fn());
 }
 
+// --- rejections -----------------------------------------------------------
+//
+// A capture the phone refuses is deleted before it is queued, so it leaves no
+// outbox row and the server never hears of it. These rows are the only trace,
+// and they are what stops a worker facing a counter that will not move with no
+// idea why.
+
+export interface RejectionCount {
+  code: string;
+  n: number;
+}
+
+export async function recordRejections(
+  userId: string,
+  assignmentId: string,
+  findings: { code: string; message: string }[],
+): Promise<void> {
+  if (findings.length === 0) return;
+  const db = await getDb();
+  const now = Date.now();
+  for (const f of findings) {
+    await db.runAsync(
+      `INSERT INTO rejections (id, user_id, assignment_id, code, message, created_at)
+       VALUES (?, ?, ?, ?, ?, ?)`,
+      [`${now}-${Math.random().toString(36).slice(2, 10)}`, userId, assignmentId, f.code, f.message, now],
+    );
+  }
+  emitOutboxChange();
+}
+
+export async function rejectionsByAssignment(assignmentId: string): Promise<RejectionCount[]> {
+  const db = await getDb();
+  return db.getAllAsync<RejectionCount>(
+    `SELECT code, count(*) AS n FROM rejections
+     WHERE assignment_id = ? GROUP BY code ORDER BY n DESC, code`,
+    [assignmentId],
+  );
+}
+
 // --- writes ---------------------------------------------------------------
 
 export async function insertCapture(c: NewCapture): Promise<void> {

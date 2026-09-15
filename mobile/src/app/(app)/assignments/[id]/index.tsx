@@ -9,8 +9,8 @@ import { ApiError, del, post } from "@/api/client";
 import type { Assignment, AssetRow } from "@/api/types";
 import { deleteCapture, discardCapture, discardFailed, retryCapture, retryFailed, type CaptureRow } from "@/db/outbox";
 import { deleteLocal } from "@/capture/files";
-import { useAssignmentAssets, useAssignments, useOutbox } from "@/query/hooks";
-import { assignmentStatus, meta } from "@/status";
+import { useAssignmentAssets, useAssignments, useOutbox, useRejections } from "@/query/hooks";
+import { assignmentStatus, meta, rejectionLabel } from "@/status";
 import { Button, C, Callout, Field, Meter, Pill, Screen, inputStyle, s } from "@/ui";
 import { uploader } from "@/upload/uploader";
 import { Gallery } from "@/components/Gallery";
@@ -23,6 +23,7 @@ export default function AssignmentDetail() {
   const a = (list.data ?? []).find((x) => x.id === id);
   const assets = useAssignmentAssets(id);
   const outbox = useOutbox(id);
+  const refused = useRejections(id);
   const [note, setNote] = useState("");
   const [error, setError] = useState<string | null>(null);
 
@@ -81,6 +82,7 @@ export default function AssignmentDetail() {
     ]);
   };
 
+  const refusedTotal = refused.reduce((n, r) => n + r.n, 0);
   const pendingLocal = outbox.filter((r) => r.status !== "confirmed" && r.status !== "failed").length;
   const failedRows = outbox.filter((r) => r.status === "failed");
   const failedLocal = failedRows.length;
@@ -144,6 +146,21 @@ export default function AssignmentDetail() {
         </Text>
         {pendingLocal > 0 ? <Text style={s.muted}>{pendingLocal} waiting to upload</Text> : null}
         {failedLocal > 0 ? <Text style={[s.muted, { color: C.danger }]}>{failedLocal} failed — retry or discard below</Text> : null}
+        {/* Refused captures never left the phone, so this is the only place
+            they are counted. Without it the progress bar simply refuses to
+            move and the worker has nothing to go on. */}
+        {refusedTotal > 0 ? (
+          <>
+            <Text style={[s.muted, { marginTop: 6 }]}>
+              {refusedTotal} refused on this phone — not sent for review
+            </Text>
+            {refused.map((r) => (
+              <Text key={r.code} style={[s.muted, { marginLeft: 10 }]}>
+                {r.n} × {rejectionLabel[r.code] ?? r.code.replace(/_/g, " ")}
+              </Text>
+            ))}
+          </>
+        ) : null}
       </View>
 
       {failedRows.length > 0 && (

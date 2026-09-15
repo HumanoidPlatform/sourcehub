@@ -3,17 +3,24 @@
 // the caller gathers the facts, this says what is wrong with them. Nothing in
 // here touches the network, the file system, the database or a native module.
 //
-// The line between block and warn is deliberate and narrow.
+// A condition the client stated is a gate, not advice.
 //
-//   BLOCK only what the server is certain to refuse — the media kind and the
-//   size cap, both enforced in backend modules/media/service.py. The upload is
-//   provably wasted, so refusing here costs the worker a message instead of a
-//   file over a field connection.
+//   BLOCK every condition the client set in the request: the media kind, the
+//   size cap, the megapixel floor, the orientation, the tilt tolerance, and a
+//   GPS fix where one was required. The capture is deleted and never queued,
+//   so nothing that breaks a stated condition enters the system at all.
 //
-//   WARN on everything else: a requirement the client stated that the server
-//   does not enforce, where a reviewer may still accept the capture. A hard
-//   block there would throw away real work a worker often cannot retake — the
-//   phone indoors with no fix, the only camera they have.
+//   WARN on the two signals that describe the FIX rather than the image, and
+//   that the worker cannot do anything about: a position that fell back to the
+//   last known one, and a position too loose to mean much. location.ts gives up
+//   on a fresh fix after five seconds, so blocking a slow satellite lock would
+//   refuse good work, and indoor accuracy worse than MAX_FIX_ACCURACY_M is
+//   ordinary rather than exceptional.
+//
+// A consequence worth stating: because a blocked capture is destroyed before it
+// is queued, its finding never reaches the server. asset.check_results now sees
+// only the two warnings above. The rejection is recorded on the device instead
+// (db/outbox.ts recordRejections), which is the only place it can be.
 
 import type { CaptureSpec } from "@/api/types";
 import { MAX_FIX_ACCURACY_M, MAX_PHOTO_BYTES, MAX_VIDEO_BYTES } from "@/config";
@@ -121,7 +128,7 @@ export function checkCapture(
     if (mp < min - 0.05) {
       out.push({
         code: "resolution",
-        severity: "warn",
+        severity: "block",
         message: `This task asks for ${min} megapixels; that capture is ${mp.toFixed(1)}.`,
       });
     }
@@ -133,20 +140,20 @@ export function checkCapture(
     if (got !== want) {
       out.push({
         code: "orientation",
-        severity: "warn",
+        severity: "block",
         message: `This task asks for ${want} captures; the phone was held ${got}.`,
       });
     }
   }
 
   // Squareness, where the client asked for it. Silent otherwise: tilt means
-  // nothing to a walkthrough video or a portrait of a person, and warning
-  // about it unasked would be noise a client never requested.
+  // nothing to a walkthrough video or a portrait of a person, and refusing a
+  // capture over it unasked would stop work a client never questioned.
   const maxTilt = numeric(spec?.max_tilt_deg);
   if (maxTilt != null && facts.tilt && facts.tilt.off > maxTilt) {
     out.push({
       code: "tilt",
-      severity: "warn",
+      severity: "block",
       message: `This task asks for captures within ${maxTilt}°; the phone was ${Math.round(facts.tilt.off)}° off square.`,
     });
   }
@@ -156,7 +163,7 @@ export function checkCapture(
     if (!fix) {
       out.push({
         code: "gps_missing",
-        severity: "warn",
+        severity: "block",
         message: "This task needs a location on every capture and the phone has no fix.",
       });
     } else if (fix.stale) {

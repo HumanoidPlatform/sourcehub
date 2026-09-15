@@ -48,3 +48,15 @@ export function meta(map: Record<string, Meta>, value: string | null | undefined
 
 /** the order sections appear in on the board: what needs the worker first */
 export const SECTION_ORDER = ["rejected", "in_progress", "assigned", "submitted", "accepted"] as const;
+
+/** Why a capture was refused, in the words a worker reads. Keys are the codes
+ *  from validation/rules.ts; an unknown one falls back to the raw code so a
+ *  new rule still renders as something rather than nothing. */
+export const rejectionLabel: Record<string, string> = {
+  media_kind: "wrong kind of capture",
+  size: "file too large",
+  resolution: "below the resolution asked for",
+  orientation: "wrong orientation",
+  tilt: "beyond the tilt allowed",
+  gps_missing: "no GPS fix",
+};

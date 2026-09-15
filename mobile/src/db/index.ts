@@ -1,5 +1,5 @@
 import * as SQLite from "expo-sqlite";
-import { SCHEMA_V1, SCHEMA_V2, SCHEMA_V3 } from "./schema";
+import { SCHEMA_V1, SCHEMA_V2, SCHEMA_V3, SCHEMA_V4 } from "./schema";
 
 let dbPromise: Promise<SQLite.SQLiteDatabase> | null = null;
 
@@ -38,5 +38,11 @@ async function migrate(db: SQLite.SQLiteDatabase): Promise<void> {
       // the column is already there
     }
     await db.execAsync("PRAGMA user_version = 3");
+  }
+  if (version < 4) {
+    // CREATE TABLE IF NOT EXISTS, so unlike the ALTERs above this is safe on
+    // both a fresh install and an upgrade without needing the catch.
+    await db.execAsync(SCHEMA_V4);
+    await db.execAsync("PRAGMA user_version = 4");
   }
 }
