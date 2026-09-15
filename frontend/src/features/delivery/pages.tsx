@@ -14,7 +14,7 @@ import {
   AttachmentList, AttachmentsField, attachmentPayload, type AttachmentDraft,
 } from "@shared/attachments";
 import { useSession } from "@shared/auth";
-import { fmtDate, fmtDateTime, money } from "@shared/format";
+import { fmtDate, fmtDateTime, money, taskTarget } from "@shared/format";
 import { assignmentStatus, contractStatus, statusMeta, taskStatus, waitingOn } from "@shared/status";
 import { AssetGallery, useTaskAssets } from "./components/AssetGallery";
 import { SubmitToPartnerDialog, TaskAssignmentsDialog } from "./components/assignments";
@@ -168,7 +168,7 @@ export function ContractDetailPage() {
                     <tr key={t.id} className="tap" onClick={() => setViewingTask(t)}>
                       <td className="cell-primary">{t.title}<div className="cell-meta id">{t.reference_code}</div></td>
                       <td>{t.assignee_name}<div className="cell-meta">{t.assignee_kind}</div></td>
-                      <td>{t.target ?? "—"}</td>
+                      <td>{taskTarget(t)}</td>
                       <td className="num">{t.last_submission?.attempt_no ?? "—"}</td>
                       <td className="num">{t.last_submission?.asset_count ?? 0}</td>
                       <td className="num">{fmtDate(t.due_on)}</td>
@@ -243,7 +243,6 @@ function AssignTaskDialog({
   contractId, requestId, onClose,
 }: { contractId: string; requestId?: string; onClose: () => void }) {
   const [title, setTitle] = useState("");
-  const [target, setTarget] = useState("");
   const [due, setDue] = useState("");
   const [assignee, setAssignee] = useState("");
   const [qty, setQty] = useState("");
@@ -273,7 +272,7 @@ function AssignTaskDialog({
   const create = useMutation({
     mutationFn: () =>
       post(`/contracts/${contractId}/tasks`, {
-        assignee_org_id: assignee, title, target: target || null, due_on: due || null,
+        assignee_org_id: assignee, title, due_on: due || null,
         target_quantity: qty ? Number(qty) : null, target_unit: qty ? unit : null,
         instructions: instructions || null,
         attachments: attachmentPayload(files, "instructions"),
@@ -302,24 +301,25 @@ function AssignTaskDialog({
     >
       <div className="formgrid">
         {(wantedMedia.length > 0 || wantedUnit) && (
-          <Callout tone="attention" title="Inherited from the request">
-            {wantedMedia.length > 0
-              ? `Workers on this task may upload ${wantedMedia.join(" and ")} only`
-              : "Workers on this task may upload anything visual"}
-            {wantedUnit ? `, counted in ${wantedUnit.replace(/_/g, " ")}` : ""}.
-            {" "}Setting a countable target below overrides the unit.
-          </Callout>
+          // Across both columns, like the spanning fields below it: a callout
+          // in one grid cell squeezes its title into three lines.
+          <div className="span">
+            <Callout tone="attention" title="Inherited from the request">
+              {wantedMedia.length > 0
+                ? `Workers on this task may upload ${wantedMedia.join(" and ")} only`
+                : "Workers on this task may upload anything visual"}
+              {wantedUnit ? `, counted in ${wantedUnit.replace(/_/g, " ")}` : ""}.
+              {" "}Setting a target below overrides the unit.
+            </Callout>
+          </div>
         )}
         <Field label="Task title" required span>
           {(id) => <input id={id} className={inputCls} value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Kraków and Warsaw routes" />}
         </Field>
-        <Field label="Target volume">
-          {(id) => <input id={id} className={inputCls} value={target} onChange={(e) => setTarget(e.target.value)} placeholder="300 hours · 5,000 images" />}
-        </Field>
         <Field label="Due date">
           {(id) => <input id={id} className={inputCls} type="date" value={due} onChange={(e) => setDue(e.target.value)} />}
         </Field>
-        <Field label="Countable target" hint="How many units the supplier splits among its workers.">
+        <Field label="Target" hint="How much this task is for — a number of photos or videos, or hours of footage.">
           {(id) => (
             <div style={{ display: "flex", gap: 8 }}>
               <input id={id} className={inputCls} type="number" min={1} value={qty} onChange={(e) => setQty(e.target.value)} placeholder="100" style={{ flex: 1 }} />
@@ -576,7 +576,7 @@ export function TasksPage() {
                     <tr key={t.id} className="tap" onClick={() => setViewing(t)}>
                       <td className="cell-primary">{t.title}<div className="cell-meta id">{t.reference_code}</div></td>
                       <td className="id">{t.contract_ref}</td>
-                      <td>{t.target_quantity != null ? `${t.target_quantity} ${t.target_unit ?? ""}`.trim() : t.target ?? "—"}</td>
+                      <td>{taskTarget(t)}</td>
                       {isAggregator && (
                         <td>
                           {workers > 0 ? (

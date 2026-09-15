@@ -96,6 +96,26 @@ async def _record_attempt(
     )
 
 
+async def _record_failure(
+    email: str,
+    user_id: uuid.UUID | None,
+    failure_code: str,
+    ip: str | None,
+    user_agent: str | None,
+) -> None:
+    """Record a refused attempt in a transaction of its own.
+
+    login() raises AuthError straight after recording a failure, and raising
+    out of anonymous_session() rolls its transaction back — which took the
+    login_attempt row and the failed_login_count increment with it. Successes
+    committed and failures vanished: the lockout never engaged, and the
+    forensic trail held only the logins that worked. A separate short
+    transaction commits the failure before the caller raises.
+    """
+    async with anonymous_session() as s:
+        await _record_attempt(s, email, user_id, False, failure_code, ip, user_agent)
+
+
 async def list_user_orgs(session: AsyncSession, user_id: uuid.UUID) -> list[OrgChoice]:
     rows = (
         await session.execute(
@@ -192,24 +212,26 @@ async def login(
     async with anonymous_session() as s:
         creds = await _lookup_credentials(s, email)
 
+        # Each refusal goes through _record_failure, never _record_attempt on
+        # this session: the raise that follows rolls this session back.
         if creds is None:
-            await _record_attempt(s, email, None, False, "no_such_user", ip, user_agent)
+            await _record_failure(email, None, "no_such_user", ip, user_agent)
             raise AuthError()
 
         uid: uuid.UUID = creds["user_id"]
 
         if creds["locked_until"] and creds["locked_until"] > dt.datetime.now(dt.timezone.utc):
-            await _record_attempt(s, email, uid, False, "locked", ip, user_agent)
+            await _record_failure(email, uid, "locked", ip, user_agent)
             raise AuthError("Account temporarily locked. Try again later.")
 
         if creds["status"] not in ("active", "locked"):
-            await _record_attempt(s, email, uid, False, "inactive", ip, user_agent)
+            await _record_failure(email, uid, "inactive", ip, user_agent)
             raise AuthError()
 
         if not creds["password_hash"] or not pwd.verify_password(
             password, creds["password_hash"], creds["password_algo"]
         ):
-            await _record_attempt(s, email, uid, False, "bad_password", ip, user_agent)
+            await _record_failure(email, uid, "bad_password", ip, user_agent)
             raise AuthError()
 
         await _record_attempt(s, email, uid, True, None, ip, user_agent)

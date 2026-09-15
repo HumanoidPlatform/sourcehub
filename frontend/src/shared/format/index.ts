@@ -34,3 +34,14 @@ export function fmtDateTime(value: string | null | undefined): string {
 export function titleCase(s: string): string {
   return s.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
+
+/** A task's size, as one string: "250 photos".
+ *
+ * target_quantity is the number the system actually reasons with — the
+ * assignment cap and progress both count against it. The free-text `target`
+ * column is no longer written by the console; it is read here only so tasks
+ * created before that still show what was typed. */
+export function taskTarget(t: { target: string | null; target_quantity: number | null; target_unit: string | null }): string {
+  if (t.target_quantity != null) return `${t.target_quantity} ${t.target_unit ?? ""}`.trim();
+  return t.target ?? "—";
+}

@@ -7,7 +7,7 @@ import { get } from "@api/client";
 import type { Contract, EquipmentRow, Gate1Row, LoanRow, Proposal, QaQueueRow, Rfp, Task, WorkerRow } from "@api/types";
 import { Empty, Meter, Metric, Panel, Pill, Skeleton, TableWrap, View } from "@ds/primitives";
 import { useSession } from "@shared/auth";
-import { fmtDate, money } from "@shared/format";
+import { fmtDate, money, taskTarget } from "@shared/format";
 import { contractStatus, requestStatus, statusMeta, taskStatus, waitingOn } from "@shared/status";
 import { AccountsPage } from "@features/admin/pages";
 import { WorkerAssignmentsPage } from "@features/delivery/pages";
@@ -166,7 +166,7 @@ function SupplierOverview() {
                   return (
                     <tr key={t.id}>
                       <td className="cell-primary">{t.title}</td>
-                      <td>{t.target ?? "—"}</td>
+                      <td>{taskTarget(t)}</td>
                       <td className="num">{fmtDate(t.due_on)}</td>
                       <td><Pill tone={m.tone}>{m.label}</Pill></td>
                     </tr>
