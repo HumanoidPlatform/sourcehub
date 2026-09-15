@@ -126,6 +126,32 @@ describe("checkCapture · location", () => {
   });
 });
 
+describe("checkCapture · tilt", () => {
+  const spec: CaptureSpec = { media: ["photo"], max_tilt_deg: 10 };
+
+  it("is silent when the client did not ask for squareness", () => {
+    expect(checkCapture({ ...good, tilt: { off: 40 } }, { media: ["photo"] })).toEqual([]);
+  });
+
+  it("accepts a capture within tolerance", () => {
+    expect(checkCapture({ ...good, tilt: { off: 6 } }, spec)).toEqual([]);
+  });
+
+  it("warns rather than blocks beyond tolerance", () => {
+    const f = checkCapture({ ...good, tilt: { off: 23 } }, spec);
+    expect(codes(f)).toEqual(["tilt"]);
+    expect(f[0].severity).toBe("warn");
+    expect(f[0].message).toContain("23");
+  });
+
+  // A device with no accelerometer, or one that reported nothing usable in
+  // time, must not be treated as a tilted capture.
+  it("says nothing when no reading was taken", () => {
+    expect(checkCapture({ ...good, tilt: null }, spec)).toEqual([]);
+    expect(checkCapture({ ...good }, spec)).toEqual([]);
+  });
+});
+
 describe("blocking", () => {
   it("keeps only what the server would certainly refuse", () => {
     const f = checkCapture(

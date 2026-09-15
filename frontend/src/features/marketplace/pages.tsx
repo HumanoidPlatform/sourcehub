@@ -145,6 +145,7 @@ interface Draft {
   countries: string[];
   capture_media: string[]; capture_notes: string;
   capture_require_gps: boolean; capture_orientation: string; capture_min_megapixels: string;
+  capture_max_tilt_deg: string;
   acceptance: string; qt_min_pass_rate_pct: string;
   rp_max_retakes: string; rp_retake_window_days: string;
   rp_rework_cost_bearer: string; rp_partial_acceptance_allowed: boolean;
@@ -166,6 +167,7 @@ const BLANK: Draft = {
   countries: [],
   capture_media: [], capture_notes: "",
   capture_require_gps: false, capture_orientation: "", capture_min_megapixels: "",
+  capture_max_tilt_deg: "",
   acceptance: "", qt_min_pass_rate_pct: "",
   rp_max_retakes: "", rp_retake_window_days: "",
   rp_rework_cost_bearer: "", rp_partial_acceptance_allowed: false,
@@ -254,6 +256,7 @@ export function RequestNewPage() {
       capture_require_gps: !!cap.require_gps,
       capture_orientation: cap.orientation ?? "",
       capture_min_megapixels: String(cap.min_megapixels ?? ""),
+      capture_max_tilt_deg: String(cap.max_tilt_deg ?? ""),
       qt_min_pass_rate_pct: String(qt.min_pass_rate_pct ?? ""),
       rp_max_retakes: String(rp.max_retakes ?? ""),
       rp_retake_window_days: String(rp.retake_window_days ?? ""),
@@ -281,7 +284,7 @@ export function RequestNewPage() {
     setGuidelineFiles(fromServer(files.filter((a) => a.slot === "guidelines")));
     // Reopen a draft with its optional blocks already open if they hold
     // anything. Collapsing a section that has content in it reads as data loss.
-    setShowCapture(!!(cap.min_megapixels || cap.orientation || cap.require_gps || cap.notes));
+    setShowCapture(!!(cap.min_megapixels || cap.orientation || cap.max_tilt_deg || cap.require_gps || cap.notes));
     setShowRejection(Object.values(rp).some((v) => v !== null && v !== undefined && v !== false));
     setLoaded(true);
   }
@@ -330,6 +333,7 @@ export function RequestNewPage() {
           orientation: str(d.capture_orientation),
           require_gps: d.capture_require_gps || null,
           min_megapixels: num(d.capture_min_megapixels),
+          max_tilt_deg: num(d.capture_max_tilt_deg),
         }),
 
         acceptance: str(d.acceptance),
@@ -623,7 +627,7 @@ export function RequestNewPage() {
               <input type="checkbox" checked={showCapture} onChange={(e) => setShowCapture(e.target.checked)} />
               <span>
                 Add capture detail
-                <span className="cl-sub">Resolution, orientation, whether a GPS fix is required.</span>
+                <span className="cl-sub">Resolution, orientation, squareness, whether a GPS fix is required.</span>
               </span>
             </label>
             {showCapture && (
@@ -639,6 +643,12 @@ export function RequestNewPage() {
                       <option value="portrait">Portrait</option>
                     </select>
                   )}
+                </Field>
+                <Field
+                  label="Maximum tilt"
+                  hint="Degrees off square. For wall and shelf work — blank for overhead or tabletop."
+                >
+                  {(id) => <input id={id} className={inputCls} type="number" min={0} max={45} step="1" value={d.capture_max_tilt_deg} onChange={set("capture_max_tilt_deg")} placeholder="10" />}
                 </Field>
                 <Field label="Capture notes" span>
                   {(id) => <textarea id={id} className={textareaCls} rows={2} value={d.capture_notes} onChange={set("capture_notes")} placeholder="Full shelf in frame, no glare, shot square on." />}
@@ -1333,6 +1343,9 @@ export function RequestDetailPage() {
               : "—"],
             ...(r.spec.capture.min_megapixels
               ? [["Minimum resolution", `${r.spec.capture.min_megapixels} MP`] as [string, React.ReactNode]]
+              : []),
+            ...(r.spec.capture.max_tilt_deg
+              ? [["Squareness", `Within ${r.spec.capture.max_tilt_deg}° of square`] as [string, React.ReactNode]]
               : []),
             ...(r.spec.capture.require_gps
               ? [["GPS", "A fix is required on every capture"] as [string, React.ReactNode]]

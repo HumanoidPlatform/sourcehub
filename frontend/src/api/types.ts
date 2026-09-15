@@ -129,6 +129,8 @@ export interface CaptureSpec {
   orientation?: string | null;
   require_gps?: boolean | null;
   min_megapixels?: number | null;
+  /** degrees of tilt tolerated; squareness to a vertical plane (wall, shelf) */
+  max_tilt_deg?: number | null;
 }
 export interface Quota { label: string; quantity: number }
 export interface SamplingFrame {

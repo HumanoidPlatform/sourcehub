@@ -36,6 +36,8 @@ export interface Facts {
   height?: number | null;
   /** null when no position could be obtained at all */
   fix?: { accuracy: number | null; stale: boolean } | null;
+  /** null when the device has no accelerometer, or none was read in time */
+  tilt?: { off: number } | null;
 }
 
 /** The kinds this task accepts.
@@ -135,6 +137,18 @@ export function checkCapture(
         message: `This task asks for ${want} captures; the phone was held ${got}.`,
       });
     }
+  }
+
+  // Squareness, where the client asked for it. Silent otherwise: tilt means
+  // nothing to a walkthrough video or a portrait of a person, and warning
+  // about it unasked would be noise a client never requested.
+  const maxTilt = numeric(spec?.max_tilt_deg);
+  if (maxTilt != null && facts.tilt && facts.tilt.off > maxTilt) {
+    out.push({
+      code: "tilt",
+      severity: "warn",
+      message: `This task asks for captures within ${maxTilt}°; the phone was ${Math.round(facts.tilt.off)}° off square.`,
+    });
   }
 
   if (spec?.require_gps) {

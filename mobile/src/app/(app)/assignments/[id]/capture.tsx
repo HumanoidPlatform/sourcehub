@@ -7,12 +7,34 @@ import { useEffect, useRef, useState } from "react";
 import { Linking, Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ensureLocationPermission } from "@/capture/location";
+import { type Tilt, watchTilt } from "@/capture/tilt";
 import { CaptureRejected, useCapture } from "@/capture/useCapture";
 import { MAX_VIDEO_SECONDS } from "@/config";
 import { useAssignments } from "@/query/hooks";
 import { TONE_COLOR } from "@/status";
 import { Button, C, Callout, s } from "@/ui";
 import { mediaKinds } from "@/validation/rules";
+
+/** A level, shown only on a task whose client asked for squareness.
+ *
+ * The bar counter-rotates with roll so it reads as the horizon rather than as
+ * part of the phone, and it goes amber the moment the capture would be
+ * flagged — the point is to prevent the tilted shot, not to report it.
+ */
+function Level({ tilt, tolerance }: { tilt: Tilt | null; tolerance: number }) {
+  if (!tilt) return null;
+  const off = Math.round(tilt.off);
+  const bad = tilt.off > tolerance;
+  const tint = bad ? TONE_COLOR.attention.bg : "rgba(255,255,255,0.9)";
+  return (
+    <View style={c.level} pointerEvents="none" accessibilityLabel={`${off} degrees off square`}>
+      <View style={[c.levelBar, { backgroundColor: tint, transform: [{ rotate: `${-tilt.roll}deg` }] }]} />
+      <Text style={[c.levelText, bad && { color: TONE_COLOR.attention.bg }]}>
+        {bad ? `${off}° off` : "level"}
+      </Text>
+    </View>
+  );
+}
 
 export default function Capture() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -29,6 +51,11 @@ export default function Capture() {
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [locationOk, setLocationOk] = useState(true);
+  // The ref is what the shutter reads; the state only drives the level, and
+  // only moves when the whole degree does, so a 10 Hz sensor does not re-render
+  // the camera ten times a second.
+  const tilt = useRef<Tilt | null>(null);
+  const [level, setLevel] = useState<Tilt | null>(null);
   const spec = a?.task.capture_spec;
   const save = useCapture(id ?? "", a?.task.reference_code ?? "capture", spec, a?.task.target_unit);
 
@@ -39,6 +66,9 @@ export default function Capture() {
   // A fresh array every render, so the effect below watches its contents.
   const kindKey = kinds.join(",");
   const maxSeconds = Math.min(MAX_VIDEO_SECONDS, spec?.max_duration_s ?? MAX_VIDEO_SECONDS);
+  // Only a client who asked for squareness gets the sensor, the level, or the
+  // warning. A number the console never sent means tilt is not part of this job.
+  const maxTilt = typeof spec?.max_tilt_deg === "number" && spec.max_tilt_deg > 0 ? spec.max_tilt_deg : null;
 
   useEffect(() => {
     if (!camPerm?.granted) void requestCam();
@@ -48,6 +78,23 @@ export default function Capture() {
   useEffect(() => {
     if (kindKey === "video") setMode("video");
   }, [kindKey]);
+
+  // Declared above the permission gate below, like every other hook here, so
+  // it must decide for itself whether to do anything — this effect still runs
+  // while the camera-permission screen is showing.
+  useEffect(() => {
+    if (!camPerm?.granted || maxTilt == null) return;
+    let shown = -1;
+    const stop = watchTilt((t) => {
+      tilt.current = t;
+      const whole = Math.round(t.off);
+      if (whole !== shown) {
+        shown = whole;
+        setLevel(t);
+      }
+    });
+    return stop;
+  }, [camPerm?.granted, maxTilt]);
 
   if (!camPerm) return null;
   if (!camPerm.granted) {
@@ -77,7 +124,7 @@ export default function Capture() {
         setBusy(true);
         const photo = await cam.current.takePictureAsync({ quality: 0.9, exif: true, skipProcessing: false });
         if (photo?.uri) {
-          kept(await save({ uri: photo.uri, width: photo.width, height: photo.height }, "photo"));
+          kept(await save({ uri: photo.uri, width: photo.width, height: photo.height }, "photo", tilt.current));
         }
       } else if (!recording) {
         if (!micPerm?.granted) {
@@ -88,11 +135,15 @@ export default function Capture() {
           }
         }
         setRecording(true);
+        // recordAsync resolves when recording STOPS, so the attitude has to be
+        // taken now — how the phone was held when the shot began, not where it
+        // was put down afterwards.
+        const held = tilt.current;
         const video = await cam.current.recordAsync({ maxDuration: maxSeconds });
         setRecording(false);
         if (video?.uri) {
           setBusy(true);
-          kept(await save({ uri: video.uri }, "video"));
+          kept(await save({ uri: video.uri }, "video", held));
         }
       } else {
         cam.current.stopRecording();
@@ -130,6 +181,7 @@ export default function Capture() {
         ) : null}
         {error ? <Text style={c.error}>{error}</Text> : null}
         {notice ? <Text style={c.warn}>{notice}</Text> : null}
+        {maxTilt != null ? <Level tilt={level} tolerance={maxTilt} /> : null}
         <View style={c.bottom}>
           <Pressable
             onPress={() => void shoot()}
@@ -156,6 +208,9 @@ const c = StyleSheet.create({
   error: { color: "#fff", backgroundColor: C.danger, padding: 8, marginHorizontal: 12, borderRadius: 8, textAlign: "center" },
   // The capture was kept: the attention tone, not the danger one.
   warn: { color: TONE_COLOR.attention.fg, backgroundColor: TONE_COLOR.attention.bg, padding: 8, marginHorizontal: 12, marginTop: 6, borderRadius: 8, textAlign: "center" },
+  level: { alignItems: "center", justifyContent: "center", flex: 1 },
+  levelBar: { width: 120, height: 2, borderRadius: 1 },
+  levelText: { color: "rgba(255,255,255,0.9)", marginTop: 10, fontSize: 13, fontWeight: "600", textShadowColor: "#000", textShadowRadius: 4 },
   bottom: { alignItems: "center", paddingBottom: 28 },
   shutter: { width: 76, height: 76, borderRadius: 38, backgroundColor: "#fff", borderWidth: 5, borderColor: "rgba(255,255,255,0.4)" },
   shutterVideo: { backgroundColor: "#E03B24" },

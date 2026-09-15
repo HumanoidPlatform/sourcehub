@@ -51,6 +51,12 @@ export default function AssignmentDetail() {
   const m = meta(assignmentStatus, a.status);
   const unit = a.task.target_unit ?? "units";
   const spec = a.task.capture_spec ?? {};
+  // The API sends every declared key, set or not, so an unanswered one arrives
+  // as null and used to print "orientation: null" at the worker — and an all
+  // unanswered spec drew an empty card. A requirement nobody stated is not one.
+  const stated = Object.entries(spec).filter(
+    ([, v]) => v != null && v !== "" && !(Array.isArray(v) && v.length === 0),
+  );
   // Remove a capture the worker does not want to send. The local row goes
   // either way; the uploaded asset needs the server too, and freeing that slot
   // is what lets them shoot a replacement against a full quota.
@@ -169,10 +175,10 @@ export default function AssignmentDetail() {
         </View>
       )}
 
-      {Object.keys(spec).length > 0 && (
+      {stated.length > 0 && (
         <View style={s.card}>
           <Text style={[s.label, { marginBottom: 6 }]}>Capture requirements</Text>
-          {Object.entries(spec).map(([k, v]) => (
+          {stated.map(([k, v]) => (
             <Text key={k} style={s.body}>
               <Text style={{ color: C.muted }}>{k.replace(/_/g, " ")}: </Text>
               {String(v)}

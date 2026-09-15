@@ -50,6 +50,8 @@ export interface CaptureSpec {
   require_gps?: boolean;
   min_megapixels?: number | null;
   orientation?: string | null;
+  /** degrees of tilt tolerated; squareness to a vertical plane (wall, shelf) */
+  max_tilt_deg?: number | null;
   languages?: string[];
   notes?: string;
   [key: string]: unknown;

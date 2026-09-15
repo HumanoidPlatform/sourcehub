@@ -52,6 +52,10 @@ class CaptureSpec(BaseModel):
     orientation: str | None = None
     require_gps: bool | None = None
     min_megapixels: float | None = None
+    # Degrees off square tolerated, checked on the device against the
+    # accelerometer. Bounded because beyond 45 the phone is nearer the
+    # next quarter turn, and the check folds to that.
+    max_tilt_deg: float | None = Field(default=None, ge=0, le=45)
 
 
 class Quota(BaseModel):

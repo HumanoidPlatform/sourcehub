@@ -13,6 +13,7 @@
         "NSCameraUsageDescription": "Cosarathi Capture photographs and films the subject of your assignment.",
         "NSMicrophoneUsageDescription": "Needed to record sound with video captures.",
         "NSLocationWhenInUseUsageDescription": "Each capture is tagged with where it was taken.",
+        "NSMotionUsageDescription": "Used to show a level in the viewfinder and record how square each capture was.",
         "NSAppTransportSecurity": { "NSAllowsArbitraryLoads": true }
       }
     },
@@ -54,6 +55,12 @@
         "expo-location",
         {
           "locationWhenInUsePermission": "Each capture is tagged with where it was taken."
+        }
+      ],
+      [
+        "expo-sensors",
+        {
+          "motionPermission": "Used to show a level in the viewfinder and record how square each capture was."
         }
       ],
       "expo-secure-store",

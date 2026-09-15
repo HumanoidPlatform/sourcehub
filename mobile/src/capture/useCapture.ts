@@ -15,6 +15,7 @@ import { uploader } from "@/upload/uploader";
 import { blocking, checkCapture, type Finding } from "@/validation/rules";
 import { deleteLocal, moveIntoPrivateDir } from "./files";
 import { currentFix } from "./location";
+import type { Tilt } from "./tilt";
 
 export interface CameraResult {
   uri: string;
@@ -44,7 +45,9 @@ export function useCapture(
   targetUnit?: string | null,
 ) {
   return useCallback(
-    async (result: CameraResult, kind: "photo" | "video"): Promise<Finding[]> => {
+    // tilt is sampled by the caller, not read here: an async read after the
+    // shutter measures where the phone ended up, not where it was.
+    async (result: CameraResult, kind: "photo" | "video", tilt?: Tilt | null): Promise<Finding[]> => {
       const session = await loadSession();
       if (!session) throw new Error("Signed out.");
       const id = Crypto.randomUUID();
@@ -63,6 +66,7 @@ export function useCapture(
           width: result.width,
           height: result.height,
           fix: fix ? { accuracy: fix.accuracy, stale: fix.stale } : null,
+          tilt: tilt ?? null,
         },
         spec,
         targetUnit,
