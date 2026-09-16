@@ -45,3 +45,9 @@ export function taskTarget(t: { target: string | null; target_quantity: number |
   if (t.target_quantity != null) return `${t.target_quantity} ${t.target_unit ?? ""}`.trim();
   return t.target ?? "—";
 }
+
+/** capture_spec.media as a list, whichever shape the row carries */
+export function mediaList(spec: { media?: string | string[] } | null | undefined): string[] {
+  const raw = spec?.media;
+  return Array.isArray(raw) ? raw : raw ? [raw] : [];
+}

@@ -143,3 +143,71 @@ export async function putFile(
   const r = await fetch(url, { method: "PUT", body: file, headers });
   if (!r.ok) throw new ApiError(r.status, "Upload failed — try the file again");
 }
+
+export interface PutResult {
+  status: number;
+  body: string | null;
+}
+
+// The same PUT, over XHR, for the worker's upload dialog. fetch cannot report
+// upload progress and XHR can; that is the whole reason this exists next to
+// putFile rather than replacing it. Semantics mirror the phone's uploadAsync
+// so the state machine's putOutcome() stays the one place a status code is
+// judged: RESOLVE on any HTTP status, resolve {status: 0} on a network error
+// or a stalled socket (both retryable), and reject only when the caller
+// aborts. No total timeout — a 100 MB PUT on a slow link legitimately takes
+// minutes; a socket that reports no progress for stallMs is what gets cut.
+export function xhrPut(
+  url: string,
+  body: Blob,
+  // exactly what presign returned, nothing added, no bearer — see putFile
+  headers: Record<string, string>,
+  opts: { onProgress?: (sent: number, total: number) => void; signal?: AbortSignal; stallMs?: number } = {},
+): Promise<PutResult> {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    const stallMs = opts.stallMs ?? 60_000;
+    let stall: ReturnType<typeof setTimeout> | null = null;
+    let settled = false;
+
+    const finish = (r: PutResult) => {
+      if (settled) return;
+      settled = true;
+      if (stall) clearTimeout(stall);
+      opts.signal?.removeEventListener("abort", onAbort);
+      resolve(r);
+    };
+    const onAbort = () => {
+      if (settled) return;
+      settled = true;
+      if (stall) clearTimeout(stall);
+      xhr.abort();
+      reject(new DOMException("upload aborted", "AbortError"));
+    };
+    const armStall = () => {
+      if (stall) clearTimeout(stall);
+      stall = setTimeout(() => {
+        xhr.abort();
+        finish({ status: 0, body: null });
+      }, stallMs);
+    };
+
+    if (opts.signal?.aborted) {
+      reject(new DOMException("upload aborted", "AbortError"));
+      return;
+    }
+    opts.signal?.addEventListener("abort", onAbort);
+
+    xhr.open("PUT", url, true);
+    for (const [k, v] of Object.entries(headers)) xhr.setRequestHeader(k, v);
+    xhr.upload.onprogress = (e) => {
+      armStall();
+      if (e.lengthComputable) opts.onProgress?.(e.loaded, e.total);
+    };
+    xhr.onload = () => finish({ status: xhr.status, body: xhr.responseText || null });
+    xhr.onerror = () => finish({ status: 0, body: null });
+    xhr.ontimeout = () => finish({ status: 0, body: null });
+    armStall();
+    xhr.send(body);
+  });
+}

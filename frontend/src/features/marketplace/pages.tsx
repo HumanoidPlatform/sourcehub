@@ -20,7 +20,7 @@ import {
   REWORK_BEARERS, TARGET_UNITS, UNIT_IMPLIES_MEDIA, USE_CASES,
 } from "./vocabularies";
 import { useSession } from "@shared/auth";
-import { fmtDate, fmtDateTime, money, titleCase } from "@shared/format";
+import { fmtDate, fmtDateTime, mediaList, money, titleCase } from "@shared/format";
 import {
   AttachmentList, AttachmentsField, attachmentPayload, fromServer, type AttachmentDraft,
 } from "@shared/attachments";
@@ -252,7 +252,7 @@ export function RequestNewPage() {
       target_unit: r.spec?.target_unit ?? "photos",
       location_type: r.spec?.location_type ?? "",
       countries: r.spec?.countries ?? [],
-      capture_media: cap.media ?? [], capture_notes: cap.notes ?? "",
+      capture_media: mediaList(cap), capture_notes: cap.notes ?? "",
       capture_require_gps: !!cap.require_gps,
       capture_orientation: cap.orientation ?? "",
       capture_min_megapixels: String(cap.min_megapixels ?? ""),
@@ -1338,8 +1338,8 @@ export function RequestDetailPage() {
             ["Quantity", r.spec.target_quantity
               ? `${r.spec.target_quantity} ${labelOf(TARGET_UNITS, r.spec.target_unit)}`
               : "—"],
-            ["Media", (r.spec.capture.media ?? []).length
-              ? (r.spec.capture.media ?? []).map((m) => labelOf(CAPTURE_MEDIA, m)).join(", ")
+            ["Media", mediaList(r.spec.capture).length
+              ? mediaList(r.spec.capture).map((m) => labelOf(CAPTURE_MEDIA, m)).join(", ")
               : "—"],
             ...(r.spec.capture.min_megapixels
               ? [["Minimum resolution", `${r.spec.capture.min_megapixels} MP`] as [string, React.ReactNode]]

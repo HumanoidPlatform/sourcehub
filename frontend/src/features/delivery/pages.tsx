@@ -14,8 +14,10 @@ import {
   AttachmentList, AttachmentsField, attachmentPayload, type AttachmentDraft,
 } from "@shared/attachments";
 import { useSession } from "@shared/auth";
-import { fmtDate, fmtDateTime, money, taskTarget } from "@shared/format";
+import { fmtDate, fmtDateTime, mediaList, money, taskTarget } from "@shared/format";
 import { assignmentStatus, contractStatus, statusMeta, taskStatus, waitingOn } from "@shared/status";
+import { AssignmentUploadDialog } from "@features/capture/dialog";
+import { useUploadActivity } from "@features/capture/hooks";
 import { AssetGallery, useTaskAssets } from "./components/AssetGallery";
 import { SubmitToPartnerDialog, TaskAssignmentsDialog } from "./components/assignments";
 
@@ -263,7 +265,7 @@ function AssignTaskDialog({
     queryFn: () => get<Rfp>(`/requests/${requestId}`),
     enabled: !!requestId,
   });
-  const wantedMedia = brief.data?.spec.capture.media ?? [];
+  const wantedMedia = mediaList(brief.data?.spec.capture);
   const wantedUnit = brief.data?.spec.target_unit ?? null;
 
   const aggs = useQuery({ queryKey: ["orgs", "aggregator"], queryFn: () => get<Org[]>("/organisations?kind=aggregator") });
@@ -698,20 +700,35 @@ function SubmitDialog({ task, onClose, onDone }: { task: Task; onClose: () => vo
 
 /* --- a worker who signs in on the web ---------------------------------------- */
 
-// Capture happens in the phone app; the console shows a worker their
-// assignments read-only, so a sign-in here is harmless and informative.
+// Capture happens in the phone app, and files a worker already holds are
+// uploaded from here: a row opens the same presign → PUT → confirm → submit
+// flow the phone runs, in a dialog. The row keeps reporting while the dialog
+// is closed, because the upload queue outlives it.
 export function WorkerAssignmentsPage() {
   const session = useSession();
   const rows = useQuery({ queryKey: ["my-assignments"], queryFn: () => get<Assignment[]>("/me/assignments") });
   const list = rows.data ?? [];
+  const [openId, setOpenId] = useState<string | null>(null);
+  const activity = useUploadActivity();
+  // the live row, so the dialog's status follows a start or submit
+  const open = openId ? list.find((a) => a.id === openId) ?? null : null;
+
+  const action = (a: Assignment): string => {
+    if (a.status === "assigned") return "Start & upload";
+    if (a.status === "rejected") return "Reopen & upload";
+    if (a.status === "in_progress") return "Upload";
+    return "View";
+  };
+
   return (
     <View
       title={`Good day, ${session.full_name ?? session.email ?? "there"}`}
       sub={`Your assignments at ${session.org_name}.`}
     >
-      <Callout tone="attention" title="Capture happens in the Cosarathi Capture app">
-        Sign in to the app on your phone with the same email and password to start an assignment,
-        capture, and submit. This page only shows where things stand.
+      <Callout tone="attention" title="Capture on the phone, or upload files here">
+        The Cosarathi Capture app checks a shot as you take it. Files you already hold can be uploaded
+        from this page instead — open an assignment to add them; whatever the browser cannot verify is
+        left for your supplier to judge.
       </Callout>
       <Panel>
         {list.length === 0 ? (
@@ -719,19 +736,28 @@ export function WorkerAssignmentsPage() {
         ) : (
           <TableWrap>
             <table>
-              <thead><tr><th>Task</th><th>Units</th><th>Ready</th><th>Status</th><th>Due</th><th>Note</th></tr></thead>
+              <thead><tr><th>Task</th><th>Ready</th><th>Status</th><th>Due</th><th>Note</th><th></th></tr></thead>
               <tbody>
                 {list.map((a) => {
                   const m = statusMeta(assignmentStatus, a.status);
+                  const act = activity.get(a.id);
                   return (
                     <tr key={a.id}>
                       <td className="cell-primary">{a.task.title}<div className="cell-meta id">{a.task.reference_code}</div></td>
-                      <td className="num">{a.quantity}</td>
-                      <td className="num">{a.assets.ready}</td>
-                      <td><Pill tone={m.tone}>{m.label}</Pill></td>
+                      <td className="num">{a.assets.ready} / {a.quantity}</td>
+                      <td>
+                        <Pill tone={m.tone}>{m.label}</Pill>
+                        {act && act.active > 0 && <span className="chip" style={{ marginLeft: 6 }}>{act.active} uploading</span>}
+                        {act && act.active === 0 && act.failed > 0 && <span className="chip" style={{ marginLeft: 6 }}>{act.failed} failed</span>}
+                      </td>
                       <td className="num">{fmtDate(a.due_on ?? a.task.due_on)}</td>
                       <td className="small muted" style={{ maxWidth: 260 }}>
                         {a.status === "rejected" ? a.decision_note : a.instructions ?? a.task.instructions ?? "—"}
+                      </td>
+                      <td style={{ textAlign: "right" }}>
+                        <Button size="sm" variant={a.status === "accepted" || a.status === "submitted" ? undefined : "primary"} onClick={() => setOpenId(a.id)}>
+                          {action(a)}
+                        </Button>
                       </td>
                     </tr>
                   );
@@ -741,6 +767,7 @@ export function WorkerAssignmentsPage() {
           </TableWrap>
         )}
       </Panel>
+      {open && <AssignmentUploadDialog assignment={open} onClose={() => setOpenId(null)} />}
     </View>
   );
 }

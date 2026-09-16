@@ -1,3 +1,25 @@
 // vitest setup: jest-axe matchers, MSW handlers, theme helpers.
 //
 // The a11y suite runs every route in both themes — see vite.config.ts.
+
+// jsdom gives the page a `crypto` with getRandomValues and randomUUID but no
+// `subtle`, and the upload hash needs SubtleCrypto. Node's implementation is
+// the real thing, so lend it to the test DOM.
+import { webcrypto } from "node:crypto";
+
+if (!globalThis.crypto?.subtle) {
+  Object.defineProperty(globalThis, "crypto", { value: webcrypto, configurable: true });
+}
+
+// jsdom's Blob has no arrayBuffer(); every browser this console targets does.
+// Read it the old way so the hash can be tested against real digests.
+if (typeof Blob !== "undefined" && typeof Blob.prototype.arrayBuffer !== "function") {
+  Blob.prototype.arrayBuffer = function (this: Blob): Promise<ArrayBuffer> {
+    return new Promise((resolve, reject) => {
+      const r = new FileReader();
+      r.onload = () => resolve(r.result as ArrayBuffer);
+      r.onerror = () => reject(r.error);
+      r.readAsArrayBuffer(this);
+    });
+  };
+}

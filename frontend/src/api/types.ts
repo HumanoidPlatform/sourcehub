@@ -122,8 +122,11 @@ export type PricingModel = "fixed" | "per_unit" | "milestone" | "open";
 // The five jsonb columns. Their shape was read off deployed rows, not from the
 // DDL — the columns carry no CHECK — so every field is optional and unknown
 // keys are preserved rather than dropped.
+// Two shapes are live: media has been a LIST since a task began inheriting
+// the client's capture spec, and requests created before that still carry a
+// bare string. mediaList() in @shared/format reads both.
 export interface CaptureSpec {
-  media?: string[];
+  media?: string | string[];
   languages?: string[];
   notes?: string | null;
   orientation?: string | null;
@@ -131,6 +134,8 @@ export interface CaptureSpec {
   min_megapixels?: number | null;
   /** degrees of tilt tolerated; squareness to a vertical plane (wall, shelf) */
   max_tilt_deg?: number | null;
+  /** seconds; the phone caps the recording, the console checks the file */
+  max_duration_s?: number | null;
 }
 export interface Quota { label: string; quantity: number }
 export interface SamplingFrame {
@@ -292,7 +297,7 @@ export interface Assignment {
     reference_code: string;
     title: string;
     instructions: string | null;
-    capture_spec: Record<string, unknown>;
+    capture_spec: CaptureSpec;
     target_unit: string | null;
     due_on: string | null;
     status: string;
@@ -342,6 +347,28 @@ export interface AssetUrl {
   filename: string | null;
   mime_type: string | null;
   expires_in: number;
+}
+
+// What the phone found before queueing a capture, and now what the console
+// found before uploading one. api/v1/media.py DeviceCheck: recorded on the
+// asset, not acted on.
+export interface DeviceCheck {
+  code: string;
+  severity: "block" | "warn";
+  message: string;
+}
+
+// POST /assignments/{id}/assets/presign. A repeat for the same sha256 returns
+// the same asset with a fresh URL; status "ready" means the server already
+// holds the bytes and the PUT is skipped.
+export interface Presign {
+  asset_id: string;
+  storage_key: string;
+  url: string | null;
+  method: "PUT";
+  headers: Record<string, string>;
+  expires_in: number;
+  status: string;
 }
 
 export interface QaQueueRow {

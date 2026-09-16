@@ -341,6 +341,37 @@ Worker invitations are emailed through the configured SMTP provider. Set
 `APP_BASE_URL` to an address the worker's phone can open (the dev machine's
 Wi-Fi address, not `localhost`), or the link in the mail will not resolve.
 
+### Uploading from the console
+
+A worker who already holds files — a camera, a colleague's phone, an earlier
+survey — uploads them from **My assignments** in the console: a row opens a
+dialog that runs the same presign → PUT → confirm → submit flow the phone
+does, against the same endpoints. The checks the browser can make (media
+kind, size, megapixels, orientation, EXIF position) are the phone's, from a
+copy of `mobile/src/validation/rules.ts` in `frontend/src/features/capture/`;
+what it cannot make — the camera's tilt, a live fix — is recorded on the asset
+as a warning (`tilt_unverified`, `gps_unverified`) beside a `web_upload`
+marker, for the reviewer at gate 1. **Change the rules file in one place and
+change it in the other.**
+
+**The browser needs a CORS rule on the destination; the phone never did.** A
+native app's PUT to a presigned URL is not subject to CORS, so no client
+destination has ever needed one. A browser's is. The platform's own Azure
+account carries a rule for the console's dev origins, set in the portal;
+a client on their own account or bucket has to add the equivalent before
+their workers can upload from the console:
+
+| | Azure Blob (storage account → Resource sharing / CORS, Blob service) | S3 / MinIO (bucket CORS) |
+|---|---|---|
+| Allowed origins | the console's origin, e.g. `https://console.example.com` | same |
+| Allowed methods | `PUT, OPTIONS` (`GET, HEAD` too, for the gallery) | same |
+| Allowed headers | `content-type, x-ms-blob-type` | `content-type` |
+| Max age | `3600` | `3600` |
+
+Without it the PUT fails as a status-0 network error, which the dialog reports
+as *"the client's storage may not allow uploads from this site"* after two
+attempts rather than retrying for ten minutes.
+
 ## Still deliberately out
 
 - **Asynchronous ingest**: the pilot confirms an upload synchronously (a HEAD

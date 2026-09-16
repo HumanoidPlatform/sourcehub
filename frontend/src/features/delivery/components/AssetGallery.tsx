@@ -80,7 +80,17 @@ export function isVideo(a: AssetRow): boolean {
 
 const fill: React.CSSProperties = { width: "100%", height: "100%", objectFit: "cover", display: "block" };
 
-function AssetThumb({ asset, selected, onOpen }: { asset: AssetRow; selected: boolean; onOpen: (a: AssetRow) => void }) {
+function AssetThumb({
+  asset,
+  selected,
+  onOpen,
+  onRemove,
+}: {
+  asset: AssetRow;
+  selected: boolean;
+  onOpen: (a: AssetRow) => void;
+  onRemove?: (a: AssetRow) => void;
+}) {
   const [ref, inView] = useInView<HTMLDivElement>();
   const viewable = asset.status === "ready";
   const url = useAssetUrl(asset.id, inView && viewable);
@@ -120,6 +130,24 @@ function AssetThumb({ asset, selected, onOpen }: { asset: AssetRow; selected: bo
         </span>
       )}
       <span className="tag">{meta.label}</span>
+      {onRemove && (
+        // The worker's own capture, before submission. A quarantined or
+        // stuck-pending one occupies a quantity slot until it goes, which is
+        // why this is offered on more than the ready tiles.
+        <button
+          type="button"
+          className="iconbtn"
+          aria-label={`Remove ${label}`}
+          title="Remove this capture"
+          style={{ position: "absolute", top: 3, right: 3, width: 22, height: 22 }}
+          onClick={(e) => {
+            e.stopPropagation();
+            onRemove(asset);
+          }}
+        >
+          ×
+        </button>
+      )}
     </div>
   );
 }
@@ -170,11 +198,14 @@ export function AssetGallery({
   loading = false,
   emptyTitle = "No captures yet",
   emptyHint,
+  onRemove,
 }: {
   assets: AssetRow[];
   loading?: boolean;
   emptyTitle?: string;
   emptyHint?: string;
+  /** offered only where a capture is still the uploader's to withdraw */
+  onRemove?: (a: AssetRow) => void;
 }) {
   const [open, setOpen] = useState<AssetRow | null>(null);
   if (loading) return <p className="muted small">Loading captures…</p>;
@@ -185,7 +216,7 @@ export function AssetGallery({
       {current && <AssetPreview asset={current} onClose={() => setOpen(null)} />}
       <div className="assetgrid">
         {assets.map((a) => (
-          <AssetThumb key={a.id} asset={a} selected={current?.id === a.id} onOpen={(x) => setOpen(current?.id === x.id ? null : x)} />
+          <AssetThumb key={a.id} asset={a} selected={current?.id === a.id} onOpen={(x) => setOpen(current?.id === x.id ? null : x)} onRemove={onRemove} />
         ))}
       </div>
     </div>
