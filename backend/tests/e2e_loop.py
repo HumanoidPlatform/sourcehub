@@ -254,7 +254,11 @@ MP = "http://localhost:8025/api/v1"
 
 
 def invitation_token(email: str) -> str:
-    """The invitation token, read from a LOCAL MAIL CATCHER.
+    return mail_token(email, "invited")
+
+
+def mail_token(email: str, subject_contains: str) -> str:
+    """A link token, read from a LOCAL MAIL CATCHER.
 
     The token exists in exactly two places: the hash in `invitation`, and the
     link in the recipient's mailbox. There is no third copy to look up, which
@@ -268,6 +272,7 @@ def invitation_token(email: str) -> str:
     """
     for _ in range(60):
         msgs = httpx.get(f"{MP}/search", params={"query": f"to:{email}"}).json()["messages"]
+        msgs = [m for m in msgs if subject_contains.lower() in m["Subject"].lower()]
         if msgs:
             body = httpx.get(f"{MP}/message/{msgs[0]['ID']}").json()["Text"]
             m = re.search(r"token=([A-Za-z0-9_\-]+)", body)
@@ -275,7 +280,7 @@ def invitation_token(email: str) -> str:
                 return m.group(1)
         time.sleep(0.25)
     raise AssertionError(
-        f"No invitation mail for {email} at the local catcher ({MP}). "
+        f"No mail matching {subject_contains!r} for {email} at the local catcher ({MP}). "
         "A real SMTP_HOST means the mail left the machine and cannot be read back."
     )
 
@@ -519,6 +524,164 @@ assert len(client.get(f"/tasks/{task2['id']}/assets").json()) == 3
 ok("client sees the captures but never the roster")
 
 
+# 6c — the offer path: the task put to the whole crowd by email, first come
+#      first served. Every accept must become an ordinary assignment; every
+#      accept past the limit must be REFUSED with "closed".
+from concurrent.futures import ThreadPoolExecutor
+
+w3_email = f"worker-{suffix}-c@bengaluru.example"
+w3, worker3 = invite_and_login("Arjun Rao", w3_email)
+crowd = [w1["user_id"], w2["user_id"], w3["user_id"]]
+
+
+def new_task(title: str, target: int) -> dict:
+    r = northstar.post(f"/contracts/{contract['id']}/tasks", json={
+        "assignee_org_id": ag1["id"], "title": title,
+        "target": f"{target} photos", "target_quantity": target, "target_unit": "photos",
+        "instructions": "Full shelf in frame.", "due_on": "2026-10-11",
+    })
+    assert r.status_code == 201, r.text
+    return r.json()
+
+
+def offer_token(email: str) -> str:
+    return mail_token(email, "offering you a task")
+
+
+def preview(tok: str) -> httpx.Response:
+    return httpx.get(f"{B}/offers/{tok}", timeout=T)
+
+
+def respond(tok: str, action: str) -> httpx.Response:
+    return httpx.post(f"{B}/offers/{tok}/respond", json={"action": action}, timeout=T)
+
+
+task3 = new_task("Metro shelf capture, wave 3", 6)
+
+r = agg.post(f"/tasks/{task3['id']}/offers", json={
+    "worker_limit": 4, "quantity": 2, "recipient_user_ids": crowd})
+assert r.status_code == 409, f"OVER-BUDGET OFFER ACCEPTED: {r.status_code} {r.text}"
+ok("offer beyond the task target refused", r.json()["detail"][:60])
+
+r = agg.post(f"/tasks/{task3['id']}/offers", json={
+    "worker_limit": 1, "quantity": 2, "recipient_user_ids": crowd,
+    "respond_by": "2020-01-01T00:00:00Z"})
+assert r.status_code == 409, f"PAST RESPOND-BY ACCEPTED: {r.status_code}"
+ok("offer with a respond-by in the past refused")
+
+r = delhi.post(f"/tasks/{task3['id']}/offers", json={"worker_limit": 1, "quantity": 1})
+assert r.status_code == 404, f"RIVAL AGGREGATOR COULD OFFER: {r.status_code} {r.text}"
+ok("rival aggregator cannot offer the task", f"HTTP {r.status_code}")
+
+r = agg.post(f"/tasks/{task3['id']}/offers", json={
+    "worker_limit": 2, "quantity": 2, "recipient_user_ids": crowd,
+    "instructions": "Aisles 3-4, landscape."})
+assert r.status_code == 201, r.text
+offer = r.json()
+assert offer["status"] == "open" and offer["worker_limit"] == 2 and offer["accepted_count"] == 0, offer
+assert len(offer["recipients"]) == 3 and all(x["sent_at"] and not x["send_error"] for x in offer["recipients"]), offer
+assert "token" not in r.text, "TOKEN LEAKED IN THE RESPONSE"
+ok("task offered to 3 workers for 2 places", f"{offer['worker_limit']} x {offer['quantity']} photos, all emailed")
+
+r = agg.post(f"/tasks/{task3['id']}/offers", json={"worker_limit": 1, "quantity": 1})
+assert r.status_code == 409, f"SECOND OPEN OFFER ALLOWED: {r.status_code} {r.text}"
+ok("a second open offer on the same task refused")
+
+t1, t2, t3 = (offer_token(e) for e in (w1_email, w2_email, w3_email))
+pv = preview(t2)
+assert pv.status_code == 200 and pv.json()["state"] == "open", pv.text
+assert pv.json()["task"]["reference_code"] == task3["reference_code"] and pv.json()["quantity"] == 2, pv.text
+assert preview(t2).json() == pv.json()
+ok("worker's link previews the offer, twice, with no side effect", pv.json()["state"])
+
+r = respond(t2, "decline")
+assert r.status_code == 200 and r.json()["state"] == "declined", r.text
+r = respond(t2, "decline")
+assert r.status_code == 409, f"SECOND ANSWER ACCEPTED: {r.status_code} {r.text}"
+assert preview(t2).json()["state"] == "responded"
+ok("worker 2 declines; a second answer refused")
+
+r = respond(t1, "accept")
+assert r.status_code == 200 and r.json()["state"] == "accepted" and r.json()["assignment_id"], r.text
+a3 = r.json()["assignment_id"]
+mine = worker1.get("/me/assignments").json()
+m3 = next(a for a in mine if a["id"] == a3)
+assert m3["status"] == "assigned" and m3["quantity"] == 2 and m3["task"]["id"] == task3["id"], m3
+assert m3["instructions"] == "Aisles 3-4, landscape.", m3
+ok("worker 1 accepts; the assignment is on their board", m3["task"]["reference_code"])
+
+o = agg.get(f"/tasks/{task3['id']}/offers").json()[0]
+assert o["accepted_count"] == 1 and o["declined_count"] == 1 and o["pending_count"] == 1 and o["status"] == "open", o
+ok("aggregator sees 1 accepted, 1 declined, 1 waiting")
+
+r = respond(t1, "accept")
+assert r.status_code == 409, f"DOUBLE ACCEPT: {r.status_code} {r.text}"
+ok("worker 1 clicking again refused")
+
+r = respond(t3, "accept")
+assert r.status_code == 200, r.text
+o = agg.get(f"/tasks/{task3['id']}/offers").json()[0]
+assert o["status"] == "filled" and o["accepted_count"] == 2 and o["closed_at"], o
+assert len([a for a in agg.get(f"/tasks/{task3['id']}/assignments").json() if a["status"] != "cancelled"]) == 2
+ok("worker 3 takes the last place; the offer is filled")
+
+for tok in ("nonsense", t1[:-4] + "xxxx"):
+    assert preview(tok).status_code == 404 and respond(tok, "accept").status_code == 404
+r = httpx.post(f"{B}/offers/{t1}/respond", json={"action": "maybe"}, timeout=T)
+assert r.status_code == 422, r.status_code
+ok("unknown tokens 404, an unknown action 422")
+
+# the race: three accepts for one place, at once
+task4 = new_task("Metro shelf capture, wave 4", 2)
+r = agg.post(f"/tasks/{task4['id']}/offers", json={
+    "worker_limit": 1, "quantity": 2, "recipient_user_ids": crowd})
+assert r.status_code == 201, r.text
+toks = [offer_token(e) for e in (w1_email, w2_email, w3_email)]
+with ThreadPoolExecutor(max_workers=3) as ex:
+    results = list(ex.map(lambda t: respond(t, "accept"), toks))
+codes = sorted(x.status_code for x in results)
+assert codes == [200, 410, 410], f"RACE BROKE THE LIMIT: {codes} {[x.text for x in results]}"
+assert all("closed" in x.text for x in results if x.status_code == 410), [x.text for x in results]
+o = agg.get(f"/tasks/{task4['id']}/offers").json()[0]
+assert o["accepted_count"] == 1 and o["status"] == "filled", o
+assert len([a for a in agg.get(f"/tasks/{task4['id']}/assignments").json() if a["status"] != "cancelled"]) == 1
+ok("three simultaneous accepts for one place: exactly one wins", f"{codes}")
+
+# closing by hand
+task5 = new_task("Metro shelf capture, wave 5", 2)
+r = agg.post(f"/tasks/{task5['id']}/offers", json={
+    "worker_limit": 1, "quantity": 2, "recipient_user_ids": [w2["user_id"], w3["user_id"]]})
+assert r.status_code == 201, r.text
+o5 = r.json()
+t2b, t3b = (offer_token(e) for e in (w2_email, w3_email))
+r = agg.post(f"/offers/{o5['id']}/close")
+assert r.status_code == 200 and r.json()["status"] == "closed", r.text
+r = agg.post(f"/offers/{o5['id']}/close")
+assert r.status_code == 409, r.text
+r = respond(t2b, "accept")
+assert r.status_code == 410 and "closed" in r.text, r.text
+assert preview(t2b).json()["state"] == "closed"
+ok("aggregator closes the offer; a late accept is told the task is closed")
+
+# a worker offboarded after the mail went out cannot take the place
+r = agg.post(f"/tasks/{task5['id']}/offers", json={
+    "worker_limit": 1, "quantity": 2, "recipient_user_ids": [w3["user_id"]]})
+assert r.status_code == 201, r.text
+t3c = offer_token(w3_email)
+r = agg.post(f"/network/workers/{w3['id']}/status", json={"status": "offboarded"})
+assert r.status_code == 204, r.text
+assert preview(t3c).json()["state"] == "not_a_worker"
+r = respond(t3c, "accept")
+assert r.status_code == 409, f"OFFBOARDED WORKER ACCEPTED: {r.status_code} {r.text}"
+o = agg.get(f"/tasks/{task5['id']}/offers").json()[0]
+assert o["recipients"][0]["response"] is None and o["accepted_count"] == 0, o
+ok("offboarded worker's accept refused; the place stays open")
+
+assert client.get(f"/tasks/{task3['id']}/offers").status_code in (403, 404)
+assert delhi.get(f"/tasks/{task3['id']}/offers").status_code == 404
+ok("neither the client nor a rival can see who was asked")
+
+
 # 7 — deliver; premature approval must fail first
 r = client.post(f"/contracts/{contract['id']}/approve", json={"score": 5, "comment": "premature"})
 assert r.status_code == 409
@@ -550,7 +713,8 @@ kinds = {a["event_type"] for a in acts}
 expect = {"request.published", "proposal.submitted", "contract.awarded", "task.assigned",
           "loan.requested", "loan.state_changed", "submission.received", "review.recorded",
           "contract.delivered", "contract.accepted",
-          "worker.invited", "assignment.created", "assignment.started", "assignment.submitted"}
+          "worker.invited", "assignment.created", "assignment.started", "assignment.submitted",
+          "offer.created", "offer.accepted", "offer.declined", "offer.closed"}
 missing = expect - kinds
 assert not missing, f"missing audit events: {missing}"
 ok("audit trail complete", f"{len(acts)} events, all {len(expect)} kinds present")

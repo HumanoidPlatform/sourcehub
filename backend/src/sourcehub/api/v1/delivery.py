@@ -49,6 +49,16 @@ class AssignmentIn(BaseModel):
     due_on: dt.date | None = None
 
 
+class OfferIn(BaseModel):
+    worker_limit: int = Field(gt=0, le=200)      # places
+    quantity: int = Field(gt=0)                  # units per accepting worker
+    instructions: str | None = None
+    due_on: dt.date | None = None
+    respond_by: dt.datetime | None = None
+    # None means everyone eligible on the roster; a list narrows it
+    recipient_user_ids: list[uuid.UUID] | None = Field(default=None, max_length=200)
+
+
 class AssignmentNoteIn(BaseModel):
     note: str | None = None
 
@@ -187,6 +197,54 @@ async def task_assignments(
         return await delivery.list_assignments(session, principal, task_id)
     except LookupError:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Task not found") from None
+
+
+# --- offers: the task put to the whole crowd, first come first served ----------
+
+@router.post("/tasks/{task_id}/offers", status_code=status.HTTP_201_CREATED)
+async def create_offer(
+    task_id: uuid.UUID,
+    body: OfferIn,
+    principal: Principal = Depends(require_capability("assignment.assign")),
+    session: AsyncSession = Depends(get_session),
+):
+    try:
+        return await delivery.create_offer(
+            session, principal, task_id,
+            worker_limit=body.worker_limit, quantity=body.quantity,
+            instructions=body.instructions, due_on=body.due_on,
+            respond_by=body.respond_by, recipient_user_ids=body.recipient_user_ids,
+        )
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Task not found") from None
+    except delivery.DeliveryError as e:
+        raise _conflict(e) from None
+
+
+@router.get("/tasks/{task_id}/offers")
+async def task_offers(
+    task_id: uuid.UUID,
+    principal: Principal = Depends(require_capability("assignment.assign")),
+    session: AsyncSession = Depends(get_session),
+):
+    try:
+        return await delivery.list_offers(session, principal, task_id)
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Task not found") from None
+
+
+@router.post("/offers/{offer_id}/close")
+async def close_offer(
+    offer_id: uuid.UUID,
+    principal: Principal = Depends(require_capability("assignment.assign")),
+    session: AsyncSession = Depends(get_session),
+):
+    try:
+        return await delivery.close_offer(session, principal, offer_id)
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Offer not found") from None
+    except delivery.DeliveryError as e:
+        raise _conflict(e) from None
 
 
 @router.get("/me/assignments")

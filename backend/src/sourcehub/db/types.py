@@ -60,6 +60,8 @@ AssetStatus = db_enum(
 AssignmentStatus = db_enum(
     "assignment_status", "assigned", "in_progress", "submitted", "accepted", "rejected", "cancelled"
 )
+TaskOfferStatus = db_enum("task_offer_status", "open", "filled", "closed")
+TaskOfferResponse = db_enum("task_offer_response", "accepted", "declined")
 RedactionState = db_enum(
     "redaction_state", "not_required", "device_redacted", "verified", "failed_verification"
 )

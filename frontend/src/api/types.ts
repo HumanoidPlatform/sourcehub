@@ -246,6 +246,55 @@ export interface Task {
   asset_summary: AssetSummary | null;
 }
 
+/** A task put to the crowd at once; the first worker_limit accepts become assignments. */
+export interface TaskOfferRecipient {
+  id: string;
+  worker_user_id: string;
+  worker_name: string | null;
+  worker_ref: string | null;
+  email: string;
+  sent_at: string | null;
+  send_error: string | null;
+  response: "accepted" | "declined" | null;
+  responded_at: string | null;
+  assignment_id: string | null;
+}
+
+export interface TaskOffer {
+  id: string;
+  task_id: string;
+  status: "open" | "filled" | "closed";
+  /** status, or "expired" when open past respond_by */
+  effective_status: "open" | "filled" | "closed" | "expired";
+  worker_limit: number;
+  quantity: number;
+  accepted_count: number;
+  declined_count: number;
+  pending_count: number;
+  instructions: string | null;
+  due_on: string | null;
+  respond_by: string;
+  created_at: string;
+  closed_at: string | null;
+  recipients: TaskOfferRecipient[];
+}
+
+/** What a worker's offer link shows before they answer. */
+export interface OfferPreview {
+  state: "open" | "responded" | "closed" | "filled" | "expired" | "task_closed" | "not_a_worker";
+  org_name: string;
+  worker_name: string;
+  worker_email: string;
+  task: { reference_code: string; title: string; instructions: string | null; due_on: string | null; target_unit: string | null };
+  quantity: number;
+  instructions: string | null;
+  due_on: string | null;
+  respond_by: string;
+  worker_limit: number;
+  response: "accepted" | "declined" | null;
+  responded_at: string | null;
+}
+
 export interface AssignmentSummary {
   total: number;
   assigned: number;

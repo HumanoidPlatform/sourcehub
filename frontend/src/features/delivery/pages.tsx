@@ -706,7 +706,13 @@ function SubmitDialog({ task, onClose, onDone }: { task: Task; onClose: () => vo
 // is closed, because the upload queue outlives it.
 export function WorkerAssignmentsPage() {
   const session = useSession();
-  const rows = useQuery({ queryKey: ["my-assignments"], queryFn: () => get<Assignment[]>("/me/assignments") });
+  // polls like the phone does, so a place accepted from an email in another
+  // tab shows up here without a reload
+  const rows = useQuery({
+    queryKey: ["my-assignments"],
+    queryFn: () => get<Assignment[]>("/me/assignments"),
+    refetchInterval: 30_000,
+  });
   const list = rows.data ?? [];
   const [openId, setOpenId] = useState<string | null>(null);
   const activity = useUploadActivity();

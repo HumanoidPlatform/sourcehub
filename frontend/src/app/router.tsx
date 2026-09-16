@@ -10,7 +10,7 @@ import { DesignSystemRoute } from "@ds/DesignSystemRoute";
 import { AccountsPage, ActivityPage } from "@features/admin/pages";
 import { ContractsPage, ContractDetailPage, TasksPage } from "@features/delivery/pages";
 import {
-  AcceptInvitationPage, ForcedPasswordChange, LoginPage, ResetPasswordPage,
+  AcceptInvitationPage, ForcedPasswordChange, LoginPage, ResetPasswordPage, TaskOfferPage,
 } from "@features/identity/pages";
 import { BillingPage } from "@features/ledger/pages";
 import {
@@ -37,6 +37,7 @@ export function AppRouter() {
     <>
       <Route path="/accept-invitation" element={<AcceptInvitationPage />} />
       <Route path="/reset-password" element={<ResetPasswordPage />} />
+      <Route path="/offer" element={<TaskOfferPage />} />
     </>
   );
 

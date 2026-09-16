@@ -22,7 +22,10 @@ from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
 from sourcehub.db.base import Base
-from sourcehub.db.types import AssignmentStatus, ContractStatus, SubmissionStatus, TaskStatus
+from sourcehub.db.types import (
+    AssignmentStatus, ContractStatus, SubmissionStatus, TaskOfferResponse, TaskOfferStatus,
+    TaskStatus,
+)
 
 UTCNOW = text("now()")
 GEN_UUID = text("gen_random_uuid()")
@@ -110,6 +113,51 @@ class TaskAssignment(Base):
     decision_note: Mapped[str | None] = mapped_column(Text)
     created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
     updated_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
+
+
+class TaskOffer(Base):
+    """A task put to the crowd at once: N places, Q units each, first come
+    first served. Every accept becomes a TaskAssignment; the counter is
+    guarded by a CHECK against worker_limit (db/130_task_offers.sql)."""
+
+    __tablename__ = "task_offer"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, server_default=GEN_UUID)
+    task_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("task.id"))
+    contract_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("contract.id"))
+    supplier_org_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("organisation.id"))
+    worker_limit: Mapped[int] = mapped_column(Integer)
+    quantity: Mapped[int] = mapped_column(Integer)
+    instructions: Mapped[str | None] = mapped_column(Text)
+    due_on: Mapped[dt.date | None] = mapped_column(Date)
+    respond_by: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True))
+    status: Mapped[str] = mapped_column(TaskOfferStatus, server_default=text("'open'"))
+    accepted_count: Mapped[int] = mapped_column(Integer, server_default=text("0"))
+    created_by: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True))
+    created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
+    updated_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
+    closed_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
+    closed_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
+
+
+class TaskOfferRecipient(Base):
+    """One worker's copy of an offer. token_hash is the sha256 of the link in
+    their email — the row is the credential, the raw token is never stored."""
+
+    __tablename__ = "task_offer_recipient"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, server_default=GEN_UUID)
+    offer_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("task_offer.id"))
+    supplier_org_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("organisation.id"))
+    worker_user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("app_user.id"))
+    email: Mapped[str] = mapped_column(Text)
+    token_hash: Mapped[str] = mapped_column(Text)
+    sent_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
+    send_error: Mapped[str | None] = mapped_column(Text)
+    response: Mapped[str | None] = mapped_column(TaskOfferResponse)
+    responded_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
+    assignment_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("task_assignment.id"))
+    created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
 
 
 class Submission(Base):

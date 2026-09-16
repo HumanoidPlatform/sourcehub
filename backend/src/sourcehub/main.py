@@ -71,7 +71,7 @@ def create_app() -> FastAPI:
 
     from sourcehub.api.v1 import (
         attachments, audit, auth, delivery, identity, ledger, marketplace, media, network, notify,
-        onboarding, qa, storage,
+        offers, onboarding, qa, storage,
     )
 
     app.include_router(auth.router, prefix="/api/v1/auth", tags=["auth"])
@@ -87,6 +87,7 @@ def create_app() -> FastAPI:
     app.include_router(ledger.router, prefix="/api/v1", tags=["ledger"])
     app.include_router(storage.router, prefix="/api/v1", tags=["storage"])
     app.include_router(attachments.router, prefix="/api/v1", tags=["attachments"])
+    app.include_router(offers.router, prefix="/api/v1/offers", tags=["offers"])
 
     @app.get("/health", tags=["ops"])
     async def health() -> dict[str, str]:

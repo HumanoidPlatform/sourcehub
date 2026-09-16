@@ -287,6 +287,18 @@ people. Since `db/120_workers_media.sql`:
   notifications; it cannot read a contract, a submission or the roster.
 - **`task_assignment`** is one worker's share of a task, with its own
   lifecycle: assigned → in progress → submitted → accepted | sent back.
+- **A task is offered to the crowd by email, first come first served**
+  (`db/130_task_offers.sql`). The aggregator says it once — N places, Q
+  units each, instructions, due date, an optional respond-by — and every
+  active roster worker gets a mail with Accept and Decline. The links carry a
+  one-time token bound to that worker (hash stored, like an invitation); they
+  open `/offer`, which previews without side effects and answers only on a
+  click (`POST /offers/{token}/respond`). The first N accepts each become an
+  ordinary `task_assignment` — the phone and the console pick it up with no
+  change — and every later click is told the task is closed. Accepts are
+  serialised with a row lock on the offer and `accepted_count` carries a
+  CHECK against the limit. Direct assignment stays as the fallback. Audit:
+  `offer.created`, `offer.accepted`, `offer.declined`, `offer.closed`.
 - **Captures never pass through the API.** The phone asks for a presigned
   PUT (`POST /assignments/{id}/assets/presign`), uploads straight to object
   storage, then confirms; the API HEADs the object and records what storage
@@ -297,8 +309,8 @@ people. Since `db/120_workers_media.sql`:
   bundles the ready captures of accepted assignments into the submission;
   `asset_count` is derived, never typed.
 
-Console: the aggregator's Tasks page gains **Workers** (assign, progress,
-gate 1) and **Submit to partner**; a **Review** page holds the gate-1 queue;
+Console: the aggregator's Tasks page gains **Workers** (offer to the crowd,
+assign, progress, gate 1) and **Submit to partner**; a **Review** page holds the gate-1 queue;
 every task detail, the partner's QA dialog and the client's delivery drawer
 show the captures through short-lived signed URLs.
 

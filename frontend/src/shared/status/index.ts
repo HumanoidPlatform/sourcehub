@@ -85,6 +85,13 @@ export const assignmentStatus: StatusMap = {
   cancelled: { label: "Cancelled", tone: "neutral", owner: null },
 };
 
+export const offerStatus: StatusMap = {
+  open: { label: "Open", tone: "active", owner: "supplier" },
+  filled: { label: "Filled", tone: "success", owner: null },
+  closed: { label: "Closed", tone: "neutral", owner: null },
+  expired: { label: "Expired", tone: "neutral", owner: "supplier" },
+};
+
 export const invitationStatus: StatusMap = {
   none: { label: "No login", tone: "neutral", owner: null },
   pending: { label: "Invited", tone: "attention", owner: "supplier" },

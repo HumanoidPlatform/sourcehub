@@ -15,6 +15,7 @@ costs one EXISTS.
 from __future__ import annotations
 
 import datetime as dt
+import html
 import uuid
 from decimal import Decimal
 from typing import Any
@@ -23,9 +24,13 @@ from sqlalchemy import func, select, text
 from sqlalchemy.exc import DBAPIError
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from sourcehub.api.security import AccessClaims
+from sourcehub.api.security import AccessClaims, hash_token, new_opaque_token
+from sourcehub.config import BRAND, settings
+from sourcehub.db.session import anonymous_session, org_session
 from sourcehub.modules.audit import service as audit
-from sourcehub.modules.delivery.models import Contract, Submission, Task, TaskAssignment
+from sourcehub.modules.delivery.models import (
+    Contract, Submission, Task, TaskAssignment, TaskOffer, TaskOfferRecipient,
+)
 from sourcehub.modules.ledger import service as ledger
 from sourcehub.modules.media import service as media
 from sourcehub.modules.notify import service as notifier
@@ -641,6 +646,36 @@ async def create_assignment(
     t = await _get_task(session, task_id)
     if t.assignee_org_id != claims.org_id:
         raise DeliveryError("Only the assigned supplier assigns its workers.")
+    return await _assign_worker(
+        session,
+        org_id=claims.org_id,
+        assigned_by=claims.user_id,
+        task=t,
+        worker_user_id=worker_user_id,
+        quantity=quantity,
+        instructions=instructions,
+        due_on=due_on,
+    )
+
+
+async def _assign_worker(
+    session: AsyncSession,
+    *,
+    org_id: uuid.UUID,
+    assigned_by: uuid.UUID,
+    task: Task,
+    worker_user_id: uuid.UUID,
+    quantity: int,
+    instructions: str | None,
+    due_on: dt.date | None,
+    via_offer_id: uuid.UUID | None = None,
+) -> dict[str, Any]:
+    """One worker's share of a task — the manual path and an accepted offer
+    both end here. The caller has already established that org_id is the
+    task's supplier; everything else the row needs is checked here, under a
+    lock on the task so two assignments cannot both fit the same remainder."""
+    t = task
+    await session.execute(text("SELECT id FROM task WHERE id = :t FOR UPDATE"), {"t": t.id})
     if t.status not in ("assigned", "in_progress", "qa_failed"):
         raise DeliveryError(f"A {t.status} task cannot take new assignments.")
 
@@ -652,7 +687,7 @@ async def create_assignment(
                 "WHERE g.user_id = :u AND g.org_id = :me AND r.code = 'worker' "
                 "  AND g.revoked_at IS NULL)"
             ),
-            {"u": worker_user_id, "me": claims.org_id},
+            {"u": worker_user_id, "me": org_id},
         )
     ).scalar_one()
     if not ok:
@@ -661,15 +696,7 @@ async def create_assignment(
         )
 
     if t.target_quantity:
-        assigned = (
-            await session.execute(
-                text(
-                    "SELECT coalesce(sum(quantity), 0) FROM task_assignment "
-                    "WHERE task_id = :t AND status <> 'cancelled'"
-                ),
-                {"t": task_id},
-            )
-        ).scalar_one()
+        assigned = await _assigned_quantity(session, t.id)
         if assigned + quantity > t.target_quantity:
             unit = t.target_unit or "units"
             raise DeliveryError(
@@ -680,12 +707,12 @@ async def create_assignment(
     a = TaskAssignment(
         task_id=t.id,
         contract_id=t.contract_id,
-        supplier_org_id=claims.org_id,
+        supplier_org_id=org_id,
         worker_user_id=worker_user_id,
         quantity=quantity,
         instructions=instructions,
         due_on=due_on,
-        assigned_by=claims.user_id,
+        assigned_by=assigned_by,
     )
     session.add(a)
     try:
@@ -698,7 +725,7 @@ async def create_assignment(
 
     unit = t.target_unit or "units"
     await notifier.notify(
-        session, claims.org_id,
+        session, org_id,
         f"New assignment: {t.title} — {quantity} {unit}."
         + (f" Due {due_on.isoformat()}." if due_on else ""),
         "assignment", {"id": str(a.id)},
@@ -707,9 +734,24 @@ async def create_assignment(
     await audit.log(
         session, "assignment.created",
         f"Assigned {quantity} {unit} of {t.reference_code} to a worker",
-        [a.id, t.id, t.contract_id, claims.org_id, worker_user_id],
+        [a.id, t.id, t.contract_id, org_id, worker_user_id],
+        {"via_offer_id": str(via_offer_id)} if via_offer_id else None,
     )
     return await _assignment_by_id(session, a.id)
+
+
+async def _assigned_quantity(session: AsyncSession, task_id: uuid.UUID) -> int:
+    return int(
+        (
+            await session.execute(
+                text(
+                    "SELECT coalesce(sum(quantity), 0) FROM task_assignment "
+                    "WHERE task_id = :t AND status <> 'cancelled'"
+                ),
+                {"t": task_id},
+            )
+        ).scalar_one()
+    )
 
 
 async def list_assignments(
@@ -1019,3 +1061,517 @@ async def _attach_instructions(
         )
     except attachments.AttachmentError as e:
         raise DeliveryError(str(e)) from None
+
+# ---------------------------------------------------------------------------
+# Offers — a task put to the crowd at once, first come first served
+#
+# The aggregator says it once ("N places, Q units each, by this date"); every
+# recipient gets an email whose links carry a one-time token; the first N
+# accepts each become a task_assignment through _assign_worker, exactly as a
+# manual assignment does. See db/130_task_offers.sql for the invariants.
+#
+# The worker is anonymous when they click. The token resolves through the
+# SECURITY DEFINER task_offer_lookup(); the write then runs inside
+# org_session(supplier org, 'aggregator', worker): the assignment is the
+# supplier's row (its INSERT policy needs NOT is_worker()), and the audit
+# actor becomes (supplier org, the worker who clicked). assigned_by stays
+# the person who broadcast the offer.
+# ---------------------------------------------------------------------------
+
+_ASSIGNABLE = ("assigned", "in_progress", "qa_failed")
+_OFFER_STATES_CLOSED = {"closed": 410, "filled": 410, "expired": 410, "responded": 409}
+
+
+class OfferUnavailableError(DeliveryError):
+    """The link works but the answer can no longer be taken; .state names why."""
+
+    def __init__(self, state: str, message: str) -> None:
+        super().__init__(message)
+        self.state = state
+        self.http_status = _OFFER_STATES_CLOSED.get(state, 409)
+
+
+def offer_state(row: Any, now: dt.datetime | None = None) -> str:
+    """One word for the page, in priority order: an answer already given wins
+    over everything; then the offer's own status; then the deadline; then
+    whether the task or the worker can still take it."""
+    now = now or dt.datetime.now(dt.timezone.utc)
+    if row["response"] is not None:
+        return "responded"
+    if row["offer_status"] == "closed":
+        return "closed"
+    if row["offer_status"] == "filled" or row["accepted_count"] >= row["worker_limit"]:
+        return "filled"
+    if row["respond_by"] < now:
+        return "expired"
+    if row["task_status"] not in _ASSIGNABLE:
+        return "task_closed"
+    if not row["grant_live"]:
+        return "not_a_worker"
+    return "open"
+
+
+_STATE_MESSAGES = {
+    "responded": "You have already answered this offer.",
+    "closed": "This task is closed — the offer was withdrawn.",
+    "filled": "This task is closed — all places have been taken.",
+    "expired": "This task is closed — the time to respond has passed.",
+    "task_closed": "This task is no longer taking workers.",
+    "not_a_worker": "You are no longer an active worker for this organisation.",
+}
+
+
+def _offer_email(
+    *,
+    worker_name: str,
+    org_name: str,
+    task_ref: str,
+    task_title: str,
+    unit: str,
+    quantity: int,
+    worker_limit: int,
+    due_on: dt.date | None,
+    respond_by: dt.datetime,
+    instructions: str | None,
+    accept_url: str,
+    decline_url: str,
+) -> tuple[str, str, str]:
+    """(subject, text, html). Both links sit on their own lines in the text
+    part; the HTML part shows them as buttons. Every interpolated field is
+    escaped in the HTML: a task title is somebody else's input."""
+    due = due_on.isoformat() if due_on else "not set"
+    by = respond_by.astimezone(dt.timezone.utc).strftime("%d %b %Y, %H:%M UTC")
+    places = f"{worker_limit} place" + ("s" if worker_limit != 1 else "")
+    subject = f"{org_name} is offering you a task — {task_ref} {task_title}"
+    text_body = (
+        f"Hello {worker_name},\n\n"
+        f"{org_name} is offering you work on {BRAND}.\n\n"
+        f"  Task:          {task_ref} — {task_title}\n"
+        f"  Your share:    {quantity} {unit}\n"
+        f"  Due:           {due}\n"
+        f"  Places:        {places}, first come first served\n"
+        f"  Respond by:    {by}\n\n"
+        + (f"Instructions:\n{instructions}\n\n" if instructions else "")
+        + f"Accept:\n  {accept_url}\n\n"
+        f"Decline:\n  {decline_url}\n\n"
+        f"Once you accept, the task appears in your {BRAND} Capture app and on the console.\n"
+        f"If all places are taken before you answer, the link will say so."
+    )
+    e = html.escape
+    rows = [
+        ("Task", f"{e(task_ref)} — {e(task_title)}"),
+        ("Your share", f"{quantity} {e(unit)}"),
+        ("Due", e(due)),
+        ("Places", f"{places}, first come first served"),
+        ("Respond by", e(by)),
+    ]
+    trs = "".join(
+        f'<tr><td style="padding:4px 12px 4px 0;color:#666;white-space:nowrap">{k}</td>'
+        f'<td style="padding:4px 0">{v}</td></tr>'
+        for k, v in rows
+    )
+    instr = (
+        f'<p style="margin:16px 0 0"><strong>Instructions</strong></p>'
+        f'<p style="margin:4px 0 0;white-space:pre-wrap">{e(instructions)}</p>'
+        if instructions else ""
+    )
+    btn = (
+        'display:inline-block;padding:10px 18px;border-radius:6px;'
+        'text-decoration:none;font-weight:600'
+    )
+    html_body = (
+        '<div style="font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;'
+        'font-size:15px;line-height:1.45;color:#1c1c1c;max-width:560px">'
+        f"<p>Hello {e(worker_name)},</p>"
+        f"<p>{e(org_name)} is offering you work on {e(BRAND)}.</p>"
+        f'<table style="border-collapse:collapse;font-size:15px">{trs}</table>'
+        f"{instr}"
+        '<p style="margin:24px 0 8px">'
+        f'<a href="{e(accept_url)}" style="{btn};background:#1f6f43;color:#fff">Accept</a>'
+        '&nbsp;&nbsp;'
+        f'<a href="{e(decline_url)}" style="{btn};background:#eee;color:#1c1c1c">Decline</a>'
+        "</p>"
+        f'<p style="color:#666;font-size:13px">Once you accept, the task appears in your '
+        f'{e(BRAND)} Capture app and on the console. If all places are taken before you '
+        "answer, the link will say so.</p>"
+        "</div>"
+    )
+    return subject, text_body, html_body
+
+
+_OFFER_ROWS = (
+    "SELECT o.id, o.task_id, o.status, o.worker_limit, o.quantity, o.accepted_count, "
+    "       o.instructions, o.due_on, o.respond_by, o.created_at, o.created_by, o.closed_at, "
+    "       r.id AS recipient_id, r.worker_user_id, r.email, r.sent_at, r.send_error, "
+    "       r.response, r.responded_at, r.assignment_id, "
+    "       coalesce(w.display_name, u.full_name) AS worker_name, w.reference_code AS worker_ref "
+    "FROM task_offer o "
+    "LEFT JOIN task_offer_recipient r ON r.offer_id = o.id "
+    "LEFT JOIN crowd_worker w ON w.user_id = r.worker_user_id AND w.deleted_at IS NULL "
+    "LEFT JOIN app_user u ON u.id = r.worker_user_id "
+)
+
+
+def _effective_status(status: str, respond_by: dt.datetime) -> str:
+    if status == "open" and respond_by < dt.datetime.now(dt.timezone.utc):
+        return "expired"
+    return status
+
+
+async def _offers(
+    session: AsyncSession, where: str, params: dict[str, Any]
+) -> list[dict[str, Any]]:
+    rows = (
+        await session.execute(
+            text(_OFFER_ROWS + "WHERE " + where + " ORDER BY o.created_at DESC, worker_name"),
+            params,
+        )
+    ).mappings().all()
+    out: dict[uuid.UUID, dict[str, Any]] = {}
+    for r in rows:
+        o = out.get(r["id"])
+        if o is None:
+            o = out[r["id"]] = {
+                "id": r["id"],
+                "task_id": r["task_id"],
+                "status": r["status"],
+                "effective_status": _effective_status(r["status"], r["respond_by"]),
+                "worker_limit": r["worker_limit"],
+                "quantity": r["quantity"],
+                "accepted_count": r["accepted_count"],
+                "declined_count": 0,
+                "pending_count": 0,
+                "instructions": r["instructions"],
+                "due_on": r["due_on"],
+                "respond_by": r["respond_by"],
+                "created_at": r["created_at"],
+                "closed_at": r["closed_at"],
+                "recipients": [],
+            }
+        if r["recipient_id"] is None:
+            continue
+        if r["response"] == "declined":
+            o["declined_count"] += 1
+        elif r["response"] is None:
+            o["pending_count"] += 1
+        o["recipients"].append(
+            {
+                "id": r["recipient_id"],
+                "worker_user_id": r["worker_user_id"],
+                "worker_name": r["worker_name"],
+                "worker_ref": r["worker_ref"],
+                "email": r["email"],
+                "sent_at": r["sent_at"],
+                "send_error": r["send_error"],
+                "response": r["response"],
+                "responded_at": r["responded_at"],
+                "assignment_id": r["assignment_id"],
+            }
+        )
+    return list(out.values())
+
+
+async def _offer_by_id(session: AsyncSession, offer_id: uuid.UUID) -> dict[str, Any]:
+    rows = await _offers(session, "o.id = :id", {"id": offer_id})
+    if not rows:
+        raise LookupError("offer not found")
+    return rows[0]
+
+
+async def list_offers(
+    session: AsyncSession, claims: AccessClaims, task_id: uuid.UUID
+) -> list[dict[str, Any]]:
+    """404 when the task is out of sight; otherwise RLS decides (the client
+    and the partner see none — who was asked is crowd management)."""
+    await _get_task(session, task_id)
+    return await _offers(session, "o.task_id = :t", {"t": task_id})
+
+
+_ELIGIBLE_WORKERS = text(
+    "SELECT w.user_id, coalesce(w.email, u.email) AS email, "
+    "       coalesce(w.display_name, u.full_name) AS name "
+    "FROM crowd_worker w "
+    "JOIN app_user u ON u.id = w.user_id "
+    "WHERE w.aggregator_org_id = :me AND w.deleted_at IS NULL AND w.status <> 'offboarded' "
+    "  AND EXISTS (SELECT 1 FROM user_role_grant g JOIN role r ON r.id = g.role_id "
+    "              WHERE g.user_id = w.user_id AND g.org_id = :me AND r.code = 'worker' "
+    "                AND g.revoked_at IS NULL) "
+    "  AND u.status = 'active' "
+    "  AND NOT EXISTS (SELECT 1 FROM task_assignment a WHERE a.task_id = :t "
+    "                  AND a.worker_user_id = w.user_id "
+    "                  AND a.status IN ('assigned','in_progress','submitted','rejected')) "
+    "ORDER BY name"
+)
+
+
+async def create_offer(
+    session: AsyncSession,
+    claims: AccessClaims,
+    task_id: uuid.UUID,
+    *,
+    worker_limit: int,
+    quantity: int,
+    instructions: str | None,
+    due_on: dt.date | None,
+    respond_by: dt.datetime | None,
+    recipient_user_ids: list[uuid.UUID] | None,
+) -> dict[str, Any]:
+    t = await _get_task(session, task_id)
+    if t.assignee_org_id != claims.org_id:
+        raise DeliveryError("Only the assigned supplier offers its tasks.")
+    if t.status not in _ASSIGNABLE:
+        raise DeliveryError(f"A {t.status} task cannot be offered.")
+
+    now = dt.datetime.now(dt.timezone.utc)
+    if respond_by is None:
+        respond_by = now + dt.timedelta(days=settings.invitation_ttl_days)
+    elif respond_by <= now:
+        raise DeliveryError("The respond-by time is already in the past.")
+
+    # Every place must fit the target, or the last accepter is refused for a
+    # reason they cannot see.
+    if t.target_quantity:
+        assigned = await _assigned_quantity(session, t.id)
+        if assigned + worker_limit * quantity > t.target_quantity:
+            unit = t.target_unit or "units"
+            raise DeliveryError(
+                f"{worker_limit} x {quantity} {unit} exceeds what is left of the task target "
+                f"({t.target_quantity - assigned} of {t.target_quantity} {unit})."
+            )
+
+    eligible = (
+        await session.execute(_ELIGIBLE_WORKERS, {"me": claims.org_id, "t": t.id})
+    ).mappings().all()
+    if recipient_user_ids is not None:
+        wanted = set(recipient_user_ids)
+        by_id = {r["user_id"]: r for r in eligible}
+        unknown = wanted - set(by_id)
+        if unknown:
+            raise DeliveryError(
+                f"{len(unknown)} of the chosen workers cannot take this task "
+                "(offboarded, not yet signed up, or already assigned to it)."
+            )
+        eligible = [by_id[u] for u in recipient_user_ids if u in wanted]
+    if not eligible:
+        raise DeliveryError("Nobody on the roster can take this task right now.")
+
+    o = TaskOffer(
+        task_id=t.id,
+        contract_id=t.contract_id,
+        supplier_org_id=claims.org_id,
+        worker_limit=worker_limit,
+        quantity=quantity,
+        instructions=instructions,
+        due_on=due_on,
+        respond_by=respond_by,
+        created_by=claims.user_id,
+    )
+    session.add(o)
+    try:
+        await session.flush()
+    except DBAPIError as e:
+        msg = str(e.orig) if e.orig else str(e)
+        if "task_offer_one_open_key" in msg:
+            raise DeliveryError("This task already has an open offer. Close it first.") from None
+        raise
+
+    org_name = (
+        await session.execute(
+            text("SELECT name FROM organisation WHERE id = :o"), {"o": claims.org_id}
+        )
+    ).scalar_one()
+    unit = t.target_unit or "units"
+    recipients: list[TaskOfferRecipient] = []
+    messages: list[tuple[str, str, str, str | None]] = []
+    for w in eligible:
+        raw, digest = new_opaque_token()
+        r = TaskOfferRecipient(
+            offer_id=o.id,
+            supplier_org_id=claims.org_id,
+            worker_user_id=w["user_id"],
+            email=w["email"],
+            token_hash=digest,
+        )
+        session.add(r)
+        recipients.append(r)
+        base = f"{settings.app_base_url}/offer?token={raw}"
+        subject, body, html_body = _offer_email(
+            worker_name=w["name"], org_name=org_name,
+            task_ref=t.reference_code, task_title=t.title, unit=unit,
+            quantity=quantity, worker_limit=worker_limit, due_on=due_on,
+            respond_by=respond_by, instructions=instructions,
+            accept_url=base + "&intent=accept", decline_url=base + "&intent=decline",
+        )
+        messages.append((w["email"], subject, body, html_body))
+    await session.flush()
+
+    await audit.log(
+        session, "offer.created",
+        f"Offered {t.reference_code} to {len(recipients)} workers "
+        f"({worker_limit} x {quantity} {unit})",
+        [o.id, t.id, t.contract_id, claims.org_id],
+    )
+
+    errors = await _send_offer_emails(messages)
+    sent_at = dt.datetime.now(dt.timezone.utc)
+    for r, err in zip(recipients, errors, strict=True):
+        if err is None:
+            r.sent_at = sent_at
+        else:
+            r.send_error = err
+    await session.flush()
+    return await _offer_by_id(session, o.id)
+
+
+async def _send_offer_emails(
+    messages: list[tuple[str, str, str, str | None]],
+) -> list[str | None]:
+    """Best-effort, like the invitations: the offer exists either way and the
+    console shows who did not get the mail. One connection for the batch."""
+    from sourcehub.platform.mail.smtp import send_many
+
+    try:
+        return await send_many(messages)
+    except OSError as e:
+        return [str(e)[:300]] * len(messages)
+
+
+async def close_offer(
+    session: AsyncSession, claims: AccessClaims, offer_id: uuid.UUID
+) -> dict[str, Any]:
+    o = (
+        await session.execute(
+            select(TaskOffer).where(TaskOffer.id == offer_id).with_for_update()
+        )
+    ).scalar_one_or_none()
+    if o is None:
+        raise LookupError("offer not found")
+    if o.supplier_org_id != claims.org_id:
+        raise DeliveryError("Only the offering supplier closes its offer.")
+    if o.status != "open":
+        raise DeliveryError(f"The offer is already {o.status}.")
+    o.status = "closed"
+    o.closed_at = dt.datetime.now(dt.timezone.utc)
+    o.closed_by = claims.user_id
+    await session.flush()
+    await audit.log(
+        session, "offer.closed",
+        f"Closed the offer with {o.accepted_count} of {o.worker_limit} places taken",
+        [o.id, o.task_id, o.contract_id, claims.org_id],
+    )
+    return await _offer_by_id(session, o.id)
+
+
+async def _lookup_offer(token: str) -> dict[str, Any]:
+    async with anonymous_session() as s:
+        row = (
+            await s.execute(text("SELECT * FROM task_offer_lookup(:h)"), {"h": hash_token(token)})
+        ).mappings().first()
+    if row is None:
+        raise LookupError("offer not found")
+    return dict(row)
+
+
+def _preview_dict(row: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "state": offer_state(row),
+        "org_name": row["org_name"],
+        "worker_name": row["worker_name"],
+        "worker_email": row["worker_email"],
+        "task": {
+            "reference_code": row["task_ref"],
+            "title": row["task_title"],
+            "instructions": row["task_instructions"],
+            "due_on": row["task_due_on"],
+            "target_unit": row["target_unit"],
+        },
+        "quantity": row["quantity"],
+        "instructions": row["instructions"],
+        "due_on": row["due_on"],
+        "respond_by": row["respond_by"],
+        "worker_limit": row["worker_limit"],
+        "response": row["response"],
+        "responded_at": row["responded_at"],
+    }
+
+
+async def preview_offer(token: str) -> dict[str, Any]:
+    """What the link shows before any click. Read-only: mail scanners follow
+    links, and a scanner must not accept a task."""
+    return _preview_dict(await _lookup_offer(token))
+
+
+async def respond_to_offer(token: str, action: str) -> dict[str, Any]:
+    """The click. Serialised per offer by FOR UPDATE on the offer row, so the
+    limit is exact under concurrent accepts; the CHECK on accepted_count is
+    the brace to that belt. Nothing is written when the answer is refused."""
+    row = await _lookup_offer(token)
+
+    async with org_session(row["supplier_org_id"], "aggregator", row["worker_user_id"]) as s:
+        o = (
+            await s.execute(
+                select(TaskOffer).where(TaskOffer.id == row["offer_id"]).with_for_update()
+            )
+        ).scalar_one()
+        r = (
+            await s.execute(
+                select(TaskOfferRecipient)
+                .where(TaskOfferRecipient.id == row["recipient_id"])
+                .with_for_update()
+            )
+        ).scalar_one()
+
+        # re-decide on the locked rows: the lookup was a snapshot from before
+        # the queue of accepts ahead of this one drained
+        now = dt.datetime.now(dt.timezone.utc)
+        live = dict(row, response=r.response, offer_status=o.status,
+                    accepted_count=o.accepted_count, worker_limit=o.worker_limit)
+        state = offer_state(live, now)
+        # a decline is still worth recording when only the task or the grant
+        # has moved on; an accept needs everything open
+        refused = state != "open" and (action == "accept" or state in _OFFER_STATES_CLOSED)
+        if refused:
+            raise OfferUnavailableError(state, _STATE_MESSAGES[state])
+
+        t = await _get_task(s, o.task_id)
+        if action == "decline":
+            r.response = "declined"
+            r.responded_at = now
+            await s.flush()
+            await audit.log(
+                s, "offer.declined", f"Declined the offer on {t.reference_code}",
+                [o.id, r.id, t.id, o.contract_id, o.supplier_org_id, r.worker_user_id],
+            )
+            return {"state": "declined", "assignment_id": None}
+
+        a = await _assign_worker(
+            s,
+            org_id=o.supplier_org_id,
+            assigned_by=o.created_by,
+            task=t,
+            worker_user_id=r.worker_user_id,
+            quantity=o.quantity,
+            instructions=o.instructions,
+            due_on=o.due_on,
+            via_offer_id=o.id,
+        )
+        r.response = "accepted"
+        r.responded_at = now
+        r.assignment_id = a["id"]
+        o.accepted_count += 1
+        if o.accepted_count >= o.worker_limit:
+            o.status = "filled"
+            o.closed_at = now
+        await s.flush()
+        await notifier.notify(
+            s, o.supplier_org_id,
+            f"{row['worker_name']} accepted {t.reference_code} "
+            f"({o.accepted_count} of {o.worker_limit} places taken).",
+            "tasks", {"id": str(t.id)},
+        )
+        await audit.log(
+            s, "offer.accepted",
+            f"Accepted the offer on {t.reference_code} ({o.accepted_count}/{o.worker_limit})",
+            [o.id, r.id, a["id"], t.id, o.contract_id, o.supplier_org_id, r.worker_user_id],
+        )
+        return {"state": "accepted", "assignment_id": a["id"]}

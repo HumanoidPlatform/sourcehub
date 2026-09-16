@@ -1,8 +1,9 @@
 """auth — login, refresh, logout, invitation acceptance, password reset.
 
-The only router that runs without an org context: authentication happens before
-one exists. Every anonymous step goes through a SECURITY DEFINER function
-rather than reading RLS-protected tables directly.
+Runs without an org context: authentication happens before one exists. Every
+anonymous step goes through a SECURITY DEFINER function rather than reading
+RLS-protected tables directly. The only other router like it is offers.py, a
+worker answering a task offer from a link.
 """
 
 from __future__ import annotations

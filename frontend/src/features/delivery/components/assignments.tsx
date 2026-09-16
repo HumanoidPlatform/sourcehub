@@ -10,12 +10,13 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { get, post } from "@api/client";
-import type { Assignment, Task, WorkerRow } from "@api/types";
+import type { Assignment, Task, TaskOffer, WorkerRow } from "@api/types";
 import {
-  Button, Callout, Dialog, Empty, Field, inputCls, Meter, Metric, Pill, TableWrap, textareaCls,
+  Button, Callout, CheckGroup, Dialog, Empty, Field, inputCls, Meter, Metric, Pill, TableWrap,
+  textareaCls, useToast,
 } from "@ds/primitives";
 import { fmtDate, fmtDateTime } from "@shared/format";
-import { assignmentStatus, statusMeta } from "@shared/status";
+import { assignmentStatus, offerStatus, statusMeta } from "@shared/status";
 import { AssetGallery, useAssignmentAssets, useTaskAssets } from "./AssetGallery";
 
 export function useTaskAssignments(taskId: string | null | undefined) {
@@ -27,6 +28,14 @@ export function useTaskAssignments(taskId: string | null | undefined) {
 }
 
 const OPEN = new Set(["assigned", "in_progress", "submitted", "rejected"]);
+
+export function useTaskOffers(taskId: string | null | undefined) {
+  return useQuery({
+    queryKey: ["offers", taskId],
+    queryFn: () => get<TaskOffer[]>(`/tasks/${taskId}/offers`),
+    enabled: !!taskId,
+  });
+}
 
 /* --- assign units of a task to one worker ------------------------------------- */
 
@@ -186,13 +195,187 @@ export function DecideAssignmentDialog({
   );
 }
 
+/* --- offer the task to the crowd: N places, first come first served ----------- */
+
+export function OfferTaskDialog({ task, onClose, onDone }: { task: Task; onClose: () => void; onDone: () => void }) {
+  const qc = useQueryClient();
+  const toast = useToast();
+  const workers = useQuery({ queryKey: ["workers"], queryFn: () => get<WorkerRow[]>("/network/workers") });
+  const rows = useTaskAssignments(task.id);
+  const held = new Set((rows.data ?? []).filter((a) => OPEN.has(a.status)).map((a) => a.worker_user_id));
+  const eligible = (workers.data ?? []).filter(
+    (w) => w.invitation_status === "accepted" && w.status !== "offboarded" && w.user_id && !held.has(w.user_id),
+  );
+  const remaining =
+    task.target_quantity != null
+      ? Math.max(0, task.target_quantity - (task.assignment_summary?.quantity_assigned ?? 0))
+      : null;
+
+  const [places, setPlaces] = useState("1");
+  const [qty, setQty] = useState(remaining != null && remaining > 0 ? String(remaining) : "");
+  const [instructions, setInstructions] = useState(task.instructions ?? "");
+  const [due, setDue] = useState(task.due_on ?? "");
+  const [respondBy, setRespondBy] = useState("");
+  const [picked, setPicked] = useState<string[] | null>(null); // null = everyone, until touched
+  const [error, setError] = useState<string | null>(null);
+
+  const everyone = eligible.map((w) => w.user_id as string);
+  const recipients = picked ?? everyone;
+  const n = Number(places) || 0;
+  const q = Number(qty) || 0;
+  const total = n * q;
+  const overBudget = remaining != null && total > remaining;
+
+  // when the places change, split what is left evenly — a hint, not a rule
+  const onPlaces = (v: string) => {
+    setPlaces(v);
+    const k = Number(v);
+    if (remaining != null && remaining > 0 && k > 0) setQty(String(Math.max(1, Math.floor(remaining / k))));
+  };
+
+  const create = useMutation({
+    mutationFn: () =>
+      post<TaskOffer>(`/tasks/${task.id}/offers`, {
+        worker_limit: n, quantity: q,
+        instructions: instructions || null, due_on: due || null,
+        respond_by: respondBy ? new Date(respondBy).toISOString() : null,
+        recipient_user_ids: picked,
+      }),
+    onSuccess: (o) => {
+      const failed = o.recipients.filter((r) => r.send_error).length;
+      toast(
+        `Offer sent to ${o.recipients.length - failed} worker${o.recipients.length - failed === 1 ? "" : "s"}`,
+        failed ? `${failed} could not be emailed — see the offer panel.` : "First to accept take the places.",
+        failed ? "attention" : "success",
+      );
+      void qc.invalidateQueries({ queryKey: ["offers", task.id] });
+      void qc.invalidateQueries({ queryKey: ["assignments", task.id] });
+      void qc.invalidateQueries({ queryKey: ["tasks"] });
+      onDone();
+    },
+    onError: (e) => setError(e instanceof Error ? e.message : "Could not send the offer"),
+  });
+
+  const unit = task.target_unit ?? "units";
+  const canSend = n >= 1 && q >= 1 && recipients.length >= 1 && !overBudget && !create.isPending;
+  return (
+    <Dialog
+      size="wide"
+      title="Offer to the crowd"
+      sub={`${task.reference_code} · ${task.title}`}
+      onClose={onClose}
+      busy={create.isPending}
+      foot={
+        <>
+          <Button onClick={onClose}>Cancel</Button>
+          <Button variant="primary" disabled={!canSend} onClick={() => create.mutate()}>
+            {create.isPending ? "Sending…" : `Email ${recipients.length} worker${recipients.length === 1 ? "" : "s"}`}
+          </Button>
+        </>
+      }
+    >
+      <Callout tone="neutral" title="First come, first served">
+        Every worker below gets an email with Accept and Decline. The first {n || "N"} to accept each take {q || "Q"} {unit};
+        after that the link says the task is closed.
+      </Callout>
+      {eligible.length === 0 && !workers.isLoading && !rows.isLoading && (
+        <Callout tone="attention" title="Nobody can take this task right now">
+          Only workers who have accepted their invitation and do not already hold this task can be offered it.
+        </Callout>
+      )}
+      <div className="formgrid" style={{ marginTop: 12 }}>
+        <Field label="Places" required hint="How many workers you want on this task.">
+          {(id) => <input id={id} className={inputCls} type="number" min={1} max={200} value={places} onChange={(e) => onPlaces(e.target.value)} />}
+        </Field>
+        <Field
+          label={`${unit} per worker`}
+          required
+          error={overBudget ? `${n} × ${q} = ${total}, but only ${remaining} of ${task.target_quantity} ${unit} are unassigned.` : undefined}
+          hint={remaining != null ? `${n} × ${q} = ${total} of the ${remaining} ${unit} still unassigned.` : "The task has no countable target; give each worker a number anyway."}
+        >
+          {(id) => <input id={id} className={inputCls} type="number" min={1} value={qty} onChange={(e) => setQty(e.target.value)} />}
+        </Field>
+        <Field label="Due">
+          {(id) => <input id={id} className={inputCls} type="date" value={due} onChange={(e) => setDue(e.target.value)} />}
+        </Field>
+        <Field label="Respond by" hint="Optional. After this the links say the offer has closed.">
+          {(id) => <input id={id} className={inputCls} type="datetime-local" value={respondBy} onChange={(e) => setRespondBy(e.target.value)} />}
+        </Field>
+        <Field label="Instructions" span hint="Goes in the email and onto the worker's phone with the task's own instructions.">
+          {(id) => <textarea id={id} className={textareaCls} rows={3} value={instructions} onChange={(e) => setInstructions(e.target.value)} />}
+        </Field>
+        {eligible.length > 0 && (
+          <CheckGroup
+            label={`Recipients (${recipients.length} of ${eligible.length})`}
+            hint="Everyone is ticked; untick anyone who should not get this one."
+            options={eligible.map((w) => ({
+              value: w.user_id as string,
+              label: w.display_name,
+              hint: [w.skill, w.open_assignments ? `${w.open_assignments} open` : null].filter(Boolean).join(" · ") || undefined,
+            }))}
+            value={recipients}
+            onChange={setPicked}
+          />
+        )}
+      </div>
+      {error && <Callout tone="critical" title={error} />}
+    </Dialog>
+  );
+}
+
+/* --- the latest offer, as the aggregator sees it ------------------------------ */
+
+function OfferPanel({ offer, onClose, busy }: { offer: TaskOffer; onClose: () => void; busy: boolean }) {
+  const m = statusMeta(offerStatus, offer.effective_status);
+  const label = (r: TaskOffer["recipients"][number]) =>
+    r.response === "accepted" ? { text: "Accepted", tone: "success" as const }
+    : r.response === "declined" ? { text: "Declined", tone: "neutral" as const }
+    : r.send_error ? { text: "Not sent", tone: "critical" as const }
+    : r.sent_at ? { text: "Waiting", tone: "attention" as const }
+    : { text: "Queued", tone: "neutral" as const };
+  return (
+    <div className="panel" style={{ marginBottom: 14 }}>
+      <div className="panel-body" style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+          <div className="eyebrow">Offer to the crowd</div>
+          <Pill tone={m.tone}>{m.label}</Pill>
+          <span className="small muted">
+            {offer.accepted_count} / {offer.worker_limit} places · {offer.quantity} each · respond by {fmtDateTime(offer.respond_by)}
+          </span>
+          <span style={{ flex: 1 }} />
+          {offer.effective_status === "open" && (
+            <Button size="sm" variant="danger" disabled={busy} onClick={onClose}>Close offer</Button>
+          )}
+        </div>
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+          {offer.recipients.map((r) => {
+            const l = label(r);
+            return (
+              <span key={r.id} className="chip" title={r.send_error ?? (r.responded_at ? fmtDateTime(r.responded_at) : r.email)}>
+                {r.worker_name ?? r.email} · <Pill tone={l.tone}>{l.text}</Pill>
+              </span>
+            );
+          })}
+        </div>
+        {offer.recipients.some((r) => r.send_error) && (
+          <Callout tone="attention" title="Some emails did not go out">
+            {offer.recipients.filter((r) => r.send_error).map((r) => `${r.worker_name ?? r.email}: ${r.send_error}`).join(" · ")}
+          </Callout>
+        )}
+      </div>
+    </div>
+  );
+}
+
 /* --- the task's workers: progress, gate 1, cancel, reopen ---------------------- */
 
 export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: () => void }) {
   const qc = useQueryClient();
   const rows = useTaskAssignments(task.id);
   const taskAssets = useTaskAssets(task.id);
+  const offers = useTaskOffers(task.id);
   const [assigning, setAssigning] = useState(false);
+  const [offering, setOffering] = useState(false);
   const [deciding, setDeciding] = useState<Assignment | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -201,9 +384,17 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
     onSuccess: () => void qc.invalidateQueries(),
     onError: (e) => setError(e instanceof Error ? e.message : "Could not update the assignment"),
   });
+  const closeOffer = useMutation({
+    mutationFn: (id: string) => post(`/offers/${id}/close`, {}),
+    onSuccess: () => void qc.invalidateQueries({ queryKey: ["offers", task.id] }),
+    onError: (e) => setError(e instanceof Error ? e.message : "Could not close the offer"),
+  });
 
   if (assigning) {
     return <AssignWorkersDialog task={task} onClose={() => setAssigning(false)} onDone={() => setAssigning(false)} />;
+  }
+  if (offering) {
+    return <OfferTaskDialog task={task} onClose={() => setOffering(false)} onDone={() => setOffering(false)} />;
   }
   if (deciding) {
     return (
@@ -225,6 +416,8 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
   const ready = list.reduce((s, a) => s + a.assets.ready, 0);
   const canAssign = ["assigned", "in_progress", "qa_failed"].includes(task.status);
   const unit = task.target_unit ?? "units";
+  const latest = offers.data?.[0] ?? null;
+  const offerOpen = latest?.effective_status === "open";
 
   return (
     <Dialog
@@ -235,8 +428,16 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
       foot={
         <>
           <Button onClick={onClose}>Close</Button>
-          <Button variant="primary" disabled={!canAssign} title={canAssign ? undefined : `A ${task.status.replace("_", " ")} task cannot take new assignments`} onClick={() => setAssigning(true)}>
+          <Button disabled={!canAssign} title={canAssign ? undefined : `A ${task.status.replace("_", " ")} task cannot take new assignments`} onClick={() => setAssigning(true)}>
             Assign a worker
+          </Button>
+          <Button
+            variant="primary"
+            disabled={!canAssign || offerOpen}
+            title={!canAssign ? `A ${task.status.replace("_", " ")} task cannot be offered` : offerOpen ? "Close the open offer first" : undefined}
+            onClick={() => setOffering(true)}
+          >
+            Offer to crowd
           </Button>
         </>
       }
@@ -247,8 +448,19 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
         <Metric label="Captures ready" value={ready} />
         <Metric label="Awaiting your review" value={awaiting} />
       </div>
+      {latest && <OfferPanel offer={latest} busy={closeOffer.isPending} onClose={() => closeOffer.mutate(latest.id)} />}
+      {offers.data && offers.data.length > 1 && (
+        <details className="small muted" style={{ marginBottom: 12 }}>
+          <summary>{offers.data.length - 1} earlier offer{offers.data.length > 2 ? "s" : ""}</summary>
+          {offers.data.slice(1).map((o) => (
+            <div key={o.id} style={{ marginTop: 6 }}>
+              {fmtDateTime(o.created_at)} · {statusMeta(offerStatus, o.effective_status).label} · {o.accepted_count} / {o.worker_limit} places · {o.quantity} {unit} each
+            </div>
+          ))}
+        </details>
+      )}
       {list.length === 0 ? (
-        <Empty title="No workers assigned yet" hint="Split the task among your crowd; each worker captures on their phone." />
+        <Empty title="No workers assigned yet" hint="Offer the task to the crowd, or assign a worker directly; each worker captures on their phone or uploads from here." />
       ) : (
         <TableWrap>
           <table>
