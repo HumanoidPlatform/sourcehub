@@ -57,6 +57,19 @@ export interface CaptureSpec {
   [key: string]: unknown;
 }
 
+/** A file attached to a task or to the client's request. */
+export interface Attachment {
+  id: string;
+  slot: string;
+  filename: string;
+  content_type: string | null;
+  size_bytes: number | null;
+  doc_no?: number;
+  version?: number;
+  /** false on an earlier version of a document that has since been replaced */
+  is_current?: boolean;
+}
+
 export interface Assignment {
   id: string;
   task_id: string;
@@ -80,6 +93,11 @@ export interface Assignment {
     target_unit: string | null;
     due_on: string | null;
     status: string;
+    /** the coordinator's own files: a shot list, a site map */
+    attachments?: Attachment[];
+    /** the client's guidelines, capture examples and acceptance criteria.
+     *  Which slots arrive is the server's decision, not the app's. */
+    client_documents?: Attachment[];
   };
 }
 

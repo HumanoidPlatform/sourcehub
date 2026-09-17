@@ -10,6 +10,7 @@ import { useEffect, useRef, useState, type DragEvent } from "react";
 import { del, post } from "@api/client";
 import type { Assignment, AssetRow, CaptureSpec } from "@api/types";
 import { Button, Callout, Dialog, Dl, Field, Meter, Pill, textareaCls, useToast } from "@ds/primitives";
+import { AttachmentList, slotRows } from "@shared/attachments";
 import { useSession } from "@shared/auth";
 import { fmtDate } from "@shared/format";
 import { can } from "@shared/rbac";
@@ -183,6 +184,14 @@ export function AssignmentUploadDialog({ assignment: a, onClose }: { assignment:
   const busy = queue.active > 0 || start.isPending || submit.isPending;
   const grouped = groupRefusals(queue.refusals);
   const caveats = unverifiable(spec);
+  // the coordinator's own files first, then the client's — a slot with nothing
+  // in it renders no row
+  const referenceRows: [string, React.ReactNode][] = [
+    ...((a.task.attachments ?? []).length
+      ? [["From your coordinator", <AttachmentList key="tf" items={a.task.attachments ?? []} />] as [string, React.ReactNode]]
+      : []),
+    ...slotRows(a.task.client_documents),
+  ];
 
   return (
     <Dialog
@@ -243,6 +252,15 @@ export function AssignmentUploadDialog({ assignment: a, onClose }: { assignment:
           )}
         </div>
       </div>
+
+      {/* The files behind the words. What gets a capture rejected is written in
+          these, and until now the person capturing was never shown them. */}
+      {referenceRows.length > 0 && (
+        <div style={{ marginTop: 12 }}>
+          <div className="eyebrow" style={{ marginBottom: 6 }}>Reference documents</div>
+          <Dl rows={referenceRows} />
+        </div>
+      )}
 
       {caveats.length > 0 && uploadable && (
         <Callout tone="attention" title="A reviewer will judge these on uploaded files">

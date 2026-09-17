@@ -13,7 +13,9 @@ import { useAssignmentAssets, useAssignments, useOutbox, useRejections } from "@
 import { assignmentStatus, meta, rejectionLabel } from "@/status";
 import { Button, C, Callout, Field, Meter, Pill, Screen, inputStyle, s } from "@/ui";
 import { uploader } from "@/upload/uploader";
+import { DocumentList } from "@/components/DocumentList";
 import { Gallery } from "@/components/Gallery";
+import { referenceSections } from "@/documents";
 
 export default function AssignmentDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -191,6 +193,8 @@ export default function AssignmentDetail() {
           {a.instructions ? <Text style={[s.body, { marginTop: a.task.instructions ? 8 : 0 }]}>{a.instructions}</Text> : null}
         </View>
       )}
+
+      <DocumentList sections={referenceSections(a.task)} />
 
       {stated.length > 0 && (
         <View style={s.card}>

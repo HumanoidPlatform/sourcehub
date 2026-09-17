@@ -15,6 +15,7 @@ import { useState } from "react";
 import { del, get, post, putFile } from "@api/client";
 import type { Attachment } from "@api/types";
 import { Field, FileField, useToast } from "@ds/primitives";
+import { fmtDate } from "@shared/format";
 
 export const MAX_ATTACHMENTS = 5;
 export const MAX_ATTACHMENT_BYTES = 25 * 1024 * 1024;
@@ -183,36 +184,100 @@ export function AttachmentsField({
  *  so the two do not share a component. */
 export function AttachmentList({ items, empty }: { items: Attachment[]; empty?: string }) {
   const toast = useToast();
+  // which documents have their earlier versions unfolded
+  const [open, setOpen] = useState<Record<string, boolean>>({});
   if (!items.length) return empty ? <span className="muted">{empty}</span> : null;
+
+  const download = (a: Attachment) => {
+    void (async () => {
+      try {
+        // Signed on demand and short-lived, so a link cannot be forwarded to
+        // someone the policy would refuse.
+        const u = await get<{ url: string }>(`/attachments/${a.id}/url`);
+        window.open(u.url, "_blank", "noopener");
+      } catch (e) {
+        toast("Download failed", e instanceof Error ? e.message : "", "critical");
+      }
+    })();
+  };
+
   return (
     <div className="filelist">
-      {items.map((a) => (
-        <div key={a.id} className="filelist-row">
-          <span className="filelist-name">{a.filename}</span>
-          <span className="filelist-size">{fmtSize(a.size_bytes)}</span>
-          <button
-            type="button"
-            className="btn"
-            data-size="sm"
-            onClick={() => {
-              void (async () => {
-                try {
-                  // Signed on demand and short-lived, so a link cannot be
-                  // forwarded to someone the policy would refuse.
-                  const u = await get<{ url: string }>(`/attachments/${a.id}/url`);
-                  window.open(u.url, "_blank", "noopener");
-                } catch (e) {
-                  toast("Download failed", e instanceof Error ? e.message : "", "critical");
-                }
-              })();
-            }}
-          >
-            Open
-          </button>
+      {documentsOf(items).map(({ key, current, earlier }) => (
+        <div key={key} style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+          <div className="filelist-row">
+            <span className="filelist-name">{current.filename}</span>
+            <span className="filelist-size">{fmtSize(current.size_bytes)}</span>
+            {earlier.length > 0 && (
+              // Every version is kept: what a partner priced against has to
+              // stay provable after award, so a revision never replaces.
+              <button
+                type="button"
+                className="btn"
+                data-size="sm"
+                aria-expanded={!!open[key]}
+                onClick={() => setOpen((o) => ({ ...o, [key]: !o[key] }))}
+              >
+                v{current.version} · {earlier.length} earlier
+              </button>
+            )}
+            <button type="button" className="btn" data-size="sm" onClick={() => download(current)}>
+              Open
+            </button>
+          </div>
+          {open[key] && earlier.map((a) => (
+            <div key={a.id} className="filelist-row" style={{ marginLeft: 16, opacity: 0.85 }}>
+              <span className="filelist-name">v{a.version} · {fmtDate(a.uploaded_at)}</span>
+              <span className="filelist-size">{fmtSize(a.size_bytes)}</span>
+              <button type="button" className="btn" data-size="sm" onClick={() => download(a)}>
+                Open
+              </button>
+            </div>
+          ))}
         </div>
       ))}
     </div>
   );
+}
+
+/** Rows grouped into documents: the newest version of each, and the earlier
+ *  ones beneath it, newest first. A row with no doc_no — an API that predates
+ *  versions — is simply its own document. */
+export function documentsOf(
+  items: Attachment[],
+): { key: string; current: Attachment; earlier: Attachment[] }[] {
+  const groups = new Map<string, Attachment[]>();
+  for (const a of items) {
+    const key = a.doc_no != null ? `${a.entity_id}:${a.slot}:${a.doc_no}` : a.id;
+    groups.set(key, [...(groups.get(key) ?? []), a]);
+  }
+  return [...groups.entries()].flatMap(([key, rows]) => {
+    const [current, ...earlier] = [...rows].sort((x, y) => (y.version ?? 0) - (x.version ?? 0));
+    return current ? [{ key, current, earlier }] : [];
+  });
+}
+
+/** A request's document slots, the ones a person capturing reaches for first
+ *  at the top (the server sends them in the same order). Which of these a viewer actually receives is the server's decision (db/150:
+ *  the brief stays with client and partner, compliance stops at the
+ *  aggregator) — a slot that comes back empty simply renders no row. */
+export const REQUEST_SLOTS: readonly (readonly [label: string, slot: string])[] = [
+  ["Brief", "brief"],
+  ["Guidelines", "guidelines"],
+  ["Capture examples", "capture_examples"],
+  ["Acceptance", "acceptance"],
+  ["Compliance", "compliance"],
+];
+
+/** Dl rows, one per slot that has files. Written once because the contract
+ *  page, the task dialog and the worker's page all show the same thing. */
+export function slotRows(items: Attachment[] | undefined): [string, React.ReactNode][] {
+  return REQUEST_SLOTS.flatMap(([label, slot]) => {
+    const inSlot = (items ?? []).filter((a) => a.slot === slot);
+    return inSlot.length
+      ? [[label, <AttachmentList key={slot} items={inSlot} />] as [string, React.ReactNode]]
+      : [];
+  });
 }
 
 function fmtSize(n: number): string {

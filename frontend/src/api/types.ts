@@ -232,6 +232,9 @@ export interface Task {
   status: string;
   due_on: string | null;
   attachments?: Attachment[];
+  // The client's guidelines, capture examples, acceptance and compliance
+  // documents. Never the brief; the server drops compliance for a worker.
+  client_documents?: Attachment[];
   last_submission: {
     id: string;
     attempt_no: number;
@@ -350,6 +353,10 @@ export interface Assignment {
     target_unit: string | null;
     due_on: string | null;
     status: string;
+    // the coordinator's own files (a shot list, a site map) …
+    attachments?: Attachment[];
+    // … and the client's working documents, as on Task
+    client_documents?: Attachment[];
   };
 }
 
@@ -573,4 +580,11 @@ export interface Attachment {
   content_type: string | null;
   size_bytes: number;
   uploaded_at: string;
+  /** Which document in the slot (1, 2, …) and which version of it. The same
+   *  filename uploaded again is the next version; every version is kept.
+   *  Optional only so a list still renders against an API that predates them. */
+  doc_no?: number;
+  version?: number;
+  /** the newest live version of its document */
+  is_current?: boolean;
 }

@@ -36,6 +36,15 @@ engine = create_async_engine(
     pool_size=settings.db_pool_size,
     max_overflow=settings.db_max_overflow,
     echo=settings.db_echo,
+    # The database is remote. A pooled connection that sat idle gets closed by
+    # something on the path (the server, a NAT, a load balancer) without the
+    # pool hearing about it, and the next request to draw it failed with
+    # "connection was closed in the middle of operation" — a 500 on whatever
+    # came first after a quiet spell, usually a login. pre_ping tests a
+    # connection as it is checked out and replaces a dead one silently;
+    # recycle retires connections before the usual idle cut-offs are reached.
+    pool_pre_ping=True,
+    pool_recycle=1800,
 )
 
 SessionLocal = async_sessionmaker(engine, expire_on_commit=False)

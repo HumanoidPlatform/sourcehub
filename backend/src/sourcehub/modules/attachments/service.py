@@ -52,7 +52,7 @@ _EXTENSIONS = {
 
 _COLUMNS = (
     "id, entity_type, entity_id, slot, owner_org_id, filename, "
-    "content_type, size_bytes, uploaded_at"
+    "content_type, size_bytes, uploaded_at, doc_no, version"
 )
 
 
@@ -127,14 +127,17 @@ async def attach(
     # Resolved once: every item in a call hangs off the same parent, and this
     # is the point at which that parent finally has a client and a reference.
     try:
-        folder = await folders.folder_for(session, entity_type, entity_id)
+        filing = await folders.folder_for(session, entity_type, entity_id)
     except LookupError:
         raise AttachmentError("There is no request to file these against.") from None
     except ValueError as e:
         raise AttachmentError(str(e)) from None
 
     out: list[dict[str, Any]] = []
-    by_slot: dict[str, int] = {}
+    # Per slot: every (doc_no, version, filename, live) already numbered there,
+    # soft-deleted rows included, plus what this call has added so far — two
+    # files for one slot in a single save must not be given the same number.
+    numbered: dict[str, list[tuple[int, int, str, bool]]] = {}
 
     for item in items:
         key: str = item["storage_key"]
@@ -157,51 +160,86 @@ async def attach(
         if size <= 0 or size > MAX_BYTES:
             raise AttachmentError(f"{safe} exceeds the 25 MB cap.")
 
-        existing = (
+        if slot not in numbered:
+            # One writer at a time per parent+slot, held to the end of the
+            # transaction — the same advisory-lock shape the audit chain uses.
+            # Without it two concurrent saves read the same numbers and mint
+            # the same (doc_no, version); the unique index would then refuse
+            # one of them only after its file had already been moved.
             await session.execute(
-                text(
-                    "SELECT count(*) FROM attachment "
-                    "WHERE entity_type = CAST(:t AS attachment_entity) "
-                    "  AND entity_id = :e AND slot = :s AND deleted_at IS NULL"
-                ),
-                {"t": entity_type, "e": entity_id, "s": slot},
+                text("SELECT pg_advisory_xact_lock(hashtextextended(:k, 0))"),
+                {"k": f"attachment:{entity_type}:{entity_id}:{slot}"},
             )
-        ).scalar_one()
-        by_slot[slot] = by_slot.get(slot, 0) + 1
-        if existing + by_slot[slot] > MAX_PER_SLOT:
+            rows = (
+                await session.execute(
+                    text(
+                        "SELECT doc_no, version, filename, deleted_at IS NULL AS live "
+                        "FROM attachment "
+                        "WHERE entity_type = CAST(:t AS attachment_entity) "
+                        "  AND entity_id = :e AND slot = :s"
+                    ),
+                    {"t": entity_type, "e": entity_id, "s": slot},
+                )
+            ).all()
+            numbered[slot] = [(r.doc_no, r.version, r.filename, r.live) for r in rows]
+
+        known = numbered[slot]
+        doc_no, version = folders.next_numbers(((d, v, n) for d, v, n, _ in known), safe)
+
+        # The cap is on DOCUMENTS, not rows: a fifth revision of one DPA is
+        # still one document, and must not fill the slot.
+        live_docs = {d for d, _, _, live in known if live}
+        if doc_no not in live_docs and len(live_docs) + 1 > MAX_PER_SLOT:
             raise AttachmentError(f"At most {MAX_PER_SLOT} attachments per field.")
+
+        name = folders.stored_name(filing.rfp_ref, filing.scope_ref, slot, doc_no, version, safe)
+        wanted = f"{filing.base}/{folders.subfolder(entity_type, filing, slot)}/{name}"
 
         # Last, once the file has passed every check: storage is outside the
         # transaction, so a move made before a rejection could not be undone.
-        final = await folders.move_into(target, key, folder, slot, safe)
+        try:
+            final = await folders.move_into(target, key, wanted)
+        except folders.NoFreeNameError:
+            raise AttachmentError(f"Could not file {safe}; try the upload again.") from None
 
         row = (
             await session.execute(
                 text(
                     "INSERT INTO attachment "
                     "  (entity_type, entity_id, slot, owner_org_id, filename, storage_key, "
-                    "   content_type, size_bytes, uploaded_by) "
+                    "   content_type, size_bytes, uploaded_by, doc_no, version) "
                     "VALUES (CAST(:t AS attachment_entity), :e, :s, :org, :name, :key, "
-                    "        :ct, :size, :who) "
-                    "ON CONFLICT (storage_key) DO NOTHING "
+                    "        :ct, :size, :who, :doc, :ver) "
+                    "ON CONFLICT DO NOTHING "
                     f"RETURNING {_COLUMNS}"
                 ),
                 {
                     "t": entity_type, "e": entity_id, "s": slot, "org": claims.org_id,
                     "name": safe, "key": final, "ct": item.get("content_type") or stored_ct,
-                    "size": size, "who": claims.user_id,
+                    "size": size, "who": claims.user_id, "doc": doc_no, "ver": version,
                 },
             )
         ).mappings().one_or_none()
-        if row is not None:
-            out.append(_row(row))
+        if row is None:
+            # Used to be dropped in silence, leaving a moved file with no row
+            # pointing at it. Under the lock it should not happen; if it does,
+            # the save is refused rather than half-recorded.
+            raise AttachmentError(f"Could not record {safe}; try the upload again.")
+        known.append((doc_no, version, safe, True))
+        out.append({**_row(row), "is_current": True})
     return out
 
 
 async def list_for(
     session: AsyncSession, entity_type: str, entity_ids: list[uuid.UUID]
 ) -> dict[uuid.UUID, list[dict[str, Any]]]:
-    """Attachments for several entities at once, grouped by entity then slot.
+    """Attachments for several entities at once, grouped by entity, then ordered
+    by slot, document and newest version first.
+
+    Every live version comes back, with is_current marking the newest of each
+    document: the console shows that one and lists the earlier ones beneath it.
+    "Current" is derived from the rows that are still live, never stored, so
+    removing v3 makes v2 current again with nothing to keep in step.
 
     One query rather than one per row: a proposals table would otherwise issue
     a request per bid just to show a paperclip.
@@ -211,9 +249,13 @@ async def list_for(
     rows = (
         await session.execute(
             text(
-                f"SELECT {_COLUMNS} FROM attachment "
+                f"SELECT {_COLUMNS}, "
+                "       version = max(version) OVER (PARTITION BY entity_id, slot, doc_no) "
+                "         AS is_current "
+                "FROM attachment "
                 "WHERE entity_type = CAST(:t AS attachment_entity) AND entity_id = ANY(:ids) "
-                "  AND deleted_at IS NULL ORDER BY uploaded_at"
+                "  AND deleted_at IS NULL "
+                "ORDER BY entity_id, slot, doc_no, version DESC"
             ),
             {"t": entity_type, "ids": entity_ids},
         )

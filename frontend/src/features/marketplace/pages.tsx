@@ -1271,6 +1271,9 @@ export function RequestDetailPage() {
 
   const meta = statusMeta(requestStatus, r.status);
   const docs = r.attachments ?? [];
+  // The client's own written spec. The intake form promises "every bidder can
+  // read it" — and until now this page never showed it to anyone.
+  const briefDocs = docs.filter((a) => a.slot === "brief");
   const complianceDocs = docs.filter((a) => a.slot === "compliance");
   const acceptanceDocs = docs.filter((a) => a.slot === "acceptance");
   // What request_sample used to hold. Both are the brief's reference material,
@@ -1361,6 +1364,9 @@ export function RequestDetailPage() {
               r.spec.countries.length ? r.spec.countries.join(", ") : null,
               r.spec.location_type ? labelOf(LOCATION_TYPES, r.spec.location_type) : null,
             ].filter(Boolean).join(" · ") || "—"],
+            ...(briefDocs.length
+              ? [["Brief", <AttachmentList key="br" items={briefDocs} />] as [string, React.ReactNode]]
+              : []),
             ...(captureExampleDocs.length
               ? [["Capture examples", <AttachmentList key="ce" items={captureExampleDocs} />] as [string, React.ReactNode]]
               : []),

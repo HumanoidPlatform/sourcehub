@@ -11,7 +11,7 @@ import {
   Pill, TableWrap, textareaCls, useToast, View,
 } from "@ds/primitives";
 import {
-  AttachmentList, AttachmentsField, attachmentPayload, type AttachmentDraft,
+  AttachmentList, AttachmentsField, attachmentPayload, slotRows, type AttachmentDraft,
 } from "@shared/attachments";
 import { useSession } from "@shared/auth";
 import { fmtDate, fmtDateTime, mediaList, money, taskTarget } from "@shared/format";
@@ -109,6 +109,17 @@ export function ContractDetailPage() {
     queryFn: () => get<ActivityRow[]>(`/activity?scope_id=${id}&limit=15`),
     enabled: !!id,
   });
+  // The request this contract came from, for the documents the client attached
+  // to it. Once awarded the request leaves Opportunities, and this page is
+  // where the partner works — without this the brief they priced and the rules
+  // they are judged against were three clicks away through Proposals. Same key
+  // as AssignTaskDialog, so the two share one response.
+  const requestId = contract.data?.request_id;
+  const brief = useQuery({
+    queryKey: ["request", requestId],
+    queryFn: () => get<Rfp>(`/requests/${requestId}`),
+    enabled: !!requestId,
+  });
 
   const deliver = useMutation({
     mutationFn: () => post<Contract>(`/contracts/${id}/deliver`),
@@ -126,6 +137,8 @@ export function ContractDetailPage() {
   const isPartner = session.org_id === c.partner_org_id;
   const isClient = session.org_id === c.client_org_id;
   const rubric = (c.rubric_snapshot ?? {}) as { acceptance?: string; compliance?: string };
+  // A slot with no files renders no row, and no documents at all no panel.
+  const clientDocRows = slotRows(brief.data?.attachments);
 
   return (
     <View
@@ -187,6 +200,18 @@ export function ContractDetailPage() {
           </TableWrap>
         )}
       </Panel>
+
+      {clientDocRows.length > 0 && (
+        <Panel
+          title="Client's documents"
+          sub={isClient
+            ? "What you attached to the request. The partner works from these."
+            : "What the client attached to the request — the brief you priced and the rules the work is judged against."}
+          actions={<Link className="btn" data-size="sm" to={`/requests/${c.request_id}`}>Open request</Link>}
+        >
+          <Dl rows={clientDocRows} />
+        </Panel>
+      )}
 
       <div className="g2">
         <Panel title="Rubric snapshot" sub="Frozen at award. Disputes are arbitrated against this, not the request as it reads today.">
@@ -489,6 +514,10 @@ function TaskDetailDialog({ t, onClose }: { t: Task; onClose: () => void }) {
         ...((t.attachments ?? []).length
           ? ([["Attached", <AttachmentList key="ta" items={t.attachments ?? []} />]] as [string, React.ReactNode][])
           : []),
+        // What the client attached for whoever does the work. The server
+        // decides which of these this viewer gets: never the brief, and the
+        // compliance papers stop at the aggregator.
+        ...slotRows(t.client_documents),
         ["Due", fmtDate(t.due_on)],
         ["Status", <Pill key="s" tone={tm.tone}>{tm.label}</Pill>],
         ...(summary && summary.total - summary.cancelled > 0

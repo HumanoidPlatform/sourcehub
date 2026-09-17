@@ -28,7 +28,8 @@ mkdir -p "$OUT"
 STRUCTURE="000_extensions 001_conventions 010_identity 020_rbac 030_onboarding
            035_storage 040_marketplace 050_delivery 060_qa 070_network
            080_ledger 090_notify_audit 095_attachments 100_rls
-           110_auth_functions 120_workers_media"
+           110_auth_functions 120_workers_media 130_task_offers
+           140_attachment_layout 150_downstream_documents"
 
 # Required, and not demo data: without these there is no capability
 # vocabulary, no role to grant, and nobody who can approve anything.

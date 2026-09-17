@@ -206,6 +206,58 @@ async def _task_files(session: AsyncSession, task_id: uuid.UUID) -> list[dict[st
     return grouped.get(task_id, [])
 
 
+# What a client attaches for whoever ends up doing the work, the ones a person
+# capturing reaches for first at the top. NOT the brief: that carries the commercial terms and
+# stays between the client and the partner.
+#
+# Who may read which of these is db/150's decision, not this module's — an
+# aggregator gets all four, a worker everything but compliance, and both only
+# for work that has actually come down to them. This list exists because the
+# partner and the client can read the brief too, and a task should describe the
+# same set of documents whoever is looking at it.
+WORKING_SLOTS = ("guidelines", "capture_examples", "acceptance", "compliance")
+
+
+def working_documents(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """The request's attachments that travel with a task, grouped in slot order.
+    Within a slot the order list_for gave (document, newest version first) is kept."""
+    order = {slot: i for i, slot in enumerate(WORKING_SLOTS)}
+    kept = [r for r in rows if r.get("slot") in order]
+    return sorted(kept, key=lambda r: order[r["slot"]])  # sorted() is stable
+
+
+async def _client_documents(
+    session: AsyncSession, task_ids: list[uuid.UUID]
+) -> dict[uuid.UUID, list[dict[str, Any]]]:
+    """The client's working documents for several tasks at once, keyed by task.
+
+    task_request_id() is a definer function because a worker cannot read
+    contract to get from a task to its request; it answers only for a task the
+    caller can see. Two queries however many tasks, since tasks on one contract
+    share a request.
+    """
+    from sourcehub.modules.attachments import service as attachments
+
+    ids = list(dict.fromkeys(task_ids))
+    if not ids:
+        return {}
+    pairs = (
+        await session.execute(
+            text(
+                "SELECT t.id AS task_id, task_request_id(t.id) AS request_id "
+                "FROM unnest(CAST(:ids AS uuid[])) AS t(id)"
+            ),
+            {"ids": ids},
+        )
+    ).all()
+    request_of = {p.task_id: p.request_id for p in pairs if p.request_id is not None}
+    by_request = await attachments.list_for(session, "request", list(set(request_of.values())))
+    return {
+        task_id: working_documents(by_request.get(request_id, []))
+        for task_id, request_id in request_of.items()
+    }
+
+
 async def _task_row(session: AsyncSession, t: Task) -> dict[str, Any]:
     """The task as the console shows it. The two summaries roll up the worker
     assignments and the captures; a client, who may never see a roster, gets
@@ -263,6 +315,7 @@ async def _task_row(session: AsyncSession, t: Task) -> dict[str, Any]:
         "status": t.status,
         "due_on": t.due_on,
         "attachments": (await _task_files(session, t.id)),
+        "client_documents": (await _client_documents(session, [t.id])).get(t.id, []),
         "last_submission": extra.get("last_submission"),
         "assignment_summary": extra.get("assignment_summary"),
         "asset_summary": extra.get("asset_summary"),
@@ -612,10 +665,23 @@ def _assignment_dict(r: Any) -> dict[str, Any]:
 async def _assignments(
     session: AsyncSession, where: str, params: dict[str, Any], order: str = "a.assigned_at"
 ) -> list[dict[str, Any]]:
+    from sourcehub.modules.attachments import service as attachments
+
     rows = (
         await session.execute(text(_ASSIGNMENT_ROWS + "WHERE " + where + " ORDER BY " + order), params)
     ).mappings().all()
-    return [_assignment_dict(r) for r in rows]
+    out = [_assignment_dict(r) for r in rows]
+    # The files behind the words: the coordinator's own (a shot list, a site
+    # map) and the client's working documents. The phone is who needs both, and
+    # until now this payload carried neither. Batched per distinct task — a
+    # worker's list is usually several assignments on a handful of tasks.
+    task_ids = list({a["task_id"] for a in out})
+    task_files = await attachments.list_for(session, "task", task_ids)
+    client_docs = await _client_documents(session, task_ids)
+    for a in out:
+        a["task"]["attachments"] = task_files.get(a["task_id"], [])
+        a["task"]["client_documents"] = client_docs.get(a["task_id"], [])
+    return out
 
 
 async def _assignment_by_id(session: AsyncSession, assignment_id: uuid.UUID) -> dict[str, Any]:

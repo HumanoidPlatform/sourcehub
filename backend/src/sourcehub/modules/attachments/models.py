@@ -9,7 +9,7 @@ from __future__ import annotations
 import datetime as dt
 import uuid
 
-from sqlalchemy import BigInteger, DateTime, ForeignKey, Text, text
+from sqlalchemy import BigInteger, DateTime, ForeignKey, SmallInteger, Text, text
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -43,3 +43,9 @@ class Attachment(Base):
     uploaded_by: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("app_user.id"))
     uploaded_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
     deleted_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
+
+    # Which DOCUMENT in the slot this is, and which VERSION of it. The same
+    # filename uploaded again is the next version; numbers are never reused,
+    # so both count soft-deleted rows (db/140_attachment_layout.sql).
+    doc_no: Mapped[int] = mapped_column(SmallInteger)
+    version: Mapped[int] = mapped_column(SmallInteger)
