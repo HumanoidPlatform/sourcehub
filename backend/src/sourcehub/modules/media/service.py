@@ -86,6 +86,45 @@ def _safe_filename(name: str) -> tuple[str, str]:
     raise MediaInvalid(f"Captures of type {ext} are not accepted.")
 
 
+def _capture_name(
+    *,
+    contract_ref: str | None,
+    task_ref: str | None,
+    aggregator_ref: str | None,
+    worker_ref: str | None,
+    worker_user_id: uuid.UUID,
+    asset_id: uuid.UUID,
+    ext: str,
+) -> str:
+    """One flat, self-describing name per capture, straight under the client's
+    prefix — no folders:
+
+        CTR-05_TSK-06_AG-04_WKR-13_ef051366.jpg
+
+    contract, task, aggregator, worker, then the first 8 hex of the asset id
+    for uniqueness. Fields are joined with '_' and never contain one (reference
+    codes use '-'), so name.split('_') recovers every part, and a plain sort
+    groups by contract, then task, then aggregator, then worker. Capture time
+    is deliberately not in the name; it lives on the row.
+
+    Reference codes, not names: a worker's display name changes and needs
+    sanitising, a code does neither. A worker with no roster row falls back to
+    a fragment of their user id. A missing contract, task or aggregator code is
+    a data error and refuses the presign rather than minting a half name.
+    """
+    missing = [
+        label for label, ref in (
+            ("contract", contract_ref), ("task", task_ref), ("aggregator", aggregator_ref),
+        ) if not ref
+    ]
+    if missing:
+        raise MediaError(f"This assignment has no {', '.join(missing)} reference code.")
+    who = worker_ref or f"U-{worker_user_id.hex[:8]}"
+    fields = (contract_ref, task_ref, aggregator_ref, who, asset_id.hex[:8])
+    # '_' is the separator; a stray one inside a field would break the split.
+    return "_".join(str(f).replace("_", "-") for f in fields) + f".{ext.lower().lstrip('.')}"
+
+
 def _asset_dict(r: Any) -> dict[str, Any]:
     return {
         "id": r["id"],
@@ -162,13 +201,24 @@ def _allowed_kinds(capture_spec: dict[str, Any] | None, target_unit: str | None)
 async def _assignment_for_upload(
     session: AsyncSession, claims: AccessClaims, assignment_id: uuid.UUID
 ) -> dict[str, Any]:
+    # The three LEFT JOINs fetch the reference codes the capture's filename is
+    # built from. Task, the worker's own organisation and their own roster row
+    # are readable in the worker's RLS context; the CONTRACT is not (a worker
+    # session cannot read a contract — see db/120_workers_media.sql), so that
+    # one join comes back NULL and _contract_ref fills it under elevation.
     a = (
         await session.execute(
             text(
                 "SELECT ta.id, ta.task_id, ta.contract_id, ta.supplier_org_id, "
                 "       ta.worker_user_id, ta.status, ta.quantity, "
-                "       t.target_unit, t.capture_spec "
-                "FROM task_assignment ta JOIN task t ON t.id = ta.task_id "
+                "       t.target_unit, t.capture_spec, "
+                "       c.reference_code AS contract_ref, t.reference_code AS task_ref, "
+                "       o.reference_code AS aggregator_ref, w.reference_code AS worker_ref "
+                "FROM task_assignment ta "
+                "JOIN task t ON t.id = ta.task_id "
+                "LEFT JOIN contract c ON c.id = ta.contract_id "
+                "LEFT JOIN organisation o ON o.id = ta.supplier_org_id "
+                "LEFT JOIN crowd_worker w ON w.user_id = ta.worker_user_id "
                 "WHERE ta.id = :a"
             ),
             {"a": assignment_id},
@@ -180,7 +230,45 @@ async def _assignment_for_upload(
         raise MediaError("Start the assignment before uploading.")
     if a["status"] != "in_progress":
         raise MediaError(f"A {a['status']} assignment cannot take uploads.")
-    return dict(a)
+    row = dict(a)
+    if row.get("contract_ref") is None:
+        row["contract_ref"] = await _contract_ref(session, row["contract_id"])
+    return row
+
+
+async def _contract_ref(session: AsyncSession, contract_id: uuid.UUID) -> str | None:
+    """The contract's reference code, read past the worker's RLS.
+
+    A worker session is deliberately blind to contract rows, but the capture's
+    filename carries the contract code so the client can group their own
+    bucket by it. This borrows the ledger's shape: swap the transaction's
+    context to the platform for one SELECT and put it back. set_config is
+    transaction-local, so even a failure between the two leaves nothing
+    behind past the request. The caller has already proved the assignment is
+    the worker's own, which is the only authorisation this read needs.
+    """
+    prev = (
+        await session.execute(
+            text("SELECT current_setting('app.org_id', true), current_setting('app.role', true)")
+        )
+    ).one()
+    await session.execute(
+        text(
+            "SELECT set_config('app.org_id', platform_org_id()::text, true), "
+            "set_config('app.role', 'platform_admin', true)"
+        )
+    )
+    try:
+        return (
+            await session.execute(
+                text("SELECT reference_code FROM contract WHERE id = :c"), {"c": contract_id}
+            )
+        ).scalar_one_or_none()
+    finally:
+        await session.execute(
+            text("SELECT set_config('app.org_id', :o, true), set_config('app.role', :r, true)"),
+            {"o": prev[0] or "", "r": prev[1] or ""},
+        )
 
 
 def _to_numeric(v: float | None) -> Decimal | None:
@@ -279,11 +367,32 @@ async def presign_capture(
             "Remove one before adding another."
         )
 
-    asset_id = uuid.uuid4()
-    # The client's prefix, then our layout. They browse this bucket themselves.
-    key = target.key(
-        f"captures/{a['contract_id']}/{a['task_id']}/{assignment_id}/{asset_id}/{safe}"
-    )
+    # The client's prefix, then one flat name that says what the file is (see
+    # _capture_name). They browse this bucket themselves, and a folder called
+    # a08487fe-8a1d-4181-… told them nothing. Uniqueness in a flat folder rests
+    # on the asset-id fragment in the name, so the key is checked before use:
+    # a clash can only be with this worker's own captures on the same task —
+    # every other field differs — and those are exactly the rows the worker's
+    # RLS context can see.
+    ext = safe.rsplit(".", 1)[-1]
+    for _ in range(3):
+        asset_id = uuid.uuid4()
+        name = _capture_name(
+            contract_ref=a.get("contract_ref"), task_ref=a.get("task_ref"),
+            aggregator_ref=a.get("aggregator_ref"), worker_ref=a.get("worker_ref"),
+            worker_user_id=claims.user_id, asset_id=asset_id, ext=ext,
+        )
+        key = target.key(name)
+        taken = (
+            await session.execute(
+                text("SELECT 1 FROM asset WHERE storage_key = :k LIMIT 1"), {"k": key}
+            )
+        ).scalar_one_or_none()
+        if taken is None:
+            break
+    else:
+        raise MediaError("Could not mint a unique name for this capture; try again.")
+    safe = name  # what the bucket holds is what every gallery shows
     await session.execute(
         text(
             "INSERT INTO asset (id, task_id, assignment_id, captured_by_user_id, supplier_org_id, "
