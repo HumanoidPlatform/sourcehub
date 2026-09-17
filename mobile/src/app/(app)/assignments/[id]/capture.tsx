@@ -4,11 +4,11 @@
 import { CameraView, useCameraPermissions, useMicrophonePermissions } from "expo-camera";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useRef, useState } from "react";
-import { Linking, Pressable, StyleSheet, Text, View } from "react-native";
+import { Alert, Linking, Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ensureLocationPermission } from "@/capture/location";
 import { type Tilt, watchTilt } from "@/capture/tilt";
-import { CaptureRejected, useCapture } from "@/capture/useCapture";
+import { type CaptureOutcome, CaptureRejected, useCapture } from "@/capture/useCapture";
 import { MAX_VIDEO_SECONDS } from "@/config";
 import { useAssignments } from "@/query/hooks";
 import { TONE_COLOR } from "@/status";
@@ -116,6 +116,20 @@ export default function Capture() {
     setNotice(warnings.length > 0 ? warnings.map((w) => w.message).join(" ") : null);
   };
 
+  // The subject check is the one verdict the worker answers themselves: the
+  // file waits on disk until they do. Keep queues it, warning attached, for
+  // the reviewer to see; Retake throws it away and counts the refusal.
+  const settle = (o: CaptureOutcome) => {
+    if (o.kept) {
+      kept(o.findings);
+      return;
+    }
+    Alert.alert(`Doesn't look like ${spec?.subject?.domain ?? "the subject"}`, `${o.finding.message} Keep it anyway, or shoot it again?`, [
+      { text: "Retake", style: "destructive", onPress: () => void o.retake().then(() => setNotice(null)) },
+      { text: "Keep", onPress: () => void o.keep().then(kept) },
+    ]);
+  };
+
   const shoot = async () => {
     if (!cam.current || busy) return;
     setError(null);
@@ -124,7 +138,10 @@ export default function Capture() {
         setBusy(true);
         const photo = await cam.current.takePictureAsync({ quality: 0.9, exif: true, skipProcessing: false });
         if (photo?.uri) {
-          kept(await save({ uri: photo.uri, width: photo.width, height: photo.height }, "photo", tilt.current));
+          // The stored frame's dimensions plus the tag that says which way
+          // up it is; rules.ts reads the two together.
+          const exifOrientation = typeof photo.exif?.Orientation === "number" ? photo.exif.Orientation : null;
+          settle(await save({ uri: photo.uri, width: photo.width, height: photo.height, exifOrientation }, "photo", tilt.current));
         }
       } else if (!recording) {
         if (!micPerm?.granted) {
@@ -143,7 +160,7 @@ export default function Capture() {
         setRecording(false);
         if (video?.uri) {
           setBusy(true);
-          kept(await save({ uri: video.uri }, "video", held));
+          settle(await save({ uri: video.uri }, "video", held));
         }
       } else {
         cam.current.stopRecording();

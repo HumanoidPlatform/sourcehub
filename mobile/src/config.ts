@@ -8,6 +8,11 @@ export const MAX_VIDEO_BYTES = 100 * 1024 * 1024;
 export const MAX_VIDEO_SECONDS = 60;
 /** a fix looser than this is a cell tower, not a location — warn, don't block */
 export const MAX_FIX_ACCURACY_M = 100;
+/** subject score (validation/subject.ts) under which a photo probably shows
+ *  the wrong thing; a starting point, to be set from gate-1 verdicts */
+export const SUBJECT_OFF = 0.3;
+/** false = shadow mode: score and report, never ask the worker */
+export const SUBJECT_DIALOG = true;
 
 /** how often the app re-asks the server while in the foreground */
 export const POLL_MS = 30_000;

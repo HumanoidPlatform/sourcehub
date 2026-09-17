@@ -10,9 +10,11 @@ import * as Crypto from "expo-crypto";
 import { useCallback } from "react";
 import { loadSession } from "@/api/client";
 import type { CaptureSpec } from "@/api/types";
+import { SUBJECT_DIALOG } from "@/config";
 import { insertCapture, recordRejections } from "@/db/outbox";
 import { uploader } from "@/upload/uploader";
 import { blocking, checkCapture, type Finding } from "@/validation/rules";
+import { labelImage, scoreSubject, subjectFinding } from "@/validation/subject";
 import { deleteLocal, moveIntoPrivateDir } from "./files";
 import { currentFix } from "./location";
 import type { Tilt } from "./tilt";
@@ -22,6 +24,8 @@ export interface CameraResult {
   /** expo-camera reports these on a photo; a recording does not carry them */
   width?: number;
   height?: number;
+  /** EXIF Orientation of the photo, when the camera wrote one */
+  exifOrientation?: number | null;
 }
 
 /** thrown when the server would certainly refuse the file; the capture screen
@@ -32,6 +36,17 @@ export class CaptureRejected extends Error {
     this.name = "CaptureRejected";
   }
 }
+
+/** What became of a capture.
+ *
+ * `kept` is the ordinary case: queued, with any warnings. `unsure` is the
+ * subject check's verdict — the file is on disk but NOT queued, and the
+ * caller asks the worker: keep() queues it with the warning attached,
+ * retake() records the refusal and deletes it. Both must be called at most
+ * once; neither, and the file is an orphan until the app is reinstalled. */
+export type CaptureOutcome =
+  | { kept: true; findings: Finding[] }
+  | { kept: false; finding: Finding; keep(): Promise<Finding[]>; retake(): Promise<void> };
 
 function stamp(d: Date): string {
   const p = (n: number) => String(n).padStart(2, "0");
@@ -47,7 +62,7 @@ export function useCapture(
   return useCallback(
     // tilt is sampled by the caller, not read here: an async read after the
     // shutter measures where the phone ended up, not where it was.
-    async (result: CameraResult, kind: "photo" | "video", tilt?: Tilt | null): Promise<Finding[]> => {
+    async (result: CameraResult, kind: "photo" | "video", tilt?: Tilt | null): Promise<CaptureOutcome> => {
       const session = await loadSession();
       if (!session) throw new Error("Signed out.");
       const id = Crypto.randomUUID();
@@ -65,6 +80,7 @@ export function useCapture(
           size: moved.size,
           width: result.width,
           height: result.height,
+          exifOrientation: result.exifOrientation,
           fix: fix ? { accuracy: fix.accuracy, stale: fix.stale } : null,
           tilt: tilt ?? null,
         },
@@ -82,21 +98,48 @@ export function useCapture(
         throw new CaptureRejected(blocked);
       }
 
-      await insertCapture({
-        id,
-        user_id: session.user_id,
-        assignment_id: assignmentId,
-        local_uri: moved.uri,
-        filename,
-        mime: kind === "video" ? "video/mp4" : "image/jpeg",
-        size: moved.size,
-        captured_at: capturedAt.toISOString(),
-        lat: fix?.lat ?? null,
-        lon: fix?.lon ?? null,
-        checks: findings.length > 0 ? JSON.stringify(findings) : null,
-      });
-      uploader.kick();
-      return findings;
+      const queue = async (checks: Finding[]) => {
+        await insertCapture({
+          id,
+          user_id: session.user_id,
+          assignment_id: assignmentId,
+          local_uri: moved.uri,
+          filename,
+          mime: kind === "video" ? "video/mp4" : "image/jpeg",
+          size: moved.size,
+          captured_at: capturedAt.toISOString(),
+          lat: fix?.lat ?? null,
+          lon: fix?.lon ?? null,
+          checks: checks.length > 0 ? JSON.stringify(checks) : null,
+        });
+        uploader.kick();
+        return checks;
+      };
+
+      // The subject check, photos only (a video's frames are the server's
+      // problem). A task without a subject, or a build without the labeller,
+      // skips it; a low score hands the decision to the worker.
+      const subject = spec?.subject;
+      if (kind === "photo" && subject) {
+        const labels = await labelImage(moved.uri);
+        const finding = labels ? subjectFinding(scoreSubject(labels, subject), subject) : null;
+        if (finding) {
+          findings.push(finding);
+          if (SUBJECT_DIALOG) {
+            return {
+              kept: false,
+              finding,
+              keep: () => queue(findings),
+              retake: async () => {
+                await recordRejections(session.user_id, assignmentId, [finding]);
+                await deleteLocal(moved.uri);
+              },
+            };
+          }
+        }
+      }
+
+      return { kept: true, findings: await queue(findings) };
     },
     [assignmentId, taskRef, spec, targetUnit],
   );

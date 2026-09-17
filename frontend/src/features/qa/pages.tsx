@@ -8,7 +8,7 @@ import { useState } from "react";
 import { get, post } from "@api/client";
 import type { Gate1Row, QaQueueRow } from "@api/types";
 import {
-  Button, Callout, Dialog, Empty, Field, Metric, Panel, TableWrap, textareaCls, useToast, View,
+  Button, Callout, Dialog, Empty, Field, Metric, Panel, Pill, TableWrap, textareaCls, useToast, View,
 } from "@ds/primitives";
 import { fmtDateTime } from "@shared/format";
 import { AttachmentsField, attachmentPayload, type AttachmentDraft } from "@shared/attachments";
@@ -180,7 +180,7 @@ export function Gate1Page() {
         ) : (
           <TableWrap>
             <table>
-              <thead><tr><th>Task</th><th>Worker</th><th>Units</th><th>Ready</th><th>Worker note</th><th>Submitted</th><th /></tr></thead>
+              <thead><tr><th>Task</th><th>Worker</th><th>Units</th><th>Ready</th><th>Phone check</th><th>Worker note</th><th>Submitted</th><th /></tr></thead>
               <tbody>
                 {rows.map((r) => (
                   <tr key={r.assignment_id}>
@@ -188,6 +188,11 @@ export function Gate1Page() {
                     <td>{r.worker_name ?? "—"}<div className="cell-meta id">{r.worker_ref ?? ""}</div></td>
                     <td className="num">{r.quantity}</td>
                     <td className="num">{r.ready_assets}</td>
+                    <td>
+                      {r.off_subject > 0
+                        ? <Pill tone="attention">{r.off_subject} may be off-subject</Pill>
+                        : <span className="muted small">—</span>}
+                    </td>
                     <td style={{ maxWidth: 300 }} className="small">{r.worker_note ?? "—"}</td>
                     <td className="num">{fmtDateTime(r.submitted_at)}</td>
                     <td className="right"><div className="rowactions">

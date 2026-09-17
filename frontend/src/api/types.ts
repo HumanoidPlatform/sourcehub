@@ -136,6 +136,17 @@ export interface CaptureSpec {
   max_tilt_deg?: number | null;
   /** seconds; the phone caps the recording, the console checks the file */
   max_duration_s?: number | null;
+  /** what a capture must show; the phone's domain check reads it */
+  subject?: SubjectSpec | null;
+}
+/** Short phrases, not sentences. The phone compares the labels it sees in a
+ *  photo against these words and warns when nothing matches. */
+export interface SubjectSpec {
+  domain: string;
+  must_show: string[];
+  must_not_show: string[];
+  /** an explicit ML Kit vocabulary; usually empty */
+  labels?: string[];
 }
 export interface Quota { label: string; quantity: number }
 export interface SamplingFrame {
@@ -374,6 +385,8 @@ export interface Gate1Row {
   worker_note: string | null;
   submitted_at: string;
   ready_assets: number;
+  /** ready captures the worker's phone flagged as off-subject and they kept */
+  off_subject: number;
 }
 
 // asset — one capture, as GET /tasks/{id}/assets and GET /assignments/{id}/assets return it
@@ -396,6 +409,18 @@ export interface AssetRow {
   captured_lon: string | null;
   uploaded_at: string | null;
   created_at: string;
+  /** what the phone noticed before queueing the file; recorded, not trusted.
+   *  Optional: test fixtures and older rows may lack it. */
+  device_checks?: DeviceCheck[];
+}
+
+export interface DeviceCheck {
+  code: string;
+  severity: "block" | "warn";
+  message: string;
+  /** a scored check (wrong_subject) says how sure it was, 0..1 */
+  score?: number;
+  detail?: { labels?: string[]; hit?: string[]; veto?: string[] } & Record<string, unknown>;
 }
 
 export interface AssetUrl {

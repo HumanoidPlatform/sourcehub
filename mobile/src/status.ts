@@ -59,4 +59,5 @@ export const rejectionLabel: Record<string, string> = {
   orientation: "wrong orientation",
   tilt: "beyond the tilt allowed",
   gps_missing: "no GPS fix",
+  wrong_subject: "retaken: didn't show the subject",
 };

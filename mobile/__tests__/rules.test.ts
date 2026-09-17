@@ -1,5 +1,5 @@
 import type { CaptureSpec } from "@/api/types";
-import { blocking, checkCapture, mediaKinds, type Facts } from "@/validation/rules";
+import { blocking, checkCapture, displayedSize, mediaKinds, type Facts } from "@/validation/rules";
 
 const MB = 1024 * 1024;
 
@@ -90,6 +90,20 @@ describe("checkCapture", () => {
       severity: "block",
     });
     expect(checkCapture(good, spec)).toEqual([]);
+  });
+
+  it("reads orientation as displayed, not as stored: EXIF 5-8 turn the frame", () => {
+    const portrait: CaptureSpec = { media: ["photo"], orientation: "portrait" };
+    // an Android portrait shot: sensor frame 4000x3000, tag 6 = rotate 90
+    expect(checkCapture({ ...good, width: 4000, height: 3000, exifOrientation: 6 }, portrait)).toEqual([]);
+    expect(checkCapture({ ...good, width: 4000, height: 3000, exifOrientation: 8 }, portrait)).toEqual([]);
+    // upright tag, or none: the pixels are what they say
+    expect(checkCapture({ ...good, width: 4000, height: 3000, exifOrientation: 1 }, portrait)[0]?.code).toBe("orientation");
+    expect(checkCapture({ ...good, width: 4000, height: 3000, exifOrientation: null }, portrait)[0]?.code).toBe("orientation");
+    // genuinely landscape on a device that rotates the other way
+    expect(checkCapture({ ...good, width: 3000, height: 4000, exifOrientation: 6 }, portrait)[0]?.code).toBe("orientation");
+    expect(displayedSize(3000, 4000, 6)).toEqual({ width: 4000, height: 3000 });
+    expect(displayedSize(3000, 4000, 3)).toEqual({ width: 3000, height: 4000 });
   });
 
   it("says nothing about orientation when the client did not ask", () => {

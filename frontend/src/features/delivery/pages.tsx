@@ -2,10 +2,10 @@
 // and the supplier's task board.
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { get, post } from "@api/client";
-import type { ActivityRow, Assignment, Contract, Org, Rfp, Task } from "@api/types";
+import type { ActivityRow, Assignment, CaptureSpec, Contract, Org, Rfp, SubjectSpec, Task } from "@api/types";
 import {
   Button, Callout, Dialog, Dl, Empty, Field, inputCls, Meter, Metric, Panel,
   Pill, TableWrap, textareaCls, useToast, View,
@@ -276,6 +276,12 @@ function AssignTaskDialog({
   const [unit, setUnit] = useState("photos");
   const [instructions, setInstructions] = useState("");
   const [files, setFiles] = useState<AttachmentDraft[]>([]);
+  // The subject: what every capture must show. The worker reads it before the
+  // shutter and their phone checks each photo against it; a task without one
+  // gets no check. Prefilled from the brief, kept as the partner's own words.
+  const [domain, setDomain] = useState("");
+  const [mustShow, setMustShow] = useState("");
+  const [mustNotShow, setMustNotShow] = useState("");
   const [error, setError] = useState<string | null>(null);
   const toast = useToast();
   const qc = useQueryClient();
@@ -292,6 +298,15 @@ function AssignTaskDialog({
   });
   const wantedMedia = mediaList(brief.data?.spec.capture);
   const wantedUnit = brief.data?.spec.target_unit ?? null;
+  useEffect(() => {
+    if (!brief.data || domain) return;
+    const d = draftSubject(brief.data);
+    setDomain(d.domain);
+    setMustShow(d.must_show.join(", "));
+    setMustNotShow(d.must_not_show.join(", "));
+    // prefill once, when the brief arrives; the partner's edits stand after
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [brief.data]);
 
   const aggs = useQuery({ queryKey: ["orgs", "aggregator"], queryFn: () => get<Org[]>("/organisations?kind=aggregator") });
   const bizs = useQuery({ queryKey: ["orgs", "business"], queryFn: () => get<Org[]>("/organisations?kind=business") });
@@ -302,6 +317,9 @@ function AssignTaskDialog({
         assignee_org_id: assignee, title, due_on: due || null,
         target_quantity: qty ? Number(qty) : null, target_unit: qty ? unit : null,
         instructions: instructions || null,
+        subject: domain.trim()
+          ? { domain: domain.trim(), must_show: phrases(mustShow), must_not_show: phrases(mustNotShow) }
+          : null,
         attachments: attachmentPayload(files, "instructions"),
       }),
     onSuccess: () => {
@@ -362,6 +380,15 @@ function AssignTaskDialog({
         <Field label="Instructions for the field" span hint="Shown to every worker on their phone.">
           {(id) => <textarea id={id} className={textareaCls} rows={2} value={instructions} onChange={(e) => setInstructions(e.target.value)} placeholder="Full shelf in frame, no shoppers, landscape." />}
         </Field>
+        <Field label="Subject" span hint="What every capture must show, in a few words. The worker's phone checks each photo against this and suggests a retake when nothing matches. Leave empty for no check.">
+          {(id) => <input id={id} className={inputCls} value={domain} onChange={(e) => setDomain(e.target.value)} placeholder="retail shelf" maxLength={80} />}
+        </Field>
+        <Field label="Must show" hint="Comma-separated words.">
+          {(id) => <input id={id} className={inputCls} value={mustShow} onChange={(e) => setMustShow(e.target.value)} placeholder="shelf, products, price tags" />}
+        </Field>
+        <Field label="Must not show" hint="Comma-separated words.">
+          {(id) => <input id={id} className={inputCls} value={mustNotShow} onChange={(e) => setMustNotShow(e.target.value)} placeholder="person, selfie, screenshot" />}
+        </Field>
         <AttachmentsField
           label="Attach to the instructions"
           span
@@ -396,6 +423,25 @@ function AssignTaskDialog({
       {error && <Callout tone="critical" title={error} />}
     </Dialog>
   );
+}
+
+/** "shelf, products,, price tags" -> ["shelf", "products", "price tags"]; at most 12 */
+function phrases(s: string): string[] {
+  return s.split(",").map((x) => x.trim()).filter(Boolean).slice(0, 12);
+}
+
+const words = (s: string | null | undefined) => (s ?? "").replace(/_/g, " ").trim();
+
+/** A first draft of the subject from the client's own brief. Deterministic:
+ *  it saves the partner typing, it never decides anything. */
+function draftSubject(r: Rfp): SubjectSpec {
+  const subject = words(r.spec.sampling_frame?.subject_type);
+  const place = words(r.spec.location_type);
+  return {
+    domain: subject || words(r.category),
+    must_show: [subject, place].filter(Boolean),
+    must_not_show: ["person", "selfie", "screenshot"],
+  };
 }
 
 function ApproveDialog({ contract, onClose }: { contract: Contract; onClose: () => void }) {
@@ -481,6 +527,18 @@ function ApproveDialog({ contract, onClose }: { contract: Contract; onClose: () 
 // One dialog for both task tables — the contract work breakdown and the
 // supplier's board. Row data carries everything but the QA trail, which the
 // existing reviews endpoint provides.
+function subjectRows(s: SubjectSpec | null | undefined): [string, React.ReactNode][] {
+  if (!s) return [];
+  return [[
+    "Subject",
+    <span key="subj">
+      <b>{s.domain}</b>
+      {s.must_show.length > 0 && <> · must show {s.must_show.join(", ")}</>}
+      {s.must_not_show.length > 0 && <> · not {s.must_not_show.join(", ")}</>}
+    </span>,
+  ]];
+}
+
 function TaskDetailDialog({ t, onClose }: { t: Task; onClose: () => void }) {
   const tm = statusMeta(taskStatus, t.status);
   const reviews = useQuery({
@@ -509,6 +567,7 @@ function TaskDetailDialog({ t, onClose }: { t: Task; onClose: () => void }) {
           ? `${t.target_quantity} ${unit}${t.target ? ` · ${t.target}` : ""}`
           : t.target ?? "—"],
         ...(t.instructions ? ([["Instructions", t.instructions]] as [string, React.ReactNode][]) : []),
+        ...subjectRows((t.capture_spec as CaptureSpec).subject),
         // The shot list or map the instructions refer to. A worker on
         // this task can open these too — the policy follows the task.
         ...((t.attachments ?? []).length

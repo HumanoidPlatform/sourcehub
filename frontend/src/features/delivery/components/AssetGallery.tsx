@@ -130,6 +130,17 @@ function AssetThumb({
         </span>
       )}
       <span className="tag">{meta.label}</span>
+      {subjectCheck(asset) && (
+        // The phone thought this showed the wrong thing and the worker kept
+        // it anyway. A hint for the reviewer's eye, not a verdict.
+        <span
+          className="tag"
+          title={subjectCheck(asset)!.message}
+          style={{ top: 3, left: 3, bottom: "auto", background: "#B45309" }}
+        >
+          subject?
+        </span>
+      )}
       {onRemove && (
         // The worker's own capture, before submission. A quarantined or
         // stuck-pending one occupies a quantity slot until it goes, which is
@@ -150,6 +161,11 @@ function AssetThumb({
       )}
     </div>
   );
+}
+
+/** the phone's domain verdict on this capture, if it gave one */
+function subjectCheck(asset: AssetRow) {
+  return (asset.device_checks ?? []).find((c) => c.code === "wrong_subject") ?? null;
 }
 
 function AssetPreview({ asset, onClose }: { asset: AssetRow; onClose: () => void }) {
@@ -181,6 +197,16 @@ function AssetPreview({ asset, onClose }: { asset: AssetRow; onClose: () => void
           ["Location", where],
           ["Size", fmtBytes(asset.size_bytes)],
           ["Checksum", <code key="sha" className="id">{asset.sha256.slice(0, 16)}…</code>],
+          ...((asset.device_checks ?? []).length
+            ? ([["Phone check", <span key="dc">
+                {(asset.device_checks ?? []).map((c, i) => (
+                  <span key={i} style={{ display: "block" }}>
+                    {c.message}
+                    {c.score != null && <span className="muted"> · score {c.score.toFixed(2)}</span>}
+                  </span>
+                ))}
+              </span>]] as [string, React.ReactNode][])
+            : []),
         ]} />
         <div className="btnrow" style={{ marginTop: 10, display: "flex", gap: 8 }}>
           {url.data?.url && (

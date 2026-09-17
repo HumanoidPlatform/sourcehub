@@ -14,7 +14,9 @@
         "NSMicrophoneUsageDescription": "Needed to record sound with video captures.",
         "NSLocationWhenInUseUsageDescription": "Each capture is tagged with where it was taken.",
         "NSMotionUsageDescription": "Used to show a level in the viewfinder and record how square each capture was.",
-        "NSAppTransportSecurity": { "NSAllowsArbitraryLoads": true }
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": true
+        }
       }
     },
     "android": {
@@ -68,12 +70,21 @@
       [
         "expo-build-properties",
         {
-          "android": { "usesCleartextTraffic": true }
+          "android": {
+            "usesCleartextTraffic": true
+          }
         }
       ]
     ],
     "experiments": {
       "typedRoutes": false
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "6566c3bb-8dc1-4a4c-91fa-bed77ea30dcc"
+      }
+    },
+    "owner": "vaishnavineela"
   }
 }

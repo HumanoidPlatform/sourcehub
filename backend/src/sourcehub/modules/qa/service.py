@@ -168,7 +168,13 @@ async def reviews_for_task(session: AsyncSession, task_id: uuid.UUID) -> list[di
 # ---------------------------------------------------------------------------
 
 async def gate1_queue(session: AsyncSession, claims: AccessClaims) -> list[dict[str, Any]]:
-    """Every assignment awaiting this supplier's verdict, oldest first."""
+    """Every assignment awaiting this supplier's verdict.
+
+    Batches with captures the worker's phone flagged as off-subject (a
+    wrong_subject device check, kept anyway) come first, then oldest first:
+    those are the ones most likely to need a rejection, and the reviewer
+    should see the score the phone gave before the batch ages.
+    """
     rows = (
         await session.execute(
             text(
@@ -176,21 +182,27 @@ async def gate1_queue(session: AsyncSession, claims: AccessClaims) -> list[dict[
                 "       t.title AS task_title, t.target_unit, "
                 "       a.worker_user_id, coalesce(w.display_name, u.full_name) AS worker_name, "
                 "       w.reference_code AS worker_ref, a.quantity, a.worker_note, a.submitted_at, "
-                "       coalesce(x.ready, 0) AS ready_assets "
+                "       coalesce(x.ready, 0) AS ready_assets, coalesce(x.off_subject, 0) AS off_subject "
                 "FROM task_assignment a "
                 "JOIN task t ON t.id = a.task_id "
                 "LEFT JOIN crowd_worker w ON w.user_id = a.worker_user_id "
                 "LEFT JOIN app_user u ON u.id = a.worker_user_id "
-                "LEFT JOIN LATERAL (SELECT count(*) AS ready FROM asset s "
+                "LEFT JOIN LATERAL (SELECT count(*) AS ready, "
+                "                          count(*) FILTER (WHERE s.check_results->'device' "
+                "                                           @> '[{\"code\": \"wrong_subject\"}]') AS off_subject "
+                "                   FROM asset s "
                 "                   WHERE s.assignment_id = a.id AND s.status = 'ready' "
                 "                     AND s.deleted_at IS NULL) x ON true "
                 "WHERE a.status = 'submitted' AND a.supplier_org_id = :me "
-                "ORDER BY a.submitted_at"
+                "ORDER BY (coalesce(x.off_subject, 0) > 0) DESC, a.submitted_at"
             ),
             {"me": claims.org_id},
         )
     ).mappings().all()
-    return [{**dict(r), "ready_assets": int(r["ready_assets"])} for r in rows]
+    return [
+        {**dict(r), "ready_assets": int(r["ready_assets"]), "off_subject": int(r["off_subject"])}
+        for r in rows
+    ]
 
 
 async def decide_gate1(

@@ -7,7 +7,7 @@ import uuid
 from typing import Any, Literal
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.deps import Principal, TxRoute, get_principal, get_session, require_capability
@@ -17,6 +17,28 @@ from sourcehub.modules.network import service as network
 from sourcehub.modules.qa import service as qa
 
 router = APIRouter(route_class=TxRoute)
+
+
+class SubjectIn(BaseModel):
+    """What a capture must show — the phone's domain check compares its
+    image labels against these words, and the worker reads them before the
+    shutter. Short phrases, not sentences: "price tags", not "make sure the
+    price tags are readable"."""
+
+    domain: str = Field(min_length=2, max_length=80)
+    must_show: list[str] = Field(default_factory=list, max_length=12)
+    must_not_show: list[str] = Field(default_factory=list, max_length=12)
+    # an explicit ML Kit vocabulary, when the words above are not the labels
+    # the model uses ("Shelf", "Supermarket"); usually left empty
+    labels: list[str] = Field(default_factory=list, max_length=12)
+
+    @field_validator("must_show", "must_not_show", "labels")
+    @classmethod
+    def _short_phrases(cls, v: list[str]) -> list[str]:
+        out = [s.strip() for s in v if s and s.strip()]
+        if any(len(s) > 60 for s in out):
+            raise ValueError("each phrase must be 60 characters or fewer")
+        return out
 
 
 class TaskIn(BaseModel):
@@ -32,6 +54,10 @@ class TaskIn(BaseModel):
     # empty" for delivery.create_task to know whether to inherit the
     # client's capture spec from the request.
     capture_spec: dict[str, Any] | None = None
+    # Separate from capture_spec on purpose: a capture_spec sent here REPLACES
+    # the one inherited from the request, and the console only wants to add
+    # the subject to it, not retype media and tilt.
+    subject: SubjectIn | None = None
     # a shot list, a site map — what the instructions refer to
     attachments: list[AttachmentIn] = Field(default_factory=list, max_length=5)
 
@@ -111,6 +137,7 @@ async def create_task(
             body.title, body.target, body.due_on,
             target_quantity=body.target_quantity, target_unit=body.target_unit,
             instructions=body.instructions, capture_spec=body.capture_spec,
+            subject=body.subject.model_dump() if body.subject else None,
             attachments=[a.model_dump() for a in body.attachments],
         )
     except LookupError:

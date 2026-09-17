@@ -351,6 +351,7 @@ async def create_task(
     target_unit: str | None = None,
     instructions: str | None = None,
     capture_spec: dict[str, Any] | None = None,
+    subject: dict[str, Any] | None = None,
     attachments: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     c = (
@@ -424,6 +425,13 @@ async def create_task(
                 capture_spec = wanted["capture_spec"] or None
             if target_unit is None:
                 target_unit = wanted["target_unit"]
+
+    # The subject rides inside capture_spec so it reaches the phone with the
+    # rest of the requirements (_assignment_dict sends the whole spec), but it
+    # is merged in AFTER inheritance: it must never cost the task the
+    # client's media or tilt answers.
+    if subject is not None:
+        capture_spec = {**(capture_spec or {}), "subject": subject}
 
     ref = (
         await session.execute(text("SELECT next_reference_code('TSK','seq_ref_task')"))

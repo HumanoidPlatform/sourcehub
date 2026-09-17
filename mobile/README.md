@@ -56,12 +56,29 @@ npm run typecheck
 npm test
 ```
 
-## Building an installable pilot APK
+## The subject check
+
+A task can carry a *subject* (`capture_spec.subject`, typed by the aggregator
+when assigning: "retail shelf — must show shelf, products, price tags — must
+not show person, selfie, screenshot"). The worker reads it on the assignment
+screen; after each photo the phone asks Google ML Kit's on-device image
+labeller what it sees and scores the labels against those words
+(`src/validation/subject.ts`). A low score asks the worker to keep or retake.
+It never deletes anything by itself, and the finding (`wrong_subject`, with
+score and labels) travels with the upload for the reviewer.
+
+The labeller is a native module, so it works in a **development build**, not
+in Expo Go — there the check is silently skipped. `EXPO_PUBLIC_SUBJECT_STUB`
+in `.env` fakes the labels for trying the dialog in Expo Go. `SUBJECT_OFF`
+and `SUBJECT_DIALOG` in `src/config.ts` are the cut and the shadow switch.
+
+## Building the app
 
 ```bash
 npm install -g eas-cli && eas login
-eas build -p android --profile preview         # internal distribution, .apk
+eas build -p android --profile development    # dev client: Expo Go's role, plus native modules
+eas build -p android --profile preview        # internal distribution, .apk
 ```
 
-`eas.json` is not committed yet; `eas build:configure` creates it. Expo Go is
-enough for the first days of the pilot.
+Install the development build on the phone, then `npx expo start --dev-client`
+and open the app; it connects to the same Metro server Expo Go did.

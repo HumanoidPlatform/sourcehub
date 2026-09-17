@@ -58,8 +58,12 @@ export default function AssignmentDetail() {
   // as null and used to print "orientation: null" at the worker — and an all
   // unanswered spec drew an empty card. A requirement nobody stated is not one.
   const stated = Object.entries(spec).filter(
-    ([, v]) => v != null && v !== "" && !(Array.isArray(v) && v.length === 0),
+    ([k, v]) => k !== "subject" && v != null && v !== "" && !(Array.isArray(v) && v.length === 0),
   );
+  // The subject gets its own card, above the technical requirements: it is
+  // the one line a worker should read before the first shot, and the phone
+  // will hold them to it after each one.
+  const subject = spec.subject ?? null;
   // Remove a capture the worker does not want to send. The local row goes
   // either way; the uploaded asset needs the server too, and freeing that slot
   // is what lets them shoot a replacement against a full quota.
@@ -195,6 +199,25 @@ export default function AssignmentDetail() {
       )}
 
       <DocumentList sections={referenceSections(a.task)} />
+
+      {subject && (
+        <View style={s.card}>
+          <Text style={[s.label, { marginBottom: 6 }]}>What to capture</Text>
+          <Text style={[s.body, { fontWeight: "600" }]}>{subject.domain}</Text>
+          {subject.must_show.length > 0 && (
+            <Text style={s.body}>
+              <Text style={{ color: C.muted }}>Must show: </Text>
+              {subject.must_show.join(", ")}
+            </Text>
+          )}
+          {subject.must_not_show.length > 0 && (
+            <Text style={s.body}>
+              <Text style={{ color: C.muted }}>Must not show: </Text>
+              {subject.must_not_show.join(", ")}
+            </Text>
+          )}
+        </View>
+      )}
 
       {stated.length > 0 && (
         <View style={s.card}>

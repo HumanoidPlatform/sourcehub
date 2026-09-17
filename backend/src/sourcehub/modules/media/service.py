@@ -58,7 +58,8 @@ _ASSET_COLUMNS = (
     "a.id, a.task_id, a.assignment_id, a.submission_id, a.captured_by_user_id, "
     "coalesce(w.display_name, u.full_name) AS captured_by_name, "
     "a.filename, a.mime_type, a.size_bytes, a.sha256, a.etag, a.status, a.quarantine_reason, "
-    "a.captured_at, a.captured_lat, a.captured_lon, a.uploaded_at, a.created_at "
+    "a.captured_at, a.captured_lat, a.captured_lon, a.uploaded_at, a.created_at, "
+    "a.check_results "
 )
 _ASSET_FROM = (
     "FROM asset a "
@@ -145,6 +146,9 @@ def _asset_dict(r: Any) -> dict[str, Any]:
         "captured_lon": r["captured_lon"],
         "uploaded_at": r["uploaded_at"],
         "created_at": r["created_at"],
+        # what the phone noticed before it queued the file (presign_asset);
+        # recorded, not trusted — the reviewer reads it, nothing acts on it
+        "device_checks": (r["check_results"] or {}).get("device") or [],
     }
 
 

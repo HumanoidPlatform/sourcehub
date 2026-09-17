@@ -8,11 +8,12 @@ storage what it holds.
 from __future__ import annotations
 
 import datetime as dt
+import json
 import uuid
-from typing import Literal
+from typing import Any, Literal
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.deps import Principal, TxRoute, get_principal, get_session, require_capability
@@ -32,6 +33,17 @@ class DeviceCheck(BaseModel):
     code: str = Field(min_length=1, max_length=40)
     severity: Literal["block", "warn"]
     message: str = Field(min_length=1, max_length=300)
+    # a scored check (the subject check) says how sure it was, and what it
+    # saw — so the reviewer can tell "shelf, floor" from a blank guess
+    score: float | None = Field(default=None, ge=0, le=1)
+    detail: dict[str, Any] | None = None
+
+    @field_validator("detail")
+    @classmethod
+    def _small(cls, v: dict[str, Any] | None) -> dict[str, Any] | None:
+        if v is not None and len(json.dumps(v)) > 1024:
+            raise ValueError("detail must be 1 KB or less")
+        return v
 
 
 class PresignIn(BaseModel):
@@ -66,7 +78,7 @@ async def presign(
             session, principal, assignment_id,
             filename=body.filename, content_type=body.content_type, size_bytes=body.size_bytes,
             sha256=body.sha256, captured_at=body.captured_at, lat=body.lat, lon=body.lon,
-            checks=[c.model_dump() for c in body.checks],
+            checks=[c.model_dump(exclude_none=True) for c in body.checks],
         )
     except StorageError as e:
         # The capture presign runs against the CLIENT's bucket, so this is the

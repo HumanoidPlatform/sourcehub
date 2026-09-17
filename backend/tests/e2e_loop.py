@@ -166,10 +166,16 @@ r = northstar.post(f"/contracts/{contract['id']}/tasks", json={
     "title": "Metro shelf capture, wave 1",
     "target": "12,500 images",
     "due_on": "2026-10-04",
+    "subject": {"domain": "retail shelf", "must_show": ["shelf", "products", "price tags"],
+                "must_not_show": ["person", "selfie", "screenshot"]},
 })
 assert r.status_code == 201, r.text
 task = r.json()
 ok("task assigned to aggregator", f"{task['reference_code']} -> {task['assignee_name']}")
+# the subject is merged INTO the inherited spec; it must not replace it
+assert task["capture_spec"]["subject"]["domain"] == "retail shelf", task["capture_spec"]
+assert task["capture_spec"]["media"] == ["photo"] and task["capture_spec"]["require_gps"] is True, task["capture_spec"]
+ok("task carries the subject and still the client's media/gps answers")
 
 # negative: Meridian must not be able to assign into NorthStar's contract
 r = meridian.post(f"/contracts/{contract['id']}/tasks", json={

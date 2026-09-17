@@ -54,7 +54,17 @@ export interface CaptureSpec {
   max_tilt_deg?: number | null;
   languages?: string[];
   notes?: string;
+  /** what a capture must show; validation/subject.ts checks photos against it */
+  subject?: SubjectSpec | null;
   [key: string]: unknown;
+}
+
+export interface SubjectSpec {
+  domain: string;
+  must_show: string[];
+  must_not_show: string[];
+  /** an explicit labeller vocabulary; when set it replaces domain + must_show */
+  labels?: string[];
 }
 
 /** A file attached to a task or to the client's request. */

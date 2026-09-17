@@ -32,15 +32,20 @@ export interface Finding {
   code: string;
   severity: Severity;
   message: string;
+  /** a scored check says how sure it was (0..1) and what it saw */
+  score?: number;
+  detail?: Record<string, unknown>;
 }
 
 /** What is known about a capture at the moment it lands on disk. */
 export interface Facts {
   kind: Kind;
   size: number;
-  /** pixel dimensions, when the camera reported them */
+  /** pixel dimensions of the stored frame, when the camera reported them */
   width?: number | null;
   height?: number | null;
+  /** the EXIF Orientation tag, when the camera wrote one; see displayedSize */
+  exifOrientation?: number | null;
   /** null when no position could be obtained at all */
   fix?: { accuracy: number | null; stale: boolean } | null;
   /** null when the device has no accelerometer, or none was read in time */
@@ -85,6 +90,23 @@ function mb(bytes: number): string {
 function numeric(v: unknown): number | null {
   const n = typeof v === "number" ? v : typeof v === "string" ? Number(v) : NaN;
   return Number.isFinite(n) && n > 0 ? n : null;
+}
+
+/** The picture as a viewer shows it.
+ *
+ * An Android camera commonly stores every frame in the sensor's landscape
+ * orientation and records the quarter turn in EXIF Orientation instead of
+ * rotating the pixels — so a portrait shot arrives 4000×3000 with tag 6.
+ * Orientations 5–8 are the ones stored a quarter turn from how they are
+ * displayed; the others (1–4, or no tag) are upright or flipped in place.
+ */
+export function displayedSize(
+  width: number,
+  height: number,
+  exifOrientation?: number | null,
+): { width: number; height: number } {
+  const turned = exifOrientation != null && exifOrientation >= 5 && exifOrientation <= 8;
+  return turned ? { width: height, height: width } : { width, height };
 }
 
 function wantedOrientation(v: unknown): "landscape" | "portrait" | null {
@@ -136,7 +158,8 @@ export function checkCapture(
 
   const want = wantedOrientation(spec?.orientation);
   if (want && facts.width && facts.height) {
-    const got = facts.width >= facts.height ? "landscape" : "portrait";
+    const shown = displayedSize(facts.width, facts.height, facts.exifOrientation);
+    const got = shown.width >= shown.height ? "landscape" : "portrait";
     if (got !== want) {
       out.push({
         code: "orientation",
