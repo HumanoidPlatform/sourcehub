@@ -1,0 +1,39 @@
+# =============================================================================
+# What may enter a build context. The backend image builds from the REPO ROOT
+# (migrations and db/ have to be reachable), so without this file `docker build`
+# uploads the whole tree — including backend/.env with the database password,
+# the Azure storage key, the JWT secret and the Gmail app password, and three
+# node_modules/.venv trees that make the build slow and the image wrong.
+#
+# Written as an allow-list, not a list of things to exclude: a file added to the
+# repo tomorrow is out unless somebody names it here. That is the property
+# worth having — a deny-list only protects against the secrets you thought of.
+#
+# Deny rules come last so they win: later patterns override earlier ones.
+# =============================================================================
+
+# Nothing, to begin with.
+*
+
+# --- the backend image needs exactly this much --------------------------------
+!backend/
+backend/*
+!backend/src/
+!backend/migrations/
+!backend/alembic.ini
+!backend/pyproject.toml
+# Only the dev stage copies these two; the production stage does not.
+!backend/tests/
+!db/
+
+# --- and never these, wherever they appear ------------------------------------
+**/.env
+**/.env.*
+**/.venv/
+**/node_modules/
+**/__pycache__/
+**/*.py[cod]
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/*.log

@@ -1,0 +1,15 @@
+# The console builds from frontend/. Without this file the build copies this
+# machine's node_modules — Windows binaries — over the Linux ones npm ci just
+# installed, and the build fails or, worse, produces a broken bundle.
+#
+# dist/ is excluded for the same reason: the image must contain what THIS build
+# produced, never yesterday's leftovers from a developer's machine.
+
+node_modules/
+dist/
+.env
+.env.*
+*.log
+.vite/
+coverage/
+.DS_Store

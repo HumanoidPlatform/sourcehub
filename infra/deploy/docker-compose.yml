@@ -1,0 +1,146 @@
+# ~/stack/docker-compose.yml
+#
+# One file. Copy it to the VM, fill in the six CHANGEME values, run:
+#
+#     docker compose up -d
+#
+# Your db service is UNCHANGED from the file you have today — same image, same
+# volume, same ports, same password. That is deliberate: compose only recreates
+# a container when its resolved configuration changes, so leaving this block
+# byte-identical means the database container is never touched, never restarts,
+# and is never at risk. The api and web services are simply added beside it.
+#
+# Everything the API needs is inline below. Settings whose defaults are already
+# correct are not repeated — only the ones that differ. So this is the whole
+# configuration, not a subset.
+#
+# Apply changes with:  docker compose up -d
+# Stop one service:    docker compose stop <name>
+# Remove one service:  delete its block, then  docker compose up -d --remove-orphans
+#
+# Data lives on the host at /opt/stack/data/<service>. Deleting a container,
+# running `docker compose down`, or even `docker compose down -v` will NOT
+# touch it. Any new container mounting the same path picks the data back up.
+#
+# SECRETS: the copy on the VM holds real passwords. The copy in the git repo
+# must keep the CHANGEME markers — this repo has a GitHub remote, and 5432
+# answers from the public internet. Edit on the VM, never here.
+#
+# A "$" inside any value below must be written twice ($$), or compose eats it
+# and the value is silently truncated. None of today's values contain one.
+
+services:
+
+  # ---------- Database — UNCHANGED, do not edit ----------
+  db:
+    image: postgres:16
+    container_name: db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: azureuser
+      # Keep exactly the value your current ~/stack/docker-compose.yml has.
+      # Postgres only reads this when the data directory is empty, so it cannot
+      # change the password of the database you already have — but a mismatch
+      # would leave you unable to connect.
+      POSTGRES_PASSWORD: CHANGEME_DB_PASSWORD
+      POSTGRES_DB: appdb
+    volumes:
+      - /opt/stack/data/postgres:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"   # localhost only; remove this line if only containers need it
+    networks:
+      - backend
+
+  # ---------- Cosarathi API ----------
+  # No published port, deliberately: the only thing that can reach it is the web
+  # container on this network. That is what makes one open port enough.
+  api:
+    image: CHANGEME_ACCOUNT/cosarathi:api-CHANGEME_TAG
+    container_name: api
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      # --- Database ---
+      # db:5432 is the container on this network, not a public address. The API
+      # connects as sourcehub_app and never as azureuser: a superuser bypasses
+      # row-level security unconditionally, which would silently turn off every
+      # tenancy rule in the platform. This password is the documented dev
+      # default that already appears in infra/.env.example.
+      DATABASE_URL: postgresql+asyncpg://sourcehub_app:sourcehub_app_dev_password@db:5432/appdb
+      # Two uvicorn workers each open their own pool, and your laptop holds
+      # some of Postgres's 100 connections too. Keep these small.
+      DB_POOL_SIZE: "5"
+      DB_MAX_OVERFLOW: "5"
+
+      # --- Object storage (the platform's own Blob account) ---
+      STORAGE_ACCOUNT_NAME: cosarathistorage
+      STORAGE_ACCOUNT_KEY: CHANGEME_STORAGE_KEY        # STORAGE_ACCOUNT_KEY in backend/.env
+
+      # --- Mail: invitations and password resets ---
+      SMTP_HOST: smtp.gmail.com
+      SMTP_PORT: "587"
+      SMTP_STARTTLS: "true"
+      SMTP_USERNAME: vaieoncosarathi@gmail.com
+      SMTP_PASSWORD: CHANGEME_SMTP_PASSWORD           # the Gmail APP password in backend/.env
+      SMTP_FROM: vaieoncosarathi@gmail.com
+
+      # --- Authentication ---
+      # Generate on the VM, once:   openssl rand -hex 32
+      # Use a NEW value, not the laptop's: tokens minted by the laptop must not
+      # be valid here. Changing it later signs everyone out.
+      JWT_SECRET: CHANGEME_JWT_SECRET
+
+      # Where invitation and reset links in emails point — the deployed console,
+      # so a tester's own phone or laptop can open them.
+      APP_BASE_URL: http://172.210.12.246
+      # The console is served from the same origin as the API (nginx forwards
+      # /api/), so the browser never makes a cross-origin call. Kept correct
+      # anyway, for anything that calls the API directly.
+      CORS_ALLOWED_ORIGINS: http://172.210.12.246
+
+      # Everything else uses the defaults in backend/src/sourcehub/config.py,
+      # which are already right: argon2id hashing, 15-minute access tokens,
+      # 5 failed sign-ins then a 15-minute lock, 14-day invitations, the
+      # "platform" storage container, 15-minute presigned URLs, INFO logging.
+    # Docker keeps container logs forever by default; an API logging every
+    # request would fill the disk and take Postgres down with it.
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "5"}
+    networks:
+      - backend
+
+  # ---------- Cosarathi console ----------
+  # The only service with a public port. It serves the console and forwards
+  # /api/ to the api container above (frontend/nginx.conf), so the browser and
+  # the phone both use one address and there is no CORS. nginx re-resolves the
+  # api hostname every 10s, so the two can start in any order.
+  web:
+    image: CHANGEME_ACCOUNT/cosarathi:web-CHANGEME_TAG
+    container_name: web
+    restart: unless-stopped
+    depends_on:
+      - api
+    ports:
+      - "80:80"
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "5"}
+    networks:
+      - backend
+
+  # There is no `migrate` service. Migrations are not needed today: the
+  # database is already at the schema this build expects (head 0014), which I
+  # verified against it. When a future build DOES change the schema, run it as
+  # a one-off against this network, as the database owner (the app's own role
+  # is deliberately not allowed to create or alter tables). One line:
+  #
+  #   docker run --rm --network stack_backend -e DATABASE_ADMIN_URL='<owner DSN>' -e DATABASE_URL='<the DATABASE_URL above>' -e JWT_SECRET=unused <the api image above> alembic upgrade head
+  #
+  # The owner DSN is the azureuser password with @ written as %40. The last
+  # two settings are unused by a migration, but the config layer will not load
+  # without them. Confirm the network name with: docker network ls
+
+networks:
+  backend:
