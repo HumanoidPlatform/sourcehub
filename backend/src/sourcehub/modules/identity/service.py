@@ -21,6 +21,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sourcehub.api.security import AccessClaims, hash_token, new_opaque_token
 from sourcehub.config import BRAND, settings
 from sourcehub.db.session import anonymous_session, org_session
+from sourcehub.modules.audit import service as audit
 from sourcehub.modules.identity.models import (
     AggregatorProfile,
     AppUser,
@@ -31,6 +32,10 @@ from sourcehub.modules.identity.models import (
     TenantProfile,
     UserSession,
 )
+
+
+class OrgLifecycleError(Exception):
+    """An organisation was asked to make a move its status does not allow."""
 
 
 class AuthError(Exception):
@@ -496,52 +501,131 @@ def _org_dict(
         "billing_status": org.billing_status,
         "rating": org.rating,
         "onboarded_at": org.onboarded_at,
+        # Why an account is suspended is between it and the platform. The
+        # columns were written at suspension and returned to nobody, so the
+        # console could show that an account was suspended and never why.
+        "suspended_at": org.suspended_at,
+        "suspension_reason": org.suspension_reason,
         "profile": _profile_dict(profile, commercials=commercials),
     }
     if not commercials:
         del out["billing_status"]
+        del out["suspended_at"]
+        del out["suspension_reason"]
     return out
 
 
-async def list_orgs_of_kind(session: AsyncSession, kind: str) -> list[dict[str, Any]]:
+async def list_orgs_of_kind(
+    session: AsyncSession,
+    kind: str,
+    claims: AccessClaims | None = None,
+    status: str | None = "active",
+) -> list[dict[str, Any]]:
     """RLS decides who appears: Ops sees every account, a tenant its network,
-    everyone else what a shared contract exposes."""
+    everyone else what a shared contract exposes.
+
+    Pass claims. RLS says WHICH organisations come back; it says nothing about
+    which of their columns you may read, and this list is reached by every
+    persona. Without claims _org_dict treats the caller as internal and hands a
+    counterparty the plan, the DPA and the billing status that
+    GET /organisations/{id} deliberately withholds.
+
+    status defaults to 'active' because that is what every existing caller
+    means — a tenant's network page wants its live suppliers. status=None
+    returns every lifecycle state, which is what an operator needs: the filter
+    used to be unconditional, so suspending an account removed it from the only
+    screen that could have reinstated it.
+    """
     model = _PROFILE_MODEL.get(kind)
+    where = [Organisation.kind == kind, Organisation.deleted_at.is_(None)]
+    if status is not None:
+        where.append(Organisation.status == status)
     stmt = (
         select(Organisation, model)
         .join(model, model.org_id == Organisation.id, isouter=True)
-        .where(
-            Organisation.kind == kind,
-            Organisation.deleted_at.is_(None),
-            Organisation.status == "active",
-        )
+        .where(*where)
         .order_by(Organisation.reference_code)
         if model is not None
         else None
     )
     if stmt is None:
-        rows = (
-            await session.execute(
-                select(Organisation).where(Organisation.kind == kind, Organisation.deleted_at.is_(None))
-            )
-        ).scalars()
-        return [_org_dict(o) for o in rows]
+        plain = select(Organisation).where(*where).order_by(Organisation.reference_code)
+        rows = (await session.execute(plain)).scalars()
+        return [_org_dict(o, None, claims) for o in rows]
     rows = (await session.execute(stmt)).all()
-    return [_org_dict(org, profile) for org, profile in rows]
+    return [_org_dict(org, profile, claims) for org, profile in rows]
 
 
-async def suspend_network_org(
-    session: AsyncSession, claims: AccessClaims, org_id: uuid.UUID, reason: str
+# What each action means, and the states it may be invoked from.
+#
+# Suspension is the only lever, and that is the honest set. A 'terminate' action
+# lived here briefly and was removed: org_status declares 'terminated', nothing
+# keys off it, and nothing writes it — so it ended no billing, released no escrow
+# and erased nothing. Offboarding is a real feature and this was not it.
+_LIFECYCLE: dict[str, tuple[str, frozenset[str]]] = {
+    "suspend": ("suspended", frozenset({"active", "pending_approval"})),
+    "reinstate": ("active", frozenset({"suspended", "pending_approval"})),
+}
+
+_LIFECYCLE_EVENT = {
+    "suspend": "org.suspended",
+    "reinstate": "org.reinstated",
+}
+
+
+async def set_org_lifecycle(
+    session: AsyncSession, claims: AccessClaims, org_id: uuid.UUID, action: str, reason: str
 ) -> dict[str, Any]:
-    """The prototype's 'remove from network' — a suspension, never a delete.
-    RLS: only the parent tenant (or Ops) can reach this row for update."""
+    """Move an organisation through its lifecycle. A suspension, never a delete.
+
+    RLS decides whose row this may touch at all — organisation_update is
+    is_platform_admin() OR id = current_org_id(), so a tenant reaches its own
+    network and Ops reaches everyone. This decides whether the move itself makes
+    sense.
+
+    Suspension is a live kill switch and worth saying plainly: user_organisations()
+    filters on o.status = 'active', so every user of a suspended org fails login
+    immediately and fails refresh within the access-token TTL. Reinstating is
+    what gives them their workspace back, and until this function there was no
+    way to do it outside SQL.
+    """
+    target, from_states = _LIFECYCLE[action]
     org = (
         await session.execute(select(Organisation).where(Organisation.id == org_id))
     ).scalar_one_or_none()
     if org is None:
         raise LookupError("organisation not found")
-    org.status = "suspended"
-    org.suspended_at = dt.datetime.now(dt.timezone.utc)
-    org.suspension_reason = reason
+
+    # The platform organisation is not an account and cannot be switched off.
+    # user_organisations() filters o.status = 'active', and every platform_admin
+    # grant lives in this one org — so suspending it fails the login of the only
+    # people who could reinstate it. Reversible in theory, unrecoverable in fact.
+    if org.kind == "platform":
+        raise OrgLifecycleError("The platform organisation cannot be suspended.")
+
+    if org.status == target:
+        raise OrgLifecycleError(f"{org.name} is already {target}.")
+    if org.status not in from_states:
+        raise OrgLifecycleError(f"A {org.status} organisation cannot be {target}.")
+
+    org.status = target
     org.updated_by = claims.user_id
-    return _org_dict(org)
+    if action == "suspend":
+        org.suspended_at = dt.datetime.now(dt.timezone.utc)
+        org.suspension_reason = reason
+    else:
+        # leaving the old reason behind would read as though it still applied
+        org.suspended_at = None
+        org.suspension_reason = None
+
+    # Scoped to the affected org as well as the actor, because scope is the
+    # visibility key: without org_id here the organisation whose status just
+    # changed could not see the event in its own trail. Suspension wrote three
+    # columns and logged nothing at all until now.
+    await audit.log(
+        session,
+        _LIFECYCLE_EVENT[action],
+        f"{org.reference_code} ({org.name}) {target}: {reason}",
+        [org.id, claims.org_id],
+    )
+    return _org_dict(org, None, claims)

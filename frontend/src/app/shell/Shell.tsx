@@ -59,9 +59,15 @@ const NAV: Record<string, NavItem[]> = {
     { to: "/inventory", label: "Inventory" },
     { to: "/loans", label: "Requests" },
   ],
+  // /accounts, not "/" — the route existed and nothing pointed at it, so the
+  // page lived at two URLs and reaching the real one left no nav item lit.
+  // /contracts has always worked for Ops (it holds contract.read and
+  // delivery.track, and RLS returns every contract on the platform); there was
+  // simply no way to get there.
   platform_admin: [
-    { to: "/", label: "Accounts" },
+    { to: "/accounts", label: "Accounts" },
     { to: "/onboarding", label: "Onboarding" },
+    { to: "/contracts", label: "Contracts" },
     { to: "/billing", label: "Billing" },
     { to: "/activity", label: "Activity" },
   ],
@@ -113,6 +119,14 @@ function notificationHref(n: NotificationRow): string | null {
     case "equipment": return "/equipment";
     case "loans": return "/loans";
     case "billing": return "/billing";
+    // The operator's pages were missing from this map entirely, and Ops has
+    // exactly one inbound notification: onboarding/service.py sends
+    // link_page "onboarding" when a tenant asks for a network entity. It fell
+    // through to null, so the one alert the platform operator receives was the
+    // one row in the bell that did nothing when clicked.
+    case "onboarding": return "/onboarding";
+    case "accounts": return "/accounts";
+    case "activity": return "/activity";
     default: return null;
   }
 }

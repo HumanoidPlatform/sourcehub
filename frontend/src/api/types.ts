@@ -13,6 +13,11 @@ export interface Org {
   residency_region: string | null;
   billing_status: string | null;
   rating: string | null;
+  onboarded_at?: string | null;
+  // Withheld from a counterparty alongside billing_status — why an account is
+  // suspended is between it and the platform.
+  suspended_at?: string | null;
+  suspension_reason?: string | null;
   profile: Record<string, unknown>;
 }
 

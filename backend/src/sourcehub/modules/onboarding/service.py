@@ -20,6 +20,7 @@ import uuid
 from typing import Any
 
 from sqlalchemy import select, text
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.security import AccessClaims, new_opaque_token
@@ -34,6 +35,16 @@ TOP_KINDS = ("client", "tenant")
 
 class OnboardingError(Exception):
     pass
+
+
+class OnboardingConflictError(OnboardingError):
+    """The caller is allowed to do this; the world is in the way.
+
+    Separate from OnboardingError because create_request maps that to 403, and
+    "this email is taken" answered as Forbidden reads as a permissions problem
+    the operator cannot act on. It subclasses OnboardingError so the handlers
+    that already map the base class to 409 keep working unchanged.
+    """
 
 
 def _row(r: OnboardingRequest) -> dict[str, Any]:
@@ -69,6 +80,8 @@ async def create_request(
     if target_org_kind in NETWORK_KINDS and not (is_admin or claims.org_kind == "tenant"):
         raise OnboardingError("Only a delivery partner requests network entities.")
 
+    await _refuse_taken_email(session, contact.get("email"))
+
     ref = (
         await session.execute(text("SELECT next_reference_code('ONB','seq_ref_onboarding')"))
     ).scalar_one()
@@ -98,6 +111,32 @@ async def create_request(
     if submit:
         await _announce_submission(session, claims, req)
     return _row(req)
+
+
+async def _refuse_taken_email(session: AsyncSession, email: str | None) -> None:
+    """Refuse an address that already belongs to somebody, while the form is
+    still open.
+
+    Approval creates the first user, and app_user.email is unique platform-wide.
+    Discovering the clash at that point meant a 500 after the request had been
+    written, queued and reviewed — and the operator had no way to tell the
+    difference between "use another address" and "the platform is broken".
+
+    A definer function, because app_user_select shows an organisation only its
+    own people: the address may well be taken by someone the caller cannot see,
+    which is exactly the case that used to fail late. It answers one boolean and
+    reveals nothing else, and only about an address the caller already typed.
+    """
+    if not email:
+        return
+    taken = (
+        await session.execute(text("SELECT email_is_taken(:e)"), {"e": email})
+    ).scalar_one()
+    if taken:
+        raise OnboardingConflictError(
+            "That email already belongs to someone on the platform. "
+            "Use a different address for this organisation's first user."
+        )
 
 
 async def _announce_submission(
@@ -247,6 +286,21 @@ async def decide(
     decision: str,
     reason: str | None,
 ) -> dict[str, Any]:
+    # Read and check the request BEFORE branching on the decision. These two
+    # guards used to sit below the approve branch, so they only ever protected
+    # rejections: approving a request that was already decided — or one that
+    # does not exist — sailed past them into approve_onboarding_request(), whose
+    # RAISE surfaces as a DBAPIError and therefore a 500. "This request was
+    # already rejected" is a 409, and the operator should be told that rather
+    # than shown a server error.
+    r = (
+        await session.execute(select(OnboardingRequest).where(OnboardingRequest.id == request_id))
+    ).scalar_one_or_none()
+    if r is None:
+        raise LookupError("request not found")
+    if r.status not in ("submitted", "under_review"):
+        raise OnboardingConflictError(f"A {r.status} request cannot be decided.")
+
     if decision == "approved":
         return await _approve(session, claims, request_id)
 
@@ -254,14 +308,6 @@ async def decide(
         # the same rule the prototype applies to QA: the requester cannot act
         # on a blank rejection
         raise OnboardingError("Say what must change — a decision needs a reason.")
-
-    r = (
-        await session.execute(select(OnboardingRequest).where(OnboardingRequest.id == request_id))
-    ).scalar_one_or_none()
-    if r is None:
-        raise LookupError("request not found")
-    if r.status not in ("submitted", "under_review"):
-        raise OnboardingError(f"A {r.status} request cannot be decided.")
 
     r.status = decision  # 'rejected' | 'changes_requested'
     r.decided_at = dt.datetime.now(dt.timezone.utc) if decision == "rejected" else None
@@ -299,26 +345,52 @@ async def _approve(
     transaction there — org, profile, first user, grant, invitation."""
     raw_token, token_hash = new_opaque_token()
 
-    new_org_id = (
-        await session.execute(
-            text(
-                "SELECT approve_onboarding_request(:rid, :uid, :oid, :role, :thash, "
-                "make_interval(days => :ttl))"
-            ),
-            {
-                "rid": request_id,
-                "uid": claims.user_id,
-                "oid": claims.org_id,
-                "role": claims.role,
-                "thash": token_hash,
-                "ttl": settings.invitation_ttl_days,
-            },
-        )
-    ).scalar_one()
+    try:
+        new_org_id = (
+            await session.execute(
+                text(
+                    "SELECT approve_onboarding_request(:rid, :uid, :oid, :role, :thash, "
+                    "make_interval(days => :ttl))"
+                ),
+                {
+                    "rid": request_id,
+                    "uid": claims.user_id,
+                    "oid": claims.org_id,
+                    "role": claims.role,
+                    "thash": token_hash,
+                    "ttl": settings.invitation_ttl_days,
+                },
+            )
+        ).scalar_one()
+    except IntegrityError as e:
+        # app_user.email is unique across the whole platform, and step 4 of
+        # approve_onboarding_request INSERTs the first user unconditionally. So
+        # an address that already belongs to somebody — the same person running
+        # a second organisation, or simply a typo landing on a colleague — blew
+        # up as a 500 at the moment of approval, after the request had been
+        # written, queued and reviewed.
+        #
+        # _refuse_taken_email() above now refuses this at creation, where the
+        # operator is still looking at the form. This stays for the two cases
+        # that check cannot cover: a request drafted before the address was
+        # taken, and two approvals racing.
+        if "app_user_email_key" in str(e.orig):
+            raise OnboardingConflictError(
+                "That email already belongs to someone on the platform. "
+                "Ask this organisation for a different address for its first user."
+            ) from None
+        raise
 
     r = (
         await session.execute(select(OnboardingRequest).where(OnboardingRequest.id == request_id))
     ).scalar_one()
+    # approve_onboarding_request() updated this row in the database, but decide()
+    # has already loaded it into the identity map, so the SELECT above returns the
+    # cached instance with its pre-approval attributes. Without this refresh a
+    # successful approval answers 200 with status "submitted", decided_at null and
+    # created_org_id null — the organisation, user, grant and invitation all exist
+    # and the response says nothing happened.
+    await session.refresh(r)
 
     await notifier.notify(
         session,

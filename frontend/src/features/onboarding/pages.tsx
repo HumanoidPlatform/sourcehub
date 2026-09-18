@@ -6,7 +6,7 @@ import { useState } from "react";
 import { get, post } from "@api/client";
 import type { OnboardingRow } from "@api/types";
 import {
-  Button, Callout, Dialog, Dl, Empty, Field, Metric, Panel, Pill, TableWrap,
+  Button, Callout, Dialog, Dl, Empty, Field, inputCls, Metric, Panel, Pill, selectCls, TableWrap,
   textareaCls, useToast, View,
 } from "@ds/primitives";
 import { fmtDateTime, titleCase } from "@shared/format";
@@ -14,6 +14,7 @@ import { onboardingStatus, statusMeta } from "@shared/status";
 
 export function OnboardingQueuePage() {
   const [selected, setSelected] = useState<OnboardingRow | null>(null);
+  const [creating, setCreating] = useState(false);
   const requests = useQuery({ queryKey: ["onboarding"], queryFn: () => get<OnboardingRow[]>("/onboarding") });
 
   const rows = requests.data ?? [];
@@ -24,6 +25,10 @@ export function OnboardingQueuePage() {
     <View
       title="Onboarding"
       sub="Every organisation on the platform arrived through this queue. Approval creates the org, its first user and an invitation — atomically."
+      // Tenants raise their own network requests from the Network page. Nobody
+      // could raise the two kinds the platform itself sells to, so clients and
+      // delivery partners had to be inserted by hand.
+      actions={<Button variant="primary" onClick={() => setCreating(true)}>Onboard a client or partner</Button>}
     >
       <div className="g3">
         <Metric label="Awaiting decision" value={open.length} />
@@ -46,7 +51,136 @@ export function OnboardingQueuePage() {
       )}
 
       {selected && <DecideDialog row={selected} onClose={() => setSelected(null)} />}
+      {creating && <NewOnboardingDialog onClose={() => setCreating(false)} />}
     </View>
+  );
+}
+
+const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+// The two kinds the platform registers and bills directly. Aggregators,
+// businesses and sponsors belong to a partner's own network and are raised by
+// that partner from the Network page, never here.
+type TopKind = "client" | "tenant";
+
+function NewOnboardingDialog({ onClose }: { onClose: () => void }) {
+  const [kind, setKind] = useState<TopKind>("client");
+  const [name, setName] = useState("");
+  const [country, setCountry] = useState("");
+  const [residency, setResidency] = useState("");
+  const [plan, setPlan] = useState("");
+  // industry for a client, HQ for a partner — same slot, different question
+  const [trait, setTrait] = useState("");
+  const [capabilities, setCapabilities] = useState("");
+  const [contactName, setContactName] = useState("");
+  const [contactEmail, setContactEmail] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const toast = useToast();
+  const qc = useQueryClient();
+
+  const isClient = kind === "client";
+
+  // These keys are not decorative: approve_onboarding_request() reads exactly
+  // country, residency_region, and then industry/plan for a client or
+  // hq/plan/capabilities for a tenant (db/030_onboarding.sql). Anything else
+  // lands in the request payload and is silently dropped at approval.
+  const payload: Record<string, unknown> = {
+    country: country.trim() || null,
+    residency_region: residency || null,
+    plan: plan.trim() || null,
+    ...(isClient ? { industry: trait.trim() || null } : { hq: trait.trim() || null, capabilities: capabilities.trim() || null }),
+  };
+
+  const submit = useMutation({
+    mutationFn: () =>
+      post("/onboarding", {
+        target_org_kind: kind,
+        proposed_name: name.trim(),
+        payload,
+        contact: { full_name: contactName.trim(), email: contactEmail.trim() },
+        submit: true,
+      }),
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: ["onboarding"] });
+      toast(
+        "Request raised",
+        "It is in the queue below. Approving it creates the organisation and emails the first user.",
+        "success",
+      );
+      onClose();
+    },
+    onError: (e) => setError(e instanceof Error ? e.message : "Could not raise the request"),
+  });
+
+  const ready = name.trim() && contactName.trim() && EMAIL.test(contactEmail.trim());
+
+  return (
+    <Dialog
+      title="Onboard a client or delivery partner"
+      sub="This raises a request in the queue below — it does not create the organisation. Approving it does."
+      onClose={onClose}
+      foot={
+        <>
+          <Button onClick={onClose}>Cancel</Button>
+          <Button variant="primary" disabled={!ready || submit.isPending} onClick={() => submit.mutate()}>
+            Raise request
+          </Button>
+        </>
+      }
+    >
+      <div className="formgrid">
+        <Field label="Kind" required>
+          {(id) => (
+            <select id={id} className={selectCls} value={kind} onChange={(e) => setKind(e.target.value as TopKind)}>
+              <option value="client">Client — buys data</option>
+              <option value="tenant">Delivery partner — fulfils it</option>
+            </select>
+          )}
+        </Field>
+        <Field label="Plan" hint={isClient ? "Enterprise or Growth" : "Partner Pro or Partner Starter"}>
+          {(id) => <input id={id} className={inputCls} value={plan} onChange={(e) => setPlan(e.target.value)} />}
+        </Field>
+        <Field label="Organisation name" required span>
+          {(id) => (
+            <input
+              id={id}
+              className={inputCls}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder={isClient ? "Meridian Grocery Group" : "Harbour Field Services"}
+            />
+          )}
+        </Field>
+        <Field label={isClient ? "Industry" : "Headquarters"}>
+          {(id) => <input id={id} className={inputCls} value={trait} onChange={(e) => setTrait(e.target.value)} />}
+        </Field>
+        <Field label="Country">
+          {(id) => <input id={id} className={inputCls} value={country} onChange={(e) => setCountry(e.target.value)} />}
+        </Field>
+        {!isClient && (
+          <Field label="Capabilities" span hint="What this partner can deliver — free text, shown on their profile.">
+            {(id) => <input id={id} className={inputCls} value={capabilities} onChange={(e) => setCapabilities(e.target.value)} />}
+          </Field>
+        )}
+        <Field label="Data residency" hint="Pins where captured data is stored.">
+          {(id) => (
+            <select id={id} className={selectCls} value={residency} onChange={(e) => setResidency(e.target.value)}>
+              <option value="">Not set</option>
+              <option value="US">US</option>
+              <option value="EU">EU</option>
+              <option value="APAC">APAC</option>
+            </select>
+          )}
+        </Field>
+        <Field label="First user — full name" required hint="Approval creates this person and emails them an invitation.">
+          {(id) => <input id={id} className={inputCls} value={contactName} onChange={(e) => setContactName(e.target.value)} />}
+        </Field>
+        <Field label="First user — email" required span>
+          {(id) => <input id={id} type="email" className={inputCls} value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} />}
+        </Field>
+      </div>
+      {error && <Callout tone="critical" title={error} />}
+    </Dialog>
   );
 }
 
@@ -103,6 +237,16 @@ function DecideDialog({ row, onClose }: { row: OnboardingRow; onClose: () => voi
     onError: (e) => setError(e instanceof Error ? e.message : "Could not decide"),
   });
 
+  // The endpoint has always existed; the dialog used to tell the operator to go
+  // and call it themselves. An invitation that went astray is the one thing
+  // standing between an approved organisation and its first sign-in, so it is
+  // the last place to send someone to the API.
+  const resend = useMutation({
+    mutationFn: () => post(`/onboarding/${row.id}/resend-invitation`),
+    onSuccess: () => toast("Invitation resent", "A fresh link is on its way; the previous one is now void.", "success"),
+    onError: (e) => setError(e instanceof Error ? e.message : "Could not resend the invitation"),
+  });
+
   const d = detail.data ?? row;
   const payload = d.payload ?? {};
   const decidable = ["submitted", "under_review"].includes(d.status);
@@ -129,7 +273,14 @@ function DecideDialog({ row, onClose }: { row: OnboardingRow; onClose: () => voi
             </Button>
           </>
         ) : (
-          <Button onClick={onClose}>Close</Button>
+          <>
+            {d.status === "approved" && (
+              <Button disabled={resend.isPending} onClick={() => resend.mutate()}>
+                Resend invitation
+              </Button>
+            )}
+            <Button onClick={onClose}>Close</Button>
+          </>
         )
       }
     >
@@ -164,7 +315,8 @@ function DecideDialog({ row, onClose }: { row: OnboardingRow; onClose: () => voi
       {error && <Callout tone="critical" title={error} />}
       {d.status === "approved" && (
         <Callout tone="success" title="Approved">
-          The organisation is active. If the invitation email went astray it can be resent from the API.
+          The organisation is active and its first user has been invited. If that email went astray,
+          Resend invitation issues a fresh link.
         </Callout>
       )}
     </Dialog>

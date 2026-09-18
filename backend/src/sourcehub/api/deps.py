@@ -129,6 +129,34 @@ def require_capability(
     return _check
 
 
+def require_any_capability(
+    *capabilities: str,
+) -> Callable[..., Coroutine[Any, Any, Principal]]:
+    """Guard a route that two different roles reach by two different names.
+
+    Suspension is the case this exists for. A tenant removing a supplier from
+    its own network holds network.manage; Ops suspending an account holds
+    org.suspend. One route, one service call, one RLS policy deciding which row
+    each of them can actually touch — but require_capability takes a single
+    code, so guarding on network.manage alone locked Ops out of the only
+    suspension endpoint in the system while org.suspend sat in its token unused.
+
+    Widening the guard does not widen reach: organisation_update still says
+    is_platform_admin() OR id = current_org_id(), and the service still checks
+    the transition. This decides only whether the call is admissible at all.
+    """
+
+    async def _check(principal: Principal = Depends(get_principal)) -> Principal:
+        if principal.capabilities.isdisjoint(capabilities):
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail=f"Requires one of: {', '.join(sorted(capabilities))}",
+            )
+        return principal
+
+    return _check
+
+
 def require_mfa() -> Callable[..., Coroutine[Any, Any, Principal]]:
     """Enforce the second factor where permission.requires_mfa demands one.
 

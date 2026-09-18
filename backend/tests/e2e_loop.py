@@ -158,6 +158,35 @@ inv = client.get("/invoices").json()
 assert any(i["kind"].startswith("Milestone") and i["status"] == "pending" for i in inv), inv
 ok("milestone invoice raised", f"{inv[0]['kind']} {inv[0]['amount']} {inv[0]['status']}")
 
+# 3b — the partner can now see its counterparty, but not its counterparty's terms.
+#
+# The award above is what makes the client visible to northstar at all
+# (org_visible_via_contract, db/100_rls.sql). RLS decides WHICH organisations come
+# back; it says nothing about which columns. GET /organisations/{id} withholds the
+# plan, the DPA and the billing status from anyone but Ops and the org itself — and
+# the LIST used to hand all three to every authenticated caller, because it never
+# passed claims down to the redaction.
+COMMERCIAL = ("plan", "dpa_signed", "dpa_signed_at")
+
+seen = northstar.get("/organisations", params={"kind": "client"}).json()
+acme = next(o for o in seen if o["reference_code"] == "CL-01")
+assert "billing_status" not in acme, acme
+assert not (set(acme["profile"]) & set(COMMERCIAL)), acme["profile"]
+ok("partner sees the client, not its commercials", f"profile keys={sorted(acme['profile'])}")
+
+# ...and Ops still sees all of it, or the redaction has simply broken the screen.
+as_ops = next(o for o in admin.get("/organisations", params={"kind": "client"}).json()
+              if o["reference_code"] == "CL-01")
+assert "billing_status" in as_ops, as_ops
+assert "plan" in as_ops["profile"], as_ops["profile"]
+ok("Ops still sees the commercials", f"plan={as_ops['profile']['plan']}")
+
+# the org the caller owns is its own business, listed or not
+own = next(o for o in client.get("/organisations", params={"kind": "client"}).json()
+           if o["reference_code"] == "CL-01")
+assert "billing_status" in own and "plan" in own["profile"], own
+ok("a client still sees its own commercials")
+
 # 4 — partner breaks the contract into a task for its aggregator
 aggs = northstar.get("/organisations", params={"kind": "aggregator"}).json()
 ag1 = next(a for a in aggs if a["reference_code"] == "AG-01")

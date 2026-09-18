@@ -1,23 +1,38 @@
 // admin — the Ops console: accounts and the platform activity trail.
 // (Billing reuses the ledger feature; onboarding has its own.)
 
-import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useQuery, type UseQueryResult } from "@tanstack/react-query";
+import { Link, useNavigate } from "react-router-dom";
 import { get } from "@api/client";
 import type { ActivityRow, Org } from "@api/types";
-import { Button, Empty, Metric, Panel, Pill, TableWrap, View } from "@ds/primitives";
+import { Callout, Empty, Metric, Panel, Pill, Skeleton, TableWrap, View } from "@ds/primitives";
 import { fmtDateTime } from "@shared/format";
-import { OrgProfileDialog } from "@shared/org-profile";
+import { rate } from "@shared/org-profile";
 import { orgStatus, statusMeta } from "@shared/status";
 
-export function AccountsPage() {
-  const clients = useQuery({ queryKey: ["orgs", "client"], queryFn: () => get<Org[]>("/organisations?kind=client") });
-  const tenants = useQuery({ queryKey: ["orgs", "tenant"], queryFn: () => get<Org[]>("/organisations?kind=tenant") });
-  const aggs = useQuery({ queryKey: ["orgs", "aggregator"], queryFn: () => get<Org[]>("/organisations?kind=aggregator") });
-  const bizs = useQuery({ queryKey: ["orgs", "business"], queryFn: () => get<Org[]>("/organisations?kind=business") });
-  const sponsors = useQuery({ queryKey: ["orgs", "sponsor"], queryFn: () => get<Org[]>("/organisations?kind=sponsor") });
+// status_filter=any, because the point of an operator console is to show the
+// accounts that need attention, and a suspended one needs it most. The endpoint
+// defaults to active — which is right for a tenant's network page and wrong
+// here: suspending an account used to remove it from the only screen that could
+// have reinstated it.
+const ALL_STATES = "&status_filter=any";
 
-  const networkCount = (aggs.data?.length ?? 0) + (bizs.data?.length ?? 0) + (sponsors.data?.length ?? 0);
+export function AccountsPage() {
+  const clients = useQuery({
+    queryKey: ["orgs", "client", "any"],
+    queryFn: () => get<Org[]>(`/organisations?kind=client${ALL_STATES}`),
+  });
+  const tenants = useQuery({
+    queryKey: ["orgs", "tenant", "any"],
+    queryFn: () => get<Org[]>(`/organisations?kind=tenant${ALL_STATES}`),
+  });
+
+  // The sub-network used to be three more full list fetches, summed into one
+  // number and otherwise discarded — three round trips for a count with no
+  // table, no drill-down and nothing else to show for them.
+  const live = (q: UseQueryResult<Org[]>) => q.data?.filter((o) => o.status === "active").length;
+  const needsEye = [...(clients.data ?? []), ...(tenants.data ?? [])]
+    .filter((o) => o.status !== "active").length;
 
   return (
     <View
@@ -25,13 +40,17 @@ export function AccountsPage() {
       sub="The platform registers and bills clients and delivery partners only; the sub-network belongs to each partner."
     >
       <div className="g3">
-        <Metric label="Clients" value={clients.data?.length ?? "…"} />
-        <Metric label="Delivery partners" value={tenants.data?.length ?? "…"} />
-        <Metric label="Sub-network entities" value={networkCount} sub="aggregators · businesses · sponsors" />
+        <Metric label="Clients" value={live(clients) ?? "…"} />
+        <Metric label="Delivery partners" value={live(tenants) ?? "…"} />
+        <Metric
+          label="Not active"
+          value={clients.isLoading || tenants.isLoading ? "…" : needsEye}
+          sub="suspended · terminated · awaiting approval"
+        />
       </div>
 
       <Panel title="Clients">
-        <OrgTable rows={clients.data ?? []} cols={[
+        <OrgTable q={clients} noun="client" cols={[
           ["Industry", (o) => (o.profile.industry as string) ?? "—"],
           ["Country", (o) => o.country ?? "—"],
           ["Plan", (o) => (o.profile.plan as string) ?? "—"],
@@ -40,20 +59,43 @@ export function AccountsPage() {
       </Panel>
 
       <Panel title="Delivery partners">
-        <OrgTable rows={tenants.data ?? []} cols={[
+        <OrgTable q={tenants} noun="delivery partner" cols={[
           ["HQ", (o) => (o.profile.hq as string) ?? "—"],
           ["Plan", (o) => (o.profile.plan as string) ?? "—"],
-          ["On-time", (o) => (o.profile.on_time_rate != null ? `${o.profile.on_time_rate}%` : "—")],
-          ["QA pass", (o) => (o.profile.qa_pass_rate != null ? `${o.profile.qa_pass_rate}%` : "—")],
+          ["On-time", (o) => rate(o.profile.on_time_rate as number | null)],
+          ["QA pass", (o) => rate(o.profile.qa_pass_rate as number | null)],
         ]} />
       </Panel>
     </View>
   );
 }
 
-function OrgTable({ rows, cols }: { rows: Org[]; cols: [string, (o: Org) => React.ReactNode][] }) {
-  const [viewing, setViewing] = useState<Org | null>(null);
-  if (rows.length === 0) return <Empty title="None yet" />;
+function OrgTable({
+  q, noun, cols,
+}: {
+  q: UseQueryResult<Org[]>;
+  noun: string;
+  cols: [string, (o: Org) => React.ReactNode][];
+}) {
+  const nav = useNavigate();
+
+  // Loading and failing are not the same as empty, and this table said "None
+  // yet" to all three — the bug app/overview.tsx already carries a comment
+  // about having fixed for the client's request list.
+  if (q.isLoading) return <Skeleton rows={4} label={`Loading ${noun}s`} />;
+  if (q.isError) {
+    return (
+      <Callout tone="critical" title={`Could not load ${noun}s`}>
+        {q.error instanceof Error ? q.error.message : "The request failed."}
+      </Callout>
+    );
+  }
+
+  const rows = q.data ?? [];
+  if (rows.length === 0) {
+    return <Empty title={`No ${noun}s yet`} hint={`Onboarding a ${noun} from the Onboarding queue puts it here.`} />;
+  }
+
   return (
     <TableWrap>
       <table>
@@ -68,15 +110,22 @@ function OrgTable({ rows, cols }: { rows: Org[]; cols: [string, (o: Org) => Reac
           {rows.map((o) => {
             const m = statusMeta(orgStatus, o.status);
             return (
-              <tr key={o.id} className="tap" onClick={() => setViewing(o)}>
+              // The row leads to /accounts/:id rather than a modal: it is where
+              // the lifecycle actions live, and unlike a dialog it can be linked
+              // to, bookmarked and reloaded.
+              <tr key={o.id} className="tap" onClick={() => nav(`/accounts/${o.id}`)}>
                 <td className="id">{o.reference_code}</td>
-                <td className="cell-primary">{o.name}</td>
+                <td className="cell-primary">
+                  {o.name}
+                  {/* written at suspension, returned to nobody until now */}
+                  {o.suspension_reason && <div className="cell-meta">{o.suspension_reason}</div>}
+                </td>
                 {cols.map(([h, f]) => <td key={h}>{f(o)}</td>)}
                 <td className="num">{o.rating ?? "—"}</td>
                 <td>{o.billing_status ?? "—"}</td>
                 <td><Pill tone={m.tone}>{m.label}</Pill></td>
                 <td className="right" onClick={(e) => e.stopPropagation()}><div className="rowactions">
-                  <Button size="sm" onClick={() => setViewing(o)}>Details</Button>
+                  <Link to={`/accounts/${o.id}`} className="btn" data-size="sm">Open</Link>
                   </div>
                 </td>
               </tr>
@@ -84,7 +133,6 @@ function OrgTable({ rows, cols }: { rows: Org[]; cols: [string, (o: Org) => Reac
           })}
         </tbody>
       </table>
-      {viewing && <OrgProfileDialog orgId={viewing.id} seedName={viewing.name} onClose={() => setViewing(null)} />}
     </TableWrap>
   );
 }
@@ -98,8 +146,14 @@ export function ActivityPage() {
   return (
     <View title="Activity" sub="The hash-chained audit trail. Append-only; tampering is detectable, not merely discouraged.">
       <Panel>
-        {(activity.data ?? []).length === 0 ? (
-          <Empty title="Quiet so far" />
+        {activity.isLoading ? (
+          <Skeleton rows={6} label="Loading the activity trail" />
+        ) : activity.isError ? (
+          <Callout tone="critical" title="Could not load the activity trail">
+            {activity.error instanceof Error ? activity.error.message : "The request failed."}
+          </Callout>
+        ) : (activity.data ?? []).length === 0 ? (
+          <Empty title="Quiet so far" hint="Every approval, award, QA verdict and payment appears here as it happens." />
         ) : (
           <div className="timeline">
             {(activity.data ?? []).map((a) => (

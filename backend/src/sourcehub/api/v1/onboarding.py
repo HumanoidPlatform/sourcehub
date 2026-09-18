@@ -51,6 +51,10 @@ async def create_request(
             session, principal, body.target_org_kind, body.proposed_name,
             body.payload, body.contact, body.submit,
         )
+    # Order matters: the conflict subclasses the base error, and "this email is
+    # taken" is not a permissions answer.
+    except onboarding.OnboardingConflictError as e:
+        raise HTTPException(status.HTTP_409_CONFLICT, str(e)) from None
     except onboarding.OnboardingError as e:
         raise HTTPException(status.HTTP_403_FORBIDDEN, str(e)) from None
 

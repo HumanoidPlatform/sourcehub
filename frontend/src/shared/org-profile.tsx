@@ -25,7 +25,11 @@ export function rate(pct?: number | null) {
   );
 }
 
-function kindRows(o: Org, seedQa?: number | null): [string, ReactNode][] {
+// Exported so the operator's account page renders the same per-kind rows as this
+// dialog rather than a second copy that drifts. The dialog itself stays as it is:
+// the tenant's network page and the client's bidder profile both mount it, so it
+// is a counterparty view and nothing operator-shaped belongs in it.
+export function kindRows(o: Org, seedQa?: number | null): [string, ReactNode][] {
   const p = o.profile as Record<string, unknown>;
   const s = (k: string) => (p[k] as string | null | undefined) ?? "—";
   switch (o.kind) {

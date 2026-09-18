@@ -7,6 +7,7 @@
 
 import { Navigate, Route, Routes } from "react-router-dom";
 import { DesignSystemRoute } from "@ds/DesignSystemRoute";
+import { AccountDetailPage } from "@features/admin/account-detail";
 import { AccountsPage, ActivityPage } from "@features/admin/pages";
 import { ContractsPage, ContractDetailPage, TasksPage } from "@features/delivery/pages";
 import {
@@ -98,6 +99,7 @@ export function AppRouter() {
         {/* platform ops */}
         <Route path="/onboarding" element={<OnboardingQueuePage />} />
         <Route path="/accounts" element={<AccountsPage />} />
+        <Route path="/accounts/:id" element={<AccountDetailPage />} />
         <Route path="/activity" element={<ActivityPage />} />
 
         {/* shared */}

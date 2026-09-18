@@ -129,11 +129,20 @@ WHERE r.code = 'sponsor' AND p.code IN (
 -- while GET /invoices requires invoice.read (api/v1/ledger.py). Without both,
 -- Ops sees a Billing page in the rail and a 403 when they click it — which is
 -- exactly what happened until this line was added.
+--
+-- onboarding.request is here for the same class of reason. README.md says
+-- "Platform Admin onboards clients and tenants directly", and the service
+-- agrees: create_request() checks `target_org_kind in TOP_KINDS and not
+-- is_admin` and lets Ops through. But POST /onboarding is guarded by
+-- onboarding.request, which only the tenant held — so the one path that brings
+-- a client or a delivery partner onto the platform was reachable by nobody, and
+-- every account had to be inserted by hand. The capability says "may RAISE a
+-- request"; onboarding.approve, which no tenant holds, is still what decides it.
 INSERT INTO role_permission (role_id, permission_id)
 SELECT r.id, p.id FROM role r, permission p
 WHERE r.code = 'platform_admin' AND p.code IN (
   'account.read','billing.read','invoice.read','activity.read','dispute.arbitrate',
-  'onboarding.read','onboarding.approve','org.create','org.suspend',
+  'onboarding.request','onboarding.read','onboarding.approve','org.create','org.suspend',
   'user.invite','user.manage','role.manage','contract.read','delivery.track');
 
 
