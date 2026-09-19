@@ -97,26 +97,31 @@ eas update:configure          # writes updates.url and runtimeVersion into the a
 
 EAS Update's free tier covers a pilot of this size.
 
-## Step 3 — The right server in every build, and nothing a tester's tool can be turned against *(half a day)*
+## Step 3 — The right server in every build, and nothing a tester's tool can be turned against *(done)*
 
-- `mobile/eas.json`: `"env": { "EXPO_PUBLIC_API_URL": "https://<domain>" }` on `preview` and `production`.
-  `development` keeps reading `mobile/.env`.
-- `mobile/src/config.ts:4`: replace the LAN address in `DEFAULT_API_URL` with the HTTPS address. A fallback
-  should be the real server, not somebody's router.
-- **Cleartext only in development builds.** `mobile/app.json` sets `usesCleartextTraffic: true` and
-  `NSAllowsArbitraryLoads: true` for every build. Convert to `app.config.ts` and apply both only when
-  `process.env.EAS_BUILD_PROFILE === "development"`. A pilot build then refuses `http://` outright.
-- **Hide the server override from pilot builds.** The "Server: … change" link on sign-in
-  (`mobile/src/app/(auth)/sign-in.tsx:85`) and "Save address" in Settings
-  (`mobile/src/app/(app)/settings.tsx:89`) are right for us and a phishing tool against a worker: `getBaseUrl()`
-  prefers a saved override over everything else (`mobile/src/api/client.ts:28`), so anyone who talks a worker
-  into changing it receives their password. Show both only when
-  `process.env.EXPO_PUBLIC_ALLOW_SERVER_OVERRIDE === "1"`, set in `mobile/.env` and the `development` profile
-  and nowhere else. An environment variable rather than a config flag, so it holds for over-the-air updates too.
-  (An earlier draft allowed it in preview builds as well. Preview is now what real workers install, so it is
-  development only.)
-- Show the build in Settings — `expo-application`'s version and build number — so a worker can read out which
-  build they have.
+**As built — and deliberately not the environment-variable design first sketched here.** `eas update` bundles the
+JavaScript on the developer's own machine, with that machine's `.env`. An address or a switch read from the
+environment could therefore be changed on every pilot phone by one careless publish from a laptop that happened
+to have different values. So nothing a worker runs reads the environment at all:
+
+- `mobile/src/config.ts`: `PRODUCTION_API_URL = "https://cosarathi.eastus.cloudapp.azure.com"` is the server for
+  every bundle that is not served live by Metro. `DEFAULT_API_URL` reads `mobile/.env` only when `__DEV__` is true.
+  Moving to a company domain later is a change to that one constant, delivered over the air.
+- `ALLOW_SERVER_OVERRIDE = __DEV__`. It gates the "Server: … change" link on sign-in, the address field in
+  Settings, the `/server` screen itself (the app registers the `cosarathi://` scheme, so hiding the link alone
+  would leave `cosarathi://server` open), and whether `getBaseUrl()` honours a previously saved address at all.
+  `__DEV__` is false in every preview build, production build and over-the-air update, however it was produced.
+- The same guard went onto `EXPO_PUBLIC_SUBJECT_STUB` in `mobile/src/validation/subject.ts`, for the same reason:
+  one update published from a laptop with the stub set would have made every phone "see" fake labels.
+- **Plain HTTP only in development builds.** New `mobile/app.config.js` runs on top of `app.json` (which stays the
+  base config, so the Expo tools can still write to it) and, when `EAS_BUILD_PROFILE` is `preview` or
+  `production`, removes `NSAllowsArbitraryLoads` and sets `usesCleartextTraffic: false`. That is in the binary,
+  where no update can put it back. Checked per profile with `npx expo config`.
+- Settings shows the installed version and build number (`expo-application`) and the id of the running
+  over-the-air update (`expo-updates`), so a worker can read out exactly what they have.
+
+Verified: a production bundle built with `npx expo export` contains the HTTPS address and neither of the old LAN
+addresses.
 
 ## Step 4 — The privacy notice *(half a day; the wording needs the organisation's approval)*
 
@@ -204,7 +209,7 @@ plan only buys a faster queue.
 | 0 | `eas credentials` shows the keystore under the organisation; a backup is in the vault |
 | 1 | `https://<domain>/health` answers with a valid certificate; `http://` redirects; a sign-in carrying `X-Forwarded-For: 203.0.113.77` is recorded from the real address, and a non-IP value returns 401, not 500; the browser worker upload now queues a file |
 | 2 | A one-word update lands on an installed build with no reinstall |
-| 3 | A fresh install on a phone off your network signs in with no manual server address; the pilot build shows no "change server" link; an `http://` address is refused |
+| 3 | A fresh install on a phone off your network signs in with no manual server address; the pilot build shows no "change server" link, and opening `cosarathi://server` lands on sign-in; `npx expo config` with `EAS_BUILD_PROFILE=preview` shows cleartext off |
 | 4 | The notice appears once per user and version and cannot be skipped; accepting works with no signal; the saved record has all five fields; "Not now" signs out; each aggregator confirms it holds its workers' acknowledgements |
 | All | `npx tsc --noEmit` and `npx jest` in `mobile/` (72 tests today), `pytest` in `backend/`, `npx tsc --noEmit` and `npx vitest run` in `frontend/` |
 
@@ -220,6 +225,22 @@ two or three phones for step 5.
 Create the app with package `com.cosarathi.capture`, enrol in Play App Signing **with the existing key** from
 step 0, `eas build --profile production` (an AAB, which is what Play requires), upload to internal testing, and
 move the pilot workers across. They install the update over the pilot APK and lose nothing.
+
+### The 90-day retention commitment — nothing enforces it yet
+
+The notice and the `/privacy` page now say: *"We keep our records of your captures for 90 days after the work is
+completed."* That is a promise, and **nothing in the platform deletes anything today** — `asset.erased_at` and the
+`erased` status exist in the schema and no code sets them. Until a clean-up job exists, someone has to do it by
+hand, and it should be decided who. Two things to settle with whoever approves the wording:
+
+- **When the 90 days start.** The text says "after the work is completed"; that was an assumption made when the
+  period was supplied as a bare number, and it should be confirmed.
+- **What it can cover.** Captures are written straight into the *client's* storage, which this platform cannot
+  reach into after delivery. So the period can only ever apply to the platform's own records — where and when a
+  capture was taken, by whom, and how it was checked — and the text says exactly that, leaving the client's copy
+  to the client's own policy. Do not shorten it to "we delete your data after 90 days"; that would not be true.
+
+The natural home for the clean-up is the same background worker proposed for email and thumbnails.
 
 ### The server-side consent record — deferred from step 4, due before closed testing
 

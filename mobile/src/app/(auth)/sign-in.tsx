@@ -4,6 +4,7 @@ import { Pressable, Text, TextInput, View } from "react-native";
 import { ApiError, getBaseUrl } from "@/api/client";
 import type { OrgChoice } from "@/api/types";
 import { useAuth } from "@/auth/AuthProvider";
+import { ALLOW_SERVER_OVERRIDE } from "@/config";
 import { Button, C, Callout, Field, Screen, inputStyle, s } from "@/ui";
 
 export default function SignIn() {
@@ -82,11 +83,15 @@ export default function SignIn() {
         </View>
       )}
 
-      <Pressable onPress={() => router.push("/server")} style={{ marginTop: 28 }} accessibilityRole="link">
-        <Text style={[s.muted, { textAlign: "center" }]}>
-          Server: <Text style={{ color: C.accentInk }}>{server || "…"}</Text> · change
-        </Text>
-      </Pressable>
+      {/* Development only. In a build a worker installs, a changeable server
+          is how someone collects their password (config.ts). */}
+      {ALLOW_SERVER_OVERRIDE && (
+        <Pressable onPress={() => router.push("/server")} style={{ marginTop: 28 }} accessibilityRole="link">
+          <Text style={[s.muted, { textAlign: "center" }]}>
+            Server: <Text style={{ color: C.accentInk }}>{server || "…"}</Text> · change
+          </Text>
+        </Pressable>
+      )}
     </Screen>
   );
 }

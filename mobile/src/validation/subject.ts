@@ -91,9 +91,13 @@ const LABEL_TIMEOUT_MS = 2_000;
  * The module is required lazily: in Expo Go it does not exist and the import
  * would throw at startup. EXPO_PUBLIC_SUBJECT_STUB="Floor:0.9,Hand:0.6" makes
  * every photo "see" those labels, so the keep-or-retake flow can be tried in
- * Expo Go without a development build. */
+ * Expo Go without a development build.
+ *
+ * Development bundles only. `eas update` bundles with the publishing machine's
+ * .env, so without the __DEV__ guard one update published from a laptop that
+ * had the stub set would make every worker's phone "see" floors and hands. */
 export async function labelImage(uri: string): Promise<Label[] | null> {
-  const stub = process.env.EXPO_PUBLIC_SUBJECT_STUB;
+  const stub = __DEV__ ? process.env.EXPO_PUBLIC_SUBJECT_STUB : undefined;
   if (stub) {
     return stub.split(",").map((s: string) => {
       const [text, conf] = s.split(":");

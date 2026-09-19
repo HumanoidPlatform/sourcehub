@@ -14,6 +14,7 @@ import {
   AcceptInvitationPage, ForcedPasswordChange, LoginPage, ResetPasswordPage, TaskOfferPage,
 } from "@features/identity/pages";
 import { BillingPage } from "@features/ledger/pages";
+import { PrivacyPage } from "@features/legal/pages";
 import {
   MyProposalsPage, OpportunitiesPage, RequestDetailPage, RequestNewPage, RequestsPage,
 } from "@features/marketplace/pages";
@@ -39,6 +40,9 @@ export function AppRouter() {
       <Route path="/accept-invitation" element={<AcceptInvitationPage />} />
       <Route path="/reset-password" element={<ResetPasswordPage />} />
       <Route path="/offer" element={<TaskOfferPage />} />
+      {/* Public for the same reason: the phone's privacy notice opens this in a
+          browser that is not signed in, and the Play listing will point at it. */}
+      <Route path="/privacy" element={<PrivacyPage />} />
     </>
   );
 

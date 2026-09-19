@@ -8,6 +8,7 @@
     "@react-native-ml-kit/image-labeling": "^2.0.0",
     "@tanstack/react-query": "^5.102.8",
     "expo": "~57.0.20",
+    "expo-application": "~57.0.3",
     "expo-build-properties": "~57.0.17",
     "expo-camera": "~57.0.4",
     "expo-constants": "~57.0.17",

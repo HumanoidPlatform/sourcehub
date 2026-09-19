@@ -1,7 +1,8 @@
-import { useRouter } from "expo-router";
+import { Redirect, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { Text, TextInput } from "react-native";
 import { getBaseUrl, pingServer, setBaseUrl } from "@/api/client";
+import { ALLOW_SERVER_OVERRIDE } from "@/config";
 import { Button, Callout, Field, Screen, inputStyle, s } from "@/ui";
 
 export default function Server() {
@@ -13,6 +14,10 @@ export default function Server() {
   useEffect(() => {
     void getBaseUrl().then(setUrl);
   }, []);
+
+  // Hiding the link on sign-in is not enough: the app registers the
+  // cosarathi:// scheme, so cosarathi://server opens this screen directly.
+  if (!ALLOW_SERVER_OVERRIDE) return <Redirect href="/sign-in" />;
 
   const test = async () => {
     setState("testing");

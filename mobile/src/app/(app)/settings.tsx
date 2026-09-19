@@ -1,10 +1,16 @@
+import * as Application from "expo-application";
 import Constants from "expo-constants";
 import { useRouter } from "expo-router";
+import * as Updates from "expo-updates";
+import * as WebBrowser from "expo-web-browser";
 import { useEffect, useState } from "react";
 import { Alert, Text, TextInput, View } from "react-native";
 import { getBaseUrl, setBaseUrl } from "@/api/client";
 import { useAuth, useSession } from "@/auth/AuthProvider";
 import { deleteLocal } from "@/capture/files";
+import { ALLOW_SERVER_OVERRIDE } from "@/config";
+import { POLICY_URL } from "@/consent";
+import { useConsent } from "@/consentStore";
 import { discardFailed, onOutboxChange, retryFailed, summary, type OutboxSummary } from "@/db/outbox";
 import { Button, Callout, Field, Screen, inputStyle, s } from "@/ui";
 import { useUploadLog } from "@/upload/log";
@@ -17,6 +23,7 @@ export default function Settings() {
   const [url, setUrl] = useState("");
   const [box, setBox] = useState<OutboxSummary>({ queued: 0, failed: 0, confirmed: 0 });
   const log = useUploadLog();
+  const consent = useConsent(session.user_id);
 
   useEffect(() => {
     void getBaseUrl().then(setUrl);
@@ -82,14 +89,32 @@ export default function Settings() {
         )}
       </View>
 
+      {/* Development only, like the link on sign-in (config.ts). */}
+      {ALLOW_SERVER_OVERRIDE && (
+        <View style={s.card}>
+          <Field label="API address" hint="Development builds only.">
+            <TextInput style={inputStyle} value={url} onChangeText={setUrl} autoCapitalize="none" autoCorrect={false} keyboardType="url" />
+          </Field>
+          <Button title="Save address" onPress={() => void setBaseUrl(url)} disabled={!/^https?:\/\/.+/.test(url.trim())} />
+        </View>
+      )}
+
       <View style={s.card}>
-        <Field label="API address" hint="Change only if the pilot lead tells you to.">
-          <TextInput style={inputStyle} value={url} onChangeText={setUrl} autoCapitalize="none" autoCorrect={false} keyboardType="url" />
-        </Field>
-        <Button title="Save address" onPress={() => void setBaseUrl(url)} disabled={!/^https?:\/\/.+/.test(url.trim())} />
+        <Text style={[s.label, { marginBottom: 4 }]}>Privacy</Text>
+        <Text style={s.body}>
+          {consent.record
+            ? `You accepted the privacy notice on ${new Date(consent.record.accepted_at).toLocaleDateString()}.`
+            : "The privacy notice has not been accepted on this phone."}
+        </Text>
+        <Button title="Read the policy" onPress={() => void WebBrowser.openBrowserAsync(POLICY_URL)} style={{ marginTop: 10 }} />
       </View>
 
-      <Callout title={`Cosarathi Capture ${Constants.expoConfig?.version ?? ""}`}>Role: {session.role}</Callout>
+      {/* What a worker reads out when they ring for help: the installed build,
+          and which over-the-air update is running on top of it. app.json's
+          version alone says neither. */}
+      <Callout title={`Cosarathi Capture ${Application.nativeApplicationVersion ?? Constants.expoConfig?.version ?? ""} (build ${Application.nativeBuildVersion ?? "dev"})`}>
+        Update: {Updates.updateId ? Updates.updateId.slice(0, 8) : "as installed"} · Role: {session.role}
+      </Callout>
       <Button title="Sign out" variant="danger" onPress={signOut} />
     </Screen>
   );

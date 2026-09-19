@@ -2,13 +2,14 @@
 // mapping. A port of the console's api/client.ts with two substitutions:
 // tokens live in SecureStore (two keys, because a SecureStore value is capped
 // at 2 KB and the JWT alone can approach it), the profile in SQLite, and the
-// base URL is whatever the pilot lead typed on the sign-in screen.
+// base URL is fixed in a build a worker installs and changeable only in a
+// development bundle (config.ts, ALLOW_SERVER_OVERRIDE).
 //
 // The ONLY module that calls fetch for the API. The uploader's PUT to object
 // storage is the one deliberate exception: no bearer, the URL is the credential.
 
 import * as SecureStore from "expo-secure-store";
-import { DEFAULT_API_URL } from "@/config";
+import { ALLOW_SERVER_OVERRIDE, DEFAULT_API_URL } from "@/config";
 import { getKv, setKv } from "@/db/kv";
 import type { OrgChoice, Session } from "./types";
 
@@ -25,12 +26,17 @@ export class ApiError extends Error {
 let baseUrl: string | null = null;
 
 export async function getBaseUrl(): Promise<string> {
-  const url = baseUrl ?? ((await getKv("server_url")) || process.env.EXPO_PUBLIC_API_URL || DEFAULT_API_URL);
+  // A saved address is honoured only where saving one is allowed. Otherwise a
+  // value left behind by an earlier development build — or written by anything
+  // else — would silently outrank the real server for the life of the install.
+  const saved = ALLOW_SERVER_OVERRIDE ? await getKv("server_url") : null;
+  const url = baseUrl ?? (saved || DEFAULT_API_URL);
   baseUrl = url;
   return url.replace(/\/+$/, "");
 }
 
 export async function setBaseUrl(url: string): Promise<void> {
+  if (!ALLOW_SERVER_OVERRIDE) return;
   baseUrl = url.trim().replace(/\/+$/, "");
   await setKv("server_url", baseUrl);
 }
