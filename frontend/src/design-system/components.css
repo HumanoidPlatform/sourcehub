@@ -381,6 +381,40 @@ a.pop-item{text-decoration:none;color:inherit;display:flex;align-items:center}
 .pop-item .ts{font-family:var(--font-mono);font-size:10.5px;color:var(--ink-3);margin-top:3px}
 .hostrel{position:relative}
 
+/* Account menu (ProfileMenu.tsx). Scoped under .acct so the notification bell,
+   which shares .pop, is untouched. Identity and workspace are plain content —
+   no hover, no pointer — and only .acct-item rows look actionable, because only
+   they are. */
+.pop.acct{width:288px}
+.acct-id{display:flex;align-items:center;gap:var(--s-3);padding:var(--s-3)}
+.acct-av{flex:none;width:36px;height:36px;display:grid;place-items:center;border-radius:var(--r-pill);
+  background:var(--accent-tint);color:var(--accent);font-family:var(--font-mono);font-size:12px;
+  font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.acct-who{min-width:0}
+.acct-name,.acct-email,.acct-org{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.acct-name{font-size:13.5px;font-weight:600;color:var(--ink)}
+.acct-email{font-size:12px;color:var(--ink-3);margin-top:1px}
+.acct-ctx{display:flex;align-items:center;justify-content:space-between;gap:var(--s-2);
+  padding:8px var(--s-3);border-top:1px solid var(--line);background:var(--surface-2)}
+.acct-org{font-size:12px;color:var(--ink-2);min-width:0}
+.acct-ctx .pill{flex:none}
+.acct-menu{padding:4px 0;border-top:1px solid var(--line)}
+.acct-item{display:flex;align-items:center;width:100%;padding:7px var(--s-3);font:inherit;font-size:13px;
+  color:var(--ink);background:transparent;border:0;text-align:left;text-decoration:none;cursor:pointer}
+.acct-item:hover{background:var(--surface-2)}
+/* the focused row must be findable without a mouse: tint plus an accent bar */
+.acct-item:focus-visible{outline:none;background:var(--surface-2);box-shadow:inset 3px 0 0 var(--accent)}
+.acct-sep{height:1px;background:var(--line);margin:4px 0}
+.acct-theme{display:flex;align-items:center;justify-content:space-between;gap:var(--s-2);padding:5px var(--s-3)}
+.acct-label{font-size:13px;color:var(--ink)}
+.acct-seg{display:inline-flex;border:1px solid var(--line);border-radius:var(--r-control);overflow:hidden}
+.acct-seg button{padding:3px 9px;font:inherit;font-size:12px;color:var(--ink-2);background:transparent;
+  border:0;cursor:pointer}
+.acct-seg button + button{border-left:1px solid var(--line)}
+.acct-seg button:hover{background:var(--surface-2)}
+.acct-seg button[aria-checked="true"]{background:var(--accent-tint);color:var(--accent);font-weight:600}
+.acct-seg button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+
 /* --- toasts --------------------------------------------------------------- */
 .toasts{position:fixed;right:var(--s-5);bottom:var(--s-5);z-index:250;
   display:flex;flex-direction:column;gap:var(--s-2);max-width:min(400px,calc(100vw - 48px))}

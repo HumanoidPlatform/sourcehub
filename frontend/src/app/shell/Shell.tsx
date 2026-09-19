@@ -83,7 +83,7 @@ export const WORKSPACE: Record<string, string> = {
   worker: "Crowd worker",
 };
 
-type Theme = "system" | "light" | "dark";
+export type Theme = "system" | "light" | "dark";
 
 function applyTheme(t: Theme) {
   const root = document.documentElement;
@@ -159,8 +159,9 @@ export function Shell({ children }: { children: ReactNode }) {
     refetchInterval: 20_000,
   });
 
-  const cycleTheme = () => {
-    const next: Theme = theme === "system" ? "light" : theme === "light" ? "dark" : "system";
+  // A direct choice rather than a cycle: the account menu offers all three, so
+  // nobody has to click past "light" to reach "dark".
+  const chooseTheme = (next: Theme) => {
     setTheme(next);
     try {
       localStorage.setItem("sourcehub.theme", next);
@@ -196,12 +197,11 @@ export function Shell({ children }: { children: ReactNode }) {
             ))}
           </div>
         </nav>
-        <div className="rail-foot">
-          <NavLink to="/design" className="rail-item">Design system</NavLink>
-          <button type="button" className="rail-item" onClick={cycleTheme}>
-            Theme: {theme}
-          </button>
-        </div>
+        {/* The rail ends at the navigation. It used to carry a "Design system"
+            link — a developer reference showing in every persona's nav — and a
+            bare "Theme: system" text button. The theme now lives in the account
+            menu, where it is conventionally found; /design is still reachable by
+            URL in local dev builds (router.tsx) and absent from production. */}
       </aside>
 
       <div className="main">
@@ -219,10 +219,19 @@ export function Shell({ children }: { children: ReactNode }) {
               aria-label={`Notifications, ${bell.data?.unread ?? 0} unread`}
               onClick={() => setBellOpen((o) => !o)}
             >
+              {/* A bell, drawn in currentColor so it takes .iconbtn's --ink-2 and
+                  follows the theme. Hidden from assistive tech: the button's
+                  aria-label already says what it is and how many are unread. */}
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                aria-hidden="true" focusable="false">
+                <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+                <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+              </svg>
               {/* .ping, not .push: the stylesheet's badge is .iconbtn .ping,
                   and .push is the margin-left:auto utility — so the unread
-                  count rendered as bare text beside the glyph. */}
-              ◔{(bell.data?.unread ?? 0) > 0 && <i className="ping">{bell.data?.unread}</i>}
+                  count rendered as bare text beside the icon. */}
+              {(bell.data?.unread ?? 0) > 0 && <i className="ping">{bell.data?.unread}</i>}
             </button>
             {bellOpen && (
               <div className="pop" role="menu">
@@ -269,7 +278,7 @@ export function Shell({ children }: { children: ReactNode }) {
               </div>
             )}
           </div>
-          <ProfileMenu />
+          <ProfileMenu theme={theme} onTheme={chooseTheme} />
         </header>
         <main id="main">{children}</main>
       </div>

@@ -23,3 +23,10 @@ if (typeof Blob !== "undefined" && typeof Blob.prototype.arrayBuffer !== "functi
     });
   };
 }
+
+// jsdom has no layout, so window.scrollTo is a stub that logs "Not implemented"
+// as an Error. Dialog restores the page's scroll position when it closes, which
+// made every component test that opens one print a stack trace on success.
+if (typeof window !== "undefined") {
+  window.scrollTo = () => {};
+}

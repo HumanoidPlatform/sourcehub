@@ -107,7 +107,10 @@ export function AppRouter() {
         <Route path="/activity" element={<ActivityPage />} />
 
         {/* shared */}
-        <Route path="/design" element={<DesignSystemRoute />} />
+        {/* Development builds only. In production /design falls through to the
+            catch-all below, so typing the URL lands on the user's own overview
+            rather than on the component showroom. */}
+        {import.meta.env.DEV && <Route path="/design" element={<DesignSystemRoute />} />}
         <Route path="/login" element={<Navigate to="/" replace />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
