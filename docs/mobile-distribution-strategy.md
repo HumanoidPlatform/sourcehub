@@ -1,8 +1,8 @@
 # Getting the phone app to workers — the strategy
 
 *Agreed 19 September 2026. Companion documents:
-[google-play-organisation-account-guide.md](google-play-organisation-account-guide.md) (for the people opening
-the account) and [mobile-pilot-build-plan.md](mobile-pilot-build-plan.md) (the engineering work).*
+[developer-accounts-guide.md](developer-accounts-guide.md) (for the people opening
+the Google Play and Apple accounts) and [mobile-pilot-build-plan.md](mobile-pilot-build-plan.md) (the engineering work).*
 
 ## The decision
 
@@ -69,8 +69,10 @@ With both in place a worker goes from the pilot APK to the Play version by simpl
 4. **When the pilot widens** — closed testing. This needs the store listing, the privacy policy URL and the
    Data safety form, and Google reviews it (allow several days the first time).
 5. **Public** — promote to production with a staged rollout.
-6. **iPhone, later** — Apple Developer Program enrolment as an organisation (US$99 a year, same D-U-N-S, allow
-   1–2 weeks), TestFlight for testers, then App Review. The app is invitation-only with no sign-up, so the review
+6. **iPhone, after Android** — the Apple Developer Program enrolment (organisation, US$99 a year, same D-U-N-S)
+   is requested **now, alongside the Google Play account**, because it is paperwork with a long wait; both are
+   covered by [developer-accounts-guide.md](developer-accounts-guide.md). The iPhone release itself still comes
+   after Android: TestFlight for testers, then App Review. The app is invitation-only with no sign-up, so the review
    will need a working demo account and a note explaining the business model; Apple's unlisted distribution is
    worth considering.
 
