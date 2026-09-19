@@ -76,8 +76,10 @@ export function LoginPage() {
     );
   }
 
+  // No password hint here. This page answers on the public internet, and a
+  // credential printed above the form is a credential published.
   return (
-    <AuthFrame title="Sign in" sub="Every demo account uses the password SourceHub#2026.">
+    <AuthFrame title="Sign in" sub="Use the email and password issued to you.">
       <form onSubmit={(e) => void submit(e)} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
         <Field label="Email" required>
           {(id) => (

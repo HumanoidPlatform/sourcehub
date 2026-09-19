@@ -13,6 +13,11 @@ expo-env.d.ts
 .kotlin/
 *.orig.*
 *.jks
+# `eas credentials` downloads the signing key as credentials/*.jks (ignored
+# above) and writes its PASSWORDS in plain text to credentials.json, which was
+# not. One `git add .` would have published the key that signs the app.
+credentials.json
+credentials/
 *.p8
 *.p12
 *.key

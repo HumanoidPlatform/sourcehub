@@ -93,11 +93,11 @@ services:
 
       # Where invitation and reset links in emails point — the deployed console,
       # so a tester's own phone or laptop can open them.
-      APP_BASE_URL: http://172.210.12.246
+      APP_BASE_URL: https://cosarathi.eastus.cloudapp.azure.com
       # The console is served from the same origin as the API (nginx forwards
       # /api/), so the browser never makes a cross-origin call. Kept correct
       # anyway, for anything that calls the API directly.
-      CORS_ALLOWED_ORIGINS: http://172.210.12.246
+      CORS_ALLOWED_ORIGINS: https://cosarathi.eastus.cloudapp.azure.com
 
       # Everything else uses the defaults in backend/src/sourcehub/config.py,
       # which are already right: argon2id hashing, 15-minute access tokens,
@@ -112,7 +112,8 @@ services:
       - backend
 
   # ---------- Cosarathi console ----------
-  # The only service with a public port. It serves the console and forwards
+  # No published port any more: Caddy below is the front door, and this
+  # container is reachable only from it. It serves the console and forwards
   # /api/ to the api container above (frontend/nginx.conf), so the browser and
   # the phone both use one address and there is no CORS. nginx re-resolves the
   # api hostname every 10s, so the two can start in any order.
@@ -122,8 +123,36 @@ services:
     restart: unless-stopped
     depends_on:
       - api
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "5"}
+    networks:
+      - backend
+
+  # ---------- HTTPS front door ----------
+  # The only service with public ports. Caddy obtains a certificate for the name
+  # below from Let's Encrypt by itself, renews it, redirects http:// to
+  # https://, and forwards everything to the web container. No config file: the
+  # whole of it is the one command line.
+  #
+  # /data holds the certificate and MUST stay on the host. Let's Encrypt limits
+  # how often a name can be issued; a container that lost its certificate on
+  # every restart would lock this name out within a week.
+  #
+  # Port 80 stays open as well as 443: the certificate check arrives on it.
+  caddy:
+    image: caddy:2
+    container_name: caddy
+    restart: unless-stopped
+    command: caddy reverse-proxy --from cosarathi.eastus.cloudapp.azure.com --to web:80
     ports:
       - "80:80"
+      - "443:443"
+    volumes:
+      - /opt/stack/data/caddy/data:/data
+      - /opt/stack/data/caddy/config:/config
+    depends_on:
+      - web
     logging:
       driver: json-file
       options: {max-size: "10m", max-file: "5"}

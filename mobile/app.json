@@ -82,9 +82,15 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "6566c3bb-8dc1-4a4c-91fa-bed77ea30dcc"
+        "projectId": "5fa7e6c0-abcf-46e0-9837-d66e5046badc"
       }
     },
-    "owner": "vaishnavineela"
+    "owner": "jituexpo2026",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/5fa7e6c0-abcf-46e0-9837-d66e5046badc"
+    }
   }
 }

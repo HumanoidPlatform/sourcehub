@@ -6,8 +6,8 @@ import { useState } from "react";
 import { get, post } from "@api/client";
 import type { OnboardingRow } from "@api/types";
 import {
-  Button, Callout, Dialog, Dl, Empty, Field, inputCls, Metric, Panel, Pill, selectCls, TableWrap,
-  textareaCls, useToast, View,
+  Button, Callout, Dialog, Dl, Empty, Field, inputCls, Metric, Panel, Pill, selectCls, Skeleton,
+  TableWrap, textareaCls, useToast, View,
 } from "@ds/primitives";
 import { fmtDateTime, titleCase } from "@shared/format";
 import { onboardingStatus, statusMeta } from "@shared/status";
@@ -37,7 +37,15 @@ export function OnboardingQueuePage() {
       </div>
 
       <Panel title="Queue" sub="Oldest first — a tenant is waiting on each of these.">
-        {open.length === 0 ? (
+        {/* A tenant is waiting on each of these, so "nothing waiting" had better
+            be true rather than merely un-fetched. */}
+        {requests.isLoading ? (
+          <Skeleton rows={4} label="Loading the onboarding queue" />
+        ) : requests.isError ? (
+          <Callout tone="critical" title="Could not load the onboarding queue">
+            {requests.error instanceof Error ? requests.error.message : "The request failed."}
+          </Callout>
+        ) : open.length === 0 ? (
           <Empty title="Nothing waiting" hint="Tenant requests to onboard aggregators, businesses and sponsors land here." />
         ) : (
           <QueueTable rows={open} onOpen={setSelected} />

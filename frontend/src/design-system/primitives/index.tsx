@@ -114,14 +114,22 @@ export function Field({
 }) {
   const idRef = useRef(`f${++fieldSeq}`);
   return (
-    <div className="field" style={span ? { gridColumn: "1 / -1" } : undefined} data-invalid={!!error}>
+    // "" or undefined, NOT a boolean. React drops a false only for attributes it
+    // knows are boolean; on a data-* it stringifies, so data-invalid={!!error}
+    // emitted data-invalid="false" on every valid field. .field[data-invalid]
+    // matches on presence, not value, so at (0,3,0) it beat both the resting
+    // border and .input:focus (0,2,0) — every input in the console wore the
+    // critical colour permanently and no focus ring ever showed. The bell's
+    // data-unread handles this correctly (components.css:378); this did not.
+    <div className="field" style={span ? { gridColumn: "1 / -1" } : undefined} data-invalid={error ? "" : undefined}>
       <label htmlFor={idRef.current}>
         {label}
         {required && <span className="req" aria-hidden="true">*</span>}
       </label>
       {children(idRef.current)}
       {hint && !error && <span className="hint">{hint}</span>}
-      {error && <span className="err" style={{ display: "block" }}>{error}</span>}
+      {/* the stylesheet reveals this via [data-invalid]; no inline override needed */}
+      {error && <span className="err">{error}</span>}
     </div>
   );
 }

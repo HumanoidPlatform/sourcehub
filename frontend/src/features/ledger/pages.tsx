@@ -6,7 +6,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { get } from "@api/client";
 import type { InvoiceRow } from "@api/types";
-import { Button, Dialog, Dl, Empty, Metric, Panel, Pill, TableWrap, View } from "@ds/primitives";
+import {
+  Button, Callout, Dialog, Dl, Empty, Metric, Panel, Pill, Skeleton, TableWrap, View,
+} from "@ds/primitives";
 import { useSession } from "@shared/auth";
 import { fmtDate, fmtDateTime, money } from "@shared/format";
 import { invoiceStatus, statusMeta } from "@shared/status";
@@ -60,7 +62,15 @@ export function BillingPage() {
         <Metric label="Invoices" value={rows.length} />
       </div>
       <Panel>
-        {rows.length === 0 ? (
+        {/* Ops reads this screen during an outage. "No invoices" for a failed
+            fetch is the wrong answer to the only question it is asked. */}
+        {invoices.isLoading ? (
+          <Skeleton rows={5} label="Loading invoices" />
+        ) : invoices.isError ? (
+          <Callout tone="critical" title="Could not load invoices">
+            {invoices.error instanceof Error ? invoices.error.message : "The request failed."}
+          </Callout>
+        ) : rows.length === 0 ? (
           <Empty title="No invoices" hint="Awarding a contract raises the first milestone invoice." />
         ) : (
           <TableWrap>

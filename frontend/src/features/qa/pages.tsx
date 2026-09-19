@@ -8,7 +8,8 @@ import { useState } from "react";
 import { get, post } from "@api/client";
 import type { Gate1Row, QaQueueRow } from "@api/types";
 import {
-  Button, Callout, Dialog, Empty, Field, Metric, Panel, Pill, TableWrap, textareaCls, useToast, View,
+  Button, Callout, Dialog, Empty, Field, Metric, Panel, Pill, Skeleton, TableWrap, textareaCls,
+  useToast, View,
 } from "@ds/primitives";
 import { fmtDateTime } from "@shared/format";
 import { AttachmentsField, attachmentPayload, type AttachmentDraft } from "@shared/attachments";
@@ -30,13 +31,23 @@ export function QaQueuePage() {
       title="QA and delivery"
       sub="Gate 2. The gate that catches a defect decides who absorbs the rework — verdicts are appended, never edited."
     >
+      {/* "…" while the count is unknown: a hard 0 above an empty queue is two
+          sources agreeing on something neither has checked. */}
       <div className="g3">
-        <Metric label="Awaiting review" value={rows.length} />
-        <Metric label="Assets queued" value={rows.reduce((s, r) => s + r.asset_count, 0)} />
+        <Metric label="Awaiting review" value={queue.isLoading ? "…" : rows.length} />
+        <Metric label="Assets queued" value={queue.isLoading ? "…" : rows.reduce((s, r) => s + r.asset_count, 0)} />
         <Metric label="Oldest wait" value={rows.length ? fmtDateTime(rows[0]!.submitted_at) : "—"} />
       </div>
       <Panel>
-        {rows.length === 0 ? (
+        {/* Loading and failing are not "clear". Telling a partner their QA queue
+            is empty when the request errored is the one lie this screen can tell. */}
+        {queue.isLoading ? (
+          <Skeleton rows={4} label="Loading the QA queue" />
+        ) : queue.isError ? (
+          <Callout tone="critical" title="Could not load the QA queue">
+            {queue.error instanceof Error ? queue.error.message : "The request failed."}
+          </Callout>
+        ) : rows.length === 0 ? (
           <Empty title="The queue is clear" hint="Suppliers' submissions land here for your verdict." />
         ) : (
           <TableWrap>

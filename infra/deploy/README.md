@@ -7,7 +7,11 @@ to copy and no separate env files.
 Your `db` service in it is **identical to the one you have today** — same image,
 volume, ports and password. Compose only recreates a container when its resolved
 configuration changes, so the database container is never touched, never
-restarts, and is never at risk. `api` and `web` are simply added beside it.
+restarts, and is never at risk. `api`, `web` and `caddy` are simply added beside it.
+
+**The address is `https://cosarathi.eastus.cloudapp.azure.com`.** Caddy is the
+front door: it gets and renews the certificate by itself, redirects `http://` to
+`https://`, and forwards to `web`. Neither `web` nor `api` publishes a port.
 
 ## Build and push (on the laptop)
 
@@ -45,20 +49,34 @@ cp docker-compose.yml docker-compose.yml.bak
 grep CHANGEME docker-compose.yml          # only the two lines in the comments should remain
 docker compose config --quiet && echo OK  # catches a missed value before anything runs
 
+sudo mkdir -p /opt/stack/data/caddy/data /opt/stack/data/caddy/config   # the certificate lives here
+
 docker login                              # read-only access token, not your password
 docker compose pull
 docker compose up -d
-docker compose ps                         # api and web created; db untouched
-curl -s localhost/health
+docker compose ps                         # api, web, caddy up; db untouched
+docker compose logs --tail 30 caddy       # look for "certificate obtained successfully"
+curl -s https://cosarathi.eastus.cloudapp.azure.com/health
 ```
 
-Then add the Azure inbound rule for **TCP 80**, with Source set to **My IP
-address** rather than Any — five accounts still open with the password printed
-on the sign-in page, so the port rule is what contains that.
+The first start takes up to a minute while Caddy obtains the certificate. If the
+log shows a challenge failing, the usual causes are port 80 or 443 closed in the
+Azure rules, or the DNS name not pointing at this VM. Do not restart it in a loop
+while you investigate — Let's Encrypt rate-limits failed attempts.
+
+The Azure inbound rules needed are **TCP 80 and TCP 443**. Port 80 must stay
+open even though everything is served on 443: the certificate check arrives on
+it, and Caddy answers everything else there with a redirect.
+
+Five accounts still open with the password printed on the sign-in page. That was
+accepted for team testing; change them before the address is given to anyone
+outside the team.
 
 **Updating:** change the two image tags, `docker compose pull`, `up -d`.
 **Rolling back:** the same, with the previous tags.
-**Schema changes:** `docker compose run --rm migrate` — a verified no-op today.
+**Schema changes:** the one-line `docker run … alembic upgrade head` at the bottom
+of `docker-compose.yml`. The live database is at `0016`, the same as the repository,
+so there is nothing to run today.
 
 ## Keep secrets out of the repo
 
@@ -90,15 +108,19 @@ this one — the same sequence the VM will go through:
   asserts the real peer. Before that fix a request carrying
   `X-Forwarded-For: 203.0.113.77` was recorded from that address, and a non-IP
   value returned 500 from the login endpoint.
+- **The same holds with Caddy in front.** Run locally as Caddy → nginx → API:
+  a sign-in is recorded from the real caller, not from Caddy's container
+  address; the forged header is ignored; the malformed one returns 401. This
+  depends on the `set_real_ip_from` lines in `frontend/nginx.conf` — without
+  them every sign-in would be recorded from Caddy. What could not be tested
+  locally is the certificate itself: that only happens on the VM, with the real
+  name.
 
 ## Known, and deliberate
 
-- **Plain HTTP.** Passwords and tokens travel unencrypted.
-- **The crowd worker's browser upload does not work.** Browsers withhold
-  `crypto.subtle` from non-HTTPS origins and the hashing code has no fallback,
-  so the worker picks files and nothing happens, with no error shown. The phone
-  app is unaffected (it is native); client and partner document uploads are
-  unaffected (they do not hash). HTTPS fixes this at the root.
+- **`web` must never be published directly again.** `frontend/nginx.conf` now
+  trusts `X-Forwarded-For` from the private Docker ranges, which is safe only
+  while Caddy is the sole thing that can reach it.
 - **Five accounts keep the published demo password**, including the platform
   admin. The scoped port rule above is what contains it.
 - **`/docs` is public** on the API.
