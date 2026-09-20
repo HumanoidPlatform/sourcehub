@@ -7,7 +7,7 @@ import { Link, useParams } from "react-router-dom";
 import { get, post } from "@api/client";
 import type { ActivityRow, Assignment, CaptureSpec, Contract, Org, Rfp, SubjectSpec, Task } from "@api/types";
 import {
-  Button, Callout, Dialog, Dl, Empty, Field, inputCls, Meter, Metric, Panel,
+  Button, Callout, Dialog, Dl, Empty, Field, inputCls, Loadable, Meter, Metric, Panel,
   Pill, TableWrap, textareaCls, useToast, View,
 } from "@ds/primitives";
 import {
@@ -40,49 +40,51 @@ export function ContractsPage() {
           scan for — which contract needs attention. The detail page has the
           metrics; this page has to be scannable. */}
       <Panel>
-        {(contracts.data ?? []).length === 0 ? (
-          <Empty
-            title={isClient ? "Nothing in delivery" : "No contracts yet"}
-            hint={isClient ? "Award a proposal to open a contract." : "Win a proposal to open one."}
-          />
-        ) : (
-          <TableWrap>
-            <table>
-              <thead>
-                <tr>
-                  <th>Reference</th><th>Title</th><th>{isClient ? "Partner" : "Client"}</th>
-                  <th>Value</th><th>Tasks</th><th>Progress</th><th>Delivery due</th>
-                  <th>Status</th><th />
-                </tr>
-              </thead>
-              <tbody>
-                {(contracts.data ?? []).map((c) => {
-                  const meta = statusMeta(contractStatus, c.status);
-                  const to = isClient ? `/deliveries/${c.id}` : `/contracts/${c.id}`;
-                  return (
-                    <tr key={c.id}>
-                      <td className="id">{c.reference_code}</td>
-                      <td className="cell-primary">{c.title ?? c.reference_code}</td>
-                      <td>{isClient ? c.partner_name : c.client_name}</td>
-                      <td className="num" style={{ whiteSpace: "nowrap" }}>{money(c.value)}</td>
-                      <td className="num">{c.progress.done} / {c.progress.total}</td>
-                      <td style={{ minWidth: 96 }}>
-                        <Meter pct={c.progress.pct} tone={c.progress.pct === 100 ? "success" : undefined} />
-                      </td>
-                      <td className="num" style={{ whiteSpace: "nowrap" }}>{fmtDate(c.delivery_due_on)}</td>
-                      <td><Pill tone={meta.tone}>{meta.label}</Pill></td>
-                      <td className="right">
-                        <div className="rowactions">
-                          <Link className="btn" data-size="sm" to={to}>Open</Link>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </TableWrap>
-        )}
+        <Loadable q={contracts} what={isClient ? "your deliveries" : "your contracts"}>
+          {(contracts.data ?? []).length === 0 ? (
+            <Empty
+              title={isClient ? "Nothing in delivery" : "No contracts yet"}
+              hint={isClient ? "Award a proposal to open a contract." : "Win a proposal to open one."}
+            />
+          ) : (
+            <TableWrap>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Reference</th><th>Title</th><th>{isClient ? "Partner" : "Client"}</th>
+                    <th>Value</th><th>Tasks</th><th>Progress</th><th>Delivery due</th>
+                    <th>Status</th><th />
+                  </tr>
+                </thead>
+                <tbody>
+                  {(contracts.data ?? []).map((c) => {
+                    const meta = statusMeta(contractStatus, c.status);
+                    const to = isClient ? `/deliveries/${c.id}` : `/contracts/${c.id}`;
+                    return (
+                      <tr key={c.id}>
+                        <td className="id">{c.reference_code}</td>
+                        <td className="cell-primary">{c.title ?? c.reference_code}</td>
+                        <td>{isClient ? c.partner_name : c.client_name}</td>
+                        <td className="num" style={{ whiteSpace: "nowrap" }}>{money(c.value)}</td>
+                        <td className="num">{c.progress.done} / {c.progress.total}</td>
+                        <td style={{ minWidth: 96 }}>
+                          <Meter pct={c.progress.pct} tone={c.progress.pct === 100 ? "success" : undefined} />
+                        </td>
+                        <td className="num" style={{ whiteSpace: "nowrap" }}>{fmtDate(c.delivery_due_on)}</td>
+                        <td><Pill tone={meta.tone}>{meta.label}</Pill></td>
+                        <td className="right">
+                          <div className="rowactions">
+                            <Link className="btn" data-size="sm" to={to}>Open</Link>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </TableWrap>
+          )}
+        </Loadable>
       </Panel>
     </View>
   );
@@ -644,71 +646,73 @@ export function TasksPage() {
   return (
     <View title={label} sub={sub}>
       <Panel>
-        {(tasks.data ?? []).length === 0 ? (
-          <Empty title="Nothing assigned" hint="Your delivery partner assigns work here." />
-        ) : (
-          <TableWrap>
-            <table>
-              <thead>
-                <tr>
-                  <th>Task</th><th>Contract</th><th>Target</th>
-                  {isAggregator && <th>Workers</th>}
-                  <th>Due</th><th>Status</th><th>Last note</th><th />
-                </tr>
-              </thead>
-              <tbody>
-                {(tasks.data ?? []).map((t) => {
-                  const tm = statusMeta(taskStatus, t.status);
-                  const s = t.assignment_summary;
-                  const a = t.asset_summary;
-                  const workers = s ? s.total - s.cancelled : 0;
-                  return (
-                    <tr key={t.id} className="tap" onClick={() => setViewing(t)}>
-                      <td className="cell-primary">{t.title}<div className="cell-meta id">{t.reference_code}</div></td>
-                      <td className="id">{t.contract_ref}</td>
-                      <td>{taskTarget(t)}</td>
-                      {isAggregator && (
-                        <td>
-                          {workers > 0 ? (
-                            <>
-                              {workers} worker{workers === 1 ? "" : "s"}
-                              <div className="cell-meta">
-                                {a?.ready ?? 0}{t.target_quantity ? ` / ${t.target_quantity}` : ""} ready
-                                {s?.submitted ? ` · ${s.submitted} to review` : ""}
-                              </div>
-                            </>
-                          ) : (
-                            <span className="muted">—</span>
-                          )}
-                        </td>
-                      )}
-                      <td className="num">{fmtDate(t.due_on)}</td>
-                      <td><Pill tone={tm.tone}>{tm.label}</Pill></td>
-                      <td style={{ maxWidth: 260 }} className="small muted">
-                        {t.status === "qa_failed" ? <QaNote taskId={t.id} /> : t.last_submission?.supplier_note ?? "—"}
-                      </td>
-                      <td className="right" onClick={(e) => e.stopPropagation()}><div className="rowactions">
-                        <Button size="sm" onClick={() => setViewing(t)}>Details</Button>
+        <Loadable q={tasks} what="your tasks">
+          {(tasks.data ?? []).length === 0 ? (
+            <Empty title="Nothing assigned" hint="Your delivery partner assigns work here." />
+          ) : (
+            <TableWrap>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Task</th><th>Contract</th><th>Target</th>
+                    {isAggregator && <th>Workers</th>}
+                    <th>Due</th><th>Status</th><th>Last note</th><th />
+                  </tr>
+                </thead>
+                <tbody>
+                  {(tasks.data ?? []).map((t) => {
+                    const tm = statusMeta(taskStatus, t.status);
+                    const s = t.assignment_summary;
+                    const a = t.asset_summary;
+                    const workers = s ? s.total - s.cancelled : 0;
+                    return (
+                      <tr key={t.id} className="tap" onClick={() => setViewing(t)}>
+                        <td className="cell-primary">{t.title}<div className="cell-meta id">{t.reference_code}</div></td>
+                        <td className="id">{t.contract_ref}</td>
+                        <td>{taskTarget(t)}</td>
                         {isAggregator && (
-                          <Button size="sm" onClick={() => setWorkersFor(t)}>Workers</Button>
+                          <td>
+                            {workers > 0 ? (
+                              <>
+                                {workers} worker{workers === 1 ? "" : "s"}
+                                <div className="cell-meta">
+                                  {a?.ready ?? 0}{t.target_quantity ? ` / ${t.target_quantity}` : ""} ready
+                                  {s?.submitted ? ` · ${s.submitted} to review` : ""}
+                                </div>
+                              </>
+                            ) : (
+                              <span className="muted">—</span>
+                            )}
+                          </td>
                         )}
-                        {["assigned", "qa_failed"].includes(t.status) && (
-                          <Button size="sm" onClick={() => start.mutate(t.id)}>Start</Button>
-                        )}
-                        {["in_progress", "qa_failed", "assigned"].includes(t.status) && (
-                          <Button size="sm" variant="primary" onClick={() => setSubmitting(t)}>
-                            {isAggregator ? "Submit to partner" : "Submit"}
-                          </Button>
-                        )}
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </TableWrap>
-        )}
+                        <td className="num">{fmtDate(t.due_on)}</td>
+                        <td><Pill tone={tm.tone}>{tm.label}</Pill></td>
+                        <td style={{ maxWidth: 260 }} className="small muted">
+                          {t.status === "qa_failed" ? <QaNote taskId={t.id} /> : t.last_submission?.supplier_note ?? "—"}
+                        </td>
+                        <td className="right" onClick={(e) => e.stopPropagation()}><div className="rowactions">
+                          <Button size="sm" onClick={() => setViewing(t)}>Details</Button>
+                          {isAggregator && (
+                            <Button size="sm" onClick={() => setWorkersFor(t)}>Workers</Button>
+                          )}
+                          {["assigned", "qa_failed"].includes(t.status) && (
+                            <Button size="sm" onClick={() => start.mutate(t.id)}>Start</Button>
+                          )}
+                          {["in_progress", "qa_failed", "assigned"].includes(t.status) && (
+                            <Button size="sm" variant="primary" onClick={() => setSubmitting(t)}>
+                              {isAggregator ? "Submit to partner" : "Submit"}
+                            </Button>
+                          )}
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </TableWrap>
+          )}
+        </Loadable>
       </Panel>
 
       {submitting && isAggregator && (
@@ -825,41 +829,43 @@ export function WorkerAssignmentsPage() {
         left for your supplier to judge.
       </Callout>
       <Panel>
-        {list.length === 0 ? (
-          <Empty title="Nothing assigned yet" hint="Your aggregator assigns work to you here." />
-        ) : (
-          <TableWrap>
-            <table>
-              <thead><tr><th>Task</th><th>Ready</th><th>Status</th><th>Due</th><th>Note</th><th></th></tr></thead>
-              <tbody>
-                {list.map((a) => {
-                  const m = statusMeta(assignmentStatus, a.status);
-                  const act = activity.get(a.id);
-                  return (
-                    <tr key={a.id}>
-                      <td className="cell-primary">{a.task.title}<div className="cell-meta id">{a.task.reference_code}</div></td>
-                      <td className="num">{a.assets.ready} / {a.quantity}</td>
-                      <td>
-                        <Pill tone={m.tone}>{m.label}</Pill>
-                        {act && act.active > 0 && <span className="chip" style={{ marginLeft: 6 }}>{act.active} uploading</span>}
-                        {act && act.active === 0 && act.failed > 0 && <span className="chip" style={{ marginLeft: 6 }}>{act.failed} failed</span>}
-                      </td>
-                      <td className="num">{fmtDate(a.due_on ?? a.task.due_on)}</td>
-                      <td className="small muted" style={{ maxWidth: 260 }}>
-                        {a.status === "rejected" ? a.decision_note : a.instructions ?? a.task.instructions ?? "—"}
-                      </td>
-                      <td style={{ textAlign: "right" }}>
-                        <Button size="sm" variant={a.status === "accepted" || a.status === "submitted" ? undefined : "primary"} onClick={() => setOpenId(a.id)}>
-                          {action(a)}
-                        </Button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </TableWrap>
-        )}
+        <Loadable q={rows} what="your assignments">
+          {list.length === 0 ? (
+            <Empty title="Nothing assigned yet" hint="Your aggregator assigns work to you here." />
+          ) : (
+            <TableWrap>
+              <table>
+                <thead><tr><th>Task</th><th>Ready</th><th>Status</th><th>Due</th><th>Note</th><th></th></tr></thead>
+                <tbody>
+                  {list.map((a) => {
+                    const m = statusMeta(assignmentStatus, a.status);
+                    const act = activity.get(a.id);
+                    return (
+                      <tr key={a.id}>
+                        <td className="cell-primary">{a.task.title}<div className="cell-meta id">{a.task.reference_code}</div></td>
+                        <td className="num">{a.assets.ready} / {a.quantity}</td>
+                        <td>
+                          <Pill tone={m.tone}>{m.label}</Pill>
+                          {act && act.active > 0 && <span className="chip" style={{ marginLeft: 6 }}>{act.active} uploading</span>}
+                          {act && act.active === 0 && act.failed > 0 && <span className="chip" style={{ marginLeft: 6 }}>{act.failed} failed</span>}
+                        </td>
+                        <td className="num">{fmtDate(a.due_on ?? a.task.due_on)}</td>
+                        <td className="small muted" style={{ maxWidth: 260 }}>
+                          {a.status === "rejected" ? a.decision_note : a.instructions ?? a.task.instructions ?? "—"}
+                        </td>
+                        <td style={{ textAlign: "right" }}>
+                          <Button size="sm" variant={a.status === "accepted" || a.status === "submitted" ? undefined : "primary"} onClick={() => setOpenId(a.id)}>
+                            {action(a)}
+                          </Button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </TableWrap>
+          )}
+        </Loadable>
       </Panel>
       {open && <AssignmentUploadDialog assignment={open} onClose={() => setOpenId(null)} />}
     </View>

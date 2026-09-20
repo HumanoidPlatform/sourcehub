@@ -35,7 +35,7 @@ function ClientOverview() {
   const committed = cs.reduce((s, c) => s + Number(c.value), 0);
 
   return (
-    <View title={`Good day, ${session.org_name}`} sub="What needs you, and where everything stands.">
+    <View title={`Good day, ${session.org_name}`} pageTitle="Overview" sub="What needs you, and where everything stands.">
       <div className="g4">
         <Metric label="Open requests" value={open} />
         <Metric label="Awaiting your decision" value={waiting} />
@@ -94,7 +94,7 @@ function TenantOverview() {
   const ready = active.filter((c) => c.progress.deliverable).length;
 
   return (
-    <View title={`Good day, ${session.org_name}`} sub="Bids, contracts and the QA queue at a glance.">
+    <View title={`Good day, ${session.org_name}`} pageTitle="Overview" sub="Bids, contracts and the QA queue at a glance.">
       <div className="g4">
         <Metric label="Open opportunities" value={opps.data?.length ?? "…"} />
         <Metric label="Win rate" value={`${winRate}%`} sub={`${won} of ${ps.length} proposals`} />
@@ -137,7 +137,7 @@ function SupplierOverview() {
   const sentBack = ts.filter((t) => t.status === "qa_failed").length;
 
   return (
-    <View title={`Good day, ${session.org_name}`} sub="Your assignments and the gear to do them with.">
+    <View title={`Good day, ${session.org_name}`} pageTitle="Overview" sub="Your assignments and the gear to do them with.">
       <div className="g4">
         <Metric label="Open tasks" value={openTasks.length} />
         <Metric label="Sent back for rework" value={sentBack} />
@@ -191,7 +191,7 @@ function SponsorOverview() {
   const deployed = eq.reduce((s, e) => s + e.units_on_loan, 0);
 
   return (
-    <View title={`Good day, ${session.org_name}`} sub="Your fleet, and who is asking for it.">
+    <View title={`Good day, ${session.org_name}`} pageTitle="Overview" sub="Your fleet, and who is asking for it.">
       <div className="g4">
         <Metric label="Equipment types" value={eq.length} />
         <Metric label="Total units" value={eq.reduce((s, e) => s + e.total_units, 0)} />

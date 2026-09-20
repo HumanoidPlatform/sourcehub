@@ -5,7 +5,7 @@
 // capabilities, and RLS decides what any query returns. Deep-linking to a page
 // your role never uses just shows you an empty, harmless view.
 
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { DesignSystemRoute } from "@ds/DesignSystemRoute";
 import { AccountDetailPage } from "@features/admin/account-detail";
 import { AccountsPage, ActivityPage } from "@features/admin/pages";
@@ -21,14 +21,19 @@ import {
 import {
   CapacityPage, EquipmentPage, LoanQueuePage, NetworkPage, RosterPage,
 } from "@features/network/pages";
+import { NotificationsPage } from "@features/notify/pages";
 import { OnboardingQueuePage } from "@features/onboarding/pages";
 import { Gate1Page, QaQueuePage } from "@features/qa/pages";
-import { useAuth } from "@shared/auth";
+import { identityOf, returnPath, useAuth } from "@shared/auth";
+import { ErrorBoundary } from "./error-boundary";
+import { NotFoundPage } from "./not-found";
 import { OverviewPage } from "./overview";
 import { Shell } from "./shell/Shell";
 
 export function AppRouter() {
   const { session } = useAuth();
+  // Read before the early returns below, as the rules of hooks require.
+  const location = useLocation();
 
   // Token links belong to whoever holds the token, not to whoever happens to
   // be signed in on this browser. They lived on the anonymous surface only, so
@@ -52,7 +57,13 @@ export function AppRouter() {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         {tokenRoutes}
-        <Route path="*" element={<Navigate to="/login" replace />} />
+        {/* Remember where the user was — the page they were on when the
+            session expired, or the link they followed while signed out — so
+            signing in returns them there rather than to the overview. */}
+        <Route
+          path="*"
+          element={<Navigate to="/login" replace state={{ from: location.pathname + location.search }} />}
+        />
       </Routes>
     );
   }
@@ -63,7 +74,14 @@ export function AppRouter() {
   }
 
   return (
-    <Shell>
+    // Keyed on who is signed in: when another tab signs in as someone else,
+    // every page starts over. The emptied cache (shared/auth) replaces the
+    // previous person's data; this replaces what they had typed, filtered or
+    // left open, which would otherwise carry into the new person's session.
+    <Shell key={identityOf(session)}>
+      {/* A page that throws shows an error in place of itself; the sidebar and
+          top bar survive, and navigating elsewhere clears it. */}
+      <ErrorBoundary scope="page" resetKey={location.pathname}>
       <Routes>
         <Route path="/" element={<OverviewPage />} />
 
@@ -107,13 +125,14 @@ export function AppRouter() {
         <Route path="/activity" element={<ActivityPage />} />
 
         {/* shared */}
+        <Route path="/notifications" element={<NotificationsPage />} />
         {/* Development builds only. In production /design falls through to the
-            catch-all below, so typing the URL lands on the user's own overview
-            rather than on the component showroom. */}
+            catch-all below and reads "Page not found". */}
         {import.meta.env.DEV && <Route path="/design" element={<DesignSystemRoute />} />}
-        <Route path="/login" element={<Navigate to="/" replace />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="/login" element={<Navigate to={returnPath(location.state)} replace />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
+      </ErrorBoundary>
     </Shell>
   );
 }

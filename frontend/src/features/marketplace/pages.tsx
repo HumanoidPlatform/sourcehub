@@ -2,7 +2,7 @@
 // proposal comparison and the award.
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { get, patch, post } from "@api/client";
 import type {
@@ -11,7 +11,7 @@ import type {
   StorageTarget, TargetUnit, UseCase,
 } from "@api/types";
 import {
-  Button, Callout, CheckGroup, Dialog, Dl, Empty, Field, inputCls, Panel, Pill, RowMenu,
+  Button, Callout, CheckGroup, DataTable, Dialog, Dl, Empty, Field, inputCls, Panel, Pill, RowMenu,
   selectCls, Skeleton, StageRail, TableWrap, TagInput, textareaCls, useToast, View,
 } from "@ds/primitives";
 import {
@@ -24,6 +24,7 @@ import { fmtDate, fmtDateTime, mediaList, money, titleCase } from "@shared/forma
 import {
   AttachmentList, AttachmentsField, attachmentPayload, fromServer, type AttachmentDraft,
 } from "@shared/attachments";
+import { useLeaveGuard } from "@shared/leave-guard";
 import { OrgProfileDialog } from "@shared/org-profile";
 import {
   LIFECYCLE, proposalStatus, requestStatus, statusMeta, waitingOn,
@@ -40,77 +41,70 @@ const CATEGORIES = [
 /* --- client: requests list -------------------------------------------------- */
 
 export function RequestsPage() {
-  const [q, setQ] = useState("");
   const requests = useQuery({ queryKey: ["requests"], queryFn: () => get<Rfp[]>("/requests") });
-  const rows = (requests.data ?? []).filter(
-    (r) =>
-      !q ||
-      r.title.toLowerCase().includes(q.toLowerCase()) ||
-      r.reference_code.toLowerCase().includes(q.toLowerCase()),
-  );
+  const rows = requests.data ?? [];
+  const status = (r: Rfp) => statusMeta(requestStatus, r.status);
+  const newRequest = <Link to="/requests/new" className="btn" data-variant="primary">New request</Link>;
   return (
     <View
       title="Requests"
       sub="Everything you have drafted, published or seen through to completion."
-      actions={<Link to="/requests/new" className="btn" data-variant="primary">New request</Link>}
+      actions={newRequest}
     >
-      <input
-        className={inputCls}
-        placeholder="Filter by title or reference…"
-        value={q}
-        onChange={(e) => setQ(e.target.value)}
-        style={{ maxWidth: 360 }}
-        aria-label="Filter requests"
-      />
       <Panel>
         {requests.isLoading ? (
           // Without this the empty state rendered while the query was in
           // flight — "No requests yet" to a client who has ten.
           <Skeleton rows={5} label="Loading your requests" />
         ) : rows.length === 0 ? (
-          q ? (
-            <Empty title="Nothing matches that" hint="Clear the filter to see every request." />
-          ) : (
-            <Empty
-              title="No requests yet"
-              hint="Publish one and every delivery partner is notified."
-              action={<Link to="/requests/new" className="btn" data-variant="primary">New request</Link>}
-            />
-          )
+          <Empty title="No requests yet" hint="Publish one and every delivery partner is notified." action={newRequest} />
         ) : (
-          <TableWrap>
-            <table>
-              <thead>
-                <tr>
-                  <th>Reference</th><th>Title</th><th>Category</th><th>Budget</th>
-                  <th>Status</th><th>Waiting on</th><th>Proposals</th><th />
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map((r) => {
-                  const meta = statusMeta(requestStatus, r.status);
-                  return (
-                    <tr key={r.id}>
-                      <td className="id">{r.reference_code}</td>
-                      <td className="cell-primary">{r.title}</td>
-                      <td>{titleCase(r.category)}</td>
-                      <td className="num" style={{ whiteSpace: "nowrap" }}>{money(r.budget_min)} – {money(r.budget_max)}</td>
-                      <td><Pill tone={meta.tone}>{meta.label}</Pill></td>
-                      <td>{waitingOn(meta, "client")}</td>
-                      <td className="num">{r.proposal_count}</td>
-                      <td className="right"><div className="rowactions">
-                        {r.status === "draft" && (
-                          <Link className="btn" data-size="sm" to={`/requests/${r.id}/edit`}>Edit</Link>
-                        )}
-                        <Link className="btn" data-size="sm" to={`/requests/${r.id}`}>Open</Link>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </TableWrap>
+          <DataTable
+            rows={rows}
+            rowKey={(r) => r.id}
+            filter={{
+              label: "Filter requests",
+              placeholder: "Filter by title or reference…",
+              text: (r) => `${r.title} ${r.reference_code}`,
+            }}
+            columns={[
+              { header: "Reference", cell: (r) => r.reference_code, sortBy: (r) => r.reference_code, className: "id" },
+              { header: "Title", cell: (r) => r.title, sortBy: (r) => r.title, className: "cell-primary" },
+              { header: "Category", cell: (r) => titleCase(r.category), sortBy: (r) => r.category },
+              {
+                header: "Budget",
+                className: "num",
+                // by the top of the range: what the client is prepared to spend
+                sortBy: (r) => {
+                  const top = r.budget_max ?? r.budget_min;
+                  return top === null ? null : Number(top);
+                },
+                cell: (r) => (
+                  <span style={{ whiteSpace: "nowrap" }}>{money(r.budget_min)} – {money(r.budget_max)}</span>
+                ),
+              },
+              {
+                header: "Status",
+                sortBy: (r) => status(r).label,
+                cell: (r) => <Pill tone={status(r).tone}>{status(r).label}</Pill>,
+              },
+              { header: "Waiting on", cell: (r) => waitingOn(status(r), "client") },
+              { header: "Proposals", cell: (r) => r.proposal_count, sortBy: (r) => r.proposal_count, className: "num" },
+              {
+                header: "Actions",
+                hideHeader: true,
+                className: "right",
+                cell: (r) => (
+                  <div className="rowactions">
+                    {r.status === "draft" && (
+                      <Link className="btn" data-size="sm" to={`/requests/${r.id}/edit`}>Edit</Link>
+                    )}
+                    <Link className="btn" data-size="sm" to={`/requests/${r.id}`}>Open</Link>
+                  </div>
+                ),
+              },
+            ]}
+          />
         )}
       </Panel>
     </View>
@@ -314,6 +308,19 @@ export function RequestNewPage() {
   ];
   const uploading = allFiles.some((a) => a.status === "uploading");
 
+  // Unsaved work, measured against the form as it stood once ready: blank for a
+  // new request, the saved draft once it has loaded for an edit. Only what
+  // would be saved counts — not the step or which sections are open.
+  const snapshot = JSON.stringify([
+    d, briefFiles, complianceFiles, acceptanceFiles, captureExamples, guidelineFiles,
+  ]);
+  const [baseline, setBaseline] = useState<string | null>(null);
+  const ready = !id || loaded;
+  useEffect(() => {
+    if (ready && baseline === null) setBaseline(snapshot);
+  }, [ready, baseline, snapshot]);
+  const guard = useLeaveGuard(baseline !== null && snapshot !== baseline);
+
   const save = useMutation({
     mutationFn: async (publish: boolean) => {
       const body = {
@@ -400,6 +407,7 @@ export function RequestNewPage() {
           : `${r.reference_code} is waiting in your requests.`,
         "success",
       );
+      guard.release(); // saved: leaving now loses nothing
       navigate(`/requests/${r.id}`);
     },
     onError: (e) => setError(e instanceof Error ? e.message : "Save failed"),
@@ -938,6 +946,8 @@ export function RequestNewPage() {
           </Button>
         )}
       </div>
+
+      {guard.dialog}
 
       {confirming && (
         <Dialog

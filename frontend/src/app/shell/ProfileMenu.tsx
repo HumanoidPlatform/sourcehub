@@ -17,7 +17,7 @@
 
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Pill } from "@ds/primitives";
+import { menuKeyDown, Pill } from "@ds/primitives";
 import { ChangePasswordDialog } from "@features/identity/change-password";
 import { useAuth, useSession } from "@shared/auth";
 import { WORKSPACE, type Theme } from "./Shell";
@@ -73,36 +73,8 @@ export function ProfileMenu({ theme, onTheme }: { theme: Theme; onTheme: (t: The
     buttonRef.current?.focus();
   };
 
-  const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
-    const list = items();
-    if (!list.length) return;
-    const i = list.indexOf(document.activeElement as HTMLElement);
-    switch (e.key) {
-      case "ArrowDown":
-        e.preventDefault();
-        list[i < 0 || i === list.length - 1 ? 0 : i + 1]!.focus();
-        break;
-      case "ArrowUp":
-        e.preventDefault();
-        list[i <= 0 ? list.length - 1 : i - 1]!.focus();
-        break;
-      case "Home":
-        e.preventDefault();
-        list[0]!.focus();
-        break;
-      case "End":
-        e.preventDefault();
-        list[list.length - 1]!.focus();
-        break;
-      case "Escape":
-        e.preventDefault();
-        closeAndRefocus();
-        break;
-      case "Tab":
-        setOpen(false);
-        break;
-    }
-  };
+  const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) =>
+    menuKeyDown(e, menuRef.current, (refocus) => (refocus ? closeAndRefocus() : setOpen(false)));
 
   const name = session.full_name || session.org_name;
   const workspace = WORKSPACE[session.role] ?? session.role;

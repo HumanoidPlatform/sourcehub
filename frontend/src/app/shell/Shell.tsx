@@ -5,11 +5,14 @@
 // keys pages by persona.
 
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useEffect, useRef, useState, type ReactNode } from "react";
-import { Link, NavLink } from "react-router-dom";
-import { get, post } from "@api/client";
+import { useEffect, useId, useRef, useState, type ReactNode } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { get } from "@api/client";
+import type { NotificationPage } from "@api/types";
 import { useSession } from "@shared/auth";
 import { BrandMark } from "@shared/brand";
+import { fmtAgo, fmtDateTime } from "@shared/format";
+import { markRead, notificationHref } from "@shared/notifications";
 import { ProfileMenu } from "./ProfileMenu";
 
 interface NavItem {
@@ -91,46 +94,6 @@ function applyTheme(t: Theme) {
   else root.setAttribute("data-theme", t);
 }
 
-interface NotificationRow {
-  id: string;
-  body: string;
-  link_page: string | null;
-  link_params?: Record<string, string> | null;
-  read: boolean;
-  created_at: string;
-}
-
-// The backend stores a deep link on every notification — "so the bell can take
-// the reader to the thing itself", as notify/service.py puts it — in the
-// prototype's page vocabulary. Nothing ever translated it, so clicking a
-// "A proposal arrived" notification did nothing at all.
-function notificationHref(n: NotificationRow): string | null {
-  const id = n.link_params?.id;
-  switch (n.link_page) {
-    case "requestDetail": return id ? `/requests/${id}` : "/requests";
-    case "requests": return "/requests";
-    case "opportunities": return "/opportunities";
-    case "proposals": return "/proposals";
-    case "contracts": return id ? `/contracts/${id}` : "/contracts";
-    case "deliveries": return id ? `/deliveries/${id}` : "/deliveries";
-    case "deliveryDetail": return id ? `/deliveries/${id}` : "/deliveries";
-    case "tasks": return "/tasks";
-    case "qa": return "/qa";
-    case "equipment": return "/equipment";
-    case "loans": return "/loans";
-    case "billing": return "/billing";
-    // The operator's pages were missing from this map entirely, and Ops has
-    // exactly one inbound notification: onboarding/service.py sends
-    // link_page "onboarding" when a tenant asks for a network entity. It fell
-    // through to null, so the one alert the platform operator receives was the
-    // one row in the bell that did nothing when clicked.
-    case "onboarding": return "/onboarding";
-    case "accounts": return "/accounts";
-    case "activity": return "/activity";
-    default: return null;
-  }
-}
-
 export function Shell({ children }: { children: ReactNode }) {
   const session = useSession();
   const qc = useQueryClient();
@@ -143,6 +106,61 @@ export function Shell({ children }: { children: ReactNode }) {
   });
   const [bellOpen, setBellOpen] = useState(false);
   const bellRef = useRef<HTMLDivElement>(null);
+  const bellButtonRef = useRef<HTMLButtonElement>(null);
+  const bellPanelId = useId();
+
+  // The phone/tablet drawer. Below 840px the stylesheet moves the rail
+  // off-canvas and shows it only for .rail[data-open], behind a .scrim, opened
+  // by a .railtoggle — all three were styled and never rendered, so on a phone
+  // there was no way to reach any page. Above 840px none of this has any
+  // effect: the rail is always in flow and .railtoggle/.scrim are display:none.
+  const [railOpen, setRailOpen] = useState(false);
+  const railToggleRef = useRef<HTMLButtonElement>(null);
+  const railRef = useRef<HTMLElement>(null);
+  const location = useLocation();
+
+  // Following a link closes the drawer — otherwise it sits over the page you
+  // just asked for.
+  useEffect(() => {
+    setRailOpen(false);
+    setBellOpen(false);
+  }, [location.pathname]);
+
+  // A route change in a single-page app is silent: the browser does not reload,
+  // so a screen reader announces nothing, and keyboard focus stays on the link
+  // that was followed — in a rail that may now be off-screen — with the new
+  // page's content behind it. The window also kept the old page's scroll
+  // position. So on every change of path, start the new page the way a full
+  // page load would: at the top, with focus on its heading (every page renders
+  // a View, whose h1 exists from the first paint, loading or not). Not on the
+  // first render — that is a page load, and the browser has already handled
+  // it — and the path is compared rather than a "first run" flag, because
+  // StrictMode runs this effect twice on mount.
+  const mainRef = useRef<HTMLElement>(null);
+  const shownPath = useRef(location.pathname);
+  useEffect(() => {
+    if (shownPath.current === location.pathname) return;
+    shownPath.current = location.pathname;
+    const main = mainRef.current;
+    if (!main) return;
+    window.scrollTo(0, 0);
+    (main.querySelector<HTMLElement>("h1") ?? main).focus({ preventScroll: true });
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (!railOpen) return;
+    // Focus goes into the drawer, or a keyboard user opens it and stays on the
+    // button behind the scrim.
+    railRef.current?.querySelector<HTMLElement>(".rail-item")?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setRailOpen(false);
+        railToggleRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [railOpen]);
 
   useEffect(() => applyTheme(theme), [theme]);
   useEffect(() => {
@@ -153,11 +171,24 @@ export function Shell({ children }: { children: ReactNode }) {
     return () => document.removeEventListener("mousedown", onDoc);
   }, []);
 
+  useEffect(() => {
+    if (!bellOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setBellOpen(false);
+        bellButtonRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [bellOpen]);
+
   const bell = useQuery({
     queryKey: ["notifications"],
-    queryFn: () => get<{ unread: number; items: NotificationRow[] }>("/notifications"),
+    queryFn: () => get<NotificationPage>("/notifications"),
     refetchInterval: 20_000,
   });
+  const unread = bell.data?.unread ?? 0;
 
   // A direct choice rather than a cycle: the account menu offers all three, so
   // nobody has to click past "light" to reach "dark".
@@ -175,7 +206,10 @@ export function Shell({ children }: { children: ReactNode }) {
   return (
     <div className="app">
       <a className="skip" href="#main">Skip to content</a>
-      <aside className="rail">
+      {/* "" or undefined, never a boolean: React writes data-open="false" for
+          false, and .rail[data-open] matches on presence — the drawer would sit
+          permanently open on phones. */}
+      <aside className="rail" id="primary-rail" ref={railRef} data-open={railOpen ? "" : undefined}>
         <div className="rail-head">
           <BrandMark />
         </div>
@@ -203,9 +237,26 @@ export function Shell({ children }: { children: ReactNode }) {
             menu, where it is conventionally found; /design is still reachable by
             URL in local dev builds (router.tsx) and absent from production. */}
       </aside>
+      {/* Tapping outside the open drawer closes it. Only rendered while open; the
+          stylesheet hides it above 840px regardless. */}
+      {railOpen && <div className="scrim" aria-hidden="true" onClick={() => setRailOpen(false)} />}
 
       <div className="main">
         <header className="topbar">
+          <button
+            ref={railToggleRef}
+            type="button"
+            className="iconbtn railtoggle"
+            aria-label={railOpen ? "Close navigation" : "Open navigation"}
+            aria-expanded={railOpen}
+            aria-controls="primary-rail"
+            onClick={() => setRailOpen((o) => !o)}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              strokeWidth="2" strokeLinecap="round" aria-hidden="true" focusable="false">
+              <path d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
           <div className="crumbs">
             <b>{WORKSPACE[session.role] ?? session.role}</b>
             <span aria-hidden="true">·</span>
@@ -214,9 +265,12 @@ export function Shell({ children }: { children: ReactNode }) {
           <div className="topbar-spacer" style={{ flex: 1 }} />
           <div className="topbar-tools hostrel" ref={bellRef}>
             <button
+              ref={bellButtonRef}
               type="button"
               className="iconbtn"
-              aria-label={`Notifications, ${bell.data?.unread ?? 0} unread`}
+              aria-label={`Notifications, ${unread} unread`}
+              aria-expanded={bellOpen}
+              aria-controls={bellOpen ? bellPanelId : undefined}
               onClick={() => setBellOpen((o) => !o)}
             >
               {/* A bell, drawn in currentColor so it takes .iconbtn's --ink-2 and
@@ -231,10 +285,16 @@ export function Shell({ children }: { children: ReactNode }) {
               {/* .ping, not .push: the stylesheet's badge is .iconbtn .ping,
                   and .push is the margin-left:auto utility — so the unread
                   count rendered as bare text beside the icon. */}
-              {(bell.data?.unread ?? 0) > 0 && <i className="ping">{bell.data?.unread}</i>}
+              {unread > 0 && <i className="ping" aria-hidden="true">{unread > 99 ? "99+" : unread}</i>}
             </button>
+            {/* A panel, not a menu. It was role="menu" with menuitem links,
+                but it also holds a heading and a button and had none of a
+                menu's arrow-key behaviour, so a screen reader announced a menu
+                that did not act like one. As a labelled, non-modal panel that
+                follows its button in the DOM, Tab walks into it naturally and
+                Escape closes it. */}
             {bellOpen && (
-              <div className="pop" role="menu">
+              <div className="pop" id={bellPanelId} role="dialog" aria-label="Notifications">
                 <div className="pop-head">
                   <b>Notifications</b>
                   <button
@@ -242,11 +302,9 @@ export function Shell({ children }: { children: ReactNode }) {
                     className="btn"
                     data-variant="quiet"
                     data-size="sm"
-                    onClick={() => {
-                      void post("/notifications/read").then(() =>
-                        qc.invalidateQueries({ queryKey: ["notifications"] }),
-                      );
-                    }}
+                    style={{ marginLeft: "auto" }}
+                    disabled={unread === 0}
+                    onClick={() => void markRead(qc).catch(() => {})}
                   >
                     Mark all read
                   </button>
@@ -254,20 +312,35 @@ export function Shell({ children }: { children: ReactNode }) {
                 <div className="pop-list">
                   {(bell.data?.items ?? []).slice(0, 8).map((n) => {
                     const href = notificationHref(n);
+                    const content = (
+                      <span>
+                        {/* the dot is visual only */}
+                        {!n.read && <span className="sr">Unread: </span>}
+                        <span className="txt">{n.body}</span>
+                        <time className="ts" dateTime={n.created_at} title={fmtDateTime(n.created_at)}
+                          style={{ display: "block" }}>
+                          {fmtAgo(n.created_at)}
+                        </time>
+                      </span>
+                    );
                     return href ? (
                       <Link
                         key={n.id}
                         to={href}
-                        role="menuitem"
                         className="pop-item"
                         data-unread={!n.read}
-                        onClick={() => setBellOpen(false)}
+                        onClick={() => {
+                          setBellOpen(false);
+                          // Opening it is reading it. Fire and forget: the page
+                          // it leads to must not wait on the bell.
+                          if (!n.read) void markRead(qc, n.id).catch(() => {});
+                        }}
                       >
-                        {n.body}
+                        {content}
                       </Link>
                     ) : (
                       <div key={n.id} className="pop-item" data-unread={!n.read}>
-                        {n.body}
+                        {content}
                       </div>
                     );
                   })}
@@ -275,12 +348,17 @@ export function Shell({ children }: { children: ReactNode }) {
                     <div className="pop-item muted">Nothing yet.</div>
                   )}
                 </div>
+                {/* The bell shows the latest 8; everything else was unreachable. */}
+                <div className="pop-foot">
+                  <Link to="/notifications" onClick={() => setBellOpen(false)}>See all notifications</Link>
+                </div>
               </div>
             )}
           </div>
           <ProfileMenu theme={theme} onTheme={chooseTheme} />
         </header>
-        <main id="main">{children}</main>
+        {/* tabIndex -1: focusable by script and by the skip link, not by Tab */}
+        <main id="main" ref={mainRef} tabIndex={-1}>{children}</main>
       </div>
     </div>
   );

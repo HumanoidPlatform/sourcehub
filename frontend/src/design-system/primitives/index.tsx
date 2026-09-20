@@ -12,8 +12,10 @@ import {
   useEffect,
   useRef,
   useState,
+  type KeyboardEvent as ReactKeyboardEvent,
   type ReactNode,
 } from "react";
+import { BRAND } from "@shared/brand";
 import type { Tone } from "@shared/status";
 
 /* --- buttons --------------------------------------------------------------- */
@@ -83,11 +85,24 @@ export function Panel({
 
 /* --- metric ----------------------------------------------------------------- */
 
-export function Metric({ label, value, sub }: { label: string; value: ReactNode; sub?: ReactNode }) {
+export function Metric({
+  label,
+  value,
+  sub,
+  loading,
+}: {
+  label: string;
+  value: ReactNode;
+  sub?: ReactNode;
+  /** The number is not known yet. Shows "…" instead of whatever the caller
+   *  computed from an empty array — a hard 0 above a list that is still loading
+   *  reads as two sources agreeing on something neither has checked. */
+  loading?: boolean;
+}) {
   return (
-    <div className="metric">
+    <div className="metric" aria-busy={loading || undefined}>
       <div className="eyebrow">{label}</div>
-      <div className="val">{value}</div>
+      <div className="val">{loading ? "…" : value}</div>
       {sub && <div className="small muted">{sub}</div>}
     </div>
   );
@@ -113,6 +128,33 @@ export function Field({
   span?: boolean;
 }) {
   const idRef = useRef(`f${++fieldSeq}`);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const id = idRef.current;
+  const hintId = `${id}-hint`;
+  const errId = `${id}-err`;
+
+  // Tie the hint, the error and "required" to the control, so a screen reader
+  // reads them when the field is focused. They were loose <span>s nothing
+  // pointed at, and "required" was only an aria-hidden asterisk.
+  //
+  // Set on the element rather than passed in because the control is drawn by
+  // the caller through children(id) — 113 call sites. Nothing in the console
+  // sets these three attributes itself, so there is nothing for React to
+  // overwrite. aria-required rather than the native `required`, which would
+  // switch on the browser's own validation bubbles and change behaviour.
+  // No dependency list: the control can remount (a select swapped for an input),
+  // and this is three attribute writes.
+  useEffect(() => {
+    const control = rootRef.current?.querySelector<HTMLElement>(`[id="${id}"]`);
+    if (!control) return;
+    const describedBy = error ? errId : hint ? hintId : null;
+    const set = (name: string, value: string | null) =>
+      value === null ? control.removeAttribute(name) : control.setAttribute(name, value);
+    set("aria-describedby", describedBy);
+    set("aria-invalid", error ? "true" : null);
+    set("aria-required", required ? "true" : null);
+  });
+
   return (
     // "" or undefined, NOT a boolean. React drops a false only for attributes it
     // knows are boolean; on a data-* it stringifies, so data-invalid={!!error}
@@ -121,15 +163,15 @@ export function Field({
     // border and .input:focus (0,2,0) — every input in the console wore the
     // critical colour permanently and no focus ring ever showed. The bell's
     // data-unread handles this correctly (components.css:378); this did not.
-    <div className="field" style={span ? { gridColumn: "1 / -1" } : undefined} data-invalid={error ? "" : undefined}>
-      <label htmlFor={idRef.current}>
+    <div ref={rootRef} className="field" style={span ? { gridColumn: "1 / -1" } : undefined} data-invalid={error ? "" : undefined}>
+      <label htmlFor={id}>
         {label}
         {required && <span className="req" aria-hidden="true">*</span>}
       </label>
-      {children(idRef.current)}
-      {hint && !error && <span className="hint">{hint}</span>}
+      {children(id)}
+      {hint && !error && <span className="hint" id={hintId}>{hint}</span>}
       {/* the stylesheet reveals this via [data-invalid]; no inline override needed */}
-      {error && <span className="err">{error}</span>}
+      {error && <span className="err" id={errId}>{error}</span>}
     </div>
   );
 }
@@ -387,6 +429,149 @@ export function TableWrap({ children }: { children: ReactNode }) {
   return <div className="tablewrap">{children}</div>;
 }
 
+/* --- data table: sortable columns and a text filter ------------------------ */
+
+export interface Column<T> {
+  /** Header text, and the column's identity when sorting. */
+  header: string;
+  cell: (row: T) => ReactNode;
+  /** What the column sorts by. A column without it does not sort. */
+  sortBy?: (row: T) => string | number | null | undefined;
+  /** For the cells: "id", "num", "cell-primary", "right". */
+  className?: string;
+  /** A header only assistive technology reads — an actions column. */
+  hideHeader?: boolean;
+}
+
+export type SortDir = "asc" | "desc";
+
+const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: "base" });
+
+/** Stable, numeric-aware ("REQ-9" before "REQ-10"), and blanks last in either
+ *  direction — an unset value is not the smallest one. */
+export function sortRows<T>(
+  rows: T[],
+  by: (row: T) => string | number | null | undefined,
+  dir: SortDir,
+): T[] {
+  const blank = (v: unknown) => v === null || v === undefined || v === "";
+  return rows
+    .map((row, i) => ({ row, i, v: by(row) }))
+    .sort((a, b) => {
+      if (blank(a.v) || blank(b.v)) {
+        return blank(a.v) === blank(b.v) ? a.i - b.i : blank(a.v) ? 1 : -1;
+      }
+      const c =
+        typeof a.v === "number" && typeof b.v === "number"
+          ? a.v - b.v
+          : collator.compare(String(a.v), String(b.v));
+      return (dir === "asc" ? c : -c) || a.i - b.i;
+    })
+    .map((x) => x.row);
+}
+
+/**
+ * A table whose columns can be sorted and whose rows can be narrowed by text.
+ * The console had 24 hand-written tables with neither: every queue showed
+ * every row in the server's order, however long it grew.
+ *
+ * Deliberately narrow: no pagination, selection or column resizing. The rows
+ * are what the caller already fetched; the caller still owns loading, errors
+ * and the "none yet" state, and this owns only "none match the filter".
+ */
+export function DataTable<T>({
+  rows,
+  rowKey,
+  columns,
+  filter,
+  initialSort,
+  rowProps,
+}: {
+  rows: T[];
+  rowKey: (row: T) => string;
+  columns: Column<T>[];
+  filter?: { label: string; placeholder?: string; text: (row: T) => string };
+  initialSort?: { by: string; dir: SortDir };
+  rowProps?: (row: T) => React.HTMLAttributes<HTMLTableRowElement>;
+}) {
+  const [query, setQuery] = useState("");
+  const [sort, setSort] = useState<{ by: string; dir: SortDir } | null>(initialSort ?? null);
+
+  const needle = query.trim().toLowerCase();
+  const matched =
+    filter && needle ? rows.filter((r) => filter.text(r).toLowerCase().includes(needle)) : rows;
+  const sortCol = sort ? columns.find((c) => c.header === sort.by && c.sortBy) : undefined;
+  const shown = sortCol && sort ? sortRows(matched, sortCol.sortBy!, sort.dir) : matched;
+
+  const toggle = (header: string) =>
+    setSort((s) => (s?.by === header ? { by: header, dir: s.dir === "asc" ? "desc" : "asc" } : { by: header, dir: "asc" }));
+
+  return (
+    <>
+      {filter && (
+        <div className="tablebar">
+          <input
+            className="input"
+            type="search"
+            aria-label={filter.label}
+            placeholder={filter.placeholder ?? "Filter…"}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+          {/* In the DOM from the start, so the count is announced as it changes. */}
+          <span className="small muted" role="status">
+            {needle ? `${shown.length} of ${rows.length}` : ""}
+          </span>
+        </div>
+      )}
+      {needle && shown.length === 0 ? (
+        <Empty title="Nothing matches that" hint="Clear the filter to see them all." />
+      ) : (
+        <TableWrap>
+          <table>
+            <thead>
+              <tr>
+                {columns.map((c) => {
+                  const active = sortCol === c && sort ? sort.dir : null;
+                  return (
+                    <th
+                      key={c.header}
+                      className={c.sortBy ? "sortable" : undefined}
+                      aria-sort={active ? (active === "asc" ? "ascending" : "descending") : undefined}
+                    >
+                      {c.hideHeader ? (
+                        <span className="sr">{c.header}</span>
+                      ) : c.sortBy ? (
+                        // A button, so the header is reachable and operable
+                        // from the keyboard; aria-sort on the th says the state.
+                        <button type="button" className="th-sort" onClick={() => toggle(c.header)}>
+                          {c.header}
+                          <span className="arrow" aria-hidden="true">{active === "desc" ? "▼" : "▲"}</span>
+                        </button>
+                      ) : (
+                        c.header
+                      )}
+                    </th>
+                  );
+                })}
+              </tr>
+            </thead>
+            <tbody>
+              {shown.map((r) => (
+                <tr key={rowKey(r)} {...rowProps?.(r)}>
+                  {columns.map((c) => (
+                    <td key={c.header} className={c.className}>{c.cell(r)}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </TableWrap>
+      )}
+    </>
+  );
+}
+
 /* --- lifecycle stage rail --------------------------------------------------- */
 
 export function StageRail({
@@ -438,6 +623,41 @@ export function Skeleton({ rows = 3, label = "Loading" }: { rows?: number; label
   );
 }
 
+/**
+ * The loading → failed → loaded guard every list needs, in one place.
+ *
+ *   <Loadable q={workers} what="the roster">
+ *     {rows.length === 0 ? <Empty … /> : <table>…</table>}
+ *   </Loadable>
+ *
+ * Loading and failing are not "empty". Written by hand at each list, the guard
+ * kept being forgotten, and the Empty state then told people there was nothing
+ * there while the request was in flight, and went on saying it when the request
+ * failed. Typed structurally, so any react-query result fits without importing it.
+ */
+export function Loadable({
+  q,
+  what,
+  rows = 4,
+  children,
+}: {
+  q: { isLoading: boolean; isError: boolean; error: unknown };
+  /** Reads after "Loading …" and "Could not load …" — "the roster", "invoices". */
+  what: string;
+  rows?: number;
+  children: ReactNode;
+}) {
+  if (q.isLoading) return <Skeleton rows={rows} label={`Loading ${what}`} />;
+  if (q.isError) {
+    return (
+      <Callout tone="critical" title={`Could not load ${what}`}>
+        {q.error instanceof Error ? q.error.message : "The request failed."}
+      </Callout>
+    );
+  }
+  return <>{children}</>;
+}
+
 /* --- definition list -------------------------------------------------------- */
 
 // dt and dd must be DIRECT children of .dl: the grid is one narrow label column
@@ -458,6 +678,46 @@ export function Dl({ rows }: { rows: [string, ReactNode][] }) {
 }
 
 /* --- row menu ---------------------------------------------------------------- */
+
+/**
+ * Keyboard handling for any role="menu", per the WAI-ARIA menu-button pattern:
+ * ArrowUp/ArrowDown move (and wrap), Home/End jump, Escape closes and hands
+ * focus back to the trigger, Tab closes and lets focus carry on.
+ *
+ * Shared by RowMenu and the account menu. Items must be role="menuitem",
+ * "menuitemradio" or "menuitemcheckbox", and should carry tabIndex={-1} so this
+ * moves focus between them rather than the Tab key.
+ */
+export function menuKeyDown(
+  e: ReactKeyboardEvent,
+  menu: HTMLElement | null,
+  close: (refocusTrigger: boolean) => void,
+) {
+  const items = Array.from(
+    menu?.querySelectorAll<HTMLElement>('[role="menuitem"],[role="menuitemradio"],[role="menuitemcheckbox"]') ?? [],
+  );
+  if (!items.length) return;
+  const i = items.indexOf(document.activeElement as HTMLElement);
+  const go = (n: number) => {
+    e.preventDefault();
+    items[n]!.focus();
+  };
+  switch (e.key) {
+    case "ArrowDown":
+      return go(i < 0 || i === items.length - 1 ? 0 : i + 1);
+    case "ArrowUp":
+      return go(i <= 0 ? items.length - 1 : i - 1);
+    case "Home":
+      return go(0);
+    case "End":
+      return go(items.length - 1);
+    case "Escape":
+      e.preventDefault();
+      return close(true);
+    case "Tab":
+      return close(false);
+  }
+}
 
 // The prototype has no row-actions menu — its rows carry inline size="sm"
 // buttons — so this is a deliberate new pattern rather than a port. It lives
@@ -481,6 +741,8 @@ export function RowMenu({
 
   useEffect(() => {
     if (!at) return;
+    // Focus goes into the menu, or a keyboard user opens it and has no way in.
+    popRef.current?.querySelector<HTMLElement>('[role="menuitem"]')?.focus();
     const close = () => setAt(null);
     const onDoc = (e: MouseEvent) => {
       const t = e.target as Node;
@@ -525,6 +787,12 @@ export function RowMenu({
           role="menu"
           aria-label={label}
           style={{ position: "fixed", top: at.top, left: at.left, width: WIDTH }}
+          onKeyDown={(e) =>
+            menuKeyDown(e, popRef.current, (refocus) => {
+              setAt(null);
+              if (refocus) btnRef.current?.focus();
+            })
+          }
         >
           <div className="pop-list">
             {items.map((it) => (
@@ -532,10 +800,15 @@ export function RowMenu({
                 key={it.label}
                 type="button"
                 role="menuitem"
+                tabIndex={-1}
                 className="pop-item"
                 style={it.tone === "danger" ? { color: "var(--t-critical)" } : undefined}
                 onClick={() => {
                   setAt(null);
+                  // Back to the ⋯ button, which is about to be the only thing
+                  // left; the item is unmounting and focus would drop to <body>.
+                  // Also means a Dialog the action opens restores focus here.
+                  btnRef.current?.focus();
                   it.onSelect();
                 }}
               >
@@ -698,26 +971,49 @@ export function useToast() {
   return useContext(ToastContext);
 }
 
+// How long a toast stays. A failure gets longer: it usually needs reading and
+// acting on, where "Saved" only needs noticing.
+export const TOAST_MS = 4600;
+export const ALERT_MS = 10_000;
+
 export function ToastProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<ToastItem[]>([]);
   const seq = useRef(0);
 
+  const dismiss = useCallback((id: number) => setItems((xs) => xs.filter((x) => x.id !== id)), []);
+
   const push = useCallback((title: string, body?: string, tone?: Tone) => {
     const id = ++seq.current;
     setItems((xs) => [...xs, { id, title, body, tone }]);
-    setTimeout(() => setItems((xs) => xs.filter((x) => x.id !== id)), 4600);
-  }, []);
+    setTimeout(() => dismiss(id), tone === "critical" ? ALERT_MS : TOAST_MS);
+  }, [dismiss]);
 
+  const render = (t: ToastItem) => (
+    <div key={t.id} className="toast" data-tone={t.tone}>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <b>{t.title}</b>
+        {t.body && <div className="small muted">{t.body}</div>}
+      </div>
+      <button type="button" className="toast-x" aria-label="Dismiss" onClick={() => dismiss(t.id)}>
+        ×
+      </button>
+    </div>
+  );
+
+  // Two live regions, both always in the DOM (a region added at the same time
+  // as its text is often not announced). Failures used to share the polite
+  // one with every "Saved", so a screen reader queued "Could not approve"
+  // behind whatever it was already saying; assertive interrupts.
   return (
     <ToastContext.Provider value={push}>
       {children}
-      <div className="toasts" aria-live="polite">
-        {items.map((t) => (
-          <div key={t.id} className="toast" data-tone={t.tone}>
-            <b>{t.title}</b>
-            {t.body && <div className="small muted">{t.body}</div>}
-          </div>
-        ))}
+      <div className="toasts">
+        <div className="toast-stack" aria-live="polite">
+          {items.filter((t) => t.tone !== "critical").map(render)}
+        </div>
+        <div className="toast-stack" aria-live="assertive">
+          {items.filter((t) => t.tone === "critical").map(render)}
+        </div>
       </div>
     </ToastContext.Provider>
   );
@@ -727,20 +1023,38 @@ export function ToastProvider({ children }: { children: ReactNode }) {
 
 export function View({
   title,
+  pageTitle,
   sub,
   actions,
   children,
 }: {
   title: string;
+  /** What the browser tab says, when the heading is not a good tab name
+   *  ("Good day, Acme" → "Overview"). Defaults to the title. */
+  pageTitle?: string;
   sub?: ReactNode;
   actions?: ReactNode;
   children: ReactNode;
 }) {
+  // The browser tab, history, bookmarks and a screen reader's page announcement
+  // all read document.title, and it never changed: every page in the console
+  // was "Cosarathi Data Platform". Every page renders a View, so setting it here
+  // covers them all. The cleanup restores the previous title, so the next page
+  // to mount starts from a clean slate.
+  useEffect(() => {
+    const previous = document.title;
+    document.title = `${pageTitle ?? title} · ${BRAND}`;
+    return () => {
+      document.title = previous;
+    };
+  }, [pageTitle, title]);
+
   return (
     <div className="view">
       <div className="view-head">
         <div className="titles">
-          <h1 style={{ margin: 0, fontSize: 21 }}>{title}</h1>
+          {/* tabIndex -1: the shell moves focus here on navigation (Shell.tsx) */}
+          <h1 tabIndex={-1} style={{ margin: 0, fontSize: 21 }}>{title}</h1>
           {sub && <div className="sub">{sub}</div>}
         </div>
         {actions && <div className="view-actions btnrow">{actions}</div>}

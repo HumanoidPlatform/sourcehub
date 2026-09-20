@@ -31,6 +31,22 @@ export function fmtDateTime(value: string | null | undefined): string {
   });
 }
 
+/** "just now", "5 min ago", "3 h ago", "yesterday", then a date — for lists
+ *  where recency matters more than the exact time (pair it with fmtDateTime
+ *  in a title for the exact one). */
+export function fmtAgo(value: string | null | undefined, now: number = Date.now()): string {
+  if (!value) return "—";
+  const t = new Date(value).getTime();
+  if (Number.isNaN(t)) return value;
+  const min = Math.floor((now - t) / 60_000);
+  if (min < 1) return "just now";
+  if (min < 60) return `${min} min ago`;
+  const h = Math.floor(min / 60);
+  if (h < 24) return `${h} h ago`;
+  if (h < 48) return "yesterday";
+  return fmtDate(value);
+}
+
 export function titleCase(s: string): string {
   return s.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }

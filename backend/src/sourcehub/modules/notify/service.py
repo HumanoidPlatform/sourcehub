@@ -13,7 +13,7 @@ import datetime as dt
 import uuid
 from typing import Any
 
-from sqlalchemy import func, select, text, update
+from sqlalchemy import and_, func, or_, select, text, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.modules.notify.models import Notification
@@ -52,10 +52,37 @@ async def notify(
     )
 
 
-async def list_notifications(session: AsyncSession, limit: int = 30) -> list[dict[str, Any]]:
+async def list_notifications(
+    session: AsyncSession,
+    limit: int = 30,
+    before: uuid.UUID | None = None,
+    unread_only: bool = False,
+) -> list[dict[str, Any]]:
+    """Newest first. `before` continues after that notification (the last one a
+    page showed), so the full history can be read, not only the latest 30.
+
+    Keyset on (created_at, id), not created_at alone: every row one transaction
+    writes shares its now(), so a timestamp cursor would skip or repeat them at
+    a page boundary. An id the caller cannot see — RLS — ends the list.
+    """
+    q = select(Notification)
+    if unread_only:
+        q = q.where(Notification.read_at.is_(None))
+    if before is not None:
+        anchor = (
+            await session.execute(select(Notification.created_at).where(Notification.id == before))
+        ).scalar_one_or_none()
+        if anchor is None:
+            return []
+        q = q.where(
+            or_(
+                Notification.created_at < anchor,
+                and_(Notification.created_at == anchor, Notification.id < before),
+            )
+        )
     rows = (
         await session.execute(
-            select(Notification).order_by(Notification.created_at.desc()).limit(limit)
+            q.order_by(Notification.created_at.desc(), Notification.id.desc()).limit(limit)
         )
     ).scalars()
     return [

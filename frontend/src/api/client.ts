@@ -22,7 +22,10 @@ export interface Session {
   must_change_password: boolean;
 }
 
-const KEY = "sourcehub.session";
+// Exported so the auth provider can tell, from a `storage` event, that another
+// tab changed the session.
+export const SESSION_KEY = "sourcehub.session";
+const KEY = SESSION_KEY;
 
 export function loadSession(): Session | null {
   try {
@@ -50,8 +53,12 @@ export class ApiError extends Error {
   }
 }
 
-let onSessionChange: ((s: Session | null) => void) | null = null;
-export function bindSessionListener(fn: (s: Session | null) => void): void {
+// Why a session ended without the user signing out, so the sign-in page can
+// say so instead of appearing out of nowhere.
+export type SessionEnd = "expired" | "elsewhere";
+
+let onSessionChange: ((s: Session | null, ended?: SessionEnd) => void) | null = null;
+export function bindSessionListener(fn: (s: Session | null, ended?: SessionEnd) => void): void {
   onSessionChange = fn;
 }
 
@@ -62,21 +69,34 @@ async function tryRefresh(): Promise<Session | null> {
   if (!current?.refresh_token) return null;
   if (!refreshing) {
     refreshing = (async () => {
-      const r = await fetch(`${BASE}/auth/refresh`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ refresh_token: current.refresh_token }),
-      });
-      refreshing = null;
-      if (!r.ok) {
-        saveSession(null);
-        onSessionChange?.(null);
-        return null;
+      // The reset lives in `finally`. It used to follow `await fetch(...)`, so
+      // when the refresh request itself THREW — a dropped connection, a VPN
+      // reconnecting — the line was never reached. `refreshing` stayed a
+      // rejected promise, every later 401 in that tab was handed the same
+      // rejection, and the console failed on every screen until a reload.
+      try {
+        const r = await fetch(`${BASE}/auth/refresh`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ refresh_token: current.refresh_token }),
+        });
+        // Only a refused refresh token ends the session. Any failed refresh
+        // used to — so a 502 while the API restarted signed out everyone who
+        // happened to make a request, and told them nothing. A server error
+        // keeps the session: this request fails, and the next one tries again.
+        if (r.status === 401) {
+          saveSession(null);
+          onSessionChange?.(null, "expired");
+          return null;
+        }
+        if (!r.ok) return null;
+        const s = (await r.json()) as Session;
+        saveSession(s);
+        onSessionChange?.(s);
+        return s;
+      } finally {
+        refreshing = null;
       }
-      const s = (await r.json()) as Session;
-      saveSession(s);
-      onSessionChange?.(s);
-      return s;
     })();
   }
   return refreshing;

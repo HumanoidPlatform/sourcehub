@@ -6,8 +6,8 @@ import { useState } from "react";
 import { get, post } from "@api/client";
 import type { OnboardingRow } from "@api/types";
 import {
-  Button, Callout, Dialog, Dl, Empty, Field, inputCls, Metric, Panel, Pill, selectCls, Skeleton,
-  TableWrap, textareaCls, useToast, View,
+  Button, Callout, DataTable, Dialog, Dl, Empty, Field, inputCls, Metric, Panel, Pill, selectCls, Skeleton,
+  textareaCls, useToast, View,
 } from "@ds/primitives";
 import { fmtDateTime, titleCase } from "@shared/format";
 import { onboardingStatus, statusMeta } from "@shared/status";
@@ -54,7 +54,7 @@ export function OnboardingQueuePage() {
 
       {decided.length > 0 && (
         <Panel title="Decided">
-          <QueueTable rows={decided} onOpen={setSelected} />
+          <QueueTable rows={decided} onOpen={setSelected} filterable />
         </Panel>
       )}
 
@@ -192,28 +192,50 @@ function NewOnboardingDialog({ onClose }: { onClose: () => void }) {
   );
 }
 
-function QueueTable({ rows, onOpen }: { rows: OnboardingRow[]; onOpen: (r: OnboardingRow) => void }) {
+function QueueTable({
+  rows, onOpen, filterable,
+}: {
+  rows: OnboardingRow[];
+  onOpen: (r: OnboardingRow) => void;
+  /** The decided history grows without end; the open queue should stay short. */
+  filterable?: boolean;
+}) {
+  const status = (r: OnboardingRow) => statusMeta(onboardingStatus, r.status);
+  // No initial sort: the server's order is the queue's order, oldest first.
   return (
-    <TableWrap>
-      <table>
-        <thead><tr><th>Reference</th><th>Proposed</th><th>Kind</th><th>Submitted</th><th>Status</th><th /></tr></thead>
-        <tbody>
-          {rows.map((r) => {
-            const m = statusMeta(onboardingStatus, r.status);
-            return (
-              <tr key={r.id}>
-                <td className="id">{r.reference_code}</td>
-                <td className="cell-primary">{r.proposed_name}</td>
-                <td>{titleCase(r.target_org_kind)}</td>
-                <td className="num">{fmtDateTime(r.submitted_at)}</td>
-                <td><Pill tone={m.tone}>{m.label}</Pill></td>
-                <td className="right"><div className="rowactions"><Button size="sm" onClick={() => onOpen(r)}>Open</Button></div></td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </TableWrap>
+    <DataTable
+      rows={rows}
+      rowKey={(r) => r.id}
+      filter={
+        filterable
+          ? {
+              label: "Filter decided requests",
+              placeholder: "Filter by name, reference or contact…",
+              text: (r) => `${r.proposed_name} ${r.reference_code} ${r.contact?.full_name ?? ""} ${r.contact?.email ?? ""}`,
+            }
+          : undefined
+      }
+      columns={[
+        { header: "Reference", cell: (r) => r.reference_code, sortBy: (r) => r.reference_code, className: "id" },
+        { header: "Proposed", cell: (r) => r.proposed_name, sortBy: (r) => r.proposed_name, className: "cell-primary" },
+        { header: "Kind", cell: (r) => titleCase(r.target_org_kind), sortBy: (r) => r.target_org_kind },
+        // ISO timestamps sort correctly as text
+        { header: "Submitted", cell: (r) => fmtDateTime(r.submitted_at), sortBy: (r) => r.submitted_at, className: "num" },
+        {
+          header: "Status",
+          sortBy: (r) => status(r).label,
+          cell: (r) => <Pill tone={status(r).tone}>{status(r).label}</Pill>,
+        },
+        {
+          header: "Actions",
+          hideHeader: true,
+          className: "right",
+          cell: (r) => (
+            <div className="rowactions"><Button size="sm" onClick={() => onOpen(r)}>Open</Button></div>
+          ),
+        },
+      ]}
+    />
   );
 }
 

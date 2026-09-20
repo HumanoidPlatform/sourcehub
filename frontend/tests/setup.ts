@@ -30,3 +30,19 @@ if (typeof Blob !== "undefined" && typeof Blob.prototype.arrayBuffer !== "functi
 if (typeof window !== "undefined") {
   window.scrollTo = () => {};
 }
+
+// jsdom replaces AbortController/AbortSignal with its own, and Node's Request
+// (undici) accepts only Node's signal. A data router (createMemoryRouter, as
+// main.tsx uses createBrowserRouter) builds a Request with a signal on every
+// navigation, so under jsdom each navigation threw "Expected signal to be an
+// instance of AbortSignal" and never completed. Drop the signal: nothing under
+// test aborts through it.
+if (typeof window !== "undefined" && typeof globalThis.Request === "function") {
+  const NodeRequest = globalThis.Request;
+  globalThis.Request = class extends NodeRequest {
+    constructor(input: RequestInfo | URL, init?: RequestInit) {
+      const { signal: _signal, ...rest } = init ?? {};
+      super(input, rest);
+    }
+  } as typeof Request;
+}

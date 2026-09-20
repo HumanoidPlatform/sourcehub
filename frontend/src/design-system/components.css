@@ -33,6 +33,10 @@ svg{display:block}
 .skip{position:absolute;left:-9999px;top:8px;z-index:300;background:var(--surface);
   border:1px solid var(--line);border-radius:var(--r-control);padding:8px 14px;font-weight:600}
 .skip:focus{left:8px}
+/* Focus put here by script on navigation, or by the skip link, never by Tab:
+   a heading is announced, not operated, and a ring round a title or round the
+   whole page reads as a fault. */
+main:focus-visible,h1[tabindex="-1"]:focus-visible{outline:none}
 .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
   clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
@@ -174,11 +178,20 @@ table{width:100%;border-collapse:collapse;font-size:13.5px}
 thead th{position:sticky;top:0;z-index:1;text-align:left;background:var(--surface-2);
   border-bottom:1px solid var(--line);padding:9px var(--s-4);white-space:nowrap;
   font-family:var(--font-mono);font-size:10.5px;font-weight:500;letter-spacing:.07em;
-  text-transform:uppercase;color:var(--ink-3)}
-thead th.sortable{cursor:pointer;user-select:none}
+  text-transform:uppercase;color:var(--ink-2)}
+/* Sortable headers (DataTable): the button inside carries the click and the
+   focus; it inherits the header's type so it reads as a header, not a button. */
+thead th.sortable{user-select:none}
 thead th.sortable:hover{color:var(--ink)}
+.th-sort{display:inline-flex;align-items:center;border:0;background:none;padding:0;margin:0;
+  font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;cursor:pointer}
 thead th .arrow{opacity:0;margin-left:5px}
+thead th.sortable:hover .arrow,.th-sort:focus-visible .arrow{opacity:.45}
 thead th[aria-sort] .arrow{opacity:1;color:var(--accent)}
+/* DataTable's filter row. In a flush panel it brings its own inset. */
+.tablebar{display:flex;align-items:center;gap:var(--s-3);flex-wrap:wrap}
+.tablebar .input{max-width:320px}
+.panel-body.flush > .tablebar{padding:var(--s-3) var(--s-4) 0}
 tbody td{padding:11px var(--s-4);border-bottom:1px solid var(--line);vertical-align:middle}
 tbody tr:last-child td{border-bottom:0}
 tbody tr.tap{cursor:pointer}
@@ -244,7 +257,7 @@ td.right,th.right{text-align:right}
 .input:focus,.select:focus,.textarea:focus{outline:none;border-color:var(--accent);
   box-shadow:0 0 0 3px var(--accent-tint)}
 .field[data-invalid] .input,.field[data-invalid] .select,.field[data-invalid] .textarea{border-color:var(--t-critical)}
-.input::placeholder,.textarea::placeholder{color:var(--ink-4)}
+.input::placeholder,.textarea::placeholder{color:var(--ink-3)}
 .checkline{display:flex;align-items:flex-start;gap:9px;padding:7px 9px;border:1px solid var(--line);
   border-radius:var(--r-control);cursor:pointer;background:var(--surface);font-size:13px}
 .checkline:hover{background:var(--surface-2)}
@@ -282,13 +295,13 @@ td.right,th.right{text-align:right}
 .stage[data-state="done"] .track,.stage[data-state="here"] .track{background:var(--accent)}
 .stage .node{position:relative;z-index:1;width:24px;height:24px;border-radius:50%;
   display:grid;place-items:center;background:var(--surface);border:2px solid var(--line);
-  font-family:var(--font-mono);font-size:11px;color:var(--ink-4)}
+  font-family:var(--font-mono);font-size:11px;color:var(--ink-3)}
 .stage[data-state="done"] .node{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
 .stage[data-state="here"] .node{border-color:var(--accent);color:var(--accent);
   box-shadow:0 0 0 4px var(--accent-tint)}
-.stage .name{font-size:11.5px;font-weight:600;color:var(--ink-4);line-height:1.25}
+.stage .name{font-size:11.5px;font-weight:600;color:var(--ink-3);line-height:1.25}
 .stage[data-state="done"] .name,.stage[data-state="here"] .name{color:var(--ink-2)}
-.stage .when{font-family:var(--font-mono);font-size:10px;color:var(--ink-4)}
+.stage .when{font-family:var(--font-mono);font-size:10px;color:var(--ink-3)}
 
 /* --- activity timeline ---------------------------------------------------- */
 .timeline{display:flex;flex-direction:column}
@@ -325,6 +338,11 @@ td.right,th.right{text-align:right}
   border-radius:var(--r-control);padding:10px 12px;font-size:12.5px;display:flex;gap:9px;align-items:flex-start}
 .callout[data-tone="attention"]{border-color:var(--t-attention-line);background:var(--t-attention-bg);color:var(--t-attention)}
 .callout[data-tone="critical"]{border-color:var(--t-critical-line);background:var(--t-critical-bg);color:var(--t-critical)}
+/* success and neutral were missing, and the base is the ACTIVE tone — so an
+   "Approved" or a "Terminated" callout rendered in the teal that means "in
+   progress, nobody blocked". Tone accepts all five; paint all five. */
+.callout[data-tone="success"]{border-color:var(--t-success-line);background:var(--t-success-bg);color:var(--t-success)}
+.callout[data-tone="neutral"]{border-color:var(--t-neutral-line);background:var(--t-neutral-bg);color:var(--t-neutral)}
 .callout .ct{font-weight:600;display:block;margin-bottom:2px}
 
 /* --- overlay: dialog & palette -------------------------------------------- */
@@ -379,7 +397,20 @@ td.right,th.right{text-align:right}
 a.pop-item{text-decoration:none;color:inherit;display:flex;align-items:center}
 .pop-item .txt{font-size:12.5px;line-height:1.4}
 .pop-item .ts{font-family:var(--font-mono);font-size:10.5px;color:var(--ink-3);margin-top:3px}
+.pop-foot{padding:9px var(--s-3);border-top:1px solid var(--line);text-align:center;font-size:12.5px}
 .hostrel{position:relative}
+
+/* Notifications page (features/notify). Unread is data-unread="" or absent. */
+.nlist{list-style:none;margin:0;padding:0}
+.nlist li{display:flex;align-items:flex-start;gap:var(--s-3);padding:12px var(--s-4);border-bottom:1px solid var(--line)}
+.nlist li:last-child{border-bottom:0}
+.nlist .dot{flex:none;width:7px;height:7px;margin-top:7px;border-radius:50%}
+.nlist li[data-unread] .dot{background:var(--t-active)}
+.nlist .nbody{flex:1;min-width:0}
+.nlist .txt{color:var(--ink-2);text-decoration:none}
+.nlist li[data-unread] .txt{color:var(--ink);font-weight:600}
+.nlist a.txt:hover{text-decoration:underline}
+.nlist .ts{display:block;font-size:12px;color:var(--ink-3);margin-top:2px}
 
 /* Account menu (ProfileMenu.tsx). Scoped under .acct so the notification bell,
    which shares .pop, is untouched. Identity and workspace are plain content —
@@ -423,6 +454,14 @@ a.pop-item{text-decoration:none;color:inherit;display:flex;align-items:center}
   padding:11px 13px;box-shadow:var(--shadow-pop);animation:slidein var(--base) var(--ease)}
 .toast[data-tone="success"]{border-left-color:var(--t-success)}
 .toast[data-tone="critical"]{border-left-color:var(--t-critical)}
+/* attention and neutral toasts fell back to the accent bar, the same as a
+   plain informational toast, so "Sent back" read like good news. */
+.toast[data-tone="attention"]{border-left-color:var(--t-attention)}
+.toast[data-tone="neutral"]{border-left-color:var(--t-neutral)}
+.toast-stack{display:flex;flex-direction:column;gap:var(--s-2)}
+.toast-x{flex:none;margin:-3px -4px 0 0;padding:2px 6px;border:0;border-radius:var(--r-control);
+  background:transparent;color:var(--ink-3);font-size:17px;line-height:1;cursor:pointer}
+.toast-x:hover{background:var(--surface-2);color:var(--ink)}
 .toast .tt{font-size:13px;font-weight:600}
 .toast .tb{font-size:12px;color:var(--ink-3);margin-top:1px}
 @keyframes slidein{from{transform:translateX(12px);opacity:0}to{transform:none;opacity:1}}
@@ -468,11 +507,13 @@ a.pop-item{text-decoration:none;color:inherit;display:flex;align-items:center}
   .g4{grid-template-columns:repeat(2,minmax(0,1fr))}
   .g-main{grid-template-columns:minmax(0,1fr)}
 }
+/* No icon-only rail here. The prototype collapsed the sidebar to icons at this
+   width by hiding every label — but the React nav has no icons, and every item
+   lives inside .rail-group, which this block hid. Between 841px and 1180px the
+   whole menu vanished and left an empty strip: a 1366px laptop at 125% scaling,
+   any browser at 125% zoom, an iPad in landscape. The full labelled rail stays
+   until the off-canvas drawer takes over at 840px. */
 @media (max-width:1180px){
-  .app{grid-template-columns:var(--rail-w-min) minmax(0,1fr)}
-  .rail-head{padding:var(--s-3) 10px}
-  .mark-name,.rail-ctx,.rail-group,.rail-item .lbl,.rail-item .tally{display:none}
-  .rail-item{justify-content:center;padding:9px 0}
   .searchcue{min-width:0}
   .searchcue .lbl,.searchcue .k{display:none}
 }

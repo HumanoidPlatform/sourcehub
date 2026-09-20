@@ -6,12 +6,13 @@ import { useState } from "react";
 import { get, patch, post } from "@api/client";
 import type { EquipmentRow, LoanRow, OnboardingRow, Org, WorkerRow } from "@api/types";
 import {
-  Button, Callout, Dialog, Dl, Empty, Field, inputCls, Metric, Panel, Pill,
+  Button, Callout, Dialog, Dl, Empty, Field, inputCls, Loadable, Metric, Panel, Pill,
   TableWrap, textareaCls, useToast, View,
 } from "@ds/primitives";
 import { useSession } from "@shared/auth";
 import { fmtDate, titleCase } from "@shared/format";
 import { OrgProfileDialog } from "@shared/org-profile";
+import { ReasonDialog } from "@shared/reason-dialog";
 import {
   equipmentStatus, invitationStatus, loanStatus, onboardingStatus, orgStatus, statusMeta, workerStatus,
 } from "@shared/status";
@@ -109,6 +110,7 @@ export function NetworkPage() {
   const [requesting, setRequesting] = useState(false);
   const [editing, setEditing] = useState<OnboardingRow | null>(null);
   const [viewing, setViewing] = useState<Org | null>(null);
+  const [removing, setRemoving] = useState<Org | null>(null);
   const qc = useQueryClient();
   const toast = useToast();
 
@@ -128,7 +130,7 @@ export function NetworkPage() {
       void qc.invalidateQueries({ queryKey: ["orgs", tab] });
       toast("Removed from your network", "The organisation and its history remain on record.", "neutral");
     },
-    onError: (e) => toast("Could not remove", e instanceof Error ? e.message : "", "critical"),
+    // no onError: ReasonDialog shows the failure inline and stays open for a retry
   });
 
   const openRequests = (pending.data ?? []).filter((r) =>
@@ -198,71 +200,77 @@ export function NetworkPage() {
         }
       >
         <div id="netpanel" role="tabpanel" aria-labelledby={`tab_${tab}`}>
-        {(orgs.data ?? []).length === 0 ? (
-          <Empty title={`No ${KIND_LABEL[tab].toLowerCase()} yet`} hint="Request onboarding and the platform reviews it." />
-        ) : (
-          <TableWrap>
-            <table>
-              <thead>
-                <tr>
-                  <th>Reference</th><th>Name</th>
-                  {tab === "aggregator" && <><th>Crowd</th><th>Region</th><th>Focus</th></>}
-                  {tab === "business" && <><th>Specialty</th><th>Capacity</th></>}
-                  {tab === "sponsor" && <th>Contact</th>}
-                  <th>Status</th><th />
-                </tr>
-              </thead>
-              <tbody>
-                {(orgs.data ?? []).map((o) => {
-                  const m = statusMeta(orgStatus, o.status);
-                  return (
-                    <tr key={o.id} className="tap" onClick={() => setViewing(o)}>
-                      <td className="id">{o.reference_code}</td>
-                      <td className="cell-primary">{o.name}</td>
-                      {tab === "aggregator" && (
-                        <>
-                          <td className="num">{(o.profile.crowd_size as number) ?? "—"}</td>
-                          <td>{(o.profile.region as string) ?? "—"}</td>
-                          <td>{(o.profile.focus as string) ?? "—"}</td>
-                        </>
-                      )}
-                      {tab === "business" && (
-                        <>
-                          <td>{(o.profile.specialty as string) ?? "—"}</td>
-                          <td>{(o.profile.capacity as string) ?? "—"}</td>
-                        </>
-                      )}
-                      {tab === "sponsor" && <td>{(o.profile.contact_email as string) ?? "—"}</td>}
-                      <td><Pill tone={m.tone}>{m.label}</Pill></td>
-                      <td className="right" onClick={(e) => e.stopPropagation()}><div className="rowactions">
-                        <Button size="sm" onClick={() => setViewing(o)}>Details</Button>
-                        <Button
-                          size="sm"
-                          variant="danger"
-                          onClick={() => {
-                            const reason = window.prompt(
-                              `Remove ${o.name} from your network? They lose access to your contracts immediately.\n\nReason:`,
-                            );
-                            if (reason?.trim()) suspend.mutate({ id: o.id, reason });
-                          }}
-                        >
-                          Remove
-                        </Button>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </TableWrap>
-        )}
+        <Loadable q={orgs} what="your network">
+          {(orgs.data ?? []).length === 0 ? (
+            <Empty title={`No ${KIND_LABEL[tab].toLowerCase()} yet`} hint="Request onboarding and the platform reviews it." />
+          ) : (
+            <TableWrap>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Reference</th><th>Name</th>
+                    {tab === "aggregator" && <><th>Crowd</th><th>Region</th><th>Focus</th></>}
+                    {tab === "business" && <><th>Specialty</th><th>Capacity</th></>}
+                    {tab === "sponsor" && <th>Contact</th>}
+                    <th>Status</th><th />
+                  </tr>
+                </thead>
+                <tbody>
+                  {(orgs.data ?? []).map((o) => {
+                    const m = statusMeta(orgStatus, o.status);
+                    return (
+                      <tr key={o.id} className="tap" onClick={() => setViewing(o)}>
+                        <td className="id">{o.reference_code}</td>
+                        <td className="cell-primary">{o.name}</td>
+                        {tab === "aggregator" && (
+                          <>
+                            <td className="num">{(o.profile.crowd_size as number) ?? "—"}</td>
+                            <td>{(o.profile.region as string) ?? "—"}</td>
+                            <td>{(o.profile.focus as string) ?? "—"}</td>
+                          </>
+                        )}
+                        {tab === "business" && (
+                          <>
+                            <td>{(o.profile.specialty as string) ?? "—"}</td>
+                            <td>{(o.profile.capacity as string) ?? "—"}</td>
+                          </>
+                        )}
+                        {tab === "sponsor" && <td>{(o.profile.contact_email as string) ?? "—"}</td>}
+                        <td><Pill tone={m.tone}>{m.label}</Pill></td>
+                        <td className="right" onClick={(e) => e.stopPropagation()}><div className="rowactions">
+                          <Button size="sm" onClick={() => setViewing(o)}>Details</Button>
+                          <Button
+                            size="sm"
+                            variant="danger"
+                            onClick={() => setRemoving(o)}
+                          >
+                            Remove
+                          </Button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </TableWrap>
+          )}
+        </Loadable>
         </div>
       </Panel>
 
       {requesting && <OnboardRequestDialog kind={tab} onClose={() => setRequesting(false)} />}
       {editing && <ResubmitDialog row={editing} onClose={() => setEditing(null)} />}
       {viewing && <OrgProfileDialog orgId={viewing.id} seedName={viewing.name} onClose={() => setViewing(null)} />}
+      {removing && (
+        <ReasonDialog
+          title={`Remove ${removing.name} from your network`}
+          warning="They lose access to your contracts immediately. The organisation and its history stay on record."
+          confirmLabel="Remove"
+          onConfirm={(reason) => suspend.mutateAsync({ id: removing.id, reason })}
+          onClose={() => setRemoving(null)}
+        />
+      )}
     </View>
   );
 }
@@ -462,78 +470,46 @@ export function EquipmentPage() {
       actions={isSponsor && <Button variant="primary" onClick={() => setAdding(true)}>Add equipment</Button>}
     >
       <Panel title={isSponsor ? "Equipment types" : "Available from your network"}>
-        {(equipment.data ?? []).length === 0 ? (
-          <Empty title="No equipment" hint={isSponsor ? "Add your first equipment type." : "No sponsors registered in your network yet."} />
-        ) : (
-          <TableWrap>
-            <table>
-              <thead>
-                <tr>
-                  <th>Ref</th><th>Type</th>{!isSponsor && <th>Sponsor</th>}<th>Units</th>
-                  <th>On loan</th><th>Available</th><th>Calibrated</th><th>Status</th><th />
-                </tr>
-              </thead>
-              <tbody>
-                {(equipment.data ?? []).map((e) => {
-                  const m = statusMeta(equipmentStatus, e.status);
-                  return (
-                    <tr key={e.id} className="tap" onClick={() => setViewingEq(e)}>
-                      <td className="id">{e.reference_code}</td>
-                      <td className="cell-primary">{e.equipment_type}</td>
-                      {!isSponsor && <td>{e.sponsor_name}</td>}
-                      <td className="num">{e.total_units}</td>
-                      <td className="num">{e.units_on_loan}</td>
-                      <td className="num">{e.units_available}</td>
-                      <td className="num">{fmtDate(e.calibrated_on)}</td>
-                      <td><Pill tone={m.tone}>{m.label}</Pill></td>
-                      <td className="right" onClick={(ev) => ev.stopPropagation()}><div className="rowactions">
-                        <Button size="sm" onClick={() => setViewingEq(e)}>Details</Button>
-                        {isSponsor ? (
-                          <Button size="sm" onClick={() => {
-                            const order = ["available", "in_use", "maintenance", "available"];
-                            const next = order[order.indexOf(e.status) + 1] ?? "available";
-                            cycle.mutate({ id: e.id, status: next });
-                          }}>
-                            Cycle status
-                          </Button>
-                        ) : (
-                          <Button size="sm" variant="primary" disabled={e.units_available < 1} onClick={() => setBorrowing(e)}>
-                            Request
-                          </Button>
-                        )}
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </TableWrap>
-        )}
-      </Panel>
-
-      {!isSponsor && (
-        <Panel title="Your requests">
-          {myLoans.length === 0 ? (
-            <Empty title="No equipment requests" />
+        <Loadable q={equipment} what="equipment">
+          {(equipment.data ?? []).length === 0 ? (
+            <Empty title="No equipment" hint={isSponsor ? "Add your first equipment type." : "No sponsors registered in your network yet."} />
           ) : (
             <TableWrap>
               <table>
-                <thead><tr><th>Ref</th><th>Equipment</th><th>Sponsor</th><th>Units</th><th>Needed by</th><th>Status</th><th>Reason</th><th /></tr></thead>
+                <thead>
+                  <tr>
+                    <th>Ref</th><th>Type</th>{!isSponsor && <th>Sponsor</th>}<th>Units</th>
+                    <th>On loan</th><th>Available</th><th>Calibrated</th><th>Status</th><th />
+                  </tr>
+                </thead>
                 <tbody>
-                  {myLoans.map((l) => {
-                    const m = statusMeta(loanStatus, l.status);
+                  {(equipment.data ?? []).map((e) => {
+                    const m = statusMeta(equipmentStatus, e.status);
                     return (
-                      <tr key={l.id} className="tap" onClick={() => setViewingLoan(l)}>
-                        <td className="id">{l.reference_code}</td>
-                        <td>{l.equipment_type}</td>
-                        <td>{l.sponsor_name}</td>
-                        <td className="num">{l.units}</td>
-                        <td className="num">{fmtDate(l.needed_by)}</td>
+                      <tr key={e.id} className="tap" onClick={() => setViewingEq(e)}>
+                        <td className="id">{e.reference_code}</td>
+                        <td className="cell-primary">{e.equipment_type}</td>
+                        {!isSponsor && <td>{e.sponsor_name}</td>}
+                        <td className="num">{e.total_units}</td>
+                        <td className="num">{e.units_on_loan}</td>
+                        <td className="num">{e.units_available}</td>
+                        <td className="num">{fmtDate(e.calibrated_on)}</td>
                         <td><Pill tone={m.tone}>{m.label}</Pill></td>
-                        <td className="small muted">{l.decision_reason ?? "—"}</td>
                         <td className="right" onClick={(ev) => ev.stopPropagation()}><div className="rowactions">
-                          <Button size="sm" onClick={() => setViewingLoan(l)}>Details</Button>
+                          <Button size="sm" onClick={() => setViewingEq(e)}>Details</Button>
+                          {isSponsor ? (
+                            <Button size="sm" onClick={() => {
+                              const order = ["available", "in_use", "maintenance", "available"];
+                              const next = order[order.indexOf(e.status) + 1] ?? "available";
+                              cycle.mutate({ id: e.id, status: next });
+                            }}>
+                              Cycle status
+                            </Button>
+                          ) : (
+                            <Button size="sm" variant="primary" disabled={e.units_available < 1} onClick={() => setBorrowing(e)}>
+                              Request
+                            </Button>
+                          )}
                           </div>
                         </td>
                       </tr>
@@ -543,6 +519,42 @@ export function EquipmentPage() {
               </table>
             </TableWrap>
           )}
+        </Loadable>
+      </Panel>
+
+      {!isSponsor && (
+        <Panel title="Your requests">
+          <Loadable q={loans} what="your equipment requests">
+            {myLoans.length === 0 ? (
+              <Empty title="No equipment requests" />
+            ) : (
+              <TableWrap>
+                <table>
+                  <thead><tr><th>Ref</th><th>Equipment</th><th>Sponsor</th><th>Units</th><th>Needed by</th><th>Status</th><th>Reason</th><th /></tr></thead>
+                  <tbody>
+                    {myLoans.map((l) => {
+                      const m = statusMeta(loanStatus, l.status);
+                      return (
+                        <tr key={l.id} className="tap" onClick={() => setViewingLoan(l)}>
+                          <td className="id">{l.reference_code}</td>
+                          <td>{l.equipment_type}</td>
+                          <td>{l.sponsor_name}</td>
+                          <td className="num">{l.units}</td>
+                          <td className="num">{fmtDate(l.needed_by)}</td>
+                          <td><Pill tone={m.tone}>{m.label}</Pill></td>
+                          <td className="small muted">{l.decision_reason ?? "—"}</td>
+                          <td className="right" onClick={(ev) => ev.stopPropagation()}><div className="rowactions">
+                            <Button size="sm" onClick={() => setViewingLoan(l)}>Details</Button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </TableWrap>
+            )}
+          </Loadable>
         </Panel>
       )}
 
@@ -667,6 +679,7 @@ export function LoanQueuePage() {
   const qc = useQueryClient();
   const toast = useToast();
   const [viewing, setViewing] = useState<LoanRow | null>(null);
+  const [rejecting, setRejecting] = useState<LoanRow | null>(null);
   const loans = useQuery({ queryKey: ["loans"], queryFn: () => get<LoanRow[]>("/network/loans") });
 
   const decide = useMutation({
@@ -676,8 +689,11 @@ export function LoanQueuePage() {
       void qc.invalidateQueries();
       toast("Decision recorded", "The requester has been notified.", "success");
     },
-    onError: (e) => toast("Refused", e instanceof Error ? e.message : "", "critical"),
   });
+  // For the buttons that act immediately. Reject goes through ReasonDialog,
+  // which reports its own failures, so this is not on the mutation itself —
+  // there it would report a failed rejection twice.
+  const toastRefusal = (e: unknown) => toast("Refused", e instanceof Error ? e.message : "", "critical");
 
   const rows = loans.data ?? [];
   const pending = rows.filter((l) => l.status === "pending");
@@ -685,54 +701,62 @@ export function LoanQueuePage() {
   return (
     <View title="Requests" sub="Approving marks the type in use; a rejection needs a reason the requester can act on.">
       <div className="g3">
-        <Metric label="Awaiting decision" value={pending.length} />
-        <Metric label="Units requested" value={pending.reduce((s, l) => s + l.units, 0)} />
-        <Metric label="All-time requests" value={rows.length} />
+        <Metric label="Awaiting decision" value={pending.length} loading={loans.isLoading} />
+        <Metric label="Units requested" value={pending.reduce((s, l) => s + l.units, 0)} loading={loans.isLoading} />
+        <Metric label="All-time requests" value={rows.length} loading={loans.isLoading} />
       </div>
       <Panel>
-        {rows.length === 0 ? (
-          <Empty title="No requests yet" hint="Suppliers in your tenant's network can request loans." />
-        ) : (
-          <TableWrap>
-            <table>
-              <thead><tr><th>Ref</th><th>Equipment</th><th>Requester</th><th>Units</th><th>Needed by</th><th>Note</th><th>Status</th><th /></tr></thead>
-              <tbody>
-                {rows.map((l) => {
-                  const m = statusMeta(loanStatus, l.status);
-                  return (
-                    <tr key={l.id} className="tap" onClick={() => setViewing(l)}>
-                      <td className="id">{l.reference_code}</td>
-                      <td>{l.equipment_type}</td>
-                      <td>{l.requester_name}</td>
-                      <td className="num">{l.units}</td>
-                      <td className="num">{fmtDate(l.needed_by)}</td>
-                      <td className="small" style={{ maxWidth: 220 }}>{l.note ?? "—"}</td>
-                      <td><Pill tone={m.tone}>{m.label}</Pill></td>
-                      <td className="right" onClick={(ev) => ev.stopPropagation()}><div className="rowactions">
-                        <Button size="sm" onClick={() => setViewing(l)}>Details</Button>
-                        {l.status === "pending" && (
-                          <>
-                            <Button size="sm" variant="success" onClick={() => decide.mutate({ id: l.id, decision: "approved" })}>Approve</Button>
-                            <Button size="sm" variant="danger" onClick={() => {
-                              const reason = window.prompt("Reason for rejecting — the requester cannot act on a blank one:");
-                              if (reason?.trim()) decide.mutate({ id: l.id, decision: "rejected", reason });
-                            }}>Reject</Button>
-                          </>
-                        )}
-                        {["approved", "issued", "overdue"].includes(l.status) && (
-                          <Button size="sm" onClick={() => decide.mutate({ id: l.id, decision: "returned" })}>Mark returned</Button>
-                        )}
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </TableWrap>
-        )}
+        <Loadable q={loans} what="loan requests">
+          {rows.length === 0 ? (
+            <Empty title="No requests yet" hint="Suppliers in your tenant's network can request loans." />
+          ) : (
+            <TableWrap>
+              <table>
+                <thead><tr><th>Ref</th><th>Equipment</th><th>Requester</th><th>Units</th><th>Needed by</th><th>Note</th><th>Status</th><th /></tr></thead>
+                <tbody>
+                  {rows.map((l) => {
+                    const m = statusMeta(loanStatus, l.status);
+                    return (
+                      <tr key={l.id} className="tap" onClick={() => setViewing(l)}>
+                        <td className="id">{l.reference_code}</td>
+                        <td>{l.equipment_type}</td>
+                        <td>{l.requester_name}</td>
+                        <td className="num">{l.units}</td>
+                        <td className="num">{fmtDate(l.needed_by)}</td>
+                        <td className="small" style={{ maxWidth: 220 }}>{l.note ?? "—"}</td>
+                        <td><Pill tone={m.tone}>{m.label}</Pill></td>
+                        <td className="right" onClick={(ev) => ev.stopPropagation()}><div className="rowactions">
+                          <Button size="sm" onClick={() => setViewing(l)}>Details</Button>
+                          {l.status === "pending" && (
+                            <>
+                              <Button size="sm" variant="success" onClick={() => decide.mutate({ id: l.id, decision: "approved" }, { onError: toastRefusal })}>Approve</Button>
+                              <Button size="sm" variant="danger" onClick={() => setRejecting(l)}>Reject</Button>
+                            </>
+                          )}
+                          {["approved", "issued", "overdue"].includes(l.status) && (
+                            <Button size="sm" onClick={() => decide.mutate({ id: l.id, decision: "returned" }, { onError: toastRefusal })}>Mark returned</Button>
+                          )}
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </TableWrap>
+          )}
+        </Loadable>
       </Panel>
       {viewing && <LoanDetailDialog l={viewing} onClose={() => setViewing(null)} />}
+      {rejecting && (
+        <ReasonDialog
+          title="Reject this equipment request"
+          warning="The requester is told it was rejected and sees your reason, so say what would change the answer."
+          confirmLabel="Reject"
+          onConfirm={(reason) => decide.mutateAsync({ id: rejecting.id, decision: "rejected", reason })}
+          onClose={() => setRejecting(null)}
+        />
+      )}
     </View>
   );
 }
@@ -772,60 +796,62 @@ export function RosterPage() {
       actions={<Button variant="primary" onClick={() => setAdding(true)}>Add worker</Button>}
     >
       <div className="g4">
-        <Metric label="Roster" value={rows.length} />
-        <Metric label="On shift" value={onShift} />
-        <Metric label="Signed up" value={signedUp} />
-        <Metric label="Invited, not yet signed up" value={invited} />
+        <Metric label="Roster" value={rows.length} loading={workers.isLoading} />
+        <Metric label="On shift" value={onShift} loading={workers.isLoading} />
+        <Metric label="Signed up" value={signedUp} loading={workers.isLoading} />
+        <Metric label="Invited, not yet signed up" value={invited} loading={workers.isLoading} />
       </div>
       <Panel>
-        {rows.length === 0 ? (
-          <Empty title="No workers on the roster" hint="Add a worker with their email to invite them to the app." />
-        ) : (
-          <TableWrap>
-            <table>
-              <thead><tr><th>Ref</th><th>Name</th><th>Email</th><th>Skill</th><th>App access</th><th>Status</th><th /></tr></thead>
-              <tbody>
-                {rows.map((w) => {
-                  const m = statusMeta(workerStatus, w.status);
-                  const inv = statusMeta(invitationStatus, w.invitation_status);
-                  const canResend = (w.invitation_status === "pending" || w.invitation_status === "expired") && w.status !== "offboarded";
-                  return (
-                    <tr key={w.id} className="tap" onClick={() => setViewing(w)}>
-                      <td className="id">{w.reference_code}</td>
-                      <td className="cell-primary">
-                        {w.display_name}
-                        {w.open_assignments > 0 && (
-                          <div className="cell-meta">{w.open_assignments} open assignment{w.open_assignments === 1 ? "" : "s"}</div>
-                        )}
-                      </td>
-                      <td className="small">{w.email ?? "—"}</td>
-                      <td>{w.skill ?? "—"}</td>
-                      <td><Pill tone={inv.tone}>{inv.label}</Pill></td>
-                      <td><Pill tone={m.tone}>{m.label}</Pill></td>
-                      <td className="right" onClick={(ev) => ev.stopPropagation()}><div className="rowactions">
-                        <Button size="sm" onClick={() => setViewing(w)}>Details</Button>
-                        {canResend && (
-                          <Button size="sm" disabled={resend.isPending} onClick={() => resend.mutate(w.id)}>Resend invite</Button>
-                        )}
-                        {w.status !== "offboarded" && (
-                          <>
-                            <Button size="sm" onClick={() => setStatus.mutate({ id: w.id, status: w.status === "on_shift" ? "on_break" : "on_shift" })}>
-                              {w.status === "on_shift" ? "Break" : "On shift"}
-                            </Button>
-                            <Button size="sm" variant="danger" onClick={() => setStatus.mutate({ id: w.id, status: "offboarded" })}>
-                              Offboard
-                            </Button>
-                          </>
-                        )}
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </TableWrap>
-        )}
+        <Loadable q={workers} what="the roster">
+          {rows.length === 0 ? (
+            <Empty title="No workers on the roster" hint="Add a worker with their email to invite them to the app." />
+          ) : (
+            <TableWrap>
+              <table>
+                <thead><tr><th>Ref</th><th>Name</th><th>Email</th><th>Skill</th><th>App access</th><th>Status</th><th /></tr></thead>
+                <tbody>
+                  {rows.map((w) => {
+                    const m = statusMeta(workerStatus, w.status);
+                    const inv = statusMeta(invitationStatus, w.invitation_status);
+                    const canResend = (w.invitation_status === "pending" || w.invitation_status === "expired") && w.status !== "offboarded";
+                    return (
+                      <tr key={w.id} className="tap" onClick={() => setViewing(w)}>
+                        <td className="id">{w.reference_code}</td>
+                        <td className="cell-primary">
+                          {w.display_name}
+                          {w.open_assignments > 0 && (
+                            <div className="cell-meta">{w.open_assignments} open assignment{w.open_assignments === 1 ? "" : "s"}</div>
+                          )}
+                        </td>
+                        <td className="small">{w.email ?? "—"}</td>
+                        <td>{w.skill ?? "—"}</td>
+                        <td><Pill tone={inv.tone}>{inv.label}</Pill></td>
+                        <td><Pill tone={m.tone}>{m.label}</Pill></td>
+                        <td className="right" onClick={(ev) => ev.stopPropagation()}><div className="rowactions">
+                          <Button size="sm" onClick={() => setViewing(w)}>Details</Button>
+                          {canResend && (
+                            <Button size="sm" disabled={resend.isPending} onClick={() => resend.mutate(w.id)}>Resend invite</Button>
+                          )}
+                          {w.status !== "offboarded" && (
+                            <>
+                              <Button size="sm" onClick={() => setStatus.mutate({ id: w.id, status: w.status === "on_shift" ? "on_break" : "on_shift" })}>
+                                {w.status === "on_shift" ? "Break" : "On shift"}
+                              </Button>
+                              <Button size="sm" variant="danger" onClick={() => setStatus.mutate({ id: w.id, status: "offboarded" })}>
+                                Offboard
+                              </Button>
+                            </>
+                          )}
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </TableWrap>
+          )}
+        </Loadable>
       </Panel>
 
       {adding && (

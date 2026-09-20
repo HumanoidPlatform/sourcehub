@@ -28,10 +28,15 @@
   --surface-2: #eef1ef;
   --surface-3: #e6eae8;
   --line: #dde3e0;
-  --line-strong: #c3ccc8;
+  /* 3.4:1 on white — WCAG 1.4.11 wants 3:1 for the edge that tells you a box
+     is an input. #c3ccc8 was 1.64:1, hidden until the always-red border went. */
+  --line-strong: #818e8a;
   --ink: #0f1a1c;
   --ink-2: #3a4a4d;
-  --ink-3: #66787b;
+  /* 5.1:1 on white, 4.5:1 on --surface-2. #66787b passed on white (4.6:1) but
+     measured 4.07:1 on --surface-2 — the grey behind table headers, the rail's
+     workspace card and tinted panels — short of 4.5:1 for small text there. */
+  --ink-3: #5f7174;
   --ink-4: #8c9c9e;
 
   /* --- accent: petrol teal, from survey instrumentation --- */

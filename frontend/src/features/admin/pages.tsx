@@ -5,7 +5,9 @@ import { useQuery, type UseQueryResult } from "@tanstack/react-query";
 import { Link, useNavigate } from "react-router-dom";
 import { get } from "@api/client";
 import type { ActivityRow, Org } from "@api/types";
-import { Callout, Empty, Metric, Panel, Pill, Skeleton, TableWrap, View } from "@ds/primitives";
+import {
+  Callout, DataTable, Empty, Metric, Panel, Pill, Skeleton, View, type Column,
+} from "@ds/primitives";
 import { fmtDateTime } from "@shared/format";
 import { rate } from "@shared/org-profile";
 import { orgStatus, statusMeta } from "@shared/status";
@@ -51,19 +53,19 @@ export function AccountsPage() {
 
       <Panel title="Clients">
         <OrgTable q={clients} noun="client" cols={[
-          ["Industry", (o) => (o.profile.industry as string) ?? "—"],
-          ["Country", (o) => o.country ?? "—"],
-          ["Plan", (o) => (o.profile.plan as string) ?? "—"],
-          ["Residency", (o) => o.residency_region ?? "—"],
+          profileCol("Industry", "industry"),
+          { header: "Country", cell: (o) => o.country ?? "—", sortBy: (o) => o.country },
+          profileCol("Plan", "plan"),
+          { header: "Residency", cell: (o) => o.residency_region ?? "—", sortBy: (o) => o.residency_region },
         ]} />
       </Panel>
 
       <Panel title="Delivery partners">
         <OrgTable q={tenants} noun="delivery partner" cols={[
-          ["HQ", (o) => (o.profile.hq as string) ?? "—"],
-          ["Plan", (o) => (o.profile.plan as string) ?? "—"],
-          ["On-time", (o) => rate(o.profile.on_time_rate as number | null)],
-          ["QA pass", (o) => rate(o.profile.qa_pass_rate as number | null)],
+          profileCol("HQ", "hq"),
+          profileCol("Plan", "plan"),
+          rateCol("On-time", "on_time_rate"),
+          rateCol("QA pass", "qa_pass_rate"),
         ]} />
       </Panel>
     </View>
@@ -75,7 +77,7 @@ function OrgTable({
 }: {
   q: UseQueryResult<Org[]>;
   noun: string;
-  cols: [string, (o: Org) => React.ReactNode][];
+  cols: Column<Org>[];
 }) {
   const nav = useNavigate();
 
@@ -97,45 +99,72 @@ function OrgTable({
   }
 
   return (
-    <TableWrap>
-      <table>
-        <thead>
-          <tr>
-            <th>Reference</th><th>Name</th>
-            {cols.map(([h]) => <th key={h}>{h}</th>)}
-            <th>Rating</th><th>Billing</th><th>Status</th><th />
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((o) => {
+    <DataTable
+      rows={rows}
+      rowKey={(o) => o.id}
+      filter={{
+        label: `Filter ${noun}s`,
+        placeholder: "Filter by name or reference…",
+        text: (o) => `${o.name} ${o.reference_code}`,
+      }}
+      // The row leads to /accounts/:id rather than a modal: it is where the
+      // lifecycle actions live, and unlike a dialog it can be linked to,
+      // bookmarked and reloaded.
+      rowProps={(o) => ({ className: "tap", onClick: () => nav(`/accounts/${o.id}`) })}
+      columns={[
+        { header: "Reference", cell: (o) => o.reference_code, sortBy: (o) => o.reference_code, className: "id" },
+        {
+          header: "Name",
+          sortBy: (o) => o.name,
+          className: "cell-primary",
+          cell: (o) => (
+            <>
+              {o.name}
+              {/* written at suspension, returned to nobody until now */}
+              {o.suspension_reason && <div className="cell-meta">{o.suspension_reason}</div>}
+            </>
+          ),
+        },
+        ...cols,
+        { header: "Rating", cell: (o) => o.rating ?? "—", sortBy: (o) => num(o.rating), className: "num" },
+        { header: "Billing", cell: (o) => o.billing_status ?? "—", sortBy: (o) => o.billing_status },
+        {
+          header: "Status",
+          sortBy: (o) => statusMeta(orgStatus, o.status).label,
+          cell: (o) => {
             const m = statusMeta(orgStatus, o.status);
-            return (
-              // The row leads to /accounts/:id rather than a modal: it is where
-              // the lifecycle actions live, and unlike a dialog it can be linked
-              // to, bookmarked and reloaded.
-              <tr key={o.id} className="tap" onClick={() => nav(`/accounts/${o.id}`)}>
-                <td className="id">{o.reference_code}</td>
-                <td className="cell-primary">
-                  {o.name}
-                  {/* written at suspension, returned to nobody until now */}
-                  {o.suspension_reason && <div className="cell-meta">{o.suspension_reason}</div>}
-                </td>
-                {cols.map(([h, f]) => <td key={h}>{f(o)}</td>)}
-                <td className="num">{o.rating ?? "—"}</td>
-                <td>{o.billing_status ?? "—"}</td>
-                <td><Pill tone={m.tone}>{m.label}</Pill></td>
-                <td className="right" onClick={(e) => e.stopPropagation()}><div className="rowactions">
-                  <Link to={`/accounts/${o.id}`} className="btn" data-size="sm">Open</Link>
-                  </div>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </TableWrap>
+            return <Pill tone={m.tone}>{m.label}</Pill>;
+          },
+        },
+        {
+          header: "Actions",
+          hideHeader: true,
+          className: "right",
+          // stopPropagation: the row's own click would navigate a second time
+          cell: (o) => (
+            <div className="rowactions" onClick={(e) => e.stopPropagation()}>
+              <Link to={`/accounts/${o.id}`} className="btn" data-size="sm">Open</Link>
+            </div>
+          ),
+        },
+      ]}
+    />
   );
 }
+
+/** A text field from the organisation's profile, as a sortable column. */
+function profileCol(header: string, field: string): Column<Org> {
+  const value = (o: Org) => (o.profile[field] as string | undefined) ?? null;
+  return { header, cell: (o) => value(o) ?? "—", sortBy: value };
+}
+
+/** A percentage from the profile, drawn as a meter and sorted as a number. */
+function rateCol(header: string, field: string): Column<Org> {
+  const value = (o: Org) => (o.profile[field] as number | null | undefined) ?? null;
+  return { header, cell: (o) => rate(value(o)), sortBy: value };
+}
+
+const num = (v: string | null) => (v === null || v === "" || Number.isNaN(Number(v)) ? null : Number(v));
 
 export function ActivityPage() {
   const activity = useQuery({

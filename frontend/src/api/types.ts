@@ -618,3 +618,21 @@ export interface Attachment {
   /** the newest live version of its document */
   is_current?: boolean;
 }
+
+/** One row of the bell. `link_page` is the backend's page vocabulary;
+ *  shared/notifications translates it into a route. */
+export interface NotificationRow {
+  id: string;
+  body: string;
+  link_page: string | null;
+  link_params?: Record<string, string> | null;
+  read: boolean;
+  created_at: string;
+}
+
+/** GET /notifications. `has_more` says whether `before=<last id>` has more. */
+export interface NotificationPage {
+  unread: number;
+  items: NotificationRow[];
+  has_more?: boolean;
+}

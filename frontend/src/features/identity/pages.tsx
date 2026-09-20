@@ -3,12 +3,12 @@
 
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState, type FormEvent } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { ApiError, get, post, saveSession, type Session } from "@api/client";
 import type { OfferPreview } from "@api/types";
 import { Button, Callout, Dl, Field, inputCls, useToast } from "@ds/primitives";
 import { fmtDate, fmtDateTime } from "@shared/format";
-import { useAuth, type OrgChoice } from "@shared/auth";
+import { returnPath, useAuth, type OrgChoice } from "@shared/auth";
 import { BRAND, BrandMark } from "@shared/brand";
 
 function AuthFrame({ title, sub, children }: { title: string; sub?: string; children: React.ReactNode }) {
@@ -29,8 +29,9 @@ function AuthFrame({ title, sub, children }: { title: string; sub?: string; chil
 }
 
 export function LoginPage() {
-  const { login } = useAuth();
+  const { login, ended } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [params] = useSearchParams();
   // an offer link hands over the address it was sent to; the password is
   // always typed here
@@ -47,7 +48,7 @@ export function LoginPage() {
     try {
       const choice = await login(email, password, orgId);
       if (choice) setOrgs(choice);
-      else navigate("/");
+      else navigate(returnPath(location.state), { replace: true });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Sign-in failed");
     } finally {
@@ -81,6 +82,18 @@ export function LoginPage() {
   return (
     <AuthFrame title="Sign in" sub="Use the email and password issued to you.">
       <form onSubmit={(e) => void submit(e)} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        {/* The sign-in page used to appear with no explanation when a session
+            ended on its own, which reads as the console having crashed. */}
+        {ended === "expired" && (
+          <Callout tone="attention" title="Your session has expired">
+            Sign in again to pick up where you left off.
+          </Callout>
+        )}
+        {ended === "elsewhere" && (
+          <Callout tone="neutral" title="You have been signed out">
+            Your session ended in another tab or window. Sign in again to continue.
+          </Callout>
+        )}
         <Field label="Email" required>
           {(id) => (
             <input id={id} className={inputCls} type="text" autoComplete="username"
