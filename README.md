@@ -2,7 +2,7 @@
 
 A marketplace connecting clients who need real-world data — imagery, video, sensor readings, people-based field work — with delivery partners who fulfil it through their own networks of crowd aggregators, vendor businesses and equipment sponsors.
 
-The design sources are in [docs/](docs/): `sourcehub-blueprint.html` (domain and architecture), `sourcehub-build-guide.html` (stack and RLS mechanics) and `sourcehub-app.html` (the clickable prototype, which remains **normative for state machines and design tokens**).
+The design sources are in [docs/](docs/): `sourcehub-blueprint.html` (domain and architecture), `sourcehub-build-guide.html` (stack and RLS mechanics) and `sourcehub-app.html` (the clickable prototype, which remains **normative for state machines and design tokens**). For the database and storage layer **as built** — what every table holds, which ones are in use, and how the flow is controlled — read [docs/database-guide.md](docs/database-guide.md).
 
 > **Just cloned, or updating from the previous push?** Read [README-PILOT.md](README-PILOT.md) first: what the field half adds, the database changes and whether your local database picks them up, and how to run the phone app.
 
