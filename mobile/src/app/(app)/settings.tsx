@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Alert, Text, TextInput, View } from "react-native";
 import { getBaseUrl, setBaseUrl } from "@/api/client";
 import { useAuth, useSession } from "@/auth/AuthProvider";
+import { APP_NAME } from "@/brand";
 import { deleteLocal } from "@/capture/files";
 import { ALLOW_SERVER_OVERRIDE } from "@/config";
 import { POLICY_URL } from "@/consent";
@@ -112,7 +113,7 @@ export default function Settings() {
       {/* What a worker reads out when they ring for help: the installed build,
           and which over-the-air update is running on top of it. app.json's
           version alone says neither. */}
-      <Callout title={`Cosarathi Capture ${Application.nativeApplicationVersion ?? Constants.expoConfig?.version ?? ""} (build ${Application.nativeBuildVersion ?? "dev"})`}>
+      <Callout title={`${APP_NAME} ${Application.nativeApplicationVersion ?? Constants.expoConfig?.version ?? ""} (build ${Application.nativeBuildVersion ?? "dev"})`}>
         Update: {Updates.updateId ? Updates.updateId.slice(0, 8) : "as installed"} · Role: {session.role}
       </Callout>
       <Button title="Sign out" variant="danger" onPress={signOut} />

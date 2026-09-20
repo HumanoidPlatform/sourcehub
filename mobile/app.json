@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Cosarathi Capture",
+    "name": "DataMind360 Capture",
     "slug": "cosarathi-capture",
     "version": "0.1.0",
     "orientation": "portrait",
@@ -10,7 +10,7 @@
     "ios": {
       "bundleIdentifier": "com.cosarathi.capture",
       "infoPlist": {
-        "NSCameraUsageDescription": "Cosarathi Capture photographs and films the subject of your assignment.",
+        "NSCameraUsageDescription": "DataMind360 Capture photographs and films the subject of your assignment.",
         "NSMicrophoneUsageDescription": "Needed to record sound with video captures.",
         "NSLocationWhenInUseUsageDescription": "Each capture is tagged with where it was taken.",
         "NSMotionUsageDescription": "Used to show a level in the viewfinder and record how square each capture was.",
@@ -28,7 +28,7 @@
         "android.permission.ACCESS_COARSE_LOCATION"
       ],
       "adaptiveIcon": {
-        "backgroundColor": "#0E7C86",
+        "backgroundColor": "#FFFFFF",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
@@ -40,7 +40,7 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#0E7C86",
+          "backgroundColor": "#F3F5F7",
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 76
         }
@@ -48,7 +48,7 @@
       [
         "expo-camera",
         {
-          "cameraPermission": "Cosarathi Capture photographs and films the subject of your assignment.",
+          "cameraPermission": "DataMind360 Capture photographs and films the subject of your assignment.",
           "microphonePermission": "Needed to record sound with video captures.",
           "recordAudioAndroid": true
         }

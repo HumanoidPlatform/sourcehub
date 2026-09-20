@@ -1,5 +1,6 @@
 import { Redirect, Stack } from "expo-router";
 import { useAuth } from "@/auth/AuthProvider";
+import { APP_NAME } from "@/brand";
 import { C } from "@/ui";
 
 export default function AuthLayout() {
@@ -14,7 +15,7 @@ export default function AuthLayout() {
         contentStyle: { backgroundColor: C.bg },
       }}
     >
-      <Stack.Screen name="sign-in" options={{ title: "Cosarathi Capture" }} />
+      <Stack.Screen name="sign-in" options={{ title: APP_NAME }} />
       <Stack.Screen name="server" options={{ title: "Server", presentation: "modal" }} />
     </Stack>
   );

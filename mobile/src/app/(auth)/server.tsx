@@ -2,6 +2,7 @@ import { Redirect, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { Text, TextInput } from "react-native";
 import { getBaseUrl, pingServer, setBaseUrl } from "@/api/client";
+import { PRODUCT } from "@/brand";
 import { ALLOW_SERVER_OVERRIDE } from "@/config";
 import { Button, Callout, Field, Screen, inputStyle, s } from "@/ui";
 
@@ -41,7 +42,7 @@ export default function Server() {
   return (
     <Screen>
       <Text style={[s.body, { marginBottom: 14 }]}>
-        The address of the Cosarathi API as this phone can reach it. On the pilot Wi-Fi that is the
+        The address of the {PRODUCT} API as this phone can reach it. On the pilot Wi-Fi that is the
         dev machine's address, never localhost.
       </Text>
       <Field label="API address" hint="Port 8000 — the API. Not 8081, which is the Expo dev server.">

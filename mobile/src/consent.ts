@@ -8,6 +8,7 @@
 // email. The record below already has the shape the server will want, so when
 // that table arrives the app uploads what it holds and nobody is asked twice.
 
+import { APP_NAME } from "@/brand";
 import { PRODUCTION_API_URL } from "@/config";
 
 /** Bump to ask everyone again. It travels over the air, so a corrected notice
@@ -43,7 +44,7 @@ export interface NoticeSection {
  * route for deletion, not an automatic process. */
 export const NOTICE: { title: string; intro: string; sections: NoticeSection[] } = {
   title: "Before you start",
-  intro: "Cosarathi Capture records the following while you work. Please read it once.",
+  intro: `${APP_NAME} records the following while you work. Please read it once.`,
   sections: [
     {
       heading: "Photos and videos you take in the app",

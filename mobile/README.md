@@ -1,4 +1,4 @@
-# Cosarathi Capture
+# DataMind360 Capture
 
 The crowd worker's app. A worker signs in with the email and password from
 their invitation, sees the units their aggregator assigned to them, captures
@@ -23,8 +23,22 @@ cd backend && .venv/Scripts/python -m uvicorn sourcehub.main:app --host 0.0.0.0 
 cd mobile
 cp .env.example .env                           # EXPO_PUBLIC_API_URL=http://192.168.1.20:8000
 npm install
-npx expo start                                 # scan the QR with Expo Go on the same Wi-Fi
+npx expo start --go                            # QR for Expo Go, on the same Wi-Fi
 ```
+
+**Scan it from inside Expo Go**, not with the phone's camera. The QR holds an
+`exp://` address, which Android's camera and Google Lens cannot open — they say
+"no usable data found". iOS's camera does handle it. Expo Go's own scanner, or
+"Enter URL manually" with `exp://<your-Wi-Fi-IPv4>:8081`, always works.
+
+`--go` matters: `expo-dev-client` is a dependency, so a bare `npx expo start`
+offers a development build instead and prints a `cosarathi://…` QR that only an
+installed development build can open. Press `s` in the terminal to switch
+between the two at any time.
+
+The API must be reachable from the phone, which means binding it to every
+interface — `--host 0.0.0.0` above, not the default localhost — and allowing
+inbound TCP 8000 and 8081 through the firewall.
 
 From the phone's browser, `http://192.168.1.20:8000/health` must answer
 before the app will. The address can also be changed on the sign-in screen.
