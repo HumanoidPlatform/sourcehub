@@ -148,6 +148,15 @@ describe("a link followed while signed out", () => {
   });
 });
 
+describe("the sign-in card", () => {
+  it("shows the name but does not link it — there is no workspace to go to yet", () => {
+    stubApi(401);
+    renderApp("/login");
+    expect(screen.getByText("DataMind360")).toBeTruthy();
+    expect(screen.queryByRole("link", { name: "DataMind360 home" })).toBeNull();
+  });
+});
+
 describe("returnPath", () => {
   it("honours only a path on this site", () => {
     expect(returnPath({ from: "/requests?status=open" })).toBe("/requests?status=open");

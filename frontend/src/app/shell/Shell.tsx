@@ -211,7 +211,8 @@ export function Shell({ children }: { children: ReactNode }) {
           permanently open on phones. */}
       <aside className="rail" id="primary-rail" ref={railRef} data-open={railOpen ? "" : undefined}>
         <div className="rail-head">
-          <BrandMark />
+          {/* the logo leads home, as a logo does */}
+          <BrandMark to="/" />
         </div>
         <div className="rail-ctx">
           <div className="rail-ctx-name">{session.org_name}</div>

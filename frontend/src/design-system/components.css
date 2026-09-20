@@ -65,6 +65,10 @@ main:focus-visible,h1[tabindex="-1"]:focus-visible{outline:none}
   display:flex;flex-direction:column;position:sticky;top:0;height:100vh;z-index:60}
 .rail-head{padding:var(--s-4);border-bottom:1px solid var(--line)}
 .mark{display:flex;align-items:center;gap:10px}
+/* As a link (the rail's mark goes home) it must not look like body text with an
+   underline, but it must still answer to hover and to a focus ring. */
+a.mark{text-decoration:none;color:inherit;border-radius:var(--r-control)}
+a.mark:hover .mark-name{color:var(--accent)}
 /* The logo, transparent, so it sits on the rail in either theme. 32px, not the
    28 the old letter glyph used: the mark's orbit rings are thin and the file
    carries its own margin, so it needs the extra pixels to read. */

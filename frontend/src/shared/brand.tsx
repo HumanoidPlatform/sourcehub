@@ -13,6 +13,8 @@
 // The static index.html <title> cannot import this module; it carries the same
 // name and changes with it.
 
+import { Link } from "react-router-dom";
+
 export const PRODUCT = "DataMind360";
 export const COMPANY = "Cosarathi";
 export const TAGLINE = "Data collection and delivery platform";
@@ -36,9 +38,9 @@ export const BYLINE = `A ${COMPANY} product`;
  */
 export const CAPTURE_APP = "Cosarathi Capture";
 
-export function BrandMark({ byline }: { byline?: boolean }) {
-  return (
-    <div className="mark">
+export function BrandMark({ byline, to }: { byline?: boolean; to?: string }) {
+  const content = (
+    <>
       {/* alt="" on purpose: the product name is right beside it, and a screen
           reader announcing "DataMind360 logo, DataMind360" says it twice. */}
       {/* width/height match the CSS, so the rail does not jump while it loads */}
@@ -50,6 +52,21 @@ export function BrandMark({ byline }: { byline?: boolean }) {
             is. Inside the console it lives at the foot of the rail instead. */}
         {byline && <span className="mark-by">{BYLINE}</span>}
       </span>
-    </div>
+    </>
+  );
+
+  // In the console the mark is the way back to the overview, which is where
+  // people expect a logo to lead. On the sign-in and privacy screens it is not
+  // a link: there is no workspace to go back to yet.
+  //
+  // The label keeps the visible name and adds where it goes — "DataMind360" on
+  // its own does not say it is the way home, and an aria-label that dropped the
+  // visible text would break speech control ("click DataMind360").
+  return to ? (
+    <Link className="mark" to={to} aria-label={`${PRODUCT} home`}>
+      {content}
+    </Link>
+  ) : (
+    <div className="mark">{content}</div>
   );
 }

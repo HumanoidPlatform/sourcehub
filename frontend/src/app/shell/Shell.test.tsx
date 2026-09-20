@@ -211,6 +211,15 @@ describe("brand", () => {
     expect(screen.getByText("A Cosarathi product")).toBeTruthy();
   });
 
+  it("leads home when the logo or the name is clicked", () => {
+    renderShell();
+    const home = screen.getByRole("link", { name: "DataMind360 home" });
+    expect(home.getAttribute("href")).toBe("/");
+    // both the mark and the wordmark are inside the one link
+    expect(home.querySelector(".mark-logo")).not.toBeNull();
+    expect(home.textContent).toContain("DataMind360");
+  });
+
   it("shows the logo without making a screen reader say the name twice", () => {
     renderShell();
     const logo = document.querySelector(".mark-logo") as HTMLImageElement;
