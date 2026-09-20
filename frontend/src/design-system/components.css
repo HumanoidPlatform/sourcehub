@@ -65,9 +65,14 @@ main:focus-visible,h1[tabindex="-1"]:focus-visible{outline:none}
   display:flex;flex-direction:column;position:sticky;top:0;height:100vh;z-index:60}
 .rail-head{padding:var(--s-4);border-bottom:1px solid var(--line)}
 .mark{display:flex;align-items:center;gap:10px}
-.mark-glyph{width:28px;height:28px;flex:none;border-radius:var(--r-control);
-  background:var(--accent);color:var(--accent-ink);display:grid;place-items:center}
+/* The logo, transparent, so it sits on the rail in either theme. 32px, not the
+   28 the old letter glyph used: the mark's orbit rings are thin and the file
+   carries its own margin, so it needs the extra pixels to read. */
+.mark-logo{width:32px;height:32px;flex:none;object-fit:contain}
+.mark-text{display:flex;flex-direction:column;min-width:0}
 .mark-name{font-weight:600;font-size:14.5px;letter-spacing:-.02em}
+/* Only on the sign-in card (BrandMark withCompany): who is behind the product. */
+.mark-by{font-size:11.5px;color:var(--ink-3);margin-top:1px}
 .rail-ctx{margin-top:var(--s-3);padding:10px;border:1px solid var(--line);
   border-radius:var(--r-control);background:var(--surface-2)}
 .rail-ctx .eyebrow{display:block;margin-bottom:3px}
@@ -87,6 +92,8 @@ main:focus-visible,h1[tabindex="-1"]:focus-visible{outline:none}
   background:var(--surface-2);border-radius:var(--r-pill);padding:1px 7px}
 .rail-item[aria-current="page"] .tally{background:var(--surface);color:var(--accent)}
 .rail-foot{border-top:1px solid var(--line);padding:var(--s-3) var(--s-2)}
+/* Who makes this, once, at the foot of the rail — as the logo itself says it. */
+.rail-byline{display:block;padding:0 10px;font-size:11px;color:var(--ink-3)}
 
 /* --- topbar --------------------------------------------------------------- */
 .topbar{position:sticky;top:0;z-index:50;height:var(--topbar-h);

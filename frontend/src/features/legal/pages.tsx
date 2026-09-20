@@ -16,7 +16,7 @@
 // request to a person, which is what it is.
 
 import { Callout } from "@ds/primitives";
-import { BRAND, BRAND_FULL, BrandMark } from "@shared/brand";
+import { BrandMark, CAPTURE_APP, PRODUCT } from "@shared/brand";
 
 const OPERATOR = {
   name: "Vaieon",
@@ -44,7 +44,7 @@ export function PrivacyPage() {
           <BrandMark />
           <h1 style={{ margin: "14px 0 2px", fontSize: 22 }}>Privacy policy</h1>
           <p className="small muted" style={{ margin: 0 }}>
-            {BRAND_FULL} and the {BRAND} Capture app · last updated {LAST_UPDATED}
+            {PRODUCT} and the {CAPTURE_APP} app · last updated {LAST_UPDATED}
           </p>
 
           {isDraft && (
@@ -58,13 +58,13 @@ export function PrivacyPage() {
 
           <Section title="Who we are">
             <p style={{ margin: 0 }}>
-              {BRAND} is operated by {OPERATOR.name}, {OPERATOR.address}. For anything on this page, write to{" "}
+              {PRODUCT} is operated by {OPERATOR.name}, {OPERATOR.address}. For anything on this page, write to{" "}
               {OPERATOR.contactEmail}.
             </p>
           </Section>
 
           <Section title="If you capture photos or video with the app">
-            <p style={{ marginTop: 0 }}>While you work, the {BRAND} Capture app records:</p>
+            <p style={{ marginTop: 0 }}>While you work, the {CAPTURE_APP} app records:</p>
             <ul style={{ margin: 0, paddingLeft: 20 }}>
               <li><b>The photos and videos you take in the app</b>, including sound when you record video. They may show people who happen to be nearby.</li>
               <li><b>Your precise location at the moment of each capture</b>, and the time. Location is read only while you are capturing — never in the background, and never when the app is closed.</li>

@@ -15,7 +15,7 @@ import {
   type KeyboardEvent as ReactKeyboardEvent,
   type ReactNode,
 } from "react";
-import { BRAND } from "@shared/brand";
+import { PRODUCT } from "@shared/brand";
 import type { Tone } from "@shared/status";
 
 /* --- buttons --------------------------------------------------------------- */
@@ -1043,7 +1043,7 @@ export function View({
   // to mount starts from a clean slate.
   useEffect(() => {
     const previous = document.title;
-    document.title = `${pageTitle ?? title} · ${BRAND}`;
+    document.title = `${pageTitle ?? title} · ${PRODUCT}`;
     return () => {
       document.title = previous;
     };

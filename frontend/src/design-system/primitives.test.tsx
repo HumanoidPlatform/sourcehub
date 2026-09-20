@@ -40,12 +40,12 @@ describe("Field", () => {
 describe("View", () => {
   it("names the browser tab after the page", () => {
     render(<View title="Accounts"><p /></View>);
-    expect(document.title).toBe("Accounts · Cosarathi");
+    expect(document.title).toBe("Accounts · DataMind360");
   });
 
   it("uses pageTitle when the heading is not a good tab name", () => {
     render(<View title="Good day, Acme Retail Analytics" pageTitle="Overview"><p /></View>);
-    expect(document.title).toBe("Overview · Cosarathi");
+    expect(document.title).toBe("Overview · DataMind360");
   });
 });
 

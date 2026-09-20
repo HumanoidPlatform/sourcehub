@@ -77,7 +77,7 @@ ENV PYTHONPATH=/app/src
 #   docker inspect --format '{{.Config.Labels}}' <image>
 ARG BUILD_VERSION=dev
 ENV BUILD_VERSION=$BUILD_VERSION
-LABEL org.opencontainers.image.title="Cosarathi API" \
+LABEL org.opencontainers.image.title="DataMind360 API" \
       org.opencontainers.image.version="$BUILD_VERSION" \
       org.opencontainers.image.source="https://github.com/HumanoidPlatform/sourcehub"
 

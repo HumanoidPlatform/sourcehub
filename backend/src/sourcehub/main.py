@@ -12,7 +12,7 @@ import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from sourcehub.config import BRAND_FULL, settings
+from sourcehub.config import PRODUCT, settings
 
 
 def _configure_logging() -> None:
@@ -39,7 +39,7 @@ def _configure_logging() -> None:
 def create_app() -> FastAPI:
     _configure_logging()
     app = FastAPI(
-        title=f"{BRAND_FULL} API",
+        title=f"{PRODUCT} API",
         version="0.1.0",
         description=(
             "A marketplace connecting clients who need real-world data with "

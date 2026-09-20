@@ -25,7 +25,7 @@ from sqlalchemy.exc import DBAPIError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.security import AccessClaims, hash_token, new_opaque_token
-from sourcehub.config import BRAND, settings
+from sourcehub.config import CAPTURE_APP, PRODUCT, settings
 from sourcehub.db.session import anonymous_session, org_session
 from sourcehub.modules.audit import service as audit
 from sourcehub.modules.delivery.models import (
@@ -1219,7 +1219,7 @@ def _offer_email(
     subject = f"{org_name} is offering you a task — {task_ref} {task_title}"
     text_body = (
         f"Hello {worker_name},\n\n"
-        f"{org_name} is offering you work on {BRAND}.\n\n"
+        f"{org_name} is offering you work on {PRODUCT}.\n\n"
         f"  Task:          {task_ref} — {task_title}\n"
         f"  Your share:    {quantity} {unit}\n"
         f"  Due:           {due}\n"
@@ -1228,7 +1228,7 @@ def _offer_email(
         + (f"Instructions:\n{instructions}\n\n" if instructions else "")
         + f"Accept:\n  {accept_url}\n\n"
         f"Decline:\n  {decline_url}\n\n"
-        f"Once you accept, the task appears in your {BRAND} Capture app and on the console.\n"
+        f"Once you accept, the task appears in your {CAPTURE_APP} app and on the console.\n"
         f"If all places are taken before you answer, the link will say so."
     )
     e = html.escape
@@ -1257,7 +1257,7 @@ def _offer_email(
         '<div style="font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;'
         'font-size:15px;line-height:1.45;color:#1c1c1c;max-width:560px">'
         f"<p>Hello {e(worker_name)},</p>"
-        f"<p>{e(org_name)} is offering you work on {e(BRAND)}.</p>"
+        f"<p>{e(org_name)} is offering you work on {e(PRODUCT)}.</p>"
         f'<table style="border-collapse:collapse;font-size:15px">{trs}</table>'
         f"{instr}"
         '<p style="margin:24px 0 8px">'
@@ -1266,7 +1266,7 @@ def _offer_email(
         f'<a href="{e(decline_url)}" style="{btn};background:#eee;color:#1c1c1c">Decline</a>'
         "</p>"
         f'<p style="color:#666;font-size:13px">Once you accept, the task appears in your '
-        f'{e(BRAND)} Capture app and on the console. If all places are taken before you '
+        f'{e(CAPTURE_APP)} app and on the console. If all places are taken before you '
         "answer, the link will say so.</p>"
         "</div>"
     )

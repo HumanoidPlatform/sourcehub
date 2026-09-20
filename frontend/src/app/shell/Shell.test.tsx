@@ -204,3 +204,19 @@ describe("notification bell", () => {
     expect(document.activeElement).toBe(bell);
   });
 });
+
+describe("brand", () => {
+  it("names the company once, quietly, at the foot of the rail", () => {
+    renderShell();
+    expect(screen.getByText("A Cosarathi product")).toBeTruthy();
+  });
+
+  it("shows the logo without making a screen reader say the name twice", () => {
+    renderShell();
+    const logo = document.querySelector(".mark-logo") as HTMLImageElement;
+    expect(logo.getAttribute("src")).toBe("/brand/mark.png");
+    expect(logo.getAttribute("alt")).toBe("");
+    // the name itself is live text, not part of the image
+    expect(screen.getByText("DataMind360")).toBeTruthy();
+  });
+});

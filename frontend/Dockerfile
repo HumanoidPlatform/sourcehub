@@ -48,7 +48,7 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 # Which build is live, without opening a terminal:  GET /version.json
 ARG BUILD_VERSION=dev
 RUN printf '{"version":"%s"}\n' "$BUILD_VERSION" > /usr/share/nginx/html/version.json
-LABEL org.opencontainers.image.title="Cosarathi Console" \
+LABEL org.opencontainers.image.title="DataMind360 Console" \
       org.opencontainers.image.version="$BUILD_VERSION" \
       org.opencontainers.image.source="https://github.com/HumanoidPlatform/sourcehub"
 

@@ -19,7 +19,7 @@ from sqlalchemy import select, text, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.security import AccessClaims, hash_token, new_opaque_token
-from sourcehub.config import BRAND, settings
+from sourcehub.config import PRODUCT, settings
 from sourcehub.db.session import anonymous_session, org_session
 from sourcehub.modules.audit import service as audit
 from sourcehub.modules.identity.models import (
@@ -399,7 +399,7 @@ async def request_password_reset(email: str, ip: str | None) -> None:
     try:
         await send_mail(
             email,
-            f"Reset your {BRAND} password",
+            f"Reset your {PRODUCT} password",
             f"Hello {row['full_name']},\n\n"
             f"Someone asked to reset the password for this account. If it was you,\n"
             f"open the link below within one hour:\n\n  {link}\n\n"

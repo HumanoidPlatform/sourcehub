@@ -18,11 +18,18 @@ from typing import Literal
 from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-# The user-facing brand, in one place. Internal names (package, DB, buckets,
-# storage keys) deliberately stay "sourcehub" — renaming those is a migration,
-# not a rebrand.
-BRAND = "Cosarathi"
-BRAND_FULL = "Cosarathi Data Platform"
+# The user-facing names, in one place, mirroring frontend/src/shared/brand.tsx:
+# PRODUCT is this application, COMPANY is who makes it. An email says the
+# product ("your DataMind360 password"); the company belongs in a footer or a
+# legal notice. Internal names (package, DB, buckets, storage keys) deliberately
+# stay "sourcehub" — renaming those is a migration, not a rebrand.
+PRODUCT = "DataMind360"
+COMPANY = "Cosarathi"
+
+# The phone app under the name a worker sees on their own phone TODAY; it
+# becomes "DataMind360 Capture" with its next release. An email must name what
+# they actually have installed, so this is not derived from PRODUCT.
+CAPTURE_APP = "Cosarathi Capture"
 
 
 class Settings(BaseSettings):
@@ -91,7 +98,7 @@ class Settings(BaseSettings):
     smtp_host: str = "localhost"
     smtp_port: int = 1025
     smtp_from: str = "no-reply@sourcehub.local"
-    smtp_from_name: str = BRAND
+    smtp_from_name: str = PRODUCT
     smtp_username: str = ""
     smtp_password: SecretStr = SecretStr("")
     # STARTTLS on 587 (the usual), implicit TLS on 465. Both off for a local

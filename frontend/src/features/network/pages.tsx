@@ -10,6 +10,7 @@ import {
   TableWrap, textareaCls, useToast, View,
 } from "@ds/primitives";
 import { useSession } from "@shared/auth";
+import { COMPANY } from "@shared/brand";
 import { fmtDate, titleCase } from "@shared/format";
 import { OrgProfileDialog } from "@shared/org-profile";
 import { ReasonDialog } from "@shared/reason-dialog";
@@ -140,11 +141,11 @@ export function NetworkPage() {
   return (
     <View
       title="Network"
-      sub="Registered under you — Cosarathi does not bill these accounts. New entries need platform approval."
+      sub={`Registered under you — ${COMPANY} does not bill these accounts. New entries need platform approval.`}
       actions={<Button variant="primary" onClick={() => setRequesting(true)}>Request {KIND_ONE[tab]}</Button>}
     >
       {openRequests.length > 0 && (
-        <Panel title="Awaiting platform approval" sub="The request goes to Cosarathi operations; you are notified of the decision.">
+        <Panel title="Awaiting platform approval" sub={`The request goes to ${COMPANY} operations; you are notified of the decision.`}>
           <TableWrap>
             <table>
               <thead><tr><th>Reference</th><th>Proposed</th><th>Kind</th><th>Status</th><th>Latest reason</th><th /></tr></thead>
@@ -313,7 +314,7 @@ function ResubmitDialog({ row, onClose }: { row: OnboardingRow; onClose: () => v
     },
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: ["onboarding-mine"] });
-      toast("Resubmitted", "Cosarathi operations will review it again.", "success");
+      toast("Resubmitted", `${COMPANY} operations will review it again.`, "success");
       onClose();
     },
     onError: (e) => setError(e instanceof Error ? e.message : "Could not resubmit"),
@@ -337,7 +338,7 @@ function ResubmitDialog({ row, onClose }: { row: OnboardingRow; onClose: () => v
         </>
       }
     >
-      {why && <Callout tone="attention" title="Cosarathi operations asked for changes">{why}</Callout>}
+      {why && <Callout tone="attention" title={`${COMPANY} operations asked for changes`}>{why}</Callout>}
       <div className="formgrid">
         <Field label="Organisation name" required span>
           {(id) => <input id={id} className={inputCls} value={name} onChange={(e) => setName(e.target.value)} />}
@@ -390,7 +391,7 @@ function OnboardRequestDialog({ kind, onClose }: { kind: NetKind; onClose: () =>
       }),
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: ["onboarding-mine"] });
-      toast("Request submitted", "Cosarathi operations will review it.", "success");
+      toast("Request submitted", `${COMPANY} operations will review it.`, "success");
       onClose();
     },
     onError: (e) => setError(e instanceof Error ? e.message : "Could not submit"),

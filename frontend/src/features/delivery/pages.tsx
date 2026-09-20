@@ -14,6 +14,7 @@ import {
   AttachmentList, AttachmentsField, attachmentPayload, slotRows, type AttachmentDraft,
 } from "@shared/attachments";
 import { useSession } from "@shared/auth";
+import { CAPTURE_APP } from "@shared/brand";
 import { fmtDate, fmtDateTime, mediaList, money, taskTarget } from "@shared/format";
 import { assignmentStatus, contractStatus, statusMeta, taskStatus, waitingOn } from "@shared/status";
 import { AssignmentUploadDialog } from "@features/capture/dialog";
@@ -824,7 +825,7 @@ export function WorkerAssignmentsPage() {
       sub={`Your assignments at ${session.org_name}.`}
     >
       <Callout tone="attention" title="Capture on the phone, or upload files here">
-        The Cosarathi Capture app checks a shot as you take it. Files you already hold can be uploaded
+        The {CAPTURE_APP} app checks a shot as you take it. Files you already hold can be uploaded
         from this page instead — open an assignment to add them; whatever the browser cannot verify is
         left for your supplier to judge.
       </Callout>

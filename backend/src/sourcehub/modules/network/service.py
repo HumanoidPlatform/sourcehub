@@ -25,7 +25,7 @@ from sqlalchemy.exc import DBAPIError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.security import AccessClaims, new_opaque_token
-from sourcehub.config import BRAND, settings
+from sourcehub.config import CAPTURE_APP, PRODUCT, settings
 from sourcehub.modules.audit import service as audit
 from sourcehub.modules.network.models import CrowdWorker, Equipment, Loan, Rating
 from sourcehub.modules.notify import service as notifier
@@ -343,12 +343,12 @@ async def _send_worker_invitation(
     try:
         await send_mail(
             email,
-            f"You're invited to {BRAND} — {org_name}",
+            f"You're invited to {PRODUCT} — {org_name}",
             f"Hello {full_name},\n\n"
-            f"{org_name} has added you as a field worker on {BRAND}. Set your password\n"
-            f"within {settings.invitation_ttl_days} days, then sign in to the {BRAND} Capture app\n"
+            f"{org_name} has added you as a field worker on {PRODUCT}. Set your password\n"
+            f"within {settings.invitation_ttl_days} days, then sign in to the {CAPTURE_APP} app\n"
             f"with this email address:\n\n  {link}\n\n"
-            f"No one at {BRAND} knows this link's token or your future password.",
+            f"No one at {PRODUCT} knows this link's token or your future password.",
         )
     except OSError:
         pass

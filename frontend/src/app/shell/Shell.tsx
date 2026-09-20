@@ -10,7 +10,7 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import { get } from "@api/client";
 import type { NotificationPage } from "@api/types";
 import { useSession } from "@shared/auth";
-import { BrandMark } from "@shared/brand";
+import { BrandMark, BYLINE } from "@shared/brand";
 import { fmtAgo, fmtDateTime } from "@shared/format";
 import { markRead, notificationHref } from "@shared/notifications";
 import { ProfileMenu } from "./ProfileMenu";
@@ -231,11 +231,15 @@ export function Shell({ children }: { children: ReactNode }) {
             ))}
           </div>
         </nav>
-        {/* The rail ends at the navigation. It used to carry a "Design system"
-            link — a developer reference showing in every persona's nav — and a
-            bare "Theme: system" text button. The theme now lives in the account
-            menu, where it is conventionally found; /design is still reachable by
-            URL in local dev builds (router.tsx) and absent from production. */}
+        {/* The rail once ended with a "Design system" link — a developer
+            reference in every persona's nav — and a bare "Theme: system" text
+            button. The theme now lives in the account menu, where it is
+            conventionally found; /design is still reachable by URL in local dev
+            builds (router.tsx) and absent from production. What is left here is
+            the one place inside the console that names the company. */}
+        <div className="rail-foot">
+          <span className="rail-byline">{BYLINE}</span>
+        </div>
       </aside>
       {/* Tapping outside the open drawer closes it. Only rendered while open; the
           stylesheet hides it above 840px regardless. */}

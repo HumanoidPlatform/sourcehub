@@ -9,20 +9,29 @@ import type { OfferPreview } from "@api/types";
 import { Button, Callout, Dl, Field, inputCls, useToast } from "@ds/primitives";
 import { fmtDate, fmtDateTime } from "@shared/format";
 import { returnPath, useAuth, type OrgChoice } from "@shared/auth";
-import { BRAND, BrandMark } from "@shared/brand";
+import { BrandMark, CAPTURE_APP, PRODUCT } from "@shared/brand";
 
+// The anonymous screens — sign in, invitation, reset, task offer. The only
+// place the company is named alongside the product: whoever is at this door may
+// never have heard of either, and the privacy notice belongs within reach of
+// the form rather than behind a sign-in.
 function AuthFrame({ title, sub, children }: { title: string; sub?: string; children: React.ReactNode }) {
   return (
     <div style={{ minHeight: "100vh", display: "grid", placeItems: "center", background: "var(--ground)", padding: 24 }}>
-      <div className="panel" style={{ width: 420, maxWidth: "100%" }}>
-        <div className="panel-body" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-          <BrandMark />
-          <div>
-            <h1 style={{ margin: 0, fontSize: 19 }}>{title}</h1>
-            {sub && <p className="small muted" style={{ margin: "4px 0 0" }}>{sub}</p>}
+      <div style={{ width: 420, maxWidth: "100%" }}>
+        <div className="panel">
+          <div className="panel-body" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            <BrandMark byline />
+            <div>
+              <h1 style={{ margin: 0, fontSize: 19 }}>{title}</h1>
+              {sub && <p className="small muted" style={{ margin: "4px 0 0" }}>{sub}</p>}
+            </div>
+            {children}
           </div>
-          {children}
         </div>
+        <p className="small muted" style={{ textAlign: "center", margin: "12px 0 0" }}>
+          <Link to="/privacy">Privacy notice</Link>
+        </p>
       </div>
     </div>
   );
@@ -144,7 +153,7 @@ export function AcceptInvitationPage() {
   const accept = useMutation({
     mutationFn: () => post("/auth/invitation/accept", { token, password }),
     onSuccess: () => {
-      toast(`Welcome to ${BRAND}`, "Your password is set — sign in to begin.", "success");
+      toast(`Welcome to ${PRODUCT}`, "Your password is set — sign in to begin.", "success");
       navigate("/login");
     },
     onError: (e) => setError(e instanceof Error ? e.message : "Could not accept"),
@@ -172,7 +181,7 @@ export function AcceptInvitationPage() {
           }}
           style={{ display: "flex", flexDirection: "column", gap: 12 }}
         >
-          <Field label="Choose a password" required hint={`At least 10 characters. Nobody at ${BRAND} ever sees it.`}>
+          <Field label="Choose a password" required hint={`At least 10 characters. Nobody at ${PRODUCT} ever sees it.`}>
             {(id) => (
               <input id={id} className={inputCls} type="password" autoComplete="new-password"
                 value={password} onChange={(e) => setPassword(e.target.value)} />
@@ -237,7 +246,7 @@ export function TaskOfferPage() {
     body = (
       <>
         <Callout tone="success" title="You're on it">
-          {p.task.reference_code} is now in your assignments. Open the {BRAND} Capture app to start, or sign in here to upload files.
+          {p.task.reference_code} is now in your assignments. Open the {CAPTURE_APP} app to start, or sign in here to upload files.
         </Callout>
         <Link to={signIn} className="btn" data-variant="primary">Sign in as {p.worker_email}</Link>
       </>

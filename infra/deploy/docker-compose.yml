@@ -51,7 +51,7 @@ services:
     networks:
       - backend
 
-  # ---------- Cosarathi API ----------
+  # ---------- DataMind360 API ----------
   # No published port, deliberately: the only thing that can reach it is the web
   # container on this network. That is what makes one open port enough.
   api:
@@ -111,7 +111,7 @@ services:
     networks:
       - backend
 
-  # ---------- Cosarathi console ----------
+  # ---------- DataMind360 console ----------
   # No published port any more: Caddy below is the front door, and this
   # container is reachable only from it. It serves the console and forwards
   # /api/ to the api container above (frontend/nginx.conf), so the browser and
