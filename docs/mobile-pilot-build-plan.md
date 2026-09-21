@@ -27,21 +27,39 @@ About **3 working days**. Steps 1–4 are independent of each other; step 0 come
 - **`npm install` in `mobile/`.** `@react-native-ml-kit/image-labeling` and `expo-dev-client` are declared in
   `package.json` and not installed locally.
 
-## Step 0 — The build project must belong to the organisation *(half a day, mostly yours)*
+## Step 0 — The build project must belong to the organisation — **done, 21 September 2026**
 
-`mobile/app.json` has `"owner": "vaishnavineela"` — a personal Expo account. EAS keeps the Android signing key
-inside the project, so today the key that will sign the app belongs to one person.
+The project was built under a personal Expo account, which cannot have members: one person could run
+`eas build` and `eas update`, and EAS keeps the Android signing key inside the project, so the key that signs
+the app belonged to one person too.
 
-1. Create an **Expo organisation** and add the team to it.
-2. Transfer the project from the personal account (Expo dashboard → project → settings → transfer), or create a
-   new project under the organisation and update `owner` and `extra.eas.projectId`.
-3. `eas credentials` → confirm an Android keystore exists under the organisation, and **download a backup** to
-   the company's password vault.
+It now belongs to the Expo **organisation** `jituexpo2026s-team`, as
+`@jituexpo2026s-team/cosarathi-capture`, and `mobile/app.json` names that account in `owner`.
 
-This must happen **before the first APK reaches a worker**. Android upgrades an app in place only when the
-signing key matches, and that same key is later uploaded to Google Play (Play App Signing → "use an existing
-key") so that pilot workers can move to the Play version without uninstalling. Uninstalling deletes captures
-that have not finished uploading.
+It was moved by **transfer**, not by creating a new project, and that distinction is the whole of step 0:
+
+- the EAS project id is unchanged — `5fa7e6c0-abcf-46e0-9837-d66e5046badc`. Expo guarantees this
+  ([eas-project-id](https://expo.fyi/eas-project-id): *"The project ID never changes, even if the project is
+  transferred to a different account"*);
+- so `updates.url` is unchanged, and **every APK already on a phone still receives over-the-air updates**. That
+  URL is compiled into the binary; a new project id would have stranded each one for ever;
+- the Android signing key travelled with the project, so a new build still **upgrades in place** over the pilot
+  APK. A new key would have meant uninstall-and-reinstall, and uninstalling deletes captures that have not
+  finished uploading;
+- `appVersionSource: "remote"` in `mobile/eas.json` keeps build numbers server-side against the project id, so
+  the counter did not reset and will not collide on a future Play upload.
+
+Remaining, and worth doing before the team grows:
+
+1. **Back up the keystore off the build machine.** `eas credentials -p android` → download it, and put it in the
+   company vault with its passwords. There is a local copy at `mobile/credentials/` (gitignored, never
+   committed); a laptop is not a backup.
+2. **Invite the team** — expo.dev → the organisation → Members, role **Developer**, which is the least role that
+   can build, publish updates and manage credentials. See
+   [mobile-publishing-guide.md](mobile-publishing-guide.md).
+
+The same key is later uploaded to Google Play (Play App Signing → "use an existing key") so pilot workers can
+move to the Play version without uninstalling.
 
 ## Step 1 — HTTPS for the API *(1 day, mostly waiting for DNS)*
 

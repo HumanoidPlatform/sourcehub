@@ -22,8 +22,8 @@ the same D-U-N-S number.
 - A personal account created since late 2023 must run a closed test with at least 12 testers for 14 days before
   it may publish anything. An organisation account is exempt.
 - The account, and the signing identity of the app, must belong to the company — not to whichever person
-  happened to register. We are already in that position once: the app's build project sits in a teammate's
-  personal Expo account, and moving it is step 0 of the build plan.
+  happened to register. The app's build project was in a personal Expo account; it was transferred to the
+  organisation on 21 September 2026 (step 0 of the build plan), keeping its project id and its signing key.
 
 ## What "EAS preview build" means in practice
 
@@ -50,8 +50,9 @@ the new build is signed with the same key. If the Play version were signed diffe
 every pilot worker would have to *uninstall* before installing from Play — and uninstalling deletes any captures
 that have not finished uploading, which is unpaid work lost. So:
 
-- the build project moves to an organisation-owned Expo account **before the first pilot build**, so the key
-  EAS generates belongs to the company from the start; and
+- the build project now sits in an organisation-owned Expo account, so the key EAS generated belongs to the
+  company rather than to one person. It moved by **transfer**, which keeps the existing key — had a new project
+  been created instead, the new key would itself have forced the uninstall this section is about; and
 - when the app is created in Play Console, we enrol in Play App Signing **using that same key** (Play's
   "use an existing key" option) instead of letting Google generate a new one.
 
