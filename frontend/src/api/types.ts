@@ -277,6 +277,17 @@ export interface TaskOfferRecipient {
   response: "accepted" | "declined" | null;
   responded_at: string | null;
   assignment_id: string | null;
+  /** what the clock, or the aggregator by hand, has sent this recipient (oldest first) */
+  reminders: Reminder[];
+}
+
+export interface Reminder {
+  kind: "offer_nudge" | "offer_closing" | "assignment_start" | "assignment_due_soon" | "assignment_overdue" | "assignment_rework";
+  step: number;
+  sent_at: string | null;
+  send_error: string | null;
+  /** sent from the console rather than by the clock */
+  manual: boolean;
 }
 
 export interface TaskOffer {
@@ -359,6 +370,9 @@ export interface Assignment {
   started_at: string | null;
   submitted_at: string | null;
   decided_at: string | null;
+  /** reminders sent to this worker about this assignment; 0 on a worker's own board */
+  reminder_count: number;
+  last_reminded_at: string | null;
   assets: AssignmentAssets;
   task: {
     id: string;

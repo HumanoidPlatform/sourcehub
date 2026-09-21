@@ -75,8 +75,12 @@ outside the team.
 **Updating:** change the two image tags, `docker compose pull`, `up -d`.
 **Rolling back:** the same, with the previous tags.
 **Schema changes:** the one-line `docker run … alembic upgrade head` at the bottom
-of `docker-compose.yml`. The live database is at `0016`, the same as the repository,
-so there is nothing to run today.
+of `docker-compose.yml`. The live database is at `0016`; the repository is at
+`0018` (`0017` renames the operator organisation, `0018` adds
+`engagement_reminder` and `engagement_orgs()` for the reminder clock). Run the
+migration **before** starting an api image that carries the clock: its first
+pass, thirty seconds after start-up, reads the new table and would log a
+failure every five minutes until the table exists.
 
 ## Keep secrets out of the repo
 

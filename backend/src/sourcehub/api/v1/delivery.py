@@ -13,6 +13,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sourcehub.api.deps import Principal, TxRoute, get_principal, get_session, require_capability
 from sourcehub.api.v1.attachments import AttachmentIn
 from sourcehub.modules.delivery import service as delivery
+from sourcehub.modules.engage import service as engage
 from sourcehub.modules.network import service as network
 from sourcehub.modules.qa import service as qa
 
@@ -271,6 +272,44 @@ async def close_offer(
     except LookupError:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Offer not found") from None
     except delivery.DeliveryError as e:
+        raise _conflict(e) from None
+
+
+class RemindIn(BaseModel):
+    """None = everyone still silent; a list = those recipients only."""
+
+    recipient_ids: list[uuid.UUID] | None = None
+
+
+@router.post("/offers/{offer_id}/remind")
+async def remind_offer(
+    offer_id: uuid.UUID,
+    body: RemindIn | None = None,
+    principal: Principal = Depends(require_capability("assignment.assign")),
+    session: AsyncSession = Depends(get_session),
+):
+    """Nudge the silent by hand; the clock does the same on its own schedule."""
+    try:
+        return await engage.remind_offer(
+            session, principal, offer_id, body.recipient_ids if body else None
+        )
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Offer not found") from None
+    except engage.EngageError as e:
+        raise _conflict(e) from None
+
+
+@router.post("/assignments/{assignment_id}/remind")
+async def remind_assignment(
+    assignment_id: uuid.UUID,
+    principal: Principal = Depends(require_capability("assignment.assign")),
+    session: AsyncSession = Depends(get_session),
+):
+    try:
+        return await engage.remind_assignment(session, principal, assignment_id)
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Assignment not found") from None
+    except engage.EngageError as e:
         raise _conflict(e) from None
 
 

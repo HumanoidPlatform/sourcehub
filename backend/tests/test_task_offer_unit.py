@@ -70,7 +70,7 @@ def _mail(**over):
         decline_url="http://c/offer?token=abc&intent=decline",
     )
     kw.update(over)
-    return delivery._offer_email(**kw)
+    return delivery.offer_email(**kw)
 
 
 def test_email_text_part_has_both_links_on_their_own_lines():

@@ -325,7 +325,12 @@ export function OfferTaskDialog({ task, onClose, onDone }: { task: Task; onClose
 
 /* --- the latest offer, as the aggregator sees it ------------------------------ */
 
-function OfferPanel({ offer, onClose, busy }: { offer: TaskOffer; onClose: () => void; busy: boolean }) {
+/** The campaign behind an offer: who was asked, how far each has come, and
+ *  what has been sent to chase them. The clock (backend modules/engage)
+ *  nudges the silent on its own; "Remind the silent" does it now. */
+function OfferPanel({ offer, assignments, onClose, onRemind, busy }: {
+  offer: TaskOffer; assignments: Assignment[]; onClose: () => void; onRemind: () => void; busy: boolean;
+}) {
   const m = statusMeta(offerStatus, offer.effective_status);
   const label = (r: TaskOffer["recipients"][number]) =>
     r.response === "accepted" ? { text: "Accepted", tone: "success" as const }
@@ -333,6 +338,21 @@ function OfferPanel({ offer, onClose, busy }: { offer: TaskOffer; onClose: () =>
     : r.send_error ? { text: "Not sent", tone: "critical" as const }
     : r.sent_at ? { text: "Waiting", tone: "attention" as const }
     : { text: "Queued", tone: "neutral" as const };
+  const byId = new Map(assignments.map((a) => [a.id, a]));
+  const sent = offer.recipients.filter((r) => r.sent_at).length;
+  const answered = offer.recipients.filter((r) => r.response).length;
+  const started = offer.recipients.filter((r) => {
+    const a = r.assignment_id ? byId.get(r.assignment_id) : null;
+    return a && a.status !== "assigned" && a.status !== "cancelled";
+  }).length;
+  const submitted = offer.recipients.filter((r) => {
+    const a = r.assignment_id ? byId.get(r.assignment_id) : null;
+    return a && (a.status === "submitted" || a.status === "accepted");
+  }).length;
+  const reminded = (r: TaskOffer["recipients"][number]) => {
+    const last = r.reminders[r.reminders.length - 1];
+    return last ? `reminded ${r.reminders.length}× · last ${last.sent_at ? fmtDateTime(last.sent_at) : "not delivered"}${last.manual ? " (by hand)" : ""}` : "";
+  };
   return (
     <div className="panel" style={{ marginBottom: 14 }}>
       <div className="panel-body" style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -343,16 +363,26 @@ function OfferPanel({ offer, onClose, busy }: { offer: TaskOffer; onClose: () =>
             {offer.accepted_count} / {offer.worker_limit} places · {offer.quantity} each · respond by {fmtDateTime(offer.respond_by)}
           </span>
           <span style={{ flex: 1 }} />
+          {offer.effective_status === "open" && offer.pending_count > 0 && (
+            <Button size="sm" disabled={busy} title="Email everyone who has not answered, with a fresh link" onClick={onRemind}>
+              Remind the silent ({offer.pending_count})
+            </Button>
+          )}
           {offer.effective_status === "open" && (
             <Button size="sm" variant="danger" disabled={busy} onClick={onClose}>Close offer</Button>
           )}
         </div>
+        <div className="small muted">
+          {sent} sent · {answered} answered · {offer.accepted_count} accepted · {started} started · {submitted} submitted
+        </div>
         <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
           {offer.recipients.map((r) => {
             const l = label(r);
+            const note = reminded(r);
             return (
-              <span key={r.id} className="chip" title={r.send_error ?? (r.responded_at ? fmtDateTime(r.responded_at) : r.email)}>
+              <span key={r.id} className="chip" title={[r.send_error ?? (r.responded_at ? fmtDateTime(r.responded_at) : r.email), note].filter(Boolean).join(" · ")}>
                 {r.worker_name ?? r.email} · <Pill tone={l.tone}>{l.text}</Pill>
+                {r.reminders.length > 0 && <> · <Pill tone="neutral">reminded ×{r.reminders.length}</Pill></>}
               </span>
             );
           })}
@@ -371,6 +401,7 @@ function OfferPanel({ offer, onClose, busy }: { offer: TaskOffer; onClose: () =>
 
 export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: () => void }) {
   const qc = useQueryClient();
+  const toast = useToast();
   const rows = useTaskAssignments(task.id);
   const taskAssets = useTaskAssets(task.id);
   const offers = useTaskOffers(task.id);
@@ -388,6 +419,23 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
     mutationFn: (id: string) => post(`/offers/${id}/close`, {}),
     onSuccess: () => void qc.invalidateQueries({ queryKey: ["offers", task.id] }),
     onError: (e) => setError(e instanceof Error ? e.message : "Could not close the offer"),
+  });
+  const remindOffer = useMutation({
+    mutationFn: (id: string) => post<TaskOffer>(`/offers/${id}/remind`, {}),
+    onSuccess: (o) => {
+      void qc.invalidateQueries({ queryKey: ["offers", task.id] });
+      const failed = o.recipients.flatMap((r) => r.reminders.slice(-1)).filter((x) => x.send_error);
+      toast(failed.length ? `Reminded, but ${failed.length} email(s) did not go out` : "Reminders sent", undefined, failed.length ? "attention" : "success");
+    },
+    onError: (e) => setError(e instanceof Error ? e.message : "Could not send the reminders"),
+  });
+  const remindWorker = useMutation({
+    mutationFn: (id: string) => post<Assignment>(`/assignments/${id}/remind`, {}),
+    onSuccess: (a) => {
+      void qc.invalidateQueries({ queryKey: ["assignments", task.id] });
+      toast(`Reminded ${a.worker_name ?? "the worker"}`, undefined, "success");
+    },
+    onError: (e) => setError(e instanceof Error ? e.message : "Could not send the reminder"),
   });
 
   if (assigning) {
@@ -448,7 +496,15 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
         <Metric label="Captures ready" value={ready} />
         <Metric label="Awaiting your review" value={awaiting} />
       </div>
-      {latest && <OfferPanel offer={latest} busy={closeOffer.isPending} onClose={() => closeOffer.mutate(latest.id)} />}
+      {latest && (
+        <OfferPanel
+          offer={latest}
+          assignments={list}
+          busy={closeOffer.isPending || remindOffer.isPending}
+          onClose={() => closeOffer.mutate(latest.id)}
+          onRemind={() => remindOffer.mutate(latest.id)}
+        />
+      )}
       {offers.data && offers.data.length > 1 && (
         <details className="small muted" style={{ marginBottom: 12 }}>
           <summary>{offers.data.length - 1} earlier offer{offers.data.length > 2 ? "s" : ""}</summary>
@@ -464,7 +520,7 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
       ) : (
         <TableWrap>
           <table>
-            <thead><tr><th>Worker</th><th>Units</th><th>Progress</th><th>Status</th><th>Submitted</th><th>Note</th><th /></tr></thead>
+            <thead><tr><th>Worker</th><th>Units</th><th>Progress</th><th>Status</th><th>Submitted</th><th>Reminded</th><th>Note</th><th /></tr></thead>
             <tbody>
               {list.map((a) => {
                 const m = statusMeta(assignmentStatus, a.status);
@@ -479,10 +535,14 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
                     </td>
                     <td><Pill tone={m.tone}>{m.label}</Pill></td>
                     <td className="num">{a.submitted_at ? fmtDateTime(a.submitted_at) : fmtDate(a.due_on) === "—" ? "—" : `due ${fmtDate(a.due_on)}`}</td>
+                    <td className="small muted">{a.reminder_count ? `${a.reminder_count}× · ${fmtDateTime(a.last_reminded_at)}` : "—"}</td>
                     <td style={{ maxWidth: 240 }} className="small muted">{a.status === "rejected" ? a.decision_note : a.worker_note ?? "—"}</td>
                     <td className="right"><div className="rowactions">
                       {a.status === "submitted" && (
                         <Button size="sm" variant="primary" onClick={() => setDeciding(a)}>Review</Button>
+                      )}
+                      {OPEN.has(a.status) && a.status !== "submitted" && (
+                        <Button size="sm" disabled={remindWorker.isPending} title="Email and notify this worker about the assignment now" onClick={() => remindWorker.mutate(a.id)}>Remind</Button>
                       )}
                       {OPEN.has(a.status) && a.status !== "submitted" && (
                         <Button size="sm" variant="danger" disabled={act.isPending} onClick={() => act.mutate({ id: a.id, action: "cancel" })}>Cancel</Button>

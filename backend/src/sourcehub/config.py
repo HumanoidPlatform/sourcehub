@@ -54,6 +54,13 @@ class Settings(BaseSettings):
     celery_broker_url: str = "redis://localhost:6379/1"
     celery_result_backend: str = "redis://localhost:6379/2"
 
+    # --- Engagement clock ----------------------------------------------------
+    # The reminder pass (modules/engage) runs inside the API process on this
+    # cadence; an advisory lock lets only one uvicorn worker run it. Off for
+    # tests and for a second deployment that must not send mail.
+    engagement_enabled: bool = True
+    engagement_tick_seconds: int = 300
+
     # --- Adapters ------------------------------------------------------------
     # These strings select an implementation in platform/, and nothing outside
     # platform/ imports a vendor SDK, so swapping one is a config change rather

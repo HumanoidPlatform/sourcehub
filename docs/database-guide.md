@@ -17,9 +17,9 @@ Contents: [1 The short answer](#1-the-short-answer) · [2 The map](#2-the-map--e
 
 ## 1. The short answer
 
-There are **55 tables** (plus `alembic_version`, which is migration bookkeeping).
+There are **56 tables** (plus `alembic_version`, which is migration bookkeeping).
 
-- **40 are in use.** Backend code reads or writes them. Each one holds a different real-world thing — a
+- **41 are in use.** Backend code reads or writes them. Each one holds a different real-world thing — a
   company, a person, a bid, a contract, a photo, a payment — and merging them would make the access rules harder,
   not simpler.
 - **15 are dormant.** They were created from the original blueprint, and they are indexed and protected like the
@@ -86,7 +86,7 @@ SELECT relname AS table, n_live_tup AS rows FROM pg_stat_user_tables ORDER BY n_
 | `proposal` | One partner's bid on one request. |
 | ○ `proposal_resource` | Which suppliers a bid names. |
 
-### D. Delivery and capture · [`050_delivery.sql`](../db/050_delivery.sql), [`120_workers_media.sql`](../db/120_workers_media.sql), [`130_task_offers.sql`](../db/130_task_offers.sql), [`095_attachments.sql`](../db/095_attachments.sql)
+### D. Delivery and capture · [`050_delivery.sql`](../db/050_delivery.sql), [`120_workers_media.sql`](../db/120_workers_media.sql), [`130_task_offers.sql`](../db/130_task_offers.sql), [`170_engagement.sql`](../db/170_engagement.sql), [`095_attachments.sql`](../db/095_attachments.sql)
 
 | Table | One row is |
 |---|---|
@@ -95,6 +95,7 @@ SELECT relname AS table, n_live_tup AS rows FROM pg_stat_user_tables ORDER BY n_
 | `task_offer` | "N places are open on this task" — sent to several workers at once. |
 | `task_offer_recipient` | One emailed offer link (hash), and that worker's answer. |
 | `task_assignment` | One **worker's** share of a task: how many items, and how far along. |
+| `engagement_reminder` | One reminder sent to a worker about an offer they have not answered or an assignment they have not moved — by the clock (`modules/engage`, every five minutes) or by the aggregator from the console. The clock's rows are unique per (subject, kind, step), which is what makes a repeated pass harmless. |
 | `asset` | **One captured photo or video**: storage key, sha256, size, status, who captured it. The bytes are never in the database. Partitioned by `created_at` because it is expected to be the largest table by far. |
 | `submission` | One **attempt** at handing a finished task to the partner. A reworked task has several; every one is kept. |
 | `attachment` | Every document file in the product — on a request, a proposal, a task or a review. One table for all four parents; `entity_type` + `entity_id` + `slot` say where it belongs, and `doc_no` + `version` keep every revision. |
@@ -192,7 +193,7 @@ status-transition trigger anywhere. Every move below is guarded in Python, in th
 | `proposal` | `submitted` `accepted` `rejected` `withdrawn` | `submit_proposal`, `withdraw_proposal`, `award` (same file). A withdrawn bid can be revived by submitting again. |
 | `contract` | `active` `in_qa` `delivered` `completed` `disputed` `cancelled` | `active → delivered` in `deliver_contract` (partner only, every task passed); `delivered → completed` in `approve_delivery` and `delivered → active` in `dispute_delivery` (client only) ([delivery/service.py](../backend/src/sourcehub/modules/delivery/service.py)). `in_qa` is shown in the console but derived, never stored. |
 | `task` | `assigned` `in_progress` `submitted` `qa_passed` `qa_failed` `cancelled` | `start_task`, `submit_task` (delivery); `qa_passed` / `qa_failed` in `decide` ([qa/service.py](../backend/src/sourcehub/modules/qa/service.py)). The first worker to start an assignment also moves the task to `in_progress`. |
-| `task_offer` | `open` `filled` `closed` | `create_offer`, `close_offer`, `respond_to_offer` (delivery). **`expired` is computed from `respond_by`, never stored** — nothing runs on a clock. |
+| `task_offer` | `open` `filled` `closed` | `create_offer`, `close_offer`, `respond_to_offer` (delivery). **`expired` is computed from `respond_by`, never stored** — the reminder clock (engage) reads it the same way and flips nothing. |
 | `task_assignment` | `assigned` `in_progress` `submitted` `accepted` `rejected` `cancelled` | `start_assignment`, `submit_assignment`, `cancel_assignment`, `reopen_assignment` (delivery); `accepted` / `rejected` in `decide_gate1` (qa). Reopening is only allowed while the parent task is `qa_failed`. |
 | `asset` | `pending` `uploaded` `ready` `quarantined` `rejected` `erased` | `pending` in `presign_capture`; `ready` or `quarantined` in `confirm_asset` ([media/service.py](../backend/src/sourcehub/modules/media/service.py)). |
 | `submission` | `open` `submitted` `under_review` `accepted` `rejected` `superseded` | created as `submitted` in `submit_task`; closed by `decide` (qa). |
@@ -251,7 +252,7 @@ Only two role values change what a policy decides: `platform_admin` and `worker`
 | Never | A client never sees a roster or an assignment. A partner never sees a client's bucket or credential. | absence of any policy that would allow it |
 
 **The doors through the wall.** Some moments have no organisation context yet, or need one fact from a row the
-caller must not be able to read. Those go through about thirty `SECURITY DEFINER` functions — each answers one
+caller must not be able to read. Those go through about thirty `SECURITY DEFINER` functions (`engagement_orgs()` is the newest: the reminder pass asks it which suppliers have live work, then acts under each one's own context) — each answers one
 narrow question and is executable only by `sourcehub_app`:
 
 | Moment | Functions |

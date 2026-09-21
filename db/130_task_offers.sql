@@ -15,8 +15,9 @@
 --     worker_limit, so the database refuses an over-fill even if the service
 --     regresses. The service serialises accepts with FOR UPDATE on the offer;
 --     the CHECK is the brace to that belt.
---   * 'expired' is derived (respond_by < now()), never stored: nothing runs
---     on a clock here to flip it.
+--   * 'expired' is derived (respond_by < now()), never stored. The clock
+--     that does exist (170, the reminder pass) reads it the same way and
+--     flips nothing.
 --   * Policies mirror task_assignment minus the partner clause: who was
 --     ASKED is crowd management, not delivery evidence.
 -- ============================================================================

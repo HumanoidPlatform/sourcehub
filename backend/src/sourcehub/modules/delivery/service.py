@@ -620,7 +620,8 @@ _ASSIGNMENT_ROWS = (
     "       t.instructions AS task_instructions, t.capture_spec, t.target_unit, "
     "       t.due_on AS task_due_on, t.status AS task_status, "
     "       coalesce(x.pending, 0) AS pending, coalesce(x.ready, 0) AS ready, "
-    "       coalesce(x.quarantined, 0) AS quarantined, coalesce(x.total, 0) AS total "
+    "       coalesce(x.quarantined, 0) AS quarantined, coalesce(x.total, 0) AS total, "
+    "       coalesce(m.reminder_count, 0) AS reminder_count, m.last_reminded_at "
     "FROM task_assignment a "
     "JOIN task t ON t.id = a.task_id "
     "LEFT JOIN crowd_worker w ON w.user_id = a.worker_user_id "
@@ -630,6 +631,10 @@ _ASSIGNMENT_ROWS = (
     "                          count(*) FILTER (WHERE s.status = 'quarantined') AS quarantined, "
     "                          count(*) AS total "
     "                   FROM asset s WHERE s.assignment_id = a.id AND s.deleted_at IS NULL) x "
+    "          ON true "
+    # a worker's own session reads no reminder rows (RLS), so theirs count 0
+    "LEFT JOIN LATERAL (SELECT count(*) AS reminder_count, max(e.created_at) AS last_reminded_at "
+    "                   FROM engagement_reminder e WHERE e.assignment_id = a.id) m "
     "          ON true "
 )
 
@@ -653,6 +658,8 @@ def _assignment_dict(r: Any) -> dict[str, Any]:
         "started_at": r["started_at"],
         "submitted_at": r["submitted_at"],
         "decided_at": r["decided_at"],
+        "reminder_count": int(r["reminder_count"]),
+        "last_reminded_at": r["last_reminded_at"],
         "assets": {
             "pending": int(r["pending"]), "ready": int(r["ready"]),
             "quarantined": int(r["quarantined"]), "total": int(r["total"]),
@@ -692,7 +699,7 @@ async def _assignments(
     return out
 
 
-async def _assignment_by_id(session: AsyncSession, assignment_id: uuid.UUID) -> dict[str, Any]:
+async def assignment_by_id(session: AsyncSession, assignment_id: uuid.UUID) -> dict[str, Any]:
     rows = await _assignments(session, "a.id = :id", {"id": assignment_id})
     if not rows:
         raise LookupError("assignment not found")
@@ -811,7 +818,7 @@ async def _assign_worker(
         [a.id, t.id, t.contract_id, org_id, worker_user_id],
         {"via_offer_id": str(via_offer_id)} if via_offer_id else None,
     )
-    return await _assignment_by_id(session, a.id)
+    return await assignment_by_id(session, a.id)
 
 
 async def _assigned_quantity(session: AsyncSession, task_id: uuid.UUID) -> int:
@@ -849,7 +856,7 @@ async def my_assignments(session: AsyncSession, claims: AccessClaims) -> list[di
 async def get_assignment(
     session: AsyncSession, claims: AccessClaims, assignment_id: uuid.UUID
 ) -> dict[str, Any]:
-    return await _assignment_by_id(session, assignment_id)
+    return await assignment_by_id(session, assignment_id)
 
 
 async def start_assignment(
@@ -872,7 +879,7 @@ async def start_assignment(
         {"t": a.task_id},
     )
     await session.flush()
-    row = await _assignment_by_id(session, a.id)
+    row = await assignment_by_id(session, a.id)
     await audit.log(
         session, "assignment.started",
         f"Started an assignment on {row['task']['reference_code']}",
@@ -906,7 +913,7 @@ async def submit_assignment(
     a.submitted_at = dt.datetime.now(dt.timezone.utc)
     a.worker_note = note
     await session.flush()
-    row = await _assignment_by_id(session, a.id)
+    row = await assignment_by_id(session, a.id)
 
     await notifier.notify(
         session, a.supplier_org_id,
@@ -934,7 +941,7 @@ async def cancel_assignment(
     a.decided_at = dt.datetime.now(dt.timezone.utc)
     a.decided_by = claims.user_id
     await session.flush()
-    row = await _assignment_by_id(session, a.id)
+    row = await assignment_by_id(session, a.id)
     await notifier.notify(
         session, claims.org_id,
         f"Your assignment on {row['task']['title']} was cancelled."
@@ -970,7 +977,7 @@ async def reopen_assignment(
     a.decided_at = dt.datetime.now(dt.timezone.utc)
     a.decided_by = claims.user_id
     await session.flush()
-    row = await _assignment_by_id(session, a.id)
+    row = await assignment_by_id(session, a.id)
     await notifier.notify(
         session, claims.org_id,
         f"{row['task']['title']} came back from partner QA and needs rework."
@@ -1195,7 +1202,7 @@ _STATE_MESSAGES = {
 }
 
 
-def _offer_email(
+def offer_email(
     *,
     worker_name: str,
     org_name: str,
@@ -1209,17 +1216,25 @@ def _offer_email(
     instructions: str | None,
     accept_url: str,
     decline_url: str,
+    lead: str | None = None,
 ) -> tuple[str, str, str]:
     """(subject, text, html). Both links sit on their own lines in the text
     part; the HTML part shows them as buttons. Every interpolated field is
-    escaped in the HTML: a task title is somebody else's input."""
+    escaped in the HTML: a task title is somebody else's input.
+
+    `lead` turns the mail into a reminder (engage module): one sentence after
+    the greeting saying why the worker is hearing about this again, and
+    "Reminder:" on the subject so it threads under the original."""
     due = due_on.isoformat() if due_on else "not set"
     by = respond_by.astimezone(dt.timezone.utc).strftime("%d %b %Y, %H:%M UTC")
     places = f"{worker_limit} place" + ("s" if worker_limit != 1 else "")
     subject = f"{org_name} is offering you a task — {task_ref} {task_title}"
+    if lead:
+        subject = "Reminder: " + subject
     text_body = (
         f"Hello {worker_name},\n\n"
-        f"{org_name} is offering you work on {PRODUCT}.\n\n"
+        + (f"{lead}\n\n" if lead else "")
+        + f"{org_name} is offering you work on {PRODUCT}.\n\n"
         f"  Task:          {task_ref} — {task_title}\n"
         f"  Your share:    {quantity} {unit}\n"
         f"  Due:           {due}\n"
@@ -1257,7 +1272,8 @@ def _offer_email(
         '<div style="font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;'
         'font-size:15px;line-height:1.45;color:#1c1c1c;max-width:560px">'
         f"<p>Hello {e(worker_name)},</p>"
-        f"<p>{e(org_name)} is offering you work on {e(PRODUCT)}.</p>"
+        + (f"<p><strong>{e(lead)}</strong></p>" if lead else "")
+        + f"<p>{e(org_name)} is offering you work on {e(PRODUCT)}.</p>"
         f'<table style="border-collapse:collapse;font-size:15px">{trs}</table>'
         f"{instr}"
         '<p style="margin:24px 0 8px">'
@@ -1340,12 +1356,42 @@ async def _offers(
                 "response": r["response"],
                 "responded_at": r["responded_at"],
                 "assignment_id": r["assignment_id"],
+                "reminders": [],
             }
         )
+    await _attach_reminders(session, out)
     return list(out.values())
 
 
-async def _offer_by_id(session: AsyncSession, offer_id: uuid.UUID) -> dict[str, Any]:
+async def _attach_reminders(session: AsyncSession, offers: dict[uuid.UUID, dict[str, Any]]) -> None:
+    """The campaign history behind each chip: what the clock, or the
+    aggregator by hand, sent this recipient and whether it went."""
+    by_recipient = {r["id"]: r for o in offers.values() for r in o["recipients"]}
+    if not by_recipient:
+        return
+    rows = (
+        await session.execute(
+            text(
+                "SELECT offer_recipient_id, kind, step, sent_at, send_error, manual_by "
+                "FROM engagement_reminder WHERE offer_recipient_id = ANY(:ids) "
+                "ORDER BY created_at"
+            ),
+            {"ids": list(by_recipient)},
+        )
+    ).mappings().all()
+    for e in rows:
+        by_recipient[e["offer_recipient_id"]]["reminders"].append(
+            {
+                "kind": e["kind"],
+                "step": e["step"],
+                "sent_at": e["sent_at"],
+                "send_error": e["send_error"],
+                "manual": e["manual_by"] is not None,
+            }
+        )
+
+
+async def offer_by_id(session: AsyncSession, offer_id: uuid.UUID) -> dict[str, Any]:
     rows = await _offers(session, "o.id = :id", {"id": offer_id})
     if not rows:
         raise LookupError("offer not found")
@@ -1469,7 +1515,7 @@ async def create_offer(
         session.add(r)
         recipients.append(r)
         base = f"{settings.app_base_url}/offer?token={raw}"
-        subject, body, html_body = _offer_email(
+        subject, body, html_body = offer_email(
             worker_name=w["name"], org_name=org_name,
             task_ref=t.reference_code, task_title=t.title, unit=unit,
             quantity=quantity, worker_limit=worker_limit, due_on=due_on,
@@ -1494,7 +1540,7 @@ async def create_offer(
         else:
             r.send_error = err
     await session.flush()
-    return await _offer_by_id(session, o.id)
+    return await offer_by_id(session, o.id)
 
 
 async def _send_offer_emails(
@@ -1533,7 +1579,7 @@ async def close_offer(
         f"Closed the offer with {o.accepted_count} of {o.worker_limit} places taken",
         [o.id, o.task_id, o.contract_id, claims.org_id],
     )
-    return await _offer_by_id(session, o.id)
+    return await offer_by_id(session, o.id)
 
 
 async def _lookup_offer(token: str) -> dict[str, Any]:

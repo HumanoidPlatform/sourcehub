@@ -164,6 +164,7 @@ This is a safety property. **Vite inlines every `VITE_`-prefixed variable into t
 | `100_rls.sql` | Every policy, hand-written |
 | `110_auth_functions.sql` | The anonymous paths (login, invitation, reset) as SECURITY DEFINER functions, and the policy fixes found by running real flows |
 | `120_workers_media.sql` | Field workers as principals, `task_assignment`, the capture manifest on `asset`, gate 1 on `qa_review`, the worker scope, the audit chain lock |
+| `170_engagement.sql` | `engagement_reminder` — every reminder the clock or an aggregator sent — and `engagement_orgs()`, the one cross-organisation read the pass needs |
 | `900_seed.sql` | Permissions, system roles, the platform org, the first admin |
 | `905_seed_workers.sql` | The `worker` role and the assignment capabilities |
 | `910_seed_demo.sql` | The prototype's data — **delete before any real deployment** |
@@ -299,6 +300,27 @@ people. Since `db/120_workers_media.sql`:
   serialised with a row lock on the offer and `accepted_count` carries a
   CHECK against the limit. Direct assignment stays as the fallback. Audit:
   `offer.created`, `offer.accepted`, `offer.declined`, `offer.closed`.
+- **The crowd is chased, not just asked** (`db/170_engagement.sql`,
+  `modules/engage`). The one thing in the stack that runs on a clock: a pass
+  every five minutes inside the API process (an advisory lock lets only one
+  uvicorn worker run it) finds workers who have not answered an offer, not
+  started, are due soon, overdue, or sitting on a rejection, and reminds
+  them by email and on the phone's bell. The rules are constants in
+  `engage/service.py`: an offer is nudged half-way through its respond-by
+  window and again as a last call 24 h before it closes, with places left;
+  an assignment is chased two days after it was accepted or sent back and
+  every two days after, two days before `due_on`, and the day after, then
+  every three days — one reminder per subject per pass, never within 20 h
+  of the last. Offer reminders carry a fresh link (the old one dies, as
+  "Resend invite" does). Every reminder is a row in `engagement_reminder`,
+  which is also what the console shows: the Workers dialog has the
+  campaign funnel (sent · answered · accepted · started · submitted), each
+  recipient's history, **Remind the silent** on an open offer and
+  **Remind** on a live assignment (`POST /offers/{id}/remind`,
+  `POST /assignments/{id}/remind`; refused within an hour of the last).
+  The aggregator's own bell is told the first time an assignment goes
+  overdue. Audit: `engagement.reminded`. `python -m sourcehub.modules.engage`
+  runs one pass by hand; `ENGAGEMENT_ENABLED=false` turns the clock off.
 - **Captures never pass through the API.** The phone asks for a presigned
   PUT (`POST /assignments/{id}/assets/presign`), uploads straight to object
   storage, then confirms; the API HEADs the object and records what storage

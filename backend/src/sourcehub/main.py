@@ -7,7 +7,10 @@ only public surface.
 
 from __future__ import annotations
 
+import asyncio
+import contextlib
 import logging
+from collections.abc import AsyncIterator
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -36,6 +39,23 @@ def _configure_logging() -> None:
     root.propagate = False
 
 
+@contextlib.asynccontextmanager
+async def _lifespan(app: FastAPI) -> AsyncIterator[None]:
+    """The engagement clock (modules/engage) runs as a task in this process.
+    Every uvicorn worker starts one; the advisory lock inside the pass lets
+    only one of them do the work on any tick."""
+    from sourcehub.modules.engage import service as engage
+
+    clock = asyncio.create_task(engage.run_forever()) if settings.engagement_enabled else None
+    try:
+        yield
+    finally:
+        if clock is not None:
+            clock.cancel()
+            with contextlib.suppress(asyncio.CancelledError):
+                await clock
+
+
 def create_app() -> FastAPI:
     _configure_logging()
     app = FastAPI(
@@ -45,6 +65,7 @@ def create_app() -> FastAPI:
             "A marketplace connecting clients who need real-world data with "
             "delivery partners who fulfil it through their own networks."
         ),
+        lifespan=_lifespan,
     )
 
     app.add_middleware(
