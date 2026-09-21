@@ -14,7 +14,7 @@ import { SUBJECT_DIALOG } from "@/config";
 import { insertCapture, recordRejections } from "@/db/outbox";
 import { uploader } from "@/upload/uploader";
 import { blocking, checkCapture, type Finding } from "@/validation/rules";
-import { labelImage, scoreSubject, subjectFinding } from "@/validation/subject";
+import { labelImage, scoreSubject, subjectFinding, unscoredFinding } from "@/validation/subject";
 import { deleteLocal, moveIntoPrivateDir } from "./files";
 import { currentFix } from "./location";
 import type { Tilt } from "./tilt";
@@ -45,7 +45,13 @@ export class CaptureRejected extends Error {
  * retake() records the refusal and deletes it. Both must be called at most
  * once; neither, and the file is an orphan until the app is reinstalled. */
 export type CaptureOutcome =
-  | { kept: true; findings: Finding[] }
+  | {
+      kept: true;
+      findings: Finding[];
+      /** the phone looked and the photo passed the subject check — worth a
+       *  word on screen, or a silent pass is indistinguishable from no check */
+      onSubject?: boolean;
+    }
   | { kept: false; finding: Finding; keep(): Promise<Finding[]>; retake(): Promise<void> };
 
 function stamp(d: Date): string {
@@ -117,12 +123,18 @@ export function useCapture(
       };
 
       // The subject check, photos only (a video's frames are the server's
-      // problem). A task without a subject, or a build without the labeller,
-      // skips it; a low score hands the decision to the worker.
+      // problem). A task without a subject skips it. A phone that could not
+      // look says so with a warning of its own and the capture is kept; a
+      // low score hands the decision to the worker.
       const subject = spec?.subject;
+      let onSubject = false;
       if (kind === "photo" && subject) {
-        const labels = await labelImage(moved.uri);
-        const finding = labels ? subjectFinding(scoreSubject(labels, subject), subject) : null;
+        const seen = await labelImage(moved.uri);
+        if ("unscored" in seen) {
+          findings.push(unscoredFinding(seen.unscored, seen.error));
+          return { kept: true, findings: await queue(findings) };
+        }
+        const finding = subjectFinding(scoreSubject(seen.labels, subject), subject);
         if (finding) {
           findings.push(finding);
           if (SUBJECT_DIALOG) {
@@ -136,10 +148,12 @@ export function useCapture(
               },
             };
           }
+        } else {
+          onSubject = true;
         }
       }
 
-      return { kept: true, findings: await queue(findings) };
+      return { kept: true, findings: await queue(findings), onSubject };
     },
     [assignmentId, taskRef, spec, targetUnit],
   );

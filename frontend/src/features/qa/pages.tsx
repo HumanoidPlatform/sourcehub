@@ -202,7 +202,9 @@ export function Gate1Page() {
                     <td>
                       {r.off_subject > 0
                         ? <Pill tone="attention">{r.off_subject} may be off-subject</Pill>
-                        : <span className="muted small">—</span>}
+                        : r.unscored > 0
+                          ? <Pill>{r.unscored} not checked on phone</Pill>
+                          : <span className="muted small">—</span>}
                     </td>
                     <td style={{ maxWidth: 300 }} className="small">{r.worker_note ?? "—"}</td>
                     <td className="num">{fmtDateTime(r.submitted_at)}</td>

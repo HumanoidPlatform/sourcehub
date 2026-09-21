@@ -14,9 +14,12 @@
 // not trusted to judge its own captures, and a false refusal is invisible
 // and unpaid while a false pass is caught at gate 1.
 //
-// scoreSubject and subjectFinding are pure and unit-tested; labelImage is the
-// one native call, and it answers null wherever the labeller is not there
-// (Expo Go, an older build) so the check is simply skipped.
+// scoreSubject, subjectFinding and unscoredFinding are pure and unit-tested;
+// labelImage is the one native call. Wherever it cannot answer — Expo Go, an
+// older build, a native error, a slow first run — it says WHY, and that
+// reason rides with the upload as a warning of its own. A skipped check that
+// looks exactly like a passed one cost a day of "is the pipeline even there?";
+// it is not allowed to be silent again.
 
 import type { SubjectSpec } from "@/api/types";
 import { SUBJECT_OFF } from "@/config";
@@ -84,9 +87,36 @@ export function subjectFinding(r: SubjectScore, subject: SubjectSpec): Finding |
   };
 }
 
-const LABEL_TIMEOUT_MS = 2_000;
+/** Why the labeller gave no answer. */
+export type UnscoredReason = "no_labeller" | "timeout" | "error";
 
-/** What ML Kit sees in the file; null when there is no labeller to ask.
+export type LabelResult = { labels: Label[] } | { unscored: UnscoredReason; error?: string };
+
+const REASON_TEXT: Record<UnscoredReason, string> = {
+  no_labeller: "this build has no image labeller",
+  timeout: "the check took too long",
+  error: "the image labeller failed",
+};
+
+/** The warning a skipped check becomes. It never blocks and never asks the
+ *  worker anything — they did nothing wrong — but the reviewer at gate 1 can
+ *  see the phone did not look, instead of assuming it looked and approved. */
+export function unscoredFinding(reason: UnscoredReason, error?: string): Finding {
+  return {
+    code: "subject_unscored",
+    severity: "warn",
+    message: `Subject not checked on the phone (${REASON_TEXT[reason]}).`,
+    detail: error ? { reason, error } : { reason },
+  };
+}
+
+// The first call on a phone loads the model and decodes a full-resolution
+// JPEG; on a mid-range device that alone can pass two seconds. Six is long
+// enough for that one cold start and short enough that a hung native call
+// does not hold the shutter hostage.
+const LABEL_TIMEOUT_MS = 6_000;
+
+/** What ML Kit sees in the file, or the reason it could not look.
  *
  * The module is required lazily: in Expo Go it does not exist and the import
  * would throw at startup. EXPO_PUBLIC_SUBJECT_STUB="Floor:0.9,Hand:0.6" makes
@@ -96,26 +126,35 @@ const LABEL_TIMEOUT_MS = 2_000;
  * Development bundles only. `eas update` bundles with the publishing machine's
  * .env, so without the __DEV__ guard one update published from a laptop that
  * had the stub set would make every worker's phone "see" floors and hands. */
-export async function labelImage(uri: string): Promise<Label[] | null> {
+export async function labelImage(uri: string): Promise<LabelResult> {
   const stub = __DEV__ ? process.env.EXPO_PUBLIC_SUBJECT_STUB : undefined;
   if (stub) {
-    return stub.split(",").map((s: string) => {
-      const [text, conf] = s.split(":");
-      return { text: text.trim(), confidence: Number(conf ?? 0.8) };
-    });
+    return {
+      labels: stub.split(",").map((s: string) => {
+        const [text, conf] = s.split(":");
+        return { text: text.trim(), confidence: Number(conf ?? 0.8) };
+      }),
+    };
   }
-  let mod: { label(uri: string): Promise<Label[]> };
+  let mod: { label(uri: string): Promise<Label[]> } | undefined;
   try {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     mod = require("@react-native-ml-kit/image-labeling").default;
   } catch {
-    return null;
+    mod = undefined;
   }
+  if (!mod) return { unscored: "no_labeller" };
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const timeout = new Promise<"timeout">((resolve) => {
+    timer = setTimeout(() => resolve("timeout"), LABEL_TIMEOUT_MS);
+  });
   try {
-    const timeout = new Promise<null>((resolve) => setTimeout(() => resolve(null), LABEL_TIMEOUT_MS));
     const labels = await Promise.race([mod.label(uri), timeout]);
-    return labels ? labels.map((l) => ({ text: l.text, confidence: l.confidence })) : null;
-  } catch {
-    return null;
+    if (labels === "timeout") return { unscored: "timeout" };
+    return { labels: labels.map((l) => ({ text: l.text, confidence: l.confidence })) };
+  } catch (e) {
+    return { unscored: "error", error: e instanceof Error ? e.message : String(e) };
+  } finally {
+    clearTimeout(timer);
   }
 }

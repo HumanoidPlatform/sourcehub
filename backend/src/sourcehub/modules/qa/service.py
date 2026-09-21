@@ -182,14 +182,17 @@ async def gate1_queue(session: AsyncSession, claims: AccessClaims) -> list[dict[
                 "       t.title AS task_title, t.target_unit, "
                 "       a.worker_user_id, coalesce(w.display_name, u.full_name) AS worker_name, "
                 "       w.reference_code AS worker_ref, a.quantity, a.worker_note, a.submitted_at, "
-                "       coalesce(x.ready, 0) AS ready_assets, coalesce(x.off_subject, 0) AS off_subject "
+                "       coalesce(x.ready, 0) AS ready_assets, coalesce(x.off_subject, 0) AS off_subject, "
+                "       coalesce(x.unscored, 0) AS unscored "
                 "FROM task_assignment a "
                 "JOIN task t ON t.id = a.task_id "
                 "LEFT JOIN crowd_worker w ON w.user_id = a.worker_user_id "
                 "LEFT JOIN app_user u ON u.id = a.worker_user_id "
                 "LEFT JOIN LATERAL (SELECT count(*) AS ready, "
                 "                          count(*) FILTER (WHERE s.check_results->'device' "
-                "                                           @> '[{\"code\": \"wrong_subject\"}]') AS off_subject "
+                "                                           @> '[{\"code\": \"wrong_subject\"}]') AS off_subject, "
+                "                          count(*) FILTER (WHERE s.check_results->'device' "
+                "                                           @> '[{\"code\": \"subject_unscored\"}]') AS unscored "
                 "                   FROM asset s "
                 "                   WHERE s.assignment_id = a.id AND s.status = 'ready' "
                 "                     AND s.deleted_at IS NULL) x ON true "
@@ -200,7 +203,12 @@ async def gate1_queue(session: AsyncSession, claims: AccessClaims) -> list[dict[
         )
     ).mappings().all()
     return [
-        {**dict(r), "ready_assets": int(r["ready_assets"]), "off_subject": int(r["off_subject"])}
+        {
+            **dict(r),
+            "ready_assets": int(r["ready_assets"]),
+            "off_subject": int(r["off_subject"]),
+            "unscored": int(r["unscored"]),
+        }
         for r in rows
     ]
 

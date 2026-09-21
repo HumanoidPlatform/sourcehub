@@ -2,7 +2,7 @@
 
 import type { SubjectSpec } from "@/api/types";
 import { SUBJECT_OFF } from "@/config";
-import { scoreSubject, subjectFinding, words } from "@/validation/subject";
+import { scoreSubject, subjectFinding, unscoredFinding, words } from "@/validation/subject";
 
 const shelf: SubjectSpec = {
   domain: "retail shelf",
@@ -75,5 +75,74 @@ describe("subjectFinding", () => {
     expect(subjectFinding(scoreSubject([], shelf), shelf)?.message).toBe(
       "Doesn't look like retail shelf. Nothing recognisable in it.",
     );
+  });
+});
+
+describe("unscoredFinding", () => {
+  it("is a warning that names the reason, never a block", () => {
+    expect(unscoredFinding("timeout")).toEqual({
+      code: "subject_unscored",
+      severity: "warn",
+      message: "Subject not checked on the phone (the check took too long).",
+      detail: { reason: "timeout" },
+    });
+    expect(unscoredFinding("no_labeller").message).toBe(
+      "Subject not checked on the phone (this build has no image labeller).",
+    );
+    expect(unscoredFinding("error", "Image labeling failed").detail).toEqual({
+      reason: "error",
+      error: "Image labeling failed",
+    });
+  });
+});
+
+describe("labelImage", () => {
+  const ML_KIT = "@react-native-ml-kit/image-labeling";
+
+  // labelImage requires the native package lazily, at call time, from the
+  // live module registry — so each case empties that registry and installs
+  // its own stand-in before loading subject.ts.
+  const load = (): typeof import("@/validation/subject") => require("@/validation/subject");
+
+  beforeEach(() => jest.resetModules());
+  afterEach(() => {
+    jest.dontMock(ML_KIT);
+    jest.useRealTimers();
+  });
+
+  it("names a build without the labeller (Expo Go, an older APK)", async () => {
+    jest.doMock(ML_KIT, () => {
+      throw new Error("not linked");
+    });
+    expect(await load().labelImage("file:///x.jpg")).toEqual({ unscored: "no_labeller" });
+  });
+
+  it("names a native failure and keeps its message", async () => {
+    jest.doMock(ML_KIT, () => ({
+      default: { label: () => Promise.reject(new Error("Image labeling failed")) },
+    }));
+    expect(await load().labelImage("file:///x.jpg")).toEqual({
+      unscored: "error",
+      error: "Image labeling failed",
+    });
+  });
+
+  it("gives the model six seconds, then says it ran out of time", async () => {
+    jest.useFakeTimers();
+    jest.doMock(ML_KIT, () => ({ default: { label: () => new Promise(() => {}) } }));
+    const answer = load().labelImage("file:///x.jpg");
+    jest.advanceTimersByTime(5_999);
+    await Promise.resolve();
+    jest.advanceTimersByTime(1);
+    expect(await answer).toEqual({ unscored: "timeout" });
+  });
+
+  it("passes the labels through, dropping the index", async () => {
+    jest.doMock(ML_KIT, () => ({
+      default: { label: async () => [{ text: "Shelf", confidence: 0.91, index: 7 }] },
+    }));
+    expect(await load().labelImage("file:///x.jpg")).toEqual({
+      labels: [{ text: "Shelf", confidence: 0.91 }],
+    });
   });
 });

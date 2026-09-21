@@ -60,4 +60,5 @@ export const rejectionLabel: Record<string, string> = {
   tilt: "beyond the tilt allowed",
   gps_missing: "no GPS fix",
   wrong_subject: "retaken: didn't show the subject",
+  subject_unscored: "subject not checked on the phone",
 };

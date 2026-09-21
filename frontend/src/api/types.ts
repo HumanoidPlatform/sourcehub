@@ -392,6 +392,9 @@ export interface Gate1Row {
   ready_assets: number;
   /** ready captures the worker's phone flagged as off-subject and they kept */
   off_subject: number;
+  /** ready captures the phone could not check at all (no labeller, timeout,
+   *  native error) — the reviewer is the first pair of eyes on these */
+  unscored: number;
 }
 
 // asset — one capture, as GET /tasks/{id}/assets and GET /assignments/{id}/assets return it

@@ -131,14 +131,20 @@ function AssetThumb({
       )}
       <span className="tag">{meta.label}</span>
       {subjectCheck(asset) && (
-        // The phone thought this showed the wrong thing and the worker kept
-        // it anyway. A hint for the reviewer's eye, not a verdict.
+        // Amber: the phone thought this showed the wrong thing and the worker
+        // kept it anyway. Grey: the phone could not look at all. Either way a
+        // hint for the reviewer's eye, not a verdict.
         <span
           className="tag"
           title={subjectCheck(asset)!.message}
-          style={{ top: 3, left: 3, bottom: "auto", background: "#B45309" }}
+          style={{
+            top: 3,
+            left: 3,
+            bottom: "auto",
+            background: subjectCheck(asset)!.code === "wrong_subject" ? "#B45309" : "#5B6873",
+          }}
         >
-          subject?
+          {subjectCheck(asset)!.code === "wrong_subject" ? "subject?" : "unchecked"}
         </span>
       )}
       {onRemove && (
@@ -165,7 +171,10 @@ function AssetThumb({
 
 /** the phone's domain verdict on this capture, if it gave one */
 function subjectCheck(asset: AssetRow) {
-  return (asset.device_checks ?? []).find((c) => c.code === "wrong_subject") ?? null;
+  return (
+    (asset.device_checks ?? []).find((c) => c.code === "wrong_subject" || c.code === "subject_unscored") ??
+    null
+  );
 }
 
 function AssetPreview({ asset, onClose }: { asset: AssetRow; onClose: () => void }) {

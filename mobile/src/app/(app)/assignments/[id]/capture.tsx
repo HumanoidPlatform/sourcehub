@@ -49,7 +49,7 @@ export default function Capture() {
   const [busy, setBusy] = useState(false);
   const [count, setCount] = useState(0);
   const [error, setError] = useState<string | null>(null);
-  const [notice, setNotice] = useState<string | null>(null);
+  const [notice, setNotice] = useState<{ text: string; tone: "warn" | "ok" } | null>(null);
   const [locationOk, setLocationOk] = useState(true);
   // The ref is what the shutter reads; the state only drives the level, and
   // only moves when the whole degree does, so a 10 Hz sensor does not re-render
@@ -111,9 +111,15 @@ export default function Capture() {
 
   // A warning does not stop the capture — it is kept, flagged, and the reason
   // travels with it to QA. Only a block throws, and the catch below renders it.
-  const kept = (warnings: { message: string }[]) => {
+  const kept = (warnings: { message: string }[], onSubject = false) => {
     setCount((n) => n + 1);
-    setNotice(warnings.length > 0 ? warnings.map((w) => w.message).join(" ") : null);
+    setNotice(
+      warnings.length > 0
+        ? { text: warnings.map((w) => w.message).join(" "), tone: "warn" }
+        : onSubject
+          ? { text: `Looks like ${spec?.subject?.domain ?? "the subject"}.`, tone: "ok" }
+          : null,
+    );
   };
 
   // The subject check is the one verdict the worker answers themselves: the
@@ -121,7 +127,7 @@ export default function Capture() {
   // the reviewer to see; Retake throws it away and counts the refusal.
   const settle = (o: CaptureOutcome) => {
     if (o.kept) {
-      kept(o.findings);
+      kept(o.findings, o.onSubject);
       return;
     }
     Alert.alert(`Doesn't look like ${spec?.subject?.domain ?? "the subject"}`, `${o.finding.message} Keep it anyway, or shoot it again?`, [
@@ -197,7 +203,7 @@ export default function Capture() {
           <Text style={c.warn}>This task needs a location on every capture. Turn location on in settings.</Text>
         ) : null}
         {error ? <Text style={c.error}>{error}</Text> : null}
-        {notice ? <Text style={c.warn}>{notice}</Text> : null}
+        {notice ? <Text style={notice.tone === "ok" ? c.ok : c.warn}>{notice.text}</Text> : null}
         {maxTilt != null ? <Level tilt={level} tolerance={maxTilt} /> : null}
         <View style={c.bottom}>
           <Pressable
@@ -225,6 +231,7 @@ const c = StyleSheet.create({
   error: { color: "#fff", backgroundColor: C.danger, padding: 8, marginHorizontal: 12, borderRadius: 8, textAlign: "center" },
   // The capture was kept: the attention tone, not the danger one.
   warn: { color: TONE_COLOR.attention.fg, backgroundColor: TONE_COLOR.attention.bg, padding: 8, marginHorizontal: 12, marginTop: 6, borderRadius: 8, textAlign: "center" },
+  ok: { color: TONE_COLOR.success.fg, backgroundColor: TONE_COLOR.success.bg, padding: 8, marginHorizontal: 12, marginTop: 6, borderRadius: 8, textAlign: "center" },
   level: { alignItems: "center", justifyContent: "center", flex: 1 },
   levelBar: { width: 120, height: 2, borderRadius: 1 },
   levelText: { color: "rgba(255,255,255,0.9)", marginTop: 10, fontSize: 13, fontWeight: "600", textShadowColor: "#000", textShadowRadius: 4 },

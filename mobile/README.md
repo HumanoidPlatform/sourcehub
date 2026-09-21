@@ -82,9 +82,13 @@ It never deletes anything by itself, and the finding (`wrong_subject`, with
 score and labels) travels with the upload for the reviewer.
 
 The labeller is a native module, so it works in a **development build**, not
-in Expo Go — there the check is silently skipped. `EXPO_PUBLIC_SUBJECT_STUB`
-in `.env` fakes the labels for trying the dialog in Expo Go. `SUBJECT_OFF`
-and `SUBJECT_DIALOG` in `src/config.ts` are the cut and the shadow switch.
+in Expo Go. Wherever it cannot answer — Expo Go, an APK built without it, a
+native error, or a first run slower than six seconds — the capture is kept
+with a `subject_unscored` warning that names the reason, so the reviewer at
+gate 1 sees *unchecked* rather than a silent pass. A photo that passes shows a
+green *Looks like …* line in the viewfinder. `EXPO_PUBLIC_SUBJECT_STUB` in
+`.env` fakes the labels for trying the dialog in Expo Go. `SUBJECT_OFF` and
+`SUBJECT_DIALOG` in `src/config.ts` are the cut and the shadow switch.
 
 ## Building the app
 

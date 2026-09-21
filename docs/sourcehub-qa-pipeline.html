@@ -440,8 +440,14 @@ seen  = the five most confident labels, for the reviewer</pre></div>
     <h3>When there is no labeller</h3>
     <p>ML Kit is native code, absent from Expo Go and from any build made before this change.
     <code>labelImage()</code> requires the module lazily inside a <code>try</code>; if it is missing, or the call throws,
-    or two seconds pass, it answers <code>null</code> and the capture is queued unscored. The pipeline degrades to
-    "the worker read the card", which is still the cheapest part of it.</p>
+    or six seconds pass, it answers with the <em>reason</em> (<code>no_labeller</code>, <code>error</code>,
+    <code>timeout</code>) and the capture is queued with a warning of its own, <code>subject_unscored</code>. The
+    worker is not asked anything — they did nothing wrong — but the tile at gate 1 reads <em>unchecked</em> and the
+    queue column says <em>n not checked on phone</em>. The pipeline degrades to "the worker read the card", and it
+    says so, because a skipped check that looks exactly like a passed one once cost a day of "is it even
+    running?" on the first preview APK.</p>
+    <p>A pass is visible too: after a photo that scores at or above the cut, the viewfinder shows a green
+    <em>Looks like retail shelf.</em> for the next shot.</p>
     <p>For trying the dialog without a build, <code>EXPO_PUBLIC_SUBJECT_STUB=Floor:0.9,Hand:0.6</code> in
     <code>mobile/.env</code> makes every photo "see" those labels. It must be absent in any build that leaves the
     developer's machine.</p>
@@ -504,7 +510,7 @@ seen  = the five most confident labels, for the reviewer</pre></div>
       <tbody>
         <tr><td class="mono">SUBJECT_OFF</td><td class="num">0.30</td><td>Below this the worker is asked. A starting guess, to be replaced by a measured value.</td></tr>
         <tr><td class="mono">SUBJECT_DIALOG</td><td class="mono">true</td><td><code>false</code> is shadow mode: score and attach the finding, never show the dialog. The reviewer still sees everything.</td></tr>
-        <tr><td class="mono">LABEL_TIMEOUT_MS</td><td class="num">2000</td><td>Longer than this and the photo is queued unscored. ML Kit's first call loads the model and can approach this on a slow phone.</td></tr>
+        <tr><td class="mono">LABEL_TIMEOUT_MS</td><td class="num">6000</td><td>Longer than this and the photo is queued with <code>subject_unscored (timeout)</code>. ML Kit's first call loads the model and decodes the full-size JPEG; on a mid-range phone that passed the original two seconds, which is why it is six.</td></tr>
       </tbody>
     </table></div>
     <div class="decision" data-kind="risk">
@@ -654,14 +660,14 @@ seen  = the five most confident labels, for the reviewer</pre></div>
     <div class="tbl"><table>
       <thead><tr><th>#</th><th>Shoot</th><th>Expect</th><th>Do</th></tr></thead>
       <tbody>
-        <tr><td class="num">1</td><td>A real shelf with products</td><td>No dialog; <em>1 saved</em></td><td>—</td></tr>
+        <tr><td class="num">1</td><td>A real shelf with products</td><td>No dialog; green <em>Looks like retail shelf.</em>; <em>1 saved</em></td><td>—</td></tr>
         <tr><td class="num">2</td><td>The floor</td><td>Dialog <em>Doesn't look like retail shelf. Saw: floor, …</em> — note the labels and the delay after the shutter</td><td><strong>Retake</strong> → counter stays at 1</td></tr>
         <tr><td class="num">3</td><td>The floor again</td><td>Same dialog</td><td><strong>Keep</strong> → <em>2 saved</em></td></tr>
         <tr><td class="num">4</td><td>Your own face</td><td>Dialog — <em>person</em> is forbidden, even with a shelf behind you</td><td><strong>Retake</strong></td></tr>
         <tr><td class="num">5</td><td>A shelf photo shown on a laptop screen</td><td>Dialog or pass — record which, and what it saw</td><td><strong>Keep</strong> either way</td></tr>
         <tr><td class="num">6</td><td>Another real shelf</td><td>No dialog</td><td>—</td></tr>
       </tbody>
-      <caption>Shot 2 is the proof that ML Kit is running: no dialog there means the labeller answered null (see the fallback note below the table).</caption>
+      <caption>Shot 1's green line is the proof that ML Kit is running. Neither the line nor a dialog means the labeller could not answer — see the note below the table.</caption>
     </table></div>
     <ol start="3">
       <li>Tap <em>Done</em>. <span class="az">Check</span> the assignment screen shows <em>2 × retaken: didn't show the
@@ -669,12 +675,13 @@ seen  = the five most confident labels, for the reviewer</pre></div>
       <li><strong>Submit for review</strong>.</li>
     </ol>
     <div class="decision" data-kind="risk">
-      <span class="lbl">If shot 2 raises no dialog</span>
-      <p>The labeller returned nothing, so the capture was queued unscored — the designed fallback, but not
-      what a development build should do. Confirm the app is the built one and not Expo Go, and that no
-      stub variable is set. Then add a temporary <code>console.log(labels)</code> in <code>labelImage()</code> and read
-      the Metro terminal: <code>null</code> from the module means the URI form (try stripping <code>file://</code>); a
-      thrown error names the cause.</p>
+      <span class="lbl">If shot 1 shows no green line and shot 2 raises no dialog</span>
+      <p>The labeller could not answer, so the capture was queued with <code>subject_unscored</code> — the designed
+      fallback, and it names its reason. Read it at gate 1: open the batch, click the <em>unchecked</em> tile, and the
+      <em>Phone check</em> row says <em>this build has no image labeller</em> (Expo Go, or an APK built without the
+      module), <em>the check took too long</em> (a slow first run — shoot again; the model is warm now) or
+      <em>the image labeller failed</em> with the native message. On a development build the same reason is
+      in the Metro terminal.</p>
     </div>
   </section>
 
