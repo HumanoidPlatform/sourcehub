@@ -18,6 +18,11 @@ import {
 import { PRODUCT } from "@shared/brand";
 import type { Tone } from "@shared/status";
 
+// Charts live in their own file — they are the one new pattern here rather
+// than a port of a prototype class — but they are part of the same kit, so
+// callers import them from the same place as everything else.
+export { fillDays, TimeBars, type DayCount } from "./charts";
+
 /* --- buttons --------------------------------------------------------------- */
 
 export function Button({
@@ -89,11 +94,21 @@ export function Metric({
   label,
   value,
   sub,
+  foot,
+  tone,
   loading,
 }: {
   label: string;
   value: ReactNode;
   sub?: ReactNode;
+  /** The prototype's own metric slot, styled in components.css since the port
+   *  and never emitted until now: the line of context under the number. */
+  foot?: ReactNode;
+  /** Colours the number, exactly as the prototype does it — an inline
+   *  var(--t-*) reference rather than a rule, so it follows the theme and no
+   *  component declares a colour of its own. Tone never travels alone: the
+   *  foot line has to say in words why the number is worth noticing. */
+  tone?: Tone;
   /** The number is not known yet. Shows "…" instead of whatever the caller
    *  computed from an empty array — a hard 0 above a list that is still loading
    *  reads as two sources agreeing on something neither has checked. */
@@ -102,8 +117,11 @@ export function Metric({
   return (
     <div className="metric" aria-busy={loading || undefined}>
       <div className="eyebrow">{label}</div>
-      <div className="val">{loading ? "…" : value}</div>
+      <div className="val" style={tone && !loading ? { color: `var(--t-${tone})` } : undefined}>
+        {loading ? "…" : value}
+      </div>
       {sub && <div className="small muted">{sub}</div>}
+      {foot && <div className="foot">{foot}</div>}
     </div>
   );
 }

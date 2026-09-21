@@ -636,3 +636,49 @@ export interface NotificationPage {
   items: NotificationRow[];
   has_more?: boolean;
 }
+
+/* --- overview --------------------------------------------------------------
+   GET /overview. One call behind the client's landing page: the aggregates the
+   list endpoints cannot answer cheaply, already scoped to the caller's org by
+   RLS. Money arrives as a string for the same reason it does on Contract —
+   it is numeric(14,2) and must not round-trip through a float. */
+
+export interface OverviewAttention {
+  kind: "publish_draft" | "review_proposals" | "approve_delivery";
+  entity_id: string;
+  reference_code: string;
+  title: string | null;
+  count: number;
+  due_on: string | null;
+}
+
+export interface OverviewDelivery {
+  contract_id: string;
+  reference_code: string;
+  partner_name: string | null;
+  value: string;
+  currency: string;
+  status: string;
+  delivery_due_on: string | null;
+  total: number;
+  done: number;
+  pct: number;
+  assets_accepted: number;
+}
+
+export interface Overview {
+  generated_at: string;
+  requests: { by_status: Record<string, number>; total: number };
+  deliveries: OverviewDelivery[];
+  /** Live contracts only — see money.committed. */
+  delivery: { live: number; tasks_total: number; tasks_done: number; pct: number };
+  money: {
+    /** Value of contracts still in flight. NOT lifetime contracted value. */
+    committed: string;
+    paid: string;
+    outstanding: string;
+    currency: string;
+  };
+  captures: { accepted: number; days: number; series: { day: string; count: number }[] };
+  attention: OverviewAttention[];
+}

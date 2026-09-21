@@ -297,6 +297,48 @@ td.right,th.right{text-align:right}
 .meter[data-tone="success"] > i{background:var(--t-success)}
 .meter[data-tone="attention"] > i{background:var(--t-attention)}
 
+/* --- bars (daily counts) --------------------------------------------------
+   A deliberate NEW pattern, not a port — the prototype has no chart. It does
+   declare --chart-grid in all three theme blocks and never use it, so the slot
+   was left open on purpose and this is what fills it.
+   Percentage heights rather than SVG, for the same reason .meter is a div: no
+   pixel width is ever measured, so it survives .g-main collapsing to one
+   column without a ResizeObserver this app does not have. */
+.bars{display:flex;flex-direction:column;gap:var(--s-2)}
+.bars-scale{display:flex;justify-content:flex-end}
+.bars-plot{display:flex;align-items:flex-end;gap:2px;height:112px;
+  border-bottom:1px solid var(--line);
+  background:repeating-linear-gradient(to top,transparent 0,transparent 27px,
+    var(--chart-grid) 27px,var(--chart-grid) 28px)}
+.bars-plot > i{flex:1 1 0;min-width:2px;min-height:1px;display:block;
+  background:var(--accent);border-radius:2px 2px 0 0;
+  transition:height var(--base) var(--ease)}
+/* A day with nothing is a visible gap in the axis, not a missing column. */
+.bars-plot > i[data-empty]{background:var(--surface-3);height:1px !important}
+.bars-axis{display:flex;justify-content:space-between;gap:var(--s-3);
+  font-size:11.5px;color:var(--ink-3)}
+.bars-axis > .muted{text-align:center;flex:1 1 auto;min-width:0}
+
+/* --- stage list (counts by status, as labelled bars) -----------------------
+   Reuses .meter for the bar, so there is one bar renderer in the product. */
+.stagelist{display:flex;flex-direction:column;gap:10px}
+.stagerow{display:grid;grid-template-columns:minmax(96px,1fr) minmax(0,2fr) auto;
+  align-items:center;gap:var(--s-3);font-size:13px}
+.stagerow .n{font-family:var(--font-mono);font-variant-numeric:tabular-nums;color:var(--ink-2)}
+
+/* One row per contract. The hairline is load-bearing: stacked meters with no
+   divider read as one block, and a meter at 0% looks like a rule itself. */
+.delivrow{display:flex;flex-direction:column;gap:7px;
+  padding-bottom:var(--s-3);border-bottom:1px solid var(--line)}
+.delivrow:last-child{padding-bottom:0;border-bottom:0}
+
+/* Grid, not .row: .row wraps, so a long title drops the button onto its own
+   line and the panel loses its right-hand edge. */
+.delivrow-head,.attnrow{display:grid;grid-template-columns:minmax(0,1fr) auto;
+  gap:var(--s-3);align-items:center}
+.attnrow{font-size:13px}
+.attnrow > :first-child{min-width:0}
+
 /* --- stage rail (lifecycle) ----------------------------------------------- */
 .stagerail{display:flex;overflow-x:auto;padding:var(--s-2) 0 var(--s-1);gap:0}
 .stage{flex:1;min-width:112px;position:relative;display:flex;flex-direction:column;

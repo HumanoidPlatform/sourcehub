@@ -5,12 +5,13 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { get } from "@api/client";
 import type { Contract, EquipmentRow, Gate1Row, LoanRow, Proposal, QaQueueRow, Rfp, Task, WorkerRow } from "@api/types";
-import { Empty, Meter, Metric, Panel, Pill, Skeleton, TableWrap, View } from "@ds/primitives";
+import { Empty, Meter, Metric, Panel, Pill, TableWrap, View } from "@ds/primitives";
 import { useSession } from "@shared/auth";
-import { fmtDate, money, taskTarget } from "@shared/format";
-import { contractStatus, requestStatus, statusMeta, taskStatus, waitingOn } from "@shared/status";
+import { fmtDate, taskTarget } from "@shared/format";
+import { contractStatus, statusMeta, taskStatus } from "@shared/status";
 import { AccountsPage } from "@features/admin/pages";
 import { WorkerAssignmentsPage } from "@features/delivery/pages";
+import { ClientOverview } from "@features/overview/client";
 
 export function OverviewPage() {
   const { role } = useSession();
@@ -20,64 +21,6 @@ export function OverviewPage() {
   if (role === "sponsor") return <SponsorOverview />;
   if (role === "worker") return <WorkerAssignmentsPage />;
   return <SupplierOverview />;
-}
-
-function ClientOverview() {
-  const session = useSession();
-  const requests = useQuery({ queryKey: ["requests"], queryFn: () => get<Rfp[]>("/requests") });
-  const contracts = useQuery({ queryKey: ["contracts"], queryFn: () => get<Contract[]>("/contracts") });
-
-  const rs = requests.data ?? [];
-  const cs = contracts.data ?? [];
-  const open = rs.filter((r) => !["completed", "cancelled"].includes(r.status)).length;
-  const waiting = rs.filter((r) => statusMeta(requestStatus, r.status).owner === "client").length;
-  const inDelivery = cs.filter((c) => c.status !== "completed").length;
-  const committed = cs.reduce((s, c) => s + Number(c.value), 0);
-
-  return (
-    <View title={`Good day, ${session.org_name}`} pageTitle="Overview" sub="What needs you, and where everything stands.">
-      <div className="g4">
-        <Metric label="Open requests" value={open} />
-        <Metric label="Awaiting your decision" value={waiting} />
-        <Metric label="In delivery" value={inDelivery} />
-        <Metric label="Committed spend" value={money(committed)} />
-      </div>
-      <Panel title="Recent requests" actions={<Link className="btn" data-size="sm" to="/requests">All requests</Link>}>
-        {requests.isLoading ? (
-          // The metrics above read 0 while loading too, but they settle in
-          // place. This panel used to tell a returning client to "Publish your
-          // first request" every time they landed.
-          <Skeleton rows={4} label="Loading your requests" />
-        ) : rs.length === 0 ? (
-          <Empty
-            title="Publish your first request"
-            hint="Describe what you need captured and every delivery partner can bid on it."
-            action={<Link to="/requests/new" className="btn" data-variant="primary">New request</Link>}
-          />
-        ) : (
-          <TableWrap>
-            <table>
-              <thead><tr><th>Reference</th><th>Title</th><th>Status</th><th>Waiting on</th><th>Proposals</th></tr></thead>
-              <tbody>
-                {rs.slice(0, 5).map((r) => {
-                  const m = statusMeta(requestStatus, r.status);
-                  return (
-                    <tr key={r.id}>
-                      <td className="id"><Link to={`/requests/${r.id}`}>{r.reference_code}</Link></td>
-                      <td className="cell-primary">{r.title}</td>
-                      <td><Pill tone={m.tone}>{m.label}</Pill></td>
-                      <td>{waitingOn(m, "client")}</td>
-                      <td className="num">{r.proposal_count}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </TableWrap>
-        )}
-      </Panel>
-    </View>
-  );
 }
 
 function TenantOverview() {
