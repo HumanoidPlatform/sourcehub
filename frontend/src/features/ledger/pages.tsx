@@ -28,7 +28,7 @@ function InvoiceDetailDialog({ i, isOps, onClose }: { i: InvoiceRow; isOps: bool
         ["Amount", money(i.amount, i.currency)],
         ["Issued", fmtDate(i.issued_on)],
         ["Paid", i.paid_at ? fmtDateTime(i.paid_at) : "Not yet"],
-        ["Status", <Pill key="s" tone={m.tone}>{m.label}</Pill>],
+        ["Payment status", <Pill key="s" tone={m.tone}>{m.label}</Pill>],
         ["Contract", i.contract_id
           ? <Link key="c" to={`/contracts/${i.contract_id}`}>{i.contract_ref ?? "Open contract"}</Link>
           : i.contract_ref ?? "—"],
@@ -78,7 +78,7 @@ export function BillingPage() {
               <thead>
                 <tr>
                   <th>Reference</th>{isOps && <th>Party</th>}<th>Contract</th><th>Kind</th>
-                  <th>Amount</th><th>Issued</th><th>Status</th><th />
+                  <th>Amount</th><th>Issued</th><th>Payment status</th><th />
                 </tr>
               </thead>
               <tbody>

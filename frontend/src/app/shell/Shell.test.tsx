@@ -94,7 +94,7 @@ describe("navigation drawer", () => {
   it("closes after following a link, so the page you chose is not covered", () => {
     const { toggle, rail } = renderShell();
     fireEvent.click(toggle);
-    fireEvent.click(screen.getByRole("link", { name: "Requests" }));
+    fireEvent.click(screen.getByRole("link", { name: "RFPs" }));
     expect(rail.hasAttribute("data-open")).toBe(false);
   });
 });
@@ -110,7 +110,7 @@ describe("page change", () => {
             <Shell>
               <Routes>
                 <Route path="/" element={<View title="Good day"><Link to="/bare">A page with no heading</Link></View>} />
-                <Route path="/requests" element={<View title="Requests"><Link to="/requests?status=open">Open only</Link></View>} />
+                <Route path="/requests" element={<View title="RFPs"><Link to="/requests?status=open">Open only</Link></View>} />
                 <Route path="/bare" element={<p>no heading here</p>} />
               </Routes>
             </Shell>
@@ -128,8 +128,8 @@ describe("page change", () => {
   it("moves focus to the new page's heading and returns to the top", () => {
     const scrollTo = vi.spyOn(window, "scrollTo");
     renderRoutes();
-    fireEvent.click(screen.getByRole("link", { name: "Requests" }));
-    expect(document.activeElement).toBe(screen.getByRole("heading", { level: 1, name: "Requests" }));
+    fireEvent.click(screen.getByRole("link", { name: "RFPs" }));
+    expect(document.activeElement).toBe(screen.getByRole("heading", { level: 1, name: "RFPs" }));
     expect(scrollTo).toHaveBeenCalledWith(0, 0);
     scrollTo.mockRestore();
   });
@@ -142,7 +142,7 @@ describe("page change", () => {
 
   it("does not move focus when only the query string changes", () => {
     renderRoutes();
-    fireEvent.click(screen.getByRole("link", { name: "Requests" }));
+    fireEvent.click(screen.getByRole("link", { name: "RFPs" }));
     const filter = screen.getByRole("link", { name: "Open only" });
     filter.focus();
     fireEvent.click(filter);

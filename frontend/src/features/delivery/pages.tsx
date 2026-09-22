@@ -31,9 +31,9 @@ export function ContractsPage() {
 
   return (
     <View
-      title={isClient ? "Deliveries" : "Contracts"}
+      title={isClient ? "Deliverables for Review" : "Contracts"}
       sub={isClient
-        ? "Work in flight against your requests. Approving a delivery releases payment."
+        ? "Work in flight against your RFPs. Approving a deliverable releases payment."
         : "Break each contract into tasks; deliver once every task clears QA."}
     >
       {/* One row per contract, like every other list in the product. Expanded
@@ -41,10 +41,10 @@ export function ContractsPage() {
           scan for — which contract needs attention. The detail page has the
           metrics; this page has to be scannable. */}
       <Panel>
-        <Loadable q={contracts} what={isClient ? "your deliveries" : "your contracts"}>
+        <Loadable q={contracts} what={isClient ? "your deliverables for review" : "your contracts"}>
           {(contracts.data ?? []).length === 0 ? (
             <Empty
-              title={isClient ? "Nothing in delivery" : "No contracts yet"}
+              title={isClient ? "No deliverables for review" : "No contracts yet"}
               hint={isClient ? "Award a proposal to open a contract." : "Win a proposal to open one."}
             />
           ) : (
@@ -480,7 +480,7 @@ function ApproveDialog({ contract, onClose }: { contract: Contract; onClose: () 
 
   return (
     <Dialog
-      title="Review the delivery"
+      title="Review the deliverable"
       sub={`${contract.title} · ${money(contract.value)}`}
       onClose={onClose}
       foot={

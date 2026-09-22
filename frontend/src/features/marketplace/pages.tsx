@@ -318,26 +318,26 @@ export function RequestsPage() {
   const requests = useQuery({ queryKey: ["requests"], queryFn: () => get<Rfp[]>("/requests") });
   const rows = requests.data ?? [];
   const status = (r: Rfp) => statusMeta(requestStatus, r.status);
-  const newRequest = <Link to="/requests/new" className="btn" data-variant="primary">New request</Link>;
+  const newRequest = <Link to="/requests/new" className="btn" data-variant="primary">New RFP</Link>;
   return (
     <View
-      title="Requests"
-      sub="Everything you have drafted, published or seen through to completion."
+      title="RFPs"
+      sub="Every RFP you have drafted, published or seen through to completion."
       actions={newRequest}
     >
       <Panel>
         {requests.isLoading ? (
           // Without this the empty state rendered while the query was in
           // flight — "No requests yet" to a client who has ten.
-          <Skeleton rows={5} label="Loading your requests" />
+          <Skeleton rows={5} label="Loading your RFPs" />
         ) : rows.length === 0 ? (
-          <Empty title="No requests yet" hint="Publish one and every delivery partner is notified." action={newRequest} />
+          <Empty title="No RFPs yet" hint="Publish one and every delivery partner is notified." action={newRequest} />
         ) : (
           <DataTable
             rows={rows}
             rowKey={(r) => r.id}
             filter={{
-              label: "Filter requests",
+              label: "Filter RFPs",
               placeholder: "Filter by title or reference…",
               text: (r) => `${r.title} ${r.reference_code}`,
             }}
@@ -686,10 +686,10 @@ export function RequestNewPage() {
       // the edit.
       void qc.invalidateQueries({ queryKey: ["request", r.id] });
       toast(
-        publish ? "Request published" : id ? "Draft updated" : "Draft saved",
+        publish ? "RFP published" : id ? "Draft updated" : "Draft saved",
         publish
           ? "Every delivery partner can bid on it now."
-          : `${r.reference_code} is waiting in your requests.`,
+          : `${r.reference_code} is waiting in your RFPs.`,
         "success",
       );
       guard.release(); // saved: leaving now loses nothing
@@ -715,7 +715,7 @@ export function RequestNewPage() {
     const blocking: string[] = [];
 
     if (step === 0) {
-      if (!d.title.trim()) f.title = "Give the request a title.";
+      if (!d.title.trim()) f.title = "Give the RFP a title.";
       else if (d.title.trim().length < 3) f.title = "At least three characters.";
       if (!d.category.trim()) f.category = "Choose a category.";
       if (otherUseCase && !d.objective.trim())
@@ -753,7 +753,7 @@ export function RequestNewPage() {
   // dialog opens, so a request cannot get six steps in and fail on the server.
   const publishProblems = (): string[] => {
     const problems: string[] = [];
-    if (!d.title.trim()) problems.push("Give the request a title.");
+    if (!d.title.trim()) problems.push("Give the RFP a title.");
     if (d.title.trim().length < 3) problems.push("The title needs at least three characters.");
     if (!d.target_quantity.trim())
       problems.push("Say how much you need — partners cannot price a blank quantity.");
@@ -816,19 +816,19 @@ export function RequestNewPage() {
   if (id && existing.isLoading) {
     return (
       <View title="Loading the draft…">
-        <Panel><Skeleton rows={6} label="Loading this request" /></Panel>
+        <Panel><Skeleton rows={6} label="Loading this RFP" /></Panel>
       </View>
     );
   }
   if (id && existing.isError) {
     return (
-      <View title="Request not found">
+      <View title="RFP not found">
         <Panel>
-          <Callout tone="critical" title="This request could not be opened">
+          <Callout tone="critical" title="This RFP could not be opened">
             It may have been published already, or belong to another organisation.
             Only a draft can be edited.
           </Callout>
-          <div className="btnrow"><Button onClick={() => navigate("/requests")}>Back to requests</Button></div>
+          <div className="btnrow"><Button onClick={() => navigate("/requests")}>Back to RFPs</Button></div>
         </Panel>
       </View>
     );
@@ -836,7 +836,7 @@ export function RequestNewPage() {
 
   return (
     <View
-      title={id ? `Edit ${existing.data?.reference_code ?? "draft"}` : "New request"}
+      title={id ? `Edit ${existing.data?.reference_code ?? "draft"}` : "New RFP"}
       sub="The defaults are honest — anything you skip is marked 'to be agreed', never hidden."
     >
       {/* The chip that used to live here was aria-hidden, so the only progress
@@ -850,7 +850,7 @@ export function RequestNewPage() {
       <Panel>
         {step === 0 && (
           <div className="formgrid">
-            <Field label="Request title" required span error={errOf("title")}>
+            <Field label="RFP title" required span error={errOf("title")}>
               {(id) => <input id={id} className={inputCls} value={d.title} onChange={set("title")} placeholder="Retail shelf imagery across 12 metro markets" />}
             </Field>
             <Field label="Category / Content Type" required error={errOf("category")}>
@@ -1151,7 +1151,7 @@ export function RequestNewPage() {
               <input type="checkbox" checked={!d.budget_disclosed} onChange={(e) => setD((x) => ({ ...x, budget_disclosed: !e.target.checked }))} />
               <span>
                 Keep the budget to ourselves
-                <span className="cl-sub">Bidders see the request but not the range. You still see it here.</span>
+                <span className="cl-sub">Bidders see the RFP but not the range. You still see it here.</span>
               </span>
             </label>
             <Field label="Project start">
@@ -1274,7 +1274,7 @@ export function RequestNewPage() {
           }
         >
           <Callout tone="attention" title="Every delivery partner is notified, and this cannot be undone">
-            Partners start pricing against the words in this request. There is no way to
+            Partners start pricing against the words in this RFP. There is no way to
             unpublish it or edit it afterwards — only to see it through or let it lapse.
           </Callout>
         </Dialog>
@@ -1586,7 +1586,7 @@ export function RequestDetailPage() {
   });
 
   const r = request.data;
-  if (!r) return <View title="Request">{request.isError ? <Callout tone="critical" title="Not found or not yours to see" /> : <p className="muted">Loading…</p>}</View>;
+  if (!r) return <View title="RFP">{request.isError ? <Callout tone="critical" title="Not found or not yours to see" /> : <p className="muted">Loading…</p>}</View>;
 
   const meta = statusMeta(requestStatus, r.status);
   const docs = r.attachments ?? [];
@@ -1634,7 +1634,7 @@ export function RequestDetailPage() {
               pointing at the work it produced — the only way through was the
               rail. */}
           {isClient && ["accepted", "in_progress", "delivered", "completed"].includes(r.status) && (
-            <Link to="/deliveries" className="btn" data-variant="primary">Track delivery</Link>
+            <Link to="/deliveries" className="btn" data-variant="primary">Review deliverables</Link>
           )}
           {session.org_kind === "tenant" && ["published", "proposals_received"].includes(r.status) && !alreadyMine && (
             <Button variant="primary" onClick={() => setProposing(true)}>Propose</Button>
@@ -1750,7 +1750,7 @@ export function RequestDetailPage() {
         sub={isClient ? "Competitors never see each other's bids — only you compare them." : undefined}
       >
         {proposals.length === 0 ? (
-          <Empty title="No proposals yet" hint={r.status === "draft" ? "Publish the request first." : "Partners have been notified."} />
+          <Empty title="No proposals yet" hint={r.status === "draft" ? "Publish the RFP first." : "Partners have been notified."} />
         ) : (
           <TableWrap>
             <table>
@@ -1826,7 +1826,7 @@ export function RequestDetailPage() {
           }
         >
           <Callout tone="attention" title="Every delivery partner is notified, and this cannot be undone">
-            Partners start pricing against the words in this request. There is no way to
+            Partners start pricing against the words in this RFP. There is no way to
             unpublish it or edit it afterwards — only to see it through or let it lapse.
           </Callout>
           {publishError && <Callout tone="critical" title="Could not publish">{publishError}</Callout>}
@@ -1973,7 +1973,7 @@ function ProposeDialog({ requestId, title, onClose }: { requestId: string; title
 export function OpportunitiesPage() {
   const opps = useQuery({ queryKey: ["opportunities"], queryFn: () => get<Rfp[]>("/opportunities") });
   return (
-    <View title="Opportunities" sub="Published requests you can still bid on. First proposal in moves it to 'proposals received'.">
+    <View title="Opportunities" sub="Published RFPs you can still bid on. First proposal in moves it to 'proposals received'.">
       <Panel>
         {(opps.data ?? []).length === 0 ? (
           <Empty title="Nothing open right now" hint="You are notified the moment a client publishes." />
@@ -2011,7 +2011,7 @@ function ProposalDetailDialog({ p, onClose }: { p: Proposal; onClose: () => void
       foot={<Button onClick={onClose}>Close</Button>}
     >
       <Dl rows={[
-        ["Request", <Link key="r" to={`/requests/${p.request_id}`}>{p.request_title ?? p.request_ref ?? "Open request"}</Link>],
+        ["RFP", <Link key="r" to={`/requests/${p.request_id}`}>{p.request_title ?? p.request_ref ?? "Open RFP"}</Link>],
         ["Price", `${money(p.price, p.currency)}`],
         ["Delivery time", `${p.duration_days} days`],
         ["Methodology", p.methodology],
@@ -2047,7 +2047,7 @@ export function MyProposalsPage() {
         ) : (
           <TableWrap>
             <table>
-              <thead><tr><th>Reference</th><th>Request</th><th>Price</th><th>Days</th><th>Status</th><th /></tr></thead>
+              <thead><tr><th>Reference</th><th>RFP</th><th>Price</th><th>Days</th><th>Status</th><th /></tr></thead>
               <tbody>
                 {(mine.data ?? []).map((p) => {
                   const pm = statusMeta(proposalStatus, p.status);
@@ -2063,7 +2063,7 @@ export function MyProposalsPage() {
                           label={`Actions for ${p.reference_code}`}
                           items={[
                             { label: "View bid", onSelect: () => setViewing(p) },
-                            { label: "View client & request", onSelect: () => setViewingBrief(p) },
+                            { label: "View client & RFP", onSelect: () => setViewingBrief(p) },
                             ...(p.status === "withdrawn"
                               ? [{ label: "Propose again", onSelect: () => navigate(`/requests/${p.request_id}`) }]
                               : []),
@@ -2151,9 +2151,9 @@ function ClientAndRequestDialog({ proposal, onClose }: { proposal: Proposal; onC
         )}
       </Panel>
 
-      <Panel title="The request">
+      <Panel title="The RFP">
         {rfp.isError ? (
-          <Callout tone="critical" title="Request not available" />
+          <Callout tone="critical" title="RFP not available" />
         ) : !r ? (
           <p className="muted">Loading…</p>
         ) : (

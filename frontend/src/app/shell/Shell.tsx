@@ -23,9 +23,8 @@ interface NavItem {
 const NAV: Record<string, NavItem[]> = {
   client: [
     { to: "/", label: "Overview" },
-    { to: "/requests", label: "Requests" },
-    { to: "/requests/new", label: "New request" },
-    { to: "/deliveries", label: "Deliveries" },
+    { to: "/requests", label: "RFPs" },
+    { to: "/deliveries", label: "Deliverables for Review" },
     { to: "/billing", label: "Billing" },
   ],
   tenant: [
