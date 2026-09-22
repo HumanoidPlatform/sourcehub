@@ -15,6 +15,13 @@ db/900_seed.sql carries the same values, for a database built from scratch.
 Only rows still holding the old value are touched, so a database somebody has
 already renamed by hand is left alone and the downgrade is exact.
 
+Each statement is executed on its own: the async driver prepares what it is
+given, and asyncpg refuses a prepared statement carrying more than one command
+("cannot insert multiple commands into a prepared statement"). Handing it both
+UPDATEs in one string made this revision fail every time it was attempted,
+which is why the pilot database sat at 0016. 0012 to 0014 and 0018 all split
+their statements for the same reason.
+
 legal_name is deliberately untouched. It says "SourceHub Ltd", which is a
 placeholder, and the registered entity is the open question the privacy notice
 already carries (it names Vaieon) — one for a lawyer, not a migration.
@@ -30,26 +37,36 @@ down_revision = "0016"
 branch_labels = None
 depends_on = None
 
-_RENAME = """
-UPDATE organisation SET name = 'Cosarathi Operations'
-WHERE  kind = 'platform' AND name = 'SourceHub Operations';
+_RENAME = (
+    """
+    UPDATE organisation SET name = 'Cosarathi Operations'
+    WHERE  kind = 'platform' AND name = 'SourceHub Operations'
+    """,
+    """
+    UPDATE role SET description = 'Cosarathi operations'
+    WHERE  code = 'platform_admin' AND is_system
+      AND  description = 'SourceHub operations'
+    """,
+)
 
-UPDATE role SET description = 'Cosarathi operations'
-WHERE  code = 'platform_admin' AND is_system AND description = 'SourceHub operations';
-"""
-
-_UNDO = """
-UPDATE organisation SET name = 'SourceHub Operations'
-WHERE  kind = 'platform' AND name = 'Cosarathi Operations';
-
-UPDATE role SET description = 'SourceHub operations'
-WHERE  code = 'platform_admin' AND is_system AND description = 'Cosarathi operations';
-"""
+_UNDO = (
+    """
+    UPDATE organisation SET name = 'SourceHub Operations'
+    WHERE  kind = 'platform' AND name = 'Cosarathi Operations'
+    """,
+    """
+    UPDATE role SET description = 'SourceHub operations'
+    WHERE  code = 'platform_admin' AND is_system
+      AND  description = 'Cosarathi operations'
+    """,
+)
 
 
 def upgrade() -> None:
-    op.execute(_RENAME)
+    for stmt in _RENAME:
+        op.execute(stmt)
 
 
 def downgrade() -> None:
-    op.execute(_UNDO)
+    for stmt in _UNDO:
+        op.execute(stmt)

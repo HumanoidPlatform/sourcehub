@@ -99,6 +99,23 @@ services:
       # anyway, for anything that calls the API directly.
       CORS_ALLOWED_ORIGINS: https://cosarathi.eastus.cloudapp.azure.com
 
+      # --- The reminder clock ------------------------------------------------
+      # modules/engage chases silent offer recipients and stalled assignments.
+      # It runs as a task inside THIS api process: every uvicorn worker starts
+      # one, and an advisory lock lets only one of them do the work per tick.
+      # There is no separate container and nothing to schedule.
+      #
+      # Named here rather than left to the default in config.py on purpose:
+      # this is the switch that decides whether the platform emails real crowd
+      # workers, and it should be visible in the file an operator edits. The
+      # first pass runs 30 seconds after start-up, so mail begins within half a
+      # minute of `docker compose up -d`.
+      ENGAGEMENT_ENABLED: "true"
+      # How often the pass runs, in seconds. 300 = every five minutes. The
+      # reminder schedule itself is in hours and days, so this only decides how
+      # promptly a due reminder is noticed — lowering it does not send more.
+      ENGAGEMENT_TICK_SECONDS: "300"
+
       # Everything else uses the defaults in backend/src/sourcehub/config.py,
       # which are already right: argon2id hashing, 15-minute access tokens,
       # 5 failed sign-ins then a 15-minute lock, 14-day invitations, the
