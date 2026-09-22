@@ -2,7 +2,7 @@
 // proposal comparison and the award.
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { get, patch, post } from "@api/client";
 import type {
@@ -401,7 +401,7 @@ export function RequestsPage() {
 // client who already wrote a spec attaches it instead of retyping it.
 type Row = [string, React.ReactNode];
 
-const STEPS = ["The work", "The rules", "Money and delivery", "Review"] as const;
+const STEPS = ["Scope", "Guidelines", "Budget and Timelines", "Review"] as const;
 
 // The jsonb columns are flattened into prefixed scalar fields here and
 // reassembled on save. Nested state would mean a bespoke setter per key, and
@@ -470,6 +470,8 @@ const compact = <T extends Record<string, unknown>>(o: T): T | null => {
 export function RequestNewPage() {
   const { id } = useParams();
   const [step, setStep] = useState(0);
+  const stepTopRef = useRef<HTMLDivElement>(null);
+  const stepChanged = useRef(false);
   const [d, setD] = useState<Draft>(BLANK);
   const [error, setError] = useState<string | null>(null);
   // What the person is being told, per field. Set by Continue, cleared the
@@ -767,6 +769,22 @@ export function RequestNewPage() {
 
   const errOf = (k: keyof Draft) => fieldErr[k] ?? null;
 
+  useLayoutEffect(() => {
+    if (!stepChanged.current) return;
+    stepChanged.current = false;
+    const top = stepTopRef.current;
+    const scrollToTop = () => {
+      top?.focus({ preventScroll: true });
+      try {
+        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      } catch {
+        window.scrollTo(0, 0);
+      }
+    };
+    scrollToTop();
+    const frame = window.requestAnimationFrame(scrollToTop);
+    return () => window.cancelAnimationFrame(frame);
+  }, [step]);
 
   const next = () => {
     const { fields, blocking } = validateStep();
@@ -781,6 +799,7 @@ export function RequestNewPage() {
         : `${count} fields need attention.`));
     }
     setError(null);
+    stepChanged.current = true;
     setStep((s) => Math.min(s + 1, STEPS.length - 1));
   };
 
@@ -823,9 +842,11 @@ export function RequestNewPage() {
       {/* The chip that used to live here was aria-hidden, so the only progress
           affordance on the page was invisible to assistive tech. The rail is
           what the prototype had, and this file already renders one. */}
-      <Panel flush>
-        <StageRail stages={STEPS} current={STEPS[step]!} />
-      </Panel>
+      <div ref={stepTopRef} tabIndex={-1} style={{ outline: "none" }}>
+        <Panel flush>
+          <StageRail stages={STEPS} current={STEPS[step]!} />
+        </Panel>
+      </div>
       <Panel>
         {step === 0 && (
           <div className="formgrid">
@@ -1212,7 +1233,7 @@ export function RequestNewPage() {
         {error && <Callout tone="critical" title={error} />}
       </Panel>
       <div className="btnrow">
-        {step > 0 && <Button onClick={() => { setError(null); setStep((s) => s - 1); }}>Back</Button>}
+        {step > 0 && <Button onClick={() => { setError(null); stepChanged.current = true; setStep((s) => s - 1); }}>Back</Button>}
         {/* Available on every step, not just the last. Everything typed lives
             in component state with no autosave and no exit control, so hiding
             the only save behind five Continues meant clicking "Requests" in
