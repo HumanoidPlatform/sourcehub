@@ -26,6 +26,7 @@ import {
 } from "@shared/attachments";
 import { useLeaveGuard } from "@shared/leave-guard";
 import { OrgProfileDialog } from "@shared/org-profile";
+import { ReasonDialog } from "@shared/reason-dialog";
 import {
   LIFECYCLE, proposalStatus, requestStatus, statusMeta, waitingOn,
 } from "@shared/status";
@@ -1547,8 +1548,8 @@ export function RequestDetailPage() {
   const session = useSession();
   const qc = useQueryClient();
   const toast = useToast();
-  const navigate = useNavigate();
   const [awarding, setAwarding] = useState<Proposal | null>(null);
+  const [rejecting, setRejecting] = useState<Proposal | null>(null);
   const [viewing, setViewing] = useState<Proposal | null>(null);
   const [proposing, setProposing] = useState(false);
   const [publishing, setPublishing] = useState(false);
@@ -1580,9 +1581,30 @@ export function RequestDetailPage() {
     onSuccess: (c) => {
       toast("Contract awarded", `${c.reference_code} is open.`, "success");
       setAwarding(null);
-      navigate(`/deliveries/${c.id}`);
+      void qc.invalidateQueries({ queryKey: ["request", id] });
+      void qc.invalidateQueries({ queryKey: ["requests"] });
     },
     onError: (e) => setAwardError(e instanceof Error ? e.message : "The award was refused."),
+  });
+
+  const holdProposal = useMutation({
+    mutationFn: (proposalId: string) => post<Proposal>(`/proposals/${proposalId}/hold`),
+    onSuccess: () => {
+      toast("Proposal held", "You can still award or reject it later.", "success");
+      void qc.invalidateQueries({ queryKey: ["request", id] });
+      void qc.invalidateQueries({ queryKey: ["requests"] });
+    },
+    onError: (e) => toast("Could not hold proposal", e instanceof Error ? e.message : "", "critical"),
+  });
+
+  const rejectProposal = useMutation({
+    mutationFn: ({ proposalId, reason }: { proposalId: string; reason: string }) =>
+      post<Proposal>(`/proposals/${proposalId}/reject`, { reason }),
+    onSuccess: () => {
+      toast("Proposal rejected", "The partner has been notified.", "success");
+      void qc.invalidateQueries({ queryKey: ["request", id] });
+      void qc.invalidateQueries({ queryKey: ["requests"] });
+    },
   });
 
   const r = request.data;
@@ -1609,7 +1631,7 @@ export function RequestDetailPage() {
   const minDays = days.length ? Math.min(...days) : null;
   const lowest = prices.filter((x) => x === minPrice).length === 1 ? minPrice : null;
   const fastest = days.filter((x) => x === minDays).length === 1 ? minDays : null;
-  const canAward = isClient && ["published", "proposals_received"].includes(r.status);
+  const canManageProposal = (p: Proposal) => isClient && ["submitted", "held"].includes(p.status);
   // a withdrawn bid does not count: the partner may propose again, and the
   // server revives that row rather than refusing (submit_proposal).
   const alreadyMine = proposals.some(
@@ -1793,7 +1815,19 @@ export function RequestDetailPage() {
                       {isClient && (
                         <td className="right"><div className="rowactions">
                           <Button size="sm" onClick={() => setViewing(p)}>Profile</Button>
-                          {canAward && p.status === "submitted" && (
+                          {p.status === "submitted" && (
+                            <Button
+                              size="sm"
+                              disabled={holdProposal.isPending}
+                              onClick={() => holdProposal.mutate(p.id)}
+                            >
+                              Hold
+                            </Button>
+                          )}
+                          {canManageProposal(p) && (
+                            <Button size="sm" variant="danger" onClick={() => setRejecting(p)}>Reject</Button>
+                          )}
+                          {canManageProposal(p) && (
                             <Button size="sm" variant="primary" onClick={() => setAwarding(p)}>Award</Button>
                           )}
                           </div>
@@ -1809,6 +1843,15 @@ export function RequestDetailPage() {
       </Panel>
 
       {viewing && <PartnerProfileDialog proposal={viewing} onClose={() => setViewing(null)} />}
+      {rejecting && (
+        <ReasonDialog
+          title={`Reject ${rejecting.partner_name ?? "this proposal"}`}
+          warning="The partner is notified and the proposal can no longer be awarded."
+          confirmLabel="Reject"
+          onConfirm={(reason) => rejectProposal.mutateAsync({ proposalId: rejecting.id, reason })}
+          onClose={() => setRejecting(null)}
+        />
+      )}
 
       {publishing && (
         <Dialog
@@ -1849,8 +1892,8 @@ export function RequestDetailPage() {
           }
         >
           <Callout tone="attention" title="Awarding opens a contract and invoices milestone 1">
-            Every other proposal is automatically declined and its partner notified. Half the
-            value is invoiced to you and held in escrow until you approve the delivery.
+            Other proposals remain available, so you can award more partners or reject them explicitly.
+            Half the value is invoiced to you and held in escrow until you approve the delivery.
           </Callout>
           {/* The failure used to toast from the far corner while this dialog
               stayed open with room to say it — every sibling dialog reports

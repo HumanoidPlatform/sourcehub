@@ -30,6 +30,7 @@ export const requestStatus: StatusMap = {
 
 export const proposalStatus: StatusMap = {
   submitted: { label: "Submitted", tone: "attention", owner: "client" },
+  held: { label: "On hold", tone: "neutral", owner: "client" },
   accepted: { label: "Accepted", tone: "success", owner: null },
   rejected: { label: "Rejected", tone: "critical", owner: null },
   withdrawn: { label: "Withdrawn", tone: "neutral", owner: null },

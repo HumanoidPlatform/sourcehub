@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { get } from "@api/client";
-import type { InvoiceRow } from "@api/types";
+import type { Contract, InvoiceRow } from "@api/types";
 import {
   Button, Callout, Dialog, Dl, Empty, Metric, Panel, Pill, Skeleton, TableWrap, View,
 } from "@ds/primitives";
@@ -15,15 +15,22 @@ import { invoiceStatus, statusMeta } from "@shared/status";
 
 function InvoiceDetailDialog({ i, isOps, onClose }: { i: InvoiceRow; isOps: boolean; onClose: () => void }) {
   const m = statusMeta(invoiceStatus, i.status);
+  const contract = useQuery({
+    queryKey: ["contract", i.contract_id],
+    queryFn: () => get<Contract>(`/contracts/${i.contract_id!}`),
+    enabled: !!i.contract_id,
+  });
+  const raisedBy = contract.data?.partner_name ?? (contract.isLoading ? "Loading…" : "—");
   return (
     <Dialog
-      title={`Invoice ${i.reference_code}`}
-      sub={i.contract_ref ? <span className="id">{i.contract_ref}</span> : undefined}
+      title="Invoice details"
+      sub={<span className="id">{i.reference_code}{i.contract_ref ? ` · ${i.contract_ref}` : ""}</span>}
       onClose={onClose}
       foot={<Button onClick={onClose}>Close</Button>}
     >
       <Dl rows={[
-        ...(isOps ? ([["Party", i.party_name ?? "—"]] as [string, React.ReactNode][]) : []),
+        ["Invoice raised by", raisedBy],
+        ...(isOps ? ([["Billed to", i.party_name ?? "—"]] as [string, React.ReactNode][]) : []),
         ["Kind", i.kind],
         ["Amount", money(i.amount, i.currency)],
         ["Issued", fmtDate(i.issued_on)],
