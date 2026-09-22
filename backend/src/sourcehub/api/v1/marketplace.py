@@ -56,6 +56,17 @@ class CaptureSpec(BaseModel):
     # accelerometer. Bounded because beyond 45 the phone is nearer the
     # next quarter turn, and the check folds to that.
     max_tilt_deg: float | None = Field(default=None, ge=0, le=45)
+    # A clip's bounds, checked on the device (mobile validation/rules.ts and
+    # clip.ts) like everything above. Seconds; the camera stops recording at
+    # max, and a gallery pick outside the range is refused before upload.
+    min_duration_s: float | None = Field(default=None, ge=0)
+    max_duration_s: float | None = Field(default=None, gt=0)
+    # The short side of a clip's frame: "at least 1080p".
+    min_video_lines: int | None = Field(default=None, ge=1)
+    # Whether a worker may send a clip the phone already holds rather than
+    # record one in the app. Off by default: a recording is provably from the
+    # place and time it claims.
+    allow_library: bool | None = None
 
 
 class Quota(BaseModel):

@@ -61,8 +61,8 @@ describe("checkCapture", () => {
   // four fifths of the videos the server is happy to take.
   it("holds a video to the video cap", () => {
     const spec: CaptureSpec = { media: ["video"] };
-    expect(checkCapture({ ...good, kind: "video", size: 40 * MB }, spec)).toEqual([]);
-    expect(codes(checkCapture({ ...good, kind: "video", size: 101 * MB }, spec))).toEqual(["size"]);
+    expect(checkCapture({ ...good, kind: "video", size: 400 * MB }, spec)).toEqual([]);
+    expect(codes(checkCapture({ ...good, kind: "video", size: 2049 * MB }, spec))).toEqual(["size"]);
   });
 
   it("refuses a capture below the megapixel floor", () => {
@@ -170,7 +170,7 @@ describe("blocking", () => {
   // three of them is refused three times over and reaches nothing.
   it("keeps every stated condition", () => {
     const f = checkCapture(
-      { kind: "video", size: 200 * MB, width: 640, height: 480, fix: null },
+      { kind: "video", size: 3000 * MB, width: 640, height: 480, fix: null },
       { media: ["photo"], min_megapixels: 12, require_gps: true },
     );
     expect(codes(f)).toEqual(["media_kind", "size", "gps_missing"]);

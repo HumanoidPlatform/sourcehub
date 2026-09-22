@@ -19,6 +19,12 @@
       },
       "channel": "preview"
     },
+    "video": {
+      "distribution": "internal",
+      "android": { "buildType": "apk" },
+      "channel": "video",
+      "env": { "APP_VARIANT": "video" }
+    },
     "production": {
       "channel": "production"
     }

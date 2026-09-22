@@ -8,7 +8,7 @@ const MB = 1024 * 1024;
 
 function derived(over: Partial<Derived> = {}, facts: Partial<Derived["facts"]> = {}): Derived {
   return {
-    facts: { kind: "photo", size: 4 * MB, width: 4032, height: 3024, fix: null, tilt: null, ...facts },
+    facts: { kind: "photo", size: 4 * MB, width: 4032, height: 3024, fix: null, tilt: null, duration: over.duration ?? null, ...facts },
     mime: "image/jpeg",
     captured_at: "2026-09-16T10:00:00.000Z",
     captured_from_exif: true,
@@ -55,16 +55,24 @@ describe("webChecks", () => {
   });
 
   it("refuses a video over the duration cap", () => {
-    const d = derived({ duration: 75 }, { kind: "video", width: 1920, height: 1080 });
+    const d = derived({ duration: 700 }, { kind: "video", width: 1920, height: 1080 });
     const f = webChecks(d, { media: ["video"] });
     expect(codes(blocking(f))).toEqual(["duration"]);
-    expect(f.find((x) => x.code === "duration")?.message).toContain("60");
+    expect(f.find((x) => x.code === "duration")?.message).toContain("600");
   });
 
-  it("honours a shorter cap the client stated, never a longer one", () => {
+  it("honours the range the client stated, never a cap above the global one", () => {
     const d = derived({ duration: 45 }, { kind: "video", width: 1920, height: 1080 });
     expect(codes(blocking(webChecks(d, { media: ["video"], max_duration_s: 30 })))).toEqual(["duration"]);
-    expect(blocking(webChecks(derived({ duration: 90 }, { kind: "video" }), { media: ["video"], max_duration_s: 120 }))).toHaveLength(1);
+    expect(codes(blocking(webChecks(d, { media: ["video"], min_duration_s: 60 })))).toEqual(["duration"]);
+    expect(blocking(webChecks(d, { media: ["video"], min_duration_s: 30, max_duration_s: 120 }))).toHaveLength(0);
+    expect(blocking(webChecks(derived({ duration: 900 }, { kind: "video" }), { media: ["video"], max_duration_s: 1200 }))).toHaveLength(1);
+  });
+
+  it("holds a clip's short side to the lines the client asked for", () => {
+    const d = derived({ duration: 45 }, { kind: "video", width: 1280, height: 720 });
+    expect(codes(blocking(webChecks(d, { media: ["video"], min_video_lines: 1080 })))).toEqual(["video_lines"]);
+    expect(blocking(webChecks(derived({ duration: 45 }, { kind: "video", width: 1080, height: 1920 }), { media: ["video"], min_video_lines: 1080 }))).toHaveLength(0);
   });
 
   it("says when it could not look, rather than passing silently", () => {

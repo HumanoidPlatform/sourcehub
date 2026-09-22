@@ -1,4 +1,4 @@
-import { anglesFrom } from "@/capture/tilt";
+import { anglesFrom, heldOrientation } from "@/capture/tilt";
 
 // Gravity as the accelerometer reports it, in G. The device frame: x to the
 // right of the screen, y up the screen, z out of the screen towards the user.
@@ -82,5 +82,37 @@ describe("anglesFrom", () => {
     expect(anglesFrom(0, 0, 0)).toBeNull();
     expect(anglesFrom(0.01, 0, 0)).toBeNull();
     expect(anglesFrom(NaN, 0, 0)).toBeNull();
+  });
+});
+
+// Which way up the phone is, from gravity alone. The orientation check reads
+// this rather than the recording's own frame — see validation/rules.ts.
+describe("heldOrientation", () => {
+  it("calls a phone held upright portrait, and one on its side landscape", () => {
+    expect(heldOrientation(0, -1, 0)).toBe("portrait");
+    expect(heldOrientation(0, 1, 0)).toBe("portrait");
+    expect(heldOrientation(-1, 0, 0)).toBe("landscape");
+    expect(heldOrientation(1, 0, 0)).toBe("landscape");
+  });
+
+  it("still answers when the phone is also pitched back", () => {
+    expect(heldOrientation(0.05, -0.7, 0.7)).toBe("portrait");
+    expect(heldOrientation(-0.7, 0.05, 0.7)).toBe("landscape");
+  });
+
+  it("says nothing on the diagonal, where the next wobble would say the opposite", () => {
+    expect(heldOrientation(0.7, -0.7, 0)).toBeNull();
+    expect(heldOrientation(-0.66, -0.75, 0)).toBeNull();
+  });
+
+  it("says nothing about a phone lying flat, or about nonsense", () => {
+    expect(heldOrientation(0, 0, 1)).toBeNull();
+    expect(heldOrientation(0, 0, 0)).toBeNull();
+    expect(heldOrientation(NaN, 0, 0)).toBeNull();
+  });
+
+  it("rides along with every tilt reading", () => {
+    expect(anglesFrom(-1, 0, 0)?.held).toBe("landscape");
+    expect(anglesFrom(0, -1, 0)?.held).toBe("portrait");
   });
 });

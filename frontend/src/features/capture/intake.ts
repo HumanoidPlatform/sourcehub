@@ -129,7 +129,8 @@ export const refusalLabel: Record<string, string> = {
   size: "too large",
   resolution: "below the megapixel floor",
   orientation: "wrong orientation",
-  duration: "video too long",
+  duration: "wrong length of video",
+  video_lines: "below the video size asked for",
   duplicate: "already added",
   quantity: "assignment already full",
 };

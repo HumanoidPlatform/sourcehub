@@ -11,7 +11,7 @@
 // later reads asset.check_results can tell it from a live capture.
 
 import type { CaptureSpec, DeviceCheck } from "@api/types";
-import { MAX_CHECK_CODE, MAX_CHECK_MESSAGE, MAX_CHECKS, MAX_VIDEO_SECONDS } from "./config";
+import { MAX_CHECK_CODE, MAX_CHECK_MESSAGE, MAX_CHECKS } from "./config";
 import type { Derived } from "./facts";
 import { checkCapture, type Finding } from "./rules";
 
@@ -39,17 +39,6 @@ export function webChecks(d: Derived, spec: CaptureSpec | null | undefined, targ
       severity: "warn",
       message: `Squareness within ${tilt}° is required and cannot be measured on an uploaded file — a reviewer will judge it.`,
     });
-  }
-
-  if (d.facts.kind === "video" && d.duration != null) {
-    const cap = Math.min(MAX_VIDEO_SECONDS, typeof spec?.max_duration_s === "number" ? spec.max_duration_s : MAX_VIDEO_SECONDS);
-    if (d.duration > cap + 0.5) {
-      out.push({
-        code: "duration",
-        severity: "block",
-        message: `This video runs ${Math.round(d.duration)} s; the task allows ${cap} s.`,
-      });
-    }
   }
 
   if (!d.decoded && d.facts.kind === "photo") {

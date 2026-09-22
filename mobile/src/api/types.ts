@@ -46,7 +46,13 @@ export interface AssignmentAssets {
 // both are declared and validation/rules.ts normalises them.
 export interface CaptureSpec {
   media?: string | string[];
+  /** seconds; the camera stops at max, rules.ts refuses outside the range */
+  min_duration_s?: number | null;
   max_duration_s?: number;
+  /** the short side of a clip's frame: 720, 1080, 2160 */
+  min_video_lines?: number | null;
+  /** a clip may be picked from the phone's gallery rather than recorded */
+  allow_library?: boolean | null;
   require_gps?: boolean;
   min_megapixels?: number | null;
   orientation?: string | null;
@@ -54,7 +60,7 @@ export interface CaptureSpec {
   max_tilt_deg?: number | null;
   languages?: string[];
   notes?: string;
-  /** what a capture must show; validation/subject.ts checks photos against it */
+  /** what a capture must show; validation/subject.ts checks photos and clips against it */
   subject?: SubjectSpec | null;
   [key: string]: unknown;
 }

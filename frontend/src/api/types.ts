@@ -139,8 +139,14 @@ export interface CaptureSpec {
   min_megapixels?: number | null;
   /** degrees of tilt tolerated; squareness to a vertical plane (wall, shelf) */
   max_tilt_deg?: number | null;
-  /** seconds; the phone caps the recording, the console checks the file */
+  /** seconds; the phone refuses a clip outside the range before uploading,
+   *  and stops recording at max */
+  min_duration_s?: number | null;
   max_duration_s?: number | null;
+  /** the short side of a clip's frame: 720, 1080, 2160 */
+  min_video_lines?: number | null;
+  /** a clip may be picked from the phone's gallery rather than recorded */
+  allow_library?: boolean | null;
   /** what a capture must show; the phone's domain check reads it */
   subject?: SubjectSpec | null;
 }
@@ -440,9 +446,10 @@ export interface DeviceCheck {
   code: string;
   severity: "block" | "warn";
   message: string;
-  /** a scored check (wrong_subject) says how sure it was, 0..1 */
+  /** a scored check (wrong_subject, black, frozen) says how sure it was, 0..1 */
   score?: number;
-  detail?: { labels?: string[]; hit?: string[]; veto?: string[] } & Record<string, unknown>;
+  /** wrong_subject on a clip adds frames/hits; black and frozen add frames/share */
+  detail?: { labels?: string[]; hit?: string[]; veto?: string[]; frames?: number; hits?: number; share?: number } & Record<string, unknown>;
 }
 
 export interface AssetUrl {

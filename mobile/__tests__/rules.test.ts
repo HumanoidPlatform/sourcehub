@@ -60,8 +60,8 @@ describe("checkCapture", () => {
   // four fifths of the videos the server is happy to take.
   it("holds a video to the video cap", () => {
     const spec: CaptureSpec = { media: ["video"] };
-    expect(checkCapture({ ...good, kind: "video", size: 40 * MB }, spec)).toEqual([]);
-    expect(codes(checkCapture({ ...good, kind: "video", size: 101 * MB }, spec))).toEqual(["size"]);
+    expect(checkCapture({ ...good, kind: "video", size: 400 * MB }, spec)).toEqual([]);
+    expect(codes(checkCapture({ ...good, kind: "video", size: 2049 * MB }, spec))).toEqual(["size"]);
   });
 
   it("refuses a capture below the megapixel floor", () => {
@@ -81,6 +81,79 @@ describe("checkCapture", () => {
     const spec: CaptureSpec = { media: ["photo", "video"], min_megapixels: 12 };
     expect(checkCapture({ ...good, kind: "video", width: null, height: null }, spec)).toEqual([]);
     expect(checkCapture({ ...good, width: undefined, height: undefined }, spec)).toEqual([]);
+  });
+
+  it("refuses a clip outside the length the client asked for", () => {
+    const spec: CaptureSpec = { media: ["video"], min_duration_s: 30, max_duration_s: 120 };
+    const clip: Facts = { ...good, kind: "video", width: 1920, height: 1080 };
+    expect(checkCapture({ ...clip, duration: 45 }, spec)).toEqual([]);
+    expect(checkCapture({ ...clip, duration: 12 }, spec)[0]).toMatchObject({
+      code: "duration",
+      severity: "block",
+      message: "This task asks for clips of at least 30 s; that one is 12 s.",
+    });
+    expect(checkCapture({ ...clip, duration: 130 }, spec)[0]).toMatchObject({
+      code: "duration",
+      message: "This task takes clips of up to 120 s; that one is 130 s.",
+    });
+  });
+
+  it("gives a clip a second either way: the timer and the file disagree by a frame", () => {
+    const spec: CaptureSpec = { media: ["video"], min_duration_s: 30, max_duration_s: 120 };
+    const clip: Facts = { ...good, kind: "video", width: 1920, height: 1080 };
+    expect(checkCapture({ ...clip, duration: 29.2 }, spec)).toEqual([]);
+    expect(checkCapture({ ...clip, duration: 120.8 }, spec)).toEqual([]);
+  });
+
+  it("caps a clip at the global limit when the client set none, and never above it", () => {
+    const clip: Facts = { ...good, kind: "video", width: 1920, height: 1080 };
+    expect(checkCapture({ ...clip, duration: 599 }, { media: ["video"] })).toEqual([]);
+    expect(codes(checkCapture({ ...clip, duration: 700 }, { media: ["video"] }))).toEqual(["duration"]);
+    expect(codes(checkCapture({ ...clip, duration: 700 }, { media: ["video"], max_duration_s: 900 }))).toEqual(["duration"]);
+    // no timer, no verdict
+    expect(checkCapture({ ...clip, duration: null }, { media: ["video"], min_duration_s: 30 })).toEqual([]);
+  });
+
+  it("holds a clip's short side to the lines asked for, whichever way it was held", () => {
+    const spec: CaptureSpec = { media: ["video"], min_video_lines: 1080 };
+    expect(checkCapture({ ...good, kind: "video", width: 1920, height: 1080 }, spec)).toEqual([]);
+    expect(checkCapture({ ...good, kind: "video", width: 1080, height: 1920 }, spec)).toEqual([]);
+    expect(checkCapture({ ...good, kind: "video", width: 1280, height: 720 }, spec)[0]).toMatchObject({
+      code: "video_lines",
+      severity: "block",
+      message: "This task asks for 1080p video; that clip is 720p.",
+    });
+    // a photo is held to megapixels, not lines; unknown dimensions say nothing
+    expect(checkCapture({ ...good, width: 1280, height: 720 }, { ...spec, media: ["photo", "video"] })).toEqual([]);
+    expect(checkCapture({ ...good, kind: "video", width: null, height: null }, spec)).toEqual([]);
+  });
+
+  // A clip is judged by how the phone was HELD, not by the frame the encoder
+  // wrote: an app locked to portrait tags every recording portrait, and reading
+  // the frame refused landscape clips that were shot correctly.
+  it("judges a clip by the hold, whatever the frame says", () => {
+    const spec: CaptureSpec = { media: ["video"], orientation: "landscape" };
+    const portraitFrame: Facts = { ...good, kind: "video", width: 1080, height: 1920 };
+    expect(checkCapture({ ...portraitFrame, heldOrientation: "landscape" }, spec)).toEqual([]);
+    expect(checkCapture({ ...portraitFrame, heldOrientation: "portrait" }, spec)[0]).toMatchObject({
+      code: "orientation",
+      severity: "block",
+      message: "This task asks for landscape captures; the phone was held portrait.",
+    });
+  });
+
+  it("falls back to the frame for a clip with no hold recorded, as a gallery pick has", () => {
+    const spec: CaptureSpec = { media: ["video"], orientation: "landscape" };
+    expect(codes(checkCapture({ ...good, kind: "video", width: 1080, height: 1920 }, spec))).toEqual(["orientation"]);
+    expect(checkCapture({ ...good, kind: "video", width: 1920, height: 1080 }, spec)).toEqual([]);
+    // nothing to go on at all: no complaint rather than a guess
+    expect(checkCapture({ ...good, kind: "video", width: null, height: null }, spec)).toEqual([]);
+  });
+
+  it("holds a photo to its own frame, hold or no hold", () => {
+    const spec: CaptureSpec = { media: ["photo"], orientation: "landscape" };
+    expect(codes(checkCapture({ ...good, width: 3024, height: 4032, heldOrientation: "landscape" }, spec))).toEqual(["orientation"]);
+    expect(checkCapture({ ...good, heldOrientation: "portrait" }, spec)).toEqual([]);
   });
 
   it("refuses the wrong orientation", () => {
@@ -183,7 +256,7 @@ describe("blocking", () => {
   // three of them is refused three times over and reaches nothing.
   it("keeps every stated condition", () => {
     const f = checkCapture(
-      { kind: "video", size: 200 * MB, width: 640, height: 480, fix: null },
+      { kind: "video", size: 3000 * MB, width: 640, height: 480, fix: null },
       { media: ["photo"], min_megapixels: 12, require_gps: true },
     );
     expect(codes(f)).toEqual(["media_kind", "size", "gps_missing"]);

@@ -140,6 +140,8 @@ interface Draft {
   capture_media: string[]; capture_notes: string;
   capture_require_gps: boolean; capture_orientation: string; capture_min_megapixels: string;
   capture_max_tilt_deg: string;
+  capture_min_duration_s: string; capture_max_duration_s: string; capture_min_video_lines: string;
+  capture_allow_library: boolean;
   acceptance: string; qt_min_pass_rate_pct: string;
   rp_max_retakes: string; rp_retake_window_days: string;
   rp_rework_cost_bearer: string; rp_partial_acceptance_allowed: boolean;
@@ -162,6 +164,8 @@ const BLANK: Draft = {
   capture_media: [], capture_notes: "",
   capture_require_gps: false, capture_orientation: "", capture_min_megapixels: "",
   capture_max_tilt_deg: "",
+  capture_min_duration_s: "", capture_max_duration_s: "", capture_min_video_lines: "",
+  capture_allow_library: false,
   acceptance: "", qt_min_pass_rate_pct: "",
   rp_max_retakes: "", rp_retake_window_days: "",
   rp_rework_cost_bearer: "", rp_partial_acceptance_allowed: false,
@@ -251,6 +255,10 @@ export function RequestNewPage() {
       capture_orientation: cap.orientation ?? "",
       capture_min_megapixels: String(cap.min_megapixels ?? ""),
       capture_max_tilt_deg: String(cap.max_tilt_deg ?? ""),
+      capture_min_duration_s: String(cap.min_duration_s ?? ""),
+      capture_max_duration_s: String(cap.max_duration_s ?? ""),
+      capture_min_video_lines: String(cap.min_video_lines ?? ""),
+      capture_allow_library: !!cap.allow_library,
       qt_min_pass_rate_pct: String(qt.min_pass_rate_pct ?? ""),
       rp_max_retakes: String(rp.max_retakes ?? ""),
       rp_retake_window_days: String(rp.retake_window_days ?? ""),
@@ -278,7 +286,8 @@ export function RequestNewPage() {
     setGuidelineFiles(fromServer(files.filter((a) => a.slot === "guidelines")));
     // Reopen a draft with its optional blocks already open if they hold
     // anything. Collapsing a section that has content in it reads as data loss.
-    setShowCapture(!!(cap.min_megapixels || cap.orientation || cap.max_tilt_deg || cap.require_gps || cap.notes));
+    setShowCapture(!!(cap.min_megapixels || cap.orientation || cap.max_tilt_deg || cap.require_gps || cap.notes
+      || cap.min_duration_s || cap.max_duration_s || cap.min_video_lines || cap.allow_library));
     setShowRejection(Object.values(rp).some((v) => v !== null && v !== undefined && v !== false));
     setLoaded(true);
   }
@@ -300,6 +309,10 @@ export function RequestNewPage() {
   // client's own capture_media is left untouched so switching sites -> photos
   // -> sites does not lose their selection.
   const impliedMedia = UNIT_IMPLIES_MEDIA[d.target_unit as TargetUnit];
+  // Which capture fields can apply. Nothing chosen yet shows them all.
+  const chosenMedia = impliedMedia ?? d.capture_media;
+  const wantsPhoto = chosenMedia.length === 0 || chosenMedia.includes("photo");
+  const wantsVideo = chosenMedia.length === 0 || chosenMedia.includes("video");
   // "Something else" says nothing on its own, so the objective carries it.
   const otherUseCase = d.use_case === "other";
 
@@ -341,6 +354,10 @@ export function RequestNewPage() {
           require_gps: d.capture_require_gps || null,
           min_megapixels: num(d.capture_min_megapixels),
           max_tilt_deg: num(d.capture_max_tilt_deg),
+          min_duration_s: num(d.capture_min_duration_s),
+          max_duration_s: num(d.capture_max_duration_s),
+          min_video_lines: num(d.capture_min_video_lines),
+          allow_library: d.capture_allow_library || null,
         }),
 
         acceptance: str(d.acceptance),
@@ -635,14 +652,16 @@ export function RequestNewPage() {
               <input type="checkbox" checked={showCapture} onChange={(e) => setShowCapture(e.target.checked)} />
               <span>
                 Add capture detail
-                <span className="cl-sub">Resolution, orientation, squareness, whether a GPS fix is required.</span>
+                <span className="cl-sub">Resolution, orientation, squareness, whether a GPS fix is required; a clip's length and size.</span>
               </span>
             </label>
             {showCapture && (
               <>
-                <Field label="Minimum megapixels" hint="Photo only. Blank for no floor.">
-                  {(id) => <input id={id} className={inputCls} type="number" min={0} step="0.1" value={d.capture_min_megapixels} onChange={set("capture_min_megapixels")} placeholder="12" />}
-                </Field>
+                {wantsPhoto && (
+                  <Field label="Minimum megapixels" hint="Blank for no floor.">
+                    {(id) => <input id={id} className={inputCls} type="number" min={0} step="0.1" value={d.capture_min_megapixels} onChange={set("capture_min_megapixels")} placeholder="12" />}
+                  </Field>
+                )}
                 <Field label="Orientation">
                   {(id) => (
                     <select id={id} className={selectCls} value={d.capture_orientation} onChange={set("capture_orientation")}>
@@ -668,6 +687,35 @@ export function RequestNewPage() {
                     <span className="cl-sub">Rejects anything taken with location switched off.</span>
                   </span>
                 </label>
+                {/* Video only. The phone refuses a clip outside these before it uploads
+                    a byte; the camera stops recording at the maximum. */}
+                {wantsVideo && (
+                  <>
+                    <Field label="Shortest clip" hint="Seconds. Blank for no minimum.">
+                      {(id) => <input id={id} className={inputCls} type="number" min={0} step="1" value={d.capture_min_duration_s} onChange={set("capture_min_duration_s")} placeholder="30" />}
+                    </Field>
+                    <Field label="Longest clip" hint="Seconds, up to 600. The camera stops there.">
+                      {(id) => <input id={id} className={inputCls} type="number" min={1} max={600} step="1" value={d.capture_max_duration_s} onChange={set("capture_max_duration_s")} placeholder="120" />}
+                    </Field>
+                    <Field label="Video size" hint="The short side of the frame, whichever way the phone is held.">
+                      {(id) => (
+                        <select id={id} className={selectCls} value={d.capture_min_video_lines} onChange={set("capture_min_video_lines")}>
+                          <option value="">Any</option>
+                          <option value="720">At least 720p</option>
+                          <option value="1080">At least 1080p</option>
+                          <option value="2160">At least 2160p (4K)</option>
+                        </select>
+                      )}
+                    </Field>
+                    <label className="checkline span">
+                      <input type="checkbox" checked={d.capture_allow_library} onChange={(e) => setD((x) => ({ ...x, capture_allow_library: e.target.checked }))} />
+                      <span>
+                        Allow clips from the phone's gallery
+                        <span className="cl-sub">Otherwise every clip is recorded in the app, where it was and when it says.</span>
+                      </span>
+                    </label>
+                  </>
+                )}
               </>
             )}
 
@@ -1359,6 +1407,15 @@ export function RequestDetailPage() {
               : []),
             ...(r.spec.capture.max_tilt_deg
               ? [["Squareness", `Within ${r.spec.capture.max_tilt_deg}° of square`] as [string, React.ReactNode]]
+              : []),
+            ...(r.spec.capture.min_duration_s || r.spec.capture.max_duration_s
+              ? [["Clip length", `${r.spec.capture.min_duration_s ?? 0}–${r.spec.capture.max_duration_s ?? 600} s`] as [string, React.ReactNode]]
+              : []),
+            ...(r.spec.capture.min_video_lines
+              ? [["Video size", `At least ${r.spec.capture.min_video_lines}p`] as [string, React.ReactNode]]
+              : []),
+            ...(r.spec.capture.allow_library
+              ? [["Gallery", "Clips may be picked from the phone's gallery"] as [string, React.ReactNode]]
               : []),
             ...(r.spec.capture.require_gps
               ? [["GPS", "A fix is required on every capture"] as [string, React.ReactNode]]

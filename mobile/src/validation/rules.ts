@@ -6,9 +6,11 @@
 // A condition the client stated is a gate, not advice.
 //
 //   BLOCK every condition the client set in the request: the media kind, the
-//   size cap, the megapixel floor, the orientation, the tilt tolerance, and a
-//   GPS fix where one was required. The capture is deleted and never queued,
-//   so nothing that breaks a stated condition enters the system at all.
+//   size cap, the megapixel floor, a clip's length and frame size, the
+//   orientation, the tilt tolerance, and a GPS fix where one was required.
+//   The capture is deleted and never queued, so nothing that breaks a stated
+//   condition enters the system at all. (A clip's frames are judged the same
+//   way, one step later, in validation/clip.ts.)
 //
 //   WARN on the two signals that describe the FIX rather than the image, and
 //   that the worker cannot do anything about: a position that fell back to the
@@ -23,7 +25,7 @@
 // (db/outbox.ts recordRejections), which is the only place it can be.
 
 import type { CaptureSpec } from "@/api/types";
-import { MAX_FIX_ACCURACY_M, MAX_PHOTO_BYTES, MAX_VIDEO_BYTES } from "@/config";
+import { MAX_FIX_ACCURACY_M, MAX_PHOTO_BYTES, MAX_VIDEO_BYTES, MAX_VIDEO_SECONDS } from "@/config";
 
 export type Kind = "photo" | "video";
 export type Severity = "block" | "warn";
@@ -46,10 +48,15 @@ export interface Facts {
   height?: number | null;
   /** the EXIF Orientation tag, when the camera wrote one; see displayedSize */
   exifOrientation?: number | null;
+  /** seconds of video, when known: the recording timer, or the gallery's metadata */
+  duration?: number | null;
   /** null when no position could be obtained at all */
   fix?: { accuracy: number | null; stale: boolean } | null;
   /** null when the device has no accelerometer, or none was read in time */
   tilt?: { off: number } | null;
+  /** how the phone was actually held, sampled while the shutter was open or
+   *  the recording ran; null when nothing could be read (see capture/tilt.ts) */
+  heldOrientation?: "portrait" | "landscape" | null;
 }
 
 /** The kinds this task accepts.
@@ -139,6 +146,45 @@ export function checkCapture(
     });
   }
 
+  // Length, where the client bounded it. One second of tolerance either way:
+  // the recording timer and the container disagree by a frame or two, and a
+  // 29.6 s clip on a 30 s task is the task's own cap rounding, not a short
+  // clip. The global cap is what the camera enforces while recording; a
+  // gallery pick is the one way a longer file can get here.
+  if (facts.kind === "video" && facts.duration != null) {
+    const lo = numeric(spec?.min_duration_s);
+    const hi = Math.min(numeric(spec?.max_duration_s) ?? MAX_VIDEO_SECONDS, MAX_VIDEO_SECONDS);
+    const got = Math.round(facts.duration);
+    if (lo != null && facts.duration < lo - 1) {
+      out.push({
+        code: "duration",
+        severity: "block",
+        message: `This task asks for clips of at least ${lo} s; that one is ${got} s.`,
+      });
+    } else if (facts.duration > hi + 1) {
+      out.push({
+        code: "duration",
+        severity: "block",
+        message: `This task takes clips of up to ${hi} s; that one is ${got} s.`,
+      });
+    }
+  }
+
+  // Frame size for a clip: "at least 1080p" is the short side of the frame,
+  // whichever way the phone was held. The megapixel floor below is the photo
+  // equivalent; a client states one or the other.
+  const lines = numeric(spec?.min_video_lines);
+  if (lines != null && facts.kind === "video" && facts.width && facts.height) {
+    const short = Math.min(facts.width, facts.height);
+    if (short < lines) {
+      out.push({
+        code: "video_lines",
+        severity: "block",
+        message: `This task asks for ${lines}p video; that clip is ${short}p.`,
+      });
+    }
+  }
+
   // Resolution and orientation both need dimensions, and the megapixel floor
   // is asked for photos only — the console labels the field "Photo only".
   const min = numeric(spec?.min_megapixels);
@@ -156,11 +202,32 @@ export function checkCapture(
     }
   }
 
+  // Orientation, from how the phone was HELD where that was measured.
+  //
+  // A recording's own frame is not evidence: with the app locked to portrait
+  // the encoder tags every clip portrait however the phone was turned, and
+  // reading the first frame refused landscape clips that were shot correctly.
+  // The accelerometer knows (capture/tilt.ts heldOrientation), and the capture
+  // screen samples it for the length of the recording.
+  //
+  // A photo has no such history and does not need one: its EXIF Orientation
+  // and stored size say how it will be displayed, which displayedSize reads.
+  // A clip picked from the gallery has neither, so the frame is the fallback.
   const want = wantedOrientation(spec?.orientation);
-  if (want && facts.width && facts.height) {
-    const shown = displayedSize(facts.width, facts.height, facts.exifOrientation);
-    const got = shown.width >= shown.height ? "landscape" : "portrait";
-    if (got !== want) {
+  if (want) {
+    const shown =
+      facts.width && facts.height
+        ? displayedSize(facts.width, facts.height, facts.exifOrientation)
+        : null;
+    const got =
+      facts.kind === "video"
+        ? (facts.heldOrientation ?? (shown ? (shown.width >= shown.height ? "landscape" : "portrait") : null))
+        : shown
+          ? shown.width >= shown.height
+            ? "landscape"
+            : "portrait"
+          : null;
+    if (got && got !== want) {
       out.push({
         code: "orientation",
         severity: "block",

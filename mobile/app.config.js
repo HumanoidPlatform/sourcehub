@@ -26,5 +26,13 @@ module.exports = ({ config }) => {
       : p,
   );
 
-  return { ...config, ios: { ...config.ios, infoPlist }, plugins };
+  // return { ...config, ios: { ...config.ios, infoPlist }, plugins };
+  const variant = process.env.APP_VARIANT === "video";
+    return {
+      ...config,
+      name: variant ? "DataMind360 Capture (video)" : config.name,
+      ios: { ...config.ios, infoPlist, bundleIdentifier: variant ? "com.cosarathi.capture.video" : config.ios.bundleIdentifier },
+      android: { ...config.android, package: variant ? "com.cosarathi.capture.video" : config.android.package },
+      plugins,
+    };
 };

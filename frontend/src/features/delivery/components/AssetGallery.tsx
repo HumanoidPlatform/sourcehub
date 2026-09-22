@@ -132,8 +132,9 @@ function AssetThumb({
       <span className="tag">{meta.label}</span>
       {subjectCheck(asset) && (
         // Amber: the phone thought this showed the wrong thing and the worker
-        // kept it anyway. Grey: the phone could not look at all. Either way a
-        // hint for the reviewer's eye, not a verdict.
+        // kept it anyway, or a clip stood still or went dark for part of its
+        // length. Grey: the phone could not look at all. Either way a hint for
+        // the reviewer's eye, not a verdict.
         <span
           className="tag"
           title={subjectCheck(asset)!.message}
@@ -141,10 +142,10 @@ function AssetThumb({
             top: 3,
             left: 3,
             bottom: "auto",
-            background: subjectCheck(asset)!.code === "wrong_subject" ? "#B45309" : "#5B6873",
+            background: BADGE[subjectCheck(asset)!.code]?.tone === "grey" ? "#5B6873" : "#B45309",
           }}
         >
-          {subjectCheck(asset)!.code === "wrong_subject" ? "subject?" : "unchecked"}
+          {BADGE[subjectCheck(asset)!.code]?.text ?? subjectCheck(asset)!.code}
         </span>
       )}
       {onRemove && (
@@ -169,12 +170,23 @@ function AssetThumb({
   );
 }
 
-/** the phone's domain verdict on this capture, if it gave one */
+/** The one badge a tile carries, most telling first: the phone's domain
+ *  verdict, then what a clip's frames showed, then that it could not look. */
+const BADGE: Record<string, { text: string; tone: "amber" | "grey" }> = {
+  wrong_subject: { text: "subject?", tone: "amber" },
+  black: { text: "dark", tone: "amber" },
+  frozen: { text: "still", tone: "amber" },
+  subject_unscored: { text: "unchecked", tone: "grey" },
+  clip_unchecked: { text: "unchecked", tone: "grey" },
+};
+
 function subjectCheck(asset: AssetRow) {
-  return (
-    (asset.device_checks ?? []).find((c) => c.code === "wrong_subject" || c.code === "subject_unscored") ??
-    null
-  );
+  const checks = asset.device_checks ?? [];
+  for (const code of Object.keys(BADGE)) {
+    const c = checks.find((x) => x.code === code);
+    if (c) return c;
+  }
+  return null;
 }
 
 function AssetPreview({ asset, onClose }: { asset: AssetRow; onClose: () => void }) {

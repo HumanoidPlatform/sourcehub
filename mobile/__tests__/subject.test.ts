@@ -2,7 +2,7 @@
 
 import type { SubjectSpec } from "@/api/types";
 import { SUBJECT_OFF } from "@/config";
-import { scoreSubject, subjectFinding, unscoredFinding, words } from "@/validation/subject";
+import { framesFinding, scoreFrames, scoreSubject, subjectFinding, unscoredFinding, words } from "@/validation/subject";
 
 const shelf: SubjectSpec = {
   domain: "retail shelf",
@@ -75,6 +75,40 @@ describe("subjectFinding", () => {
     expect(subjectFinding(scoreSubject([], shelf), shelf)?.message).toBe(
       "Doesn't look like retail shelf. Nothing recognisable in it.",
     );
+  });
+});
+
+describe("scoreFrames: a clip is judged by the share of frames that pass", () => {
+  const on = { score: 0.8, hit: ["Shelf"], veto: [], seen: ["Shelf", "Supermarket"] };
+  const off = { score: 0.1, hit: [], veto: [], seen: ["Floor", "Tile"] };
+
+  it("counts the frames at or over SUBJECT_OFF", () => {
+    const f = scoreFrames([on, on, off, { ...off, score: SUBJECT_OFF }]);
+    expect(f).toMatchObject({ frames: 4, hits: 3, share: 0.75 });
+  });
+
+  it("names what was seen most often across the clip, most often first", () => {
+    const f = scoreFrames([on, off, off]);
+    expect(f.seen.slice(0, 2)).toEqual(["Floor", "Tile"]);
+    expect(f.hit).toEqual(["Shelf"]);
+  });
+
+  it("passes at exactly the share asked for and warns just under it", () => {
+    const frames = [on, on, on, on, on, on, on, off, off, off]; // 7 of 10
+    expect(framesFinding(scoreFrames(frames), shelf)).toBeNull();
+    const f = framesFinding(scoreFrames([...frames.slice(0, 6), off, off, off, off]), shelf); // 6 of 10
+    expect(f).toMatchObject({
+      code: "wrong_subject",
+      severity: "warn",
+      score: 0.6,
+      message: "Looked like retail shelf in 6 of 10 frames. Saw: shelf, supermarket, floor, tile.",
+    });
+    expect(f?.detail).toMatchObject({ frames: 10, hits: 6, labels: ["Shelf", "Supermarket", "Floor", "Tile"] });
+  });
+
+  it("says so when nothing at all was recognised", () => {
+    const f = framesFinding(scoreFrames([{ score: 0, hit: [], veto: [], seen: [] }]), shelf);
+    expect(f?.message).toBe("Looked like retail shelf in 0 of 1 frames. Nothing recognisable in it.");
   });
 });
 

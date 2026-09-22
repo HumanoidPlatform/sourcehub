@@ -1,4 +1,4 @@
-// The domain check: does this photo show what the task is about?
+// The domain check: does this photo, or this clip, show what the task is about?
 //
 // The phone cannot judge a shelf the way a reviewer can, but it can tell a
 // shelf from a dog, a floor, a selfie or a screenshot — which is most of what
@@ -14,15 +14,20 @@
 // not trusted to judge its own captures, and a false refusal is invisible
 // and unpaid while a false pass is caught at gate 1.
 //
-// scoreSubject, subjectFinding and unscoredFinding are pure and unit-tested;
-// labelImage is the one native call. Wherever it cannot answer — Expo Go, an
-// older build, a native error, a slow first run — it says WHY, and that
-// reason rides with the upload as a warning of its own. A skipped check that
-// looks exactly like a passed one cost a day of "is the pipeline even there?";
-// it is not allowed to be silent again.
+// A clip is the same check over its sampled frames (capture/frames.ts picks
+// them): scoreFrames counts how many of them pass, framesFinding warns when
+// too few do. Every frame costs one labeller call, which is why the sampling
+// has a budget rather than a fixed count.
+//
+// scoreSubject, subjectFinding, scoreFrames, framesFinding and unscoredFinding
+// are pure and unit-tested; labelImage is the one native call. Wherever it
+// cannot answer — Expo Go, an older build, a native error, a slow first run —
+// it says WHY, and that reason rides with the upload as a warning of its own.
+// A skipped check that looks exactly like a passed one cost a day of "is the
+// pipeline even there?"; it is not allowed to be silent again.
 
 import type { SubjectSpec } from "@/api/types";
-import { SUBJECT_OFF } from "@/config";
+import { SUBJECT_FRAMES_MIN_SHARE, SUBJECT_OFF } from "@/config";
 import type { Finding } from "./rules";
 
 export interface Label {
@@ -84,6 +89,55 @@ export function subjectFinding(r: SubjectScore, subject: SubjectSpec): Finding |
     message: `Doesn't look like ${subject.domain}. ${saw}`,
     score: Number(r.score.toFixed(3)),
     detail: { labels: r.seen, hit: r.hit, veto: r.veto },
+  };
+}
+
+/** A clip, scored frame by frame. */
+export interface FramesScore {
+  frames: number;
+  /** frames whose own score reached SUBJECT_OFF */
+  hits: number;
+  /** hits / frames */
+  share: number;
+  /** the labels seen most often across the frames, most often first, at most five */
+  seen: string[];
+  hit: string[];
+  veto: string[];
+}
+
+function mostCommon(lists: string[][]): string[] {
+  const count = new Map<string, number>();
+  for (const l of lists) for (const s of l) count.set(s, (count.get(s) ?? 0) + 1);
+  return [...count.entries()].sort((a, b) => b[1] - a[1]).map(([s]) => s);
+}
+
+/** A clip shows the subject when MOST of its sampled frames do: a pan across
+ *  the aisle floor between two shelves is not a clip of the floor. Each frame
+ *  is judged by the same SUBJECT_OFF as a photo; the share is what decides. */
+export function scoreFrames(perFrame: SubjectScore[]): FramesScore {
+  const hits = perFrame.filter((r) => r.score >= SUBJECT_OFF).length;
+  return {
+    frames: perFrame.length,
+    hits,
+    share: perFrame.length > 0 ? hits / perFrame.length : 0,
+    seen: mostCommon(perFrame.map((r) => r.seen)).slice(0, 5),
+    hit: mostCommon(perFrame.map((r) => r.hit)).slice(0, 5),
+    veto: mostCommon(perFrame.map((r) => r.veto)).slice(0, 5),
+  };
+}
+
+/** The warning a clip that mostly missed becomes; null when enough of it
+ *  looked on-subject. The same code as a photo's, so the reviewer's badge
+ *  and the gate-1 ordering need no second rule. */
+export function framesFinding(f: FramesScore, subject: SubjectSpec): Finding | null {
+  if (f.share >= SUBJECT_FRAMES_MIN_SHARE) return null;
+  const saw = f.seen.length > 0 ? `Saw: ${f.seen.join(", ").toLowerCase()}.` : "Nothing recognisable in it.";
+  return {
+    code: "wrong_subject",
+    severity: "warn",
+    message: `Looked like ${subject.domain} in ${f.hits} of ${f.frames} frames. ${saw}`,
+    score: Number(f.share.toFixed(3)),
+    detail: { labels: f.seen, hit: f.hit, veto: f.veto, frames: f.frames, hits: f.hits },
   };
 }
 

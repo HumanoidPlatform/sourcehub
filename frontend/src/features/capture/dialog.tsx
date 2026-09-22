@@ -32,7 +32,11 @@ const SPEC_LABEL: Record<string, string> = {
   orientation: "Orientation",
   require_gps: "GPS fix",
   max_tilt_deg: "Squareness",
+  min_duration_s: "Minimum length",
   max_duration_s: "Maximum length",
+  min_video_lines: "Video size",
+  allow_library: "Gallery picks",
+  subject: "Subject",
   notes: "Notes",
   languages: "Languages",
 };
@@ -47,7 +51,10 @@ function specRows(spec: CaptureSpec | null | undefined, targetUnit: string | nul
     if (k === "media") text = mediaKinds(spec, targetUnit).join(" or ");
     else if (k === "require_gps") text = v ? "required on every capture" : "not required";
     else if (k === "max_tilt_deg") text = `within ${String(v)}° of square`;
-    else if (k === "max_duration_s") text = `${String(v)} s`;
+    else if (k === "max_duration_s" || k === "min_duration_s") text = `${String(v)} s`;
+    else if (k === "min_video_lines") text = `at least ${String(v)}p`;
+    else if (k === "allow_library") text = v ? "allowed" : "not allowed";
+    else if (k === "subject") text = typeof v === "object" && v && "domain" in v ? String((v as { domain: string }).domain) : String(v);
     else text = Array.isArray(v) ? v.join(", ") : String(v);
     rows.push([SPEC_LABEL[k] ?? k.replace(/_/g, " "), text]);
   }
@@ -309,7 +316,7 @@ export function AssignmentUploadDialog({ assignment: a, onClose }: { assignment:
           />
           <div className="btnrow" style={{ alignItems: "center" }}>
             <Button variant="primary" onClick={() => inputRef.current?.click()}>Add files</Button>
-            <span className="small muted">or drop them here · photos {ACCEPT.split(",").filter((x) => !/mp4|mov/.test(x)).join(" ")} · videos .mp4 .mov · 25 MB per photo, 100 MB per video</span>
+            <span className="small muted">or drop them here · photos {ACCEPT.split(",").filter((x) => !/mp4|mov/.test(x)).join(" ")} · videos .mp4 .mov · 25 MB per photo, 2 GB per video</span>
           </div>
 
           {queue.items.length > 0 && (

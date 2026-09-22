@@ -104,6 +104,10 @@ with the same `version` string**.
 - Changing native code? **Bump `version` and make a new build.** Skip the bump and an update built for new
   native code is delivered to old binaries that do not contain it — which crashes them on launch.
 
+The clip checks (September 2026) were such a change — `expo-video-thumbnails`, `expo-image-manipulator` and
+`expo-image-picker` are native — so `version` went from `0.1.0` to `0.2.0`. Phones on the `0.1.0` build keep
+receiving `0.1.0` updates until they install the `0.2.0` APK; nothing published for `0.2.0` reaches them.
+
 Same rule stated once more, because it is the one people get wrong: `version` tracks *native* compatibility, not
 "how much changed".
 

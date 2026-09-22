@@ -90,7 +90,29 @@ green *Looks like …* line in the viewfinder. `EXPO_PUBLIC_SUBJECT_STUB` in
 `.env` fakes the labels for trying the dialog in Expo Go. `SUBJECT_OFF` and
 `SUBJECT_DIALOG` in `src/config.ts` are the cut and the shadow switch.
 
+A clip gets the same treatment through its frames (`src/validation/clip.ts`,
+`src/capture/frames.ts`): one frame every five seconds, three to forty of
+them, inside a 45-second budget. Each frame is labelled and scored like a
+photo, and the clip passes when most of them do (`SUBJECT_FRAMES_MIN_SHARE`);
+the same frames, shrunk to 16×16, tell a dark clip (refused past half its
+frames) from a still one (a warning — a tripod shot looks the same as a
+stalled encoder). Before any of that, `rules.ts` refuses a clip outside the
+task's `min_duration_s`–`max_duration_s`, below its `min_video_lines`, or the
+wrong way up. A task with `allow_library` shows a *Gallery* chip so a clip the
+phone already holds can be sent; it goes through every check the same way.
+The viewfinder reads *Checking clip… 12/40* while the frames run.
+
 ## Building the app
+
+`patches/expo-camera+57.0.4.patch` is applied by `npm install` (the `postinstall`
+script). It adds three lines to expo-camera's Android view so a video recording
+follows how the phone is held: upstream rotates stills with the device but not
+the video use case, and with this app locked to portrait every clip came out
+tagged portrait, sideways for the reviewer. Drop the patch when an expo-camera
+changelog says video `targetRotation` follows orientation on Android; until
+then, after `npx expo install expo-camera` to a newer version, check that
+`npx patch-package` still applies (it names the version in the file).
+
 
 ```bash
 npm install -g eas-cli && eas login

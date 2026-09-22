@@ -59,6 +59,10 @@ export const rejectionLabel: Record<string, string> = {
   orientation: "wrong orientation",
   tilt: "beyond the tilt allowed",
   gps_missing: "no GPS fix",
+  duration: "wrong length of clip",
+  video_lines: "below the video size asked for",
+  unreadable: "clip could not be read",
+  black: "clip was dark",
   wrong_subject: "retaken: didn't show the subject",
   subject_unscored: "subject not checked on the phone",
 };

@@ -363,8 +363,8 @@ figcaption b{color:var(--ink-2);font-weight:600}
   <div class="part-no">Part 3</div>
   <h2>On the phone</h2>
   <p class="intro">Everything below is in <code>mobile/src/validation/subject.ts</code> (pure, unit-tested) and
-  <code>mobile/src/capture/useCapture.ts</code> (the wiring). Photos only; a video's frames are left to a later
-  server-side stage.</p>
+  <code>mobile/src/capture/useCapture.ts</code> (the wiring). A clip goes through the same check over its
+  sampled frames, plus two checks of its own; see <a href="#clips">Clips</a> at the end of this part.</p>
 
   <section id="shutter">
     <h3>At the shutter</h3>
@@ -452,6 +452,46 @@ seen  = the five most confident labels, for the reviewer</pre></div>
     <code>mobile/.env</code> makes every photo "see" those labels. It must be absent in any build that leaves the
     developer's machine.</p>
   </section>
+
+  <section id="clips">
+    <h3>Clips</h3>
+    <p>A video is checked on the phone exactly where a photo is — after the file is on disk, before it enters the
+    outbox — and by the same rule: a stated condition blocks, a judgement warns. The server records what the phone
+    found and acts on none of it. Nothing runs server-side; there is no ffmpeg, no worker, no new status.</p>
+    <p><strong>The facts.</strong> A recording comes back from the camera as a file with no length and no frame
+    size. The capture screen times the recording; <code>capture/frames.ts</code> pulls the first frame with
+    <code>expo-video-thumbnails</code>, which applies the container's rotation, so a portrait clip reads taller
+    than wide. A clip picked from the gallery (allowed only where the task says <code>allow_library</code>) brings
+    its own length and size from the picker. <code>rules.ts</code> then refuses, before a byte is uploaded, a
+    clip outside the task's <code>min_duration_s</code>–<code>max_duration_s</code> (one second of tolerance
+    either way; the camera stops at the maximum), a frame whose short side is under <code>min_video_lines</code>
+    ("at least 1080p"), and the wrong orientation — all recorded on the phone as refusals, like a photo's.</p>
+    <p><strong>The frames.</strong> <code>clip.ts frameTimes()</code> picks one instant every
+    <code>FRAME_EVERY_S</code> (5 s), never fewer than <code>MIN_FRAMES</code> (3) nor more than
+    <code>MAX_FRAMES</code> (40), spread evenly and a quarter-second in from either end. <code>frames.ts</code>
+    visits each: a JPEG of the frame for ML Kit, and a 16×16 grey patch of it (<code>expo-image-manipulator</code>
+    to shrink, <code>jpeg-js</code> to read the pixels — React Native has no other way) for the two clip checks.
+    The whole walk has a budget, <code>FRAMES_BUDGET_MS</code> (45 s); past it the clip is queued with what was seen
+    and a <code>clip_unchecked</code> warning saying how far the phone got. The viewfinder reads
+    <em>Checking clip… 12/40</em> meanwhile.</p>
+    <p><strong>Black and frozen</strong> (<code>clip.ts judgeFrames()</code>). A patch whose mean grey is under
+    <code>BLACK_MEAN</code> (16 of 255) shows nothing — the lens was covered, the phone was in a pocket. Two
+    consecutive patches that differ by less than <code>FROZEN_DIFF</code> (2) are the same picture. Black over
+    <code>STILL_BLOCK_SHARE</code> (50 %) of the frames <em>refuses</em> the clip; over <code>STILL_WARN_SHARE</code>
+    (15 %) it is kept with a warning. Frozen only ever warns: a phone on a tripod filming a still shelf produces
+    exactly the patches a stalled encoder does, and the phone must not throw that work away. The reviewer sees the
+    share and the clip.</p>
+    <p><strong>The subject</strong> (<code>subject.ts scoreFrames()</code>). Every frame gets the photo score;
+    a frame at or over <code>SUBJECT_OFF</code> is a hit. The clip is on-subject when hits reach
+    <code>SUBJECT_FRAMES_MIN_SHARE</code> (70 %) of the frames — a pan across the aisle floor between two shelves
+    is not a clip of the floor. Under that the finding is the same <code>wrong_subject</code> a photo gets, worded
+    <em>Looked like retail shelf in 3 of 12 frames. Saw: floor, tile…</em>, with the frame counts in
+    <code>detail</code>, and the worker sees the same keep-or-retake dialog. The gate-1 ordering and the tile badge
+    need no second rule.</p>
+    <p>A clip's frames are the reason this needs a new build rather than an update: <code>expo-video-thumbnails</code>,
+    <code>expo-image-manipulator</code> and <code>expo-image-picker</code> are native, so <code>app.json</code>
+    moved to <code>0.2.0</code> and the next <code>eas build --profile preview</code> carries a new runtime.</p>
+  </section>
 </div>
 
 <div class="part" id="upload">
@@ -511,6 +551,12 @@ seen  = the five most confident labels, for the reviewer</pre></div>
         <tr><td class="mono">SUBJECT_OFF</td><td class="num">0.30</td><td>Below this the worker is asked. A starting guess, to be replaced by a measured value.</td></tr>
         <tr><td class="mono">SUBJECT_DIALOG</td><td class="mono">true</td><td><code>false</code> is shadow mode: score and attach the finding, never show the dialog. The reviewer still sees everything.</td></tr>
         <tr><td class="mono">LABEL_TIMEOUT_MS</td><td class="num">6000</td><td>Longer than this and the photo is queued with <code>subject_unscored (timeout)</code>. ML Kit's first call loads the model and decodes the full-size JPEG; on a mid-range phone that passed the original two seconds, which is why it is six.</td></tr>
+        <tr><td class="mono">FRAME_EVERY_S · MIN_FRAMES · MAX_FRAMES</td><td class="num">5 · 3 · 40</td><td>How many frames a clip is judged by: one every five seconds, between three and forty.</td></tr>
+        <tr><td class="mono">FRAMES_BUDGET_MS</td><td class="num">45000</td><td>The walk over the frames stops here and the clip is queued with <code>clip_unchecked</code>.</td></tr>
+        <tr><td class="mono">SUBJECT_FRAMES_MIN_SHARE</td><td class="num">0.70</td><td>The share of frames that must pass <code>SUBJECT_OFF</code> for the clip to.</td></tr>
+        <tr><td class="mono">STILL_BLOCK_SHARE · STILL_WARN_SHARE</td><td class="num">0.50 · 0.15</td><td>Black frames over the first share refuse the clip, over the second warn. Frozen frames warn at the second and never refuse.</td></tr>
+        <tr><td class="mono">BLACK_MEAN · FROZEN_DIFF</td><td class="num">16 · 2</td><td>Of 255: a patch darker than the first is black; two patches closer than the second are the same picture.</td></tr>
+        <tr><td class="mono">MAX_VIDEO_SECONDS · MAX_VIDEO_BYTES</td><td class="num">600 · 2 GB</td><td>The caps a task cannot exceed; mirrored in the server and the console.</td></tr>
       </tbody>
     </table></div>
     <div class="decision" data-kind="risk">
@@ -533,9 +579,11 @@ seen  = the five most confident labels, for the reviewer</pre></div>
     <ul>
       <li><strong>Fine distinctions.</strong> "Shelf" is as specific as ML Kit gets; <em>with price tags</em>,
       <em>fully stocked</em>, <em>this brand</em> are out of reach.</li>
-      <li><strong>Video.</strong> Photos only. A first-frame check is possible later; a server can sample frames.</li>
-      <li><strong>Web uploads.</strong> Captures uploaded through the console's own upload dialog carry no labels
-      and are never flagged.</li>
+      <li><strong>Video, beyond its frames.</strong> Shake and stability need optical flow the phone cannot do
+      cheaply; audio is not looked at; nothing is derived for the server (no thumbnails).</li>
+      <li><strong>Web uploads.</strong> Captures uploaded through the console's own upload dialog are held to the
+      stated conditions (length, size, orientation) but carry no labels and no frame checks, and are never
+      flagged for subject.</li>
       <li><strong>Trust.</strong> The device can be lied to. That is fine because it decides nothing; it is why a
       server-side score would be the authoritative one if one is ever needed.</li>
       <li><strong>Learning.</strong> Nothing adapts. The cut is a constant, set by hand from the data above.</li>
@@ -544,9 +592,9 @@ seen  = the five most confident labels, for the reviewer</pre></div>
       <span class="lbl">The upgrade path, if the data asks for it</span>
       <p>A server-side scorer (MobileCLIP-S0 on CPU, ~20 MB, via ONNX Runtime) that embeds each uploaded image
       and scores it against the same subject phrases plus a bank of distractor prompts, and against the
-      client's own <code>capture_examples</code>. It would cover video and web uploads, understand "price tags", and
-      write its verdict beside the phone's — never averaged with it. It needs one worker process and a small
-      table; the design exists in the session notes and is not started.</p>
+      client's own <code>capture_examples</code>. It would cover web uploads, understand "price tags", and
+      write its verdict beside the phone's — never averaged with it. It needs one worker process (with ffmpeg,
+      for clips) and a small table; the design exists in the session notes and is not started.</p>
     </div>
   </section>
 </div>
@@ -745,7 +793,8 @@ seen  = the five most confident labels, for the reviewer</pre></div>
         <tr><td></td><td class="mono">features/qa/pages.tsx</td><td><em>Phone check</em> column</td></tr>
         <tr><td></td><td class="mono">features/delivery/components/AssetGallery.tsx</td><td><code>subject?</code> badge; phone check in the preview</td></tr>
         <tr><td></td><td class="mono">api/types.ts</td><td><code>SubjectSpec</code>, <code>DeviceCheck</code>, <code>off_subject</code>, <code>device_checks</code></td></tr>
-        <tr><td>Phone</td><td class="mono">src/validation/subject.ts</td><td>new: <code>words</code>, <code>scoreSubject</code>, <code>subjectFinding</code>, <code>labelImage</code></td></tr>
+        <tr><td>Phone</td><td class="mono">src/validation/subject.ts</td><td>new: <code>words</code>, <code>scoreSubject</code>, <code>subjectFinding</code>, <code>labelImage</code>; later <code>scoreFrames</code>, <code>framesFinding</code></td></tr>
+        <tr><td></td><td class="mono">src/validation/clip.ts · src/capture/frames.ts</td><td>clips: <code>frameTimes</code>, <code>judgeFrames</code>, <code>stillFindings</code>; the frame walk over the native modules</td></tr>
         <tr><td></td><td class="mono">src/capture/useCapture.ts</td><td><code>CaptureOutcome</code>; keep/retake; EXIF orientation passed through</td></tr>
         <tr><td></td><td class="mono">src/app/(app)/assignments/[id]/capture.tsx</td><td>the dialog; forwards <code>exif.Orientation</code></td></tr>
         <tr><td></td><td class="mono">src/app/(app)/assignments/[id]/index.tsx</td><td><em>What to capture</em> card</td></tr>

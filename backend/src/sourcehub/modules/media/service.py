@@ -49,7 +49,9 @@ class MediaInvalid(Exception):
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".heic", ".webp"}
 VIDEO_EXTENSIONS = {".mp4", ".mov"}
 MAX_IMAGE_BYTES = 25 * 1024 * 1024
-MAX_VIDEO_BYTES = 100 * 1024 * 1024
+# Clips run to minutes now, and the phone checks them before they leave (see
+# mobile/src/validation/clip.ts); a single SAS PUT takes up to 5000 MiB.
+MAX_VIDEO_BYTES = 2 * 1024 * 1024 * 1024
 MAX_ASSETS_PER_ASSIGNMENT = 500
 
 _SHA256 = re.compile(r"^[0-9a-f]{64}$")

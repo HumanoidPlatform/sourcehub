@@ -30,7 +30,7 @@
 // (db/outbox.ts recordRejections), which is the only place it can be.
 
 import type { CaptureSpec } from "@api/types";
-import { MAX_FIX_ACCURACY_M, MAX_PHOTO_BYTES, MAX_VIDEO_BYTES } from "./config";
+import { MAX_FIX_ACCURACY_M, MAX_PHOTO_BYTES, MAX_VIDEO_BYTES, MAX_VIDEO_SECONDS } from "./config";
 
 export type Kind = "photo" | "video";
 export type Severity = "block" | "warn";
@@ -48,6 +48,8 @@ export interface Facts {
   /** pixel dimensions, when the camera reported them */
   width?: number | null;
   height?: number | null;
+  /** seconds of video, when known */
+  duration?: number | null;
   /** null when no position could be obtained at all */
   fix?: { accuracy: number | null; stale: boolean } | null;
   /** null when the device has no accelerometer, or none was read in time */
@@ -122,6 +124,43 @@ export function checkCapture(
       severity: "block",
       message: `A ${facts.kind} is capped at ${Math.round(cap / (1024 * 1024))} MB; that one is ${mb(facts.size)} MB.`,
     });
+  }
+
+  // Length, where the client bounded it. One second of tolerance either way:
+  // a 29.6 s clip on a 30 s task is the task's own cap rounding, not a short
+  // clip. The global cap is what the phone's camera enforces while recording.
+  if (facts.kind === "video" && facts.duration != null) {
+    const lo = numeric(spec?.min_duration_s);
+    const hi = Math.min(numeric(spec?.max_duration_s) ?? MAX_VIDEO_SECONDS, MAX_VIDEO_SECONDS);
+    const got = Math.round(facts.duration);
+    if (lo != null && facts.duration < lo - 1) {
+      out.push({
+        code: "duration",
+        severity: "block",
+        message: `This task asks for clips of at least ${lo} s; that one is ${got} s.`,
+      });
+    } else if (facts.duration > hi + 1) {
+      out.push({
+        code: "duration",
+        severity: "block",
+        message: `This task takes clips of up to ${hi} s; that one is ${got} s.`,
+      });
+    }
+  }
+
+  // Frame size for a clip: "at least 1080p" is the short side of the frame,
+  // whichever way the phone was held. The megapixel floor below is the photo
+  // equivalent; a client states one or the other.
+  const lines = numeric(spec?.min_video_lines);
+  if (lines != null && facts.kind === "video" && facts.width && facts.height) {
+    const short = Math.min(facts.width, facts.height);
+    if (short < lines) {
+      out.push({
+        code: "video_lines",
+        severity: "block",
+        message: `This task asks for ${lines}p video; that clip is ${short}p.`,
+      });
+    }
   }
 
   // Resolution and orientation both need dimensions, and the megapixel floor

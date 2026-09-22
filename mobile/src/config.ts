@@ -26,8 +26,8 @@ export const DEFAULT_API_URL = __DEV__
   : PRODUCTION_API_URL;
 
 export const MAX_PHOTO_BYTES = 25 * 1024 * 1024;
-export const MAX_VIDEO_BYTES = 100 * 1024 * 1024;
-export const MAX_VIDEO_SECONDS = 60;
+export const MAX_VIDEO_BYTES = 2 * 1024 * 1024 * 1024;
+export const MAX_VIDEO_SECONDS = 600;
 /** a fix looser than this is a cell tower, not a location — warn, don't block */
 export const MAX_FIX_ACCURACY_M = 100;
 /** subject score (validation/subject.ts) under which a photo probably shows
@@ -35,6 +35,25 @@ export const MAX_FIX_ACCURACY_M = 100;
 export const SUBJECT_OFF = 0.3;
 /** false = shadow mode: score and report, never ask the worker */
 export const SUBJECT_DIALOG = true;
+
+// A clip is checked through sampled frames (validation/clip.ts, capture/
+// frames.ts): one every FRAME_EVERY_S seconds, never fewer than MIN_FRAMES
+// nor more than MAX_FRAMES, and the whole sampling gives up after
+// FRAMES_BUDGET_MS so a long clip on a slow phone still gets an answer.
+export const FRAME_EVERY_S = 5;
+export const MIN_FRAMES = 3;
+export const MAX_FRAMES = 40;
+export const FRAMES_BUDGET_MS = 45_000;
+/** share of sampled frames that must pass the subject check for the clip to */
+export const SUBJECT_FRAMES_MIN_SHARE = 0.7;
+/** share of frames that are black or frozen: from here the clip is refused */
+export const STILL_BLOCK_SHARE = 0.5;
+/** and from here it is kept with a warning */
+export const STILL_WARN_SHARE = 0.15;
+/** mean grey (0..255) under which a 16×16 frame counts as black */
+export const BLACK_MEAN = 16;
+/** mean absolute grey difference under which two consecutive frames are the same picture */
+export const FROZEN_DIFF = 2;
 
 /** how often the app re-asks the server while in the foreground */
 export const POLL_MS = 30_000;

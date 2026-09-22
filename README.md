@@ -326,6 +326,15 @@ people. Since `db/120_workers_media.sql`:
   storage, then confirms; the API HEADs the object and records what storage
   holds. Presign is idempotent on `(assignment, sha256)`, confirm on a ready
   asset is a no-op, so a phone on a bad connection can retry freely.
+- **The phone is the QA pipeline, for photos and clips alike.** Every stated
+  condition (kind, size, megapixels, orientation, tilt, GPS; a clip's length
+  and frame size) is refused on the device before a byte is uploaded; the
+  subject check (ML Kit labels against `capture_spec.subject`) warns and asks
+  the worker. A clip is judged through sampled frames — one every five
+  seconds, up to forty — for the subject (most frames must show it) and for
+  black or frozen stretches (`mobile/src/validation/clip.ts`). Findings ride
+  up in `asset.check_results.device`; the server records them and acts on
+  none. `docs/sourcehub-qa-pipeline.html` is the write-up.
 - **Gate 1 is the aggregator's own review** (`GET /qa/gate1`, `POST
   /assignments/{id}/decide`). Submitting the task to the delivery partner
   bundles the ready captures of accepted assignments into the submission;
@@ -410,8 +419,8 @@ attempts rather than retrying for ten minutes.
 
 - **Asynchronous ingest**: the pilot confirms an upload synchronously (a HEAD
   on storage; size and etag recorded). Checksum verification, malware
-  scanning, thumbnails and the automated checks wait for the Celery worker
-  pool.
+  scanning, thumbnails and any server-side check wait for the Celery worker
+  pool; every automated check today runs on the capturing device.
 - **Push notifications**: the app polls the bell and refreshes on focus.
 - **TOTP enrolment**: `permission.requires_mfa` is live data and the check is
   wired (`require_mfa`), but enforcement ships off (`MFA_ENFORCEMENT=false`)

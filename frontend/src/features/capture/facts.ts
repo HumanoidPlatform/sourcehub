@@ -137,6 +137,7 @@ export async function deriveFacts(file: File, kind: Kind, probes: Probes = brows
       size: file.size,
       width: dims?.width ?? null,
       height: dims?.height ?? null,
+      duration: video?.duration ?? null,
       // an EXIF position has no accuracy figure; rules.ts treats a null
       // accuracy as "the platform withheld it", which is the right reading
       fix: hasGps ? { accuracy: null, stale: false } : null,

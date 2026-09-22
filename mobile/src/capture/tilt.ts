@@ -20,9 +20,22 @@ export interface Tilt {
   pitch: number;
   /** the worse of the two — what a single tolerance is checked against */
   off: number;
+  /** which way up the phone is being held; null near the 45° boundary, and
+   *  when it lies flat and gravity says nothing about the turn */
+  held: Held | null;
 }
 
+export type Held = "portrait" | "landscape";
+
 const DEG = 180 / Math.PI;
+
+/** How far from the 45° boundary the phone must be before the turn is called.
+ *  Inside that band a hand wobble flips the answer, so it answers nothing. */
+const HELD_MARGIN = 10;
+/** Below this the gravity vector is mostly along the camera axis — the phone
+ *  is flat on a table or pointing at the ceiling, and which way it is turned
+ *  cannot be read from gravity at all. */
+const HELD_MIN_TILT = 0.25;
 
 /** Fold an angle to its deviation from the nearest quarter turn, in [-45, 45].
  *
@@ -53,7 +66,37 @@ export function anglesFrom(gx: number, gy: number, gz: number): Tilt | null {
   if (!Number.isFinite(mag) || mag < 0.1) return null;
   const roll = quarterTurn(Math.atan2(gx, -gy) * DEG);
   const pitch = Math.asin(Math.max(-1, Math.min(1, gz / mag))) * DEG;
-  return { roll, pitch, off: Math.max(Math.abs(roll), Math.abs(pitch)) };
+  return {
+    roll,
+    pitch,
+    off: Math.max(Math.abs(roll), Math.abs(pitch)),
+    held: heldOrientation(gx, gy, gz),
+  };
+}
+
+/** Which way up the phone is being held, from gravity alone. Pure.
+ *
+ * Gravity pulls down the screen's long axis when the phone is upright and
+ * across its short axis when it is turned on its side, so the larger of the
+ * two components names the turn. This is what the ORIENTATION check reads:
+ * a recording's own container says how the encoder tagged it, which on an app
+ * locked to portrait is not the same thing and was refusing landscape clips.
+ *
+ * null rather than a guess in the two cases where gravity cannot answer: near
+ * the 45° diagonal, where the next wobble would say the opposite, and with the
+ * phone near flat, where neither axis carries the pull.
+ */
+export function heldOrientation(gx: number, gy: number, gz: number): Held | null {
+  const mag = Math.hypot(gx, gy, gz);
+  if (!Number.isFinite(mag) || mag < 0.1) return null;
+  const x = Math.abs(gx) / mag;
+  const y = Math.abs(gy) / mag;
+  if (Math.hypot(x, y) < HELD_MIN_TILT) return null;
+  // The angle of the in-screen gravity direction, 0 = straight down the long
+  // axis (portrait), 90 = across the short axis (landscape).
+  const deg = Math.atan2(x, y) * DEG;
+  if (Math.abs(deg - 45) < HELD_MARGIN) return null;
+  return deg > 45 ? "landscape" : "portrait";
 }
 
 /** Watch the phone's attitude until the returned function is called.
