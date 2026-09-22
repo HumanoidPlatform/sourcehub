@@ -38,6 +38,18 @@ const CATEGORIES = [
   ["people_deliverable", "People-based deliverable"],
 ] as const;
 
+const CATEGORY_UNITS: Record<string, TargetUnit> = {
+  image: "records",
+  video: "hours",
+  structured_data: "records",
+  unstructured_data: "records",
+  people_deliverable: "records",
+};
+
+const unitForCategory = (category: string): TargetUnit => CATEGORY_UNITS[category] ?? "records";
+const unitLabel = (unit: string | null | undefined): string =>
+  unit === "records" ? "Units" : unit === "hours" || unit === "audio_hours" ? "Hours" : labelOf(TARGET_UNITS, unit);
+
 const COUNTRY_LOCALES = [
   ["AF", "Afghanistan"], ["AL", "Albania"], ["DZ", "Algeria"], ["AD", "Andorra"],
   ["AO", "Angola"], ["AR", "Argentina"], ["AM", "Armenia"], ["AU", "Australia"],
@@ -419,7 +431,7 @@ interface Draft {
 const BLANK: Draft = {
   title: "", category: "image", compliance_notes: "",
   objective: "", use_case: "",
-  target_quantity: "", target_unit: "photos", location_type: "",
+  target_quantity: "", target_unit: "records", location_type: "",
   countries: [],
   capture_media: [], capture_notes: "",
   capture_require_gps: false, capture_orientation: "", capture_min_megapixels: "",
@@ -505,7 +517,7 @@ export function RequestNewPage() {
       objective: r.objective ?? "", use_case: r.use_case ?? "",
       acceptance: r.acceptance ?? "",
       target_quantity: String(r.spec?.target_quantity ?? ""),
-      target_unit: r.spec?.target_unit ?? "photos",
+      target_unit: r.spec?.target_unit ?? unitForCategory(r.category ?? "image"),
       location_type: r.spec?.location_type ?? "",
       countries: r.spec?.countries ?? [],
       capture_media: mediaList(cap), capture_notes: cap.notes ?? "",
@@ -553,6 +565,15 @@ export function RequestNewPage() {
       if (fieldErr[k]) setFieldErr(({ [k]: _drop, ...rest }) => rest);
       return { ...x, [k]: e.target.value };
     });
+
+  const setCategory = (e: { target: { value: string } }) => {
+    const category = e.target.value;
+    setD((x) => {
+      if (error) setError(null);
+      if (fieldErr.category) setFieldErr(({ category: _drop, ...rest }) => rest);
+      return { ...x, category, target_unit: unitForCategory(category) };
+    });
+  };
 
 
   // Any attachment still in flight. Saving now would attach a key whose bytes
@@ -811,21 +832,28 @@ export function RequestNewPage() {
             <Field label="Request title" required span error={errOf("title")}>
               {(id) => <input id={id} className={inputCls} value={d.title} onChange={set("title")} placeholder="Retail shelf imagery across 12 metro markets" />}
             </Field>
-            <Field label="Category" required error={errOf("category")}>
+            <Field label="Category / Content Type" required error={errOf("category")}>
               {(id) => (
-                <select id={id} className={selectCls} value={d.category} onChange={set("category")}>
+                <select id={id} className={selectCls} value={d.category} onChange={setCategory}>
                   {CATEGORIES.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
                 </select>
               )}
             </Field>
             <Field label="Quantity" required error={errOf("target_quantity")}>
-              {(id) => <input id={id} className={inputCls} type="number" min={1} value={d.target_quantity} onChange={set("target_quantity")} placeholder="25000" />}
-            </Field>
-            <Field label="Content Type" required>
               {(id) => (
-                <select id={id} className={selectCls} value={d.target_unit} onChange={set("target_unit")}>
-                  {TARGET_UNITS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
-                </select>
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <input
+                    id={id}
+                    className={inputCls}
+                    type="number"
+                    min={1}
+                    value={d.target_quantity}
+                    onChange={set("target_quantity")}
+                    placeholder="25000"
+                    style={{ minWidth: 0 }}
+                  />
+                  <span className="small muted" style={{ flex: "none" }}>{unitLabel(d.target_unit)}</span>
+                </div>
               )}
             </Field>
             {impliedMedia ? (
@@ -867,8 +895,12 @@ export function RequestNewPage() {
                 </select>
               )}
             </Field>
-            <Field label="People needed" hint="Roughly, so a partner can size the job.">
-              {(id) => <input id={id} className={inputCls} type="number" min={0} value={d.people_headcount} onChange={set("people_headcount")} />}
+            <Field
+              label="Device Specifications"
+              span
+              hint="Optional device type, model, OS/version, or special hardware requirements."
+            >
+              {(id) => <textarea id={id} className={textareaCls} rows={2} value={d.capture_notes} onChange={set("capture_notes")} placeholder="Android 12+, LiDAR-capable phone, calibrated camera, or other hardware needs." />}
             </Field>
             <Field label="Purpose" hint="Shapes what a partner has to agree to downstream.">
               {(id) => (
@@ -916,9 +948,6 @@ export function RequestNewPage() {
                   hint="Degrees off square. For wall and shelf work — blank for overhead or tabletop."
                 >
                   {(id) => <input id={id} className={inputCls} type="number" min={0} max={45} step="1" value={d.capture_max_tilt_deg} onChange={set("capture_max_tilt_deg")} placeholder="10" />}
-                </Field>
-                <Field label="Capture notes" span>
-                  {(id) => <textarea id={id} className={textareaCls} rows={2} value={d.capture_notes} onChange={set("capture_notes")} placeholder="Full shelf in frame, no glare, shot square on." />}
                 </Field>
                 <label className="checkline span">
                   <input type="checkbox" checked={d.capture_require_gps} onChange={(e) => setD((x) => ({ ...x, capture_require_gps: e.target.checked }))} />
@@ -1120,7 +1149,7 @@ export function RequestNewPage() {
             </label>
             {d.pilot_required && (
               <>
-                <Field label="Pilot size" required error={errOf("pilot_quantity")} hint={`In ${labelOf(TARGET_UNITS, d.target_unit as TargetUnit)}.`}>
+                <Field label="Pilot size" required error={errOf("pilot_quantity")} hint={`In ${unitLabel(d.target_unit)}.`}>
                   {(id) => <input id={id} className={inputCls} type="number" min={1} value={d.pilot_quantity} onChange={set("pilot_quantity")} placeholder="500" />}
                 </Field>
                 <Field label="Pilot due">
@@ -1147,7 +1176,7 @@ export function RequestNewPage() {
             ...(d.objective ? [["Objective", d.objective] as Row] : []),
             ...(d.use_case ? [["Purpose", labelOf(USE_CASES, d.use_case as UseCase)] as Row] : []),
             ["Quantity", d.target_quantity
-              ? `${d.target_quantity} ${labelOf(TARGET_UNITS, d.target_unit as TargetUnit)}`
+              ? `${d.target_quantity} ${unitLabel(d.target_unit)}`
               : "To be agreed"],
             ["Media", d.capture_media.length
               ? d.capture_media.map((m) => labelOf(CAPTURE_MEDIA, m)).join(", ")
@@ -1155,7 +1184,7 @@ export function RequestNewPage() {
             ...(d.countries.length ? [["Location / Locale", d.countries.map(localeLabel).join(", ")] as Row] : []),
             ...(d.location_type
               ? [["Location Type", labelOf(LOCATION_TYPES, d.location_type as LocationType)] as Row] : []),
-            ...(d.people_headcount ? [["People needed", d.people_headcount] as Row] : []),
+            ...(d.capture_notes ? [["Device Specifications", d.capture_notes] as Row] : []),
             ["Acceptance", d.acceptance || "Client review on delivery"],
             ...(d.qt_min_pass_rate_pct
               ? [["Pass rate", `${d.qt_min_pass_rate_pct}%`] as Row] : []),
@@ -1174,7 +1203,7 @@ export function RequestNewPage() {
               ? `${money(d.budget_min || null)} – ${money(d.budget_max || null)}`
               : `${money(d.budget_min || null)} – ${money(d.budget_max || null)} · withheld from bidders`],
             ["Timeline", `${fmtDate(d.starts_on || null)} → ${fmtDate(d.delivery_due_on || null)}`],
-            ...(d.pilot_required ? [["Pilot", `${d.pilot_quantity || "?"} ${labelOf(TARGET_UNITS, d.target_unit as TargetUnit)}${d.pilot_due_on ? ` by ${fmtDate(d.pilot_due_on)}` : ""}`] as Row] : []),
+            ...(d.pilot_required ? [["Pilot", `${d.pilot_quantity || "?"} ${unitLabel(d.target_unit)}${d.pilot_due_on ? ` by ${fmtDate(d.pilot_due_on)}` : ""}`] as Row] : []),
             ...(allFiles.length
               ? [["Attached", allFiles.map((f) => f.filename).join(", ")] as Row] : []),
             ["Delivered to", <DestinationSummary key="dest" id={d.storage_target_id} />],
@@ -1608,7 +1637,7 @@ export function RequestDetailPage() {
             ["Objective", r.objective ?? "—"],
             ["Purpose", labelOf(USE_CASES, r.use_case)],
             ["Quantity", r.spec.target_quantity
-              ? `${r.spec.target_quantity} ${labelOf(TARGET_UNITS, r.spec.target_unit)}`
+              ? `${r.spec.target_quantity} ${unitLabel(r.spec.target_unit)}`
               : "—"],
             ["Media", mediaList(r.spec.capture).length
               ? mediaList(r.spec.capture).map((m) => labelOf(CAPTURE_MEDIA, m)).join(", ")
@@ -1623,7 +1652,7 @@ export function RequestDetailPage() {
               ? [["GPS", "A fix is required on every capture"] as [string, React.ReactNode]]
               : []),
             ...(r.spec.capture.notes
-              ? [["Capture notes", r.spec.capture.notes] as [string, React.ReactNode]]
+              ? [["Device Specifications", r.spec.capture.notes] as [string, React.ReactNode]]
               : []),
             // One row about place, not four. This panel used to carry
             // "Location" (which was the GPS flag), "Where", "Countries" and
@@ -2112,7 +2141,7 @@ function ClientAndRequestDialog({ proposal, onClose }: { proposal: Proposal; onC
             ["Category", titleCase(r.category)],
             ["Objective", r.objective ?? "—"],
             ["Quantity", r.spec.target_quantity
-              ? `${r.spec.target_quantity} ${labelOf(TARGET_UNITS, r.spec.target_unit)}`
+              ? `${r.spec.target_quantity} ${unitLabel(r.spec.target_unit)}`
               : "—"],
             ["Quality bar", r.spec.quality ?? "—"],
             ["Acceptance", r.acceptance ?? "—"],
