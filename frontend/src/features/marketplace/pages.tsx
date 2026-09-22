@@ -1680,7 +1680,10 @@ export function OpportunitiesPage() {
                     <td>{titleCase(r.category)}</td>
                     <td className="num">{money(r.budget_min)} – {money(r.budget_max)}</td>
                     <td className="num">{fmtDate(r.delivery_due_on)}</td>
-                    <td className="right"><div className="rowactions"><Link className="btn" data-size="sm" to={`/requests/${r.id}`}>Brief</Link></div></td>
+                    {/* Not "Brief": that is one of five document slots on the
+                        page this opens, and the page carries the whole
+                        specification, the terms and the button to bid. */}
+                    <td className="right"><div className="rowactions"><Link className="btn" data-size="sm" to={`/requests/${r.id}`}>Opportunity details</Link></div></td>
                   </tr>
                 ))}
               </tbody>
