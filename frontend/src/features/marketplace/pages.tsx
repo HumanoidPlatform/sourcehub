@@ -1,7 +1,7 @@
 // marketplace — the request builder, requests, opportunities,
 // proposal comparison and the award.
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient, type UseQueryResult } from "@tanstack/react-query";
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { get, patch, post } from "@api/client";
@@ -588,12 +588,12 @@ export function RequestNewPage() {
             </Field>
             {impliedMedia ? (
               // The unit already answered this. Shown rather than hidden, so
-              // the client can see what a worker will be allowed to upload —
+              // the client can see what a crowd resource will be allowed to upload —
               // it is the same rule either way, just not asked twice.
               <Field label="Media" hint="Taken from the unit above.">
                 {() => (
                   <p className="small muted" style={{ margin: "6px 0 0" }}>
-                    Workers may upload{" "}
+                    Crowd resources may upload{" "}
                     {impliedMedia.map((m: string) => labelOf(CAPTURE_MEDIA, m).toLowerCase()).join(" or ")} only.
                   </p>
                 )}
@@ -604,7 +604,7 @@ export function RequestNewPage() {
                 options={CAPTURE_MEDIA}
                 value={d.capture_media}
                 onChange={(v) => setD((x) => ({ ...x, capture_media: v }))}
-                hint="What a worker's app will let them upload. Leave both unticked and anything visual is accepted."
+                hint="What the capture app will let them upload. Leave both unticked and anything visual is accepted."
                 columns={2}
               />
             )}
@@ -688,7 +688,7 @@ export function RequestNewPage() {
             <AttachmentsField
               label="Guidelines"
               span
-              hint="Site-access rules, a shot list, anything a worker in the field needs."
+              hint="Site-access rules, a shot list, anything a crowd resource in the field needs."
               items={guidelineFiles}
               onChange={setGuidelineFiles}
             />
@@ -979,7 +979,7 @@ export function RequestNewPage() {
  * The client supplies the bucket, so the credential is never taken on trust:
  * it is tested against the real endpoint before it can be saved, and a request
  * cannot be published until that test has passed. The alternative is finding
- * out a key is wrong when a worker is standing in a shop with a capture that
+ * out a key is wrong when a crowd resource is standing in a shop with a capture that
  * will never upload.
  *
  * Which fields appear depends on the provider, because the two do not take the
@@ -1231,6 +1231,37 @@ function NewDestination({
   );
 }
 
+/** Who is buying, on the brief where the bid decision is made.
+ *  The same rows ClientAndRequestDialog shows on the Responses page — that one
+ *  answers the question after the bid, this one before it. Name comes from the
+ *  request itself so the panel is never empty while the profile loads. */
+function ClientPanel({ name, q }: { name?: string | null; q: UseQueryResult<Org> }) {
+  const o = q.data;
+  const cp = (o?.profile ?? {}) as Partial<ClientProfile>;
+  return (
+    <Panel title="Client" sub="Who raised this request">
+      {!o && !name && !q.isLoading ? (
+        // Name first, profile second: a refused /organisations read still leaves
+        // the name the request carried, and naming the buyer is the whole point.
+        <Callout tone="neutral" title="Buyer not disclosed">
+          This client is visible while their request is open to the market, and to
+          any partner that has responded to it.
+        </Callout>
+      ) : !o ? (
+        <Dl rows={[["Name", name ?? "…"]]} />
+      ) : (
+        <Dl rows={[
+          ["Name", o.name],
+          ["Reference", o.reference_code],
+          ["Country", o.country ?? "—"],
+          ["Industry", cp.industry ?? "—"],
+          ["Client since", fmtDate(cp.since)],
+        ]} />
+      )}
+    </Panel>
+  );
+}
+
 /* --- request detail: brief + proposal comparison + award --------------------- */
 
 export function RequestDetailPage() {
@@ -1250,6 +1281,17 @@ export function RequestDetailPage() {
     queryKey: ["request", id],
     queryFn: () => get<Rfp>(`/requests/${id}`),
     enabled: !!id,
+  });
+
+  // Who is buying. db/180 opens this to a tenant while the request is open,
+  // and Fix 9 keeps it open to one that has bid; either way RLS decides, and a
+  // 404 simply means the panel says so. A client is not shown its own name.
+  const buyerId = request.data?.client_org_id;
+  const buyer = useQuery({
+    queryKey: ["org", buyerId],
+    queryFn: () => get<Org>(`/organisations/${buyerId}`),
+    enabled: !!buyerId && session.org_kind !== "client",
+    retry: false,
   });
 
   const publish = useMutation({
@@ -1328,7 +1370,7 @@ export function RequestDetailPage() {
             <Link to="/deliveries" className="btn" data-variant="primary">Track delivery</Link>
           )}
           {session.org_kind === "tenant" && ["published", "proposals_received"].includes(r.status) && !alreadyMine && (
-            <Button variant="primary" onClick={() => setProposing(true)}>Propose</Button>
+            <Button variant="primary" onClick={() => setProposing(true)}>Respond</Button>
           )}
         </>
       }
@@ -1344,6 +1386,7 @@ export function RequestDetailPage() {
       </Panel>
 
       <div className="g2">
+        {!isClient && <ClientPanel name={r.client_name} q={buyer} />}
         <Panel title="Specification">
           <Dl rows={[
             ["Objective", r.objective ?? "—"],
@@ -1437,17 +1480,22 @@ export function RequestDetailPage() {
       </div>
 
       <Panel
-        title={isClient ? "Proposals" : "Your proposal"}
+        title={isClient ? "Proposals" : "Your response"}
         sub={isClient ? "Competitors never see each other's bids — only you compare them." : undefined}
       >
         {proposals.length === 0 ? (
-          <Empty title="No proposals yet" hint={r.status === "draft" ? "Publish the request first." : "Partners have been notified."} />
+          <Empty title={isClient ? "No proposals yet" : "No response yet"} hint={r.status === "draft" ? "Publish the request first." : isClient ? "Partners have been notified." : "Respond while the request is still open."} />
         ) : (
           <TableWrap>
             <table>
               <thead>
                 <tr>
-                  <th>Partner</th><th>Price</th><th>Days</th><th>QA track record</th>
+                  {/* Both are the viewer's own when a partner reads this: RLS
+                      returns exactly one proposal, theirs. A column headed
+                      "Partner" under a panel headed "Your response" told them
+                      their own name. */}
+                  {isClient && <><th>Partner</th><th>QA track record</th></>}
+                  <th>Price</th><th>Days</th>
                   <th>Methodology</th><th>Status</th>{isClient && <th />}
                 </tr>
               </thead>
@@ -1456,20 +1504,23 @@ export function RequestDetailPage() {
                   const pm = statusMeta(proposalStatus, p.status);
                   return (
                     <tr key={p.id}>
-                      <td className="cell-primary">
-                        {p.partner_name ?? "—"}
-                        {/* comparison, not decoration: meaningless to a partner
-                            who sees only its own bid, and to a sole bid. */}
-                        {isClient && proposals.length > 1 && (
-                          <div className="cell-meta">
-                            {Number(p.price) === lowest && <span className="chip">Lowest price</span>}{" "}
-                            {p.duration_days === fastest && <span className="chip">Fastest</span>}
-                          </div>
-                        )}
-                      </td>
+                      {isClient && (
+                        <td className="cell-primary">
+                          {p.partner_name ?? "—"}
+                          {/* comparison, not decoration: meaningless to a sole bid. */}
+                          {proposals.length > 1 && (
+                            <div className="cell-meta">
+                              {Number(p.price) === lowest && <span className="chip">Lowest price</span>}{" "}
+                              {p.duration_days === fastest && <span className="chip">Fastest</span>}
+                            </div>
+                          )}
+                        </td>
+                      )}
+                      {isClient && (
+                        <td className="num">{p.partner_qa_pass_rate != null ? `${p.partner_qa_pass_rate}% QA pass` : "—"}</td>
+                      )}
                       <td className="num">{money(p.price)}</td>
                       <td className="num">{p.duration_days}</td>
-                      <td className="num">{p.partner_qa_pass_rate != null ? `${p.partner_qa_pass_rate}% QA pass` : "—"}</td>
                       <td style={{ maxWidth: 380 }}>
                         {p.methodology}
                         {/* The document the summary stands for. Only this
@@ -1597,7 +1648,7 @@ function ProposeDialog({ requestId, title, onClose }: { requestId: string; title
       }),
     onSuccess: () => {
       void qc.invalidateQueries();
-      toast("Proposal submitted", "The client has been notified.", "success");
+      toast("Response sent", "The client has been notified.", "success");
       onClose();
     },
     onError: (e) => setError(e instanceof Error ? e.message : "Could not submit"),
@@ -1605,7 +1656,7 @@ function ProposeDialog({ requestId, title, onClose }: { requestId: string; title
 
   return (
     <Dialog
-      title="Submit a proposal"
+      title="RFP response"
       sub={title}
       onClose={onClose}
       foot={
@@ -1621,14 +1672,14 @@ function ProposeDialog({ requestId, title, onClose }: { requestId: string; title
               // the backend requires a real methodology (min 10 chars) — say so
               // instead of silently disabling the button
               if (methodology.trim().length < 10) {
-                setError("Describe your methodology in at least 10 characters — it is the main thing the client compares.");
+                setError("Say how you will do the work, in at least 10 characters — it is the main thing the client compares.");
                 return;
               }
               setError(null);
               submit.mutate();
             }}
           >
-            Submit proposal
+            Send response
           </Button>
         </>
       }
@@ -1640,15 +1691,23 @@ function ProposeDialog({ requestId, title, onClose }: { requestId: string; title
         <Field label="Delivery time (days)" required>
           {(id) => <input id={id} className={inputCls} type="number" min={1} value={days} onChange={(e) => setDays(e.target.value)} />}
         </Field>
-        <Field label="Methodology" required span
-          hint="At least 10 characters. Immutable once submitted — this is what the client compares."
+        {/* Labelled by what to write, not by the column it lands in. As
+            "Methodology" it drew a storage account name, "See attached." and
+            this very hint pasted back — three of the first six bids. */}
+        <Field label="How you will do the work" required span
+          hint="Who captures, where, and over how long. This is what the client compares bids on, and it cannot be changed after you send it."
           error={methodology.trim() && methodology.trim().length < 10 ? "A few words more — 10 characters minimum." : null}>
           {(id) => <textarea id={id} className={textareaCls} rows={4} value={methodology} onChange={(e) => setMethodology(e.target.value)} />}
         </Field>
         <AttachmentsField
-          label="Method statement"
+          label="RFP response documents"
           span
-          hint="The document behind the summary above — an approach note, a capability deck. Only this client sees it."
+          max={10}
+          // The count and the formats are stated because nothing else says
+          // them: the button reads "Attach a file" and the picker simply
+          // stops accepting once it is full. Partners were asking whether
+          // they had to zip everything into one file.
+          hint="Up to 10 files — a method statement, a capability deck, CVs, insurance. PDF, Word, PowerPoint, Excel, images or a zip, 25 MB each. Only this client sees them."
           items={files}
           onChange={setFiles}
         />
@@ -1699,7 +1758,7 @@ function ProposalDetailDialog({ p, onClose }: { p: Proposal; onClose: () => void
   const pm = statusMeta(proposalStatus, p.status);
   return (
     <Dialog
-      title={p.request_title ?? p.request_ref ?? "Proposal"}
+      title={p.request_title ?? p.request_ref ?? "Response"}
       sub={<span className="id">{p.reference_code}</span>}
       onClose={onClose}
       foot={<Button onClick={onClose}>Close</Button>}
@@ -1708,9 +1767,9 @@ function ProposalDetailDialog({ p, onClose }: { p: Proposal; onClose: () => void
         ["Request", <Link key="r" to={`/requests/${p.request_id}`}>{p.request_title ?? p.request_ref ?? "Open request"}</Link>],
         ["Price", `${money(p.price, p.currency)}`],
         ["Delivery time", `${p.duration_days} days`],
-        ["Methodology", p.methodology],
+        ["How you will do the work", p.methodology],
         ...((p.attachments ?? []).length
-          ? [["Method statement", <AttachmentList key="m" items={p.attachments ?? []} />] as [string, React.ReactNode]]
+          ? [["Supporting document", <AttachmentList key="m" items={p.attachments ?? []} />] as [string, React.ReactNode]]
           : []),
         ["Notes", p.notes ?? "—"],
         ["Status", <Pill key="s" tone={pm.tone}>{pm.label}</Pill>],
@@ -1734,10 +1793,10 @@ export function MyProposalsPage() {
     [mine.data],
   );
   return (
-    <View title="Proposals" sub={`${mine.data?.length ?? 0} submitted · ${wins} won`}>
+    <View title="Responses" sub={`${mine.data?.length ?? 0} sent · ${wins} won`}>
       <Panel>
         {(mine.data ?? []).length === 0 ? (
-          <Empty title="No proposals yet" hint="Open an opportunity and propose." />
+          <Empty title="No responses yet" hint="Open an opportunity and respond." />
         ) : (
           <TableWrap>
             <table>
@@ -1756,10 +1815,10 @@ export function MyProposalsPage() {
                         <RowMenu
                           label={`Actions for ${p.reference_code}`}
                           items={[
-                            { label: "View bid", onSelect: () => setViewing(p) },
+                            { label: "View response", onSelect: () => setViewing(p) },
                             { label: "View client & request", onSelect: () => setViewingBrief(p) },
                             ...(p.status === "withdrawn"
-                              ? [{ label: "Propose again", onSelect: () => navigate(`/requests/${p.request_id}`) }]
+                              ? [{ label: "Respond again", onSelect: () => navigate(`/requests/${p.request_id}`) }]
                               : []),
                             ...(p.status === "submitted"
                               ? [{
@@ -1815,7 +1874,7 @@ function ClientAndRequestDialog({ proposal, onClose }: { proposal: Proposal; onC
 
   return (
     <Dialog
-      title={proposal.request_title ?? proposal.request_ref ?? "Proposal"}
+      title={proposal.request_title ?? proposal.request_ref ?? "Request"}
       sub={
         <>
           <span className="id">{proposal.reference_code}</span>
@@ -1829,7 +1888,7 @@ function ClientAndRequestDialog({ proposal, onClose }: { proposal: Proposal; onC
       <Panel title="Client">
         {client.isError ? (
           <Callout tone="critical" title="Client not available">
-            A buyer is visible to you through your proposal. If it has been withdrawn from the
+            A buyer is visible to you through your response. If it has been withdrawn from the
             record, so has your view of them.
           </Callout>
         ) : !o ? (

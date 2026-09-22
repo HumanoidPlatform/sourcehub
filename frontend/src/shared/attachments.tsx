@@ -11,7 +11,7 @@
 // given. Abandon the form and the object is an orphan in the documents bucket,
 // which is the same bargain request samples have always made.
 
-import { useState } from "react";
+import { useState, type Dispatch, type SetStateAction } from "react";
 import { del, get, post, putFile } from "@api/client";
 import type { Attachment } from "@api/types";
 import { Field, FileField, useToast } from "@ds/primitives";
@@ -23,7 +23,7 @@ export const MAX_ATTACHMENT_BYTES = 25 * 1024 * 1024;
 // Mirrors the server's list so most rejections never leave the browser. The
 // server re-checks every one of them.
 const ACCEPT =
-  ".csv,.tsv,.json,.jsonl,.xml,.txt,.md,.pdf,.png,.jpg,.jpeg,.webp,.gif,.mp4,.mov,.mp3,.wav,.zip,.xlsx,.docx,.parquet";
+  ".csv,.tsv,.json,.jsonl,.xml,.txt,.md,.pdf,.png,.jpg,.jpeg,.webp,.gif,.mp4,.mov,.mp3,.wav,.zip,.xlsx,.docx,.pptx,.ppt,.parquet";
 
 export interface AttachmentDraft {
   /** Set once the row exists server-side; absent while it is only an upload. */
@@ -69,24 +69,34 @@ export function AttachmentsField({
   span,
   items,
   onChange,
+  max = MAX_ATTACHMENTS,
 }: {
   label: string;
   hint?: string;
   span?: boolean;
   items: AttachmentDraft[];
-  onChange: (next: AttachmentDraft[]) => void;
+  /** Takes React's updater form. It must: each file uploads on its own
+   *  promise, and a callback that rebuilt the list from the array captured at
+   *  pick time reset every sibling's status back to "uploading" as it landed.
+   *  Attaching two files left the form permanently un-submittable. */
+  onChange: Dispatch<SetStateAction<AttachmentDraft[]>>;
+  /** How many files THIS field takes. Eight screens share this component, so
+   *  the allowance belongs to the caller: a request's document slot wants a
+   *  handful, an RFP response wants a whole tender reply. The server's
+   *  MAX_PER_SLOT is the ceiling above whatever is passed here. */
+  max?: number;
 }) {
   const [error, setError] = useState<string | null>(null);
   const toast = useToast();
 
   const pick = (files: FileList) => {
     setError(null);
-    const room = MAX_ATTACHMENTS - items.length;
+    const room = max - items.length;
     const picked = Array.from(files);
     if (picked.length > room) {
       setError(
         room === 0
-          ? `Already at ${MAX_ATTACHMENTS} files. Remove one to add another.`
+          ? `Already at ${max} files. Remove one to add another.`
           : `Only ${room} more file${room === 1 ? "" : "s"} fit here.`,
       );
       return;
@@ -129,13 +139,13 @@ export function AttachmentsField({
           });
           const file = picked.find((f) => f.name === draft.filename)!;
           await putFile(pre.url, file, pre.headers);
-          onChange(
-            next.map((a) =>
+          onChange((prev) =>
+            prev.map((a) =>
               a === draft ? { ...a, key: pre.storage_key, status: "done" as const } : a,
             ),
           );
         } catch (e) {
-          onChange(next.map((a) => (a === draft ? { ...a, status: "error" as const } : a)));
+          onChange((prev) => prev.map((a) => (a === draft ? { ...a, status: "error" as const } : a)));
           setError(e instanceof Error ? e.message : `Could not upload ${draft.filename}`);
         }
       })();
@@ -152,14 +162,14 @@ export function AttachmentsField({
       void (async () => {
         try {
           await del(`/attachments/${id}`);
-          onChange(items.filter((_, j) => j !== i));
+          onChange((prev) => prev.filter((a) => a !== row));
         } catch (e) {
           toast("Could not remove it", e instanceof Error ? e.message : "", "critical");
         }
       })();
       return;
     }
-    onChange(items.filter((_, j) => j !== i));
+    onChange((prev) => prev.filter((a) => a !== row));
   };
 
   return (
@@ -168,7 +178,7 @@ export function AttachmentsField({
         <FileField
           label="Attach a file"
           accept={ACCEPT}
-          disabled={items.length >= MAX_ATTACHMENTS}
+          disabled={items.length >= max}
           files={items.map((a) => ({
             name: a.filename, size: a.size_bytes, status: a.status,
           }))}

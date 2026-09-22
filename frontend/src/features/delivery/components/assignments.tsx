@@ -1,5 +1,5 @@
 // delivery/components — the aggregator's side of the field half: splitting a
-// task among crowd workers, reviewing each worker's batch at gate 1, and
+// task among crowd resources, reviewing each one's batch at gate 1, and
 // bundling the accepted captures into the submission the delivery partner
 // reviews at gate 2.
 //
@@ -15,6 +15,8 @@ import {
   Button, Callout, CheckGroup, Dialog, Empty, Field, inputCls, Meter, Metric, Pill, TableWrap,
   textareaCls, useToast,
 } from "@ds/primitives";
+import { labelsOf } from "@features/marketplace/vocabularies";
+import { SKILLS } from "@features/network/vocabularies";
 import { fmtDate, fmtDateTime } from "@shared/format";
 import { assignmentStatus, offerStatus, statusMeta } from "@shared/status";
 import { AssetGallery, useAssignmentAssets, useTaskAssets } from "./AssetGallery";
@@ -37,7 +39,7 @@ export function useTaskOffers(taskId: string | null | undefined) {
   });
 }
 
-/* --- assign units of a task to one worker ------------------------------------- */
+/* --- assign units of a task to one crowd resource ------------------------------------- */
 
 export function AssignWorkersDialog({ task, onClose, onDone }: { task: Task; onClose: () => void; onDone: () => void }) {
   const qc = useQueryClient();
@@ -74,7 +76,7 @@ export function AssignWorkersDialog({ task, onClose, onDone }: { task: Task; onC
   const unit = task.target_unit ?? "units";
   return (
     <Dialog
-      title="Assign to a worker"
+      title="Assign to a crowd resource"
       sub={`${task.reference_code} · ${task.title}`}
       onClose={onClose}
       foot={
@@ -87,18 +89,18 @@ export function AssignWorkersDialog({ task, onClose, onDone }: { task: Task; onC
       }
     >
       {eligible.length === 0 && !workers.isLoading && (
-        <Callout tone="attention" title="No workers can take work yet">
-          Invite workers from the Crowd roster first. Only people who have accepted their invitation appear here.
+        <Callout tone="attention" title="Nobody can take work yet">
+          Invite people from the Crowd roster first. Only those who have accepted their invitation appear here.
         </Callout>
       )}
       <div className="formgrid" style={{ marginTop: eligible.length === 0 ? 12 : 0 }}>
-        <Field label="Worker" required span>
+        <Field label="Crowd resource" required span>
           {(id) => (
             <select id={id} className={inputCls} value={worker} onChange={(e) => setWorker(e.target.value)}>
-              <option value="">Choose a worker…</option>
+              <option value="">Choose a crowd resource…</option>
               {eligible.map((w) => (
                 <option key={w.id} value={w.user_id ?? ""}>
-                  {w.display_name}{w.skill ? ` — ${w.skill}` : ""}{w.open_assignments ? ` (${w.open_assignments} open)` : ""}
+                  {w.display_name}{w.skills.length ? ` — ${labelsOf(SKILLS, w.skills)}` : ""}{w.open_assignments ? ` (${w.open_assignments} open)` : ""}
                 </option>
               ))}
             </select>
@@ -107,14 +109,14 @@ export function AssignWorkersDialog({ task, onClose, onDone }: { task: Task; onC
         <Field
           label={`Units (${unit})`}
           required
-          hint={remaining != null ? `${remaining} of ${task.target_quantity} ${unit} still unassigned.` : "The task has no countable target; give the worker a number anyway."}
+          hint={remaining != null ? `${remaining} of ${task.target_quantity} ${unit} still unassigned.` : "The task has no countable target; give them a number anyway."}
         >
           {(id) => <input id={id} className={inputCls} type="number" min={1} value={qty} onChange={(e) => setQty(e.target.value)} />}
         </Field>
         <Field label="Due">
           {(id) => <input id={id} className={inputCls} type="date" value={due} onChange={(e) => setDue(e.target.value)} />}
         </Field>
-        <Field label="Instructions" span hint="Shown on the worker's phone with the task's own instructions.">
+        <Field label="Instructions" span hint="Shown on their phone with the task's own instructions.">
           {(id) => <textarea id={id} className={textareaCls} rows={3} value={instructions} onChange={(e) => setInstructions(e.target.value)} />}
         </Field>
       </div>
@@ -123,7 +125,7 @@ export function AssignWorkersDialog({ task, onClose, onDone }: { task: Task; onC
   );
 }
 
-/* --- gate 1: the supplier's own verdict on one worker's batch ------------------ */
+/* --- gate 1: the supplier's own verdict on one crowd resource's batch ------------------ */
 
 export interface DecideTarget {
   id: string;
@@ -186,7 +188,7 @@ export function DecideAssignmentDialog({
         />
       </div>
       <div className="formgrid" style={{ marginTop: 12 }}>
-        <Field label="Verdict note" span hint="Required to send back — the worker cannot act on a blank rejection.">
+        <Field label="Verdict note" span hint="Required to send back — they cannot act on a blank rejection.">
           {(id) => <textarea id={id} className={textareaCls} rows={3} value={note} onChange={(e) => setNote(e.target.value)} placeholder="Retake aisle 3 with less glare." />}
         </Field>
       </div>
@@ -244,7 +246,7 @@ export function OfferTaskDialog({ task, onClose, onDone }: { task: Task; onClose
     onSuccess: (o) => {
       const failed = o.recipients.filter((r) => r.send_error).length;
       toast(
-        `Offer sent to ${o.recipients.length - failed} worker${o.recipients.length - failed === 1 ? "" : "s"}`,
+        `Offer sent to ${o.recipients.length - failed} crowd resource${o.recipients.length - failed === 1 ? "" : "s"}`,
         failed ? `${failed} could not be emailed — see the offer panel.` : "First to accept take the places.",
         failed ? "attention" : "success",
       );
@@ -269,29 +271,29 @@ export function OfferTaskDialog({ task, onClose, onDone }: { task: Task; onClose
         <>
           <Button onClick={onClose}>Cancel</Button>
           <Button variant="primary" disabled={!canSend} onClick={() => create.mutate()}>
-            {create.isPending ? "Sending…" : `Email ${recipients.length} worker${recipients.length === 1 ? "" : "s"}`}
+            {create.isPending ? "Sending…" : `Email ${recipients.length} crowd resource${recipients.length === 1 ? "" : "s"}`}
           </Button>
         </>
       }
     >
       <Callout tone="neutral" title="First come, first served">
-        Every worker below gets an email with Accept and Decline. The first {n || "N"} to accept each take {q || "Q"} {unit};
+        Everyone below gets an email with Accept and Decline. The first {n || "N"} to accept each take {q || "Q"} {unit};
         after that the link says the task is closed.
       </Callout>
       {eligible.length === 0 && !workers.isLoading && !rows.isLoading && (
         <Callout tone="attention" title="Nobody can take this task right now">
-          Only workers who have accepted their invitation and do not already hold this task can be offered it.
+          Only crowd resources who have accepted their invitation and do not already hold this task can be offered it.
         </Callout>
       )}
       <div className="formgrid" style={{ marginTop: 12 }}>
-        <Field label="Places" required hint="How many workers you want on this task.">
+        <Field label="Places" required hint="How many crowd resources you want on this task.">
           {(id) => <input id={id} className={inputCls} type="number" min={1} max={200} value={places} onChange={(e) => onPlaces(e.target.value)} />}
         </Field>
         <Field
-          label={`${unit} per worker`}
+          label={`${unit} each`}
           required
           error={overBudget ? `${n} × ${q} = ${total}, but only ${remaining} of ${task.target_quantity} ${unit} are unassigned.` : undefined}
-          hint={remaining != null ? `${n} × ${q} = ${total} of the ${remaining} ${unit} still unassigned.` : "The task has no countable target; give each worker a number anyway."}
+          hint={remaining != null ? `${n} × ${q} = ${total} of the ${remaining} ${unit} still unassigned.` : "The task has no countable target; give each of them a number anyway."}
         >
           {(id) => <input id={id} className={inputCls} type="number" min={1} value={qty} onChange={(e) => setQty(e.target.value)} />}
         </Field>
@@ -301,7 +303,7 @@ export function OfferTaskDialog({ task, onClose, onDone }: { task: Task; onClose
         <Field label="Respond by" hint="Optional. After this the links say the offer has closed.">
           {(id) => <input id={id} className={inputCls} type="datetime-local" value={respondBy} onChange={(e) => setRespondBy(e.target.value)} />}
         </Field>
-        <Field label="Instructions" span hint="Goes in the email and onto the worker's phone with the task's own instructions.">
+        <Field label="Instructions" span hint="Goes in the email and onto their phone with the task's own instructions.">
           {(id) => <textarea id={id} className={textareaCls} rows={3} value={instructions} onChange={(e) => setInstructions(e.target.value)} />}
         </Field>
         {eligible.length > 0 && (
@@ -311,7 +313,12 @@ export function OfferTaskDialog({ task, onClose, onDone }: { task: Task; onClose
             options={eligible.map((w) => ({
               value: w.user_id as string,
               label: w.display_name,
-              hint: [w.skill, w.open_assignments ? `${w.open_assignments} open` : null].filter(Boolean).join(" · ") || undefined,
+              // .length rather than the array itself: [] is truthy, and it
+              // would have survived filter(Boolean) to give " · 2 open".
+              hint: [
+                w.skills.length ? labelsOf(SKILLS, w.skills) : null,
+                w.open_assignments ? `${w.open_assignments} open` : null,
+              ].filter(Boolean).join(" · ") || undefined,
             }))}
             value={recipients}
             onChange={setPicked}
@@ -397,7 +404,7 @@ function OfferPanel({ offer, assignments, onClose, onRemind, busy }: {
   );
 }
 
-/* --- the task's workers: progress, gate 1, cancel, reopen ---------------------- */
+/* --- the task's crowd: progress, gate 1, cancel, reopen ---------------------- */
 
 export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: () => void }) {
   const qc = useQueryClient();
@@ -470,14 +477,14 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
   return (
     <Dialog
       size="wide"
-      title="Workers on this task"
+      title="Crowd on this task"
       sub={`${task.reference_code} · ${task.title}`}
       onClose={onClose}
       foot={
         <>
           <Button onClick={onClose}>Close</Button>
           <Button disabled={!canAssign} title={canAssign ? undefined : `A ${task.status.replace("_", " ")} task cannot take new assignments`} onClick={() => setAssigning(true)}>
-            Assign a worker
+            Assign a crowd resource
           </Button>
           <Button
             variant="primary"
@@ -491,7 +498,7 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
       }
     >
       <div className="g4">
-        <Metric label="Workers" value={live.length} />
+        <Metric label="Crowd resources" value={live.length} />
         <Metric label={`${unit} assigned`} value={task.target_quantity != null ? `${unitsAssigned} / ${task.target_quantity}` : unitsAssigned} />
         <Metric label="Captures ready" value={ready} />
         <Metric label="Awaiting your review" value={awaiting} />
@@ -516,11 +523,11 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
         </details>
       )}
       {list.length === 0 ? (
-        <Empty title="No workers assigned yet" hint="Offer the task to the crowd, or assign a worker directly; each worker captures on their phone or uploads from here." />
+        <Empty title="Nobody assigned yet" hint="Offer the task to the crowd, or assign someone directly; each of them captures on their phone or uploads from here." />
       ) : (
         <TableWrap>
           <table>
-            <thead><tr><th>Worker</th><th>Units</th><th>Progress</th><th>Status</th><th>Submitted</th><th>Reminded</th><th>Note</th><th /></tr></thead>
+            <thead><tr><th>Crowd resource</th><th>Units</th><th>Progress</th><th>Status</th><th>Submitted</th><th>Reminded</th><th>Note</th><th /></tr></thead>
             <tbody>
               {list.map((a) => {
                 const m = statusMeta(assignmentStatus, a.status);
@@ -607,7 +614,7 @@ export function SubmitToPartnerDialog({ task, onClose, onDone }: { task: Task; o
         <Metric label="Assignments" value={`${accepted.size} accepted`} sub={open.length ? `${open.length} still open` : "none open"} />
       </div>
       {open.length > 0 && (
-        <Callout tone="attention" title="Review every worker first">
+        <Callout tone="attention" title="Review everyone first">
           {open.length} assignment{open.length === 1 ? " is" : "s are"} not accepted yet. Accept or cancel them at gate 1, then submit.
         </Callout>
       )}

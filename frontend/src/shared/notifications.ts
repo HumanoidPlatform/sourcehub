@@ -19,8 +19,18 @@ export function notificationHref(n: NotificationRow): string | null {
     case "contracts": return id ? `/contracts/${id}` : "/contracts";
     case "deliveries": return id ? `/deliveries/${id}` : "/deliveries";
     case "deliveryDetail": return id ? `/deliveries/${id}` : "/deliveries";
-    case "tasks": return "/tasks";
+    // ?task= rather than a path segment: the task detail is a dialog on the
+    // list, not a page of its own, and every /:id route in this app is a full
+    // page. Without the id this landed on /tasks — which, for an aggregator
+    // who lives on /tasks, is the page they were already looking at, so the
+    // click was indistinguishable from nothing happening.
+    case "tasks": return id ? `/tasks?task=${id}` : "/tasks";
     case "qa": return "/qa";
+    // Gate 1: a worker submitted and the supplier reviews it. /review has
+    // existed all along; this case never did, so every one of these rendered
+    // as the dead <div> at Shell.tsx:349 — unclickable, and never marked read.
+    // Org-wide, so it reaches every user at the aggregator.
+    case "gate1": return "/review";
     case "equipment": return "/equipment";
     case "loans": return "/loans";
     case "billing": return "/billing";

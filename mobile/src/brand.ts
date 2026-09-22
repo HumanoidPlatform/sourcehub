@@ -22,8 +22,27 @@
 export const PRODUCT = "DataMind360";
 export const COMPANY = "Cosarathi";
 
-/** This app, as it is labelled on a worker's phone. */
+/** This app, as it is labelled on a crowd resource's phone. */
 export const APP_NAME = `${PRODUCT} Capture`;
 
 /** As the logo itself puts it. */
 export const BYLINE = `A ${COMPANY} product`;
+
+/** The role code the server sends, as a person should read it.
+ *
+ *  The phone's copy of WORKSPACE in frontend/src/app/shell/Shell.tsx. The KEYS
+ *  are the server's role codes and must not change — `worker` is what is_worker()
+ *  reads out of app.role, and every restrictive RLS policy turns on it. Only the
+ *  labels are ours to write.
+ *
+ *  Settings used to print `Role: {session.role}` raw, so the one place this app
+ *  named the reader's role said "worker" in the server's own vocabulary. */
+export const ROLE_LABEL: Record<string, string> = {
+  worker: "Crowd resource",
+  aggregator: "Aggregator",
+  tenant: "Delivery partner",
+  business: "Business partner",
+  client: "Client",
+  sponsor: "Device sponsor",
+  platform_admin: "Platform operations",
+};

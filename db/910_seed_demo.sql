@@ -191,12 +191,12 @@ BEGIN
   -- =========================================================================
   -- Crowd rosters — aggregator-internal. These people are NOT platform users.
   -- =========================================================================
-  INSERT INTO crowd_worker (reference_code, aggregator_org_id, display_name, skill, status, trained, rating) VALUES
-    (next_reference_code('WKR','seq_ref_worker'), v_ag1, 'Priya Nair',     'Street imagery', 'on_shift',   true,  4.8),
-    (next_reference_code('WKR','seq_ref_worker'), v_ag1, 'Sana Kulkarni',  'Shelf capture',  'on_break',   true,  4.4),
-    (next_reference_code('WKR','seq_ref_worker'), v_ag2, 'Karan Gill',     'Field survey',   'offboarded', false, 4.1),
-    (next_reference_code('WKR','seq_ref_worker'), v_ag3, 'Mateo Reyes',    'Voice capture',  'on_shift',   true,  4.7),
-    (next_reference_code('WKR','seq_ref_worker'), v_ag4, 'Amina Otieno',   'Household survey','on_shift',  true,  4.3);
+  INSERT INTO crowd_worker (reference_code, aggregator_org_id, display_name, skills, status, trained, rating) VALUES
+    (next_reference_code('WKR','seq_ref_worker'), v_ag1, 'Priya Nair',     '{street_imagery}',   'on_shift',   true,  4.8),
+    (next_reference_code('WKR','seq_ref_worker'), v_ag1, 'Sana Kulkarni',  '{shelf_capture,retail_audit}', 'on_break', true, 4.4),
+    (next_reference_code('WKR','seq_ref_worker'), v_ag2, 'Karan Gill',     '{field_survey}',     'offboarded', false, 4.1),
+    (next_reference_code('WKR','seq_ref_worker'), v_ag3, 'Mateo Reyes',    '{voice_capture,transcription}', 'on_shift', true, 4.7),
+    (next_reference_code('WKR','seq_ref_worker'), v_ag4, 'Amina Otieno',   '{household_survey}', 'on_shift',   true,  4.3);
 
   -- =========================================================================
   -- One user per organisation.

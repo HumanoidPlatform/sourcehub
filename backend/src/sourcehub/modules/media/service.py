@@ -2,10 +2,10 @@
 
 Business rules, and the ONLY public surface of this module.
 
-The bytes never traverse the API. A worker asks for a presigned PUT, uploads
+The bytes never traverse the API. A crowd resource asks for a presigned PUT, uploads
 straight to object storage, then confirms; the API HEADs the object and
 records what storage actually holds (size, etag, content type) rather than
-what the client claimed. That is the whole of the pilot's ingest: no worker
+what the client claimed. That is the whole of the pilot's ingest: nobody
 pool, no thumbnails, no automated checks yet. The asset_status value
 'uploaded' is reserved for the day verification becomes asynchronous.
 
@@ -610,7 +610,7 @@ async def discard_asset(
     if row is None:
         raise LookupError("asset not found")
     if row["worker_user_id"] != claims.user_id:
-        raise MediaError("Only the worker who captured it can remove it.")
+        raise MediaError("Only the crowd resource who captured it can remove it.")
     # 'rejected' means sent back for rework, and removing the frame the
     # aggregator objected to is the whole point of that round. Capture already
     # treats the two alike — the phone restarts the assignment on the way in.

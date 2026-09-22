@@ -2,7 +2,7 @@
 
 Business rules, and the ONLY public surface of this module.
 
-Gate 1 (the supplier's own check of a worker's batch) and gate 2 (partner QA
+Gate 1 (the supplier's own check of a crowd resource's batch) and gate 2 (partner QA
 of a submission) are live; gate 3 exists in the schema. A review is one
 APPEND-ONLY row — who caught a defect, at which gate, is what decides who
 pays for the rework, so a verdict is never edited, only followed by another.
@@ -164,13 +164,13 @@ async def reviews_for_task(session: AsyncSession, task_id: uuid.UUID) -> list[di
 
 
 # ---------------------------------------------------------------------------
-# Gate 1 — the supplier reviews its own worker's batch
+# Gate 1 — the supplier reviews its own crowd resource's batch
 # ---------------------------------------------------------------------------
 
 async def gate1_queue(session: AsyncSession, claims: AccessClaims) -> list[dict[str, Any]]:
     """Every assignment awaiting this supplier's verdict.
 
-    Batches with captures the worker's phone flagged as off-subject (a
+    Batches with captures their phone flagged as off-subject (a
     wrong_subject device check, kept anyway) come first, then oldest first:
     those are the ones most likely to need a rejection, and the reviewer
     should see the score the phone gave before the batch ages.
@@ -220,13 +220,13 @@ async def decide_gate1(
     outcome: str,  # 'accept' | 'reject'
     note: str | None,
 ) -> dict[str, Any]:
-    """Record the gate-1 verdict on a worker's batch. The same rule as gate 2,
+    """Record the gate-1 verdict on a batch. The same rule as gate 2,
     enforced here and by CHECKs on qa_review and task_assignment: a rejection
-    without a note is refused, because the worker cannot act on one."""
+    without a note is refused, because they cannot act on one."""
     if outcome not in ("accept", "reject"):
         raise QaError("Outcome must be accept or reject.")
     if outcome == "reject" and not (note and note.strip()):
-        raise QaError("Say what must change — the worker cannot act on a blank rejection.")
+        raise QaError("Say what must change — they cannot act on a blank rejection.")
 
     a = (
         await session.execute(
@@ -282,7 +282,7 @@ async def decide_gate1(
     await audit.log(
         session,
         "review.recorded",
-        f"{'Accepted' if accepted else 'Rejected'} a worker's batch on {a['task_ref']} at gate 1"
+        f"{'Accepted' if accepted else 'Rejected'} a batch on {a['task_ref']} at gate 1"
         + (f" — {note}" if note else ""),
         [assignment_id, a["task_id"], a["contract_id"], claims.org_id],
         {"gate": "gate1_supplier"},

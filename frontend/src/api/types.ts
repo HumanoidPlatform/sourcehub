@@ -44,6 +44,9 @@ export interface Rfp {
   id: string;
   reference_code: string;
   client_org_id: string;
+  /** Who raised it. Null when the reader may not see the buyer — db/180
+   *  opens this while the request is live, Fix 9 once you have responded. */
+  client_name?: string | null;
   title: string;
   category: string;
   status: string;
@@ -518,11 +521,20 @@ export interface LoanRow {
   task_ref: string | null;
 }
 
+// Mirrors the Literal in backend/api/v1/network.py and the CHECK in
+// db/190_worker_skills.sql. A typo here fails tsc, not a save.
+export type Skill =
+  | "street_imagery" | "night_driving" | "shelf_capture"
+  | "drone_operation" | "retail_audit" | "field_survey"
+  | "transcription" | "voice_capture" | "household_survey";
+
 export interface WorkerRow {
   id: string;
   reference_code: string;
   display_name: string;
-  skill: string | null;
+  // never null — absence is [], the way every text[] column in this schema
+  // represents it, so no reader needs a nullish branch
+  skills: Skill[];
   status: string;
   trained: boolean;
   rating: string | null;

@@ -1,5 +1,5 @@
 // identity — login, org choice, invitation acceptance, password reset,
-// forced password change, and a worker answering a task offer from a link.
+// forced password change, and a crowd resource answering a task offer from a link.
 
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState, type FormEvent } from "react";
@@ -203,7 +203,7 @@ export function AcceptInvitationPage() {
   );
 }
 
-// A task offer link is addressed to a worker, not to a browser: whoever is
+// A task offer link is addressed to a person, not to a browser: whoever is
 // signed in here is signed out first, so the page never renders inside
 // somebody else's workspace and reads as theirs. The email's Accept and
 // Decline both land here (mail scanners follow links); only the button on
@@ -262,8 +262,8 @@ export function TaskOfferPage() {
       filled: ["This task is closed", "All places have been taken."],
       closed: ["This task is closed", `${p.org_name} withdrew the offer.`],
       expired: ["This task is closed", `The time to respond ended ${fmtDateTime(p.respond_by)}.`],
-      task_closed: ["This task is no longer taking workers", ""],
-      not_a_worker: ["You are no longer an active worker for this organisation", ""],
+      task_closed: ["This task is no longer taking anyone", ""],
+      not_a_worker: ["You are no longer active for this organisation", ""],
     };
     const c = closed[p.state];
     body = (

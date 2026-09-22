@@ -45,7 +45,12 @@ export function kindRows(o: Org, seedQa?: number | null): [string, ReactNode][] 
     case "client":
       return [
         ["Industry", s("industry")],
-        ["DPA", p.dpa_signed ? `Signed ${fmtDate((p.dpa_signed_at as string | null) ?? null)}` : "Not signed"],
+        // Only when the field actually came back. _may_see_commercials strips
+        // dpa_signed from a counterparty, and a stripped key is falsy — so a
+        // partner reading any client saw "Not signed" stated as fact.
+        ...("dpa_signed" in p
+          ? [["DPA", p.dpa_signed ? `Signed ${fmtDate((p.dpa_signed_at as string | null) ?? null)}` : "Not signed"]] as [string, ReactNode][]
+          : []),
         ["Client since", fmtDate((p.since as string | null) ?? null)],
         ["Residency region", o.residency_region ?? "—"],
       ];

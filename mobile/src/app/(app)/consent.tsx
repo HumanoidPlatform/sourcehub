@@ -36,7 +36,7 @@ export default function Consent() {
     <Screen>
       {hasPlaceholders() && (
         <Callout tone="critical" title="DRAFT — wording not yet approved">
-          The operator name, contact address or retention period has not been filled in. This build must not be given to workers.
+          The operator name, contact address or retention period has not been filled in. This build must not be given to crowd resources.
         </Callout>
       )}
 

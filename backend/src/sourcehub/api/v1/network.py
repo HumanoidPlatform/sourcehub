@@ -40,9 +40,21 @@ class LoanDecideIn(BaseModel):
     reason: str | None = None
 
 
+# Same nine values, same order, as the CHECK in db/190_worker_skills.sql and
+# SKILLS in frontend/src/features/network/vocabularies.ts. A Literal here turns
+# a bad value into a 422 naming the field, rather than an IntegrityError 500
+# out of Postgres. tests/test_worker_skills_unit.py pins the three lists
+# together — nothing else in the repo does.
+Skill = Literal[
+    "street_imagery", "night_driving", "shelf_capture",
+    "drone_operation", "retail_audit", "field_survey",
+    "transcription", "voice_capture", "household_survey",
+]
+
+
 class WorkerIn(BaseModel):
     display_name: str = Field(min_length=2)
-    skill: str | None = None
+    skills: list[Skill] = Field(default_factory=list)
     trained: bool = False
     # With an email the worker is invited to sign in to the capture app;
     # without one this is a roster-only record.
@@ -153,13 +165,13 @@ async def add_worker(
     emailed an invitation. Without: a roster-only record, as before."""
     if body.email is None:
         return await network.add_worker(
-            session, principal, body.display_name, body.skill, body.trained
+            session, principal, body.display_name, body.skills, body.trained
         )
     try:
         return await network.invite_worker(
             session, principal,
             email=str(body.email), full_name=body.display_name, phone=body.phone,
-            skill=body.skill, trained=body.trained,
+            skills=body.skills, trained=body.trained,
         )
     except network.NetworkError as e:
         raise _conflict(e) from None
@@ -174,9 +186,30 @@ async def resend_worker_invitation(
     try:
         await network.resend_worker_invitation(session, principal, worker_id)
     except LookupError:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, "Worker not found") from None
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Crowd resource not found") from None
     except network.NetworkError as e:
         raise _conflict(e) from None
+
+
+class WorkerPatchIn(BaseModel):
+    skills: list[Skill] = Field(default_factory=list)
+
+
+@router.patch("/workers/{worker_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def update_worker(
+    worker_id: uuid.UUID,
+    body: WorkerPatchIn,
+    principal: Principal = Depends(require_capability("roster.manage")),
+    session: AsyncSession = Depends(get_session),
+):
+    """Skills were settable only at creation, so everyone already on a roster
+    was stuck with whatever was typed the first time — and offboarding and
+    re-adding is not a way back: it is irreversible and the same email is
+    refused."""
+    try:
+        await network.update_worker(session, principal, worker_id, body.skills)
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Crowd resource not found") from None
 
 
 @router.post("/workers/{worker_id}/status", status_code=status.HTTP_204_NO_CONTENT)
@@ -189,7 +222,7 @@ async def set_worker_status(
     try:
         await network.set_worker_status(session, principal, worker_id, body.status)
     except LookupError:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, "Worker not found") from None
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Crowd resource not found") from None
 
 
 # --- ratings -----------------------------------------------------------------

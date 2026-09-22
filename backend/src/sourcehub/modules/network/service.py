@@ -264,7 +264,7 @@ def _friendly_stock_error(e: DBAPIError) -> str:
 # ---------------------------------------------------------------------------
 
 _WORKER_ROWS = text(
-    "SELECT w.id, w.reference_code, w.display_name, w.skill, w.status, w.trained, w.rating, "
+    "SELECT w.id, w.reference_code, w.display_name, w.skills, w.status, w.trained, w.rating, "
     "       w.email, w.phone, w.user_id, u.status AS user_status, "
     "       inv.accepted_at, inv.expires_at, coalesce(ta.open_count, 0) AS open_assignments "
     "FROM crowd_worker w "
@@ -295,7 +295,7 @@ def _invitation_status(r: Any) -> str:
 def _worker_dict(r: Any) -> dict[str, Any]:
     return {
         "id": r["id"], "reference_code": r["reference_code"],
-        "display_name": r["display_name"], "skill": r["skill"],
+        "display_name": r["display_name"], "skills": list(r["skills"] or []),
         "status": r["status"], "trained": r["trained"], "rating": r["rating"],
         "email": r["email"], "phone": r["phone"], "user_id": r["user_id"],
         "invitation_status": _invitation_status(r),
@@ -315,7 +315,7 @@ async def _worker_by_id(session: AsyncSession, worker_id: uuid.UUID) -> dict[str
 
 async def add_worker(
     session: AsyncSession, claims: AccessClaims,
-    display_name: str, skill: str | None, trained: bool,
+    display_name: str, skills: list[str], trained: bool,
 ) -> dict[str, Any]:
     """A roster-only entry: no email, no login. Kept for records about people
     who never use the app."""
@@ -324,7 +324,7 @@ async def add_worker(
     ).scalar_one()
     w = CrowdWorker(
         reference_code=ref, aggregator_org_id=claims.org_id,
-        display_name=display_name, skill=skill, trained=trained,
+        display_name=display_name, skills=skills, trained=trained,
     )
     session.add(w)
     await session.flush()
@@ -345,7 +345,7 @@ async def _send_worker_invitation(
             email,
             f"You're invited to {PRODUCT} — {org_name}",
             f"Hello {full_name},\n\n"
-            f"{org_name} has added you as a field worker on {PRODUCT}. Set your password\n"
+            f"{org_name} has added you as a crowd resource on {PRODUCT}. Set your password\n"
             f"within {settings.invitation_ttl_days} days, then sign in to the {CAPTURE_APP} app\n"
             f"with this email address:\n\n  {link}\n\n"
             f"No one at {PRODUCT} knows this link's token or your future password.",
@@ -361,7 +361,7 @@ async def invite_worker(
     email: str,
     full_name: str,
     phone: str | None,
-    skill: str | None,
+    skills: list[str],
     trained: bool,
 ) -> dict[str, Any]:
     """One call into the database function: app_user (invited), worker grant,
@@ -372,11 +372,12 @@ async def invite_worker(
         row = (
             await session.execute(
                 text(
-                    "SELECT * FROM invite_worker(CAST(:email AS citext), :name, :phone, :skill, "
-                    ":trained, :uid, :thash, make_interval(days => :ttl))"
+                    "SELECT * FROM invite_worker(CAST(:email AS citext), :name, :phone, "
+                    "CAST(:skills AS text[]), :trained, :uid, :thash, "
+                    "make_interval(days => :ttl))"
                 ),
                 {
-                    "email": email, "name": full_name, "phone": phone, "skill": skill,
+                    "email": email, "name": full_name, "phone": phone, "skills": skills,
                     "trained": trained, "uid": claims.user_id, "thash": digest,
                     "ttl": settings.invitation_ttl_days,
                 },
@@ -390,7 +391,7 @@ async def invite_worker(
 
     await audit.log(
         session, "worker.invited",
-        f"Invited {full_name} ({row['reference_code']}) as a field worker",
+        f"Invited {full_name} ({row['reference_code']}) as a crowd resource",
         [row["worker_id"], row["user_id"], claims.org_id],
     )
     await _send_worker_invitation(email, full_name, claims.org_name, raw)
@@ -407,7 +408,7 @@ async def resend_worker_invitation(
         await session.execute(select(CrowdWorker).where(CrowdWorker.id == worker_id))
     ).scalar_one_or_none()
     if w is None:
-        raise LookupError("worker not found")
+        raise LookupError("crowd resource not found")
     if w.user_id is None or not w.email:
         raise NetworkError("This roster entry has no login to invite.")
     inv = (
@@ -439,6 +440,29 @@ async def resend_worker_invitation(
     await _send_worker_invitation(w.email, w.display_name, claims.org_name, raw)
 
 
+async def update_worker(
+    session: AsyncSession, claims: AccessClaims, worker_id: uuid.UUID, skills: list[str]
+) -> None:
+    """Skills, after the fact. The roster row had no UPDATE path at all, so a
+    worker's skills were whatever was typed when they were added and could
+    never be corrected.
+
+    RLS decides whose roster this is — crowd_worker_write scopes it to the
+    aggregator org — so there is no org check here beyond the lookup failing.
+    """
+    w = (
+        await session.execute(select(CrowdWorker).where(CrowdWorker.id == worker_id))
+    ).scalar_one_or_none()
+    if w is None:
+        raise LookupError("crowd resource not found")
+    w.skills = skills
+    await audit.log(
+        session, "worker.updated",
+        f"Set skills for {w.display_name} ({w.reference_code})",
+        [w.id, claims.org_id],
+    )
+
+
 async def set_worker_status(
     session: AsyncSession, claims: AccessClaims, worker_id: uuid.UUID, status: str
 ) -> None:
@@ -446,7 +470,7 @@ async def set_worker_status(
         await session.execute(select(CrowdWorker).where(CrowdWorker.id == worker_id))
     ).scalar_one_or_none()
     if w is None:
-        raise LookupError("worker not found")
+        raise LookupError("crowd resource not found")
     w.status = status
     if status == "offboarded" and w.user_id is not None:
         # An offboarded worker can no longer sign in to this organisation. A

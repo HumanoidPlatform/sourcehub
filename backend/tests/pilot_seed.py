@@ -145,7 +145,7 @@ task = task.json()
 ok(f"task {task['reference_code']} assigned to {ag1['name']} (target 5 photos)")
 
 # --- the worker -------------------------------------------------------------
-r = agg.post("/network/workers", json={"display_name": name, "email": email, "skill": "Shelf capture", "trained": True})
+r = agg.post("/network/workers", json={"display_name": name, "email": email, "skills": ["shelf_capture"], "trained": True})
 if r.status_code == 201:
     w = r.json()
     tok = invitation_token(email)
