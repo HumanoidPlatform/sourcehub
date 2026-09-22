@@ -206,9 +206,9 @@ describe("notification bell", () => {
 });
 
 describe("brand", () => {
-  it("names the company once, quietly, at the foot of the rail", () => {
+  it("names the company once, quietly, below the wordmark", () => {
     renderShell();
-    expect(screen.getByText("A Cosarathi product")).toBeTruthy();
+    expect(screen.getAllByText("A CoSarathi product")).toHaveLength(1);
   });
 
   it("leads home when the logo or the name is clicked", () => {
@@ -217,6 +217,7 @@ describe("brand", () => {
     expect(home.getAttribute("href")).toBe("/");
     // both the mark and the wordmark are inside the one link
     expect(home.querySelector(".mark-logo")).not.toBeNull();
+    expect(home.querySelector(".mark-by")?.textContent).toBe("A CoSarathi product");
     expect(home.textContent).toContain("DataMind360");
   });
 
