@@ -38,6 +38,268 @@ const CATEGORIES = [
   ["people_deliverable", "People-based deliverable"],
 ] as const;
 
+const COUNTRY_LOCALES = [
+  ["AF", "Afghanistan"], ["AL", "Albania"], ["DZ", "Algeria"], ["AD", "Andorra"],
+  ["AO", "Angola"], ["AR", "Argentina"], ["AM", "Armenia"], ["AU", "Australia"],
+  ["AT", "Austria"], ["AZ", "Azerbaijan"], ["BS", "Bahamas"], ["BH", "Bahrain"],
+  ["BD", "Bangladesh"], ["BB", "Barbados"], ["BE", "Belgium"], ["BZ", "Belize"],
+  ["BJ", "Benin"], ["BT", "Bhutan"], ["BO", "Bolivia"], ["BA", "Bosnia and Herzegovina"],
+  ["BW", "Botswana"], ["BR", "Brazil"], ["BN", "Brunei"], ["BG", "Bulgaria"],
+  ["BF", "Burkina Faso"], ["BI", "Burundi"], ["KH", "Cambodia"], ["CM", "Cameroon"],
+  ["CA", "Canada"], ["CL", "Chile"], ["CN", "China"], ["CO", "Colombia"],
+  ["CR", "Costa Rica"], ["CI", "Cote d'Ivoire"], ["HR", "Croatia"], ["CY", "Cyprus"],
+  ["CZ", "Czechia"], ["DK", "Denmark"], ["DO", "Dominican Republic"], ["EC", "Ecuador"],
+  ["EG", "Egypt"], ["SV", "El Salvador"], ["EE", "Estonia"], ["ET", "Ethiopia"],
+  ["FI", "Finland"], ["FR", "France"], ["GE", "Georgia"], ["DE", "Germany"],
+  ["GH", "Ghana"], ["GR", "Greece"], ["GT", "Guatemala"], ["HK", "Hong Kong"],
+  ["HU", "Hungary"], ["IS", "Iceland"], ["IN", "India"], ["ID", "Indonesia"],
+  ["IE", "Ireland"], ["IL", "Israel"], ["IT", "Italy"], ["JM", "Jamaica"],
+  ["JP", "Japan"], ["JO", "Jordan"], ["KZ", "Kazakhstan"], ["KE", "Kenya"],
+  ["KW", "Kuwait"], ["KG", "Kyrgyzstan"], ["LA", "Laos"], ["LV", "Latvia"],
+  ["LB", "Lebanon"], ["LT", "Lithuania"], ["LU", "Luxembourg"], ["MY", "Malaysia"],
+  ["MV", "Maldives"], ["MT", "Malta"], ["MU", "Mauritius"], ["MX", "Mexico"],
+  ["MD", "Moldova"], ["MA", "Morocco"], ["MZ", "Mozambique"], ["MM", "Myanmar"],
+  ["NP", "Nepal"], ["NL", "Netherlands"], ["NZ", "New Zealand"], ["NG", "Nigeria"],
+  ["NO", "Norway"], ["OM", "Oman"], ["PK", "Pakistan"], ["PA", "Panama"],
+  ["PE", "Peru"], ["PH", "Philippines"], ["PL", "Poland"], ["PT", "Portugal"],
+  ["QA", "Qatar"], ["RO", "Romania"], ["RW", "Rwanda"], ["SA", "Saudi Arabia"],
+  ["SN", "Senegal"], ["RS", "Serbia"], ["SG", "Singapore"], ["SK", "Slovakia"],
+  ["SI", "Slovenia"], ["ZA", "South Africa"], ["KR", "South Korea"], ["ES", "Spain"],
+  ["LK", "Sri Lanka"], ["SE", "Sweden"], ["CH", "Switzerland"], ["TW", "Taiwan"],
+  ["TJ", "Tajikistan"], ["TZ", "Tanzania"], ["TH", "Thailand"], ["TR", "Turkey"],
+  ["TM", "Turkmenistan"], ["UG", "Uganda"], ["UA", "Ukraine"], ["AE", "United Arab Emirates"],
+  ["GB", "United Kingdom"], ["US", "United States"], ["UY", "Uruguay"], ["UZ", "Uzbekistan"],
+  ["VE", "Venezuela"], ["VN", "Vietnam"], ["ZM", "Zambia"], ["ZW", "Zimbabwe"],
+] as const;
+
+function countryLabel(code: string): string {
+  const found = COUNTRY_LOCALES.find(([value]) => value === code);
+  return found ? found[1] : code;
+}
+
+const LANGUAGES = [
+  ["eng", "English"], ["hin", "Hindi"], ["fr", "French"], ["spa", "Spanish"],
+  ["ara", "Arabic"], ["ben", "Bengali"], ["cmn", "Mandarin Chinese"], ["por", "Portuguese"],
+  ["rus", "Russian"], ["de", "German"], ["jpn", "Japanese"], ["kor", "Korean"],
+  ["ind", "Indonesian"], ["msa", "Malay"], ["ita", "Italian"], ["tur", "Turkish"],
+  ["vie", "Vietnamese"], ["tha", "Thai"], ["tam", "Tamil"], ["tel", "Telugu"],
+  ["mar", "Marathi"], ["urd", "Urdu"], ["guj", "Gujarati"], ["kan", "Kannada"],
+  ["pan", "Punjabi"], ["nld", "Dutch"], ["swe", "Swedish"], ["nor", "Norwegian"],
+  ["dan", "Danish"], ["fin", "Finnish"], ["pol", "Polish"], ["ukr", "Ukrainian"],
+  ["ell", "Greek"], ["heb", "Hebrew"],
+] as const;
+
+function languageLabel(code: string): string {
+  const found = LANGUAGES.find(([value]) => value === code);
+  return found ? found[1] : code;
+}
+
+function localeLabel(value: string): string {
+  const [country, language] = value.split("-");
+  if (!country || !language) return countryLabel(value.toUpperCase());
+  return `${countryLabel(country.toUpperCase())} - ${languageLabel(language)}`;
+}
+
+const COUNTRY_LANGUAGE_CODES: Record<string, string[]> = {
+  AE: ["ara", "eng"],
+  AR: ["spa"],
+  AT: ["de", "eng"],
+  AU: ["eng"],
+  BD: ["ben", "eng"],
+  BE: ["nld", "fr", "de"],
+  BR: ["por"],
+  CA: ["eng", "fr"],
+  CH: ["de", "fr", "ita"],
+  CL: ["spa"],
+  CN: ["cmn", "eng"],
+  CO: ["spa"],
+  DE: ["de", "eng"],
+  DK: ["dan", "eng"],
+  EG: ["ara", "eng"],
+  ES: ["spa"],
+  FI: ["fin", "swe", "eng"],
+  FR: ["fr", "eng"],
+  GB: ["eng"],
+  GR: ["ell", "eng"],
+  HK: ["cmn", "eng"],
+  ID: ["ind", "eng"],
+  IE: ["eng"],
+  IL: ["heb", "ara", "eng"],
+  IN: ["eng", "hin", "tel", "tam", "ben", "mar", "urd", "guj", "kan", "pan"],
+  IT: ["ita", "eng"],
+  JP: ["jpn", "eng"],
+  KR: ["kor", "eng"],
+  LK: ["tam", "eng"],
+  MX: ["spa"],
+  MY: ["msa", "eng", "cmn", "tam"],
+  NG: ["eng"],
+  NL: ["nld", "eng"],
+  NO: ["nor", "eng"],
+  NZ: ["eng"],
+  PE: ["spa"],
+  PH: ["eng"],
+  PK: ["urd", "eng", "pan"],
+  PL: ["pol", "eng"],
+  PT: ["por", "eng"],
+  QA: ["ara", "eng"],
+  RU: ["rus", "eng"],
+  SA: ["ara", "eng"],
+  SE: ["swe", "eng"],
+  SG: ["eng", "cmn", "msa", "tam"],
+  TH: ["tha", "eng"],
+  TR: ["tur", "eng"],
+  TW: ["cmn", "eng"],
+  UA: ["ukr", "rus", "eng"],
+  US: ["eng", "spa"],
+  VN: ["vie", "eng"],
+  ZA: ["eng"],
+};
+
+const LOCALE_OPTIONS = Object.entries(COUNTRY_LANGUAGE_CODES).flatMap(([countryCode, languageCodes]) => {
+  const country = countryLabel(countryCode);
+  return languageCodes.map((languageCode) => {
+    const language = languageLabel(languageCode);
+    return {
+    value: `${countryCode.toLowerCase()}-${languageCode}`,
+    label: `${country} - ${language}`,
+    search: `${country} ${language} ${countryCode.toLowerCase()}-${languageCode}`.toLowerCase(),
+    };
+  });
+});
+
+function CountryLocaleCombobox({
+  id,
+  value,
+  onChange,
+}: {
+  id?: string;
+  value: string[];
+  onChange: (next: string[]) => void;
+}) {
+  const [draft, setDraft] = useState("");
+  const [open, setOpen] = useState(false);
+  const selected = new Set(value);
+  const query = draft.trim().toLowerCase();
+  const options = (query
+    ? LOCALE_OPTIONS.filter((o) => !selected.has(o.value) && o.search.includes(query))
+    : LOCALE_OPTIONS.filter((o) => !selected.has(o.value)).slice(0, 8)
+  ).slice(0, 12);
+
+  const matchLocale = (raw: string) => {
+    const lower = raw.trim().toLowerCase();
+    return LOCALE_OPTIONS.find(
+      (o) =>
+        o.value === lower ||
+        o.label.toLowerCase() === lower ||
+        `${o.label} (${o.value})`.toLowerCase() === lower,
+    );
+  };
+
+  const addLocale = (locale: { value: string; label: string }) => {
+    if (selected.has(locale.value)) return;
+    onChange([...value, locale.value]);
+    setDraft("");
+    setOpen(false);
+  };
+
+  const commit = () => {
+    const match = matchLocale(draft);
+    if (match) addLocale(match);
+    else setDraft("");
+    setOpen(false);
+  };
+
+  const listId = `${id ?? "country-locale"}-options`;
+
+  return (
+    <div>
+      {value.length > 0 && (
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 5, marginBottom: 6 }}>
+          {value.map((locale) => (
+            <span className="chip" key={locale}>
+              {localeLabel(locale)}
+              <button
+                type="button"
+                onClick={() => onChange(value.filter((x) => x !== locale))}
+                aria-label={`Remove ${localeLabel(locale)}`}
+                style={{ border: 0, background: "none", cursor: "pointer", padding: 0, lineHeight: 1 }}
+              >
+                ×
+              </button>
+            </span>
+          ))}
+        </div>
+      )}
+      <div style={{ position: "relative" }}>
+        <input
+          id={id}
+          className={inputCls}
+          role="combobox"
+          aria-autocomplete="list"
+          aria-expanded={open && options.length > 0}
+          aria-controls={listId}
+          value={draft}
+          placeholder="Search country, language, or code"
+          onFocus={() => setOpen(true)}
+          onChange={(e) => {
+            setDraft(e.target.value);
+            setOpen(true);
+          }}
+          onBlur={commit}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              commit();
+            } else if (e.key === "Escape") {
+              setDraft("");
+              setOpen(false);
+            } else if (e.key === "Backspace" && !draft && value.length) {
+              onChange(value.slice(0, -1));
+            }
+          }}
+        />
+        {open && options.length > 0 && (
+          <div
+            id={listId}
+            role="listbox"
+            style={{
+              position: "absolute",
+              left: 0,
+              right: 0,
+              top: "calc(100% + 4px)",
+              zIndex: 80,
+              maxHeight: 220,
+              overflowY: "auto",
+              border: "1px solid var(--line)",
+              borderRadius: "var(--r-control)",
+              background: "var(--surface)",
+              boxShadow: "var(--shadow-overlay)",
+            }}
+          >
+            {options.map((o) => (
+              <button
+                key={o.value}
+                type="button"
+                role="option"
+                className="btn"
+                data-variant="quiet"
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                  addLocale(o);
+                }}
+                style={{ width: "100%", justifyContent: "space-between", border: 0, borderRadius: 0 }}
+              >
+                <span>{o.label}</span>
+                <span className="muted small">{o.value}</span>
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 /* --- client: requests list -------------------------------------------------- */
 
 export function RequestsPage() {
@@ -556,30 +818,10 @@ export function RequestNewPage() {
                 </select>
               )}
             </Field>
-            <Field label="Use case" hint="Shapes what a partner has to agree to downstream.">
-              {(id) => (
-                <select id={id} className={selectCls} value={d.use_case} onChange={set("use_case")}>
-                  <option value="">Not specified</option>
-                  {USE_CASES.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
-                </select>
-              )}
-            </Field>
-            <Field
-              label="What is this for?"
-              span
-              required={otherUseCase}
-              error={errOf("objective")}
-              hint={otherUseCase
-                ? "You picked \u201cSomething else\u201d. Say what, so a partner knows what they are bidding on."
-                : "One sentence. It is the first thing a partner reads."}
-            >
-              {(id) => <textarea id={id} className={textareaCls} rows={2} value={d.objective} onChange={set("objective")} placeholder="Train a shelf-recognition model across our top 12 markets." />}
-            </Field>
-
-            <Field label="How much" required error={errOf("target_quantity")}>
+            <Field label="Quantity" required error={errOf("target_quantity")}>
               {(id) => <input id={id} className={inputCls} type="number" min={1} value={d.target_quantity} onChange={set("target_quantity")} placeholder="25000" />}
             </Field>
-            <Field label="Of what" required>
+            <Field label="Content Type" required>
               {(id) => (
                 <select id={id} className={selectCls} value={d.target_unit} onChange={set("target_unit")}>
                   {TARGET_UNITS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
@@ -608,18 +850,16 @@ export function RequestNewPage() {
                 columns={2}
               />
             )}
-            <Field label="Countries" hint="ISO codes — IN, AE, GB. Enter or comma to add.">
+            <Field label="Location / Locale">
               {(id) => (
-                <TagInput
+                <CountryLocaleCombobox
                   id={id}
                   value={d.countries}
-                  onChange={(v) => setD((x) => ({ ...x, countries: v }))}
-                  placeholder="IN"
-                  transform={(raw) => raw.toUpperCase().slice(0, 3)}
+                  onChange={(countries) => setD((x) => ({ ...x, countries }))}
                 />
               )}
             </Field>
-            <Field label="Where" hint="The kind of place, not the address.">
+            <Field label="Location Type" hint="The kind of place, not the address.">
               {(id) => (
                 <select id={id} className={selectCls} value={d.location_type} onChange={set("location_type")}>
                   <option value="">Not specified</option>
@@ -629,6 +869,25 @@ export function RequestNewPage() {
             </Field>
             <Field label="People needed" hint="Roughly, so a partner can size the job.">
               {(id) => <input id={id} className={inputCls} type="number" min={0} value={d.people_headcount} onChange={set("people_headcount")} />}
+            </Field>
+            <Field label="Purpose" hint="Shapes what a partner has to agree to downstream.">
+              {(id) => (
+                <select id={id} className={selectCls} value={d.use_case} onChange={set("use_case")}>
+                  <option value="">Not specified</option>
+                  {USE_CASES.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+                </select>
+              )}
+            </Field>
+            <Field
+              label="Project Objective"
+              span
+              required={otherUseCase}
+              error={errOf("objective")}
+              hint={otherUseCase
+                ? "You picked \u201cSomething else\u201d. Say what, so a partner knows what they are bidding on."
+                : "One sentence. It is the first thing a partner reads."}
+            >
+              {(id) => <textarea id={id} className={textareaCls} rows={2} value={d.objective} onChange={set("objective")} placeholder="Train a shelf-recognition model across our top 12 markets." />}
             </Field>
 
             <label className="checkline span">
@@ -886,16 +1145,16 @@ export function RequestNewPage() {
             ["Title", d.title || "—"],
             ["Category", titleCase(d.category)],
             ...(d.objective ? [["Objective", d.objective] as Row] : []),
-            ...(d.use_case ? [["Use case", labelOf(USE_CASES, d.use_case as UseCase)] as Row] : []),
+            ...(d.use_case ? [["Purpose", labelOf(USE_CASES, d.use_case as UseCase)] as Row] : []),
             ["Quantity", d.target_quantity
               ? `${d.target_quantity} ${labelOf(TARGET_UNITS, d.target_unit as TargetUnit)}`
               : "To be agreed"],
             ["Media", d.capture_media.length
               ? d.capture_media.map((m) => labelOf(CAPTURE_MEDIA, m)).join(", ")
               : "Anything visual"],
-            ...(d.countries.length ? [["Countries", d.countries.join(", ")] as Row] : []),
+            ...(d.countries.length ? [["Location / Locale", d.countries.map(localeLabel).join(", ")] as Row] : []),
             ...(d.location_type
-              ? [["Where", labelOf(LOCATION_TYPES, d.location_type as LocationType)] as Row] : []),
+              ? [["Location Type", labelOf(LOCATION_TYPES, d.location_type as LocationType)] as Row] : []),
             ...(d.people_headcount ? [["People needed", d.people_headcount] as Row] : []),
             ["Acceptance", d.acceptance || "Client review on delivery"],
             ...(d.qt_min_pass_rate_pct
@@ -1347,7 +1606,7 @@ export function RequestDetailPage() {
         <Panel title="Specification">
           <Dl rows={[
             ["Objective", r.objective ?? "—"],
-            ["Use case", labelOf(USE_CASES, r.use_case)],
+            ["Purpose", labelOf(USE_CASES, r.use_case)],
             ["Quantity", r.spec.target_quantity
               ? `${r.spec.target_quantity} ${labelOf(TARGET_UNITS, r.spec.target_unit)}`
               : "—"],
@@ -1371,7 +1630,7 @@ export function RequestDetailPage() {
             // "Geography" — two near-identical labels for different things
             // plus a prose restatement of both.
             ["Where", [
-              r.spec.countries.length ? r.spec.countries.join(", ") : null,
+              r.spec.countries.length ? r.spec.countries.map(localeLabel).join(", ") : null,
               r.spec.location_type ? labelOf(LOCATION_TYPES, r.spec.location_type) : null,
             ].filter(Boolean).join(" · ") || "—"],
             ...(briefDocs.length
