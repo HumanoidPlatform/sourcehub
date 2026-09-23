@@ -31,7 +31,9 @@ const NAV: Record<string, NavItem[]> = {
   tenant: [
     { to: "/", label: "Overview" },
     { to: "/opportunities", label: "Opportunities" },
-    { to: "/proposals", label: "Proposals" },
+    // The route stays /proposals — the URL is not a label, and the API,
+    // the table and the PRO- codes all still say proposal.
+    { to: "/proposals", label: "Responses" },
     { to: "/contracts", label: "Contracts" },
     { to: "/network", label: "Network" },
     { to: "/qa", label: "QA and delivery" },
@@ -46,7 +48,7 @@ const NAV: Record<string, NavItem[]> = {
     { to: "/roster", label: "Crowd roster" },
     { to: "/equipment", label: "Equipment" },
   ],
-  // a field worker who signs in here sees their assignments read-only;
+  // a crowd resource who signs in here sees their assignments read-only;
   // capture happens in the phone app
   worker: [
     { to: "/", label: "My assignments" },
@@ -83,7 +85,7 @@ export const WORKSPACE: Record<string, string> = {
   business: "Business partner",
   sponsor: "Device sponsor",
   platform_admin: "Platform operations",
-  worker: "Crowd worker",
+  worker: "Crowd resource",
 };
 
 export type Theme = "system" | "light" | "dark";

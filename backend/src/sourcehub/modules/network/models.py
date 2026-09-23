@@ -13,7 +13,7 @@ import datetime as dt
 import uuid
 from decimal import Decimal
 
-from sqlalchemy import Boolean, Date, DateTime, ForeignKey, Integer, Numeric, SmallInteger, Text, text
+from sqlalchemy import ARRAY, Boolean, Date, DateTime, ForeignKey, Integer, Numeric, SmallInteger, Text, text
 from sqlalchemy.dialects.postgresql import CITEXT, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -73,7 +73,6 @@ class CrowdWorker(Base):
     reference_code: Mapped[str] = mapped_column(Text, unique=True)
     aggregator_org_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("organisation.id"))
     display_name: Mapped[str] = mapped_column(Text)
-    skill: Mapped[str | None] = mapped_column(Text)
     status: Mapped[str] = mapped_column(WorkerStatus, server_default=text("'on_shift'"))
     trained: Mapped[bool] = mapped_column(Boolean, server_default=text("false"))
     # a roster row that is also a person who signs in (db/120_workers_media.sql)
@@ -84,6 +83,12 @@ class CrowdWorker(Base):
     created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
     updated_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
     deleted_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
+    # Last, matching the column order db/190_worker_skills.sql produces: it is
+    # ADDed after the table exists, so it lands at the end on both the
+    # bootstrap and the migration path. make verify-schema diffs that order.
+    # list[str], not list[Skill]: the Literal lives in the API layer, and the
+    # CHECK constraint is what the database enforces.
+    skills: Mapped[list[str]] = mapped_column(ARRAY(Text), server_default=text("'{}'"))
 
 
 class Rating(Base):

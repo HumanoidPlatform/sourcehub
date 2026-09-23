@@ -87,7 +87,8 @@ def _effective(stored: str, derived: str | None, proposal_count: int) -> str:
 
 
 def _row(
-    r: Request, effective: str, proposal_count: int, viewer_org: uuid.UUID | None = None
+    r: Request, effective: str, proposal_count: int, viewer_org: uuid.UUID | None = None,
+    client_name: str | None = None,
 ) -> dict[str, Any]:
     """The request as the API returns it.
 
@@ -109,6 +110,10 @@ def _row(
         "id": r.id,
         "reference_code": r.reference_code,
         "client_org_id": r.client_org_id,
+        # None when the reader may not see the buyer — a client whose
+        # request has closed, to a partner that never bid. The console
+        # shows the panel only when this is filled.
+        "client_name": client_name,
         "title": r.title,
         "category": r.category,
         "status": effective,
@@ -352,7 +357,9 @@ async def _announce_publish(session: AsyncSession, claims: AccessClaims, r: Requ
     for tid in tenants:
         await notifier.notify(
             session, tid,
-            f"{r.title} is open for proposals.",
+            # Reads in a partner's bell, so it uses the partner's word. The
+            # sibling line below goes to the client and still says proposal.
+            f"{r.title} is open for responses.",
             "opportunities", {"id": str(r.id)},
         )
 
@@ -398,6 +405,27 @@ async def _get_owned(session: AsyncSession, request_id: uuid.UUID) -> Request:
     return r
 
 
+async def _client_names(
+    session: AsyncSession, org_ids: list[uuid.UUID]
+) -> dict[uuid.UUID, str]:
+    """Who is buying, for the requests just read.
+
+    One statement for the whole page, and no join on the request select: RLS
+    decides what comes back, so a client the reader may not see is simply
+    absent and the caller gets None. That is the same degradation my_proposals
+    relies on, and it means db/180 can be revoked without this code noticing.
+    """
+    if not org_ids:
+        return {}
+    rows = (
+        await session.execute(
+            text("SELECT id, name FROM organisation WHERE id = ANY(:ids)"),
+            {"ids": list({*org_ids})},
+        )
+    ).all()
+    return {r[0]: r[1] for r in rows}
+
+
 async def list_requests(
     session: AsyncSession, claims: AccessClaims, open_only: bool = False
 ) -> list[dict[str, Any]]:
@@ -408,12 +436,13 @@ async def list_requests(
         stmt = stmt.where(Request.status == "published")
     rows = (await session.execute(stmt)).scalars().all()
     cmap, counts = await _status_maps(session, [r.id for r in rows])
+    names = await _client_names(session, [r.client_org_id for r in rows])
     out = []
     for r in rows:
         eff = _effective(r.status, cmap.get(r.id), counts.get(r.id, 0))
         if open_only and eff not in ("published", "proposals_received"):
             continue  # awarded work is no longer an opportunity
-        out.append(_row(r, eff, counts.get(r.id, 0), claims.org_id))
+        out.append(_row(r, eff, counts.get(r.id, 0), claims.org_id, names.get(r.client_org_id)))
     return out
 
 
@@ -428,9 +457,10 @@ async def get_request(
     if r is None:
         return None
     cmap, counts = await _status_maps(session, [r.id])
+    names = await _client_names(session, [r.client_org_id])
     out = _row(
         r, _effective(r.status, cmap.get(r.id), counts.get(r.id, 0)),
-        counts.get(r.id, 0), claims.org_id,
+        counts.get(r.id, 0), claims.org_id, names.get(r.client_org_id),
     )
     out["proposals"] = await list_proposals(session, claims, request_id)
     out["attachments"] = await _field_attachments(session, "request", [r.id])

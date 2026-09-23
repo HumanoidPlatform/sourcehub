@@ -2,8 +2,8 @@
 // and the supplier's task board.
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { get, post } from "@api/client";
 import type { ActivityRow, Assignment, CaptureSpec, Contract, Org, Rfp, SubjectSpec, Task } from "@api/types";
 import {
@@ -279,7 +279,7 @@ function AssignTaskDialog({
   const [unit, setUnit] = useState("photos");
   const [instructions, setInstructions] = useState("");
   const [files, setFiles] = useState<AttachmentDraft[]>([]);
-  // The subject: what every capture must show. The worker reads it before the
+  // The subject: what every capture must show. The crowd resource reads it before the
   // shutter and their phone checks each photo against it; a task without one
   // gets no check. Prefilled from the brief, kept as the partner's own words.
   const [domain, setDomain] = useState("");
@@ -291,7 +291,7 @@ function AssignTaskDialog({
 
   // What the client asked for. A task inherits capture_spec and target_unit
   // from the request unless this form overrides them (backend
-  // delivery.create_task), and what a worker's phone will accept follows from
+  // delivery.create_task), and what their phone will accept follows from
   // that — so the partner should be able to see what they are inheriting
   // rather than discovering it when an upload is refused.
   const brief = useQuery({
@@ -313,6 +313,32 @@ function AssignTaskDialog({
 
   const aggs = useQuery({ queryKey: ["orgs", "aggregator"], queryFn: () => get<Org[]>("/organisations?kind=aggregator") });
   const bizs = useQuery({ queryKey: ["orgs", "business"], queryFn: () => get<Org[]>("/organisations?kind=business") });
+
+  // Why the supplier list is empty, when it is. isSuccess rather than
+  // !isLoading: react-query clears isLoading on failure too, so !isLoading
+  // would tell a partner whose network is full that they have no suppliers the
+  // moment /organisations 403s — an absent answer read as a negative one, the
+  // same mistake the DPA row used to make. It also cannot flicker on first
+  // paint, because pending is not success.
+  const supplierHint =
+    aggs.isError || bizs.isError
+      ? "Could not load your network. Reload the page and try again."
+      : aggs.isSuccess && bizs.isSuccess && aggs.data.length === 0 && bizs.data.length === 0
+        ? "No aggregators or business partners in your network yet. Onboard one on the Network page."
+        : undefined;
+
+  // Same shape as "Deliver to client" (line 157) and "Send back" (line 492):
+  // a disabled button that says nothing is just a dead button. Three states
+  // because two things can be missing at once. All false while the request is
+  // in flight — nothing is missing then, it is only busy.
+  const missing =
+    !title.trim() && !assignee
+      ? "Name the task and choose a supplier"
+      : !title.trim()
+        ? "Name the task"
+        : !assignee
+          ? "Choose a supplier"
+          : undefined;
 
   const create = useMutation({
     mutationFn: () =>
@@ -341,7 +367,12 @@ function AssignTaskDialog({
       foot={
         <>
           <Button onClick={onClose}>Cancel</Button>
-          <Button variant="primary" disabled={!title.trim() || !assignee || create.isPending} onClick={() => create.mutate()}>
+          <Button
+            variant="primary"
+            disabled={!title.trim() || !assignee || create.isPending}
+            title={missing}
+            onClick={() => create.mutate()}
+          >
             Assign task
           </Button>
         </>
@@ -354,8 +385,8 @@ function AssignTaskDialog({
           <div className="span">
             <Callout tone="attention" title="Inherited from the request">
               {wantedMedia.length > 0
-                ? `Workers on this task may upload ${wantedMedia.join(" and ")} only`
-                : "Workers on this task may upload anything visual"}
+                ? `Crowd resources on this task may upload ${wantedMedia.join(" and ")} only`
+                : "Crowd resources on this task may upload anything visual"}
               {wantedUnit ? `, counted in ${wantedUnit.replace(/_/g, " ")}` : ""}.
               {" "}Setting a target below overrides the unit.
             </Callout>
@@ -363,6 +394,39 @@ function AssignTaskDialog({
         )}
         <Field label="Task title" required span>
           {(id) => <input id={id} className={inputCls} value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Kraków and Warsaw routes" />}
+        </Field>
+        {/* Second, not last. Who does the work is the decision the rest of this
+            form is written FOR — the target, the instructions, the subject
+            check are all for a particular supplier. Sitting under the
+            attachments it was the one mandatory field a partner scrolled past,
+            and the only sign they had missed it was a dead Assign task button.
+            Deliberately after the title rather than above it: Dialog focuses
+            the first input in document order, and a <select> focused on open
+            changes its own value on a stray arrow key.
+            The prototype (docs/sourcehub-app.html:2376) puts this fourth and
+            outside the grid; second is what the console wants. */}
+        <Field label="Assign to" required span hint={supplierHint}>
+          {(id) => (
+            <select id={id} className={inputCls} value={assignee} onChange={(e) => setAssignee(e.target.value)}>
+              <option value="">Choose a supplier…</option>
+              {(aggs.data ?? []).length > 0 && (
+                <optgroup label="Aggregators">
+                  {(aggs.data ?? []).map((a) => (
+                    <option key={a.id} value={a.id}>
+                      {a.name} — {(a.profile.crowd_size as number) ?? "?"} crowd resources
+                    </option>
+                  ))}
+                </optgroup>
+              )}
+              {(bizs.data ?? []).length > 0 && (
+                <optgroup label="Business partners">
+                  {(bizs.data ?? []).map((b) => (
+                    <option key={b.id} value={b.id}>{b.name} — {(b.profile.specialty as string) ?? ""}</option>
+                  ))}
+                </optgroup>
+              )}
+            </select>
+          )}
         </Field>
         <Field label="Due date">
           {(id) => <input id={id} className={inputCls} type="date" value={due} onChange={(e) => setDue(e.target.value)} />}
@@ -380,10 +444,10 @@ function AssignTaskDialog({
             </div>
           )}
         </Field>
-        <Field label="Instructions for the field" span hint="Shown to every worker on their phone.">
+        <Field label="Instructions for the field" span hint="Shown to every crowd resource on their phone.">
           {(id) => <textarea id={id} className={textareaCls} rows={2} value={instructions} onChange={(e) => setInstructions(e.target.value)} placeholder="Full shelf in frame, no shoppers, landscape." />}
         </Field>
-        <Field label="Subject" span hint="What every capture must show, in a few words. The worker's phone checks each photo against this and suggests a retake when nothing matches. Leave empty for no check.">
+        <Field label="Subject" span hint="What every capture must show, in a few words. Their phone checks each photo against this and suggests a retake when nothing matches. Leave empty for no check.">
           {(id) => <input id={id} className={inputCls} value={domain} onChange={(e) => setDomain(e.target.value)} placeholder="retail shelf" maxLength={80} />}
         </Field>
         <Field label="Must show" hint="Comma-separated words.">
@@ -395,33 +459,10 @@ function AssignTaskDialog({
         <AttachmentsField
           label="Attach to the instructions"
           span
-          hint="A shot list, a site map, an example frame. Workers on this task can open these on their phone."
+          hint="A shot list, a site map, an example frame. Crowd resources on this task can open these on their phone."
           items={files}
           onChange={setFiles}
         />
-        <Field label="Assign to" required span>
-          {(id) => (
-            <select id={id} className={inputCls} value={assignee} onChange={(e) => setAssignee(e.target.value)}>
-              <option value="">Choose a supplier…</option>
-              {(aggs.data ?? []).length > 0 && (
-                <optgroup label="Aggregators">
-                  {(aggs.data ?? []).map((a) => (
-                    <option key={a.id} value={a.id}>
-                      {a.name} — {(a.profile.crowd_size as number) ?? "?"} crowd workers
-                    </option>
-                  ))}
-                </optgroup>
-              )}
-              {(bizs.data ?? []).length > 0 && (
-                <optgroup label="Business partners">
-                  {(bizs.data ?? []).map((b) => (
-                    <option key={b.id} value={b.id}>{b.name} — {(b.profile.specialty as string) ?? ""}</option>
-                  ))}
-                </optgroup>
-              )}
-            </select>
-          )}
-        </Field>
       </div>
       {error && <Callout tone="critical" title={error} />}
     </Dialog>
@@ -571,7 +612,7 @@ function TaskDetailDialog({ t, onClose }: { t: Task; onClose: () => void }) {
           : t.target ?? "—"],
         ...(t.instructions ? ([["Instructions", t.instructions]] as [string, React.ReactNode][]) : []),
         ...subjectRows((t.capture_spec as CaptureSpec).subject),
-        // The shot list or map the instructions refer to. A worker on
+        // The shot list or map the instructions refer to. A crowd resource on
         // this task can open these too — the policy follows the task.
         ...((t.attachments ?? []).length
           ? ([["Attached", <AttachmentList key="ta" items={t.attachments ?? []} />]] as [string, React.ReactNode][])
@@ -583,7 +624,7 @@ function TaskDetailDialog({ t, onClose }: { t: Task; onClose: () => void }) {
         ["Due", fmtDate(t.due_on)],
         ["Status", <Pill key="s" tone={tm.tone}>{tm.label}</Pill>],
         ...(summary && summary.total - summary.cancelled > 0
-          ? ([["Workers", `${summary.total - summary.cancelled} assigned · ${summary.accepted} accepted · ${summary.submitted} awaiting review`]] as [string, React.ReactNode][])
+          ? ([["Crowd", `${summary.total - summary.cancelled} assigned · ${summary.accepted} accepted · ${summary.submitted} awaiting review`]] as [string, React.ReactNode][])
           : []),
         ["Last submission", sub
           ? `Attempt ${sub.attempt_no} · ${sub.asset_count} asset(s) · ${fmtDateTime(sub.submitted_at)}`
@@ -630,6 +671,38 @@ export function TasksPage() {
 
   const tasks = useQuery({ queryKey: ["tasks"], queryFn: () => get<Task[]>("/tasks") });
 
+  // Opened from the bell: notificationHref turns a "New task" alert into
+  // /tasks?task=<id>. The dialog takes a whole Task, so the id is resolved
+  // against the list already in hand rather than fetched again.
+  const [sp, setSp] = useSearchParams();
+  const wanted = sp.get("task");
+  // One attempt per id. Without it the "not in your list" toast would fire
+  // again on every background refetch; resetting when the param clears is
+  // what lets the SAME notification be clicked a second time — miss that and
+  // the second click silently does nothing, which is this bug again.
+  const tried = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (!wanted) { tried.current = null; return; }
+    if (!tasks.isSuccess || tried.current === wanted) return;
+    tried.current = wanted;
+    const t = (tasks.data ?? []).find((x) => x.id === wanted);
+    if (t) setViewing(t);
+    // Saying nothing here would reproduce the exact symptom being fixed: an
+    // old alert for a withdrawn task would be another click that does nothing.
+    else toast("That task is not in your list", "It may have been withdrawn, or assigned to another account.", "neutral");
+  }, [wanted, tasks.isSuccess, tasks.data, toast]);
+
+  /** Closing drops the param too, so Back does not reopen the dialog. */
+  const closeViewing = () => {
+    setViewing(null);
+    if (sp.has("task")) {
+      const next = new URLSearchParams(sp);
+      next.delete("task");
+      setSp(next, { replace: true });
+    }
+  };
+
   const start = useMutation({
     mutationFn: (tid: string) => post(`/tasks/${tid}/start`),
     onSuccess: () => void qc.invalidateQueries({ queryKey: ["tasks"] }),
@@ -656,7 +729,7 @@ export function TasksPage() {
                 <thead>
                   <tr>
                     <th>Task</th><th>Contract</th><th>Target</th>
-                    {isAggregator && <th>Workers</th>}
+                    {isAggregator && <th>Crowd</th>}
                     <th>Due</th><th>Status</th><th>Last note</th><th />
                   </tr>
                 </thead>
@@ -675,7 +748,7 @@ export function TasksPage() {
                           <td>
                             {workers > 0 ? (
                               <>
-                                {workers} worker{workers === 1 ? "" : "s"}
+                                {workers} crowd resource{workers === 1 ? "" : "s"}
                                 <div className="cell-meta">
                                   {a?.ready ?? 0}{t.target_quantity ? ` / ${t.target_quantity}` : ""} ready
                                   {s?.submitted ? ` · ${s.submitted} to review` : ""}
@@ -694,7 +767,7 @@ export function TasksPage() {
                         <td className="right" onClick={(e) => e.stopPropagation()}><div className="rowactions">
                           <Button size="sm" onClick={() => setViewing(t)}>Details</Button>
                           {isAggregator && (
-                            <Button size="sm" onClick={() => setWorkersFor(t)}>Workers</Button>
+                            <Button size="sm" onClick={() => setWorkersFor(t)}>Crowd</Button>
                           )}
                           {["assigned", "qa_failed"].includes(t.status) && (
                             <Button size="sm" onClick={() => start.mutate(t.id)}>Start</Button>
@@ -739,7 +812,7 @@ export function TasksPage() {
         />
       )}
       {workersFor && <TaskAssignmentsDialog task={live(workersFor)} onClose={() => setWorkersFor(null)} />}
-      {viewing && <TaskDetailDialog t={viewing} onClose={() => setViewing(null)} />}
+      {viewing && <TaskDetailDialog t={viewing} onClose={closeViewing} />}
     </View>
   );
 }
@@ -791,9 +864,9 @@ function SubmitDialog({ task, onClose, onDone }: { task: Task; onClose: () => vo
   );
 }
 
-/* --- a worker who signs in on the web ---------------------------------------- */
+/* --- a crowd resource who signs in on the web ---------------------------------------- */
 
-// Capture happens in the phone app, and files a worker already holds are
+// Capture happens in the phone app, and files they already hold are
 // uploaded from here: a row opens the same presign → PUT → confirm → submit
 // flow the phone runs, in a dialog. The row keeps reporting while the dialog
 // is closed, because the upload queue outlives it.

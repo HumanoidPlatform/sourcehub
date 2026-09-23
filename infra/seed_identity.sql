@@ -125,9 +125,9 @@ BEGIN
   v_worker := seed_identity_user('worker@bengaluru.example', 'Priya Nair', v_agg, 'worker', 'member');
 
   INSERT INTO crowd_worker (reference_code, aggregator_org_id, user_id, email,
-                            display_name, skill, status, trained, rating)
+                            display_name, skills, status, trained, rating)
   VALUES (next_reference_code('WKR','seq_ref_worker'), v_agg, v_worker,
-          'worker@bengaluru.example', 'Priya Nair', 'Shelf capture', 'on_shift', true, 4.8);
+          'worker@bengaluru.example', 'Priya Nair', '{shelf_capture}', 'on_shift', true, 4.8);
 END
 $seed$;
 

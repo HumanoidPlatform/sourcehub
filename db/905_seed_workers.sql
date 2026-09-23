@@ -11,7 +11,7 @@
 -- ============================================================================
 
 INSERT INTO role (code, name, description, applies_to_kind, is_system) VALUES
-  ('worker', 'Field worker', 'Captures data on assignments for a supplier organisation', NULL, true);
+  ('worker', 'Crowd resource', 'Captures data on assignments for a supplier organisation', NULL, true);
 -- applies_to_kind is NULL: an aggregator or a business grants it. The owner
 -- role lookup in approve_onboarding_request filters on kind, so this never
 -- collides with it.
@@ -21,7 +21,7 @@ INSERT INTO permission (code, module, description, requires_mfa) VALUES
   ('assignment.start',  'delivery', 'Start an assignment',                                  false),
   ('assignment.submit', 'delivery', 'Submit an assignment for supplier review',             false),
   ('asset.upload',      'delivery', 'Upload captured files against an assignment',          false),
-  ('assignment.assign', 'delivery', 'Assign units of a task to workers',                    false),
+  ('assignment.assign', 'delivery', 'Assign units of a task to crowd resources',            false),
   ('qa.review.gate1',   'qa',       'Record a QA outcome at gate 1 (supplier self-check)',  false);
 
 INSERT INTO role_permission (role_id, permission_id)

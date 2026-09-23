@@ -1,5 +1,5 @@
 // qa — two review queues. The delivery partner's gate 2 (one row per
-// submission attempt) and the supplier's own gate 1 (one row per worker
+// submission attempt) and the supplier's own gate 1 (one row per crowd resource
 // batch). Verdicts are appended, never edited: the gate that catches a
 // defect decides who absorbs the rework.
 
@@ -166,7 +166,7 @@ function DecideDialog({ row, onClose, onDone }: { row: QaQueueRow; onClose: () =
   );
 }
 
-/* --- gate 1: the supplier reviews its own workers' batches ------------------- */
+/* --- gate 1: the supplier reviews its own crowd's batches ------------------- */
 
 export function Gate1Page() {
   const toast = useToast();
@@ -178,7 +178,7 @@ export function Gate1Page() {
   return (
     <View
       title="Review"
-      sub="Gate 1. Accept a worker's batch to include it in your submission; a rejection must say what to re-capture."
+      sub="Gate 1. Accept a batch to include it in your submission; a rejection must say what to re-capture."
     >
       <div className="g3">
         <Metric label="Awaiting your review" value={rows.length} />
@@ -187,11 +187,11 @@ export function Gate1Page() {
       </div>
       <Panel>
         {rows.length === 0 ? (
-          <Empty title="Nothing to review" hint="A worker's batch lands here when they submit from the app." />
+          <Empty title="Nothing to review" hint="A batch lands here when a crowd resource submits from the app." />
         ) : (
           <TableWrap>
             <table>
-              <thead><tr><th>Task</th><th>Worker</th><th>Units</th><th>Ready</th><th>Phone check</th><th>Worker note</th><th>Submitted</th><th /></tr></thead>
+              <thead><tr><th>Task</th><th>Crowd resource</th><th>Units</th><th>Ready</th><th>Phone check</th><th>Their note</th><th>Submitted</th><th /></tr></thead>
               <tbody>
                 {rows.map((r) => (
                   <tr key={r.assignment_id}>
@@ -230,7 +230,7 @@ export function Gate1Page() {
           onDone={(outcome) => {
             setDeciding(null);
             toast(
-              outcome === "accept" ? "Batch accepted" : "Sent back to the worker",
+              outcome === "accept" ? "Batch accepted" : "Sent back to the crowd resource",
               outcome === "accept" ? "It will be bundled when you submit the task." : "They can see your note in the app.",
               outcome === "accept" ? "success" : "critical",
             );

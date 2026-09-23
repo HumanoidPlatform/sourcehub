@@ -4,9 +4,11 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { get, patch, post } from "@api/client";
-import type { EquipmentRow, LoanRow, OnboardingRow, Org, WorkerRow } from "@api/types";
+import type { EquipmentRow, LoanRow, OnboardingRow, Org, Skill, WorkerRow } from "@api/types";
+import { labelsOf } from "@features/marketplace/vocabularies";
+import { SKILLS } from "./vocabularies";
 import {
-  Button, Callout, Dialog, Dl, Empty, Field, inputCls, Loadable, Metric, Panel, Pill,
+  Button, Callout, CheckGroup, Dialog, Dl, Empty, Field, inputCls, Loadable, Metric, Panel, Pill,
   TableWrap, textareaCls, useToast, View,
 } from "@ds/primitives";
 import { useSession } from "@shared/auth";
@@ -68,23 +70,68 @@ function LoanDetailDialog({ l, onClose }: { l: LoanRow; onClose: () => void }) {
 
 function WorkerDetailDialog({ w, onClose }: { w: WorkerRow; onClose: () => void }) {
   const m = statusMeta(workerStatus, w.status);
+  const qc = useQueryClient();
+  const toast = useToast();
+  // Skills were settable only when the crowd resource was added, so anyone already on
+  // a roster was stuck with whatever was typed the first time — and there is
+  // no way back through offboarding, which is irreversible and blocks the same
+  // email. This is the only edit path a roster row has.
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState<Skill[]>(w.skills);
+  const save = useMutation({
+    mutationFn: () => patch(`/network/workers/${w.id}`, { skills: draft }),
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: ["workers"] });
+      toast("Skills updated", undefined, "success");
+      setEditing(false);
+    },
+    onError: (e) => toast("Could not save", e instanceof Error ? e.message : "", "critical"),
+  });
+
   return (
     <Dialog
       title={w.display_name}
       sub={<span className="id">{w.reference_code}</span>}
+      busy={save.isPending}
       onClose={onClose}
-      foot={<Button onClick={onClose}>Close</Button>}
+      foot={
+        editing ? (
+          <>
+            <Button onClick={() => { setDraft(w.skills); setEditing(false); }} disabled={save.isPending}>Cancel</Button>
+            <Button variant="primary" onClick={() => save.mutate()} disabled={save.isPending}>
+              {save.isPending ? "Saving…" : "Save skills"}
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button onClick={() => setEditing(true)}>Edit skills</Button>
+            <Button onClick={onClose}>Close</Button>
+          </>
+        )
+      }
     >
       <Dl rows={[
         ["Email", w.email ?? "—"],
         ["Phone", w.phone ?? "—"],
         ["App access", <Pill key="i" tone={statusMeta(invitationStatus, w.invitation_status).tone}>{statusMeta(invitationStatus, w.invitation_status).label}</Pill>],
         ["Open assignments", <span key="o" className="num">{w.open_assignments}</span>],
-        ["Skill", w.skill ?? "—"],
+        ...(editing ? [] : [["Skills", labelsOf(SKILLS, w.skills)] as [string, React.ReactNode]]),
         ["Trained", w.trained ? "Yes" : "No"],
         ["Rating", w.rating ?? "—"],
         ["Status", <Pill key="s" tone={m.tone}>{m.label}</Pill>],
       ]} />
+      {editing && (
+        <div className="formgrid" style={{ marginTop: 12 }}>
+          <CheckGroup
+            label="Skills"
+            options={SKILLS}
+            value={draft}
+            onChange={setDraft}
+            hint="What they can be sent to do."
+            columns={3}
+          />
+        </div>
+      )}
     </Dialog>
   );
 }
@@ -99,7 +146,10 @@ const KIND_LABEL: Record<NetKind, string> = {
   sponsor: "Device sponsors",
 };
 
-// The singular of each tab, for the button that opens a request for THAT kind.
+// The singular of each tab. The button and the dialog title both read it,
+// so they cannot drift apart -- the title used to interpolate the raw org
+// kind and greeted you with "a new business" after you clicked "a business
+// partner".
 const KIND_ONE: Record<NetKind, string> = {
   aggregator: "an aggregator",
   business: "a business partner",
@@ -142,7 +192,7 @@ export function NetworkPage() {
     <View
       title="Network"
       sub={`Registered under you — ${COMPANY} does not bill these accounts. New entries need platform approval.`}
-      actions={<Button variant="primary" onClick={() => setRequesting(true)}>Request {KIND_ONE[tab]}</Button>}
+      actions={<Button variant="primary" onClick={() => setRequesting(true)}>Onboard {KIND_ONE[tab]}</Button>}
     >
       {openRequests.length > 0 && (
         <Panel title="Awaiting platform approval" sub={`The request goes to ${COMPANY} operations; you are notified of the decision.`}>
@@ -203,7 +253,7 @@ export function NetworkPage() {
         <div id="netpanel" role="tabpanel" aria-labelledby={`tab_${tab}`}>
         <Loadable q={orgs} what="your network">
           {(orgs.data ?? []).length === 0 ? (
-            <Empty title={`No ${KIND_LABEL[tab].toLowerCase()} yet`} hint="Request onboarding and the platform reviews it." />
+            <Empty title={`No ${KIND_LABEL[tab].toLowerCase()} yet`} hint="Onboard one and the platform reviews it." />
           ) : (
             <TableWrap>
               <table>
@@ -391,7 +441,7 @@ function OnboardRequestDialog({ kind, onClose }: { kind: NetKind; onClose: () =>
       }),
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: ["onboarding-mine"] });
-      toast("Request submitted", `${COMPANY} operations will review it.`, "success");
+      toast("Sent for approval", `${COMPANY} operations will review it.`, "success");
       onClose();
     },
     onError: (e) => setError(e instanceof Error ? e.message : "Could not submit"),
@@ -399,7 +449,7 @@ function OnboardRequestDialog({ kind, onClose }: { kind: NetKind; onClose: () =>
 
   return (
     <Dialog
-      title={`Request a new ${kind}`}
+      title={`Onboard ${KIND_ONE[kind]}`}
       sub="Unlike the prototype, nothing joins your network without platform approval — the request goes to Ops."
       onClose={onClose}
       foot={
@@ -769,12 +819,20 @@ export function RosterPage() {
   const toast = useToast();
   const [adding, setAdding] = useState(false);
   const [viewing, setViewing] = useState<WorkerRow | null>(null);
+  const [offboarding, setOffboarding] = useState<WorkerRow | null>(null);
   const workers = useQuery({ queryKey: ["workers"], queryFn: () => get<WorkerRow[]>("/network/workers") });
 
   const setStatus = useMutation({
     mutationFn: (vars: { id: string; status: string }) =>
       post(`/network/workers/${vars.id}/status`, { status: vars.status }),
-    onSuccess: () => void qc.invalidateQueries({ queryKey: ["workers"] }),
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: ["workers"] });
+      setOffboarding(null);
+    },
+    // There was no onError at all, so a refused change — this one or the
+    // harmless shift toggle beside it — failed in silence and the row simply
+    // re-rendered unchanged.
+    onError: (e) => toast("Could not update the crowd resource", e instanceof Error ? e.message : "", "critical"),
   });
   const resend = useMutation({
     mutationFn: (id: string) => post(`/network/workers/${id}/resend-invitation`),
@@ -793,8 +851,8 @@ export function RosterPage() {
   return (
     <View
       title="Crowd roster"
-      sub="Invite a worker by email; they set a password and sign in to the capture app. Task units can be assigned to anyone who has signed up."
-      actions={<Button variant="primary" onClick={() => setAdding(true)}>Add worker</Button>}
+      sub="Invite a crowd resource by email; they set a password and sign in to the capture app. Task units can be assigned to anyone who has signed up."
+      actions={<Button variant="primary" onClick={() => setAdding(true)}>Add crowd resource</Button>}
     >
       <div className="g4">
         <Metric label="Roster" value={rows.length} loading={workers.isLoading} />
@@ -805,11 +863,11 @@ export function RosterPage() {
       <Panel>
         <Loadable q={workers} what="the roster">
           {rows.length === 0 ? (
-            <Empty title="No workers on the roster" hint="Add a worker with their email to invite them to the app." />
+            <Empty title="Nobody on the roster" hint="Add a crowd resource with their email to invite them to the app." />
           ) : (
             <TableWrap>
               <table>
-                <thead><tr><th>Ref</th><th>Name</th><th>Email</th><th>Skill</th><th>App access</th><th>Status</th><th /></tr></thead>
+                <thead><tr><th>Ref</th><th>Name</th><th>Email</th><th>Skills</th><th>App access</th><th>Status</th><th /></tr></thead>
                 <tbody>
                   {rows.map((w) => {
                     const m = statusMeta(workerStatus, w.status);
@@ -825,7 +883,7 @@ export function RosterPage() {
                           )}
                         </td>
                         <td className="small">{w.email ?? "—"}</td>
-                        <td>{w.skill ?? "—"}</td>
+                        <td>{labelsOf(SKILLS, w.skills)}</td>
                         <td><Pill tone={inv.tone}>{inv.label}</Pill></td>
                         <td><Pill tone={m.tone}>{m.label}</Pill></td>
                         <td className="right" onClick={(ev) => ev.stopPropagation()}><div className="rowactions">
@@ -838,7 +896,13 @@ export function RosterPage() {
                               <Button size="sm" onClick={() => setStatus.mutate({ id: w.id, status: w.status === "on_shift" ? "on_break" : "on_shift" })}>
                                 {w.status === "on_shift" ? "Break" : "On shift"}
                               </Button>
-                              <Button size="sm" variant="danger" onClick={() => setStatus.mutate({ id: w.id, status: "offboarded" })}>
+                              {/* Ask first. This one revokes their grant and there
+                                  is no way back — no reinstate route, the same
+                                  email cannot be re-invited, and setting them
+                                  "On shift" again restores the roster status but
+                                  not the grant. The shift toggle beside it stays
+                                  a single click: it is pressed all day. */}
+                              <Button size="sm" variant="danger" onClick={() => setOffboarding(w)}>
                                 Offboard
                               </Button>
                             </>
@@ -870,6 +934,39 @@ export function RosterPage() {
         />
       )}
       {viewing && <WorkerDetailDialog w={viewing} onClose={() => setViewing(null)} />}
+      {offboarding && (
+        <Dialog
+          title={`Offboard ${offboarding.display_name}?`}
+          sub={offboarding.reference_code}
+          busy={setStatus.isPending}
+          onClose={() => setOffboarding(null)}
+          foot={
+            <>
+              <Button onClick={() => setOffboarding(null)} disabled={setStatus.isPending}>Cancel</Button>
+              <Button
+                variant="danger"
+                disabled={setStatus.isPending}
+                onClick={() => setStatus.mutate({ id: offboarding.id, status: "offboarded" })}
+              >
+                {setStatus.isPending ? "Offboarding…" : "Offboard"}
+              </Button>
+            </>
+          }
+        >
+          <Callout tone="critical" title="This cannot be undone">
+            {offboarding.display_name} loses access to the capture app at their next sign-in, and you
+            cannot add them back — the same email address cannot be invited twice.
+            {offboarding.open_assignments > 0 && (
+              <>
+                {" "}Their {offboarding.open_assignments} open assignment
+                {offboarding.open_assignments === 1 ? "" : "s"} stay assigned to them, and nobody else can
+                pick {offboarding.open_assignments === 1 ? "it" : "them"} up.
+              </>
+            )}
+            {" "}Work they have already submitted is kept.
+          </Callout>
+        </Dialog>
+      )}
     </View>
   );
 }
@@ -878,21 +975,21 @@ function AddWorkerDialog({ onClose, onDone }: { onClose: () => void; onDone: (in
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [skill, setSkill] = useState("");
+  const [skills, setSkills] = useState<Skill[]>([]);
   const [trained, setTrained] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const submit = useMutation({
     mutationFn: () =>
       post("/network/workers", {
         display_name: name, email: email.trim() || null, phone: phone.trim() || null,
-        skill: skill || null, trained,
+        skills, trained,
       }),
     onSuccess: () => onDone(!!email.trim()),
-    onError: (e) => setError(e instanceof Error ? e.message : "Could not add the worker"),
+    onError: (e) => setError(e instanceof Error ? e.message : "Could not add the crowd resource"),
   });
   return (
     <Dialog
-      title="Add a crowd worker"
+      title="Add a crowd resource"
       sub="With an email they are invited to the capture app; without one this is a roster record only."
       onClose={onClose}
       foot={<>
@@ -908,7 +1005,17 @@ function AddWorkerDialog({ onClose, onDone }: { onClose: () => void; onDone: (in
           {(id) => <input id={id} className={inputCls} type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="priya@example.com" />}
         </Field>
         <Field label="Phone">{(id) => <input id={id} className={inputCls} value={phone} onChange={(e) => setPhone(e.target.value)} />}</Field>
-        <Field label="Skill">{(id) => <input id={id} className={inputCls} value={skill} onChange={(e) => setSkill(e.target.value)} placeholder="Street imagery" />}</Field>
+        {/* CheckGroup is its own fieldset.field.span, not a Field — a group of
+            boxes has no single control for a label to point at — so it spans
+            the grid and needs no wrapper. */}
+        <CheckGroup
+          label="Skills"
+          options={SKILLS}
+          value={skills}
+          onChange={setSkills}
+          hint="What they can be sent to do. Leave all unticked if you do not know yet."
+          columns={3}
+        />
         <Field label="Trained">
           {(id) => (
             <label className="checkline">

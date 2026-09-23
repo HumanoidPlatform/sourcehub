@@ -323,17 +323,48 @@ async def _task_row(session: AsyncSession, t: Task) -> dict[str, Any]:
     }
 
 
+def tasks_stmt(
+    org_id: uuid.UUID | None = None,
+    contract_id: uuid.UUID | None = None,
+    mine_only: bool = False,
+):
+    """The task query, ordered the way each of its two callers needs.
+
+    A supplier's own list is a WORKLIST: the task that just landed is the one
+    they opened the page to find. Under a single ascending order it arrived at
+    the bottom, below every finished task of the past week — an aggregator with
+    twelve tasks met a qa_passed one from seven days ago first and scrolled for
+    today's work.
+
+    A contract's breakdown is the opposite kind of list: a numbered sequence
+    the partner reads from TSK-01 upward to see how the work was split. That
+    one stays ascending.
+
+    reference_code breaks the tie either way. Two tasks assigned in the same
+    second is ordinary — one call per aisle — and without a second key their
+    order is whatever the planner happens to return.
+    """
+    stmt = select(Task).where(Task.deleted_at.is_(None))
+    if contract_id:
+        stmt = stmt.where(Task.contract_id == contract_id)
+    if mine_only:
+        stmt = stmt.where(Task.assignee_org_id == org_id)
+    return stmt.order_by(
+        *(
+            (Task.created_at.desc(), Task.reference_code.desc())
+            if mine_only
+            else (Task.created_at, Task.reference_code)
+        )
+    )
+
+
 async def list_tasks(
     session: AsyncSession,
     claims: AccessClaims,
     contract_id: uuid.UUID | None = None,
     mine_only: bool = False,
 ) -> list[dict[str, Any]]:
-    stmt = select(Task).where(Task.deleted_at.is_(None)).order_by(Task.created_at)
-    if contract_id:
-        stmt = stmt.where(Task.contract_id == contract_id)
-    if mine_only:
-        stmt = stmt.where(Task.assignee_org_id == claims.org_id)
+    stmt = tasks_stmt(claims.org_id, contract_id, mine_only)
     rows = (await session.execute(stmt)).scalars().all()
     return [await _task_row(session, t) for t in rows]
 
@@ -519,7 +550,7 @@ async def submit_task(
         # itself. Zero is not a delivery: the partner would open a submission
         # with nothing in it to review.
         if asset_count is None:
-            raise DeliveryError("asset_count is required for a task with no worker assignments.")
+            raise DeliveryError("asset_count is required for a task with no crowd assignments.")
         if asset_count < 1:
             raise DeliveryError("A submission needs at least one asset.")
     if n_assign:
@@ -726,7 +757,7 @@ async def create_assignment(
 ) -> dict[str, Any]:
     t = await _get_task(session, task_id)
     if t.assignee_org_id != claims.org_id:
-        raise DeliveryError("Only the assigned supplier assigns its workers.")
+        raise DeliveryError("Only the assigned supplier assigns its crowd.")
     return await _assign_worker(
         session,
         org_id=claims.org_id,
@@ -773,7 +804,7 @@ async def _assign_worker(
     ).scalar_one()
     if not ok:
         raise DeliveryError(
-            "Not an active worker in your organisation. Invite them from the crowd roster first."
+            "Not an active crowd resource in your organisation. Invite them from the crowd roster first."
         )
 
     if t.target_quantity:
@@ -801,7 +832,7 @@ async def _assign_worker(
     except DBAPIError as e:
         msg = str(e.orig) if e.orig else str(e)
         if "task_assignment_one_open_key" in msg:
-            raise DeliveryError("This worker already has an open assignment on this task.") from None
+            raise DeliveryError("This crowd resource already has an open assignment on this task.") from None
         raise
 
     unit = t.target_unit or "units"
@@ -814,7 +845,7 @@ async def _assign_worker(
     )
     await audit.log(
         session, "assignment.created",
-        f"Assigned {quantity} {unit} of {t.reference_code} to a worker",
+        f"Assigned {quantity} {unit} of {t.reference_code} to a crowd resource",
         [a.id, t.id, t.contract_id, org_id, worker_user_id],
         {"via_offer_id": str(via_offer_id)} if via_offer_id else None,
     )
@@ -866,7 +897,7 @@ async def start_assignment(
     first start on a task moves the task itself to in_progress."""
     a = await _get_assignment(session, assignment_id)
     if a.worker_user_id != claims.user_id:
-        raise DeliveryError("Only the assigned worker starts an assignment.")
+        raise DeliveryError("Only the assigned crowd resource starts an assignment.")
     if a.status not in ("assigned", "rejected"):
         raise DeliveryError(f"A {a.status.replace('_', ' ')} assignment cannot be started.")
     a.status = "in_progress"
@@ -893,7 +924,7 @@ async def submit_assignment(
 ) -> dict[str, Any]:
     a = await _get_assignment(session, assignment_id)
     if a.worker_user_id != claims.user_id:
-        raise DeliveryError("Only the assigned worker submits an assignment.")
+        raise DeliveryError("Only the assigned crowd resource submits an assignment.")
     if a.status in ("assigned", "rejected"):
         raise DeliveryError("Start the assignment before submitting.")
     if a.status != "in_progress":
@@ -1197,8 +1228,8 @@ _STATE_MESSAGES = {
     "closed": "This task is closed — the offer was withdrawn.",
     "filled": "This task is closed — all places have been taken.",
     "expired": "This task is closed — the time to respond has passed.",
-    "task_closed": "This task is no longer taking workers.",
-    "not_a_worker": "You are no longer an active worker for this organisation.",
+    "task_closed": "This task is no longer taking anyone.",
+    "not_a_worker": "You are no longer active for this organisation.",
 }
 
 
@@ -1468,7 +1499,7 @@ async def create_offer(
         unknown = wanted - set(by_id)
         if unknown:
             raise DeliveryError(
-                f"{len(unknown)} of the chosen workers cannot take this task "
+                f"{len(unknown)} of the chosen crowd resources cannot take this task "
                 "(offboarded, not yet signed up, or already assigned to it)."
             )
         eligible = [by_id[u] for u in recipient_user_ids if u in wanted]
@@ -1527,7 +1558,7 @@ async def create_offer(
 
     await audit.log(
         session, "offer.created",
-        f"Offered {t.reference_code} to {len(recipients)} workers "
+        f"Offered {t.reference_code} to {len(recipients)} crowd resources "
         f"({worker_limit} x {quantity} {unit})",
         [o.id, t.id, t.contract_id, claims.org_id],
     )

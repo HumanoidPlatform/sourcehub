@@ -54,7 +54,7 @@ function TenantOverview() {
         </Panel>
       ))}
       {active.length === 0 && (
-        <Panel><Empty title="No active contracts" hint="Propose on an opportunity to win one." action={<Link to="/opportunities" className="btn" data-variant="primary">Opportunities</Link>} /></Panel>
+        <Panel><Empty title="No active contracts" hint="Respond to an opportunity to win one." action={<Link to="/opportunities" className="btn" data-variant="primary">Opportunities</Link>} /></Panel>
       )}
     </View>
   );

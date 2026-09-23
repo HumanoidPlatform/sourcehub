@@ -578,8 +578,8 @@ async def remind_offer(
         missing = wanted - set(rows)
         if missing:
             raise EngageError(
-                f"{len(missing)} of the chosen workers cannot be reminded "
-                "(already answered, never received the offer, or no longer a worker)."
+                f"{len(missing)} of the chosen crowd resources cannot be reminded "
+                "(already answered, never received the offer, or no longer active)."
             )
         rows = {k: v for k, v in rows.items() if k in wanted}
     if not rows:
@@ -602,7 +602,7 @@ async def remind_assignment(
     start, rework, due soon, overdue). Refuses within the hour of the last."""
     a = await delivery.assignment_by_id(session, assignment_id)  # LookupError → 404
     if a["supplier_org_id"] != claims.org_id:
-        raise EngageError("Only the supplier reminds its workers.")
+        raise EngageError("Only the supplier reminds its crowd.")
     if a["status"] not in LIVE_ASSIGNMENT:
         raise EngageError(f"This assignment is {a['status'].replace('_', ' ')}; nothing to remind.")
     rows = {
@@ -610,7 +610,7 @@ async def remind_assignment(
         for r in await _rows(session, _ASSIGNMENT_ROWS, "a.id = :a", {"a": assignment_id})
     }
     if not rows:
-        raise EngageError("This worker is no longer active.")
+        raise EngageError("This crowd resource is no longer active.")
 
     now = dt.datetime.now(dt.timezone.utc)
     last = await _last_reminded(session, [assignment_id])

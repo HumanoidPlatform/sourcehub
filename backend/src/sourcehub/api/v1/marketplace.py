@@ -208,8 +208,9 @@ class ProposalIn(BaseModel):
     duration_days: int = Field(gt=0)
     methodology: str = Field(min_length=10)
     notes: str | None = None
-    # a method statement, a capability deck — what the prose summarises
-    attachments: list[AttachmentIn] = Field(default_factory=list, max_length=5)
+    # a method statement, a capability deck, CVs, insurance — a tender reply is
+    # rarely one file, so this is ten where a request's single slot is five
+    attachments: list[AttachmentIn] = Field(default_factory=list, max_length=10)
 
 
 def _conflict(e: Exception) -> HTTPException:

@@ -38,7 +38,10 @@ class AttachmentError(Exception):
 
 
 MAX_BYTES = 25 * 1024 * 1024
-MAX_PER_SLOT = 5
+# The server's ceiling, not each field's allowance. A caller may be stricter:
+# the console still offers five on a request's document slots and ten on an
+# RFP response, where a bid is a deck plus a method statement plus CVs.
+MAX_PER_SLOT = 10
 
 ENTITIES = ("request", "proposal", "task", "qa_review")
 
@@ -47,7 +50,7 @@ ENTITIES = ("request", "proposal", "task", "qa_review")
 _EXTENSIONS = {
     ".csv", ".tsv", ".json", ".jsonl", ".xml", ".txt", ".md", ".pdf",
     ".png", ".jpg", ".jpeg", ".webp", ".gif", ".mp4", ".mov", ".mp3", ".wav",
-    ".zip", ".xlsx", ".docx", ".parquet",
+    ".zip", ".xlsx", ".docx", ".pptx", ".ppt", ".parquet",
 }
 
 _COLUMNS = (

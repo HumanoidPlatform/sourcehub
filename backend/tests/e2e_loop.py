@@ -322,7 +322,7 @@ def mail_token(email: str, subject_contains: str) -> str:
 
 def invite_and_login(name: str, email: str):
     r = agg.post("/network/workers", json={
-        "display_name": name, "email": email, "skill": "Shelf capture", "trained": True})
+        "display_name": name, "email": email, "skills": ["shelf_capture"], "trained": True})
     assert r.status_code == 201, r.text
     w = r.json()
     assert w["invitation_status"] == "pending" and w["user_id"], w
