@@ -115,8 +115,11 @@ export function ClientOverview() {
       </div>
 
       <div className="g-main">
+        {/* Distinct from the "Deliverables for Review" metric above it: that is
+            the count, this is the work itself. Naming both the same made
+            getByText ambiguous and put the same words twice on one screen. */}
         <Panel
-          title="Deliverables for Review"
+          title="Deliverables in progress"
           sub="Tasks that have cleared the partner's QA gate"
           actions={<Link className="btn" data-size="sm" to="/deliveries">All deliverables</Link>}
         >

@@ -10,6 +10,7 @@ import {
   Button, Callout, Dialog, Dl, Empty, Metric, Panel, Pill, Skeleton, TableWrap, View,
 } from "@ds/primitives";
 import { useSession } from "@shared/auth";
+import { COMPANY } from "@shared/brand";
 import { fmtDate, fmtDateTime, money } from "@shared/format";
 import { invoiceStatus, statusMeta } from "@shared/status";
 
@@ -29,7 +30,12 @@ function InvoiceDetailDialog({ i, isOps, onClose }: { i: InvoiceRow; isOps: bool
       foot={<Button onClick={onClose}>Close</Button>}
     >
       <Dl rows={[
-        ["Invoice raised by", raisedBy],
+        // The platform raises all three invoice kinds, not the partner: both
+        // milestones are billed to the client and the platform fee to the
+        // partner (modules/ledger/service.py). Naming the contract's partner
+        // here told a partner their own fee invoice was "raised by" themselves.
+        ["Invoice raised by", COMPANY],
+        ["Work delivered by", raisedBy],
         ...(isOps ? ([["Billed to", i.party_name ?? "—"]] as [string, React.ReactNode][]) : []),
         ["Kind", i.kind],
         ["Amount", money(i.amount, i.currency)],

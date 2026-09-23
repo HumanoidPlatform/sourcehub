@@ -1,9 +1,11 @@
 // The names, in one place.
 //
 // PRODUCT is what this application is, and what the interface calls itself: the
-// sidebar, the browser tab, the From name on an email. COMPANY is who makes it
-// in operational copy; BYLINE is the short product attribution shown with the
-// wordmark.
+// sidebar, the browser tab, the From name on an email. COMPANY is who makes it,
+// and belongs only where someone needs to know who stands behind the product —
+// the sign-in card, the legal notice, a bill. The two are never shown side by
+// side anywhere else: the wordmark is on every screen, and a company name
+// repeated there costs width and tells a daily user nothing.
 //
 // This used to be one name, "Cosarathi", doing both jobs, which left nowhere to
 // put a second product.
@@ -25,8 +27,12 @@ export const TAGLINE = "Data collection and delivery platform";
  */
 export const MARK_SRC = "/brand/mark.png";
 
-/** As the logo itself puts it. Small, and tucked under the wordmark. */
-export const BYLINE = "A CoSarathi product";
+/** As the logo itself puts it. Small, and never next to the sidebar wordmark.
+ *
+ *  Derived from COMPANY, not written out: hardcoding it as "A CoSarathi
+ *  product" spelled the company two ways in one file, and left the phone app —
+ *  which still derives it — disagreeing with the console. */
+export const BYLINE = `A ${COMPANY} product`;
 
 /**
  * The phone app under the name a worker sees on their own phone TODAY. It
@@ -45,8 +51,9 @@ export function BrandMark({ byline, to }: { byline?: boolean; to?: string }) {
       <img className="mark-logo" src={MARK_SRC} alt="" width={32} height={32} />
       <span className="mark-text">
         <span className="mark-name">{PRODUCT}</span>
-        {/* A small attribution under the wordmark, using live text so it stays
-            sharp and follows the active theme. */}
+        {/* The sign-in card is the one place the company sits under the
+            wordmark: a first-time visitor is entitled to know whose door this
+            is. Inside the console it lives at the foot of the rail instead. */}
         {byline && <span className="mark-by">{BYLINE}</span>}
       </span>
     </>

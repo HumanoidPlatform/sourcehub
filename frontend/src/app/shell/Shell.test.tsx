@@ -206,9 +206,14 @@ describe("notification bell", () => {
 });
 
 describe("brand", () => {
-  it("names the company once, quietly, below the wordmark", () => {
+  it("names the company once, quietly, at the foot of the rail", () => {
     renderShell();
-    expect(screen.getAllByText("A CoSarathi product")).toHaveLength(1);
+    // Keeping the "exactly once" form this gained — it is stronger than the
+    // original getByText — but pinning WHERE, which is the part that regressed:
+    // the byline moved up under the wordmark and back down again.
+    expect(screen.getAllByText("A Cosarathi product")).toHaveLength(1);
+    expect(document.querySelector(".rail-foot .rail-byline")?.textContent)
+      .toBe("A Cosarathi product");
   });
 
   it("leads home when the logo or the name is clicked", () => {
@@ -217,7 +222,9 @@ describe("brand", () => {
     expect(home.getAttribute("href")).toBe("/");
     // both the mark and the wordmark are inside the one link
     expect(home.querySelector(".mark-logo")).not.toBeNull();
-    expect(home.querySelector(".mark-by")?.textContent).toBe("A CoSarathi product");
+    // No byline inside the rail's wordmark: it belongs at the foot of the rail
+    // in the console, and under the wordmark only on the sign-in card.
+    expect(home.querySelector(".mark-by")).toBeNull();
     expect(home.textContent).toContain("DataMind360");
   });
 

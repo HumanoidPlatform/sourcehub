@@ -331,6 +331,36 @@ async def withdraw_proposal(
         raise _conflict(e) from None
 
 
+class RejectIn(BaseModel):
+    # min_length mirrors the service's own check, so a blank reason is a 422
+    # naming the field rather than a 409 the console has to translate.
+    reason: str = Field(min_length=1)
+
+
+@router.post("/proposals/{proposal_id}/reject")
+async def reject_proposal(
+    proposal_id: uuid.UUID,
+    body: RejectIn,
+    principal: Principal = Depends(require_capability("proposal.accept")),
+    session: AsyncSession = Depends(get_session),
+):
+    """Turn one bid down while the request stays open.
+
+    Guarded by proposal.accept, the client's own decide-on-a-bid capability —
+    the same one award uses. Rejecting is the other side of that decision, and
+    minting a separate capability would mean a seed change, a migration and a
+    grant for no difference in who may do it.
+    """
+    try:
+        return await marketplace.reject_proposal(
+            session, principal, proposal_id, body.reason
+        )
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Proposal not found") from None
+    except marketplace.MarketplaceError as e:
+        raise _conflict(e) from None
+
+
 @router.post("/proposals/{proposal_id}/award")
 async def award(
     proposal_id: uuid.UUID,

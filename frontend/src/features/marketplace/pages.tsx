@@ -75,7 +75,10 @@ const COUNTRY_LOCALES = [
   ["NP", "Nepal"], ["NL", "Netherlands"], ["NZ", "New Zealand"], ["NG", "Nigeria"],
   ["NO", "Norway"], ["OM", "Oman"], ["PK", "Pakistan"], ["PA", "Panama"],
   ["PE", "Peru"], ["PH", "Philippines"], ["PL", "Poland"], ["PT", "Portugal"],
-  ["QA", "Qatar"], ["RO", "Romania"], ["RW", "Rwanda"], ["SA", "Saudi Arabia"],
+  // RU was in COUNTRY_LANGUAGE_CODES but not here, so countryLabel fell through
+  // to the raw code and the picker offered "RU - Russian" among a list of real
+  // country names.
+  ["QA", "Qatar"], ["RO", "Romania"], ["RU", "Russia"], ["RW", "Rwanda"], ["SA", "Saudi Arabia"],
   ["SN", "Senegal"], ["RS", "Serbia"], ["SG", "Singapore"], ["SK", "Slovakia"],
   ["SI", "Slovenia"], ["ZA", "South Africa"], ["KR", "South Korea"], ["ES", "Spain"],
   ["LK", "Sri Lanka"], ["SE", "Sweden"], ["CH", "Switzerland"], ["TW", "Taiwan"],
@@ -1587,16 +1590,9 @@ export function RequestDetailPage() {
     onError: (e) => setAwardError(e instanceof Error ? e.message : "The award was refused."),
   });
 
-  const holdProposal = useMutation({
-    mutationFn: (proposalId: string) => post<Proposal>(`/proposals/${proposalId}/hold`),
-    onSuccess: () => {
-      toast("Proposal held", "You can still award or reject it later.", "success");
-      void qc.invalidateQueries({ queryKey: ["request", id] });
-      void qc.invalidateQueries({ queryKey: ["requests"] });
-    },
-    onError: (e) => toast("Could not hold proposal", e instanceof Error ? e.message : "", "critical"),
-  });
-
+  // No hold: there is no such state. proposal_status is
+  // ('submitted','accepted','rejected','withdrawn') and nothing writes a fifth,
+  // so a Hold button could only ever 404. Rejecting is the real decision.
   const rejectProposal = useMutation({
     mutationFn: ({ proposalId, reason }: { proposalId: string; reason: string }) =>
       post<Proposal>(`/proposals/${proposalId}/reject`, { reason }),
@@ -1605,6 +1601,9 @@ export function RequestDetailPage() {
       void qc.invalidateQueries({ queryKey: ["request", id] });
       void qc.invalidateQueries({ queryKey: ["requests"] });
     },
+    // ReasonDialog keeps itself open and shows a refusal inline, so this must
+    // NOT also toast — its own header comment says so. mutateAsync rejecting is
+    // what the dialog reads.
   });
 
   const r = request.data;
@@ -1631,7 +1630,9 @@ export function RequestDetailPage() {
   const minDays = days.length ? Math.min(...days) : null;
   const lowest = prices.filter((x) => x === minPrice).length === 1 ? minPrice : null;
   const fastest = days.filter((x) => x === minDays).length === 1 ? minDays : null;
-  const canManageProposal = (p: Proposal) => isClient && ["submitted", "held"].includes(p.status);
+  // "submitted" only: proposal_status has no held state, so listing one here
+  // gated the buttons on a value the server can never send.
+  const canManageProposal = (p: Proposal) => isClient && p.status === "submitted";
   // a withdrawn bid does not count: the partner may propose again, and the
   // server revives that row rather than refusing (submit_proposal).
   const alreadyMine = proposals.some(
@@ -1759,7 +1760,15 @@ export function RequestDetailPage() {
         </Panel>
         <Panel title="People, budget and timeline">
           <Dl rows={[
-            ["People needed", String(r.people.headcount)],
+            // Only when it was actually asked for. The builder's "People needed"
+            // input was removed in 9417b35 but the field is still posted, so
+            // every RFP raised since reads headcount 0 — and a flat
+            // "People needed: 0" asserts an answer nobody was given the chance
+            // to give. Shown when there is a real number, omitted when there
+            // is not; restoring the input would bring the row straight back.
+            ...(r.people.headcount > 0
+              ? [["People needed", String(r.people.headcount)] as [string, React.ReactNode]]
+              : []),
             ["Budget", `${money(r.budget_min)} – ${money(r.budget_max)}`],
             ["Timeline", `${fmtDate(r.starts_on)} → ${fmtDate(r.delivery_due_on)}`],
             ["Status", <Pill key="s" tone={meta.tone}>{meta.label}</Pill>],
@@ -1815,15 +1824,6 @@ export function RequestDetailPage() {
                       {isClient && (
                         <td className="right"><div className="rowactions">
                           <Button size="sm" onClick={() => setViewing(p)}>Profile</Button>
-                          {p.status === "submitted" && (
-                            <Button
-                              size="sm"
-                              disabled={holdProposal.isPending}
-                              onClick={() => holdProposal.mutate(p.id)}
-                            >
-                              Hold
-                            </Button>
-                          )}
                           {canManageProposal(p) && (
                             <Button size="sm" variant="danger" onClick={() => setRejecting(p)}>Reject</Button>
                           )}
@@ -1892,8 +1892,15 @@ export function RequestDetailPage() {
           }
         >
           <Callout tone="attention" title="Awarding opens a contract and invoices milestone 1">
-            Other proposals remain available, so you can award more partners or reject them explicitly.
-            Half the value is invoiced to you and held in escrow until you approve the delivery.
+            {/* This said "other proposals remain available, so you can award more
+                partners" — the opposite of what award() does. It sets every other
+                submitted bid to rejected and notifies each partner, and a second
+                award is refused with "This request already has a contract". Saying
+                otherwise at the moment of an irreversible decision is the worst
+                place to be wrong. */}
+            Every other proposal is automatically declined and its partner notified — a request
+            has one contract. To turn a bid down before you decide, reject it on its own. Half the
+            value is invoiced to you and held in escrow until you approve the delivery.
           </Callout>
           {/* The failure used to toast from the far corner while this dialog
               stayed open with room to say it — every sibling dialog reports
