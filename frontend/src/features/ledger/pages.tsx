@@ -5,30 +5,43 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { get } from "@api/client";
-import type { InvoiceRow } from "@api/types";
+import type { Contract, InvoiceRow } from "@api/types";
 import {
   Button, Callout, Dialog, Dl, Empty, Metric, Panel, Pill, Skeleton, TableWrap, View,
 } from "@ds/primitives";
 import { useSession } from "@shared/auth";
+import { COMPANY } from "@shared/brand";
 import { fmtDate, fmtDateTime, money } from "@shared/format";
 import { invoiceStatus, statusMeta } from "@shared/status";
 
 function InvoiceDetailDialog({ i, isOps, onClose }: { i: InvoiceRow; isOps: boolean; onClose: () => void }) {
   const m = statusMeta(invoiceStatus, i.status);
+  const contract = useQuery({
+    queryKey: ["contract", i.contract_id],
+    queryFn: () => get<Contract>(`/contracts/${i.contract_id!}`),
+    enabled: !!i.contract_id,
+  });
+  const raisedBy = contract.data?.partner_name ?? (contract.isLoading ? "Loading…" : "—");
   return (
     <Dialog
-      title={`Invoice ${i.reference_code}`}
-      sub={i.contract_ref ? <span className="id">{i.contract_ref}</span> : undefined}
+      title="Invoice details"
+      sub={<span className="id">{i.reference_code}{i.contract_ref ? ` · ${i.contract_ref}` : ""}</span>}
       onClose={onClose}
       foot={<Button onClick={onClose}>Close</Button>}
     >
       <Dl rows={[
-        ...(isOps ? ([["Party", i.party_name ?? "—"]] as [string, React.ReactNode][]) : []),
+        // The platform raises all three invoice kinds, not the partner: both
+        // milestones are billed to the client and the platform fee to the
+        // partner (modules/ledger/service.py). Naming the contract's partner
+        // here told a partner their own fee invoice was "raised by" themselves.
+        ["Invoice raised by", COMPANY],
+        ["Work delivered by", raisedBy],
+        ...(isOps ? ([["Billed to", i.party_name ?? "—"]] as [string, React.ReactNode][]) : []),
         ["Kind", i.kind],
         ["Amount", money(i.amount, i.currency)],
         ["Issued", fmtDate(i.issued_on)],
         ["Paid", i.paid_at ? fmtDateTime(i.paid_at) : "Not yet"],
-        ["Status", <Pill key="s" tone={m.tone}>{m.label}</Pill>],
+        ["Payment status", <Pill key="s" tone={m.tone}>{m.label}</Pill>],
         ["Contract", i.contract_id
           ? <Link key="c" to={`/contracts/${i.contract_id}`}>{i.contract_ref ?? "Open contract"}</Link>
           : i.contract_ref ?? "—"],
@@ -78,7 +91,7 @@ export function BillingPage() {
               <thead>
                 <tr>
                   <th>Reference</th>{isOps && <th>Party</th>}<th>Contract</th><th>Kind</th>
-                  <th>Amount</th><th>Issued</th><th>Status</th><th />
+                  <th>Amount</th><th>Issued</th><th>Payment status</th><th />
                 </tr>
               </thead>
               <tbody>

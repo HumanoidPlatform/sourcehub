@@ -27,7 +27,11 @@ export const TAGLINE = "Data collection and delivery platform";
  */
 export const MARK_SRC = "/brand/mark.png";
 
-/** As the logo itself puts it. Small, and never next to the sidebar wordmark. */
+/** As the logo itself puts it. Small, and never next to the sidebar wordmark.
+ *
+ *  Derived from COMPANY, not written out: hardcoding it as "A CoSarathi
+ *  product" spelled the company two ways in one file, and left the phone app —
+ *  which still derives it — disagreeing with the console. */
 export const BYLINE = `A ${COMPANY} product`;
 
 /**

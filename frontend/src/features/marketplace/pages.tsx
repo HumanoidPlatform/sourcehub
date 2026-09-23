@@ -2,7 +2,7 @@
 // proposal comparison and the award.
 
 import { useMutation, useQuery, useQueryClient, type UseQueryResult } from "@tanstack/react-query";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { get, patch, post } from "@api/client";
 import type {
@@ -26,6 +26,7 @@ import {
 } from "@shared/attachments";
 import { useLeaveGuard } from "@shared/leave-guard";
 import { OrgProfileDialog } from "@shared/org-profile";
+import { ReasonDialog } from "@shared/reason-dialog";
 import {
   LIFECYCLE, proposalStatus, requestStatus, statusMeta, waitingOn,
 } from "@shared/status";
@@ -38,32 +39,309 @@ const CATEGORIES = [
   ["people_deliverable", "People-based deliverable"],
 ] as const;
 
+const CATEGORY_UNITS: Record<string, TargetUnit> = {
+  image: "records",
+  video: "hours",
+  structured_data: "records",
+  unstructured_data: "records",
+  people_deliverable: "records",
+};
+
+const unitForCategory = (category: string): TargetUnit => CATEGORY_UNITS[category] ?? "records";
+const unitLabel = (unit: string | null | undefined): string =>
+  unit === "records" ? "Units" : unit === "hours" || unit === "audio_hours" ? "Hours" : labelOf(TARGET_UNITS, unit);
+
+const COUNTRY_LOCALES = [
+  ["AF", "Afghanistan"], ["AL", "Albania"], ["DZ", "Algeria"], ["AD", "Andorra"],
+  ["AO", "Angola"], ["AR", "Argentina"], ["AM", "Armenia"], ["AU", "Australia"],
+  ["AT", "Austria"], ["AZ", "Azerbaijan"], ["BS", "Bahamas"], ["BH", "Bahrain"],
+  ["BD", "Bangladesh"], ["BB", "Barbados"], ["BE", "Belgium"], ["BZ", "Belize"],
+  ["BJ", "Benin"], ["BT", "Bhutan"], ["BO", "Bolivia"], ["BA", "Bosnia and Herzegovina"],
+  ["BW", "Botswana"], ["BR", "Brazil"], ["BN", "Brunei"], ["BG", "Bulgaria"],
+  ["BF", "Burkina Faso"], ["BI", "Burundi"], ["KH", "Cambodia"], ["CM", "Cameroon"],
+  ["CA", "Canada"], ["CL", "Chile"], ["CN", "China"], ["CO", "Colombia"],
+  ["CR", "Costa Rica"], ["CI", "Cote d'Ivoire"], ["HR", "Croatia"], ["CY", "Cyprus"],
+  ["CZ", "Czechia"], ["DK", "Denmark"], ["DO", "Dominican Republic"], ["EC", "Ecuador"],
+  ["EG", "Egypt"], ["SV", "El Salvador"], ["EE", "Estonia"], ["ET", "Ethiopia"],
+  ["FI", "Finland"], ["FR", "France"], ["GE", "Georgia"], ["DE", "Germany"],
+  ["GH", "Ghana"], ["GR", "Greece"], ["GT", "Guatemala"], ["HK", "Hong Kong"],
+  ["HU", "Hungary"], ["IS", "Iceland"], ["IN", "India"], ["ID", "Indonesia"],
+  ["IE", "Ireland"], ["IL", "Israel"], ["IT", "Italy"], ["JM", "Jamaica"],
+  ["JP", "Japan"], ["JO", "Jordan"], ["KZ", "Kazakhstan"], ["KE", "Kenya"],
+  ["KW", "Kuwait"], ["KG", "Kyrgyzstan"], ["LA", "Laos"], ["LV", "Latvia"],
+  ["LB", "Lebanon"], ["LT", "Lithuania"], ["LU", "Luxembourg"], ["MY", "Malaysia"],
+  ["MV", "Maldives"], ["MT", "Malta"], ["MU", "Mauritius"], ["MX", "Mexico"],
+  ["MD", "Moldova"], ["MA", "Morocco"], ["MZ", "Mozambique"], ["MM", "Myanmar"],
+  ["NP", "Nepal"], ["NL", "Netherlands"], ["NZ", "New Zealand"], ["NG", "Nigeria"],
+  ["NO", "Norway"], ["OM", "Oman"], ["PK", "Pakistan"], ["PA", "Panama"],
+  ["PE", "Peru"], ["PH", "Philippines"], ["PL", "Poland"], ["PT", "Portugal"],
+  // RU was in COUNTRY_LANGUAGE_CODES but not here, so countryLabel fell through
+  // to the raw code and the picker offered "RU - Russian" among a list of real
+  // country names.
+  ["QA", "Qatar"], ["RO", "Romania"], ["RU", "Russia"], ["RW", "Rwanda"], ["SA", "Saudi Arabia"],
+  ["SN", "Senegal"], ["RS", "Serbia"], ["SG", "Singapore"], ["SK", "Slovakia"],
+  ["SI", "Slovenia"], ["ZA", "South Africa"], ["KR", "South Korea"], ["ES", "Spain"],
+  ["LK", "Sri Lanka"], ["SE", "Sweden"], ["CH", "Switzerland"], ["TW", "Taiwan"],
+  ["TJ", "Tajikistan"], ["TZ", "Tanzania"], ["TH", "Thailand"], ["TR", "Turkey"],
+  ["TM", "Turkmenistan"], ["UG", "Uganda"], ["UA", "Ukraine"], ["AE", "United Arab Emirates"],
+  ["GB", "United Kingdom"], ["US", "United States"], ["UY", "Uruguay"], ["UZ", "Uzbekistan"],
+  ["VE", "Venezuela"], ["VN", "Vietnam"], ["ZM", "Zambia"], ["ZW", "Zimbabwe"],
+] as const;
+
+function countryLabel(code: string): string {
+  const found = COUNTRY_LOCALES.find(([value]) => value === code);
+  return found ? found[1] : code;
+}
+
+const LANGUAGES = [
+  ["eng", "English"], ["hin", "Hindi"], ["fr", "French"], ["spa", "Spanish"],
+  ["ara", "Arabic"], ["ben", "Bengali"], ["cmn", "Mandarin Chinese"], ["por", "Portuguese"],
+  ["rus", "Russian"], ["de", "German"], ["jpn", "Japanese"], ["kor", "Korean"],
+  ["ind", "Indonesian"], ["msa", "Malay"], ["ita", "Italian"], ["tur", "Turkish"],
+  ["vie", "Vietnamese"], ["tha", "Thai"], ["tam", "Tamil"], ["tel", "Telugu"],
+  ["mar", "Marathi"], ["urd", "Urdu"], ["guj", "Gujarati"], ["kan", "Kannada"],
+  ["pan", "Punjabi"], ["nld", "Dutch"], ["swe", "Swedish"], ["nor", "Norwegian"],
+  ["dan", "Danish"], ["fin", "Finnish"], ["pol", "Polish"], ["ukr", "Ukrainian"],
+  ["ell", "Greek"], ["heb", "Hebrew"],
+] as const;
+
+function languageLabel(code: string): string {
+  const found = LANGUAGES.find(([value]) => value === code);
+  return found ? found[1] : code;
+}
+
+function localeLabel(value: string): string {
+  const [country, language] = value.split("-");
+  if (!country || !language) return countryLabel(value.toUpperCase());
+  return `${countryLabel(country.toUpperCase())} - ${languageLabel(language)}`;
+}
+
+const COUNTRY_LANGUAGE_CODES: Record<string, string[]> = {
+  AE: ["ara", "eng"],
+  AR: ["spa"],
+  AT: ["de", "eng"],
+  AU: ["eng"],
+  BD: ["ben", "eng"],
+  BE: ["nld", "fr", "de"],
+  BR: ["por"],
+  CA: ["eng", "fr"],
+  CH: ["de", "fr", "ita"],
+  CL: ["spa"],
+  CN: ["cmn", "eng"],
+  CO: ["spa"],
+  DE: ["de", "eng"],
+  DK: ["dan", "eng"],
+  EG: ["ara", "eng"],
+  ES: ["spa"],
+  FI: ["fin", "swe", "eng"],
+  FR: ["fr", "eng"],
+  GB: ["eng"],
+  GR: ["ell", "eng"],
+  HK: ["cmn", "eng"],
+  ID: ["ind", "eng"],
+  IE: ["eng"],
+  IL: ["heb", "ara", "eng"],
+  IN: ["eng", "hin", "tel", "tam", "ben", "mar", "urd", "guj", "kan", "pan"],
+  IT: ["ita", "eng"],
+  JP: ["jpn", "eng"],
+  KR: ["kor", "eng"],
+  LK: ["tam", "eng"],
+  MX: ["spa"],
+  MY: ["msa", "eng", "cmn", "tam"],
+  NG: ["eng"],
+  NL: ["nld", "eng"],
+  NO: ["nor", "eng"],
+  NZ: ["eng"],
+  PE: ["spa"],
+  PH: ["eng"],
+  PK: ["urd", "eng", "pan"],
+  PL: ["pol", "eng"],
+  PT: ["por", "eng"],
+  QA: ["ara", "eng"],
+  RU: ["rus", "eng"],
+  SA: ["ara", "eng"],
+  SE: ["swe", "eng"],
+  SG: ["eng", "cmn", "msa", "tam"],
+  TH: ["tha", "eng"],
+  TR: ["tur", "eng"],
+  TW: ["cmn", "eng"],
+  UA: ["ukr", "rus", "eng"],
+  US: ["eng", "spa"],
+  VN: ["vie", "eng"],
+  ZA: ["eng"],
+};
+
+const LOCALE_OPTIONS = Object.entries(COUNTRY_LANGUAGE_CODES).flatMap(([countryCode, languageCodes]) => {
+  const country = countryLabel(countryCode);
+  return languageCodes.map((languageCode) => {
+    const language = languageLabel(languageCode);
+    return {
+    value: `${countryCode.toLowerCase()}-${languageCode}`,
+    label: `${country} - ${language}`,
+    search: `${country} ${language} ${countryCode.toLowerCase()}-${languageCode}`.toLowerCase(),
+    };
+  });
+});
+
+function CountryLocaleCombobox({
+  id,
+  value,
+  onChange,
+}: {
+  id?: string;
+  value: string[];
+  onChange: (next: string[]) => void;
+}) {
+  const [draft, setDraft] = useState("");
+  const [open, setOpen] = useState(false);
+  const selected = new Set(value);
+  const query = draft.trim().toLowerCase();
+  const options = (query
+    ? LOCALE_OPTIONS.filter((o) => !selected.has(o.value) && o.search.includes(query))
+    : LOCALE_OPTIONS.filter((o) => !selected.has(o.value)).slice(0, 8)
+  ).slice(0, 12);
+
+  const matchLocale = (raw: string) => {
+    const lower = raw.trim().toLowerCase();
+    return LOCALE_OPTIONS.find(
+      (o) =>
+        o.value === lower ||
+        o.label.toLowerCase() === lower ||
+        `${o.label} (${o.value})`.toLowerCase() === lower,
+    );
+  };
+
+  const addLocale = (locale: { value: string; label: string }) => {
+    if (selected.has(locale.value)) return;
+    onChange([...value, locale.value]);
+    setDraft("");
+    setOpen(false);
+  };
+
+  const commit = () => {
+    const match = matchLocale(draft);
+    if (match) addLocale(match);
+    else setDraft("");
+    setOpen(false);
+  };
+
+  const listId = `${id ?? "country-locale"}-options`;
+
+  return (
+    <div>
+      {value.length > 0 && (
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 5, marginBottom: 6 }}>
+          {value.map((locale) => (
+            <span className="chip" key={locale}>
+              {localeLabel(locale)}
+              <button
+                type="button"
+                onClick={() => onChange(value.filter((x) => x !== locale))}
+                aria-label={`Remove ${localeLabel(locale)}`}
+                style={{ border: 0, background: "none", cursor: "pointer", padding: 0, lineHeight: 1 }}
+              >
+                ×
+              </button>
+            </span>
+          ))}
+        </div>
+      )}
+      <div style={{ position: "relative" }}>
+        <input
+          id={id}
+          className={inputCls}
+          role="combobox"
+          aria-autocomplete="list"
+          aria-expanded={open && options.length > 0}
+          aria-controls={listId}
+          value={draft}
+          placeholder="Search country, language, or code"
+          onFocus={() => setOpen(true)}
+          onChange={(e) => {
+            setDraft(e.target.value);
+            setOpen(true);
+          }}
+          onBlur={commit}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              commit();
+            } else if (e.key === "Escape") {
+              setDraft("");
+              setOpen(false);
+            } else if (e.key === "Backspace" && !draft && value.length) {
+              onChange(value.slice(0, -1));
+            }
+          }}
+        />
+        {open && options.length > 0 && (
+          <div
+            id={listId}
+            role="listbox"
+            style={{
+              position: "absolute",
+              left: 0,
+              right: 0,
+              top: "calc(100% + 4px)",
+              zIndex: 80,
+              maxHeight: 220,
+              overflowY: "auto",
+              border: "1px solid var(--line)",
+              borderRadius: "var(--r-control)",
+              background: "var(--surface)",
+              boxShadow: "var(--shadow-overlay)",
+            }}
+          >
+            {options.map((o) => (
+              <button
+                key={o.value}
+                type="button"
+                role="option"
+                className="btn"
+                data-variant="quiet"
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                  addLocale(o);
+                }}
+                style={{ width: "100%", justifyContent: "space-between", border: 0, borderRadius: 0 }}
+              >
+                <span>{o.label}</span>
+                <span className="muted small">{o.value}</span>
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 /* --- client: requests list -------------------------------------------------- */
 
 export function RequestsPage() {
   const requests = useQuery({ queryKey: ["requests"], queryFn: () => get<Rfp[]>("/requests") });
   const rows = requests.data ?? [];
   const status = (r: Rfp) => statusMeta(requestStatus, r.status);
-  const newRequest = <Link to="/requests/new" className="btn" data-variant="primary">New request</Link>;
+  const newRequest = <Link to="/requests/new" className="btn" data-variant="primary">New RFP</Link>;
   return (
     <View
-      title="Requests"
-      sub="Everything you have drafted, published or seen through to completion."
+      title="RFPs"
+      sub="Every RFP you have drafted, published or seen through to completion."
       actions={newRequest}
     >
       <Panel>
         {requests.isLoading ? (
           // Without this the empty state rendered while the query was in
           // flight — "No requests yet" to a client who has ten.
-          <Skeleton rows={5} label="Loading your requests" />
+          <Skeleton rows={5} label="Loading your RFPs" />
         ) : rows.length === 0 ? (
-          <Empty title="No requests yet" hint="Publish one and every delivery partner is notified." action={newRequest} />
+          <Empty title="No RFPs yet" hint="Publish one and every delivery partner is notified." action={newRequest} />
         ) : (
           <DataTable
             rows={rows}
             rowKey={(r) => r.id}
             filter={{
-              label: "Filter requests",
+              label: "Filter RFPs",
               placeholder: "Filter by title or reference…",
               text: (r) => `${r.title} ${r.reference_code}`,
             }}
@@ -127,7 +405,7 @@ export function RequestsPage() {
 // client who already wrote a spec attaches it instead of retyping it.
 type Row = [string, React.ReactNode];
 
-const STEPS = ["The work", "The rules", "Money and delivery", "Review"] as const;
+const STEPS = ["Scope", "Guidelines", "Budget and Timelines", "Review"] as const;
 
 // The jsonb columns are flattened into prefixed scalar fields here and
 // reassembled on save. Nested state would mean a bespoke setter per key, and
@@ -159,7 +437,7 @@ interface Draft {
 const BLANK: Draft = {
   title: "", category: "image", compliance_notes: "",
   objective: "", use_case: "",
-  target_quantity: "", target_unit: "photos", location_type: "",
+  target_quantity: "", target_unit: "records", location_type: "",
   countries: [],
   capture_media: [], capture_notes: "",
   capture_require_gps: false, capture_orientation: "", capture_min_megapixels: "",
@@ -200,6 +478,8 @@ const compact = <T extends Record<string, unknown>>(o: T): T | null => {
 export function RequestNewPage() {
   const { id } = useParams();
   const [step, setStep] = useState(0);
+  const stepTopRef = useRef<HTMLDivElement>(null);
+  const stepChanged = useRef(false);
   const [d, setD] = useState<Draft>(BLANK);
   const [error, setError] = useState<string | null>(null);
   // What the person is being told, per field. Set by Continue, cleared the
@@ -247,7 +527,7 @@ export function RequestNewPage() {
       objective: r.objective ?? "", use_case: r.use_case ?? "",
       acceptance: r.acceptance ?? "",
       target_quantity: String(r.spec?.target_quantity ?? ""),
-      target_unit: r.spec?.target_unit ?? "photos",
+      target_unit: r.spec?.target_unit ?? unitForCategory(r.category ?? "image"),
       location_type: r.spec?.location_type ?? "",
       countries: r.spec?.countries ?? [],
       capture_media: mediaList(cap), capture_notes: cap.notes ?? "",
@@ -300,6 +580,15 @@ export function RequestNewPage() {
       if (fieldErr[k]) setFieldErr(({ [k]: _drop, ...rest }) => rest);
       return { ...x, [k]: e.target.value };
     });
+
+  const setCategory = (e: { target: { value: string } }) => {
+    const category = e.target.value;
+    setD((x) => {
+      if (error) setError(null);
+      if (fieldErr.category) setFieldErr(({ category: _drop, ...rest }) => rest);
+      return { ...x, category, target_unit: unitForCategory(category) };
+    });
+  };
 
 
   // Any attachment still in flight. Saving now would attach a key whose bytes
@@ -418,10 +707,10 @@ export function RequestNewPage() {
       // the edit.
       void qc.invalidateQueries({ queryKey: ["request", r.id] });
       toast(
-        publish ? "Request published" : id ? "Draft updated" : "Draft saved",
+        publish ? "RFP published" : id ? "Draft updated" : "Draft saved",
         publish
           ? "Every delivery partner can bid on it now."
-          : `${r.reference_code} is waiting in your requests.`,
+          : `${r.reference_code} is waiting in your RFPs.`,
         "success",
       );
       guard.release(); // saved: leaving now loses nothing
@@ -447,7 +736,7 @@ export function RequestNewPage() {
     const blocking: string[] = [];
 
     if (step === 0) {
-      if (!d.title.trim()) f.title = "Give the request a title.";
+      if (!d.title.trim()) f.title = "Give the RFP a title.";
       else if (d.title.trim().length < 3) f.title = "At least three characters.";
       if (!d.category.trim()) f.category = "Choose a category.";
       if (otherUseCase && !d.objective.trim())
@@ -485,7 +774,7 @@ export function RequestNewPage() {
   // dialog opens, so a request cannot get six steps in and fail on the server.
   const publishProblems = (): string[] => {
     const problems: string[] = [];
-    if (!d.title.trim()) problems.push("Give the request a title.");
+    if (!d.title.trim()) problems.push("Give the RFP a title.");
     if (d.title.trim().length < 3) problems.push("The title needs at least three characters.");
     if (!d.target_quantity.trim())
       problems.push("Say how much you need — partners cannot price a blank quantity.");
@@ -501,6 +790,22 @@ export function RequestNewPage() {
 
   const errOf = (k: keyof Draft) => fieldErr[k] ?? null;
 
+  useLayoutEffect(() => {
+    if (!stepChanged.current) return;
+    stepChanged.current = false;
+    const top = stepTopRef.current;
+    const scrollToTop = () => {
+      top?.focus({ preventScroll: true });
+      try {
+        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      } catch {
+        window.scrollTo(0, 0);
+      }
+    };
+    scrollToTop();
+    const frame = window.requestAnimationFrame(scrollToTop);
+    return () => window.cancelAnimationFrame(frame);
+  }, [step]);
 
   const next = () => {
     const { fields, blocking } = validateStep();
@@ -515,6 +820,7 @@ export function RequestNewPage() {
         : `${count} fields need attention.`));
     }
     setError(null);
+    stepChanged.current = true;
     setStep((s) => Math.min(s + 1, STEPS.length - 1));
   };
 
@@ -531,19 +837,19 @@ export function RequestNewPage() {
   if (id && existing.isLoading) {
     return (
       <View title="Loading the draft…">
-        <Panel><Skeleton rows={6} label="Loading this request" /></Panel>
+        <Panel><Skeleton rows={6} label="Loading this RFP" /></Panel>
       </View>
     );
   }
   if (id && existing.isError) {
     return (
-      <View title="Request not found">
+      <View title="RFP not found">
         <Panel>
-          <Callout tone="critical" title="This request could not be opened">
+          <Callout tone="critical" title="This RFP could not be opened">
             It may have been published already, or belong to another organisation.
             Only a draft can be edited.
           </Callout>
-          <div className="btnrow"><Button onClick={() => navigate("/requests")}>Back to requests</Button></div>
+          <div className="btnrow"><Button onClick={() => navigate("/requests")}>Back to RFPs</Button></div>
         </Panel>
       </View>
     );
@@ -551,56 +857,45 @@ export function RequestNewPage() {
 
   return (
     <View
-      title={id ? `Edit ${existing.data?.reference_code ?? "draft"}` : "New request"}
+      title={id ? `Edit ${existing.data?.reference_code ?? "draft"}` : "New RFP"}
       sub="The defaults are honest — anything you skip is marked 'to be agreed', never hidden."
     >
       {/* The chip that used to live here was aria-hidden, so the only progress
           affordance on the page was invisible to assistive tech. The rail is
           what the prototype had, and this file already renders one. */}
-      <Panel flush>
-        <StageRail stages={STEPS} current={STEPS[step]!} />
-      </Panel>
+      <div ref={stepTopRef} tabIndex={-1} style={{ outline: "none" }}>
+        <Panel flush>
+          <StageRail stages={STEPS} current={STEPS[step]!} />
+        </Panel>
+      </div>
       <Panel>
         {step === 0 && (
           <div className="formgrid">
-            <Field label="Request title" required span error={errOf("title")}>
+            <Field label="RFP title" required span error={errOf("title")}>
               {(id) => <input id={id} className={inputCls} value={d.title} onChange={set("title")} placeholder="Retail shelf imagery across 12 metro markets" />}
             </Field>
-            <Field label="Category" required error={errOf("category")}>
+            <Field label="Category / Content Type" required error={errOf("category")}>
               {(id) => (
-                <select id={id} className={selectCls} value={d.category} onChange={set("category")}>
+                <select id={id} className={selectCls} value={d.category} onChange={setCategory}>
                   {CATEGORIES.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
                 </select>
               )}
             </Field>
-            <Field label="Use case" hint="Shapes what a partner has to agree to downstream.">
+            <Field label="Quantity" required error={errOf("target_quantity")}>
               {(id) => (
-                <select id={id} className={selectCls} value={d.use_case} onChange={set("use_case")}>
-                  <option value="">Not specified</option>
-                  {USE_CASES.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
-                </select>
-              )}
-            </Field>
-            <Field
-              label="What is this for?"
-              span
-              required={otherUseCase}
-              error={errOf("objective")}
-              hint={otherUseCase
-                ? "You picked \u201cSomething else\u201d. Say what, so a partner knows what they are bidding on."
-                : "One sentence. It is the first thing a partner reads."}
-            >
-              {(id) => <textarea id={id} className={textareaCls} rows={2} value={d.objective} onChange={set("objective")} placeholder="Train a shelf-recognition model across our top 12 markets." />}
-            </Field>
-
-            <Field label="How much" required error={errOf("target_quantity")}>
-              {(id) => <input id={id} className={inputCls} type="number" min={1} value={d.target_quantity} onChange={set("target_quantity")} placeholder="25000" />}
-            </Field>
-            <Field label="Of what" required>
-              {(id) => (
-                <select id={id} className={selectCls} value={d.target_unit} onChange={set("target_unit")}>
-                  {TARGET_UNITS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
-                </select>
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <input
+                    id={id}
+                    className={inputCls}
+                    type="number"
+                    min={1}
+                    value={d.target_quantity}
+                    onChange={set("target_quantity")}
+                    placeholder="25000"
+                    style={{ minWidth: 0 }}
+                  />
+                  <span className="small muted" style={{ flex: "none" }}>{unitLabel(d.target_unit)}</span>
+                </div>
               )}
             </Field>
             {impliedMedia ? (
@@ -625,18 +920,16 @@ export function RequestNewPage() {
                 columns={2}
               />
             )}
-            <Field label="Countries" hint="ISO codes — IN, AE, GB. Enter or comma to add.">
+            <Field label="Location / Locale">
               {(id) => (
-                <TagInput
+                <CountryLocaleCombobox
                   id={id}
                   value={d.countries}
-                  onChange={(v) => setD((x) => ({ ...x, countries: v }))}
-                  placeholder="IN"
-                  transform={(raw) => raw.toUpperCase().slice(0, 3)}
+                  onChange={(countries) => setD((x) => ({ ...x, countries }))}
                 />
               )}
             </Field>
-            <Field label="Where" hint="The kind of place, not the address.">
+            <Field label="Location Type" hint="The kind of place, not the address.">
               {(id) => (
                 <select id={id} className={selectCls} value={d.location_type} onChange={set("location_type")}>
                   <option value="">Not specified</option>
@@ -644,8 +937,31 @@ export function RequestNewPage() {
                 </select>
               )}
             </Field>
-            <Field label="People needed" hint="Roughly, so a partner can size the job.">
-              {(id) => <input id={id} className={inputCls} type="number" min={0} value={d.people_headcount} onChange={set("people_headcount")} />}
+            <Field
+              label="Device Specifications"
+              span
+              hint="Optional device type, model, OS/version, or special hardware requirements."
+            >
+              {(id) => <textarea id={id} className={textareaCls} rows={2} value={d.capture_notes} onChange={set("capture_notes")} placeholder="Android 12+, LiDAR-capable phone, calibrated camera, or other hardware needs." />}
+            </Field>
+            <Field label="Purpose" hint="Shapes what a partner has to agree to downstream.">
+              {(id) => (
+                <select id={id} className={selectCls} value={d.use_case} onChange={set("use_case")}>
+                  <option value="">Not specified</option>
+                  {USE_CASES.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+                </select>
+              )}
+            </Field>
+            <Field
+              label="Project Objective"
+              span
+              required={otherUseCase}
+              error={errOf("objective")}
+              hint={otherUseCase
+                ? "You picked \u201cSomething else\u201d. Say what, so a partner knows what they are bidding on."
+                : "One sentence. It is the first thing a partner reads."}
+            >
+              {(id) => <textarea id={id} className={textareaCls} rows={2} value={d.objective} onChange={set("objective")} placeholder="Train a shelf-recognition model across our top 12 markets." />}
             </Field>
 
             <label className="checkline span">
@@ -676,9 +992,6 @@ export function RequestNewPage() {
                   hint="Degrees off square. For wall and shelf work — blank for overhead or tabletop."
                 >
                   {(id) => <input id={id} className={inputCls} type="number" min={0} max={45} step="1" value={d.capture_max_tilt_deg} onChange={set("capture_max_tilt_deg")} placeholder="10" />}
-                </Field>
-                <Field label="Capture notes" span>
-                  {(id) => <textarea id={id} className={textareaCls} rows={2} value={d.capture_notes} onChange={set("capture_notes")} placeholder="Full shelf in frame, no glare, shot square on." />}
                 </Field>
                 <label className="checkline span">
                   <input type="checkbox" checked={d.capture_require_gps} onChange={(e) => setD((x) => ({ ...x, capture_require_gps: e.target.checked }))} />
@@ -890,7 +1203,7 @@ export function RequestNewPage() {
               <input type="checkbox" checked={!d.budget_disclosed} onChange={(e) => setD((x) => ({ ...x, budget_disclosed: !e.target.checked }))} />
               <span>
                 Keep the budget to ourselves
-                <span className="cl-sub">Bidders see the request but not the range. You still see it here.</span>
+                <span className="cl-sub">Bidders see the RFP but not the range. You still see it here.</span>
               </span>
             </label>
             <Field label="Project start">
@@ -909,7 +1222,7 @@ export function RequestNewPage() {
             </label>
             {d.pilot_required && (
               <>
-                <Field label="Pilot size" required error={errOf("pilot_quantity")} hint={`In ${labelOf(TARGET_UNITS, d.target_unit as TargetUnit)}.`}>
+                <Field label="Pilot size" required error={errOf("pilot_quantity")} hint={`In ${unitLabel(d.target_unit)}.`}>
                   {(id) => <input id={id} className={inputCls} type="number" min={1} value={d.pilot_quantity} onChange={set("pilot_quantity")} placeholder="500" />}
                 </Field>
                 <Field label="Pilot due">
@@ -934,17 +1247,17 @@ export function RequestNewPage() {
             ["Title", d.title || "—"],
             ["Category", titleCase(d.category)],
             ...(d.objective ? [["Objective", d.objective] as Row] : []),
-            ...(d.use_case ? [["Use case", labelOf(USE_CASES, d.use_case as UseCase)] as Row] : []),
+            ...(d.use_case ? [["Purpose", labelOf(USE_CASES, d.use_case as UseCase)] as Row] : []),
             ["Quantity", d.target_quantity
-              ? `${d.target_quantity} ${labelOf(TARGET_UNITS, d.target_unit as TargetUnit)}`
+              ? `${d.target_quantity} ${unitLabel(d.target_unit)}`
               : "To be agreed"],
             ["Media", d.capture_media.length
               ? d.capture_media.map((m) => labelOf(CAPTURE_MEDIA, m)).join(", ")
               : "Anything visual"],
-            ...(d.countries.length ? [["Countries", d.countries.join(", ")] as Row] : []),
+            ...(d.countries.length ? [["Location / Locale", d.countries.map(localeLabel).join(", ")] as Row] : []),
             ...(d.location_type
-              ? [["Where", labelOf(LOCATION_TYPES, d.location_type as LocationType)] as Row] : []),
-            ...(d.people_headcount ? [["People needed", d.people_headcount] as Row] : []),
+              ? [["Location Type", labelOf(LOCATION_TYPES, d.location_type as LocationType)] as Row] : []),
+            ...(d.capture_notes ? [["Device Specifications", d.capture_notes] as Row] : []),
             ["Acceptance", d.acceptance || "Client review on delivery"],
             ...(d.qt_min_pass_rate_pct
               ? [["Pass rate", `${d.qt_min_pass_rate_pct}%`] as Row] : []),
@@ -963,7 +1276,7 @@ export function RequestNewPage() {
               ? `${money(d.budget_min || null)} – ${money(d.budget_max || null)}`
               : `${money(d.budget_min || null)} – ${money(d.budget_max || null)} · withheld from bidders`],
             ["Timeline", `${fmtDate(d.starts_on || null)} → ${fmtDate(d.delivery_due_on || null)}`],
-            ...(d.pilot_required ? [["Pilot", `${d.pilot_quantity || "?"} ${labelOf(TARGET_UNITS, d.target_unit as TargetUnit)}${d.pilot_due_on ? ` by ${fmtDate(d.pilot_due_on)}` : ""}`] as Row] : []),
+            ...(d.pilot_required ? [["Pilot", `${d.pilot_quantity || "?"} ${unitLabel(d.target_unit)}${d.pilot_due_on ? ` by ${fmtDate(d.pilot_due_on)}` : ""}`] as Row] : []),
             ...(allFiles.length
               ? [["Attached", allFiles.map((f) => f.filename).join(", ")] as Row] : []),
             ["Delivered to", <DestinationSummary key="dest" id={d.storage_target_id} />],
@@ -972,7 +1285,7 @@ export function RequestNewPage() {
         {error && <Callout tone="critical" title={error} />}
       </Panel>
       <div className="btnrow">
-        {step > 0 && <Button onClick={() => { setError(null); setStep((s) => s - 1); }}>Back</Button>}
+        {step > 0 && <Button onClick={() => { setError(null); stepChanged.current = true; setStep((s) => s - 1); }}>Back</Button>}
         {/* Available on every step, not just the last. Everything typed lives
             in component state with no autosave and no exit control, so hiding
             the only save behind five Continues meant clicking "Requests" in
@@ -1013,7 +1326,7 @@ export function RequestNewPage() {
           }
         >
           <Callout tone="attention" title="Every delivery partner is notified, and this cannot be undone">
-            Partners start pricing against the words in this request. There is no way to
+            Partners start pricing against the words in this RFP. There is no way to
             unpublish it or edit it afterwards — only to see it through or let it lapse.
           </Callout>
         </Dialog>
@@ -1317,8 +1630,8 @@ export function RequestDetailPage() {
   const session = useSession();
   const qc = useQueryClient();
   const toast = useToast();
-  const navigate = useNavigate();
   const [awarding, setAwarding] = useState<Proposal | null>(null);
+  const [rejecting, setRejecting] = useState<Proposal | null>(null);
   const [viewing, setViewing] = useState<Proposal | null>(null);
   const [proposing, setProposing] = useState(false);
   const [publishing, setPublishing] = useState(false);
@@ -1361,13 +1674,30 @@ export function RequestDetailPage() {
     onSuccess: (c) => {
       toast("Contract awarded", `${c.reference_code} is open.`, "success");
       setAwarding(null);
-      navigate(`/deliveries/${c.id}`);
+      void qc.invalidateQueries({ queryKey: ["request", id] });
+      void qc.invalidateQueries({ queryKey: ["requests"] });
     },
     onError: (e) => setAwardError(e instanceof Error ? e.message : "The award was refused."),
   });
 
+  // No hold: there is no such state. proposal_status is
+  // ('submitted','accepted','rejected','withdrawn') and nothing writes a fifth,
+  // so a Hold button could only ever 404. Rejecting is the real decision.
+  const rejectProposal = useMutation({
+    mutationFn: ({ proposalId, reason }: { proposalId: string; reason: string }) =>
+      post<Proposal>(`/proposals/${proposalId}/reject`, { reason }),
+    onSuccess: () => {
+      toast("Proposal rejected", "The partner has been notified.", "success");
+      void qc.invalidateQueries({ queryKey: ["request", id] });
+      void qc.invalidateQueries({ queryKey: ["requests"] });
+    },
+    // ReasonDialog keeps itself open and shows a refusal inline, so this must
+    // NOT also toast — its own header comment says so. mutateAsync rejecting is
+    // what the dialog reads.
+  });
+
   const r = request.data;
-  if (!r) return <View title="Request">{request.isError ? <Callout tone="critical" title="Not found or not yours to see" /> : <p className="muted">Loading…</p>}</View>;
+  if (!r) return <View title="RFP">{request.isError ? <Callout tone="critical" title="Not found or not yours to see" /> : <p className="muted">Loading…</p>}</View>;
 
   const meta = statusMeta(requestStatus, r.status);
   const docs = r.attachments ?? [];
@@ -1390,7 +1720,9 @@ export function RequestDetailPage() {
   const minDays = days.length ? Math.min(...days) : null;
   const lowest = prices.filter((x) => x === minPrice).length === 1 ? minPrice : null;
   const fastest = days.filter((x) => x === minDays).length === 1 ? minDays : null;
-  const canAward = isClient && ["published", "proposals_received"].includes(r.status);
+  // "submitted" only: proposal_status has no held state, so listing one here
+  // gated the buttons on a value the server can never send.
+  const canManageProposal = (p: Proposal) => isClient && p.status === "submitted";
   // a withdrawn bid does not count: the partner may propose again, and the
   // server revives that row rather than refusing (submit_proposal).
   const alreadyMine = proposals.some(
@@ -1415,7 +1747,7 @@ export function RequestDetailPage() {
               pointing at the work it produced — the only way through was the
               rail. */}
           {isClient && ["accepted", "in_progress", "delivered", "completed"].includes(r.status) && (
-            <Link to="/deliveries" className="btn" data-variant="primary">Track delivery</Link>
+            <Link to="/deliveries" className="btn" data-variant="primary">Review deliverables</Link>
           )}
           {session.org_kind === "tenant" && ["published", "proposals_received"].includes(r.status) && !alreadyMine && (
             <Button variant="primary" onClick={() => setProposing(true)}>Respond</Button>
@@ -1438,9 +1770,9 @@ export function RequestDetailPage() {
         <Panel title="Specification">
           <Dl rows={[
             ["Objective", r.objective ?? "—"],
-            ["Use case", labelOf(USE_CASES, r.use_case)],
+            ["Purpose", labelOf(USE_CASES, r.use_case)],
             ["Quantity", r.spec.target_quantity
-              ? `${r.spec.target_quantity} ${labelOf(TARGET_UNITS, r.spec.target_unit)}`
+              ? `${r.spec.target_quantity} ${unitLabel(r.spec.target_unit)}`
               : "—"],
             ["Media", mediaList(r.spec.capture).length
               ? mediaList(r.spec.capture).map((m) => labelOf(CAPTURE_MEDIA, m)).join(", ")
@@ -1464,14 +1796,14 @@ export function RequestDetailPage() {
               ? [["GPS", "A fix is required on every capture"] as [string, React.ReactNode]]
               : []),
             ...(r.spec.capture.notes
-              ? [["Capture notes", r.spec.capture.notes] as [string, React.ReactNode]]
+              ? [["Device Specifications", r.spec.capture.notes] as [string, React.ReactNode]]
               : []),
             // One row about place, not four. This panel used to carry
             // "Location" (which was the GPS flag), "Where", "Countries" and
             // "Geography" — two near-identical labels for different things
             // plus a prose restatement of both.
             ["Where", [
-              r.spec.countries.length ? r.spec.countries.join(", ") : null,
+              r.spec.countries.length ? r.spec.countries.map(localeLabel).join(", ") : null,
               r.spec.location_type ? labelOf(LOCATION_TYPES, r.spec.location_type) : null,
             ].filter(Boolean).join(" · ") || "—"],
             ...(briefDocs.length
@@ -1528,7 +1860,15 @@ export function RequestDetailPage() {
         </Panel>
         <Panel title="People, budget and timeline">
           <Dl rows={[
-            ["People needed", String(r.people.headcount)],
+            // Only when it was actually asked for. The builder's "People needed"
+            // input was removed in 9417b35 but the field is still posted, so
+            // every RFP raised since reads headcount 0 — and a flat
+            // "People needed: 0" asserts an answer nobody was given the chance
+            // to give. Shown when there is a real number, omitted when there
+            // is not; restoring the input would bring the row straight back.
+            ...(r.people.headcount > 0
+              ? [["People needed", String(r.people.headcount)] as [string, React.ReactNode]]
+              : []),
             ["Budget", `${money(r.budget_min)} – ${money(r.budget_max)}`],
             ["Timeline", `${fmtDate(r.starts_on)} → ${fmtDate(r.delivery_due_on)}`],
             ["Status", <Pill key="s" tone={meta.tone}>{meta.label}</Pill>],
@@ -1541,7 +1881,7 @@ export function RequestDetailPage() {
         sub={isClient ? "Competitors never see each other's bids — only you compare them." : undefined}
       >
         {proposals.length === 0 ? (
-          <Empty title={isClient ? "No proposals yet" : "No response yet"} hint={r.status === "draft" ? "Publish the request first." : isClient ? "Partners have been notified." : "Respond while the request is still open."} />
+          <Empty title={isClient ? "No proposals yet" : "No response yet"} hint={r.status === "draft" ? "Publish the RFP first." : isClient ? "Partners have been notified." : "Respond while the RFP is still open."} />
         ) : (
           <TableWrap>
             <table>
@@ -1592,7 +1932,10 @@ export function RequestDetailPage() {
                       {isClient && (
                         <td className="right"><div className="rowactions">
                           <Button size="sm" onClick={() => setViewing(p)}>Profile</Button>
-                          {canAward && p.status === "submitted" && (
+                          {canManageProposal(p) && (
+                            <Button size="sm" variant="danger" onClick={() => setRejecting(p)}>Reject</Button>
+                          )}
+                          {canManageProposal(p) && (
                             <Button size="sm" variant="primary" onClick={() => setAwarding(p)}>Award</Button>
                           )}
                           </div>
@@ -1608,6 +1951,15 @@ export function RequestDetailPage() {
       </Panel>
 
       {viewing && <PartnerProfileDialog proposal={viewing} onClose={() => setViewing(null)} />}
+      {rejecting && (
+        <ReasonDialog
+          title={`Reject ${rejecting.partner_name ?? "this proposal"}`}
+          warning="The partner is notified and the proposal can no longer be awarded."
+          confirmLabel="Reject"
+          onConfirm={(reason) => rejectProposal.mutateAsync({ proposalId: rejecting.id, reason })}
+          onClose={() => setRejecting(null)}
+        />
+      )}
 
       {publishing && (
         <Dialog
@@ -1625,7 +1977,7 @@ export function RequestDetailPage() {
           }
         >
           <Callout tone="attention" title="Every delivery partner is notified, and this cannot be undone">
-            Partners start pricing against the words in this request. There is no way to
+            Partners start pricing against the words in this RFP. There is no way to
             unpublish it or edit it afterwards — only to see it through or let it lapse.
           </Callout>
           {publishError && <Callout tone="critical" title="Could not publish">{publishError}</Callout>}
@@ -1648,7 +2000,14 @@ export function RequestDetailPage() {
           }
         >
           <Callout tone="attention" title="Awarding opens a contract and invoices milestone 1">
-            Every other proposal is automatically declined and its partner notified. Half the
+            {/* This said "other proposals remain available, so you can award more
+                partners" — the opposite of what award() does. It sets every other
+                submitted bid to rejected and notifies each partner, and a second
+                award is refused with "This request already has a contract". Saying
+                otherwise at the moment of an irreversible decision is the worst
+                place to be wrong. */}
+            Every other proposal is automatically declined and its partner notified — a request
+            has one contract. To turn a bid down before you decide, reject it on its own. Half the
             value is invoiced to you and held in escrow until you approve the delivery.
           </Callout>
           {/* The failure used to toast from the far corner while this dialog
@@ -1780,7 +2139,7 @@ function ProposeDialog({ requestId, title, onClose }: { requestId: string; title
 export function OpportunitiesPage() {
   const opps = useQuery({ queryKey: ["opportunities"], queryFn: () => get<Rfp[]>("/opportunities") });
   return (
-    <View title="Opportunities" sub="Published requests you can still bid on. First proposal in moves it to 'proposals received'.">
+    <View title="Opportunities" sub="Published RFPs you can still bid on. First proposal in moves it to 'proposals received'.">
       <Panel>
         {(opps.data ?? []).length === 0 ? (
           <Empty title="Nothing open right now" hint="You are notified the moment a client publishes." />
@@ -1821,7 +2180,7 @@ function ProposalDetailDialog({ p, onClose }: { p: Proposal; onClose: () => void
       foot={<Button onClick={onClose}>Close</Button>}
     >
       <Dl rows={[
-        ["Request", <Link key="r" to={`/requests/${p.request_id}`}>{p.request_title ?? p.request_ref ?? "Open request"}</Link>],
+        ["RFP", <Link key="r" to={`/requests/${p.request_id}`}>{p.request_title ?? p.request_ref ?? "Open RFP"}</Link>],
         ["Price", `${money(p.price, p.currency)}`],
         ["Delivery time", `${p.duration_days} days`],
         ["How you will do the work", p.methodology],
@@ -1857,7 +2216,7 @@ export function MyProposalsPage() {
         ) : (
           <TableWrap>
             <table>
-              <thead><tr><th>Reference</th><th>Request</th><th>Price</th><th>Days</th><th>Status</th><th /></tr></thead>
+              <thead><tr><th>Reference</th><th>RFP</th><th>Price</th><th>Days</th><th>Status</th><th /></tr></thead>
               <tbody>
                 {(mine.data ?? []).map((p) => {
                   const pm = statusMeta(proposalStatus, p.status);
@@ -1873,7 +2232,7 @@ export function MyProposalsPage() {
                           label={`Actions for ${p.reference_code}`}
                           items={[
                             { label: "View response", onSelect: () => setViewing(p) },
-                            { label: "View client & request", onSelect: () => setViewingBrief(p) },
+                            { label: "View client & RFP", onSelect: () => setViewingBrief(p) },
                             ...(p.status === "withdrawn"
                               ? [{ label: "Respond again", onSelect: () => navigate(`/requests/${p.request_id}`) }]
                               : []),
@@ -1961,9 +2320,9 @@ function ClientAndRequestDialog({ proposal, onClose }: { proposal: Proposal; onC
         )}
       </Panel>
 
-      <Panel title="The request">
+      <Panel title="The RFP">
         {rfp.isError ? (
-          <Callout tone="critical" title="Request not available" />
+          <Callout tone="critical" title="RFP not available" />
         ) : !r ? (
           <p className="muted">Loading…</p>
         ) : (
@@ -1972,7 +2331,7 @@ function ClientAndRequestDialog({ proposal, onClose }: { proposal: Proposal; onC
             ["Category", titleCase(r.category)],
             ["Objective", r.objective ?? "—"],
             ["Quantity", r.spec.target_quantity
-              ? `${r.spec.target_quantity} ${labelOf(TARGET_UNITS, r.spec.target_unit)}`
+              ? `${r.spec.target_quantity} ${unitLabel(r.spec.target_unit)}`
               : "—"],
             ["Quality bar", r.spec.quality ?? "—"],
             ["Acceptance", r.acceptance ?? "—"],

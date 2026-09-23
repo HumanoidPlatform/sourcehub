@@ -5,7 +5,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { get, post } from "@api/client";
-import type { ActivityRow, Assignment, CaptureSpec, Contract, Org, Rfp, SubjectSpec, Task } from "@api/types";
+import type { ActivityRow, AssetRow, Assignment, CaptureSpec, Contract, Org, Rfp, SubjectSpec, Task } from "@api/types";
 import {
   Button, Callout, Dialog, Dl, Empty, Field, inputCls, Loadable, Meter, Metric, Panel,
   Pill, TableWrap, textareaCls, useToast, View,
@@ -17,6 +17,9 @@ import { useSession } from "@shared/auth";
 import { CAPTURE_APP } from "@shared/brand";
 import { fmtDate, fmtDateTime, mediaList, money, taskTarget } from "@shared/format";
 import { assignmentStatus, contractStatus, statusMeta, taskStatus, waitingOn } from "@shared/status";
+import {
+  DEIDENTIFICATION, labelOf, labelsOf, LAWFUL_BASES, PERMITTED_USES,
+} from "@features/marketplace/vocabularies";
 import { AssignmentUploadDialog } from "@features/capture/dialog";
 import { useUploadActivity } from "@features/capture/hooks";
 import { AssetGallery, useTaskAssets } from "./components/AssetGallery";
@@ -31,9 +34,9 @@ export function ContractsPage() {
 
   return (
     <View
-      title={isClient ? "Deliveries" : "Contracts"}
+      title={isClient ? "Deliverables for Review" : "Contracts"}
       sub={isClient
-        ? "Work in flight against your requests. Approving a delivery releases payment."
+        ? "Work in flight against your RFPs. Approving a deliverable releases payment."
         : "Break each contract into tasks; deliver once every task clears QA."}
     >
       {/* One row per contract, like every other list in the product. Expanded
@@ -41,10 +44,10 @@ export function ContractsPage() {
           scan for — which contract needs attention. The detail page has the
           metrics; this page has to be scannable. */}
       <Panel>
-        <Loadable q={contracts} what={isClient ? "your deliveries" : "your contracts"}>
+        <Loadable q={contracts} what={isClient ? "your deliverables for review" : "your contracts"}>
           {(contracts.data ?? []).length === 0 ? (
             <Empty
-              title={isClient ? "Nothing in delivery" : "No contracts yet"}
+              title={isClient ? "No deliverables for review" : "No contracts yet"}
               hint={isClient ? "Award a proposal to open a contract." : "Win a proposal to open one."}
             />
           ) : (
@@ -167,7 +170,13 @@ export function ContractDetailPage() {
     >
       <div className="g4">
         <Metric label="Value" value={money(c.value)} sub={`fee ${c.platform_fee_pct}% on completion`} />
-        <Metric label="Progress" value={`${c.progress.pct}%`} sub={`${c.progress.done} of ${c.progress.total} tasks QA-passed`} />
+        <Metric
+          label={isClient ? "Review status" : "Progress"}
+          value={`${c.progress.pct}%`}
+          sub={isClient
+            ? `${c.progress.done} of ${c.progress.total} tasks cleared QA. Open a task to compare requested scope, delivered assets and QA evidence.`
+            : `${c.progress.done} of ${c.progress.total} tasks QA-passed`}
+        />
         <Metric label="Waiting on" value={waitingOn(meta, isClient ? "client" : "partner")} />
         <Metric label="Delivery due" value={fmtDate(c.delivery_due_on)} />
       </div>
@@ -192,7 +201,7 @@ export function ContractDetailPage() {
                       <td className="num">{fmtDate(t.due_on)}</td>
                       <td><Pill tone={tm.tone}>{tm.label}</Pill></td>
                       <td className="right" onClick={(e) => e.stopPropagation()}><div className="rowactions">
-                        <Button size="sm" onClick={() => setViewingTask(t)}>Details</Button>
+                        <Button size="sm" onClick={() => setViewingTask(t)}>{isClient ? "Review" : "Details"}</Button>
                         </div>
                       </td>
                     </tr>
@@ -264,7 +273,14 @@ export function ContractDetailPage() {
       {approving && id && (
         <ApproveDialog contract={c} onClose={() => setApproving(false)} />
       )}
-      {viewingTask && <TaskDetailDialog t={viewingTask} onClose={() => setViewingTask(null)} />}
+      {viewingTask && (
+        <TaskDetailDialog
+          t={viewingTask}
+          request={brief.data}
+          requestLoading={brief.isLoading}
+          onClose={() => setViewingTask(null)}
+        />
+      )}
     </View>
   );
 }
@@ -521,7 +537,7 @@ function ApproveDialog({ contract, onClose }: { contract: Contract; onClose: () 
 
   return (
     <Dialog
-      title="Review the delivery"
+      title="Review the deliverable"
       sub={`${contract.title} · ${money(contract.value)}`}
       onClose={onClose}
       foot={
@@ -583,17 +599,146 @@ function subjectRows(s: SubjectSpec | null | undefined): [string, React.ReactNod
   ]];
 }
 
-function TaskDetailDialog({ t, onClose }: { t: Task; onClose: () => void }) {
+type QaReviewRow = {
+  gate: string;
+  outcome: string;
+  note: string | null;
+  worker_name: string | null;
+  reviewed_at: string | null;
+  attempt_no: number | null;
+};
+
+function captureRequirementText(spec: CaptureSpec): string {
+  const parts: string[] = [];
+  const media = mediaList(spec);
+  if (media.length) parts.push(`Media: ${media.join(", ")}`);
+  if (spec.languages?.length) parts.push(`Languages: ${spec.languages.join(", ")}`);
+  if (spec.require_gps) parts.push("GPS required");
+  if (spec.orientation) parts.push(`Orientation: ${spec.orientation}`);
+  if (spec.min_megapixels) parts.push(`Minimum ${spec.min_megapixels} MP`);
+  if (spec.max_tilt_deg) parts.push(`Squareness within ${spec.max_tilt_deg} degrees`);
+  if (spec.max_duration_s) parts.push(`Maximum ${spec.max_duration_s}s`);
+  if (spec.notes) parts.push(spec.notes);
+  return parts.length ? parts.join(" · ") : "No special capture constraints recorded";
+}
+
+function qaGateLabel(gate: string): string {
+  if (gate === "gate1_supplier") return "Gate 1 supplier review";
+  if (gate === "gate2_partner") return "Gate 2 partner QA";
+  if (gate === "gate3_client") return "Client review";
+  return gate.replace(/_/g, " ");
+}
+
+function qaSummary(reviews: QaReviewRow[] | undefined, loading: boolean): string {
+  if (loading) return "Loading QA results…";
+  if (!reviews?.length) return "No QA verdict recorded yet";
+  const pass = reviews.filter((r) => r.outcome === "pass").length;
+  const fail = reviews.filter((r) => r.outcome === "fail").length;
+  return `${pass} passed · ${fail} failed · ${reviews.length} review${reviews.length === 1 ? "" : "s"}`;
+}
+
+function qaReviewList(reviews: QaReviewRow[] | undefined): React.ReactNode {
+  if (!reviews?.length) return "None yet";
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+      {reviews.map((r, i) => (
+        <div key={i} className="small">
+          <b>{qaGateLabel(r.gate)} · {r.outcome === "fail" ? "Fail" : "Pass"}</b>
+          {r.attempt_no != null ? ` · attempt ${r.attempt_no}` : ""}
+          {r.worker_name ? ` · ${r.worker_name}` : ""}
+          {r.reviewed_at ? ` · ${fmtDateTime(r.reviewed_at)}` : ""}
+          {r.note ? <div className="muted">{r.note}</div> : null}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function deviceCheckSummary(assets: AssetRow[] | undefined, loading: boolean): string {
+  if (loading) return "Loading capture checks…";
+  const checks = (assets ?? []).flatMap((a) => a.device_checks ?? []);
+  if (!checks.length) return "No device warnings recorded";
+  const warnings = checks.filter((c) => c.severity === "warn").length;
+  const blockers = checks.filter((c) => c.severity === "block").length;
+  const wrongSubject = checks.filter((c) => c.code === "wrong_subject").length;
+  const unscored = checks.filter((c) => c.code === "subject_unscored").length;
+  return [
+    `${checks.length} check${checks.length === 1 ? "" : "s"} recorded`,
+    warnings ? `${warnings} warning${warnings === 1 ? "" : "s"}` : null,
+    blockers ? `${blockers} blocker${blockers === 1 ? "" : "s"}` : null,
+    wrongSubject ? `${wrongSubject} off-subject flag${wrongSubject === 1 ? "" : "s"}` : null,
+    unscored ? `${unscored} unscored capture${unscored === 1 ? "" : "s"}` : null,
+  ].filter(Boolean).join(" · ");
+}
+
+function deviceCheckList(assets: AssetRow[] | undefined): React.ReactNode {
+  const checks = (assets ?? []).flatMap((asset) =>
+    (asset.device_checks ?? []).map((check) => ({ asset, check })),
+  );
+  if (!checks.length) return null;
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+      {checks.slice(0, 8).map(({ asset, check }, i) => (
+        <div key={`${asset.id}:${i}`} className="small">
+          <b>{asset.filename ?? "Capture"}</b>: {check.message}
+          {check.score != null && <span className="muted"> · score {check.score.toFixed(2)}</span>}
+        </div>
+      ))}
+      {checks.length > 8 && <div className="small muted">+{checks.length - 8} more check results in the asset previews.</div>}
+    </div>
+  );
+}
+
+function complianceRows(request: Rfp | undefined, loading: boolean): [string, React.ReactNode][] {
+  if (loading) return [["Compliance and exclusivity", "Loading RFP terms…"]];
+  if (!request) return [["Compliance and exclusivity", "No RFP terms available"]];
+  return [
+    ["Permitted uses", labelsOf(PERMITTED_USES, request.compliance.permitted_uses)],
+    ["Reuse / exclusivity", request.compliance.partner_reuse_allowed
+      ? "Partner reuse is allowed under the RFP terms"
+      : "Exclusive to the client; partner reuse is not allowed"],
+    ["Lawful basis", labelOf(LAWFUL_BASES, request.compliance.lawful_basis)],
+    ["De-identification", labelsOf(DEIDENTIFICATION, request.compliance.deidentification)],
+    ...(request.compliance.regulations.length
+      ? [["Regulations", request.compliance.regulations.join(", ")] as [string, React.ReactNode]]
+      : []),
+    ...(request.compliance_notes
+      ? [["Compliance notes", request.compliance_notes] as [string, React.ReactNode]]
+      : []),
+  ];
+}
+
+function TaskDetailDialog({
+  t,
+  request,
+  requestLoading,
+  onClose,
+}: {
+  t: Task;
+  request?: Rfp;
+  requestLoading?: boolean;
+  onClose: () => void;
+}) {
   const tm = statusMeta(taskStatus, t.status);
   const reviews = useQuery({
     queryKey: ["reviews", t.id],
     queryFn: () =>
-      get<{ gate: string; outcome: string; note: string | null; worker_name: string | null }[]>(`/tasks/${t.id}/reviews`),
+      get<QaReviewRow[]>(`/tasks/${t.id}/reviews`),
   });
   const assets = useTaskAssets(t.id);
   const sub = t.last_submission;
   const summary = t.assignment_summary;
+  const assetSummary = t.asset_summary;
   const unit = t.target_unit ?? "units";
+  const captureSpec = t.capture_spec as CaptureSpec;
+  const deliveredAssets = sub?.asset_count ?? assetSummary?.bundled ?? 0;
+  const readyAssets = assetSummary?.ready ?? (assets.data ?? []).filter((a) => a.status === "ready").length;
+  const quarantinedAssets = assetSummary?.quarantined ?? (assets.data ?? []).filter((a) => a.status === "quarantined").length;
+  const documentRows = slotRows(t.client_documents);
+  const documentRowsForDisplay: [string, React.ReactNode][] = documentRows.length
+    ? documentRows
+    : [["Guidelines / evidence files", "No client documents attached"]];
+  const checkDetails = deviceCheckList(assets.data);
   return (
     <Dialog
       size="wide"
@@ -602,50 +747,61 @@ function TaskDetailDialog({ t, onClose }: { t: Task; onClose: () => void }) {
       onClose={onClose}
       foot={<Button onClick={onClose}>Close</Button>}
     >
-      <Dl rows={[
-        ["Contract", t.contract_ref ?? "—"],
-        ...(t.assignee_name
-          ? ([["Fulfilled by", `${t.assignee_name}${t.assignee_kind ? ` (${t.assignee_kind})` : ""}`]] as [string, React.ReactNode][])
-          : []),
-        ["Target", t.target_quantity != null
-          ? `${t.target_quantity} ${unit}${t.target ? ` · ${t.target}` : ""}`
-          : t.target ?? "—"],
-        ...(t.instructions ? ([["Instructions", t.instructions]] as [string, React.ReactNode][]) : []),
-        ...subjectRows((t.capture_spec as CaptureSpec).subject),
-        // The shot list or map the instructions refer to. A crowd resource on
-        // this task can open these too — the policy follows the task.
-        ...((t.attachments ?? []).length
-          ? ([["Attached", <AttachmentList key="ta" items={t.attachments ?? []} />]] as [string, React.ReactNode][])
-          : []),
-        // What the client attached for whoever does the work. The server
-        // decides which of these this viewer gets: never the brief, and the
-        // compliance papers stop at the aggregator.
-        ...slotRows(t.client_documents),
-        ["Due", fmtDate(t.due_on)],
-        ["Status", <Pill key="s" tone={tm.tone}>{tm.label}</Pill>],
-        ...(summary && summary.total - summary.cancelled > 0
-          ? ([["Crowd", `${summary.total - summary.cancelled} assigned · ${summary.accepted} accepted · ${summary.submitted} awaiting review`]] as [string, React.ReactNode][])
-          : []),
-        ["Last submission", sub
-          ? `Attempt ${sub.attempt_no} · ${sub.asset_count} asset(s) · ${fmtDateTime(sub.submitted_at)}`
-          : "None yet"],
-        ...(sub?.supplier_note
-          ? ([["Supplier note", sub.supplier_note]] as [string, React.ReactNode][])
-          : []),
-        ["QA reviews", (reviews.data ?? []).length === 0
-          ? "None yet"
-          : (
-            <div key="qa" style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-              {(reviews.data ?? []).map((r, i) => (
-                <div key={i} className="small">
-                  <b>{r.gate === "gate1_supplier" ? "Gate 1" : "Gate 2"} · {r.outcome === "fail" ? "Fail" : "Pass"}</b>
-                  {r.worker_name ? ` · ${r.worker_name}` : ""}
-                  {r.note ? ` — ${r.note}` : ""}
-                </div>
-              ))}
-            </div>
-          )],
-      ]} />
+      <div style={{ display: "grid", gap: 16 }}>
+        <section>
+          <div className="eyebrow" style={{ marginBottom: 8 }}>What was asked</div>
+          <Dl rows={[
+            ["Contract", t.contract_ref ?? "—"],
+            ["Target", t.target_quantity != null
+              ? `${t.target_quantity} ${unit}${t.target ? ` · ${t.target}` : ""}`
+              : t.target ?? "—"],
+            ["Capture requirements", captureRequirementText(captureSpec)],
+            ...subjectRows(captureSpec.subject),
+            ...(t.instructions ? ([["Task instructions", t.instructions]] as [string, React.ReactNode][]) : []),
+            ...(request?.spec.quality ? ([["Quality bar", request.spec.quality]] as [string, React.ReactNode][]) : []),
+            ...(request?.acceptance ? ([["Acceptance criteria", request.acceptance]] as [string, React.ReactNode][]) : []),
+            ...complianceRows(request, !!requestLoading),
+            ...((t.attachments ?? []).length
+              ? ([["Task attachments", <AttachmentList key="ta" items={t.attachments ?? []} />]] as [string, React.ReactNode][])
+              : []),
+            ...documentRowsForDisplay,
+          ]} />
+        </section>
+
+        <section>
+          <div className="eyebrow" style={{ marginBottom: 8 }}>What was delivered</div>
+          <Dl rows={[
+            ...(t.assignee_name
+              ? ([["Fulfilled by", `${t.assignee_name}${t.assignee_kind ? ` (${t.assignee_kind})` : ""}`]] as [string, React.ReactNode][])
+              : []),
+            ["Delivered assets", sub
+              ? `${deliveredAssets} asset${deliveredAssets === 1 ? "" : "s"} in attempt ${sub.attempt_no}`
+              : "No submission yet"],
+            ["Capture inventory", `${readyAssets} ready · ${quarantinedAssets} quarantined`],
+            ...(summary && summary.total - summary.cancelled > 0
+              ? ([["Crowd review", `${summary.total - summary.cancelled} assigned · ${summary.accepted} accepted · ${summary.rejected} rejected · ${summary.submitted} awaiting review`]] as [string, React.ReactNode][])
+              : []),
+            ["Last submission", sub
+              ? `Attempt ${sub.attempt_no} · ${fmtDateTime(sub.submitted_at)}`
+              : "None yet"],
+            ...(sub?.supplier_note
+              ? ([["Supplier note", sub.supplier_note]] as [string, React.ReactNode][])
+              : []),
+            ["Device / phone checks", deviceCheckSummary(assets.data, assets.isLoading)],
+            ...(checkDetails ? ([["Check details", checkDetails]] as [string, React.ReactNode][]) : []),
+          ]} />
+        </section>
+
+        <section>
+          <div className="eyebrow" style={{ marginBottom: 8 }}>QA results</div>
+          <Dl rows={[
+            ["Task status", <Pill key="s" tone={tm.tone}>{tm.label}</Pill>],
+            ["QA summary", qaSummary(reviews.data, reviews.isLoading)],
+            ["Review trail", qaReviewList(reviews.data)],
+            ["Due", fmtDate(t.due_on)],
+          ]} />
+        </section>
+      </div>
       <div style={{ marginTop: 14 }}>
         <div className="eyebrow" style={{ marginBottom: 8 }}>Captured assets</div>
         <AssetGallery

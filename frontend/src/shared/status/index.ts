@@ -22,9 +22,9 @@ export const requestStatus: StatusMap = {
   published: { label: "Published", tone: "active", owner: "partner" },
   proposals_received: { label: "Proposals received", tone: "attention", owner: "client" },
   accepted: { label: "Awarded", tone: "active", owner: "partner" },
-  in_progress: { label: "In progress", tone: "active", owner: "partner" },
+  in_progress: { label: "In Progress", tone: "active", owner: "partner" },
   delivered: { label: "Delivered", tone: "attention", owner: "client" },
-  completed: { label: "Completed", tone: "success", owner: null },
+  completed: { label: "Done", tone: "success", owner: null },
   cancelled: { label: "Cancelled", tone: "neutral", owner: null },
 };
 
@@ -36,17 +36,17 @@ export const proposalStatus: StatusMap = {
 };
 
 export const contractStatus: StatusMap = {
-  active: { label: "Active", tone: "active", owner: "partner" },
+  active: { label: "In Progress", tone: "active", owner: "partner" },
   in_qa: { label: "In QA", tone: "attention", owner: "partner" },
   delivered: { label: "Delivered", tone: "attention", owner: "client" },
-  completed: { label: "Completed", tone: "success", owner: null },
+  completed: { label: "Done", tone: "success", owner: null },
   disputed: { label: "Disputed", tone: "critical", owner: "ops" },
   cancelled: { label: "Cancelled", tone: "neutral", owner: null },
 };
 
 export const taskStatus: StatusMap = {
   assigned: { label: "Assigned", tone: "neutral", owner: "supplier" },
-  in_progress: { label: "In progress", tone: "active", owner: "supplier" },
+  in_progress: { label: "In Progress", tone: "active", owner: "supplier" },
   submitted: { label: "Submitted", tone: "attention", owner: "partner" },
   qa_passed: { label: "QA passed", tone: "success", owner: null },
   qa_failed: { label: "QA failed", tone: "critical", owner: "supplier" },
@@ -78,7 +78,7 @@ export const workerStatus: StatusMap = {
 
 export const assignmentStatus: StatusMap = {
   assigned: { label: "Assigned", tone: "neutral", owner: "supplier" },
-  in_progress: { label: "In progress", tone: "active", owner: "supplier" },
+  in_progress: { label: "In Progress", tone: "active", owner: "supplier" },
   submitted: { label: "Awaiting review", tone: "attention", owner: "supplier" },
   accepted: { label: "Accepted", tone: "success", owner: null },
   rejected: { label: "Sent back", tone: "critical", owner: "supplier" },

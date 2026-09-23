@@ -125,7 +125,7 @@ describe("client overview", () => {
     // A panel title renders before its query resolves — wait for the data.
     await screen.findByText("CTR-01");
     expect(metric("Needs you")).toBe("1");
-    expect(metric("In delivery")).toBe("1");
+    expect(metric("Deliverables for Review")).toBe("1");
     expect(metric("Captures accepted")).toBe("52");
     // Committed is work in flight — CTR-03 is finished and must not be in it.
     expect(metric("Committed")).toBe("$100");
@@ -161,17 +161,17 @@ describe("client overview", () => {
     expect(await screen.findAllByText(/Could not load/)).toBeTruthy();
     // The regression that motivated this page: these are what a brand new
     // client sees, and a client whose request merely failed must not.
-    expect(screen.queryByText("No requests yet")).toBeNull();
-    expect(screen.queryByText("Nothing in delivery yet")).toBeNull();
+    expect(screen.queryByText("No RFPs yet")).toBeNull();
+    expect(screen.queryByText("No deliverables for review yet")).toBeNull();
     expect(screen.queryByText("Nothing needs you")).toBeNull();
   });
 
   it("a genuinely new client gets somewhere to start", async () => {
     serve(EMPTY);
     show();
-    expect(await screen.findByText("No requests yet")).toBeTruthy();
-    expect(screen.getByText("Nothing in delivery yet")).toBeTruthy();
-    expect(screen.getAllByRole("link", { name: "New request" }).length).toBeGreaterThan(0);
+    expect(await screen.findByText("No RFPs yet")).toBeTruthy();
+    expect(screen.getByText("No deliverables for review yet")).toBeTruthy();
+    expect(screen.getAllByRole("link", { name: "New RFP" }).length).toBeGreaterThan(0);
   });
 
   it("describes the capture chart in words, for anyone who cannot see it", async () => {

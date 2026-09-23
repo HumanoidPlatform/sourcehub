@@ -630,6 +630,59 @@ async def withdraw_proposal(
     return _proposal_row(p)
 
 
+async def reject_proposal(
+    session: AsyncSession, claims: AccessClaims, proposal_id: uuid.UUID, reason: str
+) -> dict[str, Any]:
+    """The client turns one bid down without awarding another.
+
+    award() already rejects the losing bids once a winner is chosen; this is the
+    other half — saying no while the request stays open, so a partner is not
+    left waiting on a decision that has already been made in someone's head.
+
+    The reason is required and travels to the partner. There is no
+    decision_reason column on proposal, so it goes where they will actually read
+    it: the notification body and the audit trail. network.decide_loan refuses a
+    blank rejection for the same reason — the other party cannot act on one.
+    """
+    reason = (reason or "").strip()
+    if not reason:
+        raise MarketplaceError("Give a reason — the partner cannot act on a blank rejection.")
+
+    p = (
+        await session.execute(select(Proposal).where(Proposal.id == proposal_id))
+    ).scalar_one_or_none()
+    if p is None:
+        raise LookupError("proposal not found")
+    if p.status != "submitted":
+        raise MarketplaceError(f"A {p.status} proposal cannot be rejected.")
+
+    r = (
+        await session.execute(select(Request).where(Request.id == p.request_id))
+    ).scalar_one_or_none()
+    if r is None:
+        raise LookupError("request not found")
+    # RLS already scopes the row; this says it in the API's own voice rather
+    # than letting a 404 stand in for "not yours". award() draws the same line.
+    if r.client_org_id != claims.org_id:
+        raise MarketplaceError("Only the requesting client can reject a proposal.")
+
+    p.status = "rejected"
+    p.decided_at = dt.datetime.now(dt.timezone.utc)
+    p.updated_by = claims.user_id
+
+    await notifier.notify(
+        session, p.partner_org_id,
+        f"Your proposal on {r.title} was not taken forward: {reason}",
+        "proposals", {},
+    )
+    await audit.log(
+        session, "proposal.rejected",
+        f"Rejected {p.reference_code}: {reason}",
+        [p.id, p.request_id, claims.org_id, p.partner_org_id],
+    )
+    return _proposal_row(p)
+
+
 async def list_proposals(
     session: AsyncSession, claims: AccessClaims, request_id: uuid.UUID | None = None
 ) -> list[dict[str, Any]]:

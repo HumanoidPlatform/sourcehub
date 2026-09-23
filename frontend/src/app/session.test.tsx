@@ -258,7 +258,7 @@ describe("another tab", () => {
     renderApp("/requests");
     expect(await screen.findByText("u1's request")).toBeTruthy();
     // something only u1 did: narrow the list
-    fireEvent.change(screen.getByLabelText("Filter requests"), { target: { value: "REQ-u1" } });
+    fireEvent.change(screen.getByLabelText("Filter RFPs"), { target: { value: "REQ-u1" } });
 
     localStorage.setItem("sourcehub.session", JSON.stringify(session("u2")));
     act(() => {
@@ -268,7 +268,7 @@ describe("another tab", () => {
     // otherwise hide every one of u2's requests behind "Nothing matches that".
     expect(screen.queryByText("u1's request")).toBeNull();
     expect(await screen.findByText("u2's request")).toBeTruthy();
-    expect((screen.getByLabelText("Filter requests") as HTMLInputElement).value).toBe("");
+    expect((screen.getByLabelText("Filter RFPs") as HTMLInputElement).value).toBe("");
   });
 
   it("a token refresh there changes nothing here", async () => {

@@ -76,7 +76,7 @@ export function ClientOverview() {
       title={`Good day, ${session.org_name}`}
       pageTitle="Overview"
       sub="What needs you, and where everything stands."
-      actions={<Link to="/requests/new" className="btn" data-variant="primary">New request</Link>}
+      actions={<Link to="/requests/new" className="btn" data-variant="primary">New RFP</Link>}
     >
       <div className="g4">
         <Metric
@@ -87,7 +87,7 @@ export function ClientOverview() {
           foot={needs > 0 ? "nothing moves until you act" : "nothing waiting"}
         />
         <Metric
-          label="In delivery"
+          label="Deliverables for Review"
           value={d?.delivery.live ?? 0}
           loading={overview.isLoading}
           foot={
@@ -115,17 +115,20 @@ export function ClientOverview() {
       </div>
 
       <div className="g-main">
+        {/* Distinct from the "Deliverables for Review" metric above it: that is
+            the count, this is the work itself. Naming both the same made
+            getByText ambiguous and put the same words twice on one screen. */}
         <Panel
-          title="Delivery progress"
+          title="Deliverables in progress"
           sub="Tasks that have cleared the partner's QA gate"
-          actions={<Link className="btn" data-size="sm" to="/deliveries">All deliveries</Link>}
+          actions={<Link className="btn" data-size="sm" to="/deliveries">All deliverables</Link>}
         >
-          <Loadable q={overview} what="your deliveries">
+          <Loadable q={overview} what="your deliverables for review">
             {live.length === 0 ? (
               <Empty
-                title="Nothing in delivery yet"
+                title="No deliverables for review yet"
                 hint="Award a proposal and the work appears here as it is done."
-                action={<Link to="/requests" className="btn" data-variant="primary">Your requests</Link>}
+                action={<Link to="/requests" className="btn" data-variant="primary">Your RFPs</Link>}
               />
             ) : (
               <div className="stagelist">
@@ -138,7 +141,7 @@ export function ClientOverview() {
         <Panel title="Waiting on you">
           <Loadable q={overview} what="your queue" rows={3}>
             {needs === 0 ? (
-              <Empty title="Nothing needs you" hint="Every request and delivery is with someone else." />
+              <Empty title="Nothing needs you" hint="Every RFP and deliverable is with someone else." />
             ) : (
               <div className="stagelist">
                 {d!.attention.map((a) => <AttentionRow key={`${a.kind}:${a.entity_id}`} a={a} />)}
@@ -162,15 +165,15 @@ export function ClientOverview() {
         </Panel>
 
         <Panel
-          title="Requests by stage"
-          actions={<Link className="btn" data-size="sm" to="/requests">All requests</Link>}
+          title="RFPs by stage"
+          actions={<Link className="btn" data-size="sm" to="/requests">All RFPs</Link>}
         >
-          <Loadable q={overview} what="your requests" rows={3}>
+          <Loadable q={overview} what="your RFPs" rows={3}>
             {(d?.requests.total ?? 0) === 0 ? (
               <Empty
-                title="No requests yet"
+                title="No RFPs yet"
                 hint="Describe what you need captured and every delivery partner can bid on it."
-                action={<Link to="/requests/new" className="btn" data-variant="primary">New request</Link>}
+                action={<Link to="/requests/new" className="btn" data-variant="primary">New RFP</Link>}
               />
             ) : (
               <StageList counts={d!.requests.by_status} total={d!.requests.total} />
@@ -181,7 +184,7 @@ export function ClientOverview() {
 
       <Panel
         title="Recent activity"
-        sub="Requests, bids and contracts. Day-to-day capture work sits with the delivery partner."
+        sub="RFPs, bids and contracts. Day-to-day capture work sits with the delivery partner."
         actions={<Link className="btn" data-size="sm" to="/notifications">Notifications</Link>}
       >
         <Loadable q={activity} what="recent activity" rows={4}>

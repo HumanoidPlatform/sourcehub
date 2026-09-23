@@ -94,7 +94,7 @@ describe("navigation drawer", () => {
   it("closes after following a link, so the page you chose is not covered", () => {
     const { toggle, rail } = renderShell();
     fireEvent.click(toggle);
-    fireEvent.click(screen.getByRole("link", { name: "Requests" }));
+    fireEvent.click(screen.getByRole("link", { name: "RFPs" }));
     expect(rail.hasAttribute("data-open")).toBe(false);
   });
 });
@@ -110,7 +110,7 @@ describe("page change", () => {
             <Shell>
               <Routes>
                 <Route path="/" element={<View title="Good day"><Link to="/bare">A page with no heading</Link></View>} />
-                <Route path="/requests" element={<View title="Requests"><Link to="/requests?status=open">Open only</Link></View>} />
+                <Route path="/requests" element={<View title="RFPs"><Link to="/requests?status=open">Open only</Link></View>} />
                 <Route path="/bare" element={<p>no heading here</p>} />
               </Routes>
             </Shell>
@@ -128,8 +128,8 @@ describe("page change", () => {
   it("moves focus to the new page's heading and returns to the top", () => {
     const scrollTo = vi.spyOn(window, "scrollTo");
     renderRoutes();
-    fireEvent.click(screen.getByRole("link", { name: "Requests" }));
-    expect(document.activeElement).toBe(screen.getByRole("heading", { level: 1, name: "Requests" }));
+    fireEvent.click(screen.getByRole("link", { name: "RFPs" }));
+    expect(document.activeElement).toBe(screen.getByRole("heading", { level: 1, name: "RFPs" }));
     expect(scrollTo).toHaveBeenCalledWith(0, 0);
     scrollTo.mockRestore();
   });
@@ -142,7 +142,7 @@ describe("page change", () => {
 
   it("does not move focus when only the query string changes", () => {
     renderRoutes();
-    fireEvent.click(screen.getByRole("link", { name: "Requests" }));
+    fireEvent.click(screen.getByRole("link", { name: "RFPs" }));
     const filter = screen.getByRole("link", { name: "Open only" });
     filter.focus();
     fireEvent.click(filter);
@@ -208,7 +208,12 @@ describe("notification bell", () => {
 describe("brand", () => {
   it("names the company once, quietly, at the foot of the rail", () => {
     renderShell();
-    expect(screen.getByText("A Cosarathi product")).toBeTruthy();
+    // Keeping the "exactly once" form this gained — it is stronger than the
+    // original getByText — but pinning WHERE, which is the part that regressed:
+    // the byline moved up under the wordmark and back down again.
+    expect(screen.getAllByText("A Cosarathi product")).toHaveLength(1);
+    expect(document.querySelector(".rail-foot .rail-byline")?.textContent)
+      .toBe("A Cosarathi product");
   });
 
   it("leads home when the logo or the name is clicked", () => {
@@ -217,6 +222,9 @@ describe("brand", () => {
     expect(home.getAttribute("href")).toBe("/");
     // both the mark and the wordmark are inside the one link
     expect(home.querySelector(".mark-logo")).not.toBeNull();
+    // No byline inside the rail's wordmark: it belongs at the foot of the rail
+    // in the console, and under the wordmark only on the sign-in card.
+    expect(home.querySelector(".mark-by")).toBeNull();
     expect(home.textContent).toContain("DataMind360");
   });
 

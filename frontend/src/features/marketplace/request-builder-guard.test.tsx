@@ -39,7 +39,7 @@ function renderBuilder(at: string) {
         path: "/",
         element: (
           <>
-            <Link to="/requests">Requests</Link>
+            <Link to="/requests">RFPs</Link>
             <Outlet />
           </>
         ),
@@ -63,7 +63,7 @@ function renderBuilder(at: string) {
   return router;
 }
 
-const leave = () => fireEvent.click(screen.getByRole("link", { name: "Requests" }));
+const leave = () => fireEvent.click(screen.getByRole("link", { name: "RFPs" }));
 
 beforeEach(() => {
   api.get.mockReset().mockImplementation((path: string) =>
@@ -76,7 +76,7 @@ beforeEach(() => {
 describe("request builder", () => {
   it("lets an untouched new request go without asking", async () => {
     const router = renderBuilder("/requests/new");
-    await screen.findByRole("heading", { name: "New request" });
+    await screen.findByRole("heading", { name: "New RFP" });
     leave();
     expect(await screen.findByText("request list")).toBeTruthy();
     expect(router.state.location.pathname).toBe("/requests");
@@ -84,7 +84,7 @@ describe("request builder", () => {
 
   it("asks before throwing away a request being written", async () => {
     const router = renderBuilder("/requests/new");
-    fireEvent.change(await screen.findByLabelText(/Request title/), { target: { value: "Shopfront photos" } });
+    fireEvent.change(await screen.findByLabelText(/RFP title/), { target: { value: "Shopfront photos" } });
     leave();
     expect(await screen.findByRole("dialog", { name: "Leave without saving?" })).toBeTruthy();
     expect(router.state.location.pathname).toBe("/requests/new");
@@ -107,7 +107,7 @@ describe("request builder", () => {
 
   it("goes straight to the saved request after Save as draft", async () => {
     const router = renderBuilder("/requests/new");
-    fireEvent.change(await screen.findByLabelText(/Request title/), { target: { value: "Shopfront photos" } });
+    fireEvent.change(await screen.findByLabelText(/RFP title/), { target: { value: "Shopfront photos" } });
     fireEvent.click(screen.getByRole("button", { name: "Save as draft" }));
     expect(await screen.findByText("saved request")).toBeTruthy();
     expect(router.state.location.pathname).toBe("/requests/r9");
