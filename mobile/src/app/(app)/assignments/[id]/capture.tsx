@@ -21,6 +21,13 @@ import { mediaKinds } from "@/validation/rules";
  * The bar counter-rotates with roll so it reads as the horizon rather than as
  * part of the phone, and it goes amber the moment the capture would be
  * flagged — the point is to prevent the tilted shot, not to report it.
+ *
+ * The ANGLE IS ALWAYS ON SCREEN, and the verdict beside it. It used to read
+ * the bare word "level" until the tolerance was broken, which on a task that
+ * allows 45° is every reading there can be: squareness is measured to the
+ * nearest quarter turn (capture/tilt.ts quarterTurn), so roll never exceeds
+ * 45 and the worker was told "level" while holding the phone at any angle.
+ * Showing the number costs nothing and is the thing they are steering by.
  */
 function Level({ tilt, tolerance }: { tilt: Tilt | null; tolerance: number }) {
   if (!tilt) return null;
@@ -28,10 +35,10 @@ function Level({ tilt, tolerance }: { tilt: Tilt | null; tolerance: number }) {
   const bad = tilt.off > tolerance;
   const tint = bad ? TONE_COLOR.attention.bg : "rgba(255,255,255,0.9)";
   return (
-    <View style={c.level} pointerEvents="none" accessibilityLabel={`${off} degrees off square`}>
+    <View style={c.level} pointerEvents="none" accessibilityLabel={`${off} degrees off square, ${bad ? `over the ${tolerance} allowed` : "acceptable"}`}>
       <View style={[c.levelBar, { backgroundColor: tint, transform: [{ rotate: `${-tilt.roll}deg` }] }]} />
       <Text style={[c.levelText, bad && { color: TONE_COLOR.attention.bg }]}>
-        {bad ? `${off}° off` : "level"}
+        {off}° off · {bad ? `over ${Math.round(tolerance)}°` : "acceptable"}
       </Text>
     </View>
   );

@@ -447,8 +447,26 @@ function AssignTaskDialog({
         <Field label="Instructions for the field" span hint="Shown to every crowd resource on their phone.">
           {(id) => <textarea id={id} className={textareaCls} rows={2} value={instructions} onChange={(e) => setInstructions(e.target.value)} placeholder="Full shelf in frame, no shoppers, landscape." />}
         </Field>
-        <Field label="Subject" span hint="What every capture must show, in a few words. Their phone checks each photo against this and suggests a retake when nothing matches. Leave empty for no check.">
-          {(id) => <input id={id} className={inputCls} value={domain} onChange={(e) => setDomain(e.target.value)} placeholder="retail shelf" maxLength={80} />}
+        <Field
+          label="Subject"
+          span
+          hint="What the camera must SEE, in a few words — “retail shelf”, “warehouse aisle” — not the medium. Their phone labels each capture and asks for a retake when nothing matches. Leave empty for no check."
+        >
+          {(id) => (
+            <>
+              <input id={id} className={inputCls} value={domain} onChange={(e) => setDomain(e.target.value)} placeholder="retail shelf" maxLength={80} />
+              {looksLikeMediaWord(domain) && (
+                // Not a refusal: "video wall" is a real subject and the partner
+                // may know something this does not. But a subject the labeller
+                // can never match makes EVERY capture raise the retake dialog,
+                // which is worse than setting no subject at all.
+                <div className="small" data-testid="subject-caution" style={{ color: "#B45309", marginTop: 6 }}>
+                  The phone compares what it sees against these words, and it can never see “{domain.trim()}”.
+                  Name the thing in front of the camera, or leave Subject empty for no check.
+                </div>
+              )}
+            </>
+          )}
         </Field>
         <Field label="Must show" hint="Comma-separated words.">
           {(id) => <input id={id} className={inputCls} value={mustShow} onChange={(e) => setMustShow(e.target.value)} placeholder="shelf, products, price tags" />}
@@ -472,6 +490,20 @@ function AssignTaskDialog({
 /** "shelf, products,, price tags" -> ["shelf", "products", "price tags"]; at most 12 */
 function phrases(s: string): string[] {
   return s.split(",").map((x) => x.trim()).filter(Boolean).slice(0, 12);
+}
+
+/** The subject names what the camera must SEE. Typed with the medium instead
+ *  — "video", "photo" — the phone's labeller can never match it, so every
+ *  capture raises the keep-or-retake dialog and the check is worse than
+ *  absent. Exact matches only: "video wall" and "picture frame" are real
+ *  subjects, and this only ever cautions. */
+const MEDIA_WORDS = new Set([
+  "video", "videos", "photo", "photos", "image", "images", "picture", "pictures",
+  "clip", "clips", "footage", "recording", "recordings", "audio", "media", "capture", "captures",
+]);
+
+export function looksLikeMediaWord(domain: string): boolean {
+  return MEDIA_WORDS.has(domain.trim().toLowerCase());
 }
 
 const words = (s: string | null | undefined) => (s ?? "").replace(/_/g, " ").trim();
