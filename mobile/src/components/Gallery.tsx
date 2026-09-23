@@ -3,14 +3,16 @@
 // another install). A server tile fetches its signed URL only when shown.
 
 import { Image } from "expo-image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Linking, Pressable, StyleSheet, Text, View } from "react-native";
 import type { AssetRow } from "@/api/types";
+import { frameAt } from "@/capture/frames";
 import type { CaptureRow } from "@/db/outbox";
 import { useAssetUrl } from "@/query/hooks";
 import { assetStatus, captureStatus, meta, TONE_COLOR } from "@/status";
 import { C, s } from "@/ui";
 import { useUploadProgress } from "@/upload/progress";
+import { Player } from "./Player";
 
 export function Gallery({
   local,
@@ -33,6 +35,76 @@ export function Gallery({
       {local.map((r) => <LocalTile key={r.id} row={r} onRemove={onRemove} />)}
       {remoteOnly.map((a) => <RemoteTile key={a.id} asset={a} onRemove={onRemove} />)}
     </View>
+  );
+}
+
+/** A still from the clip itself, so a video tile is a picture rather than a
+ *  grey box. The same thumbnailer the frame checks use; a file it cannot open
+ *  simply has no poster, and the tile falls back to the play glyph. */
+function usePoster(uri: string | undefined, isVideo: boolean): string | null {
+  const [poster, setPoster] = useState<string | null>(null);
+  useEffect(() => {
+    if (!uri || !isVideo) {
+      setPoster(null);
+      return;
+    }
+    let alive = true;
+    // Half a second in: the first frames of a recording are often the dark
+    // ones from before the sensor settled.
+    frameAt(uri, 0.5)
+      .then((f) => alive && setPoster(f.uri))
+      .catch(() => alive && setPoster(null));
+    return () => {
+      alive = false;
+    };
+  }, [uri, isVideo]);
+  return poster;
+}
+
+/** What a tile shows, and what happens when it is tapped. A video plays in the
+ *  app (components/Player.tsx); a photo opens where it always did. */
+function Tile({
+  uri,
+  isVideo,
+  label,
+  placeholder,
+  children,
+}: {
+  uri: string | undefined;
+  isVideo: boolean;
+  label: string;
+  /** what to show until there is something to show */
+  placeholder: string;
+  children?: React.ReactNode;
+}) {
+  const poster = usePoster(uri, isVideo);
+  const [playing, setPlaying] = useState(false);
+  const shown = isVideo ? poster : uri;
+  const open = () => {
+    if (!uri) return;
+    if (isVideo) setPlaying(true);
+    else void Linking.openURL(uri);
+  };
+  return (
+    <Pressable
+      style={g.tile}
+      onPress={open}
+      disabled={!uri}
+      accessibilityRole="button"
+      accessibilityLabel={isVideo ? `Play ${label}` : label}
+    >
+      {shown ? (
+        <Image source={{ uri: shown }} style={g.img} contentFit="cover" cachePolicy="memory-disk" />
+      ) : (
+        <View style={[g.img, g.ph]}><Text style={{ color: C.muted, fontSize: 20 }}>{placeholder}</Text></View>
+      )}
+      {/* Over the poster, so a still frame reads as a clip at a glance. */}
+      {isVideo && shown ? (
+        <View style={g.play} pointerEvents="none"><Text style={g.playText}>▶</Text></View>
+      ) : null}
+      {children}
+      {playing && uri ? <Player uri={uri} title={label} onClose={() => setPlaying(false)} /> : null}
+    </Pressable>
   );
 }
 
@@ -74,16 +146,11 @@ function LocalTile({ row, onRemove }: { row: CaptureRow; onRemove?: (o: { captur
   // the signed URL the same way a remote tile does — otherwise a capture that
   // uploaded SUCCESSFULLY is the one you cannot look at.
   const flags = flagged(row.checks);
-  const needsRemote = !row.local_uri && !!row.asset_id && !isVideo;
+  const needsRemote = !row.local_uri && !!row.asset_id;
   const remote = useAssetUrl(row.asset_id ?? "", needsRemote);
   const uri = row.local_uri ?? (needsRemote ? remote.data?.url : undefined);
   return (
-    <View style={g.tile} accessibilityLabel={`${row.filename}, ${m.label}`}>
-      {uri && !isVideo ? (
-        <Image source={{ uri }} style={g.img} contentFit="cover" cachePolicy="memory-disk" />
-      ) : (
-        <View style={[g.img, g.ph]}><Text style={{ color: C.muted, fontSize: 20 }}>{isVideo ? "▶" : "…"}</Text></View>
-      )}
+    <Tile uri={uri} isVideo={isVideo} label={row.filename} placeholder={isVideo ? "▶" : "…"}>
       <Tag tone={m.tone} text={pct != null ? `${pct}%` : m.label} />
       {row.status === "failed" && row.last_error ? (
         <Text numberOfLines={2} style={g.err}>{row.last_error}</Text>
@@ -95,34 +162,25 @@ function LocalTile({ row, onRemove }: { row: CaptureRow; onRemove?: (o: { captur
       {onRemove && (
         <RemoveButton onPress={() => onRemove({ captureId: row.id, assetId: row.asset_id ?? undefined })} />
       )}
-    </View>
+    </Tile>
   );
 }
 
 function RemoteTile({ asset, onRemove }: { asset: AssetRow; onRemove?: (o: { captureId?: string; assetId?: string }) => void }) {
-  const [wanted, setWanted] = useState(false);
   const viewable = asset.status === "ready";
-  const url = useAssetUrl(asset.id, wanted && viewable);
+  const url = useAssetUrl(asset.id, viewable);
   const m = meta(assetStatus, asset.status);
   const isVideo = (asset.mime_type ?? "").startsWith("video/");
   return (
-    <Pressable
-      style={g.tile}
-      onLayout={() => setWanted(true)}
-      onPress={() => {
-        if (url.data?.url) void Linking.openURL(url.data.url);
-      }}
-      accessibilityRole="button"
-      accessibilityLabel={`${asset.filename ?? "capture"}, ${m.label}`}
+    <Tile
+      uri={url.data?.url}
+      isVideo={isVideo}
+      label={asset.filename ?? "capture"}
+      placeholder={isVideo ? "▶" : viewable ? "…" : "◌"}
     >
-      {url.data?.url && !isVideo ? (
-        <Image source={{ uri: url.data.url }} style={g.img} contentFit="cover" cachePolicy="memory-disk" />
-      ) : (
-        <View style={[g.img, g.ph]}><Text style={{ color: C.muted, fontSize: 20 }}>{isVideo ? "▶" : viewable ? "…" : "◌"}</Text></View>
-      )}
       <Tag tone={m.tone} text={m.label} />
       {onRemove && <RemoveButton onPress={() => onRemove({ assetId: asset.id })} />}
-    </Pressable>
+    </Tile>
   );
 }
 
@@ -136,6 +194,11 @@ function Tag({ tone, text }: { tone: keyof typeof TONE_COLOR; text: string }) {
 }
 
 const g = StyleSheet.create({
+  play: {
+    position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
+    alignItems: "center", justifyContent: "center",
+  },
+  playText: { color: "#fff", fontSize: 26, textShadowColor: "rgba(0,0,0,0.7)", textShadowRadius: 6 },
   remove: {
     position: "absolute", top: 4, right: 4, width: 24, height: 24, borderRadius: 12,
     backgroundColor: "rgba(0,0,0,0.62)", alignItems: "center", justifyContent: "center",

@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { Alert, Linking, Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ensureLocationPermission } from "@/capture/location";
-import { type Held, type Tilt, watchTilt } from "@/capture/tilt";
+import { type Held, medianOff, type Tilt, watchTilt } from "@/capture/tilt";
 import { type CaptureOutcome, CaptureRejected, useCapture } from "@/capture/useCapture";
 import { MAX_VIDEO_SECONDS } from "@/config";
 import { useAssignments } from "@/query/hooks";
@@ -61,6 +61,9 @@ export default function Capture() {
   // While a recording runs, every reading is counted. The majority is what the
   // clip was shot as — one wobble through the 45° diagonal does not decide it.
   const holdTally = useRef<{ portrait: number; landscape: number } | null>(null);
+  // Every squareness reading taken while the recording ran. A clip is held for
+  // minutes; the instant the shutter was pressed says nothing about it.
+  const tiltSamples = useRef<number[] | null>(null);
   const [locationOk, setLocationOk] = useState(true);
   // The ref is what the shutter reads; the state only drives the level, and
   // only moves when the whole degree does, so a 10 Hz sensor does not re-render
@@ -111,6 +114,7 @@ export default function Capture() {
       tilt.current = t;
       held.current = t.held;
       if (holdTally.current && t.held) holdTally.current[t.held]++;
+      if (tiltSamples.current) tiltSamples.current.push(t.off);
       if (maxTilt != null) {
         const whole = Math.round(t.off);
         if (whole !== shown) {
@@ -212,6 +216,10 @@ export default function Capture() {
   // cannot say — no accusation on a reading the phone does not have.
   const wrongHold =
     wantOrientation != null && mode === "video" && heldNow != null && heldNow !== wantOrientation && !checking;
+  // Beyond the squareness the client asked for, while it is still costing
+  // nothing to straighten up. The level bar guides the correction; this says
+  // what ignoring it costs.
+  const tooTilted = recording && maxTilt != null && level != null && level.off > maxTilt;
 
   const shoot = async () => {
     if (!cam.current || busy) return;
@@ -249,14 +257,20 @@ export default function Capture() {
         // and the last instant is where the phone was put down.
         holdTally.current = { portrait: 0, landscape: 0 };
         if (held.current) holdTally.current[held.current]++;
+        tiltSamples.current = tilt.current ? [tilt.current.off] : [];
         const video = await cam.current.recordAsync({ maxDuration: maxSeconds });
         const duration = (Date.now() - began) / 1000;
         const tally = holdTally.current;
         holdTally.current = null;
+        const offs = tiltSamples.current ?? [];
+        tiltSamples.current = null;
         setRecording(false);
         const shotAs: Held | null =
           tally.landscape === tally.portrait ? held.current : tally.landscape > tally.portrait ? "landscape" : "portrait";
-        if (video?.uri) await saveClip({ uri: video.uri, duration }, attitude, shotAs);
+        // How square the clip was held over its length, not at its first frame.
+        const middle = medianOff(offs);
+        const heldAs = middle != null ? { ...(tilt.current ?? attitude ?? { roll: 0, pitch: 0, held: null }), off: middle } : attitude;
+        if (video?.uri) await saveClip({ uri: video.uri, duration }, heldAs, shotAs);
       } else {
         cam.current.stopRecording();
       }
@@ -307,6 +321,11 @@ export default function Capture() {
             {recording
               ? `Still ${heldNow} — turn the phone ${wantOrientation} or this clip will be refused.`
               : `Turn the phone ${wantOrientation} to record.`}
+          </Text>
+        ) : null}
+        {tooTilted && level ? (
+          <Text style={c.error}>
+            Hold the phone square — {Math.round(level.off)}° off; this clip will be refused.
           </Text>
         ) : null}
         {notice ? <Text style={notice.tone === "ok" ? c.ok : c.warn}>{notice.text}</Text> : null}

@@ -99,6 +99,19 @@ export function heldOrientation(gx: number, gy: number, gz: number): Held | null
   return deg > 45 ? "landscape" : "portrait";
 }
 
+/** How square a whole recording was held, from the readings taken while it
+ *  ran. Pure. The middle value, not the worst: a clip is minutes long and one
+ *  wobble while stepping over something says nothing about the work, whereas
+ *  a phone held crooked for most of it reads crooked here. Null when nothing
+ *  was sampled, which the caller treats as "no reading" exactly as it treats a
+ *  device with no accelerometer. */
+export function medianOff(samples: number[]): number | null {
+  if (samples.length === 0) return null;
+  const sorted = [...samples].sort((a, b) => a - b);
+  const mid = sorted.length >> 1;
+  return sorted.length % 2 === 1 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
+}
+
 /** Watch the phone's attitude until the returned function is called.
  *
  * 10 Hz is plenty for a level a person reads and gentle on the battery; the

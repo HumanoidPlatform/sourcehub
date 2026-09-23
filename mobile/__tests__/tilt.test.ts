@@ -1,4 +1,4 @@
-import { anglesFrom, heldOrientation } from "@/capture/tilt";
+import { anglesFrom, heldOrientation, medianOff } from "@/capture/tilt";
 
 // Gravity as the accelerometer reports it, in G. The device frame: x to the
 // right of the screen, y up the screen, z out of the screen towards the user.
@@ -114,5 +114,30 @@ describe("heldOrientation", () => {
   it("rides along with every tilt reading", () => {
     expect(anglesFrom(-1, 0, 0)?.held).toBe("landscape");
     expect(anglesFrom(0, -1, 0)?.held).toBe("portrait");
+  });
+});
+
+// How square a whole recording was held. The middle reading, so a moment of
+// wobble does not refuse a clip and a crooked clip is not saved by one good
+// instant at the start.
+describe("medianOff", () => {
+  it("has nothing to say about nothing", () => {
+    expect(medianOff([])).toBeNull();
+  });
+
+  it("takes the middle of an odd run and the mean of the middle pair", () => {
+    expect(medianOff([9, 1, 5])).toBe(5);
+    expect(medianOff([4, 10, 2, 8])).toBe(6);
+    expect(medianOff([7])).toBe(7);
+  });
+
+  it("ignores one wobble among thirty steady readings", () => {
+    const steady = Array.from({ length: 29 }, () => 4);
+    expect(medianOff([...steady, 38])).toBe(4);
+  });
+
+  it("reads a clip held crooked as crooked, however it started", () => {
+    const crooked = Array.from({ length: 29 }, () => 22);
+    expect(medianOff([2, ...crooked])).toBe(22);
   });
 });
