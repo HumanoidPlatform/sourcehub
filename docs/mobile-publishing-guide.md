@@ -115,7 +115,7 @@ Same rule stated once more, because it is the one people get wrong: `version` tr
 
 ## Before you touch anything, know where you are pointing
 
-`mobile/src/config.ts` pins the server to `https://cosarathi.eastus.cloudapp.azure.com` for every build except
+`mobile/src/config.ts` pins the server to `https://datamind360.centralindia.cloudapp.azure.com` for every build except
 `development`, and `app.config.js` strips cleartext-HTTP permission from preview and production builds. A
 preview APK cannot be pointed at a laptop, by design. For local work use the `development` profile and
 `npx expo start --dev-client`.

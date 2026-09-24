@@ -122,7 +122,7 @@ JavaScript on the developer's own machine, with that machine's `.env`. An addres
 environment could therefore be changed on every pilot phone by one careless publish from a laptop that happened
 to have different values. So nothing a worker runs reads the environment at all:
 
-- `mobile/src/config.ts`: `PRODUCTION_API_URL = "https://cosarathi.eastus.cloudapp.azure.com"` is the server for
+- `mobile/src/config.ts`: `PRODUCTION_API_URL = "https://datamind360.centralindia.cloudapp.azure.com"` is the server for
   every bundle that is not served live by Metro. `DEFAULT_API_URL` reads `mobile/.env` only when `__DEV__` is true.
   Moving to a company domain later is a change to that one constant, delivered over the air.
 - `ALLOW_SERVER_OVERRIDE = __DEV__`. It gates the "Server: … change" link on sign-in, the address field in

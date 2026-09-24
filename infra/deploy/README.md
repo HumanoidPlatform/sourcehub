@@ -9,7 +9,7 @@ volume, ports and password. Compose only recreates a container when its resolved
 configuration changes, so the database container is never touched, never
 restarts, and is never at risk. `api`, `web` and `caddy` are simply added beside it.
 
-**The address is `https://cosarathi.eastus.cloudapp.azure.com`.** Caddy is the
+**The address is `https://datamind360.centralindia.cloudapp.azure.com`.** Caddy is the
 front door: it gets and renews the certificate by itself, redirects `http://` to
 `https://`, and forwards to `web`. Neither `web` nor `api` publishes a port.
 
@@ -56,7 +56,7 @@ docker compose pull
 docker compose up -d
 docker compose ps                         # api, web, caddy up; db untouched
 docker compose logs --tail 30 caddy       # look for "certificate obtained successfully"
-curl -s https://cosarathi.eastus.cloudapp.azure.com/health
+curl -s https://datamind360.centralindia.cloudapp.azure.com/health
 ```
 
 The first start takes up to a minute while Caddy obtains the certificate. If the

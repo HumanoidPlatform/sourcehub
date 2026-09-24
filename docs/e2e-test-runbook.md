@@ -49,7 +49,7 @@ to its rules:
 
 The database is **ahead** of that deployed API. Migration `0020` dropped
 `crowd_worker.skill`, which 9ce7d99 still reads (`network/service.py:267`) and writes
-(`api/v1/network.py:156`). So on **`cosarathi.eastus.cloudapp.azure.com`**, listing, adding
+(`api/v1/network.py:156`). So on **`datamind360.centralindia.cloudapp.azure.com`**, listing, adding
 and inviting a crowd resource error. It clears the moment an api image built from this
 branch is deployed. Capture is unaffected — no worker-facing endpoint reads that column —
 so the phone parts below are valid.

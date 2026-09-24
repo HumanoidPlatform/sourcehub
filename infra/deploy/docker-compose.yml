@@ -46,8 +46,11 @@ services:
       POSTGRES_DB: appdb
     volumes:
       - /opt/stack/data/postgres:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"   # localhost only; remove this line if only containers need it
+    # DELIBERATELY UNPUBLISHED. An earlier VM published 5432 and was compromised
+    # through it — a public Postgres is found by automated scanners within
+    # minutes. Nothing needs the host port: api reaches this container as
+    # db:5432 on the network below, which never traverses the Azure NSG.
+    # For a psql session from a laptop, tunnel it: ssh -L 5432:localhost:5432
     networks:
       - backend
 
@@ -93,11 +96,11 @@ services:
 
       # Where invitation and reset links in emails point — the deployed console,
       # so a tester's own phone or laptop can open them.
-      APP_BASE_URL: https://cosarathi.eastus.cloudapp.azure.com
+      APP_BASE_URL: https://datamind360.centralindia.cloudapp.azure.com
       # The console is served from the same origin as the API (nginx forwards
       # /api/), so the browser never makes a cross-origin call. Kept correct
       # anyway, for anything that calls the API directly.
-      CORS_ALLOWED_ORIGINS: https://cosarathi.eastus.cloudapp.azure.com
+      CORS_ALLOWED_ORIGINS: https://datamind360.centralindia.cloudapp.azure.com
 
       # --- The reminder clock ------------------------------------------------
       # modules/engage chases silent offer recipients and stalled assignments.
@@ -161,7 +164,7 @@ services:
     image: caddy:2
     container_name: caddy
     restart: unless-stopped
-    command: caddy reverse-proxy --from cosarathi.eastus.cloudapp.azure.com --to web:80
+    command: caddy reverse-proxy --from datamind360.centralindia.cloudapp.azure.com --to web:80
     ports:
       - "80:80"
       - "443:443"
