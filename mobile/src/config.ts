@@ -3,7 +3,7 @@
 
 /** Where a worker's phone talks to. HTTPS only. Moving to a company domain
  *  later is a change to this one line, delivered over the air. */
-export const PRODUCTION_API_URL = "https://cosarathi.eastus.cloudapp.azure.com";
+export const PRODUCTION_API_URL = "https://datamind360.centralindia.cloudapp.azure.com";
 
 /** Only a development bundle may be pointed somewhere else.
  *
