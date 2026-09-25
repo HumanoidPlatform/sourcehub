@@ -535,6 +535,30 @@ export type Skill =
   | "drone_operation" | "retail_audit" | "field_survey"
   | "transcription" | "voice_capture" | "household_survey";
 
+/** How much authority someone has over OTHER people in their organisation.
+ *  Orthogonal to the role, which says what they can do with the product. */
+export type MemberScope = "owner" | "manager" | "member";
+
+/** A colleague in your own organisation. GET /members. */
+export interface MemberRow {
+  user_id: string;
+  full_name: string;
+  email: string;
+  scope: MemberScope;
+  role_code: string;
+  role_name: string;
+  granted_at: string;
+  // No "none" case, unlike WorkerRow: a member always has a login, because the
+  // grant and the invitation are created together.
+  invitation_status: "pending" | "accepted" | "expired";
+}
+
+/** A role this organisation may actually grant. GET /members/roles. */
+export interface AssignableRole {
+  code: string;
+  name: string;
+}
+
 export interface WorkerRow {
   id: string;
   reference_code: string;

@@ -13,6 +13,7 @@ import { ContractsPage, ContractDetailPage, TasksPage } from "@features/delivery
 import {
   AcceptInvitationPage, ForcedPasswordChange, LoginPage, ResetPasswordPage, TaskOfferPage,
 } from "@features/identity/pages";
+import { UsersPage } from "@features/identity/users";
 import { BillingPage } from "@features/ledger/pages";
 import { PrivacyPage } from "@features/legal/pages";
 import {
@@ -125,6 +126,12 @@ export function AppRouter() {
         <Route path="/activity" element={<ActivityPage />} />
 
         {/* shared */}
+        {/* Reached from the account menu, not the rail: managing colleagues is
+            an account concern, not a workspace one. The page renders its own
+            controls only for an owner or manager, and the server enforces the
+            same rule — so a member who types the URL sees the list and no
+            buttons, which is what they are entitled to. */}
+        <Route path="/users" element={<UsersPage />} />
         <Route path="/notifications" element={<NotificationsPage />} />
         {/* Development builds only. In production /design falls through to the
             catch-all below and reads "Page not found". */}

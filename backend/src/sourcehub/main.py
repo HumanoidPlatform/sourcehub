@@ -91,12 +91,13 @@ def create_app() -> FastAPI:
     app.add_exception_handler(StorageError, _storage_unavailable)
 
     from sourcehub.api.v1 import (
-        attachments, audit, auth, delivery, identity, ledger, marketplace, media, network, notify,
-        offers, onboarding, overview, qa, storage,
+        attachments, audit, auth, delivery, identity, ledger, marketplace, media, members,
+        network, notify, offers, onboarding, overview, qa, storage,
     )
 
     app.include_router(auth.router, prefix="/api/v1/auth", tags=["auth"])
     app.include_router(identity.router, prefix="/api/v1", tags=["identity"])
+    app.include_router(members.router, prefix="/api/v1", tags=["members"])
     app.include_router(onboarding.router, prefix="/api/v1/onboarding", tags=["onboarding"])
     app.include_router(notify.router, prefix="/api/v1/notifications", tags=["notify"])
     app.include_router(audit.router, prefix="/api/v1/activity", tags=["audit"])

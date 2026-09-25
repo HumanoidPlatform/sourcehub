@@ -157,6 +157,52 @@ def require_any_capability(
     return _check
 
 
+def require_member_admin(
+    capability: str, *, owner_only: bool = False
+) -> Callable[..., Coroutine[Any, Any, Principal]]:
+    """Guard a route that administers OTHER PEOPLE in the caller's organisation.
+
+    Checks both halves in one dependency, deliberately. Capability alone is not
+    enough here and never can be: capabilities come from the ROLE
+    (user_capabilities, db/020_rbac.sql:141), and there is exactly one role per
+    organisation kind — so every member of a client org holds user.invite,
+    user.manage AND role.manage. Guarding these routes with require_capability
+    would let any colleague remove the person who invited them.
+
+    What separates them is user_role_grant.scope, which db/020_rbac.sql:39 was
+    built for and nothing has ever read: it is carried into the token
+    (api/security.py:84) and onto the Principal and then ignored. This is where
+    it finally decides something.
+
+    Both checks live in ONE dependency so a future route cannot be added with
+    only the capability half — the regression this feature is most likely to
+    suffer later. A test asserts every mutating member route depends on this.
+
+    decode_access_token defaults a missing scope claim to "member", so tokens
+    minted before this shipped fail closed rather than open.
+    """
+
+    async def _check(principal: Principal = Depends(get_principal)) -> Principal:
+        if capability not in principal.capabilities:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail=f"Requires capability: {capability}",
+            )
+        allowed = ("owner",) if owner_only else ("owner", "manager")
+        if principal.scope not in allowed:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail=(
+                    "Only an owner may do this"
+                    if owner_only
+                    else "Only an owner or manager may manage people"
+                ),
+            )
+        return principal
+
+    return _check
+
+
 def require_mfa() -> Callable[..., Coroutine[Any, Any, Principal]]:
     """Enforce the second factor where permission.requires_mfa demands one.
 

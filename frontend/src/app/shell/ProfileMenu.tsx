@@ -20,6 +20,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { menuKeyDown, Pill } from "@ds/primitives";
 import { ChangePasswordDialog } from "@features/identity/change-password";
 import { useAuth, useSession } from "@shared/auth";
+import { canManagePeople } from "@shared/rbac";
 import { WORKSPACE, type Theme } from "./Shell";
 
 const THEMES: { value: Theme; label: string }[] = [
@@ -125,6 +126,15 @@ export function ProfileMenu({ theme, onTheme }: { theme: Theme; onTheme: (t: The
             >
               Change password
             </button>
+            {/* Only for someone who can actually use it. Capability alone
+                would show it to every colleague, because capabilities come
+                from the role and every member of a client org holds
+                user.manage; the scope half is what distinguishes them. */}
+            {canManagePeople(session) && (
+              <Link to="/users" role="menuitem" tabIndex={-1} className="acct-item" onClick={() => setOpen(false)}>
+                Manage users
+              </Link>
+            )}
             <Link to="/privacy" role="menuitem" tabIndex={-1} className="acct-item" onClick={() => setOpen(false)}>
               Privacy notice
             </Link>
