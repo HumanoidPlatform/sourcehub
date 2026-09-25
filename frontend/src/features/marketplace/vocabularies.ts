@@ -50,15 +50,17 @@ export const TARGET_UNITS: Choice<TargetUnit>[] = [
   { value: "hours", label: "hours" },
 ];
 
-/** Units that already name a medium.
+/** Categories that already name a medium.
  *
  * Where one does, asking for the media as well is the same answer typed twice
- * — "25,000 photos" cannot be anything but photographs. Where it does not,
- * media is a real question: 120 *sites* might be captured as either.
+ * — an Image request cannot be anything but photographs. The other three
+ * categories are not visual at all: no media, and no capture detail to ask
+ * about. This used to be keyed on the target unit, which stopped naming a
+ * medium the day the unit became a consequence of the category.
  */
-export const UNIT_IMPLIES_MEDIA: Partial<Record<TargetUnit, string[]>> = {
-  photos: ["photo"],
-  videos: ["video"],
+export const CATEGORY_MEDIA: Record<string, string[] | undefined> = {
+  image: ["photo"],
+  video: ["video"],
 };
 
 export const LOCATION_TYPES: Choice<LocationType>[] = [

@@ -15,9 +15,9 @@ import {
   selectCls, Skeleton, StageRail, TableWrap, TagInput, textareaCls, useToast, View,
 } from "@ds/primitives";
 import {
-  CAPTURE_MEDIA, DEIDENTIFICATION, labelOf, labelsOf, LAWFUL_BASES, LOCATION_TYPES,
-  MINORS_POLICIES, PEOPLE_IN_FRAME, PERMITTED_USES,
-  REWORK_BEARERS, TARGET_UNITS, UNIT_IMPLIES_MEDIA, USE_CASES,
+  CAPTURE_MEDIA, CATEGORY_MEDIA, DEIDENTIFICATION, labelOf, labelsOf, LAWFUL_BASES,
+  LOCATION_TYPES, MINORS_POLICIES, PEOPLE_IN_FRAME, PERMITTED_USES,
+  REWORK_BEARERS, TARGET_UNITS, USE_CASES,
 } from "./vocabularies";
 import { useSession } from "@shared/auth";
 import { fmtDate, fmtDateTime, mediaList, money, titleCase } from "@shared/format";
@@ -591,20 +591,22 @@ export function RequestNewPage() {
   };
 
 
-  // Any attachment still in flight. Saving now would attach a key whose bytes
-  // are not in storage yet, and the server would reject it as never uploaded.
-  // A unit like "photos" states the medium; "sites" does not. Where it does,
-  // the Media control is not shown and this is what gets saved instead — the
-  // client's own capture_media is left untouched so switching sites -> photos
-  // -> sites does not lose their selection.
-  const impliedMedia = UNIT_IMPLIES_MEDIA[d.target_unit as TargetUnit];
-  // Which capture fields can apply. Nothing chosen yet shows them all.
+  // The category states the medium: Image can only mean photographs, Video can
+  // only mean clips. Asking for the media as well was the same answer typed
+  // twice, and nothing made the two agree — so it is derived here and shown
+  // rather than asked. The three non-visual categories imply nothing and get
+  // neither a Media row nor capture detail; d.capture_media still carries
+  // whatever a saved request held, so editing one does not silently clear it.
+  const impliedMedia = CATEGORY_MEDIA[d.category];
+  // Which capture fields can apply. Only read where impliedMedia exists.
   const chosenMedia = impliedMedia ?? d.capture_media;
-  const wantsPhoto = chosenMedia.length === 0 || chosenMedia.includes("photo");
-  const wantsVideo = chosenMedia.length === 0 || chosenMedia.includes("video");
+  const wantsPhoto = chosenMedia.includes("photo");
+  const wantsVideo = chosenMedia.includes("video");
   // "Something else" says nothing on its own, so the objective carries it.
   const otherUseCase = d.use_case === "other";
 
+  // Any attachment still in flight. Saving now would attach a key whose bytes
+  // are not in storage yet, and the server would reject it as never uploaded.
   const allFiles = [
     ...briefFiles, ...complianceFiles, ...acceptanceFiles, ...captureExamples, ...guidelineFiles,
   ];
@@ -898,11 +900,11 @@ export function RequestNewPage() {
                 </div>
               )}
             </Field>
-            {impliedMedia ? (
-              // The unit already answered this. Shown rather than hidden, so
+            {impliedMedia && (
+              // The category already answered this. Shown rather than hidden, so
               // the client can see what a crowd resource will be allowed to upload —
               // it is the same rule either way, just not asked twice.
-              <Field label="Media" hint="Taken from the unit above.">
+              <Field label="Media" hint="Taken from the category above.">
                 {() => (
                   <p className="small muted" style={{ margin: "6px 0 0" }}>
                     Crowd resources may upload{" "}
@@ -910,15 +912,6 @@ export function RequestNewPage() {
                   </p>
                 )}
               </Field>
-            ) : (
-              <CheckGroup
-                label="Media"
-                options={CAPTURE_MEDIA}
-                value={d.capture_media}
-                onChange={(v) => setD((x) => ({ ...x, capture_media: v }))}
-                hint="What the capture app will let them upload. Leave both unticked and anything visual is accepted."
-                columns={2}
-              />
             )}
             <Field label="Location / Locale">
               {(id) => (
@@ -964,69 +957,75 @@ export function RequestNewPage() {
               {(id) => <textarea id={id} className={textareaCls} rows={2} value={d.objective} onChange={set("objective")} placeholder="Train a shelf-recognition model across our top 12 markets." />}
             </Field>
 
-            <label className="checkline span">
-              <input type="checkbox" checked={showCapture} onChange={(e) => setShowCapture(e.target.checked)} />
-              <span>
-                Add capture detail
-                <span className="cl-sub">Resolution, orientation, squareness, whether a GPS fix is required; a clip's length and size.</span>
-              </span>
-            </label>
-            {showCapture && (
+            {impliedMedia && (
+              // Nothing is filmed for a data or people-based deliverable, so
+              // resolution, squareness and clip length are noise there.
               <>
-                {wantsPhoto && (
-                  <Field label="Minimum megapixels" hint="Blank for no floor.">
-                    {(id) => <input id={id} className={inputCls} type="number" min={0} step="0.1" value={d.capture_min_megapixels} onChange={set("capture_min_megapixels")} placeholder="12" />}
-                  </Field>
-                )}
-                <Field label="Orientation">
-                  {(id) => (
-                    <select id={id} className={selectCls} value={d.capture_orientation} onChange={set("capture_orientation")}>
-                      <option value="">Either</option>
-                      <option value="landscape">Landscape</option>
-                      <option value="portrait">Portrait</option>
-                    </select>
-                  )}
-                </Field>
-                <Field
-                  label="Maximum tilt"
-                  hint="Degrees off square. For wall and shelf work — blank for overhead or tabletop."
-                >
-                  {(id) => <input id={id} className={inputCls} type="number" min={0} max={45} step="1" value={d.capture_max_tilt_deg} onChange={set("capture_max_tilt_deg")} placeholder="10" />}
-                </Field>
                 <label className="checkline span">
-                  <input type="checkbox" checked={d.capture_require_gps} onChange={(e) => setD((x) => ({ ...x, capture_require_gps: e.target.checked }))} />
+                  <input type="checkbox" checked={showCapture} onChange={(e) => setShowCapture(e.target.checked)} />
                   <span>
-                    Require a GPS fix on every capture
-                    <span className="cl-sub">Rejects anything taken with location switched off.</span>
+                    Add capture detail
+                    <span className="cl-sub">Resolution, orientation, squareness, whether a GPS fix is required; a clip's length and size.</span>
                   </span>
                 </label>
-                {/* Video only. The phone refuses a clip outside these before it uploads
-                    a byte; the camera stops recording at the maximum. */}
-                {wantsVideo && (
+                {showCapture && (
                   <>
-                    <Field label="Shortest clip" hint="Seconds. Blank for no minimum.">
-                      {(id) => <input id={id} className={inputCls} type="number" min={0} step="1" value={d.capture_min_duration_s} onChange={set("capture_min_duration_s")} placeholder="30" />}
-                    </Field>
-                    <Field label="Longest clip" hint="Seconds, up to 600. The camera stops there.">
-                      {(id) => <input id={id} className={inputCls} type="number" min={1} max={600} step="1" value={d.capture_max_duration_s} onChange={set("capture_max_duration_s")} placeholder="120" />}
-                    </Field>
-                    <Field label="Video size" hint="The short side of the frame, whichever way the phone is held.">
+                    {wantsPhoto && (
+                      <Field label="Minimum megapixels" hint="Blank for no floor.">
+                        {(id) => <input id={id} className={inputCls} type="number" min={0} step="0.1" value={d.capture_min_megapixels} onChange={set("capture_min_megapixels")} placeholder="12" />}
+                      </Field>
+                    )}
+                    <Field label="Orientation">
                       {(id) => (
-                        <select id={id} className={selectCls} value={d.capture_min_video_lines} onChange={set("capture_min_video_lines")}>
-                          <option value="">Any</option>
-                          <option value="720">At least 720p</option>
-                          <option value="1080">At least 1080p</option>
-                          <option value="2160">At least 2160p (4K)</option>
+                        <select id={id} className={selectCls} value={d.capture_orientation} onChange={set("capture_orientation")}>
+                          <option value="">Either</option>
+                          <option value="landscape">Landscape</option>
+                          <option value="portrait">Portrait</option>
                         </select>
                       )}
                     </Field>
+                    <Field
+                      label="Maximum tilt"
+                      hint="Degrees off square. For wall and shelf work — blank for overhead or tabletop."
+                    >
+                      {(id) => <input id={id} className={inputCls} type="number" min={0} max={45} step="1" value={d.capture_max_tilt_deg} onChange={set("capture_max_tilt_deg")} placeholder="10" />}
+                    </Field>
                     <label className="checkline span">
-                      <input type="checkbox" checked={d.capture_allow_library} onChange={(e) => setD((x) => ({ ...x, capture_allow_library: e.target.checked }))} />
+                      <input type="checkbox" checked={d.capture_require_gps} onChange={(e) => setD((x) => ({ ...x, capture_require_gps: e.target.checked }))} />
                       <span>
-                        Allow clips from the phone's gallery
-                        <span className="cl-sub">Otherwise every clip is recorded in the app, where it was and when it says.</span>
+                        Require a GPS fix on every capture
+                        <span className="cl-sub">Rejects anything taken with location switched off.</span>
                       </span>
                     </label>
+                    {/* Video only. The phone refuses a clip outside these before it uploads
+                        a byte; the camera stops recording at the maximum. */}
+                    {wantsVideo && (
+                      <>
+                        <Field label="Shortest clip" hint="Seconds. Blank for no minimum.">
+                          {(id) => <input id={id} className={inputCls} type="number" min={0} step="1" value={d.capture_min_duration_s} onChange={set("capture_min_duration_s")} placeholder="30" />}
+                        </Field>
+                        <Field label="Longest clip" hint="Seconds, up to 600. The camera stops there.">
+                          {(id) => <input id={id} className={inputCls} type="number" min={1} max={600} step="1" value={d.capture_max_duration_s} onChange={set("capture_max_duration_s")} placeholder="120" />}
+                        </Field>
+                        <Field label="Video size" hint="The short side of the frame, whichever way the phone is held.">
+                          {(id) => (
+                            <select id={id} className={selectCls} value={d.capture_min_video_lines} onChange={set("capture_min_video_lines")}>
+                              <option value="">Any</option>
+                              <option value="720">At least 720p</option>
+                              <option value="1080">At least 1080p</option>
+                              <option value="2160">At least 2160p (4K)</option>
+                            </select>
+                          )}
+                        </Field>
+                        <label className="checkline span">
+                          <input type="checkbox" checked={d.capture_allow_library} onChange={(e) => setD((x) => ({ ...x, capture_allow_library: e.target.checked }))} />
+                          <span>
+                            Allow clips from the phone's gallery
+                            <span className="cl-sub">Otherwise every clip is recorded in the app, where it was and when it says.</span>
+                          </span>
+                        </label>
+                      </>
+                    )}
                   </>
                 )}
               </>
@@ -1251,9 +1250,8 @@ export function RequestNewPage() {
             ["Quantity", d.target_quantity
               ? `${d.target_quantity} ${unitLabel(d.target_unit)}`
               : "To be agreed"],
-            ["Media", d.capture_media.length
-              ? d.capture_media.map((m) => labelOf(CAPTURE_MEDIA, m)).join(", ")
-              : "Anything visual"],
+            ...(impliedMedia ? [["Media",
+              impliedMedia.map((m: string) => labelOf(CAPTURE_MEDIA, m)).join(", ")] as Row] : []),
             ...(d.countries.length ? [["Location / Locale", d.countries.map(localeLabel).join(", ")] as Row] : []),
             ...(d.location_type
               ? [["Location Type", labelOf(LOCATION_TYPES, d.location_type as LocationType)] as Row] : []),
