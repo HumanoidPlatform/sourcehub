@@ -6,7 +6,7 @@ import { useState } from "react";
 import { get, patch, post } from "@api/client";
 import type { EquipmentRow, LoanRow, OnboardingRow, Org, WorkerRow } from "@api/types";
 import {
-  Button, Callout, Dialog, Dl, Empty, Field, inputCls, Loadable, Metric, Panel, Pill,
+  Button, Callout, Dialog, Dl, Empty, Field, inputCls, Loadable, Metric, Panel, Pill, selectCls,
   TableWrap, textareaCls, useToast, View,
 } from "@ds/primitives";
 import { useSession } from "@shared/auth";
@@ -15,7 +15,7 @@ import { fmtDate, titleCase } from "@shared/format";
 import { OrgProfileDialog } from "@shared/org-profile";
 import { ReasonDialog } from "@shared/reason-dialog";
 import {
-  equipmentStatus, invitationStatus, loanStatus, onboardingStatus, orgStatus, statusMeta, workerStatus,
+  equipmentStatus, invitationStatus, loanStatus, onboardingStatus, orgStatus, statusMeta, type Tone, workerStatus,
 } from "@shared/status";
 
 /* --- entity detail dialogs (row-fed; RLS already decided what the list holds) --- */
@@ -46,19 +46,21 @@ function LoanDetailDialog({ l, onClose }: { l: LoanRow; onClose: () => void }) {
   const m = statusMeta(loanStatus, l.status);
   return (
     <Dialog
-      title={`${l.equipment_type} · ${l.units} unit(s)`}
-      sub={<span className="id">{l.reference_code}</span>}
+      title={`Request ${l.reference_code}`}
+      sub={`${l.equipment_type} · ${l.units} unit${l.units === 1 ? "" : "s"}`}
       onClose={onClose}
       foot={<Button onClick={onClose}>Close</Button>}
     >
       <Dl rows={[
-        ["Equipment", `${l.equipment_type} (${l.equipment_ref})`],
-        ["Sponsor", l.sponsor_name],
+        ["Request reference", <span key="r" className="id">{l.reference_code}</span>],
+        ["Equipment", l.equipment_type],
+        ["Equipment reference", <span key="e" className="id">{l.equipment_ref}</span>],
         ["Requester", l.requester_name],
-        ["Units", <span key="u" className="num">{l.units}</span>],
+        ["Sponsor", l.sponsor_name],
+        ["Requested units", <span key="u" className="num">{l.units}</span>],
         ["Needed by", fmtDate(l.needed_by)],
-        ["Note", l.note ?? "—"],
-        ["Task", l.task_ref ?? "—"],
+        ["Linked task", l.task_ref ?? "—"],
+        ["Requester note", l.note ?? "—"],
         ["Status", <Pill key="s" tone={m.tone}>{m.label}</Pill>],
         ["Decision reason", l.decision_reason ?? "—"],
       ]} />
@@ -441,6 +443,47 @@ function OnboardRequestDialog({ kind, onClose }: { kind: NetKind; onClose: () =>
 
 /* --- equipment (supplier browse + sponsor inventory) --------------------------- */
 
+type InventoryFilter = "all" | "available" | "in_use" | "on_loan" | "maintenance" | "calibration_due";
+const CALIBRATION_EXPIRING_DAYS = 30;
+const EQUIPMENT_STATUS_OPTIONS = ["available", "in_use", "maintenance"] as const;
+
+function equipmentSearchText(e: EquipmentRow): string {
+  return [
+    e.reference_code,
+    e.equipment_type,
+    e.sponsor_name,
+    e.status,
+    e.total_units,
+    e.units_available,
+    e.units_on_loan,
+    e.calibrated_on,
+    e.calibration_expires_on,
+  ].join(" ").toLowerCase();
+}
+
+function isoDateDaysFromNow(days: number): string {
+  const date = new Date();
+  date.setDate(date.getDate() + days);
+  return date.toISOString().slice(0, 10);
+}
+
+function matchesInventoryFilter(e: EquipmentRow, filter: InventoryFilter, expiringBy: string): boolean {
+  if (filter === "all") return true;
+  if (filter === "on_loan") return e.units_on_loan > 0;
+  if (filter === "calibration_due") {
+    return e.calibration_expires_on !== null && e.calibration_expires_on <= expiringBy;
+  }
+  return e.status === filter;
+}
+
+function calibrationMeta(e: EquipmentRow, today: string, expiringBy: string): { date: string; label?: string; tone?: Tone } {
+  const date = fmtDate(e.calibration_expires_on ?? e.calibrated_on);
+  if (e.calibration_expires_on === null) return { date };
+  if (e.calibration_expires_on <= today) return { date, label: "Expired", tone: "critical" };
+  if (e.calibration_expires_on <= expiringBy) return { date, label: "Expiring Soon", tone: "attention" };
+  return { date };
+}
+
 export function EquipmentPage() {
   const session = useSession();
   const isSponsor = session.org_kind === "sponsor";
@@ -450,6 +493,8 @@ export function EquipmentPage() {
   const [adding, setAdding] = useState(false);
   const [viewingEq, setViewingEq] = useState<EquipmentRow | null>(null);
   const [viewingLoan, setViewingLoan] = useState<LoanRow | null>(null);
+  const [inventorySearch, setInventorySearch] = useState("");
+  const [inventoryFilter, setInventoryFilter] = useState<InventoryFilter>("all");
 
   const equipment = useQuery({ queryKey: ["equipment"], queryFn: () => get<EquipmentRow[]>("/network/equipment") });
   const loans = useQuery({ queryKey: ["loans"], queryFn: () => get<LoanRow[]>("/network/loans") });
@@ -457,10 +502,34 @@ export function EquipmentPage() {
   const cycle = useMutation({
     mutationFn: (vars: { id: string; status: string }) =>
       post(`/network/equipment/${vars.id}/status`, { status: vars.status }),
-    onSuccess: () => void qc.invalidateQueries({ queryKey: ["equipment"] }),
+    onMutate: async (vars) => {
+      await qc.cancelQueries({ queryKey: ["equipment"] });
+      const previous = qc.getQueryData<EquipmentRow[]>(["equipment"]);
+      qc.setQueryData<EquipmentRow[]>(["equipment"], (current) =>
+        current?.map((e) => e.id === vars.id ? { ...e, status: vars.status } : e));
+      return { previous };
+    },
+    onError: (e, _vars, ctx) => {
+      if (ctx?.previous) qc.setQueryData(["equipment"], ctx.previous);
+      toast("Status not changed", e instanceof Error ? e.message : "Could not change status.", "critical");
+    },
+    onSuccess: (_data, vars) => {
+      toast("Status changed", `Updated to ${statusMeta(equipmentStatus, vars.status).label}.`, "success");
+    },
+    onSettled: () => void qc.invalidateQueries({ queryKey: ["equipment"] }),
   });
 
   const myLoans = isSponsor ? [] : (loans.data ?? []);
+  const equipmentRows = equipment.data ?? [];
+  const today = new Date().toISOString().slice(0, 10);
+  const expiringBy = isoDateDaysFromNow(CALIBRATION_EXPIRING_DAYS);
+  const inventoryNeedle = inventorySearch.trim().toLowerCase();
+  const shownEquipment = isSponsor
+    ? equipmentRows.filter((e) =>
+      matchesInventoryFilter(e, inventoryFilter, expiringBy)
+      && (!inventoryNeedle || equipmentSearchText(e).includes(inventoryNeedle)))
+    : equipmentRows;
+  const inventoryFiltered = inventoryNeedle || inventoryFilter !== "all";
 
   return (
     <View
@@ -472,53 +541,137 @@ export function EquipmentPage() {
     >
       <Panel title={isSponsor ? "Equipment types" : "Available from your network"}>
         <Loadable q={equipment} what="equipment">
-          {(equipment.data ?? []).length === 0 ? (
+          {equipmentRows.length === 0 ? (
             <Empty title="No equipment" hint={isSponsor ? "Add your first equipment type." : "No sponsors registered in your network yet."} />
           ) : (
-            <TableWrap>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Ref</th><th>Type</th>{!isSponsor && <th>Sponsor</th>}<th>Units</th>
-                    <th>On loan</th><th>Available</th><th>Calibrated</th><th>Status</th><th />
-                  </tr>
-                </thead>
-                <tbody>
-                  {(equipment.data ?? []).map((e) => {
-                    const m = statusMeta(equipmentStatus, e.status);
-                    return (
-                      <tr key={e.id} className="tap" onClick={() => setViewingEq(e)}>
-                        <td className="id">{e.reference_code}</td>
-                        <td className="cell-primary">{e.equipment_type}</td>
-                        {!isSponsor && <td>{e.sponsor_name}</td>}
-                        <td className="num">{e.total_units}</td>
-                        <td className="num">{e.units_on_loan}</td>
-                        <td className="num">{e.units_available}</td>
-                        <td className="num">{fmtDate(e.calibrated_on)}</td>
-                        <td><Pill tone={m.tone}>{m.label}</Pill></td>
-                        <td className="right" onClick={(ev) => ev.stopPropagation()}><div className="rowactions">
-                          <Button size="sm" onClick={() => setViewingEq(e)}>Details</Button>
-                          {isSponsor ? (
-                            <Button size="sm" onClick={() => {
-                              const order = ["available", "in_use", "maintenance", "available"];
-                              const next = order[order.indexOf(e.status) + 1] ?? "available";
-                              cycle.mutate({ id: e.id, status: next });
-                            }}>
-                              Cycle status
-                            </Button>
-                          ) : (
-                            <Button size="sm" variant="primary" disabled={e.units_available < 1} onClick={() => setBorrowing(e)}>
-                              Request
-                            </Button>
-                          )}
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </TableWrap>
+            <>
+              {isSponsor && (
+                <div className="tablebar">
+                  <input
+                    className={inputCls}
+                    type="search"
+                    aria-label="Search inventory"
+                    placeholder="Search inventory"
+                    value={inventorySearch}
+                    onChange={(e) => setInventorySearch(e.target.value)}
+                  />
+                  <select
+                    className={selectCls}
+                    aria-label="Filter inventory"
+                    value={inventoryFilter}
+                    onChange={(e) => setInventoryFilter(e.target.value as InventoryFilter)}
+                    style={{ maxWidth: 190 }}
+                  >
+                    <option value="all">All inventory</option>
+                    <option value="available">Available</option>
+                    <option value="in_use">In Use</option>
+                    <option value="on_loan">On Loan</option>
+                    <option value="maintenance">Maintenance</option>
+                    <option value="calibration_due">Calibration Due</option>
+                  </select>
+                  <span className="small muted" role="status">
+                    {inventoryFiltered ? `${shownEquipment.length} of ${equipmentRows.length}` : ""}
+                  </span>
+                </div>
+              )}
+              {shownEquipment.length === 0 ? (
+                <Empty title="Nothing matches that" hint="Clear the search or choose All inventory." />
+              ) : (
+                <TableWrap>
+                  <table>
+                    <thead>
+                      {isSponsor ? (
+                        <tr>
+                          <th>Equipment</th><th>Make/Model</th><th>Location</th><th>Total</th>
+                          <th>Available</th><th>On Loan</th><th>Calibration</th><th>Status</th><th>Action</th>
+                        </tr>
+                      ) : (
+                        <tr>
+                          <th>Ref</th><th>Type</th><th>Sponsor</th><th>Units</th>
+                          <th>On loan</th><th>Available</th><th>Calibrated</th><th>Status</th><th />
+                        </tr>
+                      )}
+                    </thead>
+                    <tbody>
+                      {shownEquipment.map((e) => {
+                        const m = statusMeta(equipmentStatus, e.status);
+                        const calibration = calibrationMeta(e, today, expiringBy);
+                        return (
+                          <tr key={e.id} className="tap" title="Open equipment details" onClick={() => setViewingEq(e)}>
+                            {isSponsor ? (
+                              <>
+                                <td className="cell-primary" title="Open equipment details">{e.equipment_type}</td>
+                                <td>—</td>
+                                <td>—</td>
+                                <td className="num">{e.total_units}</td>
+                                <td className="num">{e.units_available}</td>
+                                <td className="num">{e.units_on_loan}</td>
+                                <td>
+                                  <span className="num">{calibration.date}</span>
+                                  {calibration.label && (
+                                    <>
+                                      {" "}
+                                      <Pill tone={calibration.tone}>{calibration.label}</Pill>
+                                    </>
+                                  )}
+                                </td>
+                              </>
+                            ) : (
+                              <>
+                                <td className="id">{e.reference_code}</td>
+                                <td className="cell-primary" title="Open equipment details">{e.equipment_type}</td>
+                                <td>{e.sponsor_name}</td>
+                                <td className="num">{e.total_units}</td>
+                                <td className="num">{e.units_on_loan}</td>
+                                <td className="num">{e.units_available}</td>
+                                <td className="num">{fmtDate(e.calibrated_on)}</td>
+                              </>
+                            )}
+                            <td>
+                              {isSponsor ? (
+                                <select
+                                  className={selectCls}
+                                  aria-label={`Change status for ${e.equipment_type} (${e.reference_code})`}
+                                  value={e.status}
+                                  onMouseDown={(ev) => ev.stopPropagation()}
+                                  onClick={(ev) => ev.stopPropagation()}
+                                  onChange={(ev) => {
+                                    ev.stopPropagation();
+                                    cycle.mutate({ id: e.id, status: ev.target.value });
+                                  }}
+                                  style={{
+                                    width: 150,
+                                    borderColor: `var(--t-${m.tone}-line)`,
+                                    backgroundColor: `var(--t-${m.tone}-bg)`,
+                                    color: `var(--t-${m.tone})`,
+                                    fontWeight: 600,
+                                  }}
+                                >
+                                  {EQUIPMENT_STATUS_OPTIONS.map((status) => (
+                                    <option key={status} value={status}>{statusMeta(equipmentStatus, status).label}</option>
+                                  ))}
+                                </select>
+                              ) : (
+                                <Pill tone={m.tone}>{m.label}</Pill>
+                              )}
+                            </td>
+                            <td className="right" onClick={(ev) => ev.stopPropagation()}><div className="rowactions">
+                              <Button size="sm" onClick={() => setViewingEq(e)}>Details</Button>
+                              {!isSponsor && (
+                                <Button size="sm" variant="primary" disabled={e.units_available < 1} onClick={() => setBorrowing(e)}>
+                                  Request
+                                </Button>
+                              )}
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </TableWrap>
+              )}
+            </>
           )}
         </Loadable>
       </Panel>
@@ -676,11 +829,31 @@ function AddEquipmentDialog({ onClose, onDone }: { onClose: () => void; onDone: 
 
 /* --- sponsor: loan queue -------------------------------------------------------- */
 
+const REQUEST_STATUS_ORDER = ["pending", "approved", "issued", "overdue", "returned", "rejected"];
+
+function requestSearchText(l: LoanRow): string {
+  return [
+    l.reference_code,
+    l.equipment_type,
+    l.equipment_ref,
+    l.requester_name,
+    l.sponsor_name,
+    l.status,
+    l.units,
+    l.needed_by,
+    l.note,
+    l.decision_reason,
+    l.task_ref,
+  ].join(" ").toLowerCase();
+}
+
 export function LoanQueuePage() {
   const qc = useQueryClient();
   const toast = useToast();
   const [viewing, setViewing] = useState<LoanRow | null>(null);
   const [rejecting, setRejecting] = useState<LoanRow | null>(null);
+  const [requestFilter, setRequestFilter] = useState("all");
+  const [requestSearch, setRequestSearch] = useState("");
   const loans = useQuery({ queryKey: ["loans"], queryFn: () => get<LoanRow[]>("/network/loans") });
 
   const decide = useMutation({
@@ -698,6 +871,19 @@ export function LoanQueuePage() {
 
   const rows = loans.data ?? [];
   const pending = rows.filter((l) => l.status === "pending");
+  const statuses = Array.from(new Set(rows.map((l) => l.status))).sort((a, b) => {
+    const ai = REQUEST_STATUS_ORDER.indexOf(a);
+    const bi = REQUEST_STATUS_ORDER.indexOf(b);
+    if (ai === -1 && bi === -1) return a.localeCompare(b);
+    if (ai === -1) return 1;
+    if (bi === -1) return -1;
+    return ai - bi;
+  });
+  const requestNeedle = requestSearch.trim().toLowerCase();
+  const shownRows = rows.filter((l) =>
+    (requestFilter === "all" || l.status === requestFilter)
+    && (!requestNeedle || requestSearchText(l).includes(requestNeedle)));
+  const requestsFiltered = requestFilter !== "all" || Boolean(requestNeedle);
 
   return (
     <View title="Requests" sub="Approving marks the type in use; a rejection needs a reason the requester can act on.">
@@ -711,40 +897,71 @@ export function LoanQueuePage() {
           {rows.length === 0 ? (
             <Empty title="No requests yet" hint="Suppliers in your tenant's network can request loans." />
           ) : (
-            <TableWrap>
-              <table>
-                <thead><tr><th>Ref</th><th>Equipment</th><th>Requester</th><th>Units</th><th>Needed by</th><th>Note</th><th>Status</th><th /></tr></thead>
-                <tbody>
-                  {rows.map((l) => {
-                    const m = statusMeta(loanStatus, l.status);
-                    return (
-                      <tr key={l.id} className="tap" onClick={() => setViewing(l)}>
-                        <td className="id">{l.reference_code}</td>
-                        <td>{l.equipment_type}</td>
-                        <td>{l.requester_name}</td>
-                        <td className="num">{l.units}</td>
-                        <td className="num">{fmtDate(l.needed_by)}</td>
-                        <td className="small" style={{ maxWidth: 220 }}>{l.note ?? "—"}</td>
-                        <td><Pill tone={m.tone}>{m.label}</Pill></td>
-                        <td className="right" onClick={(ev) => ev.stopPropagation()}><div className="rowactions">
-                          <Button size="sm" onClick={() => setViewing(l)}>Details</Button>
-                          {l.status === "pending" && (
-                            <>
-                              <Button size="sm" variant="success" onClick={() => decide.mutate({ id: l.id, decision: "approved" }, { onError: toastRefusal })}>Approve</Button>
-                              <Button size="sm" variant="danger" onClick={() => setRejecting(l)}>Reject</Button>
-                            </>
-                          )}
-                          {["approved", "issued", "overdue"].includes(l.status) && (
-                            <Button size="sm" onClick={() => decide.mutate({ id: l.id, decision: "returned" }, { onError: toastRefusal })}>Mark returned</Button>
-                          )}
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </TableWrap>
+            <>
+              <div className="tablebar">
+                <input
+                  className={inputCls}
+                  type="search"
+                  aria-label="Search requests"
+                  placeholder="Search requests"
+                  value={requestSearch}
+                  onChange={(e) => setRequestSearch(e.target.value)}
+                />
+                <select
+                  className={selectCls}
+                  aria-label="Filter requests"
+                  value={requestFilter}
+                  onChange={(e) => setRequestFilter(e.target.value)}
+                  style={{ maxWidth: 190 }}
+                >
+                  <option value="all">All requests</option>
+                  {statuses.map((status) => (
+                    <option key={status} value={status}>{statusMeta(loanStatus, status).label}</option>
+                  ))}
+                </select>
+                <span className="small muted" role="status">
+                  {requestsFiltered ? `${shownRows.length} of ${rows.length}` : ""}
+                </span>
+              </div>
+              {shownRows.length === 0 ? (
+                <Empty title="No requests match" hint="Clear the search or choose All requests." />
+              ) : (
+                <TableWrap>
+                  <table>
+                    <thead><tr><th>Ref</th><th>Equipment</th><th>Requester</th><th>Units</th><th>Needed by</th><th>Note</th><th>Status</th><th /></tr></thead>
+                    <tbody>
+                      {shownRows.map((l) => {
+                        const m = statusMeta(loanStatus, l.status);
+                        return (
+                          <tr key={l.id} className="tap" title="Open request details" onClick={() => setViewing(l)}>
+                            <td className="id">{l.reference_code}</td>
+                            <td className="cell-primary" title="Open request details">{l.equipment_type}</td>
+                            <td>{l.requester_name}</td>
+                            <td className="num">{l.units}</td>
+                            <td className="num">{fmtDate(l.needed_by)}</td>
+                            <td className="small" style={{ maxWidth: 220 }}>{l.note ?? "—"}</td>
+                            <td><Pill tone={m.tone}>{m.label}</Pill></td>
+                            <td className="right" onClick={(ev) => ev.stopPropagation()}><div className="rowactions">
+                              <Button size="sm" onClick={() => setViewing(l)}>Details</Button>
+                              {l.status === "pending" && (
+                                <>
+                                  <Button size="sm" variant="success" onClick={() => decide.mutate({ id: l.id, decision: "approved" }, { onError: toastRefusal })}>Approve</Button>
+                                  <Button size="sm" variant="danger" onClick={() => setRejecting(l)}>Reject</Button>
+                                </>
+                              )}
+                              {["approved", "issued", "overdue"].includes(l.status) && (
+                                <Button size="sm" onClick={() => decide.mutate({ id: l.id, decision: "returned" }, { onError: toastRefusal })}>Mark returned</Button>
+                              )}
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </TableWrap>
+              )}
+            </>
           )}
         </Loadable>
       </Panel>

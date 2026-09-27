@@ -4,14 +4,21 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { get } from "@api/client";
-import type { Contract, EquipmentRow, Gate1Row, LoanRow, Proposal, QaQueueRow, Rfp, Task, WorkerRow } from "@api/types";
-import { Empty, Meter, Metric, Panel, Pill, TableWrap, View } from "@ds/primitives";
+import type { ActivityRow, Contract, EquipmentRow, Gate1Row, LoanRow, Proposal, QaQueueRow, Rfp, Task, WorkerRow } from "@api/types";
+import { Empty, Loadable, Meter, Metric, Panel, Pill, TableWrap, View } from "@ds/primitives";
 import { useSession } from "@shared/auth";
-import { fmtDate, taskTarget } from "@shared/format";
+import { fmtAgo, fmtDate, taskTarget } from "@shared/format";
 import { contractStatus, statusMeta, taskStatus } from "@shared/status";
 import { AccountsPage } from "@features/admin/pages";
 import { WorkerAssignmentsPage } from "@features/delivery/pages";
 import { ClientOverview } from "@features/overview/client";
+
+const SPONSOR_ACTIVITY_TYPES = new Set([
+  "equipment.added",
+  "equipment.status",
+  "loan.requested",
+  "loan.state_changed",
+]);
 
 export function OverviewPage() {
   const { role } = useSession();
@@ -128,27 +135,106 @@ function SponsorOverview() {
   const session = useSession();
   const equipment = useQuery({ queryKey: ["equipment"], queryFn: () => get<EquipmentRow[]>("/network/equipment") });
   const loans = useQuery({ queryKey: ["loans"], queryFn: () => get<LoanRow[]>("/network/loans") });
+  const activity = useQuery({
+    queryKey: ["activity", "sponsor-overview"],
+    queryFn: () => get<ActivityRow[]>("/activity?limit=12"),
+  });
 
   const eq = equipment.data ?? [];
-  const pending = (loans.data ?? []).filter((l) => l.status === "pending").length;
-  const deployed = eq.reduce((s, e) => s + e.units_on_loan, 0);
+  const recentActivity = (activity.data ?? [])
+    .filter((e) => SPONSOR_ACTIVITY_TYPES.has(e.event_type))
+    .slice(0, 6);
+  const totalUnits = eq.reduce((s, e) => s + e.total_units, 0);
+  const availableUnits = eq.reduce((s, e) => s + e.units_available, 0);
+  const deployedUnits = eq.reduce((s, e) => s + e.units_on_loan, 0);
+  const maintenanceUnits = eq
+    .filter((e) => e.status === "maintenance")
+    .reduce((s, e) => s + e.total_units, 0);
+  const today = new Date().toISOString().slice(0, 10);
+  const expiringSoon = new Date();
+  expiringSoon.setDate(expiringSoon.getDate() + 30);
+  const expiringBy = expiringSoon.toISOString().slice(0, 10);
+  const calibrationDueUnits = eq
+    .filter((e) => e.calibration_expires_on !== null && e.calibration_expires_on <= today)
+    .reduce((s, e) => s + e.total_units, 0);
+  const calibrationExpiringUnits = eq
+    .filter((e) => e.calibration_expires_on !== null && e.calibration_expires_on > today && e.calibration_expires_on <= expiringBy)
+    .reduce((s, e) => s + e.total_units, 0);
+  const utilization = totalUnits ? Math.round((100 * deployedUnits) / totalUnits) : 0;
+  const pendingRequests = (loans.data ?? []).filter((l) => l.status === "pending").length;
+  const overdueEquipment = (loans.data ?? [])
+    .filter((l) => l.status === "overdue")
+    .reduce((s, l) => s + l.units, 0);
 
   return (
-    <View title={`Good day, ${session.org_name}`} pageTitle="Overview" sub="Your fleet, and who is asking for it.">
+    <View title={`Good day, ${session.org_name}`} pageTitle="Overview" sub="Manage Equipment Availability, Deployment and Requests">
       <div className="g4">
-        <Metric label="Equipment types" value={eq.length} />
-        <Metric label="Total units" value={eq.reduce((s, e) => s + e.total_units, 0)} />
-        <Metric label="Units deployed" value={deployed} />
-        <Metric label="Awaiting your decision" value={pending} />
+        <Metric label="Total Units" value={totalUnits} />
+        <Metric label="Available Units" value={availableUnits} />
+        <Metric label="Units Deployed" value={deployedUnits} />
+        <Metric label="Pending Requests" value={pendingRequests} />
       </div>
-      {pending > 0 && (
+      <Panel title="Fleet Status">
+        <div className="g4">
+          <Metric label="Available" value={availableUnits} />
+          <Metric label="In Use" value={deployedUnits} />
+          <Metric label="Maintenance" value={maintenanceUnits} />
+          <Metric label="Calibration Due" value={calibrationDueUnits} />
+          <Metric label="Utilization %" value={`${utilization}%`} />
+        </div>
+      </Panel>
+      <Panel title="Action Required">
+        <div className="g4">
+          <Metric label="Pending Requests" value={pendingRequests} />
+          <Metric label="Overdue Equipment" value={overdueEquipment} />
+          <Metric label="Calibration Expiring" value={calibrationExpiringUnits} />
+          <Metric label="Maintenance Required" value={maintenanceUnits} />
+        </div>
+      </Panel>
+      <Panel
+        title="Recent Activity"
+        sub="Equipment issued or returned, approvals, rejections, status and calibration updates."
+      >
+        <Loadable q={activity} what="recent activity" rows={4}>
+          {recentActivity.length === 0 ? (
+            <Empty title="No recent fleet activity" />
+          ) : (
+            <div className="timeline">
+              {recentActivity.map((e) => (
+                <div key={e.id} className="event">
+                  <span className="spine" aria-hidden="true" />
+                  <span className="dot" aria-hidden="true">·</span>
+                  <div>
+                    <div className="what">{e.summary}</div>
+                    <div className="who">
+                      <span>{sponsorActivityLabel(e)}</span>
+                      <span>{fmtAgo(e.occurred_at)}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </Loadable>
+      </Panel>
+      {pendingRequests > 0 && (
         <Panel>
           <Empty
-            title={`${pending} request${pending === 1 ? " is" : "s are"} waiting on you`}
+            title={`${pendingRequests} request${pendingRequests === 1 ? " is" : "s are"} waiting on you`}
             action={<Link to="/loans" className="btn" data-variant="primary">Review requests</Link>}
           />
         </Panel>
       )}
     </View>
   );
+}
+
+function sponsorActivityLabel(e: ActivityRow): string {
+  if (e.event_type === "equipment.added") return "Equipment added";
+  if (e.event_type === "equipment.status") return "Status change";
+  if (e.event_type === "loan.requested") return "Request received";
+  if (e.summary.includes("marked returned")) return "Equipment returned";
+  if (e.summary.includes("approved")) return "Approved";
+  if (e.summary.includes("rejected")) return "Rejected";
+  return "Fleet update";
 }

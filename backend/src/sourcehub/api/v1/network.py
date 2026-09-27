@@ -80,7 +80,7 @@ async def add_equipment(
     )
 
 
-@router.post("/equipment/{equipment_id}/status", status_code=status.HTTP_204_NO_CONTENT)
+@router.post("/equipment/{equipment_id}/status", status_code=status.HTTP_200_OK)
 async def set_equipment_status(
     equipment_id: uuid.UUID,
     body: EquipmentStatusIn,
@@ -91,6 +91,7 @@ async def set_equipment_status(
         await network.set_equipment_status(session, principal, equipment_id, body.status)
     except LookupError:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Equipment not found") from None
+    return {"status": body.status}
 
 
 # --- loans -------------------------------------------------------------------

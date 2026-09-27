@@ -42,6 +42,12 @@ class NetworkError(Exception):
 async def list_equipment(session: AsyncSession, claims: AccessClaims) -> list[dict[str, Any]]:
     """Sponsor: own inventory. Tenant: every sponsor in its network. Supplier:
     equipment it holds a live loan on. All one query — RLS is the filter."""
+    where = "e.deleted_at IS NULL"
+    params: dict[str, Any] = {}
+    if claims.org_kind == "sponsor":
+        where += " AND e.sponsor_org_id = :org"
+        params["org"] = claims.org_id
+
     rows = (
         await session.execute(
             text(
@@ -50,8 +56,9 @@ async def list_equipment(session: AsyncSession, claims: AccessClaims) -> list[di
                 "       o.name AS sponsor_name, "
                 "       equipment_units_on_loan(e.id) AS units_on_loan "
                 "FROM equipment e JOIN organisation o ON o.id = e.sponsor_org_id "
-                "WHERE e.deleted_at IS NULL ORDER BY e.reference_code"
-            )
+                f"WHERE {where} ORDER BY e.reference_code"
+            ),
+            params,
         )
     ).mappings().all()
     return [
@@ -92,15 +99,23 @@ async def add_equipment(
 async def set_equipment_status(
     session: AsyncSession, claims: AccessClaims, equipment_id: uuid.UUID, status: str
 ) -> None:
-    e = (
-        await session.execute(select(Equipment).where(Equipment.id == equipment_id))
-    ).scalar_one_or_none()
-    if e is None:
+    row = (
+        await session.execute(
+            text(
+                "UPDATE equipment "
+                "SET status = CAST(:status AS equipment_status), updated_by = :user "
+                "WHERE id = :id "
+                "  AND deleted_at IS NULL "
+                "  AND (is_platform_admin() OR sponsor_org_id = current_org_id()) "
+                "RETURNING id, reference_code"
+            ),
+            {"id": equipment_id, "status": status, "user": claims.user_id},
+        )
+    ).mappings().one_or_none()
+    if row is None:
         raise LookupError("equipment not found")
-    e.status = status
-    e.updated_by = claims.user_id
     await audit.log(session, "equipment.status",
-                    f"{e.reference_code} marked {status}", [e.id, claims.org_id])
+                    f"{row['reference_code']} marked {status}", [row["id"], claims.org_id])
 
 
 # ---------------------------------------------------------------------------
