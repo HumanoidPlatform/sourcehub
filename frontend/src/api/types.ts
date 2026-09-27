@@ -511,7 +511,6 @@ export interface EquipmentRow {
   reference_code: string;
   equipment_type: string;
   total_units: number;
-  status: string;
   calibrated_on: string | null;
   calibration_expires_on: string | null;
   sponsor_org_id: string;

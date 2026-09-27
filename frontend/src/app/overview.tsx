@@ -16,6 +16,7 @@ import { ClientOverview } from "@features/overview/client";
 const SPONSOR_ACTIVITY_TYPES = new Set([
   "equipment.added",
   "equipment.status",
+  "equipment.updated",
   "loan.requested",
   "loan.state_changed",
 ]);
@@ -147,9 +148,6 @@ function SponsorOverview() {
   const totalUnits = eq.reduce((s, e) => s + e.total_units, 0);
   const availableUnits = eq.reduce((s, e) => s + e.units_available, 0);
   const deployedUnits = eq.reduce((s, e) => s + e.units_on_loan, 0);
-  const maintenanceUnits = eq
-    .filter((e) => e.status === "maintenance")
-    .reduce((s, e) => s + e.total_units, 0);
   const today = new Date().toISOString().slice(0, 10);
   const expiringSoon = new Date();
   expiringSoon.setDate(expiringSoon.getDate() + 30);
@@ -178,7 +176,6 @@ function SponsorOverview() {
         <div className="g4">
           <Metric label="Available" value={availableUnits} />
           <Metric label="In Use" value={deployedUnits} />
-          <Metric label="Maintenance" value={maintenanceUnits} />
           <Metric label="Calibration Due" value={calibrationDueUnits} />
           <Metric label="Utilization %" value={`${utilization}%`} />
         </div>
@@ -188,7 +185,6 @@ function SponsorOverview() {
           <Metric label="Pending Requests" value={pendingRequests} />
           <Metric label="Overdue Equipment" value={overdueEquipment} />
           <Metric label="Calibration Expiring" value={calibrationExpiringUnits} />
-          <Metric label="Maintenance Required" value={maintenanceUnits} />
         </div>
       </Panel>
       <Panel
@@ -232,6 +228,7 @@ function SponsorOverview() {
 function sponsorActivityLabel(e: ActivityRow): string {
   if (e.event_type === "equipment.added") return "Equipment added";
   if (e.event_type === "equipment.status") return "Status change";
+  if (e.event_type === "equipment.updated") return "Details updated";
   if (e.event_type === "loan.requested") return "Request received";
   if (e.summary.includes("marked returned")) return "Equipment returned";
   if (e.summary.includes("approved")) return "Approved";

@@ -210,33 +210,3 @@ def test_the_predicate_does_not_check_a_role_name_in_python():
     # policies use, so a new borrowing kind needs no Python change.
     src = ast.unparse(_function("list_equipment"))
     assert "claims.role" not in src, src
-
-
-# ---------------------------------------------------------------------------
-# The phantom status write
-# ---------------------------------------------------------------------------
-
-
-def test_set_equipment_status_loads_only_its_own_row():
-    """equipment_write refused the UPDATE; that was never enough.
-
-    An UPDATE matching zero rows is not an error, so the foreign row loaded
-    through the SELECT policy, was mutated, wrote an equipment.status audit
-    line, and the caller was told it worked. Asserted on the AST so the comment
-    above the call cannot satisfy it.
-    """
-    fn = _function("set_equipment_status")
-    wheres = [
-        ast.unparse(n)
-        for n in ast.walk(fn)
-        if isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute) and n.func.attr == "where"
-    ]
-    assert wheres, "set_equipment_status must filter its select"
-    assert any("sponsor_org_id" in w and "claims.org_id" in w for w in wheres), wheres
-
-
-def test_a_miss_is_still_a_lookup_error():
-    # The route maps LookupError to 404 (api/v1/network.py). Narrowing the
-    # select only helps if the None case still raises.
-    src = ast.unparse(_function("set_equipment_status"))
-    assert "LookupError" in src, src

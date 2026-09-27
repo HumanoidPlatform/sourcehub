@@ -62,14 +62,6 @@ export const loanStatus: StatusMap = {
   overdue: { label: "Overdue", tone: "critical", owner: "supplier" },
 };
 
-export const equipmentStatus: StatusMap = {
-  available: { label: "Available", tone: "success", owner: null },
-  in_use: { label: "In use", tone: "active", owner: null },
-  returned: { label: "Returned", tone: "neutral", owner: null },
-  maintenance: { label: "Maintenance", tone: "critical", owner: null },
-  retired: { label: "Retired", tone: "neutral", owner: null },
-};
-
 export const workerStatus: StatusMap = {
   on_shift: { label: "On shift", tone: "success", owner: null },
   on_break: { label: "On break", tone: "attention", owner: null },

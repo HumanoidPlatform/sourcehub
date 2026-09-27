@@ -17,13 +17,12 @@ import { fmtDate, titleCase } from "@shared/format";
 import { OrgProfileDialog } from "@shared/org-profile";
 import { ReasonDialog } from "@shared/reason-dialog";
 import {
-  equipmentStatus, invitationStatus, loanStatus, onboardingStatus, orgStatus, statusMeta, type Tone, workerStatus,
+  invitationStatus, loanStatus, onboardingStatus, orgStatus, statusMeta, type Tone, workerStatus,
 } from "@shared/status";
 
 /* --- entity detail dialogs (row-fed; RLS already decided what the list holds) --- */
 
 function EquipmentDetailDialog({ e, onClose }: { e: EquipmentRow; onClose: () => void }) {
-  const m = statusMeta(equipmentStatus, e.status);
   return (
     <Dialog
       title={e.equipment_type}
@@ -38,7 +37,6 @@ function EquipmentDetailDialog({ e, onClose }: { e: EquipmentRow; onClose: () =>
         ["Available", <span key="a" className="num">{e.units_available}</span>],
         ["Calibrated on", fmtDate(e.calibrated_on)],
         ["Calibration expires", fmtDate(e.calibration_expires_on)],
-        ["Status", <Pill key="s" tone={m.tone}>{m.label}</Pill>],
       ]} />
     </Dialog>
   );
@@ -493,16 +491,14 @@ function OnboardRequestDialog({ kind, onClose }: { kind: NetKind; onClose: () =>
 
 /* --- equipment (supplier browse + sponsor inventory) --------------------------- */
 
-type InventoryFilter = "all" | "available" | "in_use" | "on_loan" | "maintenance" | "calibration_due";
+type InventoryFilter = "all" | "on_loan" | "calibration_due";
 const CALIBRATION_EXPIRING_DAYS = 30;
-const EQUIPMENT_STATUS_OPTIONS = ["available", "in_use", "maintenance"] as const;
 
 function equipmentSearchText(e: EquipmentRow): string {
   return [
     e.reference_code,
     e.equipment_type,
     e.sponsor_name,
-    e.status,
     e.total_units,
     e.units_available,
     e.units_on_loan,
@@ -520,10 +516,8 @@ function isoDateDaysFromNow(days: number): string {
 function matchesInventoryFilter(e: EquipmentRow, filter: InventoryFilter, expiringBy: string): boolean {
   if (filter === "all") return true;
   if (filter === "on_loan") return e.units_on_loan > 0;
-  if (filter === "calibration_due") {
-    return e.calibration_expires_on !== null && e.calibration_expires_on <= expiringBy;
-  }
-  return e.status === filter;
+  // calibration_due: the only remaining filter that is not "all" or "on_loan"
+  return e.calibration_expires_on !== null && e.calibration_expires_on <= expiringBy;
 }
 
 function calibrationMeta(e: EquipmentRow, today: string, expiringBy: string): { date: string; label?: string; tone?: Tone } {
@@ -542,32 +536,13 @@ export function EquipmentPage() {
   const [borrowing, setBorrowing] = useState<EquipmentRow | null>(null);
   const [adding, setAdding] = useState(false);
   const [viewingEq, setViewingEq] = useState<EquipmentRow | null>(null);
+  const [editingEq, setEditingEq] = useState<EquipmentRow | null>(null);
   const [viewingLoan, setViewingLoan] = useState<LoanRow | null>(null);
   const [inventorySearch, setInventorySearch] = useState("");
   const [inventoryFilter, setInventoryFilter] = useState<InventoryFilter>("all");
 
   const equipment = useQuery({ queryKey: ["equipment"], queryFn: () => get<EquipmentRow[]>("/network/equipment") });
   const loans = useQuery({ queryKey: ["loans"], queryFn: () => get<LoanRow[]>("/network/loans") });
-
-  const cycle = useMutation({
-    mutationFn: (vars: { id: string; status: string }) =>
-      post(`/network/equipment/${vars.id}/status`, { status: vars.status }),
-    onMutate: async (vars) => {
-      await qc.cancelQueries({ queryKey: ["equipment"] });
-      const previous = qc.getQueryData<EquipmentRow[]>(["equipment"]);
-      qc.setQueryData<EquipmentRow[]>(["equipment"], (current) =>
-        current?.map((e) => e.id === vars.id ? { ...e, status: vars.status } : e));
-      return { previous };
-    },
-    onError: (e, _vars, ctx) => {
-      if (ctx?.previous) qc.setQueryData(["equipment"], ctx.previous);
-      toast("Status not changed", e instanceof Error ? e.message : "Could not change status.", "critical");
-    },
-    onSuccess: (_data, vars) => {
-      toast("Status changed", `Updated to ${statusMeta(equipmentStatus, vars.status).label}.`, "success");
-    },
-    onSettled: () => void qc.invalidateQueries({ queryKey: ["equipment"] }),
-  });
 
   const myLoans = isSponsor ? [] : (loans.data ?? []);
   const equipmentRows = equipment.data ?? [];
@@ -613,10 +588,7 @@ export function EquipmentPage() {
                     style={{ maxWidth: 190 }}
                   >
                     <option value="all">All inventory</option>
-                    <option value="available">Available</option>
-                    <option value="in_use">In Use</option>
                     <option value="on_loan">On Loan</option>
-                    <option value="maintenance">Maintenance</option>
                     <option value="calibration_due">Calibration Due</option>
                   </select>
                   <span className="small muted" role="status">
@@ -633,18 +605,17 @@ export function EquipmentPage() {
                       {isSponsor ? (
                         <tr>
                           <th>Equipment</th><th>Make/Model</th><th>Location</th><th>Total</th>
-                          <th>Available</th><th>On Loan</th><th>Calibration</th><th>Status</th><th>Action</th>
+                          <th>Available</th><th>On Loan</th><th>Calibration</th><th>Action</th>
                         </tr>
                       ) : (
                         <tr>
                           <th>Ref</th><th>Type</th><th>Sponsor</th><th>Units</th>
-                          <th>On loan</th><th>Available</th><th>Calibrated</th><th>Status</th><th />
+                          <th>On loan</th><th>Available</th><th>Calibrated</th><th />
                         </tr>
                       )}
                     </thead>
                     <tbody>
                       {shownEquipment.map((e) => {
-                        const m = statusMeta(equipmentStatus, e.status);
                         const calibration = calibrationMeta(e, today, expiringBy);
                         return (
                           <tr key={e.id} className="tap" title="Open equipment details" onClick={() => setViewingEq(e)}>
@@ -677,36 +648,11 @@ export function EquipmentPage() {
                                 <td className="num">{fmtDate(e.calibrated_on)}</td>
                               </>
                             )}
-                            <td>
-                              {isSponsor ? (
-                                <select
-                                  className={selectCls}
-                                  aria-label={`Change status for ${e.equipment_type} (${e.reference_code})`}
-                                  value={e.status}
-                                  onMouseDown={(ev) => ev.stopPropagation()}
-                                  onClick={(ev) => ev.stopPropagation()}
-                                  onChange={(ev) => {
-                                    ev.stopPropagation();
-                                    cycle.mutate({ id: e.id, status: ev.target.value });
-                                  }}
-                                  style={{
-                                    width: 150,
-                                    borderColor: `var(--t-${m.tone}-line)`,
-                                    backgroundColor: `var(--t-${m.tone}-bg)`,
-                                    color: `var(--t-${m.tone})`,
-                                    fontWeight: 600,
-                                  }}
-                                >
-                                  {EQUIPMENT_STATUS_OPTIONS.map((status) => (
-                                    <option key={status} value={status}>{statusMeta(equipmentStatus, status).label}</option>
-                                  ))}
-                                </select>
-                              ) : (
-                                <Pill tone={m.tone}>{m.label}</Pill>
-                              )}
-                            </td>
                             <td className="right" onClick={(ev) => ev.stopPropagation()}><div className="rowactions">
                               <Button size="sm" onClick={() => setViewingEq(e)}>Details</Button>
+                              {isSponsor && (
+                                <Button size="sm" onClick={() => setEditingEq(e)}>Edit</Button>
+                              )}
                               {!isSponsor && (
                                 <Button size="sm" variant="primary" disabled={e.units_available < 1} onClick={() => setBorrowing(e)}>
                                   Request
@@ -777,6 +723,13 @@ export function EquipmentPage() {
         }} />
       )}
       {viewingEq && <EquipmentDetailDialog e={viewingEq} onClose={() => setViewingEq(null)} />}
+      {editingEq && (
+        <EditEquipmentDialog e={editingEq} onClose={() => setEditingEq(null)} onDone={() => {
+          setEditingEq(null);
+          void qc.invalidateQueries({ queryKey: ["equipment"] });
+          toast("Equipment updated", undefined, "success");
+        }} />
+      )}
       {viewingLoan && <LoanDetailDialog l={viewingLoan} onClose={() => setViewingLoan(null)} />}
     </View>
   );
@@ -877,6 +830,69 @@ function AddEquipmentDialog({ onClose, onDone }: { onClose: () => void; onDone: 
   );
 }
 
+function EditEquipmentDialog({ e, onClose, onDone }: { e: EquipmentRow; onClose: () => void; onDone: () => void }) {
+  const [type, setType] = useState(e.equipment_type);
+  const [units, setUnits] = useState(String(e.total_units));
+  const [calibrated, setCalibrated] = useState(e.calibrated_on ?? "");
+  const [expires, setExpires] = useState(e.calibration_expires_on ?? "");
+  const [error, setError] = useState<string | null>(null);
+
+  // Only what differs from the row is sent: an untouched field is left alone
+  // and a cleared date goes as null. The server applies exactly the fields
+  // present, so nothing to send means nothing to save.
+  const changes: Record<string, unknown> = {};
+  if (type.trim() !== e.equipment_type) changes.equipment_type = type.trim();
+  if (Number(units) !== e.total_units) changes.total_units = Number(units);
+  if ((calibrated || null) !== e.calibrated_on) changes.calibrated_on = calibrated || null;
+  if ((expires || null) !== e.calibration_expires_on) changes.calibration_expires_on = expires || null;
+  const dirty = Object.keys(changes).length > 0;
+  const valid = type.trim().length >= 2 && Number(units) >= 1;
+
+  const submit = useMutation({
+    mutationFn: () => patch(`/network/equipment/${e.id}`, changes),
+    onSuccess: onDone,
+    // The refusals worth reading arrive here — "10 units are out on loan" —
+    // so they stay in the dialog, beside the field that caused them.
+    onError: (err) => setError(err instanceof Error ? err.message : "Could not save"),
+  });
+
+  return (
+    <Dialog
+      title={`Edit ${e.equipment_type}`}
+      sub={<span className="id">{e.reference_code}</span>}
+      onClose={onClose}
+      foot={
+        <>
+          <Button onClick={onClose}>Cancel</Button>
+          <Button variant="primary" disabled={!dirty || !valid || submit.isPending} onClick={() => submit.mutate()}>
+            Save changes
+          </Button>
+        </>
+      }
+    >
+      <div className="formgrid">
+        <Field label="Equipment type" required span>
+          {(id) => <input id={id} className={inputCls} value={type} onChange={(ev) => setType(ev.target.value)} />}
+        </Field>
+        <Field
+          label="Units"
+          required
+          hint={e.units_on_loan > 0 ? `${e.units_on_loan} out on loan — the total cannot go below that.` : undefined}
+        >
+          {(id) => <input id={id} className={inputCls} type="number" min={1} value={units} onChange={(ev) => setUnits(ev.target.value)} />}
+        </Field>
+        <Field label="Calibrated on">
+          {(id) => <input id={id} className={inputCls} type="date" value={calibrated} onChange={(ev) => setCalibrated(ev.target.value)} />}
+        </Field>
+        <Field label="Calibration expires" hint="Expired calibration blocks new loans automatically.">
+          {(id) => <input id={id} className={inputCls} type="date" value={expires} onChange={(ev) => setExpires(ev.target.value)} />}
+        </Field>
+      </div>
+      {error && <Callout tone="critical" title={error} />}
+    </Dialog>
+  );
+}
+
 /* --- sponsor: loan queue -------------------------------------------------------- */
 
 const REQUEST_STATUS_ORDER = ["pending", "approved", "issued", "overdue", "returned", "rejected"];
@@ -936,7 +952,7 @@ export function LoanQueuePage() {
   const requestsFiltered = requestFilter !== "all" || Boolean(requestNeedle);
 
   return (
-    <View title="Requests" sub="Approving marks the type in use; a rejection needs a reason the requester can act on.">
+    <View title="Requests" sub="Approving reserves the units; a rejection needs a reason the requester can act on.">
       <div className="g3">
         <Metric label="Awaiting decision" value={pending.length} loading={loans.isLoading} />
         <Metric label="Units requested" value={pending.reduce((s, l) => s + l.units, 0)} loading={loans.isLoading} />

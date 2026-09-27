@@ -54,7 +54,7 @@ async def list_equipment(session: AsyncSession, claims: AccessClaims) -> list[di
     rows = (
         await session.execute(
             text(
-                "SELECT e.id, e.reference_code, e.equipment_type, e.total_units, e.status, "
+                "SELECT e.id, e.reference_code, e.equipment_type, e.total_units, "
                 "       e.calibrated_on, e.calibration_expires_on, e.sponsor_org_id, "
                 "       o.name AS sponsor_name, "
                 "       equipment_units_on_loan(e.id) AS units_on_loan "
@@ -100,17 +100,49 @@ async def add_equipment(
                     f"Added {equipment_type}, {total_units} units ({ref})",
                     [e.id, claims.org_id])
     return {"id": e.id, "reference_code": ref, "equipment_type": equipment_type,
-            "total_units": total_units, "status": e.status}
+            "total_units": total_units}
 
 
-async def set_equipment_status(
-    session: AsyncSession, claims: AccessClaims, equipment_id: uuid.UUID, status: str
-) -> None:
-    # Scoped to the caller's own inventory, not just to the id. equipment_write
-    # already refuses a foreign row, but an UPDATE matching nothing is not an
-    # error: the row loaded through the SELECT policy, was mutated, wrote an
-    # equipment.status audit line, and the caller was told it worked while
-    # nothing had changed. A miss has to be a miss.
+_EDITABLE = ("equipment_type", "total_units", "calibrated_on", "calibration_expires_on")
+
+
+async def update_equipment(
+    session: AsyncSession,
+    claims: AccessClaims,
+    equipment_id: uuid.UUID,
+    changes: dict[str, Any],
+) -> dict[str, Any]:
+    """Edit a device's details: type, unit count, calibration dates.
+
+    `changes` holds only the fields the caller SENT (the route reads pydantic's
+    model_fields_set), so a date is cleared by sending null explicitly and an
+    omitted field is left alone. Until this existed a sponsor could add a
+    device and nothing else — a typo in the type or a fleet that grew were
+    permanent.
+
+    Two things the schema does not enforce are refused here. total_units may
+    not fall below what is out on loan: check_loan_availability only fires when
+    a LOAN changes, so nothing else would notice a sponsor shrinking a fleet
+    underneath live loans. And an expiry before its calibration date is a typo,
+    not a record.
+    """
+    unknown = set(changes) - set(_EDITABLE)
+    if unknown:
+        raise NetworkError(f"Not editable here: {', '.join(sorted(unknown))}.")
+    if not changes:
+        raise NetworkError("Nothing to change.")
+    for required in ("equipment_type", "total_units"):
+        if required in changes and changes[required] is None:
+            raise NetworkError(f"{required.replace('_', ' ').capitalize()} cannot be blank.")
+    if "equipment_type" in changes:
+        changes["equipment_type"] = changes["equipment_type"].strip()
+        if len(changes["equipment_type"]) < 2:
+            raise NetworkError("Give the equipment a name.")
+
+    # Own inventory only. equipment_write already refuses a foreign row, but an
+    # UPDATE matching nothing is not an error: a miss has to be a miss, not a
+    # silent no-op with an audit line — the phantom-success bug this module
+    # once shipped.
     e = (
         await session.execute(
             select(Equipment).where(
@@ -121,10 +153,46 @@ async def set_equipment_status(
     ).scalar_one_or_none()
     if e is None:
         raise LookupError("equipment not found")
-    e.status = status
-    e.updated_by = claims.user_id
-    await audit.log(session, "equipment.status",
-                    f"{e.reference_code} marked {status}", [e.id, claims.org_id])
+
+    if "total_units" in changes:
+        on_loan = (
+            await session.execute(
+                text("SELECT equipment_units_on_loan(:e)"), {"e": equipment_id}
+            )
+        ).scalar_one()
+        if changes["total_units"] < on_loan:
+            raise NetworkError(
+                f"{on_loan} unit{'s are' if on_loan != 1 else ' is'} out on loan — "
+                "the total cannot go below that until they are returned."
+            )
+
+    calibrated = changes.get("calibrated_on", e.calibrated_on)
+    expires = changes.get("calibration_expires_on", e.calibration_expires_on)
+    if calibrated and expires and expires < calibrated:
+        raise NetworkError("Calibration cannot expire before the date it was done.")
+
+    # Only what actually moves is written, old → new. A request that changes
+    # nothing — the dialog re-sent a value the row already had — writes nothing
+    # and leaves no audit line, so the sponsor's activity feed is not filled
+    # with "updated" entries where nothing was.
+    moved = {k: v for k, v in changes.items() if getattr(e, k) != v}
+    if moved:
+        before = {k: getattr(e, k) for k in moved}
+        for field, value in moved.items():
+            setattr(e, field, value)
+        e.updated_by = claims.user_id
+        await session.flush()
+        await audit.log(
+            session, "equipment.updated",
+            f"{e.reference_code} updated: "
+            + ", ".join(f"{k} {before[k]} → {v}" for k, v in moved.items()),
+            [e.id, claims.org_id],
+        )
+    return {
+        "id": e.id, "reference_code": e.reference_code, "equipment_type": e.equipment_type,
+        "total_units": e.total_units,
+        "calibrated_on": e.calibrated_on, "calibration_expires_on": e.calibration_expires_on,
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -216,9 +284,6 @@ async def decide_loan(
         raise NetworkError("Only the sponsor decides its own equipment.")
 
     now = dt.datetime.now(dt.timezone.utc)
-    eq = (
-        await session.execute(select(Equipment).where(Equipment.id == loan.equipment_id))
-    ).scalar_one()
 
     if decision == "approved":
         if loan.status != "pending":
@@ -226,7 +291,6 @@ async def decide_loan(
         loan.status = "approved"
         loan.decided_at = now
         loan.decided_by = claims.user_id
-        eq.status = "in_use"
         try:
             await session.flush()
         except DBAPIError as e:
@@ -245,16 +309,6 @@ async def decide_loan(
             raise NetworkError(f"A {loan.status} loan cannot be returned.")
         loan.status = "returned"
         loan.returned_at = now
-        still_out = (
-            await session.execute(
-                text(
-                    "SELECT equipment_units_on_loan(:e) - :mine"
-                ),
-                {"e": loan.equipment_id, "mine": loan.units},
-            )
-        ).scalar_one()
-        if still_out <= 0:
-            eq.status = "available"
     else:
         raise NetworkError("Unknown decision.")
 

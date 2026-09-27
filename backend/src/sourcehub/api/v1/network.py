@@ -23,10 +23,6 @@ class EquipmentIn(BaseModel):
     calibration_expires_on: dt.date | None = None
 
 
-class EquipmentStatusIn(BaseModel):
-    status: Literal["available", "in_use", "returned", "maintenance", "retired"]
-
-
 class LoanIn(BaseModel):
     equipment_id: uuid.UUID
     units: int = Field(gt=0)
@@ -92,18 +88,36 @@ async def add_equipment(
     )
 
 
-@router.post("/equipment/{equipment_id}/status", status_code=status.HTTP_200_OK)
-async def set_equipment_status(
+class EquipmentPatchIn(BaseModel):
+    """Every field optional; only the ones SENT are applied. A date is cleared
+    by sending null explicitly — an omitted field is left alone."""
+
+    equipment_type: str | None = Field(default=None, min_length=2)
+    total_units: int | None = Field(default=None, gt=0)
+    calibrated_on: dt.date | None = None
+    calibration_expires_on: dt.date | None = None
+
+
+@router.patch("/equipment/{equipment_id}")
+async def update_equipment(
     equipment_id: uuid.UUID,
-    body: EquipmentStatusIn,
+    body: EquipmentPatchIn,
     principal: Principal = Depends(require_capability("equipment.manage")),
     session: AsyncSession = Depends(get_session),
 ):
+    """Edit a device's details. Own inventory only — 404 otherwise, exactly as
+    the status route: never a silent success on someone else's row. Refusals
+    the schema cannot express (units below what is on loan, an expiry before
+    its calibration date) come back as 409 with the reason."""
+    changes = {k: getattr(body, k) for k in body.model_fields_set}
+    if not changes:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, "Nothing to change")
     try:
-        await network.set_equipment_status(session, principal, equipment_id, body.status)
+        return await network.update_equipment(session, principal, equipment_id, changes)
     except LookupError:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Equipment not found") from None
-    return {"status": body.status}
+    except network.NetworkError as e:
+        raise _conflict(e) from None
 
 
 # --- loans -------------------------------------------------------------------
