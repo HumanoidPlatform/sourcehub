@@ -48,7 +48,7 @@ async def list_equipment(session: AsyncSession, claims: AccessClaims) -> list[di
     case. This used to say "RLS is the filter", and that is precisely how a
     widened sibling policy came to show every device sponsor its rivals' stock
     levels with nothing here to catch it
-    (db/210_equipment_sibling_scope.sql). The sponsor predicate below is
+    (db/220_equipment_sibling_scope.sql). The sponsor predicate below is
     duplication on purpose: the one boundary a reader of this function can
     actually see is the one worth not delegating."""
     rows = (

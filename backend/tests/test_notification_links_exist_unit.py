@@ -67,7 +67,8 @@ def _notify_sites() -> list[tuple[str, int, str | None]]:
             if not isinstance(node, ast.Call):
                 continue
             name = (
-                node.func.attr if isinstance(node.func, ast.Attribute)
+                node.func.attr
+                if isinstance(node.func, ast.Attribute)
                 else getattr(node.func, "id", None)
             )
             if name != "notify":
@@ -93,7 +94,7 @@ def _routed_pages() -> set[str]:
     page names in prose — including the ones describing this very class of bug.
     """
     text = SWITCH.read_text(encoding="utf-8")
-    code = "\n".join(l for l in text.splitlines() if not l.strip().startswith("//"))
+    code = "\n".join(line for line in text.splitlines() if not line.strip().startswith("//"))
     return set(re.findall(r'case\s+"([^"]+)"\s*:', code))
 
 
@@ -104,6 +105,7 @@ ROUTED = _routed_pages()
 # Anti-vacuous. Both extractors above are regex/AST over other people's files;
 # if either silently returns nothing, every assertion below passes.
 # ---------------------------------------------------------------------------
+
 
 def test_the_call_sites_were_actually_found():
     assert len(SITES) >= 20, f"only {len(SITES)} notify() call sites found — extractor broken?"
@@ -120,6 +122,7 @@ def test_the_switch_was_actually_parsed():
 # The invariant
 # ---------------------------------------------------------------------------
 
+
 def test_every_emitted_page_is_routed_by_the_console():
     unrouted = sorted(EMITTED - ROUTED - set(NOT_ROUTED_ON_PURPOSE))
     assert not unrouted, (
@@ -134,12 +137,10 @@ def test_the_allowlist_has_not_gone_stale():
     # mask a real regression if that name came back.
     for page in NOT_ROUTED_ON_PURPOSE:
         assert page in EMITTED, (
-            f"{page!r} is allowlisted as unrouted but nothing emits it any more — "
-            "remove the entry"
+            f"{page!r} is allowlisted as unrouted but nothing emits it any more — remove the entry"
         )
         assert page not in ROUTED, (
-            f"{page!r} is allowlisted as unrouted but the console now routes it — "
-            "remove the entry"
+            f"{page!r} is allowlisted as unrouted but the console now routes it — remove the entry"
         )
 
 
@@ -151,6 +152,7 @@ def test_every_allowlisted_page_says_why():
 # ---------------------------------------------------------------------------
 # The specific bug: a device sponsor's loan alert
 # ---------------------------------------------------------------------------
+
 
 def test_the_loan_request_alert_points_at_the_sponsors_queue():
     """request_loan notifies the SPONSOR, whose queue is /loans.

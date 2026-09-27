@@ -37,8 +37,8 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-SQL = ROOT / "db" / "210_equipment_sibling_scope.sql"
-MIGRATION = ROOT / "backend" / "migrations" / "versions" / "0023_equipment_sibling_scope.py"
+SQL = ROOT / "db" / "220_equipment_sibling_scope.sql"
+MIGRATION = ROOT / "backend" / "migrations" / "versions" / "0024_equipment_sibling_scope.py"
 BUNDLE = ROOT / "infra" / "bundle_schema.sh"
 SERVICE = ROOT / "backend" / "src" / "sourcehub" / "modules" / "network" / "service.py"
 
@@ -100,6 +100,7 @@ def _sql_of(name: str) -> str:
 # The two files stay one change
 # ---------------------------------------------------------------------------
 
+
 def test_the_migration_carries_the_sql_verbatim():
     # Hand-copying is how the two drift, and a drift means the bootstrap and
     # migration paths build different schemas.
@@ -110,7 +111,7 @@ def test_the_new_file_is_in_the_bundle():
     # Explicit, not globbed (bundle_schema.sh). A file left off it works in
     # compose and is simply absent from every managed database — so the policy
     # would stay wide open exactly where it matters.
-    assert "210_equipment_sibling_scope" in BUNDLE.read_text(encoding="utf-8")
+    assert "220_equipment_sibling_scope" in BUNDLE.read_text(encoding="utf-8")
 
 
 def test_the_downgrade_restores_the_old_predicate():
@@ -122,6 +123,7 @@ def test_the_downgrade_restores_the_old_predicate():
 # ---------------------------------------------------------------------------
 # The policy itself
 # ---------------------------------------------------------------------------
+
 
 def test_the_policy_gates_on_the_callers_kind():
     # The regression guard. Without this clause the policy is the one that
@@ -159,9 +161,7 @@ def test_only_the_borrowing_kinds_are_admitted():
 def test_the_old_policy_is_dropped_first():
     # Without this the file fails on a fresh bootstrap, where db/110 created the
     # broad version moments earlier, and the narrow one never lands.
-    assert re.search(
-        r"DROP POLICY IF EXISTS equipment_select_siblings ON equipment;", CODE
-    ), CODE
+    assert re.search(r"DROP POLICY IF EXISTS equipment_select_siblings ON equipment;", CODE), CODE
     assert CODE.index("DROP POLICY") < CODE.index("CREATE POLICY")
 
 
@@ -181,6 +181,7 @@ def test_nothing_else_is_widened():
 # ---------------------------------------------------------------------------
 # Defence in depth in the service
 # ---------------------------------------------------------------------------
+
 
 def test_list_equipment_scopes_the_sponsor_case():
     """The query must not rely on the policy alone.
@@ -215,6 +216,7 @@ def test_the_predicate_does_not_check_a_role_name_in_python():
 # The phantom status write
 # ---------------------------------------------------------------------------
 
+
 def test_set_equipment_status_loads_only_its_own_row():
     """equipment_write refused the UPDATE; that was never enough.
 
@@ -227,9 +229,7 @@ def test_set_equipment_status_loads_only_its_own_row():
     wheres = [
         ast.unparse(n)
         for n in ast.walk(fn)
-        if isinstance(n, ast.Call)
-        and isinstance(n.func, ast.Attribute)
-        and n.func.attr == "where"
+        if isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute) and n.func.attr == "where"
     ]
     assert wheres, "set_equipment_status must filter its select"
     assert any("sponsor_org_id" in w and "claims.org_id" in w for w in wheres), wheres

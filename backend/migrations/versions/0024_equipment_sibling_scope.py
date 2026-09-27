@@ -1,5 +1,44 @@
+"""Sibling equipment visibility belongs to borrowers, not to rivals.
+
+Fix 7 (db/110_auth_functions.sql) opened sibling equipment so a supplier could
+see what it may borrow. Its predicate asks only whether the OWNER is a sibling,
+never who is asking — and a device sponsor is itself a child of a tenant, so
+every other sponsor under that tenant is its sibling. Permissive policies OR
+together, so that one clause overrode the own-org scoping in equipment_select
+for exactly the party that must not have it.
+
+In the deployed system a sponsor onboarded to a partner opened Inventory before
+adding anything of its own and saw six devices belonging to the two competing
+sponsors in the same network, under the heading "Your fleet".
+
+This narrows the policy to the audience it was written for: aggregator and
+business, the kinds that hold equipment.request. The borrow path is unchanged,
+equipment_write is untouched, and a sponsor keeps its own inventory through
+equipment_select's first clause.
+
+No new table, no new column, no new function.
+
+SQL copied verbatim from db/220_equipment_sibling_scope.sql so the bootstrap and
+migration paths keep producing identical schemas (make verify-schema); a test
+asserts the two stay byte-identical.
+
+Executed one statement at a time — the same splitter 0012 to 0014, 0018 to 0020
+and 0022 use, because asyncpg refuses two statements in one execute.
+
+Revision ID: 0024
+Revises: 0023
+"""
+
+from alembic import op
+
+revision = "0024"
+down_revision = "0023"
+branch_labels = None
+depends_on = None
+
+_UP = """
 -- ============================================================================
--- 210 · Sibling equipment visibility belongs to borrowers, not to rivals
+-- 220 · Sibling equipment visibility belongs to borrowers, not to rivals
 --
 -- Fix 7 (db/110_auth_functions.sql) opened sibling equipment so that a
 -- supplier could see what it may borrow, and said so in its own words: "a
@@ -55,3 +94,40 @@ CREATE POLICY equipment_select_siblings ON equipment FOR SELECT
        current_org_kind() IN ('aggregator','business')
    AND org_is_my_network_sibling(sponsor_org_id)
   );
+"""
+
+_DOWN = """
+-- Back to the predicate Fix 7 shipped: sibling-hood alone, whoever is asking.
+DROP POLICY IF EXISTS equipment_select_siblings ON equipment;
+
+CREATE POLICY equipment_select_siblings ON equipment FOR SELECT
+  USING (org_is_my_network_sibling(sponsor_org_id));
+"""
+
+
+def _statements(ddl: str) -> list[str]:
+    out: list[str] = []
+    buf: list[str] = []
+    in_body = False
+    for line in ddl.splitlines():
+        if line.count("$fn$") == 1:
+            in_body = not in_body
+        buf.append(line)
+        if not in_body and line.rstrip().endswith(";"):
+            stmt = chr(10).join(buf).strip()
+            buf = []
+            lines = stmt.splitlines()
+            only_comments = all(ln.strip().startswith("--") or not ln.strip() for ln in lines)
+            if stmt and not only_comments:
+                out.append(stmt)
+    return out
+
+
+def upgrade() -> None:
+    for stmt in _statements(_UP):
+        op.execute(stmt)
+
+
+def downgrade() -> None:
+    for stmt in _statements(_DOWN):
+        op.execute(stmt)
