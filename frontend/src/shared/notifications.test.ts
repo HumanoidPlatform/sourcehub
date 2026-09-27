@@ -53,23 +53,59 @@ describe("the links that already worked", () => {
     ["onboarding", "o1", "/onboarding"],
     ["qa", undefined, "/qa"],
     ["proposals", undefined, "/proposals"],
-    ["network", undefined, null],
   ])("%s -> %s", (page, id, want) => {
     expect(notificationHref(row(page as string, id as string | undefined))).toBe(want);
   });
 });
 
+describe("a network notification", () => {
+  it("opens the partner's network page instead of nowhere", () => {
+    // This test used to assert null, which enshrined the bug: /network is in
+    // the tenant's own sidebar and the route has always existed, but
+    // onboarding/service.py's two alerts had no case, so "X was approved and
+    // is now in your network" was unclickable.
+    expect(notificationHref(row("network"))).toBe("/network");
+  });
+
+  it("ignores link_params.onboarding_id, which is not an :id route", () => {
+    // onboarding/service.py:326 sends {"onboarding_id": ...}, not {"id": ...},
+    // so there is nothing for the switch to interpolate even if /network/:id
+    // existed — which it does not.
+    expect(notificationHref(row("network", "o1"))).toBe("/network");
+  });
+});
+
+describe("a loan alert", () => {
+  const loan = "0f0c2f2e-0000-4000-8000-000000000001";
+
+  it("opens the sponsor's loan queue, not the RFP list", () => {
+    // The bug this file used to enshrine. request_loan tagged the SPONSOR's
+    // notification "requests", which is the CLIENT's RFP list, so a device
+    // sponsor clicking "X requests 40 × Helmet camera" landed on a page
+    // offering to publish an RFP — empty, because RLS returns them none. The
+    // sponsor's own queue is /loans, the sidebar item they see as "Requests".
+    // network/service.py now sends "loans"; this case was always here waiting.
+    expect(notificationHref(row("loans", loan))).toBe("/loans");
+  });
+
+  it("does not put the loan id in the path", () => {
+    // The original trap, kept. /loans is a queue, not a detail page, and there
+    // is no /loans/:id route — so "finishing the job" by making every case use
+    // its id would send the sponsor to a 404.
+    expect(notificationHref(row("loans", loan))).not.toContain(loan);
+  });
+});
+
 describe("the id that must NOT be used", () => {
-  it('sends a loan alert to /requests, never to /requests/<loan id>', () => {
-    // A trap for anyone "finishing the job" by making every case use its id.
-    // network/service.py:146 sends link_page "requests" with a LOAN id, and
-    // /requests/:id exists — so that change would route a device sponsor to
-    // RequestDetailPage fetching a loan uuid, and 404. The destination it
-    // actually wants is /loans.
-    const loan = "0f0c2f2e-0000-4000-8000-000000000001";
-    const href = notificationHref(row("requests", loan));
+  it('sends an RFP-list alert to /requests, never to /requests/<id>', () => {
+    // Unchanged intent: /requests/:id exists and renders RequestDetailPage, so
+    // a case that appended an id here would fetch whatever uuid it was handed.
+    // Nothing emits "requests" any more, but the case remains correct for a
+    // client, and this is what stops it acquiring an id later.
+    const id = "0f0c2f2e-0000-4000-8000-000000000001";
+    const href = notificationHref(row("requests", id));
     expect(href).toBe("/requests");
-    expect(href).not.toContain(loan);
+    expect(href).not.toContain(id);
   });
 });
 

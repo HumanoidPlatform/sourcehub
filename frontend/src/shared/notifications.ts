@@ -33,6 +33,17 @@ export function notificationHref(n: NotificationRow): string | null {
     case "gate1": return "/review";
     case "equipment": return "/equipment";
     case "loans": return "/loans";
+    // The sponsor's queue, and the partner's answer to "who wants my kit".
+    // Nothing emitted "loans" until network/service.py stopped mislabelling a
+    // loan alert as "requests" — which sent a device sponsor to the client's
+    // RFP list, empty, with a button offering to publish one.
+    //
+    // "network" is the same omission as gate1 and onboarding below: the tenant
+    // has /network in its own sidebar and the route has always existed, but
+    // onboarding/service.py's two alerts ("X was approved and is now in your
+    // network") fell through to null, so the moment a partner's network grew
+    // was the one row in the bell that did nothing.
+    case "network": return "/network";
     case "billing": return "/billing";
     // The operator's pages were missing from this map entirely, and Ops has
     // exactly one inbound notification: onboarding/service.py sends

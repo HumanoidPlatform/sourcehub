@@ -41,7 +41,16 @@ class NetworkError(Exception):
 
 async def list_equipment(session: AsyncSession, claims: AccessClaims) -> list[dict[str, Any]]:
     """Sponsor: own inventory. Tenant: every sponsor in its network. Supplier:
-    equipment it holds a live loan on. All one query — RLS is the filter."""
+    every sibling sponsor's inventory to borrow from, plus anything it holds a
+    live loan on.
+
+    One query, and RLS decides most of it — but deliberately not the sponsor
+    case. This used to say "RLS is the filter", and that is precisely how a
+    widened sibling policy came to show every device sponsor its rivals' stock
+    levels with nothing here to catch it
+    (db/210_equipment_sibling_scope.sql). The sponsor predicate below is
+    duplication on purpose: the one boundary a reader of this function can
+    actually see is the one worth not delegating."""
     rows = (
         await session.execute(
             text(
@@ -50,7 +59,12 @@ async def list_equipment(session: AsyncSession, claims: AccessClaims) -> list[di
                 "       o.name AS sponsor_name, "
                 "       equipment_units_on_loan(e.id) AS units_on_loan "
                 "FROM equipment e JOIN organisation o ON o.id = e.sponsor_org_id "
-                "WHERE e.deleted_at IS NULL ORDER BY e.reference_code"
+                "WHERE e.deleted_at IS NULL "
+                # Asked with the helpers the policies use, not a role name in
+                # Python: shared/rbac — "adding a role is a database INSERT".
+                "  AND (current_org_kind() <> 'sponsor' "
+                "       OR e.sponsor_org_id = current_org_id()) "
+                "ORDER BY e.reference_code"
             )
         )
     ).mappings().all()
@@ -92,8 +106,18 @@ async def add_equipment(
 async def set_equipment_status(
     session: AsyncSession, claims: AccessClaims, equipment_id: uuid.UUID, status: str
 ) -> None:
+    # Scoped to the caller's own inventory, not just to the id. equipment_write
+    # already refuses a foreign row, but an UPDATE matching nothing is not an
+    # error: the row loaded through the SELECT policy, was mutated, wrote an
+    # equipment.status audit line, and the caller was told it worked while
+    # nothing had changed. A miss has to be a miss.
     e = (
-        await session.execute(select(Equipment).where(Equipment.id == equipment_id))
+        await session.execute(
+            select(Equipment).where(
+                Equipment.id == equipment_id,
+                Equipment.sponsor_org_id == claims.org_id,
+            )
+        )
     ).scalar_one_or_none()
     if e is None:
         raise LookupError("equipment not found")
@@ -143,7 +167,11 @@ async def request_loan(
     await notifier.notify(
         session, eq["sponsor_org_id"],
         f"{claims.org_name} requests {units} × {eq['equipment_type']}.",
-        "requests", {"id": str(loan.id)},
+        # "loans", not "requests". This goes to the SPONSOR, whose loan queue is
+        # /loans — the sidebar item they see labelled "Requests". "requests" is
+        # the client's RFP list, so a sponsor clicking this landed on a screen
+        # offering to publish an RFP, empty because RLS returns them none.
+        "loans", {"id": str(loan.id)},
     )
     await audit.log(session, "loan.requested",
                     f"Requested {units} × {eq['equipment_type']} ({ref})",
