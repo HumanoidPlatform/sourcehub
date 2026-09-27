@@ -529,8 +529,13 @@ const words = (s: string | null | undefined) => (s ?? "").replace(/_/g, " ").tri
 function draftSubject(r: Rfp): SubjectSpec {
   const subject = words(r.spec.sampling_frame?.subject_type);
   const place = words(r.spec.location_type);
+  // On a visual request the category IS the medium — "image", "video" — and
+  // seeding the subject with it is why every pilot clip raised the retake
+  // dialog: the labeller can never match it. Blank means no subject check,
+  // which is better than a check that fails on every capture.
+  const fromCategory = words(r.category);
   return {
-    domain: subject || words(r.category),
+    domain: subject || (looksLikeMediaWord(fromCategory) ? "" : fromCategory),
     must_show: [subject, place].filter(Boolean),
     must_not_show: ["person", "selfie", "screenshot"],
   };

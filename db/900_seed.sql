@@ -201,7 +201,9 @@ INSERT INTO defect_code (code, label, category, automated) VALUES
   ('redaction',       'Redaction verification failed','compliance', true),
   ('malware',         'Malware detected',             'compliance', true),
   ('wrong_subject',   'Wrong subject or location',    'coverage',   false),
-  ('consent_missing', 'Consent artefact missing',     'compliance', false);
+  ('consent_missing', 'Consent artefact missing',     'compliance', false),
+  -- the reviewer's escape hatch at gate 1, where the note carries the meaning
+  ('other',           'Something else',                 'coverage',   false);
 
 
 -- ---------------------------------------------------------------------------

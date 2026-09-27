@@ -509,14 +509,55 @@ r = agg.post(f"/tasks/{task2['id']}/submit", json={})
 assert r.status_code == 409, f"TASK SUBMITTED WITH AN OPEN ASSIGNMENT: {r.status_code} {r.text}"
 ok("task cannot go to the partner before gate 1", r.json()["detail"][:40])
 
+MARK = {"asset_id": p1a["asset_id"], "outcome": "retake", "reason": "exposure",
+        "note": "glare across the top shelf"}
+
 r = agg.post(f"/assignments/{a1['id']}/decide", json={
-    "outcome": "reject", "note": "Retake 2 with less glare."})
+    "outcome": "reject", "note": "Retake 2 with less glare.",
+    "marks": [{**MARK, "reason": "not_a_real_defect"}]})
+assert r.status_code == 409, f"AN INVENTED DEFECT CODE WAS ACCEPTED: {r.status_code} {r.text}"
+assert "not_a_real_defect" in r.text, r.text
+ok("a reason the platform does not know is refused", r.json()["detail"][:44])
+
+# Marks and the verdict have to agree, and the refusal must take the marks with
+# it: nothing is half-applied.
+r = agg.post(f"/assignments/{a1['id']}/decide", json={"outcome": "accept", "marks": [MARK]})
+assert r.status_code == 409, f"ACCEPTED A BATCH WITH A RETAKE MARK: {r.status_code} {r.text}"
+still = agg.get(f"/assignments/{a1['id']}/assets").json()
+assert all(x["status"] == "ready" for x in still), f"MARKS SURVIVED A REFUSED VERDICT: {still}"
+ok("accept refused while a capture is marked, and the marks roll back with it")
+
+r = agg.post(f"/assignments/{a1['id']}/decide", json={
+    "outcome": "reject", "note": "Retake 2 with less glare.", "marks": [MARK]})
 assert r.status_code == 200 and r.json()["assignment_status"] == "rejected", r.text
+assert r.json()["retake"] == 1, r.json()
 mine = worker1.get("/me/assignments").json()[0]
 assert mine["status"] == "rejected" and "glare" in mine["decision_note"], mine
-ok("gate 1 rejects with a note the worker can read")
+# The marked frame stops counting; the two that passed survive the round trip.
+assert mine["assets"]["ready"] == 2, f"A KEPT CAPTURE WAS LOST IN THE ROUND TRIP: {mine['assets']}"
+ok("gate 1 sends back one capture, not the batch", "2 of 3 still ready")
+
+marked = next(x for x in worker1.get(f"/assignments/{a1['id']}/assets").json()
+              if x["id"] == p1a["asset_id"])
+assert marked["status"] == "rejected" and marked["review_reason"] == "exposure", marked
+assert "glare" in (marked["review_note"] or ""), marked
+# The worker has to be able to LOOK at the frame they are being asked to redo.
+r = worker1.get(f"/assets/{p1a['asset_id']}/url")
+assert r.status_code == 200, f"WORKER CANNOT SEE WHAT WAS SENT BACK: {r.status_code} {r.text}"
+ok("the worker reads the reason and can still open the frame", marked["review_label"])
 
 assert worker1.post(f"/assignments/{a1['id']}/start").json()["status"] == "in_progress"
+r = worker1.post(f"/assignments/{a1['id']}/submit", json={"note": "Nothing changed."})
+assert r.status_code == 409, f"RESUBMITTED WITHOUT REPLACING THE SENT-BACK FRAME: {r.text}"
+ok("the batch cannot go back up until the frame is replaced", r.json()["detail"][:44])
+
+# A sent-back frame does not hold a slot either (presign_asset counts on the
+# same NOT IN ('rejected','erased')), so the replacement can be shot before the
+# worker gets round to deleting it.
+p_extra, _ = capture(worker1, a1["id"], "shelf-05.jpg", b"\xff\xd8\xff" + b"shelf-05" * 400)
+r = worker1.delete(f"/assets/{p_extra['asset_id']}")
+assert r.status_code == 204, r.text
+ok("a sent-back frame frees its slot for the replacement")
 # Rework replaces a shot, it does not add a fourth: the assignment is still for
 # three. The glary one goes, then the retake takes its place.
 r = worker1.delete(f"/assets/{p1a['asset_id']}")

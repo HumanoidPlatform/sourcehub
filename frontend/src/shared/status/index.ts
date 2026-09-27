@@ -104,7 +104,9 @@ export const assetStatus: StatusMap = {
   uploaded: { label: "Uploaded", tone: "active", owner: null },
   ready: { label: "Ready", tone: "success", owner: null },
   quarantined: { label: "Quarantined", tone: "critical", owner: "supplier" },
-  rejected: { label: "Discarded", tone: "neutral", owner: null },
+  // a reviewer marked this one to be shot again; it stops counting toward
+  // the quantity and is never bundled to the partner
+  rejected: { label: "Sent back", tone: "critical", owner: "supplier" },
   erased: { label: "Erased", tone: "neutral", owner: null },
 };
 

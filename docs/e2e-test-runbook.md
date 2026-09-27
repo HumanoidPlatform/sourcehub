@@ -19,26 +19,38 @@ finding rather than a judgement call.*
 YOUR LAPTOP                                   REMOTE / SHARED
   console  npm run dev      :5173  ──┐
   (this branch)                      │
-  API      uvicorn          :8000  ──┼────▶  Postgres on the VM  172.210.12.246/appdb
-  (this branch)                      │        live data, Alembic 0021
+  API      uvicorn          :8000  ──┼────▶  Postgres in docker compose  localhost:5432
+  (this branch)                      │        (the VM's own Postgres is NOT reachable)
                                      ├────▶  Gmail SMTP  as vaieoncosarathi@gmail.com
                                      └────▶  Azure Blob  cosarathistorage  (real bytes)
 
 WORKER'S PHONE
-  DataMind360 Capture (video)  ──────────▶  the VM's DEPLOYED API (9ce7d99 image)
-                                              └──▶ the same Postgres, the same Blob
+  DataMind360 Capture (video)  ──────────▶  the VM's DEPLOYED API
+      datamind360.centralindia.cloudapp.azure.com   (20.204.106.170)
+                                              └──▶ the VM's Postgres, the same Blob
 ```
+
+**A laptop cannot reach the VM's database.** Its 5432 is deliberately unpublished
+(`infra/deploy/docker-compose.yml:53` — an earlier VM was compromised through that port), and
+the `172.210.12.246` this document used to name is dead: the VM is now `20.204.106.170`. So a
+local run uses the **local compose database**, and the phone's data lives only on the VM. The
+two are separate stores, and nothing you do on the laptop is visible to the phone.
 
 A task you create is the team's task. A clip you upload is production bytes. A mail you
 send arrives in a real inbox — **only ever offer work to `vaishnavi.neela@gmail.com` or
 `vaieoncosarathi@gmail.com`.**
 
-### Two API processes, one database
+### Two API processes, two databases
 
 Your laptop serves the console from this branch. The phone can only reach the VM's
 deployed API: the address is compiled into the build (`mobile/src/config.ts`,
-`ALLOW_SERVER_OVERRIDE = __DEV__`). That API is the **9ce7d99** image, so the phone is held
-to its rules:
+`ALLOW_SERVER_OVERRIDE = __DEV__`), and a build that is not a development one cannot even
+speak plain `http://` — `app.config.js:18` strips that permission from the binary. So the
+phone cannot be pointed at a laptop, and the parts below that need a phone need the VM
+deployed.
+
+Until an image built from this branch is deployed, the VM runs **9ce7d99** and the phone is
+held to its rules:
 
 - **100 MB per video** (`media/service.py:52` at that commit). A 36 s 1080p clip is about
   60 MB; keep test clips short or presign answers 422.
@@ -47,12 +59,17 @@ to its rules:
 
 ### Known broken before you start — do not report it again
 
-The database is **ahead** of that deployed API. Migration `0020` dropped
-`crowd_worker.skill`, which 9ce7d99 still reads (`network/service.py:267`) and writes
-(`api/v1/network.py:156`). So on **`datamind360.centralindia.cloudapp.azure.com`**, listing, adding
-and inviting a crowd resource error. It clears the moment an api image built from this
-branch is deployed. Capture is unaffected — no worker-facing endpoint reads that column —
-so the phone parts below are valid.
+**Only while the VM still runs 9ce7d99.** Its database is ahead of it: migration `0020`
+dropped `crowd_worker.skill`, which that image still reads (`network/service.py:267`) and
+writes (`api/v1/network.py:156`), so on
+**`datamind360.centralindia.cloudapp.azure.com`** listing, adding and inviting a crowd
+resource error. Deploying an api image built from this branch clears it — and is the first
+thing to check afterwards, because a working Crowd roster is what proves the new image is
+really serving. Capture is unaffected: no worker-facing endpoint reads that column.
+
+This branch also carries migration **`0023`** (the four `asset` review columns behind gate-1
+retake marks). The new api image needs it, so it must be applied **before** that image
+starts serving — `infra/deploy/README.md` has the order and the one-line runner.
 
 ### Bring it up
 
@@ -259,15 +276,36 @@ off-subject"*.
 **still** (amber) or **unchecked** (grey). Open one: the preview plays the clip and the
 **Phone check** rows list every finding with its score.
 
-**D3 · Reject with a note.** Reject the batch, note `E2E rework`.
+**D3 · Mark one capture, not the batch.** Open the bad clip in the preview, choose a
+reason from **Retake — why?** (say *Too dark, or glare*), and type a word or two in the
+line under it. Leave the other captures alone.
+
+→ *Expect:* the tile gains a red **✗**; the count under the grid reads
+*"1 to retake · 0 keep · N unmarked"*; the **Verdict note** fills itself in with
+*"1 to retake: 1 too dark, or glare."*; and **Accept** goes dead, its tooltip reading
+*"1 marked to be shot again — send the batch back, or keep them"*. Typing over the note
+must stop it being rewritten by the next mark.
+
+**D4 · Send it back.** Press **Send back**.
 
 → *Expect:* toast **"Sent back to the crowd resource"**. On the phone the assignment
-returns to work with the note visible.
+returns to work: the red callout carries the note **and** the line *"1 to shoot again ·
+the rest are kept"*, the progress meter has dropped by one (**N−1 of N**), and the marked
+capture alone carries a red **Retake** tag with the reason under it. **The captures that
+passed are still there and must not be re-shot.** Tapping the sent-back one still opens
+it — the worker has to see what they are being asked to redo.
 
-**D4 · Rework and accept.** On the phone remove the bad clip, shoot a good one, resubmit.
-Accept the batch.
+**D5 · Rework and accept.** On the phone, shoot a replacement — a sent-back capture no
+longer occupies one of the N slots, so it does **not** have to be deleted first (delete it
+if you want to; either way works). Resubmit, then accept the batch.
 
-**D5 · Gate 2.** As the **partner**, submit the task to the client; pass it at gate 2.
+→ *Expect:* resubmitting **before** shooting the replacement is refused, naming the
+shortfall. The captures that passed are not re-shot.
+
+→ *Expect:* the accepted bundle is the full quantity, and the sent-back capture never
+appears in the partner's view of the task.
+
+**D6 · Gate 2.** As the **partner**, submit the task to the client; pass it at gate 2.
 
 → *Expect:* the task reaches **qa_passed** and the review trail lists both gates with their
 notes.

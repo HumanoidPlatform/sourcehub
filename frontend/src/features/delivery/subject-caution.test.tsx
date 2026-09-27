@@ -55,6 +55,15 @@ const CONTRACT = {
 const CROWD = { id: "o-crowd", name: "Bengaluru Crowd Collective", reference_code: "AG-01",
   kind: "aggregator", status: "active", country: "IN", profile: { crowd_size: 480 } };
 
+// The client's brief. Its category is the MEDIUM, and the brief names no
+// subject type -- which is every video request on the pilot database.
+const VIDEO_BRIEF = {
+  id: "r1", reference_code: "RFP-1011", title: "Aisle clips, Bengaluru",
+  category: "video", status: "open",
+  spec: { location_type: "retail_store", capture: { media: ["video"] } },
+  attachments: [],
+};
+
 function show() {
   const router = createMemoryRouter(
     [{ path: "/contracts/:id", element: <ContractDetailPage /> },
@@ -126,6 +135,28 @@ describe("the Subject field", () => {
     typeSubject(dlg, "retail shelf");
     expect(within(dlg).queryByTestId("subject-caution")).toBeNull();
     typeSubject(dlg, "video wall");
+    expect(within(dlg).queryByTestId("subject-caution")).toBeNull();
+  });
+
+  it("is not pre-filled with the medium when that is all the category says", async () => {
+    // draftSubject falls back to the request category, and on a visual request
+    // the category IS the medium. It handed every partner the one word the
+    // phone's labeller can never match, so the caution fired on a field nobody
+    // had typed in. Blank means no subject check, which beats one that fails
+    // on every capture.
+    api.get.mockImplementation((path: string) => {
+      if (path === "/contracts/c1") return Promise.resolve(CONTRACT);
+      if (path === "/requests/r1") return Promise.resolve(VIDEO_BRIEF);
+      if (path === "/organisations?kind=aggregator") return Promise.resolve([CROWD]);
+      if (path === "/organisations?kind=business") return Promise.resolve([]);
+      return Promise.resolve(null);
+    });
+    const dlg = await openDialog();
+    // The brief arrives on its own query; the prefill runs when it does.
+    await waitFor(() =>
+      expect((within(dlg).getByLabelText(/^Must show/) as HTMLInputElement).value).toBe("retail store"),
+    );
+    expect((within(dlg).getByLabelText(/^Subject/) as HTMLInputElement).value).toBe("");
     expect(within(dlg).queryByTestId("subject-caution")).toBeNull();
   });
 

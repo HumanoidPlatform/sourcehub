@@ -167,10 +167,17 @@ function LocalTile({ row, onRemove }: { row: CaptureRow; onRemove?: (o: { captur
 }
 
 function RemoteTile({ asset, onRemove }: { asset: AssetRow; onRemove?: (o: { captureId?: string; assetId?: string }) => void }) {
-  const viewable = asset.status === "ready";
+  // A capture the aggregator sent back is still viewable: seeing WHICH frame
+  // they objected to is the whole point of the round, and the server allows
+  // the signed URL for the supplier's own people for exactly that reason.
+  const viewable = asset.status === "ready" || asset.status === "rejected";
   const url = useAssetUrl(asset.id, viewable);
   const m = meta(assetStatus, asset.status);
   const isVideo = (asset.mime_type ?? "").startsWith("video/");
+  const why =
+    asset.status === "rejected"
+      ? [asset.review_label ?? asset.review_reason, asset.review_note].filter(Boolean).join(" — ")
+      : "";
   return (
     <Tile
       uri={url.data?.url}
@@ -179,6 +186,7 @@ function RemoteTile({ asset, onRemove }: { asset: AssetRow; onRemove?: (o: { cap
       placeholder={isVideo ? "▶" : viewable ? "…" : "◌"}
     >
       <Tag tone={m.tone} text={m.label} />
+      {why ? <Text numberOfLines={2} style={g.err}>{why}</Text> : null}
       {onRemove && <RemoveButton onPress={() => onRemove({ assetId: asset.id })} />}
     </Tile>
   );

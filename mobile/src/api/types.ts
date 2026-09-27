@@ -131,6 +131,13 @@ export interface AssetRow {
   captured_at: string | null;
   uploaded_at: string | null;
   created_at: string;
+  /** The aggregator's verdict on THIS capture at gate 1. Set only on one sent
+   *  back to be shot again, where status is "rejected". review_label is the
+   *  reason as a person reads it. Absent on an older API. */
+  review_reason?: string | null;
+  review_label?: string | null;
+  review_note?: string | null;
+  reviewed_at?: string | null;
 }
 
 export interface Presign {

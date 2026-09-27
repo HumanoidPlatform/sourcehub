@@ -11,7 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { get } from "@api/client";
 import type { AssetRow, AssetUrl } from "@api/types";
-import { Button, Dl, Empty } from "@ds/primitives";
+import { Button, Dl, Empty, inputCls, selectCls } from "@ds/primitives";
 import { fmtDateTime } from "@shared/format";
 import { assetStatus, statusMeta } from "@shared/status";
 
@@ -74,6 +74,23 @@ export function fmtBytes(n: number | null | undefined): string {
   return `${(n / (1024 * 1024)).toFixed(1)} MB`;
 }
 
+/** Why a capture is being sent back. The codes are defect_code.code, seeded in
+ *  db/900_seed.sql — the server refuses anything not in that table, so a drift
+ *  here shows up as a refusal rather than as a bad row. */
+export const RETAKE_REASONS: [string, string][] = [
+  ["blur", "Blurred"],
+  ["occlusion", "Obscured or badly framed"],
+  ["wrong_subject", "Wrong subject or place"],
+  ["missing_geotag", "No location fix"],
+  ["exposure", "Too dark, or glare"],
+  ["other", "Something else"],
+];
+
+export type Mark = { outcome: "keep" | "retake"; reason?: string; note?: string };
+
+const reasonLabel = (code: string | null | undefined): string =>
+  RETAKE_REASONS.find(([v]) => v === code)?.[1] ?? code ?? "";
+
 export function isVideo(a: AssetRow): boolean {
   return (a.mime_type ?? "").startsWith("video/") || /\.(mp4|mov)$/i.test(a.filename ?? "");
 }
@@ -83,16 +100,20 @@ const fill: React.CSSProperties = { width: "100%", height: "100%", objectFit: "c
 function AssetThumb({
   asset,
   selected,
+  mark,
   onOpen,
   onRemove,
 }: {
   asset: AssetRow;
   selected: boolean;
+  mark?: Mark;
   onOpen: (a: AssetRow) => void;
   onRemove?: (a: AssetRow) => void;
 }) {
   const [ref, inView] = useInView<HTMLDivElement>();
-  const viewable = asset.status === "ready";
+  // A capture the aggregator sent back is still viewable by the supplier's own
+  // people — the worker has to see which frame to shoot again.
+  const viewable = asset.status === "ready" || asset.status === "rejected";
   const url = useAssetUrl(asset.id, inView && viewable);
   const meta = statusMeta(assetStatus, asset.status);
   const label = asset.filename ?? asset.id.slice(0, 8);
@@ -127,6 +148,21 @@ function AssetThumb({
       ) : (
         <span className="muted" style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center", fontSize: 18 }}>
           {isVideo(asset) ? "▶" : viewable ? "…" : "◌"}
+        </span>
+      )}
+      {mark && (
+        // The reviewer's own mark, over everything else on the tile: it is the
+        // thing they are keeping track of as they work down the batch.
+        <span
+          className="tag"
+          aria-hidden
+          title={mark.outcome === "retake" ? `Retake — ${reasonLabel(mark.reason)}` : "Keep"}
+          style={{
+            top: 3, right: 3, bottom: "auto", left: "auto",
+            background: mark.outcome === "retake" ? "var(--bad, #B42318)" : "var(--ok, #0E7C86)",
+          }}
+        >
+          {mark.outcome === "retake" ? "\u2717" : "\u2713"}
         </span>
       )}
       <span className="tag">{meta.label}</span>
@@ -189,7 +225,17 @@ function subjectCheck(asset: AssetRow) {
   return null;
 }
 
-function AssetPreview({ asset, onClose }: { asset: AssetRow; onClose: () => void }) {
+function AssetPreview({
+  asset,
+  mark,
+  onMark,
+  onClose,
+}: {
+  asset: AssetRow;
+  mark?: Mark;
+  onMark?: (a: AssetRow, m: Mark | null) => void;
+  onClose: () => void;
+}) {
   const url = useAssetUrl(asset.id, true);
   const meta = statusMeta(assetStatus, asset.status);
   const where =
@@ -218,6 +264,12 @@ function AssetPreview({ asset, onClose }: { asset: AssetRow; onClose: () => void
           ["Location", where],
           ["Size", fmtBytes(asset.size_bytes)],
           ["Checksum", <code key="sha" className="id">{asset.sha256.slice(0, 16)}…</code>],
+          ...(asset.review_reason
+            ? ([["Sent back", <span key="rv">
+                {asset.review_label ?? reasonLabel(asset.review_reason)}
+                {asset.review_note && <span className="muted"> · {asset.review_note}</span>}
+              </span>]] as [string, React.ReactNode][])
+            : []),
           ...((asset.device_checks ?? []).length
             ? ([["Phone check", <span key="dc">
                 {(asset.device_checks ?? []).map((c, i) => (
@@ -229,6 +281,46 @@ function AssetPreview({ asset, onClose }: { asset: AssetRow; onClose: () => void
               </span>]] as [string, React.ReactNode][])
             : []),
         ]} />
+        {onMark && (
+          // A verdict on one capture, taken beside the picture it is about.
+          // Retake needs a reason before it means anything, so the picker is
+          // the mark: choosing a reason IS choosing retake.
+          <div style={{ marginTop: 10 }}>
+            <div className="btnrow" style={{ display: "flex", gap: 8 }}>
+              <Button
+                size="sm"
+                variant={mark?.outcome === "keep" ? "success" : undefined}
+                aria-pressed={mark?.outcome === "keep"}
+                onClick={() => onMark(asset, mark?.outcome === "keep" ? null : { outcome: "keep" })}
+              >
+                Keep
+              </Button>
+              <select
+                className={selectCls}
+                aria-label="Send this capture back to be shot again"
+                value={mark?.outcome === "retake" ? (mark.reason ?? "") : ""}
+                onChange={(e) =>
+                  onMark(asset, e.target.value ? { outcome: "retake", reason: e.target.value, note: mark?.note } : null)
+                }
+                style={{ maxWidth: 220 }}
+              >
+                <option value="">Retake — why?</option>
+                {RETAKE_REASONS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+              </select>
+            </div>
+            {mark?.outcome === "retake" && (
+              <input
+                className={inputCls}
+                aria-label="What to change about this capture"
+                placeholder="Optional: what to change about this one"
+                value={mark.note ?? ""}
+                maxLength={500}
+                onChange={(e) => onMark(asset, { ...mark, note: e.target.value })}
+                style={{ marginTop: 8 }}
+              />
+            )}
+          </div>
+        )}
         <div className="btnrow" style={{ marginTop: 10, display: "flex", gap: 8 }}>
           {url.data?.url && (
             <a className="btn" data-size="sm" href={url.data.url} target="_blank" rel="noopener noreferrer">Open original</a>
@@ -245,12 +337,18 @@ export function AssetGallery({
   loading = false,
   emptyTitle = "No captures yet",
   emptyHint,
+  marks,
+  onMark,
   onRemove,
 }: {
   assets: AssetRow[];
   loading?: boolean;
   emptyTitle?: string;
   emptyHint?: string;
+  /** the reviewer's marks so far, by asset id. Absent everywhere but gate 1. */
+  marks?: Record<string, Mark>;
+  /** null clears the mark on that capture */
+  onMark?: (a: AssetRow, m: Mark | null) => void;
   /** offered only where a capture is still the uploader's to withdraw */
   onRemove?: (a: AssetRow) => void;
 }) {
@@ -260,10 +358,24 @@ export function AssetGallery({
   const current = open && assets.find((a) => a.id === open.id) ? open : null;
   return (
     <div>
-      {current && <AssetPreview asset={current} onClose={() => setOpen(null)} />}
+      {current && (
+        <AssetPreview
+          asset={current}
+          mark={marks?.[current.id]}
+          onMark={onMark}
+          onClose={() => setOpen(null)}
+        />
+      )}
       <div className="assetgrid">
         {assets.map((a) => (
-          <AssetThumb key={a.id} asset={a} selected={current?.id === a.id} onOpen={(x) => setOpen(current?.id === x.id ? null : x)} onRemove={onRemove} />
+          <AssetThumb
+            key={a.id}
+            asset={a}
+            selected={current?.id === a.id}
+            mark={marks?.[a.id]}
+            onOpen={(x) => setOpen(current?.id === x.id ? null : x)}
+            onRemove={onRemove}
+          />
         ))}
       </div>
     </div>
