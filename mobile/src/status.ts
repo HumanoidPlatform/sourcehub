@@ -38,7 +38,8 @@ export const assetStatus: Record<string, Meta> = {
   uploaded: { label: "Uploaded", tone: "active" },
   ready: { label: "Ready", tone: "success" },
   quarantined: { label: "Rejected", tone: "critical" },
-  rejected: { label: "Discarded", tone: "neutral" },
+  // your aggregator marked this one to be shot again
+  rejected: { label: "Retake", tone: "critical" },
   erased: { label: "Erased", tone: "neutral" },
 };
 

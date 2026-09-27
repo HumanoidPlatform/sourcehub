@@ -443,6 +443,13 @@ export interface AssetRow {
   /** what the phone noticed before queueing the file; recorded, not trusted.
    *  Optional: test fixtures and older rows may lack it. */
   device_checks?: DeviceCheck[];
+  /** the aggregator's verdict on THIS capture at gate 1. Set only on one sent
+   *  back to be shot again, where status is "rejected". review_label is the
+   *  defect code as a person reads it. */
+  review_reason?: string | null;
+  review_label?: string | null;
+  review_note?: string | null;
+  reviewed_at?: string | null;
 }
 
 export interface DeviceCheck {

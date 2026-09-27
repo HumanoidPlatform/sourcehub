@@ -90,9 +90,27 @@ class AssignmentNoteIn(BaseModel):
     note: str | None = None
 
 
+class AssetMarkIn(BaseModel):
+    """One capture's verdict, carried with the batch's.
+
+    A reviewer marking a frame for retake is not a separate act from deciding
+    the batch — they mark, then send back, in one gesture — so the marks ride
+    on the decision and are applied in the same transaction. There is no
+    half-reviewed state on the server.
+    """
+
+    asset_id: uuid.UUID
+    outcome: Literal["keep", "retake"]
+    # defect_code.code. Required on a retake: the worker has to know what to
+    # change, and a coded reason is countable where a sentence is not.
+    reason: str | None = Field(default=None, max_length=40)
+    note: str | None = Field(default=None, max_length=500)
+
+
 class AssignmentDecideIn(BaseModel):
     outcome: Literal["accept", "reject"]
     note: str | None = None
+    marks: list[AssetMarkIn] = Field(default_factory=list, max_length=200)
 
 
 class ApproveIn(BaseModel):
@@ -372,9 +390,17 @@ async def decide_assignment(
     principal: Principal = Depends(require_capability("qa.review.gate1")),
     session: AsyncSession = Depends(get_session),
 ):
-    """Gate 1: the supplier's own verdict on a worker's batch."""
+    """Gate 1: the supplier's own verdict on a worker's batch, and on any
+    capture in it they want shot again."""
     try:
-        return await qa.decide_gate1(session, principal, assignment_id, body.outcome, body.note)
+        return await qa.decide_gate1(
+            session,
+            principal,
+            assignment_id,
+            body.outcome,
+            body.note,
+            [m.model_dump() for m in body.marks],
+        )
     except LookupError:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Assignment not found") from None
     except qa.QaError as e:

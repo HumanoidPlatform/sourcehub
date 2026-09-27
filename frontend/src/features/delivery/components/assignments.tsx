@@ -10,7 +10,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { get, post } from "@api/client";
-import type { Assignment, Task, TaskOffer, WorkerRow } from "@api/types";
+import type { AssetRow, Assignment, Task, TaskOffer, WorkerRow } from "@api/types";
 import {
   Button, Callout, CheckGroup, Dialog, Empty, Field, inputCls, Meter, Metric, Pill, TableWrap,
   textareaCls, useToast,
@@ -19,7 +19,9 @@ import { labelsOf } from "@features/marketplace/vocabularies";
 import { SKILLS } from "@features/network/vocabularies";
 import { fmtDate, fmtDateTime } from "@shared/format";
 import { assignmentStatus, offerStatus, statusMeta } from "@shared/status";
-import { AssetGallery, useAssignmentAssets, useTaskAssets } from "./AssetGallery";
+import {
+  AssetGallery, RETAKE_REASONS, useAssignmentAssets, useTaskAssets, type Mark,
+} from "./AssetGallery";
 
 export function useTaskAssignments(taskId: string | null | undefined) {
   return useQuery({
@@ -136,6 +138,23 @@ export interface DecideTarget {
   task_title: string;
 }
 
+/** "3 to retake: 2 blurred, 1 wrong subject" — the note the reviewer would
+ *  otherwise type out of their own marks. Editable once written: it is a
+ *  starting point, not the verdict. */
+function noteFromMarks(marks: Record<string, Mark>): string {
+  const counts = new Map<string, number>();
+  for (const m of Object.values(marks)) {
+    if (m.outcome !== "retake" || !m.reason) continue;
+    counts.set(m.reason, (counts.get(m.reason) ?? 0) + 1);
+  }
+  const total = [...counts.values()].reduce((a, b) => a + b, 0);
+  if (!total) return "";
+  const parts = [...counts.entries()].map(
+    ([code, n]) => `${n} ${(RETAKE_REASONS.find(([v]) => v === code)?.[1] ?? code).toLowerCase()}`,
+  );
+  return `${total} to retake: ${parts.join(", ")}.`;
+}
+
 export function DecideAssignmentDialog({
   target,
   onClose,
@@ -148,12 +167,33 @@ export function DecideAssignmentDialog({
   const qc = useQueryClient();
   const assets = useAssignmentAssets(target.id);
   const [note, setNote] = useState("");
+  // Whether the reviewer has taken the note over. Until they do it follows
+  // their marks; after, it is theirs and nothing overwrites it.
+  const [noteIsMine, setNoteIsMine] = useState(false);
+  const [marks, setMarks] = useState<Record<string, Mark>>({});
   const [error, setError] = useState<string | null>(null);
   const ready = (assets.data ?? []).filter((a) => a.status === "ready");
+  const retake = Object.values(marks).filter((m) => m.outcome === "retake").length;
+  const kept = Object.values(marks).filter((m) => m.outcome === "keep").length;
+
+  const mark = (a: AssetRow, m: Mark | null) =>
+    setMarks((prev) => {
+      const next = { ...prev };
+      if (m) next[a.id] = m;
+      else delete next[a.id];
+      if (!noteIsMine) setNote(noteFromMarks(next));
+      return next;
+    });
 
   const decide = useMutation({
     mutationFn: (outcome: "accept" | "reject") =>
-      post(`/assignments/${target.id}/decide`, { outcome, note: note || null }),
+      post(`/assignments/${target.id}/decide`, {
+        outcome,
+        note: note || null,
+        marks: Object.entries(marks).map(([asset_id, m]) => ({
+          asset_id, outcome: m.outcome, reason: m.reason ?? null, note: m.note || null,
+        })),
+      }),
     onSuccess: (_d, outcome) => {
       void qc.invalidateQueries();
       onDone(outcome);
@@ -173,7 +213,12 @@ export function DecideAssignmentDialog({
           <Button variant="danger" disabled={decide.isPending || !note.trim()} title={note.trim() ? undefined : "Say what must be retaken"} onClick={() => decide.mutate("reject")}>
             Send back
           </Button>
-          <Button variant="success" disabled={decide.isPending} onClick={() => decide.mutate("accept")}>
+          <Button
+            variant="success"
+            disabled={decide.isPending || retake > 0}
+            title={retake > 0 ? `${retake} marked to be shot again — send the batch back, or keep them` : undefined}
+            onClick={() => decide.mutate("accept")}
+          >
             Accept
           </Button>
         </>
@@ -185,11 +230,35 @@ export function DecideAssignmentDialog({
           assets={assets.data ?? []}
           loading={assets.isLoading}
           emptyHint="Nothing has been uploaded on this assignment."
+          marks={marks}
+          onMark={mark}
         />
+        {/* Open a capture to judge it. A batch can still be decided whole:
+            an unmarked capture is one nobody objected to. */}
+        <p className="small muted" style={{ marginTop: 6 }} data-testid="mark-tally">
+          {retake > 0 || kept > 0
+            ? `${retake} to retake · ${kept} keep · ${Math.max(ready.length - retake - kept, 0)} unmarked`
+            : "Open a capture to keep it or send it back on its own."}
+        </p>
       </div>
       <div className="formgrid" style={{ marginTop: 12 }}>
-        <Field label="Verdict note" span hint="Required to send back — they cannot act on a blank rejection.">
-          {(id) => <textarea id={id} className={textareaCls} rows={3} value={note} onChange={(e) => setNote(e.target.value)} placeholder="Retake aisle 3 with less glare." />}
+        <Field
+          label="Verdict note"
+          span
+          hint={retake > 0
+            ? "Written from your marks. Say more if it helps — they read this first."
+            : "Required to send back — they cannot act on a blank rejection."}
+        >
+          {(id) => (
+            <textarea
+              id={id}
+              className={textareaCls}
+              rows={3}
+              value={note}
+              onChange={(e) => { setNoteIsMine(true); setNote(e.target.value); }}
+              placeholder="Retake aisle 3 with less glare."
+            />
+          )}
         </Field>
       </div>
       {error && <Callout tone="critical" title={error} />}

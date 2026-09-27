@@ -24,6 +24,10 @@ export default function AssignmentDetail() {
   const list = useAssignments();
   const a = (list.data ?? []).find((x) => x.id === id);
   const assets = useAssignmentAssets(id);
+  // Captures the aggregator marked to be shot again. They stop counting toward
+  // the quantity the moment they are marked, so the meter below already shows
+  // the shortfall; this says how much of it is a retake rather than a gap.
+  const retakes = (assets.data ?? []).filter((x) => x.status === "rejected");
   const outbox = useOutbox(id);
   const refused = useRejections(id);
   const [note, setNote] = useState("");
@@ -139,7 +143,17 @@ export default function AssignmentDetail() {
       <Text style={[s.mono, { marginBottom: 14 }]}>{a.task.reference_code}{a.due_on ? ` · due ${a.due_on}` : ""}</Text>
 
       {a.status === "rejected" && a.decision_note ? (
-        <Callout tone="critical" title="Sent back — what to change">{a.decision_note}</Callout>
+        <Callout tone="critical" title="Sent back — what to change">
+          {a.decision_note}
+          {/* Which frames, not just how many. The aggregator marked these one
+              by one; everything else in the batch is kept and is not re-shot.
+              Each one carries its own reason on its tile below. */}
+          {retakes.length > 0 ? (
+            <Text style={[s.body, { marginTop: 6, fontWeight: "700" }]}>
+              {retakes.length} to shoot again · the rest are kept
+            </Text>
+          ) : null}
+        </Callout>
       ) : null}
       {a.status === "submitted" ? <Callout tone="attention" title="Awaiting review">Your aggregator is looking at this batch.</Callout> : null}
       {a.status === "accepted" ? <Callout tone="success" title="Accepted">Nothing more to do here.</Callout> : null}

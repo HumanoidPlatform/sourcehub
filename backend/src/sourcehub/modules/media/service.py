@@ -61,12 +61,16 @@ _ASSET_COLUMNS = (
     "coalesce(w.display_name, u.full_name) AS captured_by_name, "
     "a.filename, a.mime_type, a.size_bytes, a.sha256, a.etag, a.status, a.quarantine_reason, "
     "a.captured_at, a.captured_lat, a.captured_lon, a.uploaded_at, a.created_at, "
-    "a.check_results "
+    "a.check_results, a.review_reason, a.review_note, a.reviewed_at, "
+    "d.label AS review_label "
 )
 _ASSET_FROM = (
     "FROM asset a "
     "LEFT JOIN crowd_worker w ON w.user_id = a.captured_by_user_id "
     "LEFT JOIN app_user u ON u.id = a.captured_by_user_id "
+    # the reviewer's reason as a person reads it, so neither the console nor
+    # the phone has to carry a copy of the taxonomy
+    "LEFT JOIN defect_code d ON d.code = a.review_reason "
 )
 
 
@@ -151,6 +155,12 @@ def _asset_dict(r: Any) -> dict[str, Any]:
         # what the phone noticed before it queued the file (presign_asset);
         # recorded, not trusted — the reviewer reads it, nothing acts on it
         "device_checks": (r["check_results"] or {}).get("device") or [],
+        # the aggregator's verdict on THIS capture at gate 1. Set only on one
+        # sent back to be shot again, where status is 'rejected'.
+        "review_reason": r["review_reason"],
+        "review_label": r["review_label"],
+        "review_note": r["review_note"],
+        "reviewed_at": r["reviewed_at"],
     }
 
 
@@ -553,7 +563,8 @@ async def asset_view_url(
     row = (
         await session.execute(
             text(
-                "SELECT storage_key, filename, mime_type, status, storage_target_id "
+                "SELECT storage_key, filename, mime_type, status, storage_target_id, "
+                "       supplier_org_id "
                 "FROM asset WHERE id = :id AND deleted_at IS NULL"
             ),
             {"id": asset_id},
@@ -561,7 +572,13 @@ async def asset_view_url(
     ).mappings().one_or_none()
     if row is None:
         raise LookupError("asset not found")
-    if row["status"] != "ready":
+    # A capture the aggregator sent back still has to be looked at: by the
+    # worker, to see which frame to shoot again, and by the reviewer who may
+    # change their mind while the batch is still theirs to decide. Only the
+    # supplier's own people — list_assets already hides anything but 'ready'
+    # from the partner and the client, so this widens nothing downstream.
+    viewable = ("ready", "rejected") if row["supplier_org_id"] == claims.org_id else ("ready",)
+    if row["status"] not in viewable:
         raise MediaError(f"A {row['status']} asset cannot be viewed yet.")
     target = await storage_svc.resolve_by_id(session, row["storage_target_id"])
     url = await storage.presign_get(

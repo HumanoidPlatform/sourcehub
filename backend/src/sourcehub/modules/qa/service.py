@@ -13,7 +13,7 @@ from __future__ import annotations
 
 import datetime as dt
 import uuid
-from typing import Any
+from typing import Any, NamedTuple
 
 from sqlalchemy import select, text
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -213,16 +213,145 @@ async def gate1_queue(session: AsyncSession, claims: AccessClaims) -> list[dict[
     ]
 
 
+class MarkPlan(NamedTuple):
+    """What the marks amount to, before anything is written."""
+
+    # (asset_id, defect code, the reviewer's words about this frame)
+    retake: list[tuple[uuid.UUID, str, str | None]]
+    # captures sent back in an earlier round that the reviewer has since kept
+    restore: list[uuid.UUID]
+    # {defect code: how many}, for the qa_review_defect rollup
+    tally: dict[str, int]
+
+
+def plan_marks(
+    marks: list[dict[str, Any]],
+    known: dict[uuid.UUID, str],
+    live_codes: set[str],
+) -> MarkPlan:
+    """Read the reviewer's marks against the batch as it stands. Pure.
+
+    `known` is {asset_id: status} for the batch's undeleted captures, and
+    `live_codes` the defect codes this platform still offers. Everything that
+    can be refused is refused here, before a single row is touched.
+    """
+    # Last word wins if the same capture is named twice in one request.
+    by_id: dict[uuid.UUID, dict[str, Any]] = {m["asset_id"]: m for m in marks}
+
+    # Blank is not an unknown code, it is a missing one: it belongs to the
+    # "say why" refusal below, which names the real problem.
+    unknown = sorted(
+        c for c in {(m.get("reason") or "").strip() for m in by_id.values()}
+        if c and c not in live_codes
+    )
+    if unknown:
+        raise QaError(f"Not a reason this platform knows: {', '.join(unknown)}.")
+
+    plan = MarkPlan(retake=[], restore=[], tally={})
+    for asset_id, m in by_id.items():
+        was = known.get(asset_id)
+        if was is None:
+            raise QaError("That capture is not in this batch.")
+        # A pending upload or a quarantined file is not the reviewer's to judge:
+        # it never became part of what the worker submitted.
+        if was not in ("ready", "rejected"):
+            raise QaError(f"A {was} capture cannot be marked.")
+
+        if m["outcome"] == "retake":
+            reason = (m.get("reason") or "").strip()
+            if not reason:
+                raise QaError(
+                    "Say why a capture must be shot again — they cannot act on a blank mark."
+                )
+            plan.retake.append((asset_id, reason, (m.get("note") or "").strip() or None))
+            plan.tally[reason] = plan.tally.get(reason, 0) + 1
+        elif was == "rejected":
+            # A reviewer may change their mind while the batch is still theirs.
+            plan.restore.append(asset_id)
+    return plan
+
+
+async def _apply_marks(
+    session: AsyncSession,
+    claims: AccessClaims,
+    assignment_id: uuid.UUID,
+    marks: list[dict[str, Any]],
+) -> dict[str, int]:
+    """Put each named capture where the reviewer put it, and count the reasons.
+
+    'retake' is written as asset.status = 'rejected'. That value carries the
+    whole consequence: ready_count stops counting it, so the worker owes a
+    replacement before they can resubmit; attach_to_submission stops bundling
+    it, so it never reaches the delivery partner; and every rollup that filters
+    on 'ready' drops it without being told. See db/210_asset_review.sql.
+    """
+    if not marks:
+        return {}
+
+    known = {
+        r["id"]: r["status"]
+        for r in (
+            await session.execute(
+                text(
+                    "SELECT id, status FROM asset "
+                    "WHERE assignment_id = :a AND deleted_at IS NULL"
+                ),
+                {"a": assignment_id},
+            )
+        ).mappings().all()
+    }
+    wanted = sorted({str(m["reason"]).strip() for m in marks if (m.get("reason") or "").strip()})
+    live = (
+        set(
+            (
+                await session.execute(
+                    text("SELECT code FROM defect_code WHERE active AND code = ANY(:c)"),
+                    {"c": wanted},
+                )
+            ).scalars().all()
+        )
+        if wanted
+        else set()
+    )
+
+    plan = plan_marks(marks, known, live)
+
+    for asset_id, reason, note in plan.retake:
+        await session.execute(
+            text(
+                "UPDATE asset SET status = 'rejected', review_reason = :r, "
+                "       review_note = :n, reviewed_by = :me, reviewed_at = now(), "
+                "       updated_at = now() WHERE id = :id"
+            ),
+            {"r": reason, "n": note, "me": claims.user_id, "id": asset_id},
+        )
+    for asset_id in plan.restore:
+        await session.execute(
+            text(
+                "UPDATE asset SET status = 'ready', review_reason = NULL, "
+                "       review_note = NULL, reviewed_by = NULL, reviewed_at = NULL, "
+                "       updated_at = now() WHERE id = :id"
+            ),
+            {"id": asset_id},
+        )
+    return plan.tally
+
+
 async def decide_gate1(
     session: AsyncSession,
     claims: AccessClaims,
     assignment_id: uuid.UUID,
     outcome: str,  # 'accept' | 'reject'
     note: str | None,
+    marks: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
-    """Record the gate-1 verdict on a batch. The same rule as gate 2,
-    enforced here and by CHECKs on qa_review and task_assignment: a rejection
-    without a note is refused, because they cannot act on one."""
+    """Record the gate-1 verdict on a batch, and on any capture in it.
+
+    The same rule as gate 2, enforced here and by CHECKs on qa_review and
+    task_assignment: a rejection without a note is refused, because they cannot
+    act on one. Marks ride on the verdict so the two cannot disagree — see
+    _apply_marks, and the accept guard below.
+    """
     if outcome not in ("accept", "reject"):
         raise QaError("Outcome must be accept or reject.")
     if outcome == "reject" and not (note and note.strip()):
@@ -245,19 +374,50 @@ async def decide_gate1(
     if a["status"] != "submitted":
         raise QaError(f"A {a['status'].replace('_', ' ')} assignment cannot be decided.")
 
-    accepted = outcome == "accept"
-    session.add(
-        QaReview(
-            assignment_id=assignment_id,
-            submission_id=None,
-            gate="gate1_supplier",
-            outcome="pass" if accepted else "fail",
-            reviewer_org_id=claims.org_id,
-            reviewer_user_id=claims.user_id,
-            note=note,
+    tally = await _apply_marks(session, claims, assignment_id, marks or [])
+    retake = (
+        await session.execute(
+            text(
+                "SELECT count(*) FROM asset WHERE assignment_id = :a "
+                "AND status = 'rejected' AND deleted_at IS NULL"
+            ),
+            {"a": assignment_id},
         )
+    ).scalar_one()
+    accepted = outcome == "accept"
+    # Accepting a batch while some of it is marked for retake would send the
+    # worker nothing to act on and hand the partner a short bundle. The two
+    # halves of the verdict have to agree.
+    if accepted and retake:
+        raise QaError(
+            f"{retake} capture{'s' if retake != 1 else ''} here "
+            f"{'are' if retake != 1 else 'is'} marked to be shot again. "
+            "Send the batch back, or keep them."
+        )
+
+    review = QaReview(
+        assignment_id=assignment_id,
+        submission_id=None,
+        gate="gate1_supplier",
+        outcome="pass" if accepted else "fail",
+        reviewer_org_id=claims.org_id,
+        reviewer_user_id=claims.user_id,
+        note=note,
     )
+    session.add(review)
     await session.flush()
+    # Which defects a failing review cited, countable per worker and per task.
+    # qa_review_defect has been in the schema since db/060_qa.sql and this is
+    # the first thing to write it.
+    for code, count in sorted(tally.items()):
+        await session.execute(
+            text(
+                "INSERT INTO qa_review_defect (review_id, defect_code_id, affected_count) "
+                "SELECT :r, d.id, :n FROM defect_code d WHERE d.code = :c "
+                "ON CONFLICT (review_id, defect_code_id) DO NOTHING"
+            ),
+            {"r": review.id, "n": count, "c": code},
+        )
     await session.execute(
         text(
             "UPDATE task_assignment SET status = :st, decided_at = now(), decided_by = :me, "
@@ -274,7 +434,11 @@ async def decide_gate1(
         claims.org_id,
         f"Your work on {a['title']} was accepted."
         if accepted
-        else f"Your work on {a['title']} was sent back: {note}",
+        else (
+            f"Your work on {a['title']} was sent back"
+            + (f" — {retake} to shoot again" if retake else "")
+            + f": {note}"
+        ),
         "assignment",
         {"id": str(assignment_id)},
         user_id=a["worker_user_id"],
@@ -285,13 +449,14 @@ async def decide_gate1(
         f"{'Accepted' if accepted else 'Rejected'} a batch on {a['task_ref']} at gate 1"
         + (f" — {note}" if note else ""),
         [assignment_id, a["task_id"], a["contract_id"], claims.org_id],
-        {"gate": "gate1_supplier"},
+        {"gate": "gate1_supplier", "retake": retake},
     )
     return {
         "assignment_id": assignment_id,
         "task_id": a["task_id"],
         "outcome": outcome,
         "assignment_status": "accepted" if accepted else "rejected",
+        "retake": retake,
     }
 
 
