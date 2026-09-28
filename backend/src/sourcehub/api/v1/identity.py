@@ -9,7 +9,7 @@ tenancy in application code.
 from __future__ import annotations
 
 import uuid
-from typing import Literal
+from typing import TYPE_CHECKING, Any, Literal
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, Field
@@ -24,6 +24,12 @@ from sourcehub.api.deps import (
     require_capability,
 )
 from sourcehub.modules.identity import service as identity
+
+# runtime import: FastAPI reads the body model off the annotation
+from sourcehub.modules.identity.profile_schema import OrgProfilePatch  # noqa: TC001
+
+if TYPE_CHECKING:
+    from collections.abc import Awaitable
 
 router = APIRouter(route_class=TxRoute)
 
@@ -44,8 +50,19 @@ _MAY_REINSTATE = require_capability("org.suspend")
 OrgStatusFilter = Literal["active", "pending_approval", "suspended", "terminated", "any"]
 
 
+# Editing a profile is also two parties on one route: Ops through org.update,
+# an organisation's own owner or manager through profile.manage. The service
+# decides which fields each may change and whether the caller's grant scope
+# lets them edit at all; organisation_update decides whose row.
+_MAY_EDIT_PROFILE = require_any_capability("profile.manage", "org.update")
+
+
 class SuspendIn(BaseModel):
     reason: str = Field(min_length=3)
+
+
+class LogoIn(BaseModel):
+    storage_key: str = Field(min_length=1, max_length=1024)
 
 
 @router.get("/organisations")
@@ -143,3 +160,66 @@ async def reinstate_organisation(
 # org_status still declares 'terminated' and nothing writes it, exactly as before.
 # Offboarding belongs with the compliance tables, as one decision about what ending
 # a commercial relationship actually does.
+
+
+# ---------------------------------------------------------------------------
+# Profile and logo
+# ---------------------------------------------------------------------------
+
+
+async def _profile_call(coro: Awaitable[dict[str, Any]]) -> dict[str, Any]:
+    try:
+        return await coro
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Organisation not found") from None
+    # Order matters: the forbidden error subclasses the base one.
+    except identity.ProfileForbiddenError as e:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, str(e)) from None
+    except identity.ProfileError as e:
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, str(e)) from None
+
+
+@router.patch("/organisations/{org_id}")
+async def update_organisation_profile(
+    org_id: uuid.UUID,
+    body: OrgProfilePatch,
+    principal: Principal = Depends(_MAY_EDIT_PROFILE),
+    session: AsyncSession = Depends(get_session),
+):
+    """Change the fields the body names. An explicit null clears one."""
+    return await _profile_call(identity.update_org_profile(session, principal, org_id, body))
+
+
+@router.put("/organisations/{org_id}/logo")
+async def set_organisation_logo(
+    org_id: uuid.UUID,
+    body: LogoIn,
+    principal: Principal = Depends(_MAY_EDIT_PROFILE),
+    session: AsyncSession = Depends(get_session),
+):
+    """File an image uploaded through /attachments/presign as the logo."""
+    return await _profile_call(identity.set_org_logo(session, principal, org_id, body.storage_key))
+
+
+@router.delete("/organisations/{org_id}/logo")
+async def clear_organisation_logo(
+    org_id: uuid.UUID,
+    principal: Principal = Depends(_MAY_EDIT_PROFILE),
+    session: AsyncSession = Depends(get_session),
+):
+    return await _profile_call(identity.clear_org_logo(session, principal, org_id))
+
+
+@router.get("/organisations/{org_id}/logo-url")
+async def organisation_logo_url(
+    org_id: uuid.UUID,
+    principal: Principal = Depends(get_principal),
+    session: AsyncSession = Depends(get_session),
+):
+    """JSON {url}, not a redirect: a 307 would carry the Authorization header
+    to storage (the same reasoning as /assets/{id}/url). Whoever may see the
+    organisation may see its logo; the RLS'd read is the check."""
+    try:
+        return await identity.org_logo_url(session, org_id)
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "No logo") from None

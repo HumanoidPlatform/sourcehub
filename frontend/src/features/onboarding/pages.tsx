@@ -2,19 +2,27 @@
 // a tenant asks, the platform decides, and the decision trail survives.
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
+import { useNavigate } from "react-router-dom";
 import { get, post } from "@api/client";
 import type { OnboardingRow } from "@api/types";
 import {
-  Button, Callout, DataTable, Dialog, Dl, Empty, Field, inputCls, Metric, Panel, Pill, selectCls, Skeleton,
+  Button, Callout, DataTable, Dialog, Dl, Empty, Field, Metric, Panel, Pill, Skeleton,
   textareaCls, useToast, View,
 } from "@ds/primitives";
 import { fmtDateTime, titleCase } from "@shared/format";
+import { LogoImage, OrgLogo, useStagedLogo } from "@shared/org-logo";
+import { companyRows, draftFromPayload, termsRows } from "@shared/org-profile-form";
 import { onboardingStatus, statusMeta } from "@shared/status";
+
+// The two kinds the platform registers and bills directly, and the only two
+// whose requests carry a company profile. Aggregators, businesses and sponsors
+// belong to a partner's own network and are raised from the Network page.
+const TOP_KINDS = ["client", "tenant"];
 
 export function OnboardingQueuePage() {
   const [selected, setSelected] = useState<OnboardingRow | null>(null);
-  const [creating, setCreating] = useState(false);
+  const navigate = useNavigate();
   const requests = useQuery({ queryKey: ["onboarding"], queryFn: () => get<OnboardingRow[]>("/onboarding") });
 
   const rows = requests.data ?? [];
@@ -28,7 +36,7 @@ export function OnboardingQueuePage() {
       // Tenants raise their own network requests from the Network page. Nobody
       // could raise the two kinds the platform itself sells to, so clients and
       // delivery partners had to be inserted by hand.
-      actions={<Button variant="primary" onClick={() => setCreating(true)}>Onboard a client or partner</Button>}
+      actions={<Button variant="primary" onClick={() => navigate("/onboarding/new")}>Onboard a client or partner</Button>}
     >
       <div className="g3">
         <Metric label="Awaiting decision" value={open.length} />
@@ -59,136 +67,7 @@ export function OnboardingQueuePage() {
       )}
 
       {selected && <DecideDialog row={selected} onClose={() => setSelected(null)} />}
-      {creating && <NewOnboardingDialog onClose={() => setCreating(false)} />}
     </View>
-  );
-}
-
-const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-// The two kinds the platform registers and bills directly. Aggregators,
-// businesses and sponsors belong to a partner's own network and are raised by
-// that partner from the Network page, never here.
-type TopKind = "client" | "tenant";
-
-function NewOnboardingDialog({ onClose }: { onClose: () => void }) {
-  const [kind, setKind] = useState<TopKind>("client");
-  const [name, setName] = useState("");
-  const [country, setCountry] = useState("");
-  const [residency, setResidency] = useState("");
-  const [plan, setPlan] = useState("");
-  // industry for a client, HQ for a partner — same slot, different question
-  const [trait, setTrait] = useState("");
-  const [capabilities, setCapabilities] = useState("");
-  const [contactName, setContactName] = useState("");
-  const [contactEmail, setContactEmail] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const toast = useToast();
-  const qc = useQueryClient();
-
-  const isClient = kind === "client";
-
-  // These keys are not decorative: approve_onboarding_request() reads exactly
-  // country, residency_region, and then industry/plan for a client or
-  // hq/plan/capabilities for a tenant (db/030_onboarding.sql). Anything else
-  // lands in the request payload and is silently dropped at approval.
-  const payload: Record<string, unknown> = {
-    country: country.trim() || null,
-    residency_region: residency || null,
-    plan: plan.trim() || null,
-    ...(isClient ? { industry: trait.trim() || null } : { hq: trait.trim() || null, capabilities: capabilities.trim() || null }),
-  };
-
-  const submit = useMutation({
-    mutationFn: () =>
-      post("/onboarding", {
-        target_org_kind: kind,
-        proposed_name: name.trim(),
-        payload,
-        contact: { full_name: contactName.trim(), email: contactEmail.trim() },
-        submit: true,
-      }),
-    onSuccess: () => {
-      void qc.invalidateQueries({ queryKey: ["onboarding"] });
-      toast(
-        "Request raised",
-        "It is in the queue below. Approving it creates the organisation and emails the first user.",
-        "success",
-      );
-      onClose();
-    },
-    onError: (e) => setError(e instanceof Error ? e.message : "Could not raise the request"),
-  });
-
-  const ready = name.trim() && contactName.trim() && EMAIL.test(contactEmail.trim());
-
-  return (
-    <Dialog
-      title="Onboard a client or delivery partner"
-      sub="This raises a request in the queue below — it does not create the organisation. Approving it does."
-      onClose={onClose}
-      foot={
-        <>
-          <Button onClick={onClose}>Cancel</Button>
-          <Button variant="primary" disabled={!ready || submit.isPending} onClick={() => submit.mutate()}>
-            Raise request
-          </Button>
-        </>
-      }
-    >
-      <div className="formgrid">
-        <Field label="Kind" required>
-          {(id) => (
-            <select id={id} className={selectCls} value={kind} onChange={(e) => setKind(e.target.value as TopKind)}>
-              <option value="client">Client — buys data</option>
-              <option value="tenant">Delivery partner — fulfils it</option>
-            </select>
-          )}
-        </Field>
-        <Field label="Plan" hint={isClient ? "Enterprise or Growth" : "Partner Pro or Partner Starter"}>
-          {(id) => <input id={id} className={inputCls} value={plan} onChange={(e) => setPlan(e.target.value)} />}
-        </Field>
-        <Field label="Organisation name" required span>
-          {(id) => (
-            <input
-              id={id}
-              className={inputCls}
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder={isClient ? "Meridian Grocery Group" : "Harbour Field Services"}
-            />
-          )}
-        </Field>
-        <Field label={isClient ? "Industry" : "Headquarters"}>
-          {(id) => <input id={id} className={inputCls} value={trait} onChange={(e) => setTrait(e.target.value)} />}
-        </Field>
-        <Field label="Country">
-          {(id) => <input id={id} className={inputCls} value={country} onChange={(e) => setCountry(e.target.value)} />}
-        </Field>
-        {!isClient && (
-          <Field label="Capabilities" span hint="What this partner can deliver — free text, shown on their profile.">
-            {(id) => <input id={id} className={inputCls} value={capabilities} onChange={(e) => setCapabilities(e.target.value)} />}
-          </Field>
-        )}
-        <Field label="Data residency" hint="Pins where captured data is stored.">
-          {(id) => (
-            <select id={id} className={selectCls} value={residency} onChange={(e) => setResidency(e.target.value)}>
-              <option value="">Not set</option>
-              <option value="US">US</option>
-              <option value="EU">EU</option>
-              <option value="APAC">APAC</option>
-            </select>
-          )}
-        </Field>
-        <Field label="First user — full name" required hint="Approval creates this person and emails them an invitation.">
-          {(id) => <input id={id} className={inputCls} value={contactName} onChange={(e) => setContactName(e.target.value)} />}
-        </Field>
-        <Field label="First user — email" required span>
-          {(id) => <input id={id} type="email" className={inputCls} value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} />}
-        </Field>
-      </div>
-      {error && <Callout tone="critical" title={error} />}
-    </Dialog>
   );
 }
 
@@ -244,6 +123,7 @@ function DecideDialog({ row, onClose }: { row: OnboardingRow; onClose: () => voi
   const [error, setError] = useState<string | null>(null);
   const toast = useToast();
   const qc = useQueryClient();
+  const navigate = useNavigate();
 
   const detail = useQuery({
     queryKey: ["onboarding", row.id],
@@ -252,9 +132,10 @@ function DecideDialog({ row, onClose }: { row: OnboardingRow; onClose: () => voi
 
   const decide = useMutation({
     mutationFn: (decision: string) =>
-      post(`/onboarding/${row.id}/decide`, { decision, reason: reason || null }),
-    onSuccess: (_d, decision) => {
+      post<OnboardingRow>(`/onboarding/${row.id}/decide`, { decision, reason: reason || null }),
+    onSuccess: (answer, decision) => {
       void qc.invalidateQueries({ queryKey: ["onboarding"] });
+      void qc.invalidateQueries({ queryKey: ["orgs"] });
       toast(
         decision === "approved" ? "Approved and onboarded" : "Decision recorded",
         decision === "approved"
@@ -262,6 +143,9 @@ function DecideDialog({ row, onClose }: { row: OnboardingRow; onClose: () => voi
           : "The requesting tenant has been notified.",
         decision === "approved" ? "success" : "neutral",
       );
+      // What approval could not apply, such as a logo whose upload had gone
+      // missing. The organisation exists either way; say what to finish.
+      for (const w of answer?.warnings ?? []) toast("Finish on the account page", w, "attention");
       onClose();
     },
     onError: (e) => setError(e instanceof Error ? e.message : "Could not decide"),
@@ -280,6 +164,24 @@ function DecideDialog({ row, onClose }: { row: OnboardingRow; onClose: () => voi
   const d = detail.data ?? row;
   const payload = d.payload ?? {};
   const decidable = ["submitted", "under_review"].includes(d.status);
+  const withProfile = TOP_KINDS.includes(d.target_org_kind);
+  // Ops raises client and partner requests itself, so a returned one is Ops'
+  // to correct and resubmit. Network requests go back to the partner.
+  const editable = withProfile && ["draft", "changes_requested"].includes(d.status);
+  const staged = useStagedLogo(
+    row.id,
+    withProfile && d.status !== "approved" && typeof payload.logo_staging_key === "string"
+      ? payload.logo_staging_key
+      : null,
+  );
+
+  const rows: [string, ReactNode][] = withProfile
+    ? (() => {
+        const draft = draftFromPayload(d.proposed_name, payload);
+        const kind = d.target_org_kind === "tenant" ? "tenant" : "client";
+        return [...companyRows(draft), ...termsRows(draft, kind)];
+      })()
+    : Object.entries(payload).map(([k, v]) => [titleCase(k), String(v ?? "—")] as [string, string]);
 
   return (
     <Dialog
@@ -309,13 +211,33 @@ function DecideDialog({ row, onClose }: { row: OnboardingRow; onClose: () => voi
                 Resend invitation
               </Button>
             )}
+            {editable && (
+              <Button variant="primary" onClick={() => navigate(`/onboarding/${row.id}/edit`)}>
+                Edit and resubmit
+              </Button>
+            )}
             <Button onClick={onClose}>Close</Button>
           </>
         )
       }
     >
+      {withProfile && (
+        <div className="orghead">
+          {/* Before approval the logo is still in staging; after, it is the
+              organisation's own and served from there. */}
+          {d.status === "approved" && d.created_org_id ? (
+            <ApprovedLogo orgId={d.created_org_id} name={d.proposed_name} />
+          ) : (
+            <LogoImage url={staged.data?.url} name={d.proposed_name} size={48} />
+          )}
+          <div>
+            <b>{d.proposed_name}</b>
+            <p className="small muted">{d.target_org_kind === "tenant" ? "Delivery partner" : "Client"}</p>
+          </div>
+        </div>
+      )}
       <Dl rows={[
-        ...Object.entries(payload).map(([k, v]) => [titleCase(k), String(v ?? "—")] as [string, string]),
+        ...rows,
         ["First user", `${d.contact?.full_name ?? "—"} · ${d.contact?.email ?? "—"}`],
       ]} />
 
@@ -351,4 +273,13 @@ function DecideDialog({ row, onClose }: { row: OnboardingRow; onClose: () => voi
       )}
     </Dialog>
   );
+}
+
+/** The logo an approved request's organisation now has, if any. */
+function ApprovedLogo({ orgId, name }: { orgId: string; name: string }) {
+  const org = useQuery({
+    queryKey: ["org", orgId],
+    queryFn: () => get<{ logo_version?: string | null }>(`/organisations/${orgId}`),
+  });
+  return <OrgLogo orgId={orgId} version={org.data?.logo_version} name={name} size={48} />;
 }

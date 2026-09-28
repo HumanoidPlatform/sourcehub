@@ -64,24 +64,54 @@ main:focus-visible,h1[tabindex="-1"]:focus-visible{outline:none}
 .rail{background:var(--surface);border-right:1px solid var(--line);
   display:flex;flex-direction:column;position:sticky;top:0;height:100vh;z-index:60}
 .rail-head{padding:var(--s-4);border-bottom:1px solid var(--line)}
-.mark{display:flex;align-items:center;gap:10px}
-/* As a link (the rail's mark goes home) it must not look like body text with an
+/* Stacked, so the sign-in card's byline sits under the logo rather than beside it. */
+.mark{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+/* As a link (the rail's logo goes home) it must not look like body text with an
    underline, but it must still answer to hover and to a focus ring. */
 a.mark{text-decoration:none;color:inherit;border-radius:var(--r-control)}
-a.mark:hover .mark-name{color:var(--accent)}
-/* The logo, transparent, so it sits on the rail in either theme. 32px, not the
-   28 the old letter glyph used: the mark's orbit rings are thin and the file
-   carries its own margin, so it needs the extra pixels to read. */
-.mark-logo{width:32px;height:32px;flex:none;object-fit:contain}
-.mark-text{display:flex;flex-direction:column;min-width:0}
-.mark-name{font-weight:600;font-size:14.5px;letter-spacing:-.02em}
-/* Only on the sign-in card (BrandMark withCompany): who is behind the product. */
-.mark-by{font-size:11.5px;color:var(--ink-3);margin-top:1px}
+a.mark:hover .mark-logo{opacity:.85}
+/* The lockup, mark and wordmark in one vector: 330×68 art at 32px high is about
+   155px wide, inside the rail's 232px of room. */
+.mark-logo{height:32px;width:auto;flex:none}
+/* One image per theme, by the same rules as tokens.css: system dark unless the
+   user chose light, and explicit dark either way. display:none also keeps the
+   hidden one out of the accessibility tree, so the name is read once. */
+.mark-logo.on-dark{display:none}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .mark-logo.on-light{display:none}
+  :root:not([data-theme="light"]) .mark-logo.on-dark{display:block}
+}
+:root[data-theme="dark"] .mark-logo.on-light{display:none}
+:root[data-theme="dark"] .mark-logo.on-dark{display:block}
+/* Only on the sign-in card (BrandMark byline): who is behind the product. */
+.mark-by{font-size:11.5px;color:var(--ink-3)}
 .rail-ctx{margin-top:var(--s-3);padding:10px;border:1px solid var(--line);
   border-radius:var(--r-control);background:var(--surface-2)}
 .rail-ctx .eyebrow{display:block;margin-bottom:3px}
 .rail-ctx-name{font-weight:600;font-size:13px;line-height:1.3}
 .rail-ctx-meta{font-size:11.5px;color:var(--ink-3);margin-top:2px}
+.rail-ctx-row{display:flex;align-items:center;gap:10px;min-width:0}
+.rail-ctx-row > div{min-width:0}
+
+/* organisation logos (shared/org-logo.tsx). A white tile in both themes, on
+   purpose: logos are drawn for a light page, and dark ink on the dark surface
+   vanishes, the same reason the favicon sits on white. */
+.orglogo{display:inline-flex;align-items:center;justify-content:center;flex:none;
+  box-sizing:border-box;object-fit:contain;padding:2px;
+  border:1px solid var(--line);border-radius:var(--r-control);background:#fff}
+.orglogo-initials{padding:0;background:var(--surface-3);color:var(--ink-2);font-weight:600;
+  letter-spacing:.02em}
+.orghead{display:flex;align-items:center;gap:var(--s-3);margin-bottom:var(--s-4)}
+.orghead p{margin:0}
+.logopicker{display:flex;align-items:center;gap:var(--s-3)}
+.logopicker-body{display:flex;flex-direction:column;gap:4px;min-width:0}
+.logopicker-body .btnrow{margin:0}
+.logopicker-note{font-size:11.5px;color:var(--ink-3)}
+.logopicker-err{font-size:11.5px;color:var(--t-critical);font-weight:500}
+.logofield{display:flex;flex-direction:column;gap:var(--s-2)}
+.logofield-current{display:flex;align-items:center;gap:var(--s-3)}
+.formsection{margin:var(--s-5) 0 var(--s-3)}
+.formsection:first-child{margin-top:0}
 .rail-nav{flex:1;overflow-y:auto;padding:var(--s-3) var(--s-2)}
 .rail-group{padding:var(--s-3) 10px 5px}
 .rail-item{display:flex;align-items:center;gap:10px;width:100%;text-align:left;
@@ -269,6 +299,11 @@ td.right,th.right{text-align:right}
   box-shadow:0 0 0 3px var(--accent-tint)}
 .field[data-invalid] .input,.field[data-invalid] .select,.field[data-invalid] .textarea{border-color:var(--t-critical)}
 .input::placeholder,.textarea::placeholder{color:var(--ink-3)}
+/* A locked field: readable, but plainly not for typing into. Nothing styled
+   this before, so a disabled input looked exactly like an editable one. Last,
+   so it also beats :hover. */
+.input:disabled,.select:disabled,.textarea:disabled{background:var(--surface-2);color:var(--ink-3);
+  border-color:var(--line);cursor:not-allowed}
 .checkline{display:flex;align-items:flex-start;gap:9px;padding:7px 9px;border:1px solid var(--line);
   border-radius:var(--r-control);cursor:pointer;background:var(--surface);font-size:13px}
 .checkline:hover{background:var(--surface-2)}
@@ -581,7 +616,7 @@ a.pop-item{text-decoration:none;color:inherit;display:flex;align-items:center}
     transition:transform var(--base) var(--ease);box-shadow:var(--shadow-overlay)}
   .rail[data-open]{transform:none}
   .rail-head{padding:var(--s-4)}
-  .mark-name,.rail-ctx,.rail-group,.rail-item .lbl,.rail-item .tally{display:revert}
+  .rail-ctx,.rail-group,.rail-item .lbl,.rail-item .tally{display:revert}
   .rail-item{justify-content:flex-start;padding:7px 10px}
   .view{padding:var(--s-4) var(--s-4) var(--s-6)}
   .topbar{padding:0 var(--s-4)}

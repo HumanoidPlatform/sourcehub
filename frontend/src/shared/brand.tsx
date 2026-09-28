@@ -20,12 +20,21 @@ export const COMPANY = "Cosarathi";
 export const TAGLINE = "Data collection and delivery platform";
 
 /**
- * The mark, cut out of the supplied lockup and served from public/brand.
- * The lockup's own wordmark is not used in the interface: it is raster text,
- * which blurs at 28px and cannot follow the dark theme. The name beside the
- * mark is live text instead, so it stays sharp and legible in both themes.
+ * The logo: the UX team's vector lockup, mark and wordmark together, served from
+ * public/brand. The originals, byte for byte, are in docs/brand.
+ *
+ * Two files because the wordmark's "Data" and the mark's body are ink: dark on a
+ * light page, white on a dark one. Named by where each goes, not by the colour of
+ * its ink, so the pair cannot be wired backwards (UX's DataMind360_Dark_Logo is
+ * the one for the LIGHT theme).
+ *
+ * The previous logo was a raster mark with the name set as live text beside it,
+ * because that lockup's wordmark was a bitmap that blurred and could not follow
+ * the theme. This one is vector with a variant per theme, so the name is part of
+ * the artwork again.
  */
-export const MARK_SRC = "/brand/mark.png";
+export const LOGO_ON_LIGHT = "/brand/logo-on-light.svg";
+export const LOGO_ON_DARK = "/brand/logo-on-dark.svg";
 
 /** As the logo itself puts it. Small, and never next to the sidebar wordmark.
  *
@@ -45,17 +54,18 @@ export const CAPTURE_APP = "Cosarathi Capture";
 export function BrandMark({ byline, to }: { byline?: boolean; to?: string }) {
   const content = (
     <>
-      {/* alt="" on purpose: the product name is right beside it, and a screen
-          reader announcing "DataMind360 logo, DataMind360" says it twice. */}
-      {/* width/height match the CSS, so the rail does not jump while it loads */}
-      <img className="mark-logo" src={MARK_SRC} alt="" width={32} height={32} />
-      <span className="mark-text">
-        <span className="mark-name">{PRODUCT}</span>
-        {/* The sign-in card is the one place the company sits under the
-            wordmark: a first-time visitor is entitled to know whose door this
-            is. Inside the console it lives at the foot of the rail instead. */}
-        {byline && <span className="mark-by">{BYLINE}</span>}
-      </span>
+      {/* One image per theme; the stylesheet shows one and display:none hides
+          the other from screen readers too, so the name is read once. Two <img>
+          rather than a <picture>: a <picture> source can only ask the OS for its
+          colour scheme, and would miss the in-app theme toggle (data-theme).
+          width/height = the artwork's 330×68 at 32px high, so the rail does not
+          jump while it loads. */}
+      <img className="mark-logo on-light" src={LOGO_ON_LIGHT} alt={PRODUCT} width={155} height={32} />
+      <img className="mark-logo on-dark" src={LOGO_ON_DARK} alt={PRODUCT} width={155} height={32} />
+      {/* The sign-in card is the one place the company sits under the logo: a
+          first-time visitor is entitled to know whose door this is. Inside the
+          console it lives at the foot of the rail instead. */}
+      {byline && <span className="mark-by">{BYLINE}</span>}
     </>
   );
 
@@ -63,9 +73,9 @@ export function BrandMark({ byline, to }: { byline?: boolean; to?: string }) {
   // people expect a logo to lead. On the sign-in and privacy screens it is not
   // a link: there is no workspace to go back to yet.
   //
-  // The label keeps the visible name and adds where it goes — "DataMind360" on
-  // its own does not say it is the way home, and an aria-label that dropped the
-  // visible text would break speech control ("click DataMind360").
+  // The label keeps the name the logo shows and adds where it goes —
+  // "DataMind360" on its own does not say it is the way home, and a label that
+  // dropped the visible name would break speech control ("click DataMind360").
   return to ? (
     <Link className="mark" to={to} aria-label={`${PRODUCT} home`}>
       {content}

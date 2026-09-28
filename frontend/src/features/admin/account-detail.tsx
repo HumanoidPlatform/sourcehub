@@ -24,6 +24,9 @@ import {
 import { useSession } from "@shared/auth";
 import { fmtDate, fmtDateTime, money } from "@shared/format";
 import { kindRows } from "@shared/org-profile";
+import { EditProfileDialog } from "@shared/org-profile-edit";
+import { companyRows, draftFromOrg } from "@shared/org-profile-form";
+import { OrgLogo } from "@shared/org-logo";
 import { can } from "@shared/rbac";
 import { invoiceStatus, orgStatus, statusMeta } from "@shared/status";
 
@@ -62,6 +65,7 @@ export function AccountDetailPage() {
   const { id = "" } = useParams();
   const session = useSession();
   const [acting, setActing] = useState<Action | null>(null);
+  const [editing, setEditing] = useState(false);
 
   const org = useQuery({ queryKey: ["org", id], queryFn: () => get<Org>(`/organisations/${id}`) });
   const activity = useQuery({
@@ -74,6 +78,9 @@ export function AccountDetailPage() {
 
   const o = org.data;
   const mayAct = can(session, "org.suspend");
+  // Ops edits any client or partner; org.update is the capability the server
+  // checks (update_org_profile), not the role.
+  const mayEdit = can(session, "org.update") && ["client", "tenant"].includes(o?.kind ?? "");
   const offered = o ? (OFFERED[o.status] ?? []) : [];
   const meta = statusMeta(orgStatus, o?.status);
   const mine = (invoices.data ?? []).filter((i) => i.party_org_id === id);
@@ -143,9 +150,20 @@ export function AccountDetailPage() {
         )}
       </Panel>
 
-      <Panel title="Profile">
+      <Panel
+        title="Profile"
+        actions={mayEdit && <Button size="sm" onClick={() => setEditing(true)}>Edit profile</Button>}
+      >
+        <div className="orghead">
+          <OrgLogo orgId={o.id} version={o.logo_version} name={o.name} size={56} />
+          <div>
+            <b>{o.name}</b>
+            {o.legal_name && o.legal_name !== o.name && <p className="small muted">{o.legal_name}</p>}
+          </div>
+        </div>
         <Dl
           rows={[
+            ...(["client", "tenant"].includes(o.kind) ? companyRows(draftFromOrg(o)) : []),
             ...kindRows(o),
             ["Rating", o.rating ? `★ ${o.rating}` : "—"],
             ["Billing", o.billing_status ?? "—"],
@@ -217,6 +235,7 @@ export function AccountDetailPage() {
       </Panel>
 
       {acting && <LifecycleDialog org={o} action={acting} onClose={() => setActing(null)} />}
+      {editing && <EditProfileDialog org={o} ops onClose={() => setEditing(false)} />}
     </View>
   );
 }

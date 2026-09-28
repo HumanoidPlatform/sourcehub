@@ -152,7 +152,8 @@ describe("the sign-in card", () => {
   it("shows the name but does not link it — there is no workspace to go to yet", () => {
     stubApi(401);
     renderApp("/login");
-    expect(screen.getByText("DataMind360")).toBeTruthy();
+    // the name is in the logo artwork now, carried by the images' alt text
+    expect(screen.getAllByRole("img", { name: "DataMind360" }).length).toBeGreaterThan(0);
     expect(screen.queryByRole("link", { name: "DataMind360 home" })).toBeNull();
   });
 });

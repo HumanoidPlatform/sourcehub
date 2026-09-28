@@ -7,7 +7,7 @@
 // attribute, the toggle's state, and every way the drawer closes.
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { Link, MemoryRouter, Route, Routes } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ToastProvider, View } from "@ds/primitives";
@@ -17,6 +17,7 @@ vi.mock("@shared/auth", () => ({
   useSession: () => ({
     full_name: "Priya Nair",
     email: "priya@acme.example",
+    org_id: "o1",
     org_name: "Acme Retail Analytics",
     org_kind: "client",
     role: "client",
@@ -216,24 +217,58 @@ describe("brand", () => {
       .toBe("A Cosarathi product");
   });
 
-  it("leads home when the logo or the name is clicked", () => {
+  it("leads home when the logo is clicked", () => {
     renderShell();
     const home = screen.getByRole("link", { name: "DataMind360 home" });
     expect(home.getAttribute("href")).toBe("/");
-    // both the mark and the wordmark are inside the one link
-    expect(home.querySelector(".mark-logo")).not.toBeNull();
-    // No byline inside the rail's wordmark: it belongs at the foot of the rail
-    // in the console, and under the wordmark only on the sign-in card.
+    // the whole lockup, mark and wordmark, is inside the one link
+    expect(home.querySelectorAll(".mark-logo")).toHaveLength(2);
+    // No byline inside the rail's logo: it belongs at the foot of the rail in
+    // the console, and under the logo only on the sign-in card.
     expect(home.querySelector(".mark-by")).toBeNull();
-    expect(home.textContent).toContain("DataMind360");
   });
 
-  it("shows the logo without making a screen reader say the name twice", () => {
+  it("carries one logo per theme, each wired to the file made for it", () => {
     renderShell();
-    const logo = document.querySelector(".mark-logo") as HTMLImageElement;
-    expect(logo.getAttribute("src")).toBe("/brand/mark.png");
-    expect(logo.getAttribute("alt")).toBe("");
-    // the name itself is live text, not part of the image
-    expect(screen.getByText("DataMind360")).toBeTruthy();
+    // UX's DataMind360_Dark_Logo (dark ink) is the LIGHT theme's file. The
+    // names say where each one goes, so a swap shows up here, not on screen.
+    const onLight = document.querySelector(".mark-logo.on-light") as HTMLImageElement;
+    const onDark = document.querySelector(".mark-logo.on-dark") as HTMLImageElement;
+    expect(onLight.getAttribute("src")).toBe("/brand/logo-on-light.svg");
+    expect(onDark.getAttribute("src")).toBe("/brand/logo-on-dark.svg");
+    // The wordmark is in the artwork now, so the image carries the name; the
+    // stylesheet hides one of the pair with display:none, which also hides it
+    // from a screen reader, so the name is announced once.
+    expect(onLight.getAttribute("alt")).toBe("DataMind360");
+    expect(onDark.getAttribute("alt")).toBe("DataMind360");
+    // and no second copy of the name as live text beside it
+    expect(document.querySelector(".mark-name")).toBeNull();
+  });
+});
+
+describe("workspace card", () => {
+  it("shows the organisation's own logo once it has one", async () => {
+    api.get.mockImplementation((path: string) =>
+      Promise.resolve(
+        path === "/organisations/me"
+          ? { id: "o1", name: "Acme Retail Analytics", logo_version: "2026-09-28T10:00:00+00:00" }
+          : path === "/organisations/o1/logo-url"
+            ? { url: "https://blob.example/orgs/o1/logo/a.png", expires_in: 900 }
+            : { unread: 0, items: [] },
+      ),
+    );
+    renderShell();
+    const img = await screen.findByRole("img", { name: "Acme Retail Analytics logo" });
+    expect(img.closest(".rail-ctx")).toBeTruthy();
+  });
+
+  it("shows no logo, and no initials either, when there is none", async () => {
+    api.get.mockImplementation((path: string) =>
+      Promise.resolve(path === "/organisations/me" ? { id: "o1", logo_version: null } : { unread: 0, items: [] }),
+    );
+    renderShell();
+    await waitFor(() => expect(api.get).toHaveBeenCalledWith("/organisations/me"));
+    expect(document.querySelector(".rail-ctx .orglogo")).toBeNull();
+    expect(api.get).not.toHaveBeenCalledWith("/organisations/o1/logo-url");
   });
 });

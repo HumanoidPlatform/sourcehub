@@ -13,6 +13,7 @@ import { ContractsPage, ContractDetailPage, TasksPage } from "@features/delivery
 import {
   AcceptInvitationPage, ForcedPasswordChange, LoginPage, ResetPasswordPage, TaskOfferPage,
 } from "@features/identity/pages";
+import { OrganisationProfilePage } from "@features/identity/organisation";
 import { UsersPage } from "@features/identity/users";
 import { BillingPage } from "@features/ledger/pages";
 import { PrivacyPage } from "@features/legal/pages";
@@ -23,6 +24,7 @@ import {
   CapacityPage, EquipmentPage, LoanQueuePage, NetworkPage, RosterPage,
 } from "@features/network/pages";
 import { NotificationsPage } from "@features/notify/pages";
+import { OnboardingNewPage } from "@features/onboarding/new";
 import { OnboardingQueuePage } from "@features/onboarding/pages";
 import { Gate1Page, QaQueuePage } from "@features/qa/pages";
 import { identityOf, returnPath, useAuth } from "@shared/auth";
@@ -121,6 +123,8 @@ export function AppRouter() {
 
         {/* platform ops */}
         <Route path="/onboarding" element={<OnboardingQueuePage />} />
+        <Route path="/onboarding/new" element={<OnboardingNewPage />} />
+        <Route path="/onboarding/:id/edit" element={<OnboardingNewPage />} />
         <Route path="/accounts" element={<AccountsPage />} />
         <Route path="/accounts/:id" element={<AccountDetailPage />} />
         <Route path="/activity" element={<ActivityPage />} />
@@ -132,6 +136,7 @@ export function AppRouter() {
             same rule — so a member who types the URL sees the list and no
             buttons, which is what they are entitled to. */}
         <Route path="/users" element={<UsersPage />} />
+        <Route path="/organisation" element={<OrganisationProfilePage />} />
         <Route path="/notifications" element={<NotificationsPage />} />
         {/* Development builds only. In production /design falls through to the
             catch-all below and reads "Page not found". */}

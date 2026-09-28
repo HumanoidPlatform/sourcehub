@@ -25,8 +25,11 @@ import {
   AttachmentList, AttachmentsField, attachmentPayload, fromServer, type AttachmentDraft,
 } from "@shared/attachments";
 import { useLeaveGuard } from "@shared/leave-guard";
+import { OrgLogo } from "@shared/org-logo";
 import { OrgProfileDialog } from "@shared/org-profile";
+import { companyRows, draftFromOrg } from "@shared/org-profile-form";
 import { ReasonDialog } from "@shared/reason-dialog";
+import { countryLabel } from "@shared/countries";
 import {
   LIFECYCLE, proposalStatus, requestStatus, statusMeta, waitingOn,
 } from "@shared/status";
@@ -50,48 +53,6 @@ const CATEGORY_UNITS: Record<string, TargetUnit> = {
 const unitForCategory = (category: string): TargetUnit => CATEGORY_UNITS[category] ?? "records";
 const unitLabel = (unit: string | null | undefined): string =>
   unit === "records" ? "Units" : unit === "hours" || unit === "audio_hours" ? "Hours" : labelOf(TARGET_UNITS, unit);
-
-const COUNTRY_LOCALES = [
-  ["AF", "Afghanistan"], ["AL", "Albania"], ["DZ", "Algeria"], ["AD", "Andorra"],
-  ["AO", "Angola"], ["AR", "Argentina"], ["AM", "Armenia"], ["AU", "Australia"],
-  ["AT", "Austria"], ["AZ", "Azerbaijan"], ["BS", "Bahamas"], ["BH", "Bahrain"],
-  ["BD", "Bangladesh"], ["BB", "Barbados"], ["BE", "Belgium"], ["BZ", "Belize"],
-  ["BJ", "Benin"], ["BT", "Bhutan"], ["BO", "Bolivia"], ["BA", "Bosnia and Herzegovina"],
-  ["BW", "Botswana"], ["BR", "Brazil"], ["BN", "Brunei"], ["BG", "Bulgaria"],
-  ["BF", "Burkina Faso"], ["BI", "Burundi"], ["KH", "Cambodia"], ["CM", "Cameroon"],
-  ["CA", "Canada"], ["CL", "Chile"], ["CN", "China"], ["CO", "Colombia"],
-  ["CR", "Costa Rica"], ["CI", "Cote d'Ivoire"], ["HR", "Croatia"], ["CY", "Cyprus"],
-  ["CZ", "Czechia"], ["DK", "Denmark"], ["DO", "Dominican Republic"], ["EC", "Ecuador"],
-  ["EG", "Egypt"], ["SV", "El Salvador"], ["EE", "Estonia"], ["ET", "Ethiopia"],
-  ["FI", "Finland"], ["FR", "France"], ["GE", "Georgia"], ["DE", "Germany"],
-  ["GH", "Ghana"], ["GR", "Greece"], ["GT", "Guatemala"], ["HK", "Hong Kong"],
-  ["HU", "Hungary"], ["IS", "Iceland"], ["IN", "India"], ["ID", "Indonesia"],
-  ["IE", "Ireland"], ["IL", "Israel"], ["IT", "Italy"], ["JM", "Jamaica"],
-  ["JP", "Japan"], ["JO", "Jordan"], ["KZ", "Kazakhstan"], ["KE", "Kenya"],
-  ["KW", "Kuwait"], ["KG", "Kyrgyzstan"], ["LA", "Laos"], ["LV", "Latvia"],
-  ["LB", "Lebanon"], ["LT", "Lithuania"], ["LU", "Luxembourg"], ["MY", "Malaysia"],
-  ["MV", "Maldives"], ["MT", "Malta"], ["MU", "Mauritius"], ["MX", "Mexico"],
-  ["MD", "Moldova"], ["MA", "Morocco"], ["MZ", "Mozambique"], ["MM", "Myanmar"],
-  ["NP", "Nepal"], ["NL", "Netherlands"], ["NZ", "New Zealand"], ["NG", "Nigeria"],
-  ["NO", "Norway"], ["OM", "Oman"], ["PK", "Pakistan"], ["PA", "Panama"],
-  ["PE", "Peru"], ["PH", "Philippines"], ["PL", "Poland"], ["PT", "Portugal"],
-  // RU was in COUNTRY_LANGUAGE_CODES but not here, so countryLabel fell through
-  // to the raw code and the picker offered "RU - Russian" among a list of real
-  // country names.
-  ["QA", "Qatar"], ["RO", "Romania"], ["RU", "Russia"], ["RW", "Rwanda"], ["SA", "Saudi Arabia"],
-  ["SN", "Senegal"], ["RS", "Serbia"], ["SG", "Singapore"], ["SK", "Slovakia"],
-  ["SI", "Slovenia"], ["ZA", "South Africa"], ["KR", "South Korea"], ["ES", "Spain"],
-  ["LK", "Sri Lanka"], ["SE", "Sweden"], ["CH", "Switzerland"], ["TW", "Taiwan"],
-  ["TJ", "Tajikistan"], ["TZ", "Tanzania"], ["TH", "Thailand"], ["TR", "Turkey"],
-  ["TM", "Turkmenistan"], ["UG", "Uganda"], ["UA", "Ukraine"], ["AE", "United Arab Emirates"],
-  ["GB", "United Kingdom"], ["US", "United States"], ["UY", "Uruguay"], ["UZ", "Uzbekistan"],
-  ["VE", "Venezuela"], ["VN", "Vietnam"], ["ZM", "Zambia"], ["ZW", "Zimbabwe"],
-] as const;
-
-function countryLabel(code: string): string {
-  const found = COUNTRY_LOCALES.find(([value]) => value === code);
-  return found ? found[1] : code;
-}
 
 const LANGUAGES = [
   ["eng", "English"], ["hin", "Hindi"], ["fr", "French"], ["spa", "Spanish"],
@@ -1594,9 +1555,33 @@ function NewDestination({
  *  The same rows ClientAndRequestDialog shows on the Responses page — that one
  *  answers the question after the bid, this one before it. Name comes from the
  *  request itself so the panel is never empty while the profile loads. */
+// The buyer as a partner sees it: who they are, and the public profile they
+// chose to show the organisations they work with (db/230). The API has already
+// withheld their plan and DPA (_may_see_commercials); nothing here is private.
+// Shared by the RFP page and My Proposals, which used to list the same five
+// rows twice and so both missed the profile when it arrived.
+function ClientDetails({ o }: { o: Org }) {
+  const cp = (o.profile ?? {}) as Partial<ClientProfile>;
+  return (
+    <>
+      <div className="orghead">
+        <OrgLogo orgId={o.id} version={o.logo_version} name={o.name} size={40} />
+        <div>
+          <b>{o.name}</b>
+          <p className="small muted"><span className="id">{o.reference_code}</span></p>
+        </div>
+      </div>
+      <Dl rows={[
+        ...companyRows(draftFromOrg(o)),
+        ["Industry", cp.industry ?? "—"],
+        ["Client since", fmtDate(cp.since)],
+      ]} />
+    </>
+  );
+}
+
 function ClientPanel({ name, q }: { name?: string | null; q: UseQueryResult<Org> }) {
   const o = q.data;
-  const cp = (o?.profile ?? {}) as Partial<ClientProfile>;
   return (
     <Panel title="Client" sub="Who raised this request">
       {!o && !name && !q.isLoading ? (
@@ -1609,13 +1594,7 @@ function ClientPanel({ name, q }: { name?: string | null; q: UseQueryResult<Org>
       ) : !o ? (
         <Dl rows={[["Name", name ?? "…"]]} />
       ) : (
-        <Dl rows={[
-          ["Name", o.name],
-          ["Reference", o.reference_code],
-          ["Country", o.country ?? "—"],
-          ["Industry", cp.industry ?? "—"],
-          ["Client since", fmtDate(cp.since)],
-        ]} />
+        <ClientDetails o={o} />
       )}
     </Panel>
   );
@@ -2283,7 +2262,6 @@ function ClientAndRequestDialog({ proposal, onClose }: { proposal: Proposal; onC
 
   const r = rfp.data;
   const o = client.data;
-  const cp = (o?.profile ?? {}) as Partial<ClientProfile>;
   const pm = statusMeta(proposalStatus, proposal.status);
 
   return (
@@ -2308,13 +2286,7 @@ function ClientAndRequestDialog({ proposal, onClose }: { proposal: Proposal; onC
         ) : !o ? (
           <p className="muted">Loading…</p>
         ) : (
-          <Dl rows={[
-            ["Name", o.name],
-            ["Reference", o.reference_code],
-            ["Country", o.country ?? "—"],
-            ["Industry", cp.industry ?? "—"],
-            ["Client since", fmtDate(cp.since)],
-          ]} />
+          <ClientDetails o={o} />
         )}
       </Panel>
 

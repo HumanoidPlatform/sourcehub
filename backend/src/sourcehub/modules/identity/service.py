@@ -11,10 +11,12 @@ policies would — correctly — show nothing of.
 from __future__ import annotations
 
 import datetime as dt
+import json
 import uuid
 from dataclasses import dataclass
-from typing import Any
+from typing import TYPE_CHECKING, Any, cast
 
+from pydantic import ValidationError
 from sqlalchemy import select, text, update
 from sqlalchemy.exc import DBAPIError
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -22,6 +24,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sourcehub.api.security import AccessClaims, hash_token, new_opaque_token
 from sourcehub.config import PRODUCT, settings
 from sourcehub.db.session import anonymous_session, org_session
+from sourcehub.modules.attachments import service as attachments
 from sourcehub.modules.audit import service as audit
 from sourcehub.modules.identity import members
 from sourcehub.modules.identity.models import (
@@ -34,6 +37,17 @@ from sourcehub.modules.identity.models import (
     TenantProfile,
     UserSession,
 )
+from sourcehub.modules.identity.profile_schema import (
+    KIND_FIELDS,
+    OPS_ONLY,
+    OnboardingProfileIn,
+    OrgProfilePatch,
+    foreign_kind_fields,
+    public_part,
+)
+
+if TYPE_CHECKING:
+    from sqlalchemy import CursorResult
 
 
 class OrgLifecycleError(Exception):
@@ -487,6 +501,20 @@ async def get_org(
     return _org_dict(org, profile, claims)
 
 
+def _public_profile(org: Organisation) -> dict[str, Any]:
+    """public_profile as the API shows it: without the storage key.
+
+    The key would let nobody fetch the file (storage is private), but it names
+    the folder layout and there is nothing a caller can do with it. What the
+    console needs is whether there is a logo and when it last changed, so it can
+    ask for a signed URL and cache it until the logo is replaced.
+    """
+    stored = dict(org.public_profile or {})
+    key = stored.pop("logo_key", None)
+    changed = stored.pop("logo_updated_at", None)
+    return {"public_profile": stored, "logo_version": changed if key else None}
+
+
 def _org_dict(
     org: Organisation, profile: Any = None, claims: AccessClaims | None = None
 ) -> dict[str, Any]:
@@ -496,6 +524,7 @@ def _org_dict(
         "reference_code": org.reference_code,
         "kind": org.kind,
         "name": org.name,
+        "legal_name": org.legal_name,
         "status": org.status,
         "parent_org_id": org.parent_org_id,
         "country": org.country,
@@ -509,6 +538,7 @@ def _org_dict(
         "suspended_at": org.suspended_at,
         "suspension_reason": org.suspension_reason,
         "profile": _profile_dict(profile, commercials=commercials),
+        **_public_profile(org),
     }
     if not commercials:
         del out["billing_status"]
@@ -631,6 +661,301 @@ async def set_org_lifecycle(
         [org.id, claims.org_id],
     )
     return _org_dict(org, None, claims)
+
+
+# ---------------------------------------------------------------------------
+# Organisation profile — what onboarding captured, kept current afterwards.
+#
+# profile.manage has been seeded for every organisation kind since 900_seed and
+# checked by nothing; this is its first reader. Ops edits through org.update
+# (db/230). The route admits either (require_any_capability); these functions
+# decide what each may change, and RLS decides whose row — organisation_update
+# is is_platform_admin() OR id = current_org_id().
+# ---------------------------------------------------------------------------
+
+PROFILE_KINDS = ("client", "tenant")
+_EDITOR_SCOPES = ("owner", "manager")
+_KIND_NAME = {"client": "a client", "tenant": "a partner"}
+_OPS_ONLY_LABEL = {
+    "name": "the organisation name",
+    "legal_name": "the legal name",
+    "country": "the country",
+    "plan": "the plan",
+    "residency_region": "the data residency",
+    "dpa_signed": "the DPA status",
+}
+
+
+class ProfileError(Exception):
+    """A well-formed profile change that does not apply to this organisation."""
+
+
+class ProfileForbiddenError(ProfileError):
+    """The caller may not make this change."""
+
+
+def _is_profile_ops(claims: AccessClaims) -> bool:
+    return "org.update" in claims.capabilities
+
+
+def _check_editor(claims: AccessClaims, org: Organisation, sent: set[str]) -> None:
+    """Ops edits any client or partner. Anyone else edits their own, if they
+    administer it, and never the fields that are the account's terms."""
+    if org.kind not in PROFILE_KINDS:
+        raise ProfileError("Only client and partner profiles can be edited here.")
+    if _is_profile_ops(claims):
+        return
+    if org.id != claims.org_id or "profile.manage" not in claims.capabilities:
+        raise ProfileForbiddenError("You can only edit your own organisation's profile.")
+    # One role per organisation kind, so every member holds profile.manage; the
+    # grant's scope is what separates the people who run the account (see
+    # require_member_admin, api/deps.py).
+    if claims.scope not in _EDITOR_SCOPES:
+        raise ProfileForbiddenError("Only an owner or manager can edit the organisation profile.")
+    locked = [f for f in _OPS_ONLY_LABEL if f in sent and f in OPS_ONLY]
+    if locked:
+        raise ProfileForbiddenError(
+            f"Only {PRODUCT} can change "
+            + ", ".join(_OPS_ONLY_LABEL[f] for f in locked)
+            + ". Contact your account manager."
+        )
+
+
+async def _load_org(session: AsyncSession, org_id: uuid.UUID) -> Organisation:
+    org = (
+        await session.execute(
+            select(Organisation).where(Organisation.id == org_id, Organisation.deleted_at.is_(None))
+        )
+    ).scalar_one_or_none()
+    if org is None:
+        raise LookupError("organisation not found")
+    return org
+
+
+async def _merge_public(
+    session: AsyncSession, org_id: uuid.UUID, changes: dict[str, Any], who: uuid.UUID
+) -> None:
+    """Merge into public_profile in ONE statement: set what has a value, drop
+    what was sent as null. Read-modify-write in Python would let two editors
+    silently undo each other; || and - on jsonb cannot."""
+    sets = {k: v for k, v in changes.items() if v is not None}
+    drops = [k for k, v in changes.items() if v is None]
+    if not sets and not drops:
+        return
+    res = await session.execute(
+        text(
+            "UPDATE organisation "
+            "SET public_profile = (public_profile || CAST(:sets AS jsonb))"
+            "                     - CAST(:drops AS text[]), "
+            "    updated_by = :who "
+            "WHERE id = :id"
+        ),
+        {"sets": json.dumps(sets), "drops": drops, "who": who, "id": org_id},
+    )
+    if cast("CursorResult[Any]", res).rowcount != 1:
+        # RLS filtered the UPDATE: the caller can see the organisation but may
+        # not write it. _check_editor should have said so first.
+        raise ProfileForbiddenError("You can only edit your own organisation's profile.")
+
+
+async def _kind_profile(session: AsyncSession, org: Organisation) -> Any:
+    model = _PROFILE_MODEL.get(org.kind)
+    if model is None:
+        return None
+    return (
+        await session.execute(select(model).where(model.org_id == org.id))
+    ).scalar_one_or_none()
+
+
+def _apply_kind_fields(prof: Any, values: dict[str, Any]) -> None:
+    for field, value in values.items():
+        if field == "dpa_signed":
+            value = bool(value)
+            if value != bool(prof.dpa_signed):
+                prof.dpa_signed_at = dt.datetime.now(dt.timezone.utc) if value else None
+        setattr(prof, field, value)
+
+
+async def update_org_profile(
+    session: AsyncSession, claims: AccessClaims, org_id: uuid.UUID, patch: OrgProfilePatch
+) -> dict[str, Any]:
+    """Change what the patch names, and nothing else.
+
+    The audit line records WHICH fields changed, not their values: the trail is
+    read by more people than the profile is, and the values are one click away
+    on the profile itself.
+    """
+    org = await _load_org(session, org_id)
+    sent = set(patch.model_fields_set)
+    _check_editor(claims, org, sent)
+
+    wrong = foreign_kind_fields(org.kind, sent)
+    if wrong:
+        raise ProfileError(f"{', '.join(wrong)} does not apply to {_KIND_NAME[org.kind]}.")
+    if "name" in sent and patch.name is None:
+        raise ProfileError("An organisation needs a name.")
+
+    prof = await _kind_profile(session, org)
+    if not sent:
+        return _org_dict(org, prof, claims)
+
+    for field in ("name", "legal_name", "country", "residency_region"):
+        if field in sent:
+            setattr(org, field, getattr(patch, field))
+    org.updated_by = claims.user_id
+
+    kind_values = {f: getattr(patch, f) for f in sent & KIND_FIELDS[org.kind]}
+    if kind_values:
+        if prof is None:
+            prof = _PROFILE_MODEL[org.kind](org_id=org.id)
+            session.add(prof)
+        _apply_kind_fields(prof, kind_values)
+
+    await session.flush()
+    await _merge_public(session, org.id, public_part(patch), claims.user_id)
+    await session.refresh(org)
+
+    await audit.log(
+        session,
+        "org.profile_updated",
+        f"{org.reference_code} ({org.name}) profile updated: {', '.join(sorted(sent))}",
+        [org.id, claims.org_id],
+    )
+    return _org_dict(org, prof, claims)
+
+
+async def _write_logo_key(
+    session: AsyncSession, org_id: uuid.UUID, key: str | None, who: uuid.UUID
+) -> None:
+    if key is None:
+        sql = (
+            "UPDATE organisation "
+            "SET public_profile = public_profile - CAST(:drops AS text[]), updated_by = :who "
+            "WHERE id = :id"
+        )
+        params: dict[str, Any] = {
+            "drops": ["logo_key", "logo_updated_at"], "who": who, "id": org_id,
+        }
+    else:
+        sql = (
+            "UPDATE organisation "
+            "SET public_profile = public_profile || jsonb_build_object("
+            "      'logo_key', CAST(:key AS text), 'logo_updated_at', to_jsonb(now())), "
+            "    updated_by = :who "
+            "WHERE id = :id"
+        )
+        params = {"key": key, "who": who, "id": org_id}
+    res = await session.execute(text(sql), params)
+    if cast("CursorResult[Any]", res).rowcount != 1:
+        raise ProfileForbiddenError("You can only edit your own organisation's profile.")
+
+
+async def set_org_logo(
+    session: AsyncSession, claims: AccessClaims, org_id: uuid.UUID, staging_key: str
+) -> dict[str, Any]:
+    """File an uploaded image as the organisation's logo, replacing any other."""
+    org = await _load_org(session, org_id)
+    _check_editor(claims, org, set())
+    previous = (org.public_profile or {}).get("logo_key")
+    try:
+        key = await attachments.file_org_logo(claims, staging_key, org.id)
+    except attachments.AttachmentError as e:
+        raise ProfileError(str(e)) from None
+    await _write_logo_key(session, org.id, key, claims.user_id)
+    await session.refresh(org)
+    await audit.log(
+        session, "org.logo_updated", f"{org.reference_code} ({org.name}) logo updated",
+        [org.id, claims.org_id],
+    )
+    # Last: until the row points at the new key, the old one is still the logo.
+    if previous:
+        await attachments.discard_org_logo(previous)
+    return _org_dict(org, await _kind_profile(session, org), claims)
+
+
+async def clear_org_logo(
+    session: AsyncSession, claims: AccessClaims, org_id: uuid.UUID
+) -> dict[str, Any]:
+    org = await _load_org(session, org_id)
+    _check_editor(claims, org, set())
+    previous = (org.public_profile or {}).get("logo_key")
+    if previous:
+        await _write_logo_key(session, org.id, None, claims.user_id)
+        await session.refresh(org)
+        await audit.log(
+            session, "org.logo_removed", f"{org.reference_code} ({org.name}) logo removed",
+            [org.id, claims.org_id],
+        )
+        await attachments.discard_org_logo(previous)
+    return _org_dict(org, await _kind_profile(session, org), claims)
+
+
+async def org_logo_url(session: AsyncSession, org_id: uuid.UUID) -> dict[str, Any]:
+    """A signed URL for the logo of an organisation the caller can see.
+
+    The RLS'd select is the whole access check, as for attachments: whoever may
+    see the organisation may see its logo, which is what public_profile means.
+    """
+    org = await _load_org(session, org_id)
+    key = (org.public_profile or {}).get("logo_key")
+    if not key:
+        raise LookupError("no logo")
+    ext = key.rsplit(".", 1)[-1]
+    return await attachments.signed_inline_url(key, f"{org.reference_code}-logo.{ext}")
+
+
+async def apply_onboarding_profile(
+    session: AsyncSession, claims: AccessClaims, org_id: uuid.UUID, payload: dict[str, Any]
+) -> list[str]:
+    """What approve_onboarding_request() does not write, written at approval.
+
+    The SQL function still creates the organisation, its kind profile (industry
+    or HQ, plan, capabilities), the first user and the invitation; this adds the
+    legal name, the public profile, the DPA flag and the logo, in the same
+    transaction. The logo yields a warning rather than an error: an upload that
+    has gone missing is no reason to refuse an organisation Ops has already
+    decided to admit, and the logo can be added on the account page.
+    """
+    try:
+        p = OnboardingProfileIn.model_validate(payload or {})
+    except ValidationError:
+        # Requests are validated when they are filed; this is one filed before
+        # that check existed, holding a value it would now refuse.
+        return [
+            "The profile details on this request could not be read; "
+            "complete them on the account page."
+        ]
+
+    org = await _load_org(session, org_id)
+    if org.kind not in PROFILE_KINDS:
+        return []
+
+    if p.legal_name:
+        org.legal_name = p.legal_name
+        org.updated_by = claims.user_id
+    if p.dpa_signed and org.kind == "client":
+        prof = await _kind_profile(session, org)
+        if prof is not None:
+            _apply_kind_fields(prof, {"dpa_signed": True})
+    await session.flush()
+
+    await _merge_public(
+        session,
+        org.id,
+        {k: v for k, v in public_part(p, only_sent=False).items() if v is not None},
+        claims.user_id,
+    )
+
+    warnings: list[str] = []
+    if p.logo_staging_key:
+        try:
+            key = await attachments.file_org_logo(claims, p.logo_staging_key, org.id)
+        except attachments.AttachmentError as e:
+            warnings.append(f"The logo was not added: {e} Add it from the account page.")
+        else:
+            await _write_logo_key(session, org.id, key, claims.user_id)
+    await session.refresh(org)
+    return warnings
 
 
 # ---------------------------------------------------------------------------

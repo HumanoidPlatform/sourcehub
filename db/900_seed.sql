@@ -68,6 +68,7 @@ INSERT INTO permission (code, module, description, requires_mfa) VALUES
   ('onboarding.approve',  'onboarding',  'Approve or reject an onboarding request',  true),
   ('org.create',          'identity',    'Create an organisation directly',          true),
   ('org.suspend',         'identity',    'Suspend or terminate an organisation',     true),
+  ('org.update',          'identity',    'Edit any organisation profile',            false),
   ('user.invite',         'identity',    'Invite a user into an organisation',       false),
   ('user.manage',         'identity',    'Manage users in own organisation',         false),
   ('role.manage',         'identity',    'Manage roles and grants in own organisation', false);
@@ -143,7 +144,7 @@ SELECT r.id, p.id FROM role r, permission p
 WHERE r.code = 'platform_admin' AND p.code IN (
   'account.read','billing.read','invoice.read','activity.read','dispute.arbitrate',
   'onboarding.request','onboarding.read','onboarding.approve','org.create','org.suspend',
-  'user.invite','user.manage','role.manage','contract.read','delivery.track');
+  'org.update','user.invite','user.manage','role.manage','contract.read','delivery.track');
 
 
 -- ---------------------------------------------------------------------------

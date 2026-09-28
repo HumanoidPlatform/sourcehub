@@ -17,6 +17,7 @@ storage really holds it.
 
 from __future__ import annotations
 
+import contextlib
 import uuid
 from typing import Any
 
@@ -315,3 +316,114 @@ async def discard(
     )
     if res.rowcount == 0:
         raise LookupError("attachment not found")
+
+
+# ---------------------------------------------------------------------------
+# Organisation logos
+#
+# Not attachments: a logo hangs off an organisation, not off an RFP, so it has
+# no attachment row, no folder under a client and no document number. It
+# shares the upload path (presign_upload above, staged under the uploader's own
+# prefix) and the same rule that the size and type come from storage, never
+# from the caller. The organisation records the final key in
+# organisation.public_profile (db/230), whose CHECK pins it under LOGO_PREFIX.
+# ---------------------------------------------------------------------------
+
+LOGO_PREFIX = "orgs"
+LOGO_MAX_BYTES = 2 * 1024 * 1024
+# Raster only. An SVG is a document that can carry script, and it would be
+# served inline from our storage account; GIF is left out because a logo
+# that moves is a distraction on every page it appears on.
+_LOGO_TYPES = {
+    ".png": "image/png",
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".webp": "image/webp",
+}
+_NOT_AN_IMAGE = "A logo must be a PNG, JPEG or WebP image."
+
+
+def _logo_ext(key: str) -> str:
+    name = key.rsplit("/", 1)[-1]
+    ext = "." + name.rsplit(".", 1)[-1].lower() if "." in name else ""
+    if ext not in _LOGO_TYPES:
+        raise AttachmentError(_NOT_AN_IMAGE)
+    return ext
+
+
+def check_staged_logo(claims: AccessClaims, staging_key: str) -> None:
+    """The cheap half of file_org_logo(), for a request that files the key now
+    and moves it later: onboarding holds it until approval creates the owner."""
+    if not staging_key.startswith(folders.staging_prefix(claims.org_id)):
+        raise AttachmentError("That file does not belong to your organisation.")
+    _logo_ext(staging_key)
+
+
+async def file_org_logo(claims: AccessClaims, staging_key: str, org_id: uuid.UUID) -> str:
+    """Move an uploaded image into an organisation's logo folder; the new key.
+
+    Storage is outside the caller's transaction, so this is called last, once
+    the caller has decided the change is allowed.
+    """
+    from sourcehub.platform import storage
+
+    check_staged_logo(claims, staging_key)
+    ext = _logo_ext(staging_key)
+    target = storage.platform_target()
+    try:
+        size, stored_ct = await storage.stat(target, staging_key)
+    except LookupError:
+        raise AttachmentError("The logo upload was not found; upload it again.") from None
+    if size <= 0 or size > LOGO_MAX_BYTES:
+        raise AttachmentError("A logo must be 2 MB or smaller.")
+    # The type the object will be SERVED with, which is what a browser acts on.
+    # The extension says what it should be; the stored header must agree.
+    if (stored_ct or "").split(";", 1)[0].strip().lower() != _LOGO_TYPES[ext]:
+        raise AttachmentError(_NOT_AN_IMAGE)
+
+    final = f"{LOGO_PREFIX}/{org_id}/logo/{uuid.uuid4().hex}{ext}"
+    await storage.copy(target, staging_key, final)
+    await storage.delete(target, staging_key)
+    return final
+
+
+async def discard_org_logo(key: str) -> None:
+    """Best-effort removal of a replaced logo. The organisation no longer points
+    at it, so a failure here leaves an unreferenced object, not a broken page."""
+    from sourcehub.platform import storage
+
+    # see docstring: never fail the save for this
+    with contextlib.suppress(Exception):
+        await storage.delete(storage.platform_target(), key)
+
+
+async def signed_inline_url(key: str, filename: str) -> dict[str, Any]:
+    """A short-TTL URL an <img> can load. The caller has already decided the
+    viewer may see the organisation; the key never leaves the server."""
+    from sourcehub.platform import storage
+
+    url = await storage.presign_get(storage.platform_target(), key, filename, inline=True)
+    return {"url": url, "expires_in": settings.storage_presign_ttl_seconds}
+
+
+async def staged_logo_url(staging_key: str, owner_org_id: uuid.UUID) -> dict[str, Any]:
+    """Preview of a logo that is still in staging: an onboarding request holds
+    one until approval creates the organisation that will own it.
+
+    The same three checks as filing it, because the answer is a URL that
+    renders inline: the key must be under the requester's own staging prefix
+    (a payload cannot name a filed document or another organisation's upload),
+    and storage must hold an image whose served type matches its extension (an
+    HTML file named logo.png would otherwise render on the storage domain)."""
+    from sourcehub.platform import storage
+
+    if not staging_key.startswith(folders.staging_prefix(owner_org_id)):
+        raise AttachmentError("That is not an uploaded logo.")
+    ext = _logo_ext(staging_key)
+    try:
+        _size, stored_ct = await storage.stat(storage.platform_target(), staging_key)
+    except LookupError:
+        raise AttachmentError("The logo upload was not found.") from None
+    if (stored_ct or "").split(";", 1)[0].strip().lower() != _LOGO_TYPES[ext]:
+        raise AttachmentError(_NOT_AN_IMAGE)
+    return await signed_inline_url(staging_key, f"logo-preview{ext}")

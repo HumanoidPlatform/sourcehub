@@ -51,8 +51,10 @@ async def create_request(
             session, principal, body.target_org_kind, body.proposed_name,
             body.payload, body.contact, body.submit,
         )
-    # Order matters: the conflict subclasses the base error, and "this email is
-    # taken" is not a permissions answer.
+    # Order matters: both subclass the base error. "This email is taken" is not
+    # a permissions answer, and neither is "the website is not a web address".
+    except onboarding.OnboardingInvalidError as e:
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, str(e)) from None
     except onboarding.OnboardingConflictError as e:
         raise HTTPException(status.HTTP_409_CONFLICT, str(e)) from None
     except onboarding.OnboardingError as e:
@@ -81,6 +83,20 @@ async def get_request(
     return row
 
 
+@router.get("/{request_id}/logo-url")
+async def staged_logo_url(
+    request_id: uuid.UUID,
+    principal: Principal = Depends(require_capability("onboarding.read")),
+    session: AsyncSession = Depends(get_session),
+):
+    """The logo a pending request carries, so the reviewer sees it before
+    approving. JSON {url}, not a redirect, as for every other signed URL."""
+    try:
+        return await onboarding.staged_logo_url(session, request_id)
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "No logo") from None
+
+
 @router.post("/{request_id}/submit")
 async def submit_request(
     request_id: uuid.UUID,
@@ -91,6 +107,8 @@ async def submit_request(
         return await onboarding.submit_request(session, principal, request_id)
     except LookupError:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Onboarding request not found") from None
+    except onboarding.OnboardingInvalidError as e:
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, str(e)) from None
     except onboarding.OnboardingError as e:
         raise HTTPException(status.HTTP_409_CONFLICT, str(e)) from None
 
@@ -108,6 +126,8 @@ async def update_draft(
         )
     except LookupError:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Onboarding request not found") from None
+    except onboarding.OnboardingInvalidError as e:
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, str(e)) from None
     except onboarding.OnboardingError as e:
         raise HTTPException(status.HTTP_409_CONFLICT, str(e)) from None
 

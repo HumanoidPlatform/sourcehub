@@ -120,6 +120,38 @@ describe("a partner reading an opportunity brief", () => {
     expect(within(card).getByText("ORG-ACME")).toBeTruthy();
   });
 
+  it("shows the buyer's public profile and logo, and nothing of its terms", async () => {
+    // db/230: what the client chose to show the organisations it works with.
+    // The RFP page listed five fixed rows and so missed all of it.
+    api.get.mockImplementation((path: string) => {
+      if (path === "/requests/r1") return Promise.resolve(RFP);
+      if (path === "/organisations/o-acme")
+        return Promise.resolve({
+          ...CLIENT,
+          legal_name: "Acme Retail Analytics Private Limited",
+          public_profile: {
+            website: "https://acme.example",
+            company_size: "201-1000",
+            registered_address: { city: "Pune", country: "India" },
+          },
+          logo_version: "2026-09-28T10:00:00+00:00",
+        });
+      if (path === "/organisations/o-acme/logo-url")
+        return Promise.resolve({ url: "https://blob.example/acme.png", expires_in: 900 });
+      return Promise.resolve(null);
+    });
+    show();
+    const panel = await screen.findByText("Client");
+    const card = panel.closest(".panel") as HTMLElement;
+    await waitFor(() => expect(within(card).getByText("Acme Retail Analytics Private Limited")).toBeTruthy());
+    expect(within(card).getByRole("link", { name: "acme.example" })).toBeTruthy();
+    expect(within(card).getByText("Pune, India")).toBeTruthy();
+    expect(within(card).getByText("201-1000 people")).toBeTruthy();
+    expect(await within(card).findByRole("img", { name: "Acme Retail Analytics logo" })).toBeTruthy();
+    // The API withholds these from a counterparty; the panel never asks for them.
+    expect(within(card).queryByText(/Plan|DPA|Billing/)).toBeNull();
+  });
+
   it("falls back to the name on the request while the profile is still loading", async () => {
     // /organisations never settles. The request already carries client_name,
     // so the panel is named from the first paint rather than blank.

@@ -135,6 +135,13 @@ export function ProfileMenu({ theme, onTheme }: { theme: Theme; onTheme: (t: The
                 Manage users
               </Link>
             )}
+            {/* Everyone in a client or partner can read their profile; the page
+                itself offers editing only to an owner or manager. */}
+            {(session.org_kind === "client" || session.org_kind === "tenant") && (
+              <Link to="/organisation" role="menuitem" tabIndex={-1} className="acct-item" onClick={() => setOpen(false)}>
+                Organisation profile
+              </Link>
+            )}
             <Link to="/privacy" role="menuitem" tabIndex={-1} className="acct-item" onClick={() => setOpen(false)}>
               Privacy notice
             </Link>

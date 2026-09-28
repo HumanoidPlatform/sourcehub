@@ -9,6 +9,8 @@ import { get } from "@api/client";
 import type { Org } from "@api/types";
 import { Button, Callout, Dialog, Dl, Meter, Pill } from "@ds/primitives";
 import { fmtDate } from "@shared/format";
+import { OrgLogo } from "@shared/org-logo";
+import { companyRows, draftFromOrg } from "@shared/org-profile-form";
 import { orgStatus, statusMeta } from "@shared/status";
 import type { ReactNode } from "react";
 
@@ -117,13 +119,27 @@ export function OrgProfileDialog({
       ) : !o ? (
         <p className="muted">Loading…</p>
       ) : (
+        <>
+        {/* The public profile (db/230) is what this organisation chose to show
+            the people it works with, so a counterparty sees all of it. */}
+        {["client", "tenant"].includes(o.kind) && (
+          <div className="orghead">
+            <OrgLogo orgId={o.id} version={o.logo_version} name={o.name} size={48} />
+            <div>
+              <b>{o.name}</b>
+              {o.legal_name && o.legal_name !== o.name && <p className="small muted">{o.legal_name}</p>}
+            </div>
+          </div>
+        )}
         <Dl
           rows={[
+            ...(["client", "tenant"].includes(o.kind) ? companyRows(draftFromOrg(o)) : []),
             ...kindRows(o, seedQa),
             ["Rating", o.rating ? `★ ${o.rating}` : "—"],
             ...(o.billing_status ? ([["Billing", o.billing_status]] as [string, ReactNode][]) : []),
           ]}
         />
+        </>
       )}
     </Dialog>
   );
