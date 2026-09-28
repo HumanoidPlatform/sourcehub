@@ -5,9 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Same name as PRODUCT in src/shared/brand.tsx, which this cannot import. -->
     <title>DataMind360</title>
-    <!-- Tabs showed the browser's blank page icon until now. Served straight
-         from public/brand, so no build step touches them. -->
-    <link rel="icon" type="image/png" href="/brand/favicon.png" />
+    <!-- The mark, cut from the UX lockup (docs/brand). The SVG turns its dark ink
+         white on a dark tab; the PNG, for browsers without SVG icons, sits on a
+         white tile so it reads on either. Served straight from public/brand, so
+         no build step touches them. -->
+    <link rel="icon" type="image/svg+xml" href="/brand/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="64x64" href="/brand/favicon.png" />
     <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

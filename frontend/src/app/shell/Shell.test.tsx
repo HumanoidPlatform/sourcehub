@@ -216,24 +216,31 @@ describe("brand", () => {
       .toBe("A Cosarathi product");
   });
 
-  it("leads home when the logo or the name is clicked", () => {
+  it("leads home when the logo is clicked", () => {
     renderShell();
     const home = screen.getByRole("link", { name: "DataMind360 home" });
     expect(home.getAttribute("href")).toBe("/");
-    // both the mark and the wordmark are inside the one link
-    expect(home.querySelector(".mark-logo")).not.toBeNull();
-    // No byline inside the rail's wordmark: it belongs at the foot of the rail
-    // in the console, and under the wordmark only on the sign-in card.
+    // the whole lockup, mark and wordmark, is inside the one link
+    expect(home.querySelectorAll(".mark-logo")).toHaveLength(2);
+    // No byline inside the rail's logo: it belongs at the foot of the rail in
+    // the console, and under the logo only on the sign-in card.
     expect(home.querySelector(".mark-by")).toBeNull();
-    expect(home.textContent).toContain("DataMind360");
   });
 
-  it("shows the logo without making a screen reader say the name twice", () => {
+  it("carries one logo per theme, each wired to the file made for it", () => {
     renderShell();
-    const logo = document.querySelector(".mark-logo") as HTMLImageElement;
-    expect(logo.getAttribute("src")).toBe("/brand/mark.png");
-    expect(logo.getAttribute("alt")).toBe("");
-    // the name itself is live text, not part of the image
-    expect(screen.getByText("DataMind360")).toBeTruthy();
+    // UX's DataMind360_Dark_Logo (dark ink) is the LIGHT theme's file. The
+    // names say where each one goes, so a swap shows up here, not on screen.
+    const onLight = document.querySelector(".mark-logo.on-light") as HTMLImageElement;
+    const onDark = document.querySelector(".mark-logo.on-dark") as HTMLImageElement;
+    expect(onLight.getAttribute("src")).toBe("/brand/logo-on-light.svg");
+    expect(onDark.getAttribute("src")).toBe("/brand/logo-on-dark.svg");
+    // The wordmark is in the artwork now, so the image carries the name; the
+    // stylesheet hides one of the pair with display:none, which also hides it
+    // from a screen reader, so the name is announced once.
+    expect(onLight.getAttribute("alt")).toBe("DataMind360");
+    expect(onDark.getAttribute("alt")).toBe("DataMind360");
+    // and no second copy of the name as live text beside it
+    expect(document.querySelector(".mark-name")).toBeNull();
   });
 });
