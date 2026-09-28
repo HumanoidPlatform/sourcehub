@@ -45,15 +45,20 @@ async def _lifespan(app: FastAPI) -> AsyncIterator[None]:
     Every uvicorn worker starts one; the advisory lock inside the pass lets
     only one of them do the work on any tick."""
     from sourcehub.modules.engage import service as engage
+    from sourcehub.modules.marketplace import sweep
 
-    clock = asyncio.create_task(engage.run_forever()) if settings.engagement_enabled else None
+    clocks = [
+        asyncio.create_task(engage.run_forever()) if settings.engagement_enabled else None,
+        asyncio.create_task(sweep.run_forever()) if settings.bidding_sweep_enabled else None,
+    ]
     try:
         yield
     finally:
-        if clock is not None:
-            clock.cancel()
-            with contextlib.suppress(asyncio.CancelledError):
-                await clock
+        for clock in clocks:
+            if clock is not None:
+                clock.cancel()
+                with contextlib.suppress(asyncio.CancelledError):
+                    await clock
 
 
 def create_app() -> FastAPI:

@@ -9,6 +9,7 @@ Needs the compose stack (Postgres, MinIO, Mailpit) and the API on :8000.
 Every step asserts, and every negative check must be REFUSED.
 """
 
+import datetime as dt
 import os
 
 import httpx
@@ -103,7 +104,12 @@ r = client.post("/requests", json={
     "compliance_notes": "No shoppers or faces in frame.",
     "people_headcount": 180,
     "budget_min": 60000, "budget_max": 85000,
-    "starts_on": "2026-09-07", "delivery_due_on": "2026-11-15",
+    # Relative, not fixed: publishing now requires a bidding deadline on or
+    # before the delivery date, so a hard-coded delivery date would have
+    # refused this loop from a week before it.
+    "starts_on": dt.date.today().isoformat(),
+    "delivery_due_on": (dt.date.today() + dt.timedelta(days=60)).isoformat(),
+    "proposals_close_at": (dt.datetime.now(dt.timezone.utc) + dt.timedelta(days=7)).isoformat(),
     "storage_target_id": dest["id"],
     "publish": True,
 })

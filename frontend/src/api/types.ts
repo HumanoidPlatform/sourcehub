@@ -117,6 +117,12 @@ export interface Rfp {
   pilot: { required: boolean; quantity: number | null; due_on: string | null };
   proposal_requirements: ProposalRequirement[];
   proposals_close_at: string | null;
+  /** Derived by the server from proposals_close_at and its clock, never
+   *  stored: false once the window has shut. No deadline means open. */
+  bidding_open: boolean;
+  /** The row's own status, before proposals_received is derived from the
+   *  bid count. The deadline can be changed only while this is published. */
+  stored_status: string;
   contact_user_id: string | null;
   starts_on: string | null;
   delivery_due_on: string | null;
@@ -210,6 +216,9 @@ export interface Milestone { label: string; amount?: string | null; due_on?: str
 
 export interface Proposal {
   id: string;
+  /** From /proposals/mine only: the RFP's bidding deadline, so a response on
+   *  a closed RFP is not offered a Withdraw the server would refuse. */
+  proposals_close_at?: string | null;
   reference_code: string;
   request_id: string;
   partner_org_id: string;

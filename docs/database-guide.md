@@ -82,7 +82,7 @@ SELECT relname AS table, n_live_tup AS rows FROM pg_stat_user_tables ORDER BY n_
 | Table | One row is |
 |---|---|
 | `storage_target` | A client's **own** bucket or container: provider, bucket, prefix, and the credential. It is a separate table — not columns on `request` — because every bidding partner can read a published request, and a credential cannot sit on a row they can read. |
-| `request` | The RFP: what is wanted, how much, by when, the privacy rules, and which `storage_target` the captures go to. |
+| `request` | The RFP: what is wanted, how much, by when, the privacy rules, and which `storage_target` the captures go to. `proposals_close_at` is the bidding deadline, required to publish and changeable by the client until the award ([`240_bidding_deadline.sql`](../db/240_bidding_deadline.sql)); "closed" is never stored but derived from it at read time. `closed_at` and `bidding_reminder_sent_at` are the sweep's stamps for the notices it has sent, cleared when the client moves the deadline later. |
 | `proposal` | One partner's bid on one request. |
 | ○ `proposal_resource` | Which suppliers a bid names. |
 
@@ -160,7 +160,12 @@ Which table gets a row at each step.
 2. **The client prepares.** Saves a `storage_target` — the API writes, reads and deletes a probe file before it
    accepts it. Drafts a `request`, uploads documents (`attachment`). **Publishing requires a verified destination.**
 3. **Partners bid.** Each inserts one `proposal` (a unique index allows only one live bid per partner per request)
-   with optional documents (`attachment`).
+   with optional documents (`attachment`). Only while the window is open: `submit_proposal` and
+   `withdraw_proposal` compare `proposals_close_at` with the clock and refuse after it. Every active partner
+   hears about the request through `active_tenant_ids()`, a definer function, and the client may move the
+   deadline (`change_bidding_deadline`) until the award. A pass in the API process
+   (`modules/marketplace/sweep`) tells the client and the bidders when the window shuts and reminds the rest
+   a day before; `bidding_sweep_orgs()` is how it finds the clients with a window due.
 4. **The client awards.** In one transaction: the winning `proposal` → `accepted`, the rest → `rejected`,
    `request` → `accepted`, a `contract` is created (rubric snapshot and destination copied in), and the ledger
    writes the first milestone — `ledger_transaction` + `ledger_entry` + `invoice`.
@@ -191,7 +196,7 @@ status-transition trigger anywhere. Every move below is guarded in Python, in th
 
 | Table | Values | Moves, and where they are made |
 |---|---|---|
-| `request` | `draft` `published` `proposals_received` `accepted` `in_progress` `delivered` `completed` `cancelled` | `draft → published` in `publish_request`; `published → accepted` in `award` ([marketplace/service.py](../backend/src/sourcehub/modules/marketplace/service.py)). **Everything after `accepted` is not stored** — it is derived from the contract's status when the request is read. Only a `draft` can be edited. |
+| `request` | `draft` `published` `proposals_received` `accepted` `in_progress` `delivered` `completed` `cancelled` | `draft → published` in `publish_request`; `published → accepted` in `award` ([marketplace/service.py](../backend/src/sourcehub/modules/marketplace/service.py)). **Everything after `accepted` is not stored** — it is derived from the contract's status when the request is read, and "bidding closed" is derived from `proposals_close_at` the same way. Only a `draft` can be edited; a `published` request allows one change, its bidding deadline. |
 | `proposal` | `submitted` `accepted` `rejected` `withdrawn` | `submit_proposal`, `withdraw_proposal`, `award` (same file). A withdrawn bid can be revived by submitting again. |
 | `contract` | `active` `in_qa` `delivered` `completed` `disputed` `cancelled` | `active → delivered` in `deliver_contract` (partner only, every task passed); `delivered → completed` in `approve_delivery` and `delivered → active` in `dispute_delivery` (client only) ([delivery/service.py](../backend/src/sourcehub/modules/delivery/service.py)). `in_qa` is shown in the console but derived, never stored. |
 | `task` | `assigned` `in_progress` `submitted` `qa_passed` `qa_failed` `cancelled` | `start_task`, `submit_task` (delivery); `qa_passed` / `qa_failed` in `decide` ([qa/service.py](../backend/src/sourcehub/modules/qa/service.py)). The first worker to start an assignment also moves the task to `in_progress`. |
@@ -254,7 +259,7 @@ Only two role values change what a policy decides: `platform_admin` and `worker`
 | Never | A client never sees a roster or an assignment. A partner never sees a client's bucket or credential. | absence of any policy that would allow it |
 
 **The doors through the wall.** Some moments have no organisation context yet, or need one fact from a row the
-caller must not be able to read. Those go through about thirty `SECURITY DEFINER` functions (`engagement_orgs()` is the newest: the reminder pass asks it which suppliers have live work, then acts under each one's own context) — each answers one
+caller must not be able to read. Those go through about thirty `SECURITY DEFINER` functions (the newest are `active_tenant_ids()` and `bidding_sweep_orgs()` in [`240_bidding_deadline.sql`](../db/240_bidding_deadline.sql): a client's announcements reach every partner through the first, and the deadline sweep asks the second which clients have a window due, then acts under each one's own context — the same shape as the reminder pass and `engagement_orgs()`) — each answers one
 narrow question and is executable only by `sourcehub_app`:
 
 | Moment | Functions |

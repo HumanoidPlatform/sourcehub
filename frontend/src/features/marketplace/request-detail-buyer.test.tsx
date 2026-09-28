@@ -75,7 +75,7 @@ const RFP = {
   pricing_model_requested: "fixed", budget_disclosed: true,
   budget_min: "900.00", budget_max: "1500.00", currency: "USD",
   milestones: [], pilot: { required: false, quantity: null, due_on: null },
-  proposal_requirements: [], proposals_close_at: null, contact_user_id: null,
+  proposal_requirements: [], proposals_close_at: null, bidding_open: true, contact_user_id: null,
   starts_on: "2026-09-30", delivery_due_on: "2026-10-25", storage_target_id: null,
   created_at: "2026-09-01T00:00:00+00:00",
   attachments: [], proposals: [MY_BID],

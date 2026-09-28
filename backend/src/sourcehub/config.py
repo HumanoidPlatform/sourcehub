@@ -61,6 +61,15 @@ class Settings(BaseSettings):
     engagement_enabled: bool = True
     engagement_tick_seconds: int = 300
 
+    # --- Bidding-deadline sweep ---------------------------------------------
+    # The pass (modules/marketplace/sweep) that tells a client its bidding
+    # window has closed, tells the bidders, and reminds the rest a day before.
+    # Its own switch, not the engagement clock's: it sends no mail, so the
+    # reason for turning that one off does not apply, and a minute is the
+    # right cadence for a deadline where five is right for a nudge.
+    bidding_sweep_enabled: bool = True
+    bidding_sweep_tick_seconds: int = 60
+
     # --- Adapters ------------------------------------------------------------
     # These strings select an implementation in platform/, and nothing outside
     # platform/ imports a vendor SDK, so swapping one is a config change rather
