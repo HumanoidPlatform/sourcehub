@@ -7,7 +7,7 @@
 // attribute, the toggle's state, and every way the drawer closes.
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { Link, MemoryRouter, Route, Routes } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ToastProvider, View } from "@ds/primitives";
@@ -17,6 +17,7 @@ vi.mock("@shared/auth", () => ({
   useSession: () => ({
     full_name: "Priya Nair",
     email: "priya@acme.example",
+    org_id: "o1",
     org_name: "Acme Retail Analytics",
     org_kind: "client",
     role: "client",
@@ -242,5 +243,32 @@ describe("brand", () => {
     expect(onDark.getAttribute("alt")).toBe("DataMind360");
     // and no second copy of the name as live text beside it
     expect(document.querySelector(".mark-name")).toBeNull();
+  });
+});
+
+describe("workspace card", () => {
+  it("shows the organisation's own logo once it has one", async () => {
+    api.get.mockImplementation((path: string) =>
+      Promise.resolve(
+        path === "/organisations/me"
+          ? { id: "o1", name: "Acme Retail Analytics", logo_version: "2026-09-28T10:00:00+00:00" }
+          : path === "/organisations/o1/logo-url"
+            ? { url: "https://blob.example/orgs/o1/logo/a.png", expires_in: 900 }
+            : { unread: 0, items: [] },
+      ),
+    );
+    renderShell();
+    const img = await screen.findByRole("img", { name: "Acme Retail Analytics logo" });
+    expect(img.closest(".rail-ctx")).toBeTruthy();
+  });
+
+  it("shows no logo, and no initials either, when there is none", async () => {
+    api.get.mockImplementation((path: string) =>
+      Promise.resolve(path === "/organisations/me" ? { id: "o1", logo_version: null } : { unread: 0, items: [] }),
+    );
+    renderShell();
+    await waitFor(() => expect(api.get).toHaveBeenCalledWith("/organisations/me"));
+    expect(document.querySelector(".rail-ctx .orglogo")).toBeNull();
+    expect(api.get).not.toHaveBeenCalledWith("/organisations/o1/logo-url");
   });
 });

@@ -57,7 +57,7 @@ SELECT relname AS table, n_live_tup AS rows FROM pg_stat_user_tables ORDER BY n_
 
 | Table | One row is |
 |---|---|
-| `organisation` | One company of any kind. `kind` says which: `client`, `tenant` (a delivery partner), `aggregator`, `business`, `sponsor`, or `platform` (us). `parent_org_id` ties a supplier to the partner that brought it on; a CHECK makes it mandatory for suppliers and forbidden for everyone else. |
+| `organisation` | One company of any kind. `kind` says which: `client`, `tenant` (a delivery partner), `aggregator`, `business`, `sponsor`, or `platform` (us). `parent_org_id` ties a supplier to the partner that brought it on; a CHECK makes it mandatory for suppliers and forbidden for everyone else. `public_profile` ([`230_org_public_profile.sql`](../db/230_org_public_profile.sql)) is one jsonb object holding what a client or partner shows the organisations it works with: website, description, size, founded year, registered address, and the logo's storage key (never returned by the API). Its audience is whoever `organisation_select` lets see the row, so **nothing private goes in it**. `legal_name` is set by Ops. |
 | `client_profile`, `tenant_profile`, `aggregator_profile`, `business_profile`, `sponsor_profile` | The columns only that kind of company has (industry and plan; on-time rate; crowd size; capacity; contact). One small table per kind instead of one wide table full of NULLs, because the console filters and sorts on these columns. |
 | `app_user` | One person: email, password hash, lockout counters. **No organisation column, on purpose** — a person is not a member of anything until a grant says so. |
 | `user_role_grant` | "This person holds this role in this organisation." This row is what turns a person into someone who can sign in. Revoked with `revoked_at`, never deleted, so "who could do what, and when" survives. |
@@ -154,7 +154,9 @@ Which table gets a row at each step.
 
 1. **A company joins.** `onboarding_request` → Ops approves → the function `approve_onboarding_request()` creates,
    in one transaction: `organisation`, its `*_profile`, the first `app_user` (status `invited`, no password), a
-   `user_role_grant`, an `invitation`, and an `onboarding_approval`. The invitee sets a password from the link.
+   `user_role_grant`, an `invitation`, and an `onboarding_approval`. For a client or partner the same transaction
+   then writes `legal_name` and `public_profile`, and files the uploaded logo under `orgs/{id}/logo/`
+   (`identity.apply_onboarding_profile`). The invitee sets a password from the link.
 2. **The client prepares.** Saves a `storage_target` — the API writes, reads and deletes a probe file before it
    accepts it. Drafts a `request`, uploads documents (`attachment`). **Publishing requires a verified destination.**
 3. **Partners bid.** Each inserts one `proposal` (a unique index allows only one live bid per partner per request)

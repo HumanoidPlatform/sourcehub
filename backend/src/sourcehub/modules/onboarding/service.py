@@ -19,13 +19,21 @@ import datetime as dt
 import uuid
 from typing import Any
 
+from pydantic import ValidationError
 from sqlalchemy import select, text
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.security import AccessClaims, new_opaque_token
 from sourcehub.config import PRODUCT, settings
+from sourcehub.modules.attachments import service as attachments
 from sourcehub.modules.audit import service as audit
+from sourcehub.modules.identity import service as identity
+from sourcehub.modules.identity.profile_schema import (
+    OnboardingProfileIn,
+    foreign_kind_fields,
+    missing_core,
+)
 from sourcehub.modules.notify import service as notifier
 from sourcehub.modules.onboarding.models import Invitation, OnboardingApproval, OnboardingRequest
 
@@ -35,6 +43,11 @@ TOP_KINDS = ("client", "tenant")
 
 class OnboardingError(Exception):
     pass
+
+
+class OnboardingInvalidError(OnboardingError):
+    """The request is malformed or incomplete: 422, and the message says what
+    to fix. Subclasses the base error so existing handlers still catch it."""
 
 
 class OnboardingConflictError(OnboardingError):
@@ -81,6 +94,13 @@ async def create_request(
         raise OnboardingError("Only a delivery partner requests network entities.")
 
     await _refuse_taken_email(session, contact.get("email"))
+    if target_org_kind in TOP_KINDS:
+        # a client or tenant has no parent, so the key means nothing here
+        payload = _checked_profile(
+            claims, target_org_kind,
+            {k: v for k, v in payload.items() if k != "parent_org_id"},
+            submitting=submit,
+        )
 
     ref = (
         await session.execute(text("SELECT next_reference_code('ONB','seq_ref_onboarding')"))
@@ -224,6 +244,8 @@ async def submit_request(
         raise LookupError("request not found")
     if r.status not in ("draft", "changes_requested"):
         raise OnboardingError(f"A {r.status} request cannot be submitted.")
+    if r.target_org_kind in TOP_KINDS:
+        r.payload = _checked_profile(claims, r.target_org_kind, r.payload or {}, submitting=True)
     r.status = "submitted"
     r.submitted_at = dt.datetime.now(dt.timezone.utc)
     r.updated_by = claims.user_id
@@ -249,6 +271,8 @@ async def update_draft(
     if proposed_name:
         r.proposed_name = proposed_name
     if payload is not None:
+        if r.target_org_kind in TOP_KINDS:
+            payload = _checked_profile(claims, r.target_org_kind, payload, submitting=False)
         r.payload = payload
     if contact is not None:
         r.contact = contact
@@ -392,6 +416,20 @@ async def _approve(
     # and the response says nothing happened.
     await session.refresh(r)
 
+    # The legal name, public profile, DPA flag and logo: what the SQL function
+    # above does not write. Same transaction, so an error here undoes the
+    # approval; a logo that cannot be filed comes back as a warning instead.
+    warnings: list[str] = []
+    if r.target_org_kind in TOP_KINDS:
+        warnings = await identity.apply_onboarding_profile(
+            session, claims, new_org_id, r.payload or {}
+        )
+        for w in warnings:
+            await audit.log(
+                session, "onboarding.approved_with_warning",
+                f"{r.reference_code}: {w}", [r.id, new_org_id, claims.org_id],
+            )
+
     await notifier.notify(
         session,
         r.requester_org_id,
@@ -425,7 +463,7 @@ async def _approve(
         except OSError:
             pass
 
-    return _row(r)
+    return {**_row(r), "warnings": warnings}
 
 
 async def resend_invitation(
@@ -467,3 +505,70 @@ async def resend_invitation(
         )
     except OSError:
         pass
+
+
+# ---------------------------------------------------------------------------
+# The profile a client or partner request carries
+# ---------------------------------------------------------------------------
+
+
+def _checked_profile(
+    claims: AccessClaims, kind: str, payload: dict[str, Any], *, submitting: bool
+) -> dict[str, Any]:
+    """Validate a client or tenant payload and return it normalised.
+
+    approve_onboarding_request() reads its own keys from this payload by name
+    (country, residency_region, industry / hq, plan, capabilities), so the keys
+    keep those names; identity.apply_onboarding_profile() reads the rest.
+
+    A draft may be incomplete; a submission may not, because Ops decides on
+    what was submitted and approval creates the organisation from it.
+    """
+    try:
+        p = OnboardingProfileIn.model_validate(payload)
+    except ValidationError as e:
+        first = e.errors()[0]
+        where = ".".join(str(x) for x in first.get("loc", ())) or "payload"
+        raise OnboardingInvalidError(f"{where}: {first.get('msg', 'is not valid')}") from None
+
+    wrong = foreign_kind_fields(kind, set(p.model_fields_set))
+    if wrong:
+        noun = "a client" if kind == "client" else "a partner"
+        raise OnboardingInvalidError(f"{', '.join(wrong)} does not apply to {noun}.")
+
+    if p.logo_staging_key:
+        try:
+            attachments.check_staged_logo(claims, p.logo_staging_key)
+        except attachments.AttachmentError as e:
+            raise OnboardingInvalidError(str(e)) from None
+
+    if submitting:
+        missing = missing_core(p)
+        if missing:
+            raise OnboardingInvalidError("Before submitting, add the " + ", ".join(missing) + ".")
+
+    return p.model_dump(mode="json", exclude_none=True)
+
+
+async def staged_logo_url(session: AsyncSession, request_id: uuid.UUID) -> dict[str, Any]:
+    """The logo a pending request carries, for the reviewer to see before
+    approving. RLS on onboarding_request decides who may read the request, and
+    so who may see this. After approval the file has moved into the new
+    organisation's folder and is served from there."""
+    r = (
+        await session.execute(select(OnboardingRequest).where(OnboardingRequest.id == request_id))
+    ).scalar_one_or_none()
+    key = ((r.payload or {}).get("logo_staging_key") if r else None) or None
+    # Only client and partner requests carry a logo, and only theirs are
+    # validated when filed; a network request's payload is free-form.
+    if (
+        r is None
+        or r.target_org_kind not in TOP_KINDS
+        or r.status == "approved"
+        or not isinstance(key, str)
+    ):
+        raise LookupError("no staged logo")
+    try:
+        return await attachments.staged_logo_url(key, r.requester_org_id)
+    except attachments.AttachmentError:
+        raise LookupError("no staged logo") from None

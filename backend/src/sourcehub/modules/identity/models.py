@@ -12,9 +12,10 @@ from __future__ import annotations
 import datetime as dt
 import uuid
 from decimal import Decimal
+from typing import Any
 
 from sqlalchemy import Boolean, Date, DateTime, ForeignKey, Integer, Numeric, SmallInteger, Text, text
-from sqlalchemy.dialects.postgresql import CITEXT, INET, UUID
+from sqlalchemy.dialects.postgresql import CITEXT, INET, JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
 from sourcehub.db.base import Base
@@ -48,6 +49,12 @@ class Organisation(Base):
     onboarded_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
     suspended_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
     suspension_reason: Mapped[str | None] = mapped_column(Text)
+    # db/230: what anyone who may see the organisation may read. Shape is
+    # modules/identity/profile_schema.py's to police; the logo keys inside it
+    # are written by the logo endpoints only and never returned.
+    public_profile: Mapped[dict[str, Any]] = mapped_column(
+        JSONB, server_default=text("'{}'::jsonb")
+    )
     created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
     updated_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
     created_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))

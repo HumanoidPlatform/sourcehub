@@ -19,6 +19,30 @@ export interface Org {
   suspended_at?: string | null;
   suspension_reason?: string | null;
   profile: Record<string, unknown>;
+  // db/230. Everything in public_profile is visible to whoever may see the
+  // organisation. The logo's storage key never leaves the server: logo_version
+  // says whether there is one and when it last changed, and the image itself
+  // comes from GET /organisations/{id}/logo-url.
+  legal_name?: string | null;
+  public_profile?: PublicProfile;
+  logo_version?: string | null;
+}
+
+export interface Address {
+  line1?: string;
+  line2?: string;
+  city: string;
+  region?: string;
+  postal_code?: string;
+  country: string;
+}
+
+export interface PublicProfile {
+  website?: string;
+  description?: string;
+  company_size?: string;
+  founded_year?: number;
+  registered_address?: Address;
 }
 
 // tenant_profile, as GET /organisations/{id} returns it. `plan` is deliberately
@@ -612,6 +636,9 @@ export interface OnboardingRow {
   decided_at: string | null;
   created_org_id: string | null;
   created_at: string;
+  /** Only on the answer to an approval: what could not be applied, such as a
+   *  logo whose upload had gone missing. The organisation exists regardless. */
+  warnings?: string[];
   approvals?: {
     step: number;
     decision: string;

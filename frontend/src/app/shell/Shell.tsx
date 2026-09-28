@@ -8,11 +8,12 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { get } from "@api/client";
-import type { NotificationPage } from "@api/types";
+import type { NotificationPage, Org } from "@api/types";
 import { useSession } from "@shared/auth";
 import { BrandMark, BYLINE } from "@shared/brand";
 import { fmtAgo, fmtDateTime } from "@shared/format";
 import { markRead, notificationHref } from "@shared/notifications";
+import { OrgLogo } from "@shared/org-logo";
 import { ProfileMenu } from "./ProfileMenu";
 
 interface NavItem {
@@ -204,6 +205,18 @@ export function Shell({ children }: { children: ReactNode }) {
 
   const nav = NAV[session.role] ?? NAV.client!;
 
+  // The organisation's own logo on its workspace card. Only clients and
+  // partners have one (db/230), so nobody else pays for the request. Shares
+  // ["org-me"] with the Organisation profile page, which invalidates it on save.
+  const hasProfile = session.org_kind === "client" || session.org_kind === "tenant";
+  const me = useQuery({
+    queryKey: ["org-me"],
+    queryFn: () => get<Org>("/organisations/me"),
+    enabled: hasProfile,
+    staleTime: 5 * 60 * 1000,
+  });
+  const logoVersion = hasProfile ? me.data?.logo_version : null;
+
   return (
     <div className="app">
       <a className="skip" href="#main">Skip to content</a>
@@ -216,8 +229,13 @@ export function Shell({ children }: { children: ReactNode }) {
           <BrandMark to="/" />
         </div>
         <div className="rail-ctx">
-          <div className="rail-ctx-name">{session.org_name}</div>
-          <div className="rail-ctx-meta">{WORKSPACE[session.role] ?? session.role} workspace</div>
+          <div className="rail-ctx-row">
+            {logoVersion && <OrgLogo orgId={session.org_id} version={logoVersion} name={session.org_name} size={32} />}
+            <div>
+              <div className="rail-ctx-name">{session.org_name}</div>
+              <div className="rail-ctx-meta">{WORKSPACE[session.role] ?? session.role} workspace</div>
+            </div>
+          </div>
         </div>
         <nav className="rail-nav" aria-label="Primary">
           <div className="rail-group">

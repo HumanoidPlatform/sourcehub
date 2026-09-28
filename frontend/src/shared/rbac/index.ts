@@ -40,3 +40,19 @@ export function canManagePeople(session: Session | null): boolean {
     (session?.scope === "owner" || session?.scope === "manager")
   );
 }
+
+/** May this person edit their OWN organisation's profile?
+ *
+ * The same shape as canManagePeople, for the same reason: every member holds
+ * profile.manage (one role per organisation kind), and the grant's scope is
+ * what separates the people who run the account. Only clients and delivery
+ * partners have an editable profile so far. The server decides for real
+ * (update_org_profile, modules/identity/service.py).
+ */
+export function canEditOrgProfile(session: Session | null): boolean {
+  return (
+    can(session, "profile.manage") &&
+    (session?.scope === "owner" || session?.scope === "manager") &&
+    (session?.org_kind === "client" || session?.org_kind === "tenant")
+  );
+}

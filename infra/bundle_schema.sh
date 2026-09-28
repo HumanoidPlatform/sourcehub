@@ -31,7 +31,8 @@ STRUCTURE="000_extensions 001_conventions 010_identity 020_rbac 030_onboarding
            110_auth_functions 120_workers_media 130_task_offers
            140_attachment_layout 150_downstream_documents 160_email_is_taken
            170_engagement 180_open_buyer 190_worker_skills 200_org_members
-           210_asset_review 220_equipment_sibling_scope"
+           210_asset_review 220_equipment_sibling_scope
+           230_org_public_profile"
 
 # Required, and not demo data: without these there is no capability
 # vocabulary, no role to grant, and nobody who can approve anything.
