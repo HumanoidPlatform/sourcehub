@@ -10,11 +10,23 @@ import * as Crypto from "expo-crypto";
 import { useCallback } from "react";
 import { loadSession } from "@/api/client";
 import type { CaptureSpec } from "@/api/types";
-import { FRAMES_BUDGET_MS, SUBJECT_DIALOG } from "@/config";
+import { FRAMES_BUDGET_MS, MIN_SUBJECT_FRAMES, SUBJECT_DIALOG, SUBJECT_FRAMES_MIN_SHARE } from "@/config";
 import { insertCapture, recordRejections } from "@/db/outbox";
 import { uploader } from "@/upload/uploader";
 import { frameTimes, judgeFrames, stillFindings, uncheckedFinding } from "@/validation/clip";
-import { blocking, checkCapture, type Finding } from "@/validation/rules";
+import {
+  exampleFramesFinding,
+  type ExampleScore,
+  examplesFinding,
+  type ExampleSet,
+  examplesUncheckedFinding,
+  missedExamples,
+  scoreExampleFrames,
+  scoreExamples,
+} from "@/validation/examples";
+import { detectFaces, facesFinding, facesUncheckedFinding, scoreFaces } from "@/validation/faces";
+import { blocking, checkCapture, displayedSize, type Finding } from "@/validation/rules";
+import { recogniseText, scoreText, textFinding, textUnreadFinding } from "@/validation/text";
 import {
   forbiddenFinding,
   framesFinding,
@@ -22,10 +34,12 @@ import {
   scoreFrames,
   scoreSubject,
   subjectFinding,
+  subjectMeasured,
   type SubjectScore,
   unscoredFinding,
   type UnscoredReason,
 } from "@/validation/subject";
+import { deviceFinding, thisDevice } from "./device";
 import { deleteLocal, moveIntoPrivateDir } from "./files";
 import { frameAt, sampleFrames } from "./frames";
 import { currentFix } from "./location";
@@ -91,6 +105,10 @@ export function useCapture(
   taskRef: string,
   spec?: CaptureSpec | null,
   targetUnit?: string | null,
+  /** the client's example photos as the phone labelled them, loaded by the
+   *  assignment screen. Absent on a task with none, and on a phone that never
+   *  managed to fetch them — the two are told apart inside. */
+  examples?: ExampleSet | null,
 ) {
   return useCallback(
     // tilt is sampled by the caller, not read here: an async read after the
@@ -170,6 +188,37 @@ export function useCapture(
         return checks;
       };
 
+      // The instruments that need no subject profile: what is written in the
+      // frame and how tall it is, whether a face is in it, and which phone
+      // took it. All three MEASURE — info findings the worker is never shown —
+      // with one exception: a face in a capture whose brief forbade people is
+      // a warning the reviewer should have.
+      //
+      // Photos only. A clip already spends its whole budget labelling sampled
+      // frames, and a second native call per frame would buy clip_unchecked
+      // rather than an answer.
+      //
+      // Run together rather than in sequence: they are independent, and at the
+      // shutter the worker waits for the sum of whatever happens here.
+      //
+      // Boxes come back in the orientation ML Kit decoded, which is the
+      // displayed one — so the frame they are measured against has to be too.
+      findings.push(deviceFinding(thisDevice()));
+      if (kind === "photo") {
+        const shown = width && height ? displayedSize(width, height, result.exifOrientation) : null;
+        const [read, faces] = await Promise.all([recogniseText(moved.uri), detectFaces(moved.uri)]);
+        findings.push(
+          "unscored" in read
+            ? textUnreadFinding(read.unscored, read.error)
+            : textFinding(scoreText(read, shown?.height)),
+        );
+        findings.push(
+          "unscored" in faces
+            ? facesUncheckedFinding(faces.unscored, faces.error)
+            : facesFinding(scoreFaces(faces.faces, shown?.width, shown?.height), spec?.subject),
+        );
+      }
+
       // The subject check. A task without a subject skips it. A phone that
       // could not look says so with a warning of its own and the capture is
       // kept; a low score hands the decision to the worker.
@@ -179,12 +228,25 @@ export function useCapture(
       // frozen — clip.ts, and a block like any other), and does it show the
       // subject (subject.ts, a warning like a photo's).
       const subject = spec?.subject;
+
+      // The client's own photos, when they sent any AND the phone managed to
+      // read them beforehand (capture/examples.ts, on the assignment screen).
+      // `usable` is what matters below: examples the task carries but this
+      // phone never fetched are worse than none at all, because comparing
+      // against an empty set would score every capture zero and refuse
+      // everything. The gap is recorded instead.
+      const usable = examples && examples.ready.length > 0 ? examples.ready : null;
+      if (examples && examples.expected > 0 && !usable) {
+        findings.push(examplesUncheckedFinding(examples.expected));
+      }
+
       let onSubject = false;
       let finding: Finding | null = null;
       if (kind === "video") {
         const times = frameTimes(result.duration ?? 0);
         const greys: Uint8Array[] = [];
         const scores: SubjectScore[] = [];
+        const exampleScores: ExampleScore[] = [];
         // One frame the labeller could not answer is skipped, not the clip:
         // a slow frame among thirty says nothing about the other twenty-nine.
         // Only a build with no labeller at all stops asking.
@@ -196,13 +258,17 @@ export function useCapture(
           FRAMES_BUDGET_MS,
           async (frame) => {
             greys.push(frame.grey);
-            if (!subject || noLabeller) return;
+            if ((!subject && !usable) || noLabeller) return;
             const seen = await labelImage(frame.uri);
             if ("unscored" in seen) {
               lastMiss = { reason: seen.unscored, error: seen.error };
               if (seen.unscored === "no_labeller") noLabeller = true;
             } else {
-              scores.push(scoreSubject(seen.labels, subject));
+              // One set of labels, two questions. Comparing against the
+              // examples is arithmetic on labels this frame already cost us,
+              // so a clip pays nothing extra for the second check.
+              if (subject) scores.push(scoreSubject(seen.labels, subject));
+              if (usable) exampleScores.push(scoreExamples(seen.labels, usable));
             }
           },
           onProgress,
@@ -212,34 +278,63 @@ export function useCapture(
         findings.push(...still);
         const stuck = blocking(still);
         if (stuck.length > 0) await refuse(session.user_id, assignmentId, moved.uri, stuck);
+
+        let wordMiss: Finding | null = null;
         if (subject) {
           if (scores.length > 0) {
-            finding = framesFinding(scoreFrames(scores), subject);
-            onSubject = finding === null;
+            const across = scoreFrames(scores);
+            // Recorded whether it passed or not. Without this a clip that was
+            // accepted filed no score and no labels, and the only way to find
+            // out why was to shoot it again.
+            findings.push(subjectMeasured(scores[0], across));
+            wordMiss = framesFinding(across, subject);
           } else {
             const miss: { reason: UnscoredReason; error?: string } = lastMiss ?? { reason: "timeout" };
             findings.push(unscoredFinding(miss.reason, miss.error));
           }
         }
-      } else if (subject) {
+        let exampleMiss = false;
+        if (usable && exampleScores.length > 0) {
+          const shot = scoreExampleFrames(exampleScores);
+          findings.push(exampleFramesFinding(shot));
+          // The same rule as the word check, for the same reason: at three
+          // samples a 0.3 share is one frame, and one frame is an accident.
+          exampleMiss =
+            shot.hits < Math.min(MIN_SUBJECT_FRAMES, shot.frames) || shot.share < SUBJECT_FRAMES_MIN_SHARE;
+        }
+        if (wordMiss) findings.push(wordMiss);
+        finding = prompted(wordMiss, exampleMiss, usable !== null);
+        onSubject = wordMiss === null && !exampleMiss;
+      } else if (subject || usable) {
         const seen = await labelImage(moved.uri);
         if ("unscored" in seen) {
           findings.push(unscoredFinding(seen.unscored, seen.error));
           return { kept: true, findings: await queue(findings) };
         }
-        const scored = scoreSubject(seen.labels, subject);
-        // Prohibition is its own question now, and its own warning: it rides
-        // with the upload for the reviewer but never puts the keep-or-retake
-        // question to the worker, who often cannot prevent it — a passer-by
-        // walks into shot and the shelf is still the shelf.
-        const banned = forbiddenFinding(scored, subject);
-        if (banned) findings.push(banned);
-        finding = subjectFinding(scored, subject);
-        onSubject = finding === null;
+        let wordMiss: Finding | null = null;
+        if (subject) {
+          const scored = scoreSubject(seen.labels, subject);
+          // Prohibition is its own question now, and its own warning: it rides
+          // with the upload for the reviewer but never puts the keep-or-retake
+          // question to the worker, who often cannot prevent it — a passer-by
+          // walks into shot and the shelf is still the shelf.
+          const banned = forbiddenFinding(scored, subject);
+          if (banned) findings.push(banned);
+          findings.push(subjectMeasured(scored));
+          wordMiss = subjectFinding(scored, subject);
+          if (wordMiss) findings.push(wordMiss);
+        }
+        let exampleMiss = false;
+        if (usable) {
+          const ex = scoreExamples(seen.labels, usable);
+          findings.push(examplesFinding(ex));
+          exampleMiss = missedExamples(ex);
+        }
+        finding = prompted(wordMiss, exampleMiss, usable !== null);
+        onSubject = wordMiss === null && !exampleMiss;
       }
 
       if (finding) {
-        findings.push(finding);
         if (SUBJECT_DIALOG) {
           const asked = finding;
           return {
@@ -257,8 +352,30 @@ export function useCapture(
 
       return { kept: true, findings: await queue(findings), onSubject };
     },
-    [assignmentId, taskRef, spec, targetUnit],
+    [assignmentId, taskRef, spec, targetUnit, examples],
   );
+}
+
+// Which miss, if any, is put to the worker.
+//
+// BOTH CHECKS MUST AGREE before anyone is asked. The word check alone decides
+// when the client sent no examples — today's behaviour, unchanged. The example
+// check never decides alone, not even when it is the only one that ran: a
+// brand-new comparison with no field data behind it does not get to throw away
+// a worker's shot, which is precisely how the original complaint happened.
+//
+// Both scores are recorded either way, so the rule can be moved on evidence.
+// The number that decides whether to move it is how often this function
+// returned null with a real wordMiss in hand — captures the sample check would
+// have queried and the word check let through. If gate 1 keeps rejecting
+// those, the weak check is vetoing the strong one.
+//
+// The finding handed back is the word check's, because it carries the sentence
+// a worker can act on ("Doesn't look like retail shelf. Saw: floor…"). The
+// example score reaches the reviewer as its own measurement.
+function prompted(wordMiss: Finding | null, exampleMiss: boolean, usedExamples: boolean): Finding | null {
+  if (!usedExamples) return wordMiss;
+  return wordMiss && exampleMiss ? wordMiss : null;
 }
 
 // The refusal is written first. Nothing else will remember it: the file is

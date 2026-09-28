@@ -666,27 +666,46 @@ function qaReviewList(reviews: QaReviewRow[] | undefined): React.ReactNode {
   );
 }
 
+// A measurement is not a complaint. Every capture now carries several info
+// findings — what text was in it, whether a face was, which phone took it —
+// and counting those alongside the warnings would report a clean batch as
+// dozens of "checks" and bury the two that matter. The headline counts what
+// somebody has to act on; the measurements are named separately, and read in
+// full in an asset's own preview.
+function complaints(assets: AssetRow[] | undefined) {
+  return (assets ?? []).flatMap((asset) =>
+    (asset.device_checks ?? [])
+      .filter((check) => check.severity === "warn" || check.severity === "block")
+      .map((check) => ({ asset, check })),
+  );
+}
+
 function deviceCheckSummary(assets: AssetRow[] | undefined, loading: boolean): string {
   if (loading) return "Loading capture checks…";
   const checks = (assets ?? []).flatMap((a) => a.device_checks ?? []);
-  if (!checks.length) return "No device warnings recorded";
+  if (!checks.length) return "No device checks recorded";
   const warnings = checks.filter((c) => c.severity === "warn").length;
   const blockers = checks.filter((c) => c.severity === "block").length;
+  const measured = checks.filter((c) => c.severity === "info").length;
   const wrongSubject = checks.filter((c) => c.code === "wrong_subject").length;
   const unscored = checks.filter((c) => c.code === "subject_unscored").length;
+  const head =
+    warnings || blockers
+      ? [
+          warnings ? `${warnings} warning${warnings === 1 ? "" : "s"}` : null,
+          blockers ? `${blockers} blocker${blockers === 1 ? "" : "s"}` : null,
+        ]
+      : ["No warnings"];
   return [
-    `${checks.length} check${checks.length === 1 ? "" : "s"} recorded`,
-    warnings ? `${warnings} warning${warnings === 1 ? "" : "s"}` : null,
-    blockers ? `${blockers} blocker${blockers === 1 ? "" : "s"}` : null,
+    ...head,
     wrongSubject ? `${wrongSubject} off-subject flag${wrongSubject === 1 ? "" : "s"}` : null,
     unscored ? `${unscored} unscored capture${unscored === 1 ? "" : "s"}` : null,
+    measured ? `${measured} measurement${measured === 1 ? "" : "s"}` : null,
   ].filter(Boolean).join(" · ");
 }
 
 function deviceCheckList(assets: AssetRow[] | undefined): React.ReactNode {
-  const checks = (assets ?? []).flatMap((asset) =>
-    (asset.device_checks ?? []).map((check) => ({ asset, check })),
-  );
+  const checks = complaints(assets);
   if (!checks.length) return null;
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
@@ -696,7 +715,7 @@ function deviceCheckList(assets: AssetRow[] | undefined): React.ReactNode {
           {check.score != null && <span className="muted"> · score {check.score.toFixed(2)}</span>}
         </div>
       ))}
-      {checks.length > 8 && <div className="small muted">+{checks.length - 8} more check results in the asset previews.</div>}
+      {checks.length > 8 && <div className="small muted">+{checks.length - 8} more in the asset previews.</div>}
     </div>
   );
 }

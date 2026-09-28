@@ -305,20 +305,29 @@ export function checkCapture(
     });
   }
   if (fix) {
+    // WHO IS THIS FOR decides the severity. On a task that made GPS a
+    // condition, a poor fix is the worker's problem and worth interrupting
+    // them about — they can step outside. On a task that merely records a
+    // position, it is a fact for the reviewer and nothing the worker can act
+    // on: telling someone filming a laptop at a desk that the satellites are
+    // slow is noise, and noise is what teaches people to ignore warnings.
+    const asked = Boolean(spec?.require_gps);
+    const severity: Severity = asked ? "warn" : "info";
     if (fix.stale) {
       // location.ts falls back to the last known position when a fresh one
       // does not arrive in time, and that may be from anywhere the phone
       // has been today.
       out.push({
         code: "gps_stale",
-        severity: "warn",
+        severity,
         message: "No fresh fix arrived; this capture carries the phone's last known location.",
       });
     } else if (fix.accuracy != null && fix.accuracy > MAX_FIX_ACCURACY_M) {
       out.push({
         code: "gps_accuracy",
-        severity: "warn",
+        severity,
         message: `The fix is only accurate to about ${Math.round(fix.accuracy)} m.`,
+        detail: { accuracy_m: round1(fix.accuracy) },
       });
     }
   }

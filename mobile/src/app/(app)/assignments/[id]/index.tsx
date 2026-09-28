@@ -3,11 +3,12 @@
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, Text, TextInput, View } from "react-native";
 import { ApiError, del, post } from "@/api/client";
 import type { Assignment, AssetRow } from "@/api/types";
 import { deleteCapture, discardCapture, discardFailed, retryCapture, retryFailed, type CaptureRow } from "@/db/outbox";
+import { exampleImages, refreshExamples } from "@/capture/examples";
 import { deleteLocal } from "@/capture/files";
 import { useAssignmentAssets, useAssignments, useOutbox, useRejections } from "@/query/hooks";
 import { assignmentStatus, meta, rejectionLabel } from "@/status";
@@ -32,6 +33,20 @@ export default function AssignmentDetail() {
   const refused = useRejections(id);
   const [note, setNote] = useState("");
   const [error, setError] = useState<string | null>(null);
+
+  // Fetch and label the client's example photos while the worker is reading
+  // the brief, so the camera never waits on a download. Each one is labelled
+  // once and the image is thrown away; a second visit to this screen costs
+  // nothing. Best-effort and silent — offline, the capture screen falls back
+  // to the word check and records that it did.
+  const taskId = a?.task.id;
+  const exampleIds = exampleImages(a?.task.client_documents).map((d) => d.id).join(",");
+  useEffect(() => {
+    if (!taskId || !exampleIds) return;
+    void refreshExamples(taskId, a?.task.client_documents);
+    // a.task.client_documents is re-read on every render; the ids are what
+    // actually change, and they are what decides whether there is work to do.
+  }, [taskId, exampleIds]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const start = useMutation({
     mutationFn: () => post<Assignment>(`/assignments/${id}/start`),

@@ -42,7 +42,7 @@
 // pipeline even there?"; it is not allowed to be silent again.
 
 import type { SubjectSpec } from "@/api/types";
-import { SUBJECT_FRAMES_MIN_SHARE, SUBJECT_OFF, SUBJECT_VETO } from "@/config";
+import { MIN_SUBJECT_FRAMES, SUBJECT_FRAMES_MIN_SHARE, SUBJECT_OFF, SUBJECT_VETO } from "@/config";
 import type { Finding } from "./rules";
 
 export interface Label {
@@ -193,7 +193,7 @@ export function scoreFrames(perFrame: SubjectScore[]): FramesScore {
  *  looked on-subject. The same code as a photo's, so the reviewer's badge
  *  and the gate-1 ordering need no second rule. */
 export function framesFinding(f: FramesScore, subject: SubjectSpec): Finding | null {
-  if (f.share >= SUBJECT_FRAMES_MIN_SHARE) return null;
+  if (f.hits >= Math.min(MIN_SUBJECT_FRAMES, f.frames) && f.share >= SUBJECT_FRAMES_MIN_SHARE) return null;
   const saw = f.seen.length > 0 ? `Saw: ${f.seen.join(", ").toLowerCase()}.` : "Nothing recognisable in it.";
   return {
     code: "wrong_subject",
@@ -201,6 +201,31 @@ export function framesFinding(f: FramesScore, subject: SubjectSpec): Finding | n
     message: `${subject.domain} appeared in only ${f.hits} of ${f.frames} frames. ${saw}`,
     score: Number(f.share.toFixed(3)),
     detail: { labels: f.seen, hit: f.hit, veto: f.veto, frames: f.frames, hits: f.hits },
+  };
+}
+
+/** What the check saw, recorded whether or not it had a complaint.
+ *
+ *  subjectFinding and framesFinding both return null on success, so until now
+ *  a capture that PASSED filed nothing at all: no score, no labels, no way to
+ *  tell afterwards why it passed. That is the same fault tilt had — a number
+ *  measured on every capture and kept only when it breached — and it cost an
+ *  evening: a white wall was accepted as a laptop and nothing on the record
+ *  could say which label had matched.
+ *
+ *  Severity "info": never shown to the worker, never a verdict, and the only
+ *  thing that makes the threshold above it correctable from evidence. */
+export function subjectMeasured(r: SubjectScore, frames?: FramesScore): Finding {
+  const seen = r.seen.length > 0 ? r.seen.join(", ").toLowerCase() : "nothing recognisable";
+  const over = frames ? ` in ${frames.hits} of ${frames.frames} frames` : "";
+  return {
+    code: "subject_measured",
+    severity: "info",
+    message: `Subject scored ${Math.round((frames ? frames.share : r.score) * 100)}%${over}. Saw: ${seen}.`,
+    score: Number((frames ? frames.share : r.score).toFixed(3)),
+    detail: frames
+      ? { share: frames.share, hits: frames.hits, frames: frames.frames, labels: frames.seen, hit: frames.hit, veto: frames.veto }
+      : { score: Number(r.score.toFixed(3)), forbidden: Number(r.forbidden.toFixed(3)), labels: r.seen, hit: r.hit, veto: r.veto },
   };
 }
 

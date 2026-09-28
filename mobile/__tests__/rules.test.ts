@@ -238,6 +238,22 @@ describe("checkCapture · location", () => {
     expect(codes(stale)).toEqual(["gps_stale"]);
   });
 
+  // ...but it describes it to the REVIEWER, not to the worker.
+  //
+  // A worker filming a laptop at a desk on a task that never asked for a
+  // position cannot do anything about slow satellites, and being interrupted
+  // about it is how people learn to dismiss warnings without reading them. The
+  // finding is still recorded either way; only who is shown it changes.
+  it("tells the worker about a poor fix only where the client asked for one", () => {
+    const free = { media: ["photo"] };
+    const asked = { media: ["photo"], require_gps: true };
+
+    for (const fix of [{ accuracy: 8, stale: true }, { accuracy: 2000, stale: false }]) {
+      expect(checkCapture({ ...good, fix }, free)[0].severity).toBe("info");
+      expect(checkCapture({ ...good, fix }, asked)[0].severity).toBe("warn");
+    }
+  });
+
   // The refusal stays where it was. A task that never asked for a location must
   // not refuse work for the want of one.
   it("still refuses a missing fix only where the client required it", () => {

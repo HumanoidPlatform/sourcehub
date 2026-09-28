@@ -7,6 +7,7 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import { Alert, Linking, Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { exampleImages, loadExamples } from "@/capture/examples";
 import { ensureLocationPermission } from "@/capture/location";
 import { type Held, medianOff, type Tilt, tiltAdvice, watchTilt } from "@/capture/tilt";
 import { type CaptureOutcome, CaptureRejected, useCapture } from "@/capture/useCapture";
@@ -14,6 +15,7 @@ import { MAX_VIDEO_SECONDS } from "@/config";
 import { useAssignments } from "@/query/hooks";
 import { TONE_COLOR } from "@/status";
 import { Button, C, Callout, s } from "@/ui";
+import type { ExampleSet } from "@/validation/examples";
 import { type Finding, mediaKinds } from "@/validation/rules";
 
 /** A level, shown on every task the phone can read a sensor for.
@@ -102,7 +104,26 @@ export default function Capture() {
   const tilt = useRef<Tilt | null>(null);
   const [level, setLevel] = useState<Tilt | null>(null);
   const spec = a?.task.capture_spec;
-  const save = useCapture(id ?? "", a?.task.reference_code ?? "capture", spec, a?.task.target_unit);
+
+  // The client's example photos, as the assignment screen labelled them. Read
+  // from the device store, never fetched here: the camera must not wait on a
+  // download. A task with none, or a phone that never managed to fetch them,
+  // both arrive as an ExampleSet — useCapture tells the two apart, because a
+  // capture compared against nothing is not a capture that matched.
+  const [examples, setExamples] = useState<ExampleSet | null>(null);
+  const docs = a?.task.client_documents;
+  const exampleIds = exampleImages(docs).map((d) => d.id).join(",");
+  useEffect(() => {
+    let alive = true;
+    void loadExamples(docs).then((e) => {
+      if (alive) setExamples(e);
+    });
+    return () => {
+      alive = false;
+    };
+  }, [exampleIds]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const save = useCapture(id ?? "", a?.task.reference_code ?? "capture", spec, a?.task.target_unit, examples);
 
   // The server sends a list; a task made before capture-spec inheritance sends
   // a string. Reading it raw is what used to open a video-only task in photo
@@ -198,8 +219,18 @@ export default function Capture() {
 
   const kept = (findings: Finding[], onSubject = false) => {
     setCount((n) => n + 1);
-    if (spoken(findings).length > 0 || !onSubject) warn(findings);
-    else setNotice({ text: `Looks like ${spec?.subject?.domain ?? "the subject"}.`, tone: "ok" });
+    const shown = spoken(findings);
+    if (shown.length > 0) {
+      warn(findings);
+    } else if (onSubject) {
+      setNotice({ text: `Looks like ${spec?.subject?.domain ?? "the subject"}.`, tone: "ok" });
+    } else {
+      // Kept, with nothing to say about it. This used to leave the screen
+      // blank — a good capture got a green line and an ambiguous one got
+      // silence, which reads as a failure when the file was saved either way.
+      // The counter moving is not enough on its own to tell them apart.
+      setNotice({ text: "Saved.", tone: "ok" });
+    }
   };
 
   // The subject check is the one verdict the worker answers themselves: the

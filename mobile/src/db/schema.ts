@@ -70,3 +70,26 @@ CREATE TABLE IF NOT EXISTS rejections (
 );
 CREATE INDEX IF NOT EXISTS rejections_assignment_idx ON rejections (assignment_id, created_at);
 `;
+
+// What the labeller saw in the client's own example photos.
+//
+// The first thing this store holds that did not originate on the phone, and
+// the exception is deliberate: the examples are downloaded, labelled once, and
+// the IMAGE IS DELETED. Only the label list stays — a few hundred bytes per
+// example — so the outbox rule ("not a database of record") is bent as little
+// as it can be. Nothing here is uploaded; it exists so a capture can be
+// compared against the client's pictures without fetching them at the shutter.
+//
+// Keyed by attachment id because that is what identifies a version of a
+// document: replace an example in the console and it arrives as a new id, so
+// the stale row is simply never read again.
+export const SCHEMA_V5 = `
+CREATE TABLE IF NOT EXISTS example_labels (
+  attachment_id TEXT PRIMARY KEY,
+  task_id       TEXT NOT NULL,
+  filename      TEXT NOT NULL,
+  labels        TEXT NOT NULL,
+  created_at    INTEGER NOT NULL
+);
+CREATE INDEX IF NOT EXISTS example_labels_task_idx ON example_labels (task_id);
+`;

@@ -1,5 +1,5 @@
 import * as SQLite from "expo-sqlite";
-import { SCHEMA_V1, SCHEMA_V2, SCHEMA_V3, SCHEMA_V4 } from "./schema";
+import { SCHEMA_V1, SCHEMA_V2, SCHEMA_V3, SCHEMA_V4, SCHEMA_V5 } from "./schema";
 
 let dbPromise: Promise<SQLite.SQLiteDatabase> | null = null;
 
@@ -44,5 +44,9 @@ async function migrate(db: SQLite.SQLiteDatabase): Promise<void> {
     // both a fresh install and an upgrade without needing the catch.
     await db.execAsync(SCHEMA_V4);
     await db.execAsync("PRAGMA user_version = 4");
+  }
+  if (version < 5) {
+    await db.execAsync(SCHEMA_V5);
+    await db.execAsync("PRAGMA user_version = 5");
   }
 }

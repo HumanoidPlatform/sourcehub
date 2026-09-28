@@ -45,6 +45,28 @@ export const SUBJECT_OFF = 0.3;
 export const SUBJECT_VETO = 0.5;
 /** false = shadow mode: score and report, never ask the worker */
 export const SUBJECT_DIALOG = true;
+/** How much a capture must look like the client's own example photos
+ *  (validation/examples.ts) before that stops counting against it.
+ *
+ *  SET FROM MEASUREMENTS, NOT FROM REASONING — and the reasoning was wrong.
+ *  This was 0.15, on the argument that unrelated scenes "land near zero". They
+ *  do not. Cosine over a SPARSE label vector is dominated by whichever few
+ *  labels overlap, and ML Kit's generic ones (room, wall, furniture, product)
+ *  overlap almost everything, so two four-label vectors sharing one generic
+ *  term at high confidence land near 0.5 whatever the pictures show. A white
+ *  wall scored 0.538 against photos of a laptop on a desk and was accepted.
+ *
+ *  The first three real clips, against two laptop examples:
+ *      laptop, 20 s   0.815      laptop, short  0.765      white wall  0.538
+ *  0.65 separates them with room either side. THREE CLIPS, ONE WALL, ONE DESK,
+ *  ONE PHONE — revisit once there are a few dozen scores to put against real
+ *  gate-1 verdicts.
+ *
+ *  Moving it this far on this little evidence is only safe because it never
+ *  decides alone: the keep-or-retake prompt needs this AND the word check to
+ *  miss (useCapture). A genuine capture scoring 0.6 still costs the worker
+ *  nothing unless the words missed too. */
+export const EXAMPLE_OFF = 0.65;
 /** What the patched labeller is told to report down to, for reference — the
  *  value itself lives in patches/@react-native-ml-kit+image-labeling+*.patch
  *  because the library exposes no way to pass it. ML Kit's own default of 0.5
@@ -70,6 +92,22 @@ export const FRAMES_BUDGET_MS = 45_000;
  * about the thing. Provisional, like SUBJECT_OFF, and for the same reason: it
  * should be measured against gate-1 verdicts rather than chosen. */
 export const SUBJECT_FRAMES_MIN_SHARE = 0.3;
+/** ...and at least this many frames, however few were sampled.
+ *
+ * ONE FRAME IS AN ACCIDENT; TWO IS A PATTERN. A 15-second clip yields three
+ * samples, so the only shares available are 0, 0.33, 0.67 and 1 — and at that
+ * granularity a 0.3 floor means ONE FRAME. A clip of a white wall passed as a
+ * laptop on exactly that: two frames saw a wall, one caught the desk as the
+ * phone moved, and 1/3 cleared the bar.
+ *
+ * The share is not the problem and raising it back towards 0.7 would bring
+ * back the purity rule that started all of this — a clip failing because a
+ * hand covered the subject for a moment. The count is what was missing.
+ *
+ * Applied as min(this, frames sampled): a clip that yielded a single frame has
+ * no evidence either way, and demanding two of one would refuse work for the
+ * phone's shortcoming rather than the worker's. */
+export const MIN_SUBJECT_FRAMES = 2;
 /** share of frames that are black or frozen: from here the clip is refused */
 export const STILL_BLOCK_SHARE = 0.5;
 /** and from here it is kept with a warning */

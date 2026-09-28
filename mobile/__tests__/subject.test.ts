@@ -2,7 +2,7 @@
 
 import type { SubjectSpec } from "@/api/types";
 import { SUBJECT_OFF } from "@/config";
-import { forbiddenFinding, framesFinding, scoreFrames, scoreSubject, subjectFinding, unscoredFinding, words } from "@/validation/subject";
+import { forbiddenFinding, framesFinding, scoreFrames, scoreSubject, subjectFinding, subjectMeasured, unscoredFinding, words } from "@/validation/subject";
 
 const shelf: SubjectSpec = {
   domain: "retail shelf",
@@ -11,6 +11,45 @@ const shelf: SubjectSpec = {
 };
 
 const L = (...pairs: [string, number][]) => pairs.map(([text, confidence]) => ({ text, confidence }));
+
+// A capture that PASSES has to leave a record too.
+//
+// subjectFinding and framesFinding both return null on success, so a clip that
+// was accepted filed no score and no labels — and when a white wall was taken
+// for a laptop there was nothing on the record to say which label had matched.
+// The same fault tilt had, in a different place.
+describe("subjectMeasured", () => {
+  it("records a pass as readily as a failure, and never as a complaint", () => {
+    const passed = scoreSubject(L(["Shelf", 0.91], ["Supermarket", 0.8]), shelf);
+    const failed = scoreSubject(L(["Dog", 0.97]), shelf);
+    for (const r of [passed, failed]) {
+      expect(subjectMeasured(r).severity).toBe("info");
+      expect(subjectMeasured(r).code).toBe("subject_measured");
+    }
+  });
+
+  it("names what the labeller actually saw", () => {
+    const f = subjectMeasured(scoreSubject(L(["Shelf", 0.91], ["Floor", 0.3]), shelf));
+    expect(f.message).toContain("shelf, floor");
+    expect(f.detail).toMatchObject({ labels: ["Shelf", "Floor"], hit: ["Shelf"] });
+    expect(f.score).toBeCloseTo(0.91);
+  });
+
+  it("says so when it recognised nothing, rather than saying nothing", () => {
+    const f = subjectMeasured(scoreSubject([], shelf));
+    expect(f.message).toContain("nothing recognisable");
+    expect(f.score).toBe(0);
+  });
+
+  it("reports a clip by its share of frames, and counts them", () => {
+    const hit = scoreSubject(L(["Shelf", 0.9]), shelf);
+    const miss = scoreSubject(L(["Floor", 0.9]), shelf);
+    const f = subjectMeasured(hit, scoreFrames([hit, hit, miss, hit]));
+    expect(f.message).toContain("in 3 of 4 frames");
+    expect(f.score).toBeCloseTo(0.75);
+    expect(f.detail).toMatchObject({ hits: 3, frames: 4 });
+  });
+});
 
 describe("words", () => {
   it("lowercases, splits, stems plurals and drops filler", () => {
@@ -148,6 +187,27 @@ describe("scoreFrames: a clip is judged by how often the subject appears", () =>
       message: "retail shelf appeared in only 2 of 10 frames. Saw: floor, tile, shelf, supermarket.",
     });
     expect(f?.detail).toMatchObject({ frames: 10, hits: 2 });
+  });
+
+  // A SHORT CLIP IS JUDGED ON THREE SAMPLES, so the only shares available are
+  // 0, 0.33, 0.67 and 1 — and at that granularity a 0.3 floor means one frame.
+  // A white wall passed as a laptop on exactly that: two frames saw a wall,
+  // one caught the desk as the phone moved, and 1/3 cleared the bar.
+  it("does not let a single stray frame carry a short clip", () => {
+    expect(framesFinding(scoreFrames([on, off, off]), shelf)).toMatchObject({
+      code: "wrong_subject",
+      severity: "warn",
+    });
+    expect(framesFinding(scoreFrames([on, on, off]), shelf)).toBeNull();
+  });
+
+  // ...but the count must never exceed what was sampled. sampleFrames returns
+  // fewer frames than asked when the budget runs out or a thumbnail fails, and
+  // a clip that yielded one frame has no evidence either way — refusing it
+  // would punish the worker for the phone's shortcoming.
+  it("accepts the only frame there was, when there was only one", () => {
+    expect(framesFinding(scoreFrames([on]), shelf)).toBeNull();
+    expect(framesFinding(scoreFrames([off]), shelf)).not.toBeNull();
   });
 
   it("says so when nothing at all was recognised", () => {

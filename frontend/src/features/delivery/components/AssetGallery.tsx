@@ -10,7 +10,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { get } from "@api/client";
-import type { AssetRow, AssetUrl } from "@api/types";
+import type { AssetRow, AssetUrl, DeviceCheck } from "@api/types";
 import { Button, Dl, Empty, inputCls, selectCls } from "@ds/primitives";
 import { fmtDateTime } from "@shared/format";
 import { assetStatus, statusMeta } from "@shared/status";
@@ -256,6 +256,10 @@ const BADGE: Record<string, { text: string; tone: "amber" | "grey" }> = {
   // whether the subject is there, and now a separate finding: a capture can
   // show the shelf perfectly and still have a face in it.
   forbidden_subject: { text: "not allowed?", tone: "amber" },
+  // A face, on a task whose brief asked for no people. The detector proves
+  // presence and never absence — no face found means nothing — so this badge
+  // appears only when one was seen, and never as a clean bill of health.
+  person_in_frame: { text: "face", tone: "amber" },
   black: { text: "dark", tone: "amber" },
   frozen: { text: "still", tone: "amber" },
   subject_unscored: { text: "unchecked", tone: "grey" },
@@ -269,6 +273,40 @@ function subjectCheck(asset: AssetRow) {
     if (c) return c;
   }
   return null;
+}
+
+/** The phone's findings, split so a complaint is never buried under a
+ *  measurement.
+ *
+ *  Every capture now carries several info findings — how much it looked like
+ *  the client's example photos, what text was in it, whether a face was, which
+ *  handset took it. Those are worth having in front of a reviewer, but a
+ *  warning listed fifth among them is a warning nobody reads. Complaints keep
+ *  the "Phone check" heading they always had; measurements get their own. */
+function checkRows(checks: DeviceCheck[] | undefined): [string, React.ReactNode][] {
+  const all = checks ?? [];
+  const lines = (list: DeviceCheck[], key: string) => (
+    <span key={key}>
+      {list.map((c, i) => (
+        <span key={i} style={{ display: "block" }}>
+          {c.message}
+          {c.score != null && <span className="muted"> · score {c.score.toFixed(2)}</span>}
+          {/* What the phone actually saw. The message says "wrong subject";
+              this says it was vetoed on `floor` at 0.71, which is the part a
+              reviewer can act on. */}
+          {detailText(c.detail) && (
+            <span className="muted small" style={{ display: "block" }}>{detailText(c.detail)}</span>
+          )}
+        </span>
+      ))}
+    </span>
+  );
+  const complaints = all.filter((c) => c.severity !== "info");
+  const measured = all.filter((c) => c.severity === "info");
+  const rows: [string, React.ReactNode][] = [];
+  if (complaints.length) rows.push(["Phone check", lines(complaints, "dc")]);
+  if (measured.length) rows.push(["Measured", lines(measured, "dm")]);
+  return rows;
 }
 
 function AssetPreview({
@@ -322,23 +360,7 @@ function AssetPreview({
                 {asset.review_note && <span className="muted"> · {asset.review_note}</span>}
               </span>]] as [string, React.ReactNode][])
             : []),
-          ...((asset.device_checks ?? []).length
-            ? ([["Phone check", <span key="dc">
-                {(asset.device_checks ?? []).map((c, i) => (
-                  <span key={i} style={{ display: "block" }}>
-                    {c.message}
-                    {c.score != null && <span className="muted"> · score {c.score.toFixed(2)}</span>}
-                    {/* What the phone actually saw. The message says "wrong
-                        subject"; this says it was vetoed on `floor` at 0.71,
-                        which is the part a reviewer can act on. Recorded since
-                        the check existed and shown nowhere until now. */}
-                    {detailText(c.detail) && (
-                      <span className="muted small" style={{ display: "block" }}>{detailText(c.detail)}</span>
-                    )}
-                  </span>
-                ))}
-              </span>]] as [string, React.ReactNode][])
-            : []),
+          ...checkRows(asset.device_checks),
         ]} />
         {onMark && (
           // A verdict on one capture, taken beside the picture it is about.
