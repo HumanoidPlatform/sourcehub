@@ -946,6 +946,7 @@ async def award(
     milestone 1 invoiced into escrow. One transaction, mirroring confirmAward().
     """
     from sourcehub.modules.delivery import service as delivery
+    from sourcehub.modules.threads import service as threads
 
     p = (
         await session.execute(select(Proposal).where(Proposal.id == proposal_id))
@@ -988,6 +989,13 @@ async def award(
             f"{r.title} was awarded to another partner.",
             "proposals", {},
         )
+    # Every other partner's conversation on this request is history now — the
+    # ones who asked and never bid included. The winner's continues on the
+    # contract.
+    await threads.close_for_award(
+        session, claims, request_id=r.id, winner_org_id=p.partner_org_id,
+        request_ref=r.reference_code, request_title=r.title,
+    )
 
     r.status = "accepted"
     r.updated_by = claims.user_id

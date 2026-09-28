@@ -504,6 +504,33 @@ a.pop-item{text-decoration:none;color:inherit;display:flex;align-items:center}
 .nlist a.txt:hover{text-decoration:underline}
 .nlist .ts{display:block;font-size:12px;color:var(--ink-3);margin-top:2px}
 
+/* Conversations (features/messages). .thread is the second scroll box in the
+   console after .pop-list. Mine and theirs read left/right rather than down an
+   audit spine: two organisations talking, not one trail. data-mine="" or absent. */
+.convo{display:grid;grid-template-columns:minmax(200px,1fr) minmax(0,2.2fr);gap:var(--s-4)}
+.tlist{list-style:none;margin:0;padding:0;border:1px solid var(--line);border-radius:var(--r-control);overflow:hidden}
+.tlist button{display:flex;flex-direction:column;gap:2px;width:100%;text-align:left;padding:10px var(--s-3);
+  border:0;border-bottom:1px solid var(--line);background:var(--surface);cursor:pointer;font:inherit;color:inherit}
+.tlist li:last-child button{border-bottom:0}
+.tlist button:hover{background:var(--surface-2)}
+.tlist button[aria-current]{background:var(--accent-tint)}
+.tlist .who{display:flex;align-items:center;gap:6px;font-weight:600;font-size:13px;flex-wrap:wrap}
+.tlist .preview{font-size:12px;color:var(--ink-3);max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.thread{display:flex;flex-direction:column;gap:var(--s-3);max-height:420px;overflow-y:auto;
+  padding:var(--s-3);border:1px solid var(--line);border-radius:var(--r-control);background:var(--surface-2)}
+.thread ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s-2)}
+.thread .earlier{align-self:center}
+.msg{max-width:78%;align-self:flex-start;padding:8px 11px;border:1px solid var(--line);
+  border-radius:var(--r-panel);background:var(--surface)}
+.msg[data-mine]{align-self:flex-end;background:var(--accent-tint);border-color:var(--t-active-line)}
+.msg .meta{display:flex;gap:6px;flex-wrap:wrap;font-size:11.5px;color:var(--ink-3);margin-bottom:3px}
+.msg .meta b{color:var(--ink-2)}
+.msg .body{font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere}
+.msg .seen{font-size:11px;color:var(--ink-3);text-align:right;margin-top:3px}
+.composer{display:flex;flex-direction:column;gap:var(--s-2)}
+.composer .btnrow{justify-content:flex-end}
+@media (max-width:840px){.convo{grid-template-columns:minmax(0,1fr)}.msg{max-width:100%}}
+
 /* Account menu (ProfileMenu.tsx). Scoped under .acct so the notification bell,
    which shares .pop, is untouched. Identity and workspace are plain content —
    no hover, no pointer — and only .acct-item rows look actionable, because only

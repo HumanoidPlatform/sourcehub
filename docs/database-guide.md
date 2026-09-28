@@ -37,6 +37,7 @@ Where things are defined:
 | Everything that changes a row | `backend/src/sourcehub/modules/<module>/service.py` |
 | Session and tenancy plumbing | [`backend/src/sourcehub/db/session.py`](../backend/src/sourcehub/db/session.py), [`api/deps.py`](../backend/src/sourcehub/api/deps.py) |
 | Object storage adapters | [`backend/src/sourcehub/platform/storage/`](../backend/src/sourcehub/platform/storage/) |
+| ER diagram (draw.io + DBML) | `make erd` → `build/erd/`, generated from `db/*.sql` by [`infra/erd.py`](../infra/erd.py); open the `.drawio` in draw.io, paste the `.dbml` into dbdiagram.io |
 
 House rule: a schema change is written **twice, word for word** — once in a `db/NNN_*.sql` file (for a fresh
 build) and once in an Alembic migration (for an existing database).
@@ -85,6 +86,9 @@ SELECT relname AS table, n_live_tup AS rows FROM pg_stat_user_tables ORDER BY n_
 | `request` | The RFP: what is wanted, how much, by when, the privacy rules, and which `storage_target` the captures go to. `proposals_close_at` is the bidding deadline, required to publish and changeable by the client until the award ([`240_bidding_deadline.sql`](../db/240_bidding_deadline.sql)); "closed" is never stored but derived from it at read time. `closed_at` and `bidding_reminder_sent_at` are the sweep's stamps for the notices it has sent, cleared when the client moves the deadline later. |
 | `proposal` | One partner's bid on one request. |
 | ○ `proposal_resource` | Which suppliers a bid names. |
+| `rfp_thread` | One private conversation per request per delivery partner, between the client and that partner only ([`250_rfp_threads.sql`](../db/250_rfp_threads.sql)). Opened by the partner while the request is published (or, as the winner, during delivery); closed by the client's own actions — `awarded_elsewhere` for the losers at award, `contract_completed` for the winner at approval — and a closed thread never reopens. Blind bidding holds because the policies admit only the two parties (and Ops, read-only): a rival's thread does not exist for a partner. |
+| `rfp_message` | One message in a thread, numbered `seq` 1, 2, 3… under the thread's advisory lock. Append-only at every layer: no UPDATE or DELETE policy, no grant, and rewrite rules that turn either into nothing. `sender_name` is a snapshot because the other organisation cannot read `app_user`. |
+| `rfp_thread_read` | One last-read `seq` per organisation per thread. "Seen" and unread counts are computed from it; it is a separate table so both parties can stamp without holding the thread's client-only UPDATE policy. |
 
 ### D. Delivery and capture · [`050_delivery.sql`](../db/050_delivery.sql), [`120_workers_media.sql`](../db/120_workers_media.sql), [`130_task_offers.sql`](../db/130_task_offers.sql), [`170_engagement.sql`](../db/170_engagement.sql), [`095_attachments.sql`](../db/095_attachments.sql)
 
@@ -198,6 +202,7 @@ status-transition trigger anywhere. Every move below is guarded in Python, in th
 |---|---|---|
 | `request` | `draft` `published` `proposals_received` `accepted` `in_progress` `delivered` `completed` `cancelled` | `draft → published` in `publish_request`; `published → accepted` in `award` ([marketplace/service.py](../backend/src/sourcehub/modules/marketplace/service.py)). **Everything after `accepted` is not stored** — it is derived from the contract's status when the request is read, and "bidding closed" is derived from `proposals_close_at` the same way. Only a `draft` can be edited; a `published` request allows one change, its bidding deadline. |
 | `proposal` | `submitted` `accepted` `rejected` `withdrawn` | `submit_proposal`, `withdraw_proposal`, `award` (same file). A withdrawn bid can be revived by submitting again. |
+| `rfp_thread` | open, or closed with `awarded_elsewhere` / `contract_completed` | `close_for_award` from `award`, `close_for_completion` from `approve_delivery` ([threads/service.py](../backend/src/sourcehub/modules/threads/service.py)). The close is the only update the table allows, and a trigger refuses reopening. |
 | `contract` | `active` `in_qa` `delivered` `completed` `disputed` `cancelled` | `active → delivered` in `deliver_contract` (partner only, every task passed); `delivered → completed` in `approve_delivery` and `delivered → active` in `dispute_delivery` (client only) ([delivery/service.py](../backend/src/sourcehub/modules/delivery/service.py)). `in_qa` is shown in the console but derived, never stored. |
 | `task` | `assigned` `in_progress` `submitted` `qa_passed` `qa_failed` `cancelled` | `start_task`, `submit_task` (delivery); `qa_passed` / `qa_failed` in `decide` ([qa/service.py](../backend/src/sourcehub/modules/qa/service.py)). The first worker to start an assignment also moves the task to `in_progress`. |
 | `task_offer` | `open` `filled` `closed` | `create_offer`, `close_offer`, `respond_to_offer` (delivery). **`expired` is computed from `respond_by`, never stored** — the reminder clock (engage) reads it the same way and flips nothing. |

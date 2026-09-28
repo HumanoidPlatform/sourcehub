@@ -109,6 +109,28 @@ describe("the id that must NOT be used", () => {
   });
 });
 
+describe("a conversation notification", () => {
+  // The one case that reads more than `id`: the thread lives on the RFP page,
+  // so the link needs the request as well, and the page selects the thread
+  // from ?thread=.
+  const thread = (params: Record<string, string> | null): NotificationRow => ({
+    ...row("thread"), link_params: params,
+  });
+
+  it("opens the RFP with that thread selected", () => {
+    expect(notificationHref(thread({ id: "t1", request: "r1" }))).toBe("/requests/r1?thread=t1");
+  });
+
+  it("falls back to the RFP page without a thread id", () => {
+    expect(notificationHref(thread({ request: "r1" }))).toBe("/requests/r1");
+  });
+
+  it("goes nowhere without the request", () => {
+    expect(notificationHref(thread({ id: "t1" }))).toBeNull();
+    expect(notificationHref(thread(null))).toBeNull();
+  });
+});
+
 describe("an unknown page", () => {
   it.each([["assignment"], ["somethingNew"], [null]])("%s yields no link", (page) => {
     expect(notificationHref(row(page as string | null))).toBeNull();

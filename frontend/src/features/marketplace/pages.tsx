@@ -29,6 +29,9 @@ import {
 } from "@shared/attachments";
 import { useLeaveGuard } from "@shared/leave-guard";
 import { useNow } from "@shared/now";
+import { useThreads } from "@features/messages/hooks";
+import { RequestThreadsPanel } from "@features/messages/request-threads";
+import { threadFor } from "@features/messages/state";
 import { OrgLogo } from "@shared/org-logo";
 import { OrgProfileDialog } from "@shared/org-profile";
 import { companyRows, draftFromOrg } from "@shared/org-profile-form";
@@ -1685,6 +1688,9 @@ export function RequestDetailPage() {
   const [publishError, setPublishError] = useState<string | null>(null);
   const [awardError, setAwardError] = useState<string | null>(null);
   const [changingDeadline, setChangingDeadline] = useState(false);
+  // The conversation the client is reading; a bid row's Messages button and
+  // a bell deep link both choose it, so the page owns it, not the panel.
+  const [selectedThread, setSelectedThread] = useState<string | null>(null);
   const now = useNow();
 
   const request = useQuery({
@@ -1692,6 +1698,9 @@ export function RequestDetailPage() {
     queryFn: () => get<Rfp>(`/requests/${id}`),
     enabled: !!id,
   });
+  // The client's bid rows show "Messages (n)" for a partner in conversation.
+  // Same key as the panel below, which is the one that polls.
+  const threads = useThreads(session.org_kind === "client" ? id : undefined, false);
 
   // Who is buying. db/180 opens this to a tenant while the request is open,
   // and Fix 9 keeps it open to one that has bid; either way RLS decides, and a
@@ -1967,6 +1976,8 @@ export function RequestDetailPage() {
               r.status === "draft" ? "Publish the RFP first."
               : closed ? (isClient ? "Bidding closed with no proposals. Extend the deadline to reopen it." : "Bidding has closed.")
               : isClient ? "Partners have been notified."
+              // a partner that asked but never bid keeps this page after the award
+              : !open ? "This RFP has been awarded."
               : "Respond while the RFP is still open."
             }
           />
@@ -2019,6 +2030,25 @@ export function RequestDetailPage() {
                       <td><Pill tone={pm.tone}>{pm.label}</Pill></td>
                       {isClient && (
                         <td className="right"><div className="rowactions">
+                          {(() => {
+                            // Only a partner that has asked has a thread; the
+                            // client cannot start one, so no button otherwise.
+                            const t = threadFor(threads.data ?? [], p.partner_org_id);
+                            return t && (
+                              <Button
+                                size="sm"
+                                aria-label={`Messages with ${p.partner_name ?? "this partner"}${t.unread_count ? `, ${t.unread_count} unread` : ""}`}
+                                onClick={() => {
+                                  setSelectedThread(t.id);
+                                  const el = document.getElementById("conversations");
+                                  el?.scrollIntoView?.({ block: "start" });
+                                  el?.focus();
+                                }}
+                              >
+                                {t.unread_count ? `Messages (${t.unread_count})` : "Messages"}
+                              </Button>
+                            );
+                          })()}
                           <Button size="sm" onClick={() => setViewing(p)}>Profile</Button>
                           {canManageProposal(p) && (
                             <Button size="sm" variant="danger" onClick={() => setRejecting(p)}>Reject</Button>
@@ -2037,6 +2067,8 @@ export function RequestDetailPage() {
           </TableWrap>
         )}
       </Panel>
+
+      <RequestThreadsPanel r={r} selected={selectedThread} onSelect={setSelectedThread} />
 
       {viewing && <PartnerProfileDialog proposal={viewing} onClose={() => setViewing(null)} />}
       {rejecting && (
@@ -2414,6 +2446,8 @@ export function MyProposalsPage() {
                           items={[
                             { label: "View response", onSelect: () => setViewing(p) },
                             { label: "View client & RFP", onSelect: () => setViewingBrief(p) },
+                            // the RFP page scrolls to the partner's own thread for any ?thread=
+                            { label: "Messages", onSelect: () => navigate(`/requests/${p.request_id}?thread=mine`) },
                             ...(p.status === "withdrawn"
                               ? [{ label: "Respond again", onSelect: () => navigate(`/requests/${p.request_id}`) }]
                               : []),

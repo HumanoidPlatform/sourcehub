@@ -12,18 +12,18 @@ needed. Sizes are rough: S = days, M = 1–2 weeks, L = 2–4 weeks, XL = 4+ wee
 | 2 | **Vendors** tab for clients | Client | Not started | M | partner expertise fields |
 | 3 | Flexible budget: total range **or** rate per unit | Client, partner | Not started | M | — |
 | 4 | Bidding deadline, editable until award | Client, partner | **Done** | S–M | — |
-| 5 | Private one-to-one Q&A / chat per RFP | Client, partner | Not started | L | — |
+| 5 | Private one-to-one Q&A / chat per RFP | Client, partner | **Done** (text; attachments later) | L | — |
 | 6 | Award one RFP to **several** partners, partial quantities | Client, partner | Not started | XL | 3 |
 | 7 | Bulk-import crowd from Excel/CSV | Aggregator | **Done** | M | — |
 | 8 | Documents the crowd must e-sign before capture | Client, worker | Not started | L | — |
 | 9 | Device requirements, validated at capture | Client, worker | Not started | M–L | — |
 
-**Suggested order for what remains** (4 and 7 are done):
+**Suggested order for what remains** (4, 5 and 7 are done):
 1. The bidding model together: 3 + 6, then 2.
 2. Crowd safeguards: 8, 9.
-3. Chat: 5.
 
-Items 3, 4, 5 and 6 all reshape bidding and awarding, so they are best designed together.
+Items 3 and 6 both reshape bidding and awarding, so they are best designed together; the deadline (4) and
+the conversations (5) are built to survive that redesign (both key on the award, not on how it is decided).
 
 ---
 
@@ -170,37 +170,48 @@ the deadline has passed but does not yet show the deadline itself.
 
 ---
 
-## 5 · Private one-to-one Q&A and chat
+## 5 · Private one-to-one Q&A and chat — DONE
 
 **Asked:** before bidding, a partner can ask the client questions in a private chat no other partner can see. After a
 bid, they can discuss the bid. The history stays until delivery.
 
-**Today:**
-- There is no messaging of any kind.
-- A bid's "notes" field is never shown to the client.
-- Notifications are one-way, and screens refresh on a timer.
+**Decisions taken:** only the **partner** starts a conversation (the client replies); no public "answer to all
+partners"; **Ops** can read any conversation, read-only, and each read that shows new content is audited (visible to
+Ops only); at award the other partners' conversations become read-only and the winner's continues until the delivery
+is approved; **text only** for now (attachments are the follow-up); "read" means **seen by the other organisation**;
+new messages arrive by polling (about every 10 seconds) while the conversation is open; one bell notification per
+message, no email.
 
-**What we will build**
-- **One conversation per RFP per partner,** between the client and that partner only:
-  - before bidding: "Ask a question" on any RFP the partner can see;
-  - after bidding: the same thread, shown beside that partner's bid;
-  - after award: it continues through delivery, then becomes read-only. Nothing is deleted.
-- The client sees all conversations on an RFP, with unread counts. A partner sees only its own.
-- **Messages:** text, attachments, sender, time and read status.
-- **Notifications:** a bell alert per message, and an email digest when a message stays unread.
+**Built and verified** (migration `0027`, already applied to the VM database; images still to be built and deployed):
+- **One conversation per RFP per partner,** between the client and that partner only. The database itself decides who
+  may read and write: a rival's conversation does not exist for a partner, Ops can read but never post, nothing can be
+  edited or deleted, and no one can post once a conversation is closed.
+- **Partner:** a **"Questions to the client"** panel on the RFP page. "Ask a question" opens the conversation with the
+  first message, while the RFP is open for proposals (a passed bidding deadline does not stop questions; the award
+  does). The conversation stays beside its response, and, for the winner, continues on the **contract page** — a
+  winner that never asked before the award can start it there.
+- **Client:** a **"Conversations"** panel on the RFP page listing every partner in conversation, with unread counts, the
+  last line, and a "No response" mark for a partner that asked but never bid; each bid row gets a **Messages (n)**
+  button that jumps to that partner's conversation. Replies go to one partner only.
+- **Messages:** sender, organisation, time, and **Seen** once the other organisation has opened the conversation after
+  it. A message is at most 4,000 characters.
+- **Closing:** at award, every other partner's conversation becomes read-only ("The RFP was awarded to another
+  partner.") and that partner is told; a partner that asked but never bid keeps sight of the RFP. When the client
+  approves the delivery, the winner's conversation becomes read-only ("Delivery is complete."). Everything stays
+  readable by both sides.
+- **Bell:** one notification per message, opening the RFP with that conversation selected; opening the conversation
+  clears them.
+- **Activity:** opening and closing a conversation and each Ops read are recorded.
 
-**Rules:**
-- **Blind bidding is preserved:** no partner ever sees another partner's thread.
-- Messages cannot be edited or deleted.
-- Aggregators and crowd are not part of the conversation.
+**Verified live:** NorthStar and Meridian asked on the same Acme RFP; each saw only its own conversation (the other's
+returned "not found" even by id), Acme saw both with unread counts and answered each separately, "Seen" appeared on
+the partner's message once Acme opened it; Ops read one conversation (one audit line, none for the repeat) and could
+not post; Acme awarded NorthStar → Meridian's conversation read-only with the reason and a bell notice, NorthStar's
+continued on the contract page; the completion close → NorthStar's read-only with "Delivery is complete."
 
-**Done when:** two partners asking about the same RFP each see only their own thread, the client sees both, and the
-thread survives bidding, award and delivery.
-
-**Decisions needed:**
-- Can the client **publish an answer to all partners** (a public clarification)?
-- Can the client start a thread?
-- Can Ops read threads in disputes?
+**Still open:** attachments on messages; an inbox page listing all of one's conversations (today they are reached
+from the RFP, the contract and the bell); if Ops reads should be visible to the two parties, add their organisations
+to the audit scope.
 
 ---
 

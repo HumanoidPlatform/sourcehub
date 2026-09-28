@@ -29,6 +29,8 @@ FILES = [
     SRC / "modules" / "engage" / "service.py",
     SRC / "modules" / "qa" / "service.py",
     SRC / "modules" / "media" / "service.py",
+    SRC / "modules" / "threads" / "service.py",
+    SRC / "api" / "v1" / "threads.py",
 ]
 
 SAYS_WORKER = re.compile(r"\bworkers?\b", re.IGNORECASE)
