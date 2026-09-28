@@ -75,12 +75,44 @@ outside the team.
 **Updating:** change the two image tags, `docker compose pull`, `up -d`.
 **Rolling back:** the same, with the previous tags.
 **Schema changes:** the one-line `docker run … alembic upgrade head` at the bottom
-of `docker-compose.yml`. The live database is at `0016`; the repository is at
-`0018` (`0017` renames the operator organisation, `0018` adds
-`engagement_reminder` and `engagement_orgs()` for the reminder clock). Run the
-migration **before** starting an api image that carries the clock: its first
-pass, thirty seconds after start-up, reads the new table and would log a
-failure every five minutes until the table exists.
+of `docker-compose.yml`.
+
+**Do not take a schema version from this file.** It has been wrong twice, and the
+chain moves faster than the prose. Read both ends yourself. What the database is
+at:
+
+```sh
+docker compose exec -T db psql -U azureuser -d appdb -c "select version_num from alembic_version;"
+```
+
+and what the image you are about to deploy carries:
+
+```sh
+docker run --rm <the new api image> alembic heads
+```
+
+Different answers mean there is a migration to run.
+`backend/tests/test_migration_chain_unit.py` guards the chain between them against
+gaps and against two revisions claiming the same id — which has happened, and which
+Alembic cannot even report properly when it does.
+
+Order matters, and not in the obvious direction. A revision that only adds things
+leaves the image currently serving unaffected — but the new image generally
+**requires** what it adds, so the migration goes first. And those revisions exist
+only *inside the new image*: the build serving now has never heard of them, so it
+cannot run them. Hence the sequence — push the images, migrate from a one-off
+container **of the new image**, then swap the tags.
+
+To go back: `alembic downgrade` to the version you read at the start, then restore
+the previous image tags. Where a downgrade has to undo a value the application
+wrote, it does that before dropping the column the value lived in, so nothing is
+left pointing at something that has gone.
+
+Restarting `api` also restarts the engagement reminder clock —
+`ENGAGEMENT_ENABLED` is `"true"` here (line 116) — and its first pass runs thirty
+seconds after start-up and mails **real** crowd resources. Long-standing
+behaviour rather than anything new, but it is a reason not to deploy in the
+minutes before a demo.
 
 ## Keep secrets out of the repo
 
@@ -128,4 +160,8 @@ this one — the same sequence the VM will go through:
 - **Five accounts keep the published demo password**, including the platform
   admin. The scoped port rule above is what contains it.
 - **`/docs` is public** on the API.
-- **Laptop and VM share `appdb`.**
+- **The laptop can no longer reach `appdb`.** It could once. The VM has moved to
+  `20.204.106.170` and its 5432 is deliberately unpublished, so development runs
+  against the local compose database instead and `backend/.env` still names a dead
+  address. To reach the live database, go through the VM:
+  `docker compose exec -T db psql -U azureuser -d appdb`.
