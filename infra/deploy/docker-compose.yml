@@ -119,6 +119,13 @@ services:
       # promptly a due reminder is noticed — lowering it does not send more.
       ENGAGEMENT_TICK_SECONDS: "300"
 
+      # --- The bidding-deadline sweep ----------------------------------------
+      # modules/marketplace/sweep tells a client its bidding window has closed,
+      # tells the bidders, and reminds the partners who have not responded a
+      # day before. In-app only, no mail. Same shape as the reminder clock.
+      BIDDING_SWEEP_ENABLED: "true"
+      BIDDING_SWEEP_TICK_SECONDS: "60"
+
       # Everything else uses the defaults in backend/src/sourcehub/config.py,
       # which are already right: argon2id hashing, 15-minute access tokens,
       # 5 failed sign-ins then a 15-minute lock, 14-day invitations, the

@@ -251,7 +251,8 @@ function AttentionRow({ a }: { a: OverviewAttention }) {
       to: `/requests/${a.entity_id}`,
     },
     review_proposals: {
-      say: `${a.count} proposal${a.count === 1 ? "" : "s"} in on ${a.reference_code}`,
+      say: `${a.count} proposal${a.count === 1 ? "" : "s"} in on ${a.reference_code}`
+        + (a.due_on ? ` · bids close ${fmtDate(a.due_on)}` : ""),
       cta: "Review",
       to: `/requests/${a.entity_id}`,
     },

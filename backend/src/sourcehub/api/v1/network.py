@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import datetime as dt
 import uuid
-from typing import Literal
+from typing import Literal, get_args
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, EmailStr, Field
@@ -56,6 +56,30 @@ class WorkerIn(BaseModel):
     # without one this is a roster-only record.
     email: EmailStr | None = None
     phone: str | None = Field(default=None, max_length=40)
+
+
+# The same nine, as a set, for the import's row-by-row verdicts.
+KNOWN_SKILLS: frozenset[str] = frozenset(get_args(Skill))
+
+
+class ImportRowIn(BaseModel):
+    """One spreadsheet row, as loosely typed as a spreadsheet: a bad email or
+    an unknown skill is that ROW's verdict, never a 422 for the whole file."""
+
+    row: int = Field(ge=1)
+    display_name: str = Field(default="", max_length=500)
+    email: str | None = Field(default=None, max_length=320)
+    phone: str | None = Field(default=None, max_length=200)
+    skills: list[str] = Field(default_factory=list, max_length=20)
+    trained: bool = False
+
+
+class ImportCheckIn(BaseModel):
+    rows: list[ImportRowIn] = Field(max_length=network.IMPORT_CHECK_LIMIT)
+
+
+class ImportBatchIn(BaseModel):
+    rows: list[ImportRowIn] = Field(max_length=network.IMPORT_BATCH_LIMIT)
 
 
 class WorkerStatusIn(BaseModel):
@@ -180,7 +204,7 @@ async def add_worker(
     emailed an invitation. Without: a roster-only record, as before."""
     if body.email is None:
         return await network.add_worker(
-            session, principal, body.display_name, body.skills, body.trained
+            session, principal, body.display_name, body.skills, body.trained, body.phone
         )
     try:
         return await network.invite_worker(
@@ -190,6 +214,34 @@ async def add_worker(
         )
     except network.NetworkError as e:
         raise _conflict(e) from None
+
+
+# Declared before the /workers/{worker_id}/... routes so "import" is never
+# read as an id.
+@router.post("/workers/import/check")
+async def check_import(
+    body: ImportCheckIn,
+    principal: Principal = Depends(require_capability("roster.manage")),
+    session: AsyncSession = Depends(get_session),
+):
+    """Every row's verdict, nothing written. What the person sees before
+    agreeing to an import."""
+    return await network.check_import(
+        session, principal, [r.model_dump() for r in body.rows], KNOWN_SKILLS
+    )
+
+
+@router.post("/workers/import")
+async def import_workers(
+    body: ImportBatchIn,
+    principal: Principal = Depends(require_capability("roster.manage")),
+    session: AsyncSession = Depends(get_session),
+):
+    """One batch of an import: the rows the person agreed to, each written in
+    its own savepoint, invitations sent over one connection."""
+    return await network.import_rows(
+        session, principal, [r.model_dump() for r in body.rows], KNOWN_SKILLS
+    )
 
 
 @router.post("/workers/{worker_id}/resend-invitation", status_code=status.HTTP_204_NO_CONTENT)

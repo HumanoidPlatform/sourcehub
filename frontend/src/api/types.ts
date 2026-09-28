@@ -117,6 +117,12 @@ export interface Rfp {
   pilot: { required: boolean; quantity: number | null; due_on: string | null };
   proposal_requirements: ProposalRequirement[];
   proposals_close_at: string | null;
+  /** Derived by the server from proposals_close_at and its clock, never
+   *  stored: false once the window has shut. No deadline means open. */
+  bidding_open: boolean;
+  /** The row's own status, before proposals_received is derived from the
+   *  bid count. The deadline can be changed only while this is published. */
+  stored_status: string;
   contact_user_id: string | null;
   starts_on: string | null;
   delivery_due_on: string | null;
@@ -210,6 +216,9 @@ export interface Milestone { label: string; amount?: string | null; due_on?: str
 
 export interface Proposal {
   id: string;
+  /** From /proposals/mine only: the RFP's bidding deadline, so a response on
+   *  a closed RFP is not offered a Withdraw the server would refuse. */
+  proposals_close_at?: string | null;
   reference_code: string;
   request_id: string;
   partner_org_id: string;
@@ -731,6 +740,59 @@ export interface NotificationPage {
   unread: number;
   items: NotificationRow[];
   has_more?: boolean;
+}
+
+/* --- conversations (features/messages) -------------------------------------
+   One private thread per RFP per delivery partner, between the client and that
+   partner only. Read state is per ORGANISATION: the two stamps are the newest
+   message number each side has opened the thread after, and `unread_count`
+   is the other side's messages above the caller's own stamp. */
+
+export interface Thread {
+  id: string;
+  request_id: string;
+  request_ref: string | null;
+  request_title: string | null;
+  client_org_id: string;
+  client_org_name: string | null;
+  partner_org_id: string;
+  partner_org_name: string | null;
+  created_at: string;
+  closed_at: string | null;
+  /** why it is read-only: the losers' at award, the winner's at completion */
+  closed_reason: "awarded_elsewhere" | "contract_completed" | null;
+  closed_message: string | null;
+  message_count: number;
+  /** the newest message's number; 0 when there are none */
+  last_seq: number;
+  last_message_at: string | null;
+  last_message_preview: string | null;
+  client_read_seq: number;
+  partner_read_seq: number;
+  unread_count: number;
+}
+
+export interface ThreadMessage {
+  id: string;
+  thread_id: string;
+  /** 1, 2, 3… within the thread — the page cursor and the read stamp */
+  seq: number;
+  sender_org_id: string;
+  sender_user_id: string;
+  sender_name: string;
+  body: string;
+  created_at: string;
+}
+
+/** GET /requests/{id}/threads: all of them for the client and Ops, its own for a partner. */
+export interface ThreadList {
+  items: Thread[];
+}
+
+/** GET /threads/{id}/messages: newest first; `before=<oldest id>` pages back. */
+export interface ThreadMessagePage {
+  items: ThreadMessage[];
+  has_more: boolean;
 }
 
 /* --- overview --------------------------------------------------------------

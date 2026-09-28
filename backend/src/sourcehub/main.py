@@ -45,15 +45,20 @@ async def _lifespan(app: FastAPI) -> AsyncIterator[None]:
     Every uvicorn worker starts one; the advisory lock inside the pass lets
     only one of them do the work on any tick."""
     from sourcehub.modules.engage import service as engage
+    from sourcehub.modules.marketplace import sweep
 
-    clock = asyncio.create_task(engage.run_forever()) if settings.engagement_enabled else None
+    clocks = [
+        asyncio.create_task(engage.run_forever()) if settings.engagement_enabled else None,
+        asyncio.create_task(sweep.run_forever()) if settings.bidding_sweep_enabled else None,
+    ]
     try:
         yield
     finally:
-        if clock is not None:
-            clock.cancel()
-            with contextlib.suppress(asyncio.CancelledError):
-                await clock
+        for clock in clocks:
+            if clock is not None:
+                clock.cancel()
+                with contextlib.suppress(asyncio.CancelledError):
+                    await clock
 
 
 def create_app() -> FastAPI:
@@ -92,7 +97,7 @@ def create_app() -> FastAPI:
 
     from sourcehub.api.v1 import (
         attachments, audit, auth, delivery, identity, ledger, marketplace, media, members,
-        network, notify, offers, onboarding, overview, qa, storage,
+        network, notify, offers, onboarding, overview, qa, storage, threads,
     )
 
     app.include_router(auth.router, prefix="/api/v1/auth", tags=["auth"])
@@ -111,6 +116,7 @@ def create_app() -> FastAPI:
     app.include_router(storage.router, prefix="/api/v1", tags=["storage"])
     app.include_router(attachments.router, prefix="/api/v1", tags=["attachments"])
     app.include_router(offers.router, prefix="/api/v1/offers", tags=["offers"])
+    app.include_router(threads.router, prefix="/api/v1", tags=["threads"])
 
     @app.get("/health", tags=["ops"])
     async def health() -> dict[str, str]:

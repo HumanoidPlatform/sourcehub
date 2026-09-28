@@ -113,6 +113,8 @@ req = client.post("/requests", json={
     "budget_min": 500, "budget_max": 900,
     "starts_on": dt.date.today().isoformat(),
     "delivery_due_on": (dt.date.today() + dt.timedelta(days=14)).isoformat(),
+    # required to publish since db/240
+    "proposals_close_at": (dt.datetime.now(dt.timezone.utc) + dt.timedelta(days=7)).isoformat(),
     "storage_target_id": dest["id"],
     "publish": True,
 })

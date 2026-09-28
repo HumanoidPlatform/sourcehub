@@ -20,11 +20,18 @@ import {
   REWORK_BEARERS, TARGET_UNITS, USE_CASES,
 } from "./vocabularies";
 import { useSession } from "@shared/auth";
-import { fmtDate, fmtDateTime, mediaList, money, titleCase } from "@shared/format";
+import {
+  fmtDate, fmtDateTime, fmtDateTimeZone, fmtUntil, isoToLocalInput, localInputToIso, mediaList,
+  money, titleCase, utcDateOf,
+} from "@shared/format";
 import {
   AttachmentList, AttachmentsField, attachmentPayload, fromServer, type AttachmentDraft,
 } from "@shared/attachments";
 import { useLeaveGuard } from "@shared/leave-guard";
+import { useNow } from "@shared/now";
+import { useThreads } from "@features/messages/hooks";
+import { RequestThreadsPanel } from "@features/messages/request-threads";
+import { threadFor } from "@features/messages/state";
 import { OrgLogo } from "@shared/org-logo";
 import { OrgProfileDialog } from "@shared/org-profile";
 import { companyRows, draftFromOrg } from "@shared/org-profile-form";
@@ -282,6 +289,7 @@ function CountryLocaleCombobox({
 export function RequestsPage() {
   const requests = useQuery({ queryKey: ["requests"], queryFn: () => get<Rfp[]>("/requests") });
   const rows = requests.data ?? [];
+  const now = useNow();
   const status = (r: Rfp) => statusMeta(requestStatus, r.status);
   const newRequest = <Link to="/requests/new" className="btn" data-variant="primary">New RFP</Link>;
   return (
@@ -325,9 +333,25 @@ export function RequestsPage() {
               {
                 header: "Status",
                 sortBy: (r) => status(r).label,
-                cell: (r) => <Pill tone={status(r).tone}>{status(r).label}</Pill>,
+                cell: (r) => (
+                  <>
+                    <Pill tone={status(r).tone}>{status(r).label}</Pill>
+                    {biddingClosed(r) && <> <Pill tone="attention">{r.proposal_count ? "Bidding closed" : "Closed · no proposals"}</Pill></>}
+                  </>
+                ),
               },
-              { header: "Waiting on", cell: (r) => waitingOn(status(r), "client") },
+              {
+                header: "Bids close",
+                sortBy: (r) => r.proposals_close_at ?? null,
+                cell: (r) => (
+                  <span title={fmtDateTimeZone(r.proposals_close_at)}>
+                    {!r.proposals_close_at ? "—" : biddingClosed(r) ? "Closed" : ["published", "proposals_received"].includes(r.status) ? fmtUntil(r.proposals_close_at, now) : fmtDate(r.proposals_close_at)}
+                  </span>
+                ),
+              },
+              // A closed window with nothing in it is the client's move:
+              // extend it or let the request lapse.
+              { header: "Waiting on", cell: (r) => (biddingClosed(r) ? "You" : waitingOn(status(r), "client")) },
               { header: "Proposals", cell: (r) => r.proposal_count, sortBy: (r) => r.proposal_count, className: "num" },
               {
                 header: "Actions",
@@ -392,6 +416,8 @@ interface Draft {
   budget_disclosed: boolean; budget_min: string; budget_max: string;
   pilot_required: boolean; pilot_quantity: string; pilot_due_on: string;
   starts_on: string; delivery_due_on: string;
+  // a datetime-local value in the browser's zone; ISO only on the wire
+  proposals_close_at: string;
   storage_target_id: string;
 }
 
@@ -416,8 +442,30 @@ const BLANK: Draft = {
   budget_disclosed: true, budget_min: "", budget_max: "",
   pilot_required: false, pilot_quantity: "", pilot_due_on: "",
   starts_on: "", delivery_due_on: "",
+  proposals_close_at: "",
   storage_target_id: "",
 };
+
+/** Why this bidding deadline cannot go live, or null.
+ *
+ * The same two rules the server applies (deadline_problem): in the future,
+ * and on or before the delivery date MEASURED IN UTC — the database CHECK
+ * compares in UTC, so a local evening west of Greenwich is already the next
+ * day there. Saying so here keeps a 409 from being the first anyone hears. */
+function deadlineProblem(local: string, deliveryDueOn: string | null, now: number = Date.now()): string | null {
+  const iso = localInputToIso(local);
+  if (!iso) return "Enter a date and time.";
+  if (Date.parse(iso) <= now) return "Choose a time in the future.";
+  if (deliveryDueOn && (utcDateOf(local) ?? "") > deliveryDueOn)
+    return "On or before the delivery deadline (measured in UTC).";
+  return null;
+}
+
+/** Published (or with bids in) but the window has shut: the state the stage
+ *  rail does not show, because it is derived from the clock, not stored. */
+function biddingClosed(r: Rfp): boolean {
+  return ["published", "proposals_received"].includes(r.status) && !r.bidding_open;
+}
 
 /** A number field as the API wants it: absent rather than an empty string,
  *  because every one of these columns is nullable and `""` is not a number. */
@@ -517,6 +565,7 @@ export function RequestNewPage() {
       pilot_quantity: String(r.pilot?.quantity ?? ""),
       pilot_due_on: r.pilot?.due_on ?? "",
       starts_on: r.starts_on ?? "", delivery_due_on: r.delivery_due_on ?? "",
+      proposals_close_at: isoToLocalInput(r.proposals_close_at),
       storage_target_id: r.storage_target_id ?? "",
     });
     const files = r.attachments ?? [];
@@ -643,6 +692,9 @@ export function RequestNewPage() {
 
         starts_on: d.starts_on || null,
         delivery_due_on: d.delivery_due_on || null,
+        // null clears it: the server assigns this outright rather than
+        // dropping it with the other omitted requirement fields
+        proposals_close_at: localInputToIso(d.proposals_close_at),
         storage_target_id: d.storage_target_id || null,
         attachments: [
           ...attachmentPayload(briefFiles, "brief"),
@@ -722,6 +774,11 @@ export function RequestNewPage() {
         f.budget_max = "At least the minimum.";
       if (d.starts_on && d.delivery_due_on && d.delivery_due_on < d.starts_on)
         f.delivery_due_on = "On or after the start.";
+      // Optional on a draft, checked when given; required to publish, below.
+      if (d.proposals_close_at) {
+        const p = deadlineProblem(d.proposals_close_at, d.delivery_due_on || null);
+        if (p) f.proposals_close_at = p;
+      }
       // A pilot nobody sized is not a pilot — request_pilot_shape says the
       // same in the database, but a person should hear it here.
       if (d.pilot_required && !d.pilot_quantity.trim())
@@ -743,6 +800,12 @@ export function RequestNewPage() {
       problems.push("Say how much you need — partners cannot price a blank quantity.");
     if (d.pilot_required && !d.pilot_quantity.trim())
       problems.push("Say how large the pilot should be.");
+    if (!d.proposals_close_at)
+      problems.push("Say when bidding closes — partners need to know how long they have.");
+    else {
+      const p = deadlineProblem(d.proposals_close_at, d.delivery_due_on || null);
+      if (p) problems.push(`Bids close on: ${p}`);
+    }
     if (!d.storage_target_id) problems.push("Choose where captured data should be delivered.");
     else if (!targetIsVerified(d.storage_target_id))
       problems.push("Test the connection to your delivery destination first.");
@@ -1172,6 +1235,15 @@ export function RequestNewPage() {
             <Field label="Delivery deadline" error={errOf("delivery_due_on")}>
               {(id) => <input id={id} className={inputCls} type="date" value={d.delivery_due_on} onChange={set("delivery_due_on")} />}
             </Field>
+            <Field
+              label="Bids close on"
+              required
+              span
+              error={errOf("proposals_close_at")}
+              hint="Partners cannot respond after this. Measured in UTC against the delivery date; you can change it until you award."
+            >
+              {(id) => <input id={id} className={inputCls} type="datetime-local" value={d.proposals_close_at} onChange={set("proposals_close_at")} />}
+            </Field>
 
             <label className="checkline span">
               <input type="checkbox" checked={d.pilot_required} onChange={(e) => setD((x) => ({ ...x, pilot_required: e.target.checked }))} />
@@ -1235,6 +1307,7 @@ export function RequestNewPage() {
               ? `${money(d.budget_min || null)} – ${money(d.budget_max || null)}`
               : `${money(d.budget_min || null)} – ${money(d.budget_max || null)} · withheld from bidders`],
             ["Timeline", `${fmtDate(d.starts_on || null)} → ${fmtDate(d.delivery_due_on || null)}`],
+            ["Bids close", d.proposals_close_at ? fmtDateTimeZone(localInputToIso(d.proposals_close_at)) : "Not set"],
             ...(d.pilot_required ? [["Pilot", `${d.pilot_quantity || "?"} ${unitLabel(d.target_unit)}${d.pilot_due_on ? ` by ${fmtDate(d.pilot_due_on)}` : ""}`] as Row] : []),
             ...(allFiles.length
               ? [["Attached", allFiles.map((f) => f.filename).join(", ")] as Row] : []),
@@ -1286,7 +1359,7 @@ export function RequestNewPage() {
         >
           <Callout tone="attention" title="Every delivery partner is notified, and this cannot be undone">
             Partners start pricing against the words in this RFP. There is no way to
-            unpublish it or edit it afterwards — only to see it through or let it lapse.
+            unpublish it; after publishing, only the bidding deadline can be changed.
           </Callout>
         </Dialog>
       )}
@@ -1614,12 +1687,20 @@ export function RequestDetailPage() {
   const [publishing, setPublishing] = useState(false);
   const [publishError, setPublishError] = useState<string | null>(null);
   const [awardError, setAwardError] = useState<string | null>(null);
+  const [changingDeadline, setChangingDeadline] = useState(false);
+  // The conversation the client is reading; a bid row's Messages button and
+  // a bell deep link both choose it, so the page owns it, not the panel.
+  const [selectedThread, setSelectedThread] = useState<string | null>(null);
+  const now = useNow();
 
   const request = useQuery({
     queryKey: ["request", id],
     queryFn: () => get<Rfp>(`/requests/${id}`),
     enabled: !!id,
   });
+  // The client's bid rows show "Messages (n)" for a partner in conversation.
+  // Same key as the panel below, which is the one that polls.
+  const threads = useThreads(session.org_kind === "client" ? id : undefined, false);
 
   // Who is buying. db/180 opens this to a tenant while the request is open,
   // and Fix 9 keeps it open to one that has bid; either way RLS decides, and a
@@ -1705,6 +1786,11 @@ export function RequestDetailPage() {
   const alreadyMine = proposals.some(
     (p) => p.partner_org_id === session.org_id && p.status !== "withdrawn",
   );
+  const open = ["published", "proposals_received"].includes(r.status);
+  const closed = biddingClosed(r);
+  // The one edit a live request allows (change_bidding_deadline). Its own
+  // stored status: proposals_received is the same row with bids in.
+  const canChangeDeadline = isClient && r.stored_status === "published";
 
   return (
     <View
@@ -1715,10 +1801,20 @@ export function RequestDetailPage() {
           {isClient && r.status === "draft" && (
             <>
               <Link to={`/requests/${r.id}/edit`} className="btn">Edit</Link>
-              <Button variant="primary" onClick={() => { setPublishError(null); setPublishing(true); }}>
+              {/* The server refuses a draft with no deadline; say so before
+                  the dialog, not after it. */}
+              <Button
+                variant="primary"
+                disabled={!r.proposals_close_at}
+                title={r.proposals_close_at ? undefined : "Set when bidding closes (Edit) before publishing."}
+                onClick={() => { setPublishError(null); setPublishing(true); }}
+              >
                 Publish
               </Button>
             </>
+          )}
+          {canChangeDeadline && (
+            <Button onClick={() => setChangingDeadline(true)}>Change deadline</Button>
           )}
           {/* Once awarded this page becomes a read-only record with nothing
               pointing at the work it produced — the only way through was the
@@ -1726,7 +1822,7 @@ export function RequestDetailPage() {
           {isClient && ["accepted", "in_progress", "delivered", "completed"].includes(r.status) && (
             <Link to="/deliveries" className="btn" data-variant="primary">Review deliverables</Link>
           )}
-          {session.org_kind === "tenant" && ["published", "proposals_received"].includes(r.status) && !alreadyMine && (
+          {session.org_kind === "tenant" && open && r.bidding_open && !alreadyMine && (
             <Button variant="primary" onClick={() => setProposing(true)}>Respond</Button>
           )}
         </>
@@ -1848,7 +1944,18 @@ export function RequestDetailPage() {
               : []),
             ["Budget", `${money(r.budget_min)} – ${money(r.budget_max)}`],
             ["Timeline", `${fmtDate(r.starts_on)} → ${fmtDate(r.delivery_due_on)}`],
-            ["Status", <Pill key="s" tone={meta.tone}>{meta.label}</Pill>],
+            ["Bids close", r.proposals_close_at ? (
+              <span key="bc">
+                {fmtDateTimeZone(r.proposals_close_at)}
+                {open && <span className="muted"> · {closed ? "closed" : fmtUntil(r.proposals_close_at, now)}</span>}
+              </span>
+            ) : "Not set — open until awarded"],
+            ["Status", (
+              <span key="s">
+                <Pill tone={meta.tone}>{meta.label}</Pill>
+                {closed && <> <Pill tone="attention">{proposals.length ? "Bidding closed" : "Bidding closed · no proposals"}</Pill></>}
+              </span>
+            )],
           ]} />
         </Panel>
       </div>
@@ -1857,8 +1964,23 @@ export function RequestDetailPage() {
         title={isClient ? "Proposals" : "Your response"}
         sub={isClient ? "Competitors never see each other's bids — only you compare them." : undefined}
       >
+        {!isClient && closed && (
+          <Callout tone="neutral" title={`Bidding closed on ${fmtDateTimeZone(r.proposals_close_at)}`}>
+            The client is reviewing the proposals received.
+          </Callout>
+        )}
         {proposals.length === 0 ? (
-          <Empty title={isClient ? "No proposals yet" : "No response yet"} hint={r.status === "draft" ? "Publish the RFP first." : isClient ? "Partners have been notified." : "Respond while the RFP is still open."} />
+          <Empty
+            title={isClient ? "No proposals yet" : "No response yet"}
+            hint={
+              r.status === "draft" ? "Publish the RFP first."
+              : closed ? (isClient ? "Bidding closed with no proposals. Extend the deadline to reopen it." : "Bidding has closed.")
+              : isClient ? "Partners have been notified."
+              // a partner that asked but never bid keeps this page after the award
+              : !open ? "This RFP has been awarded."
+              : "Respond while the RFP is still open."
+            }
+          />
         ) : (
           <TableWrap>
             <table>
@@ -1908,6 +2030,25 @@ export function RequestDetailPage() {
                       <td><Pill tone={pm.tone}>{pm.label}</Pill></td>
                       {isClient && (
                         <td className="right"><div className="rowactions">
+                          {(() => {
+                            // Only a partner that has asked has a thread; the
+                            // client cannot start one, so no button otherwise.
+                            const t = threadFor(threads.data ?? [], p.partner_org_id);
+                            return t && (
+                              <Button
+                                size="sm"
+                                aria-label={`Messages with ${p.partner_name ?? "this partner"}${t.unread_count ? `, ${t.unread_count} unread` : ""}`}
+                                onClick={() => {
+                                  setSelectedThread(t.id);
+                                  const el = document.getElementById("conversations");
+                                  el?.scrollIntoView?.({ block: "start" });
+                                  el?.focus();
+                                }}
+                              >
+                                {t.unread_count ? `Messages (${t.unread_count})` : "Messages"}
+                              </Button>
+                            );
+                          })()}
                           <Button size="sm" onClick={() => setViewing(p)}>Profile</Button>
                           {canManageProposal(p) && (
                             <Button size="sm" variant="danger" onClick={() => setRejecting(p)}>Reject</Button>
@@ -1926,6 +2067,8 @@ export function RequestDetailPage() {
           </TableWrap>
         )}
       </Panel>
+
+      <RequestThreadsPanel r={r} selected={selectedThread} onSelect={setSelectedThread} />
 
       {viewing && <PartnerProfileDialog proposal={viewing} onClose={() => setViewing(null)} />}
       {rejecting && (
@@ -1955,7 +2098,7 @@ export function RequestDetailPage() {
         >
           <Callout tone="attention" title="Every delivery partner is notified, and this cannot be undone">
             Partners start pricing against the words in this RFP. There is no way to
-            unpublish it or edit it afterwards — only to see it through or let it lapse.
+            unpublish it; after publishing, only the bidding deadline can be changed.
           </Callout>
           {publishError && <Callout tone="critical" title="Could not publish">{publishError}</Callout>}
         </Dialog>
@@ -1994,10 +2137,87 @@ export function RequestDetailPage() {
         </Dialog>
       )}
 
+      {changingDeadline && <DeadlineDialog r={r} onClose={() => setChangingDeadline(false)} />}
       {proposing && id && (
         <ProposeDialog requestId={id} title={r.title} onClose={() => setProposing(false)} />
       )}
     </View>
+  );
+}
+
+/* --- the bidding deadline, after publishing ------------------------------------- */
+// The one edit a live request allows. Partners are pricing against the words
+// of the RFP, and those stay fixed; the window is the client's to manage until
+// the award. Setting a future time on a closed window reopens it.
+
+function DeadlineDialog({ r, onClose }: { r: Rfp; onClose: () => void }) {
+  const qc = useQueryClient();
+  const toast = useToast();
+  const [value, setValue] = useState(isoToLocalInput(r.proposals_close_at));
+  const [fieldError, setFieldError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const reopens = !r.bidding_open;
+
+  const change = useMutation({
+    mutationFn: () =>
+      patch<Rfp>(`/requests/${r.id}/bidding-deadline`, { proposals_close_at: localInputToIso(value) }),
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: ["request", r.id] });
+      void qc.invalidateQueries({ queryKey: ["requests"] });
+      void qc.invalidateQueries({ queryKey: ["opportunities"] });
+      toast("Deadline updated", "Every partner has been told.", "success");
+      onClose();
+    },
+    onError: (e) => setError(e instanceof Error ? e.message : "Could not change the deadline"),
+  });
+
+  const submit = () => {
+    const p = deadlineProblem(value, r.delivery_due_on);
+    if (p) return setFieldError(p);
+    change.mutate();
+  };
+
+  return (
+    <Dialog
+      title="Change the bidding deadline"
+      sub={<span className="id">{r.reference_code}</span>}
+      busy={change.isPending}
+      onClose={onClose}
+      foot={
+        <>
+          <Button onClick={onClose} disabled={change.isPending}>Cancel</Button>
+          <Button variant="primary" onClick={submit} disabled={change.isPending || !value}>
+            {change.isPending ? "Saving…" : "Save deadline"}
+          </Button>
+        </>
+      }
+    >
+      {reopens && (
+        <Callout tone="attention" title="Bidding is closed">
+          A future time reopens it: every partner is told, and responses are accepted again.
+        </Callout>
+      )}
+      <div className="formgrid">
+        <Field
+          label="Bids close on"
+          required
+          span
+          error={fieldError}
+          hint={`Every partner is notified of the change. In the future, and on or before the delivery deadline (${fmtDate(r.delivery_due_on)}), measured in UTC.`}
+        >
+          {(id) => (
+            <input
+              id={id}
+              className={inputCls}
+              type="datetime-local"
+              value={value}
+              onChange={(e) => { setValue(e.target.value); setFieldError(null); setError(null); }}
+            />
+          )}
+        </Field>
+      </div>
+      {error && <Callout tone="critical" title="Could not change the deadline">{error}</Callout>}
+    </Dialog>
   );
 }
 
@@ -2115,22 +2335,32 @@ function ProposeDialog({ requestId, title, onClose }: { requestId: string; title
 
 export function OpportunitiesPage() {
   const opps = useQuery({ queryKey: ["opportunities"], queryFn: () => get<Rfp[]>("/opportunities") });
+  const now = useNow();
+  // Soonest deadline first; a request with none (open until awarded) last.
+  const rows = [...(opps.data ?? [])].sort(
+    (a, b) =>
+      (a.proposals_close_at ? Date.parse(a.proposals_close_at) : Infinity)
+      - (b.proposals_close_at ? Date.parse(b.proposals_close_at) : Infinity),
+  );
   return (
-    <View title="Opportunities" sub="Published RFPs you can still bid on. First proposal in moves it to 'proposals received'.">
+    <View title="Opportunities" sub="Published RFPs you can still bid on, soonest deadline first.">
       <Panel>
-        {(opps.data ?? []).length === 0 ? (
+        {rows.length === 0 ? (
           <Empty title="Nothing open right now" hint="You are notified the moment a client publishes." />
         ) : (
           <TableWrap>
             <table>
-              <thead><tr><th>Reference</th><th>Title</th><th>Category</th><th>Budget</th><th>Delivery</th><th /></tr></thead>
+              <thead><tr><th>Reference</th><th>Title</th><th>Category</th><th>Budget</th><th>Bids close</th><th>Delivery</th><th /></tr></thead>
               <tbody>
-                {(opps.data ?? []).map((r) => (
+                {rows.map((r) => (
                   <tr key={r.id}>
                     <td className="id">{r.reference_code}</td>
                     <td className="cell-primary">{r.title}</td>
                     <td>{titleCase(r.category)}</td>
                     <td className="num">{money(r.budget_min)} – {money(r.budget_max)}</td>
+                    <td className="num" title={fmtDateTimeZone(r.proposals_close_at)}>
+                      {r.proposals_close_at ? fmtUntil(r.proposals_close_at, now) : "Open until awarded"}
+                    </td>
                     <td className="num">{fmtDate(r.delivery_due_on)}</td>
                     {/* Not "Brief": that is one of five document slots on the
                         page this opens, and the page carries the whole
@@ -2181,6 +2411,12 @@ export function MyProposalsPage() {
     mutationFn: (pid: string) => post(`/proposals/${pid}/withdraw`),
   });
   const qc = useQueryClient();
+  const toast = useToast();
+  const now = useNow();
+  const [withdrawing, setWithdrawing] = useState<Proposal | null>(null);
+  // Binding once the window shuts (withdraw_proposal): no button for a refusal.
+  const canWithdraw = (p: Proposal) =>
+    p.status === "submitted" && !(p.proposals_close_at && Date.parse(p.proposals_close_at) <= now);
   const wins = useMemo(
     () => (mine.data ?? []).filter((p) => p.status === "accepted").length,
     [mine.data],
@@ -2210,17 +2446,13 @@ export function MyProposalsPage() {
                           items={[
                             { label: "View response", onSelect: () => setViewing(p) },
                             { label: "View client & RFP", onSelect: () => setViewingBrief(p) },
+                            // the RFP page scrolls to the partner's own thread for any ?thread=
+                            { label: "Messages", onSelect: () => navigate(`/requests/${p.request_id}?thread=mine`) },
                             ...(p.status === "withdrawn"
                               ? [{ label: "Respond again", onSelect: () => navigate(`/requests/${p.request_id}`) }]
                               : []),
-                            ...(p.status === "submitted"
-                              ? [{
-                                  label: "Withdraw",
-                                  tone: "danger" as const,
-                                  onSelect: () => withdraw.mutate(p.id, {
-                                    onSuccess: () => void qc.invalidateQueries({ queryKey: ["proposals-mine"] }),
-                                  }),
-                                }]
+                            ...(canWithdraw(p)
+                              ? [{ label: "Withdraw", tone: "danger" as const, onSelect: () => setWithdrawing(p) }]
                               : []),
                           ]}
                         />
@@ -2234,6 +2466,39 @@ export function MyProposalsPage() {
           </TableWrap>
         )}
       </Panel>
+      {withdrawing && (
+        <Dialog
+          title={`Withdraw ${withdrawing.reference_code}?`}
+          sub={withdrawing.request_title ?? withdrawing.request_ref ?? ""}
+          busy={withdraw.isPending}
+          onClose={() => setWithdrawing(null)}
+          foot={
+            <>
+              <Button onClick={() => setWithdrawing(null)} disabled={withdraw.isPending}>Keep it</Button>
+              <Button
+                variant="danger"
+                disabled={withdraw.isPending}
+                onClick={() => withdraw.mutate(withdrawing.id, {
+                  onSuccess: () => {
+                    void qc.invalidateQueries({ queryKey: ["proposals-mine"] });
+                    toast("Response withdrawn", "You can respond again while the RFP is open.", "neutral");
+                    setWithdrawing(null);
+                  },
+                  // It used to fail in silence: a refusal never reached the screen.
+                  onError: (e) => toast("Could not withdraw", e instanceof Error ? e.message : "", "critical"),
+                })}
+              >
+                {withdraw.isPending ? "Withdrawing…" : "Withdraw"}
+              </Button>
+            </>
+          }
+        >
+          <Callout tone="attention" title="Bids are binding once bidding closes">
+            You can respond again while the RFP is still open. After its deadline a submitted
+            response stays in until the client decides.
+          </Callout>
+        </Dialog>
+      )}
       {viewing && <ProposalDetailDialog p={viewing} onClose={() => setViewing(null)} />}
       {viewingBrief && (
         <ClientAndRequestDialog proposal={viewingBrief} onClose={() => setViewingBrief(null)} />
@@ -2314,6 +2579,9 @@ function ClientAndRequestDialog({ proposal, onClose }: { proposal: Proposal; onC
               ? `${money(r.budget_min)} – ${money(r.budget_max)}`
               : "Not disclosed"],
             ["Timeline", `${fmtDate(r.starts_on)} → ${fmtDate(r.delivery_due_on)}`],
+            ["Bids close", r.proposals_close_at
+              ? `${fmtDateTimeZone(r.proposals_close_at)}${biddingClosed(r) ? " · closed" : ""}`
+              : "Open until awarded"],
             ["Geography", r.geography ?? "—"],
             ["Compliance", r.compliance_notes ?? "—"],
           ]} />

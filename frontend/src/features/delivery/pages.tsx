@@ -23,6 +23,7 @@ import {
 } from "@features/marketplace/vocabularies";
 import { AssignmentUploadDialog } from "@features/capture/dialog";
 import { useUploadActivity } from "@features/capture/hooks";
+import { ContractThreadPanel } from "@features/messages/contract-thread";
 import { AssetGallery, useTaskAssets } from "./components/AssetGallery";
 import { SubmitToPartnerDialog, TaskAssignmentsDialog } from "./components/assignments";
 
@@ -225,6 +226,9 @@ export function ContractDetailPage() {
           <Dl rows={clientDocRows} />
         </Panel>
       )}
+
+      {/* The conversation that began on the RFP, for as long as the contract runs. */}
+      <ContractThreadPanel c={c} />
 
       <div className="g2">
         <Panel title="Rubric snapshot" sub="Frozen at award. Disputes are arbitrated against this, not the request as it reads today.">

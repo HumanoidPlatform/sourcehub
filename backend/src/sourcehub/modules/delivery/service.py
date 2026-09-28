@@ -1112,6 +1112,7 @@ async def approve_delivery(
     """Client accepts: contract completes, money settles, the partner is rated.
     The comment is required — 'ratings without one are not published'."""
     from sourcehub.modules.network import service as network
+    from sourcehub.modules.threads import service as threads
 
     if not comment or not comment.strip():
         raise DeliveryError("Add a comment — ratings without one are not published.")
@@ -1129,6 +1130,11 @@ async def approve_delivery(
     c.status = "completed"
     c.completed_at = dt.datetime.now(dt.timezone.utc)
     c.updated_by = claims.user_id
+    # The conversation that ran beside this contract ends with it.
+    await threads.close_for_completion(
+        session, claims, request_id=c.request_id, partner_org_id=c.partner_org_id,
+        request_ref=c.reference_code,
+    )
 
     await network.rate_counterparty(
         session, claims, contract_id=c.id, to_org_id=c.partner_org_id,

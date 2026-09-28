@@ -53,6 +53,14 @@ export function notificationHref(n: NotificationRow): string | null {
     case "onboarding": return "/onboarding";
     case "accounts": return "/accounts";
     case "activity": return "/activity";
+    // A conversation on an RFP. The RFP page shows it for every role in every
+    // state and selects it from ?thread=, so link_params carries the request
+    // as well as the thread — the one case that reads more than `id`.
+    case "thread": {
+      const request = n.link_params?.request;
+      if (!request) return null;
+      return id ? `/requests/${request}?thread=${id}` : `/requests/${request}`;
+    }
     default: return null;
   }
 }

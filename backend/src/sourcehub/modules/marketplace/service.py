@@ -18,7 +18,7 @@ import uuid
 from decimal import Decimal
 from typing import Any
 
-from sqlalchemy import func, select, text
+from sqlalchemy import func, or_, select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.security import AccessClaims
@@ -29,6 +29,51 @@ from sourcehub.modules.notify import service as notifier
 
 class MarketplaceError(Exception):
     pass
+
+
+# ---------------------------------------------------------------------------
+# The bidding window
+#
+# proposals_close_at is the one clock the marketplace keeps. "Closed" is never
+# stored: it is derived from the time, the way task offers derive 'expired'
+# from respond_by (db/130). RLS keys on the stored status, so it never has to
+# know — every partner keeps seeing a closed request and its buyer — and what
+# changes is only what the server accepts and what the screens say. A request
+# with no deadline (every one published before deadlines existed) stays open
+# until it is awarded.
+# ---------------------------------------------------------------------------
+
+REMIND_BEFORE = dt.timedelta(hours=24)
+
+
+def bidding_is_open(close_at: dt.datetime | None, now: dt.datetime) -> bool:
+    return close_at is None or close_at > now
+
+
+def fmt_utc(d: dt.datetime) -> str:
+    """'5 Oct 2026, 18:00 UTC' — for refusals and notifications, which reach
+    people in several time zones. Built by hand: strftime's %-d is not portable."""
+    u = d.astimezone(dt.timezone.utc)
+    return f"{u.day} {u:%b %Y}, {u:%H:%M} UTC"
+
+
+def deadline_problem(
+    close_at: dt.datetime | None, delivery_due_on: dt.date | None, now: dt.datetime
+) -> str | None:
+    """Why this deadline cannot go live, or None.
+
+    The date is compared in UTC because that is what the database CHECK
+    (request_close_before_delivery) does. Comparing in the sender's own offset
+    let an evening time west of Greenwich pass here and fail there, as a 500.
+    """
+    if close_at is None:
+        return "Set when bidding closes."
+    if close_at <= now:
+        return "Bidding must close in the future."
+    close_date = close_at.astimezone(dt.timezone.utc).date()
+    if delivery_due_on is not None and close_date > delivery_due_on:
+        return "Bidding must close on or before the delivery date (measured in UTC)."
+    return None
 
 
 # ---------------------------------------------------------------------------
@@ -88,7 +133,7 @@ def _effective(stored: str, derived: str | None, proposal_count: int) -> str:
 
 def _row(
     r: Request, effective: str, proposal_count: int, viewer_org: uuid.UUID | None = None,
-    client_name: str | None = None,
+    client_name: str | None = None, now: dt.datetime | None = None,
 ) -> dict[str, Any]:
     """The request as the API returns it.
 
@@ -166,6 +211,11 @@ def _row(
         },
         "proposal_requirements": r.proposal_requirements,
         "proposals_close_at": r.proposals_close_at,
+        # Derived, never stored; the console reads this rather than doing the
+        # comparison itself against a clock that may disagree with ours.
+        "bidding_open": bidding_is_open(
+            r.proposals_close_at, now or dt.datetime.now(dt.timezone.utc)
+        ),
         "contact_user_id": r.contact_user_id,
         "starts_on": r.starts_on,
         "delivery_due_on": r.delivery_due_on,
@@ -203,9 +253,12 @@ _REQUIREMENT_FIELDS = (
     "lawful_basis", "permitted_uses", "partner_reuse_allowed",
     "biometric_processing", "location_type", "pricing_model_requested",
     "budget_disclosed", "pilot_required", "pilot_quantity", "pilot_due_on",
-    "milestones", "proposals_close_at", "contact_user_id",
+    "milestones", "contact_user_id",
     "proposal_requirements",
 )
+# proposals_close_at is deliberately NOT in that list: _requirements() drops
+# None, so a draft's deadline could be set and never cleared. It is assigned
+# outright, next to the other dates.
 
 
 def _requirements(data: dict[str, Any]) -> dict[str, Any]:
@@ -239,6 +292,7 @@ async def create_request(
         budget_max=data.get("budget_max"),
         starts_on=data.get("starts_on"),
         delivery_due_on=data.get("delivery_due_on"),
+        proposals_close_at=data.get("proposals_close_at"),
         residency_region=data.get("residency_region"),
         storage_target_id=data.get("storage_target_id"),
         published_at=dt.datetime.now(dt.timezone.utc) if publish else None,
@@ -247,6 +301,7 @@ async def create_request(
         **_requirements(data),
     )
     if publish:
+        _assert_deadline(r)
         await _assert_destination(session, r)
     session.add(r)
     await session.flush()
@@ -292,6 +347,7 @@ async def update_request(
     r.budget_max = data.get("budget_max")
     r.starts_on = data.get("starts_on")
     r.delivery_due_on = data.get("delivery_due_on")
+    r.proposals_close_at = data.get("proposals_close_at")
     r.residency_region = data.get("residency_region")
     r.storage_target_id = data.get("storage_target_id")
     for k, v in _requirements(data).items():
@@ -342,26 +398,45 @@ async def _attach_fields(
         raise MarketplaceError(str(e)) from None
 
 
+async def notify_active_tenants(
+    session: AsyncSession, body: str, request_id: uuid.UUID,
+    *, except_orgs: list[uuid.UUID] | None = None,
+) -> int:
+    """Tell every active delivery partner about one request; how many were told.
+
+    Through active_tenant_ids() (db/240), a definer function returning ids
+    only. The plain SELECT on organisation this replaced ran under the
+    CLIENT's policies, which show a client only the partners it already has a
+    bid or contract from — so a client's first request was announced to
+    nobody, and no test could see it because the loop simply had fewer rows.
+    """
+    skip = set(except_orgs or ())
+    told = 0
+    for tid in (await session.execute(text("SELECT active_tenant_ids()"))).scalars().all():
+        if tid in skip:
+            continue
+        # requestDetail, not the opportunities board: the notice is about ONE
+        # request, and the board drops the id (shared/notifications.ts).
+        await notifier.notify(session, tid, body, "requestDetail", {"id": str(request_id)})
+        told += 1
+    return told
+
+
+def _assert_deadline(r: Request) -> None:
+    now = dt.datetime.now(dt.timezone.utc)
+    problem = deadline_problem(r.proposals_close_at, r.delivery_due_on, now)
+    if problem:
+        raise MarketplaceError(problem)
+
+
 async def _announce_publish(session: AsyncSession, claims: AccessClaims, r: Request) -> None:
     await audit.log(
         session, "request.published",
         f"Published {r.reference_code}, {r.title}", [r.id, claims.org_id],
     )
-    # every active tenant hears about a new opportunity, as in the prototype
-    tenants = (
-        await session.execute(
-            text("SELECT id FROM organisation WHERE kind = 'tenant' AND status = 'active' "
-                 "AND deleted_at IS NULL")
-        )
-    ).scalars().all()
-    for tid in tenants:
-        await notifier.notify(
-            session, tid,
-            # Reads in a partner's bell, so it uses the partner's word. The
-            # sibling line below goes to the client and still says proposal.
-            f"{r.title} is open for responses.",
-            "opportunities", {"id": str(r.id)},
-        )
+    # Reads in a partner's bell, so it uses the partner's word. The sibling
+    # lines in submit_proposal go to the client and still say proposal.
+    await notify_active_tenants(session, f"{r.title} is open for responses.", r.id)
 
 
 async def publish_request(
@@ -370,13 +445,84 @@ async def publish_request(
     r = await _get_owned(session, request_id)
     if r.status != "draft":
         raise MarketplaceError(f"A {r.status} request cannot be published.")
-    # Partners bid on the promise that captures have somewhere to land.
+    # Partners must know how long they have, and that captures have somewhere
+    # to land.
+    _assert_deadline(r)
     await _assert_destination(session, r)
     r.status = "published"
     r.published_at = dt.datetime.now(dt.timezone.utc)
     r.updated_by = claims.user_id
+    # Flushed before anything is announced, so a constraint the API check
+    # missed answers as a 409 here rather than a 500 at commit.
+    await session.flush()
     await _announce_publish(session, claims, r)
     return _row(r, "published", 0, claims.org_id)
+
+
+async def change_bidding_deadline(
+    session: AsyncSession, claims: AccessClaims, request_id: uuid.UUID, close_at: dt.datetime
+) -> dict[str, Any]:
+    """Extend or shorten the bidding window of a published request.
+
+    The one edit a live request allows. Partners are pricing against the words
+    of the RFP, and those stay fixed; the window is the client's to manage
+    until the award, and every partner is told each time it moves. Moving it
+    later after it has passed reopens bidding — that is the point of the
+    feature: a request that closed with too few bids gets a second run.
+    """
+    await _lock_window(session, request_id)
+    r = (
+        await session.execute(
+            # Locked: the sweep may be about to announce this window closed.
+            # It re-checks under the row's lock and finds it moved.
+            select(Request)
+            .where(Request.id == request_id, Request.deleted_at.is_(None))
+            .with_for_update()
+        )
+    ).scalar_one_or_none()
+    if r is None:
+        raise LookupError("request not found")
+    if r.client_org_id != claims.org_id:
+        raise MarketplaceError("Only the client that raised a request may change its deadline.")
+    if r.status == "draft":
+        raise MarketplaceError("A draft carries its deadline; edit the draft.")
+    if r.status != "published":
+        raise MarketplaceError("The deadline is fixed once the request is awarded.")
+    now = dt.datetime.now(dt.timezone.utc)
+    problem = deadline_problem(close_at, r.delivery_due_on, now)
+    if problem:
+        raise MarketplaceError(problem)
+
+    old = r.proposals_close_at
+    reopened = old is not None and old <= now
+    r.proposals_close_at = close_at
+    r.closed_at = None  # the sweep may notice the next close
+    if close_at - now > REMIND_BEFORE:
+        r.bidding_reminder_sent_at = None  # and send the day-before notice again
+    r.updated_by = claims.user_id
+    await session.flush()
+
+    was = f" (was {fmt_utc(old)})" if old else " (was open until awarded)"
+    await audit.log(
+        session, "request.deadline_changed",
+        f"Bidding on {r.reference_code} now closes {fmt_utc(close_at)}{was}",
+        [r.id, claims.org_id],
+        {
+            "from": old.isoformat() if old else None,
+            "to": close_at.isoformat(),
+            "reopened": reopened,
+        },
+    )
+    await notify_active_tenants(
+        session,
+        f"Bidding on {r.title} has reopened until {fmt_utc(close_at)}."
+        if reopened
+        else f"Bidding on {r.title} now closes {fmt_utc(close_at)}.",
+        r.id,
+    )
+    cmap, counts = await _status_maps(session, [r.id])
+    eff = _effective(r.status, cmap.get(r.id), counts.get(r.id, 0))
+    return _row(r, eff, counts.get(r.id, 0), claims.org_id, now=now)
 
 
 async def _assert_destination(session: AsyncSession, r: Request) -> None:
@@ -433,7 +579,12 @@ async def list_requests(
     split — open_only merely narrows the tenant's view to what it can bid on)."""
     stmt = select(Request).where(Request.deleted_at.is_(None)).order_by(Request.created_at.desc())
     if open_only:
-        stmt = stmt.where(Request.status == "published")
+        # "still bid on": published, and the window not yet closed. The
+        # time half uses request_close_idx; a request with no deadline is open.
+        stmt = stmt.where(
+            Request.status == "published",
+            or_(Request.proposals_close_at.is_(None), Request.proposals_close_at > func.now()),
+        )
     rows = (await session.execute(stmt)).scalars().all()
     cmap, counts = await _status_maps(session, [r.id for r in rows])
     names = await _client_names(session, [r.client_org_id for r in rows])
@@ -513,6 +664,11 @@ async def submit_proposal(
     unit_price: Decimal | None = None,
     attachments: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
+    # Serialised against change_bidding_deadline on an advisory lock, NOT with
+    # FOR UPDATE: under RLS a row lock also needs the UPDATE policy, and a
+    # partner may read a request but never update it — FOR UPDATE simply
+    # returned no row, and every bid was a 404.
+    await _lock_window(session, request_id)
     r = (
         await session.execute(select(Request).where(Request.id == request_id))
     ).scalar_one_or_none()
@@ -522,6 +678,9 @@ async def submit_proposal(
     eff = _effective(r.status, cmap.get(request_id), counts.get(request_id, 0))
     if eff not in ("published", "proposals_received"):
         raise MarketplaceError("This request is no longer open for proposals.")
+    now = dt.datetime.now(dt.timezone.utc)
+    if not bidding_is_open(r.proposals_close_at, now):
+        raise MarketplaceError(_closed_message(r))
     existing = (
         await session.execute(
             select(Proposal).where(
@@ -543,7 +702,7 @@ async def submit_proposal(
         existing.methodology = methodology
         existing.notes = notes
         existing.status = "submitted"
-        existing.submitted_at = dt.datetime.now(dt.timezone.utc)
+        existing.submitted_at = now
         existing.decided_at = None
         existing.updated_by = claims.user_id
         await session.flush()
@@ -612,6 +771,22 @@ async def _attach_proposal(
         raise MarketplaceError(str(e)) from None
 
 
+async def _lock_window(session: AsyncSession, request_id: uuid.UUID) -> None:
+    """One writer at a time per bidding window, for the rest of the
+    transaction: a bid and a deadline change never interleave. The same
+    advisory-lock shape attachments and the audit chain use, and one that
+    needs no row privilege — which FOR UPDATE does, under RLS."""
+    await session.execute(
+        text("SELECT pg_advisory_xact_lock(hashtextextended(:k, 0))"),
+        {"k": f"bidding-window:{request_id}"},
+    )
+
+
+def _closed_message(r: Request) -> str:
+    when = f" on {fmt_utc(r.proposals_close_at)}" if r.proposals_close_at else ""
+    return f"Bidding on this request closed{when}."
+
+
 async def withdraw_proposal(
     session: AsyncSession, claims: AccessClaims, proposal_id: uuid.UUID
 ) -> dict[str, Any]:
@@ -622,8 +797,20 @@ async def withdraw_proposal(
         raise LookupError("proposal not found")
     if p.status != "submitted":
         raise MarketplaceError(f"A {p.status} proposal cannot be withdrawn.")
+    now = dt.datetime.now(dt.timezone.utc)
+    # Binding once the window shuts: a bid the client is deciding on cannot be
+    # pulled, any more than a new one can be put in. A bidder can read the
+    # request whatever its state (request_select_bidder, db/110).
+    r = (
+        await session.execute(select(Request).where(Request.id == p.request_id))
+    ).scalar_one_or_none()
+    if r is not None and not bidding_is_open(r.proposals_close_at, now):
+        raise MarketplaceError(
+            "Bids are binding once bidding has closed. Ask the client to extend the "
+            "deadline if yours must change."
+        )
     p.status = "withdrawn"
-    p.decided_at = dt.datetime.now(dt.timezone.utc)
+    p.decided_at = now
     p.updated_by = claims.user_id
     await audit.log(session, "proposal.withdrawn",
                     f"Withdrew {p.reference_code}", [p.id, p.request_id, claims.org_id])
@@ -736,7 +923,7 @@ async def my_proposals(session: AsyncSession, claims: AccessClaims) -> list[dict
                 # visible to the partner that bid to it. LEFT, so a policy
                 # change can never silently drop a partner's own proposals.
                 "SELECT p.*, r.title AS request_title, r.reference_code AS request_ref, "
-                "       r.client_org_id, o.name AS client_name "
+                "       r.client_org_id, r.proposals_close_at, o.name AS client_name "
                 "FROM proposal p JOIN request r ON r.id = p.request_id "
                 "LEFT JOIN organisation o ON o.id = r.client_org_id "
                 "WHERE p.partner_org_id = :org AND p.deleted_at IS NULL "
@@ -759,6 +946,7 @@ async def award(
     milestone 1 invoiced into escrow. One transaction, mirroring confirmAward().
     """
     from sourcehub.modules.delivery import service as delivery
+    from sourcehub.modules.threads import service as threads
 
     p = (
         await session.execute(select(Proposal).where(Proposal.id == proposal_id))
@@ -801,6 +989,13 @@ async def award(
             f"{r.title} was awarded to another partner.",
             "proposals", {},
         )
+    # Every other partner's conversation on this request is history now — the
+    # ones who asked and never bid included. The winner's continues on the
+    # contract.
+    await threads.close_for_award(
+        session, claims, request_id=r.id, winner_org_id=p.partner_org_id,
+        request_ref=r.reference_code, request_title=r.title,
+    )
 
     r.status = "accepted"
     r.updated_by = claims.user_id

@@ -12,7 +12,7 @@ BACKEND  := backend
 FRONTEND := frontend
 
 .DEFAULT_GOAL := help
-.PHONY: help up down seed migrate-status revision bundle verify-schema test lint format types logs ps psql reset install
+.PHONY: help up down seed migrate-status revision bundle verify-schema erd test lint format types logs ps psql reset install
 
 help:  ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
@@ -70,6 +70,9 @@ bundle:  ## Concatenate db/*.sql into build/schema.sql + build/seed.sql for a de
 
 verify-schema:  ## Diff a fresh db/*.sql build against the running database
 	sh infra/verify_schema.sh
+
+erd:  ## Draw the schema: build/erd/sourcehub.drawio + sourcehub.dbml from db/*.sql
+	python infra/erd.py
 
 # --- quality -----------------------------------------------------------------
 lint:  ## ruff + mypy + import-linter + eslint

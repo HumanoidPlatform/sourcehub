@@ -8,7 +8,7 @@ from decimal import Decimal
 from typing import Literal
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from pydantic import BaseModel, Field, model_validator
+from pydantic import AwareDatetime, BaseModel, Field, model_validator
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.deps import Principal, TxRoute, get_principal, get_session, require_capability
@@ -160,7 +160,9 @@ class RequestIn(BaseModel):
     pilot_required: bool = False
     pilot_quantity: int | None = Field(default=None, gt=0)
     pilot_due_on: dt.date | None = None
-    proposals_close_at: dt.datetime | None = None
+    # Aware, or refused: a naive value would be compared with an aware `now`
+    # in the service and raise there instead of here.
+    proposals_close_at: AwareDatetime | None = None
     proposal_requirements: list[ProposalRequirement] = Field(default_factory=list)
     contact_user_id: uuid.UUID | None = None
 
@@ -192,10 +194,15 @@ class RequestIn(BaseModel):
         # request_pilot_shape
         if self.pilot_required and self.pilot_quantity is None:
             raise ValueError("pilot_quantity is required when pilot_required is set")
-        # request_close_before_delivery
-        if self.proposals_close_at and self.delivery_due_on \
-                and self.proposals_close_at.date() > self.delivery_due_on:
-            raise ValueError("proposals_close_at must be on or before delivery_due_on")
+        # request_close_before_delivery — in UTC, as the CHECK is. Taking the
+        # date in the sender's offset let 22:00 in New York on the delivery
+        # date pass here and fail there, as a 500.
+        if self.proposals_close_at and self.delivery_due_on:
+            close_date = self.proposals_close_at.astimezone(dt.timezone.utc).date()
+            if close_date > self.delivery_due_on:
+                raise ValueError(
+                    "proposals_close_at must be on or before delivery_due_on (in UTC)"
+                )
         return self
 
 
@@ -295,6 +302,31 @@ async def publish_request(
 ):
     try:
         return await marketplace.publish_request(session, principal, request_id)
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Request not found") from None
+    except marketplace.MarketplaceError as e:
+        raise _conflict(e) from None
+
+
+class BiddingDeadlineIn(BaseModel):
+    proposals_close_at: AwareDatetime
+
+
+@router.patch("/requests/{request_id}/bidding-deadline")
+async def change_bidding_deadline(
+    request_id: uuid.UUID,
+    body: BiddingDeadlineIn,
+    principal: Principal = Depends(require_capability("rfp.publish")),
+    session: AsyncSession = Depends(get_session),
+):
+    """The one edit a published request allows: when bidding closes. Guarded
+    as publishing is — it changes what every partner is told — and 409 for a
+    request that is not published, is already awarded, or a time that is past
+    or after the delivery date."""
+    try:
+        return await marketplace.change_bidding_deadline(
+            session, principal, request_id, body.proposals_close_at
+        )
     except LookupError:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Request not found") from None
     except marketplace.MarketplaceError as e:
