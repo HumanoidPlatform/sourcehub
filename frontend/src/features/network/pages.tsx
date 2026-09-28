@@ -6,6 +6,7 @@ import { useState } from "react";
 import { get, patch, post } from "@api/client";
 import type { EquipmentRow, LoanRow, OnboardingRow, Org, Skill, WorkerRow } from "@api/types";
 import { labelsOf } from "@features/marketplace/vocabularies";
+import { ImportCrowdDialog } from "./import";
 import { SKILLS } from "./vocabularies";
 import {
   Button, Callout, CheckGroup, Dialog, Dl, Empty, Field, inputCls, Loadable, Metric, Panel, Pill, selectCls,
@@ -1051,6 +1052,7 @@ export function RosterPage() {
   const qc = useQueryClient();
   const toast = useToast();
   const [adding, setAdding] = useState(false);
+  const [importing, setImporting] = useState(false);
   const [viewing, setViewing] = useState<WorkerRow | null>(null);
   const [offboarding, setOffboarding] = useState<WorkerRow | null>(null);
   const workers = useQuery({ queryKey: ["workers"], queryFn: () => get<WorkerRow[]>("/network/workers") });
@@ -1085,7 +1087,12 @@ export function RosterPage() {
     <View
       title="Crowd roster"
       sub="Invite a crowd resource by email; they set a password and sign in to the capture app. Task units can be assigned to anyone who has signed up."
-      actions={<Button variant="primary" onClick={() => setAdding(true)}>Add crowd resource</Button>}
+      actions={
+        <>
+          <Button onClick={() => setImporting(true)}>Import crowd</Button>
+          <Button variant="primary" onClick={() => setAdding(true)}>Add crowd resource</Button>
+        </>
+      }
     >
       <div className="g4">
         <Metric label="Roster" value={rows.length} loading={workers.isLoading} />
@@ -1166,6 +1173,7 @@ export function RosterPage() {
           }}
         />
       )}
+      {importing && <ImportCrowdDialog onClose={() => setImporting(false)} />}
       {viewing && <WorkerDetailDialog w={viewing} onClose={() => setViewing(null)} />}
       {offboarding && (
         <Dialog

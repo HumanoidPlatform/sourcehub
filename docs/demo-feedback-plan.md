@@ -14,15 +14,14 @@ needed. Sizes are rough: S = days, M = 1–2 weeks, L = 2–4 weeks, XL = 4+ wee
 | 4 | Bidding deadline, editable until award | Client, partner | **Done** | S–M | — |
 | 5 | Private one-to-one Q&A / chat per RFP | Client, partner | Not started | L | — |
 | 6 | Award one RFP to **several** partners, partial quantities | Client, partner | Not started | XL | 3 |
-| 7 | Bulk-import crowd from Excel/CSV | Aggregator | Not started | M | — |
+| 7 | Bulk-import crowd from Excel/CSV | Aggregator | **Done** | M | — |
 | 8 | Documents the crowd must e-sign before capture | Client, worker | Not started | L | — |
 | 9 | Device requirements, validated at capture | Client, worker | Not started | M–L | — |
 
-**Suggested order for what remains:**
-1. Quick wins: 7 (4 is done).
-2. The bidding model together: 3 + 6, then 2.
-3. Crowd safeguards: 8, 9.
-4. Chat: 5.
+**Suggested order for what remains** (4 and 7 are done):
+1. The bidding model together: 3 + 6, then 2.
+2. Crowd safeguards: 8, 9.
+3. Chat: 5.
 
 Items 3, 4, 5 and 6 all reshape bidding and awarding, so they are best designed together.
 
@@ -243,38 +242,38 @@ and it is visible who won.
 
 ---
 
-## 7 · Bulk-import the crowd from Excel/CSV
+## 7 · Bulk-import the crowd from Excel/CSV — DONE
 
 **Asked:** aggregators add their crowd in bulk from a spreadsheet, not one by one.
 
-**Today:**
-- The Roster page adds one worker at a time: name, optional email and phone, skills from a fixed list of 9, trained yes/no.
-- A worker with an email gets an invitation.
-- An email already used anywhere on the platform is refused.
-- There is no import of any kind.
+**Decisions taken:** CSV and Excel (.xlsx) only; up to 1,000 rows per file; a person is recognised by **email
+only** — a row with no email is added every time it is uploaded, because nothing identifies it; invitations go out
+during the import, in batches, and the roster's existing **Resend invite** covers any that fail.
 
-**What we will build**
-- **Import crowd** on the Roster page:
-  1. **Download a template** (Excel and CSV): name*, email, phone, skills, trained.
-  2. **Upload** the filled file (CSV or XLSX, up to e.g. 1,000 rows).
-  3. **Preview:** each row is marked ready, warning or error, with the reason:
-     - missing name;
-     - invalid email;
-     - duplicate in the file;
-     - email already registered;
-     - unknown skill.
-  4. **Import the valid rows.** Rows with an email get invitations; the rest become roster-only records.
-  5. **Summary:** added, invited and skipped counts, with a downloadable error report.
-- One bad row never blocks the rest, and re-uploading the same file adds nothing twice.
-- Invitations are sent in batches, with a resend option.
+**Built and verified** (no database change; images still to be built and deployed):
+- **Import crowd** on the Roster page, in three steps:
+  1. **Upload:** download a template (CSV or Excel) with the columns name*, email, phone, skills, trained and one
+     example row; then pick the filled file. Column names are matched loosely (Full name, E-mail, Mobile…), skills
+     may be written by label or code and separated by `;`, `|` or `/`, and trained accepts yes/no, true/false, 1/0.
+     A file over 1,000 rows, or with no name column, is refused before anything is sent.
+  2. **Preview:** every row is judged by the server before anything is written, with the reason on the row:
+     **error** (not imported) for a missing name, an invalid email, a duplicate of an earlier row, or an email
+     that belongs to someone else on the platform; **warning** (imported) for unknown skills dropped or no email
+     ("added to the roster only, and cannot be offered work until invited"); **already on roster** (skipped).
+     Counts at the top, a filter box, and **Import N crowd resources** for the ready and warning rows.
+  3. **Import:** rows go in batches of 50 with a progress bar; each row is written on its own, so one bad row never
+     spoils the rest; the summary shows invited, roster-only, not imported and invitations not sent, with a
+     **Download error report** (CSV: row, name, email, reason). One activity line per batch.
+- Rows with an email are invited exactly as a single **Add crowd resource** would be, and now a roster-only row keeps
+  its phone number (adding one by one used to drop it).
+- Uploading the same file again marks every email row **already on roster** and imports nothing for them.
 
-**Done when:** a 500-row file imports in one go, bad rows are listed with reasons, invitations go out, and a second
-upload of the same file adds nothing new.
+**Verified live:** a 500-row check in one request with nothing written; a 60-row Excel file with six deliberate
+faults → 56 imported (49 invited with working invitation links, 7 roster-only), 4 refused with reasons; the same
+file again → 49 already on the roster, 0 ready.
 
-**Decisions needed:**
-- Is Excel/CSV enough? Reading lists out of Word or PDF is unreliable.
-- What is the maximum number of rows per file?
-- Should a phone number identify workers who have no email?
+**Still open:** a queued mailer if crowds grow past a few thousand (mail is sent inside the request today, so a very
+large file takes a few minutes with the progress bar visible).
 
 ---
 

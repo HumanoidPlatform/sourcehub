@@ -18,8 +18,10 @@ from __future__ import annotations
 
 import datetime as dt
 import uuid
+from dataclasses import dataclass
 from typing import Any
 
+from pydantic import EmailStr, TypeAdapter, ValidationError
 from sqlalchemy import select, text
 from sqlalchemy.exc import DBAPIError
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -397,20 +399,38 @@ async def _worker_by_id(session: AsyncSession, worker_id: uuid.UUID) -> dict[str
 
 async def add_worker(
     session: AsyncSession, claims: AccessClaims,
-    display_name: str, skills: list[str], trained: bool,
+    display_name: str, skills: list[str], trained: bool, phone: str | None = None,
 ) -> dict[str, Any]:
     """A roster-only entry: no email, no login. Kept for records about people
-    who never use the app."""
+    who never use the app. The phone is kept too — the form always took one
+    and, until the import, threw it away on this path."""
     ref = (
         await session.execute(text("SELECT next_reference_code('WKR','seq_ref_worker')"))
     ).scalar_one()
     w = CrowdWorker(
         reference_code=ref, aggregator_org_id=claims.org_id,
-        display_name=display_name, skills=skills, trained=trained,
+        display_name=display_name, skills=skills, trained=trained, phone=phone,
     )
     session.add(w)
     await session.flush()
     return await _worker_by_id(session, w.id)
+
+
+Message = tuple[str, str, str, str | None]  # (to, subject, text, html) — platform.mail's shape
+
+
+def _invitation_message(email: str, full_name: str, org_name: str, raw_token: str) -> Message:
+    link = f"{settings.app_base_url}/accept-invitation?token={raw_token}"
+    return (
+        email,
+        f"You're invited to {PRODUCT} — {org_name}",
+        f"Hello {full_name},\n\n"
+        f"{org_name} has added you as a crowd resource on {PRODUCT}. Set your password\n"
+        f"within {settings.invitation_ttl_days} days, then sign in to the {CAPTURE_APP} app\n"
+        f"with this email address:\n\n  {link}\n\n"
+        f"No one at {PRODUCT} knows this link's token or your future password.",
+        None,
+    )
 
 
 async def _send_worker_invitation(
@@ -421,22 +441,27 @@ async def _send_worker_invitation(
     the invite."""
     from sourcehub.platform.mail.smtp import send_mail
 
-    link = f"{settings.app_base_url}/accept-invitation?token={raw_token}"
+    to, subject, body, _html = _invitation_message(email, full_name, org_name, raw_token)
     try:
-        await send_mail(
-            email,
-            f"You're invited to {PRODUCT} — {org_name}",
-            f"Hello {full_name},\n\n"
-            f"{org_name} has added you as a crowd resource on {PRODUCT}. Set your password\n"
-            f"within {settings.invitation_ttl_days} days, then sign in to the {CAPTURE_APP} app\n"
-            f"with this email address:\n\n  {link}\n\n"
-            f"No one at {PRODUCT} knows this link's token or your future password.",
-        )
+        await send_mail(to, subject, body)
     except OSError:
         pass
 
 
-async def invite_worker(
+async def _send_invitations(messages: list[Message]) -> list[str | None]:
+    """A batch over one connection, one error slot per message — the shape
+    task offers use (delivery._send_offer_emails). Best-effort as above."""
+    from sourcehub.platform.mail.smtp import send_many
+
+    if not messages:
+        return []
+    try:
+        return await send_many(messages)
+    except OSError as e:
+        return [str(e)[:300]] * len(messages)
+
+
+async def _create_invited(
     session: AsyncSession,
     claims: AccessClaims,
     *,
@@ -445,10 +470,13 @@ async def invite_worker(
     phone: str | None,
     skills: list[str],
     trained: bool,
-) -> dict[str, Any]:
-    """One call into the database function: app_user (invited), worker grant,
-    roster row and invitation, all or nothing. RLS applies inside it, so only
-    an organisation that may write its own roster gets through."""
+) -> tuple[dict[str, Any], str]:
+    """The database half of an invitation: app_user (invited), worker grant,
+    roster row and invitation, all or nothing, in one database function. RLS
+    applies inside it, so only an organisation that may write its own roster
+    gets through. Returns the function's row and the raw token to mail; the
+    caller decides how to audit and send, because a single invitation and an
+    import of fifty do those differently."""
     raw, digest = new_opaque_token()
     try:
         row = (
@@ -470,7 +498,24 @@ async def invite_worker(
         if "app_user_email_key" in msg or "crowd_worker_user_id_key" in msg:
             raise NetworkError("A user with this email already exists.") from None
         raise
+    return dict(row), raw
 
+
+async def invite_worker(
+    session: AsyncSession,
+    claims: AccessClaims,
+    *,
+    email: str,
+    full_name: str,
+    phone: str | None,
+    skills: list[str],
+    trained: bool,
+) -> dict[str, Any]:
+    """One crowd resource from the form: created, audited, emailed."""
+    row, raw = await _create_invited(
+        session, claims, email=email, full_name=full_name, phone=phone, skills=skills,
+        trained=trained,
+    )
     await audit.log(
         session, "worker.invited",
         f"Invited {full_name} ({row['reference_code']}) as a crowd resource",
@@ -478,6 +523,260 @@ async def invite_worker(
     )
     await _send_worker_invitation(email, full_name, claims.org_name, raw)
     return await _worker_by_id(session, row["worker_id"])
+
+
+# ---------------------------------------------------------------------------
+# Importing a roster from a file
+#
+# The browser parses the spreadsheet and sends plain rows; nothing here reads
+# a file. Two steps: check_import judges every row and writes nothing, so the
+# person sees exactly what will happen before anything does; import_rows then
+# takes a batch of what they agreed to. Each row is its own savepoint — the
+# single-add path discovers a duplicate address only when the insert fails,
+# and without a savepoint that failure would abort the whole batch. One audit
+# line and one mail connection per batch, the shape task offers use.
+# ---------------------------------------------------------------------------
+
+IMPORT_CHECK_LIMIT = 1000  # rows per file, judged in one request
+IMPORT_BATCH_LIMIT = 100  # rows written per request; the console sends 50
+NAME_MAX = 200
+PHONE_MAX = 40
+
+_EMAIL = TypeAdapter(EmailStr)
+
+
+@dataclass(frozen=True, slots=True)
+class ImportRow:
+    row: int
+    display_name: str
+    email: str | None
+    phone: str | None
+    skills: tuple[str, ...]
+    trained: bool
+
+
+@dataclass(frozen=True, slots=True)
+class Verdict:
+    row: int
+    # ready: imported as is · warning: imported, with a caveat · error: not
+    # imported, the row is wrong · skipped: not imported, nothing wrong (it is
+    # already on the roster)
+    status: str
+    reasons: tuple[str, ...]
+    normalized: ImportRow
+
+
+def _clean(v: Any) -> str:
+    return " ".join(str(v).split()) if v is not None else ""
+
+
+def plan_import(
+    rows: list[dict[str, Any]], *, taken: set[str], mine: set[str], known_skills: frozenset[str]
+) -> list[Verdict]:
+    """What each row would become, and why not. Pure: the two sets are what
+    the database was asked (which addresses exist on the platform at all, and
+    which are already on this roster), so the rules are testable without it."""
+    out: list[Verdict] = []
+    seen: dict[str, int] = {}
+    for raw in rows:
+        errors: list[str] = []
+        warnings: list[str] = []
+        skipped: str | None = None
+
+        name = _clean(raw.get("display_name"))
+        if len(name) < 2:
+            errors.append("Name is missing or too short.")
+        elif len(name) > NAME_MAX:
+            errors.append(f"Name is longer than {NAME_MAX} characters.")
+
+        email = _clean(raw.get("email")).lower() or None
+        if email is not None:
+            try:
+                _EMAIL.validate_python(email)
+            except ValidationError:
+                errors.append(f"Not an email address: {email}.")
+                email = None
+        if email is not None:
+            if email in seen:
+                errors.append(f"Duplicate of row {seen[email]} (same email).")
+            else:
+                seen[email] = int(raw.get("row") or 0)
+                if email in mine:
+                    skipped = "Already on your roster."
+                elif email in taken:
+                    errors.append("This email belongs to someone else on the platform.")
+
+        phone = _clean(raw.get("phone")) or None
+        if phone is not None and len(phone) > PHONE_MAX:
+            errors.append(f"Phone is longer than {PHONE_MAX} characters.")
+
+        wanted = [
+            _clean(s).lower().replace(" ", "_") for s in (raw.get("skills") or []) if _clean(s)
+        ]
+        skills = tuple(dict.fromkeys(s for s in wanted if s in known_skills))
+        unknown = [s for s in wanted if s not in known_skills]
+        if unknown:
+            warnings.append("Unknown skill(s) dropped: " + ", ".join(dict.fromkeys(unknown)) + ".")
+
+        if email is None and not errors:
+            warnings.append(
+                "No email: added to the roster only, and cannot be offered work until invited."
+            )
+
+        status = "error" if errors else "skipped" if skipped else "warning" if warnings else "ready"
+        reasons = tuple(errors) if errors else ((skipped,) if skipped else ()) + tuple(warnings)
+        out.append(
+            Verdict(
+                row=int(raw.get("row") or 0),
+                status=status,
+                reasons=reasons,
+                normalized=ImportRow(
+                    row=int(raw.get("row") or 0),
+                    display_name=name,
+                    email=email,
+                    phone=phone,
+                    skills=skills,
+                    trained=bool(raw.get("trained")),
+                ),
+            )
+        )
+    return out
+
+
+def _verdict_dict(v: Verdict) -> dict[str, Any]:
+    n = v.normalized
+    return {
+        "row": v.row,
+        "status": v.status,
+        "reasons": list(v.reasons),
+        "normalized": {
+            "row": n.row, "display_name": n.display_name, "email": n.email, "phone": n.phone,
+            "skills": list(n.skills), "trained": n.trained,
+        },
+    }
+
+
+async def _judge(
+    session: AsyncSession, claims: AccessClaims, rows: list[dict[str, Any]],
+    known_skills: frozenset[str],
+) -> list[Verdict]:
+    emails = sorted({e for e in (_clean(r.get("email")).lower() for r in rows) if e})
+    taken: set[str] = set()
+    mine: set[str] = set()
+    if emails:
+        # Above RLS, one round trip: which addresses exist anywhere on the
+        # platform. email_is_taken answers one boolean per address and nothing
+        # else, which is all an importer is entitled to learn.
+        for r in (
+            await session.execute(
+                text(
+                    "SELECT e AS email, email_is_taken(e) AS taken "
+                    "FROM unnest(CAST(:emails AS citext[])) AS e"
+                ),
+                {"emails": emails},
+            )
+        ).mappings():
+            if r["taken"]:
+                taken.add(str(r["email"]).lower())
+        # and which of them are already this organisation's own roster
+        for e in (
+            await session.execute(
+                text(
+                    "SELECT email FROM crowd_worker "
+                    "WHERE aggregator_org_id = :org AND deleted_at IS NULL "
+                    "  AND email = ANY(CAST(:emails AS citext[]))"
+                ),
+                {"org": claims.org_id, "emails": emails},
+            )
+        ).scalars():
+            mine.add(str(e).lower())
+    return plan_import(rows, taken=taken, mine=mine, known_skills=known_skills)
+
+
+async def check_import(
+    session: AsyncSession, claims: AccessClaims, rows: list[dict[str, Any]],
+    known_skills: frozenset[str],
+) -> dict[str, Any]:
+    """Every row's verdict, and the rows as they would be written. Writes
+    nothing; the console shows this before anything is imported and sends the
+    normalised rows back."""
+    verdicts = await _judge(session, claims, rows, known_skills)
+    counts = {"ready": 0, "warning": 0, "error": 0, "skipped": 0}
+    for v in verdicts:
+        counts[v.status] += 1
+    return {"rows": [_verdict_dict(v) for v in verdicts], "counts": counts}
+
+
+async def import_rows(
+    session: AsyncSession, claims: AccessClaims, rows: list[dict[str, Any]],
+    known_skills: frozenset[str],
+) -> dict[str, Any]:
+    """Write one batch. Judged again first — the file may be minutes old and
+    the roster has moved — then each row in its own savepoint, so a row that
+    fails leaves the rest of the batch standing."""
+    verdicts = await _judge(session, claims, rows, known_skills)
+    results: list[dict[str, Any]] = []
+    messages: list[Message] = []
+    invited_at: list[int] = []  # index into results of each row with a message
+    added = invited = skipped = 0
+
+    for v in verdicts:
+        if v.status in ("error", "skipped"):
+            skipped += 1
+            results.append({"row": v.row, "outcome": "skipped", "reason": " ".join(v.reasons)})
+            continue
+        n = v.normalized
+        try:
+            async with session.begin_nested():
+                if n.email:
+                    row, raw = await _create_invited(
+                        session, claims, email=n.email, full_name=n.display_name,
+                        phone=n.phone, skills=list(n.skills), trained=n.trained,
+                    )
+                    messages.append(
+                        _invitation_message(n.email, n.display_name, claims.org_name, raw)
+                    )
+                    invited_at.append(len(results))
+                    results.append(
+                        {"row": v.row, "outcome": "invited", "worker_id": row["worker_id"]}
+                    )
+                    invited += 1
+                else:
+                    w = await add_worker(
+                        session, claims, n.display_name, list(n.skills), n.trained, n.phone
+                    )
+                    results.append({"row": v.row, "outcome": "added", "worker_id": w["id"]})
+                    added += 1
+        except NetworkError as e:
+            # the address was taken between the check and now
+            skipped += 1
+            results.append({"row": v.row, "outcome": "skipped", "reason": str(e)})
+        except DBAPIError as e:
+            skipped += 1
+            what = str(e.orig) if e.orig else str(e)
+            results.append(
+                {"row": v.row, "outcome": "skipped", "reason": f"Could not be saved: {what[:160]}"}
+            )
+
+    errors = await _send_invitations(messages)
+    failed = 0
+    for i, err in zip(invited_at, errors, strict=True):
+        if err:
+            failed += 1
+            results[i]["invitation_error"] = err
+
+    noun = "crowd resource" if added + invited == 1 else "crowd resources"
+    await audit.log(
+        session, "roster.imported",
+        f"Imported {added + invited} {noun} "
+        f"({invited} invited, {added} roster-only); {skipped} skipped",
+        [claims.org_id],
+        {"added": added, "invited": invited, "skipped": skipped, "invitation_failures": failed},
+    )
+    return {
+        "added": added, "invited": invited, "skipped": skipped, "invitation_failures": failed,
+        "rows": results,
+    }
 
 
 async def resend_worker_invitation(
