@@ -15,20 +15,26 @@ before SEED, so a db/2xx file inserting it would be undone by the seed that
 follows; this migration is for databases that already exist, exactly as 0023
 was for 'other'.
 
-Numbered 0026, not 0025. It was written as 0025 against a branch that did not
-yet carry 0025_org_public_profile, and the two then met in a fast-forward: both
-claimed revision "0025" with down_revision "0024", which alembic refuses to
-build a revision map from at all — upgrade, heads and even current fail. This
-one moved because the other is already on origin.
+Numbered 0028, having been 0025 and then 0026 on the way. It collided twice, the
+same way both times: written against a branch that did not yet carry the
+revision it would share a number with, then meeting it in a merge — first
+0025_org_public_profile, then 0026_bidding_deadline. Two revisions with one id
+is not a conflict alembic resolves; it refuses to build a revision map at all,
+so upgrade, heads and even current fail. This one moves each time because the
+other is already on origin.
 
-Revision ID: 0026
-Revises: 0025
+The lesson, for whoever numbers the next one: read `alembic heads` against
+ORIGIN rather than the local tree, because a number that is free here may not be
+free there.
+
+Revision ID: 0028
+Revises: 0027
 """
 
 from alembic import op
 
-revision = "0026"
-down_revision = "0025"
+revision = "0028"
+down_revision = "0027"
 branch_labels = None
 depends_on = None
 
