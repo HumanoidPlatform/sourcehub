@@ -27,6 +27,12 @@ import { DecideAssignmentDialog } from "./assignments";
 const TARGET = {
   id: "a1", quantity: 3, worker_name: "Sana Kulkarni", worker_note: null,
   task_ref: "TSK-14", task_title: "Aisle clips, Bengaluru",
+  capture_spec: {
+    media: ["photo"], orientation: "landscape", max_tilt_deg: 10, min_megapixels: 8,
+    require_gps: true,
+    subject: { domain: "retail shelf", must_show: ["shelf"], must_not_show: ["floor"], labels: [] },
+  },
+  task_instructions: "Start at the far end of aisle 3.",
 };
 
 function asset(over: Partial<AssetRow>): AssetRow {
@@ -134,6 +140,28 @@ describe("marking captures at gate 1", () => {
     expect(note().value).toBe("Shoot the whole aisle again, morning light.");
   });
 
+  // The phone has measured squareness on every capture since this was written,
+  // and the degrees now reach the reviewer — so the reason list has to be able
+  // to name it. Before, a visibly crooked frame could only go back as "other".
+  it("offers tilt as a reason, so a crooked capture need not go back as other", async () => {
+    show();
+    await open("shelf-1.jpg");
+    const reasons = Array.from(retake().options).map((o) => o.value);
+    expect(reasons).toContain("tilt");
+
+    fireEvent.change(retake(), { target: { value: "tilt" } });
+    fireEvent.click(screen.getByRole("button", { name: "Send back" }));
+    await waitFor(() =>
+      expect(api.post).toHaveBeenCalledWith(
+        "/assignments/a1/decide",
+        expect.objectContaining({
+          outcome: "reject",
+          marks: [expect.objectContaining({ asset_id: "as1", outcome: "retake", reason: "tilt" })],
+        }),
+      ),
+    );
+  });
+
   it("clearing a mark takes it off the tally and frees Accept again", async () => {
     show();
     await open("shelf-1.jpg");
@@ -172,5 +200,106 @@ describe("a capture sent back in an earlier round", () => {
     expect(screen.getByText(/aisle 3 is soft/)).toBeTruthy();
     // and it says so on the tile too, where the reviewer is working
     expect(screen.getAllByText("Sent back").length).toBeGreaterThan(1);
+  });
+});
+
+// The reviewer used to judge frames against conditions that were nowhere on the
+// screen: no subject, no orientation, no tilt tolerance, no instructions. The
+// verdict is the only quality mechanism that works today, so it is taken against
+// the stated brief or it is taken from memory.
+describe("the brief beside the captures", () => {
+  it("shows what the captures were meant to satisfy", async () => {
+    show();
+    const brief = await screen.findByTestId("review-brief");
+    expect(brief.textContent).toContain("retail shelf");
+    expect(brief.textContent).toContain("must show shelf");
+    expect(brief.textContent).toContain("not floor");
+    expect(brief.textContent).toContain("Squareness within 10 degrees");
+    expect(brief.textContent).toContain("Orientation: landscape");
+    expect(brief.textContent).toContain("Minimum 8 MP");
+    expect(brief.textContent).toContain("GPS required");
+    expect(brief.textContent).toContain("Start at the far end of aisle 3.");
+  });
+
+  it("renders nothing at all on a task that recorded no brief", () => {
+    render(
+      <QueryClientProvider client={new QueryClient({ defaultOptions: { queries: { retry: false } } })}>
+        <ToastProvider>
+          <DecideAssignmentDialog
+            target={{ ...TARGET, capture_spec: {}, task_instructions: null }}
+            onClose={() => {}}
+            onDone={() => {}}
+          />
+        </ToastProvider>
+      </QueryClientProvider>,
+    );
+    // An empty panel would promise conditions that were never set.
+    expect(screen.queryByTestId("review-brief")).toBeNull();
+  });
+});
+
+// Fifty captures used to mean fifty open/close cycles.
+describe("walking the batch", () => {
+  it("steps with the arrow keys and says where you are", async () => {
+    show();
+    await open("shelf-1.jpg");
+    expect(screen.getByTestId("preview-position").textContent).toBe("1 of 3");
+
+    fireEvent.keyDown(window, { key: "ArrowRight" });
+    expect(screen.getByTestId("preview-position").textContent).toBe("2 of 3");
+
+    fireEvent.keyDown(window, { key: "ArrowLeft" });
+    expect(screen.getByTestId("preview-position").textContent).toBe("1 of 3");
+  });
+
+  it("does not step past either end", async () => {
+    show();
+    await open("shelf-1.jpg");
+    fireEvent.keyDown(window, { key: "ArrowLeft" });
+    expect(screen.getByTestId("preview-position").textContent).toBe("1 of 3");
+    expect((screen.getByRole("button", { name: "Previous capture" }) as HTMLButtonElement).disabled).toBe(true);
+  });
+
+  it("leaves the arrows alone while the reviewer is in a control", async () => {
+    // Choosing a reason uses the arrow keys itself; stealing them there would
+    // move the preview out from under the mark being made.
+    show();
+    await open("shelf-1.jpg");
+    fireEvent.keyDown(retake(), { key: "ArrowRight" });
+    expect(screen.getByTestId("preview-position").textContent).toBe("1 of 3");
+  });
+});
+
+// Recorded since the checks existed, shown nowhere until now.
+describe("the evidence behind a flag", () => {
+  beforeEach(() => {
+    api.get.mockImplementation((path: string) => {
+      if (path === "/assignments/a1/assets") {
+        return Promise.resolve([
+          asset({
+            id: "as1",
+            device_checks: [
+              { code: "wrong_subject", severity: "warn", message: "Doesn't look like retail shelf.",
+                score: 0.12, detail: { veto: ["floor"], labels: ["Floor", "Hand"] } },
+              { code: "tilt_measured", severity: "info", message: "Held 6\u00b0 off square.",
+                detail: { off: 6.3, roll: 6.3, pitch: -1.2 } },
+            ],
+          }),
+        ]);
+      }
+      if (path.startsWith("/assets/")) {
+        return Promise.resolve({ url: "blob:x", filename: "x", mime_type: "image/jpeg", expires_in: 900 });
+      }
+      return Promise.resolve([]);
+    });
+  });
+
+  it("says which word vetoed it, and how square the phone was", async () => {
+    show();
+    await open("shelf-1.jpg");
+    expect(await screen.findByText(/vetoed on floor/)).toBeTruthy();
+    expect(screen.getByText(/saw Floor, Hand/)).toBeTruthy();
+    expect(screen.getByText(/6.3\u00b0 off square/)).toBeTruthy();
+    expect(screen.getByText(/roll 6.3\u00b0, pitch -1.2\u00b0/)).toBeTruthy();
   });
 });

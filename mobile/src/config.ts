@@ -30,11 +30,28 @@ export const MAX_VIDEO_BYTES = 2 * 1024 * 1024 * 1024;
 export const MAX_VIDEO_SECONDS = 600;
 /** a fix looser than this is a cell tower, not a location — warn, don't block */
 export const MAX_FIX_ACCURACY_M = 100;
-/** subject score (validation/subject.ts) under which a photo probably shows
- *  the wrong thing; a starting point, to be set from gate-1 verdicts */
+/** How sure the labeller must be that the subject is IN the frame
+ *  (validation/subject.ts). A presence floor, not a dominance one: other
+ *  things in shot are ordinary and usually wanted, so this asks "is it there",
+ *  never "is the picture mostly this". A starting point, to be set from gate-1
+ *  verdicts once the pipeline records them. */
 export const SUBJECT_OFF = 0.3;
+/** How sure it must be that a must_not_show thing is in the frame before that
+ *  is worth saying. Higher than the presence floor on purpose: the labeller now
+ *  reports low-confidence guesses (see the patch on the native module below),
+ *  and a prohibited thing should be clearly there before anyone is told about
+ *  it. 0.5 is where ML Kit's own default sat, so it is an anchor rather than a
+ *  fresh guess. */
+export const SUBJECT_VETO = 0.5;
 /** false = shadow mode: score and report, never ask the worker */
 export const SUBJECT_DIALOG = true;
+/** What the patched labeller is told to report down to, for reference — the
+ *  value itself lives in patches/@react-native-ml-kit+image-labeling+*.patch
+ *  because the library exposes no way to pass it. ML Kit's own default of 0.5
+ *  discards a label before this code can see it, which is how a laptop plainly
+ *  in shot became "doesn't look like laptop": the evidence was thrown away one
+ *  layer below every threshold here. */
+export const SUBJECT_LABEL_FLOOR = 0.15;
 
 // A clip is checked through sampled frames (validation/clip.ts, capture/
 // frames.ts): one every FRAME_EVERY_S seconds, never fewer than MIN_FRAMES
@@ -44,8 +61,15 @@ export const FRAME_EVERY_S = 5;
 export const MIN_FRAMES = 3;
 export const MAX_FRAMES = 40;
 export const FRAMES_BUDGET_MS = 45_000;
-/** share of sampled frames that must pass the subject check for the clip to */
-export const SUBJECT_FRAMES_MIN_SHARE = 0.7;
+/** Share of sampled frames the subject must APPEAR in for the clip to pass.
+ *
+ * This was 0.7, which is a purity requirement rather than a presence one: a
+ * hand over the keyboard, a pan to the window, one blurred second — each is a
+ * miss, and a clip plainly about its subject failed on the moments it was not
+ * centre frame. A third of the sampled moments is enough to say the clip is
+ * about the thing. Provisional, like SUBJECT_OFF, and for the same reason: it
+ * should be measured against gate-1 verdicts rather than chosen. */
+export const SUBJECT_FRAMES_MIN_SHARE = 0.3;
 /** share of frames that are black or frozen: from here the clip is refused */
 export const STILL_BLOCK_SHARE = 0.5;
 /** and from here it is kept with a warning */

@@ -16,6 +16,7 @@ import { uploader } from "@/upload/uploader";
 import { frameTimes, judgeFrames, stillFindings, uncheckedFinding } from "@/validation/clip";
 import { blocking, checkCapture, type Finding } from "@/validation/rules";
 import {
+  forbiddenFinding,
   framesFinding,
   labelImage,
   scoreFrames,
@@ -226,7 +227,14 @@ export function useCapture(
           findings.push(unscoredFinding(seen.unscored, seen.error));
           return { kept: true, findings: await queue(findings) };
         }
-        finding = subjectFinding(scoreSubject(seen.labels, subject), subject);
+        const scored = scoreSubject(seen.labels, subject);
+        // Prohibition is its own question now, and its own warning: it rides
+        // with the upload for the reviewer but never puts the keep-or-retake
+        // question to the worker, who often cannot prevent it — a passer-by
+        // walks into shot and the shelf is still the shelf.
+        const banned = forbiddenFinding(scored, subject);
+        if (banned) findings.push(banned);
+        finding = subjectFinding(scored, subject);
         onSubject = finding === null;
       }
 

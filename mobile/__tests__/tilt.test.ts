@@ -1,4 +1,4 @@
-import { anglesFrom, heldOrientation, medianOff } from "@/capture/tilt";
+import { anglesFrom, heldOrientation, medianOff, tiltAdvice } from "@/capture/tilt";
 
 // Gravity as the accelerometer reports it, in G. The device frame: x to the
 // right of the screen, y up the screen, z out of the screen towards the user.
@@ -139,5 +139,42 @@ describe("medianOff", () => {
   it("reads a clip held crooked as crooked, however it started", () => {
     const crooked = Array.from({ length: 29 }, () => 22);
     expect(medianOff([2, ...crooked])).toBe(22);
+  });
+});
+
+// Which correction to name. "38 degrees off" leaves a worker guessing between
+// turning the phone in their hands and tipping it forward, and the wrong guess
+// makes the number worse.
+describe("tiltAdvice", () => {
+  const at = (roll: number, pitch: number) =>
+    tiltAdvice({ roll, pitch, off: Math.max(Math.abs(roll), Math.abs(pitch)), held: null });
+
+  it("names the axis that is actually out", () => {
+    expect(at(30, 1)).toBe("rotate");
+    expect(at(1, 30)).toBe("tip");
+  });
+
+  it("reads a negative angle the same as a positive one", () => {
+    // The correction is the same whichever way the phone leans; only the bar,
+    // which follows roll's sign, needs to know the direction.
+    expect(at(-30, 1)).toBe("rotate");
+    expect(at(1, -30)).toBe("tip");
+  });
+
+  it("says nothing about a phone already square", () => {
+    expect(at(0, 0)).toBeNull();
+    expect(at(1, 1)).toBeNull();
+  });
+
+  it("says nothing when both axes are out together", () => {
+    // Naming one would send the worker back and forth: correcting it leaves the
+    // same number on screen, now attributed to the other axis.
+    expect(at(20, 20)).toBeNull();
+    expect(at(20, 19)).toBeNull();
+  });
+
+  it("commits once one axis is clearly the worse", () => {
+    expect(at(20, 15)).toBe("rotate");
+    expect(at(15, 20)).toBe("tip");
   });
 });

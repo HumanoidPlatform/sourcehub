@@ -418,6 +418,11 @@ export interface Gate1Row {
   /** ready captures the phone could not check at all (no labeller, timeout,
    *  native error) — the reviewer is the first pair of eyes on these */
   unscored: number;
+  /** what these captures were meant to satisfy. The reviewer used to judge
+   *  frames without it: no subject, no orientation, no tilt tolerance on
+   *  screen. Empty on a task created without a spec. */
+  capture_spec: CaptureSpec;
+  task_instructions: string | null;
 }
 
 // asset — one capture, as GET /tasks/{id}/assets and GET /assignments/{id}/assets return it
@@ -452,9 +457,16 @@ export interface AssetRow {
   reviewed_at?: string | null;
 }
 
+// What the phone found before queueing a capture, and what the console found
+// before uploading one. Mirrors api/v1/media.py DeviceCheck: recorded on the
+// asset, not acted on.
 export interface DeviceCheck {
   code: string;
-  severity: "block" | "warn";
+  /** "info" is a measurement and nothing more: it decides nothing, the worker is
+   *  never shown it, and no count or queue reads it. Squareness arrives this way
+   *  (tilt_measured) -- a reading inside the client's tolerance used to be
+   *  discarded, so no reviewer had ever seen a tilt figure. */
+  severity: "block" | "warn" | "info";
   message: string;
   /** a scored check (wrong_subject, black, frozen) says how sure it was, 0..1 */
   score?: number;
@@ -467,15 +479,6 @@ export interface AssetUrl {
   filename: string | null;
   mime_type: string | null;
   expires_in: number;
-}
-
-// What the phone found before queueing a capture, and now what the console
-// found before uploading one. api/v1/media.py DeviceCheck: recorded on the
-// asset, not acted on.
-export interface DeviceCheck {
-  code: string;
-  severity: "block" | "warn";
-  message: string;
 }
 
 // POST /assignments/{id}/assets/presign. A repeat for the same sha256 returns

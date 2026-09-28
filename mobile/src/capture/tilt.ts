@@ -112,6 +112,28 @@ export function medianOff(samples: number[]): number | null {
   return sorted.length % 2 === 1 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
 }
 
+/** Which correction would help most. Pure.
+ *
+ * `off` is the worse of the two angles, so a worker reading "38° off" cannot
+ * tell whether to turn the phone in their hands or tip it forward — and trying
+ * the wrong one makes the number worse. This names the dominant axis.
+ *
+ * Null inside DEAD_BAND, where the two are close enough that either correction
+ * helps and naming one would send the worker back and forth. Also null when
+ * the phone is already square, since there is nothing to correct.
+ */
+export function tiltAdvice(t: Tilt): "rotate" | "tip" | null {
+  const roll = Math.abs(t.roll);
+  const pitch = Math.abs(t.pitch);
+  if (Math.max(roll, pitch) < DEAD_BAND) return null;
+  if (Math.abs(roll - pitch) < DEAD_BAND) return null;
+  return roll > pitch ? "rotate" : "tip";
+}
+
+/** Below this an angle is hand tremor, and a difference between two angles is
+ *  not worth steering by. */
+const DEAD_BAND = 2;
+
 /** Watch the phone's attitude until the returned function is called.
  *
  * 10 Hz is plenty for a level a person reads and gentle on the battery; the

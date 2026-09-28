@@ -124,13 +124,27 @@ function RemoveButton({ onPress }: { onPress: () => void }) {
 
 /** What the phone flagged about this capture before queueing it, as one line.
  *  A row written before the checks existed, or a column that will not parse,
- *  simply has nothing to say. */
+ *  simply has nothing to say.
+ *
+ *  Warnings only. The stored checks also carry measurements recorded for the
+ *  reviewer (severity "info" — validation/rules.ts), and every capture has one,
+ *  so flagging them here would put an amber badge on every tile. A row written
+ *  before severities were stored has none, and is still read as a warning. */
 function flagged(raw: string | null): string | null {
   if (!raw) return null;
   try {
     const parsed: unknown = JSON.parse(raw);
     if (!Array.isArray(parsed) || parsed.length === 0) return null;
-    return parsed.map((f) => String((f as { message?: unknown }).message ?? "")).filter(Boolean).join(" ") || null;
+    return (
+      parsed
+        .filter((f) => {
+          const sev = (f as { severity?: unknown }).severity;
+          return sev === undefined || sev === "warn";
+        })
+        .map((f) => String((f as { message?: unknown }).message ?? ""))
+        .filter(Boolean)
+        .join(" ") || null
+    );
   } catch {
     return null;
   }

@@ -17,18 +17,27 @@
 //   last known one, and a position too loose to mean much. location.ts gives up
 //   on a fresh fix after five seconds, so blocking a slow satellite lock would
 //   refuse good work, and indoor accuracy worse than MAX_FIX_ACCURACY_M is
-//   ordinary rather than exceptional.
+//   ordinary rather than exceptional. These describe the fix whether or not the
+//   client required one: a capture that records a position 400 m wide is worth
+//   saying so about even on a task that never asked for GPS.
+//
+//   INFORM, blocking and warning nothing, where the phone MEASURED something a
+//   reviewer would want and the number would otherwise be thrown away. Today
+//   that is squareness. It is not a verdict — a capture with an info finding is
+//   accepted exactly as one without — and the worker is never shown it; it
+//   exists so the degrees reach asset.check_results and the aggregator.
 //
 // A consequence worth stating: because a blocked capture is destroyed before it
-// is queued, its finding never reaches the server. asset.check_results now sees
-// only the two warnings above. The rejection is recorded on the device instead
-// (db/outbox.ts recordRejections), which is the only place it can be.
+// is queued, its finding never reaches the server. asset.check_results sees the
+// warnings and the measurements above, never a block. A blocked capture is
+// recorded on the device instead (db/outbox.ts recordRejections), which is the
+// only place it can be.
 
 import type { CaptureSpec } from "@/api/types";
 import { MAX_FIX_ACCURACY_M, MAX_PHOTO_BYTES, MAX_VIDEO_BYTES, MAX_VIDEO_SECONDS } from "@/config";
 
 export type Kind = "photo" | "video";
-export type Severity = "block" | "warn";
+export type Severity = "block" | "warn" | "info";
 
 export interface Finding {
   code: string;
@@ -52,8 +61,10 @@ export interface Facts {
   duration?: number | null;
   /** null when no position could be obtained at all */
   fix?: { accuracy: number | null; stale: boolean } | null;
-  /** null when the device has no accelerometer, or none was read in time */
-  tilt?: { off: number } | null;
+  /** null when the device has no accelerometer, or none was read in time.
+   *  roll and pitch ride along so the measurement can be recorded in full;
+   *  only `off` is ever compared against the client's tolerance. */
+  tilt?: { off: number; roll?: number; pitch?: number } | null;
   /** how the phone was actually held, sampled while the shutter was open or
    *  the recording ran; null when nothing could be read (see capture/tilt.ts) */
   heldOrientation?: "portrait" | "landscape" | null;
@@ -91,6 +102,27 @@ export function mediaKinds(spec: CaptureSpec | null | undefined, targetUnit?: st
 
 function mb(bytes: number): string {
   return (bytes / (1024 * 1024)).toFixed(1);
+}
+
+/** One decimal place, for a recorded angle. Whole degrees are what a worker
+ *  steers by; a reviewer comparing two captures wants a little more. */
+function round1(deg: number): number {
+  return Math.round(deg * 10) / 10;
+}
+
+/** The two angles behind `off`, but only where they actually explain it.
+ *
+ * A photo's reading is one instant and the three agree by construction. A
+ * clip's `off` is the MEDIAN across the recording while roll and pitch are
+ * whatever the last sample held (capture.tsx), so recording all three would
+ * publish a contradiction — 12° off beside a roll of 2. Where they disagree the
+ * median is the honest number and the axes are dropped.
+ */
+function axes(t: { off: number; roll?: number; pitch?: number }): Record<string, number> {
+  if (t.roll == null || t.pitch == null) return {};
+  const worse = Math.max(Math.abs(t.roll), Math.abs(t.pitch));
+  if (Math.abs(worse - t.off) > 0.1) return {};
+  return { roll: round1(t.roll), pitch: round1(t.pitch) };
 }
 
 /** a positive finite number, or null for "the client did not say" */
@@ -246,17 +278,34 @@ export function checkCapture(
       severity: "block",
       message: `This task asks for captures within ${maxTilt}°; the phone was ${Math.round(facts.tilt.off)}° off square.`,
     });
+  } else if (facts.tilt) {
+    // The reading survives its own good news. A capture inside the tolerance —
+    // or on a task that set none — used to discard the measurement entirely,
+    // which is why no tilt figure has ever reached a reviewer. This is the only
+    // finding here that decides nothing.
+    out.push({
+      code: "tilt_measured",
+      severity: "info",
+      message: `Held ${Math.round(facts.tilt.off)}° off square.`,
+      detail: { off: round1(facts.tilt.off), ...axes(facts.tilt) },
+    });
   }
 
-  if (spec?.require_gps) {
-    const fix = facts.fix ?? null;
-    if (!fix) {
-      out.push({
-        code: "gps_missing",
-        severity: "block",
-        message: "This task needs a location on every capture and the phone has no fix.",
-      });
-    } else if (fix.stale) {
+  const fix = facts.fix ?? null;
+  // Only a client who asked for a location may have work refused for the want
+  // of one. The two warnings below are about the QUALITY of a fix that did
+  // arrive, so they apply wherever there is one to describe — a capture
+  // carrying a position 400 m wide was previously silent on any task that had
+  // not made GPS a condition, which is most of them.
+  if (spec?.require_gps && !fix) {
+    out.push({
+      code: "gps_missing",
+      severity: "block",
+      message: "This task needs a location on every capture and the phone has no fix.",
+    });
+  }
+  if (fix) {
+    if (fix.stale) {
       // location.ts falls back to the last known position when a fresh one
       // does not arrive in time, and that may be from anywhere the phone
       // has been today.

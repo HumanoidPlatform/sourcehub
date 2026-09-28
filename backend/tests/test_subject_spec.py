@@ -40,6 +40,28 @@ def test_device_check_score_is_a_probability_and_detail_is_small():
         DeviceCheck(code="wrong_subject", severity="warn", message="m", detail={"labels": ["x" * 1100]})
 
 
+def test_device_check_takes_a_measurement_that_complains_about_nothing():
+    """severity "info" is a reading, not a verdict.
+
+    The phone measures squareness on every capture and used to throw the number
+    away whenever it was inside the client's tolerance, so no reviewer ever saw
+    one. It cannot be sent as "warn" — the worker would be told every shot had a
+    problem — nor as "block", which is destroyed before it is uploaded.
+    """
+    c = DeviceCheck(
+        code="tilt_measured",
+        severity="info",
+        message="Held 6\u00b0 off square.",
+        detail={"off": 6.3, "roll": 6.3, "pitch": -1.2},
+    )
+    assert c.severity == "info"
+    assert c.model_dump(exclude_none=True)["detail"]["roll"] == 6.3
+    # degrees do not fit in score (0..1); they travel in the message and detail
+    assert "score" not in c.model_dump(exclude_none=True)
+    with pytest.raises(ValidationError):
+        DeviceCheck(code="tilt_measured", severity="note", message="m")
+
+
 def test_capture_spec_takes_a_clips_bounds_and_refuses_nonsense():
     from sourcehub.api.v1.marketplace import CaptureSpec
 

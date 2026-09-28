@@ -16,6 +16,7 @@ import {
 import { useSession } from "@shared/auth";
 import { CAPTURE_APP } from "@shared/brand";
 import { fmtDate, fmtDateTime, mediaList, money, taskTarget } from "@shared/format";
+import { captureRequirementText, subjectRows } from "./components/brief";
 import { assignmentStatus, contractStatus, statusMeta, taskStatus, waitingOn } from "@shared/status";
 import {
   DEIDENTIFICATION, labelOf, labelsOf, LAWFUL_BASES, PERMITTED_USES,
@@ -624,18 +625,6 @@ function ApproveDialog({ contract, onClose }: { contract: Contract; onClose: () 
 // One dialog for both task tables — the contract work breakdown and the
 // supplier's board. Row data carries everything but the QA trail, which the
 // existing reviews endpoint provides.
-function subjectRows(s: SubjectSpec | null | undefined): [string, React.ReactNode][] {
-  if (!s) return [];
-  return [[
-    "Subject",
-    <span key="subj">
-      <b>{s.domain}</b>
-      {s.must_show.length > 0 && <> · must show {s.must_show.join(", ")}</>}
-      {s.must_not_show.length > 0 && <> · not {s.must_not_show.join(", ")}</>}
-    </span>,
-  ]];
-}
-
 type QaReviewRow = {
   gate: string;
   outcome: string;
@@ -644,20 +633,6 @@ type QaReviewRow = {
   reviewed_at: string | null;
   attempt_no: number | null;
 };
-
-function captureRequirementText(spec: CaptureSpec): string {
-  const parts: string[] = [];
-  const media = mediaList(spec);
-  if (media.length) parts.push(`Media: ${media.join(", ")}`);
-  if (spec.languages?.length) parts.push(`Languages: ${spec.languages.join(", ")}`);
-  if (spec.require_gps) parts.push("GPS required");
-  if (spec.orientation) parts.push(`Orientation: ${spec.orientation}`);
-  if (spec.min_megapixels) parts.push(`Minimum ${spec.min_megapixels} MP`);
-  if (spec.max_tilt_deg) parts.push(`Squareness within ${spec.max_tilt_deg} degrees`);
-  if (spec.max_duration_s) parts.push(`Maximum ${spec.max_duration_s}s`);
-  if (spec.notes) parts.push(spec.notes);
-  return parts.length ? parts.join(" · ") : "No special capture constraints recorded";
-}
 
 function qaGateLabel(gate: string): string {
   if (gate === "gate1_supplier") return "Gate 1 supplier review";

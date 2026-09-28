@@ -10,7 +10,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { get, post } from "@api/client";
-import type { AssetRow, Assignment, Task, TaskOffer, WorkerRow } from "@api/types";
+import type { AssetRow, Assignment, CaptureSpec, Task, TaskOffer, WorkerRow } from "@api/types";
 import {
   Button, Callout, CheckGroup, Dialog, Empty, Field, inputCls, Meter, Metric, Pill, TableWrap,
   textareaCls, useToast,
@@ -22,6 +22,7 @@ import { assignmentStatus, offerStatus, statusMeta } from "@shared/status";
 import {
   AssetGallery, RETAKE_REASONS, useAssignmentAssets, useTaskAssets, type Mark,
 } from "./AssetGallery";
+import { Brief } from "./brief";
 
 export function useTaskAssignments(taskId: string | null | undefined) {
   return useQuery({
@@ -136,6 +137,11 @@ export interface DecideTarget {
   worker_note: string | null;
   task_ref: string;
   task_title: string;
+  /** What these captures were meant to satisfy, so the verdict is taken against
+   *  the stated conditions rather than from memory. Absent on a task that
+   *  recorded no spec, and the brief then renders nothing. */
+  capture_spec?: CaptureSpec;
+  task_instructions?: string | null;
 }
 
 /** "3 to retake: 2 blurred, 1 wrong subject" — the note the reviewer would
@@ -225,6 +231,12 @@ export function DecideAssignmentDialog({
       }
     >
       {target.worker_note && <Callout title="Worker's note">{target.worker_note}</Callout>}
+      {/* The conditions, above the frames they are judged against. A reviewer
+          was previously deciding whether a photograph met a tilt tolerance, an
+          orientation and a subject that appeared nowhere on this screen. */}
+      <div style={{ marginTop: 12 }}>
+        <Brief spec={target.capture_spec} instructions={target.task_instructions} />
+      </div>
       <div style={{ marginTop: 12 }}>
         <AssetGallery
           assets={assets.data ?? []}
@@ -526,6 +538,9 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
         target={{
           id: deciding.id, quantity: deciding.quantity, worker_name: deciding.worker_name,
           worker_note: deciding.worker_note, task_ref: task.reference_code, task_title: task.title,
+          // Task types capture_spec loosely; it is this shape, as pages.tsx
+          // also assumes where it renders the same brief.
+          capture_spec: task.capture_spec as CaptureSpec, task_instructions: task.instructions,
         }}
         onClose={() => setDeciding(null)}
         onDone={() => setDeciding(null)}

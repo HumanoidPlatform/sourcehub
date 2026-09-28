@@ -175,9 +175,17 @@ export default function AssignmentDetail() {
               {refusedTotal} refused on this phone — not sent for review
             </Text>
             {refused.map((r) => (
-              <Text key={r.code} style={[s.muted, { marginLeft: 10 }]}>
-                {r.n} × {rejectionLabel[r.code] ?? r.code.replace(/_/g, " ")}
-              </Text>
+              <View key={r.code}>
+                <Text style={[s.muted, { marginLeft: 10 }]}>
+                  {r.n} × {rejectionLabel[r.code] ?? r.code.replace(/_/g, " ")}
+                </Text>
+                {/* What the phone actually said, which is where the number is.
+                    "beyond the tilt allowed" does not tell a worker whether
+                    they were a degree out or thirty. */}
+                {r.message ? (
+                  <Text style={[s.muted, { marginLeft: 20, fontSize: 12 }]}>{r.message}</Text>
+                ) : null}
+              </View>
             ))}
           </>
         ) : null}

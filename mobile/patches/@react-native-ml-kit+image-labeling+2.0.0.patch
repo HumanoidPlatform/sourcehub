@@ -1,0 +1,38 @@
+diff --git a/node_modules/@react-native-ml-kit/image-labeling/android/src/main/java/com/rnmlkit/imagelabeling/ImageLabelingModule.java b/node_modules/@react-native-ml-kit/image-labeling/android/src/main/java/com/rnmlkit/imagelabeling/ImageLabelingModule.java
+index a7b7ffe..677182f 100644
+--- a/node_modules/@react-native-ml-kit/image-labeling/android/src/main/java/com/rnmlkit/imagelabeling/ImageLabelingModule.java
++++ b/node_modules/@react-native-ml-kit/image-labeling/android/src/main/java/com/rnmlkit/imagelabeling/ImageLabelingModule.java
+@@ -62,9 +62,17 @@ public class ImageLabelingModule extends ReactContextBaseJavaModule {
+         InputImage image;
+         try {
+             image = getInputImage(this.reactContext, url);
++            // PATCHED (patch-package). ML Kit's default of 0.5 DISCARDS every
++            // label it is less than half sure of, before any caller can see
++            // it. We ask "is the subject present", not "is this picture mostly
++            // the subject", and in a real scene with several things in it the
++            // wanted label often sits below 0.5 -- so the evidence was being
++            // thrown away one layer below every threshold we set. Reporting
++            // down to 0.15 lets validation/subject.ts decide; see
++            // SUBJECT_LABEL_FLOOR in src/config.ts.
+             ImageLabelerOptions options =
+                     new ImageLabelerOptions.Builder()
+-                            .setConfidenceThreshold(0.5f)
++                            .setConfidenceThreshold(0.15f)
+                             .build();
+             ImageLabeler labeler = ImageLabeling.getClient(options);
+             labeler.process(image)
+diff --git a/node_modules/@react-native-ml-kit/image-labeling/ios/ImageLabeling.m b/node_modules/@react-native-ml-kit/image-labeling/ios/ImageLabeling.m
+index 3077d7f..2747444 100644
+--- a/node_modules/@react-native-ml-kit/image-labeling/ios/ImageLabeling.m
++++ b/node_modules/@react-native-ml-kit/image-labeling/ios/ImageLabeling.m
+@@ -18,7 +18,9 @@ RCT_EXPORT_METHOD(label: (nonnull NSString*)url
+     MLKVisionImage *visionImage = [[MLKVisionImage alloc] initWithImage:image];
+     MLKImageLabelerOptions *options =
+     [[MLKImageLabelerOptions alloc] init];
+-    options.confidenceThreshold = @(0.5);
++    // PATCHED (patch-package) -- see the Android module for why. 0.5 discards
++    // a label before the caller sees it; we ask about presence, not dominance.
++    options.confidenceThreshold = @(0.15);
+     MLKImageLabeler *labeler =
+     [MLKImageLabeler imageLabelerWithOptions:options];
+     

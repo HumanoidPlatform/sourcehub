@@ -31,7 +31,11 @@ class DeviceCheck(BaseModel):
     """
 
     code: str = Field(min_length=1, max_length=40)
-    severity: Literal["block", "warn"]
+    # "info" is a measurement the phone took and nothing more: it is not a
+    # complaint, the worker is never shown it, and no count or queue reads it.
+    # It exists because a reading the phone discarded once it was inside the
+    # client's tolerance was a reading no reviewer ever saw — squareness, today.
+    severity: Literal["block", "warn", "info"]
     message: str = Field(min_length=1, max_length=300)
     # a scored check (the subject check) says how sure it was, and what it
     # saw — so the reviewer can tell "shelf, floor" from a blank guess
