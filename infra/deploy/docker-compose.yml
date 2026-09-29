@@ -186,17 +186,23 @@ services:
     networks:
       - backend
 
-  # There is no `migrate` service. Migrations are not needed today: the
-  # database is already at the schema this build expects (head 0014), which I
-  # verified against it. When a future build DOES change the schema, run it as
-  # a one-off against this network, as the database owner (the app's own role
-  # is deliberately not allowed to create or alter tables). One line:
+  # There is no `migrate` service. When a build changes the schema, run the
+  # migration as a one-off against this network, as the database owner (the
+  # app's own role is deliberately not allowed to create or alter tables). One
+  # line:
   #
   #   docker run --rm --network stack_backend -e DATABASE_ADMIN_URL='<owner DSN>' -e DATABASE_URL='<the DATABASE_URL above>' -e JWT_SECRET=unused <the api image above> alembic upgrade head
   #
   # The owner DSN is the azureuser password with @ written as %40. The last
   # two settings are unused by a migration, but the config layer will not load
   # without them. Confirm the network name with: docker network ls
+  #
+  # Whether THIS deploy needs it is not something to take on trust from a
+  # comment -- the numbers here have been stale twice. Compare the two ends:
+  # `docker run --rm <new api image> alembic heads` against
+  # `select version_num from alembic_version` on the database. If they differ,
+  # run the migration BEFORE the new api serves, and run it from the NEW image,
+  # because the revisions it adds exist only there.
 
 networks:
   backend:

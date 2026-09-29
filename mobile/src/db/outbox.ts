@@ -63,6 +63,10 @@ export function emitOutboxChange(): void {
 export interface RejectionCount {
   code: string;
   n: number;
+  /** what the phone actually said, from the most recent refusal of this kind.
+   *  The code alone gives a worker "beyond the tilt allowed" and no idea by how
+   *  much; the message has carried the number all along and nothing read it. */
+  message: string | null;
 }
 
 export async function recordRejections(
@@ -85,8 +89,11 @@ export async function recordRejections(
 
 export async function rejectionsByAssignment(assignmentId: string): Promise<RejectionCount[]> {
   const db = await getDb();
+  // The latest message per code: SQLite's bare-column rule inside an aggregate
+  // group takes the value from the row that produced max(created_at), which is
+  // exactly the one wanted here.
   return db.getAllAsync<RejectionCount>(
-    `SELECT code, count(*) AS n FROM rejections
+    `SELECT code, count(*) AS n, message, max(created_at) AS latest FROM rejections
      WHERE assignment_id = ? GROUP BY code ORDER BY n DESC, code`,
     [assignmentId],
   );

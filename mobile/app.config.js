@@ -15,24 +15,41 @@
 
 module.exports = ({ config }) => {
   const profile = process.env.EAS_BUILD_PROFILE;
-  if (!profile || profile === "development") return config;
 
-  const infoPlist = { ...(config.ios?.infoPlist ?? {}) };
+  // A VARIANT INSTALLS BESIDE THE PILOT APP RATHER THAN OVER IT.
+  //
+  // Android identifies an app by its package, so a build carrying
+  // com.cosarathi.capture replaces a worker's pilot app — or refuses to
+  // install, if it was signed with a different key. A suffix gives the build
+  // its own package, its own name in the launcher, and with them its own
+  // storage, login and outbox, so testing cannot spill into anyone's work.
+  //
+  // APP_VARIANT is the suffix, set per build profile in eas.json. Unset — which
+  // is every profile a worker ever receives — leaves the real app untouched.
+  const variant = process.env.APP_VARIANT;
+  const suffix = variant ? `.${variant}` : "";
+  const named = {
+    ...config,
+    name: variant ? `${config.name} (${variant})` : config.name,
+    ios: { ...config.ios, bundleIdentifier: config.ios.bundleIdentifier + suffix },
+    android: { ...config.android, package: config.android.package + suffix },
+  };
+
+  // The cleartext decision is about the PROFILE, not the variant: a build that
+  // talks to a laptop keeps plain HTTP, and anything else has it removed from
+  // the binary. The two are separate on purpose — a dev variant needs http://
+  // to reach a machine on the wifi, while the video variant is a real build
+  // handed to real people and must not be able to speak http:// at all.
+  if (!profile || profile === "development" || profile === "dev") return named;
+
+  const infoPlist = { ...(named.ios?.infoPlist ?? {}) };
   delete infoPlist.NSAppTransportSecurity; // iOS: back to the default, HTTPS only
 
-  const plugins = (config.plugins ?? []).map((p) =>
+  const plugins = (named.plugins ?? []).map((p) =>
     Array.isArray(p) && p[0] === "expo-build-properties"
       ? [p[0], { ...p[1], android: { ...(p[1]?.android ?? {}), usesCleartextTraffic: false } }]
       : p,
   );
 
-  // return { ...config, ios: { ...config.ios, infoPlist }, plugins };
-  const variant = process.env.APP_VARIANT === "video";
-    return {
-      ...config,
-      name: variant ? "DataMind360 Capture (video)" : config.name,
-      ios: { ...config.ios, infoPlist, bundleIdentifier: variant ? "com.cosarathi.capture.video" : config.ios.bundleIdentifier },
-      android: { ...config.android, package: variant ? "com.cosarathi.capture.video" : config.android.package },
-      plugins,
-    };
+  return { ...named, ios: { ...named.ios, infoPlist }, plugins };
 };

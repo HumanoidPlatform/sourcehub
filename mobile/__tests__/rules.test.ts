@@ -223,17 +223,84 @@ describe("checkCapture · location", () => {
     expect(checkCapture({ ...good, fix: { accuracy: 9, stale: false } }, spec)).toEqual([]);
     expect(checkCapture({ ...good, fix: { accuracy: null, stale: false } }, spec)).toEqual([]);
   });
+
+  // The two quality signals describe a fix that DID arrive, so they apply
+  // wherever there is one to describe. They used to sit inside require_gps,
+  // which made MAX_FIX_ACCURACY_M unreachable on every task that merely
+  // recorded a location — most of them — so a capture carrying a position two
+  // kilometres wide was filed without a word.
+  it("describes a poor fix even on a task that did not require one", () => {
+    const loose = checkCapture({ ...good, fix: { accuracy: 2000, stale: false } }, { media: ["photo"] });
+    expect(codes(loose)).toEqual(["gps_accuracy"]);
+    expect(blocking(loose)).toEqual([]);
+
+    const stale = checkCapture({ ...good, fix: { accuracy: 8, stale: true } }, { media: ["photo"] });
+    expect(codes(stale)).toEqual(["gps_stale"]);
+  });
+
+  // ...but it describes it to the REVIEWER, not to the worker.
+  //
+  // A worker filming a laptop at a desk on a task that never asked for a
+  // position cannot do anything about slow satellites, and being interrupted
+  // about it is how people learn to dismiss warnings without reading them. The
+  // finding is still recorded either way; only who is shown it changes.
+  it("tells the worker about a poor fix only where the client asked for one", () => {
+    const free = { media: ["photo"] };
+    const asked = { media: ["photo"], require_gps: true };
+
+    for (const fix of [{ accuracy: 8, stale: true }, { accuracy: 2000, stale: false }]) {
+      expect(checkCapture({ ...good, fix }, free)[0].severity).toBe("info");
+      expect(checkCapture({ ...good, fix }, asked)[0].severity).toBe("warn");
+    }
+  });
+
+  // The refusal stays where it was. A task that never asked for a location must
+  // not refuse work for the want of one.
+  it("still refuses a missing fix only where the client required it", () => {
+    expect(checkCapture({ ...good, fix: null }, { media: ["photo"] })).toEqual([]);
+    expect(codes(checkCapture({ ...good, fix: null }, spec))).toEqual(["gps_missing"]);
+  });
 });
 
 describe("checkCapture · tilt", () => {
   const spec: CaptureSpec = { media: ["photo"], max_tilt_deg: 10 };
 
-  it("is silent when the client did not ask for squareness", () => {
-    expect(checkCapture({ ...good, tilt: { off: 40 } }, { media: ["photo"] })).toEqual([]);
+  // Refuses nothing where the client set no tolerance — but the reading is
+  // recorded rather than discarded, which is the whole point: a tilt figure
+  // never used to reach a reviewer, because a capture was either destroyed for
+  // being crooked or said nothing at all about how it was held.
+  it("refuses nothing when the client did not ask for squareness, but records it", () => {
+    const f = checkCapture({ ...good, tilt: { off: 40 } }, { media: ["photo"] });
+    expect(codes(f)).toEqual(["tilt_measured"]);
+    expect(f[0].severity).toBe("info");
+    expect(blocking(f)).toEqual([]);
+    expect(f[0].message).toContain("40");
   });
 
-  it("accepts a capture within tolerance", () => {
-    expect(checkCapture({ ...good, tilt: { off: 6 } }, spec)).toEqual([]);
+  it("accepts a capture within tolerance, and records how square it was", () => {
+    const f = checkCapture({ ...good, tilt: { off: 6 } }, spec);
+    expect(codes(f)).toEqual(["tilt_measured"]);
+    expect(f[0].severity).toBe("info");
+    expect(blocking(f)).toEqual([]);
+  });
+
+  it("records both angles, so a reviewer can see which way it leaned", () => {
+    const f = checkCapture({ ...good, tilt: { off: 6.34, roll: 6.34, pitch: -1.2 } }, spec);
+    expect(f[0].detail).toEqual({ off: 6.3, roll: 6.3, pitch: -1.2 });
+  });
+
+  // A clip's off is the median across the recording while roll and pitch are
+  // whatever the last sample held, so publishing all three would state a
+  // contradiction: 12 degrees off beside a roll of 2. The median is the number
+  // the verdict used, so it is the one that survives.
+  it("drops the axes when they do not explain the number", () => {
+    const f = checkCapture({ ...good, tilt: { off: 12, roll: 2, pitch: 1 } }, { media: ["photo"] });
+    expect(f[0].detail).toEqual({ off: 12 });
+  });
+
+  it("records nothing but the angle when the device reported no axes", () => {
+    const f = checkCapture({ ...good, tilt: { off: 9 } }, { media: ["photo"] });
+    expect(f[0].detail).toEqual({ off: 9 });
   });
 
   it("refuses a capture beyond the tolerance", () => {
@@ -241,6 +308,13 @@ describe("checkCapture · tilt", () => {
     expect(codes(f)).toEqual(["tilt"]);
     expect(f[0].severity).toBe("block");
     expect(f[0].message).toContain("23");
+  });
+
+  // The refusal already carries the number; a measurement beside it would be
+  // the same fact twice, and a blocked capture is destroyed before either could
+  // be uploaded anyway.
+  it("does not also record a measurement for a capture it refuses", () => {
+    expect(codes(checkCapture({ ...good, tilt: { off: 23 } }, spec))).not.toContain("tilt_measured");
   });
 
   // A device with no accelerometer, or one that reported nothing usable in

@@ -6,7 +6,22 @@
 // sees from a fixed vocabulary of ~400 things ("Shelf", "Supermarket",
 // "Person", "Screenshot"); scoreSubject compares those names with the words
 // the task's subject profile uses (capture_spec.subject, typed by the
-// aggregator in the console) and gives a number from 0 to 1.
+// aggregator in the console).
+//
+// IT ASKS WHETHER THE SUBJECT IS THERE, NOT WHETHER IT IS ALL THERE IS. Real
+// work has other things in the frame — a laptop being operated comes with
+// hands, a desk and a room — and a dataset is usually better for them. So the
+// score is the confidence of the best matching label on its own. It used to be
+// that confidence MINUS the best forbidden one, which is not an operation two
+// independent labels support and which made any subject that co-occurs with a
+// forbidden thing unpassable however plainly it was shown. Prohibition is now
+// its own question with its own answer (forbiddenFinding).
+//
+// The floor the labeller itself applies matters as much as anything here: ML
+// Kit discards labels below a confidence threshold before this code runs, and
+// its default of 0.5 is a dominance test in disguise. The native module is
+// patched down to 0.15 (patches/@react-native-ml-kit+image-labeling+*.patch)
+// so the judgement is made here rather than inside a library.
 //
 // The number only ever WARNS. Below SUBJECT_OFF the capture screen asks the
 // worker to keep or retake; the finding rides with the upload for the
@@ -27,7 +42,7 @@
 // pipeline even there?"; it is not allowed to be silent again.
 
 import type { SubjectSpec } from "@/api/types";
-import { SUBJECT_FRAMES_MIN_SHARE, SUBJECT_OFF } from "@/config";
+import { MIN_SUBJECT_FRAMES, SUBJECT_FRAMES_MIN_SHARE, SUBJECT_OFF, SUBJECT_VETO } from "@/config";
 import type { Finding } from "./rules";
 
 export interface Label {
@@ -36,8 +51,14 @@ export interface Label {
 }
 
 export interface SubjectScore {
-  /** clamp(best matching label − best forbidden label, 0, 1) */
+  /** how sure the labeller is that the subject is IN the frame: the confidence
+   *  of its best matching label, and nothing else. Other things being in shot
+   *  does not reduce it. */
   score: number;
+  /** the same for must_not_show: the confidence of the best forbidden label,
+   *  reported separately because prohibition is a different question from
+   *  presence and answering both with one number answered neither. */
+  forbidden: number;
   /** labels that matched must_show / domain / labels, best first */
   hit: string[];
   /** labels that matched must_not_show */
@@ -67,19 +88,36 @@ export function scoreSubject(labels: Label[], subject: SubjectSpec): SubjectScor
     (subject.labels?.length ? subject.labels : [subject.domain, ...subject.must_show]).flatMap(words),
   );
   const forbidden = new Set(subject.must_not_show.flatMap(words));
+  // A word the subject is made of cannot also forbid it. Both sets are matched
+  // a word at a time against the same labels, so "laptop" in the domain and in
+  // must_not_show ("laptop bag") put the label "Laptop" in hit AND veto at
+  // once — and the old subtraction then scored it exactly zero, flagging every
+  // capture for ever with nothing the worker could do about it. The rest of
+  // the forbidden phrase still forbids: "Bag" is vetoed, "Laptop" is not.
+  for (const w of wanted) forbidden.delete(w);
   const sorted = [...labels].sort((a, b) => b.confidence - a.confidence);
   const hit = sorted.filter((l) => matches(l.text, wanted));
   const veto = sorted.filter((l) => matches(l.text, forbidden));
   const best = (xs: Label[]) => (xs.length > 0 ? xs[0].confidence : 0);
+  // Two questions, two answers. Subtracting one confidence from the other was
+  // not an operation two independent labels support, and it made any subject
+  // that co-occurs with a forbidden thing — a laptop BEING OPERATED implies
+  // hands and a person — unpassable however plainly it was shown.
   return {
-    score: Math.max(0, Math.min(1, best(hit) - best(veto))),
+    score: best(hit),
+    forbidden: best(veto),
     hit: hit.map((l) => l.text),
     veto: veto.map((l) => l.text),
     seen: sorted.slice(0, 5).map((l) => l.text),
   };
 }
 
-/** The warning a low score becomes; null when the photo looks on-subject. */
+/** The warning a low score becomes; null when the subject looks present.
+ *
+ *  Presence only. Something forbidden being in shot is forbiddenFinding's
+ *  business, and a capture can now fail one without failing the other — which
+ *  is the point: "the shelf is not here" and "there is a person in it" are
+ *  different facts and a reviewer can act on each. */
 export function subjectFinding(r: SubjectScore, subject: SubjectSpec): Finding | null {
   if (r.score >= SUBJECT_OFF) return null;
   const saw = r.seen.length > 0 ? `Saw: ${r.seen.join(", ").toLowerCase()}.` : "Nothing recognisable in it.";
@@ -89,6 +127,24 @@ export function subjectFinding(r: SubjectScore, subject: SubjectSpec): Finding |
     message: `Doesn't look like ${subject.domain}. ${saw}`,
     score: Number(r.score.toFixed(3)),
     detail: { labels: r.seen, hit: r.hit, veto: r.veto },
+  };
+}
+
+/** The warning a clearly-present forbidden thing becomes; null otherwise.
+ *
+ *  A warning, never a refusal, and it never asks the worker anything: a person
+ *  walking through a shop is not something they can always prevent, and the
+ *  labeller is not certain enough for the phone to throw work away over it.
+ *  The reviewer decides, with the label and the confidence in front of them. */
+export function forbiddenFinding(r: SubjectScore, subject: SubjectSpec): Finding | null {
+  if (r.forbidden < SUBJECT_VETO || r.veto.length === 0) return null;
+  const which = r.veto[0].toLowerCase();
+  return {
+    code: "forbidden_subject",
+    severity: "warn",
+    message: `${subject.domain} was asked for without ${subject.must_not_show.join(" or ")}; this looks like it shows ${which}.`,
+    score: Number(r.forbidden.toFixed(3)),
+    detail: { veto: r.veto, labels: r.seen },
   };
 }
 
@@ -111,9 +167,16 @@ function mostCommon(lists: string[][]): string[] {
   return [...count.entries()].sort((a, b) => b[1] - a[1]).map(([s]) => s);
 }
 
-/** A clip shows the subject when MOST of its sampled frames do: a pan across
- *  the aisle floor between two shelves is not a clip of the floor. Each frame
- *  is judged by the same SUBJECT_OFF as a photo; the share is what decides. */
+/** A clip shows the subject when it APPEARS often enough across the sampled
+ *  frames — not when most frames are individually good enough.
+ *
+ *  The distinction is the whole of it. Filming someone operate a laptop, the
+ *  subject is hidden by a hand, edged out during a pan, and smeared by one
+ *  blurred second; under the old majority rule each of those counted against
+ *  a clip that was plainly about its subject. What a pan across the aisle
+ *  floor and a clip of a shelf really differ in is how OFTEN the shelf is
+ *  there at all, which is what the share now measures against a floor set for
+ *  presence (SUBJECT_FRAMES_MIN_SHARE). */
 export function scoreFrames(perFrame: SubjectScore[]): FramesScore {
   const hits = perFrame.filter((r) => r.score >= SUBJECT_OFF).length;
   return {
@@ -130,14 +193,39 @@ export function scoreFrames(perFrame: SubjectScore[]): FramesScore {
  *  looked on-subject. The same code as a photo's, so the reviewer's badge
  *  and the gate-1 ordering need no second rule. */
 export function framesFinding(f: FramesScore, subject: SubjectSpec): Finding | null {
-  if (f.share >= SUBJECT_FRAMES_MIN_SHARE) return null;
+  if (f.hits >= Math.min(MIN_SUBJECT_FRAMES, f.frames) && f.share >= SUBJECT_FRAMES_MIN_SHARE) return null;
   const saw = f.seen.length > 0 ? `Saw: ${f.seen.join(", ").toLowerCase()}.` : "Nothing recognisable in it.";
   return {
     code: "wrong_subject",
     severity: "warn",
-    message: `Looked like ${subject.domain} in ${f.hits} of ${f.frames} frames. ${saw}`,
+    message: `${subject.domain} appeared in only ${f.hits} of ${f.frames} frames. ${saw}`,
     score: Number(f.share.toFixed(3)),
     detail: { labels: f.seen, hit: f.hit, veto: f.veto, frames: f.frames, hits: f.hits },
+  };
+}
+
+/** What the check saw, recorded whether or not it had a complaint.
+ *
+ *  subjectFinding and framesFinding both return null on success, so until now
+ *  a capture that PASSED filed nothing at all: no score, no labels, no way to
+ *  tell afterwards why it passed. That is the same fault tilt had — a number
+ *  measured on every capture and kept only when it breached — and it cost an
+ *  evening: a white wall was accepted as a laptop and nothing on the record
+ *  could say which label had matched.
+ *
+ *  Severity "info": never shown to the worker, never a verdict, and the only
+ *  thing that makes the threshold above it correctable from evidence. */
+export function subjectMeasured(r: SubjectScore, frames?: FramesScore): Finding {
+  const seen = r.seen.length > 0 ? r.seen.join(", ").toLowerCase() : "nothing recognisable";
+  const over = frames ? ` in ${frames.hits} of ${frames.frames} frames` : "";
+  return {
+    code: "subject_measured",
+    severity: "info",
+    message: `Subject scored ${Math.round((frames ? frames.share : r.score) * 100)}%${over}. Saw: ${seen}.`,
+    score: Number((frames ? frames.share : r.score).toFixed(3)),
+    detail: frames
+      ? { share: frames.share, hits: frames.hits, frames: frames.frames, labels: frames.seen, hit: frames.hit, veto: frames.veto }
+      : { score: Number(r.score.toFixed(3)), forbidden: Number(r.forbidden.toFixed(3)), labels: r.seen, hit: r.hit, veto: r.veto },
   };
 }
 

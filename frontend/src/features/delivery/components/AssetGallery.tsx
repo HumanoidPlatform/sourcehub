@@ -10,7 +10,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { get } from "@api/client";
-import type { AssetRow, AssetUrl } from "@api/types";
+import type { AssetRow, AssetUrl, DeviceCheck } from "@api/types";
 import { Button, Dl, Empty, inputCls, selectCls } from "@ds/primitives";
 import { fmtDateTime } from "@shared/format";
 import { assetStatus, statusMeta } from "@shared/status";
@@ -74,6 +74,45 @@ export function fmtBytes(n: number | null | undefined): string {
   return `${(n / (1024 * 1024)).toFixed(1)} MB`;
 }
 
+/** The evidence behind a phone check, as one short line.
+ *
+ * Every check has recorded this since the checks existed and nothing has ever
+ * shown it, so a reviewer read "wrong subject" without the one fact that makes
+ * it actionable: which word vetoed it, and how sure the phone was. The order is
+ * deliberate — the veto first, because that is what the worker has to avoid.
+ *
+ * Unknown keys are printed rather than dropped: a check added later should
+ * appear here without this function being touched.
+ */
+export function detailText(d: Record<string, unknown> | undefined): string {
+  if (!d) return "";
+  const list = (v: unknown) => (Array.isArray(v) ? v.map(String).filter(Boolean) : []);
+  const parts: string[] = [];
+  const veto = list(d.veto);
+  const hit = list(d.hit);
+  const labels = list(d.labels);
+  if (veto.length) parts.push(`vetoed on ${veto.join(", ")}`);
+  if (hit.length) parts.push(`matched ${hit.join(", ")}`);
+  if (labels.length) parts.push(`saw ${labels.join(", ")}`);
+  if (typeof d.hits === "number" && typeof d.frames === "number") {
+    parts.push(`${d.hits} of ${d.frames} frames`);
+  } else if (typeof d.frames === "number") {
+    parts.push(`${d.frames} frames`);
+  }
+  if (typeof d.share === "number") parts.push(`${Math.round(d.share * 100)}% of frames`);
+  // Squareness: the angle the verdict used, and the two it came from.
+  if (typeof d.off === "number") parts.push(`${d.off}° off square`);
+  if (typeof d.roll === "number" && typeof d.pitch === "number") {
+    parts.push(`roll ${d.roll}°, pitch ${d.pitch}°`);
+  }
+  const known = new Set(["veto", "hit", "labels", "hits", "frames", "share", "off", "roll", "pitch"]);
+  for (const [k, v] of Object.entries(d)) {
+    if (known.has(k) || v == null || typeof v === "object") continue;
+    parts.push(`${k.replace(/_/g, " ")} ${String(v)}`);
+  }
+  return parts.join(" · ");
+}
+
 /** Why a capture is being sent back. The codes are defect_code.code, seeded in
  *  db/900_seed.sql — the server refuses anything not in that table, so a drift
  *  here shows up as a refusal rather than as a bad row. */
@@ -83,6 +122,9 @@ export const RETAKE_REASONS: [string, string][] = [
   ["wrong_subject", "Wrong subject or place"],
   ["missing_geotag", "No location fix"],
   ["exposure", "Too dark, or glare"],
+  // The phone records the degrees on every capture, so the preview pane below
+  // usually says how far off square this one was.
+  ["tilt", "Tilted — not square"],
   ["other", "Something else"],
 ];
 
@@ -210,6 +252,14 @@ function AssetThumb({
  *  verdict, then what a clip's frames showed, then that it could not look. */
 const BADGE: Record<string, { text: string; tone: "amber" | "grey" }> = {
   wrong_subject: { text: "subject?", tone: "amber" },
+  // Something the client said must not appear. A separate question from
+  // whether the subject is there, and now a separate finding: a capture can
+  // show the shelf perfectly and still have a face in it.
+  forbidden_subject: { text: "not allowed?", tone: "amber" },
+  // A face, on a task whose brief asked for no people. The detector proves
+  // presence and never absence — no face found means nothing — so this badge
+  // appears only when one was seen, and never as a clean bill of health.
+  person_in_frame: { text: "face", tone: "amber" },
   black: { text: "dark", tone: "amber" },
   frozen: { text: "still", tone: "amber" },
   subject_unscored: { text: "unchecked", tone: "grey" },
@@ -225,16 +275,56 @@ function subjectCheck(asset: AssetRow) {
   return null;
 }
 
+/** The phone's findings, split so a complaint is never buried under a
+ *  measurement.
+ *
+ *  Every capture now carries several info findings — how much it looked like
+ *  the client's example photos, what text was in it, whether a face was, which
+ *  handset took it. Those are worth having in front of a reviewer, but a
+ *  warning listed fifth among them is a warning nobody reads. Complaints keep
+ *  the "Phone check" heading they always had; measurements get their own. */
+function checkRows(checks: DeviceCheck[] | undefined): [string, React.ReactNode][] {
+  const all = checks ?? [];
+  const lines = (list: DeviceCheck[], key: string) => (
+    <span key={key}>
+      {list.map((c, i) => (
+        <span key={i} style={{ display: "block" }}>
+          {c.message}
+          {c.score != null && <span className="muted"> · score {c.score.toFixed(2)}</span>}
+          {/* What the phone actually saw. The message says "wrong subject";
+              this says it was vetoed on `floor` at 0.71, which is the part a
+              reviewer can act on. */}
+          {detailText(c.detail) && (
+            <span className="muted small" style={{ display: "block" }}>{detailText(c.detail)}</span>
+          )}
+        </span>
+      ))}
+    </span>
+  );
+  const complaints = all.filter((c) => c.severity !== "info");
+  const measured = all.filter((c) => c.severity === "info");
+  const rows: [string, React.ReactNode][] = [];
+  if (complaints.length) rows.push(["Phone check", lines(complaints, "dc")]);
+  if (measured.length) rows.push(["Measured", lines(measured, "dm")]);
+  return rows;
+}
+
 function AssetPreview({
   asset,
   mark,
   onMark,
   onClose,
+  position,
+  onStep,
 }: {
   asset: AssetRow;
   mark?: Mark;
   onMark?: (a: AssetRow, m: Mark | null) => void;
   onClose: () => void;
+  /** where this capture sits in the batch, 1-based, for "3 of 12" */
+  position?: { at: number; of: number };
+  /** -1 / +1 through the same order the grid shows */
+  onStep?: (by: number) => void;
 }) {
   const url = useAssetUrl(asset.id, true);
   const meta = statusMeta(assetStatus, asset.status);
@@ -270,16 +360,7 @@ function AssetPreview({
                 {asset.review_note && <span className="muted"> · {asset.review_note}</span>}
               </span>]] as [string, React.ReactNode][])
             : []),
-          ...((asset.device_checks ?? []).length
-            ? ([["Phone check", <span key="dc">
-                {(asset.device_checks ?? []).map((c, i) => (
-                  <span key={i} style={{ display: "block" }}>
-                    {c.message}
-                    {c.score != null && <span className="muted"> · score {c.score.toFixed(2)}</span>}
-                  </span>
-                ))}
-              </span>]] as [string, React.ReactNode][])
-            : []),
+          ...checkRows(asset.device_checks),
         ]} />
         {onMark && (
           // A verdict on one capture, taken beside the picture it is about.
@@ -321,7 +402,15 @@ function AssetPreview({
             )}
           </div>
         )}
-        <div className="btnrow" style={{ marginTop: 10, display: "flex", gap: 8 }}>
+        <div className="btnrow" style={{ marginTop: 10, display: "flex", gap: 8, alignItems: "center" }}>
+          {onStep && position && (
+            // The arrow keys do the same thing; these say that it is possible.
+            <>
+              <Button size="sm" aria-label="Previous capture" disabled={position.at <= 1} onClick={() => onStep(-1)}>←</Button>
+              <span className="small muted" data-testid="preview-position">{position.at} of {position.of}</span>
+              <Button size="sm" aria-label="Next capture" disabled={position.at >= position.of} onClick={() => onStep(1)}>→</Button>
+            </>
+          )}
           {url.data?.url && (
             <a className="btn" data-size="sm" href={url.data.url} target="_blank" rel="noopener noreferrer">Open original</a>
           )}
@@ -353,9 +442,41 @@ export function AssetGallery({
   onRemove?: (a: AssetRow) => void;
 }) {
   const [open, setOpen] = useState<AssetRow | null>(null);
+  const at = open ? assets.findIndex((a) => a.id === open.id) : -1;
+  const current = at >= 0 ? assets[at] : null;
+
+  // Walk the batch from the keyboard. Judging fifty captures by opening and
+  // closing fifty previews is the slow part of a reviewer's day; the frames are
+  // already in one ordered list, so stepping through it costs nothing.
+  //
+  // Escape is deliberately left alone: Dialog owns it and closes the whole
+  // review, which is what someone pressing it expects. Taking it over here
+  // would make the same key mean two different things one layer apart.
+  const step = (by: number) => {
+    if (at < 0) return;
+    const next = assets[at + by];
+    if (next) setOpen(next);
+  };
+  useEffect(() => {
+    if (!current) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+      // Not while they are in the reason picker or typing a note — there the
+      // arrows belong to the control.
+      const t = e.target as HTMLElement | null;
+      if (t && /^(INPUT|SELECT|TEXTAREA)$/.test(t.tagName)) return;
+      e.preventDefault();
+      step(e.key === "ArrowRight" ? 1 : -1);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- step is rebuilt
+    // each render; rebinding on the position and the list is what keeps its
+    // closure current without a listener churn on every keystroke elsewhere.
+  }, [at, assets]);
+
   if (loading) return <p className="muted small">Loading captures…</p>;
   if (assets.length === 0) return <Empty title={emptyTitle} hint={emptyHint} />;
-  const current = open && assets.find((a) => a.id === open.id) ? open : null;
   return (
     <div>
       {current && (
@@ -364,6 +485,8 @@ export function AssetGallery({
           mark={marks?.[current.id]}
           onMark={onMark}
           onClose={() => setOpen(null)}
+          position={{ at: at + 1, of: assets.length }}
+          onStep={step}
         />
       )}
       <div className="assetgrid">

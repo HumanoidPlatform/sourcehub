@@ -16,6 +16,7 @@ import {
 import { useSession } from "@shared/auth";
 import { CAPTURE_APP } from "@shared/brand";
 import { fmtDate, fmtDateTime, mediaList, money, taskTarget } from "@shared/format";
+import { captureRequirementText, subjectRows } from "./components/brief";
 import { assignmentStatus, contractStatus, statusMeta, taskStatus, waitingOn } from "@shared/status";
 import {
   DEIDENTIFICATION, labelOf, labelsOf, LAWFUL_BASES, PERMITTED_USES,
@@ -628,18 +629,6 @@ function ApproveDialog({ contract, onClose }: { contract: Contract; onClose: () 
 // One dialog for both task tables — the contract work breakdown and the
 // supplier's board. Row data carries everything but the QA trail, which the
 // existing reviews endpoint provides.
-function subjectRows(s: SubjectSpec | null | undefined): [string, React.ReactNode][] {
-  if (!s) return [];
-  return [[
-    "Subject",
-    <span key="subj">
-      <b>{s.domain}</b>
-      {s.must_show.length > 0 && <> · must show {s.must_show.join(", ")}</>}
-      {s.must_not_show.length > 0 && <> · not {s.must_not_show.join(", ")}</>}
-    </span>,
-  ]];
-}
-
 type QaReviewRow = {
   gate: string;
   outcome: string;
@@ -648,20 +637,6 @@ type QaReviewRow = {
   reviewed_at: string | null;
   attempt_no: number | null;
 };
-
-function captureRequirementText(spec: CaptureSpec): string {
-  const parts: string[] = [];
-  const media = mediaList(spec);
-  if (media.length) parts.push(`Media: ${media.join(", ")}`);
-  if (spec.languages?.length) parts.push(`Languages: ${spec.languages.join(", ")}`);
-  if (spec.require_gps) parts.push("GPS required");
-  if (spec.orientation) parts.push(`Orientation: ${spec.orientation}`);
-  if (spec.min_megapixels) parts.push(`Minimum ${spec.min_megapixels} MP`);
-  if (spec.max_tilt_deg) parts.push(`Squareness within ${spec.max_tilt_deg} degrees`);
-  if (spec.max_duration_s) parts.push(`Maximum ${spec.max_duration_s}s`);
-  if (spec.notes) parts.push(spec.notes);
-  return parts.length ? parts.join(" · ") : "No special capture constraints recorded";
-}
 
 function qaGateLabel(gate: string): string {
   if (gate === "gate1_supplier") return "Gate 1 supplier review";
@@ -695,27 +670,46 @@ function qaReviewList(reviews: QaReviewRow[] | undefined): React.ReactNode {
   );
 }
 
+// A measurement is not a complaint. Every capture now carries several info
+// findings — what text was in it, whether a face was, which phone took it —
+// and counting those alongside the warnings would report a clean batch as
+// dozens of "checks" and bury the two that matter. The headline counts what
+// somebody has to act on; the measurements are named separately, and read in
+// full in an asset's own preview.
+function complaints(assets: AssetRow[] | undefined) {
+  return (assets ?? []).flatMap((asset) =>
+    (asset.device_checks ?? [])
+      .filter((check) => check.severity === "warn" || check.severity === "block")
+      .map((check) => ({ asset, check })),
+  );
+}
+
 function deviceCheckSummary(assets: AssetRow[] | undefined, loading: boolean): string {
   if (loading) return "Loading capture checks…";
   const checks = (assets ?? []).flatMap((a) => a.device_checks ?? []);
-  if (!checks.length) return "No device warnings recorded";
+  if (!checks.length) return "No device checks recorded";
   const warnings = checks.filter((c) => c.severity === "warn").length;
   const blockers = checks.filter((c) => c.severity === "block").length;
+  const measured = checks.filter((c) => c.severity === "info").length;
   const wrongSubject = checks.filter((c) => c.code === "wrong_subject").length;
   const unscored = checks.filter((c) => c.code === "subject_unscored").length;
+  const head =
+    warnings || blockers
+      ? [
+          warnings ? `${warnings} warning${warnings === 1 ? "" : "s"}` : null,
+          blockers ? `${blockers} blocker${blockers === 1 ? "" : "s"}` : null,
+        ]
+      : ["No warnings"];
   return [
-    `${checks.length} check${checks.length === 1 ? "" : "s"} recorded`,
-    warnings ? `${warnings} warning${warnings === 1 ? "" : "s"}` : null,
-    blockers ? `${blockers} blocker${blockers === 1 ? "" : "s"}` : null,
+    ...head,
     wrongSubject ? `${wrongSubject} off-subject flag${wrongSubject === 1 ? "" : "s"}` : null,
     unscored ? `${unscored} unscored capture${unscored === 1 ? "" : "s"}` : null,
+    measured ? `${measured} measurement${measured === 1 ? "" : "s"}` : null,
   ].filter(Boolean).join(" · ");
 }
 
 function deviceCheckList(assets: AssetRow[] | undefined): React.ReactNode {
-  const checks = (assets ?? []).flatMap((asset) =>
-    (asset.device_checks ?? []).map((check) => ({ asset, check })),
-  );
+  const checks = complaints(assets);
   if (!checks.length) return null;
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
@@ -725,7 +719,7 @@ function deviceCheckList(assets: AssetRow[] | undefined): React.ReactNode {
           {check.score != null && <span className="muted"> · score {check.score.toFixed(2)}</span>}
         </div>
       ))}
-      {checks.length > 8 && <div className="small muted">+{checks.length - 8} more check results in the asset previews.</div>}
+      {checks.length > 8 && <div className="small muted">+{checks.length - 8} more in the asset previews.</div>}
     </div>
   );
 }

@@ -203,6 +203,10 @@ INSERT INTO defect_code (code, label, category, automated) VALUES
   ('malware',         'Malware detected',             'compliance', true),
   ('wrong_subject',   'Wrong subject or location',    'coverage',   false),
   ('consent_missing', 'Consent artefact missing',     'compliance', false),
+  -- The phone measures squareness and records the degrees on every capture
+  -- (validation/rules.ts tilt_measured), but the decision is the reviewer's,
+  -- so this follows wrong_subject rather than the machine-run codes above.
+  ('tilt',            'Tilted — not square',          'optical',    false),
   -- the reviewer's escape hatch at gate 1, where the note carries the meaning
   ('other',           'Something else',                 'coverage',   false);
 

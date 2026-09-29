@@ -225,6 +225,7 @@ export function Gate1Page() {
           target={{
             id: deciding.assignment_id, quantity: deciding.quantity, worker_name: deciding.worker_name,
             worker_note: deciding.worker_note, task_ref: deciding.task_ref, task_title: deciding.task_title,
+            capture_spec: deciding.capture_spec, task_instructions: deciding.task_instructions,
           }}
           onClose={() => setDeciding(null)}
           onDone={(outcome) => {

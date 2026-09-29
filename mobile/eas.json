@@ -25,6 +25,13 @@
       "channel": "video",
       "env": { "APP_VARIANT": "video" }
     },
+    "dev": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "android": { "buildType": "apk" },
+      "channel": "dev",
+      "env": { "APP_VARIANT": "dev" }
+    },
     "production": {
       "channel": "production"
     }

@@ -37,7 +37,10 @@ async def review_queue(session: AsyncSession, claims: AccessClaims) -> list[dict
                 "SELECT s.id AS submission_id, s.attempt_no, s.asset_count, s.supplier_note, "
                 "       s.submitted_at, t.id AS task_id, t.reference_code AS task_ref, "
                 "       t.title AS task_title, t.target, c.id AS contract_id, "
-                "       c.reference_code AS contract_ref, o.name AS supplier_name "
+                "       c.reference_code AS contract_ref, o.name AS supplier_name, "
+                # The same brief gate 1 now gets. A partner judging a bundle was
+                # equally blind to what the client actually asked for.
+                "       t.capture_spec, t.instructions AS task_instructions "
                 "FROM submission s "
                 "JOIN task t ON t.id = s.task_id "
                 "JOIN contract c ON c.id = t.contract_id "
@@ -49,7 +52,7 @@ async def review_queue(session: AsyncSession, claims: AccessClaims) -> list[dict
             {"me": claims.org_id},
         )
     ).mappings().all()
-    return [dict(r) for r in rows]
+    return [{**dict(r), "capture_spec": r["capture_spec"] or {}} for r in rows]
 
 
 async def decide(
@@ -180,6 +183,12 @@ async def gate1_queue(session: AsyncSession, claims: AccessClaims) -> list[dict[
             text(
                 "SELECT a.id AS assignment_id, a.task_id, t.reference_code AS task_ref, "
                 "       t.title AS task_title, t.target_unit, "
+                # What the capture was supposed to satisfy. The reviewer was
+                # judging frames against conditions they could not see: the
+                # subject, the orientation, the tilt tolerance, the megapixel
+                # floor. Selected here exactly as _assignment_dict already
+                # selects them for the worker, so both ends read one brief.
+                "       t.capture_spec, t.instructions AS task_instructions, "
                 "       a.worker_user_id, coalesce(w.display_name, u.full_name) AS worker_name, "
                 "       w.reference_code AS worker_ref, a.quantity, a.worker_note, a.submitted_at, "
                 "       coalesce(x.ready, 0) AS ready_assets, coalesce(x.off_subject, 0) AS off_subject, "
@@ -208,6 +217,9 @@ async def gate1_queue(session: AsyncSession, claims: AccessClaims) -> list[dict[
             "ready_assets": int(r["ready_assets"]),
             "off_subject": int(r["off_subject"]),
             "unscored": int(r["unscored"]),
+            # An older task may carry no spec at all; the console then shows
+            # nothing rather than an empty panel.
+            "capture_spec": r["capture_spec"] or {},
         }
         for r in rows
     ]

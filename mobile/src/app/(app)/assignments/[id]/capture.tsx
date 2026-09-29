@@ -7,16 +7,18 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import { Alert, Linking, Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { exampleImages, loadExamples } from "@/capture/examples";
 import { ensureLocationPermission } from "@/capture/location";
-import { type Held, medianOff, type Tilt, watchTilt } from "@/capture/tilt";
+import { type Held, medianOff, type Tilt, tiltAdvice, watchTilt } from "@/capture/tilt";
 import { type CaptureOutcome, CaptureRejected, useCapture } from "@/capture/useCapture";
 import { MAX_VIDEO_SECONDS } from "@/config";
 import { useAssignments } from "@/query/hooks";
 import { TONE_COLOR } from "@/status";
 import { Button, C, Callout, s } from "@/ui";
-import { mediaKinds } from "@/validation/rules";
+import type { ExampleSet } from "@/validation/examples";
+import { type Finding, mediaKinds } from "@/validation/rules";
 
-/** A level, shown only on a task whose client asked for squareness.
+/** A level, shown on every task the phone can read a sensor for.
  *
  * The bar counter-rotates with roll so it reads as the horizon rather than as
  * part of the phone, and it goes amber the moment the capture would be
@@ -28,21 +30,45 @@ import { mediaKinds } from "@/validation/rules";
  * nearest quarter turn (capture/tilt.ts quarterTurn), so roll never exceeds
  * 45 and the worker was told "level" while holding the phone at any angle.
  * Showing the number costs nothing and is the thing they are steering by.
+ *
+ * A NULL TOLERANCE is a task whose client asked for no squareness, and there
+ * the level is advice and nothing more: the angle, no verdict, no amber, and
+ * checkCapture refuses nothing over it. It is shown anyway because a worker
+ * holding the phone at 30° is usually doing it by accident, and because the
+ * reading is now recorded either way (validation/rules.ts tilt_measured) — so
+ * the screen may as well say what is being recorded.
  */
-function Level({ tilt, tolerance }: { tilt: Tilt | null; tolerance: number }) {
+function Level({ tilt, tolerance }: { tilt: Tilt | null; tolerance: number | null }) {
   if (!tilt) return null;
   const off = Math.round(tilt.off);
-  const bad = tilt.off > tolerance;
+  const bad = tolerance != null && tilt.off > tolerance;
   const tint = bad ? TONE_COLOR.attention.bg : "rgba(255,255,255,0.9)";
+  // Which way to correct, where the two angles disagree enough to name one.
+  // "38° off" alone sends a worker guessing, and the wrong guess makes it worse.
+  const how = tiltAdvice(tilt);
+  const verdict = tolerance != null ? (bad ? `over ${Math.round(tolerance)}°` : "acceptable") : how ? HOW[how] : null;
   return (
-    <View style={c.level} pointerEvents="none" accessibilityLabel={`${off} degrees off square, ${bad ? `over the ${tolerance} allowed` : "acceptable"}`}>
+    <View
+      style={c.level}
+      pointerEvents="none"
+      accessibilityLabel={`${off} degrees off square, ${
+        tolerance != null ? (bad ? `over the ${tolerance} allowed` : "acceptable") : "no tolerance set for this task"
+      }${how ? `, ${HOW[how]}` : ""}`}
+    >
       <View style={[c.levelBar, { backgroundColor: tint, transform: [{ rotate: `${-tilt.roll}deg` }] }]} />
       <Text style={[c.levelText, bad && { color: TONE_COLOR.attention.bg }]}>
-        {off}° off · {bad ? `over ${Math.round(tolerance)}°` : "acceptable"}
+        {off}° off{verdict ? ` · ${verdict}` : ""}
+        {bad && how ? ` · ${HOW[how]}` : ""}
       </Text>
     </View>
   );
 }
+
+/** How a correction reads to the person making it. */
+const HOW: Record<"rotate" | "tip", string> = {
+  rotate: "turn it level",
+  tip: "tip it upright",
+};
 
 export default function Capture() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -78,7 +104,26 @@ export default function Capture() {
   const tilt = useRef<Tilt | null>(null);
   const [level, setLevel] = useState<Tilt | null>(null);
   const spec = a?.task.capture_spec;
-  const save = useCapture(id ?? "", a?.task.reference_code ?? "capture", spec, a?.task.target_unit);
+
+  // The client's example photos, as the assignment screen labelled them. Read
+  // from the device store, never fetched here: the camera must not wait on a
+  // download. A task with none, or a phone that never managed to fetch them,
+  // both arrive as an ExampleSet — useCapture tells the two apart, because a
+  // capture compared against nothing is not a capture that matched.
+  const [examples, setExamples] = useState<ExampleSet | null>(null);
+  const docs = a?.task.client_documents;
+  const exampleIds = exampleImages(docs).map((d) => d.id).join(",");
+  useEffect(() => {
+    let alive = true;
+    void loadExamples(docs).then((e) => {
+      if (alive) setExamples(e);
+    });
+    return () => {
+      alive = false;
+    };
+  }, [exampleIds]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const save = useCapture(id ?? "", a?.task.reference_code ?? "capture", spec, a?.task.target_unit, examples);
 
   // The server sends a list; a task made before capture-spec inheritance sends
   // a string. Reading it raw is what used to open a video-only task in photo
@@ -111,10 +156,13 @@ export default function Capture() {
   // it must decide for itself whether to do anything — this effect still runs
   // while the camera-permission screen is showing.
   //
-  // One sensor subscription serves both readers: the level, where the client
-  // asked for squareness, and the orientation, where they asked for a way up.
+  // One sensor subscription serves three readers: the level, the orientation
+  // hint where the client asked for a way up, and the measurement now recorded
+  // on every capture. It used to be skipped entirely unless the client had
+  // asked for squareness or an orientation, which is why most tasks showed no
+  // level and sent no reading — the sensor was never started.
   useEffect(() => {
-    if (!camPerm?.granted || (maxTilt == null && wantOrientation == null)) return;
+    if (!camPerm?.granted) return;
     let shown = -1;
     let shownHeld: Held | null = null;
     const stop = watchTilt((t) => {
@@ -122,12 +170,16 @@ export default function Capture() {
       held.current = t.held;
       if (holdTally.current && t.held) holdTally.current[t.held]++;
       if (tiltSamples.current) tiltSamples.current.push(t.off);
-      if (maxTilt != null) {
-        const whole = Math.round(t.off);
-        if (whole !== shown) {
-          shown = whole;
-          setLevel(t);
-        }
+      // While a recording runs the verdict is the MEDIAN across it
+      // (medianOff below), so that is what the level must show: a clip refused
+      // for a figure the worker never saw is the same defect as no level at
+      // all. A photo is judged on its instant, so it shows its instant.
+      const samples = tiltSamples.current;
+      const showing = samples && samples.length > 0 ? { ...t, off: medianOff(samples) ?? t.off } : t;
+      const whole = Math.round(showing.off);
+      if (whole !== shown) {
+        shown = whole;
+        setLevel(showing);
       }
       if (wantOrientation != null && t.held !== shownHeld) {
         shownHeld = t.held;
@@ -135,7 +187,7 @@ export default function Capture() {
       }
     });
     return stop;
-  }, [camPerm?.granted, maxTilt, wantOrientation]);
+  }, [camPerm?.granted, wantOrientation]);
 
   if (!camPerm) return null;
   if (!camPerm.granted) {
@@ -153,13 +205,32 @@ export default function Capture() {
   // A warning does not stop the capture — it is kept, flagged, and the reason
   // travels with it to QA. Only a block throws, and the catch below renders it.
   // One message per line: two findings read as two things, not a paragraph.
-  const warn = (warnings: { message: string }[]) =>
-    setNotice(warnings.length > 0 ? { text: warnings.map((w) => w.message).join("\n"), tone: "warn" } : null);
+  //
+  // Only warnings. An `info` finding is a measurement recorded for the reviewer
+  // (validation/rules.ts), not something to interrupt the worker with — every
+  // capture carries one, and shown here it would read as though every shot had
+  // a problem.
+  const spoken = (findings: Finding[]) => findings.filter((f) => f.severity === "warn");
 
-  const kept = (warnings: { message: string }[], onSubject = false) => {
+  const warn = (findings: Finding[]) => {
+    const shown = spoken(findings);
+    setNotice(shown.length > 0 ? { text: shown.map((w) => w.message).join("\n"), tone: "warn" } : null);
+  };
+
+  const kept = (findings: Finding[], onSubject = false) => {
     setCount((n) => n + 1);
-    if (warnings.length > 0 || !onSubject) warn(warnings);
-    else setNotice({ text: `Looks like ${spec?.subject?.domain ?? "the subject"}.`, tone: "ok" });
+    const shown = spoken(findings);
+    if (shown.length > 0) {
+      warn(findings);
+    } else if (onSubject) {
+      setNotice({ text: `Looks like ${spec?.subject?.domain ?? "the subject"}.`, tone: "ok" });
+    } else {
+      // Kept, with nothing to say about it. This used to leave the screen
+      // blank — a good capture got a green line and an ambiguous one got
+      // silence, which reads as a failure when the file was saved either way.
+      // The counter moving is not enough on its own to tell them apart.
+      setNotice({ text: "Saved.", tone: "ok" });
+    }
   };
 
   // The subject check is the one verdict the worker answers themselves: the
@@ -227,6 +298,7 @@ export default function Capture() {
   // nothing to straighten up. The level bar guides the correction; this says
   // what ignoring it costs.
   const tooTilted = recording && maxTilt != null && level != null && level.off > maxTilt;
+  const tiltHow = level ? tiltAdvice(level) : null;
 
   const shoot = async () => {
     if (!cam.current || busy) return;
@@ -332,7 +404,8 @@ export default function Capture() {
         ) : null}
         {tooTilted && level ? (
           <Text style={c.error}>
-            Hold the phone square — {Math.round(level.off)}° off; this clip will be refused.
+            Hold the phone square — {Math.round(level.off)}° off
+            {tiltHow ? `, ${HOW[tiltHow]}` : ""}; this clip will be refused.
           </Text>
         ) : null}
         {notice ? <Text style={notice.tone === "ok" ? c.ok : c.warn}>{notice.text}</Text> : null}
@@ -341,7 +414,7 @@ export default function Capture() {
             {checking.total > 0 ? `Checking clip… ${checking.done}/${checking.total}` : "Checking clip…"}
           </Text>
         ) : null}
-        {maxTilt != null ? <Level tilt={level} tolerance={maxTilt} /> : null}
+        <Level tilt={level} tolerance={maxTilt} />
         <View style={c.bottom}>
           <Pressable
             onPress={() => void shoot()}
