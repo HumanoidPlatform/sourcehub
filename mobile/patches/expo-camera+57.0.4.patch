@@ -1,18 +1,36 @@
 diff --git a/node_modules/expo-camera/android/src/main/java/expo/modules/camera/ExpoCameraView.kt b/node_modules/expo-camera/android/src/main/java/expo/modules/camera/ExpoCameraView.kt
-index 999a22c..21c28f9 100644
+index 999a22c..f296dc6 100644
 --- a/node_modules/expo-camera/android/src/main/java/expo/modules/camera/ExpoCameraView.kt
 +++ b/node_modules/expo-camera/android/src/main/java/expo/modules/camera/ExpoCameraView.kt
-@@ -118,6 +118,9 @@ class ExpoCameraView(
+@@ -118,6 +118,27 @@ class ExpoCameraView(
  
          imageAnalysisUseCase?.targetRotation = rotation
          imageCaptureUseCase?.targetRotation = rotation
-+        // Upstream only rotates stills. Without this, an app locked to portrait
-+        // records every video portrait however the phone is held.
-+        videoCaptureUseCase?.targetRotation = rotation
++
++        // Upstream only rotates stills. Without the line below, an app locked
++        // to portrait records every video portrait however the phone is held.
++        //
++        // BUT NEVER WHILE A RECORDING IS RUNNING. Reconfiguring the
++        // VideoCapture use case makes CameraX drop the video source; the
++        // recording then finalises with ERROR_SOURCE_INACTIVE, which record()
++        // resolves as a SUCCESS carrying a uri for a file that was never
++        // written. The worker loses the clip and the app reports a file it
++        // cannot move. Turning the phone to film landscape — which this app
++        // requires — is exactly what triggers it.
++        //
++        // Nothing is lost by waiting: CameraX reads this value when the
++        // recording STARTS, so setting it during one never affected the clip
++        // anyway. record() applies lastRotation at that moment, which also
++        // closes the gap between start() and the asynchronous Start event that
++        // sets isRecording.
++        lastRotation = rotation
++        if (!isRecording) {
++          videoCaptureUseCase?.targetRotation = rotation
++        }
        }
      }
    }
-@@ -128,6 +131,7 @@ class ExpoCameraView(
+@@ -128,11 +149,16 @@ class ExpoCameraView(
    private var cameraProvider: ProcessCameraProvider? = null
    private var imageCaptureUseCase: ImageCapture? = null
    private var imageAnalysisUseCase: ImageAnalysis? = null
@@ -20,7 +38,28 @@ index 999a22c..21c28f9 100644
    private var recorder: Recorder? = null
    private var barcodeFormats: List<BarcodeType> = emptyList()
    private var glSurfaceTexture: SurfaceTexture? = null
-@@ -513,7 +517,7 @@ class ExpoCameraView(
+   private var isRecording = false
+ 
++  // The most recent device rotation, kept so record() can apply it at the one
++  // moment CameraX actually reads it. See the orientation listener above.
++  private var lastRotation = Surface.ROTATION_0
++
+   private var previewView = PreviewView(context).apply {
+     elevation = 0f
+   }
+@@ -368,6 +394,11 @@ class ExpoCameraView(
+         promise.reject(Exceptions.MissingPermissions(Manifest.permission.RECORD_AUDIO))
+         return
+       }
++      // The one moment CameraX reads this for a video. The listener above
++      // deliberately stops updating it while a recording runs, so this is
++      // where the clip gets the rotation the phone is actually being held at.
++      videoCaptureUseCase?.targetRotation = lastRotation
++
+       activeRecording = it.prepareRecording(context, fileOutputOptions)
+         .apply {
+           if (!mute) {
+@@ -513,7 +544,7 @@ class ExpoCameraView(
  
      imageCaptureUseCase = imageCaptureBuilder.build()
  

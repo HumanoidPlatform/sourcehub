@@ -134,10 +134,18 @@ for p in photos:
 today = dt.date.today()
 
 # --- the request --------------------------------------------------------------
-# require_gps is deliberately absent. It is a BLOCK, and at a desk indoors the
-# fix often fails -- the capture would be deleted before any QA check ran.
-# max_tilt_deg 25 for the same reason: tilt blocks too, and 15 would throw away
-# good handheld footage.
+# Two conditions are deliberately ABSENT, both for the same reason: they block,
+# and a blocked capture is deleted before any QA check runs, so a tolerance set
+# wrong does not produce a warning -- it produces no evidence at all.
+#
+#   require_gps   at a desk indoors the fix often fails.
+#   max_tilt_deg  filming a laptop being used means pointing the phone DOWN at
+#                 the desk. 30-50 degrees off level is the natural framing for
+#                 that shot, not a mistake; a 25 degree tolerance refused every
+#                 attempt and reported 53. Tilt is still measured and still
+#                 recorded as an info finding for the reviewer -- it simply
+#                 stops refusing work until there is data on what a bad angle
+#                 for this footage actually looks like.
 req = must(client.post("/requests", json={
     "title": f"Laptop operating - desk footage ({today.isoformat()})",
     "category": "video",
@@ -150,7 +158,6 @@ req = must(client.post("/requests", json={
         "max_duration_s": 45,
         "min_video_lines": 720,
         "orientation": "landscape",
-        "max_tilt_deg": 25,
         "require_gps": False,
         "allow_library": False,
         "notes": "Hands on the keyboard, screen visible, desk around it.",

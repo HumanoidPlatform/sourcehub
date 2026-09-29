@@ -61,11 +61,27 @@ export async function moveIntoPrivateDir(fromUri: string, assignmentId: string, 
         await Legacy.copyAsync({ from: fromUri, to });
         await deleteLocal(fromUri);
       } catch {
-        // Report what the file system said the FIRST time. Everything after it
-        // was recovery, and its error describes the recovery rather than the
-        // fault.
+        // WHICH THING IS MISSING decides what to say, because the two causes
+        // need different things from the worker. Expo's wrapper reports "could
+        // not be moved" for both, and three faults behind one message is how
+        // this survived two wrong diagnoses.
+        const src = await Legacy.getInfoAsync(fromUri).catch(() => null);
+        const holder = await Legacy.getInfoAsync(dir).catch(() => null);
+        const cause = first instanceof Error ? first.message : String(first);
+        if (!src?.exists) {
+          // The camera handed back a URI for a file it never wrote. CameraX
+          // drops the video source when the VideoCapture use case is
+          // reconfigured mid-recording — which turning the phone does, through
+          // our own expo-camera patch — and finalises with ERROR_SOURCE_INACTIVE,
+          // which expo-camera resolves as a success. Nothing here can recover
+          // it, so say the one thing that helps.
+          throw new Error(
+            "The recording was lost because the phone turned while filming. Film again, holding it steady.",
+          );
+        }
         throw new Error(
-          `The phone could not save the recording (${first instanceof Error ? first.message : String(first)}).`,
+          `The phone could not save the recording. The camera's file is there (${sizeOf(src)} bytes), ` +
+            `the captures folder ${holder?.exists ? "is there" : "is NOT there"}. (${cause})`,
         );
       }
     }
