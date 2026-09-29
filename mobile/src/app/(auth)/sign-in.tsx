@@ -1,9 +1,10 @@
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useState } from "react";
-import { Pressable, Text, TextInput, View } from "react-native";
+import { Image, Pressable, Text, TextInput, View } from "react-native";
 import { ApiError, getBaseUrl } from "@/api/client";
 import type { OrgChoice } from "@/api/types";
 import { useAuth } from "@/auth/AuthProvider";
+import { PRODUCT } from "@/brand";
 import { ALLOW_SERVER_OVERRIDE } from "@/config";
 import { Button, C, Callout, Field, Screen, inputStyle, s } from "@/ui";
 
@@ -42,6 +43,16 @@ export default function SignIn() {
 
   return (
     <Screen>
+      {/* The one place the app shows its own mark rather than its name in system
+          type. Same file the splash uses, so the launch and the first screen a
+          worker reads carry the identical lockup. */}
+      <Image
+        source={require("../../../assets/images/splash-icon.png")}
+        style={{ width: 200, height: 41, marginBottom: 24 }}
+        resizeMode="contain"
+        accessibilityRole="image"
+        accessibilityLabel={PRODUCT}
+      />
       <Text style={[s.h1, { marginBottom: 4 }]}>Sign in</Text>
       <Text style={[s.muted, { marginBottom: 20 }]}>Use the email and password from your invitation.</Text>
 

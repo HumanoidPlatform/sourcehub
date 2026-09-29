@@ -4,7 +4,11 @@ export type Tone = "neutral" | "active" | "attention" | "success" | "critical";
 
 export const TONE_COLOR: Record<Tone, { fg: string; bg: string }> = {
   neutral: { fg: "#5B6873", bg: "#EDF1F4" },
-  active: { fg: "#0B5F67", bg: "#E1F0F1" },
+  // The one tone the brand owns: "active" means the platform is doing something,
+  // so it wears the accent. The other four are a pass/warn/fail vocabulary and
+  // stay amber, green and orange — a single-hue ramp cannot say those things,
+  // and the capture checks depend on the reader telling them apart at a glance.
+  active: { fg: "#091CFF", bg: "#E6E8FF" },
   attention: { fg: "#9A6210", bg: "#FBF0DA" },
   success: { fg: "#1F7A4D", bg: "#E3F3EA" },
   critical: { fg: "#C2410C", bg: "#FCE8DF" },

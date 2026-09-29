@@ -10,14 +10,24 @@ import {
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import { TONE_COLOR, type Tone } from "@/status";
 
+// The accent is the DataMind360 blue, taken from the logo itself rather than
+// chosen to sit near it. Everything else here is neutral or status, which the
+// brand has no opinion about.
+//
+// accent and accentInk are the same value, and that is not an oversight. The
+// old teal accent read at 4.95:1 on white — fine behind white button text, too
+// weak as link text — so accentInk existed to darken it for that second job.
+// #091CFF reads at 8.01:1, which is AAA for both. The key stays because eight
+// call sites name it and renaming them would say nothing; if a darker blue ever
+// becomes necessary, this is where it goes.
 export const C = {
   bg: "#F3F5F7",
   surface: "#FFFFFF",
-  ink: "#16202B",
+  ink: "#1D2031",
   muted: "#5B6873",
   line: "#D5DCE3",
-  accent: "#0E7C86",
-  accentInk: "#0B5F67",
+  accent: "#091CFF",
+  accentInk: "#091CFF",
   danger: "#C2410C",
 };
 
