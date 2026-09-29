@@ -68,6 +68,15 @@ The Azure inbound rules needed are **TCP 80 and TCP 443**. Port 80 must stay
 open even though everything is served on 443: the certificate check arrives on
 it, and Caddy answers everything else there with a redirect.
 
+**The storage account needs a CORS rule for the console's origin** — every upload
+(logos, RFP and proposal documents, task instructions, captures) goes from the
+browser straight to Blob storage, and without the rule each one fails as
+"Failed to fetch". On `cosarathistorage` → Blob service → Resource sharing
+(CORS): allowed origin `https://datamind360.centralindia.cloudapp.azure.com`,
+methods `GET, HEAD, PUT, OPTIONS`, allowed and exposed headers `*`, max age
+`3600` (the rules for the dev origins and the old East US host sit beside it).
+A new hostname means a new rule; the symptom is the same every time.
+
 Five accounts still open with the password printed on the sign-in page. That was
 accepted for team testing; change them before the address is given to anyone
 outside the team.
@@ -75,12 +84,13 @@ outside the team.
 **Updating:** change the two image tags, `docker compose pull`, `up -d`.
 **Rolling back:** the same, with the previous tags.
 **Schema changes:** the one-line `docker run … alembic upgrade head` at the bottom
-of `docker-compose.yml`. The live database is at `0016`; the repository is at
-`0018` (`0017` renames the operator organisation, `0018` adds
-`engagement_reminder` and `engagement_orgs()` for the reminder clock). Run the
-migration **before** starting an api image that carries the clock: its first
-pass, thirty seconds after start-up, reads the new table and would log a
-failure every five minutes until the table exists.
+of `docker-compose.yml` — or, since the laptop's `backend/.env` points at this
+same database, `alembic upgrade head` from the laptop. Either way, run the
+migration **before** starting an api image that expects it: the reminder clock
+and the bidding sweep start thirty seconds after boot and would log a failure
+every pass until their tables exist. As of image `889371f` the live database
+and the repository are both at `0027` (conversations), so that release needs no
+migration step; check with `alembic current` before any later one.
 
 ## Keep secrets out of the repo
 
