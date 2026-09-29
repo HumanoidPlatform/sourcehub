@@ -68,6 +68,15 @@ The Azure inbound rules needed are **TCP 80 and TCP 443**. Port 80 must stay
 open even though everything is served on 443: the certificate check arrives on
 it, and Caddy answers everything else there with a redirect.
 
+**The storage account needs a CORS rule for the console's origin** — every upload
+(logos, RFP and proposal documents, task instructions, captures) goes from the
+browser straight to Blob storage, and without the rule each one fails as
+"Failed to fetch". On `cosarathistorage` → Blob service → Resource sharing
+(CORS): allowed origin `https://datamind360.centralindia.cloudapp.azure.com`,
+methods `GET, HEAD, PUT, OPTIONS`, allowed and exposed headers `*`, max age
+`3600` (the rules for the dev origins and the old East US host sit beside it).
+A new hostname means a new rule; the symptom is the same every time.
+
 Five accounts still open with the password printed on the sign-in page. That was
 accepted for team testing; change them before the address is given to anyone
 outside the team.
