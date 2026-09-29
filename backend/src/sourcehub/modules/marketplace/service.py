@@ -631,15 +631,30 @@ async def _field_attachments(
 # Proposals
 # ---------------------------------------------------------------------------
 
+def _partner_record(record: Any) -> dict[str, Any]:
+    """The bidder's figures beside its bid, from the one source every screen
+    reads (identity.directory.performance_for). tenant_profile.qa_pass_rate
+    used to be joined in here; the seed wrote it and nothing calculated it."""
+    return {
+        # What clients said: the share of its completed contracts never sent back.
+        "partner_accepted_first_time": record.accepted_first_time_pct if record else None,
+        # What it says of its own suppliers, at its own gate.
+        "partner_qa_pass_rate": record.qa_pass_pct if record else None,
+        "partner_rating": record.rating_avg if record else None,
+        "partner_rating_count": record.rating_count if record else 0,
+        "partner_contracts_completed": record.contracts_completed if record else 0,
+    }
+
+
 def _proposal_row(p: Proposal, partner_name: str | None = None,
-                  qa_pass_rate: int | None = None) -> dict[str, Any]:
+                  record: Any = None) -> dict[str, Any]:
     return {
         "id": p.id,
         "reference_code": p.reference_code,
         "request_id": p.request_id,
         "partner_org_id": p.partner_org_id,
         "partner_name": partner_name,
-        "partner_qa_pass_rate": qa_pass_rate,
+        **_partner_record(record),
         "price": p.price,
         "unit": p.unit,
         "unit_price": p.unit_price,
@@ -876,10 +891,9 @@ async def list_proposals(
     """RLS: a partner sees only its own bids; the client every bid on its
     request — competitors never see each other."""
     q = text(
-        "SELECT p.*, o.name AS partner_name, tp.qa_pass_rate "
+        "SELECT p.*, o.name AS partner_name "
         "FROM proposal p "
         "JOIN organisation o ON o.id = p.partner_org_id "
-        "LEFT JOIN tenant_profile tp ON tp.org_id = p.partner_org_id "
         "WHERE p.deleted_at IS NULL "
         + ("AND p.request_id = :rid " if request_id else "")
         + "ORDER BY p.submitted_at DESC"
@@ -891,8 +905,11 @@ async def list_proposals(
     # comparison table would otherwise fire a request per partner to show a
     # paperclip.
     from sourcehub.modules.attachments import service as attachments
+    from sourcehub.modules.identity import directory
 
     files = await attachments.list_for(session, "proposal", [r["id"] for r in rows])
+    # One call for every bidder on the page, as for the attachments.
+    record = await directory.performance_for(session, [r["partner_org_id"] for r in rows])
     return [
         {
             "id": r["id"],
@@ -900,7 +917,7 @@ async def list_proposals(
             "request_id": r["request_id"],
             "partner_org_id": r["partner_org_id"],
             "partner_name": r["partner_name"],
-            "partner_qa_pass_rate": r["qa_pass_rate"],
+            **_partner_record(record.get(r["partner_org_id"])),
             "price": r["price"],
             "currency": r["currency"],
             "duration_days": r["duration_days"],

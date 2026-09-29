@@ -37,6 +37,7 @@ import { OrgProfileDialog } from "@shared/org-profile";
 import { companyRows, draftFromOrg } from "@shared/org-profile-form";
 import { ReasonDialog } from "@shared/reason-dialog";
 import { countryLabel } from "@shared/countries";
+import { languageLabel } from "@shared/languages";
 import {
   LIFECYCLE, proposalStatus, requestStatus, statusMeta, waitingOn,
 } from "@shared/status";
@@ -60,23 +61,6 @@ const CATEGORY_UNITS: Record<string, TargetUnit> = {
 const unitForCategory = (category: string): TargetUnit => CATEGORY_UNITS[category] ?? "records";
 const unitLabel = (unit: string | null | undefined): string =>
   unit === "records" ? "Units" : unit === "hours" || unit === "audio_hours" ? "Hours" : labelOf(TARGET_UNITS, unit);
-
-const LANGUAGES = [
-  ["eng", "English"], ["hin", "Hindi"], ["fr", "French"], ["spa", "Spanish"],
-  ["ara", "Arabic"], ["ben", "Bengali"], ["cmn", "Mandarin Chinese"], ["por", "Portuguese"],
-  ["rus", "Russian"], ["de", "German"], ["jpn", "Japanese"], ["kor", "Korean"],
-  ["ind", "Indonesian"], ["msa", "Malay"], ["ita", "Italian"], ["tur", "Turkish"],
-  ["vie", "Vietnamese"], ["tha", "Thai"], ["tam", "Tamil"], ["tel", "Telugu"],
-  ["mar", "Marathi"], ["urd", "Urdu"], ["guj", "Gujarati"], ["kan", "Kannada"],
-  ["pan", "Punjabi"], ["nld", "Dutch"], ["swe", "Swedish"], ["nor", "Norwegian"],
-  ["dan", "Danish"], ["fin", "Finnish"], ["pol", "Polish"], ["ukr", "Ukrainian"],
-  ["ell", "Greek"], ["heb", "Hebrew"],
-] as const;
-
-function languageLabel(code: string): string {
-  const found = LANGUAGES.find(([value]) => value === code);
-  return found ? found[1] : code;
-}
 
 function localeLabel(value: string): string {
   const [country, language] = value.split("-");
@@ -1990,7 +1974,7 @@ export function RequestDetailPage() {
                       returns exactly one proposal, theirs. A column headed
                       "Partner" under a panel headed "Your response" told them
                       their own name. */}
-                  {isClient && <><th>Partner</th><th>QA track record</th></>}
+                  {isClient && <><th>Partner</th><th>Track record</th></>}
                   <th>Price</th><th>Days</th>
                   <th>Methodology</th><th>Status</th>{isClient && <th />}
                 </tr>
@@ -2013,7 +1997,7 @@ export function RequestDetailPage() {
                         </td>
                       )}
                       {isClient && (
-                        <td className="num">{p.partner_qa_pass_rate != null ? `${p.partner_qa_pass_rate}% QA pass` : "—"}</td>
+                        <td><BidderRecord p={p} /></td>
                       )}
                       <td className="num">{money(p.price)}</td>
                       <td className="num">{p.duration_days}</td>
@@ -2223,16 +2207,41 @@ function DeadlineDialog({ r, onClose }: { r: Rfp; onClose: () => void }) {
 
 /* --- the partner behind a proposal -------------------------------------------- */
 
+// What the bidder's record amounts to, beside its price. The same calculated
+// figures its vendor page shows: what its clients decided first (the share of
+// completed contracts never sent back), then what it says of its own
+// suppliers at its own gate. A partner with no completed work is new, which
+// is a different thing from a partner with a poor record.
+export function BidderRecord({ p }: { p: Proposal }) {
+  const first = p.partner_accepted_first_time;
+  const qa = p.partner_qa_pass_rate;
+  if (first == null && qa == null && !p.partner_rating_count) {
+    return <span className="muted small">No completed work yet</span>;
+  }
+  return (
+    // Words in the interface face, figures aligned: the column is read as a
+    // sentence about the partner, where Price and Days beside it are numbers.
+    <div className="trackrecord">
+      <span>{first != null ? `${first}% accepted first time` : "—"}</span>
+      <div className="cell-meta">
+        {p.partner_rating != null && (
+          <span>★ {p.partner_rating.toFixed(1)} ({p.partner_rating_count})</span>
+        )}
+        {qa != null && <span>{qa}% QA pass</span>}
+      </div>
+    </div>
+  );
+}
+
 // A bidder is disclosed to the client it bids to and to nobody else — the
 // database says so (org_visible_via_proposal, db/110_auth_functions.sql).
 // The shared OrgProfileDialog asks for the org and lets a 404 mean "not
-// yours to see"; the proposal seeds the name and QA rate.
+// yours to see"; the proposal seeds the name.
 function PartnerProfileDialog({ proposal, onClose }: { proposal: Proposal; onClose: () => void }) {
   return (
     <OrgProfileDialog
       orgId={proposal.partner_org_id}
       seedName={proposal.partner_name ?? "Delivery partner"}
-      seedQa={proposal.partner_qa_pass_rate}
       onClose={onClose}
     />
   );

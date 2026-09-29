@@ -185,7 +185,7 @@ describe("a partner reading an opportunity brief", () => {
     expect(within(card).queryByText(/94% QA pass/)).toBeNull();
     // the columns that carried them are gone, not merely empty
     expect(within(card).queryByText(/^Partner$/i)).toBeNull();
-    expect(within(card).queryByText(/QA track record/i)).toBeNull();
+    expect(within(card).queryByText(/Track record/i)).toBeNull();
   });
 });
 

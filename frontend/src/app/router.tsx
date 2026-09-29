@@ -27,6 +27,7 @@ import { NotificationsPage } from "@features/notify/pages";
 import { OnboardingNewPage } from "@features/onboarding/new";
 import { OnboardingQueuePage } from "@features/onboarding/pages";
 import { Gate1Page, QaQueuePage } from "@features/qa/pages";
+import { VendorDetailPage, VendorsPage } from "@features/vendors/pages";
 import { identityOf, returnPath, useAuth } from "@shared/auth";
 import { ErrorBoundary } from "./error-boundary";
 import { NotFoundPage } from "./not-found";
@@ -98,6 +99,11 @@ export function AppRouter() {
         <Route path="/requests/:id" element={<RequestDetailPage />} />
         <Route path="/opportunities" element={<OpportunitiesPage />} />
         <Route path="/proposals" element={<MyProposalsPage />} />
+        {/* The directory is the client's. /vendors/:id is also how a delivery
+            partner sees its own page as clients do; the API answers 404 for
+            any other, and 403 for the list. */}
+        <Route path="/vendors" element={<VendorsPage />} />
+        <Route path="/vendors/:id" element={<VendorDetailPage />} />
 
         {/* delivery — same detail view, two entry paths */}
         <Route path="/contracts" element={<ContractsPage />} />

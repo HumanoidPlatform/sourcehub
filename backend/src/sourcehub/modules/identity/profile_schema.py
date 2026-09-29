@@ -11,7 +11,8 @@ gone nowhere. Now it is refused where the operator is still looking at the form.
 
 Everything in PUBLIC_KEYS is stored in organisation.public_profile (db/230) and
 is visible to whoever may see the organisation — a partner bidding on a client's
-RFP, a client reviewing a partner's bid. Nothing private may be added to
+RFP, a client reviewing a partner's bid, and, for a delivery partner, every
+client browsing the vendors directory (db/260). Nothing private may be added to
 PublicProfileIn; that needs its own table with an Ops-or-self policy.
 """
 
@@ -21,6 +22,8 @@ import re
 from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
+
+from sourcehub.modules.identity.expertise_vocabulary import LISTS, OTHER_CERTIFICATIONS_MAX
 
 CompanySize = Literal["1-10", "11-50", "51-200", "201-1000", "1001-5000", "5000+"]
 Residency = Literal["US", "EU", "APAC"]
@@ -56,6 +59,44 @@ class AddressIn(_Strict):
     country: str = Field(min_length=2, max_length=100)
 
 
+class ExpertiseIn(_Strict):
+    """What a delivery partner says it can do, from curated lists.
+
+    Always sent and stored whole: the five lists are one statement about the
+    company, and merging a new list into an old one would keep claims the
+    partner had just removed.
+    """
+
+    data_types: list[str] = Field(default_factory=list)
+    domains: list[str] = Field(default_factory=list)
+    languages: list[str] = Field(default_factory=list)
+    regions: list[str] = Field(default_factory=list)
+    certifications: list[str] = Field(default_factory=list)
+    # One line for what the list does not name. Shown, never filtered on.
+    other_certifications: str | None = Field(None, max_length=OTHER_CERTIFICATIONS_MAX)
+
+    @field_validator(*LISTS, mode="before")
+    @classmethod
+    def _no_list_is_an_empty_one(cls, v: Any) -> Any:
+        return [] if v is None else v
+
+    @field_validator(*LISTS)
+    @classmethod
+    def _from_the_list(cls, v: list[str], info: Any) -> list[str]:
+        allowed, most = LISTS[info.field_name]
+        unknown = sorted({x for x in v if x not in allowed})
+        if unknown:
+            raise ValueError(f"Not on the list: {', '.join(unknown)}")
+        # The same box ticked twice is one claim, not an error worth a 422.
+        seen = list(dict.fromkeys(v))
+        if len(seen) > most:
+            raise ValueError(f"Choose at most {most}.")
+        return seen
+
+    def is_empty(self) -> bool:
+        return self.other_certifications is None and not any(getattr(self, k) for k in LISTS)
+
+
 class PublicProfileIn(_Strict):
     """What goes into organisation.public_profile. Never the logo keys — those
     are written by the logo endpoints alone, after the file has been checked."""
@@ -65,6 +106,8 @@ class PublicProfileIn(_Strict):
     company_size: CompanySize | None = None
     founded_year: int | None = Field(None, ge=1800, le=2100)
     registered_address: AddressIn | None = None
+    # Delivery partners only; see PUBLIC_KIND_KEYS.
+    expertise: ExpertiseIn | None = None
 
     @field_validator("website")
     @classmethod
@@ -135,7 +178,14 @@ KIND_FIELDS: dict[str, frozenset[str]] = {
     "client": frozenset({"industry", "plan", "dpa_signed"}),
     "tenant": frozenset({"hq", "capabilities", "plan"}),
 }
-_ALL_KIND_FIELDS = frozenset().union(*KIND_FIELDS.values())
+
+# The same rule for what lives in public_profile. Expertise is what a delivery
+# partner offers; a client has none to declare, and a directory that listed
+# clients' "expertise" would be reading a field nobody meant.
+PUBLIC_KIND_KEYS: dict[str, frozenset[str]] = {
+    "tenant": frozenset({"expertise"}),
+}
+_ALL_KIND_FIELDS = frozenset().union(*KIND_FIELDS.values(), *PUBLIC_KIND_KEYS.values())
 
 # What an onboarding request must carry before it can be submitted. The name
 # and the first user are checked by the request itself.
@@ -149,7 +199,8 @@ CORE_REQUIRED: dict[str, str] = {
 
 def foreign_kind_fields(kind: str, sent: set[str]) -> list[str]:
     """Kind-specific fields sent for a kind that does not have them."""
-    return sorted((sent & _ALL_KIND_FIELDS) - KIND_FIELDS.get(kind, frozenset()))
+    own = KIND_FIELDS.get(kind, frozenset()) | PUBLIC_KIND_KEYS.get(kind, frozenset())
+    return sorted((sent & _ALL_KIND_FIELDS) - own)
 
 
 def missing_core(p: OnboardingProfileIn) -> list[str]:
@@ -168,5 +219,9 @@ def public_part(p: PublicProfileIn, only_sent: bool = True) -> dict[str, Any]:
     out: dict[str, Any] = {}
     for k in keys:
         v = getattr(p, k)
+        if isinstance(v, ExpertiseIn) and v.is_empty():
+            # Every box unticked is "no expertise declared", which is the
+            # absence of the key, not an object of empty lists.
+            v = None
         out[k] = v.model_dump(exclude_none=True) if isinstance(v, BaseModel) else v
     return out

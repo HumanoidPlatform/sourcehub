@@ -26,6 +26,10 @@ const NAV: Record<string, NavItem[]> = {
     { to: "/", label: "Overview" },
     { to: "/requests", label: "RFPs" },
     { to: "/deliveries", label: "Deliverables for Review" },
+    // After the day's work (RFPs, deliveries) and before the money: who is on
+    // the platform, what each does, how its work was received. Asked for in
+    // this position after the first local review.
+    { to: "/vendors", label: "Vendors" },
     { to: "/billing", label: "Billing" },
   ],
   tenant: [

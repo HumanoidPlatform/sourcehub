@@ -64,8 +64,9 @@ export function AccountsPage() {
         <OrgTable q={tenants} noun="delivery partner" cols={[
           profileCol("HQ", "hq"),
           profileCol("Plan", "plan"),
-          rateCol("On-time", "on_time_rate"),
-          rateCol("QA pass", "qa_pass_rate"),
+          rateCol("On-time", "on_time_pct"),
+          rateCol("Accepted first time", "accepted_first_time_pct"),
+          rateCol("QA pass", "qa_pass_pct"),
         ]} />
       </Panel>
     </View>
@@ -158,13 +159,21 @@ function profileCol(header: string, field: string): Column<Org> {
   return { header, cell: (o) => value(o) ?? "—", sortBy: value };
 }
 
-/** A percentage from the profile, drawn as a meter and sorted as a number. */
-function rateCol(header: string, field: string): Column<Org> {
-  const value = (o: Org) => (o.profile[field] as number | null | undefined) ?? null;
+/** One of a delivery partner's calculated figures (partner_performance,
+ *  db/260), drawn as a meter and sorted as a number. The same figure its page
+ *  in the vendors directory shows; "—" where there was nothing to measure. */
+function rateCol(
+  header: string,
+  field: "on_time_pct" | "accepted_first_time_pct" | "qa_pass_pct",
+): Column<Org> {
+  const value = (o: Org) => o.performance?.[field] ?? null;
   return { header, cell: (o) => rate(value(o)), sortBy: value };
 }
 
-const num = (v: string | null) => (v === null || v === "" || Number.isNaN(Number(v)) ? null : Number(v));
+// A partner's rating is calculated and arrives as a number; any other kind's
+// is the stored column, which arrives as text.
+const num = (v: string | number | null) =>
+  v === null || v === "" || Number.isNaN(Number(v)) ? null : Number(v);
 
 export function ActivityPage() {
   const activity = useQuery({

@@ -26,7 +26,7 @@ from sourcehub.config import PRODUCT, settings
 from sourcehub.db.session import anonymous_session, org_session
 from sourcehub.modules.attachments import service as attachments
 from sourcehub.modules.audit import service as audit
-from sourcehub.modules.identity import members
+from sourcehub.modules.identity import directory, members
 from sourcehub.modules.identity.models import (
     AggregatorProfile,
     AppUser,
@@ -498,7 +498,7 @@ async def get_org(
         profile = (
             await session.execute(select(model).where(model.org_id == org_id))
         ).scalar_one_or_none()
-    return _org_dict(org, profile, claims)
+    return await _org_out(session, org, profile, claims)
 
 
 def _public_profile(org: Organisation) -> dict[str, Any]:
@@ -515,10 +515,30 @@ def _public_profile(org: Organisation) -> dict[str, Any]:
     return {"public_profile": stored, "logo_version": changed if key else None}
 
 
+# The kind whose figures are calculated. A delivery partner's rating, on-time
+# rate and QA pass rate were columns the seed files wrote and nothing updated;
+# they are answered from partner_performance() now (db/260), here and on every
+# other screen, so a partner cannot show one number on its profile and another
+# in the vendors directory.
+_MEASURED_KIND = "tenant"
+
+
 def _org_dict(
-    org: Organisation, profile: Any = None, claims: AccessClaims | None = None
+    org: Organisation,
+    profile: Any = None,
+    claims: AccessClaims | None = None,
+    performance: directory.Performance | None = None,
 ) -> dict[str, Any]:
+    """For a delivery partner pass performance (see _org_out). Without it the
+    figures are absent rather than read from the seeded columns: a blank is
+    honest, and a number nobody calculated is not."""
     commercials = _may_see_commercials(org, claims)
+    measured = org.kind == _MEASURED_KIND
+    record = performance or directory.NO_RECORD
+    shown = _profile_dict(profile, commercials=commercials)
+    if measured and shown:
+        shown["on_time_rate"] = record.on_time_pct
+        shown["qa_pass_rate"] = record.qa_pass_pct
     out: dict[str, Any] = {
         "id": org.id,
         "reference_code": org.reference_code,
@@ -530,21 +550,37 @@ def _org_dict(
         "country": org.country,
         "residency_region": org.residency_region,
         "billing_status": org.billing_status,
-        "rating": org.rating,
+        "rating": record.rating_avg if measured else org.rating,
         "onboarded_at": org.onboarded_at,
         # Why an account is suspended is between it and the platform. The
         # columns were written at suspension and returned to nobody, so the
         # console could show that an account was suspended and never why.
         "suspended_at": org.suspended_at,
         "suspension_reason": org.suspension_reason,
-        "profile": _profile_dict(profile, commercials=commercials),
+        "profile": shown,
         **_public_profile(org),
     }
+    if measured:
+        out["performance"] = record.summary()
     if not commercials:
         del out["billing_status"]
         del out["suspended_at"]
         del out["suspension_reason"]
     return out
+
+
+async def _org_out(
+    session: AsyncSession,
+    org: Organisation,
+    profile: Any = None,
+    claims: AccessClaims | None = None,
+) -> dict[str, Any]:
+    """_org_dict for ONE organisation, with a delivery partner's figures looked
+    up. Lists batch the lookup instead (list_orgs_of_kind)."""
+    record = None
+    if org.kind == _MEASURED_KIND:
+        record = (await directory.performance_for(session, [org.id])).get(org.id)
+    return _org_dict(org, profile, claims, record)
 
 
 async def list_orgs_of_kind(
@@ -584,8 +620,13 @@ async def list_orgs_of_kind(
         plain = select(Organisation).where(*where).order_by(Organisation.reference_code)
         rows = (await session.execute(plain)).scalars()
         return [_org_dict(o, None, claims) for o in rows]
-    rows = (await session.execute(stmt)).all()
-    return [_org_dict(org, profile, claims) for org, profile in rows]
+    pairs = (await session.execute(stmt)).all()
+    record = (
+        await directory.performance_for(session, [org.id for org, _ in pairs])
+        if kind == _MEASURED_KIND
+        else {}
+    )
+    return [_org_dict(org, profile, claims, record.get(org.id)) for org, profile in pairs]
 
 
 # What each action means, and the states it may be invoked from.
@@ -660,7 +701,7 @@ async def set_org_lifecycle(
         f"{org.reference_code} ({org.name}) {target}: {reason}",
         [org.id, claims.org_id],
     )
-    return _org_dict(org, None, claims)
+    return await _org_out(session, org, None, claims)
 
 
 # ---------------------------------------------------------------------------
@@ -797,7 +838,7 @@ async def update_org_profile(
 
     prof = await _kind_profile(session, org)
     if not sent:
-        return _org_dict(org, prof, claims)
+        return await _org_out(session, org, prof, claims)
 
     for field in ("name", "legal_name", "country", "residency_region"):
         if field in sent:
@@ -821,7 +862,7 @@ async def update_org_profile(
         f"{org.reference_code} ({org.name}) profile updated: {', '.join(sorted(sent))}",
         [org.id, claims.org_id],
     )
-    return _org_dict(org, prof, claims)
+    return await _org_out(session, org, prof, claims)
 
 
 async def _write_logo_key(
@@ -870,7 +911,7 @@ async def set_org_logo(
     # Last: until the row points at the new key, the old one is still the logo.
     if previous:
         await attachments.discard_org_logo(previous)
-    return _org_dict(org, await _kind_profile(session, org), claims)
+    return await _org_out(session, org, await _kind_profile(session, org), claims)
 
 
 async def clear_org_logo(
@@ -887,7 +928,7 @@ async def clear_org_logo(
             [org.id, claims.org_id],
         )
         await attachments.discard_org_logo(previous)
-    return _org_dict(org, await _kind_profile(session, org), claims)
+    return await _org_out(session, org, await _kind_profile(session, org), claims)
 
 
 async def org_logo_url(session: AsyncSession, org_id: uuid.UUID) -> dict[str, Any]:

@@ -33,6 +33,7 @@ INSERT INTO permission (code, module, description, requires_mfa) VALUES
   ('invoice.read',        'ledger',      'Read own invoices',                        false),
   ('rating.write',        'network',     'Rate a counterparty',                      false),
   ('storage.manage',      'storage',     'Manage where captured data is delivered',  false),
+  ('vendor.read',         'identity',    'Browse the delivery partner directory',    false),
 
   -- tenant
   ('rfp.read.published',  'marketplace', 'Read the open marketplace',                false),
@@ -94,7 +95,7 @@ SELECT r.id, p.id FROM role r, permission p
 WHERE r.code = 'client' AND p.code IN (
   'rfp.create','rfp.publish','rfp.read','proposal.read','proposal.accept',
   'contract.read','contract.approve','delivery.track','invoice.read','rating.write',
-  'storage.manage',
+  'storage.manage','vendor.read',
   'onboarding.read','user.invite','user.manage','role.manage','profile.manage');
 
 INSERT INTO role_permission (role_id, permission_id)
@@ -144,7 +145,8 @@ SELECT r.id, p.id FROM role r, permission p
 WHERE r.code = 'platform_admin' AND p.code IN (
   'account.read','billing.read','invoice.read','activity.read','dispute.arbitrate',
   'onboarding.request','onboarding.read','onboarding.approve','org.create','org.suspend',
-  'org.update','user.invite','user.manage','role.manage','contract.read','delivery.track');
+  'org.update','user.invite','user.manage','role.manage','contract.read','delivery.track',
+  'vendor.read');
 
 
 -- ---------------------------------------------------------------------------
