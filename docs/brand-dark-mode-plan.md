@@ -20,48 +20,44 @@ pressed and disabled states are opacity, not colour.
 The other four are not spare — they are the *console's* shape. Its token layer already has exactly the
 roles they fill:
 
-| shade | console token | today |
-|---|---|---|
-| `#091CFF` | `--accent` | `#0a6c60` petrol teal |
-| `#3A49FF` | `--accent-hover` | `#085248` |
-| `#9DA4FF` | `--accent-line` | `#a9cfc8` |
-| `#E6E8FF` | `--accent-tint` | `#e2efec` |
-
-`#6B77FF` and `#CED2FF` have no existing token; invent one only if a real call site appears.
+The other four are the *console's* shape, and as of `0fc391a` ("blue shades of the platform") the
+console has taken them.
 
 ---
 
-## 1. The console (the largest single win, and it is blocked on a decision)
+## 1. The console — DONE by someone else, 2026-09-30
 
-The console ships an **electric-blue wordmark on a teal-accented UI**. `BrandMark` renders
-`logo-on-light.svg` / `logo-on-dark.svg`, both full of `#091CFF`; every button and link beside them is
-`#0a6c60`.
+Landed in `0fc391a`, independently of this document and arriving at almost the same mapping:
 
-**The blocker is governance, not code.** `frontend/src/design-system/tokens.css:5-16` declares itself
-non-normative:
+| shade | console token | was |
+|---|---|---|
+| `#091cff` | `--accent` | `#0a6c60` petrol teal |
+| `#3a49ff` | `--accent-hover` | `#085248` |
+| `#ced2ff` | `--accent-line` | `#a9cfc8` |
+| `#e6e8ff` | `--accent-tint` | `#e2efec` |
+| `#9da4ff` | `--accent` (dark theme) | `#3fb8a6` |
 
-> Ported UNCHANGED from the prototype's `:root` block (`docs/sourcehub-app.html`). … If a colour needs
-> to change, it changes in the prototype first, because that file remains normative.
+It was done in the right order: `docs/sourcehub-app.html` — the file `tokens.css:5-16` declares
+normative — was changed in the same commit, so the port did not drift further. `#9da4ff` for the dark
+theme is the correct instinct: `#091cff` on a dark surface is too dense to read.
 
-So the honest order is: change `docs/sourcehub-app.html` first, then re-port. The same `:root` block is
-duplicated in `docs/sourcehub-schema.html:15` and `docs/sourcehub-qa-pipeline.html:14`, and the port has
-**already drifted** — the docs use dark accent `#43bcaa`, `tokens.css` uses `#3fb8a6`. Fix the drift in
-the same pass or it compounds.
+`#6b77ff` remains unused by either app.
 
-Dark-theme accents need choosing too. `#091CFF` on a dark surface is too dense to read; the console's
-dark block currently lightens the accent (`#3fb8a6` against `#0a6c60`). The equivalent move is
-`#6B77FF` or `#9DA4FF` as the dark accent — which is where `#6B77FF` earns its place.
+**The `AssetGallery.tsx` bug is also gone.** It previously referenced `var(--bad, #B42318)` and
+`var(--ok, #0E7C86)` — tokens that did not exist, so the hardcoded fallbacks rendered *always*, one of
+them the mobile app's old teal. `0fc391a` removed them.
 
-### Two bugs to fix while in there
+### Still outstanding in the console
 
-- **`AssetGallery.tsx` references tokens that do not exist.** `var(--bad, #B42318)` (line 204) and
-  `var(--ok, #0E7C86)` — there is no `--bad` or `--ok` in `tokens.css`; the taxonomy is `--t-critical`
-  / `--t-success`. The fallbacks therefore render *always*, and `#0E7C86` is the **mobile app's old
-  teal**, copied into the web console. Point them at the real tokens.
-- **Un-themed literals** in the same file (`:180` `#0E7C86`, `:223` `#5B6873`/`#B45309`, `:345` `#bbb`)
-  and `delivery/pages.tsx:484` `#B45309`, which should be `--t-attention`. These stay light-theme
-  values on a dark page today.
+- **Un-themed literals**: `AssetGallery.tsx` (`#5B6873`/`#B45309`, `#bbb`) and `delivery/pages.tsx:484`
+  `#B45309`, which should be `--t-attention`. These stay light-theme values on a dark page.
 - `rgba(9,17,18,.5)` appears twice (`components.css:437`, `:657`) and wants to be a `--scrim` token.
+- **Four other prototypes still carry the old teal** — `sourcehub-schema.html`,
+  `sourcehub-qa-pipeline.html`, `sourcehub-blueprint.html` and `sourcehub-build-guide.html` all still
+  declare `--accent: #0a6c60` / `#43bcaa`, against `sourcehub-app.html`'s new `#091cff` / `#9da4ff`.
+  Only the app prototype was updated. Since `tokens.css` names the prototypes as normative, the
+  platform now has two contradictory sources of truth for its accent — which is the same drift that
+  produced `#43bcaa` vs `#3fb8a6` in the first place.
 
 ---
 
