@@ -9,15 +9,36 @@
 // is an error on save rather than a value quietly thrown away.
 
 import type { ReactNode } from "react";
-import type { Address, Org, PublicProfile } from "@api/types";
-import { Field, inputCls, selectCls, textareaCls } from "@ds/primitives";
+import type { Address, Expertise, Org, PublicProfile } from "@api/types";
+import { CheckGroup, Field, inputCls, selectCls, textareaCls } from "@ds/primitives";
 import { PRODUCT } from "@shared/brand";
 import { COUNTRY_NAMES } from "@shared/countries";
+import {
+  EXPERTISE_KEYS, EXPERTISE_LABEL, EXPERTISE_MAX, expertiseLabel, optionsOf,
+  OTHER_CERTIFICATIONS_MAX, type ExpertiseKey,
+} from "@shared/expertise";
+import { PickList } from "@shared/pick-list";
 
 export type ProfileKind = "client" | "tenant";
 
 export const COMPANY_SIZES = ["1-10", "11-50", "51-200", "201-1000", "1001-5000", "5000+"] as const;
 const RESIDENCIES = ["US", "EU", "APAC"] as const;
+
+/** What a delivery partner says it can do. The five lists hold codes from
+ *  shared/expertise.ts; the line is free text for what they do not name. */
+export interface ExpertiseDraft {
+  data_types: string[];
+  domains: string[];
+  regions: string[];
+  languages: string[];
+  certifications: string[];
+  other_certifications: string;
+}
+
+export const BLANK_EXPERTISE: ExpertiseDraft = {
+  data_types: [], domains: [], regions: [], languages: [], certifications: [],
+  other_certifications: "",
+};
 
 export interface ProfileDraft {
   name: string;
@@ -41,15 +62,19 @@ export interface ProfileDraft {
   plan: string;
   residency_region: string;
   dpa_signed: boolean;
+  // delivery partners only; a client's stays blank and is never sent
+  expertise: ExpertiseDraft;
 }
 
 export type ProfileKey = keyof ProfileDraft;
+export type ProfileValue = string | boolean | ExpertiseDraft;
 export type ProfileErrors = Partial<Record<ProfileKey, string>>;
 
 export const BLANK_PROFILE: ProfileDraft = {
   name: "", legal_name: "", website: "", description: "", company_size: "", founded_year: "",
   country: "", line1: "", line2: "", city: "", region: "", postal_code: "", address_country: "",
   industry: "", hq: "", capabilities: "", plan: "", residency_region: "", dpa_signed: false,
+  expertise: BLANK_EXPERTISE,
 };
 
 // The account's identity and its terms with the platform. Mirrors OPS_ONLY in
@@ -61,9 +86,24 @@ export const OPS_ONLY: ReadonlySet<ProfileKey> = new Set<ProfileKey>([
 
 const str = (v: unknown) => (typeof v === "string" ? v : v == null ? "" : String(v));
 
+const list = (v: unknown): string[] =>
+  Array.isArray(v) ? v.filter((x): x is string => typeof x === "string") : [];
+
+export function expertiseDraft(e: Partial<Expertise> | null | undefined): ExpertiseDraft {
+  return {
+    data_types: list(e?.data_types),
+    domains: list(e?.domains),
+    regions: list(e?.regions),
+    languages: list(e?.languages),
+    certifications: list(e?.certifications),
+    other_certifications: str(e?.other_certifications),
+  };
+}
+
 function fromPublic(pp: PublicProfile | undefined): Partial<ProfileDraft> {
   const a = pp?.registered_address;
   return {
+    expertise: expertiseDraft(pp?.expertise),
     website: str(pp?.website),
     description: str(pp?.description),
     company_size: str(pp?.company_size),
@@ -134,6 +174,15 @@ export function validateProfile(
       e.founded_year = `A year between 1800 and ${new Date().getFullYear()}.`;
   }
   if (d.description.length > 1000) e.description = "Keep it under 1,000 characters.";
+  // The controls stop at the limit; this is for a draft that arrived over it.
+  for (const k of EXPERTISE_KEYS) {
+    if (d.expertise[k].length > EXPERTISE_MAX[k]) {
+      e.expertise = `List at most ${EXPERTISE_MAX[k]} ${EXPERTISE_LABEL[k].toLowerCase()}.`;
+    }
+  }
+  if (d.expertise.other_certifications.trim().length > OTHER_CERTIFICATIONS_MAX) {
+    e.expertise = `Keep other certifications under ${OTHER_CERTIFICATIONS_MAX} characters.`;
+  }
   // An address is optional when editing, but half an address is not an address.
   if (required || hasAddress(d)) {
     if (!d.city.trim()) e.city = "The city is needed.";
@@ -154,6 +203,22 @@ function address(d: ProfileDraft): Address | null {
   return a as unknown as Address;
 }
 
+export const hasExpertise = (e: ExpertiseDraft) =>
+  EXPERTISE_KEYS.some((k) => e[k].length > 0) || !!e.other_certifications.trim();
+
+/** Expertise as the server stores it: whole, or not at all. The five lists are
+ *  one statement about the company, so they are sent together, and a partner
+ *  that has unticked everything has no expertise key rather than five empty
+ *  lists. */
+function expertiseBody(e: ExpertiseDraft): Record<string, unknown> | null {
+  if (!hasExpertise(e)) return null;
+  const other = e.other_certifications.trim();
+  return {
+    ...Object.fromEntries(EXPERTISE_KEYS.map((k) => [k, e[k]])),
+    ...(other ? { other_certifications: other } : {}),
+  };
+}
+
 /** Every key the server stores for this kind, in its shape. */
 function body(d: ProfileDraft, kind: ProfileKind): Record<string, unknown> {
   return {
@@ -168,7 +233,8 @@ function body(d: ProfileDraft, kind: ProfileKind): Record<string, unknown> {
     residency_region: orNull(d.residency_region),
     ...(kind === "client"
       ? { industry: orNull(d.industry), dpa_signed: d.dpa_signed }
-      : { hq: orNull(d.hq), capabilities: orNull(d.capabilities) }),
+      // expertise is a partner's; the server refuses it from a client
+      : { hq: orNull(d.hq), capabilities: orNull(d.capabilities), expertise: expertiseBody(d.expertise) }),
   };
 }
 
@@ -235,6 +301,16 @@ export function companyRows(d: ProfileDraft): [string, ReactNode][] {
   ];
 }
 
+/** What a partner says it can do, one row per list that has anything in it. */
+export function expertiseRows(e: ExpertiseDraft): [string, ReactNode][] {
+  const rows: [string, ReactNode][] = EXPERTISE_KEYS.filter((k) => e[k].length > 0).map((k) => [
+    EXPERTISE_LABEL[k],
+    e[k].map((v) => expertiseLabel(k, v)).join(", "),
+  ]);
+  if (e.other_certifications.trim()) rows.push(["Other certifications", e.other_certifications.trim()]);
+  return rows;
+}
+
 /** The kind's own fields and the account's terms, for the onboarding review
  *  and the decision dialog. Established accounts use kindRows() instead. */
 export function termsRows(d: ProfileDraft, kind: ProfileKind): [string, ReactNode][] {
@@ -252,7 +328,7 @@ export function termsRows(d: ProfileDraft, kind: ProfileKind): [string, ReactNod
 // The form
 // ---------------------------------------------------------------------------
 
-export type ProfileSection = "company" | "address" | "terms";
+export type ProfileSection = "company" | "address" | "terms" | "expertise";
 
 const LOCKED_HINT = `Only ${PRODUCT} can change this. Contact your account manager.`;
 
@@ -269,7 +345,7 @@ export function ProfileFields({
   d: ProfileDraft;
   kind: ProfileKind;
   errors: ProfileErrors;
-  onField: (k: ProfileKey, v: string | boolean) => void;
+  onField: (k: ProfileKey, v: ProfileValue) => void;
   /** Ops edits everything; anyone else sees OPS_ONLY fields locked. */
   ops: boolean;
   /** Onboarding: the core fields are required to submit. */
@@ -337,6 +413,74 @@ export function ProfileFields({
         <Field label="About" span error={errors.description} hint="A few sentences on what the company does. Visible to its counterparties.">
           {(id) => (
             <textarea id={id} className={textareaCls} rows={3} maxLength={1000} value={d.description} onChange={(e) => onField("description", e.target.value)} />
+          )}
+        </Field>
+      </div>
+    );
+  }
+
+  if (section === "expertise") {
+    const e = d.expertise;
+    const set = (k: ExpertiseKey, next: string[]) => {
+      // a tick past the limit is not taken, and the hint says what the limit is
+      if (next.length > EXPERTISE_MAX[k] && next.length > e[k].length) return;
+      onField("expertise", { ...e, [k]: next });
+    };
+    const limit = (k: ExpertiseKey) => `Up to ${EXPERTISE_MAX[k]}.`;
+    return (
+      <div className="formgrid">
+        <CheckGroup
+          label="Data types"
+          hint="What this partner captures or prepares."
+          columns={3}
+          options={optionsOf("data_types")}
+          value={e.data_types}
+          onChange={(next) => set("data_types", next)}
+        />
+        <CheckGroup
+          label="Domains"
+          hint={`The industries it has worked in. ${limit("domains")}`}
+          columns={3}
+          options={optionsOf("domains")}
+          value={e.domains}
+          onChange={(next) => set("domains", next)}
+        />
+        <PickList
+          label="Regions"
+          hint={`The countries it can collect in. ${limit("regions")}`}
+          placeholder="Add a country…"
+          options={optionsOf("regions")}
+          max={EXPERTISE_MAX.regions}
+          value={e.regions}
+          onChange={(next) => set("regions", next)}
+        />
+        <PickList
+          label="Languages"
+          hint="The languages its people work in."
+          placeholder="Add a language…"
+          options={optionsOf("languages")}
+          max={EXPERTISE_MAX.languages}
+          value={e.languages}
+          onChange={(next) => set("languages", next)}
+        />
+        <CheckGroup
+          label="Certifications"
+          hint="Held by the company today."
+          columns={3}
+          options={optionsOf("certifications")}
+          value={e.certifications}
+          onChange={(next) => set("certifications", next)}
+        />
+        <Field label="Other certifications" span error={errors.expertise} hint="One line, for what the list does not name.">
+          {(id) => (
+            <input
+              id={id}
+              className={inputCls}
+              maxLength={OTHER_CERTIFICATIONS_MAX}
+              value={e.other_certifications}
+              placeholder="TISAX, ISO 22301"
+              onChange={(ev) => onField("expertise", { ...e, other_certifications: ev.target.value })}
+            />
           )}
         </Field>
       </div>

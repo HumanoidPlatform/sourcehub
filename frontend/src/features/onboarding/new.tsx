@@ -22,8 +22,9 @@ import {
 import { useLeaveGuard } from "@shared/leave-guard";
 import { LogoImage, LogoPicker, useStagedLogo, type LogoUpload } from "@shared/org-logo";
 import {
-  BLANK_PROFILE, companyRows, draftFromPayload, onboardingPayload, ProfileFields, termsRows,
-  validateProfile, type ProfileDraft, type ProfileErrors, type ProfileKey, type ProfileKind,
+  BLANK_EXPERTISE, BLANK_PROFILE, companyRows, draftFromPayload, expertiseRows, onboardingPayload,
+  ProfileFields, termsRows, validateProfile,
+  type ProfileDraft, type ProfileErrors, type ProfileKey, type ProfileKind, type ProfileValue,
 } from "@shared/org-profile-form";
 
 const STEPS = ["Organisation", "Registered address", "Plan and first user", "Review"] as const;
@@ -32,7 +33,7 @@ const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // What each step asks, so Continue checks only what is on screen.
 const STEP_FIELDS: Record<number, readonly ProfileKey[]> = {
-  0: ["name", "legal_name", "website", "country", "founded_year", "description"],
+  0: ["name", "legal_name", "website", "country", "founded_year", "description", "expertise"],
   1: ["city", "address_country"],
   2: [],
 };
@@ -79,7 +80,7 @@ export function OnboardingNewPage() {
     setLoaded(true);
   }
 
-  const onField = (k: ProfileKey, v: string | boolean) => {
+  const onField = (k: ProfileKey, v: ProfileValue) => {
     setD((x) => ({ ...x, [k]: v }));
     if (errors[k]) setErrors(({ [k]: _drop, ...rest }) => rest);
     if (error) setError(null);
@@ -230,7 +231,10 @@ export function OnboardingNewPage() {
                       const k = e.target.value as ProfileKind;
                       setKind(k);
                       // The other kind's fields would be refused by the server.
-                      setD((x) => ({ ...x, industry: "", hq: "", capabilities: "", dpa_signed: false }));
+                      setD((x) => ({
+                        ...x, industry: "", hq: "", capabilities: "", dpa_signed: false,
+                        expertise: BLANK_EXPERTISE,
+                      }));
                     }}
                   >
                     <option value="client">Client — buys data</option>
@@ -241,6 +245,16 @@ export function OnboardingNewPage() {
             </div>
             <h3 className="eyebrow formsection">Company</h3>
             <ProfileFields section="company" d={d} kind={kind} errors={errors} onField={onField} ops required />
+            {!isClient && (
+              <>
+                <h3 className="eyebrow formsection">Expertise</h3>
+                <p className="small muted" style={{ marginTop: 0 }}>
+                  Optional now; the partner can complete it from its own profile. Clients filter the
+                  vendors directory by these.
+                </p>
+                <ProfileFields section="expertise" d={d} kind={kind} errors={errors} onField={onField} ops />
+              </>
+            )}
             <h3 className="eyebrow formsection">Logo</h3>
             <div className="logofield">
               {!logo && keptLogo && (
@@ -304,6 +318,7 @@ export function OnboardingNewPage() {
             </div>
             <Dl rows={[
               ...companyRows(d),
+              ...(isClient ? [] : expertiseRows(d.expertise)),
               ...termsRows(d, kind),
               ["First user", `${contactName.trim()} · ${contactEmail.trim()}`],
             ]} />

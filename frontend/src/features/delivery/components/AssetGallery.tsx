@@ -177,7 +177,7 @@ function AssetThumb({
       }}
       style={{
         position: "relative", overflow: "hidden", cursor: viewable ? "pointer" : "default",
-        outline: selected ? "2px solid var(--accent, #0E7C86)" : undefined,
+        outline: selected ? "2px solid var(--accent)" : undefined,
         opacity: viewable ? 1 : 0.6,
       }}
     >
@@ -201,7 +201,7 @@ function AssetThumb({
           title={mark.outcome === "retake" ? `Retake — ${reasonLabel(mark.reason)}` : "Keep"}
           style={{
             top: 3, right: 3, bottom: "auto", left: "auto",
-            background: mark.outcome === "retake" ? "var(--bad, #B42318)" : "var(--ok, #0E7C86)",
+            background: mark.outcome === "retake" ? "var(--t-critical)" : "var(--accent)",
           }}
         >
           {mark.outcome === "retake" ? "\u2717" : "\u2713"}

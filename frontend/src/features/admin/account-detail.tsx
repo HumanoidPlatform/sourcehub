@@ -13,7 +13,7 @@
 // shared through kindRows() so the two cannot drift.
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { Link, useParams } from "react-router-dom";
 import { get, post } from "@api/client";
 import type { ActivityRow, InvoiceRow, Org } from "@api/types";
@@ -25,7 +25,7 @@ import { useSession } from "@shared/auth";
 import { fmtDate, fmtDateTime, money } from "@shared/format";
 import { kindRows } from "@shared/org-profile";
 import { EditProfileDialog } from "@shared/org-profile-edit";
-import { companyRows, draftFromOrg } from "@shared/org-profile-form";
+import { companyRows, draftFromOrg, expertiseRows } from "@shared/org-profile-form";
 import { OrgLogo } from "@shared/org-logo";
 import { can } from "@shared/rbac";
 import { invoiceStatus, orgStatus, statusMeta } from "@shared/status";
@@ -164,8 +164,9 @@ export function AccountDetailPage() {
         <Dl
           rows={[
             ...(["client", "tenant"].includes(o.kind) ? companyRows(draftFromOrg(o)) : []),
+            ...(o.kind === "tenant" ? expertiseRows(draftFromOrg(o).expertise) : []),
             ...kindRows(o),
-            ["Rating", o.rating ? `★ ${o.rating}` : "—"],
+            ...(o.kind === "tenant" ? [] : ([["Rating", o.rating ? `★ ${o.rating}` : "—"]] as [string, ReactNode][])),
             ["Billing", o.billing_status ?? "—"],
             ["Onboarded", fmtDate(o.onboarded_at ?? null)],
           ]}

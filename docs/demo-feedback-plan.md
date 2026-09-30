@@ -9,7 +9,7 @@ needed. Sizes are rough: S = days, M = 1–2 weeks, L = 2–4 weeks, XL = 4+ wee
 | # | Feature | Who it's for | Status | Size | Depends on |
 |---|---|---|---|---|---|
 | 1 | Detailed client/partner profile at onboarding, with logo | Platform admin, client, partner | **Done** (public profile). Owner-only editing (1a) requested; private details (1b) not started | M | — |
-| 2 | **Vendors** tab for clients | Client | Not started | M | partner expertise fields |
+| 2 | **Vendors** tab for clients | Client | **Done** (invite to bid later) | M | — |
 | 3 | Flexible budget: total range **or** rate per unit | Client, partner | Not started | M | — |
 | 4 | Bidding deadline, editable until award | Client, partner | **Done** | S–M | — |
 | 5 | Private one-to-one Q&A / chat per RFP | Client, partner | **Done** (text; attachments later) | L | — |
@@ -18,8 +18,8 @@ needed. Sizes are rough: S = days, M = 1–2 weeks, L = 2–4 weeks, XL = 4+ wee
 | 8 | Documents the crowd must e-sign before capture | Client, worker | Not started | L | — |
 | 9 | Device requirements, validated at capture | Client, worker | Not started | M–L | — |
 
-**Suggested order for what remains** (4, 5 and 7 are done):
-1. The bidding model together: 3 + 6, then 2.
+**Suggested order for what remains** (2, 4, 5 and 7 are done):
+1. The bidding model together: 3 + 6.
 2. Crowd safeguards: 8, 9.
 
 Items 3 and 6 both reshape bidding and awarding, so they are best designed together; the deadline (4) and
@@ -71,41 +71,59 @@ the conversations (5) are built to survive that redesign (both key on the award,
 
 ---
 
-## 2 · "Vendors" tab for clients
+## 2 · "Vendors" tab for clients — DONE
 
 **Asked:** a Vendors tab in the client workspace listing active vendors with name, website, experience and expertise.
 
-**Today:**
-- Clients have no way to browse partners. A client only sees partners who bid on its own RFPs or hold a contract with it, so a new client sees none.
-- Partner profiles now have logo, website, size, founded year, address and description (item 1). There are still no structured expertise fields.
-- The performance figures (on-time %, QA pass %, rating) are demo seed data; nothing calculates them.
+**Decisions taken:** "vendors" means **delivery partners only** (aggregators, businesses, sponsors and the crowd
+belong to a partner's network and stay invisible to clients); ratings are shown as an **average and a count**, never
+the comments; **"Invite this vendor to bid"** comes later; the directory is **cards, with a table toggle**; the
+calculated figures are the **one source everywhere** a partner's figures appear; expertise comes from **curated
+lists**; both quality figures are shown — **"Accepted first time"** (the client's verdict) on the card, and the
+partner's own **QA pass** on the vendor page.
 
-**What we will build**
-- A **Vendors** item in the client's sidebar, opening a directory of **active delivery partners**, as cards or a table:
-  - logo, name, website, description (from item 1);
-  - **experience** (years in business, projects completed on DataMind360);
-  - **expertise** (new structured fields):
-    - data types: image, video, audio, text;
-    - domains, such as retail or automotive;
-    - languages;
-    - countries or regions served;
-  - certifications (ISO 27001, SOC 2…);
-  - rating (average of client ratings + count), plus on-time and QA-pass rates **calculated from real contracts**.
-- **Search and filters:** expertise, data type, region, rating.
-- **A vendor detail page** with the full public profile and past performance.
+**Built and verified** (migration `0029`, applied to the VM database on 30 Sep 2026; images still to be built
+and deployed):
+- **Vendors** in the client's sidebar, between Deliverables for Review and Billing. It lists every **active**
+  delivery partner, whether or
+  not the client has ever dealt with it. A suspended partner leaves the directory; a client that already has a bid or
+  a contract with it keeps its view of that partner.
+- **Each card:** logo, name, place and website; a two-line description; data types, domains, regions and
+  certifications as chips; rating (stars, average and count), **On time** and **Accepted first time** with a bar each;
+  years in business and projects completed here. A partner with no completed work says **"New on DataMind360"**
+  instead of showing empty figures.
+- **Search and filters:** free text (name, description, place), data type, domain, region, language, certification
+  and minimum rating, plus four sort orders. A vendor must cover **everything** chosen. Active filters are chips that
+  can be removed one by one or all at once, a count says how many match, and the filters live in the address bar so a
+  filtered view can be bookmarked or sent to a colleague.
+- **Table view** for comparing many vendors; the choice is remembered.
+- **Vendor page:** header, about, expertise grouped by kind, performance (rating with how the scores were spread, on
+  time, accepted first time, QA pass at the partner's own gate), company details, and **"Your work with this
+  vendor"** — the client's own contracts and scores with it, and nobody else's.
+- **Partners declare their expertise** in Edit profile (and Ops can at onboarding): data types, domains, regions,
+  languages and certifications from fixed lists, and one free line for other certifications. Their own profile page
+  prompts for it while it is empty and links to **"See how clients see you"**.
+- **The figures are calculated, not entered.** Contracts completed; on time = completed contracts whose accepted
+  delivery was on or before the date the client asked for; accepted first time = completed contracts never sent back;
+  QA pass = the partner's gate-2 passes over passes and failures; rating = what the buyer of each contract scored it.
+  A figure with nothing behind it is blank, never 0%. The seeded demo figures are no longer shown anywhere: the bid
+  table, the partner profile dialog, the partner's own profile and Ops' accounts table all read the same numbers.
 
-**Rules:**
-- Only active delivery partners appear, never a partner's own network (aggregators, sponsors, crowd).
-- No commercial or private fields.
-- Ratings are shown as an aggregate.
+**Privacy, as built:** a partner's figures come from other clients' contracts, which the reader may not see, so the
+database hands over **numbers only** — never a contract, a client, a comment or a date. A vendor row is assembled
+key by key from what is public, so the plan, billing state, suspension reason, legal name and logo storage key are
+never in it. Partners cannot browse the directory (a partner may open only its own page), and neither can
+aggregators, businesses, sponsors or the crowd.
 
-**Done when:** a brand-new client sees every active partner with the fields above, can filter by expertise and region,
-and sees no private data.
+**Verified live** (local API and console on a scratch database, mail to a local catcher): the three partners filled
+in their expertise; a **brand-new client**, onboarded and invited through the normal flow, saw all three with correct
+figures and none of anyone's contracts or ratings; every response was checked key by key for private data; the bid
+table, profile dialog and Ops' accounts table showed the same figures as the directory; a partner got "forbidden" on
+the list and "not found" on a rival's page; suspending a partner removed it from the directory and reinstating it
+brought it back.
 
-**Decisions needed:**
-- Does "vendors" mean delivery partners only, or aggregators too?
-- Should other clients' review comments be shown, or only the average?
-- Should "Invite this vendor to bid" on an RFP come now or later?
+**Still open:** "Invite this vendor to bid" from a vendor page; showing review comments; a Vendors view for Ops;
+filtering on the server once the directory is large enough to need pages.
 
 ---
 

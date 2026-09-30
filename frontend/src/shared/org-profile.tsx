@@ -6,11 +6,11 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { get } from "@api/client";
-import type { Org } from "@api/types";
+import type { Org, Performance } from "@api/types";
 import { Button, Callout, Dialog, Dl, Meter, Pill } from "@ds/primitives";
 import { fmtDate } from "@shared/format";
 import { OrgLogo } from "@shared/org-logo";
-import { companyRows, draftFromOrg } from "@shared/org-profile-form";
+import { companyRows, draftFromOrg, expertiseRows } from "@shared/org-profile-form";
 import { orgStatus, statusMeta } from "@shared/status";
 import type { ReactNode } from "react";
 
@@ -27,11 +27,29 @@ export function rate(pct?: number | null) {
   );
 }
 
+/** A delivery partner's record, from the figures the API calculated
+ *  (partner_performance, db/260): the ones its page in the vendors directory
+ *  shows, so a profile and a card can never disagree. */
+export function performanceRows(p: Performance | undefined): [string, ReactNode][] {
+  if (!p || (p.contracts_completed === 0 && p.rating_count === 0)) {
+    return [["Track record", "No completed work yet"]];
+  }
+  return [
+    ["Completed contracts", <span key="n" className="num">{p.contracts_completed}</span>],
+    ["Rating", p.rating_avg != null
+      ? <span key="r" className="num">★ {p.rating_avg.toFixed(1)} ({p.rating_count})</span>
+      : "—"],
+    ["On-time delivery", rate(p.on_time_pct)],
+    ["Accepted first time", rate(p.accepted_first_time_pct)],
+    ["QA pass at its own gate", rate(p.qa_pass_pct)],
+  ];
+}
+
 // Exported so the operator's account page renders the same per-kind rows as this
 // dialog rather than a second copy that drifts. The dialog itself stays as it is:
 // the tenant's network page and the client's bidder profile both mount it, so it
 // is a counterparty view and nothing operator-shaped belongs in it.
-export function kindRows(o: Org, seedQa?: number | null): [string, ReactNode][] {
+export function kindRows(o: Org): [string, ReactNode][] {
   const p = o.profile as Record<string, unknown>;
   const s = (k: string) => (p[k] as string | null | undefined) ?? "—";
   switch (o.kind) {
@@ -41,8 +59,7 @@ export function kindRows(o: Org, seedQa?: number | null): [string, ReactNode][] 
         ["Capabilities", s("capabilities")],
         ["Fair work", p.fair_work_attested ? "Attested" : "Not attested"],
         ["Partner since", fmtDate((p.since as string | null) ?? null)],
-        ["On-time delivery", rate(p.on_time_rate as number | null)],
-        ["QA pass rate", rate((p.qa_pass_rate as number | null) ?? seedQa)],
+        ...performanceRows(o.performance),
       ];
     case "client":
       return [
@@ -80,12 +97,10 @@ export function kindRows(o: Org, seedQa?: number | null): [string, ReactNode][] 
 export function OrgProfileDialog({
   orgId,
   seedName,
-  seedQa,
   onClose,
 }: {
   orgId: string;
   seedName?: string | null;
-  seedQa?: number | null;
   onClose: () => void;
 }) {
   const org = useQuery({
@@ -134,8 +149,10 @@ export function OrgProfileDialog({
         <Dl
           rows={[
             ...(["client", "tenant"].includes(o.kind) ? companyRows(draftFromOrg(o)) : []),
-            ...kindRows(o, seedQa),
-            ["Rating", o.rating ? `★ ${o.rating}` : "—"],
+            ...(o.kind === "tenant" ? expertiseRows(draftFromOrg(o).expertise) : []),
+            ...kindRows(o),
+            // a partner's rating is in its track record, with how many gave it
+            ...(o.kind === "tenant" ? [] : ([["Rating", o.rating ? `★ ${o.rating}` : "—"]] as [string, ReactNode][])),
             ...(o.billing_status ? ([["Billing", o.billing_status]] as [string, ReactNode][]) : []),
           ]}
         />

@@ -266,6 +266,8 @@ def test_a_patch_changes_only_what_it_names():
         "company_size",
         "founded_year",
         "registered_address",
+        # db/260: what a delivery partner declares for the vendors directory
+        "expertise",
     }
 
 

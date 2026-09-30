@@ -12,7 +12,11 @@ export interface Org {
   country: string | null;
   residency_region: string | null;
   billing_status: string | null;
-  rating: string | null;
+  // A delivery partner's is calculated (a number, from partner_performance);
+  // any other kind's is the stored column, which arrives as text.
+  rating: string | number | null;
+  /** Delivery partners only: the figures every screen reads (db/260). */
+  performance?: Performance;
   onboarded_at?: string | null;
   // Withheld from a counterparty alongside billing_status — why an account is
   // suspended is between it and the platform.
@@ -43,6 +47,60 @@ export interface PublicProfile {
   company_size?: string;
   founded_year?: number;
   registered_address?: Address;
+  /** Delivery partners only. Absent until the partner declares any. */
+  expertise?: Partial<Expertise>;
+}
+
+// What a delivery partner says it can do, from the curated lists in
+// features/vendors/vocabularies.ts. A vendor row always carries all five lists.
+export interface Expertise {
+  data_types: string[];
+  domains: string[];
+  languages: string[];
+  regions: string[];
+  certifications: string[];
+  other_certifications: string | null;
+}
+
+// A delivery partner's record, calculated from its contracts, its gate-2
+// reviews and what its clients scored it. A percentage is null when there is
+// nothing to divide by: "no completed work yet" is not "0%".
+export interface Performance {
+  contracts_completed: number;
+  on_time_pct: number | null;
+  /** Completed contracts the client never sent back. */
+  accepted_first_time_pct: number | null;
+  /** The partner's own gate 2, about its own suppliers. */
+  qa_pass_pct: number | null;
+  rating_avg: number | null;
+  rating_count: number;
+  /** GET /vendors/{id} only; 5 first. */
+  rating_distribution?: { score: number; count: number }[];
+}
+
+// GET /vendors and GET /vendors/{id}: a delivery partner as the directory
+// shows it. Never its plan, billing, suspension or legal name.
+export interface Vendor {
+  id: string;
+  reference_code: string;
+  name: string;
+  country: string | null;
+  hq: string | null;
+  partner_since: string | null;
+  fair_work_attested: boolean;
+  website: string | null;
+  description: string | null;
+  company_size: string | null;
+  founded_year: number | null;
+  years_in_business: number | null;
+  registered_address: Address | null;
+  expertise: Expertise;
+  logo_version: string | null;
+  performance: Performance;
+}
+
+export interface VendorList {
+  items: Vendor[];
 }
 
 // tenant_profile, as GET /organisations/{id} returns it. `plan` is deliberately
@@ -223,7 +281,12 @@ export interface Proposal {
   request_id: string;
   partner_org_id: string;
   partner_name?: string | null;
+  // The bidder's calculated figures, the same ones its vendor page shows.
+  partner_accepted_first_time?: number | null;
   partner_qa_pass_rate?: number | null;
+  partner_rating?: number | null;
+  partner_rating_count?: number;
+  partner_contracts_completed?: number;
   price: string;
   currency: string;
   unit: string | null;

@@ -14,7 +14,7 @@ import { Button, Callout, Dialog, useToast } from "@ds/primitives";
 import { LogoPicker, OrgLogo, type LogoUpload } from "@shared/org-logo";
 import {
   draftFromOrg, ProfileFields, profilePatch, validateProfile,
-  type ProfileErrors, type ProfileKey, type ProfileKind,
+  type ProfileErrors, type ProfileKey, type ProfileKind, type ProfileValue,
 } from "@shared/org-profile-form";
 
 export function EditProfileDialog({ org, ops, onClose }: { org: Org; ops: boolean; onClose: () => void }) {
@@ -28,7 +28,7 @@ export function EditProfileDialog({ org, ops, onClose }: { org: Org; ops: boolea
   const qc = useQueryClient();
   const toast = useToast();
 
-  const onField = (k: ProfileKey, v: string | boolean) => {
+  const onField = (k: ProfileKey, v: ProfileValue) => {
     setD((x) => ({ ...x, [k]: v }));
     if (errors[k]) setErrors(({ [k]: _drop, ...rest }) => rest);
     setError(null);
@@ -56,6 +56,9 @@ export function EditProfileDialog({ org, ops, onClose }: { org: Org; ops: boolea
       void qc.invalidateQueries({ queryKey: ["org-me"] });
       void qc.invalidateQueries({ queryKey: ["orgs"] });
       void qc.invalidateQueries({ queryKey: ["activity", org.id] });
+      // a partner's page in the vendors directory is made of this profile
+      void qc.invalidateQueries({ queryKey: ["vendors"] });
+      void qc.invalidateQueries({ queryKey: ["vendor", org.id] });
       toast("Profile saved", `${d.name.trim() || org.name} is up to date.`, "success");
       onClose();
     },
@@ -114,6 +117,17 @@ export function EditProfileDialog({ org, ops, onClose }: { org: Org; ops: boolea
 
       <h3 className="eyebrow formsection">Company</h3>
       <ProfileFields section="company" d={d} kind={kind} errors={errors} onField={onField} ops={ops} />
+
+      {kind === "tenant" && (
+        <>
+          <h3 className="eyebrow formsection">Expertise</h3>
+          <p className="small muted" style={{ marginTop: 0 }}>
+            Shown on this partner's page in the vendors directory. Clients filter the directory by
+            these, so list what the company can deliver today.
+          </p>
+          <ProfileFields section="expertise" d={d} kind={kind} errors={errors} onField={onField} ops={ops} />
+        </>
+      )}
 
       <h3 className="eyebrow formsection">Registered address</h3>
       <ProfileFields section="address" d={d} kind={kind} errors={errors} onField={onField} ops={ops} />

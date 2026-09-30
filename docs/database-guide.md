@@ -58,8 +58,8 @@ SELECT relname AS table, n_live_tup AS rows FROM pg_stat_user_tables ORDER BY n_
 
 | Table | One row is |
 |---|---|
-| `organisation` | One company of any kind. `kind` says which: `client`, `tenant` (a delivery partner), `aggregator`, `business`, `sponsor`, or `platform` (us). `parent_org_id` ties a supplier to the partner that brought it on; a CHECK makes it mandatory for suppliers and forbidden for everyone else. `public_profile` ([`230_org_public_profile.sql`](../db/230_org_public_profile.sql)) is one jsonb object holding what a client or partner shows the organisations it works with: website, description, size, founded year, registered address, and the logo's storage key (never returned by the API). Its audience is whoever `organisation_select` lets see the row, so **nothing private goes in it**. `legal_name` is set by Ops. |
-| `client_profile`, `tenant_profile`, `aggregator_profile`, `business_profile`, `sponsor_profile` | The columns only that kind of company has (industry and plan; on-time rate; crowd size; capacity; contact). One small table per kind instead of one wide table full of NULLs, because the console filters and sorts on these columns. |
+| `organisation` | One company of any kind. `kind` says which: `client`, `tenant` (a delivery partner), `aggregator`, `business`, `sponsor`, or `platform` (us). `parent_org_id` ties a supplier to the partner that brought it on; a CHECK makes it mandatory for suppliers and forbidden for everyone else. `public_profile` ([`230_org_public_profile.sql`](../db/230_org_public_profile.sql)) is one jsonb object holding what a client or partner shows the organisations it works with: website, description, size, founded year, registered address, and the logo's storage key (never returned by the API). Its audience is whoever `organisation_select` lets see the row, so **nothing private goes in it**. For a delivery partner it also holds `expertise` ([`260_vendor_directory.sql`](../db/260_vendor_directory.sql)): five lists of codes from fixed vocabularies (data types, domains, regions, languages, certifications) and one free line, validated by the API and checked by the database to be an object. `legal_name` is set by Ops. `rating` is a seed-era column that nothing updates; a partner's rating is calculated (see `partner_performance()` in section 5). |
+| `client_profile`, `tenant_profile`, `aggregator_profile`, `business_profile`, `sponsor_profile` | The columns only that kind of company has (industry and plan; headquarters and fair-work attestation; crowd size; capacity; contact). `tenant_profile.on_time_rate` and `qa_pass_rate` are seed-era columns that nothing updates and the API no longer reads. One small table per kind instead of one wide table full of NULLs, because the console filters and sorts on these columns. |
 | `app_user` | One person: email, password hash, lockout counters. **No organisation column, on purpose** — a person is not a member of anything until a grant says so. |
 | `user_role_grant` | "This person holds this role in this organisation." This row is what turns a person into someone who can sign in. Revoked with `revoked_at`, never deleted, so "who could do what, and when" survives. |
 | `role`, `permission`, `role_permission` | The capability matrix, as data. Roles are per persona; permissions are codes such as `proposal.accept`; the third table joins them. Adding a role is an INSERT, not a code change. `permission.requires_mfa` marks the ones that move money or approve a delivery. |
@@ -226,6 +226,7 @@ A request passes through all four. Each one assumes the one above it might fail.
 ### Layer 1 — the route asks for a capability
 
 Every route declares the permission it needs with `require_capability("proposal.accept")`
+(the newest is `vendor.read`, held by clients and Ops, which opens the vendors directory)
 ([api/deps.py](../backend/src/sourcehub/api/deps.py)). The user's permissions come from
 `user_role_grant → role → role_permission → permission`, are read once at sign-in through the database function
 `user_capabilities()`, and travel in the access token.
@@ -257,6 +258,7 @@ Only two role values change what a policy decides: `platform_admin` and `worker`
 | Hop | What opens | What makes it work |
 |---|---|---|
 | Client → all delivery partners | A `request` that is `published` is visible to **every** organisation of kind `tenant`. This is the open marketplace, and the broadest read rule in the schema. | `request_select` + `current_org_kind()` |
+| Client → every delivery partner | A client reads the organisation row and `tenant_profile` of every **active** delivery partner, dealt with or not: the vendors directory. Delivery partners only, never a partner's network; a suspended partner drops out. The mirror of the hop above, in the other direction. | `organisation_select_directory`, `tenant_profile_select_directory`, `org_in_vendor_directory()` in [`260_vendor_directory.sql`](../db/260_vendor_directory.sql) |
 | Bidder ↔ client | Bidding discloses each side's organisation and profile to the other. A bidder keeps sight of the request afterwards, win or lose. A bidder **never** sees a competitor's proposal. | `org_visible_via_proposal()`, `org_visible_via_my_proposal()`, `request_has_my_proposal()` |
 | Partner → aggregator | The supplier holding a `task` sees that task and its `contract`. It does **not** see the `request` row. | `task_select`, `contract_select`, `contract_is_visible()` |
 | Aggregator → worker | A worker's session carries the **aggregator's** organisation id. Restrictive policies then narrow it to the worker's own assignments, the tasks behind them, their own captures and their own notifications. Thirteen tables are closed to workers outright — contracts, requests, proposals, invoices, the audit log, storage destinations and more. | `worker_holds_assignment()`, the `*_worker_*` policies in [`120_workers_media.sql`](../db/120_workers_media.sql) |
@@ -275,6 +277,7 @@ narrow question and is executable only by `sourcehub_app`:
 | Building a storage path from names the caller cannot see | `attachment_folder()` |
 | "Is this email already used?" without revealing by whom | `email_is_taken()` |
 | Integrity that must see every row | `write_audit_event()`, `assert_ledger_balanced()` |
+| A partner's record, made of contracts the reader may not see | `partner_performance(uuid[])` — contracts completed, on-time %, accepted-first-time %, gate-2 pass %, and the rating as an average, a count and a count per score. **Numbers only**: never a contract, a client, a comment or a date. A percentage is NULL when there is nothing to divide by. Answers for delivery partners, to a session acting as an organisation, never to a crowd session. It is the one source of these figures for every screen ([identity/directory.py](../backend/src/sourcehub/modules/identity/directory.py)). |
 
 ### Layer 4 — the database refuses what should never exist
 
