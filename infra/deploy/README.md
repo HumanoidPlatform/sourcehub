@@ -123,6 +123,93 @@ seconds after start-up and mails **real** crowd resources. Long-standing
 behaviour rather than anything new, but it is a reason not to deploy in the
 minutes before a demo.
 
+## A managed database: Azure, AWS, Google
+
+The VM's database runs everything as a superuser. A managed server (Azure
+Database for PostgreSQL Flexible Server, AWS RDS, Google Cloud SQL) gives you an
+admin login that is **not** a superuser, and the schema is built to work there
+from `db/270_managed_postgres.sql` on. `sh infra/verify_owner_model.sh` proves
+it on a laptop before you touch a real server.
+
+**Two logins, never more.**
+
+| Login | Used by | Can |
+|---|---|---|
+| the provider's admin (the one you created with the server) | applying the schema, every migration | owns every table; row-level security does not bind it |
+| `sourcehub_app` | the API, and nothing else | read and write rows; row-level security checks it on every query |
+
+The API refuses to start through the admin (or any superuser or `BYPASSRLS`
+login), and Alembic refuses to migrate through anything but the owner. `GET
+/ready` on the API names the problem if the login is wrong.
+
+**Once, on a new server.**
+
+1. In the provider's console: allow the extensions PGCRYPTO, CITEXT, PG_TRGM and
+   BTREE_GIN (Azure: server parameter `azure.extensions`); add your IP to the
+   firewall; keep "require secure connection" on; leave PgBouncer off for now.
+   Set backup retention to at least 14 days.
+2. In pgAdmin or DBeaver, as the admin, with SSL mode `require`: create the
+   database `appdb` (owner: the admin), connect to it, and run
+   `infra/db/managed_setup.sql` (DBeaver: Execute SQL Script, Alt+X). The last
+   two result grids should show `sourcehub_app` able to sign in,
+   `sourcehub_readonly` not, and the four extensions.
+3. Give `sourcehub_app` a password (pgAdmin: Login/Group Roles → sourcehub_app →
+   Properties → Definition). Keep it and the admin password in a password
+   manager, never in this repository.
+4. Load the schema **as the admin**, with psql, one statement at a time. Build
+   the two files first (Git Bash: `sh infra/bundle_schema.sh`, or `make bundle`).
+   The local Postgres container has psql 16, and it prompts for the password:
+
+   ```powershell
+   docker cp build/schema.sql sourcehub-postgres:/tmp/schema.sql
+   docker cp build/seed.sql   sourcehub-postgres:/tmp/seed.sql
+   $DB = "host=<server>.postgres.database.azure.com port=5432 dbname=appdb user=<admin> sslmode=require"
+   docker exec -it sourcehub-postgres psql $DB -v ON_ERROR_STOP=1 -f /tmp/schema.sql
+   docker exec -it sourcehub-postgres psql $DB -v ON_ERROR_STOP=1 -f /tmp/seed.sql
+   ```
+
+   Never apply `db/910_seed_demo.sql` or `infra/seed_identity.sql` to a real
+   database.
+5. Record the schema version, from the same commit as the images, with the
+   admin's URL (a `@` in the password is written `%40`):
+
+   ```powershell
+   cd backend
+   $env:PGSSLMODE = "require"
+   $env:DATABASE_ADMIN_URL = "postgresql+asyncpg://<admin>:<password>@<server>.postgres.database.azure.com:5432/appdb"
+   $env:DATABASE_URL = $env:DATABASE_ADMIN_URL; $env:JWT_SECRET = "unused"   # the config layer insists
+   .venv\Scripts\python -m alembic stamp head
+   Remove-Item Env:DATABASE_ADMIN_URL, Env:DATABASE_URL, Env:JWT_SECRET, Env:PGSSLMODE
+   ```
+
+6. Sign in to the console as `admin@sourcehub.local` and change its password
+   straight away.
+
+**The API's settings.** `DATABASE_URL` names `sourcehub_app`;
+`DATABASE_ADMIN_URL` names the admin (migrations only); `PGSSLMODE=require` in
+the environment gives both TLS. `ENGAGEMENT_ENABLED` stays `false` until this is
+the only live instance, or the reminder pass mails real crowd resources from
+two places. Give the instance its own storage container in `STORAGE_CONTAINER`,
+and add its web address to the storage account's CORS rule.
+
+**Later.**
+
+- **Upgrades** run `alembic upgrade head` as the admin, before the new images
+  take traffic, exactly as on the VM.
+- **More traffic:** turn on the built-in PgBouncer, point `DATABASE_URL` at port
+  6432 and set `DB_PREPARED_STATEMENTS=false`. `DATABASE_ADMIN_URL` stays on
+  5432.
+- **Another provider:** the same six steps in its console. Only step 1 differs.
+- **Moving data between providers:** `pg_dump -Fc --no-owner` (keep the
+  privileges), then `pg_restore --no-owner` as the new admin, after steps 1–3.
+  The dump holds client storage credentials in plain text: delete it afterwards.
+
+**The VM and migration 0030.** 0030 is the migration behind all of this. On the
+VM it changes nothing anyone can see (its owner is a superuser, which FORCE
+never bound), and it fixes two things that would bite there too: reference
+codes past 99 (the 100th crowd resource could not be invited) and the
+partitions that ran out on 2027-01-01. Apply it with the usual one-liner.
+
 ## Keep secrets out of the repo
 
 The copy on the VM holds real passwords. **The copy in this repository must keep

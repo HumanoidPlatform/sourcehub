@@ -229,9 +229,12 @@ INSERT INTO ledger_account (org_id, code, currency) VALUES
 
 
 -- ---------------------------------------------------------------------------
--- Grants for tables created after 000's ALTER DEFAULT PRIVILEGES, belt and
--- braces. Views need them explicitly.
+-- No table or sequence grants here, deliberately. db/000's default privileges
+-- give sourcehub_app and sourcehub_readonly their rights on every table, view
+-- and sequence as it is created, and the schema files narrow them where a
+-- table is for less than that (270 restates the narrow sets). A blanket
+-- GRANT ... ON ALL TABLES stood here and, running after all of them, quietly
+-- handed the API back everything they had taken away. It requires the bundle
+-- to be applied by one login from start to finish, which the bundle header
+-- and the Alembic preflight already demand.
 -- ---------------------------------------------------------------------------
-GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO sourcehub_app;
-GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO sourcehub_app;
-GRANT SELECT ON ALL TABLES IN SCHEMA public TO sourcehub_readonly;

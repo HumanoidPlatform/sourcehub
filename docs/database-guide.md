@@ -247,8 +247,24 @@ At the start of every request it sets three transaction-local values — `app.or
 in `get_session()` ([api/deps.py](../backend/src/sourcehub/api/deps.py)) or `org_session()`
 ([db/session.py](../backend/src/sourcehub/db/session.py)). Policies read them through `current_org_id()`,
 `current_user_id()`, `is_platform_admin()` and `is_worker()`. **If they are not set, every policy sees NULL and
-returns nothing** — it fails closed. Row-level security is `FORCE`d on every protected table, and on each
+returns nothing** — it fails closed. Row-level security is enabled on every protected table, and on each
 partition of `asset` and `audit_event` separately.
+
+**ENABLE, never FORCE.** Row-level security binds every login except a superuser, a login with `BYPASSRLS`,
+and the tables' owner. The "doors through the wall" below rely on that last exemption: they run as the owner
+precisely so they can read across organisations. Until [`270_managed_postgres.sql`](../db/270_managed_postgres.sql)
+every table was also marked `FORCE`, which binds the owner too. Where the owner was a superuser (the compose
+container, the VM) that changed nothing. On a managed server (Azure Flexible Server, AWS RDS, Google Cloud
+SQL) nobody is a superuser, the owner is the provider's admin login, and `FORCE` would blind every one of those
+functions: no sign-in, a forked audit chain, empty vendor figures, all without an error. 270 removes `FORCE`
+everywhere and a unit test refuses it in any later file.
+
+What `FORCE` protected against, the API connecting as the owner, is refused twice instead: the API will not
+start through a superuser, a `BYPASSRLS` login or the tables' owner (`sourcehub.db.guard`, also behind
+`GET /ready`), and Alembic will not migrate through a login that does not own the tables
+([migrations/env.py](../backend/migrations/env.py)). So there are two logins and only two: the owner, for
+building and migrating, and `sourcehub_app`, for the API. `sourcehub_readonly` exists for reporting; on a
+managed server [`infra/db/managed_setup.sql`](../infra/db/managed_setup.sql) creates it with sign-in switched off.
 
 Only two role values change what a policy decides: `platform_admin` and `worker`. Everything else is decided by
 **which organisation you are**.
@@ -381,6 +397,9 @@ Facts, not opinions. Each is small on its own; together they are the to-do list 
 3. **The four views bypass row-level security.** They run with their owner's rights and `sourcehub_app` can
    select from them (it also holds pointless write grants). `ledger_account_balance` covers every
    organisation. No route queries them. The fix is `ALTER VIEW … SET (security_invoker = true)` on each.
+   A view runs as its owner, and the owner is not bound by row-level security: on the VM because it is a
+   superuser, on a managed server because 270 removed `FORCE`. So this gap is the same everywhere, and the fix
+   matters on Azure as much as on the VM.
 4. **`storage_target.secret` is stored as given.** Access to the database is access to every client's storage
    credential. The code compensates by never selecting the column into a response and redacting it from logs.
 5. **A comment describes a trigger that does not exist.** [`050_delivery.sql`](../db/050_delivery.sql) says a

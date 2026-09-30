@@ -21,7 +21,8 @@ from logging.config import fileConfig
 from typing import TYPE_CHECKING
 
 from alembic import context
-from sqlalchemy import pool
+from alembic.runtime.migration import MigrationContext
+from sqlalchemy import pool, text
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
 if TYPE_CHECKING:
@@ -92,7 +93,65 @@ def run_migrations_offline() -> None:
         context.run_migrations()
 
 
+_OWNERSHIP_CHECK = text(
+    "SELECT r.rolname, r.rolsuper OR r.rolbypassrls AS exempt, "
+    "       (SELECT count(*) FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace "
+    "        WHERE n.nspname = 'public' AND c.relkind IN ('r', 'p') "
+    "          AND c.relowner <> r.oid) AS foreign_tables, "
+    "       (SELECT string_agg(DISTINCT pg_get_userbyid(c.relowner), ', ') "
+    "        FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace "
+    "        WHERE n.nspname = 'public' AND c.relkind IN ('r', 'p') "
+    "          AND c.relowner <> r.oid) AS other_owners, "
+    "       (SELECT count(*) FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace "
+    "        WHERE n.nspname = 'public' AND c.relforcerowsecurity) AS forced_tables "
+    "FROM pg_roles r WHERE r.rolname = current_user"
+)
+
+
+def _preflight(connection: Connection) -> None:
+    """Refuse to migrate through a login that would build a broken schema.
+
+    Two ways a migration goes wrong without any error of its own:
+
+    * Run by a login that does not own the tables, it creates tables that
+      login owns. db/000's default privileges belong to the original owner,
+      so the API gets no rights on them — "permission denied" in production,
+      nothing here. Owning is exact: a login that merely inherits the owner's
+      rights still creates tables in its own name.
+    * Run by an owner that FORCE binds, which on a managed server (no
+      superuser, no BYPASSRLS) is every owner before db/270, each UPDATE or
+      DELETE in a data step sees only the rows its (empty) tenancy context
+      allows and changes nothing. The one migration safe to run there is 0030,
+      which removes FORCE, so only a database at 0029 is let through.
+    """
+    row = connection.execute(_OWNERSHIP_CHECK).one()
+    if row.foreign_tables:
+        raise RuntimeError(
+            f"DATABASE_ADMIN_URL connects as {row.rolname!r}, but {row.foreign_tables} "
+            f"table(s) in public belong to {row.other_owners}. Run migrations as the login "
+            "that owns the tables (the one that applied the schema bundle); a different "
+            "login would create tables the API has no rights on."
+        )
+    if row.forced_tables and not row.exempt:
+        current = MigrationContext.configure(connection).get_current_revision()
+        if current != "0029":
+            raise RuntimeError(
+                f"{row.forced_tables} table(s) still FORCE row-level security and "
+                f"{row.rolname!r} is neither a superuser nor BYPASSRLS, so data steps "
+                f"would silently change nothing. The database is at {current!r}; bring it "
+                "to 0029 on a server where the owner is a superuser, then upgrade here "
+                "(0030 removes FORCE). See db/270_managed_postgres.sql."
+            )
+
+
 def _run(connection: Connection) -> None:
+    try:
+        _preflight(connection)
+    finally:
+        # The checks only read, but reading began a transaction. End it, so
+        # Alembic begins its own: one left open here would be taken over by the
+        # migration and rolled back when the connection closes, silently.
+        connection.rollback()
     context.configure(
         connection=connection,
         target_metadata=target_metadata,

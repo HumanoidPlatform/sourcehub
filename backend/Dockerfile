@@ -92,9 +92,12 @@ EXPOSE 8000
 # urllib rather than curl: the slim image has no curl and adding one to check
 # your own liveness is not worth a layer.
 #
-# /health only says the process is up. Once GET /ready exists (it opens a
-# database connection), point this at that instead — "healthy" should mean the
-# database answers, not merely that uvicorn accepted a socket.
+# /health only says the process is up. GET /ready also checks that the
+# database answers through a login row-level security binds; an orchestrator
+# (Container Apps, Kubernetes) should use it as the readiness probe, because
+# an orchestrator stops routing to a replica that is not ready. Docker's
+# HEALTHCHECK routes nothing; it only labels the container, so it stays on the
+# plain liveness question.
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
     CMD python -c "import sys,urllib.request;sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/health',timeout=4).status==200 else 1)"
 

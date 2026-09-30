@@ -41,13 +41,22 @@ class Settings(BaseSettings):
     )
 
     # --- Database ------------------------------------------------------------
-    # Points at sourcehub_app, never at postgres. A superuser bypasses RLS
-    # unconditionally; see db/session.py.
+    # Points at sourcehub_app, never at postgres or a managed server's admin
+    # login: a superuser or the tables' owner is not bound by RLS, and the API
+    # refuses to start through one (sourcehub.db.guard). TLS for a managed
+    # server: set PGSSLMODE=require in the environment, which both the API and
+    # the migration tools honour.
     database_url: str
-    database_admin_url: str | None = None  # migrations and the isolation tests
+    # The tables' owner. Migrations only (migrations/env.py checks it owns them).
+    database_admin_url: str | None = None
     db_pool_size: int = 10
     db_max_overflow: int = 20
     db_echo: bool = False
+    # False behind a transaction-mode pooler (Azure's built-in PgBouncer on port
+    # 6432, Supabase, Neon), which hands each transaction to whichever server
+    # connection is free: a statement prepared on one is missing on the next.
+    # Migrations never go through a pooler; DATABASE_ADMIN_URL stays on 5432.
+    db_prepared_statements: bool = True
 
     # --- Redis and Celery ----------------------------------------------------
     redis_url: str = "redis://localhost:6379/0"

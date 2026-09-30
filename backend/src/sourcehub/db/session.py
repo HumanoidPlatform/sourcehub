@@ -36,6 +36,14 @@ engine = create_async_engine(
     pool_size=settings.db_pool_size,
     max_overflow=settings.db_max_overflow,
     echo=settings.db_echo,
+    # Behind a transaction-mode pooler both caches must be off: asyncpg's (it
+    # decides whether a statement gets a server-side name) and SQLAlchemy's
+    # (it reuses that name). Ints here, not URL parameters, which arrive as text.
+    connect_args=(
+        {}
+        if settings.db_prepared_statements
+        else {"statement_cache_size": 0, "prepared_statement_cache_size": 0}
+    ),
     # The database is remote. A pooled connection that sat idle gets closed by
     # something on the path (the server, a NAT, a load balancer) without the
     # pool hearing about it, and the next request to draw it failed with

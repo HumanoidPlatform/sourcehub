@@ -39,13 +39,35 @@ def _configure_logging() -> None:
     root.propagate = False
 
 
+async def _refuse_an_unbound_login() -> None:
+    """Stop here if DATABASE_URL names a login row-level security does not bind.
+
+    An unsafe login is a configuration error that would show every organisation
+    every row, so the process does not start. An unreachable database is not:
+    the process starts, GET /ready reports it, and requests fail on their own
+    until the database answers.
+    """
+    from sourcehub.db import guard
+
+    try:
+        await guard.assert_safe_login()
+    except guard.UNREACHABLE as exc:
+        logging.getLogger("sourcehub.db").warning(
+            "could not check the database login at startup (%s); GET /ready will report it",
+            type(exc).__name__,
+        )
+
+
 @contextlib.asynccontextmanager
 async def _lifespan(app: FastAPI) -> AsyncIterator[None]:
-    """The engagement clock (modules/engage) runs as a task in this process.
+    """The database login is checked first (sourcehub.db.guard), then the
+    engagement clock (modules/engage) starts as a task in this process.
     Every uvicorn worker starts one; the advisory lock inside the pass lets
     only one of them do the work on any tick."""
     from sourcehub.modules.engage import service as engage
     from sourcehub.modules.marketplace import sweep
+
+    await _refuse_an_unbound_login()
 
     clocks = [
         asyncio.create_task(engage.run_forever()) if settings.engagement_enabled else None,
@@ -119,9 +141,33 @@ def create_app() -> FastAPI:
     app.include_router(threads.router, prefix="/api/v1", tags=["threads"])
     app.include_router(vendors.router, prefix="/api/v1", tags=["vendors"])
 
+    # Liveness: the process answers. Nothing else is touched, so a database
+    # outage does not get a healthy process restarted.
     @app.get("/health", tags=["ops"])
     async def health() -> dict[str, str]:
         return {"status": "ok"}
+
+    # Readiness: the database answers, and through a login row-level security
+    # binds. A load balancer or Container Apps sends traffic only while this
+    # is 200.
+    @app.get("/ready", tags=["ops"], response_model=None)
+    async def ready() -> JSONResponse:
+        from sourcehub.db import guard
+        from sourcehub.db.session import anonymous_session
+
+        try:
+            async with anonymous_session() as session:
+                found = await guard.check_login(session)
+        except guard.UNREACHABLE as exc:
+            return JSONResponse(
+                status_code=503,
+                content={"status": "unavailable", "reason": f"database: {type(exc).__name__}"},
+            )
+        if not found.safe:
+            return JSONResponse(
+                status_code=503, content={"status": "unsafe", "reason": found.message()}
+            )
+        return JSONResponse(content={"status": "ok"})
 
     return app
 

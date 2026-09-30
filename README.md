@@ -193,7 +193,7 @@ COMMIT;
 
 `SET LOCAL` needs a transaction — which is why [db/session.py](backend/src/sourcehub/db/session.py) exposes `org_session()` and nothing else. With no context set, every protected table returns **zero rows**.
 
-**The application connects as `sourcehub_app`, never as `postgres`.** A superuser bypasses RLS unconditionally, which would leave every policy enabled and entirely ineffective.
+**The application connects as `sourcehub_app`, never as `postgres`.** A superuser bypasses RLS unconditionally, which would leave every policy enabled and entirely ineffective. The same is true of the tables' owner, which on a managed server (Azure, AWS, Google) is the provider's admin login. So there are two logins: the owner builds and migrates the schema, and `sourcehub_app` serves the API. The API refuses to start through anything else, and `GET /ready` says why (`sourcehub.db.guard`). Row-level security is `ENABLE`d, never `FORCE`d. [db/270_managed_postgres.sql](db/270_managed_postgres.sql) explains why, and `sh infra/verify_owner_model.sh` proves the schema works where nobody is a superuser.
 
 ### Two tenancy axes
 
