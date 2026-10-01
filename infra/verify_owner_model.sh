@@ -2,10 +2,12 @@
 # Does the schema work on a managed PostgreSQL server, where nobody is a superuser?
 #
 # Azure Flexible Server, AWS RDS, Google Cloud SQL, Supabase and Neon all give
-# you an admin login that is NOT a superuser and cannot skip row-level
-# security. Dev compose and the old VM run everything as a superuser, which
-# hides whatever depends on one (db/270_managed_postgres.sql tells that story).
-# So this builds the database the managed way and checks the things that break
+# you an admin login that is NOT a superuser. Some of those admins may still
+# skip row-level security (Azure's does on PostgreSQL 18: BYPASSRLS), many
+# cannot; this script builds the stricter case, an admin that can do neither.
+# Dev compose and the old VM run everything as a superuser, which hides
+# whatever depends on one (db/270_managed_postgres.sql tells that story). So
+# this builds the database the managed way and checks the things that break
 # when it is built wrong.
 #
 # In a throwaway container (nothing else is touched):

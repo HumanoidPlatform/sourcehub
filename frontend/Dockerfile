@@ -43,7 +43,17 @@ CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
 # --- production --------------------------------------------------------------
 FROM nginx:1.27-alpine AS prod
 COPY --from=build /app/dist /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# nginx.conf is a template: docker/40-sourcehub-config.sh fills it in at every
+# start from the environment (API_UPSTREAM, API_HOST_HEADER, API_RESOLVER,
+# REAL_IP_FROM), with defaults that are the VM's compose network. nginx's own
+# entrypoint runs it, because it sits in /docker-entrypoint.d/ and ends in .sh.
+# Carriage returns are stripped: a Windows checkout (core.autocrlf) turns a
+# shell script's "#!/bin/sh" line into one Alpine cannot execute.
+COPY nginx.conf /etc/nginx/sourcehub/default.conf.template
+COPY docker/40-sourcehub-config.sh /docker-entrypoint.d/40-sourcehub-config.sh
+RUN sed -i 's/\r$//' /etc/nginx/sourcehub/default.conf.template /docker-entrypoint.d/40-sourcehub-config.sh \
+ && chmod 0755 /docker-entrypoint.d/40-sourcehub-config.sh
 
 # Which build is live, without opening a terminal:  GET /version.json
 ARG BUILD_VERSION=dev

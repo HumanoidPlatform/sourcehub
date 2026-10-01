@@ -128,8 +128,12 @@ minutes before a demo.
 The VM's database runs everything as a superuser. A managed server (Azure
 Database for PostgreSQL Flexible Server, AWS RDS, Google Cloud SQL) gives you an
 admin login that is **not** a superuser, and the schema is built to work there
-from `db/270_managed_postgres.sql` on. `sh infra/verify_owner_model.sh` proves
-it on a laptop before you touch a real server.
+from `db/270_managed_postgres.sql` on. Whether that admin may also skip
+row-level security (`BYPASSRLS`) differs by provider and version: the staging
+server's admin can (Azure, PostgreSQL 18), many cannot. The schema works either
+way, and `sh infra/verify_owner_model.sh` proves the stricter case on a laptop
+before you touch a real server. The staging environment built on this is
+described in [STAGING.md](STAGING.md).
 
 **Two logins, never more.**
 
@@ -243,16 +247,17 @@ this one — the same sequence the VM will go through:
 - **The same holds with Caddy in front.** Run locally as Caddy → nginx → API:
   a sign-in is recorded from the real caller, not from Caddy's container
   address; the forged header is ignored; the malformed one returns 401. This
-  depends on the `set_real_ip_from` lines in `frontend/nginx.conf` — without
+  depends on the ranges nginx trusts (`REAL_IP_FROM`, whose default is Docker's
+  two private pools; see `frontend/docker/40-sourcehub-config.sh`) — without
   them every sign-in would be recorded from Caddy. What could not be tested
   locally is the certificate itself: that only happens on the VM, with the real
   name.
 
 ## Known, and deliberate
 
-- **`web` must never be published directly again.** `frontend/nginx.conf` now
-  trusts `X-Forwarded-For` from the private Docker ranges, which is safe only
-  while Caddy is the sole thing that can reach it.
+- **`web` must never be published directly again.** The web image trusts
+  `X-Forwarded-For` from the private Docker ranges by default (`REAL_IP_FROM`),
+  which is safe only while Caddy is the sole thing that can reach it.
 - **Five accounts keep the published demo password**, including the platform
   admin. The scoped port rule above is what contains it.
 - **`/docs` is public** on the API.
