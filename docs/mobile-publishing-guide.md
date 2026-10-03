@@ -79,6 +79,20 @@ eas build --platform android --profile preview
   do not burn them casually — most changes are an update, not a build.
 - Version codes come from EAS (`appVersionSource: "remote"` in `eas.json`), so two people cannot collide.
 
+### Staging
+
+```sh
+cd mobile
+eas build --platform android --profile staging          # the APK, once
+eas update --channel staging --message "…"             # later JS changes to it
+```
+
+- A staging build talks to the **staging backend** because of its channel: `src/config.ts` picks the URL from
+  `Updates.channel`. Every other build talks to production. Publishing to `preview` therefore never moves a
+  pilot phone to staging, and publishing to `staging` never reaches one.
+- It installs **beside** the pilot app (package `com.cosarathi.capture.staging`, "(staging)" in the launcher),
+  with its own sign-in and capture queue. Its signing key is its own, separate from the pilot app's.
+
 ---
 
 ## The two rules

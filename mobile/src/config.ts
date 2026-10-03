@@ -1,10 +1,18 @@
 // Every knob in one place. Caps mirror the server (modules/media/service.py);
 // the server is the authority, these only save a doomed upload.
 
-/** Where a worker's phone talks to. HTTPS only. Moving to a company domain
- *  later is a change to this one line, delivered over the air. */
-// export const PRODUCTION_API_URL = "https://datamind360.centralindia.cloudapp.azure.com";
-export const PRODUCTION_API_URL = "https://datamind360-staging.happywave-66a233c9.centralindia.azurecontainerapps.io"
+import * as Updates from "expo-updates";
+
+const PRODUCTION = "https://datamind360.centralindia.cloudapp.azure.com";
+const STAGING = "https://datamind360-staging.happywave-66a233c9.centralindia.azurecontainerapps.io";
+
+/** Where a worker's phone talks to. HTTPS only. A build on the 'staging'
+ *  channel (eas.json, profile staging) talks to staging; every other build,
+ *  every pilot APK included, to production. The channel is compiled into the
+ *  binary, so an update published to 'preview' can never move a pilot phone
+ *  to staging. Moving to a company domain later is a change to one line here,
+ *  delivered over the air. */
+export const PRODUCTION_API_URL = Updates.channel === "staging" ? STAGING : PRODUCTION;
 
 /** Only a development bundle may be pointed somewhere else.
  *
