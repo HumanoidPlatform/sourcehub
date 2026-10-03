@@ -54,12 +54,12 @@ target_metadata = Base.metadata
 def _include_object(obj, name, type_, reflected, compare_to):
     """Keep autogenerate away from the tables the ORM does not model.
 
-    db/*.sql builds 56 tables; Base.metadata describes the subset the ORM
+    db/*.sql builds 41 tables; Base.metadata describes the subset the ORM
     actually maps — this project reaches for text() SQL freely, and a module
     "owns no ORM tables" wherever it has no models.py (README). Autogenerate
     reads that difference as "these tables were deleted" and proposes DROP for
-    every one of them: a probe run generated 23 drop_table calls, including
-    audit_event_default and the whole qa rubric set.
+    every one of them: a probe run once generated 23 drop_table calls,
+    audit_event_default among them.
 
     So a reflected object whose table the metadata does not know is not drift,
     it is simply out of scope.

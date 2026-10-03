@@ -152,13 +152,13 @@ async def reinstate_organisation(
 # It was added alongside these two and removed before it ever shipped. The word
 # promised a wind-up the platform cannot perform: nothing keys off 'terminated'
 # anywhere, so it stopped no billing, released no escrow, started no retention
-# clock and erased nothing — retention_policy, legal_hold and erasure_request have
-# no backend references at all. What it did do was hand an irreversible,
+# clock and erased nothing — the compliance tables the blueprint sketched never
+# reached code, and db/290 dropped them. What it did do was hand an irreversible,
 # login-killing write to every role holding network.manage, because both UPDATE
 # policies on organisation admit the parent tenant.
 #
 # org_status still declares 'terminated' and nothing writes it, exactly as before.
-# Offboarding belongs with the compliance tables, as one decision about what ending
+# Offboarding belongs with retention and erasure, as one decision about what ending
 # a commercial relationship actually does.
 
 

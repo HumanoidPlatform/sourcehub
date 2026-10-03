@@ -11,21 +11,21 @@ doing something they should not.
 Contents: [1 The short answer](#1-the-short-answer) · [2 The map](#2-the-map--eight-groups) ·
 [3 One job, start to finish](#3-one-job-start-to-finish) · [4 Status values and who may change them](#4-status-values-and-who-may-change-them) ·
 [5 How the flow is controlled](#5-how-the-flow-is-controlled--four-layers) · [6 The storage layer](#6-the-storage-layer) ·
-[7 Known gaps](#7-known-gaps) · [8 The dormant tables](#8-the-dormant-tables)
+[7 Known gaps](#7-known-gaps) · [8 Tables that were removed](#8-tables-that-were-removed)
 
 ---
 
 ## 1. The short answer
 
-There are **56 tables** (plus `alembic_version`, which is migration bookkeeping).
+There are **41 tables** (plus `alembic_version`, which is migration bookkeeping), and **every one is in
+use**: backend code reads or writes it. Each holds a different real-world thing — a company, a person, a bid,
+a contract, a photo, a payment — and merging them would make the access rules harder, not simpler.
 
-- **41 are in use.** Backend code reads or writes them. Each one holds a different real-world thing — a
-  company, a person, a bid, a contract, a photo, a payment — and merging them would make the access rules harder,
-  not simpler.
-- **15 are dormant.** They were created from the original blueprint, and they are indexed and protected like the
-  rest, but **no backend code touches them**. They are listed in [section 8](#8-the-dormant-tables).
-
-So the schema is not bloated by design; about a quarter of it was built ahead of the features.
+It was not always so. The original blueprint created fifteen tables ahead of the features they were for.
+Two of them (`defect_code`, `qa_review_defect`) have since come into use; the other thirteen were still empty
+on 3 October 2026 and [`290_dormant_objects.sql`](../db/290_dormant_objects.sql) dropped them, as
+[`280_organisation_profile.sql`](../db/280_organisation_profile.sql) had folded the five per-kind profile
+tables into `organisation` just before. [Section 8](#8-tables-that-were-removed) says what they were.
 
 Where things are defined:
 
@@ -52,8 +52,6 @@ SELECT relname AS table, n_live_tup AS rows FROM pg_stat_user_tables ORDER BY n_
 
 ## 2. The map — eight groups
 
-**○** marks a dormant table: defined, but no backend code reads or writes it.
-
 ### A. Who — organisations, people and access · [`010_identity.sql`](../db/010_identity.sql), [`020_rbac.sql`](../db/020_rbac.sql), [`030_onboarding.sql`](../db/030_onboarding.sql)
 
 | Table | One row is |
@@ -68,7 +66,6 @@ SELECT relname AS table, n_live_tup AS rows FROM pg_stat_user_tables ORDER BY n_
 | `user_password_history` | Old password hashes, so a password cannot be reused. |
 | `user_token` | Password-reset links (hash, single use, expiring). Written only through database functions, never directly. |
 | `invitation` | The emailed "set your password" link for a new user. Hash only; the invitee sets their own password, so no administrator ever knows it. |
-| ○ `user_mfa` | Second-factor enrolment. |
 
 ### B. Joining the platform · [`030_onboarding.sql`](../db/030_onboarding.sql)
 
@@ -76,7 +73,6 @@ SELECT relname AS table, n_live_tup AS rows FROM pg_stat_user_tables ORDER BY n_
 |---|---|
 | `onboarding_request` | An application to add a company. Ops adds clients and delivery partners; a delivery partner asks for an aggregator, business or sponsor under itself, and Ops approves. |
 | `onboarding_approval` | One decision on a request. Append-only, so a request that went back for changes keeps the reason. Only Ops may insert — this is the single rule that stops a partner approving its own network. |
-| ○ `onboarding_document` | KYB, DPA and tax-form uploads. |
 
 ### C. Marketplace · [`035_storage.sql`](../db/035_storage.sql), [`040_marketplace.sql`](../db/040_marketplace.sql)
 
@@ -85,7 +81,6 @@ SELECT relname AS table, n_live_tup AS rows FROM pg_stat_user_tables ORDER BY n_
 | `storage_target` | A client's **own** bucket or container: provider, bucket, prefix, and the credential. It is a separate table — not columns on `request` — because every bidding partner can read a published request, and a credential cannot sit on a row they can read. |
 | `request` | The RFP: what is wanted, how much, by when, the privacy rules, and which `storage_target` the captures go to. `proposals_close_at` is the bidding deadline, required to publish and changeable by the client until the award ([`240_bidding_deadline.sql`](../db/240_bidding_deadline.sql)); "closed" is never stored but derived from it at read time. `closed_at` and `bidding_reminder_sent_at` are the sweep's stamps for the notices it has sent, cleared when the client moves the deadline later. |
 | `proposal` | One partner's bid on one request. |
-| ○ `proposal_resource` | Which suppliers a bid names. |
 | `rfp_thread` | One private conversation per request per delivery partner, between the client and that partner only ([`250_rfp_threads.sql`](../db/250_rfp_threads.sql)). Opened by the partner while the request is published (or, as the winner, during delivery); closed by the client's own actions — `awarded_elsewhere` for the losers at award, `contract_completed` for the winner at approval — and a closed thread never reopens. Blind bidding holds because the policies admit only the two parties (and Ops, read-only): a rival's thread does not exist for a partner. |
 | `rfp_message` | One message in a thread, numbered `seq` 1, 2, 3… under the thread's advisory lock. Append-only at every layer: no UPDATE or DELETE policy, no grant, and rewrite rules that turn either into nothing. `sender_name` is a snapshot because the other organisation cannot read `app_user`. |
 | `rfp_thread_read` | One last-read `seq` per organisation per thread. "Seen" and unread counts are computed from it; it is a separate table so both parties can stamp without holding the thread's client-only UPDATE policy. |
@@ -103,17 +98,14 @@ SELECT relname AS table, n_live_tup AS rows FROM pg_stat_user_tables ORDER BY n_
 | `asset` | **One captured photo or video**: storage key, sha256, size, status, who captured it. The bytes are never in the database. Partitioned by `created_at` because it is expected to be the largest table by far. |
 | `submission` | One **attempt** at handing a finished task to the partner. A reworked task has several; every one is kept. |
 | `attachment` | Every document file in the product — on a request, a proposal, a task or a review. One table for all four parents; `entity_type` + `entity_id` + `slot` say where it belongs, and `doc_no` + `version` keep every revision. |
-| ○ `consent_artefact` | Proof of consent from an identifiable person in a capture. (This is about **photographed people**, not about the worker agreeing to the privacy notice.) |
 
 ### E. Quality checks · [`060_qa.sql`](../db/060_qa.sql)
 
 | Table | One row is |
 |---|---|
 | `qa_review` | One verdict at one gate. Gate 1 (the aggregator) reviews an **assignment**; gate 2 (the partner) reviews a **submission**. Append-only: a changed mind is a second row. A `fail` must carry a note — enforced by the database. |
-| ○ `defect_code` | The defect vocabulary (blur, occlusion…). Seeded, but never read. |
-| ○ `rubric`, ○ `rubric_rule`, ○ `sampling_plan` | A structured, versioned rubric with thresholds and sampling. **Today the rubric exists only as the JSON snapshot on `contract`.** |
-| ○ `gold_set`, ○ `gold_set_item` | Known-good and known-bad reference captures for scoring reviewers. |
-| ○ `qa_review_defect` | Which defect codes a failing review cited. |
+| `defect_code` | The defect vocabulary (blur, occlusion, tilt…), seeded. A gate-1 reviewer picks from it when sending a capture back, and the phone shows the worker the code's label. |
+| `qa_review_defect` | Which defect codes a failing review cited, and how many captures each affected. |
 
 ### F. Supplier network · [`070_network.sql`](../db/070_network.sql)
 
@@ -142,13 +134,10 @@ until the client accepts. A single amount column cannot say that.
 |---|---|
 | `audit_event` | One line of the audit log. Each row stores a hash that covers the previous row's hash, so editing or deleting any row breaks every hash after it. Partitioned by time, append-only. |
 | `notification` | One bell notification, for a whole organisation or one person, with a deep link. |
-| ○ `event_outbox` | A queue of events for a background worker. No worker exists. |
-| ○ `retention_policy` | How many months data is kept. Holds one seeded default row. |
-| ○ `legal_hold` | "Do not delete anything on this contract." |
-| ○ `erasure_request` | A person's request to have their data erased, with a 30-day due date. |
 
-Four **views** sit on top: `contract_progress`, `equipment_availability`, `ledger_account_balance`,
-`ledger_imbalance` (which should always be empty).
+There are no views. The four the blueprint added ran with their owner's rights, which put them outside
+row-level security, and no code read them; [`290_dormant_objects.sql`](../db/290_dormant_objects.sql) dropped
+them. A view added in future must be declared `WITH (security_invoker = true)`.
 
 ---
 
@@ -274,7 +263,7 @@ Only two role values change what a policy decides: `platform_admin` and `worker`
 | Hop | What opens | What makes it work |
 |---|---|---|
 | Client → all delivery partners | A `request` that is `published` is visible to **every** organisation of kind `tenant`. This is the open marketplace, and the broadest read rule in the schema. | `request_select` + `current_org_kind()` |
-| Client → every delivery partner | A client reads the organisation row (profile included) of every **active** delivery partner, dealt with or not: the vendors directory. Delivery partners only, never a partner's network; a suspended partner drops out. The mirror of the hop above, in the other direction. | `organisation_select_directory`, `org_in_vendor_directory()` in [`260_vendor_directory.sql`](../db/260_vendor_directory.sql) |
+| Client → every delivery partner | A client reads the organisation row (profile included) of every **active** delivery partner, dealt with or not: the vendors directory. Delivery partners only, never a partner's network; a suspended partner drops out. The mirror of the hop above, in the other direction. | `organisation_select_directory` in [`260_vendor_directory.sql`](../db/260_vendor_directory.sql) |
 | Bidder ↔ client | Bidding discloses each side's organisation and profile to the other. A bidder keeps sight of the request afterwards, win or lose. A bidder **never** sees a competitor's proposal. | `org_visible_via_proposal()`, `org_visible_via_my_proposal()`, `request_has_my_proposal()` |
 | Partner → aggregator | The supplier holding a `task` sees that task and its `contract`. It does **not** see the `request` row. | `task_select`, `contract_select`, `contract_is_visible()` |
 | Aggregator → worker | A worker's session carries the **aggregator's** organisation id. Restrictive policies then narrow it to the worker's own assignments, the tasks behind them, their own captures and their own notifications. Thirteen tables are closed to workers outright — contracts, requests, proposals, invoices, the audit log, storage destinations and more. | `worker_holds_assignment()`, the `*_worker_*` policies in [`120_workers_media.sql`](../db/120_workers_media.sql) |
@@ -384,35 +373,29 @@ lifecycle rule on the storage account.
 
 Facts, not opinions. Each is small on its own; together they are the to-do list for this layer.
 
-1. **The compliance tables have no code.** `retention_policy`, `legal_hold`, `erasure_request` and
-   `consent_artefact` are schema only. The worker privacy notice promises **90 days**; the only retention row
-   says **24 months**; nothing enforces either, and no code deletes a file
-   ([section 6](#nothing-deletes-bytes)). The request form also offers `strip_gps`, `blur_faces` and
-   `redact_plates`, which are stored and not yet acted on.
-2. **Twelve tables have no row-level security:** `permission`, `role_permission`, `defect_code` (shared
-   vocabulary — intended), and `login_attempt`, `user_password_history`, `rubric_rule`, `sampling_plan`,
-   `gold_set_item`, `qa_review_defect`, `event_outbox`, `retention_policy`, `erasure_request`. The two that matter
+1. **Retention and erasure are not implemented.** The worker privacy notice promises **90 days**; nothing
+   enforces it, and no code deletes a file ([section 6](#nothing-deletes-bytes)). The blueprint's tables for
+   this (`retention_policy`, `legal_hold`, `erasure_request`, `consent_artefact`) never reached code and were
+   dropped by [`290_dormant_objects.sql`](../db/290_dormant_objects.sql); the feature starts from a fresh
+   design when it comes. The request form also offers `strip_gps`, `blur_faces` and `redact_plates`, which are
+   stored and not yet acted on.
+2. **Six tables have no row-level security:** `permission`, `role_permission`, `defect_code` (shared
+   vocabulary — intended), and `login_attempt`, `user_password_history`, `qa_review_defect`. The two that matter
    are `login_attempt` (every email that ever tried to sign in) and `user_password_history` (hashes). No route
    exposes them, but the database itself would not stop the application role reading them.
-3. **The four views bypass row-level security.** They run with their owner's rights and `sourcehub_app` can
-   select from them (it also holds pointless write grants). `ledger_account_balance` covers every
-   organisation. No route queries them. The fix is `ALTER VIEW … SET (security_invoker = true)` on each.
-   A view runs as its owner, and the owner is not bound by row-level security: on the VM because it is a
-   superuser, on a managed server because 270 removed `FORCE`. So this gap is the same everywhere, and the fix
-   matters on Azure as much as on the VM.
-4. **`storage_target.secret` is stored as given.** Access to the database is access to every client's storage
+3. **`storage_target.secret` is stored as given.** Access to the database is access to every client's storage
    credential. The code compensates by never selecting the column into a response and redacting it from logs.
-5. **A comment describes a trigger that does not exist.** [`050_delivery.sql`](../db/050_delivery.sql) says a
+4. **A comment describes a trigger that does not exist.** [`050_delivery.sql`](../db/050_delivery.sql) says a
    trigger keeps `request.status` and `contract.status` consistent. There is none: the request's later statuses
    are derived in Python when it is read. Also undefended by the database, despite comments: a proposal being
    immutable once submitted, and the contract's rubric snapshot and destination never changing after award.
-6. **`updated_at` is not maintained on `asset` or `retention_policy`** (no trigger); the media service sets it
-   by hand where it matters.
-7. **Several statuses are declared and never written** — listed at the end of [section 4](#4-status-values-and-who-may-change-them).
+5. **`updated_at` is not maintained on `asset`** (no trigger); the media service sets it by hand where it
+   matters.
+6. **Several statuses are declared and never written** — listed at the end of [section 4](#4-status-values-and-who-may-change-them).
    They are harmless, but a report that filters on them will always be empty.
-8. **Ready for a queue, without one.** `event_outbox` exists and Redis and Celery are configured, but nothing
-   uses them: email is sent inside the request, and no job runs on a clock (which is why offer expiry is computed,
-   not stored).
+7. **Redis and Celery are configured, but nothing uses them.** Email is sent inside the request, and no job
+   runs on a clock (which is why offer expiry is computed, not stored). The outbox table the blueprint planned
+   for a background worker never reached code and went with 290.
 
 *On 20 September 2026 the pilot database was one migration behind the repository (`0016`; the repository has
 `0017`, a rename of the platform organisation). Migrations are not run by the container start-up — they are a
@@ -420,25 +403,38 @@ one-off `alembic upgrade head`, see [infra/deploy/README.md](../infra/deploy/REA
 
 ---
 
-## 8. The dormant tables
+## 8. Tables that were removed
 
-Fifteen tables that no backend code reads or writes. Thirteen are empty; `defect_code` and `retention_policy`
-hold seed rows only.
+Two files took the schema from fifty-nine tables to forty-one. Their `CREATE` statements remain in the
+earlier `db/*.sql` files and in git; both migrations (`0031`, `0032`) have a downgrade that brings everything
+back, and both were proven on scratch copies before they ran anywhere else.
+
+**[`280_organisation_profile.sql`](../db/280_organisation_profile.sql) — five tables folded in.**
+`client_profile`, `tenant_profile`, `aggregator_profile`, `business_profile` and `sponsor_profile` were 1:1
+satellites of `organisation`. Nothing filtered or sorted on their columns, every widening of organisation
+visibility needed a matching policy on each of them (fourteen in all, already drifting), and the API
+flattened them into one `profile` object anyway. Their values live on the organisation row now: see
+`organisation.profile` and the four typed columns in [section 2](#2-the-map--eight-groups).
+
+**[`290_dormant_objects.sql`](../db/290_dormant_objects.sql) — thirteen tables dropped.** Created from the
+blueprint and never reached by code; every one was empty on every database (`retention_policy` held one
+seeded default nothing read). Six had no row-level security at all.
 
 | Table | What it was meant for | What is used instead today |
 |---|---|---|
-| `user_mfa` | TOTP second factor | nothing — the check exists (`require_mfa()` in `api/deps.py`) but is switched off (`mfa_enforcement = false`) because enrolment is not built |
+| `user_mfa` | TOTP second factor | the check exists (`require_mfa()` in `api/deps.py`, `permission.requires_mfa`) but is switched off (`mfa_enforcement = false`); it never read this table |
 | `onboarding_document` | KYB / DPA / tax uploads at onboarding | nothing |
-| `proposal_resource` | naming the suppliers on a bid | nothing structured — only the bid's methodology text |
-| `consent_artefact` | consent from photographed people | nothing |
-| `defect_code`, `qa_review_defect` | structured reasons on a failed review | the review's free-text note |
+| `proposal_resource` | naming the suppliers on a bid | the bid's methodology text |
+| `consent_artefact` | consent from photographed people | nothing — see [gap 1](#7-known-gaps) |
 | `rubric`, `rubric_rule`, `sampling_plan` | versioned, machine-checkable acceptance rules | `contract.rubric_snapshot` (JSON) |
 | `gold_set`, `gold_set_item` | scoring reviewers against known answers | nothing |
 | `event_outbox` | reliable hand-off to a background worker | work done inline in the request |
 | `retention_policy`, `legal_hold`, `erasure_request` | data retention, holds and erasure | nothing — see [gap 1](#7-known-gaps) |
 
-**Recommendation: leave them.** They are empty, they cost nothing at run time, and removing them means a
-migration, policy edits and changes to `infra/verify_schema.sh` for no visible gain. The ones worth attention are
-the last row — not because the tables are unused, but because they stand for promises the product makes. When a
-feature is finally built, check the table's row-level security first: several of these were never given any
-([gap 2](#7-known-gaps)).
+With them went `qa_review.sampling_plan_id` (always NULL), the enum `onboarding_document_kind` (only
+`onboarding_document` used it), two functions nothing called (`current_app_role()`, whose job
+`is_platform_admin()` does, and `org_in_vendor_directory()`, whose only caller left with 280), and the four
+views. The file refuses to run if any of the thirteen tables holds a row, so it cannot drop data silently.
+
+When one of these features is finally built, it gets a new `db/*.sql` file and a fresh design, with row-level
+security from the first line.

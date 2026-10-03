@@ -17,8 +17,8 @@ Reads the structure files in the order infra/bundle_schema.sh applies them
 
 No database is opened and nothing outside the standard library is imported.
 
-The domain groups, the dormant tables and the links that are deliberately not
-foreign keys mirror docs/database-guide.md. A table absent from GROUPS stops the
+The domain groups and the links that are deliberately not foreign keys mirror
+docs/database-guide.md. A table absent from GROUPS stops the
 run: a new table is placed deliberately rather than landing in a heap at the
 bottom of the page, the same reason bundle_schema.sh lists its files by hand.
 
@@ -64,7 +64,6 @@ GROUPS: list[tuple[str, str, str, list[str]]] = [
             "user_password_history",
             "user_token",
             "invitation",
-            "user_mfa",
         ],
     ),
     (
@@ -74,7 +73,6 @@ GROUPS: list[tuple[str, str, str, list[str]]] = [
         [
             "onboarding_request",
             "onboarding_approval",
-            "onboarding_document",
         ],
     ),
     (
@@ -85,7 +83,6 @@ GROUPS: list[tuple[str, str, str, list[str]]] = [
             "storage_target",
             "request",
             "proposal",
-            "proposal_resource",
             "rfp_thread",
             "rfp_message",
             "rfp_thread_read",
@@ -105,7 +102,6 @@ GROUPS: list[tuple[str, str, str, list[str]]] = [
             "asset",
             "submission",
             "attachment",
-            "consent_artefact",
         ],
     ),
     (
@@ -115,11 +111,6 @@ GROUPS: list[tuple[str, str, str, list[str]]] = [
         [
             "qa_review",
             "defect_code",
-            "rubric",
-            "rubric_rule",
-            "sampling_plan",
-            "gold_set",
-            "gold_set_item",
             "qa_review_defect",
         ],
     ),
@@ -152,45 +143,18 @@ GROUPS: list[tuple[str, str, str, list[str]]] = [
         [
             "audit_event",
             "notification",
-            "event_outbox",
-            "retention_policy",
-            "legal_hold",
-            "erasure_request",
         ],
     ),
 ]
 
-# Section 8 of the guide: defined, indexed and protected, but no backend code
-# reads or writes them.
-DORMANT = frozenset(
-    {
-        "user_mfa",
-        "onboarding_document",
-        "proposal_resource",
-        "consent_artefact",
-        "defect_code",
-        "qa_review_defect",
-        "rubric",
-        "rubric_rule",
-        "sampling_plan",
-        "gold_set",
-        "gold_set_item",
-        "event_outbox",
-        "retention_policy",
-        "legal_hold",
-        "erasure_request",
-    }
-)
-
 # Relations the schema carries on purpose without a FOREIGN KEY: a polymorphic
-# parent cannot be one, and consent must outlive the capture it is about.
+# parent cannot be one.
 # (child table, child column, parent table, parent column, label)
 SOFT_LINKS: list[tuple[str, str, str, str, str]] = [
     ("attachment", "entity_id", "request", "id", "entity_type = 'request'"),
     ("attachment", "entity_id", "proposal", "id", "entity_type = 'proposal'"),
     ("attachment", "entity_id", "task", "id", "entity_type = 'task'"),
     ("attachment", "entity_id", "qa_review", "id", "entity_type = 'qa_review'"),
-    ("consent_artefact", "asset_id", "asset", "id", "survives asset erasure"),
 ]
 
 # Nearly every table carries these; their edges to app_user would bury every
@@ -610,12 +574,29 @@ def handle_drop_table(model: Model, stmt: str) -> None:
             model.tables.pop(name, None)
 
 
+def handle_drop_view(model: Model, stmt: str) -> None:
+    m = re.match(
+        r"^DROP\s+(?:MATERIALIZED\s+)?VIEW\s+(?:IF\s+EXISTS\s+)?([\w\s,]+?)\s*(?:CASCADE|RESTRICT)?$",
+        squash(stmt),
+        re.I,
+    )
+    if m:
+        for name in _cols(m.group(1)):
+            if name in model.views:
+                model.views.remove(name)
+
+
 def handle_type(model: Model, stmt: str) -> None:
     s = squash(stmt)
     m = re.match(r"^CREATE\s+TYPE\s+(\w+)\s+AS\s+ENUM\s*\((.*)\)$", s, re.I | re.S)
     if m:
         values = [v.replace("''", "'") for v in re.findall(r"'((?:[^']|'')*)'", m.group(2))]
         model.enums[m.group(1)] = Enum(m.group(1), values)
+        return
+    m = re.match(r"^DROP\s+TYPE\s+(?:IF\s+EXISTS\s+)?([\w\s,]+?)\s*(?:CASCADE|RESTRICT)?$", s, re.I)
+    if m:
+        for name in _cols(m.group(1)):
+            model.enums.pop(name, None)
         return
     m = re.match(
         r"^ALTER\s+TYPE\s+(\w+)\s+ADD\s+VALUE\s+(?:IF\s+NOT\s+EXISTS\s+)?'([^']*)'"
@@ -658,7 +639,9 @@ def build_model(files: list[str] | None = None) -> Model:
                 handle_alter_table(model, stmt, source)
             elif head.startswith("DROP TABLE"):
                 handle_drop_table(model, stmt)
-            elif head.startswith("CREATE TYPE") or head.startswith("ALTER TYPE"):
+            elif head.startswith("DROP VIEW") or head.startswith("DROP MATERIALIZED VIEW"):
+                handle_drop_view(model, stmt)
+            elif head.startswith(("CREATE TYPE", "ALTER TYPE", "DROP TYPE")):
                 handle_type(model, stmt)
             elif re.match(r"^CREATE (OR REPLACE )?(MATERIALIZED )?VIEW ", head):
                 vm = re.match(
@@ -698,8 +681,6 @@ def resolve(model: Model) -> None:
         if extra:
             msg.append(f"GROUPS names no table: {', '.join(extra)}")
         raise SystemExit("\n".join(msg))
-    for t in DORMANT - set(model.tables):
-        raise SystemExit(f"DORMANT names no table: {t}")
     for child, col, parent, pcol, _ in SOFT_LINKS:
         model.tables[child].column(col)
         model.tables[parent].column(pcol)
@@ -726,9 +707,6 @@ STYLE_TABLE = (
     "shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;"
     "fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;"
     "swimlaneFillColor=#FFFFFF;strokeColor=#5C6B7A;fontColor=#1F2933;"
-)
-STYLE_TABLE_DORMANT = (
-    "fillColor=#EDEDED;swimlaneFillColor=#FAFAFA;strokeColor=#A0A0A0;fontColor=#7A7A7A;dashed=1;"
 )
 STYLE_TABLE_EXTERNAL = (
     "fillColor=#F0F0F0;swimlaneFillColor=#FAFAFA;strokeColor=#B0B0B0;fontColor=#6B6B6B;"
@@ -796,14 +774,10 @@ class Page:
         style = STYLE_TABLE
         if external:
             style += STYLE_TABLE_EXTERNAL
-        elif t.name in DORMANT:
-            style += STYLE_TABLE_DORMANT
         else:
             style += f"fillColor={group_of(t.name)[2]};"
         label = t.name
         notes = []
-        if t.name in DORMANT:
-            notes.append("dormant")
         if t.partition_key:
             notes.append(f"partitioned by {t.partition_key}")
         if external:
@@ -973,7 +947,6 @@ LEGEND = (
     "with every column; the last page is the whole schema.<br>"
     "<u>underlined</u> primary key · <i>italic</i> foreign key · <code>type?</code> nullable · "
     "<code>U</code> unique · crow's foot = many side, ○ = optional · "
-    "grey dashed table = dormant (no backend code reads or writes it) · "
     "dashed line = link kept without a foreign key on purpose · "
     "created_by / updated_by → app_user drawn on the Full schema page only.<br>"
     "Generated by infra/erd.py from db/*.sql (revision {rev}). Do not edit: change db/ and "
@@ -1055,14 +1028,12 @@ def dbml_note(text: str) -> str:
 
 def render_dbml(model: Model, rev: str) -> str:
     out: list[str] = []
-    dormant = ", ".join(sorted(DORMANT))
     views = ", ".join(model.views) or "none"
     out.append("Project sourcehub {\n  database_type: 'PostgreSQL'\n  Note: '''")
     out.append(
         f"    Generated by infra/erd.py from db/*.sql (revision {rev}); regenerate with make erd."
     )
-    out.append("    Groups follow docs/database-guide.md. Grey tables are dormant: no backend code")
-    out.append(f"    reads or writes them ({dormant}).")
+    out.append("    Groups follow docs/database-guide.md.")
     out.append(f"    Views (not drawn): {views}.")
     out.append("    Links drawn dashed in the .drawio file are not foreign keys here either:")
     for child, col, parent, pcol, label in SOFT_LINKS:
@@ -1077,8 +1048,7 @@ def render_dbml(model: Model, rev: str) -> str:
     for _key, title, colour, names in GROUPS:
         for name in names:
             t = model.tables[name]
-            header = "#9E9E9E" if name in DORMANT else colour
-            out.append(f"Table {t.name} [headercolor: {header}] {{")
+            out.append(f"Table {t.name} [headercolor: {colour}] {{")
             for c in t.columns:
                 settings = []
                 if c.pk and len(t.pk) == 1:
@@ -1097,8 +1067,6 @@ def render_dbml(model: Model, rev: str) -> str:
                     out.append(f"    ({', '.join(u)}) [unique]")
                 out.append("  }")
             note = f"{title} · {t.source}"
-            if name in DORMANT:
-                note += " · DORMANT: no backend code reads or writes this table"
             if t.partition_key:
                 note += f" · partitioned by {t.partition_key}"
             out.append(f"  Note: {dbml_note(note)}")
@@ -1152,8 +1120,7 @@ def main() -> int:
     print(f"  {dbml.relative_to(ROOT)}")
     print(
         f"  {len(model.tables)} tables, {ncols} columns, {len(model.fks())} foreign keys, "
-        f"{len(SOFT_LINKS)} soft links, {len(model.enums)} enums, {len(model.views)} views, "
-        f"{len(DORMANT)} dormant"
+        f"{len(SOFT_LINKS)} soft links, {len(model.enums)} enums, {len(model.views)} views"
     )
     print()
     print(

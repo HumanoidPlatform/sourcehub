@@ -12,11 +12,12 @@ Three rules it obeys, each learned from something already in this codebase:
    `WHERE client_org_id = :me` here would be a second, weaker copy of a rule
    the database already enforces — and the copy is the one that rots.
 
-2. NOT THE VIEWS. contract_progress looks like exactly the primitive this
-   module wants, and using it would be a tenancy hole: it is not declared
-   security_invoker, so it runs with its owner's rights and would hand a client
-   every contract on the platform. The aggregates below hit base tables, where
-   the policies apply.
+2. NOT A VIEW. The blueprint shipped a contract-progress view that looked like
+   exactly the primitive this module wants, and using it would have been a
+   tenancy hole: a view not declared security_invoker runs with its owner's
+   rights and would hand a client every contract on the platform. db/290
+   dropped it and the other three for that reason. The aggregates below hit
+   base tables, where the policies apply.
 
 3. THE SAME DERIVED STATUS THE LIST ENDPOINTS SHOW. A request's API status is
    not its stored status — marketplace.service derives it from the contract,

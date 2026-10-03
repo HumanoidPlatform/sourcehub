@@ -214,12 +214,6 @@ INSERT INTO defect_code (code, label, category, automated) VALUES
 
 
 -- ---------------------------------------------------------------------------
--- Platform-default retention: 24 months post-contract.
--- ---------------------------------------------------------------------------
-INSERT INTO retention_policy (org_id, retention_months) VALUES (NULL, 24);
-
-
--- ---------------------------------------------------------------------------
 -- Platform-internal ledger accounts.
 -- ---------------------------------------------------------------------------
 INSERT INTO ledger_account (org_id, code, currency) VALUES

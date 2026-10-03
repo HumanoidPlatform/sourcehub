@@ -164,8 +164,8 @@ async def record_completion(
       3. escrow empties: partner is owed value minus fee, the fee is income
 
     After which: receivable 0, escrow 0, cash +value, partner payable value-fee,
-    fee_income +fee — and ledger_imbalance stays empty, which the reconciliation
-    view asserts. Returns the fee for the caller's messaging.
+    fee_income +fee — and every transaction balanced, which assert_ledger_balanced()
+    refuses to commit otherwise. Returns the fee for the caller's messaging.
     """
     fee = (value * fee_pct / 100).quantize(TWO_PLACES)
     milestone1 = (value * milestone_pct / 100).quantize(TWO_PLACES)

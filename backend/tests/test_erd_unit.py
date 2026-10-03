@@ -47,15 +47,11 @@ def model() -> Any:
 def test_every_table_is_read_and_grouped(model: Any) -> None:
     grouped = {t for _, _, _, names in erd.GROUPS for t in names}
     assert set(model.tables) == grouped
-    assert len(model.tables) == 54  # 59 before db/280 folded the five profile tables away
-    assert set(model.tables) >= erd.DORMANT
-    assert len(model.enums) == 32
-    assert sorted(model.views) == [
-        "contract_progress",
-        "equipment_availability",
-        "ledger_account_balance",
-        "ledger_imbalance",
-    ]
+    # 59 before db/280 folded the five profile tables away, 54 before db/290
+    # dropped the thirteen dormant tables with their enum and the four views
+    assert len(model.tables) == 41
+    assert len(model.enums) == 31
+    assert sorted(model.views) == []
 
 
 def test_alter_table_changes_landed(model) -> None:  # type: ignore[no-untyped-def]

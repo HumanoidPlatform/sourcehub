@@ -71,7 +71,7 @@ async def org_session(
 
         app.org_id   the account and network axes
         app.role     'platform_admin' is the only value that widens visibility
-        app.user_id  self-access on app_user, user_session, user_token, user_mfa
+        app.user_id  self-access on app_user, user_session, user_token
 
     Args:
         org_id: The organisation this session acts as. One session, one org —

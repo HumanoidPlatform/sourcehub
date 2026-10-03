@@ -75,7 +75,11 @@ def test_the_new_file_is_the_last_structure_file_in_the_bundle():
     m = re.search(r'^STRUCTURE="([^"]*)"', BUNDLE.read_text(encoding="utf-8"), re.M)
     assert m
     listed = m.group(1).split()
-    assert listed[-2:] == ["270_managed_postgres", "280_organisation_profile"]
+    assert listed[-3:] == [
+        "270_managed_postgres",
+        "280_organisation_profile",
+        "290_dormant_objects",
+    ]
 
 
 def test_no_comment_line_ends_a_statement():

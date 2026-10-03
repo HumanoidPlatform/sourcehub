@@ -1,4 +1,4 @@
-"""qa — rubrics, sampling plans, gold sets and the three review gates.
+"""qa — the review gates and the defect vocabulary.
 
 SQLAlchemy tables. Nothing outside this module may import them —
 import-linter's module-independence contract fails the build if it tries.
@@ -37,7 +37,6 @@ class QaReview(Base):
     reviewer_user_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("app_user.id"))
     sample_size: Mapped[int | None] = mapped_column(Integer)
     sample_failed: Mapped[int | None] = mapped_column(Integer)
-    sampling_plan_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
     note: Mapped[str | None] = mapped_column(Text)
     reviewed_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
 
