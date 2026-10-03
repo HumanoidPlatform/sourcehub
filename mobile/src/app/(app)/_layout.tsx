@@ -1,6 +1,7 @@
 import { Redirect, Stack, usePathname } from "expo-router";
 import { useAuth } from "@/auth/AuthProvider";
 import { useConsent } from "@/consentStore";
+import { PushMount } from "@/notifications/PushMount";
 import { C, OfflineBanner } from "@/ui";
 
 export default function AppLayout() {
@@ -22,6 +23,8 @@ export default function AppLayout() {
   return (
     <>
       <OfflineBanner />
+      {/* only past every gate above, so the permission prompt never interrupts them */}
+      {consent.accepted && !session.must_change_password && <PushMount />}
       <Stack
         screenOptions={{
           headerStyle: { backgroundColor: C.bg },

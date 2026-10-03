@@ -5,6 +5,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState, t
 import { bindSessionListener, loadSession, login as apiLogin, logout as apiLogout } from "@/api/client";
 import type { OrgChoice, Session } from "@/api/types";
 import { purgeOtherUsers } from "@/db/outbox";
+import { unregisterPush } from "@/notifications/push";
 import { queryClient } from "@/query/queryClient";
 import { uploader } from "@/upload/uploader";
 
@@ -42,6 +43,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const logout = useCallback(async () => {
+    // Before the session goes: the server needs it to know whose token to clear.
+    await unregisterPush();
     await apiLogout();
     queryClient.clear();
   }, []);

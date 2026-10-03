@@ -4,7 +4,7 @@ import { useRouter } from "expo-router";
 import * as Updates from "expo-updates";
 import * as WebBrowser from "expo-web-browser";
 import { useEffect, useState } from "react";
-import { Alert, Text, TextInput, View } from "react-native";
+import { Alert, Linking, Text, TextInput, View } from "react-native";
 import { getBaseUrl, setBaseUrl } from "@/api/client";
 import { useAuth, useSession } from "@/auth/AuthProvider";
 import { APP_NAME, ROLE_LABEL } from "@/brand";
@@ -13,9 +13,18 @@ import { ALLOW_SERVER_OVERRIDE } from "@/config";
 import { POLICY_URL } from "@/consent";
 import { useConsent } from "@/consentStore";
 import { discardFailed, onOutboxChange, retryFailed, summary, type OutboxSummary } from "@/db/outbox";
+import { pushState, registerForPush, type PushState } from "@/notifications/push";
 import { Button, Callout, Field, Screen, inputStyle, s } from "@/ui";
 import { useUploadLog } from "@/upload/log";
 import { uploader } from "@/upload/uploader";
+
+const PUSH_TEXT: Record<PushState, string> = {
+  on: "On. New work, batches sent back or accepted, and reminders reach this phone even when the app is closed.",
+  off: "Off. You will only see news in the bell, while the app is open.",
+  blocked: "Blocked in the phone's settings. You will only see news in the bell, while the app is open.",
+  unavailable: "Not available on this phone or build. The bell still shows everything while the app is open.",
+  error: "Could not register this phone with the server. Check the connection and try again.",
+};
 
 export default function Settings() {
   const session = useSession();
@@ -25,9 +34,11 @@ export default function Settings() {
   const [box, setBox] = useState<OutboxSummary>({ queued: 0, failed: 0, confirmed: 0 });
   const log = useUploadLog();
   const consent = useConsent(session.user_id);
+  const [push, setPush] = useState<PushState | null>(null);
 
   useEffect(() => {
     void getBaseUrl().then(setUrl);
+    void pushState().then(setPush);
     const load = () => void summary().then(setBox);
     load();
     return onOutboxChange(load);
@@ -99,6 +110,17 @@ export default function Settings() {
           <Button title="Save address" onPress={() => void setBaseUrl(url)} disabled={!/^https?:\/\/.+/.test(url.trim())} />
         </View>
       )}
+
+      <View style={s.card}>
+        <Text style={[s.label, { marginBottom: 4 }]}>Notifications</Text>
+        <Text style={s.body}>{push ? PUSH_TEXT[push] : "Checking…"}</Text>
+        {push === "off" || push === "error" ? (
+          <Button title="Turn on" onPress={() => void registerForPush().then(setPush)} style={{ marginTop: 10 }} />
+        ) : push === "blocked" ? (
+          // Android will not ask a second time; only its own settings can.
+          <Button title="Open phone settings" onPress={() => void Linking.openSettings()} style={{ marginTop: 10 }} />
+        ) : null}
+      </View>
 
       <View style={s.card}>
         <Text style={[s.label, { marginBottom: 4 }]}>Privacy</Text>

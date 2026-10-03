@@ -2,15 +2,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
 import { Pressable, Text, View } from "react-native";
 import { post } from "@/api/client";
-import type { NotificationRow } from "@/api/types";
+import { target } from "@/notifications/link";
 import { useNotifications } from "@/query/hooks";
 import { Button, C, Empty, Screen, s } from "@/ui";
-
-function target(n: NotificationRow): string | null {
-  const id = n.link_params?.id ?? n.link_params?.assignment_id;
-  if (n.link_page === "assignment" && id) return `/assignments/${id}`;
-  return "/assignments";
-}
 
 export default function Notifications() {
   const qc = useQueryClient();
@@ -32,8 +26,13 @@ export default function Notifications() {
         <Pressable
           key={n.id}
           onPress={() => {
-            const t = target(n);
-            if (t) router.push(t);
+            // read the same way a tapped push is, so the two ways in agree
+            if (!n.read) {
+              void post(`/notifications/${n.id}/read`)
+                .then(() => qc.invalidateQueries({ queryKey: ["notifications"] }))
+                .catch(() => undefined);
+            }
+            router.push(target(n));
           }}
           accessibilityRole="button"
           style={[s.card, !n.read && { borderColor: C.accent }]}

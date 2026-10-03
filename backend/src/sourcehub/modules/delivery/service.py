@@ -1560,6 +1560,14 @@ async def create_offer(
             accept_url=base + "&intent=accept", decline_url=base + "&intent=decline",
         )
         messages.append((w["email"], subject, body, html_body))
+        # The bell row, and through modules/push the phone: an offer used to
+        # reach the worker by email only, until the first reminder.
+        await notifier.notify(
+            session, claims.org_id,
+            f"{org_name} is offering {t.reference_code} {t.title} — "
+            "use the links in your email to answer.",
+            user_id=w["user_id"],
+        )
     await session.flush()
 
     await audit.log(

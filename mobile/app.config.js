@@ -13,6 +13,20 @@
 // EAS sets EAS_BUILD_PROFILE during a cloud build. Unset means a local run
 // (`expo start`, `expo run:android`), which is development.
 
+const fs = require("fs");
+const path = require("path");
+
+// PUSH NEEDS FIREBASE ON ANDROID, EVEN THROUGH EXPO'S PUSH SERVICE.
+//
+// google-services.json comes from the Firebase project, which lists one
+// Android app per package this build can carry (com.cosarathi.capture and its
+// .dev, .staging and .video variants). It is client configuration, not a
+// secret. The server-side key that lets Expo send through FCM lives in EAS
+// (eas credentials → Android → FCM V1), never here. Without the file the app
+// still builds and runs; it just cannot get a push token (Settings says so).
+const GOOGLE_SERVICES = "./google-services.json";
+const hasGoogleServices = fs.existsSync(path.join(__dirname, GOOGLE_SERVICES));
+
 module.exports = ({ config }) => {
   const profile = process.env.EAS_BUILD_PROFILE;
 
@@ -32,7 +46,11 @@ module.exports = ({ config }) => {
     ...config,
     name: variant ? `${config.name} (${variant})` : config.name,
     ios: { ...config.ios, bundleIdentifier: config.ios.bundleIdentifier + suffix },
-    android: { ...config.android, package: config.android.package + suffix },
+    android: {
+      ...config.android,
+      package: config.android.package + suffix,
+      ...(hasGoogleServices ? { googleServicesFile: GOOGLE_SERVICES } : {}),
+    },
   };
 
   // The cleartext decision is about the PROFILE, not the variant: a build that

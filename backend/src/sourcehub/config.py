@@ -79,6 +79,19 @@ class Settings(BaseSettings):
     bidding_sweep_enabled: bool = True
     bidding_sweep_tick_seconds: int = 60
 
+    # --- Push dispatcher -----------------------------------------------------
+    # The pass (modules/push) that sends a worker's bell rows to their phone
+    # through the Expo push service, after the transaction that wrote them has
+    # committed. Its own switch: on a laptop whose DATABASE_URL is a shared
+    # database it would light up real workers' phones. Seconds, not minutes:
+    # a push is only useful while the news is fresh.
+    push_enabled: bool = True
+    push_tick_seconds: int = 5
+    expo_push_url: str = "https://exp.host/--/api/v2/push/send"
+    # Required once "enhanced push security" is on in the Expo project, which
+    # it should be: without it anyone holding a token can push to that phone.
+    expo_access_token: SecretStr = SecretStr("")
+
     # --- Adapters ------------------------------------------------------------
     # These strings select an implementation in platform/, and nothing outside
     # platform/ imports a vendor SDK, so swapping one is a config change rather
