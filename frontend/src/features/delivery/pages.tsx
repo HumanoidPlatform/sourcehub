@@ -633,10 +633,19 @@ type QaReviewRow = {
   gate: string;
   outcome: string;
   note: string | null;
+  /** The defect codes a failing gate-1 verdict cited, with how many captures
+   *  each affected — {"exposure": 1}. Empty on a pass and at gate 2. */
+  defects?: Record<string, number>;
   worker_name: string | null;
   reviewed_at: string | null;
   attempt_no: number | null;
 };
+
+function qaDefectsLine(defects: Record<string, number> | undefined): string | null {
+  const entries = Object.entries(defects ?? {});
+  if (!entries.length) return null;
+  return `Sent back: ${entries.map(([code, n]) => `${code.replace(/_/g, " ")} ×${n}`).join(", ")}`;
+}
 
 function qaGateLabel(gate: string): string {
   if (gate === "gate1_supplier") return "Gate 1 supplier review";
@@ -664,6 +673,7 @@ function qaReviewList(reviews: QaReviewRow[] | undefined): React.ReactNode {
           {r.worker_name ? ` · ${r.worker_name}` : ""}
           {r.reviewed_at ? ` · ${fmtDateTime(r.reviewed_at)}` : ""}
           {r.note ? <div className="muted">{r.note}</div> : null}
+          {qaDefectsLine(r.defects) ? <div className="muted">{qaDefectsLine(r.defects)}</div> : null}
         </div>
       ))}
     </div>

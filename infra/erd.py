@@ -111,7 +111,6 @@ GROUPS: list[tuple[str, str, str, list[str]]] = [
         [
             "qa_review",
             "defect_code",
-            "qa_review_defect",
         ],
     ),
     (

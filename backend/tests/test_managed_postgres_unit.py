@@ -107,13 +107,14 @@ def test_the_new_file_is_the_last_structure_file_in_the_bundle():
     m = re.search(r'^STRUCTURE="([^"]*)"', BUNDLE.read_text(encoding="utf-8"), re.M)
     assert m
     listed = m.group(1).split()
-    # it restates rights and removes FORCE over everything before it. 280 and
-    # 290 come after: neither creates a table or grants anything, so 270 still
+    # it restates rights and removes FORCE over everything before it. 280, 290
+    # and 300 come after: none creates a table or grants anything, so 270 still
     # covers all
-    assert listed[-3:] == [
+    assert listed[-4:] == [
         "270_managed_postgres",
         "280_organisation_profile",
         "290_dormant_objects",
+        "300_review_defects",
     ]
 
 

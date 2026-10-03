@@ -11,9 +11,10 @@ from __future__ import annotations
 
 import datetime as dt
 import uuid
+from typing import Any
 
 from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, Text, text
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
 from sourcehub.db.base import Base
@@ -37,6 +38,9 @@ class QaReview(Base):
     reviewer_user_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("app_user.id"))
     sample_size: Mapped[int | None] = mapped_column(Integer)
     sample_failed: Mapped[int | None] = mapped_column(Integer)
+    # the defect codes a failing gate-1 verdict cited, with how many captures
+    # each affected: {"exposure": 1}. Keys are defect_code.code (db/300).
+    defects: Mapped[dict[str, Any]] = mapped_column(JSONB, server_default=text("'{}'::jsonb"))
     note: Mapped[str | None] = mapped_column(Text)
     reviewed_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
 

@@ -48,8 +48,9 @@ def test_every_table_is_read_and_grouped(model: Any) -> None:
     grouped = {t for _, _, _, names in erd.GROUPS for t in names}
     assert set(model.tables) == grouped
     # 59 before db/280 folded the five profile tables away, 54 before db/290
-    # dropped the thirteen dormant tables with their enum and the four views
-    assert len(model.tables) == 41
+    # dropped the thirteen dormant tables with their enum and the four views,
+    # 41 before db/300 folded qa_review_defect onto the verdict row
+    assert len(model.tables) == 40
     assert len(model.enums) == 31
     assert sorted(model.views) == []
 

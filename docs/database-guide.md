@@ -17,15 +17,17 @@ Contents: [1 The short answer](#1-the-short-answer) · [2 The map](#2-the-map--e
 
 ## 1. The short answer
 
-There are **41 tables** (plus `alembic_version`, which is migration bookkeeping), and **every one is in
+There are **40 tables** (plus `alembic_version`, which is migration bookkeeping), and **every one is in
 use**: backend code reads or writes it. Each holds a different real-world thing — a company, a person, a bid,
 a contract, a photo, a payment — and merging them would make the access rules harder, not simpler.
 
 It was not always so. The original blueprint created fifteen tables ahead of the features they were for.
-Two of them (`defect_code`, `qa_review_defect`) have since come into use; the other thirteen were still empty
+Two of them (`defect_code`, `qa_review_defect`) later came into use; the other thirteen were still empty
 on 3 October 2026 and [`290_dormant_objects.sql`](../db/290_dormant_objects.sql) dropped them, as
 [`280_organisation_profile.sql`](../db/280_organisation_profile.sql) had folded the five per-kind profile
-tables into `organisation` just before. [Section 8](#8-tables-that-were-removed) says what they were.
+tables into `organisation` just before. [`300_review_defects.sql`](../db/300_review_defects.sql) then folded
+`qa_review_defect` — written once per verdict, read nowhere, unprotected — onto the verdict row as
+`qa_review.defects`. [Section 8](#8-tables-that-were-removed) says what they were.
 
 Where things are defined:
 
@@ -103,9 +105,8 @@ SELECT relname AS table, n_live_tup AS rows FROM pg_stat_user_tables ORDER BY n_
 
 | Table | One row is |
 |---|---|
-| `qa_review` | One verdict at one gate. Gate 1 (the aggregator) reviews an **assignment**; gate 2 (the partner) reviews a **submission**. Append-only: a changed mind is a second row. A `fail` must carry a note — enforced by the database. |
-| `defect_code` | The defect vocabulary (blur, occlusion, tilt…), seeded. A gate-1 reviewer picks from it when sending a capture back, and the phone shows the worker the code's label. |
-| `qa_review_defect` | Which defect codes a failing review cited, and how many captures each affected. |
+| `qa_review` | One verdict at one gate. Gate 1 (the aggregator) reviews an **assignment**; gate 2 (the partner) reviews a **submission**. Append-only: a changed mind is a second row. A `fail` must carry a note — enforced by the database. `defects` is one jsonb object per verdict — `{"exposure": 1}`, the defect codes a failing gate-1 verdict cited and how many captures each affected ([`300_review_defects.sql`](../db/300_review_defects.sql); it replaced the `qa_review_defect` table). |
+| `defect_code` | The defect vocabulary (blur, occlusion, tilt…), seeded. A gate-1 reviewer picks from it when sending a capture back, and the phone shows the worker the code's label. Codes are retired with `active = false`, never deleted: `asset.review_reason` and `qa_review.defects` name them by code. |
 
 ### F. Supplier network · [`070_network.sql`](../db/070_network.sql)
 
@@ -379,8 +380,8 @@ Facts, not opinions. Each is small on its own; together they are the to-do list 
    dropped by [`290_dormant_objects.sql`](../db/290_dormant_objects.sql); the feature starts from a fresh
    design when it comes. The request form also offers `strip_gps`, `blur_faces` and `redact_plates`, which are
    stored and not yet acted on.
-2. **Six tables have no row-level security:** `permission`, `role_permission`, `defect_code` (shared
-   vocabulary — intended), and `login_attempt`, `user_password_history`, `qa_review_defect`. The two that matter
+2. **Five tables have no row-level security:** `permission`, `role_permission`, `defect_code` (shared
+   vocabulary — intended), and `login_attempt`, `user_password_history`. The two that matter
    are `login_attempt` (every email that ever tried to sign in) and `user_password_history` (hashes). No route
    exposes them, but the database itself would not stop the application role reading them.
 3. **`storage_target.secret` is stored as given.** Access to the database is access to every client's storage
@@ -405,9 +406,9 @@ one-off `alembic upgrade head`, see [infra/deploy/README.md](../infra/deploy/REA
 
 ## 8. Tables that were removed
 
-Two files took the schema from fifty-nine tables to forty-one. Their `CREATE` statements remain in the
-earlier `db/*.sql` files and in git; both migrations (`0031`, `0032`) have a downgrade that brings everything
-back, and both were proven on scratch copies before they ran anywhere else.
+Three files took the schema from fifty-nine tables to forty. Their `CREATE` statements remain in the
+earlier `db/*.sql` files and in git; each migration (`0031`, `0032`, `0033`) has a downgrade that brings
+everything back, and each was proven on scratch copies before it ran anywhere else.
 
 **[`280_organisation_profile.sql`](../db/280_organisation_profile.sql) — five tables folded in.**
 `client_profile`, `tenant_profile`, `aggregator_profile`, `business_profile` and `sponsor_profile` were 1:1
@@ -435,6 +436,13 @@ With them went `qa_review.sampling_plan_id` (always NULL), the enum `onboarding_
 `onboarding_document` used it), two functions nothing called (`current_app_role()`, whose job
 `is_platform_admin()` does, and `org_in_vendor_directory()`, whose only caller left with 280), and the four
 views. The file refuses to run if any of the thirteen tables holds a row, so it cannot drop data silently.
+
+**[`300_review_defects.sql`](../db/300_review_defects.sql) — one table folded onto its parent.**
+`qa_review_defect` held one row per defect code a failing gate-1 verdict cited. It was written in one place,
+read nowhere, and had no row-level security. Its rows became `qa_review.defects` — one jsonb object per
+verdict, `{"exposure": 1}` — copied before the table was dropped; the file lifts `qa_review`'s append-only
+rule for the copy and puts it straight back, and refuses the whole transaction if the copy fell short. The
+QA trail in the console now shows the counts, which the table never did.
 
 When one of these features is finally built, it gets a new `db/*.sql` file and a fresh design, with row-level
 security from the first line.

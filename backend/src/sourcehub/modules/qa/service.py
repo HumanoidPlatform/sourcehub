@@ -151,7 +151,7 @@ async def reviews_for_task(session: AsyncSession, task_id: uuid.UUID) -> list[di
     rows = (
         await session.execute(
             text(
-                "SELECT q.id, q.gate, q.outcome, q.note, q.reviewed_at, s.attempt_no, "
+                "SELECT q.id, q.gate, q.outcome, q.note, q.defects, q.reviewed_at, s.attempt_no, "
                 "       q.assignment_id, coalesce(w.display_name, u.full_name) AS worker_name "
                 "FROM qa_review q "
                 "LEFT JOIN submission s ON s.id = q.submission_id "
@@ -232,7 +232,7 @@ class MarkPlan(NamedTuple):
     retake: list[tuple[uuid.UUID, str, str | None]]
     # captures sent back in an earlier round that the reviewer has since kept
     restore: list[uuid.UUID]
-    # {defect code: how many}, for the qa_review_defect rollup
+    # {defect code: how many}, written onto the verdict as qa_review.defects
     tally: dict[str, int]
 
 
@@ -415,21 +415,12 @@ async def decide_gate1(
         reviewer_org_id=claims.org_id,
         reviewer_user_id=claims.user_id,
         note=note,
+        # which defects the verdict cited, countable per worker and per task;
+        # the verdict row is append-only, so the tally rides on the INSERT
+        defects=dict(sorted(tally.items())),
     )
     session.add(review)
     await session.flush()
-    # Which defects a failing review cited, countable per worker and per task.
-    # qa_review_defect has been in the schema since db/060_qa.sql and this is
-    # the first thing to write it.
-    for code, count in sorted(tally.items()):
-        await session.execute(
-            text(
-                "INSERT INTO qa_review_defect (review_id, defect_code_id, affected_count) "
-                "SELECT :r, d.id, :n FROM defect_code d WHERE d.code = :c "
-                "ON CONFLICT (review_id, defect_code_id) DO NOTHING"
-            ),
-            {"r": review.id, "n": count, "c": code},
-        )
     await session.execute(
         text(
             "UPDATE task_assignment SET status = :st, decided_at = now(), decided_by = :me, "
