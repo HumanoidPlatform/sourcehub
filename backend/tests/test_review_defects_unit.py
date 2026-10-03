@@ -1,4 +1,4 @@
-"""db/300 folds qa_review_defect onto the verdict row; 0033 carries it.
+"""db/310 folds qa_review_defect onto the verdict row; 0034 carries it.
 
 The two files stay one change (verbatim); the append-only rule on qa_review
 comes off before the copy and goes back on after it; the assertion runs before
@@ -15,9 +15,9 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[2]
 DB = ROOT / "db"
-SQL = DB / "300_review_defects.sql"
+SQL = DB / "310_review_defects.sql"
 VERSIONS = ROOT / "backend" / "migrations" / "versions"
-MIGRATION = VERSIONS / "0033_review_defects.py"
+MIGRATION = VERSIONS / "0034_review_defects.py"
 BUNDLE = ROOT / "infra" / "bundle_schema.sh"
 SRC = ROOT / "backend" / "src" / "sourcehub"
 QA_SERVICE = SRC / "modules" / "qa" / "service.py"
@@ -38,7 +38,7 @@ def _statements(ddl: str) -> list[str]:
     ns: dict[str, Any] = {}
     tree = ast.parse(MIGRATION_TEXT)
     fn = next(n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name == "_statements")
-    exec(compile(ast.Module(body=[fn], type_ignores=[]), "0033", "exec"), ns)
+    exec(compile(ast.Module(body=[fn], type_ignores=[]), "0034", "exec"), ns)
     return ns["_statements"](ddl)
 
 
@@ -53,20 +53,21 @@ def test_the_migration_carries_the_sql_verbatim():
     assert _literal("_UP") == "\n" + SQL_TEXT
 
 
-def test_the_migration_follows_0032():
-    assert re.search(r'^revision = "0033"$', MIGRATION_TEXT, re.M)
-    assert re.search(r'^down_revision = "0032"$', MIGRATION_TEXT, re.M)
+def test_the_migration_follows_0033():
+    # 0033 is the teammate's push file (db/300); both sides first claimed 300 / 0033
+    assert re.search(r'^revision = "0034"$', MIGRATION_TEXT, re.M)
+    assert re.search(r'^down_revision = "0033"$', MIGRATION_TEXT, re.M)
 
 
 def test_the_new_file_is_the_last_structure_file_in_the_bundle():
     m = re.search(r'^STRUCTURE="([^"]*)"', BUNDLE.read_text(encoding="utf-8"), re.M)
     assert m
     listed = m.group(1).split()
-    assert listed[-2:] == ["290_dormant_objects", "300_review_defects"]
+    assert listed[-2:] == ["300_push", "310_review_defects"]
 
 
 def test_no_comment_line_ends_a_statement():
-    for label, text in (("db/300", SQL_TEXT), ("_DOWN", _literal("_DOWN"))):
+    for label, text in (("db/310", SQL_TEXT), ("_DOWN", _literal("_DOWN"))):
         for n, line in enumerate(text.splitlines(), 1):
             if line.strip().startswith("--"):
                 assert not line.rstrip().endswith(";"), f"{label} line {n}: {line}"
@@ -114,7 +115,7 @@ def test_the_copy_is_checked_before_the_table_is_dropped():
     assert SQL_TEXT.index("UPDATE qa_review q") < assertion < dropped
     block = SQL_TEXT[assertion : SQL_TEXT.index("$fn$;")]
     assert "count(DISTINCT review_id)" in block and "sum(affected_count)" in block
-    assert "RAISE EXCEPTION '300:" in block
+    assert "RAISE EXCEPTION '310:" in block
     assert SQL_TEXT.count("DROP TABLE qa_review_defect;") == 1
 
 

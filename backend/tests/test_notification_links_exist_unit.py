@@ -188,12 +188,15 @@ def test_nothing_in_the_backend_emits_the_rfp_list_any_more():
 def test_links_that_go_nowhere_stay_deliberate():
     """A notify() with no link_page renders as an inert row too.
 
-    Exactly one is intentional: engage/service.py's task offer, which tells the
-    worker to answer via the links in their email. A second one appearing should
-    be a decision, not a default.
+    Exactly two are intentional, both about a task offer, which the worker
+    answers through the links in their email and nowhere else:
+    engage/service.py's offer reminder, and delivery/service.py's create_offer,
+    whose row exists so the offer reaches the phone as a push (modules/push)
+    the moment it is made. A third one appearing should be a decision, not a
+    default.
     """
     linkless = [f"{f}:{ln}" for f, ln, p in SITES if p is None]
-    assert len(linkless) <= 1, (
+    assert len(linkless) <= 2, (
         f"{len(linkless)} notify() calls pass no link_page, so each renders as an "
         f"unclickable row: {linkless}. Give it a page, or extend this bound with "
         "a note saying why the row needs no destination."

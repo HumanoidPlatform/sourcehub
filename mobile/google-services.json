@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "767288183090",
+    "project_id": "datamind360-fed4e",
+    "storage_bucket": "datamind360-fed4e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:767288183090:android:5cbd923d1202bf6bf96f2b",
+        "android_client_info": {
+          "package_name": "com.cosarathi.capture"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAelzKC7yUlybuq3pmxH-VJpuVkd8o-t4c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:767288183090:android:fdda690346353424f96f2b",
+        "android_client_info": {
+          "package_name": "com.cosarathi.capture.dev"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAelzKC7yUlybuq3pmxH-VJpuVkd8o-t4c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:767288183090:android:e4da64c806c3d9c7f96f2b",
+        "android_client_info": {
+          "package_name": "com.cosarathi.capture.staging"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAelzKC7yUlybuq3pmxH-VJpuVkd8o-t4c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

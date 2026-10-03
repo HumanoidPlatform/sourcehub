@@ -39,7 +39,7 @@ class QaReview(Base):
     sample_size: Mapped[int | None] = mapped_column(Integer)
     sample_failed: Mapped[int | None] = mapped_column(Integer)
     # the defect codes a failing gate-1 verdict cited, with how many captures
-    # each affected: {"exposure": 1}. Keys are defect_code.code (db/300).
+    # each affected: {"exposure": 1}. Keys are defect_code.code (db/310).
     defects: Mapped[dict[str, Any]] = mapped_column(JSONB, server_default=text("'{}'::jsonb"))
     note: Mapped[str | None] = mapped_column(Text)
     reviewed_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)

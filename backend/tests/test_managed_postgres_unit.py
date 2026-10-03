@@ -107,15 +107,16 @@ def test_the_new_file_is_the_last_structure_file_in_the_bundle():
     m = re.search(r'^STRUCTURE="([^"]*)"', BUNDLE.read_text(encoding="utf-8"), re.M)
     assert m
     listed = m.group(1).split()
-    # it restates rights and removes FORCE over everything before it. 280, 290
-    # and 300 come after: none creates a table or grants anything, so 270 still
-    # covers all
-    assert listed[-4:] == [
+    # it restates rights and removes FORCE over everything before it. Later
+    # files (280, 290, 300, 310, ...) may follow: none creates a table, and
+    # 300's functions grant EXECUTE only, so 270 still covers all
+    at = listed.index("270_managed_postgres")
+    assert listed[at : at + 3] == [
         "270_managed_postgres",
         "280_organisation_profile",
         "290_dormant_objects",
-        "300_review_defects",
     ]
+    assert all(int(name[:3]) > 290 for name in listed[at + 3 :])
 
 
 def test_no_comment_line_ends_a_statement():

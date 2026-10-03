@@ -2,7 +2,7 @@
   "expo": {
     "name": "DataMind360 Capture",
     "slug": "cosarathi-capture",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "cosarathi",
@@ -74,6 +74,14 @@
       ],
       "expo-secure-store",
       "expo-sqlite",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/android-icon-monochrome.png",
+          "color": "#091CFF",
+          "defaultChannel": "assignments"
+        }
+      ],
       [
         "expo-build-properties",
         {

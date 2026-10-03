@@ -126,6 +126,14 @@ services:
       BIDDING_SWEEP_ENABLED: "true"
       BIDDING_SWEEP_TICK_SECONDS: "60"
 
+      # --- The push dispatcher -----------------------------------------------
+      # modules/push sends each worker's bell rows to their phone through the
+      # Expo push service, a few seconds after they are written. Same shape as
+      # the clocks above.
+      PUSH_ENABLED: "true"
+      PUSH_TICK_SECONDS: "5"
+      EXPO_ACCESS_TOKEN: CHANGEME_EXPO_ACCESS_TOKEN   # expo.dev → project → Access tokens; "" if enhanced push security is off
+
       # Everything else uses the defaults in backend/src/sourcehub/config.py,
       # which are already right: argon2id hashing, 15-minute access tokens,
       # 5 failed sign-ins then a 15-minute lock, 14-day invitations, the

@@ -75,12 +75,14 @@ def test_the_new_file_is_the_last_structure_file_in_the_bundle():
     m = re.search(r'^STRUCTURE="([^"]*)"', BUNDLE.read_text(encoding="utf-8"), re.M)
     assert m
     listed = m.group(1).split()
-    assert listed[-4:] == [
+    # in order after 270; later files (300_push, 310_review_defects, ...) may follow
+    at = listed.index("270_managed_postgres")
+    assert listed[at : at + 3] == [
         "270_managed_postgres",
         "280_organisation_profile",
         "290_dormant_objects",
-        "300_review_defects",
     ]
+    assert all(int(name[:3]) > 290 for name in listed[at + 3 :])
 
 
 def test_no_comment_line_ends_a_statement():
