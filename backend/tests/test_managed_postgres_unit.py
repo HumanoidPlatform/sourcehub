@@ -107,8 +107,9 @@ def test_the_new_file_is_the_last_structure_file_in_the_bundle():
     m = re.search(r'^STRUCTURE="([^"]*)"', BUNDLE.read_text(encoding="utf-8"), re.M)
     assert m
     listed = m.group(1).split()
-    # last: it restates rights and removes FORCE over everything before it
-    assert listed[-1] == "270_managed_postgres"
+    # it restates rights and removes FORCE over everything before it. 280 comes
+    # after: it creates no table and grants nothing, so 270 still covers all
+    assert listed[-2:] == ["270_managed_postgres", "280_organisation_profile"]
 
 
 def test_no_comment_line_ends_a_statement():

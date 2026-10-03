@@ -27,16 +27,7 @@ from sourcehub.db.session import anonymous_session, org_session
 from sourcehub.modules.attachments import service as attachments
 from sourcehub.modules.audit import service as audit
 from sourcehub.modules.identity import directory, members
-from sourcehub.modules.identity.models import (
-    AggregatorProfile,
-    AppUser,
-    BusinessProfile,
-    ClientProfile,
-    Organisation,
-    SponsorProfile,
-    TenantProfile,
-    UserSession,
-)
+from sourcehub.modules.identity.models import AppUser, Organisation, UserSession
 from sourcehub.modules.identity.profile_schema import (
     KIND_FIELDS,
     OPS_ONLY,
@@ -440,13 +431,17 @@ async def confirm_password_reset(token_raw: str, password: str) -> None:
 # Organisations — reads used across the console
 # ---------------------------------------------------------------------------
 
-_PROFILE_MODEL = {
-    "client": ClientProfile,
-    "tenant": TenantProfile,
-    "aggregator": AggregatorProfile,
-    "business": BusinessProfile,
-    "sponsor": SponsorProfile,
+# db/280: a kind's profile is organisation.profile (the descriptors KIND_FIELDS
+# lists) plus the typed terms below, which code has rules on. The platform
+# organisation has no profile.
+_TYPED_FIELDS: dict[str, tuple[str, ...]] = {
+    "client": ("plan", "dpa_signed", "dpa_signed_at"),
+    "tenant": ("plan", "fair_work_attested"),
 }
+# The organisation's terms WITH THE PLATFORM: what tier they bought and whether
+# they have signed the DPA. A counterparty is entitled to know who they are
+# dealing with, not how they are billed for it.
+_COMMERCIAL_FIELDS = frozenset({"plan", "dpa_signed", "dpa_signed_at"})
 
 
 def _may_see_commercials(org: Organisation, claims: AccessClaims | None) -> bool:
@@ -466,18 +461,25 @@ def _may_see_commercials(org: Organisation, claims: AccessClaims | None) -> bool
     return claims.role == "platform_admin" or org.id == claims.org_id
 
 
-def _profile_dict(profile: Any, *, commercials: bool = True) -> dict[str, Any]:
-    if profile is None:
+def _profile_dict(org: Organisation, *, commercials: bool = True) -> dict[str, Any]:
+    """The kind profile as the API shows it, one flat object: the descriptors
+    from organisation.profile, the typed terms the kind carries, and `since`,
+    the day the account was onboarded."""
+    if org.kind not in KIND_FIELDS:
         return {}
-    hidden = {"org_id", "created_at", "updated_at"}
+    shown: dict[str, Any] = dict(org.profile or {})
+    for field in KIND_FIELDS[org.kind]:
+        # the same keys whether or not a value was ever stored, so the
+        # console's `hq: string | null` stays true
+        shown.setdefault(field, None)
+    for field in _TYPED_FIELDS.get(org.kind, ()):
+        shown[field] = getattr(org, field)
+    if org.kind in PROFILE_KINDS:
+        shown["since"] = org.onboarded_at.date() if org.onboarded_at else None
     if not commercials:
-        # The organisation's terms WITH THE PLATFORM: what tier they bought and
-        # whether they have signed the DPA. A counterparty is entitled to know
-        # who they are dealing with, not how they are billed for it.
-        hidden |= {"plan", "dpa_signed", "dpa_signed_at"}
-    return {
-        c.key: getattr(profile, c.key) for c in profile.__table__.columns if c.key not in hidden
-    }
+        for field in _COMMERCIAL_FIELDS:
+            shown.pop(field, None)
+    return shown
 
 
 async def get_org(
@@ -492,13 +494,7 @@ async def get_org(
     ).scalar_one_or_none()
     if org is None:
         return None
-    profile = None
-    model = _PROFILE_MODEL.get(org.kind)
-    if model is not None:
-        profile = (
-            await session.execute(select(model).where(model.org_id == org_id))
-        ).scalar_one_or_none()
-    return await _org_out(session, org, profile, claims)
+    return await _org_out(session, org, claims)
 
 
 def _public_profile(org: Organisation) -> dict[str, Any]:
@@ -525,7 +521,6 @@ _MEASURED_KIND = "tenant"
 
 def _org_dict(
     org: Organisation,
-    profile: Any = None,
     claims: AccessClaims | None = None,
     performance: directory.Performance | None = None,
 ) -> dict[str, Any]:
@@ -535,7 +530,7 @@ def _org_dict(
     commercials = _may_see_commercials(org, claims)
     measured = org.kind == _MEASURED_KIND
     record = performance or directory.NO_RECORD
-    shown = _profile_dict(profile, commercials=commercials)
+    shown = _profile_dict(org, commercials=commercials)
     if measured and shown:
         shown["on_time_rate"] = record.on_time_pct
         shown["qa_pass_rate"] = record.qa_pass_pct
@@ -572,7 +567,6 @@ def _org_dict(
 async def _org_out(
     session: AsyncSession,
     org: Organisation,
-    profile: Any = None,
     claims: AccessClaims | None = None,
 ) -> dict[str, Any]:
     """_org_dict for ONE organisation, with a delivery partner's figures looked
@@ -580,7 +574,7 @@ async def _org_out(
     record = None
     if org.kind == _MEASURED_KIND:
         record = (await directory.performance_for(session, [org.id])).get(org.id)
-    return _org_dict(org, profile, claims, record)
+    return _org_dict(org, claims, record)
 
 
 async def list_orgs_of_kind(
@@ -604,29 +598,17 @@ async def list_orgs_of_kind(
     used to be unconditional, so suspending an account removed it from the only
     screen that could have reinstated it.
     """
-    model = _PROFILE_MODEL.get(kind)
     where = [Organisation.kind == kind, Organisation.deleted_at.is_(None)]
     if status is not None:
         where.append(Organisation.status == status)
-    stmt = (
-        select(Organisation, model)
-        .join(model, model.org_id == Organisation.id, isouter=True)
-        .where(*where)
-        .order_by(Organisation.reference_code)
-        if model is not None
-        else None
-    )
-    if stmt is None:
-        plain = select(Organisation).where(*where).order_by(Organisation.reference_code)
-        rows = (await session.execute(plain)).scalars()
-        return [_org_dict(o, None, claims) for o in rows]
-    pairs = (await session.execute(stmt)).all()
+    stmt = select(Organisation).where(*where).order_by(Organisation.reference_code)
+    orgs = list((await session.execute(stmt)).scalars())
     record = (
-        await directory.performance_for(session, [org.id for org, _ in pairs])
+        await directory.performance_for(session, [org.id for org in orgs])
         if kind == _MEASURED_KIND
         else {}
     )
-    return [_org_dict(org, profile, claims, record.get(org.id)) for org, profile in pairs]
+    return [_org_dict(org, claims, record.get(org.id)) for org in orgs]
 
 
 # What each action means, and the states it may be invoked from.
@@ -701,7 +683,7 @@ async def set_org_lifecycle(
         f"{org.reference_code} ({org.name}) {target}: {reason}",
         [org.id, claims.org_id],
     )
-    return await _org_out(session, org, None, claims)
+    return await _org_out(session, org, claims)
 
 
 # ---------------------------------------------------------------------------
@@ -714,9 +696,19 @@ async def set_org_lifecycle(
 # is is_platform_admin() OR id = current_org_id().
 # ---------------------------------------------------------------------------
 
+# The kinds onboarding captures a full profile for (legal name, public profile,
+# DPA, logo). Every kind but the platform may edit the fields KIND_FIELDS gives
+# it, now that db/280 keeps them all on the organisation row.
 PROFILE_KINDS = ("client", "tenant")
+EDITABLE_KINDS = ("client", "tenant", "aggregator", "business", "sponsor")
 _EDITOR_SCOPES = ("owner", "manager")
-_KIND_NAME = {"client": "a client", "tenant": "a partner"}
+_KIND_NAME = {
+    "client": "a client",
+    "tenant": "a partner",
+    "aggregator": "an aggregator",
+    "business": "a business partner",
+    "sponsor": "a device sponsor",
+}
 _OPS_ONLY_LABEL = {
     "name": "the organisation name",
     "legal_name": "the legal name",
@@ -742,8 +734,8 @@ def _is_profile_ops(claims: AccessClaims) -> bool:
 def _check_editor(claims: AccessClaims, org: Organisation, sent: set[str]) -> None:
     """Ops edits any client or partner. Anyone else edits their own, if they
     administer it, and never the fields that are the account's terms."""
-    if org.kind not in PROFILE_KINDS:
-        raise ProfileError("Only client and partner profiles can be edited here.")
+    if org.kind not in EDITABLE_KINDS:
+        raise ProfileError("The platform organisation's profile cannot be edited here.")
     if _is_profile_ops(claims):
         return
     if org.id != claims.org_id or "profile.manage" not in claims.capabilities:
@@ -773,23 +765,33 @@ async def _load_org(session: AsyncSession, org_id: uuid.UUID) -> Organisation:
     return org
 
 
-async def _merge_public(
-    session: AsyncSession, org_id: uuid.UUID, changes: dict[str, Any], who: uuid.UUID
+# The two JSON columns on organisation that profile edits merge into.
+_JSON_COLUMNS = ("public_profile", "profile")
+
+
+async def _merge_json(
+    session: AsyncSession,
+    org_id: uuid.UUID,
+    column: str,
+    changes: dict[str, Any],
+    who: uuid.UUID,
 ) -> None:
-    """Merge into public_profile in ONE statement: set what has a value, drop
+    """Merge into one JSON column in ONE statement: set what has a value, drop
     what was sent as null. Read-modify-write in Python would let two editors
     silently undo each other; || and - on jsonb cannot."""
+    if column not in _JSON_COLUMNS:
+        raise ValueError(f"not a JSON profile column: {column}")
     sets = {k: v for k, v in changes.items() if v is not None}
     drops = [k for k, v in changes.items() if v is None]
     if not sets and not drops:
         return
     res = await session.execute(
         text(
-            "UPDATE organisation "
-            "SET public_profile = (public_profile || CAST(:sets AS jsonb))"
-            "                     - CAST(:drops AS text[]), "
-            "    updated_by = :who "
-            "WHERE id = :id"
+            f"UPDATE organisation "
+            f"SET {column} = ({column} || CAST(:sets AS jsonb))"
+            f"                     - CAST(:drops AS text[]), "
+            f"    updated_by = :who "
+            f"WHERE id = :id"
         ),
         {"sets": json.dumps(sets), "drops": drops, "who": who, "id": org_id},
     )
@@ -799,22 +801,20 @@ async def _merge_public(
         raise ProfileForbiddenError("You can only edit your own organisation's profile.")
 
 
-async def _kind_profile(session: AsyncSession, org: Organisation) -> Any:
-    model = _PROFILE_MODEL.get(org.kind)
-    if model is None:
-        return None
-    return (
-        await session.execute(select(model).where(model.org_id == org.id))
-    ).scalar_one_or_none()
+async def _merge_public(
+    session: AsyncSession, org_id: uuid.UUID, changes: dict[str, Any], who: uuid.UUID
+) -> None:
+    await _merge_json(session, org_id, "public_profile", changes, who)
 
 
-def _apply_kind_fields(prof: Any, values: dict[str, Any]) -> None:
+def _apply_typed_fields(org: Organisation, values: dict[str, Any]) -> None:
+    """The typed terms on the organisation row. Signing the DPA stamps when."""
     for field, value in values.items():
         if field == "dpa_signed":
             value = bool(value)
-            if value != bool(prof.dpa_signed):
-                prof.dpa_signed_at = dt.datetime.now(dt.timezone.utc) if value else None
-        setattr(prof, field, value)
+            if value != bool(org.dpa_signed):
+                org.dpa_signed_at = dt.datetime.now(dt.timezone.utc) if value else None
+        setattr(org, field, value)
 
 
 async def update_org_profile(
@@ -836,23 +836,24 @@ async def update_org_profile(
     if "name" in sent and patch.name is None:
         raise ProfileError("An organisation needs a name.")
 
-    prof = await _kind_profile(session, org)
     if not sent:
-        return await _org_out(session, org, prof, claims)
+        return await _org_out(session, org, claims)
 
     for field in ("name", "legal_name", "country", "residency_region"):
         if field in sent:
             setattr(org, field, getattr(patch, field))
     org.updated_by = claims.user_id
 
+    # db/280: the typed terms are columns on the row; the descriptors merge
+    # into organisation.profile the way the public fields merge into
+    # public_profile, so a sent null clears a key and an omitted one is kept.
     kind_values = {f: getattr(patch, f) for f in sent & KIND_FIELDS[org.kind]}
-    if kind_values:
-        if prof is None:
-            prof = _PROFILE_MODEL[org.kind](org_id=org.id)
-            session.add(prof)
-        _apply_kind_fields(prof, kind_values)
+    typed = {f: v for f, v in kind_values.items() if f in _TYPED_FIELDS.get(org.kind, ())}
+    described = {f: v for f, v in kind_values.items() if f not in typed}
+    _apply_typed_fields(org, typed)
 
     await session.flush()
+    await _merge_json(session, org.id, "profile", described, claims.user_id)
     await _merge_public(session, org.id, public_part(patch), claims.user_id)
     await session.refresh(org)
 
@@ -862,7 +863,7 @@ async def update_org_profile(
         f"{org.reference_code} ({org.name}) profile updated: {', '.join(sorted(sent))}",
         [org.id, claims.org_id],
     )
-    return await _org_out(session, org, prof, claims)
+    return await _org_out(session, org, claims)
 
 
 async def _write_logo_key(
@@ -911,7 +912,7 @@ async def set_org_logo(
     # Last: until the row points at the new key, the old one is still the logo.
     if previous:
         await attachments.discard_org_logo(previous)
-    return await _org_out(session, org, await _kind_profile(session, org), claims)
+    return await _org_out(session, org, claims)
 
 
 async def clear_org_logo(
@@ -928,7 +929,7 @@ async def clear_org_logo(
             [org.id, claims.org_id],
         )
         await attachments.discard_org_logo(previous)
-    return await _org_out(session, org, await _kind_profile(session, org), claims)
+    return await _org_out(session, org, claims)
 
 
 async def org_logo_url(session: AsyncSession, org_id: uuid.UUID) -> dict[str, Any]:
@@ -975,9 +976,7 @@ async def apply_onboarding_profile(
         org.legal_name = p.legal_name
         org.updated_by = claims.user_id
     if p.dpa_signed and org.kind == "client":
-        prof = await _kind_profile(session, org)
-        if prof is not None:
-            _apply_kind_fields(prof, {"dpa_signed": True})
+        _apply_typed_fields(org, {"dpa_signed": True})
     await session.flush()
 
     await _merge_public(

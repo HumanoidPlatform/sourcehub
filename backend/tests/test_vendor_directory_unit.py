@@ -45,7 +45,7 @@ from sourcehub.main import app
 from sourcehub.modules.identity import directory
 from sourcehub.modules.identity import expertise_vocabulary as vocab
 from sourcehub.modules.identity import service as identity
-from sourcehub.modules.identity.models import ClientProfile, Organisation, TenantProfile
+from sourcehub.modules.identity.models import Organisation
 from sourcehub.modules.identity.profile_schema import (
     PUBLIC_KIND_KEYS,
     ExpertiseIn,
@@ -153,6 +153,11 @@ def _partner(**over: Any) -> Organisation:
         "rating": Decimal("4.9"),
         "suspended_at": dt.datetime(2026, 9, 1, tzinfo=dt.UTC),
         "suspension_reason": SECRETS["suspension_reason"],
+        # db/280: the partner's profile lives on the organisation row
+        "onboarded_at": dt.datetime(2024, 3, 1, tzinfo=dt.UTC),
+        "plan": SECRETS["plan"],
+        "fair_work_attested": True,
+        "profile": {"hq": "Pune", "capabilities": SECRETS["capabilities"]},
         "public_profile": {
             "website": "https://northstar.example",
             "description": "Field data collection across South Asia.",
@@ -173,19 +178,6 @@ def _partner(**over: Any) -> Organisation:
     }
     fields.update(over)
     return Organisation(**fields)
-
-
-def _profile(org: Organisation) -> TenantProfile:
-    return TenantProfile(
-        org_id=org.id,
-        hq="Pune",
-        plan=SECRETS["plan"],
-        capabilities=SECRETS["capabilities"],
-        on_time_rate=99,
-        qa_pass_rate=98,
-        fair_work_attested=True,
-        since=dt.date(2024, 3, 1),
-    )
 
 
 RECORD = directory.Performance(
@@ -235,6 +227,12 @@ class _Result:
 
     def mappings(self) -> _Result:
         return self
+
+    def scalars(self) -> _Result:
+        return self
+
+    def __iter__(self) -> Any:
+        return iter(self._rows)
 
     def all(self) -> list[Any]:
         return self._rows
@@ -653,16 +651,14 @@ VENDOR_KEYS = {
 
 def test_a_vendor_row_is_exactly_the_public_keys():
     org = _partner()
-    out = directory.vendor_dict(org, _profile(org), RECORD)
+    out = directory.vendor_dict(org, RECORD)
     assert set(out) == VENDOR_KEYS
 
 
 @pytest.mark.parametrize("detail", [False, True])
 def test_no_commercial_value_is_in_a_vendor_row(detail):
     org = _partner()
-    dumped = json.dumps(
-        directory.vendor_dict(org, _profile(org), RECORD, detail=detail), default=str
-    )
+    dumped = json.dumps(directory.vendor_dict(org, RECORD, detail=detail), default=str)
     for what, value in SECRETS.items():
         assert value not in dumped, f"{what} leaked"
     for key in (
@@ -687,7 +683,7 @@ def test_no_commercial_value_is_in_a_vendor_row(detail):
 def test_a_vendor_row_never_reads_the_seeded_figures():
     # rating 4.9, on time 99 and QA 98 are what the seed wrote on this partner
     org = _partner()
-    out = directory.vendor_dict(org, _profile(org), None)
+    out = directory.vendor_dict(org, None)
     leaves = _leaves(out)
     for seeded in (Decimal("4.9"), 4.9, 99, 98):
         assert seeded not in leaves, seeded
@@ -696,7 +692,7 @@ def test_a_vendor_row_never_reads_the_seeded_figures():
 
 def test_what_a_vendor_row_says():
     org = _partner()
-    out = directory.vendor_dict(org, _profile(org), RECORD, today=dt.date(2026, 9, 29))
+    out = directory.vendor_dict(org, RECORD, today=dt.date(2026, 9, 29))
     assert out["name"] == "NorthStar Delivery Partners"
     assert out["hq"] == "Pune" and out["partner_since"] == dt.date(2024, 3, 1)
     assert out["fair_work_attested"] is True
@@ -707,14 +703,13 @@ def test_what_a_vendor_row_says():
     assert out["expertise"]["other_certifications"] == "TISAX"
     assert out["logo_version"] == "2026-09-28T10:00:00+00:00"
     assert out["performance"] == RECORD.summary()
-    assert (
-        directory.vendor_dict(org, _profile(org), RECORD, detail=True)["performance"]
-        == RECORD.detail()
+    assert directory.vendor_dict(org, RECORD, detail=True)["performance"] == RECORD.detail()
+
+
+def test_a_partner_with_nothing_declared_is_still_a_vendor():
+    out = directory.vendor_dict(
+        _partner(public_profile={}, profile={}, fair_work_attested=False), None
     )
-
-
-def test_a_partner_without_a_profile_row_is_still_a_vendor():
-    out = directory.vendor_dict(_partner(public_profile={}), None, None)
     assert set(out) == VENDOR_KEYS
     assert out["hq"] is None and out["fair_work_attested"] is False
     assert out["logo_version"] is None and out["years_in_business"] is None
@@ -731,7 +726,7 @@ def test_a_partner_without_a_profile_row_is_still_a_vendor():
 
 def test_no_key_means_no_logo_version():
     org = _partner(public_profile={"logo_updated_at": "2026-09-28T10:00:00+00:00"})
-    assert directory.vendor_dict(org, None, None)["logo_version"] is None
+    assert directory.vendor_dict(org, None)["logo_version"] is None
 
 
 @pytest.mark.parametrize(
@@ -760,7 +755,7 @@ def test_expertise_has_one_shape_whatever_is_stored(stored):
 
 async def test_the_directory_is_the_active_partners_with_their_figures():
     a, b = _partner(), _partner(reference_code="TN-02", name="Meridian Field Ops")
-    session = _Session(rows=[(a, _profile(a)), (b, None)], figures=[_row(a.id)])
+    session = _Session(rows=[a, b], figures=[_row(a.id)])
     out = await directory.list_vendors(session, _claims(caps={"vendor.read"}))
     assert [v["name"] for v in out] == ["NorthStar Delivery Partners", "Meridian Field Ops"]
     assert out[0]["performance"] == RECORD.summary()
@@ -796,14 +791,14 @@ async def test_a_caller_who_cannot_browse_opens_only_its_own_page():
     assert session.statements == [], "refused before the database was asked anything"
 
     org = _partner(id=me)
-    session = _Session(rows=[(org, _profile(org))], figures=[_row(me)])
+    session = _Session(rows=[org], figures=[_row(me)])
     out = await directory.get_vendor(session, partner, me)
     assert out["id"] == me and out["performance"] == RECORD.detail()
 
 
 async def test_a_client_opens_any_vendor_the_database_shows_it():
     org = _partner()
-    session = _Session(rows=[(org, _profile(org))], figures=[_row(org.id)])
+    session = _Session(rows=[org], figures=[_row(org.id)])
     out = await directory.get_vendor(session, _claims(caps={"vendor.read"}), org.id)
     # the page asked for, among the active delivery partners: not the first one
     asked = _filtered_by(session.asked[0])
@@ -1106,7 +1101,7 @@ def test_the_console_caps_match_the_apis():
 
 def test_a_partners_profile_shows_calculated_figures():
     org = _partner()
-    out = identity._org_dict(org, _profile(org), None, RECORD)
+    out = identity._org_dict(org, None, RECORD)
     assert out["rating"] == 4.6
     assert out["profile"]["on_time_rate"] == 94
     assert out["profile"]["qa_pass_rate"] == 88
@@ -1115,7 +1110,7 @@ def test_a_partners_profile_shows_calculated_figures():
 
 def test_without_figures_a_partner_shows_none_not_the_seeded_ones():
     org = _partner()  # seeded: rating 4.9, on time 99, QA 98
-    out = identity._org_dict(org, _profile(org), None)
+    out = identity._org_dict(org, None)
     assert out["rating"] is None
     assert out["profile"]["on_time_rate"] is None
     assert out["profile"]["qa_pass_rate"] is None
@@ -1134,10 +1129,9 @@ def test_other_kinds_are_untouched():
         status="active",
         rating=Decimal("4.2"),
         public_profile={},
+        profile={"industry": "Retail"},
     )
-    out = identity._org_dict(
-        client, ClientProfile(org_id=client.id, industry="Retail"), None, RECORD
-    )
+    out = identity._org_dict(client, None, RECORD)
     assert out["rating"] == Decimal("4.2")
     assert "performance" not in out
     assert out["profile"]["industry"] == "Retail"
@@ -1147,7 +1141,7 @@ def test_other_kinds_are_untouched():
 def test_a_counterparty_still_sees_no_commercials_beside_the_figures():
     org = _partner()
     viewer = _claims(caps={"vendor.read"})
-    out = identity._org_dict(org, _profile(org), viewer, RECORD)
+    out = identity._org_dict(org, viewer, RECORD)
     for key in ("billing_status", "suspended_at", "suspension_reason"):
         assert key not in out
     assert "plan" not in out["profile"]
@@ -1157,7 +1151,7 @@ def test_a_counterparty_still_sees_no_commercials_beside_the_figures():
 async def test_one_organisation_is_answered_with_its_figures():
     org = _partner()
     session = _Session(figures=[_row(org.id)])
-    out = await identity._org_out(session, org, _profile(org), None)
+    out = await identity._org_out(session, org, None)
     assert session.asked_for_figures() == [[org.id]]
     assert out["performance"] == RECORD.summary() and out["rating"] == 4.6
 
@@ -1172,13 +1166,13 @@ async def test_a_client_is_answered_without_asking_for_figures():
         public_profile={},
     )
     session = _Session()
-    out = await identity._org_out(session, client, None, None)
+    out = await identity._org_out(session, client, None)
     assert session.statements == [] and "performance" not in out
 
 
 async def test_a_list_of_partners_is_answered_in_one_call():
     a, b = _partner(), _partner(reference_code="TN-02")
-    session = _Session(rows=[(a, _profile(a)), (b, _profile(b))], figures=[_row(a.id)])
+    session = _Session(rows=[a, b], figures=[_row(a.id)])
     out = await identity.list_orgs_of_kind(session, "tenant", None)
     assert session.asked_for_figures() == [[a.id, b.id]]
     assert out[0]["performance"] == RECORD.summary()
@@ -1195,7 +1189,7 @@ async def test_a_list_of_anything_else_asks_for_no_figures():
         rating=Decimal("4.1"),
         public_profile={},
     )
-    session = _Session(rows=[(agg, None)])
+    session = _Session(rows=[agg])
     out = await identity.list_orgs_of_kind(session, "aggregator", None)
     assert session.asked_for_figures() == []
     assert out[0]["rating"] == Decimal("4.1")

@@ -129,19 +129,31 @@ class PublicProfileIn(_Strict):
 
 
 class _OrgFields(_Strict):
-    """Fields that live outside public_profile: on organisation itself, or on
-    the kind's own profile table (client_profile / tenant_profile)."""
+    """Fields that live outside public_profile: the account's own columns on
+    organisation, its typed terms (plan, dpa_signed), and the kind-specific
+    descriptors in organisation.profile (db/280). KIND_FIELDS says which of the
+    descriptors each kind has."""
 
     legal_name: str | None = Field(None, max_length=200)
     country: str | None = Field(None, max_length=100)
     residency_region: Residency | None = None
     plan: str | None = Field(None, max_length=60)
-    # client_profile
+    # client
     industry: str | None = Field(None, max_length=100)
     dpa_signed: bool | None = None
-    # tenant_profile
+    # tenant
     hq: str | None = Field(None, max_length=100)
     capabilities: str | None = Field(None, max_length=500)
+    # aggregator
+    crowd_size: int | None = Field(None, ge=0)
+    region: str | None = Field(None, max_length=100)
+    focus: str | None = Field(None, max_length=200)
+    # business
+    specialty: str | None = Field(None, max_length=200)
+    capacity: str | None = Field(None, max_length=100)
+    # sponsor
+    contact_email: str | None = Field(None, max_length=255)
+    contact_phone: str | None = Field(None, max_length=40)
 
 
 class OrgProfilePatch(PublicProfileIn, _OrgFields):
@@ -172,11 +184,15 @@ OPS_ONLY: frozenset[str] = frozenset(
     {"name", "legal_name", "country", "plan", "residency_region", "dpa_signed"}
 )
 
-# Which of the profile-table fields each kind has. Sending a partner's HQ for a
-# client is a mistake in the form, not something to store.
+# Which of the kind-specific fields each kind has. Sending a partner's HQ for a
+# client is a mistake in the form, not something to store. plan and dpa_signed
+# are typed columns on organisation; the rest live in organisation.profile.
 KIND_FIELDS: dict[str, frozenset[str]] = {
     "client": frozenset({"industry", "plan", "dpa_signed"}),
     "tenant": frozenset({"hq", "capabilities", "plan"}),
+    "aggregator": frozenset({"crowd_size", "region", "focus"}),
+    "business": frozenset({"specialty", "capacity"}),
+    "sponsor": frozenset({"contact_email", "contact_phone"}),
 }
 
 # The same rule for what lives in public_profile. Expertise is what a delivery

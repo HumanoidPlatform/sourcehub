@@ -54,11 +54,6 @@ GROUPS: list[tuple[str, str, str, list[str]]] = [
         "#D6E4F0",
         [
             "organisation",
-            "client_profile",
-            "tenant_profile",
-            "aggregator_profile",
-            "business_profile",
-            "sponsor_profile",
             "app_user",
             "user_role_grant",
             "role",

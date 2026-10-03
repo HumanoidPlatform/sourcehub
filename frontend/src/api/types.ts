@@ -103,7 +103,7 @@ export interface VendorList {
   items: Vendor[];
 }
 
-// tenant_profile, as GET /organisations/{id} returns it. `plan` is deliberately
+// A delivery partner's profile (organisation.profile and its typed terms, db/280), as GET /organisations/{id} returns it. `plan` is deliberately
 // absent: the API withholds it from anyone but Ops and the partner itself.
 export interface TenantProfile {
   hq: string | null;
@@ -114,7 +114,7 @@ export interface TenantProfile {
   since: string | null;
 }
 
-// client_profile, as GET /organisations/{id} returns it. `plan`, `dpa_signed`
+// A client's profile (organisation.profile and its typed terms, db/280), as GET /organisations/{id} returns it. `plan`, `dpa_signed`
 // and `dpa_signed_at` are deliberately absent: the API withholds the client's
 // terms with the platform from anyone but Ops and the client itself.
 export interface ClientProfile {

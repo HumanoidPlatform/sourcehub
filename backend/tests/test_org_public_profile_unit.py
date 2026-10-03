@@ -348,10 +348,13 @@ def test_ops_edits_any_client_or_partner_including_its_terms():
         identity._check_editor(ops, _org(kind), set(OPS_ONLY) | {"website"})
 
 
-def test_only_client_and_partner_profiles_are_editable_here():
+def test_every_kind_but_the_platform_is_editable_here():
+    # db/280 keeps every kind's profile on the organisation row, so a network
+    # organisation can be edited too; only the platform's own row cannot.
     ops = _claims(org_id=uuid.uuid4(), caps={"org.update"}, role="platform_admin")
+    identity._check_editor(ops, _org("aggregator"), {"website"})
     with pytest.raises(identity.ProfileError):
-        identity._check_editor(ops, _org("aggregator"), {"website"})
+        identity._check_editor(ops, _org("platform"), {"website"})
 
 
 # ---------------------------------------------------------------------------

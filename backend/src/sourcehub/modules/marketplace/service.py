@@ -633,7 +633,7 @@ async def _field_attachments(
 
 def _partner_record(record: Any) -> dict[str, Any]:
     """The bidder's figures beside its bid, from the one source every screen
-    reads (identity.directory.performance_for). tenant_profile.qa_pass_rate
+    reads (identity.directory.performance_for). the seeded qa_pass_rate column
     used to be joined in here; the seed wrote it and nothing calculated it."""
     return {
         # What clients said: the share of its completed contracts never sent back.

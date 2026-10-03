@@ -14,7 +14,15 @@ import uuid
 from decimal import Decimal
 from typing import Any
 
-from sqlalchemy import Boolean, Date, DateTime, ForeignKey, Integer, Numeric, SmallInteger, Text, text
+from sqlalchemy import (
+    Boolean,
+    DateTime,
+    ForeignKey,
+    Numeric,
+    SmallInteger,
+    Text,
+    text,
+)
 from sqlalchemy.dialects.postgresql import CITEXT, INET, JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -55,60 +63,20 @@ class Organisation(Base):
     public_profile: Mapped[dict[str, Any]] = mapped_column(
         JSONB, server_default=text("'{}'::jsonb")
     )
+    # db/280: the kind-specific descriptors (industry, hq, crowd_size, ...),
+    # shaped by profile_schema.KIND_FIELDS, and the typed terms code has rules
+    # on. A counterparty never sees plan or the DPA: the service strips them
+    # (_may_see_commercials), as it does billing_status on this same row.
+    profile: Mapped[dict[str, Any]] = mapped_column(JSONB, server_default=text("'{}'::jsonb"))
+    plan: Mapped[str | None] = mapped_column(Text)
+    dpa_signed: Mapped[bool] = mapped_column(Boolean, server_default=text("false"))
+    dpa_signed_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
+    fair_work_attested: Mapped[bool] = mapped_column(Boolean, server_default=text("false"))
     created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
     updated_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
     created_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
     updated_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
     deleted_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
-
-
-class ClientProfile(Base):
-    __tablename__ = "client_profile"
-
-    org_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("organisation.id"), primary_key=True)
-    industry: Mapped[str | None] = mapped_column(Text)
-    plan: Mapped[str | None] = mapped_column(Text)
-    dpa_signed: Mapped[bool] = mapped_column(Boolean, server_default=text("false"))
-    dpa_signed_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
-    since: Mapped[dt.date | None] = mapped_column(Date)
-
-
-class TenantProfile(Base):
-    __tablename__ = "tenant_profile"
-
-    org_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("organisation.id"), primary_key=True)
-    hq: Mapped[str | None] = mapped_column(Text)
-    plan: Mapped[str | None] = mapped_column(Text)
-    capabilities: Mapped[str | None] = mapped_column(Text)
-    on_time_rate: Mapped[int | None] = mapped_column(SmallInteger)
-    qa_pass_rate: Mapped[int | None] = mapped_column(SmallInteger)
-    fair_work_attested: Mapped[bool] = mapped_column(Boolean, server_default=text("false"))
-    since: Mapped[dt.date | None] = mapped_column(Date)
-
-
-class AggregatorProfile(Base):
-    __tablename__ = "aggregator_profile"
-
-    org_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("organisation.id"), primary_key=True)
-    crowd_size: Mapped[int] = mapped_column(Integer, server_default=text("0"))
-    region: Mapped[str | None] = mapped_column(Text)
-    focus: Mapped[str | None] = mapped_column(Text)
-
-
-class BusinessProfile(Base):
-    __tablename__ = "business_profile"
-
-    org_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("organisation.id"), primary_key=True)
-    specialty: Mapped[str | None] = mapped_column(Text)
-    capacity: Mapped[str | None] = mapped_column(Text)
-
-
-class SponsorProfile(Base):
-    __tablename__ = "sponsor_profile"
-
-    org_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("organisation.id"), primary_key=True)
-    contact_email: Mapped[str | None] = mapped_column(CITEXT)
-    contact_phone: Mapped[str | None] = mapped_column(Text)
 
 
 class AppUser(Base):

@@ -47,7 +47,7 @@ def model() -> Any:
 def test_every_table_is_read_and_grouped(model: Any) -> None:
     grouped = {t for _, _, _, names in erd.GROUPS for t in names}
     assert set(model.tables) == grouped
-    assert len(model.tables) == 59
+    assert len(model.tables) == 54  # 59 before db/280 folded the five profile tables away
     assert set(model.tables) >= erd.DORMANT
     assert len(model.enums) == 32
     assert sorted(model.views) == [
@@ -89,8 +89,17 @@ def test_foreign_keys_resolve(model) -> None:  # type: ignore[no-untyped-def]
     assert fks[("asset", ("equipment_id",))].on_delete == "set null"
     # inline, with an ON DELETE clause after the column
     assert fks[("user_session", ("user_id",))].on_delete == "cascade"
-    # one-to-one: the profile tables and the award
-    assert model.tables["client_profile"].fk_is_one_to_one(fks[("client_profile", ("org_id",))])
+    # one-to-one: the award. The profile satellites were folded into
+    # organisation (db/280), so DROP TABLE must have taken them out of the model.
+    for dropped in (
+        "client_profile",
+        "tenant_profile",
+        "aggregator_profile",
+        "business_profile",
+        "sponsor_profile",
+    ):
+        assert dropped not in model.tables, dropped
+    assert model.tables["organisation"].has_column("profile")
     assert model.tables["contract"].fk_is_one_to_one(fks[("contract", ("request_id",))])
     assert not model.tables["task"].fk_is_one_to_one(fks[("task", ("contract_id",))])
 

@@ -65,41 +65,36 @@ BEGIN
   -- The buyer. No parent: organisation_network_parent forbids one for a client.
   -- -------------------------------------------------------------------------
   INSERT INTO organisation (reference_code, kind, name, status, country, residency_region,
-                            billing_status, rating, onboarded_at, created_by)
+                            billing_status, rating, onboarded_at, created_by,
+                            plan, dpa_signed, dpa_signed_at, profile)
   VALUES (org_reference_code('client'), 'client', 'Acme Retail Analytics', 'active',
-          'United States', 'US', 'current', 4.6, now(), v_admin)
+          'United States', 'US', 'current', 4.6, now(), v_admin,
+          'Enterprise', true, now(), '{"industry": "Retail / CPG"}')
   RETURNING id INTO v_client;
-
-  INSERT INTO client_profile (org_id, industry, plan, dpa_signed, dpa_signed_at, since)
-  VALUES (v_client, 'Retail / CPG', 'Enterprise', true, now(), now());
 
   -- -------------------------------------------------------------------------
   -- The delivery partner. Also parentless, and the aggregator below hangs off
   -- it — which is the only reason a tenant is required for this to work at all.
   -- -------------------------------------------------------------------------
   INSERT INTO organisation (reference_code, kind, name, status, country,
-                            billing_status, rating, onboarded_at, created_by)
+                            billing_status, rating, onboarded_at, created_by,
+                            plan, fair_work_attested, profile)
   VALUES (org_reference_code('tenant'), 'tenant', 'NorthStar Delivery Partners', 'active',
-          'India', 'current', 4.7, now(), v_admin)
+          'India', 'current', 4.7, now(), v_admin,
+          'Partner Pro', true,
+          '{"hq": "Bengaluru, India", "capabilities": "Image & video capture, field operations"}')
   RETURNING id INTO v_tenant;
-
-  INSERT INTO tenant_profile (org_id, hq, plan, capabilities, on_time_rate, qa_pass_rate,
-                              fair_work_attested, since)
-  VALUES (v_tenant, 'Bengaluru, India', 'Partner Pro',
-          'Image & video capture, field operations', 96, 94, true, now());
 
   -- -------------------------------------------------------------------------
   -- The crowd. parent_org_id is not optional: organisation_network_parent
   -- REQUIRES a parent for an aggregator, so this is what makes it legal.
   -- -------------------------------------------------------------------------
   INSERT INTO organisation (reference_code, kind, name, status, parent_org_id,
-                            onboarded_at, created_by)
+                            onboarded_at, created_by, profile)
   VALUES (org_reference_code('aggregator'), 'aggregator', 'Bengaluru Crowd Collective',
-          'active', v_tenant, now(), v_admin)
+          'active', v_tenant, now(), v_admin,
+          '{"crowd_size": 820, "region": "South India", "focus": "Street-level imagery"}')
   RETURNING id INTO v_agg;
-
-  INSERT INTO aggregator_profile (org_id, crowd_size, region, focus)
-  VALUES (v_agg, 820, 'South India', 'Street-level imagery');
   UPDATE organisation SET rating = 4.6 WHERE id = v_agg;
 
   -- -------------------------------------------------------------------------

@@ -6,8 +6,8 @@ performance_for() is how ANY screen learns a delivery partner's record. The
 record is made of other clients' contracts, gate-2 reviews and ratings, which
 RLS hides from the reader, so it comes from partner_performance() (db/260): a
 SECURITY DEFINER function that returns numbers and nothing else. Until it
-existed the console printed organisation.rating and tenant_profile's two rates,
-which the seed files wrote and nothing ever calculated.
+existed the console printed organisation.rating and two seeded rate columns,
+which the seed files wrote and nothing ever calculated (db/280 dropped them).
 
 list_vendors() and get_vendor() are what a client browsing the directory is
 given. They are written as a WHITELIST: a vendor row is built key by key from
@@ -25,7 +25,7 @@ from typing import TYPE_CHECKING, Any
 
 from sqlalchemy import select, text
 
-from sourcehub.modules.identity.models import Organisation, TenantProfile
+from sourcehub.modules.identity.models import Organisation
 
 if TYPE_CHECKING:
     from collections.abc import Iterable, Mapping
@@ -158,7 +158,6 @@ def expertise_of(org: Organisation) -> dict[str, Any]:
 
 def vendor_dict(
     org: Organisation,
-    profile: TenantProfile | None,
     performance: Performance | None,
     *,
     detail: bool = False,
@@ -176,9 +175,11 @@ def vendor_dict(
         "reference_code": org.reference_code,
         "name": org.name,
         "country": org.country,
-        "hq": profile.hq if profile is not None else None,
-        "partner_since": profile.since if profile is not None else None,
-        "fair_work_attested": bool(profile.fair_work_attested) if profile is not None else False,
+        # db/280: hq lives in organisation.profile, the attestation is a typed
+        # column, and "since" is the day the partner was onboarded
+        "hq": (org.profile or {}).get("hq"),
+        "partner_since": org.onboarded_at.date() if org.onboarded_at else None,
+        "fair_work_attested": bool(org.fair_work_attested),
         **{k: stored.get(k) for k in _PUBLIC},
         "years_in_business": years_in_business(stored.get("founded_year"), today),
         "expertise": expertise_of(org),
@@ -189,14 +190,10 @@ def vendor_dict(
 
 def _listed() -> Any:
     """Every active delivery partner the caller's policies admit."""
-    return (
-        select(Organisation, TenantProfile)
-        .join(TenantProfile, TenantProfile.org_id == Organisation.id, isouter=True)
-        .where(
-            Organisation.kind == "tenant",
-            Organisation.status == "active",
-            Organisation.deleted_at.is_(None),
-        )
+    return select(Organisation).where(
+        Organisation.kind == "tenant",
+        Organisation.status == "active",
+        Organisation.deleted_at.is_(None),
     )
 
 
@@ -209,9 +206,9 @@ async def list_vendors(session: AsyncSession, claims: AccessClaims) -> list[dict
     caller (organisation_select_directory for a client, everything for Ops);
     the console filters and sorts what comes back, so a filter is instant and
     costs no round trip."""
-    rows = (await session.execute(_listed().order_by(Organisation.name))).all()
-    record = await performance_for(session, [org.id for org, _ in rows])
-    return [vendor_dict(org, profile, record.get(org.id)) for org, profile in rows]
+    orgs = list((await session.execute(_listed().order_by(Organisation.name))).scalars())
+    record = await performance_for(session, [org.id for org in orgs])
+    return [vendor_dict(org, record.get(org.id)) for org in orgs]
 
 
 async def get_vendor(
@@ -222,9 +219,8 @@ async def get_vendor(
     about any other, as RLS would have told it."""
     if not may_browse(claims) and org_id != claims.org_id:
         raise LookupError("vendor not found")
-    row = (await session.execute(_listed().where(Organisation.id == org_id))).one_or_none()
-    if row is None:
+    org = (await session.execute(_listed().where(Organisation.id == org_id))).scalar_one_or_none()
+    if org is None:
         raise LookupError("vendor not found")
-    org, profile = row
     record = await performance_for(session, [org.id])
-    return vendor_dict(org, profile, record.get(org.id), detail=True)
+    return vendor_dict(org, record.get(org.id), detail=True)
