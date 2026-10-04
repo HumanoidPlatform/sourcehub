@@ -164,14 +164,12 @@ export interface Rfp {
     experience: string | null;
     certification: string | null;
   };
-  pricing_model_requested: PricingModel;
   budget_disclosed: boolean;
-  // null when budget_disclosed is false and you are not the client that
-  // raised it — the server withholds the range rather than the flag.
-  budget_min: string | null;
-  budget_max: string | null;
   currency: string;
-  milestones: Milestone[];
+  /** The budget as one amount on a basis (db/320). amount and estimated_total
+   *  come back null when budget_disclosed is false and you are not the client
+   *  that raised it — the server withholds the figure, never the basis. */
+  pricing: Pricing;
   pilot: { required: boolean; quantity: number | null; due_on: string | null };
   proposal_requirements: ProposalRequirement[];
   proposals_close_at: string | null;
@@ -213,7 +211,22 @@ export type PermittedUse =
 export type ProposalRequirement =
   | "method_statement" | "team_cv" | "sample_work"
   | "insurance" | "dpa_acceptance" | "references";
-export type PricingModel = "fixed" | "per_unit" | "milestone" | "open";
+export type PricingBasis = "total" | "per_unit";
+
+/** How a request, a bid or a contract is priced (db/320): a whole amount, or an
+ *  amount per `block` of `unit`. Money is a numeric string, never a float. */
+export interface Pricing {
+  basis: PricingBasis;
+  unit: TargetUnit | null;
+  block: number | null;
+  /** How many units are expected in all; the estimate is amount × quantity / block. */
+  quantity: number | null;
+  amount: string | null;
+  estimated_total: string | null;
+  currency: string;
+  /** The server's own sentence, e.g. "USD 500.00 per 1,000 photos"; null when withheld. */
+  text: string | null;
+}
 
 // The five jsonb columns. Their shape was read off deployed rows, not from the
 // DDL — the columns carry no CHECK — so every field is optional and unknown
@@ -269,9 +282,6 @@ export interface RejectionPolicy {
   rework_cost_bearer?: "partner" | "client" | "shared" | null;
   partial_acceptance_allowed?: boolean | null;
 }
-// INFERRED, not recovered: milestones is jsonb that no row anywhere populates.
-export interface Milestone { label: string; amount?: string | null; due_on?: string | null }
-
 export interface Proposal {
   id: string;
   /** From /proposals/mine only: the RFP's bidding deadline, so a response on
@@ -287,10 +297,15 @@ export interface Proposal {
   partner_rating?: number | null;
   partner_rating_count?: number;
   partner_contracts_completed?: number;
+  /** One price on the request's basis: the whole price on a total, the price
+   *  per block on per_unit. The three fields after it say which. */
   price: string;
   currency: string;
-  unit: string | null;
-  unit_price: string | null;
+  pricing_basis?: PricingBasis | null;
+  pricing_unit?: TargetUnit | null;
+  pricing_block?: number | null;
+  estimated_total?: string | null;
+  price_text?: string | null;
   duration_days: number;
   methodology: string;
   notes: string | null;
@@ -321,11 +336,14 @@ export interface Contract {
   client_name: string | null;
   partner_org_id: string;
   partner_name: string | null;
+  /** The agreed amount on pricing.basis: the whole price, or the rate per block. */
   value: string;
   currency: string;
   status: string;
-  milestone_pct: number;
-  platform_fee_pct: string;
+  /** The basis frozen at award (db/320); invoices are priced against it. */
+  pricing: Pricing;
+  /** Detail page only: what the partner has claimed, been paid, and is still owed. */
+  invoicing?: ContractInvoicing;
   rubric_snapshot: Record<string, unknown> | null;
   delivery_due_on: string | null;
   started_at: string | null;
@@ -682,19 +700,52 @@ export interface WorkerRow {
   open_assignments: number;
 }
 
+export interface ContractInvoicing {
+  invoiced_total: string;
+  paid_total: string;
+  outstanding_total: string;
+  invoiced_quantity: string;
+  count: number;
+}
+
+export type InvoiceStatus = "issued" | "paid" | "acknowledged" | "withdrawn";
+
+/** A partner's claim for payment on a contract (db/320). Raised by the partner
+ *  once some work has passed gate 2, marked paid by the client, acknowledged
+ *  by the partner; an unpaid one may be withdrawn. The platform moves no money. */
 export interface InvoiceRow {
   id: string;
   reference_code: string;
-  kind: string;
-  amount: string;
-  currency: string;
-  status: string;
-  issued_on: string;
-  paid_at: string | null;
-  contract_id: string | null;
+  contract_id: string;
   contract_ref: string | null;
-  party_org_id: string;
-  party_name: string | null;
+  request_id: string | null;
+  request_title: string | null;
+  client_org_id: string;
+  client_name: string | null;
+  partner_org_id: string;
+  partner_name: string | null;
+  currency: string;
+  /** per-unit contract: the quantity claimed at the frozen rate; null on a total */
+  quantity: string | null;
+  unit: string | null;
+  block: number | null;
+  rate: string | null;
+  amount: string;
+  /** "39 photos at USD 2,900.00 per 1,000 photos", or null on a total */
+  line_text: string | null;
+  accepted_assets_at_issue: number | null;
+  note: string | null;
+  status: InvoiceStatus;
+  issued_at: string;
+  issued_by: string | null;
+  paid_at: string | null;
+  paid_by: string | null;
+  payment_reference: string | null;
+  acknowledged_at: string | null;
+  acknowledged_by: string | null;
+  withdrawn_at: string | null;
+  withdrawn_by: string | null;
+  withdrawn_reason: string | null;
 }
 
 export interface OnboardingRow {
@@ -894,9 +945,13 @@ export interface Overview {
   /** Live contracts only — see money.committed. */
   delivery: { live: number; tasks_total: number; tasks_done: number; pct: number };
   money: {
-    /** Value of contracts still in flight. NOT lifetime contracted value. */
+    /** Estimated value of contracts still in flight. NOT lifetime contracted value. */
     committed: string;
+    /** What partners have invoiced so far, withdrawn ones excluded. */
+    invoiced: string;
+    /** Marked paid or acknowledged. */
     paid: string;
+    /** Issued and awaiting payment. */
     outstanding: string;
     currency: string;
   };

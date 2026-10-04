@@ -31,7 +31,8 @@ from sourcehub.modules.audit import service as audit
 from sourcehub.modules.delivery.models import (
     Contract, Submission, Task, TaskAssignment, TaskOffer, TaskOfferRecipient,
 )
-from sourcehub.modules.ledger import service as ledger
+from sourcehub.modules.invoices import service as invoices
+from sourcehub.modules.marketplace import pricing
 from sourcehub.modules.media import service as media
 from sourcehub.modules.notify import service as notifier
 
@@ -55,6 +56,11 @@ async def create_contract_from_award(
     client_org_id: uuid.UUID,
     partner_org_id: uuid.UUID,
     value: Decimal,
+    currency: str,
+    pricing_basis: str,
+    pricing_unit: str | None,
+    pricing_block: int | None,
+    pricing_quantity: int | None,
     acceptance: str | None,
     compliance: str | None,
     storage_target_id: uuid.UUID | None = None,
@@ -62,7 +68,8 @@ async def create_contract_from_award(
     """Called by marketplace.award, in the same transaction. The rubric
     snapshot freezes the acceptance criteria at this moment — the blueprint's
     rule that disputes are arbitrated against what was agreed, not what the
-    request says later."""
+    request says later. The pricing basis is frozen beside it (db/320): value
+    is the bid on that basis, and every invoice is priced against it."""
     ref = (
         await session.execute(text("SELECT next_reference_code('CTR','seq_ref_contract')"))
     ).scalar_one()
@@ -73,6 +80,11 @@ async def create_contract_from_award(
         client_org_id=client_org_id,
         partner_org_id=partner_org_id,
         value=value,
+        currency=currency,
+        pricing_basis=pricing_basis,
+        pricing_unit=pricing_unit,
+        pricing_block=pricing_block,
+        pricing_quantity=pricing_quantity,
         rubric_snapshot={
             "acceptance": acceptance,
             "compliance": compliance,
@@ -86,9 +98,6 @@ async def create_contract_from_award(
     )
     session.add(c)
     await session.flush()
-
-    await ledger.record_award(session, c.id, client_org_id, value, c.milestone_pct)
-
     return await _contract_row(session, c)
 
 
@@ -154,9 +163,12 @@ async def _contract_row(session: AsyncSession, c: Contract) -> dict[str, Any]:
         "partner_name": names.get("partner_name"),
         "value": c.value,
         "currency": c.currency,
+        # db/320: what value means, and the whole deal it implies
+        "pricing": pricing.view(
+            c.pricing_basis, c.pricing_unit, c.pricing_block, c.pricing_quantity,
+            c.value, c.currency,
+        ),
         "status": await _derived_status(session, c),
-        "milestone_pct": c.milestone_pct,
-        "platform_fee_pct": c.platform_fee_pct,
         "rubric_snapshot": c.rubric_snapshot,
         "delivery_due_on": names.get("delivery_due_on"),
         "started_at": c.started_at,
@@ -187,6 +199,9 @@ async def get_contract(
         return None
     out = await _contract_row(session, c)
     out["tasks"] = await list_tasks(session, claims, contract_id=contract_id)
+    # What has been claimed, paid and is still open — on the detail page only;
+    # the list already spends three queries a row.
+    out["invoicing"] = await invoices.contract_totals(session, c.id)
     return out
 
 
@@ -1051,7 +1066,7 @@ async def deliver_contract(
     c.updated_by = claims.user_id
     await notifier.notify(
         session, c.client_org_id,
-        "A delivery is ready. Your approval releases payment.",
+        f"{c.reference_code} has been delivered and is ready for your approval.",
         "deliveries", {"id": str(c.id)},
     )
     await audit.log(
@@ -1067,11 +1082,12 @@ async def dispute_delivery(
 ) -> dict[str, Any]:
     """The client's other answer to a delivery.
 
-    Approval releases the money, so refusing had to be possible: without it the
+    Approval closes the contract, so refusing had to be possible: without it the
     only way to reject work was to withhold approval silently and leave the
     partner guessing. The contract goes back to active, which is the state that
     accepts new tasks and a later re-delivery — a dispute is a round of rework,
-    not a terminus.
+    not a terminus. Invoices already raised are untouched (db/320): they follow
+    the work that passed gate 2, not the contract's state.
     """
     c = (
         await session.execute(select(Contract).where(Contract.id == contract_id))
@@ -1109,8 +1125,10 @@ async def approve_delivery(
     score: int,
     comment: str,
 ) -> dict[str, Any]:
-    """Client accepts: contract completes, money settles, the partner is rated.
-    The comment is required — 'ratings without one are not published'."""
+    """Client accepts: contract completes and the partner is rated. No money
+    moves here (db/320): the partner invoices as it delivers and the client
+    marks each invoice paid. The comment is required — 'ratings without one are
+    not published'."""
     from sourcehub.modules.network import service as network
     from sourcehub.modules.threads import service as threads
 
@@ -1140,19 +1158,14 @@ async def approve_delivery(
         session, claims, contract_id=c.id, to_org_id=c.partner_org_id,
         score=score, comment=comment,
     )
-    fee = await ledger.record_completion(
-        session, c.id, c.client_org_id, c.partner_org_id,
-        c.value, c.milestone_pct, c.platform_fee_pct,
-    )
     await notifier.notify(
         session, c.partner_org_id,
-        f"Delivery approved. {c.currency} {c.value} released "
-        f"(platform fee {c.currency} {fee}).",
+        f"{c.reference_code} was approved and is complete. Invoice any work not yet claimed.",
         "contracts", {"id": str(c.id)},
     )
     await audit.log(
         session, "contract.accepted",
-        f"Approved {c.reference_code}; released {c.currency} {c.value} and rated the partner",
+        f"Approved {c.reference_code} and rated the partner",
         [c.id, c.request_id, c.client_org_id, c.partner_org_id],
     )
     return await _contract_row(session, c)

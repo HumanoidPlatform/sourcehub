@@ -239,6 +239,14 @@ svg .keynote{font:10.5px var(--mono);fill:var(--ink-3)}
 <header class="mast">
   <div class="kicker">Schema reference · document four of four</div>
   <h1>SourceHub Data Model</h1>
+  <p style="margin:8px 0 0;padding:10px 12px;border:1px solid var(--t-attention-line);background:var(--t-attention-bg);color:var(--t-attention);border-radius:var(--r);font-size:14px">
+    <b>Historical.</b> This is the data model as designed at the blueprint stage. The live reference is
+    <code>docs/database-guide.md</code>. In particular the Money section below (double-entry ledger, escrow,
+    milestone and platform fee) was replaced on 4 October 2026 by partner-raised invoices
+    (<code>db/320_partner_invoices.sql</code>), the five profile tables were folded into
+    <code>organisation</code> (<code>db/280</code>), and thirteen never-used tables and all views were dropped
+    (<code>db/290</code>).
+  </p>
   <p class="standfirst">Where every fact in the marketplace lives, the rules it obeys, and why.
   Companion to the blueprint and the build guide; the running database is the one this document
   was written against, not a plan for one.</p>

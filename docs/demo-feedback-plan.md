@@ -10,7 +10,7 @@ needed. Sizes are rough: S = days, M = 1–2 weeks, L = 2–4 weeks, XL = 4+ wee
 |---|---|---|---|---|---|
 | 1 | Detailed client/partner profile at onboarding, with logo | Platform admin, client, partner | **Done** (public profile). Owner-only editing (1a) requested; private details (1b) not started | M | — |
 | 2 | **Vendors** tab for clients | Client | **Done** (invite to bid later) | M | — |
-| 3 | Flexible budget: total range **or** rate per unit | Client, partner | Not started | M | — |
+| 3 | Flexible budget: total **or** rate per unit | Client, partner | **Done** (one amount per basis, USD; see decisions below) | M | — |
 | 4 | Bidding deadline, editable until award | Client, partner | **Done** | S–M | — |
 | 5 | Private one-to-one Q&A / chat per RFP | Client, partner | **Done** (text; attachments later) | L | — |
 | 6 | Award one RFP to **several** partners, partial quantities | Client, partner | Not started | XL | 3 |
@@ -153,10 +153,14 @@ filtering on the server once the directory is large enough to need pages.
 **Done when:** a client can publish either budget type in any supported currency, partners bid in the matching form,
 and client and partner see the same totals.
 
-**Decisions needed:**
-- Is the per-unit budget one number or a range?
-- For per-unit contracts, is the partner paid on **accepted units**, or a fixed total set at award?
-- Which currencies do we support at launch?
+**Built (4 October 2026, `db/320` / migration 0035):** the budget is **one amount** on a basis — a total, or an
+amount per N units (per 100 photos, per 1,000 records, per 10 hours of footage) with the quantity expected — and
+"keep the budget private" hides the amount, never the basis. Partners bid one price on the client's basis and
+see the total it implies; the award freezes the basis on the contract. Payment follows **accepted work**: once a
+submission has passed gate 2 the partner raises an invoice (a quantity at the agreed rate, capped at the captures
+accepted; or an amount on a fixed price, capped at the agreed total), the client marks it paid, the partner
+acknowledges. There is no escrow and no platform fee any more. Currency stays USD for now, and a range was not
+kept: one number is what partners can bid against.
 
 ---
 
@@ -251,7 +255,7 @@ and it is visible who won.
 - **Remaining bids stay open** until the RFP is fully allocated or the client closes it. The rest are then declined, with a notification.
 - **New RFP stages:** Open → Partially awarded → Fully awarded → In progress → Delivered → Completed, with progress rolled up across contracts.
 - **Winners:** the client sees every winner and quantity; each winner sees its own award.
-- **Delivery and billing:** delivery is approved per partner, and invoices are raised per contract.
+- **Delivery and billing:** delivery is approved per partner, and each partner raises its own invoices on its own contract (as item 3 already works today).
 
 **Rules:**
 - Total awarded ≤ the RFP quantity, enforced by the server even when two awards happen at once.

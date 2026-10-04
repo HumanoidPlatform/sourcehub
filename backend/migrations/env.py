@@ -36,7 +36,7 @@ from sourcehub.db.base import Base
 # propose DROPping, so this list is load-bearing, not decorative.
 from sourcehub.modules.delivery import models as _delivery  # noqa: F401
 from sourcehub.modules.identity import models as _identity  # noqa: F401
-from sourcehub.modules.ledger import models as _ledger  # noqa: F401
+from sourcehub.modules.invoices import models as _invoices  # noqa: F401
 from sourcehub.modules.marketplace import models as _marketplace  # noqa: F401
 from sourcehub.modules.network import models as _network  # noqa: F401
 from sourcehub.modules.notify import models as _notify  # noqa: F401
@@ -144,9 +144,26 @@ def _preflight(connection: Connection) -> None:
             )
 
 
+def _operator_flags(connection: Connection) -> None:
+    """Session settings a migration may ask the operator for.
+
+    db/320 drops the escrow ledger, which on dev and staging holds rows. Its
+    guard refuses to run while they exist unless the session carries
+    sourcehub.old_billing_dumped = 'yes' — the operator's statement that the
+    rows are in the rollback folder. Passed as `alembic -x old_billing_dumped=yes
+    upgrade head`. A plain SET is session-wide, so it outlives the implicit
+    transaction this statement opens and reaches the migration's own.
+    """
+    flags = context.get_x_argument(as_dictionary=True)
+    if flags.get("old_billing_dumped") == "yes":
+        connection.execute(text("SET sourcehub.old_billing_dumped = 'yes'"))
+        connection.commit()
+
+
 def _run(connection: Connection) -> None:
     try:
         _preflight(connection)
+        _operator_flags(connection)
     finally:
         # The checks only read, but reading began a transaction. End it, so
         # Alembic begins its own: one left open here would be taken over by the

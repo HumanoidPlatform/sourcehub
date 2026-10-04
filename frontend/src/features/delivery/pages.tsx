@@ -5,7 +5,9 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { get, post } from "@api/client";
-import type { ActivityRow, AssetRow, Assignment, CaptureSpec, Contract, Org, Rfp, SubjectSpec, Task } from "@api/types";
+import type {
+  ActivityRow, AssetRow, Assignment, CaptureSpec, Contract, InvoiceRow, Org, Rfp, SubjectSpec, Task,
+} from "@api/types";
 import {
   Button, Callout, Dialog, Dl, Empty, Field, inputCls, Loadable, Meter, Metric, Panel,
   Pill, TableWrap, textareaCls, useToast, View,
@@ -16,7 +18,9 @@ import {
 import { useSession } from "@shared/auth";
 import { CAPTURE_APP } from "@shared/brand";
 import { fmtDate, fmtDateTime, mediaList, money, taskTarget } from "@shared/format";
+import { describePricing, quantityWords } from "@shared/pricing";
 import { captureRequirementText, subjectRows } from "./components/brief";
+import { ContractInvoicesPanel } from "./components/invoices";
 import { assignmentStatus, contractStatus, statusMeta, taskStatus, waitingOn } from "@shared/status";
 import {
   DEIDENTIFICATION, labelOf, labelsOf, LAWFUL_BASES, PERMITTED_USES,
@@ -38,8 +42,8 @@ export function ContractsPage() {
     <View
       title={isClient ? "Deliverables for Review" : "Contracts"}
       sub={isClient
-        ? "Work in flight against your RFPs. Approving a deliverable releases payment."
-        : "Break each contract into tasks; deliver once every task clears QA."}
+        ? "Work in flight against your RFPs. Approve each delivery when it is right; partners invoice as work passes QA."
+        : "Break each contract into tasks; deliver once every task clears QA; invoice as work passes."}
     >
       {/* One row per contract, like every other list in the product. Expanded
           cards were unreadable past two or three and buried the one thing you
@@ -71,7 +75,10 @@ export function ContractsPage() {
                         <td className="id">{c.reference_code}</td>
                         <td className="cell-primary">{c.title ?? c.reference_code}</td>
                         <td>{isClient ? c.partner_name : c.client_name}</td>
-                        <td className="num" style={{ whiteSpace: "nowrap" }}>{money(c.value)}</td>
+                        {/* the whole deal: on a per-unit contract value is the rate */}
+                        <td className="num" style={{ whiteSpace: "nowrap" }}>
+                          {money(c.pricing?.estimated_total ?? c.value, c.currency)}
+                        </td>
                         <td className="num">{c.progress.done} / {c.progress.total}</td>
                         <td style={{ minWidth: 96 }}>
                           <Meter pct={c.progress.pct} tone={c.progress.pct === 100 ? "success" : undefined} />
@@ -128,6 +135,13 @@ export function ContractDetailPage() {
     queryFn: () => get<Rfp>(`/requests/${requestId}`),
     enabled: !!requestId,
   });
+  // The partner's claims on this contract (db/320). Keyed under "invoices" so
+  // the Billing page's refreshes reach it too.
+  const invoices = useQuery({
+    queryKey: ["invoices", { contract: id }],
+    queryFn: () => get<InvoiceRow[]>(`/invoices?contract_id=${id}`),
+    enabled: !!id,
+  });
 
   const deliver = useMutation({
     mutationFn: () => post<Contract>(`/contracts/${id}/deliver`),
@@ -145,6 +159,9 @@ export function ContractDetailPage() {
   const isPartner = session.org_id === c.partner_org_id;
   const isClient = session.org_id === c.client_org_id;
   const rubric = (c.rubric_snapshot ?? {}) as { acceptance?: string; compliance?: string };
+  // The agreed price on its basis (db/320); a row from before the basis
+  // existed still has a value to show.
+  const agreedPrice = c.pricing ? describePricing(c.pricing) : money(c.value, c.currency);
   // A slot with no files renders no row, and no documents at all no panel.
   const clientDocRows = slotRows(brief.data?.attachments);
 
@@ -165,22 +182,36 @@ export function ContractDetailPage() {
             </>
           )}
           {isClient && c.status === "delivered" && (
-            <Button variant="success" onClick={() => setApproving(true)}>Approve and release payment</Button>
+            <Button variant="success" onClick={() => setApproving(true)}>Approve delivery</Button>
           )}
         </>
       }
     >
       <div className="g4">
-        <Metric label="Value" value={money(c.value)} sub={`fee ${c.platform_fee_pct}% on completion`} />
+        {/* db/320: the agreed price on its basis, and what has been invoiced
+            against it. No milestone, no fee — the platform moves no money. */}
+        <Metric
+          label="Agreed price"
+          value={agreedPrice}
+          sub={c.pricing?.basis === "per_unit" && c.pricing.estimated_total
+            ? `≈ ${money(c.pricing.estimated_total, c.currency)} for ${quantityWords(c.pricing.quantity, c.pricing.unit)}`
+            : undefined}
+        />
+        <Metric
+          label="Invoiced"
+          value={money(c.invoicing?.invoiced_total ?? 0, c.currency)}
+          sub={c.invoicing
+            ? `${money(c.invoicing.paid_total, c.currency)} paid · ${money(c.invoicing.outstanding_total, c.currency)} awaiting payment`
+            : undefined}
+        />
         <Metric
           label={isClient ? "Review status" : "Progress"}
           value={`${c.progress.pct}%`}
           sub={isClient
             ? `${c.progress.done} of ${c.progress.total} tasks cleared QA. Open a task to compare requested scope, delivered assets and QA evidence.`
-            : `${c.progress.done} of ${c.progress.total} tasks QA-passed`}
+            : `${c.progress.done} of ${c.progress.total} tasks QA-passed · due ${fmtDate(c.delivery_due_on)}`}
         />
-        <Metric label="Waiting on" value={waitingOn(meta, isClient ? "client" : "partner")} />
-        <Metric label="Delivery due" value={fmtDate(c.delivery_due_on)} />
+        <Metric label="Waiting on" value={waitingOn(meta, isClient ? "client" : "partner")} sub={isClient ? `Delivery due ${fmtDate(c.delivery_due_on)}` : undefined} />
       </div>
 
       <Panel title="Work breakdown" sub={isClient ? "Fulfilled by the partner's own network — provenance you can audit." : "Only partners in your own network can be assigned."}>
@@ -230,12 +261,14 @@ export function ContractDetailPage() {
       {/* The conversation that began on the RFP, for as long as the contract runs. */}
       <ContractThreadPanel c={c} />
 
+      <ContractInvoicesPanel c={c} invoices={invoices} />
+
       <div className="g2">
         <Panel title="Rubric snapshot" sub="Frozen at award. Disputes are arbitrated against this, not the request as it reads today.">
           <Dl rows={[
             ["Acceptance", rubric.acceptance ?? "—"],
             ["Compliance", rubric.compliance ?? "—"],
-            ["Milestone held", `${c.milestone_pct}% at award`],
+            ["Priced", describePricing(c.pricing, { withTotal: true })],
           ]} />
         </Panel>
         <Panel title="Audit trail">
@@ -558,15 +591,14 @@ function ApproveDialog({ contract, onClose }: { contract: Contract; onClose: () 
       post(`/contracts/${contract.id}/approve`, { score: Number(score), comment }),
     onSuccess: () => {
       void qc.invalidateQueries();
-      toast("Contract completed", `${money(contract.value)} released to ${contract.partner_name}.`, "success");
+      toast("Contract completed", `${contract.partner_name} has been rated. Invoices are settled on Billing.`, "success");
       onClose();
     },
     onError: (e) => setError(e instanceof Error ? e.message : "Could not approve"),
   });
 
-  // Approval is irreversible and releases money, so the client needs a way to
-  // say no. Without one the only refusal was silence, and the partner had no
-  // idea what to fix.
+  // Approval is irreversible, so the client needs a way to say no. Without one
+  // the only refusal was silence, and the partner had no idea what to fix.
   const dispute = useMutation({
     mutationFn: () => post(`/contracts/${contract.id}/dispute`, { reason: comment }),
     onSuccess: () => {
@@ -580,7 +612,7 @@ function ApproveDialog({ contract, onClose }: { contract: Contract; onClose: () 
   return (
     <Dialog
       title="Review the deliverable"
-      sub={`${contract.title} · ${money(contract.value)}`}
+      sub={`${contract.title} · ${describePricing(contract.pricing, { withTotal: true })}`}
       onClose={onClose}
       foot={
         <>
@@ -594,14 +626,15 @@ function ApproveDialog({ contract, onClose }: { contract: Contract; onClose: () 
             Send back
           </Button>
           <Button variant="success" disabled={!comment.trim() || approve.isPending || dispute.isPending} onClick={() => approve.mutate()}>
-            Approve and release payment
+            Approve delivery
           </Button>
         </>
       }
     >
-      <Callout tone="attention" title="Approving releases payment">
-        {contract.partner_name} is paid {money(contract.value)} less the platform fee, and the
-        contract closes. This cannot be undone.
+      <Callout tone="attention" title="Approving completes the contract">
+        {contract.partner_name} is rated and the contract closes. Payment is separate: the partner
+        invoices the work that passed QA, and you mark each invoice paid on Billing. This cannot be
+        undone.
       </Callout>
       <div className="formgrid" style={{ marginTop: 12 }}>
         <Field label="Rate your delivery partner">

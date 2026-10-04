@@ -63,7 +63,10 @@ def test_the_new_file_is_the_last_structure_file_in_the_bundle():
     m = re.search(r'^STRUCTURE="([^"]*)"', BUNDLE.read_text(encoding="utf-8"), re.M)
     assert m
     listed = m.group(1).split()
-    assert listed[-2:] == ["300_push", "310_review_defects"]
+    # straight after 300; later files (320_partner_invoices, ...) may follow
+    at = listed.index("310_review_defects")
+    assert listed[at - 1 : at + 1] == ["300_push", "310_review_defects"]
+    assert all(int(name[:3]) > 310 for name in listed[at + 1 :])
 
 
 def test_no_comment_line_ends_a_statement():

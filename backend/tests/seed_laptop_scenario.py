@@ -172,7 +172,7 @@ req = must(client.post("/requests", json={
     "spec_quality": "Hands and screen both in frame, landscape, steady.",
     "acceptance": "The laptop is being operated and is plainly the subject of the clip.",
     "compliance_notes": "Hands are expected. No faces required or wanted.",
-    "budget_min": 500, "budget_max": 900,
+    "pricing_basis": "total", "budget_amount": 900,
     "starts_on": today.isoformat(),
     "delivery_due_on": (today + dt.timedelta(days=14)).isoformat(),
     "storage_target_id": dest["id"],

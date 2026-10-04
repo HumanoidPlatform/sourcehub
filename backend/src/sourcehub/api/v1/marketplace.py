@@ -36,7 +36,8 @@ Deidentification = Literal["blur_faces", "redact_plates", "strip_gps"]
 PermittedUse = Literal["model_training", "internal_analysis", "research", "audit", "publication"]
 ProposalRequirement = Literal["method_statement", "team_cv", "sample_work",
                               "insurance", "dpa_acceptance", "references"]
-PricingModel = Literal["fixed", "per_unit", "milestone", "open"]
+# db/320: the budget is one amount, stated as a total or per block of a unit
+PricingBasis = Literal["total", "per_unit"]
 
 
 class CaptureSpec(BaseModel):
@@ -101,17 +102,6 @@ class RejectionPolicy(BaseModel):
     partial_acceptance_allowed: bool | None = None
 
 
-class Milestone(BaseModel):
-    """INFERRED, not recovered. milestones is jsonb with no CHECK and no row
-    anywhere populates it, so this shape is a reading of the column's name and
-    its pairing with pricing_model 'milestone' — not something the database
-    told us. Revisit it the moment a real one exists."""
-
-    label: str
-    amount: Decimal | None = Field(default=None, ge=0)
-    due_on: dt.date | None = None
-
-
 class RequestIn(BaseModel):
     title: str = Field(min_length=3)
     category: Literal["image", "video", "structured_data", "unstructured_data", "people_deliverable"]
@@ -123,8 +113,6 @@ class RequestIn(BaseModel):
     people_training: str | None = None
     people_experience: str | None = None
     people_certification: str | None = None
-    budget_min: Decimal | None = None
-    budget_max: Decimal | None = None
     starts_on: dt.date | None = None
     delivery_due_on: dt.date | None = None
     residency_region: str | None = None
@@ -154,9 +142,16 @@ class RequestIn(BaseModel):
     biometric_processing: bool = False
 
     # --- commercials and process ---
-    pricing_model_requested: PricingModel = "fixed"
+    # The budget: one amount on a basis (db/320). total: budget_amount is the
+    # whole budget. per_unit: budget_amount is the amount per pricing_block of
+    # pricing_unit, and pricing_quantity is how many the client expects to buy.
+    # None = the client is not saying.
+    pricing_basis: PricingBasis = "total"
+    pricing_unit: TargetUnit | None = None
+    pricing_block: int | None = Field(default=None, ge=1)
+    pricing_quantity: int | None = Field(default=None, gt=0)
+    budget_amount: Decimal | None = Field(default=None, ge=0, max_digits=14, decimal_places=2)
     budget_disclosed: bool = True
-    milestones: list[Milestone] = Field(default_factory=list, max_length=20)
     pilot_required: bool = False
     pilot_quantity: int | None = Field(default=None, gt=0)
     pilot_due_on: dt.date | None = None
@@ -184,10 +179,30 @@ class RequestIn(BaseModel):
         client gets a 500 for a form mistake. Named the same as the constraint
         that backs it, so the two stay findable from each other.
         """
-        # request_budget_order
-        if self.budget_min is not None and self.budget_max is not None \
-                and self.budget_max < self.budget_min:
-            raise ValueError("budget_max must be at least budget_min")
+        # request_pricing_shape: per unit needs all three of unit, block and
+        # quantity; a total carries none, and whatever the form left in those
+        # fields is cleared rather than refused. The unit and the quantity are
+        # the scope's own answers (target_unit, target_quantity): a caller that
+        # leaves them out gets those, so they are given once, not twice.
+        if self.pricing_basis == "per_unit":
+            if self.pricing_unit is None:
+                self.pricing_unit = self.target_unit
+            if self.pricing_quantity is None:
+                self.pricing_quantity = self.target_quantity
+            missing = [
+                f for f in ("pricing_unit", "pricing_block", "pricing_quantity")
+                if getattr(self, f) is None
+            ]
+            if missing:
+                raise ValueError(
+                    "per-unit pricing needs " + ", ".join(missing)
+                    + ": the unit, how many one price covers, and how many are wanted "
+                    "(the unit and the quantity default to target_unit and target_quantity)"
+                )
+        else:
+            self.pricing_unit = None
+            self.pricing_block = None
+            self.pricing_quantity = None
         # request_timeline_order
         if self.starts_on and self.delivery_due_on and self.delivery_due_on < self.starts_on:
             raise ValueError("delivery_due_on must be on or after starts_on")
@@ -207,11 +222,9 @@ class RequestIn(BaseModel):
 
 
 class ProposalIn(BaseModel):
-    price: Decimal = Field(gt=0)
-    # Per-unit bidding, for a request that asked for it. price stays the
-    # authoritative total; nothing derives one from the other.
-    unit: str | None = None
-    unit_price: Decimal | None = Field(default=None, ge=0)
+    # One price on the request's basis (db/320): the whole price on a total,
+    # the price per block on per_unit. The response says which it was read as.
+    price: Decimal = Field(gt=0, max_digits=14, decimal_places=2)
     duration_days: int = Field(gt=0)
     methodology: str = Field(min_length=10)
     notes: str | None = None
@@ -344,7 +357,6 @@ async def submit_proposal(
         return await marketplace.submit_proposal(
             session, principal, request_id, body.price, body.duration_days,
             body.methodology, body.notes,
-            unit=body.unit, unit_price=body.unit_price,
             attachments=[a.model_dump() for a in body.attachments],
         )
     except LookupError:
@@ -411,8 +423,8 @@ async def award(
     principal: Principal = Depends(require_capability("proposal.accept")),
     session: AsyncSession = Depends(get_session),
 ):
-    """Awarding moves money into escrow — proposal.accept carries requires_mfa
-    in the permission table, honoured whenever enforcement is on."""
+    """Awarding commits the client to the price — proposal.accept carries
+    requires_mfa in the permission table, honoured whenever enforcement is on."""
     try:
         return await marketplace.award(session, principal, proposal_id)
     except LookupError:

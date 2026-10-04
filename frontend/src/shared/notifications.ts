@@ -44,7 +44,9 @@ export function notificationHref(n: NotificationRow): string | null {
     // network") fell through to null, so the moment a partner's network grew
     // was the one row in the bell that did nothing.
     case "network": return "/network";
-    case "billing": return "/billing";
+    // An invoice was raised, paid, acknowledged or withdrawn (db/320). The
+    // Billing page opens the row named in ?invoice=.
+    case "billing": return id ? `/billing?invoice=${id}` : "/billing";
     // The operator's pages were missing from this map entirely, and Ops has
     // exactly one inbound notification: onboarding/service.py sends
     // link_page "onboarding" when a tenant asks for a network entity. It fell

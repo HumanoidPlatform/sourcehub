@@ -17,9 +17,9 @@ Contents: [1 The short answer](#1-the-short-answer) · [2 The map](#2-the-map--e
 
 ## 1. The short answer
 
-There are **40 tables** (plus `alembic_version`, which is migration bookkeeping), and **every one is in
+There are **37 tables** (plus `alembic_version`, which is migration bookkeeping), and **every one is in
 use**: backend code reads or writes it. Each holds a different real-world thing — a company, a person, a bid,
-a contract, a photo, a payment — and merging them would make the access rules harder, not simpler.
+a contract, a photo, an invoice — and merging them would make the access rules harder, not simpler.
 
 It was not always so. The original blueprint created fifteen tables ahead of the features they were for.
 Two of them (`defect_code`, `qa_review_defect`) later came into use; the other thirteen were still empty
@@ -81,8 +81,8 @@ SELECT relname AS table, n_live_tup AS rows FROM pg_stat_user_tables ORDER BY n_
 | Table | One row is |
 |---|---|
 | `storage_target` | A client's **own** bucket or container: provider, bucket, prefix, and the credential. It is a separate table — not columns on `request` — because every bidding partner can read a published request, and a credential cannot sit on a row they can read. |
-| `request` | The RFP: what is wanted, how much, by when, the privacy rules, and which `storage_target` the captures go to. `proposals_close_at` is the bidding deadline, required to publish and changeable by the client until the award ([`240_bidding_deadline.sql`](../db/240_bidding_deadline.sql)); "closed" is never stored but derived from it at read time. `closed_at` and `bidding_reminder_sent_at` are the sweep's stamps for the notices it has sent, cleared when the client moves the deadline later. |
-| `proposal` | One partner's bid on one request. |
+| `request` | The RFP: what is wanted, how much, by when, the privacy rules, and which `storage_target` the captures go to. The budget is **one amount on a basis** ([`320_partner_invoices.sql`](../db/320_partner_invoices.sql)): `pricing_basis` is `total` or `per_unit`; per unit, `budget_amount` is the amount per `pricing_block` of `pricing_unit` and `pricing_quantity` says how many are wanted in all. `budget_disclosed` hides the amount, never the basis, from bidders. `proposals_close_at` is the bidding deadline, required to publish and changeable by the client until the award ([`240_bidding_deadline.sql`](../db/240_bidding_deadline.sql)); "closed" is never stored but derived from it at read time. `closed_at` and `bidding_reminder_sent_at` are the sweep's stamps for the notices it has sent, cleared when the client moves the deadline later. |
+| `proposal` | One partner's bid on one request: one `price` on the request's basis — the whole price on a total, the price per block on per_unit. |
 | `rfp_thread` | One private conversation per request per delivery partner, between the client and that partner only ([`250_rfp_threads.sql`](../db/250_rfp_threads.sql)). Opened by the partner while the request is published (or, as the winner, during delivery); closed by the client's own actions — `awarded_elsewhere` for the losers at award, `contract_completed` for the winner at approval — and a closed thread never reopens. Blind bidding holds because the policies admit only the two parties (and Ops, read-only): a rival's thread does not exist for a partner. |
 | `rfp_message` | One message in a thread, numbered `seq` 1, 2, 3… under the thread's advisory lock. Append-only at every layer: no UPDATE or DELETE policy, no grant, and rewrite rules that turn either into nothing. `sender_name` is a snapshot because the other organisation cannot read `app_user`. |
 | `rfp_thread_read` | One last-read `seq` per organisation per thread. "Seen" and unread counts are computed from it; it is a separate table so both parties can stamp without holding the thread's client-only UPDATE policy. |
@@ -117,17 +117,18 @@ SELECT relname AS table, n_live_tup AS rows FROM pg_stat_user_tables ORDER BY n_
 | `loan` | A request to borrow units. A trigger refuses an approval that would lend more than exist, or lend equipment whose calibration has expired. |
 | `rating` | One party's rating of the other on a contract, written when the client accepts delivery. |
 
-### G. Money · [`080_ledger.sql`](../db/080_ledger.sql)
+### G. Invoices · [`320_partner_invoices.sql`](../db/320_partner_invoices.sql)
 
 | Table | One row is |
 |---|---|
-| `ledger_account` | One account for one organisation and purpose (receivable, payable, escrow, fee income, cash). `org_id` NULL means platform-internal. |
-| `ledger_transaction` | One money movement, as a group of entries. |
-| `ledger_entry` | One leg: a debit or a credit, always a positive amount. Append-only. **A deferred trigger refuses to commit a transaction whose debits and credits differ.** |
-| `invoice` | The document a party receives. A projection over the ledger; the money itself is in `ledger_entry`. |
+| `invoice` | A partner's claim for payment on a contract. The partner raises it once at least one submission on the contract has passed gate 2 — for a quantity on a per-unit contract (priced at the rate frozen on the contract), or an amount on a fixed-price one. The client marks it `paid`; the partner `acknowledged` the money arriving, or `withdrawn` an unpaid one. **The platform moves no money.** |
 
-Real double-entry is used because of escrow: on award, half is invoiced and *held*; it belongs to neither party
-until the client accepts. A single amount column cannot say that.
+Three things the database does so the service cannot get them wrong: an insert trigger copies both
+parties, the currency and the rate from the contract and computes a per-unit amount, so a caller can forge
+none of them; a transition trigger allows exactly three moves (issued → paid by the client, paid →
+acknowledged and issued → withdrawn by the partner) and stamps them itself; and the application login may
+UPDATE three columns only (`status`, `payment_reference`, `withdrawn_reason`). The four escrow-ledger tables
+this replaced are described in [section 8](#8-tables-that-were-removed).
 
 ### H. Record-keeping and compliance · [`090_notify_audit.sql`](../db/090_notify_audit.sql)
 
@@ -161,8 +162,8 @@ Which table gets a row at each step.
    (`modules/marketplace/sweep`) tells the client and the bidders when the window shuts and reminds the rest
    a day before; `bidding_sweep_orgs()` is how it finds the clients with a window due.
 4. **The client awards.** In one transaction: the winning `proposal` → `accepted`, the rest → `rejected`,
-   `request` → `accepted`, a `contract` is created (rubric snapshot and destination copied in), and the ledger
-   writes the first milestone — `ledger_transaction` + `ledger_entry` + `invoice`.
+   `request` → `accepted`, and a `contract` is created with the rubric snapshot, the destination and the
+   pricing basis copied in. No money moves.
 5. **The partner splits the work** into `task` rows, each for one aggregator or business in its own network.
 6. **The aggregator staffs each task.** Either assigns workers directly (`task_assignment`), or sends a
    `task_offer` with one `task_offer_recipient` per worker; each accepted link becomes a `task_assignment`.
@@ -175,9 +176,12 @@ Which table gets a row at each step.
 10. **Gate 2.** The partner passes or fails the submission — a `qa_review` row with `gate2_partner`. The task
     becomes `qa_passed` or `qa_failed`. A failed task reopens; the next attempt is a **new** `submission` row.
 11. **Delivery.** When every task on the contract is `qa_passed`, the partner marks the `contract` `delivered`.
-12. **Acceptance.** The client approves: `contract` → `completed`, a `rating` is written, and the ledger releases
-    the held money, takes the platform fee, and marks the `invoice` rows `paid`. Or the client disputes with a
-    reason, and the contract returns to `active`.
+12. **Acceptance.** The client approves: `contract` → `completed` and a `rating` is written. Or the client
+    disputes with a reason, and the contract returns to `active`.
+13. **Invoicing, from step 10 on.** Once a submission has passed gate 2 the partner raises an `invoice` for the
+    work — a quantity at the contract's rate, or an amount on a fixed price — the client marks it `paid`, and
+    the partner `acknowledged` it. Invoices follow the work, not the contract's state: a dispute leaves them be,
+    and the partner may still invoice after approval.
 
 Nearly every step also writes one `audit_event` and one or more `notification` rows.
 
@@ -200,12 +204,12 @@ status-transition trigger anywhere. Every move below is guarded in Python, in th
 | `asset` | `pending` `uploaded` `ready` `quarantined` `rejected` `erased` | `pending` in `presign_capture`; `ready` or `quarantined` in `confirm_asset` ([media/service.py](../backend/src/sourcehub/modules/media/service.py)). |
 | `submission` | `open` `submitted` `under_review` `accepted` `rejected` `superseded` | created as `submitted` in `submit_task`; closed by `decide` (qa). |
 | `onboarding_request` | `draft` `submitted` `under_review` `changes_requested` `approved` `rejected` `withdrawn` `expired` | [onboarding/service.py](../backend/src/sourcehub/modules/onboarding/service.py); `approved` is set inside the database function, which locks the row and refuses anything not `submitted` or `under_review`. |
-| `invoice` | `pending` `paid` `overdue` `void` | `record_award`, `record_completion` ([ledger/service.py](../backend/src/sourcehub/modules/ledger/service.py)) — reached only from award and acceptance, never from a route of their own. |
+| `invoice` | `issued` `paid` `acknowledged` `withdrawn` | `raise_invoice`, `mark_paid`, `acknowledge`, `withdraw` ([invoices/service.py](../backend/src/sourcehub/modules/invoices/service.py)), each one conditional UPDATE; the `invoice_transition` trigger refuses any other move and any mover but the right party. |
 
 **Declared but never written by any code:** `request.cancelled`, `contract.disputed` and `contract.cancelled`
 (a dispute returns the contract to `active`), `task.cancelled`, `submission.open` / `under_review` / `superseded`, `asset.uploaded` (reserved for asynchronous verification),
 `asset.rejected` / `erased`, `qa_review` gate `gate3_client`, `organisation.terminated`,
-`onboarding_request.under_review` / `expired`, `invoice.overdue` / `void`.
+`onboarding_request.under_review` / `expired`.
 
 ---
 
@@ -230,7 +234,7 @@ See [section 4](#4-status-values-and-who-may-change-them).
 ### Layer 3 — row-level security decides which rows exist for you
 
 Defined in [`100_rls.sql`](../db/100_rls.sql), with later additions in `110`, `120`, `130` and `150`. Roughly 140
-policies across 43 tables.
+policies across 37 tables.
 
 **How it works.** The API connects as the role `sourcehub_app`, which owns nothing and cannot bypass policies.
 At the start of every request it sets three transaction-local values — `app.org_id`, `app.user_id`, `app.role` —
@@ -282,7 +286,7 @@ narrow question and is executable only by `sourcehub_app`:
 | A worker uploading into a bucket it cannot read | `storage_destination_for_contract()`, `storage_destination_by_id()` — the only two that return a credential |
 | Building a storage path from names the caller cannot see | `attachment_folder()` |
 | "Is this email already used?" without revealing by whom | `email_is_taken()` |
-| Integrity that must see every row | `write_audit_event()`, `assert_ledger_balanced()` |
+| Integrity that must see every row | `write_audit_event()` |
 | A partner's record, made of contracts the reader may not see | `partner_performance(uuid[])` — contracts completed, on-time %, accepted-first-time %, gate-2 pass %, and the rating as an average, a count and a count per score. **Numbers only**: never a contract, a client, a comment or a date. A percentage is NULL when there is nothing to divide by. Answers for delivery partners, to a session acting as an organisation, never to a crowd session. It is the one source of these figures for every screen ([identity/directory.py](../backend/src/sourcehub/modules/identity/directory.py)). |
 
 ### Layer 4 — the database refuses what should never exist
@@ -291,8 +295,9 @@ narrow question and is executable only by `sourcehub_app`:
 |---|---|
 | Unique partial indexes — the "only one" rules | one accepted proposal per request · one live bid per partner per request · one open offer per task · one open assignment per worker per task · one live grant of a role per user per organisation · email unique among non-deleted users |
 | CHECK constraints | a supplier must have a parent organisation · an active user must have a credential · a failed review, a rejected assignment, a rejected loan and a non-approval must each carry a written reason · an offer's `accepted_count` can never exceed `worker_limit` · an approved onboarding request must name what it created · a review has exactly one subject (assignment *or* submission) · file size limits per attachment slot |
-| Triggers — only two do real work | `ledger_entry_balanced` (debits = credits, checked at commit) · `loan_availability` (stock and calibration). Every other trigger just maintains `updated_at`. |
-| Append-only tables | `audit_event`, `qa_review`, `ledger_entry` — rules turn UPDATE and DELETE into no-ops. Note they are **silently ignored**, not raised as errors. |
+| Triggers — four do real work | `invoice_before_insert` (parties, currency and rate from the contract; the amount computed) · `invoice_transition` (three moves, each by one party, stamped in the trigger) · `rfp_thread_close_once` · `loan_availability` (stock and calibration). Every other trigger just maintains `updated_at`. |
+| Append-only tables | `audit_event`, `qa_review`, `rfp_message` — rules turn UPDATE and DELETE into no-ops. Note they are **silently ignored**, not raised as errors. |
+| Column grants | `invoice`: the application login may UPDATE `status`, `payment_reference` and `withdrawn_reason` only, so what was issued cannot change whoever asks ([`320`](../db/320_partner_invoices.sql)); `rfp_thread`: the three closing columns ([`270`](../db/270_managed_postgres.sql)). |
 | The audit hash chain | `write_audit_event()` takes an advisory lock, reads the previous row's hash, and stores `sha256(previous hash + this event)`. There is no job yet that walks the chain to check it. |
 | Row locks where races matter | approving an onboarding request · accepting an invitation · consuming a reset link · accepting an offer (`FOR UPDATE` on the offer serialises the race for the last place) |
 
@@ -406,9 +411,28 @@ one-off `alembic upgrade head`, see [infra/deploy/README.md](../infra/deploy/REA
 
 ## 8. Tables that were removed
 
-Three files took the schema from fifty-nine tables to forty. Their `CREATE` statements remain in the
-earlier `db/*.sql` files and in git; each migration (`0031`, `0032`, `0034`) has a downgrade that brings
-everything back, and each was proven on scratch copies before it ran anywhere else.
+Four files took the schema from fifty-nine tables to thirty-seven. Their `CREATE` statements remain in the
+earlier `db/*.sql` files and in git; each migration (`0031`, `0032`, `0034`, `0035`) has a downgrade that
+brings everything back, and each was proven on scratch copies before it ran anywhere else.
+
+**[`320_partner_invoices.sql`](../db/320_partner_invoices.sql) — the escrow ledger replaced.** `ledger_account`,
+`ledger_transaction`, `ledger_entry` and the first `invoice` table moved money by themselves: the award held
+half the value in escrow, the approval settled the rest and took a 9% fee, under an elevated platform
+context. Nothing read the three ledger tables, no payment provider existed, a partner's payable was never
+paid out, and a dispute or an unfinished contract left escrow held for ever. They were replaced by one
+partner-raised `invoice` table ([section 2 G](#g-invoices--320_partner_invoicessql)); the request's
+`budget_min` / `budget_max` range and the contract's `milestone_pct` / `platform_fee_pct` went with them.
+Unlike the three drops before it, this one removed rows: the migration refuses to run while the ledger
+holds any unless the operator passes `-x old_billing_dumped=yes`, the statement that they are safe
+elsewhere. "Elsewhere" is the release's rollback folder, kept outside the repository with the other
+backups: the whole database (`pg_dump -Fc`), its schema, and a readable copy of the four tables —
+
+```
+pg_dump --data-only -t invoice -t ledger_account -t ledger_transaction -t ledger_entry "$DATABASE_ADMIN_URL" > ledger-before-0035.sql
+alembic -x old_billing_dumped=yes upgrade head
+```
+
+The downgrade carries the same guard for the partner invoices raised since.
 
 **[`280_organisation_profile.sql`](../db/280_organisation_profile.sql) — five tables folded in.**
 `client_profile`, `tenant_profile`, `aggregator_profile`, `business_profile` and `sponsor_profile` were 1:1

@@ -95,7 +95,7 @@ backend/src/sourcehub/modules/<module>/
                   (absent where the module owns no ORM tables, e.g. audit)
 ```
 
-Ten modules today: `identity` `onboarding` `marketplace` `delivery` `media` `qa` `network` `ledger` `notify` `audit` — the Celery `worker/` returns when ingest becomes asynchronous. Request/response schemas live beside their routers in `api/v1/`; capability checks are `require_capability()` in `api/deps.py`. A file earns its place by having code in it, and a module that outgrows this shape gets split, not restructured.
+Ten modules today: `identity` `onboarding` `marketplace` `delivery` `media` `qa` `network` `invoices` `notify` `audit` — the Celery `worker/` returns when ingest becomes asynchronous. Request/response schemas live beside their routers in `api/v1/`; capability checks are `require_capability()` in `api/deps.py`. A file earns its place by having code in it, and a module that outgrows this shape gets split, not restructured.
 
 **2. Every frontend feature is one folder named after its backend module.**
 
@@ -159,7 +159,7 @@ This is a safety property. **Vite inlines every `VITE_`-prefixed variable into t
 | `050_delivery.sql` | `contract`, `task`, `submission`, `asset` (partitioned) |
 | `060_qa.sql` | Rubrics, sampling plans, gold sets, `qa_review`, defect taxonomy |
 | `070_network.sql` | `equipment`, `loan`, `crowd_worker`, `rating` |
-| `080_ledger.sql` | Double-entry ledger, invoices, balance views |
+| `080_ledger.sql` | The original double-entry ledger and escrow invoices — replaced by `320_partner_invoices.sql` |
 | `090_notify_audit.sql` | Hash-chained `audit_event`, outbox, notifications, retention |
 | `100_rls.sql` | Every policy, hand-written |
 | `110_auth_functions.sql` | The anonymous paths (login, invitation, reset) as SECURITY DEFINER functions, and the policy fixes found by running real flows |
@@ -254,19 +254,19 @@ verbatim (`tokens.css`, `components.css`) and the React components render over
 the same class names. Six personas, each with its own navigation and overview;
 the status vocabulary is per-entity, matching the database enums.
 
-Verified end to end through the API (`backend/tests/e2e_loop.py`, 57 steps, all green):
+Verified end to end through the API (`backend/tests/e2e_loop.py`, 87 steps, all green):
 
 ```
-publish → 2 proposals → competitor isolation → award (sibling auto-rejected,
-milestone invoiced into escrow) → task assigned → equipment loan approved
-(over-lend refused by the stock trigger) → submit → QA fail with note →
-resubmit → QA pass (both attempts kept) → [worker invited by email → assigns
-3 of 4 units → captures PUT straight to the client's own storage and
-confirmed → sibling worker
-sees nothing → gate 1 reject with note → rework → accept → bundled into the
-submission → partner views the originals → gate 2 pass] → deliver → client
-approves + rates → invoices settle, 9% fee booked, ledger_imbalance = 0 rows
-→ 14 audit event kinds on the hash chain
+publish (priced per 1,000 photos) → 2 proposals on that basis → competitor
+isolation → award (sibling auto-rejected, no money moves) → task assigned →
+equipment loan approved (over-lend refused by the stock trigger) → submit →
+QA fail with note → resubmit → QA pass (both attempts kept) → [worker invited
+by email → assigns 3 of 4 units → captures PUT straight to the client's own
+storage and confirmed → sibling worker sees nothing → gate 1 reject with note
+→ rework → accept → bundled into the submission → partner views the originals
+→ gate 2 pass] → deliver → client approves + rates → partner invoices the
+accepted captures at the agreed rate (capped at what passed QA) → client marks
+it paid → partner acknowledges → 21 audit event kinds on the hash chain
 ```
 
 And the onboarding loop: tenant request → Ops queue → approve → org + profile +
@@ -425,8 +425,9 @@ attempts rather than retrying for ten minutes.
 - **TOTP enrolment**: `permission.requires_mfa` is live data and the check is
   wired (`require_mfa`), but enforcement ships off (`MFA_ENFORCEMENT=false`)
   until enrolment exists.
-- **Payment rails** (milestone 4): the double-entry ledger stands in for the
-  PSP; escrow is rows, not money.
+- **Payment rails**: the platform moves no money. A partner raises an invoice
+  for work that passed QA, the client marks it paid, the partner acknowledges
+  (`db/320`); the payment itself happens outside the platform.
 - **Automated test suites**: the isolation and e2e checks ran as scripts during
   the build; porting them into `backend/tests/` is the next task.
 - `db/910_seed_demo.sql` must be deleted before any deployment carrying real

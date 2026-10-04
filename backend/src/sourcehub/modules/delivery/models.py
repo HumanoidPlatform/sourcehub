@@ -23,8 +23,8 @@ from sqlalchemy.orm import Mapped, mapped_column
 
 from sourcehub.db.base import Base
 from sourcehub.db.types import (
-    AssignmentStatus, ContractStatus, SubmissionStatus, TaskOfferResponse, TaskOfferStatus,
-    TaskStatus,
+    AssignmentStatus, ContractStatus, PricingBasis, SubmissionStatus, TaskOfferResponse,
+    TaskOfferStatus, TaskStatus,
 )
 
 UTCNOW = text("now()")
@@ -44,8 +44,6 @@ class Contract(Base):
     currency: Mapped[str] = mapped_column(CHAR(3), server_default=text("'USD'"))
     status: Mapped[str] = mapped_column(ContractStatus, server_default=text("'active'"))
     rubric_snapshot: Mapped[dict[str, Any] | None] = mapped_column(JSONB)
-    milestone_pct: Mapped[int] = mapped_column(SmallInteger, server_default=text("50"))
-    platform_fee_pct: Mapped[Decimal] = mapped_column(Numeric(5, 2), server_default=text("9.00"))
     storage_target_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("storage_target.id"))
     started_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
     delivered_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
@@ -57,6 +55,13 @@ class Contract(Base):
     created_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
     updated_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
     deleted_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
+    # The basis the deal was struck on, copied from the request at award and
+    # never changed (db/320): value is the whole price on a total, the rate per
+    # pricing_block on per_unit. Invoices are priced against it.
+    pricing_basis: Mapped[str] = mapped_column(PricingBasis, server_default=text("'total'"))
+    pricing_unit: Mapped[str | None] = mapped_column(Text)
+    pricing_block: Mapped[int | None] = mapped_column(Integer)
+    pricing_quantity: Mapped[int | None] = mapped_column(Integer)
 
 
 class Task(Base):

@@ -102,11 +102,13 @@ export const assetStatus: StatusMap = {
   erased: { label: "Erased", tone: "neutral", owner: null },
 };
 
+// db/320: raised by the partner, marked paid by the client, acknowledged by
+// the partner. Paid is the client's word for it; acknowledged is the partner's.
 export const invoiceStatus: StatusMap = {
-  pending: { label: "Pending", tone: "attention", owner: "client" },
-  paid: { label: "Paid", tone: "success", owner: null },
-  overdue: { label: "Overdue", tone: "critical", owner: "client" },
-  void: { label: "Void", tone: "neutral", owner: null },
+  issued: { label: "Awaiting payment", tone: "attention", owner: "client" },
+  paid: { label: "Paid", tone: "active", owner: "partner" },
+  acknowledged: { label: "Settled", tone: "success", owner: null },
+  withdrawn: { label: "Withdrawn", tone: "neutral", owner: null },
 };
 
 export const onboardingStatus: StatusMap = {

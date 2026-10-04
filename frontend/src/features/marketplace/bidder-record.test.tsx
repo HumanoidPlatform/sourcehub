@@ -18,7 +18,7 @@ import { BidderRecord } from "./pages";
 
 const bid = (over: Partial<Proposal>): Proposal => ({
   id: "p1", reference_code: "PRO-01", request_id: "r1", partner_org_id: "t1",
-  partner_name: "NorthStar", price: "1000.00", currency: "USD", unit: null, unit_price: null,
+  partner_name: "NorthStar", price: "1000.00", currency: "USD",
   duration_days: 10, methodology: "m", notes: null, status: "submitted",
   submitted_at: "2026-09-28T09:00:00Z",
   ...over,

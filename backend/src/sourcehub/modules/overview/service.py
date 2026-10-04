@@ -106,6 +106,10 @@ _CONTRACTS_SQL = text(
            c.reference_code,
            c.value,
            c.currency,
+           c.pricing_basis::text   AS pricing_basis,
+           CASE WHEN c.pricing_basis = 'per_unit'
+                THEN round(c.value * c.pricing_quantity / c.pricing_block, 2)
+                ELSE c.value END   AS estimated_total,
            o.name                  AS partner_name,
            req.delivery_due_on,
            count(t.id)                                            AS total,
@@ -126,16 +130,19 @@ _CONTRACTS_SQL = text(
     LEFT   JOIN request req    ON req.id = c.request_id
     WHERE  c.deleted_at IS NULL
     GROUP  BY c.id, c.reference_code, c.value, c.currency, c.status,
+             c.pricing_basis, c.pricing_quantity, c.pricing_block,
              o.name, req.delivery_due_on
     ORDER  BY req.delivery_due_on NULLS LAST, c.reference_code
     """
 )
 
+# Partner-raised invoices (db/320): issued is owed, paid and acknowledged are
+# settled, withdrawn counts for nothing. RLS hands a client the invoices on its
+# own contracts and nobody else's.
 _INVOICES_SQL = text(
     """
     SELECT status::text AS status, count(*) AS n, coalesce(sum(amount), 0) AS amount
     FROM   invoice
-    WHERE  deleted_at IS NULL
     GROUP  BY status
     """
 )
@@ -191,7 +198,8 @@ def build_overview(
             "contract_id": c["id"],
             "reference_code": c["reference_code"],
             "partner_name": c["partner_name"],
-            "value": _money(c["value"]),
+            # the whole deal, whatever basis it was struck on (db/320)
+            "value": _money(c.get("estimated_total", c["value"])),
             "currency": c["currency"],
             "status": c["status"],
             "delivery_due_on": c["delivery_due_on"],
@@ -209,10 +217,9 @@ def build_overview(
     tasks_total = sum(d["total"] for d in live)
     tasks_done = sum(d["done"] for d in live)
 
-    paid = sum(i["amount"] for i in invoices if i["status"] == "paid")
-    outstanding = sum(
-        i["amount"] for i in invoices if i["status"] in ("pending", "overdue")
-    )
+    invoiced = sum(i["amount"] for i in invoices if i["status"] != "withdrawn")
+    paid = sum(i["amount"] for i in invoices if i["status"] in ("paid", "acknowledged"))
+    outstanding = sum(i["amount"] for i in invoices if i["status"] == "issued")
 
     return {
         "generated_at": datetime.now(UTC),
@@ -228,10 +235,14 @@ def build_overview(
             "pct": round(100 * tasks_done / tasks_total) if tasks_total else 0,
         },
         "money": {
-            # Committed is what is still owed on work in flight — NOT the sum
-            # of every contract ever signed, which is what the old landing page
-            # showed under the same word while Billing showed something else.
+            # Committed is the value of work in flight — NOT the sum of every
+            # contract ever signed, which is what the old landing page showed
+            # under the same word while Billing showed something else. For a
+            # per-unit contract it is the estimated total, not the rate.
             "committed": _money(sum(Decimal(d["value"]) for d in live)),
+            # What partners have claimed so far, what the client has marked
+            # paid, and what is still awaiting payment (db/320).
+            "invoiced": _money(invoiced),
             "paid": _money(paid),
             "outstanding": _money(outstanding),
             "currency": _currency(contracts),

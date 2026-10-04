@@ -110,7 +110,7 @@ req = client.post("/requests", json={
     "spec_quality": "Full shelf in frame, no glare",
     "acceptance": "Every photo shows the whole shelf; no shoppers in frame.",
     "compliance_notes": "No faces.",
-    "budget_min": 500, "budget_max": 900,
+    "pricing_basis": "total", "budget_amount": 900,
     "starts_on": dt.date.today().isoformat(),
     "delivery_due_on": (dt.date.today() + dt.timedelta(days=14)).isoformat(),
     # required to publish since db/240

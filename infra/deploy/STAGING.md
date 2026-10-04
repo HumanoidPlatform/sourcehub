@@ -288,6 +288,16 @@ the sanity checks.
 
    - The `target:` line must name `cosarathidata`. If it names the VM, stop.
    - Alembic's preflight refuses a login that does not own the tables.
+   - **Migration 0035 drops the escrow ledger and refuses while it holds rows.** Dump the four tables
+     into the release's rollback folder first, then run the upgrade with the operator flag — the API
+     must be stopped for this one, because old images fail on the new schema and new ones on the old:
+
+     ```powershell
+     pg_dump --data-only -t invoice -t ledger_account -t ledger_transaction -t ledger_entry "$($env:DATABASE_ADMIN_URL -replace '\+asyncpg','')" > ledger-before-0035.sql
+     .venv\Scripts\python -m alembic -x old_billing_dumped=yes upgrade head
+     ```
+
+     Everyone signs in again afterwards: the new invoice capabilities travel in the token.
    - Staging runs PostgreSQL 18 and dev runs 16, so a migration that does more than add things is worth
      a trial run on a `postgres:18` scratch container first.
    - Note the time before you start. Azure can restore the server to any point in its backup retention.

@@ -129,10 +129,16 @@ services:
       # --- The push dispatcher -----------------------------------------------
       # modules/push sends each worker's bell rows to their phone through the
       # Expo push service, a few seconds after they are written. Same shape as
-      # the clocks above.
+      # the clocks above. With no phone registered it sends nothing, so "true"
+      # is safe before the first push-enabled app build is installed.
       PUSH_ENABLED: "true"
       PUSH_TICK_SECONDS: "5"
-      EXPO_ACCESS_TOKEN: CHANGEME_EXPO_ACCESS_TOKEN   # expo.dev → project → Access tokens; "" if enhanced push security is off
+      # Empty = unauthenticated sends, which Expo accepts while "enhanced push
+      # security" is OFF in the Expo project (its default). Once it is turned
+      # on — which it should be, so that a leaked token cannot be pushed to —
+      # paste the token from expo.dev → project → Access tokens here. Never a
+      # placeholder: anything non-empty is sent as a Bearer and refused (401).
+      EXPO_ACCESS_TOKEN: ""
 
       # Everything else uses the defaults in backend/src/sourcehub/config.py,
       # which are already right: argon2id hashing, 15-minute access tokens,

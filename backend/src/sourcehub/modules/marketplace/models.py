@@ -16,7 +16,7 @@ from sqlalchemy.dialects.postgresql import ARRAY, JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
 from sourcehub.db.base import Base
-from sourcehub.db.types import ProposalStatus, RequestCategory, RequestStatus
+from sourcehub.db.types import PricingBasis, ProposalStatus, RequestCategory, RequestStatus
 
 UTCNOW = text("now()")
 GEN_UUID = text("gen_random_uuid()")
@@ -39,8 +39,6 @@ class Request(Base):
     people_training: Mapped[str | None] = mapped_column(Text)
     people_experience: Mapped[str | None] = mapped_column(Text)
     people_certification: Mapped[str | None] = mapped_column(Text)
-    budget_min: Mapped[Decimal | None] = mapped_column(Numeric(14, 2))
-    budget_max: Mapped[Decimal | None] = mapped_column(Numeric(14, 2))
     currency: Mapped[str] = mapped_column(CHAR(3), server_default=text("'USD'"))
     starts_on: Mapped[dt.date | None] = mapped_column(Date)
     delivery_due_on: Mapped[dt.date | None] = mapped_column(Date)
@@ -84,15 +82,24 @@ class Request(Base):
     biometric_processing: Mapped[bool] = mapped_column(Boolean, server_default=text("false"))
     location_type: Mapped[str | None] = mapped_column(Text)
 
-    pricing_model_requested: Mapped[str] = mapped_column(Text, server_default=text("'fixed'"))
     budget_disclosed: Mapped[bool] = mapped_column(Boolean, server_default=text("true"))
     pilot_required: Mapped[bool] = mapped_column(Boolean, server_default=text("false"))
     pilot_quantity: Mapped[int | None] = mapped_column(Integer)
     pilot_due_on: Mapped[dt.date | None] = mapped_column(Date)
-    milestones: Mapped[list[Any]] = mapped_column(JSONB, server_default=text("'[]'"))
     proposals_close_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
     contact_user_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("app_user.id"))
     proposal_requirements: Mapped[list[str]] = mapped_column(ARRAY(Text), server_default=text("'{}'"))
+
+    # --- the budget, as one amount on a basis (db/320) -----------------------
+    # total: budget_amount is the whole budget. per_unit: budget_amount is the
+    # amount per pricing_block of pricing_unit, and pricing_quantity is how many
+    # the client expects to buy. NULL budget_amount = not stated. Last, for the
+    # pg_attribute-order reason given above.
+    pricing_basis: Mapped[str] = mapped_column(PricingBasis, server_default=text("'total'"))
+    pricing_unit: Mapped[str | None] = mapped_column(Text)
+    pricing_block: Mapped[int | None] = mapped_column(Integer)
+    pricing_quantity: Mapped[int | None] = mapped_column(Integer)
+    budget_amount: Mapped[Decimal | None] = mapped_column(Numeric(14, 2))
 
 
 class Proposal(Base):
@@ -115,7 +122,5 @@ class Proposal(Base):
     created_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
     updated_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
     deleted_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
-    # Per-unit bidding, when the request asked for pricing_model 'per_unit'.
-    # price stays authoritative: nothing computes one from the other.
-    unit_price: Mapped[Decimal | None] = mapped_column(Numeric)
-    unit: Mapped[str | None] = mapped_column(Text)
+    # price is the bid on the request's basis (db/320): the whole price on a
+    # total, the price per pricing_block on per_unit. It becomes contract.value.

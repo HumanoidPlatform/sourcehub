@@ -126,12 +126,9 @@ GROUPS: list[tuple[str, str, str, list[str]]] = [
     ),
     (
         "money",
-        "G · Money",
+        "G · Invoices",
         "#FFF2B3",
         [
-            "ledger_account",
-            "ledger_transaction",
-            "ledger_entry",
             "invoice",
         ],
     ),

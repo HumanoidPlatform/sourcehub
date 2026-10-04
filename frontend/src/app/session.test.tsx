@@ -250,7 +250,9 @@ describe("another tab", () => {
         if (u.endsWith("/requests")) {
           return json(200, [{
             id: `r-${who}`, reference_code: `REQ-${who}`, title: `${who}'s request`, category: "data",
-            budget_min: 1, budget_max: 2, proposal_count: 0, status: "open",
+            pricing: { basis: "total", unit: null, block: null, quantity: null, amount: "2",
+              estimated_total: "2", currency: "USD", text: null },
+            proposal_count: 0, status: "open",
           }]);
         }
         return json(200, []);

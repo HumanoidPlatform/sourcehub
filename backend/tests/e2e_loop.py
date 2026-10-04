@@ -11,6 +11,7 @@ Every step asserts, and every negative check must be REFUSED.
 
 import datetime as dt
 import os
+from decimal import ROUND_HALF_UP, Decimal
 
 import httpx
 
@@ -103,7 +104,10 @@ r = client.post("/requests", json={
     "acceptance": "95% or better pass on the blur check; 5% manual audit",
     "compliance_notes": "No shoppers or faces in frame.",
     "people_headcount": 180,
-    "budget_min": 60000, "budget_max": 85000,
+    # db/320: the budget is one amount on a basis. Per 1,000 photos, 25,000
+    # wanted: USD 3,000 a block, USD 75,000 in all.
+    "pricing_basis": "per_unit", "pricing_unit": "photos", "pricing_block": 1000,
+    "pricing_quantity": 25000, "budget_amount": 3000,
     # Relative, not fixed: publishing now requires a bidding deadline on or
     # before the delivery date, so a hard-coded delivery date would have
     # refused this loop from a week before it.
@@ -115,27 +119,30 @@ r = client.post("/requests", json={
 })
 assert r.status_code == 201, r.text
 req = r.json()
-ok("client publishes", f"{req['reference_code']} {req['status']}")
+assert req["pricing"]["estimated_total"] == "75000.00", req["pricing"]
+ok("client publishes", f"{req['reference_code']} {req['status']} at {req['pricing']['text']}")
 
 # 2 — both tenants see it and bid
 opps = northstar.get("/opportunities").json()
 assert any(o["id"] == req["id"] for o in opps), "tenant cannot see the opportunity"
 ok("tenant sees opportunity", f"{len(opps)} open")
 
+# bids are on the client's basis: a price per 1,000 photos
 p1 = northstar.post(f"/requests/{req['id']}/proposals", json={
-    "price": 72500, "duration_days": 64,
+    "price": 2900, "duration_days": 64,
     "methodology": "820-strong Bengaluru crowd plus Vertex crews for flagship stores.",
     "notes": "Can start 3 days after award.",
 })
 assert p1.status_code == 201, p1.text
 p1 = p1.json()
-ok("NorthStar proposes", f"{p1['reference_code']} at {p1['price']}")
+assert p1["estimated_total"] == "72500.00", p1
+ok("NorthStar proposes", f"{p1['reference_code']} at {p1['price_text']} = {p1['estimated_total']}")
 
 p2 = meridian.post(f"/requests/{req['id']}/proposals", json={
-    "price": 81000, "duration_days": 70,
+    "price": 3240, "duration_days": 70,
     "methodology": "Manila field ops with certified shelf auditors.",
 }).json()
-ok("Meridian proposes", f"{p2['reference_code']} at {p2['price']}")
+ok("Meridian proposes", f"{p2['reference_code']} at {p2['price_text']}")
 
 # negative: a tenant must never see a competitor's bid
 seen = northstar.get(f"/requests/{req['id']}").json()["proposals"]
@@ -152,17 +159,20 @@ r = client.post(f"/proposals/{p1['id']}/award")
 assert r.status_code == 200, r.text
 contract = r.json()
 assert contract["status"] == "active"
-ok("awarded", f"{contract['reference_code']} value {contract['value']}")
+assert contract["pricing"]["basis"] == "per_unit", contract["pricing"]
+assert contract["pricing"]["estimated_total"] == "72500.00", contract["pricing"]
+ok("awarded", f"{contract['reference_code']} at {contract['pricing']['text']}")
 
 # sibling auto-rejected
 mine = meridian.get("/proposals/mine").json()
 assert mine[0]["status"] == "rejected"
 ok("rival auto-rejected and notified")
 
-# milestone invoice exists, pending, 50%
-inv = client.get("/invoices").json()
-assert any(i["kind"].startswith("Milestone") and i["status"] == "pending" for i in inv), inv
-ok("milestone invoice raised", f"{inv[0]['kind']} {inv[0]['amount']} {inv[0]['status']}")
+# db/320: no money moves at award. Nothing is invoiced until work passes QA.
+assert [i for i in client.get("/invoices").json() if i["contract_id"] == contract["id"]] == []
+r = northstar.post(f"/contracts/{contract['id']}/invoices", json={"quantity": 1})
+assert r.status_code == 409 and "passed QA" in r.json()["detail"], r.text
+ok("no invoice at award; raising one before any QA pass is refused")
 
 # 3b — the partner can now see its counterparty, but not its counterparty's terms.
 #
@@ -779,15 +789,55 @@ r = client.post(f"/contracts/{contract['id']}/approve", json={
 assert r.status_code == 200 and r.json()["status"] == "completed", r.text
 ok("client approves and rates", "contract completed")
 
-# 9 — money settled
-inv = northstar.get("/invoices").json()
-fee = next(i for i in inv if "fee" in i["kind"].lower())
-assert fee["status"] == "paid"
-ok("platform fee invoiced to partner", f"{fee['kind']} {fee['amount']}")
+# 9 — the partner invoices the work that passed QA; the client pays; the partner acknowledges
+detail = northstar.get(f"/contracts/{contract['id']}").json()
+accepted = detail["progress"]["assets_accepted"]
+assert accepted > 0 and detail["invoicing"]["count"] == 0, detail["invoicing"]
 
-inv = client.get("/invoices").json()
-assert all(i["status"] == "paid" for i in inv if i["contract_id"] == contract["id"])
-ok("client invoices settled")
+r = client.post(f"/contracts/{contract['id']}/invoices", json={"quantity": accepted})
+assert r.status_code == 403, r.text  # a client holds no invoice.raise
+r = northstar.post(f"/contracts/{contract['id']}/invoices", json={"amount": 100})
+assert r.status_code == 409 and "quantity" in r.json()["detail"], r.text  # per-unit: a quantity
+r = northstar.post(f"/contracts/{contract['id']}/invoices", json={"quantity": accepted + 1})
+assert r.status_code == 409 and "at most" in r.json()["detail"], r.text  # capped at accepted
+r = northstar.post(f"/contracts/{contract['id']}/invoices",
+                   json={"quantity": accepted, "note": "Everything accepted so far."})
+assert r.status_code == 201, r.text
+inv1 = r.json()
+expect = (Decimal(accepted) * Decimal("2900") / 1000).quantize(
+    Decimal("0.01"), rounding=ROUND_HALF_UP
+)
+assert Decimal(inv1["amount"]) == expect and inv1["status"] == "issued", inv1
+assert inv1["accepted_assets_at_issue"] == accepted and inv1["rate"] == "2900.00"
+ok("partner raises an invoice",
+   f"{inv1['reference_code']} {inv1['line_text']} = USD {inv1['amount']}")
+
+rival_sees = any(i["id"] == inv1["id"] for i in meridian.get("/invoices").json())
+assert not rival_sees, "RIVAL SEES INVOICE"
+r = northstar.post(f"/invoices/{inv1['id']}/pay", json={})
+assert r.status_code == 403, r.text  # a partner holds no invoice.pay
+r = northstar.post(f"/invoices/{inv1['id']}/acknowledge")
+assert r.status_code == 409, r.text  # nothing to acknowledge yet
+r = client.post(f"/invoices/{inv1['id']}/pay", json={"payment_reference": "TT-20261004-1"})
+assert r.status_code == 200 and r.json()["status"] == "paid" and r.json()["paid_at"], r.text
+ok("client marks it paid", r.json()["payment_reference"])
+r = northstar.post(f"/invoices/{inv1['id']}/withdraw", json={"reason": "too late"})
+assert r.status_code == 409, r.text  # paid is binding
+r = northstar.post(f"/invoices/{inv1['id']}/acknowledge")
+assert r.status_code == 200 and r.json()["status"] == "acknowledged", r.text
+ok("partner acknowledges the payment")
+
+# a second claim finds nothing left to invoice; a withdrawn one counts for nothing
+r = northstar.post(f"/contracts/{contract['id']}/invoices", json={"quantity": 1})
+assert r.status_code == 409 and "already invoiced" in r.json()["detail"], r.text
+totals = client.get(f"/contracts/{contract['id']}").json()["invoicing"]
+assert totals == {
+    "invoiced_total": inv1["amount"], "paid_total": inv1["amount"], "outstanding_total": "0.00",
+    "invoiced_quantity": f"{accepted}.00", "count": 1,
+}, totals
+money = client.get("/overview").json()["money"]
+assert money["paid"] == inv1["amount"] and money["outstanding"] == "0.00", money
+ok("totals agree on the contract and the overview", f"invoiced {totals['invoiced_total']}")
 
 # 10 — the whole story is in the audit trail
 acts = admin.get("/activity", params={"limit": 100}).json()
@@ -795,6 +845,7 @@ kinds = {a["event_type"] for a in acts}
 expect = {"request.published", "proposal.submitted", "contract.awarded", "task.assigned",
           "loan.requested", "loan.state_changed", "submission.received", "review.recorded",
           "contract.delivered", "contract.accepted",
+          "invoice.raised", "invoice.paid", "invoice.acknowledged",
           "worker.invited", "assignment.created", "assignment.started", "assignment.submitted",
           "offer.created", "offer.accepted", "offer.declined", "offer.closed"}
 missing = expect - kinds

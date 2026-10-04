@@ -4,7 +4,7 @@
 // operator held org.suspend and had no button: suspending an account was
 // possible only with a terminal. Everything here is already on the server —
 // GET /organisations/{id}, the three POSTs, GET /activity?scope_id= (which had
-// never had a caller) and GET /invoices, whose rows already carry party_org_id.
+// never had a caller) and GET /invoices, whose rows carry both parties' ids.
 //
 // Deliberately NOT built on OrgProfileDialog. That dialog is also mounted by the
 // tenant's network page and by the client's view of a bidder, and it has no slot
@@ -83,7 +83,8 @@ export function AccountDetailPage() {
   const mayEdit = can(session, "org.update") && ["client", "tenant"].includes(o?.kind ?? "");
   const offered = o ? (OFFERED[o.status] ?? []) : [];
   const meta = statusMeta(orgStatus, o?.status);
-  const mine = (invoices.data ?? []).filter((i) => i.party_org_id === id);
+  // db/320: an invoice has two parties; this account may be either.
+  const mine = (invoices.data ?? []).filter((i) => i.client_org_id === id || i.partner_org_id === id);
 
   if (org.isLoading) {
     return <View title="Account"><Panel><Skeleton rows={6} label="Loading the account" /></Panel></View>;
@@ -173,7 +174,7 @@ export function AccountDetailPage() {
         />
       </Panel>
 
-      <Panel title="Invoices" sub="Raised against this account by the platform.">
+      <Panel title="Invoices" sub="Raised by partners on this account's contracts, or by this account on its own.">
         {invoices.isLoading ? (
           <Skeleton rows={3} label="Loading invoices" />
         ) : invoices.isError ? (
@@ -183,20 +184,21 @@ export function AccountDetailPage() {
             {invoices.error instanceof Error ? invoices.error.message : "The request failed."}
           </Callout>
         ) : mine.length === 0 ? (
-          <Empty title="No invoices" hint="Awarding a contract raises the first milestone invoice." />
+          <Empty title="No invoices" hint="Partners raise invoices as work passes QA on a contract." />
         ) : (
           <TableWrap>
             <table>
-              <thead><tr><th>Reference</th><th>Kind</th><th>Amount</th><th>Issued</th><th>Status</th></tr></thead>
+              <thead><tr><th>Reference</th><th>Contract</th><th>Counterparty</th><th>Amount</th><th>Raised</th><th>Status</th></tr></thead>
               <tbody>
                 {mine.map((i) => {
                   const m = statusMeta(invoiceStatus, i.status);
                   return (
                     <tr key={i.id}>
                       <td className="id">{i.reference_code}</td>
-                      <td>{i.kind}</td>
+                      <td className="id">{i.contract_ref ?? "—"}</td>
+                      <td>{i.client_org_id === id ? i.partner_name : i.client_name}</td>
                       <td className="num">{money(i.amount, i.currency)}</td>
-                      <td className="num">{fmtDate(i.issued_on)}</td>
+                      <td className="num">{fmtDate(i.issued_at)}</td>
                       <td><Pill tone={m.tone}>{m.label}</Pill></td>
                     </tr>
                   );

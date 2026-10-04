@@ -1,5 +1,5 @@
 // admin — the Ops console: accounts and the platform activity trail.
-// (Billing reuses the ledger feature; onboarding has its own.)
+// (Billing reuses the invoices feature; onboarding has its own.)
 
 import { useQuery, type UseQueryResult } from "@tanstack/react-query";
 import { Link, useNavigate } from "react-router-dom";

@@ -479,7 +479,7 @@ function OurWork({ v }: { v: Vendor }) {
                 <span className="cell-meta">
                   <span className="id">{c.reference_code}</span>
                   <Pill tone={m.tone}>{m.label}</Pill>
-                  <span className="num">{money(c.value, c.currency)}</span>
+                  <span className="num">{money(c.pricing?.estimated_total ?? c.value, c.currency)}</span>
                   {c.completed_at && <span>Completed {fmtDate(c.completed_at)}</span>}
                   {score != null && <span className="num">You rated it ★ {score}</span>}
                 </span>

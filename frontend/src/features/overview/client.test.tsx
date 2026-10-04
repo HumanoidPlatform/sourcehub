@@ -60,7 +60,7 @@ const OVERVIEW: Overview = {
     },
   ],
   delivery: { live: 1, tasks_total: 4, tasks_done: 1, pct: 25 },
-  money: { committed: "100.00", paid: "80.00", outstanding: "6096.50", currency: "USD" },
+  money: { committed: "100.00", invoiced: "6176.50", paid: "80.00", outstanding: "6096.50", currency: "USD" },
   captures: { accepted: 52, days: 30, series: [{ day: "2026-09-15", count: 52 }] },
   attention: [
     {
@@ -79,7 +79,7 @@ const EMPTY: Overview = {
   requests: { by_status: {}, total: 0 },
   deliveries: [],
   delivery: { live: 0, tasks_total: 0, tasks_done: 0, pct: 0 },
-  money: { committed: "0", paid: "0", outstanding: "0", currency: "USD" },
+  money: { committed: "0", invoiced: "0", paid: "0", outstanding: "0", currency: "USD" },
   captures: { accepted: 0, days: 30, series: [] },
   attention: [],
 };
@@ -129,7 +129,7 @@ describe("client overview", () => {
     expect(metric("Captures accepted")).toBe("52");
     // Committed is work in flight — CTR-03 is finished and must not be in it.
     expect(metric("Committed")).toBe("$100");
-    expect(screen.getByText(/\$80 paid · \$6,096.50 outstanding/)).toBeTruthy();
+    expect(screen.getByText(/\$80 paid · \$6,096.50 awaiting payment/)).toBeTruthy();
   });
 
   it("lists only live contracts under delivery progress", async () => {

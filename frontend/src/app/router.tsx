@@ -15,7 +15,7 @@ import {
 } from "@features/identity/pages";
 import { OrganisationProfilePage } from "@features/identity/organisation";
 import { UsersPage } from "@features/identity/users";
-import { BillingPage } from "@features/ledger/pages";
+import { BillingPage } from "@features/invoices/pages";
 import { PrivacyPage } from "@features/legal/pages";
 import {
   MyProposalsPage, OpportunitiesPage, RequestDetailPage, RequestNewPage, RequestsPage,
@@ -124,7 +124,7 @@ export function AppRouter() {
         <Route path="/roster" element={<RosterPage />} />
         <Route path="/capacity" element={<CapacityPage />} />
 
-        {/* ledger */}
+        {/* invoices */}
         <Route path="/billing" element={<BillingPage />} />
 
         {/* platform ops */}

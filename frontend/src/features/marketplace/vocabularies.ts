@@ -17,7 +17,7 @@ import type {
   MinorsPolicy,
   PeopleInFrame,
   PermittedUse,
-  PricingModel,
+  PricingBasis,
   ProposalRequirement,
   TargetUnit,
   UseCase,
@@ -115,12 +115,17 @@ export const PROPOSAL_REQUIREMENTS: Choice<ProposalRequirement>[] = [
   { value: "dpa_acceptance", label: "Signed data processing agreement" },
 ];
 
-export const PRICING_MODELS: Choice<PricingModel>[] = [
-  { value: "fixed", label: "Fixed price", hint: "One number for the whole job." },
-  { value: "per_unit", label: "Per unit", hint: "Priced per photo, per site, per hour." },
-  { value: "milestone", label: "By milestone", hint: "Staged payments against agreed points." },
-  { value: "open", label: "Open", hint: "Let partners propose how to price it." },
+// How the budget is stated and how every bid is priced (db/320). Partners
+// quote on the basis the client chose, so bids compare directly and the
+// contract's rate is unambiguous.
+export const PRICING_BASES: Choice<PricingBasis>[] = [
+  { value: "total", label: "One amount for the whole job" },
+  { value: "per_unit", label: "An amount per block of units", hint: "Per 100 photos, per 1,000 records, per 10 hours of footage." },
 ];
+
+// The blocks a per-unit price is usually quoted for. Any positive number is
+// allowed; these are the ones people reach for.
+export const PRICING_BLOCKS = [1, 100, 1000] as const;
 
 // What a capture can be made of.
 //

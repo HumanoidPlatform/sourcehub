@@ -72,11 +72,8 @@ EquipmentStatus = db_enum(
 LoanStatus = db_enum("loan_status", "pending", "approved", "rejected", "issued", "returned", "overdue")
 WorkerStatus = db_enum("worker_status", "on_shift", "on_break", "offboarded")
 
-LedgerEntryType = db_enum(
-    "ledger_entry_type",
-    "invoice", "escrow_hold", "escrow_release", "platform_fee", "payout", "refund", "adjustment",
-)
-LedgerDirection = db_enum("ledger_direction", "debit", "credit")
-InvoiceStatus = db_enum("invoice_status", "pending", "paid", "overdue", "void")
+# db/320: one amount on a basis, and the partner-raised invoice's lifecycle
+PricingBasis = db_enum("pricing_basis", "total", "per_unit")
+InvoiceStatus = db_enum("invoice_status", "issued", "paid", "acknowledged", "withdrawn")
 
 NotificationChannel = db_enum("notification_channel", "in_app", "email", "webhook")

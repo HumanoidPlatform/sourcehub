@@ -7,7 +7,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { get, patch, post } from "@api/client";
 import type {
   ClientProfile, Deidentification, LawfulBasis, LocationType, MinorsPolicy, Org,
-  PeopleInFrame, PermittedUse, Proposal, Rfp,
+  PeopleInFrame, PermittedUse, Pricing, Proposal, Rfp,
   StorageTarget, TargetUnit, UseCase,
 } from "@api/types";
 import {
@@ -16,7 +16,7 @@ import {
 } from "@ds/primitives";
 import {
   CAPTURE_MEDIA, CATEGORY_MEDIA, DEIDENTIFICATION, labelOf, labelsOf, LAWFUL_BASES,
-  LOCATION_TYPES, MINORS_POLICIES, PEOPLE_IN_FRAME, PERMITTED_USES,
+  LOCATION_TYPES, MINORS_POLICIES, PEOPLE_IN_FRAME, PERMITTED_USES, PRICING_BASES,
   REWORK_BEARERS, TARGET_UNITS, USE_CASES,
 } from "./vocabularies";
 import { useSession } from "@shared/auth";
@@ -24,6 +24,7 @@ import {
   fmtDate, fmtDateTime, fmtDateTimeZone, fmtUntil, isoToLocalInput, localInputToIso, mediaList,
   money, titleCase, utcDateOf,
 } from "@shared/format";
+import { bidText, describePricing, estimatedTotal, priceText, quantityWords, unitWords } from "@shared/pricing";
 import {
   AttachmentList, AttachmentsField, attachmentPayload, fromServer, type AttachmentDraft,
 } from "@shared/attachments";
@@ -61,6 +62,16 @@ const CATEGORY_UNITS: Record<string, TargetUnit> = {
 const unitForCategory = (category: string): TargetUnit => CATEGORY_UNITS[category] ?? "records";
 const unitLabel = (unit: string | null | undefined): string =>
   unit === "records" ? "Units" : unit === "hours" || unit === "audio_hours" ? "Hours" : labelOf(TARGET_UNITS, unit);
+
+// A bid's one price, read on the request's basis (db/320), formatted like every
+// other figure in the console. The server's own sentence (price_text) is the
+// fallback for a row that carries the basis but not the unit.
+const proposalPriceText = (p: Proposal): string =>
+  p.pricing_basis === "per_unit"
+    ? p.pricing_unit
+      ? `${money(p.price, p.currency)} per ${unitWords(p.pricing_unit, p.pricing_block)}`
+      : p.price_text ?? money(p.price, p.currency)
+    : money(p.price, p.currency);
 
 function localeLabel(value: string): string {
   const [country, language] = value.split("-");
@@ -305,13 +316,13 @@ export function RequestsPage() {
               {
                 header: "Budget",
                 className: "num",
-                // by the top of the range: what the client is prepared to spend
+                // by what the whole job is worth: the estimate, whatever basis it was stated on
                 sortBy: (r) => {
-                  const top = r.budget_max ?? r.budget_min;
-                  return top === null ? null : Number(top);
+                  const total = r.pricing?.estimated_total ?? r.pricing?.amount;
+                  return total == null ? null : Number(total);
                 },
                 cell: (r) => (
-                  <span style={{ whiteSpace: "nowrap" }}>{money(r.budget_min)} – {money(r.budget_max)}</span>
+                  <span style={{ whiteSpace: "nowrap" }}>{describePricing(r.pricing)}</span>
                 ),
               },
               {
@@ -397,7 +408,10 @@ interface Draft {
   lawful_basis: string; permitted_uses: PermittedUse[];
   partner_reuse_allowed: boolean; biometric_processing: boolean;
   people_headcount: string;
-  budget_disclosed: boolean; budget_min: string; budget_max: string;
+  // the budget as one amount on a basis (db/320). Per unit, the unit and the
+  // quantity are the Scope step's target_unit and target_quantity: one answer,
+  // given once; only the block and the amount are asked here.
+  budget_disclosed: boolean; pricing_basis: string; pricing_block: string; budget_amount: string;
   pilot_required: boolean; pilot_quantity: string; pilot_due_on: string;
   starts_on: string; delivery_due_on: string;
   // a datetime-local value in the browser's zone; ISO only on the wire
@@ -423,7 +437,7 @@ const BLANK: Draft = {
   lawful_basis: "", permitted_uses: [],
   partner_reuse_allowed: false, biometric_processing: false,
   people_headcount: "",
-  budget_disclosed: true, budget_min: "", budget_max: "",
+  budget_disclosed: true, pricing_basis: "total", pricing_block: "1000", budget_amount: "",
   pilot_required: false, pilot_quantity: "", pilot_due_on: "",
   starts_on: "", delivery_due_on: "",
   proposals_close_at: "",
@@ -544,7 +558,9 @@ export function RequestNewPage() {
       biometric_processing: !!co?.biometric_processing,
       people_headcount: String(r.people?.headcount ?? ""),
       budget_disclosed: r.budget_disclosed ?? true,
-      budget_min: r.budget_min ?? "", budget_max: r.budget_max ?? "",
+      pricing_basis: r.pricing?.basis ?? "total",
+      pricing_block: String(r.pricing?.block ?? "1000"),
+      budget_amount: r.pricing?.amount ?? "",
       pilot_required: !!r.pilot?.required,
       pilot_quantity: String(r.pilot?.quantity ?? ""),
       pilot_due_on: r.pilot?.due_on ?? "",
@@ -598,6 +614,18 @@ export function RequestNewPage() {
   const wantsVideo = chosenMedia.includes("video");
   // "Something else" says nothing on its own, so the objective carries it.
   const otherUseCase = d.use_case === "other";
+
+  // db/320: the budget as one amount on a basis. A per-unit price is quoted
+  // against the Scope step's unit and quantity, which are shown here and not
+  // asked again.
+  const perUnit = d.pricing_basis === "per_unit";
+  const budgetEstimate = estimatedTotal(
+    d.pricing_basis, d.budget_amount || null, Number(d.pricing_block) || null,
+    Number(d.target_quantity) || null,
+  );
+  const budgetText = priceText(
+    d.pricing_basis, d.budget_amount || null, "USD", d.target_unit, Number(d.pricing_block) || null,
+  ) ?? "Not stated";
 
   // Any attachment still in flight. Saving now would attach a key whose bytes
   // are not in storage yet, and the server would reject it as never uploaded.
@@ -668,8 +696,13 @@ export function RequestNewPage() {
         people_headcount: Number(d.people_headcount) || 0,
 
         budget_disclosed: d.budget_disclosed,
-        budget_min: d.budget_min || null,
-        budget_max: d.budget_max || null,
+        // one amount on a basis (db/320). The unit and the quantity are the
+        // Scope step's answers; the server clears all three on a total.
+        pricing_basis: d.pricing_basis || "total",
+        pricing_unit: perUnit ? str(d.target_unit) : null,
+        pricing_block: perUnit ? num(d.pricing_block) : null,
+        pricing_quantity: perUnit ? num(d.target_quantity) : null,
+        budget_amount: d.budget_amount || null,
         pilot_required: d.pilot_required,
         pilot_quantity: d.pilot_required ? num(d.pilot_quantity) : null,
         pilot_due_on: d.pilot_due_on || null,
@@ -754,8 +787,14 @@ export function RequestNewPage() {
     }
 
     if (step === 2) {
-      if (d.budget_min && d.budget_max && Number(d.budget_max) < Number(d.budget_min))
-        f.budget_max = "At least the minimum.";
+      // request_pricing_shape: per unit needs a block and a quantity to price
+      // against; the database says the same, but a person should hear it here.
+      if (perUnit) {
+        if (!(Number(d.pricing_block) >= 1)) f.pricing_block = "How many units does one price cover?";
+        if (!(Number(d.target_quantity) > 0))
+          blocking.push("A per-unit budget needs the quantity from the Scope step. Go back and set it.");
+      }
+      if (d.budget_amount && Number(d.budget_amount) < 0) f.budget_amount = "Not negative.";
       if (d.starts_on && d.delivery_due_on && d.delivery_due_on < d.starts_on)
         f.delivery_due_on = "On or after the start.";
       // Optional on a draft, checked when given; required to publish, below.
@@ -1200,17 +1239,47 @@ export function RequestNewPage() {
         )}
         {step === 2 && (
           <div className="formgrid">
-            <Field label="Budget minimum (USD)">
-              {(id) => <input id={id} className={inputCls} type="number" min={0} value={d.budget_min} onChange={set("budget_min")} />}
+            {/* db/320: one amount on a basis. Partners bid on the same basis,
+                so the choice here is the shape of every bid and of the contract. */}
+            <Field label="How is the budget stated?" span>
+              {(id) => (
+                <select id={id} className={selectCls} value={d.pricing_basis} onChange={set("pricing_basis")}>
+                  {PRICING_BASES.map((b) => <option key={b.value} value={b.value}>{b.label}</option>)}
+                </select>
+              )}
             </Field>
-            <Field label="Budget maximum (USD)" error={errOf("budget_max")}>
-              {(id) => <input id={id} className={inputCls} type="number" min={0} value={d.budget_max} onChange={set("budget_max")} />}
-            </Field>
+            {!perUnit ? (
+              <Field label="Budget (USD)" error={errOf("budget_amount")} hint="Leave blank to let partners propose a price.">
+                {(id) => <input id={id} className={inputCls} type="number" min={0} value={d.budget_amount} onChange={set("budget_amount")} />}
+              </Field>
+            ) : (
+              <>
+                {/* The unit and the quantity were answered on the Scope step;
+                    shown here so the rate reads in context, not asked twice. */}
+                <Field label="Priced per" hint="The unit from the Scope step. Change it there.">
+                  {(id) => <input id={id} className={inputCls} readOnly aria-readonly="true" tabIndex={-1} value={unitLabel(d.target_unit)} />}
+                </Field>
+                <Field label="Units expected in all" hint="The quantity from the Scope step. Change it there.">
+                  {(id) => <input id={id} className={inputCls} readOnly aria-readonly="true" tabIndex={-1} value={d.target_quantity || "—"} />}
+                </Field>
+                <Field label="Units per price" required error={errOf("pricing_block")} hint="1, 100, 1,000 — how many one price covers.">
+                  {(id) => <input id={id} className={inputCls} type="number" min={1} value={d.pricing_block} onChange={set("pricing_block")} />}
+                </Field>
+                <Field label={`Budget per ${unitWords(d.target_unit, Number(d.pricing_block) || null)} (USD)`} error={errOf("budget_amount")} hint="Leave blank to let partners propose a rate.">
+                  {(id) => <input id={id} className={inputCls} type="number" min={0} value={d.budget_amount} onChange={set("budget_amount")} />}
+                </Field>
+                {budgetEstimate !== null && (
+                  <p className="muted small" style={{ gridColumn: "1 / -1", margin: 0 }}>
+                    ≈ {money(budgetEstimate)} for {quantityWords(d.target_quantity, d.target_unit)} in all.
+                  </p>
+                )}
+              </>
+            )}
             <label className="checkline span">
               <input type="checkbox" checked={!d.budget_disclosed} onChange={(e) => setD((x) => ({ ...x, budget_disclosed: !e.target.checked }))} />
               <span>
                 Keep the budget to ourselves
-                <span className="cl-sub">Bidders see the RFP but not the range. You still see it here.</span>
+                <span className="cl-sub">Bidders see the RFP and how it is priced, but not the amount. You still see it here.</span>
               </span>
             </label>
             <Field label="Project start">
@@ -1287,9 +1356,7 @@ export function RequestNewPage() {
               ...(d.biometric_processing ? [["Biometric processing", "Yes"] as Row] : []),
             ] : []),
             ["Partner may reuse the data", d.partner_reuse_allowed ? "Yes" : "No"],
-            ["Budget", d.budget_disclosed
-              ? `${money(d.budget_min || null)} – ${money(d.budget_max || null)}`
-              : `${money(d.budget_min || null)} – ${money(d.budget_max || null)} · withheld from bidders`],
+            ["Budget", `${budgetText}${d.budget_disclosed ? "" : " · withheld from bidders"}`],
             ["Timeline", `${fmtDate(d.starts_on || null)} → ${fmtDate(d.delivery_due_on || null)}`],
             ["Bids close", d.proposals_close_at ? fmtDateTimeZone(localInputToIso(d.proposals_close_at)) : "Not set"],
             ...(d.pilot_required ? [["Pilot", `${d.pilot_quantity || "?"} ${unitLabel(d.target_unit)}${d.pilot_due_on ? ` by ${fmtDate(d.pilot_due_on)}` : ""}`] as Row] : []),
@@ -1926,7 +1993,9 @@ export function RequestDetailPage() {
             ...(r.people.headcount > 0
               ? [["People needed", String(r.people.headcount)] as [string, React.ReactNode]]
               : []),
-            ["Budget", `${money(r.budget_min)} – ${money(r.budget_max)}`],
+            // The amount comes back null to a bidder when the client withheld
+            // it; the basis never does, so a partner still knows what to quote per.
+            ["Budget", describePricing(r.pricing, { disclosed: r.budget_disclosed, withTotal: true })],
             ["Timeline", `${fmtDate(r.starts_on)} → ${fmtDate(r.delivery_due_on)}`],
             ["Bids close", r.proposals_close_at ? (
               <span key="bc">
@@ -1999,7 +2068,7 @@ export function RequestDetailPage() {
                       {isClient && (
                         <td><BidderRecord p={p} /></td>
                       )}
-                      <td className="num">{money(p.price)}</td>
+                      <td className="num" style={{ whiteSpace: "nowrap" }}>{bidText(p.price, p.currency, r.pricing, true)}</td>
                       <td className="num">{p.duration_days}</td>
                       <td style={{ maxWidth: 380 }}>
                         {p.methodology}
@@ -2091,7 +2160,7 @@ export function RequestDetailPage() {
       {awarding && (
         <Dialog
           title={`Award to ${awarding.partner_name}?`}
-          sub={`${money(awarding.price)} · ${awarding.duration_days} days`}
+          sub={`${bidText(awarding.price, awarding.currency, r.pricing, true)} · ${awarding.duration_days} days`}
           busy={award.isPending}
           onClose={() => setAwarding(null)}
           foot={
@@ -2103,7 +2172,7 @@ export function RequestDetailPage() {
             </>
           }
         >
-          <Callout tone="attention" title="Awarding opens a contract and invoices milestone 1">
+          <Callout tone="attention" title="Awarding opens a contract at this price">
             {/* This said "other proposals remain available, so you can award more
                 partners" — the opposite of what award() does. It sets every other
                 submitted bid to rejected and notifies each partner, and a second
@@ -2111,8 +2180,8 @@ export function RequestDetailPage() {
                 otherwise at the moment of an irreversible decision is the worst
                 place to be wrong. */}
             Every other proposal is automatically declined and its partner notified — a request
-            has one contract. To turn a bid down before you decide, reject it on its own. Half the
-            value is invoiced to you and held in escrow until you approve the delivery.
+            has one contract. To turn a bid down before you decide, reject it on its own. No money
+            moves now: the partner invoices work as it passes QA, and you mark each invoice paid.
           </Callout>
           {/* The failure used to toast from the far corner while this dialog
               stayed open with room to say it — every sibling dialog reports
@@ -2123,7 +2192,7 @@ export function RequestDetailPage() {
 
       {changingDeadline && <DeadlineDialog r={r} onClose={() => setChangingDeadline(false)} />}
       {proposing && id && (
-        <ProposeDialog requestId={id} title={r.title} onClose={() => setProposing(false)} />
+        <ProposeDialog requestId={id} title={r.title} pricing={r.pricing} onClose={() => setProposing(false)} />
       )}
     </View>
   );
@@ -2249,8 +2318,13 @@ function PartnerProfileDialog({ proposal, onClose }: { proposal: Proposal; onClo
 
 /* --- tenant: opportunities + propose ----------------------------------------- */
 
-function ProposeDialog({ requestId, title, onClose }: { requestId: string; title: string; onClose: () => void }) {
+function ProposeDialog({ requestId, title, pricing, onClose }: {
+  requestId: string; title: string; pricing: Pricing | null | undefined; onClose: () => void;
+}) {
   const [price, setPrice] = useState("");
+  // One price on the client's basis (db/320): the whole job, or per block.
+  const perUnit = pricing?.basis === "per_unit";
+  const implied = perUnit && price ? estimatedTotal("per_unit", price, pricing?.block, pricing?.quantity) : null;
   const [days, setDays] = useState("");
   const [methodology, setMethodology] = useState("");
   const [notes, setNotes] = useState("");
@@ -2307,8 +2381,14 @@ function ProposeDialog({ requestId, title, onClose }: { requestId: string; title
       }
     >
       <div className="formgrid">
-        <Field label="Price (USD)" required>
-          {(id) => <input id={id} className={inputCls} type="number" min={1} value={price} onChange={(e) => setPrice(e.target.value)} />}
+        <Field
+          label={perUnit ? `Price per ${unitWords(pricing?.unit, pricing?.block)} (USD)` : "Price (USD)"}
+          required
+          hint={perUnit
+            ? `The client asked for a rate per ${unitWords(pricing?.unit, pricing?.block)} and expects ${quantityWords(pricing?.quantity, pricing?.unit)} in all${implied !== null ? ` — your bid implies ≈ ${money(implied)}` : ""}.`
+            : "One price for the whole job."}
+        >
+          {(id) => <input id={id} className={inputCls} type="number" min={0.01} step={0.01} value={price} onChange={(e) => setPrice(e.target.value)} />}
         </Field>
         <Field label="Delivery time (days)" required>
           {(id) => <input id={id} className={inputCls} type="number" min={1} value={days} onChange={(e) => setDays(e.target.value)} />}
@@ -2366,7 +2446,7 @@ export function OpportunitiesPage() {
                     <td className="id">{r.reference_code}</td>
                     <td className="cell-primary">{r.title}</td>
                     <td>{titleCase(r.category)}</td>
-                    <td className="num">{money(r.budget_min)} – {money(r.budget_max)}</td>
+                    <td className="num">{describePricing(r.pricing, { disclosed: r.budget_disclosed })}</td>
                     <td className="num" title={fmtDateTimeZone(r.proposals_close_at)}>
                       {r.proposals_close_at ? fmtUntil(r.proposals_close_at, now) : "Open until awarded"}
                     </td>
@@ -2397,7 +2477,10 @@ function ProposalDetailDialog({ p, onClose }: { p: Proposal; onClose: () => void
     >
       <Dl rows={[
         ["RFP", <Link key="r" to={`/requests/${p.request_id}`}>{p.request_title ?? p.request_ref ?? "Open RFP"}</Link>],
-        ["Price", `${money(p.price, p.currency)}`],
+        ["Price", proposalPriceText(p)],
+        ...(p.pricing_basis === "per_unit" && p.estimated_total
+          ? [["Implied total", `≈ ${money(p.estimated_total, p.currency)}`] as [string, React.ReactNode]]
+          : []),
         ["Delivery time", `${p.duration_days} days`],
         ["How you will do the work", p.methodology],
         ...((p.attachments ?? []).length
@@ -2446,7 +2529,7 @@ export function MyProposalsPage() {
                     <tr key={p.id} className="tap" onClick={() => setViewing(p)}>
                       <td className="id">{p.reference_code}</td>
                       <td className="cell-primary">{p.request_title ?? p.request_ref}</td>
-                      <td className="num">{money(p.price)}</td>
+                      <td className="num" style={{ whiteSpace: "nowrap" }}>{proposalPriceText(p)}</td>
                       <td className="num">{p.duration_days}</td>
                       <td><Pill tone={pm.tone}>{pm.label}</Pill></td>
                       <td className="right" onClick={(e) => e.stopPropagation()}><div className="rowactions">
@@ -2544,7 +2627,7 @@ function ClientAndRequestDialog({ proposal, onClose }: { proposal: Proposal; onC
       sub={
         <>
           <span className="id">{proposal.reference_code}</span>
-          {" · "}{money(proposal.price)} · {proposal.duration_days} days{" "}
+          {" · "}{proposalPriceText(proposal)} · {proposal.duration_days} days{" "}
           <Pill tone={pm.tone}>{pm.label}</Pill>
         </>
       }
@@ -2581,12 +2664,10 @@ function ClientAndRequestDialog({ proposal, onClose }: { proposal: Proposal; onC
             ["Acceptance", r.acceptance ?? "—"],
             ["Lawful basis", labelOf(LAWFUL_BASES, r.compliance.lawful_basis)],
             ["People in frame", labelOf(PEOPLE_IN_FRAME, r.compliance.people_in_frame)],
-            // budget_min and budget_max come back null when the client chose
-            // not to disclose them, so this renders the withholding honestly
-            // rather than showing an empty range as if none were set.
-            ["Budget", r.budget_disclosed
-              ? `${money(r.budget_min)} – ${money(r.budget_max)}`
-              : "Not disclosed"],
+            // The amount comes back null when the client chose not to disclose
+            // it, so this renders the withholding honestly rather than showing
+            // an empty figure as if none were set.
+            ["Budget", describePricing(r.pricing, { disclosed: r.budget_disclosed, withTotal: true })],
             ["Timeline", `${fmtDate(r.starts_on)} → ${fmtDate(r.delivery_due_on)}`],
             ["Bids close", r.proposals_close_at
               ? `${fmtDateTimeZone(r.proposals_close_at)}${biddingClosed(r) ? " · closed" : ""}`

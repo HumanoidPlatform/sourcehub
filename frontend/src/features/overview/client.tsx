@@ -108,7 +108,7 @@ export function ClientOverview() {
           loading={overview.isLoading}
           foot={
             d
-              ? `${money(d.money.paid, d.money.currency)} paid · ${money(d.money.outstanding, d.money.currency)} outstanding`
+              ? `${money(d.money.paid, d.money.currency)} paid · ${money(d.money.outstanding, d.money.currency)} awaiting payment`
               : undefined
           }
         />

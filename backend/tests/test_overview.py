@@ -28,11 +28,15 @@ def _req(status: str, ref: str = "RFP-1001", proposals: int = 0, **kw) -> dict:
     }
 
 
-def _contract(ref: str, status: str, value: str, total: int, done: int, assets: int = 0) -> dict:
+def _contract(ref: str, status: str, value: str, total: int, done: int, assets: int = 0,
+              estimated_total: str | None = None) -> dict:
     return {
         "id": f"id-{ref}",
         "reference_code": ref,
         "value": Decimal(value),
+        # the SQL derives this: value on a total, value * quantity / block per unit
+        "estimated_total": Decimal(estimated_total or value),
+        "pricing_basis": "per_unit" if estimated_total else "total",
         "currency": "USD",
         "partner_name": "NorthStar Delivery Partners",
         "delivery_due_on": None,
@@ -80,24 +84,36 @@ def test_committed_is_work_in_flight_not_lifetime_value():
 
 
 def test_paid_and_outstanding_come_from_invoices_not_contract_value():
+    # db/320: the partner raises invoices as it delivers. issued is owed,
+    # paid and acknowledged are settled, withdrawn is not money.
     d = _build(
         contracts=[_contract("CTR-01", "active", "12000.00", 2, 0)],
         invoices=[
-            {"status": "paid", "n": 2, "amount": Decimal("80.00")},
-            {"status": "pending", "n": 3, "amount": Decimal("6000.00")},
-            {"status": "overdue", "n": 1, "amount": Decimal("96.50")},
-            {"status": "void", "n": 1, "amount": Decimal("999.00")},
+            {"status": "paid", "n": 1, "amount": Decimal("50.00")},
+            {"status": "acknowledged", "n": 1, "amount": Decimal("30.00")},
+            {"status": "issued", "n": 3, "amount": Decimal("6096.50")},
+            {"status": "withdrawn", "n": 1, "amount": Decimal("999.00")},
         ],
     )
     assert d["money"]["paid"] == "80.00"
-    # overdue is still owed; void is not money.
     assert d["money"]["outstanding"] == "6096.50"
+    assert d["money"]["invoiced"] == "6176.50"
+
+
+def test_committed_is_the_whole_deal_not_the_rate():
+    # A per-unit contract stores the rate as value; the overview must show
+    # what the deal is worth, which the SQL derives as estimated_total.
+    d = _build(contracts=[_contract("CTR-07", "active", "500.00", 1, 0,
+                                    estimated_total="12500.00")])
+    assert d["money"]["committed"] == "12500.00"
+    assert d["deliveries"][0]["value"] == "12500.00"
 
 
 def test_a_client_with_nothing_gets_zeros_and_a_currency():
     d = _build()
     assert d["money"] == {
         "committed": "0.00",
+        "invoiced": "0.00",
         "paid": "0.00",
         "outstanding": "0.00",
         "currency": "USD",
@@ -193,7 +209,7 @@ def test_money_stays_exact_all_the_way_to_the_wire():
     # must not do that, so the endpoint hands over strings.
     d = _build(
         contracts=[_contract("CTR-01", "active", "12000.10", 2, 0)],
-        invoices=[{"status": "pending", "n": 1, "amount": Decimal("6096.50")}],
+        invoices=[{"status": "issued", "n": 1, "amount": Decimal("6096.50")}],
     )
     assert d["money"]["committed"] == "12000.10"
     assert d["money"]["outstanding"] == "6096.50"

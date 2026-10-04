@@ -28,9 +28,10 @@ INSERT INTO permission (code, module, description, requires_mfa) VALUES
   ('proposal.read',       'marketplace', 'Read proposals on own requests',           false),
   ('proposal.accept',     'marketplace', 'Award a contract',                         true),
   ('contract.read',       'delivery',    'Read contracts',                           false),
-  ('contract.approve',    'delivery',    'Accept a delivery and release payment',    true),
+  ('contract.approve',    'delivery',    'Accept a delivery',                        true),
   ('delivery.track',      'delivery',    'Track delivery progress',                  false),
-  ('invoice.read',        'ledger',      'Read own invoices',                        false),
+  ('invoice.read',        'invoices',    'Read invoices on own contracts',           false),
+  ('invoice.pay',         'invoices',    'Mark a partner invoice as paid',           true),
   ('rating.write',        'network',     'Rate a counterparty',                      false),
   ('storage.manage',      'storage',     'Manage where captured data is delivered',  false),
   ('vendor.read',         'identity',    'Browse the delivery partner directory',    false),
@@ -44,6 +45,8 @@ INSERT INTO permission (code, module, description, requires_mfa) VALUES
   ('qa.review',           'qa',          'Record a QA outcome at gate 2',            false),
   ('network.manage',      'network',     'Manage the partner network',               false),
   ('equipment.read',      'network',     'Read equipment in the network',            false),
+  ('invoice.raise',       'invoices',    'Raise an invoice on a contract',           false),
+  ('invoice.acknowledge', 'invoices',    'Acknowledge payment of, or withdraw, an invoice', false),
 
   -- aggregator and business
   ('task.read',           'delivery',    'Read assigned tasks',                      false),
@@ -59,7 +62,7 @@ INSERT INTO permission (code, module, description, requires_mfa) VALUES
 
   -- platform admin
   ('account.read',        'identity',    'Read any organisation account',            false),
-  ('billing.read',        'ledger',      'Read any organisation billing',            false),
+  ('billing.read',        'invoices',    'Read any organisation billing',            false),
   ('activity.read',       'audit',       'Read the platform activity trail',         false),
   ('dispute.arbitrate',   'delivery',    'Arbitrate a dispute',                      true),
 
@@ -94,8 +97,8 @@ INSERT INTO role_permission (role_id, permission_id)
 SELECT r.id, p.id FROM role r, permission p
 WHERE r.code = 'client' AND p.code IN (
   'rfp.create','rfp.publish','rfp.read','proposal.read','proposal.accept',
-  'contract.read','contract.approve','delivery.track','invoice.read','rating.write',
-  'storage.manage','vendor.read',
+  'contract.read','contract.approve','delivery.track','invoice.read','invoice.pay',
+  'rating.write','storage.manage','vendor.read',
   'onboarding.read','user.invite','user.manage','role.manage','profile.manage');
 
 INSERT INTO role_permission (role_id, permission_id)
@@ -103,7 +106,7 @@ SELECT r.id, p.id FROM role r, permission p
 WHERE r.code = 'tenant' AND p.code IN (
   'rfp.read.published','proposal.create','contract.read','contract.deliver',
   'task.create','task.assign','qa.review','network.manage','equipment.read',
-  'invoice.read','rating.write','delivery.track',
+  'invoice.read','invoice.raise','invoice.acknowledge','rating.write','delivery.track',
   -- the new capability: a tenant may ASK, but never approve
   'onboarding.request','onboarding.read',
   'user.invite','user.manage','role.manage','profile.manage');
@@ -128,9 +131,11 @@ WHERE r.code = 'sponsor' AND p.code IN (
 
 -- invoice.read sits beside billing.read on purpose. They read like the same
 -- thing and are not: billing.read opens an organisation's billing status,
--- while GET /invoices requires invoice.read (api/v1/ledger.py). Without both,
+-- while GET /invoices requires invoice.read (api/v1/invoices.py). Without both,
 -- Ops sees a Billing page in the rail and a 403 when they click it — which is
--- exactly what happened until this line was added.
+-- exactly what happened until this line was added. Ops reads invoices and never
+-- moves one: invoice.raise, invoice.pay and invoice.acknowledge are the two
+-- parties' own (db/320).
 --
 -- onboarding.request is here for the same class of reason. README.md says
 -- "Platform Admin onboards clients and tenants directly", and the service
@@ -211,15 +216,6 @@ INSERT INTO defect_code (code, label, category, automated) VALUES
   ('tilt',            'Tilted — not square',          'optical',    false),
   -- the reviewer's escape hatch at gate 1, where the note carries the meaning
   ('other',           'Something else',                 'coverage',   false);
-
-
--- ---------------------------------------------------------------------------
--- Platform-internal ledger accounts.
--- ---------------------------------------------------------------------------
-INSERT INTO ledger_account (org_id, code, currency) VALUES
-  (NULL, 'escrow',     'USD'),
-  (NULL, 'fee_income', 'USD'),
-  (NULL, 'cash',       'USD');
 
 
 -- ---------------------------------------------------------------------------

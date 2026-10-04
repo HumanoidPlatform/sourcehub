@@ -23,6 +23,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.security import AccessClaims
 from sourcehub.modules.audit import service as audit
+from sourcehub.modules.marketplace import pricing
 from sourcehub.modules.marketplace.models import Proposal, Request
 from sourcehub.modules.notify import service as notifier
 
@@ -141,13 +142,14 @@ def _row(
     a bidder reads `compliance` as one block because that is how they decide
     whether they can take the work.
 
-    budget_disclosed hides the range from everyone except the client that owns
+    budget_disclosed hides the amount from everyone except the client that owns
     the request. Nothing in the schema says what "disclosed" covers — no RLS
     policy changed, so the row itself is still readable by every bidding tenant
-    and enforcement has to live here. Budget min and max are the conservative
-    reading of it, and the conservative reading is the right default for a
-    field whose failure mode is leaking a client's ceiling to the people
-    bidding against it.
+    and enforcement has to live here. The amount and the total it implies are
+    the conservative reading of it, and the conservative reading is the right
+    default for a field whose failure mode is leaking a client's ceiling to the
+    people bidding against it. The basis, unit and block stay visible: a partner
+    has to know what it is quoting per.
     """
     own = viewer_org is not None and viewer_org == r.client_org_id
     show_budget = r.budget_disclosed or own
@@ -198,12 +200,14 @@ def _row(
             "experience": r.people_experience,
             "certification": r.people_certification,
         },
-        "pricing_model_requested": r.pricing_model_requested,
         "budget_disclosed": r.budget_disclosed,
-        "budget_min": r.budget_min if show_budget else None,
-        "budget_max": r.budget_max if show_budget else None,
         "currency": r.currency,
-        "milestones": r.milestones,
+        # db/320: one amount on a basis. The amount and the estimate it implies
+        # are withheld from bidders when the client asked for that.
+        "pricing": pricing.view(
+            r.pricing_basis, r.pricing_unit, r.pricing_block, r.pricing_quantity,
+            r.budget_amount if show_budget else None, r.currency,
+        ),
         "pilot": {
             "required": r.pilot_required,
             "quantity": r.pilot_quantity,
@@ -251,14 +255,17 @@ _REQUIREMENT_FIELDS = (
     "countries", "sampling_frame", "quality_thresholds", "rejection_policy",
     "people_in_frame", "minors_policy", "deidentification", "regulations",
     "lawful_basis", "permitted_uses", "partner_reuse_allowed",
-    "biometric_processing", "location_type", "pricing_model_requested",
+    "biometric_processing", "location_type",
     "budget_disclosed", "pilot_required", "pilot_quantity", "pilot_due_on",
-    "milestones", "contact_user_id",
+    "contact_user_id",
     "proposal_requirements",
 )
 # proposals_close_at is deliberately NOT in that list: _requirements() drops
 # None, so a draft's deadline could be set and never cleared. It is assigned
-# outright, next to the other dates.
+# outright, next to the other dates. The pricing fields (db/320) are assigned
+# outright for the same reason: a draft edited from per-unit back to a total
+# must have its unit, block and quantity cleared, or the CHECK refuses it.
+_PRICING_FIELDS = ("pricing_unit", "pricing_block", "pricing_quantity", "budget_amount")
 
 
 def _requirements(data: dict[str, Any]) -> dict[str, Any]:
@@ -288,8 +295,8 @@ async def create_request(
         category=data["category"],
         status="published" if publish else "draft",
         people_headcount=int(data.get("people_headcount") or 0),
-        budget_min=data.get("budget_min"),
-        budget_max=data.get("budget_max"),
+        pricing_basis=data.get("pricing_basis") or "total",
+        **{k: data.get(k) for k in _PRICING_FIELDS},
         starts_on=data.get("starts_on"),
         delivery_due_on=data.get("delivery_due_on"),
         proposals_close_at=data.get("proposals_close_at"),
@@ -343,8 +350,9 @@ async def update_request(
     r.title = data["title"]
     r.category = data["category"]
     r.people_headcount = int(data.get("people_headcount") or 0)
-    r.budget_min = data.get("budget_min")
-    r.budget_max = data.get("budget_max")
+    r.pricing_basis = data.get("pricing_basis") or "total"
+    for k in _PRICING_FIELDS:
+        setattr(r, k, data.get(k))
     r.starts_on = data.get("starts_on")
     r.delivery_due_on = data.get("delivery_due_on")
     r.proposals_close_at = data.get("proposals_close_at")
@@ -646,8 +654,48 @@ def _partner_record(record: Any) -> dict[str, Any]:
     }
 
 
+def _basis_of(r: Request | None) -> dict[str, Any] | None:
+    """The request's pricing basis, as _priced() wants it. None when the
+    request is out of reach (a partner withdrawing after the buyer vanished)."""
+    if r is None:
+        return None
+    return {
+        "basis": r.pricing_basis, "unit": r.pricing_unit,
+        "block": r.pricing_block, "quantity": r.pricing_quantity,
+    }
+
+
+def _basis_row(r: Any) -> dict[str, Any] | None:
+    """The same, from a joined SQL row; None when the request was out of reach."""
+    if r.get("pricing_basis") is None:
+        return None
+    return {
+        "basis": r["pricing_basis"], "unit": r["pricing_unit"],
+        "block": r["pricing_block"], "quantity": r["pricing_quantity"],
+    }
+
+
+def _priced(price: Any, currency: str, basis: dict[str, Any] | None) -> dict[str, Any]:
+    """What a bid's one price means on the request's basis (db/320): the deal it
+    implies and the sentence a person reads. Strings, like every money figure
+    the API derives."""
+    if basis is None:
+        return {"pricing_basis": None, "pricing_unit": None, "pricing_block": None,
+                "estimated_total": None, "price_text": None}
+    total = pricing.estimated_total(basis["basis"], price, basis["block"], basis["quantity"])
+    return {
+        "pricing_basis": basis["basis"],
+        "pricing_unit": basis["unit"],
+        "pricing_block": basis["block"],
+        "estimated_total": None if total is None else f"{total:.2f}",
+        "price_text": pricing.price_text(
+            basis["basis"], price, currency, basis["unit"], basis["block"]
+        ),
+    }
+
+
 def _proposal_row(p: Proposal, partner_name: str | None = None,
-                  record: Any = None) -> dict[str, Any]:
+                  record: Any = None, basis: dict[str, Any] | None = None) -> dict[str, Any]:
     return {
         "id": p.id,
         "reference_code": p.reference_code,
@@ -656,9 +704,8 @@ def _proposal_row(p: Proposal, partner_name: str | None = None,
         "partner_name": partner_name,
         **_partner_record(record),
         "price": p.price,
-        "unit": p.unit,
-        "unit_price": p.unit_price,
         "currency": p.currency,
+        **_priced(p.price, p.currency, basis),
         "duration_days": p.duration_days,
         "methodology": p.methodology,
         "notes": p.notes,
@@ -675,10 +722,10 @@ async def submit_proposal(
     duration_days: int,
     methodology: str,
     notes: str | None,
-    unit: str | None = None,
-    unit_price: Decimal | None = None,
     attachments: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
+    """One price on the request's basis (db/320): the whole price on a total,
+    the price per block on per_unit. The currency is the request's."""
     # Serialised against change_bidding_deadline on an advisory lock, NOT with
     # FOR UPDATE: under RLS a row lock also needs the UPDATE policy, and a
     # partner may read a request but never update it — FOR UPDATE simply
@@ -713,6 +760,7 @@ async def submit_proposal(
         # your price is the whole point of the button. Barring the partner from
         # the request afterwards made Withdraw a trap.
         existing.price = price
+        existing.currency = r.currency
         existing.duration_days = duration_days
         existing.methodology = methodology
         existing.notes = notes
@@ -723,7 +771,8 @@ async def submit_proposal(
         await session.flush()
         await audit.log(
             session, "proposal.submitted",
-            f"Resubmitted {existing.reference_code} on {r.reference_code}",
+            f"Resubmitted {existing.reference_code} on {r.reference_code} at "
+            f"{_price_text(r, price)}",
             [existing.id, r.id, claims.org_id, r.client_org_id],
         )
         await notifier.notify(
@@ -731,7 +780,7 @@ async def submit_proposal(
             f"A revised proposal arrived on {r.title}.",
             "requestDetail", {"id": str(r.id)},
         )
-        out = _proposal_row(existing)
+        out = _proposal_row(existing, basis=_basis_of(r))
         out["attachments"] = await _attach_proposal(session, claims, existing.id, attachments)
         return out
 
@@ -743,11 +792,10 @@ async def submit_proposal(
         request_id=request_id,
         partner_org_id=claims.org_id,
         price=price,
+        currency=r.currency,
         duration_days=duration_days,
         methodology=methodology,
         notes=notes,
-        unit=unit,
-        unit_price=unit_price,
         created_by=claims.user_id,
     )
     session.add(p)
@@ -759,12 +807,18 @@ async def submit_proposal(
     )
     await audit.log(
         session, "proposal.submitted",
-        f"Submitted {ref} on {r.reference_code} at {p.currency} {price}",
+        f"Submitted {ref} on {r.reference_code} at {_price_text(r, price)}",
         [p.id, r.id, claims.org_id, r.client_org_id],
     )
-    out = _proposal_row(p)
+    out = _proposal_row(p, basis=_basis_of(r))
     out["attachments"] = await _attach_proposal(session, claims, p.id, attachments)
     return out
+
+
+def _price_text(r: Request, price: Decimal) -> str:
+    return pricing.price_text(
+        r.pricing_basis, price, r.currency, r.pricing_unit, r.pricing_block
+    ) or f"{r.currency} {price}"
 
 
 async def _attach_proposal(
@@ -829,7 +883,7 @@ async def withdraw_proposal(
     p.updated_by = claims.user_id
     await audit.log(session, "proposal.withdrawn",
                     f"Withdrew {p.reference_code}", [p.id, p.request_id, claims.org_id])
-    return _proposal_row(p)
+    return _proposal_row(p, basis=_basis_of(r))
 
 
 async def reject_proposal(
@@ -882,7 +936,7 @@ async def reject_proposal(
         f"Rejected {p.reference_code}: {reason}",
         [p.id, p.request_id, claims.org_id, p.partner_org_id],
     )
-    return _proposal_row(p)
+    return _proposal_row(p, basis=_basis_of(r))
 
 
 async def list_proposals(
@@ -890,10 +944,16 @@ async def list_proposals(
 ) -> list[dict[str, Any]]:
     """RLS: a partner sees only its own bids; the client every bid on its
     request — competitors never see each other."""
+    # The request join resolves for both parties: the client owns the row and
+    # the bidder keeps sight of it (request_select_bidder, db/110). LEFT, as in
+    # my_proposals, so a policy change can never silently drop a bid; a row
+    # without its request simply carries no basis.
     q = text(
-        "SELECT p.*, o.name AS partner_name "
+        "SELECT p.*, o.name AS partner_name, "
+        "       r.pricing_basis, r.pricing_unit, r.pricing_block, r.pricing_quantity "
         "FROM proposal p "
         "JOIN organisation o ON o.id = p.partner_org_id "
+        "LEFT JOIN request r ON r.id = p.request_id "
         "WHERE p.deleted_at IS NULL "
         + ("AND p.request_id = :rid " if request_id else "")
         + "ORDER BY p.submitted_at DESC"
@@ -920,6 +980,7 @@ async def list_proposals(
             **_partner_record(record.get(r["partner_org_id"])),
             "price": r["price"],
             "currency": r["currency"],
+            **_priced(r["price"], r["currency"], _basis_row(r)),
             "duration_days": r["duration_days"],
             "methodology": r["methodology"],
             "notes": r["notes"],
@@ -940,7 +1001,8 @@ async def my_proposals(session: AsyncSession, claims: AccessClaims) -> list[dict
                 # visible to the partner that bid to it. LEFT, so a policy
                 # change can never silently drop a partner's own proposals.
                 "SELECT p.*, r.title AS request_title, r.reference_code AS request_ref, "
-                "       r.client_org_id, r.proposals_close_at, o.name AS client_name "
+                "       r.client_org_id, r.proposals_close_at, o.name AS client_name, "
+                "       r.pricing_basis, r.pricing_unit, r.pricing_block, r.pricing_quantity "
                 "FROM proposal p JOIN request r ON r.id = p.request_id "
                 "LEFT JOIN organisation o ON o.id = r.client_org_id "
                 "WHERE p.partner_org_id = :org AND p.deleted_at IS NULL "
@@ -949,7 +1011,7 @@ async def my_proposals(session: AsyncSession, claims: AccessClaims) -> list[dict
             {"org": claims.org_id},
         )
     ).mappings().all()
-    return [dict(r) for r in rows]
+    return [{**dict(r), **_priced(r["price"], r["currency"], _basis_row(r))} for r in rows]
 
 
 # ---------------------------------------------------------------------------
@@ -959,8 +1021,9 @@ async def my_proposals(session: AsyncSession, claims: AccessClaims) -> list[dict
 async def award(
     session: AsyncSession, claims: AccessClaims, proposal_id: uuid.UUID
 ) -> dict[str, Any]:
-    """Winner accepted, every sibling auto-rejected and told, contract created,
-    milestone 1 invoiced into escrow. One transaction, mirroring confirmAward().
+    """Winner accepted, every sibling auto-rejected and told, contract created
+    with the pricing basis frozen on it. One transaction, mirroring
+    confirmAward(). No money moves: the partner invoices as it delivers (db/320).
     """
     from sourcehub.modules.delivery import service as delivery
     from sourcehub.modules.threads import service as threads
@@ -1021,7 +1084,9 @@ async def award(
         session, claims,
         request_id=r.id, request_ref=r.reference_code, request_title=r.title,
         proposal_id=p.id, client_org_id=r.client_org_id,
-        partner_org_id=p.partner_org_id, value=p.price,
+        partner_org_id=p.partner_org_id, value=p.price, currency=p.currency,
+        pricing_basis=r.pricing_basis, pricing_unit=r.pricing_unit,
+        pricing_block=r.pricing_block, pricing_quantity=r.pricing_quantity,
         acceptance=r.acceptance, compliance=r.compliance_notes,
         storage_target_id=r.storage_target_id,
     )
@@ -1033,8 +1098,8 @@ async def award(
     )
     await audit.log(
         session, "contract.awarded",
-        f"Awarded {contract['reference_code']} to the winning partner for "
-        f"{p.currency} {p.price}",
+        f"Awarded {contract['reference_code']} to the winning partner at "
+        f"{_price_text(r, p.price)}",
         [contract["id"], r.id, r.client_org_id, p.partner_org_id],
     )
     return contract

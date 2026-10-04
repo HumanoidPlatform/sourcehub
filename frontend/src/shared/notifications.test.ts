@@ -53,6 +53,9 @@ describe("the links that already worked", () => {
     ["onboarding", "o1", "/onboarding"],
     ["qa", undefined, "/qa"],
     ["proposals", undefined, "/proposals"],
+    // db/320: the bell row names the invoice, and the Billing page opens it
+    ["billing", "i9", "/billing?invoice=i9"],
+    ["billing", undefined, "/billing"],
   ])("%s -> %s", (page, id, want) => {
     expect(notificationHref(row(page as string, id as string | undefined))).toBe(want);
   });

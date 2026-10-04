@@ -466,7 +466,7 @@ async def dispute(
     principal: Principal = Depends(require_capability("contract.approve")),
     session: AsyncSession = Depends(get_session),
 ):
-    """The client sends a delivery back instead of releasing payment."""
+    """The client sends a delivery back instead of approving it."""
     try:
         return await delivery.dispute_delivery(session, principal, contract_id, body.reason)
     except LookupError:
@@ -482,7 +482,8 @@ async def approve(
     principal: Principal = Depends(require_capability("contract.approve")),
     session: AsyncSession = Depends(get_session),
 ):
-    """Approval releases payment — contract.approve carries requires_mfa."""
+    """Approval completes the contract and rates the partner — contract.approve
+    carries requires_mfa. Money is invoiced separately (api/v1/invoices.py)."""
     try:
         return await delivery.approve_delivery(
             session, principal, contract_id, body.score, body.comment
