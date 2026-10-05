@@ -17,7 +17,7 @@ Contents: [1 The short answer](#1-the-short-answer) · [2 The map](#2-the-map--e
 
 ## 1. The short answer
 
-There are **37 tables** (plus `alembic_version`, which is migration bookkeeping), and **every one is in
+There are **36 tables** (plus `alembic_version`, which is migration bookkeeping), and **every one is in
 use**: backend code reads or writes it. Each holds a different real-world thing — a company, a person, a bid,
 a contract, a photo, an invoice — and merging them would make the access rules harder, not simpler.
 
@@ -69,12 +69,11 @@ SELECT relname AS table, n_live_tup AS rows FROM pg_stat_user_tables ORDER BY n_
 | `user_token` | Password-reset links (hash, single use, expiring). Written only through database functions, never directly. |
 | `invitation` | The emailed "set your password" link for a new user. Hash only; the invitee sets their own password, so no administrator ever knows it. |
 
-### B. Joining the platform · [`030_onboarding.sql`](../db/030_onboarding.sql)
+### B. Joining the platform · [`030_onboarding.sql`](../db/030_onboarding.sql), [`330_onboarding_decisions.sql`](../db/330_onboarding_decisions.sql)
 
 | Table | One row is |
 |---|---|
-| `onboarding_request` | An application to add a company. Ops adds clients and delivery partners; a delivery partner asks for an aggregator, business or sponsor under itself, and Ops approves. |
-| `onboarding_approval` | One decision on a request. Append-only, so a request that went back for changes keeps the reason. Only Ops may insert — this is the single rule that stops a partner approving its own network. |
+| `onboarding_request` | An application to add a company. Ops adds clients and delivery partners; a delivery partner asks for an aggregator, business or sponsor under itself, and Ops approves. The latest decision is on the row — `status` says which, `decided_at` when, `decided_by` who, `decision_reason` why ([`330_onboarding_decisions.sql`](../db/330_onboarding_decisions.sql); the columns replaced the `onboarding_approval` table) — and a request that went back for changes keeps the return's reason until the next decision; earlier decisions are in `audit_event`. Only Ops may decide, on a submitted request, and an approved or rejected request is final: the `onboarding_request_transition` trigger is the rule that stops a partner approving its own network. |
 
 ### C. Marketplace · [`035_storage.sql`](../db/035_storage.sql), [`040_marketplace.sql`](../db/040_marketplace.sql)
 
@@ -149,7 +148,9 @@ Which table gets a row at each step.
 
 1. **A company joins.** `onboarding_request` → Ops approves → the function `approve_onboarding_request()` creates,
    in one transaction: `organisation` (with its kind's profile columns), the first `app_user` (status `invited`, no password), a
-   `user_role_grant`, an `invitation`, and an `onboarding_approval`. For a client or partner the same transaction
+   `user_role_grant` and an `invitation`, and records the approval on the request row (`decided_at`,
+   `decided_by`, `decision_reason`). A rejection or a return for changes writes the same three columns, from the
+   service, with the status change. For a client or partner the same transaction
    then writes `legal_name` and `public_profile`, and files the uploaded logo under `orgs/{id}/logo/`
    (`identity.apply_onboarding_profile`). The invitee sets a password from the link.
 2. **The client prepares.** Saves a `storage_target` — the API writes, reads and deletes a probe file before it
@@ -189,8 +190,10 @@ Nearly every step also writes one `audit_event` and one or more `notification` r
 
 ## 4. Status values and who may change them
 
-**The database restricts the *values* (every status is an enum). It does not police the *moves*.** There is no
-status-transition trigger anywhere. Every move below is guarded in Python, in the service function named.
+**The database restricts the *values* (every status is an enum) and, on two tables, the *moves*:**
+`invoice_transition` ([`320`](../db/320_partner_invoices.sql)) and `onboarding_request_transition`
+([`330`](../db/330_onboarding_decisions.sql)) refuse a move the wrong party makes or a move out of a final
+state. Every other move below is guarded in Python only, in the service function named.
 
 | Table | Values | Moves, and where they are made |
 |---|---|---|
@@ -203,7 +206,7 @@ status-transition trigger anywhere. Every move below is guarded in Python, in th
 | `task_assignment` | `assigned` `in_progress` `submitted` `accepted` `rejected` `cancelled` | `start_assignment`, `submit_assignment`, `cancel_assignment`, `reopen_assignment` (delivery); `accepted` / `rejected` in `decide_gate1` (qa). Reopening is only allowed while the parent task is `qa_failed`. |
 | `asset` | `pending` `uploaded` `ready` `quarantined` `rejected` `erased` | `pending` in `presign_capture`; `ready` or `quarantined` in `confirm_asset` ([media/service.py](../backend/src/sourcehub/modules/media/service.py)). |
 | `submission` | `open` `submitted` `under_review` `accepted` `rejected` `superseded` | created as `submitted` in `submit_task`; closed by `decide` (qa). |
-| `onboarding_request` | `draft` `submitted` `under_review` `changes_requested` `approved` `rejected` `withdrawn` `expired` | [onboarding/service.py](../backend/src/sourcehub/modules/onboarding/service.py); `approved` is set inside the database function, which locks the row and refuses anything not `submitted` or `under_review`. |
+| `onboarding_request` | `draft` `submitted` `under_review` `changes_requested` `approved` `rejected` `withdrawn` `expired` | [onboarding/service.py](../backend/src/sourcehub/modules/onboarding/service.py); `approved` is set inside the database function, which locks the row and refuses anything not `submitted` or `under_review`. The `onboarding_request_transition` trigger refuses a decision (`approved`, `rejected`, `changes_requested`) by anyone but Ops, on anything but a `submitted` or `under_review` request, or not signed by the session (`decided_by`), dated and, unless an approval, given a reason; any change to `decided_at`, `decided_by` or `decision_reason` outside a decision; a resubmit from anything but `draft` or `changes_requested`; any move into `draft` or `expired` (and into `under_review` by anyone but Ops); every move out of `approved`, `rejected`, `withdrawn` or `expired`; any change to who asked, for what kind or under whom; and an edit of the name, payload or contact unless the request is a `draft` or `changes_requested`. |
 | `invoice` | `issued` `paid` `acknowledged` `withdrawn` | `raise_invoice`, `mark_paid`, `acknowledge`, `withdraw` ([invoices/service.py](../backend/src/sourcehub/modules/invoices/service.py)), each one conditional UPDATE; the `invoice_transition` trigger refuses any other move and any mover but the right party. |
 
 **Declared but never written by any code:** `request.cancelled`, `contract.disputed` and `contract.cancelled`
@@ -234,7 +237,7 @@ See [section 4](#4-status-values-and-who-may-change-them).
 ### Layer 3 — row-level security decides which rows exist for you
 
 Defined in [`100_rls.sql`](../db/100_rls.sql), with later additions in `110`, `120`, `130` and `150`. Roughly 140
-policies across 37 tables.
+policies across 36 tables.
 
 **How it works.** The API connects as the role `sourcehub_app`, which owns nothing and cannot bypass policies.
 At the start of every request it sets three transaction-local values — `app.org_id`, `app.user_id`, `app.role` —
@@ -294,10 +297,10 @@ narrow question and is executable only by `sourcehub_app`:
 | Mechanism | Examples |
 |---|---|
 | Unique partial indexes — the "only one" rules | one accepted proposal per request · one live bid per partner per request · one open offer per task · one open assignment per worker per task · one live grant of a role per user per organisation · email unique among non-deleted users |
-| CHECK constraints | a supplier must have a parent organisation · an active user must have a credential · a failed review, a rejected assignment, a rejected loan and a non-approval must each carry a written reason · an offer's `accepted_count` can never exceed `worker_limit` · an approved onboarding request must name what it created · a review has exactly one subject (assignment *or* submission) · file size limits per attachment slot |
-| Triggers — four do real work | `invoice_before_insert` (parties, currency and rate from the contract; the amount computed) · `invoice_transition` (three moves, each by one party, stamped in the trigger) · `rfp_thread_close_once` · `loan_availability` (stock and calibration). Every other trigger just maintains `updated_at`. |
+| CHECK constraints | a supplier must have a parent organisation · an active user must have a credential · a failed review, a rejected assignment and a rejected loan must each carry a written reason · an offer's `accepted_count` can never exceed `worker_limit` · an approved onboarding request must name what it created, a decided one must say when and by whom, and a returned or rejected one why · a review has exactly one subject (assignment *or* submission) · file size limits per attachment slot |
+| Triggers — five do real work | `invoice_before_insert` (parties, currency and rate from the contract; the amount computed) · `invoice_transition` (three moves, each by one party, stamped in the trigger) · `onboarding_request_transition` (a decision is Ops only, on a submitted request, signed and dated by the session, with a reason unless approved; the decision columns change with no other move; the requester submits, resubmits or withdraws; a final request is final) · `rfp_thread_close_once` · `loan_availability` (stock and calibration). Every other trigger just maintains `updated_at`. |
 | Append-only tables | `audit_event`, `qa_review`, `rfp_message` — rules turn UPDATE and DELETE into no-ops. Note they are **silently ignored**, not raised as errors. |
-| Column grants | `invoice`: the application login may UPDATE `status`, `payment_reference` and `withdrawn_reason` only, so what was issued cannot change whoever asks ([`320`](../db/320_partner_invoices.sql)); `rfp_thread`: the three closing columns ([`270`](../db/270_managed_postgres.sql)). |
+| Column grants | `invoice`: the application login may UPDATE `status`, `payment_reference` and `withdrawn_reason` only, so what was issued cannot change whoever asks ([`320`](../db/320_partner_invoices.sql)); `onboarding_request`: the proposal, the status, the decision columns and what approval created, never who asked or for what, and no DELETE ([`330`](../db/330_onboarding_decisions.sql)); `rfp_thread`: the three closing columns ([`270`](../db/270_managed_postgres.sql)). |
 | The audit hash chain | `write_audit_event()` takes an advisory lock, reads the previous row's hash, and stores `sha256(previous hash + this event)`. There is no job yet that walks the chain to check it. |
 | Row locks where races matter | approving an onboarding request · accepting an invitation · consuming a reset link · accepting an offer (`FOR UPDATE` on the offer serialises the race for the last place) |
 
@@ -411,9 +414,23 @@ one-off `alembic upgrade head`, see [infra/deploy/README.md](../infra/deploy/REA
 
 ## 8. Tables that were removed
 
-Four files took the schema from fifty-nine tables to thirty-seven. Their `CREATE` statements remain in the
-earlier `db/*.sql` files and in git; each migration (`0031`, `0032`, `0034`, `0035`) has a downgrade that
+Five files took the schema from fifty-nine tables to thirty-six. Their `CREATE` statements remain in the
+earlier `db/*.sql` files and in git; each migration (`0031`, `0032`, `0034`, `0035`, `0036`) has a downgrade that
 brings everything back, and each was proven on scratch copies before it ran anywhere else.
+
+**[`330_onboarding_decisions.sql`](../db/330_onboarding_decisions.sql) — the decision folded in.**
+`onboarding_approval` held one row per Ops decision on an onboarding request. It was written in the same
+transaction as the request's own status change and read only as the decision attached to each request, one
+query per row; its `step` never left 1, and the reason typed on an approval was dropped on the way. The request
+row already said which decision (`status`) and when (`decided_at`); it gained `decided_by` and
+`decision_reason`, and `approve_onboarding_request()` records the reason. Earlier decisions of a request that
+was returned and decided again are not on the row: the audit log carries each one with its reason. The table's
+Ops-only INSERT policy — the one database rule against a partner approving its own network — became the
+`onboarding_request_transition` trigger, which also refuses the direct status change and the edits the
+requester's own UPDATE policy had always allowed, backed by a column grant. The never-written `expires_at`
+column went with it. The migration copies the latest decision of every request and refuses to drop the table
+unless each decided request got it; the downgrade turns it back into one row per request, so the dump taken
+before the upgrade is where the earlier returns live.
 
 **[`320_partner_invoices.sql`](../db/320_partner_invoices.sql) — the escrow ledger replaced.** `ledger_account`,
 `ledger_transaction`, `ledger_entry` and the first `invoice` table moved money by themselves: the award held

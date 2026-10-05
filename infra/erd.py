@@ -72,7 +72,6 @@ GROUPS: list[tuple[str, str, str, list[str]]] = [
         "#E4DDF0",
         [
             "onboarding_request",
-            "onboarding_approval",
         ],
     ),
     (

@@ -765,8 +765,9 @@ export interface OnboardingRow {
   /** Only on the answer to an approval: what could not be applied, such as a
    *  logo whose upload had gone missing. The organisation exists regardless. */
   warnings?: string[];
+  /** The latest Ops decision on the request, as a list of zero or one entry. A
+   *  submitted or withdrawn request that carries one was returned for changes. */
   approvals?: {
-    step: number;
     decision: string;
     reason: string | null;
     approver_role: string;

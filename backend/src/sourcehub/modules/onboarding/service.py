@@ -8,9 +8,16 @@ Two tiers, one table:
     the Platform Admin for approval.
 
 Who may decide is enforced three times over — capability check in the router,
-the RLS insert policy on onboarding_approval, and approve_onboarding_request()
-running with the CALLER's rights so a non-admin fails on organisation_insert.
-Defence in depth is the point: the prototype had no approval step at all.
+the onboarding_request_transition trigger (a decision by anyone but the
+platform admin, on anything but a submitted request, or any change to the
+decision columns outside a decision, is refused in the database; db/330), and
+approve_onboarding_request() running with the CALLER's rights so a non-admin
+fails on organisation_insert. Defence in depth is the point: the prototype
+had no approval step at all.
+
+The decision itself lives on the request: status says which, decided_at
+when, decided_by who, decision_reason why. The three columns replaced the
+onboarding_approval table; earlier decisions are in the audit log.
 """
 
 from __future__ import annotations
@@ -21,7 +28,7 @@ from typing import Any
 
 from pydantic import ValidationError
 from sqlalchemy import select, text
-from sqlalchemy.exc import IntegrityError
+from sqlalchemy.exc import DBAPIError, IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.security import AccessClaims, new_opaque_token
@@ -35,7 +42,7 @@ from sourcehub.modules.identity.profile_schema import (
     missing_core,
 )
 from sourcehub.modules.notify import service as notifier
-from sourcehub.modules.onboarding.models import Invitation, OnboardingApproval, OnboardingRequest
+from sourcehub.modules.onboarding.models import Invitation, OnboardingRequest
 
 NETWORK_KINDS = ("aggregator", "business", "sponsor")
 TOP_KINDS = ("client", "tenant")
@@ -178,30 +185,73 @@ async def _announce_submission(
     )
 
 
-async def _approvals_for(session: AsyncSession, request_id: uuid.UUID) -> list[dict[str, Any]]:
-    """The decision trail, oldest first. Read by both the list and the detail:
-    the requester needs the latest reason to know what to change."""
-    rows = (
-        await session.execute(
-            select(OnboardingApproval)
-            .where(OnboardingApproval.request_id == request_id)
-            .order_by(OnboardingApproval.decided_at)
-        )
-    ).scalars().all()
+_DECIDED = ("approved", "rejected", "changes_requested")
+
+
+def _approvals_for(r: OnboardingRequest, claims: AccessClaims) -> list[dict[str, Any]]:
+    """The latest decision, from the row itself (db/330), as a list of zero or
+    one entry: the shape predates the fold and is what the console reads. Read
+    by both the list and the detail: the requester needs the latest reason to
+    know what to change. A submitted or withdrawn request that carries a
+    decision was returned for changes and moved on; the return stays visible
+    until the next decision. Only Ops decides, so the role is a constant.
+
+    The organisation an approval created can read its own origin request
+    (100's select policy), but the note Ops typed on approving is between Ops
+    and the requester: it is left out for that reader.
+    """
+    if r.decided_at is None:
+        return []
+    created_org_reads = claims.org_id == r.created_org_id and claims.org_id != r.requester_org_id
     return [
         {
-            "step": a.step,
-            "decision": a.decision,
-            "reason": a.reason,
-            "approver_role": a.approver_role,
-            "decided_at": a.decided_at,
+            "decision": r.status if r.status in _DECIDED else "changes_requested",
+            "reason": None if created_org_reads else r.decision_reason,
+            "approver_role": "platform_admin",
+            "decided_at": r.decided_at,
         }
-        for a in rows
     ]
 
 
+# check_violation (the transition trigger) and raise_exception (the approval function)
+_REFUSAL_STATES = ("23514", "P0001")
+
+
+def _refusal(e: DBAPIError) -> str | None:
+    """The transition trigger's (or the approval function's) own sentence,
+    without the driver's framing; None when the error is not one of theirs.
+
+    Both are recognised by SQLSTATE and by their prefix, never by the word
+    alone: a not-null or policy error names the relation onboarding_request
+    too, and that is a fault to surface, not a refusal to explain.
+    """
+    orig = getattr(e, "orig", None)
+    if getattr(orig, "sqlstate", None) not in _REFUSAL_STATES:
+        return None
+    msg = str(orig)
+    for prefix in ("onboarding ", "onboarding:"):
+        at = msg.find(prefix)
+        if at >= 0:
+            return msg[at:].splitlines()[0].strip()
+    return None
+
+
+async def _flush_or_refuse(session: AsyncSession) -> None:
+    """Send the pending UPDATE now, so a refusal by the transition trigger
+    (db/330) — a race, or a move the pre-checks did not catch — is answered
+    here as a 409 and not at commit as a 500. The trigger's check_violation
+    arrives as an IntegrityError, which is a DBAPIError."""
+    try:
+        await session.flush()
+    except DBAPIError as e:
+        refusal = _refusal(e)
+        if refusal is None:
+            raise
+        raise OnboardingConflictError(refusal) from None
+
+
 async def list_requests(
-    session: AsyncSession, status: str | None = None
+    session: AsyncSession, claims: AccessClaims, status: str | None = None
 ) -> list[dict[str, Any]]:
     stmt = (
         select(OnboardingRequest)
@@ -214,23 +264,19 @@ async def list_requests(
     # The requester's own list renders the latest reason, so the trail has to
     # travel with the list and not only with the detail read — otherwise a
     # returned request shows "changes requested" and no way to learn why.
-    out = []
-    for r in rows:
-        row = _row(r)
-        row["approvals"] = await _approvals_for(session, r.id)
-        out.append(row)
-    return out
+    # Since db/330 the trail is a column, not a second query per row.
+    return [{**_row(r), "approvals": _approvals_for(r, claims)} for r in rows]
 
 
-async def get_request(session: AsyncSession, request_id: uuid.UUID) -> dict[str, Any] | None:
+async def get_request(
+    session: AsyncSession, claims: AccessClaims, request_id: uuid.UUID
+) -> dict[str, Any] | None:
     r = (
         await session.execute(select(OnboardingRequest).where(OnboardingRequest.id == request_id))
     ).scalar_one_or_none()
     if r is None:
         return None
-    out = _row(r)
-    out["approvals"] = await _approvals_for(session, request_id)
-    return out
+    return {**_row(r), "approvals": _approvals_for(r, claims)}
 
 
 async def submit_request(
@@ -249,6 +295,7 @@ async def submit_request(
     r.status = "submitted"
     r.submitted_at = dt.datetime.now(dt.timezone.utc)
     r.updated_by = claims.user_id
+    await _flush_or_refuse(session)
     await _announce_submission(session, claims, r)
     return _row(r)
 
@@ -277,6 +324,7 @@ async def update_draft(
     if contact is not None:
         r.contact = contact
     r.updated_by = claims.user_id
+    await _flush_or_refuse(session)
     return _row(r)
 
 
@@ -288,10 +336,11 @@ async def withdraw_request(
     ).scalar_one_or_none()
     if r is None:
         raise LookupError("request not found")
-    if r.status in ("approved", "rejected"):
-        raise OnboardingError("A decided request cannot be withdrawn.")
+    if r.status in ("approved", "rejected", "withdrawn", "expired"):
+        raise OnboardingError(f"A {r.status} request cannot be withdrawn.")
     r.status = "withdrawn"
     r.updated_by = claims.user_id
+    await _flush_or_refuse(session)
     await audit.log(
         session, "onboarding.withdrawn",
         f"Withdrew onboarding request {r.reference_code}", [r.id, claims.org_id],
@@ -326,26 +375,26 @@ async def decide(
         raise OnboardingConflictError(f"A {r.status} request cannot be decided.")
 
     if decision == "approved":
-        return await _approve(session, claims, request_id)
+        return await _approve(session, claims, request_id, reason)
 
     if not reason or not reason.strip():
         # the same rule the prototype applies to QA: the requester cannot act
         # on a blank rejection
         raise OnboardingError("Say what must change — a decision needs a reason.")
 
+    reason = reason.strip()
     r.status = decision  # 'rejected' | 'changes_requested'
-    r.decided_at = dt.datetime.now(dt.timezone.utc) if decision == "rejected" else None
+    # The decision is written with the move, in the same UPDATE as the status:
+    # when, by whom, why. A return sets decided_at too — it is the latest
+    # decision — and the three stay on the row through a resubmit. The
+    # transition trigger (db/330) checks that the caller is Ops, that the
+    # request was submitted, that decided_by is the session, and that a
+    # non-approval has a reason; its refusal is a 409, not a 500.
+    r.decided_at = dt.datetime.now(dt.timezone.utc)
+    r.decided_by = claims.user_id
+    r.decision_reason = reason
     r.updated_by = claims.user_id
-    session.add(
-        OnboardingApproval(
-            request_id=r.id,
-            approver_user_id=claims.user_id,
-            approver_org_id=claims.org_id,
-            approver_role=claims.role,
-            decision=decision,
-            reason=reason,
-        )
-    )
+    await _flush_or_refuse(session)
     verb = "rejected" if decision == "rejected" else "returned for changes"
     await notifier.notify(
         session,
@@ -354,40 +403,43 @@ async def decide(
         "network",
         {"onboarding_id": str(r.id)},
     )
+    # the reason is in the summary: the audit log is the history of decisions
+    # now that the row keeps only the latest
     await audit.log(
         session, f"onboarding.{decision}",
-        f"Onboarding {r.reference_code} ({r.proposed_name}) {verb}",
+        f"Onboarding {r.reference_code} ({r.proposed_name}) {verb}: {reason}",
         [r.id, r.requester_org_id, claims.org_id],
     )
     return _row(r)
 
 
 async def _approve(
-    session: AsyncSession, claims: AccessClaims, request_id: uuid.UUID
+    session: AsyncSession, claims: AccessClaims, request_id: uuid.UUID, reason: str | None
 ) -> dict[str, Any]:
     """One call into the database function; the whole creation is one
-    transaction there — org, profile, first user, grant, invitation."""
+    transaction there — org, profile, first user, grant, invitation, and the
+    decision on the request row, with the reason the approver typed."""
     raw_token, token_hash = new_opaque_token()
+    reason = (reason or "").strip() or None
 
     try:
         new_org_id = (
             await session.execute(
                 text(
-                    "SELECT approve_onboarding_request(:rid, :uid, :oid, :role, :thash, "
+                    "SELECT approve_onboarding_request(:rid, :uid, :thash, :reason, "
                     "make_interval(days => :ttl))"
                 ),
                 {
                     "rid": request_id,
                     "uid": claims.user_id,
-                    "oid": claims.org_id,
-                    "role": claims.role,
                     "thash": token_hash,
+                    "reason": reason,
                     "ttl": settings.invitation_ttl_days,
                 },
             )
         ).scalar_one()
-    except IntegrityError as e:
-        # app_user.email is unique across the whole platform, and step 4 of
+    except DBAPIError as e:
+        # app_user.email is unique across the whole platform, and step 3 of
         # approve_onboarding_request INSERTs the first user unconditionally. So
         # an address that already belongs to somebody — the same person running
         # a second organisation, or simply a typo landing on a colleague — blew
@@ -398,12 +450,18 @@ async def _approve(
         # operator is still looking at the form. This stays for the two cases
         # that check cannot cover: a request drafted before the address was
         # taken, and two approvals racing.
-        if "app_user_email_key" in str(e.orig):
+        if isinstance(e, IntegrityError) and "app_user_email_key" in str(e.orig):
             raise OnboardingConflictError(
                 "That email already belongs to someone on the platform. "
                 "Ask this organisation for a different address for its first user."
             ) from None
-        raise
+        # The function's own refusal (already decided, raced) or the transition
+        # trigger's: the operator is told, as a 409. One branch for both,
+        # because the trigger's check_violation is itself an IntegrityError.
+        refusal = _refusal(e)
+        if refusal is None:
+            raise
+        raise OnboardingConflictError(refusal) from None
 
     r = (
         await session.execute(select(OnboardingRequest).where(OnboardingRequest.id == request_id))
@@ -439,7 +497,8 @@ async def _approve(
     )
     await audit.log(
         session, "onboarding.approved",
-        f"Approved {r.reference_code}: {r.proposed_name} onboarded as a {r.target_org_kind}",
+        f"Approved {r.reference_code}: {r.proposed_name} onboarded as a {r.target_org_kind}"
+        + (f" ({reason})" if reason else ""),
         [r.id, new_org_id, r.requester_org_id, claims.org_id],
     )
 

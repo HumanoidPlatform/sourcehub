@@ -298,6 +298,16 @@ the sanity checks.
      ```
 
      Everyone signs in again afterwards: the new invoice capabilities travel in the token.
+   - **Migration 0036 folds `onboarding_approval` onto the request.** No flag: the latest decision of every
+     request is copied onto `onboarding_request` (`decided_at`, `decided_by`, `decision_reason`) and the
+     migration refuses to drop the table unless every decided request got it; the downgrade turns it back
+     into one row per request. The dump below, with the audit log, is where the earlier decisions of a
+     request that was returned and then decided again survive. Still not zero-downtime — old images read the dropped table on the
+     onboarding pages and new ones read the new column — so it runs in the same stopped-API window as
+     0035, after a `pg_dump --data-only -t onboarding_approval` into the rollback folder. A data-only
+     restore of `onboarding_request` from a dump taken afterwards must first have the owner run
+     `ALTER TABLE onboarding_request DISABLE TRIGGER onboarding_request_transition` (and enable it again),
+     as for `invoice` and its insert trigger: the trigger refuses rows that arrive already decided.
    - Staging runs PostgreSQL 18 and dev runs 16, so a migration that does more than add things is worth
      a trial run on a `postgres:18` scratch container first.
    - Note the time before you start. Azure can restore the server to any point in its backup retention.

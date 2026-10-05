@@ -181,7 +181,7 @@ describe("a request sent back for changes", () => {
       hq: "Chennai", registered_address: { city: "Chennai", country: "India" },
     },
     contact: { full_name: "Ravi K", email: "ravi@harbour.example" },
-    approvals: [{ step: 1, decision: "changes_requested", reason: "Add the capabilities.", approver_role: "platform_admin", decided_at: "2026-09-28T10:00:00Z" }],
+    approvals: [{ decision: "changes_requested", reason: "Add the capabilities.", approver_role: "platform_admin", decided_at: "2026-09-28T10:00:00Z" }],
   };
 
   it("reopens with what was sent, says why, and resubmits it", async () => {

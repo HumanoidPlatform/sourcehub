@@ -1,4 +1,4 @@
-"""onboarding — onboarding requests, the approval chain and invitations.
+"""onboarding — onboarding requests, their decision and invitations.
 
 SQLAlchemy tables. Nothing outside this module may import them —
 import-linter's module-independence contract fails the build if it tries.
@@ -15,7 +15,7 @@ from sqlalchemy.dialects.postgresql import CITEXT, JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
 from sourcehub.db.base import Base
-from sourcehub.db.types import ApprovalDecision, GrantScope, OnboardingStatus, OrgKind
+from sourcehub.db.types import GrantScope, OnboardingStatus, OrgKind
 
 UTCNOW = text("now()")
 GEN_UUID = text("gen_random_uuid()")
@@ -35,8 +35,12 @@ class OnboardingRequest(Base):
     contact: Mapped[dict[str, Any]] = mapped_column(JSONB)
     status: Mapped[str] = mapped_column(OnboardingStatus, server_default=text("'draft'"))
     submitted_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
+    # The latest decision: when (an approval, a rejection, or a return for
+    # changes), by which Ops user, and why. Ops-only and written with the move
+    # by trigger (db/330); the three replaced the onboarding_approval table.
     decided_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
-    expires_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
+    decided_by: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("app_user.id"))
+    decision_reason: Mapped[str | None] = mapped_column(Text)
     created_org_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("organisation.id"))
     created_user_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("app_user.id"))
     created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
@@ -44,20 +48,6 @@ class OnboardingRequest(Base):
     created_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
     updated_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
     deleted_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
-
-
-class OnboardingApproval(Base):
-    __tablename__ = "onboarding_approval"
-
-    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, server_default=GEN_UUID)
-    request_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("onboarding_request.id"))
-    step: Mapped[int] = mapped_column(SmallInteger, server_default=text("1"))
-    approver_user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("app_user.id"))
-    approver_org_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("organisation.id"))
-    approver_role: Mapped[str] = mapped_column(Text)
-    decision: Mapped[str] = mapped_column(ApprovalDecision)
-    reason: Mapped[str | None] = mapped_column(Text)
-    decided_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
 
 
 class Invitation(Base):

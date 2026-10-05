@@ -154,7 +154,7 @@ This is a safety property. **Vite inlines every `VITE_`-prefixed variable into t
 | `001_conventions.sql` | Per-entity enums, session-context helpers, reference-code sequences |
 | `010_identity.sql` | `organisation`, five profiles, `app_user`, sessions, tokens, MFA |
 | `020_rbac.sql` | `permission`, `role`, `role_permission`, `user_role_grant` |
-| `030_onboarding.sql` | Requests, the approval chain, invitations, the approval transaction |
+| `030_onboarding.sql` | Requests, invitations, the approval transaction — its decision table was folded onto the request by `330_onboarding_decisions.sql` |
 | `040_marketplace.sql` | `request`, `proposal` |
 | `050_delivery.sql` | `contract`, `task`, `submission`, `asset` (partitioned) |
 | `060_qa.sql` | Rubrics, sampling plans, gold sets, `qa_review`, defect taxonomy |
@@ -209,13 +209,17 @@ Platform Admin onboards clients and tenants directly. A tenant *requests* an agg
 ```
 tenant files onboarding_request (submitted)
   → Ops queue
-  → changes_requested → tenant resubmits (new approval row, same request)
+  → changes_requested (reason required; decided_at, decided_by, decision_reason on the request)
+      → tenant edits and resubmits the same request; the return stays on the row until the next decision
   → rejected (reason required) → terminal
   → approved → ONE transaction creates organisation + profile
                + first app_user (invited, no password) + owner grant
-               + invitation + approval record
+               + invitation, and records the approval on the request
 ```
 
+The latest decision lives on `onboarding_request` (`db/330`: `status`, `decided_at`, `decided_by`,
+`decision_reason`); earlier ones are in the audit log. The `onboarding_request_transition` trigger refuses a
+decision by anyone but Ops, on anything but a submitted request, and keeps an approved or rejected request final.
 `approve_onboarding_request()` runs with the **caller's** rights, so RLS applies inside it. A tenant calling it fails on `organisation_insert`.
 
 ---

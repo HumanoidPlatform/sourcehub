@@ -67,7 +67,7 @@ async def list_requests(
     principal: Principal = Depends(require_capability("onboarding.read")),
     session: AsyncSession = Depends(get_session),
 ):
-    return await onboarding.list_requests(session, status_filter)
+    return await onboarding.list_requests(session, principal, status_filter)
 
 
 @router.get("/{request_id}")
@@ -76,7 +76,7 @@ async def get_request(
     principal: Principal = Depends(require_capability("onboarding.read")),
     session: AsyncSession = Depends(get_session),
 ):
-    row = await onboarding.get_request(session, request_id)
+    row = await onboarding.get_request(session, principal, request_id)
     if row is None:
         # RLS may be hiding it; existence is not disclosed either way
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Onboarding request not found")
@@ -153,9 +153,10 @@ async def decide(
     principal: Principal = Depends(require_capability("onboarding.approve")),
     session: AsyncSession = Depends(get_session),
 ):
-    """Ops only. The capability gate here is the FIRST fence; the RLS insert
-    policy on onboarding_approval and the rights the approval function runs
-    under are the second and third."""
+    """Ops only. The capability gate here is the FIRST fence; the transition
+    trigger on onboarding_request (a decision by anyone but Ops is refused in
+    the database) and the rights the approval function runs under are the
+    second and third."""
     try:
         return await onboarding.decide(session, principal, request_id, body.decision, body.reason)
     except LookupError:

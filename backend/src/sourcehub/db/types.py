@@ -27,7 +27,6 @@ OnboardingStatus = db_enum(
     "draft", "submitted", "under_review", "changes_requested",
     "approved", "rejected", "withdrawn", "expired",
 )
-ApprovalDecision = db_enum("approval_decision", "approved", "rejected", "changes_requested")
 
 StorageProvider = db_enum("storage_provider", "s3", "gcs", "azure_blob")
 AttachmentEntity = db_enum("attachment_entity", "request", "proposal", "task", "qa_review")

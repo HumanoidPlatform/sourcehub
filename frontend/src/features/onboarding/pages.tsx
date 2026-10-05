@@ -1,5 +1,5 @@
 // onboarding — the Ops approval queue. The flow the prototype never had:
-// a tenant asks, the platform decides, and the decision trail survives.
+// a tenant asks, the platform decides, and the decision stays on the request.
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState, type ReactNode } from "react";
@@ -243,13 +243,14 @@ function DecideDialog({ row, onClose }: { row: OnboardingRow; onClose: () => voi
 
       {(d.approvals ?? []).length > 0 && (
         <div style={{ marginTop: 12 }}>
-          <b className="small">Decision trail</b>
+          {/* a returned request that was resubmitted or withdrawn still carries the return */}
+          <b className="small">{(d.approvals ?? []).some((a) => a.decision === d.status) ? "Decision" : "Previous decision"}</b>
           {(d.approvals ?? []).map((a, i) => (
             // NOT .event — that is the activity timeline's 22px dot column plus
             // content, and three children in it put the verdict and the date
             // into the 22px track, one word per line.
             <div key={i} style={{ padding: "8px 0", borderTop: i ? "1px solid var(--line)" : undefined }}>
-              <div className="small"><b>{titleCase(a.decision)}</b> · step {a.step}</div>
+              <div className="small"><b>{titleCase(a.decision)}</b></div>
               {a.reason && <div className="small muted" style={{ marginTop: 2 }}>{a.reason}</div>}
               <div className="cell-meta">{fmtDateTime(a.decided_at)}</div>
             </div>
@@ -259,7 +260,7 @@ function DecideDialog({ row, onClose }: { row: OnboardingRow; onClose: () => voi
 
       {decidable && (
         <div className="formgrid" style={{ marginTop: 12 }}>
-          <Field label="Reason" span hint="Required for reject and request-changes; recorded on the trail either way.">
+          <Field label="Reason" span hint="Required for reject and request-changes; recorded with every decision, approval included.">
             {(id) => <textarea id={id} className={textareaCls} rows={2} value={reason} onChange={(e) => setReason(e.target.value)} />}
           </Field>
         </div>
