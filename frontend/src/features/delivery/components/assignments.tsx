@@ -153,7 +153,9 @@ export interface DecideTarget {
 /** Where an assignment stands, read off its batches: it stays in_progress on
  *  the server through every round. */
 export function assignmentState(a: Assignment): string {
-  if (a.revoked_at) return a.status === "accepted" ? "accepted" : "reassigned";
+  // Shown as reassigned even once its handed-over captures are all accepted:
+  // the server accepts it so the task can go on, but it was not finished.
+  if (a.revoked_at) return "reassigned";
   if (!a.progress || a.status === "assigned" || a.status === "accepted" || a.status === "cancelled") return a.status;
   if (a.progress.rework > 0) return "rejected";
   if (a.progress.in_review > 0 && a.progress.draft === 0 && a.progress.in_review + a.progress.accepted >= a.quantity) {

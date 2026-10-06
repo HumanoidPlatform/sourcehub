@@ -4,12 +4,12 @@
 import { CameraView, useCameraPermissions, useMicrophonePermissions } from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Alert, Linking, Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { clockTone, formatClock } from "@/capture/clock";
 import { exampleImages, loadExamples } from "@/capture/examples";
-import { ensureLocationPermission } from "@/capture/location";
+import { ensureLocationPermission, type Fix, watchFix } from "@/capture/location";
 import { type Held, medianOff, type Tilt, tiltAdvice, watchTilt } from "@/capture/tilt";
 import { type CaptureOutcome, CaptureRejected, useCapture } from "@/capture/useCapture";
 import { MAX_VIDEO_SECONDS } from "@/config";
@@ -130,7 +130,13 @@ export default function Capture() {
     };
   }, [exampleIds]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const save = useCapture(id ?? "", a?.task.reference_code ?? "capture", spec, a?.task.target_unit, examples, replaces ?? null);
+  // A position kept coming in while the camera is open, so the shutter never
+  // has to wait on a new GPS lock (capture/location.ts watchFix).
+  const warmFix = useRef<Fix | null>(null);
+  const readWarmFix = useCallback(() => warmFix.current, []);
+  const save = useCapture(
+    id ?? "", a?.task.reference_code ?? "capture", spec, a?.task.target_unit, examples, replaces ?? null, readWarmFix,
+  );
 
   // The server sends a list; a task made before capture-spec inheritance sends
   // a string. Reading it raw is what used to open a video-only task in photo
@@ -158,6 +164,24 @@ export default function Capture() {
   useEffect(() => {
     if (kindKey === "video") setMode("video");
   }, [kindKey]);
+
+  // Permission first: a watch started before it is granted fails silently and
+  // would never be retried.
+  useEffect(() => {
+    let stop: (() => void) | null = null;
+    let alive = true;
+    void ensureLocationPermission()
+      .then((ok) => (ok && alive ? watchFix((f) => (warmFix.current = f)) : null))
+      .then((s) => {
+        if (!s) return;
+        if (alive) stop = s;
+        else s();
+      });
+    return () => {
+      alive = false;
+      stop?.();
+    };
+  }, []);
 
   // The recording clock. Four ticks a second so the seconds turn over on time;
   // only the whole second is shown, so most ticks change nothing on screen.

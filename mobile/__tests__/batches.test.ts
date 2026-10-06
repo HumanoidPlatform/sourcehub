@@ -1,5 +1,7 @@
 import type { Assignment, AssetRow, Batch } from "../src/api/types";
-import { boardStatus, canCapture, cannotSend, remaining, sections, summary } from "../src/batches";
+import {
+  boardStatus, canCapture, cannotSend, handedOver, nextAction, ownNote, remaining, requirementLabels, sections, summary,
+} from "../src/batches";
 
 const base = (over: Partial<Assignment> = {}): Assignment =>
   ({
@@ -65,7 +67,7 @@ describe("the board", () => {
     expect(boardStatus(base({ progress: { draft: 0, in_review: 4, accepted: 2, rework: 0 } }))).toBe("in_progress");
     expect(boardStatus(base({ status: "assigned" }))).toBe("assigned");
     expect(boardStatus(base({ revoked_at: "x" }))).toBe("reassigned");
-    expect(boardStatus(base({ revoked_at: "x", status: "accepted" }))).toBe("accepted");
+    expect(boardStatus(base({ revoked_at: "x", status: "accepted" }))).toBe("reassigned");
   });
 
   it("summarises only what is not zero", () => {
@@ -104,5 +106,49 @@ describe("the captures, by where they stand", () => {
     expect(s.inReview[0].batch?.id).toBe("b3");
     expect(s.accepted).toHaveLength(1);
     expect(s.accepted[0].assets.map((x) => x.id)).toEqual(["x1"]);
+  });
+});
+
+describe("the one thing to do next", () => {
+  const p = (draft: number, in_review: number, accepted: number, rework: number) => ({ draft, in_review, accepted, rework });
+
+  it("retake first, then send, then capture", () => {
+    expect(nextAction(base({ progress: p(2, 2, 2, 1) }), 0, 0)).toMatchObject({ primary: "retake", secondary: "send" });
+    expect(nextAction(base({ progress: p(2, 2, 2, 0) }), 0, 0)).toMatchObject({ primary: "send", secondary: "capture" });
+    expect(nextAction(base({ progress: p(0, 2, 2, 0) }), 0, 0)).toMatchObject({ primary: "capture", secondary: null });
+  });
+
+  it("start before anything else, and nothing once reassigned or accepted", () => {
+    expect(nextAction(base({ status: "assigned" }), 0, 0).primary).toBe("start");
+    expect(nextAction(base({ revoked_at: "x" }), 0, 0).primary).toBeNull();
+    expect(nextAction(base({ status: "accepted" }), 0, 0).primary).toBeNull();
+  });
+
+  it("everything sent and nothing back: waiting, no button", () => {
+    expect(nextAction(base({ progress: p(0, 6, 4, 0) }), 0, 0)).toEqual({ primary: null, secondary: null, waiting: "Waiting for review" });
+    expect(nextAction(base({ progress: p(0, 6, 4, 0) }), 0, 0).waiting).toBe("Waiting for review");
+  });
+});
+
+describe("words for the worker", () => {
+  it("reads the capture rules as a person would", () => {
+    expect(requirementLabels({ media: ["photo"], require_gps: true, min_megapixels: 12 })).toEqual([
+      "Photos only", "Location on", "12 MP minimum",
+    ]);
+    expect(requirementLabels({ media: ["video"], min_duration_s: 10, max_duration_s: 50, max_tilt_deg: 10 })).toEqual([
+      "Videos only", "10–50 s per clip", "Within 10° of level",
+    ]);
+  });
+
+  it("drops the note the console wrote from the marks, keeps the reviewer's own", () => {
+    expect(ownNote("1 to retake: 1 something else.")).toBeNull();
+    expect(ownNote("Shelf 3 is cut off on the left.")).toBe("Shelf 3 is cut off on the left.");
+    expect(ownNote(null)).toBeNull();
+  });
+
+  it("tells a reassigned worker what they handed over", () => {
+    const a = base({ revoked_at: "x", progress: { draft: 0, in_review: 2, accepted: 3, rework: 0 } });
+    expect(handedOver(a)).toBe("Your 5 photos were handed over for review: 3 accepted, 2 in review.");
+    expect(summary(a)).toBe("Handed over · 5 photos");
   });
 });

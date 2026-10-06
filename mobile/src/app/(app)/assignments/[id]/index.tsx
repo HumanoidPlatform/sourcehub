@@ -8,18 +8,22 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useRef, useState } from "react";
-import { Alert, Pressable, Text, TextInput, View } from "react-native";
+import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
 import { ApiError, del, post } from "@/api/client";
 import type { Assignment, AssetRow } from "@/api/types";
-import { boardStatus, cannotSend, canCapture as canCaptureMore, isRevoked, progressOf, remaining, sections, summary } from "@/batches";
+import {
+  type Action, boardStatus, handedOver, isRevoked, nextAction, ownNote, progressOf, remaining, requirementLabels, sections,
+} from "@/batches";
 import { deleteCapture, discardCapture, discardFailed, retryCapture, retryFailed, type CaptureRow } from "@/db/outbox";
 import { exampleImages, refreshExamples } from "@/capture/examples";
 import { deleteLocal } from "@/capture/files";
 import { useAssignmentAssets, useAssignments, useOutbox, useRejections } from "@/query/hooks";
 import { assignmentStatus, meta, rejectionLabel } from "@/status";
-import { Button, C, Callout, Field, Meter, Pill, Screen, inputStyle, s } from "@/ui";
+import { Button, C, Callout, Pill, Screen, s } from "@/ui";
 import { uploader } from "@/upload/uploader";
+import { AssignmentStatus } from "@/components/AssignmentStatus";
 import { DocumentList } from "@/components/DocumentList";
+import { ReworkList } from "@/components/ReworkList";
 import { Gallery } from "@/components/Gallery";
 import { referenceSections } from "@/documents";
 
@@ -91,12 +95,6 @@ export default function AssignmentDetail() {
   const m = meta(assignmentStatus, boardStatus(a));
   const unit = a.task.target_unit ?? "units";
   const spec = a.task.capture_spec ?? {};
-  // The API sends every declared key, set or not, so an unanswered one arrives
-  // as null and used to print "orientation: null" at the worker — and an all
-  // unanswered spec drew an empty card. A requirement nobody stated is not one.
-  const stated = Object.entries(spec).filter(
-    ([k, v]) => k !== "subject" && v != null && v !== "" && !(Array.isArray(v) && v.length === 0),
-  );
   // The subject gets its own card, above the technical requirements: it is
   // the one line a worker should read before the first shot, and the phone
   // will hold them to it after each one.
@@ -131,15 +129,17 @@ export default function AssignmentDetail() {
   const failedLocal = failedRows.length;
   const revoked = isRevoked(a);
   const progress = progressOf(a);
-  const where = boardStatus(a);
   const parts = sections((assets.data ?? []) as AssetRow[], a.batches ?? []);
   // Still on the phone and on its way up: these take a slot like any capture.
-  const onPhone = pendingLocal + failedLocal;
-  const left = remaining(a, onPhone);
-  const canCapture = canCaptureMore(a, onPhone);
+  const left = remaining(a, pendingLocal + failedLocal);
   const changeable = !revoked && (a.status === "in_progress" || a.status === "rejected");
-  const whyNotSend = cannotSend(a, pendingLocal, failedLocal);
-  const lastDecided = (a.batches ?? []).find((b) => b.status === "reviewed" && b.rework_count > 0);
+  const next = nextAction(a, pendingLocal, failedLocal);
+  // the newest note a reviewer wrote in their own words, not the one the
+  // console builds from the marks — those reasons are on each row already
+  const reviewerNote = ownNote((a.batches ?? []).find((b) => b.status === "reviewed" && b.rework_count > 0)?.decision_note);
+  const unsentLocal = outbox.filter((r) => r.status !== "confirmed");
+  const started = a.status !== "assigned";
+  const requirements = requirementLabels(spec);
 
   const goCapture = async (replaces?: string) => {
     setError(null);
@@ -162,6 +162,12 @@ export default function AssignmentDetail() {
     );
   };
 
+  const onAction = (act: Action) => {
+    if (act === "send") confirmSubmit();
+    else if (act === "retake") void goCapture(parts.rework[0]?.id);
+    else void goCapture();
+  };
+
   const retry = async () => {
     await retryFailed(id);
     uploader.kick();
@@ -177,6 +183,44 @@ export default function AssignmentDetail() {
     ]);
   };
 
+  const message = revoked
+    ? {
+        title: "Reassigned to another crowd member",
+        body: `${handedOver(a)}${
+          dropped ? ` ${dropped} capture${dropped === 1 ? "" : "s"} still on this phone could not be sent and were removed.` : ""
+        }`,
+      }
+    : a.status === "accepted"
+      ? { title: "All accepted", body: "Nothing more to do here." }
+      : null;
+
+  const brief = (
+    <>
+      {(a.instructions || a.task.instructions) && (
+        <>
+          {a.task.instructions ? <Text style={s.body}>{a.task.instructions}</Text> : null}
+          {a.instructions ? <Text style={[s.body, { marginTop: a.task.instructions ? 8 : 0 }]}>{a.instructions}</Text> : null}
+        </>
+      )}
+      {subject && (
+        <View style={{ marginTop: 10 }}>
+          <Text style={[s.body, { fontWeight: "600" }]}>What to capture: {subject.domain}</Text>
+          {subject.must_show.length > 0 && <Text style={s.muted}>Must show: {subject.must_show.join(", ")}</Text>}
+          {subject.must_not_show.length > 0 && <Text style={s.muted}>Must not show: {subject.must_not_show.join(", ")}</Text>}
+        </View>
+      )}
+      {requirements.length > 0 && (
+        <View style={st.chips}>
+          {requirements.map((r) => (
+            <View key={r} style={st.chip}>
+              <Text style={st.chipText}>{r}</Text>
+            </View>
+          ))}
+        </View>
+      )}
+    </>
+  );
+
   return (
     <Screen>
       <View style={[s.row, { justifyContent: "space-between", marginBottom: 4 }]}>
@@ -185,60 +229,31 @@ export default function AssignmentDetail() {
       </View>
       <Text style={[s.mono, { marginBottom: 14 }]}>{a.task.reference_code}{a.due_on ? ` · due ${a.due_on}` : ""}</Text>
 
-      {revoked ? (
-        <Callout tone="neutral" title="This task was given to someone else">
-          {`What you uploaded was sent to your aggregator for review. Nothing more is needed from you on it.${
-            dropped ? ` ${dropped} capture${dropped === 1 ? "" : "s"} still on this phone could not be sent and were removed.` : ""
-          }`}
-        </Callout>
-      ) : null}
-      {!revoked && parts.rework.length > 0 ? (
-        <Callout tone="critical" title={`${parts.rework.length} to shoot again`}>
-          {/* Which frames, not just how many. The aggregator marked these one
-              by one; everything else they looked at is accepted and stays so.
-              Each one carries its own reason on its tile below. */}
-          {lastDecided?.decision_note ? `${lastDecided.decision_note}\n` : ""}
-          Retake or remove each one below. The rest are accepted.
-        </Callout>
-      ) : null}
-      {!revoked && where === "submitted" ? (
-        <Callout tone="attention" title="Awaiting review">Everything is sent. Your aggregator is looking at it.</Callout>
-      ) : null}
-      {a.status === "accepted" ? <Callout tone="success" title="Accepted">Nothing more to do here.</Callout> : null}
+      {error && <Callout tone="critical" title={error} />}
 
-      <View style={s.card}>
-        <Text style={[s.label, { marginBottom: 6 }]}>Progress</Text>
-        <Meter value={progress.accepted} max={a.quantity} />
-        <Text style={[s.body, { marginTop: 8 }]}>{summary(a)}</Text>
-        {!revoked && a.status !== "accepted" ? (
-          <Text style={s.muted}>{left > 0 ? `${left} more to capture` : "Nothing more to capture"}</Text>
-        ) : null}
-        {pendingLocal > 0 ? <Text style={s.muted}>{pendingLocal} waiting to upload</Text> : null}
-        {failedLocal > 0 ? <Text style={[s.muted, { color: C.danger }]}>{failedLocal} failed — retry or discard below</Text> : null}
-        {/* Refused captures never left the phone, so this is the only place
-            they are counted. Without it the progress bar simply refuses to
-            move and the worker has nothing to go on. */}
-        {refusedTotal > 0 ? (
-          <>
-            <Text style={[s.muted, { marginTop: 6 }]}>
-              {refusedTotal} refused on this phone — not sent for review
-            </Text>
-            {refused.map((r) => (
-              <View key={r.code}>
-                <Text style={[s.muted, { marginLeft: 10 }]}>
-                  {r.n} × {rejectionLabel[r.code] ?? r.code.replace(/_/g, " ")}
-                </Text>
-                {/* What the phone actually said, which is where the number is.
-                    "beyond the tilt allowed" does not tell a worker whether
-                    they were a degree out or thirty. */}
-                {r.message ? (
-                  <Text style={[s.muted, { marginLeft: 20, fontSize: 12 }]}>{r.message}</Text>
-                ) : null}
-              </View>
-            ))}
-          </>
-        ) : null}
-      </View>
+      <AssignmentStatus
+        counts={{ ...progress, quantity: a.quantity }}
+        unit={unit}
+        left={left}
+        next={next}
+        message={message}
+        pendingLocal={pendingLocal}
+        failedLocal={failedLocal}
+        busy={start.isPending || submit.isPending}
+        note={note}
+        onNote={setNote}
+        onAction={onAction}
+      />
+
+      {/* Before the first shot the brief is what matters; after it, the work is. */}
+      {!started && <Section title="Task brief">{brief}</Section>}
+
+      <ReworkList
+        assets={parts.rework}
+        note={reviewerNote}
+        onRetake={changeable ? (assetId) => void goCapture(assetId) : undefined}
+        onRemove={changeable ? (assetId) => removeCapture({ assetId }) : undefined}
+      />
 
       {failedRows.length > 0 && (
         <View style={s.card}>
@@ -258,143 +273,100 @@ export default function AssignmentDetail() {
               </View>
             </View>
           ))}
-        </View>
-      )}
-
-      {(a.instructions || a.task.instructions) && (
-        <View style={s.card}>
-          <Text style={[s.label, { marginBottom: 6 }]}>Instructions</Text>
-          {a.task.instructions ? <Text style={s.body}>{a.task.instructions}</Text> : null}
-          {a.instructions ? <Text style={[s.body, { marginTop: a.task.instructions ? 8 : 0 }]}>{a.instructions}</Text> : null}
-        </View>
-      )}
-
-      <DocumentList sections={referenceSections(a.task)} />
-
-      {subject && (
-        <View style={s.card}>
-          <Text style={[s.label, { marginBottom: 6 }]}>What to capture</Text>
-          <Text style={[s.body, { fontWeight: "600" }]}>{subject.domain}</Text>
-          {subject.must_show.length > 0 && (
-            <Text style={s.body}>
-              <Text style={{ color: C.muted }}>Must show: </Text>
-              {subject.must_show.join(", ")}
-            </Text>
-          )}
-          {subject.must_not_show.length > 0 && (
-            <Text style={s.body}>
-              <Text style={{ color: C.muted }}>Must not show: </Text>
-              {subject.must_not_show.join(", ")}
-            </Text>
+          {failedRows.length > 1 && (
+            <View style={s.row}>
+              <Button title="Retry all" onPress={() => void retry()} style={{ flex: 1 }} />
+              <Button title="Discard all" variant="danger" onPress={discard} style={{ flex: 1 }} />
+            </View>
           )}
         </View>
       )}
 
-      {stated.length > 0 && (
-        <View style={s.card}>
-          <Text style={[s.label, { marginBottom: 6 }]}>Capture requirements</Text>
-          {stated.map(([k, v]) => (
-            <Text key={k} style={s.body}>
-              <Text style={{ color: C.muted }}>{k.replace(/_/g, " ")}: </Text>
-              {String(v)}
-            </Text>
+      {/* Only what this button would send, plus anything still on its way up. */}
+      {(parts.draft.length > 0 || unsentLocal.length > 0) && (
+        <View style={{ marginBottom: 16 }}>
+          <Text style={[s.label, { marginBottom: 8 }]}>Not sent yet ({progress.draft + pendingLocal})</Text>
+          <Gallery local={unsentLocal} remote={parts.draft} onRemove={changeable ? removeCapture : undefined} empty={null} bare />
+        </View>
+      )}
+
+      {parts.inReview.length > 0 && (
+        <View style={{ marginBottom: 16 }}>
+          <Text style={[s.label, { marginBottom: 8 }]}>Sent for review</Text>
+          {parts.inReview.map((grp) => (
+            <View key={`r${grp.batch_no}`} style={{ marginBottom: 10 }}>
+              <Text style={[s.muted, { marginBottom: 6 }]}>
+                Batch {grp.batch_no} · {grp.assets.length} {unit}
+                {grp.batch?.submitted_at ? ` · sent ${when(grp.batch.submitted_at)}` : ""}
+              </Text>
+              <Gallery local={[]} remote={grp.assets} empty={null} bare />
+            </View>
           ))}
         </View>
       )}
 
-      {error && <Callout tone="critical" title={error} />}
-
-      {canCapture && (
-        <Button
-          title={a.status === "assigned" ? "Start and capture" : "Capture"}
-          variant="primary"
-          onPress={() => void goCapture()}
-          loading={start.isPending}
-          style={{ marginBottom: 10 }}
-        />
-      )}
-      {failedLocal > 0 && (
-        <View style={[s.row, { marginBottom: 10 }]}>
-          <Button title="Retry failed" onPress={() => void retry()} style={{ flex: 1 }} />
-          <Button title="Discard failed" variant="danger" onPress={discard} style={{ flex: 1 }} />
-        </View>
-      )}
-      {parts.rework.length > 0 && (
-        <>
-          <Text style={[s.label, { marginBottom: 8, marginTop: 6 }]}>To shoot again ({parts.rework.length})</Text>
-          <Gallery
-            local={[]}
-            remote={parts.rework}
-            onRemove={changeable ? removeCapture : undefined}
-            onRetake={changeable ? (assetId) => void goCapture(assetId) : undefined}
-          />
-          <View style={{ height: 14 }} />
-        </>
-      )}
-
-      {/* What is on the server and not sent yet, plus anything still on its
-          way up from this phone. Only these are sent by the button below. */}
-      <Text style={[s.label, { marginBottom: 8, marginTop: 6 }]}>Not sent yet ({progress.draft})</Text>
-      <Gallery
-        local={outbox.filter((r) => r.status !== "confirmed")}
-        remote={parts.draft}
-        onRemove={changeable ? removeCapture : undefined}
-        empty={revoked ? null : "Nothing waiting to be sent."}
-      />
-      {changeable && (
-        <View style={{ marginTop: 10, marginBottom: 14 }}>
-          <Field label="Note for the reviewer (optional)">
-            <TextInput style={[inputStyle, { minHeight: 70 }]} multiline value={note} onChangeText={setNote} placeholder="Aisles 1 and 2 done; shelf 3 was restocking." />
-          </Field>
-          <Button
-            title={progress.draft > 0 ? `Send ${progress.draft} for review` : "Send for review"}
-            variant="primary"
-            onPress={confirmSubmit}
-            disabled={whyNotSend != null}
-            loading={submit.isPending}
-          />
-          {whyNotSend ? <Text style={[s.muted, { marginTop: 6 }]}>{whyNotSend}</Text> : null}
-        </View>
-      )}
-
-      {parts.inReview.map((grp) => (
-        <View key={`r${grp.batch_no}`} style={{ marginBottom: 14 }}>
-          <Text style={[s.label, { marginBottom: 8, marginTop: 6 }]}>
-            In review · batch {grp.batch_no} ({grp.assets.length})
-          </Text>
-          <Gallery local={[]} remote={grp.assets} empty={null} />
-        </View>
-      ))}
-
       {parts.accepted.length > 0 && (
-        <AcceptedBatches groups={parts.accepted} />
+        <Section title={`Accepted (${parts.accepted.reduce((n, g) => n + g.assets.length, 0)})`} folded>
+          {parts.accepted.map((grp) => (
+            <View key={`a${grp.batch_no}`} style={{ marginBottom: 10 }}>
+              <Text style={[s.muted, { marginBottom: 6 }]}>
+                Batch {grp.batch_no} · {grp.assets.length} accepted
+                {grp.batch?.decided_at ? ` · ${when(grp.batch.decided_at)}` : ""}
+              </Text>
+              <Gallery local={[]} remote={grp.assets} empty={null} bare />
+            </View>
+          ))}
+        </Section>
+      )}
+
+      {started && <Section title="Task brief" folded>{brief}</Section>}
+      <DocumentList sections={referenceSections(a.task)} />
+
+      {/* Refused captures never left the phone, so this is the only place
+          they are counted. */}
+      {refusedTotal > 0 && (
+        <Section title={`Refused on this phone (${refusedTotal})`} folded>
+          {refused.map((r) => (
+            <View key={r.code} style={{ marginBottom: 4 }}>
+              <Text style={s.muted}>
+                {r.n} × {rejectionLabel[r.code] ?? r.code.replace(/_/g, " ")}
+              </Text>
+              {/* What the phone actually said, which is where the number is. */}
+              {r.message ? <Text style={[s.muted, { marginLeft: 10, fontSize: 12 }]}>{r.message}</Text> : null}
+            </View>
+          ))}
+        </Section>
       )}
     </Screen>
   );
 }
 
-/** What the aggregator accepted, batch by batch. Settled: nothing here can be
- *  removed or retaken, so it is folded away until the worker asks to see it. */
-function AcceptedBatches({ groups }: { groups: ReturnType<typeof sections>["accepted"] }) {
-  const [open, setOpen] = useState(false);
-  const total = groups.reduce((n, g) => n + g.assets.length, 0);
+/** "3:30 PM" today, "3 Oct" before. */
+function when(iso: string): string {
+  const d = new Date(iso);
+  const today = new Date().toDateString() === d.toDateString();
+  return today
+    ? d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })
+    : d.toLocaleDateString([], { day: "numeric", month: "short" });
+}
+
+/** A titled block that can fold away. */
+function Section({ title, folded = false, children }: { title: string; folded?: boolean; children: React.ReactNode }) {
+  const [open, setOpen] = useState(!folded);
   return (
-    <View style={{ marginBottom: 14 }}>
-      <Pressable onPress={() => setOpen(!open)} accessibilityRole="button" style={{ paddingVertical: 6 }}>
-        <Text style={[s.label, { marginTop: 6 }]}>
-          {open ? "▾" : "▸"} Accepted ({total})
-        </Text>
+    <View style={{ marginBottom: 16 }}>
+      <Pressable onPress={() => setOpen(!open)} accessibilityRole="button" style={st.sectionHead}>
+        <Text style={s.label}>{title}</Text>
+        <Text style={s.muted}>{open ? "Hide" : "Show"}</Text>
       </Pressable>
-      {open &&
-        groups.map((grp) => (
-          <View key={`a${grp.batch_no}`} style={{ marginBottom: 10 }}>
-            <Text style={[s.muted, { marginBottom: 6 }]}>
-              Batch {grp.batch_no} · {grp.assets.length} accepted
-              {grp.batch?.decided_at ? ` · ${grp.batch.decided_at.slice(0, 10)}` : ""}
-            </Text>
-            <Gallery local={[]} remote={grp.assets} empty={null} />
-          </View>
-        ))}
+      {open && <View style={[s.card, { marginTop: 8 }]}>{children}</View>}
     </View>
   );
 }
+
+const st = StyleSheet.create({
+  chips: { flexDirection: "row", flexWrap: "wrap", gap: 6, marginTop: 10 },
+  chip: { backgroundColor: "#EDF1F4", borderRadius: 12, paddingHorizontal: 10, paddingVertical: 4 },
+  chipText: { fontSize: 13, color: C.ink },
+  sectionHead: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingVertical: 4 },
+});

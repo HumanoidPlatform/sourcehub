@@ -24,9 +24,9 @@ describe("an assignment's state, from its batches", () => {
     expect(assignmentState(a({ progress: { draft: 1, in_review: 4, accepted: 5, rework: 0 } }))).toBe("in_progress");
   });
 
-  it("names a reassigned assignment until it is accepted", () => {
+  it("names a reassigned assignment reassigned, even once accepted", () => {
     expect(assignmentState(a({ revoked_at: "2026-10-06T00:00:00Z" }))).toBe("reassigned");
-    expect(assignmentState(a({ revoked_at: "2026-10-06T00:00:00Z", status: "accepted" }))).toBe("accepted");
+    expect(assignmentState(a({ revoked_at: "2026-10-06T00:00:00Z", status: "accepted" }))).toBe("reassigned");
   });
 
   it("reviews the oldest batch still waiting", () => {

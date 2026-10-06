@@ -20,6 +20,7 @@ export function Gallery({
   onRemove,
   onRetake,
   empty = "No captures yet.",
+  bare = false,
 }: {
   local: CaptureRow[];
   remote: AssetRow[];
@@ -29,6 +30,8 @@ export function Gallery({
   /** Shoot a replacement for a capture sent back for rework. */
   onRetake?: (assetId: string) => void;
   empty?: string | null;
+  /** no status tag on the server's tiles: for a section whose heading says it */
+  bare?: boolean;
 }) {
   const localAssetIds = new Set(local.map((r) => r.asset_id).filter(Boolean));
   const localSha = new Set(local.map((r) => r.sha256).filter(Boolean));
@@ -39,7 +42,7 @@ export function Gallery({
   return (
     <View style={g.grid}>
       {local.map((r) => <LocalTile key={r.id} row={r} onRemove={onRemove} />)}
-      {remoteOnly.map((a) => <RemoteTile key={a.id} asset={a} onRemove={onRemove} onRetake={onRetake} />)}
+      {remoteOnly.map((a) => <RemoteTile key={a.id} asset={a} onRemove={onRemove} onRetake={onRetake} bare={bare} />)}
     </View>
   );
 }
@@ -190,8 +193,10 @@ function RemoteTile({
   asset,
   onRemove,
   onRetake,
+  bare = false,
 }: {
   asset: AssetRow;
+  bare?: boolean;
   onRemove?: (o: { captureId?: string; assetId?: string }) => void;
   onRetake?: (assetId: string) => void;
 }) {
@@ -215,8 +220,8 @@ function RemoteTile({
       label={asset.filename ?? "capture"}
       placeholder={isVideo ? "▶" : viewable ? "…" : "◌"}
     >
-      <Tag tone={m.tone} text={m.label} />
-      {why ? <Text numberOfLines={2} style={g.err}>{why}</Text> : null}
+      {bare ? null : <Tag tone={m.tone} text={m.label} />}
+      {why && !bare ? <Text numberOfLines={2} style={g.err}>{why}</Text> : null}
       {onRemove && <RemoveButton onPress={() => onRemove({ assetId: asset.id })} />}
       {onRetake && asset.status === "rejected" ? (
         <Pressable

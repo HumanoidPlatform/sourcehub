@@ -8,7 +8,7 @@
 // counts here rather than off its status. Pure, so it is tested without a
 // phone.
 
-import type { Assignment, AssetRow, AssetStage, Batch } from "@/api/types";
+import type { Assignment, AssetRow, AssetStage, Batch, CaptureSpec } from "@/api/types";
 
 const NONE = { draft: 0, in_review: 0, accepted: 0, rework: 0 };
 
@@ -51,7 +51,10 @@ export function cannotSend(a: Assignment, pendingLocal: number, failedLocal: num
 export type BoardStatus = "rejected" | "in_progress" | "assigned" | "submitted" | "accepted" | "reassigned";
 
 export function boardStatus(a: Assignment): BoardStatus {
-  if (isRevoked(a)) return a.status === "accepted" ? "accepted" : "reassigned";
+  // Reassigned is what the worker needs to know, accepted or not: the server
+  // accepts a handed-over share once it is reviewed, but to the person who
+  // was taken off the task that reads as a job finished, which it was not.
+  if (isRevoked(a)) return "reassigned";
   if (a.status === "assigned" || a.status === "accepted") return a.status;
   const p = progressOf(a);
   if (p.rework > 0) return "rejected";
@@ -64,6 +67,7 @@ export function boardStatus(a: Assignment): BoardStatus {
 export function summary(a: Assignment): string {
   const p = progressOf(a);
   const unit = a.task.target_unit ?? "units";
+  if (isRevoked(a)) return `Handed over · ${p.in_review + p.accepted} ${unit}`;
   const parts = [`${p.accepted} of ${a.quantity} ${unit} accepted`];
   if (p.in_review) parts.push(`${p.in_review} in review`);
   if (p.draft) parts.push(`${p.draft} not sent`);
@@ -114,4 +118,75 @@ export function sections(assets: AssetRow[], batches: Batch[] = []): Sections {
   out.inReview.sort(newest);
   out.accepted.sort(newest);
   return out;
+}
+
+/** What a reassigned worker is told about the captures they handed over. */
+export function handedOver(a: Assignment): string {
+  const p = progressOf(a);
+  const unit = a.task.target_unit ?? "units";
+  const n = p.in_review + p.accepted;
+  if (n === 0) return "Nothing you captured was sent. Nothing more is needed from you on it.";
+  const parts = [`${p.accepted} accepted`];
+  if (p.in_review) parts.push(`${p.in_review} in review`);
+  return `Your ${n} ${unit} were handed over for review: ${parts.join(", ")}.`;
+}
+
+/** The one thing to do next on an assignment, and the quieter second one.
+ *  primary null means there is nothing for the worker to do right now. */
+export type Action = "retake" | "send" | "capture" | "start";
+
+export interface NextAction {
+  primary: Action | null;
+  secondary: Action | null;
+  /** shown in place of a button when there is none */
+  waiting: string | null;
+}
+
+export function nextAction(a: Assignment, pendingLocal: number, failedLocal: number): NextAction {
+  const none = { primary: null, secondary: null, waiting: null };
+  if (isRevoked(a) || a.status === "accepted" || a.status === "cancelled") return none;
+  if (a.status === "assigned") return { primary: "start", secondary: null, waiting: null };
+  const p = progressOf(a);
+  const can: Action[] = [];
+  if (p.rework > 0) can.push("retake");
+  if (cannotSend(a, pendingLocal, failedLocal) == null) can.push("send");
+  if (canCapture(a, pendingLocal + failedLocal)) can.push("capture");
+  const waiting =
+    can.length === 0
+      ? pendingLocal > 0
+        ? "Uploading…"
+        : p.in_review > 0
+          ? "Waiting for review"
+          : null
+      : null;
+  return { primary: can[0] ?? null, secondary: can[1] ?? null, waiting };
+}
+
+/** The capture rules a worker reads, in words rather than keys. */
+export function requirementLabels(spec: CaptureSpec | null | undefined): string[] {
+  if (!spec) return [];
+  const out: string[] = [];
+  const media = Array.isArray(spec.media) ? spec.media : spec.media ? [spec.media] : [];
+  const kinds = media.map((m) => String(m).toLowerCase());
+  if (kinds.includes("photo") && kinds.includes("video")) out.push("Photos or videos");
+  else if (kinds.includes("photo")) out.push("Photos only");
+  else if (kinds.includes("video")) out.push("Videos only");
+  if (spec.min_duration_s && spec.max_duration_s) out.push(`${spec.min_duration_s}–${spec.max_duration_s} s per clip`);
+  else if (spec.max_duration_s) out.push(`Up to ${spec.max_duration_s} s per clip`);
+  if (spec.orientation === "portrait" || spec.orientation === "landscape") out.push(`Hold it ${spec.orientation}`);
+  if (spec.require_gps) out.push("Location on");
+  if (spec.min_megapixels) out.push(`${spec.min_megapixels} MP minimum`);
+  if (spec.min_video_lines) out.push(`${spec.min_video_lines}p minimum`);
+  if (spec.max_tilt_deg) out.push(`Within ${spec.max_tilt_deg}° of level`);
+  if (spec.allow_library) out.push("Clips from the gallery allowed");
+  return out;
+}
+
+/** A review note the console wrote from the marks ("2 to retake: 1 blurred,
+ *  1 other."): it repeats the reasons each capture already carries, so the
+ *  screen shows only a note the reviewer wrote themselves. */
+export function ownNote(note: string | null | undefined): string | null {
+  const n = (note ?? "").trim();
+  if (!n || /^\d+ to (retake|shoot again)\b/i.test(n)) return null;
+  return n;
 }
