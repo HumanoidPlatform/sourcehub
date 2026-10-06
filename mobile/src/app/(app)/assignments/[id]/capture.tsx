@@ -7,6 +7,7 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import { Alert, Linking, Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { clockTone, formatClock } from "@/capture/clock";
 import { exampleImages, loadExamples } from "@/capture/examples";
 import { ensureLocationPermission } from "@/capture/location";
 import { type Held, medianOff, type Tilt, tiltAdvice, watchTilt } from "@/capture/tilt";
@@ -71,7 +72,9 @@ const HOW: Record<"rotate" | "tip", string> = {
 };
 
 export default function Capture() {
-  const { id } = useLocalSearchParams<{ id: string }>();
+  // replaces: a retake of one capture the aggregator sent back. One shot, then
+  // back to the assignment, where the replaced capture has left the rework list.
+  const { id, replaces } = useLocalSearchParams<{ id: string; replaces?: string }>();
   const router = useRouter();
   const list = useAssignments();
   const a = (list.data ?? []).find((x) => x.id === id);
@@ -80,6 +83,10 @@ export default function Capture() {
   const [micPerm, requestMic] = useMicrophonePermissions();
   const [mode, setMode] = useState<"picture" | "video">("picture");
   const [recording, setRecording] = useState(false);
+  // Seconds the running recording has lasted, for the clock on screen. The
+  // start time is a ref so the ticking effect and the shutter read one value.
+  const startedAt = useRef<number | null>(null);
+  const [elapsed, setElapsed] = useState(0);
   const [busy, setBusy] = useState(false);
   const [count, setCount] = useState(0);
   const [error, setError] = useState<string | null>(null);
@@ -123,7 +130,7 @@ export default function Capture() {
     };
   }, [exampleIds]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const save = useCapture(id ?? "", a?.task.reference_code ?? "capture", spec, a?.task.target_unit, examples);
+  const save = useCapture(id ?? "", a?.task.reference_code ?? "capture", spec, a?.task.target_unit, examples, replaces ?? null);
 
   // The server sends a list; a task made before capture-spec inheritance sends
   // a string. Reading it raw is what used to open a video-only task in photo
@@ -151,6 +158,16 @@ export default function Capture() {
   useEffect(() => {
     if (kindKey === "video") setMode("video");
   }, [kindKey]);
+
+  // The recording clock. Four ticks a second so the seconds turn over on time;
+  // only the whole second is shown, so most ticks change nothing on screen.
+  useEffect(() => {
+    if (!recording) return;
+    const t = setInterval(() => {
+      if (startedAt.current != null) setElapsed(Math.floor((Date.now() - startedAt.current) / 1000));
+    }, 250);
+    return () => clearInterval(t);
+  }, [recording]);
 
   // Declared above the permission gate below, like every other hook here, so
   // it must decide for itself whether to do anything — this effect still runs
@@ -219,6 +236,10 @@ export default function Capture() {
 
   const kept = (findings: Finding[], onSubject = false) => {
     setCount((n) => n + 1);
+    if (replaces) {
+      router.back();
+      return;
+    }
     const shown = spoken(findings);
     if (shown.length > 0) {
       warn(findings);
@@ -299,6 +320,7 @@ export default function Capture() {
   // what ignoring it costs.
   const tooTilted = recording && maxTilt != null && level != null && level.off > maxTilt;
   const tiltHow = level ? tiltAdvice(level) : null;
+  const tone = clockTone(elapsed, minSeconds, maxSeconds);
 
   const shoot = async () => {
     if (!cam.current || busy) return;
@@ -321,6 +343,7 @@ export default function Capture() {
             return;
           }
         }
+        setElapsed(0);
         setRecording(true);
         // Nothing from the last capture competes with what this one says.
         setNotice(null);
@@ -330,6 +353,7 @@ export default function Capture() {
         // file with no length, and the timer is how long the worker filmed.
         const attitude = tilt.current;
         const began = Date.now();
+        startedAt.current = began;
         // The way the phone is held is sampled for the whole recording rather
         // than read at the end: the container's own rotation is not evidence
         // (the app is locked to portrait, so every clip is tagged portrait),
@@ -339,6 +363,7 @@ export default function Capture() {
         tiltSamples.current = tilt.current ? [tilt.current.off] : [];
         const video = await cam.current.recordAsync({ maxDuration: maxSeconds });
         const duration = (Date.now() - began) / 1000;
+        startedAt.current = null;
         const tally = holdTally.current;
         holdTally.current = null;
         const offs = tiltSamples.current ?? [];
@@ -355,6 +380,7 @@ export default function Capture() {
       }
     } catch (e) {
       setRecording(false);
+      startedAt.current = null;
       // A rejection has already deleted the file and left the queue untouched,
       // so the counter not advancing is the correct outcome, not a failure.
       if (e instanceof CaptureRejected) setNotice(null);
@@ -372,7 +398,7 @@ export default function Capture() {
           <Pressable onPress={() => router.back()} accessibilityRole="button" style={c.chip}>
             <Text style={c.chipText}>Done</Text>
           </Pressable>
-          <Text style={c.counter}>{count} saved</Text>
+          <Text style={c.counter}>{replaces ? "Retake" : `${count} saved`}</Text>
           {kinds.length > 1 && (
             <Pressable onPress={() => !recording && setMode(mode === "picture" ? "video" : "picture")} accessibilityRole="button" style={c.chip}>
               <Text style={c.chipText}>{mode === "picture" ? "Photo" : "Video"} ▾</Text>
@@ -416,6 +442,18 @@ export default function Capture() {
         ) : null}
         <Level tilt={level} tolerance={maxTilt} />
         <View style={c.bottom}>
+          {recording ? (
+            <View
+              style={[c.clock, tone === "short" && c.clockShort, tone === "ending" && c.clockEnding]}
+              accessibilityLiveRegion="polite"
+              accessibilityLabel={`Recording, ${elapsed} seconds of ${maxSeconds}`}
+            >
+              <View style={c.clockDot} />
+              <Text style={c.clockText}>
+                {formatClock(elapsed)} / {formatClock(maxSeconds)}
+              </Text>
+            </View>
+          ) : null}
           <Pressable
             onPress={() => void shoot()}
             disabled={busy}
@@ -425,7 +463,11 @@ export default function Capture() {
           />
           <Text style={c.hint}>
             {recording
-              ? `Recording… up to ${maxSeconds} s`
+              ? tone === "short" && minSeconds != null
+                ? `Keep going — at least ${minSeconds} s`
+                : tone === "ending"
+                  ? "Stopping soon — the limit is near"
+                  : "Tap to stop"
               : mode === "picture"
                 ? "Tap to take a photo"
                 : minSeconds != null
@@ -458,5 +500,10 @@ const c = StyleSheet.create({
   shutter: { width: 76, height: 76, borderRadius: 38, backgroundColor: "#fff", borderWidth: 5, borderColor: "rgba(255,255,255,0.4)" },
   shutterVideo: { backgroundColor: "#E03B24" },
   shutterRec: { borderRadius: 14, width: 60, height: 60, marginVertical: 8 },
+  clock: { flexDirection: "row", alignItems: "center", backgroundColor: "rgba(0,0,0,0.6)", paddingHorizontal: 14, paddingVertical: 6, borderRadius: 16, marginBottom: 12 },
+  clockShort: { backgroundColor: TONE_COLOR.attention.bg },
+  clockEnding: { backgroundColor: C.danger },
+  clockDot: { width: 10, height: 10, borderRadius: 5, backgroundColor: "#E03B24", marginRight: 8, borderWidth: 1, borderColor: "#fff" },
+  clockText: { color: "#fff", fontWeight: "700", fontSize: 17, fontVariant: ["tabular-nums"] },
   hint: { color: "#fff", marginTop: 10, fontSize: 13, textShadowColor: "#000", textShadowRadius: 4 },
 });

@@ -93,3 +93,10 @@ CREATE TABLE IF NOT EXISTS example_labels (
 );
 CREATE INDEX IF NOT EXISTS example_labels_task_idx ON example_labels (task_id);
 `;
+
+// A retake: the capture the aggregator sent back for rework that this one
+// replaces. Sent with the presign so the server links the two; the replaced
+// capture then leaves the worker's rework list.
+export const SCHEMA_V6 = `
+ALTER TABLE captures ADD COLUMN replaces_asset_id TEXT;
+`;

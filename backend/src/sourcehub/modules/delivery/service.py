@@ -646,10 +646,16 @@ async def _get_task(session: AsyncSession, task_id: uuid.UUID) -> Task:
 # ---------------------------------------------------------------------------
 # Assignments — the aggregator → person hop
 #
-#   assigned --worker start--> in_progress --worker submit--> submitted
-#   submitted --accept--> accepted | --reject (note)--> rejected --start--> in_progress
-#   accepted --reopen (task qa_failed)--> in_progress
-#   assigned | in_progress | rejected --cancel--> cancelled
+#   assigned --worker start--> in_progress
+#   in_progress: the worker sends what they have as a batch, as often as they
+#     like, and keeps capturing; the aggregator answers each batch capture by
+#     capture (modules/qa decide_batch) — kept is accepted, marked is rework
+#   in_progress --accepted captures reach the quantity--> accepted (settle)
+#   accepted --reopen (task qa_failed)--> in_progress, its batches back in review
+#   assigned | in_progress, nothing sent --cancel--> cancelled
+#   assigned | in_progress --reassign--> the rest goes to another worker
+#
+# 'submitted' and 'rejected' are no longer entered (db/340_capture_batches).
 #
 # A worker's session runs under the aggregator's org with role 'worker'; RLS
 # narrows it to their own rows, so every query below joins nothing a worker
@@ -661,6 +667,9 @@ _ASSIGNMENT_ROWS = (
     "SELECT a.id, a.task_id, a.contract_id, a.supplier_org_id, a.worker_user_id, a.quantity, "
     "       a.status, a.instructions, a.due_on, a.worker_note, a.decision_note, "
     "       a.assigned_at, a.started_at, a.submitted_at, a.decided_at, "
+    "       a.revoked_at, a.reassigned_to, "
+    "       coalesce(g.draft, 0) AS draft, coalesce(g.in_review, 0) AS in_review, "
+    "       coalesce(g.accepted, 0) AS accepted, coalesce(g.rework, 0) AS rework, "
     "       coalesce(w.display_name, u.full_name) AS worker_name, w.reference_code AS worker_ref, "
     "       t.reference_code AS task_ref, t.title AS task_title, "
     "       t.instructions AS task_instructions, t.capture_spec, t.target_unit, "
@@ -678,6 +687,8 @@ _ASSIGNMENT_ROWS = (
     "                          count(*) AS total "
     "                   FROM asset s WHERE s.assignment_id = a.id AND s.deleted_at IS NULL) x "
     "          ON true "
+    # where the captures stand in the batch round trip (media.STAGE_COUNTS)
+    "LEFT JOIN LATERAL (" + media.STAGE_COUNTS.replace(":a", "a.id") + ") g ON true "
     # a worker's own session reads no reminder rows (RLS), so theirs count 0
     "LEFT JOIN LATERAL (SELECT count(*) AS reminder_count, max(e.created_at) AS last_reminded_at "
     "                   FROM engagement_reminder e WHERE e.assignment_id = a.id) m "
@@ -710,6 +721,15 @@ def _assignment_dict(r: Any) -> dict[str, Any]:
             "pending": int(r["pending"]), "ready": int(r["ready"]),
             "quarantined": int(r["quarantined"]), "total": int(r["total"]),
         },
+        # The batch round trip: not sent yet, with the aggregator, kept, and to
+        # be shot again. accepted against quantity is the assignment's progress.
+        "progress": {
+            "draft": int(r["draft"]), "in_review": int(r["in_review"]),
+            "accepted": int(r["accepted"]), "rework": int(r["rework"]),
+        },
+        # Taken off this worker; the rest went to reassigned_to.
+        "revoked_at": r["revoked_at"],
+        "reassigned_to": r["reassigned_to"],
         "task": {
             "id": r["task_id"],
             "reference_code": r["task_ref"],
@@ -739,9 +759,41 @@ async def _assignments(
     task_ids = list({a["task_id"] for a in out})
     task_files = await attachments.list_for(session, "task", task_ids)
     client_docs = await _client_documents(session, task_ids)
+    batches = await _batches_for(session, [a["id"] for a in out])
     for a in out:
+        a["batches"] = batches.get(a["id"], [])
         a["task"]["attachments"] = task_files.get(a["task_id"], [])
         a["task"]["client_documents"] = client_docs.get(a["task_id"], [])
+    return out
+
+
+async def _batches_for(
+    session: AsyncSession, assignment_ids: list[uuid.UUID]
+) -> dict[uuid.UUID, list[dict[str, Any]]]:
+    """Each assignment's batches, newest first, with how many captures each
+    sent. The counts of what was kept and sent back are the reviewer's, written
+    when the batch was answered."""
+    if not assignment_ids:
+        return {}
+    rows = (
+        await session.execute(
+            text(
+                "SELECT b.id, b.assignment_id, b.batch_no, b.status, b.submitted_at, "
+                "       b.worker_note, b.decided_at, b.decision_note, b.accepted_count, "
+                "       b.rework_count, "
+                "       (SELECT count(*) FROM asset s WHERE s.batch_id = b.id "
+                "          AND s.deleted_at IS NULL) AS items "
+                "FROM capture_batch b WHERE b.assignment_id = ANY(:ids) "
+                "ORDER BY b.batch_no DESC"
+            ),
+            {"ids": assignment_ids},
+        )
+    ).mappings().all()
+    out: dict[uuid.UUID, list[dict[str, Any]]] = {}
+    for r in rows:
+        out.setdefault(r["assignment_id"], []).append(
+            {**dict(r), "items": int(r["items"])}
+        )
     return out
 
 
@@ -934,28 +986,78 @@ async def start_assignment(
     return row
 
 
+async def _open_batch(
+    session: AsyncSession,
+    a: TaskAssignment,
+    submitted_by: uuid.UUID,
+    note: str | None,
+) -> tuple[uuid.UUID, int, int]:
+    """Send every unsent ready capture of the assignment as its next batch.
+    Returns (batch id, batch number, how many). The assignment row is locked
+    so two sends at once cannot both take the next number."""
+    await session.execute(
+        text("SELECT id FROM task_assignment WHERE id = :a FOR UPDATE"), {"a": a.id}
+    )
+    no = int(
+        (
+            await session.execute(
+                text(
+                    "SELECT coalesce(max(batch_no), 0) + 1 FROM capture_batch "
+                    "WHERE assignment_id = :a"
+                ),
+                {"a": a.id},
+            )
+        ).scalar_one()
+    )
+    batch_id = uuid.uuid4()
+    # No RETURNING: under RLS the returned row would also have to pass SELECT.
+    await session.execute(
+        text(
+            "INSERT INTO capture_batch (id, assignment_id, task_id, contract_id, supplier_org_id, "
+            "                           worker_user_id, batch_no, submitted_by, worker_note) "
+            "VALUES (:id, :a, :t, :c, :o, :w, :no, :by, :note)"
+        ),
+        {
+            "id": batch_id, "a": a.id, "t": a.task_id, "c": a.contract_id,
+            "o": a.supplier_org_id, "w": a.worker_user_id, "no": no,
+            "by": submitted_by, "note": note,
+        },
+    )
+    n = (
+        await session.execute(
+            text(
+                "UPDATE asset SET batch_id = :b, updated_at = now() "
+                "WHERE assignment_id = :a AND batch_id IS NULL AND status = 'ready' "
+                "  AND deleted_at IS NULL"
+            ),
+            {"b": batch_id, "a": a.id},
+        )
+    ).rowcount or 0
+    return batch_id, no, int(n)
+
+
 async def submit_assignment(
     session: AsyncSession, claims: AccessClaims, assignment_id: uuid.UUID, note: str | None
 ) -> dict[str, Any]:
+    """Send what has been captured so far for review, as the next batch.
+
+    Any number will do: the worker no longer has to finish the whole share
+    first, and keeps capturing while the aggregator looks at this one. The
+    quantity still caps how much can be captured (media.presign_capture)."""
     a = await _get_assignment(session, assignment_id)
     if a.worker_user_id != claims.user_id:
         raise DeliveryError("Only the assigned crowd resource submits an assignment.")
+    if a.revoked_at is not None:
+        raise DeliveryError("This task was given to someone else.")
     if a.status in ("assigned", "rejected"):
         raise DeliveryError("Start the assignment before submitting.")
     if a.status != "in_progress":
         raise DeliveryError(f"A {a.status} assignment cannot be submitted.")
-    n = await media.ready_count(session, a.id)
-    if n < 1:
-        raise DeliveryError("Upload at least one file before submitting.")
-    # The assignment carries the number of units this worker was given. Sending
-    # it short pushes the shortfall onto the aggregator's review, where it costs
-    # a rework round to discover.
-    if a.quantity and n < a.quantity:
-        raise DeliveryError(
-            f"{a.quantity} required, {n} uploaded — capture {a.quantity - n} more before submitting."
-        )
+    counts = await media.stage_counts(session, a.id)
+    if counts["draft"] < 1:
+        raise DeliveryError("Upload at least one new capture before sending.")
 
-    a.status = "submitted"
+    batch_id, no, n = await _open_batch(session, a, claims.user_id, note)
     a.submitted_at = dt.datetime.now(dt.timezone.utc)
     a.worker_note = note
     await session.flush()
@@ -963,16 +1065,187 @@ async def submit_assignment(
 
     await notifier.notify(
         session, a.supplier_org_id,
-        f"{row['worker_name']} submitted {n} file(s) on {row['task']['title']} for review.",
-        "gate1", {"assignment_id": str(a.id)},
+        f"{row['worker_name']} sent batch {no} — {n} file(s) — on {row['task']['title']} "
+        "for review.",
+        "gate1", {"assignment_id": str(a.id), "batch_id": str(batch_id)},
     )
     await audit.log(
         session, "assignment.submitted",
-        f"Submitted {n} file(s) on {row['task']['reference_code']}",
+        f"Sent batch {no} of {n} file(s) on {row['task']['reference_code']}",
         [a.id, a.task_id, a.contract_id, a.supplier_org_id],
-        {"assets": n},
+        {"assets": n, "batch_id": str(batch_id), "batch_no": no},
     )
     return row
+
+
+async def settle_assignment(
+    session: AsyncSession, assignment_id: uuid.UUID
+) -> dict[str, Any]:
+    """Bring an assignment's state into line with its captures, after a batch
+    is answered or the assignment is handed on. Idempotent.
+
+      * A revoked assignment keeps only what is still in review or accepted.
+        Every unit beyond that (captures sent back that its worker can no
+        longer retake) moves to the assignment that took the rest, if that one
+        is still open — otherwise the units go back to the task, unassigned.
+      * An assignment whose accepted captures reach its quantity, with nothing
+        left in review, is accepted.
+
+    Returns {"moved": units handed on, "status": the assignment's status}.
+    """
+    a = await _get_assignment(session, assignment_id)
+    counts = await media.stage_counts(session, a.id)
+    moved = 0
+    if a.revoked_at is not None and a.status == "in_progress":
+        kept = counts["in_review"] + counts["accepted"]
+        moved = a.quantity - kept
+        if moved > 0:
+            if kept == 0:
+                a.status = "cancelled"
+                a.decided_at = dt.datetime.now(dt.timezone.utc)
+            else:
+                a.quantity = kept
+            await _hand_on(session, a, moved)
+    if (
+        a.status == "in_progress"
+        and counts["in_review"] == 0
+        and counts["accepted"] >= a.quantity
+    ):
+        a.status = "accepted"
+        a.decided_at = dt.datetime.now(dt.timezone.utc)
+    await session.flush()
+    return {"moved": max(moved, 0), "status": a.status}
+
+
+async def _hand_on(session: AsyncSession, revoked: TaskAssignment, units: int) -> None:
+    """Give units a revoked assignment can no longer deliver to the assignment
+    that took over from it, while that one is still open."""
+    if revoked.reassigned_to is None:
+        return
+    nxt = (
+        await session.execute(
+            select(TaskAssignment).where(TaskAssignment.id == revoked.reassigned_to)
+        )
+    ).scalar_one_or_none()
+    if nxt is None or nxt.status not in ("assigned", "in_progress"):
+        return
+    nxt.quantity += units
+    title = (
+        await session.execute(text("SELECT title FROM task WHERE id = :t"), {"t": nxt.task_id})
+    ).scalar_one()
+    await notifier.notify(
+        session, nxt.supplier_org_id,
+        f"{units} more to capture on {title}.",
+        "assignment", {"id": str(nxt.id)},
+        user_id=nxt.worker_user_id,
+    )
+    await audit.log(
+        session, "assignment.extended",
+        f"Moved {units} unit(s) from a reassigned assignment",
+        [nxt.id, revoked.id, nxt.task_id, nxt.contract_id, nxt.supplier_org_id],
+        {"units": units},
+    )
+
+
+async def reassign_assignment(
+    session: AsyncSession,
+    claims: AccessClaims,
+    assignment_id: uuid.UUID,
+    worker_user_id: uuid.UUID,
+    note: str | None,
+    due_on: dt.date | None = None,
+    instructions: str | None = None,
+) -> dict[str, Any]:
+    """Take an assignment off its worker and give the rest to another.
+
+    Everything the first worker uploaded and had not sent goes to review as a
+    last batch, sent on their behalf; uploads they never finished are dropped.
+    Their quantity shrinks to what they sent, and they capture nothing more.
+    The new worker gets the remainder — including the units of any capture
+    sent back earlier that was never retaken. Captures still on the first
+    worker's phone, not yet uploaded, are not recoverable from here.
+    """
+    a = await _get_assignment(session, assignment_id)
+    if a.supplier_org_id != claims.org_id:
+        raise DeliveryError("Only the supplier reassigns an assignment.")
+    if a.revoked_at is not None:
+        raise DeliveryError("This assignment was already reassigned.")
+    if a.status not in ("assigned", "in_progress"):
+        raise DeliveryError(f"A {a.status.replace('_', ' ')} assignment cannot be reassigned.")
+    if worker_user_id == a.worker_user_id:
+        raise DeliveryError("Choose a different crowd resource.")
+    t = await _get_task(session, a.task_id)
+    await session.execute(text("SELECT id FROM task WHERE id = :t FOR UPDATE"), {"t": t.id})
+
+    # uploads that never finished are not part of anything
+    await session.execute(
+        text(
+            "UPDATE asset SET deleted_at = now(), updated_at = now() "
+            "WHERE assignment_id = :a AND batch_id IS NULL AND deleted_at IS NULL "
+            "  AND status IN ('pending','uploaded','quarantined')"
+        ),
+        {"a": a.id},
+    )
+    counts = await media.stage_counts(session, a.id)
+    sent = 0
+    if counts["draft"]:
+        _, _, sent = await _open_batch(
+            session, a, claims.user_id,
+            "Sent when the task was reassigned" + (f": {note}" if note else "."),
+        )
+        a.submitted_at = dt.datetime.now(dt.timezone.utc)
+    kept = counts["in_review"] + counts["accepted"] + sent
+    remaining = a.quantity - kept
+    if remaining < 1:
+        raise DeliveryError(
+            "Everything on this assignment has been sent for review; nothing is left to give "
+            "to someone else."
+        )
+
+    now = dt.datetime.now(dt.timezone.utc)
+    a.revoked_at = now
+    a.revoked_by = claims.user_id
+    if kept == 0:
+        a.status = "cancelled"
+        a.decided_at = now
+        a.decided_by = claims.user_id
+    else:
+        a.status = "in_progress"
+        a.quantity = kept
+    # the old share shrinks first, so the new one fits under the task target
+    await session.flush()
+
+    new = await _assign_worker(
+        session,
+        org_id=claims.org_id,
+        assigned_by=claims.user_id,
+        task=t,
+        worker_user_id=worker_user_id,
+        quantity=remaining,
+        instructions=instructions if instructions is not None else a.instructions,
+        due_on=due_on if due_on is not None else a.due_on,
+    )
+    a.reassigned_to = new["id"]
+    await session.flush()
+    # an assignment whose sent work was all accepted already is done
+    await settle_assignment(session, a.id)
+    old = await assignment_by_id(session, a.id)
+
+    await notifier.notify(
+        session, claims.org_id,
+        f"{t.title} was given to someone else."
+        + (f" Your {kept} capture(s) were sent for review." if kept else "")
+        + (f" {note}" if note else ""),
+        "assignment", {"id": str(a.id)},
+        user_id=a.worker_user_id,
+    )
+    await audit.log(
+        session, "assignment.revoked",
+        f"Reassigned {remaining} unit(s) of {t.reference_code} to another crowd resource",
+        [a.id, new["id"], t.id, t.contract_id, claims.org_id, a.worker_user_id, worker_user_id],
+        {"kept": kept, "sent_now": sent, "moved": remaining},
+    )
+    return {"revoked": old, "assignment": new}
 
 
 async def cancel_assignment(
@@ -983,6 +1256,17 @@ async def cancel_assignment(
         raise DeliveryError("Only the supplier cancels an assignment.")
     if a.status not in ("assigned", "in_progress", "rejected"):
         raise DeliveryError(f"A {a.status} assignment cannot be cancelled.")
+    sent = (
+        await session.execute(
+            text("SELECT EXISTS (SELECT 1 FROM capture_batch WHERE assignment_id = :a)"),
+            {"a": a.id},
+        )
+    ).scalar_one()
+    if sent:
+        raise DeliveryError(
+            "This crowd resource has sent work for review. Reassign the assignment instead, "
+            "so what they sent is kept."
+        )
     a.status = "cancelled"
     a.decided_at = dt.datetime.now(dt.timezone.utc)
     a.decided_by = claims.user_id
@@ -1022,11 +1306,21 @@ async def reopen_assignment(
     a.decision_note = note
     a.decided_at = dt.datetime.now(dt.timezone.utc)
     a.decided_by = claims.user_id
+    # Its batches go back in front of the aggregator, who marks what the
+    # partner objected to; the worker gets those as rework, the rest stays kept.
+    await session.execute(
+        text(
+            "UPDATE capture_batch SET status = 'in_review', decided_at = NULL, "
+            "       decided_by = NULL WHERE assignment_id = :a AND status = 'reviewed'"
+        ),
+        {"a": a.id},
+    )
     await session.flush()
     row = await assignment_by_id(session, a.id)
     await notifier.notify(
         session, claims.org_id,
-        f"{row['task']['title']} came back from partner QA and needs rework."
+        f"{row['task']['title']} came back from partner QA. Your aggregator is reviewing "
+        "it again and will mark anything to shoot again."
         + (f" {note}" if note else ""),
         "assignment", {"id": str(a.id)},
         user_id=a.worker_user_id,

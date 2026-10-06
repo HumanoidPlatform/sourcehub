@@ -109,6 +109,8 @@ export function useCapture(
    *  assignment screen. Absent on a task with none, and on a phone that never
    *  managed to fetch them — the two are told apart inside. */
   examples?: ExampleSet | null,
+  /** a retake: the server's id of the capture sent back that this replaces */
+  replacesAssetId?: string | null,
 ) {
   return useCallback(
     // tilt is sampled by the caller, not read here: an async read after the
@@ -183,6 +185,7 @@ export function useCapture(
           lat: fix?.lat ?? null,
           lon: fix?.lon ?? null,
           checks: checks.length > 0 ? JSON.stringify(checks) : null,
+          replaces_asset_id: replacesAssetId ?? null,
         });
         uploader.kick();
         return checks;
@@ -352,7 +355,7 @@ export function useCapture(
 
       return { kept: true, findings: await queue(findings), onSubject };
     },
-    [assignmentId, taskRef, spec, targetUnit, examples],
+    [assignmentId, taskRef, spec, targetUnit, examples, replacesAssetId],
   );
 }
 

@@ -39,6 +39,31 @@ export interface AssignmentAssets {
   total: number;
 }
 
+/** Where an assignment's captures stand in the batch round trip (db/340):
+ *  uploaded but not sent, with the aggregator, kept, and to be shot again.
+ *  accepted against quantity is the assignment's progress. */
+export interface AssignmentProgress {
+  draft: number;
+  in_review: number;
+  accepted: number;
+  rework: number;
+}
+
+/** One send of captures for review. Each is answered on its own: everything
+ *  in it is accepted unless the aggregator marked it to be shot again. */
+export interface Batch {
+  id: string;
+  batch_no: number;
+  status: "in_review" | "reviewed";
+  submitted_at: string;
+  worker_note: string | null;
+  decided_at: string | null;
+  decision_note: string | null;
+  accepted_count: number;
+  rework_count: number;
+  items: number;
+}
+
 // Mirrors CaptureSpec in backend api/v1/marketplace.py. Two shapes are live:
 // media has been a LIST since a task began inheriting the client's capture
 // spec, and tasks created before that still carry a bare string. Typing it as
@@ -100,6 +125,12 @@ export interface Assignment {
   submitted_at: string | null;
   decided_at: string | null;
   assets: AssignmentAssets;
+  /** Absent on an API from before batches. */
+  progress?: AssignmentProgress;
+  batches?: Batch[];
+  /** Taken off this worker and given to someone else. What they had uploaded
+   *  went for review; nothing more can be captured. */
+  revoked_at?: string | null;
   task: {
     id: string;
     reference_code: string;
@@ -138,7 +169,15 @@ export interface AssetRow {
   review_label?: string | null;
   review_note?: string | null;
   reviewed_at?: string | null;
+  /** The batch it went out in, and where it stands. "replaced": sent back and
+   *  since retaken. Absent on an API from before batches. */
+  batch_id?: string | null;
+  batch_no?: number | null;
+  replaces_asset_id?: string | null;
+  stage?: AssetStage;
 }
+
+export type AssetStage = "uploading" | "draft" | "in_review" | "accepted" | "rework" | "replaced";
 
 export interface Presign {
   asset_id: string;

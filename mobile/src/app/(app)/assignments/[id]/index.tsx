@@ -1,12 +1,17 @@
-// One assignment: what to capture, how far along it is, the gallery of local
-// and uploaded captures, and the three actions — Start, Capture, Submit.
+// One assignment: what to capture, how far along it is, the captures by where
+// they stand, and the actions — Start, Capture, Send for review, Retake.
+//
+// A worker sends what they have as a batch whenever they like and goes on
+// capturing (batches.ts). What the aggregator accepted is shown apart and
+// cannot be touched; what they sent back can be retaken or removed.
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useEffect, useState } from "react";
-import { Alert, Text, TextInput, View } from "react-native";
+import { useEffect, useRef, useState } from "react";
+import { Alert, Pressable, Text, TextInput, View } from "react-native";
 import { ApiError, del, post } from "@/api/client";
 import type { Assignment, AssetRow } from "@/api/types";
+import { boardStatus, cannotSend, canCapture as canCaptureMore, isRevoked, progressOf, remaining, sections, summary } from "@/batches";
 import { deleteCapture, discardCapture, discardFailed, retryCapture, retryFailed, type CaptureRow } from "@/db/outbox";
 import { exampleImages, refreshExamples } from "@/capture/examples";
 import { deleteLocal } from "@/capture/files";
@@ -25,10 +30,6 @@ export default function AssignmentDetail() {
   const list = useAssignments();
   const a = (list.data ?? []).find((x) => x.id === id);
   const assets = useAssignmentAssets(id);
-  // Captures the aggregator marked to be shot again. They stop counting toward
-  // the quantity the moment they are marked, so the meter below already shows
-  // the shortfall; this says how much of it is a retake rather than a gap.
-  const retakes = (assets.data ?? []).filter((x) => x.status === "rejected");
   const outbox = useOutbox(id);
   const refused = useRejections(id);
   const [note, setNote] = useState("");
@@ -56,11 +57,28 @@ export default function AssignmentDetail() {
   const submit = useMutation({
     mutationFn: () => post<Assignment>(`/assignments/${id}/submit`, { note: note.trim() || null }),
     onSuccess: () => {
+      // Stay here: the worker carries on capturing while this batch is read.
+      setNote("");
       void qc.invalidateQueries({ queryKey: ["assignments"] });
-      router.back();
+      void assets.refetch();
     },
-    onError: (e) => setError(e instanceof ApiError ? e.message : "Could not submit."),
+    onError: (e) => setError(e instanceof ApiError ? e.message : "Could not send."),
   });
+
+  // Taken off this worker: anything still on the phone can no longer be
+  // uploaded, so it is cleared once, and the screen says how much.
+  const [dropped, setDropped] = useState(0);
+  const cleared = useRef(false);
+  const revokedAt = a?.revoked_at ?? null;
+  useEffect(() => {
+    if (!revokedAt || cleared.current) return;
+    const unsent = outbox.filter((r) => r.status !== "confirmed");
+    if (unsent.length === 0) return;
+    cleared.current = true;
+    void Promise.all(unsent.map((r) => discardCapture(r.id).then((row) => deleteLocal(row?.local_uri ?? null)))).then(
+      () => setDropped(unsent.length),
+    );
+  }, [revokedAt, outbox]);
 
   if (!a) {
     return (
@@ -70,7 +88,7 @@ export default function AssignmentDetail() {
     );
   }
 
-  const m = meta(assignmentStatus, a.status);
+  const m = meta(assignmentStatus, boardStatus(a));
   const unit = a.task.target_unit ?? "units";
   const spec = a.task.capture_spec ?? {};
   // The API sends every declared key, set or not, so an unanswered one arrives
@@ -111,10 +129,19 @@ export default function AssignmentDetail() {
   const pendingLocal = outbox.filter((r) => r.status !== "confirmed" && r.status !== "failed").length;
   const failedRows = outbox.filter((r) => r.status === "failed");
   const failedLocal = failedRows.length;
-  const canCapture = ["assigned", "in_progress", "rejected"].includes(a.status);
-  const canSubmit = ["in_progress", "rejected"].includes(a.status) && a.assets.ready >= 1 && pendingLocal === 0 && failedLocal === 0;
+  const revoked = isRevoked(a);
+  const progress = progressOf(a);
+  const where = boardStatus(a);
+  const parts = sections((assets.data ?? []) as AssetRow[], a.batches ?? []);
+  // Still on the phone and on its way up: these take a slot like any capture.
+  const onPhone = pendingLocal + failedLocal;
+  const left = remaining(a, onPhone);
+  const canCapture = canCaptureMore(a, onPhone);
+  const changeable = !revoked && (a.status === "in_progress" || a.status === "rejected");
+  const whyNotSend = cannotSend(a, pendingLocal, failedLocal);
+  const lastDecided = (a.batches ?? []).find((b) => b.status === "reviewed" && b.rework_count > 0);
 
-  const goCapture = async () => {
+  const goCapture = async (replaces?: string) => {
     setError(null);
     if (a.status === "assigned" || a.status === "rejected") {
       try {
@@ -123,14 +150,15 @@ export default function AssignmentDetail() {
         return;
       }
     }
-    router.push(`/assignments/${id}/capture`);
+    router.push(replaces ? `/assignments/${id}/capture?replaces=${replaces}` : `/assignments/${id}/capture`);
   };
 
   const confirmSubmit = () => {
+    const n = progress.draft;
     Alert.alert(
-      "Submit for review?",
-      `${a.assets.ready} ${unit} will go to ${"your aggregator"} for review. You cannot add more until they answer.`,
-      [{ text: "Not yet", style: "cancel" }, { text: "Submit", onPress: () => submit.mutate() }],
+      "Send for review?",
+      `${n} ${unit} go to your aggregator as one batch. You can keep capturing while they look at it.`,
+      [{ text: "Not yet", style: "cancel" }, { text: "Send", onPress: () => submit.mutate() }],
     );
   };
 
@@ -157,28 +185,34 @@ export default function AssignmentDetail() {
       </View>
       <Text style={[s.mono, { marginBottom: 14 }]}>{a.task.reference_code}{a.due_on ? ` · due ${a.due_on}` : ""}</Text>
 
-      {a.status === "rejected" && a.decision_note ? (
-        <Callout tone="critical" title="Sent back — what to change">
-          {a.decision_note}
-          {/* Which frames, not just how many. The aggregator marked these one
-              by one; everything else in the batch is kept and is not re-shot.
-              Each one carries its own reason on its tile below. */}
-          {retakes.length > 0 ? (
-            <Text style={[s.body, { marginTop: 6, fontWeight: "700" }]}>
-              {retakes.length} to shoot again · the rest are kept
-            </Text>
-          ) : null}
+      {revoked ? (
+        <Callout tone="neutral" title="This task was given to someone else">
+          {`What you uploaded was sent to your aggregator for review. Nothing more is needed from you on it.${
+            dropped ? ` ${dropped} capture${dropped === 1 ? "" : "s"} still on this phone could not be sent and were removed.` : ""
+          }`}
         </Callout>
       ) : null}
-      {a.status === "submitted" ? <Callout tone="attention" title="Awaiting review">Your aggregator is looking at this batch.</Callout> : null}
+      {!revoked && parts.rework.length > 0 ? (
+        <Callout tone="critical" title={`${parts.rework.length} to shoot again`}>
+          {/* Which frames, not just how many. The aggregator marked these one
+              by one; everything else they looked at is accepted and stays so.
+              Each one carries its own reason on its tile below. */}
+          {lastDecided?.decision_note ? `${lastDecided.decision_note}\n` : ""}
+          Retake or remove each one below. The rest are accepted.
+        </Callout>
+      ) : null}
+      {!revoked && where === "submitted" ? (
+        <Callout tone="attention" title="Awaiting review">Everything is sent. Your aggregator is looking at it.</Callout>
+      ) : null}
       {a.status === "accepted" ? <Callout tone="success" title="Accepted">Nothing more to do here.</Callout> : null}
 
       <View style={s.card}>
         <Text style={[s.label, { marginBottom: 6 }]}>Progress</Text>
-        <Meter value={a.assets.ready} max={a.quantity} />
-        <Text style={[s.body, { marginTop: 8 }]}>
-          <Text style={{ fontWeight: "700" }}>{a.assets.ready}</Text> of {a.quantity} {unit} uploaded
-        </Text>
+        <Meter value={progress.accepted} max={a.quantity} />
+        <Text style={[s.body, { marginTop: 8 }]}>{summary(a)}</Text>
+        {!revoked && a.status !== "accepted" ? (
+          <Text style={s.muted}>{left > 0 ? `${left} more to capture` : "Nothing more to capture"}</Text>
+        ) : null}
         {pendingLocal > 0 ? <Text style={s.muted}>{pendingLocal} waiting to upload</Text> : null}
         {failedLocal > 0 ? <Text style={[s.muted, { color: C.danger }]}>{failedLocal} failed — retry or discard below</Text> : null}
         {/* Refused captures never left the phone, so this is the only place
@@ -285,32 +319,82 @@ export default function AssignmentDetail() {
           <Button title="Discard failed" variant="danger" onPress={discard} style={{ flex: 1 }} />
         </View>
       )}
-      {["in_progress", "rejected"].includes(a.status) && (
-        <View style={{ marginBottom: 14 }}>
+      {parts.rework.length > 0 && (
+        <>
+          <Text style={[s.label, { marginBottom: 8, marginTop: 6 }]}>To shoot again ({parts.rework.length})</Text>
+          <Gallery
+            local={[]}
+            remote={parts.rework}
+            onRemove={changeable ? removeCapture : undefined}
+            onRetake={changeable ? (assetId) => void goCapture(assetId) : undefined}
+          />
+          <View style={{ height: 14 }} />
+        </>
+      )}
+
+      {/* What is on the server and not sent yet, plus anything still on its
+          way up from this phone. Only these are sent by the button below. */}
+      <Text style={[s.label, { marginBottom: 8, marginTop: 6 }]}>Not sent yet ({progress.draft})</Text>
+      <Gallery
+        local={outbox.filter((r) => r.status !== "confirmed")}
+        remote={parts.draft}
+        onRemove={changeable ? removeCapture : undefined}
+        empty={revoked ? null : "Nothing waiting to be sent."}
+      />
+      {changeable && (
+        <View style={{ marginTop: 10, marginBottom: 14 }}>
           <Field label="Note for the reviewer (optional)">
             <TextInput style={[inputStyle, { minHeight: 70 }]} multiline value={note} onChangeText={setNote} placeholder="Aisles 1 and 2 done; shelf 3 was restocking." />
           </Field>
-          <Button title="Submit for review" variant="primary" onPress={confirmSubmit} disabled={!canSubmit} loading={submit.isPending} />
-          {!canSubmit && (
-            <Text style={[s.muted, { marginTop: 6 }]}>
-              {a.assets.ready < 1
-                ? "Upload at least one capture first."
-                : pendingLocal > 0
-                  ? "Wait for the uploads to finish."
-                  : failedLocal > 0
-                    ? "Retry or discard the failed captures first."
-                    : ""}
-            </Text>
-          )}
+          <Button
+            title={progress.draft > 0 ? `Send ${progress.draft} for review` : "Send for review"}
+            variant="primary"
+            onPress={confirmSubmit}
+            disabled={whyNotSend != null}
+            loading={submit.isPending}
+          />
+          {whyNotSend ? <Text style={[s.muted, { marginTop: 6 }]}>{whyNotSend}</Text> : null}
         </View>
       )}
 
-      <Text style={[s.label, { marginBottom: 8, marginTop: 6 }]}>Captures</Text>
-      <Gallery
-        local={outbox}
-        remote={(assets.data ?? []) as AssetRow[]}
-        onRemove={a.status === "in_progress" || a.status === "rejected" ? removeCapture : undefined}
-      />
+      {parts.inReview.map((grp) => (
+        <View key={`r${grp.batch_no}`} style={{ marginBottom: 14 }}>
+          <Text style={[s.label, { marginBottom: 8, marginTop: 6 }]}>
+            In review · batch {grp.batch_no} ({grp.assets.length})
+          </Text>
+          <Gallery local={[]} remote={grp.assets} empty={null} />
+        </View>
+      ))}
+
+      {parts.accepted.length > 0 && (
+        <AcceptedBatches groups={parts.accepted} />
+      )}
     </Screen>
+  );
+}
+
+/** What the aggregator accepted, batch by batch. Settled: nothing here can be
+ *  removed or retaken, so it is folded away until the worker asks to see it. */
+function AcceptedBatches({ groups }: { groups: ReturnType<typeof sections>["accepted"] }) {
+  const [open, setOpen] = useState(false);
+  const total = groups.reduce((n, g) => n + g.assets.length, 0);
+  return (
+    <View style={{ marginBottom: 14 }}>
+      <Pressable onPress={() => setOpen(!open)} accessibilityRole="button" style={{ paddingVertical: 6 }}>
+        <Text style={[s.label, { marginTop: 6 }]}>
+          {open ? "▾" : "▸"} Accepted ({total})
+        </Text>
+      </Pressable>
+      {open &&
+        groups.map((grp) => (
+          <View key={`a${grp.batch_no}`} style={{ marginBottom: 10 }}>
+            <Text style={[s.muted, { marginBottom: 6 }]}>
+              Batch {grp.batch_no} · {grp.assets.length} accepted
+              {grp.batch?.decided_at ? ` · ${grp.batch.decided_at.slice(0, 10)}` : ""}
+            </Text>
+            <Gallery local={[]} remote={grp.assets} empty={null} />
+          </View>
+        ))}
+    </View>
   );
 }

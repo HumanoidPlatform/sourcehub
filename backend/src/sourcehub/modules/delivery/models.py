@@ -116,6 +116,10 @@ class TaskAssignment(Base):
     decided_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
     decided_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
     decision_note: Mapped[str | None] = mapped_column(Text)
+    # taken off this worker and the rest given to another (db/340)
+    revoked_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
+    revoked_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
+    reassigned_to: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
     created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
     updated_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
 

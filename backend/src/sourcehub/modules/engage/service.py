@@ -50,6 +50,7 @@ from sourcehub.config import CAPTURE_APP, PRODUCT, settings
 from sourcehub.db.session import anonymous_session, org_session
 from sourcehub.modules.audit import service as audit
 from sourcehub.modules.delivery import service as delivery
+from sourcehub.modules.media import service as media
 from sourcehub.modules.notify import service as notifier
 
 log = logging.getLogger(__name__)
@@ -315,8 +316,15 @@ _OFFER_ROWS = (
     "                AND rl.code = 'worker' AND g.revoked_at IS NULL) "
 )
 
+# Since batches (db/340) an assignment stays in_progress through every round,
+# so 'rejected' is read off the captures: one with rework waiting is in the
+# rework state the reminders were written for. A worker with nothing left to
+# do — everything sent, nothing sent back — is not chased, and one taken off
+# the task never is.
 _ASSIGNMENT_ROWS = (
-    "SELECT a.id AS assignment_id, a.worker_user_id, a.status, a.assigned_at, a.decided_at, "
+    "SELECT a.id AS assignment_id, a.worker_user_id, "
+    "       CASE WHEN g.rework > 0 THEN 'rejected' ELSE a.status::text END AS status, "
+    "       a.assigned_at, a.decided_at, "
     "       a.due_on, a.quantity, a.task_id, "
     "       t.reference_code AS task_ref, t.title AS task_title, t.target_unit, "
     "       coalesce(w.email, u.email) AS email, "
@@ -326,7 +334,11 @@ _ASSIGNMENT_ROWS = (
     "JOIN app_user u ON u.id = a.worker_user_id "
     "LEFT JOIN crowd_worker w ON w.user_id = a.worker_user_id "
     "                        AND w.aggregator_org_id = a.supplier_org_id AND w.deleted_at IS NULL "
+    "LEFT JOIN LATERAL (" + media.STAGE_COUNTS.replace(":a", "a.id") + ") g ON true "
     "WHERE a.status IN ('assigned', 'in_progress', 'rejected') AND u.status = 'active' "
+    "  AND a.revoked_at IS NULL "
+    "  AND (a.status <> 'in_progress' OR g.rework > 0 OR g.draft > 0 "
+    "       OR g.in_review + g.accepted < a.quantity) "
 )
 
 

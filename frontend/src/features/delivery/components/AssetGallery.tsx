@@ -497,7 +497,9 @@ export function AssetGallery({
             selected={current?.id === a.id}
             mark={marks?.[a.id]}
             onOpen={(x) => setOpen(current?.id === x.id ? null : x)}
-            onRemove={onRemove}
+            // Sent and not sent back is the reviewer's, then settled: only a
+            // capture not yet sent, or one sent back for rework, can go.
+            onRemove={!a.stage || a.stage === "draft" || a.stage === "rework" || a.stage === "uploading" ? onRemove : undefined}
           />
         ))}
       </div>

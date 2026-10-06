@@ -75,6 +75,8 @@ export const assignmentStatus: StatusMap = {
   accepted: { label: "Accepted", tone: "success", owner: null },
   rejected: { label: "Sent back", tone: "critical", owner: "supplier" },
   cancelled: { label: "Cancelled", tone: "neutral", owner: null },
+  // taken off the worker; their sent batches are still reviewed
+  reassigned: { label: "Reassigned", tone: "neutral", owner: "supplier" },
 };
 
 export const offerStatus: StatusMap = {

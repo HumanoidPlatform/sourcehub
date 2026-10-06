@@ -9,7 +9,7 @@ import type { AssetRow } from "@/api/types";
 import { frameAt } from "@/capture/frames";
 import type { CaptureRow } from "@/db/outbox";
 import { useAssetUrl } from "@/query/hooks";
-import { assetStatus, captureStatus, meta, TONE_COLOR } from "@/status";
+import { assetStage, assetStatus, captureStatus, meta, TONE_COLOR } from "@/status";
 import { C, s } from "@/ui";
 import { useUploadProgress } from "@/upload/progress";
 import { Player } from "./Player";
@@ -18,22 +18,28 @@ export function Gallery({
   local,
   remote,
   onRemove,
+  onRetake,
+  empty = "No captures yet.",
 }: {
   local: CaptureRow[];
   remote: AssetRow[];
-  /** Drop a capture before submitting. Undefined once the batch has gone. */
+  /** Drop a capture. Undefined where nothing may be removed — once sent for
+   *  review a capture is the aggregator's until they answer it. */
   onRemove?: (opts: { captureId?: string; assetId?: string }) => void;
+  /** Shoot a replacement for a capture sent back for rework. */
+  onRetake?: (assetId: string) => void;
+  empty?: string | null;
 }) {
   const localAssetIds = new Set(local.map((r) => r.asset_id).filter(Boolean));
   const localSha = new Set(local.map((r) => r.sha256).filter(Boolean));
   const remoteOnly = remote.filter((a) => !localAssetIds.has(a.id) && !localSha.has(a.sha256));
   if (local.length === 0 && remoteOnly.length === 0) {
-    return <Text style={[s.muted, { paddingVertical: 12 }]}>No captures yet.</Text>;
+    return empty ? <Text style={[s.muted, { paddingVertical: 12 }]}>{empty}</Text> : null;
   }
   return (
     <View style={g.grid}>
       {local.map((r) => <LocalTile key={r.id} row={r} onRemove={onRemove} />)}
-      {remoteOnly.map((a) => <RemoteTile key={a.id} asset={a} onRemove={onRemove} />)}
+      {remoteOnly.map((a) => <RemoteTile key={a.id} asset={a} onRemove={onRemove} onRetake={onRetake} />)}
     </View>
   );
 }
@@ -180,13 +186,23 @@ function LocalTile({ row, onRemove }: { row: CaptureRow; onRemove?: (o: { captur
   );
 }
 
-function RemoteTile({ asset, onRemove }: { asset: AssetRow; onRemove?: (o: { captureId?: string; assetId?: string }) => void }) {
+function RemoteTile({
+  asset,
+  onRemove,
+  onRetake,
+}: {
+  asset: AssetRow;
+  onRemove?: (o: { captureId?: string; assetId?: string }) => void;
+  onRetake?: (assetId: string) => void;
+}) {
   // A capture the aggregator sent back is still viewable: seeing WHICH frame
   // they objected to is the whole point of the round, and the server allows
   // the signed URL for the supplier's own people for exactly that reason.
   const viewable = asset.status === "ready" || asset.status === "rejected";
   const url = useAssetUrl(asset.id, viewable);
-  const m = meta(assetStatus, asset.status);
+  // the stage says more than the status where the server sends it: a ready
+  // capture is "not sent", "in review" or "accepted" depending on its batch
+  const m = asset.stage ? meta(assetStage, asset.stage) : meta(assetStatus, asset.status);
   const isVideo = (asset.mime_type ?? "").startsWith("video/");
   const why =
     asset.status === "rejected"
@@ -202,6 +218,17 @@ function RemoteTile({ asset, onRemove }: { asset: AssetRow; onRemove?: (o: { cap
       <Tag tone={m.tone} text={m.label} />
       {why ? <Text numberOfLines={2} style={g.err}>{why}</Text> : null}
       {onRemove && <RemoveButton onPress={() => onRemove({ assetId: asset.id })} />}
+      {onRetake && asset.status === "rejected" ? (
+        <Pressable
+          onPress={() => onRetake(asset.id)}
+          hitSlop={6}
+          accessibilityRole="button"
+          accessibilityLabel="Retake this capture"
+          style={g.retake}
+        >
+          <Text style={g.retakeText}>Retake</Text>
+        </Pressable>
+      ) : null}
     </Tile>
   );
 }
@@ -226,6 +253,11 @@ const g = StyleSheet.create({
     backgroundColor: "rgba(0,0,0,0.62)", alignItems: "center", justifyContent: "center",
   },
   removeText: { color: "#fff", fontSize: 15, lineHeight: 17, fontWeight: "600" },
+  retake: {
+    position: "absolute", right: 4, bottom: 4, paddingHorizontal: 8, paddingVertical: 4,
+    borderRadius: 6, backgroundColor: C.accent,
+  },
+  retakeText: { color: "#fff", fontSize: 11, fontWeight: "700" },
   grid: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
   tile: { width: "31%", aspectRatio: 1, borderRadius: 8, overflow: "hidden", backgroundColor: "#E7ECF0", borderWidth: 1, borderColor: C.line },
   img: { width: "100%", height: "100%" },

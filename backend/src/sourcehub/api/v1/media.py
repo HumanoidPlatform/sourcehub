@@ -60,6 +60,8 @@ class PresignIn(BaseModel):
     lon: float | None = Field(default=None, ge=-180, le=180)
     # An older build sends no checks at all; that is an empty list, not a fault.
     checks: list[DeviceCheck] = Field(default_factory=list, max_length=20)
+    # a retake: the capture sent back for rework that this one replaces
+    replaces_asset_id: uuid.UUID | None = None
 
 
 def _map(e: Exception) -> HTTPException:
@@ -83,6 +85,7 @@ async def presign(
             filename=body.filename, content_type=body.content_type, size_bytes=body.size_bytes,
             sha256=body.sha256, captured_at=body.captured_at, lat=body.lat, lon=body.lon,
             checks=[c.model_dump(exclude_none=True) for c in body.checks],
+            replaces_asset_id=body.replaces_asset_id,
         )
     except StorageError as e:
         # The capture presign runs against the CLIENT's bucket, so this is the
