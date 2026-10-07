@@ -1,0 +1,4728 @@
+{
+  "kind": "profile",
+  "slug": "kled",
+  "name": "Kled",
+  "aliases": [
+    "Kled AI",
+    "Kled.ai",
+    "Nitrility, Inc."
+  ],
+  "segment": "crowd_capture",
+  "tier": "deep",
+  "status": {
+    "value": "active",
+    "claim_id": "kled-c001"
+  },
+  "names_for": {
+    "catalogue_side": "Dataset Catalog ('Explore Kled’s Full Data Library'); ready-made collections are also called 'data packs' / 'datapacks'",
+    "custom_side": "'Request Dataset' (buyer-facing button); fulfilled through 'Special Tasks' set by enterprise buyers in the contributor app"
+  },
+  "matrix": {
+    "operator_role": {
+      "value": "reseller_licensor",
+      "claim_ids": [
+        "kled-c095",
+        "kled-c101",
+        "kled-c102",
+        "kled-c130",
+        "kled-c103"
+      ],
+      "note": "Contributors license their uploads to Nitrility (Kled), which sublicenses through multiple tiers to its 'Data Customers'; its privacy policy says it licenses and sells the content. Kled's MiCA white paper instead calls it a two-sided marketplace between data owners and AI labs (see conflicts). No buyer licence is published. For partner catalogues (MPT, Ninja Digital, drone footage) Kled says it holds exclusive AI licensing rights itself."
+    },
+    "economics_model": {
+      "value": "principal_margin",
+      "claim_ids": [
+        "kled-c075",
+        "kled-c113",
+        "kled-c065",
+        "kled-c064",
+        "kled-c134"
+      ],
+      "note": "Kled takes rights from contributors, pays them rewards it sets itself (no fixed rate, no revenue share in the Terms) and sells at its own price, citing its own 'sales margin'. The white paper says revenue comes from 'licensing and transaction fees'; how partner-licensed catalogues are split with rights holders is not published."
+    },
+    "who_pays_fee": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "No fee schedule exists for buyers or suppliers; Kled acts as principal for contributor data, and the 'transaction fees' in the white paper are not described."
+    },
+    "supply_models": {
+      "value": [
+        "contributor_uploads",
+        "partner_licensed"
+      ],
+      "claim_ids": [
+        "kled-c039",
+        "kled-c113",
+        "kled-c056",
+        "kled-c011",
+        "kled-c012",
+        "kled-c013",
+        "kled-c016",
+        "kled-c052"
+      ],
+      "note": "Crowd uploads through the phone app (general camera-roll uploads plus Special Tasks, some issued by Kled itself to build data packs) and exclusive AI-licensing deals for media catalogues (Maryland Public Television, Ninja Digital Holdings titles, a drone footage catalogue, film studios). Also used: 20,000+ trained VAs and specialist accountants for some collections. Whether data captured for one buyer's Special Task is resold to others is not stated."
+    },
+    "custody_model": {
+      "value": "copy_to_buyer",
+      "claim_ids": [
+        "kled-c042",
+        "kled-c043",
+        "kled-c045",
+        "kled-c041"
+      ],
+      "note": "Kled hosts uploads itself (AWS regions by contributor location, in-house servers) and says validated data is 'sent directly' to labs. Delivery mechanics (format, bucket transfer or portal download) are not documented; the help centre speaks of buyers purchasing 'access'."
+    },
+    "transaction_mode": {
+      "value": "contact_sales",
+      "claim_ids": [
+        "kled-c038",
+        "kled-c088",
+        "kled-c004"
+      ],
+      "note": "The catalogue's only purchase action is 'Contact Sales' (email); labs evaluating data get access 'through Kled's commercial channels'. An enterprise portal with 'purchases' pages exists behind login but could not be inspected."
+    },
+    "public_prices": {
+      "value": "none",
+      "claim_ids": [
+        "kled-c038",
+        "kled-c034"
+      ],
+      "note": "No dataset price on the catalogue cards or anywhere found. Contributor reward amounts are published, but those are what Kled pays, not what buyers pay."
+    },
+    "licence_model": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "No buyer licence, EULA or data licence agreement is published; the only buyer-side term seen is that the $12M deal was 'non-exclusive'."
+    },
+    "exclusivity_offered": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "The $12M deal was non-exclusive [c004]. Catalogue cards say 'Exclusive Rights', but this appears to describe Kled's own rights from the rights holder, not rights offered to a buyer; no statement found on whether a buyer can buy exclusivity."
+    },
+    "public_listing": {
+      "value": "public_summary_gated_detail",
+      "claim_ids": [
+        "kled-c033",
+        "kled-c034",
+        "kled-c037",
+        "kled-c031",
+        "kled-c032",
+        "kled-c088"
+      ],
+      "note": "The Dataset Catalog shows cards (name, RAW/LABELED tag, size, modality, 'Exclusive Rights') to anyone; details, samples and purchases sit in the login-only enterprise portal or with sales."
+    },
+    "buyer_vetting": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "The enterprise portal has a 'request-access' page, which suggests buyers are admitted on request, but no vetting rule is published."
+    },
+    "sample_mechanics": {
+      "value": "sample_on_request",
+      "claim_ids": [
+        "kled-c088",
+        "kled-c033"
+      ],
+      "note": "The catalogue promises 'sample previews' but none are visible to an anonymous visitor; the audit portal says labs evaluating a dataset get access through Kled's commercial channels."
+    },
+    "versioning": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Nothing on dataset versions or what a past buyer receives. Contributor revocation or deletion removes assets from 'active datasets' [c092], so datasets appear to change over time, but buyer-side effects are unpublished."
+    },
+    "human_subject_consent_docs": {
+      "value": "asserted_only",
+      "claim_ids": [
+        "kled-c109",
+        "kled-c111",
+        "kled-c131",
+        "kled-c085",
+        "kled-c084",
+        "kled-c110"
+      ],
+      "note": "People depicted other than the uploader are covered only by the uploader's warranty that they obtained consent. Trace receipts record the uploader's own consent (the ToS and privacy-policy versions accepted, 'signed consent forms'), and labs can verify them. No release from bystanders or depicted third parties is collected or passed to buyers."
+    },
+    "contributor_pay_model": {
+      "value": "one_off",
+      "claim_ids": [
+        "kled-c113",
+        "kled-c064",
+        "kled-c065",
+        "kled-c067",
+        "kled-c071",
+        "kled-c072",
+        "kled-c059"
+      ],
+      "note": "Contributors earn a reward per accepted upload or task, valued by Kled at its discretion (dynamic, no flat rate) and credited in batches; task rewards are fixed per item (for example $5 per trash video). No royalty or per-sale share appears in the Terms. The May 2026 Terms mentioned 'content sales' balances [c129], so the history is not fully clear. Referral commissions come on top."
+    },
+    "catalogue_plus_custom": {
+      "value": "both",
+      "claim_ids": [
+        "kled-c033",
+        "kled-c055",
+        "kled-c058",
+        "kled-c005"
+      ],
+      "note": ""
+    },
+    "erasure_after_sale": {
+      "value": "takedown_only",
+      "claim_ids": [
+        "kled-c092",
+        "kled-c093",
+        "kled-c117",
+        "kled-c132",
+        "kled-c102"
+      ],
+      "note": "Revocation or deletion removes the asset from Kled's active datasets. The contributor licence is irrevocable, and Kled need not delete content on account deletion. No published term obliges buyers to delete copies they already hold; buyer contracts are not public."
+    },
+    "quality_evidence": {
+      "value": "operator_verified",
+      "claim_ids": [
+        "kled-c080",
+        "kled-c081",
+        "kled-c082",
+        "kled-c083",
+        "kled-c076",
+        "kled-c079"
+      ],
+      "note": "Kled runs its own fraud-detection pipeline (Kled-FD), ML spec checks, duplicate blocking and crowd-consensus validation (UFDP). All of this is vendor-described; no third-party quality audit was found (the Trail of Bits audit is security and privacy)."
+    }
+  },
+  "questions": {
+    "Q1": {
+      "state": "partial",
+      "answer": "Buyers are AI labs, enterprises and governments [c030]; Kled cites a $12M two-year non-exclusive deal [c004], an $8M financial-data request [c005] and a 100M-asset KPI from an image-generation lab [c019]. All of these are vendor-stated, and Kled does not say why buyers take ready-made data rather than custom.",
+      "claim_ids": [
+        "kled-c030",
+        "kled-c004",
+        "kled-c005",
+        "kled-c019",
+        "kled-c018",
+        "kled-c027",
+        "kled-c063",
+        "kled-c086"
+      ]
+    },
+    "Q2": {
+      "state": "partial",
+      "answer": "Kled built its own marketplace and consumer app and also sells voice data through distribution partners [c053]. For catalogue owners such as MPT, the pitch is that labs 'have to come through Kled' to train legally [c014].",
+      "claim_ids": [
+        "kled-c053",
+        "kled-c014",
+        "kled-c012",
+        "kled-c133",
+        "kled-c062"
+      ]
+    },
+    "Q3": {
+      "state": "sourced",
+      "answer": "Supply comes from phone-app contributors, who grant a perpetual, sublicensable licence that is exclusive for AI use [c103][c105], and from exclusive AI-licensing deals for media catalogues [c012][c013][c011]. Kled's sales teams build data packs from both [c052].",
+      "claim_ids": [
+        "kled-c039",
+        "kled-c103",
+        "kled-c105",
+        "kled-c102",
+        "kled-c012",
+        "kled-c013",
+        "kled-c011",
+        "kled-c016",
+        "kled-c052",
+        "kled-c056",
+        "kled-c026",
+        "kled-c020"
+      ]
+    },
+    "Q4": {
+      "state": "partial",
+      "answer": "Kled's terms changed on 21 July 2026. The May 1, 2026 version was 'irrevocably selling' under a non-exclusive licence to Kled and its customers [c122][c123]; the July version is exclusive to Kled for AI use [c103]. Trace still shows v2026-05-01 as 'current' on 100% of receipts [c087]. Commissioned-data carve-outs are not described.",
+      "claim_ids": [
+        "kled-c122",
+        "kled-c123",
+        "kled-c103",
+        "kled-c094",
+        "kled-c121",
+        "kled-c087",
+        "kled-c119"
+      ]
+    },
+    "Q5": {
+      "state": "sourced",
+      "answer": "Kled is licensor of record: contributors license to Nitrility, which sublicenses to 'Data Customers' [c095][c102]. Contributors warrant rights and consents and indemnify Kled and its customers [c109][c114]. Kled disclaims warranties [c116] and caps its liability to users at $100 [c115].",
+      "claim_ids": [
+        "kled-c095",
+        "kled-c102",
+        "kled-c130",
+        "kled-c109",
+        "kled-c114",
+        "kled-c116",
+        "kled-c115",
+        "kled-c133",
+        "kled-c098"
+      ]
+    },
+    "Q6": {
+      "state": "partial",
+      "answer": "Kled hosts uploads on its own infrastructure (AWS eu-west-1 and us-east-1) [c043][c042] and says validated data is 'sent directly' to labs [c045]. The delivery mechanism to buyers is undocumented.",
+      "claim_ids": [
+        "kled-c042",
+        "kled-c043",
+        "kled-c044",
+        "kled-c045",
+        "kled-c041"
+      ]
+    },
+    "Q7": {
+      "state": "partial",
+      "answer": "Capturer: Kled accepts the uploader's ToS assent, recorded per receipt on Trace [c085][c087]. Depicted people: the uploader only warrants consent [c111][c131], and personal data of under-18s is barred [c110]. Place and property owners are not addressed.",
+      "claim_ids": [
+        "kled-c085",
+        "kled-c087",
+        "kled-c111",
+        "kled-c131",
+        "kled-c110",
+        "kled-c125",
+        "kled-c099",
+        "kled-c069",
+        "kled-c079"
+      ]
+    },
+    "Q8": {
+      "state": "partial",
+      "answer": "The contributor side is exclusive to Kled for AI use and perpetual [c103][c102]. What buyers may do is unpublished; one deal is described as non-exclusive [c004]. Each upload carries a content-hash receipt on Trace [c085], but no buyer audit or leak-tracing term was found.",
+      "claim_ids": [
+        "kled-c103",
+        "kled-c102",
+        "kled-c004",
+        "kled-c085",
+        "kled-c096",
+        "kled-c136"
+      ]
+    },
+    "Q9": {
+      "state": "sourced",
+      "answer": "Buyers close through 'Contact Sales' and commercial channels [c038][c088]. Kled owns the licence and pays contributors discretionary per-item rewards [c113][c065], keeping a sales margin [c075]. The white paper cites licensing and transaction fees [c134].",
+      "claim_ids": [
+        "kled-c038",
+        "kled-c088",
+        "kled-c113",
+        "kled-c065",
+        "kled-c075",
+        "kled-c134",
+        "kled-c068",
+        "kled-c108"
+      ]
+    },
+    "Q10": {
+      "state": "partial",
+      "answer": "The unit is an uploaded asset with a Trace receipt [c085], grouped into datasets and data packs [c058][c037]. The enterprise portal has datasets, collections and purchases pages [c032]. Revocation removes assets from 'active datasets' [c092]; what past buyers get is not stated.",
+      "claim_ids": [
+        "kled-c085",
+        "kled-c058",
+        "kled-c037",
+        "kled-c032",
+        "kled-c092",
+        "kled-c093",
+        "kled-c025",
+        "kled-c057"
+      ]
+    },
+    "Q11": {
+      "state": "partial",
+      "answer": "Publicly, buyers see catalogue cards [c034] and a Trace audit portal of receipts, consent versions and a Trail of Bits audit [c084][c090]; samples come through sales [c088]. Quality claims rest on Kled's own FD pipeline and crowd validation [c080][c082].",
+      "claim_ids": [
+        "kled-c034",
+        "kled-c033",
+        "kled-c084",
+        "kled-c090",
+        "kled-c088",
+        "kled-c080",
+        "kled-c082",
+        "kled-c083",
+        "kled-c086",
+        "kled-c047"
+      ]
+    },
+    "Q12": {
+      "state": "sourced",
+      "answer": "The ready-made side is the 'Dataset Catalog' [c033], and bespoke work arrives as enterprise buyers' Special Tasks [c055]. Kled also issues its own Special Tasks and packages the results into data packs for its sales team [c056][c058].",
+      "claim_ids": [
+        "kled-c033",
+        "kled-c055",
+        "kled-c056",
+        "kled-c058",
+        "kled-c017",
+        "kled-c060",
+        "kled-c005"
+      ]
+    }
+  },
+  "sections": {
+    "positioning": "Kled (Nitrility, Inc., Delaware) sells itself as 'sourcing the largest licensable datasets on the planet' [c029] for AI labs, enterprises and governments [c030]. It pairs a consumer 'get paid for your data' app with a licensing business that also holds exclusive AI rights to media catalogues [c012][c013]. It also runs a Solana token ($KLED) as a rewards currency [c010].",
+    "supply": "Contributors, mostly in Southeast Asia (71.7% of receipts) and Sub-Saharan Africa [c048], upload photos, videos and files from the app [c039]. Images are 99.3% of files [c046]. Kled claims over 1 billion uploads [c020] and 300,000 contributors [c026]. Media supply comes from exclusive catalogue deals and film studios [c011][c016]. Some collections use VAs, accountants or shipped equipment [c049][c051][c050].",
+    "object_model": "Kled's unit is the upload, each with a Trace receipt holding a content hash [c085]. Uploads are grouped into datasets (12,000+ claimed [c025]), Special Task collections of 1,000-2,000 samples [c057] and sales 'data packs' [c058]. Catalogue cards are tagged RAW or LABELED [c037], and the buyer portal has datasets, collections and purchases pages [c032].",
+    "listing": "The public Dataset Catalog shows cards with a name, a one-line description, a size and 'Exclusive Rights' [c034][c035]. There are no prices or detail pages; it promises licensing details and sample previews [c033] that were not visible. Assets are not exposed publicly [c088].",
+    "discovery": "Buyers reach the catalogue from the homepage ('Explore Datasets', 'Request Dataset') or log in to a separate Enterprise Portal [c031][c032].",
+    "trust": "Kled publishes an audit portal on The DATA Foundation's Trace ledger showing receipt counts, consent-policy versions, contributor geography and compliance status [c084][c047][c090]. It says labs want receipts, consent forms and proof of payment before buying [c086]. The legal backstop is contributor warranties and an indemnity that also covers Kled's customers [c109][c114].",
+    "transaction": "No checkout exists: the catalogue's only action is 'Contact Sales' [c038], and evaluation access comes through commercial channels [c088]. Deals are sizeable and negotiated, such as a $12M two-year non-exclusive deal [c004]. The white paper describes automated licensing workflows as still under development [c135].",
+    "pricing": "No buyer prices are published. Kled cites a 'sales margin' on the data it sells [c075], and its white paper says revenue comes from licensing and transaction fees [c134].",
+    "licence": "Under the current Terms (21 July 2026), contributors grant a perpetual, irrevocable, multi-tier sublicensable licence that is exclusive to Kled for AI development [c102][c103][c104]. They may not license the content to anyone else for AI use [c105]. Earlier terms (1 May 2026) spoke of 'irrevocably selling' under a non-exclusive grant to Kled and its customers [c122][c123]. No buyer licence is public.",
+    "custody": "Kled stores uploads itself, in AWS eu-west-1 and us-east-1 and in its own servers [c043][c044], and says validated data goes 'directly' to labs [c045].",
+    "vetting": "Contributors pass KYC to cash out [c069], and duplicates are blocked [c076]. Kled's FD 0.1 pipeline flags AI-generated, stolen or duplicate media, minors and fraud rings [c080], and task videos that miss the specification are rejected automatically [c081]. UFDP adds crowd consensus from at least 50 people per question [c082]. Kled may reject content at will [c107].",
+    "contributor_pay": "Pay is a discretionary per-item reward with no flat rate [c064][c065], credited in batches [c067]. Cash-out starts at $25 [c068]. Advertised task rates include 500 selfies for $1,000 [c071] and $5 per chore video [c072]. If consents fail, contributors must refund what they were paid [c106].",
+    "post_sale": "Revocation or deletion removes an asset from 'active datasets' but leaves the receipt on Trace [c092][c093]. Content outlives account deletion [c132][c117]. No buyer deletion duty is published.",
+    "catalogue_custom": "The Dataset Catalog sits beside 'Request Dataset'. Enterprise buyers post Special Tasks [c055], such as an agreement for 80+ egocentric tasks [c017]. Kled also runs its own tasks and packages them into data packs [c056][c058].",
+    "changes": "Kled moved fast between 2025 and 2026: a 2025 launch, V2 and V3 releases, a $5.5M seed round [c007], $3M from The DATA Foundation [c003] and 500,000 users by July 2026 [c002]. Its Terms were rewritten on 21 July 2026 [c094], but Trace still shows the May 2026 version on every receipt [c087].",
+    "demand": "All demand figures are vendor-stated: a $12M deal [c004], an $8M request [c005], a $1M LOI [c018], a $35M+ pipeline [c027] and inbound requests from 'decacorn' labs [c063].",
+    "regulation": "Kled filed a MiCA white paper for its token [c009]. It states Delaware governing law in its Terms and says it is building SOC 2, ISO 27001, HIPAA and GDPR compliance [c091]. Under its Terms, partners may use personal data for their own purposes [c118]."
+  },
+  "buyer_journey": [
+    {
+      "step": "Lands on kled.ai: 'Sourcing the largest licensable datasets on the planet', with buttons to 'Explore Datasets', 'Request Dataset' or become a contributor [c029][c030].",
+      "claim_ids": [
+        "kled-c029",
+        "kled-c030"
+      ]
+    },
+    {
+      "step": "Opens the public Dataset Catalog. Cards show name, RAW/LABELED tag, size and modality, plus an 'Exclusive Rights' label; there are no prices and no detail pages [c034][c037].",
+      "claim_ids": [
+        "kled-c033",
+        "kled-c034",
+        "kled-c037",
+        "kled-c035",
+        "kled-c036"
+      ]
+    },
+    {
+      "step": "Clicks 'Contact Sales' (an email to team@kled.ai) or 'Request Dataset' for something not in the catalogue [c038].",
+      "claim_ids": [
+        "kled-c038"
+      ]
+    },
+    {
+      "step": "Optionally checks provenance on the public Trace audit portal: receipt counts, ToS versions, geography and compliance status. The assets themselves are not shown [c084][c088].",
+      "claim_ids": [
+        "kled-c084",
+        "kled-c087",
+        "kled-c090",
+        "kled-c088"
+      ]
+    },
+    {
+      "step": "Gets evaluation access through Kled's commercial channels and the login-only Enterprise Portal, which has datasets, collections and purchases pages [c088][c032].",
+      "claim_ids": [
+        "kled-c088",
+        "kled-c031",
+        "kled-c032"
+      ]
+    },
+    {
+      "step": "For custom needs, Kled turns the request into Special Tasks in the contributor app. Contributors capture to spec and Kled validates the results [c055][c081].",
+      "claim_ids": [
+        "kled-c055",
+        "kled-c017",
+        "kled-c081",
+        "kled-c082"
+      ]
+    },
+    {
+      "step": "Negotiates a deal with Nitrility as licensor, for example a two-year non-exclusive licence. The buyer licence terms are not public [c004][c095].",
+      "claim_ids": [
+        "kled-c004",
+        "kled-c095",
+        "kled-c102"
+      ]
+    },
+    {
+      "step": "Receives validated data sent directly from Kled's pipeline, then trains or fine-tunes models on it [c045][c096].",
+      "claim_ids": [
+        "kled-c045",
+        "kled-c096"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "id": "kled-c001",
+      "statement": "Kled (Nitrility, Inc.) is operating: its privacy policy was last updated on September 14, 2026.",
+      "kind": "status",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/privacy-policy",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Nitrility, Inc. – Privacy Policy Last Updated: September 14, 2026"
+        }
+      ]
+    },
+    {
+      "id": "kled-c002",
+      "statement": "On 18 July 2026 Kled announced on its own blog that it had surpassed 500,000 users (vendor-stated).",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-07-18",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-hits-500-000-users",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Kled has officially surpassed 500,000 users. Onward."
+        }
+      ]
+    },
+    {
+      "id": "kled-c003",
+      "statement": "On 25 June 2026 Kled said The DATA Foundation invested $3 million, bringing Kled's total funding to $14 million (vendor-stated).",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-06-25",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/the-data-foundation-invests-3m-in-kled",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The Data Foundation has invested $3 million into Kled, bringing our total funding to now $14 million"
+        }
+      ]
+    },
+    {
+      "id": "kled-c004",
+      "statement": "On 26 June 2026 Kled said it had signed a $12 million non-exclusive data deal running over two years, which it says made the marketplace profitable (vendor-stated).",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-06-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-signs-12m-enterprise-data-deal",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "signed a $12 million non-exclusive data deal over the next 2 years making the marketplace officially profitable"
+        }
+      ]
+    },
+    {
+      "id": "kled-c005",
+      "statement": "On 27 June 2026 Kled said it had received an $8 million request for anonymized financial data such as credit card reports and tax returns (vendor-stated).",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1",
+        "Q12"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-06-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-lands-8m-financial-data-request",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We've received an $8 million request for anonymized financial data."
+        }
+      ]
+    },
+    {
+      "id": "kled-c006",
+      "statement": "Kled says contributors uploading financial documents for the $8M request can expect up to $50-$150 per form.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 150,
+        "unit": "USD per form (upper end of $50-$150 range)",
+        "basis": "paid by Kled to the contributor per uploaded financial document; gross, not stated",
+        "period": "per item"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-06-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-lands-8m-financial-data-request",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Expected pay is up to $50-$150 per form."
+        }
+      ]
+    },
+    {
+      "id": "kled-c007",
+      "statement": "On 10 March 2026 Kled announced a $5.5M seed round and said total financing had reached $10 million (vendor-stated).",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-03-10",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-raises-5.5m-seed",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "This brings our total financing to $10 million."
+        }
+      ]
+    },
+    {
+      "id": "kled-c008",
+      "statement": "Kled's tokenomics page says Nitrility's most recent SAFE investment came in at a $280 million valuation cap (vendor-stated).",
+      "kind": "number",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 280000000,
+        "unit": "USD",
+        "basis": "valuation cap on the most recent SAFE investment in Nitrility Inc.; vendor-stated",
+        "period": "as of 2026-04-23"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-04-23",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/kled-tokenomics",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Our most recent check came in at a $280 million valuation cap"
+        }
+      ]
+    },
+    {
+      "id": "kled-c009",
+      "statement": "Kled's MiCA crypto-asset white paper (notified 2025-12-28) states Nitrility is profitable, carries no debt and had raised about USD 3 million through SAFE notes.",
+      "kind": "number",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 3000000,
+        "unit": "USD",
+        "basis": "equity raised through SAFE notes to the white paper date; issuer's own statement",
+        "period": "cumulative"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2025-12-28",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/whitepaper",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "It is currently profitable, carries no debt, and has raised approximately USD 3 million through SAFE notes."
+        }
+      ]
+    },
+    {
+      "id": "kled-c010",
+      "statement": "On 26 June 2026 Kled said it had bought back over $1 million of its $KLED token, which it intends as the rewards currency for its data marketplace.",
+      "kind": "event",
+      "section": "contributor_pay",
+      "question_ids": [],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-06-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-begins-1m-token-buyback",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "will ultimately become a fully viable reward currency for our data marketplace"
+        }
+      ]
+    },
+    {
+      "id": "kled-c011",
+      "statement": "In December 2025 Kled said it owns exclusive rights to one of the largest US aerial drone footage catalogues (vendor-stated).",
+      "kind": "event",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-12-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-secures-exclusive-u.s.-drone-footage-catalog",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Kled now owns exclusive rights for one of the largest aerial drone footage catalogs in the United States."
+        }
+      ]
+    },
+    {
+      "id": "kled-c012",
+      "statement": "In October 2025 Kled said it signed an exclusive AI licensing agreement with Maryland Public Television.",
+      "kind": "event",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q2"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-10-22",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-signs-exclusive-ai-deal-with-maryland-public-television",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "signed an exclusive AI licensing agreement with its first government organization, Maryland Public Television"
+        }
+      ]
+    },
+    {
+      "id": "kled-c013",
+      "statement": "In October 2025 Kled said it holds exclusive AI licensing rights to over 30,000 entertainment titles under a deal with Ninja Digital Holdings.",
+      "kind": "event",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-10-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-secures-exclusive-rights-to-30-000-classic-titles",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Kled now holds the exclusive AI licensing rights to over 30,000 pieces of entertainment"
+        }
+      ]
+    },
+    {
+      "id": "kled-c014",
+      "statement": "Kled says that AI companies wanting to train legally on the licensed classic titles must come through Kled.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q2",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-10-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-secures-exclusive-rights-to-30-000-classic-titles",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "if they want to legally train on it, they have to come through Kled."
+        }
+      ]
+    },
+    {
+      "id": "kled-c015",
+      "statement": "Kled says it migrated most of its enterprise content contracts to cover the suppliers' future catalogues as well as past catalogues.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-10-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-enterprise-v2-expands-with-growing-catalog",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "migrated the majority of all of our enterprise contracts to not only include past catalogs but now future catalogs"
+        }
+      ]
+    },
+    {
+      "id": "kled-c016",
+      "statement": "In November 2025 Kled said it had signed $310,000,000 worth of enterprise data from international film studios since October 28 (vendor-stated).",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 310000000,
+        "unit": "USD",
+        "basis": "stated value of enterprise film data signed as supply, not revenue; basis of valuation not stated",
+        "period": "2025-10-28 to 2025-11-08"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2025-11-08",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-builds-petabyte-scale-infrastructure-for-global-expansion",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Kled has signed another $310,000,000 worth of enterprise data from international film studios."
+        }
+      ]
+    },
+    {
+      "id": "kled-c017",
+      "statement": "In December 2025 Kled said it entered an agreement scoped at up to $2.2 million to roll out 80+ egocentric special tasks.",
+      "kind": "outcome",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q1",
+        "Q12"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-12-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-expands-special-tasks-with-2.2m-agreement",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "an agreement scoped at up to $2.2 million to roll out 80+ egocentric special tasks for user data"
+        }
+      ]
+    },
+    {
+      "id": "kled-c018",
+      "statement": "In October 2025 Kled said it received a $1 million letter of intent from Superpower for healthcare data, which it would license to companies like Superpower Health.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-10-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-secures-1m-loi-to-power-healthcare-ai",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Kled has received a $1 million LOI from Superpower"
+        }
+      ]
+    },
+    {
+      "id": "kled-c019",
+      "statement": "In October 2025 Kled said an image-generation AI lab had set it a KPI to scale to 100M uploaded assets to be sold to that lab.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-10-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-targets-100m-assets-after-major-kpi",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "scaling to 100M uploaded assets, which will be sold to their team"
+        }
+      ]
+    },
+    {
+      "id": "kled-c020",
+      "statement": "In April 2026 Kled said it had passed 1 billion uploads (vendor-stated).",
+      "kind": "outcome",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-04-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-surpasses-1-billion-uploads",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The first human data marketplace has just crossed over 1 billion uploads."
+        }
+      ]
+    },
+    {
+      "id": "kled-c021",
+      "statement": "In January 2026 Kled said over $3 million was sitting in users' wallets (vendor-stated).",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 3000000,
+        "unit": "USD",
+        "basis": "unpaid contributor balances held in Kled wallets",
+        "period": "as of 2026-01-05"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-01-05",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-hits-3m-in-active-user-payouts",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Over $3 million is actively sitting in the wallets of our users."
+        }
+      ]
+    },
+    {
+      "id": "kled-c022",
+      "statement": "Kled said that three days after its V2 launch in December 2025 over $95,000 had been paid out to contributors in total (vendor-stated).",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 95000,
+        "unit": "USD",
+        "basis": "cumulative contributor payouts to 2025-12-17",
+        "period": "cumulative"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2025-12-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-v2-pays-out-95k-uploads-surge-400%C3%97",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Over $95,000+ have been paid out in total."
+        }
+      ]
+    },
+    {
+      "id": "kled-c023",
+      "statement": "In December 2025 Kled said payouts only processed once a contributor had at least 100 pending items worth at least $1.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 100,
+        "unit": "pending items",
+        "basis": "minimum pending uploads before a payout batch processes (plus at least $1 value)",
+        "period": "per payout"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2025-12-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-v2-pays-out-95k-uploads-surge-400%C3%97",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "payouts only process if you have at least 100 pending items and the value is at least $1"
+        }
+      ]
+    },
+    {
+      "id": "kled-c024",
+      "statement": "In March 2026 Kled said its top earner made $7,400 per month and users uploaded 3-4.5 million files per day (vendor-stated).",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 7400,
+        "unit": "USD per month",
+        "basis": "earnings of the single top contributor; vendor-stated",
+        "period": "per month"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-03-10",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-raises-5.5m-seed",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "With our top earner making $7,400 per month."
+        }
+      ]
+    },
+    {
+      "id": "kled-c025",
+      "statement": "Kled says it has created 12,000+ structured datasets spanning egocentric, medical and urban travel data (vendor-stated).",
+      "kind": "number",
+      "section": "object_model",
+      "question_ids": [
+        "Q10",
+        "Q3"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 12000,
+        "unit": "structured datasets",
+        "basis": "count of datasets Kled says it has created; vendor-stated",
+        "period": "as of 2026-03-10"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-03-10",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-raises-5.5m-seed",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We’ve collected 12,000+ structured datasets created spanning egocentric data, medical data"
+        }
+      ]
+    },
+    {
+      "id": "kled-c026",
+      "statement": "Kled's April 2026 tokenomics page claims 300,000 contributors across 170+ countries and over 5 million uploads per day.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 300000,
+        "unit": "contributors",
+        "basis": "contributor count; vendor-stated",
+        "period": "as of 2026-04-23"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-04-23",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/kled-tokenomics",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The network: 300,000 contributors across 170+ countries."
+        }
+      ]
+    },
+    {
+      "id": "kled-c027",
+      "statement": "Kled says it has a $35M+ data purchase pipeline with enterprise relationships across leading AI labs (vendor-stated).",
+      "kind": "number",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 35000000,
+        "unit": "USD",
+        "basis": "stated pipeline of data purchases, not booked revenue",
+        "period": "as of 2026-04-23"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-04-23",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/kled-tokenomics",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Kled has a $35M+ data purchase pipeline"
+        }
+      ]
+    },
+    {
+      "id": "kled-c028",
+      "statement": "Kled's white paper set a plan to scale the marketplace toward 5-10 million users by Q3 2026.",
+      "kind": "number",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 5000000,
+        "unit": "users (lower bound of 5-10 million target)",
+        "basis": "roadmap target, not an outcome",
+        "period": "by Q3 2026"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2025-12-28",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/whitepaper",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "scale its marketplace toward 5–10 million users by Q3 2026"
+        }
+      ]
+    },
+    {
+      "id": "kled-c029",
+      "statement": "Kled's homepage describes the business as sourcing the largest licensable datasets on the planet.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Sourcing the largest licensable datasets on the planet."
+        }
+      ]
+    },
+    {
+      "id": "kled-c030",
+      "statement": "Kled's homepage says it supplies AI companies, governments and research institutions with data sourced from verified contributors.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "leading AI companies, governments, and research institutions with data sourced from verified contributors"
+        }
+      ]
+    },
+    {
+      "id": "kled-c031",
+      "statement": "Kled's site footer links to a separate 'Enterprise Portal' at enterprise.kled.ai.",
+      "kind": "architecture",
+      "section": "discovery",
+      "question_ids": [
+        "Q9",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Enterprise Portal"
+        }
+      ]
+    },
+    {
+      "id": "kled-c032",
+      "statement": "The enterprise portal's site index lists a login page, request-access page and pages for datasets, collections and purchases.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Kled dataset catalogue / enterprise portal",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://framerusercontent.com/sites/3a3kujYV9IYC50kk0BykZ5/searchIndex-heiJpOdFBCVy.json",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "\"/purchases\":{\"version\":1,\"title\":\"Kled.ai\""
+        }
+      ]
+    },
+    {
+      "id": "kled-c033",
+      "statement": "Kled's public Dataset Catalog says it lists consumer and enterprise datasets with licensing details, metadata formats and sample previews.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q11",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Kled dataset catalogue / enterprise portal",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/datasets",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "complete with licensing details, metadata formats, and sample previews"
+        }
+      ]
+    },
+    {
+      "id": "kled-c034",
+      "statement": "A catalogue card, 'Classic Animation Archive', shows 'Exclusive Rights to 18,000 Episodes' of video with no price.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q10",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Kled dataset catalogue / enterprise portal",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/datasets",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Exclusive Rights to 18,000 Episodes"
+        }
+      ]
+    },
+    {
+      "id": "kled-c035",
+      "statement": "A catalogue card lists a 'De-Identified U.S. Medical Records Corpus' of 50M records.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Kled dataset catalogue / enterprise portal",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/datasets",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "De-Identified U.S. Medical Records Corpus"
+        }
+      ]
+    },
+    {
+      "id": "kled-c036",
+      "statement": "A catalogue card lists 'Feature Film Master Reels' of 40,000 hours of cinematic footage.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q10",
+        "Q3"
+      ],
+      "scope": {
+        "product": "Kled dataset catalogue / enterprise portal",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/datasets",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Feature Film Master Reels"
+        }
+      ]
+    },
+    {
+      "id": "kled-c037",
+      "statement": "Catalogue cards are tagged RAW or LABELED; for example the Hospital Radiology Report Dataset is tagged LABELED.",
+      "kind": "offer",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Kled dataset catalogue / enterprise portal",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/datasets",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "LABELED Hospital Radiology Report Dataset"
+        }
+      ]
+    },
+    {
+      "id": "kled-c038",
+      "statement": "The catalogue shows no prices; the only purchase action on it is a 'Contact Sales' button, which opens an email to team@kled.ai.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Kled dataset catalogue / enterprise portal",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/datasets",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Contact Sales"
+        }
+      ]
+    },
+    {
+      "id": "kled-c039",
+      "statement": "The Kled mobile app lets contributors submit photos, videos and files directly from their phone.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Kled contributor app",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/product",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Easily submit photos, videos, and files directly from your phone."
+        }
+      ]
+    },
+    {
+      "id": "kled-c040",
+      "statement": "Kled's help centre says its content is used to train AI models and contributors are paid for the value it brings to training datasets.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Kled contributor app",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://help.kled.ai/article/what-is-kled-and-how-does-it-work",
+          "publisher": "Kled Help Center",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Your content is used to train artificial intelligence models, and you get paid for the value your contributions bring"
+        }
+      ]
+    },
+    {
+      "id": "kled-c041",
+      "statement": "Kled's help centre says AI buyers purchase access to datasets that include contributors' content.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q6",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Kled contributor app",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://help.kled.ai/article/what-is-kled-and-how-does-it-work",
+          "publisher": "Kled Help Center",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Buyers purchase access to datasets that include your content."
+        }
+      ]
+    },
+    {
+      "id": "kled-c042",
+      "statement": "Kled says it stores and prepares contributors' content for inclusion in AI training datasets.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "Kled contributor app",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://help.kled.ai/article/what-is-kled-and-how-does-it-work",
+          "publisher": "Kled Help Center",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Kled securely stores and prepares your content for inclusion in AI training datasets."
+        }
+      ]
+    },
+    {
+      "id": "kled-c043",
+      "statement": "Kled's audit portal says contributor data is held in AWS eu-west-1 for EU contributors and us-east-1 for North America.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://trace.datafdn.org/audit/kled",
+          "publisher": "Kled audit portal on Trace (The DATA Foundation)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AWS eu-west-1 for EU contributors, us-east-1 for North America."
+        }
+      ]
+    },
+    {
+      "id": "kled-c044",
+      "statement": "In November 2025 Kled said it was committing a large portion of a $3 million raise to in-house servers able to host petabytes of data.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-11-08",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-builds-petabyte-scale-infrastructure-for-global-expansion",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "building our own in house servers capable of hosting petabytes of data"
+        }
+      ]
+    },
+    {
+      "id": "kled-c045",
+      "statement": "Kled says validated data from its pipeline is sent directly to foundation model and robotics companies.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-04-23",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-launches-ufdp-%E2%80%94-paid-captcha-for-data-validation",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "once validated is sent directly to the leading foundation models and robotics companies"
+        }
+      ]
+    },
+    {
+      "id": "kled-c046",
+      "statement": "Kled's audit portal reports that 99.3% of the files measured on Trace are images and 0.7% are video (live dashboard).",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 99.3,
+        "unit": "percent of files",
+        "basis": "share of 254,129,356 measured receipts that are images",
+        "period": "as of 2026-10-01"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://trace.datafdn.org/audit/kled",
+          "publisher": "Kled audit portal on Trace (The DATA Foundation)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Image 252,401,546 · 99.3%"
+        }
+      ]
+    },
+    {
+      "id": "kled-c047",
+      "statement": "Kled's audit portal shows 254,130,955 records on Trace (live counter).",
+      "kind": "number",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 254130955,
+        "unit": "receipts",
+        "basis": "contribution receipts Kled has written to the Trace ledger",
+        "period": "cumulative as of 2026-10-01"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://trace.datafdn.org/audit/kled",
+          "publisher": "Kled audit portal on Trace (The DATA Foundation)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Records on Trace 254,130,955"
+        }
+      ]
+    },
+    {
+      "id": "kled-c048",
+      "statement": "Kled's audit portal says 71.7% of receipts come from Southeast Asia and 25.4% from Sub-Saharan Africa, with 2.2% from North America.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 71.7,
+        "unit": "percent of receipts",
+        "basis": "share of located receipts from contributors in Southeast Asia, weighted by receipt volume",
+        "period": "as of 2026-10-01"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://trace.datafdn.org/audit/kled",
+          "publisher": "Kled audit portal on Trace (The DATA Foundation)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Southeast Asia SEA 71.7% Sub-Saharan Africa AF 25.4%"
+        }
+      ]
+    },
+    {
+      "id": "kled-c049",
+      "statement": "In September 2025 Kled said it had over 20,000 trained VAs who would contribute to 54 new multimodal datasets before collection moved to the main app.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-09-29",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-launches-54-new-multimodal-datasets",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We’ve amassed over 20,000 trained VAs who will begin to contribute to these data sets"
+        }
+      ]
+    },
+    {
+      "id": "kled-c050",
+      "statement": "For Kled ROS, Kled said it would ship capture equipment to thousands of Americans who agreed to record their household routines.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q12"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-10-29",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/introducing-kled-ros-for-robotic-training-data",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "shipped to thousands of middle income Americans who have agreed to record their daily household routines"
+        }
+      ]
+    },
+    {
+      "id": "kled-c051",
+      "statement": "Kled said the $8M financial-data request was being fulfilled through a network of specialized accountants.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q12"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-06-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-lands-8m-financial-data-request",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "currently being fulfilled through a network of specialized accountants with the proper legal clearance"
+        }
+      ]
+    },
+    {
+      "id": "kled-c052",
+      "statement": "Kled said its sales teams structure data packs from both user uploads and enterprise clients' content for AI labs and buyers.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q3",
+        "Q12"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-11-08",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-builds-petabyte-scale-infrastructure-for-global-expansion",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Our sales teams are actively structuring organized datapacks from both users and enterprise clients"
+        }
+      ]
+    },
+    {
+      "id": "kled-c053",
+      "statement": "Kled says voice data from its contributors will be packaged and sold to voice model teams both directly and through distribution partners.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q2",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-04-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-expands-into-voice-data",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "packaged and sold to leading voice foundation model teams, both directly and through our distribution partners"
+        }
+      ]
+    },
+    {
+      "id": "kled-c054",
+      "statement": "Kled describes its role as licensing, de-risking and enriching real-world data so labs can train without legal grey zones.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-08-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/why-licensed-data-is-becoming-the-future-of-ai-training",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We license, de risk, and enrich real world data (video, audio, text) so labs can train without legal gray zones."
+        }
+      ]
+    },
+    {
+      "id": "kled-c055",
+      "statement": "Kled Special Tasks let contributors complete domain-specific upload tasks set directly by enterprise buyers, which can be region-locked and person-specific.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-11-12",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-introduces-special-tasks-in-v2",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "view and complete domain specific upload tasks directly from enterprise buyers"
+        }
+      ]
+    },
+    {
+      "id": "kled-c056",
+      "statement": "Kled says Special Tasks also let it identify valuable content types itself and issue calls for specific datasets.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12",
+        "Q3"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-11-12",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-introduces-special-tasks-in-v2",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "internally identify valuable content types, issue calls for specific datasets"
+        }
+      ]
+    },
+    {
+      "id": "kled-c057",
+      "statement": "Kled says each Special Task collects 1,000-2,000 unique samples.",
+      "kind": "number",
+      "section": "object_model",
+      "question_ids": [
+        "Q10",
+        "Q12"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 2000,
+        "unit": "samples per task (upper end of 1,000-2,000)",
+        "basis": "planned collection size per Special Task",
+        "period": "per task"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2025-11-12",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-introduces-special-tasks-in-v2",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "collect 1,000-2,000 unique samples per task"
+        }
+      ]
+    },
+    {
+      "id": "kled-c058",
+      "statement": "Kled says it packages Special Task collections into data packs that its sales team pitches to AI labs and enterprise clients.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-11-12",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-introduces-special-tasks-in-v2",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "package these datasets into specialized data packs that our sales team will use to pitch directly to AI labs"
+        }
+      ]
+    },
+    {
+      "id": "kled-c059",
+      "statement": "Kled says Special Task participants receive weighted payouts based on the value of their submissions.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-11-12",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-introduces-special-tasks-in-v2",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "participants will receive weighted payouts based on the value of their submissions"
+        }
+      ]
+    },
+    {
+      "id": "kled-c060",
+      "statement": "Some Special Tasks are created by third-party organisations that issue their own access codes.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "Kled contributor app",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://help.kled.ai/article/education-and-access-code-verification",
+          "publisher": "Kled Help Center",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Kled support cannot provide access codes for third-party tasks."
+        }
+      ]
+    },
+    {
+      "id": "kled-c061",
+      "statement": "Some location-gated tasks require contributors to capture content on the spot with the camera, not from the photo library.",
+      "kind": "offer",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Kled contributor app",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://help.kled.ai/article/location-gated-tasks",
+          "publisher": "Kled Help Center",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "require you to capture content on the spot (camera only — no library selection)"
+        }
+      ]
+    },
+    {
+      "id": "kled-c062",
+      "statement": "Kled says partner-run labelling and evaluation jobs routed through its app are owned and managed by the partners, with Kled routing people to the work.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-01-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-v3-expands-rewards-and-contributor-tools",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "These jobs are owned and managed by our partners. Kled’s role is to route the right people to the right work."
+        }
+      ]
+    },
+    {
+      "id": "kled-c063",
+      "statement": "In January 2026 Kled said it had received inbound data requests from several decacorn AI labs and enterprises.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-01-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-v3-expands-rewards-and-contributor-tools",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "we’ve received inbound data requests from several decacorn AI labs and enterprises"
+        }
+      ]
+    },
+    {
+      "id": "kled-c064",
+      "statement": "Kled's help centre says there is no flat per-file rate for contributor earnings.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Kled contributor app",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://help.kled.ai/article/how-earnings-are-calculated",
+          "publisher": "Kled Help Center",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "There is no flat per-file rate."
+        }
+      ]
+    },
+    {
+      "id": "kled-c065",
+      "statement": "Kled says contributor payout rates are not fixed and vary with market demand, dataset composition and how much similar content exists.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Kled contributor app",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://help.kled.ai/article/how-earnings-are-calculated",
+          "publisher": "Kled Help Center",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Payout rates are not fixed."
+        }
+      ]
+    },
+    {
+      "id": "kled-c066",
+      "statement": "Kled says content matching current buyer demand earns more.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9",
+        "Q1"
+      ],
+      "scope": {
+        "product": "Kled contributor app",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://help.kled.ai/article/how-earnings-are-calculated",
+          "publisher": "Kled Help Center",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AI training relevance — Content matching current buyer demand earns more"
+        }
+      ]
+    },
+    {
+      "id": "kled-c067",
+      "statement": "Kled credits earnings in batches, which can take up to 7 business days to process.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Kled contributor app",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://help.kled.ai/article/how-earnings-are-calculated",
+          "publisher": "Kled Help Center",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Batch processing timelines vary and can take up to 7 business days."
+        }
+      ]
+    },
+    {
+      "id": "kled-c068",
+      "statement": "Contributors can cash out via Venmo, PayPal or Solana once their balance reaches $25.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Kled contributor app",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 25,
+        "unit": "USD",
+        "basis": "minimum contributor balance before cash-out",
+        "period": "per cash-out"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://help.kled.ai/article/what-is-kled-and-how-does-it-work",
+          "publisher": "Kled Help Center",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Withdraw your earnings via Venmo, PayPal, or Solana cryptocurrency once you reach the $25 minimum."
+        }
+      ]
+    },
+    {
+      "id": "kled-c069",
+      "statement": "Before cashing out, contributors must complete a one-time KYC check with a government ID and selfie.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Kled contributor app",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://help.kled.ai/article/minimum-cashout-threshold-and-requirements",
+          "publisher": "Kled Help Center",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "One-time verification with government ID and selfie"
+        }
+      ]
+    },
+    {
+      "id": "kled-c070",
+      "statement": "Kled pays contributors referral commissions based on the activity of users who sign up with their invite code.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Kled contributor app",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://help.kled.ai/article/affiliate-program-and-referrals",
+          "publisher": "Kled Help Center",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "When someone signs up using your code, you earn referral commissions based on their activity."
+        }
+      ]
+    },
+    {
+      "id": "kled-c071",
+      "statement": "In April 2026 Kled advertised US tasks such as uploading 500 selfies for $1,000.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 1000,
+        "unit": "USD per 500 selfies",
+        "basis": "reward paid by Kled to a qualified, KYC'd US contributor for the task",
+        "period": "per task"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-04-28",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-expands-u.s.-task-rewards",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "upload 500 selfies for $1,000"
+        }
+      ]
+    },
+    {
+      "id": "kled-c072",
+      "statement": "In April 2026 Kled advertised $5 for a short video of the contributor taking out the trash and $150 for uploading a tax return.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 5,
+        "unit": "USD per video",
+        "basis": "reward paid by Kled to the contributor for one task video",
+        "period": "per item"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-04-28",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-expands-u.s.-task-rewards",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "record a quick video of yourself taking out the trash for $5, or upload your tax return for $150"
+        }
+      ]
+    },
+    {
+      "id": "kled-c073",
+      "statement": "Kled says it is receiving tasks from foundation model companies paying $1,000+ per single completion.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9",
+        "Q1"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 1000,
+        "unit": "USD per task completion (lower bound)",
+        "basis": "reward per completion of the highest-value tasks; vendor-stated",
+        "period": "per item"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-04-23",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/kled-tokenomics",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "actively receiving tasks paying $1,000+ per single completion"
+        }
+      ]
+    },
+    {
+      "id": "kled-c074",
+      "statement": "Kled's blog, quoting a Guardian article, says a Cape Town contributor earned $14 for an 'Urban Navigation' task video.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 14,
+        "unit": "USD per video",
+        "basis": "one contributor's reward for one task video, as relayed by Kled",
+        "period": "per item"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-03-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-featured-in-the-guardian-on-ai-data-work",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The video earned him $14, about 10 times the country’s minimum wage"
+        }
+      ]
+    },
+    {
+      "id": "kled-c075",
+      "statement": "Kled says its sales margin on validated data lets it run its UFDP captcha service free of charge.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-04-23",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-launches-ufdp-%E2%80%94-paid-captcha-for-data-validation",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Kled’s sales margin on this data lets us run this captcha service completely for free"
+        }
+      ]
+    },
+    {
+      "id": "kled-c076",
+      "statement": "Kled blocks the same file from being uploaded twice, checking locally and on the server.",
+      "kind": "architecture",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Kled contributor app",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://help.kled.ai/article/duplicate-detection",
+          "publisher": "Kled Help Center",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Kled automatically prevents the same file from being uploaded twice."
+        }
+      ]
+    },
+    {
+      "id": "kled-c077",
+      "statement": "Kled bans accounts that upload content they do not own; all content must be the uploader's own.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Kled contributor app",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://help.kled.ai/article/account-bans-and-suspensions",
+          "publisher": "Kled Help Center",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All content must be yours."
+        }
+      ]
+    },
+    {
+      "id": "kled-c078",
+      "statement": "Balances in accounts suspended for violations may be forfeited, and bans have no appeal.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Kled contributor app",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://help.kled.ai/article/account-bans-and-suspensions",
+          "publisher": "Kled Help Center",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Remaining balances in suspended accounts may be forfeited."
+        }
+      ]
+    },
+    {
+      "id": "kled-c079",
+      "statement": "Kled says ML systems anonymize and remove sensitive information from uploads before labelling.",
+      "kind": "architecture",
+      "section": "vetting",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-01-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled%E2%80%99s-opt-in-human-data-network-at-scale",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "ML systems are built to anonymize and remove sensitive information from uploads."
+        }
+      ]
+    },
+    {
+      "id": "kled-c080",
+      "statement": "Kled says its Kled-FD 0.1 pipeline detects AI-generated content, near duplicates, stolen media, screenshots, minors and fraud rings.",
+      "kind": "architecture",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-06-01",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-launches-fd-0.1",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "detecting AI generated content, near duplicates, stolen and plagiarized media, screenshots"
+        }
+      ]
+    },
+    {
+      "id": "kled-c081",
+      "statement": "Kled says its ML systems automatically reject task videos that fail a task's specification.",
+      "kind": "architecture",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-01-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-v3-expands-rewards-and-contributor-tools",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "any video that fails that spec will be automatically rejected"
+        }
+      ]
+    },
+    {
+      "id": "kled-c082",
+      "statement": "Kled's UFDP validation sends each question to at least 50 people and takes the consensus answer.",
+      "kind": "architecture",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-04-23",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-launches-ufdp-%E2%80%94-paid-captcha-for-data-validation",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Each question goes to a cluster of at minimum 50 people simultaneously."
+        }
+      ]
+    },
+    {
+      "id": "kled-c083",
+      "statement": "Kled says every data point it sells to an AI lab has been validated by a decentralized network of contributors.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-04-23",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/kled-tokenomics",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Every data point Kled sells to an AI lab has been validated by a decentralized network of contributors"
+        }
+      ]
+    },
+    {
+      "id": "kled-c084",
+      "statement": "Kled's audit portal says every dataset available through Kled is backed by an audit trail of contributor consent, policy acceptance, provenance and compensation status.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://trace.datafdn.org/audit/kled",
+          "publisher": "Kled audit portal on Trace (The DATA Foundation)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "backed by an audit trail of contributor consent, policy acceptance, provenance signals, and compensation status"
+        }
+      ]
+    },
+    {
+      "id": "kled-c085",
+      "statement": "Kled says each upload creates an anonymized Trace receipt holding the content hash ID, signed consent forms, payment record and timestamps.",
+      "kind": "architecture",
+      "section": "trust",
+      "question_ids": [
+        "Q7",
+        "Q8",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-06-25",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-partners-with-the-data-foundation",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The content hash ID, signed consent forms, full payment record, and end-to-end timestamps."
+        }
+      ]
+    },
+    {
+      "id": "kled-c086",
+      "statement": "Kled says labs want a clean audit record of receipts, consent forms and proof of payment before buying a dataset.",
+      "kind": "offer",
+      "section": "demand",
+      "question_ids": [
+        "Q1",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-06-25",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-partners-with-the-data-foundation",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "A clean audit record: end-to-end receipts, consent forms, and proof of payment."
+        }
+      ]
+    },
+    {
+      "id": "kled-c087",
+      "statement": "Kled's audit portal shows Terms of Service version 2026-05-01 as 'current' on 100% of consent receipts.",
+      "kind": "number",
+      "section": "changes",
+      "question_ids": [
+        "Q4",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 100,
+        "unit": "percent of receipts",
+        "basis": "share of 208,231,888 receipts that record ToS v2026-05-01",
+        "period": "as of 2026-10-01"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://trace.datafdn.org/audit/kled",
+          "publisher": "Kled audit portal on Trace (The DATA Foundation)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Terms of service v2026-05-01 current 208,231,888 · 100%"
+        }
+      ]
+    },
+    {
+      "id": "kled-c088",
+      "statement": "Kled's audit portal does not expose the underlying assets; labs evaluating a dataset are given access through Kled's commercial channels.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q11",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://trace.datafdn.org/audit/kled",
+          "publisher": "Kled audit portal on Trace (The DATA Foundation)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Labs evaluating a dataset for licensing are given access through Kled's commercial channels."
+        }
+      ]
+    },
+    {
+      "id": "kled-c089",
+      "statement": "Kled says EXIF, GPS, IP and device-fingerprint values stay in its own systems and Trace stores only existence flags.",
+      "kind": "architecture",
+      "section": "trust",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://trace.datafdn.org/audit/kled",
+          "publisher": "Kled audit portal on Trace (The DATA Foundation)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Trace stores existence flags (present or absent), never the values."
+        }
+      ]
+    },
+    {
+      "id": "kled-c090",
+      "statement": "Kled's audit portal lists an independent Trail of Bits security and privacy audit dated May 2026 and SOC 2 Type II as targeted for Q4 2026.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://trace.datafdn.org/audit/kled",
+          "publisher": "Kled audit portal on Trace (The DATA Foundation)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Trail of Bits Independent security & privacy audit of Kled Last Assessed May 2026 Audited"
+        }
+      ]
+    },
+    {
+      "id": "kled-c091",
+      "statement": "In May 2026 Kled said it was partnering with Vanta and Workstreet to build SOC 2 Type II, ISO 27001, HIPAA and GDPR compliance infrastructure.",
+      "kind": "event",
+      "section": "regulation",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-05-08",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/blog/kled-expands-enterprise-compliance-infrastructure",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Kled is partnering with Vanta and Workstreet to build automated SOC 2 Type II, ISO 27001, HIPAA, and GDPR compliance"
+        }
+      ]
+    },
+    {
+      "id": "kled-c092",
+      "statement": "Kled's audit portal says a contributor's consent revocation removes the asset from active datasets while the receipt stays on Trace.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://trace.datafdn.org/audit/kled",
+          "publisher": "Kled audit portal on Trace (The DATA Foundation)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Revocation produces a new lifecycle event on each affected receipt and removes the asset from active datasets."
+        }
+      ]
+    },
+    {
+      "id": "kled-c093",
+      "statement": "Kled's audit portal describes a contributor-initiated right to deletion that removes the asset from active datasets but preserves the audit record.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://trace.datafdn.org/audit/kled",
+          "publisher": "Kled audit portal on Trace (The DATA Foundation)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Contributor-initiated. Asset removed from active datasets; audit record preserved."
+        }
+      ]
+    },
+    {
+      "id": "kled-c094",
+      "statement": "Kled's current Terms of Service are issued by Nitrility, Inc. and were last revised on July 21, 2026.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Nitrility, Inc. – Terms of Service Last Revised on July 21, 2026."
+        }
+      ]
+    },
+    {
+      "id": "kled-c095",
+      "statement": "Under the current Terms, Kled may distribute and commercialise Submitted Content to business customers ('Data Customers') seeking rights in it.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "commercialize your Submitted Content to our business customers that seek to acquire rights in the Submitted Content"
+        }
+      ]
+    },
+    {
+      "id": "kled-c096",
+      "statement": "The Terms give training or fine-tuning AI models as an example of Data Customers' business purposes.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q1",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "for their own business purposes, such as to train or fine-tune their AI models"
+        }
+      ]
+    },
+    {
+      "id": "kled-c097",
+      "statement": "The Terms say certain Submitted Content may carry specific criteria for it to be acceptable.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11",
+        "Q12"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Certain Submitted Content may include specific criteria for Submitted Content to be acceptable."
+        }
+      ]
+    },
+    {
+      "id": "kled-c098",
+      "statement": "Kled does not claim ownership of Submitted Content; the contributor grants Kled a licence instead.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the Company does not claim any ownership in your Submitted Content"
+        }
+      ]
+    },
+    {
+      "id": "kled-c099",
+      "statement": "The contributor's licence covers any intellectual property or publicity rights they have in the Submitted Content.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "under any rights you may have in your Submitted Content (including any intellectual property or publicity rights)"
+        }
+      ]
+    },
+    {
+      "id": "kled-c100",
+      "statement": "The contributor licenses Kled to annotate, modify, package and otherwise exploit Submitted Content for any and all purposes.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "annotate, modify, package and otherwise exploit your Submitted Content for any and all purposes"
+        }
+      ]
+    },
+    {
+      "id": "kled-c101",
+      "statement": "The licence expressly lets Kled make Submitted Content available to Data Customers and to its service providers and partners.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q6"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "to distribute and make your Submitted Content available to Data Customers and our service providers and partners"
+        }
+      ]
+    },
+    {
+      "id": "kled-c102",
+      "statement": "The contributor's licence to Kled is transferable, sublicensable through multiple tiers, worldwide, perpetual and irrevocable.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "rights and licenses are transferable, fully sub-licensable (through multiple tiers), worldwide, perpetual and irrevocable"
+        }
+      ]
+    },
+    {
+      "id": "kled-c103",
+      "statement": "The licence is exclusive to Kled for any use or modification of Submitted Content related to AI and machine-learning development ('Exclusive Use').",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q8",
+        "Q4"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "such license will be exclusive to us in connection with any uses or modifications of your Submitted Content"
+        }
+      ]
+    },
+    {
+      "id": "kled-c104",
+      "statement": "The Exclusive Use covers developing, training, testing, improving and deploying third-party AI and machine-learning models.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "developing, training, testing, improving and deploying third-party AI and machine learning models"
+        }
+      ]
+    },
+    {
+      "id": "kled-c105",
+      "statement": "The contributor must not allow anyone else to use their Submitted Content for the Exclusive Use, so cannot license it to another AI buyer.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you will not allow or authorize any other person or entity to use your Submitted Content for the Exclusive Use"
+        }
+      ]
+    },
+    {
+      "id": "kled-c106",
+      "statement": "If the contributor's consents or rights are revoked or invalidated, the contributor must immediately refund any compensation received for that content.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q7",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you are required to immediately refund to Company any compensation you previously received"
+        }
+      ]
+    },
+    {
+      "id": "kled-c107",
+      "statement": "Kled may screen, edit, delete, restrict, remove or reject any Submitted Content at any time.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We reserve the right to screen, edit, delete, restrict, remove or reject any Submitted Content at any time"
+        }
+      ]
+    },
+    {
+      "id": "kled-c108",
+      "statement": "Kled may decide in its sole discretion that Submitted Content is not eligible to earn payments or rewards.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "determine that Submitted Content are not eligible to accrue payments or rewards, in our sole discretion"
+        }
+      ]
+    },
+    {
+      "id": "kled-c109",
+      "statement": "The contributor warrants they hold all rights, licences, consents and permissions needed to submit the content and let Kled use it.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you have, or have obtained, all rights, licenses, consents, permissions, power and/or authority necessary to submit and use"
+        }
+      ]
+    },
+    {
+      "id": "kled-c110",
+      "statement": "The contributor warrants Submitted Content contains no personal data relating to individuals under 18.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "does not include Personal Data (as defined in our Privacy Policy) that (a) relates to individuals under the age of 18"
+        }
+      ]
+    },
+    {
+      "id": "kled-c111",
+      "statement": "For other individuals' personal data in Submitted Content, the contributor warrants they have given or obtained all required notices and consents.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "unless you have provided and/or obtained all required notices and/or consents to provide such Personal Data"
+        }
+      ]
+    },
+    {
+      "id": "kled-c112",
+      "statement": "The contributor warrants Submitted Content contains no output from AI models or machine-learning systems.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the Submitted Content does not contain any output from artificial intelligence models or machine learning systems"
+        }
+      ]
+    },
+    {
+      "id": "kled-c113",
+      "statement": "Contributors may earn tokens such as SOL, fiat currency or other rewards, as Kled determines in its sole discretion, for accepted Submitted Content.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "fiat currency or other rewards (as determined by us in our sole discretion) for your accepted Submitted Content"
+        }
+      ]
+    },
+    {
+      "id": "kled-c114",
+      "statement": "The contributor must defend, indemnify and hold harmless Kled and Kled's current or prospective customers or partners.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "defend, indemnify and hold the Company Entities and the Company’s current or prospective customers or partners"
+        }
+      ]
+    },
+    {
+      "id": "kled-c115",
+      "statement": "The Terms cap the total liability of Kled and its current and prospective customers and partners to a user at $100.",
+      "kind": "number",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 100,
+        "unit": "USD",
+        "basis": "cap on total liability of Kled and its customers and partners to a user (greater of $100 or other sum stated)",
+        "period": "aggregate"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "SHALL NOT EXCEED THE GREATER OF ONE HUNDRED DOLLARS ($100.00)"
+        }
+      ]
+    },
+    {
+      "id": "kled-c116",
+      "statement": "Kled disclaims all warranties, including merchantability, fitness for purpose and non-infringement.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "WHETHER EXPRESS OR IMPLIED, OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE OR NON-INFRINGEMENT"
+        }
+      ]
+    },
+    {
+      "id": "kled-c117",
+      "statement": "When an account is deleted, Kled may, but is not obliged to, delete the user's Submitted Content.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the Company may, but is not obligated to, delete any Submitted Content"
+        }
+      ]
+    },
+    {
+      "id": "kled-c118",
+      "statement": "Kled's partners may use personal information disclosed with Submitted Content for their own purposes under their own terms.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Our partners may use such information for their own purposes, in accordance with their own terms and policies"
+        }
+      ]
+    },
+    {
+      "id": "kled-c119",
+      "statement": "For material changes to the Terms, Kled commits only to reasonable efforts to notify users.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If we make changes that are material, we will use reasonable efforts to attempt to notify you"
+        }
+      ]
+    },
+    {
+      "id": "kled-c120",
+      "statement": "Copyright owners can send DMCA notices to Kled's copyright agent to have infringing material on the Services removed.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you may submit a notification to our copyright agent in accordance with 17 USC 512(c)"
+        }
+      ]
+    },
+    {
+      "id": "kled-c121",
+      "statement": "The earlier Kled Terms of Service version is dated May 1, 2026.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-05-01",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service/2026-05-01",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Kled.ai Last Updated On: May 1, 2026"
+        }
+      ]
+    },
+    {
+      "id": "kled-c122",
+      "statement": "The May 1, 2026 Terms told contributors they were irrevocably selling Submitted Content to Kled to be used for any purpose.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q4",
+        "Q3"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-05-01",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service/2026-05-01",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "YOU UNDERSTAND AND AGREE THAT YOU ARE IRREVOCABLY SELLING SUBMITTED CONTENT TO COMPANY TO BE USED FOR ANY PURPOSE"
+        }
+      ]
+    },
+    {
+      "id": "kled-c123",
+      "statement": "The May 1, 2026 Terms granted Kled and its customers and partners a perpetual, irrevocable, non-exclusive, royalty-free, sublicensable licence.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q4",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-05-01",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service/2026-05-01",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "a world-wide, perpetual, irrevocable, non-exclusive, royalty-free, assignable, sublicensable, transferable rights"
+        }
+      ]
+    },
+    {
+      "id": "kled-c124",
+      "statement": "Under the May 1, 2026 Terms the contributor granted rights directly to Kled's customers and prospective customers as well as to Kled.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q4"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-05-01",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service/2026-05-01",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "irrevocably grant to Company, our affiliates, and our customers, partners and/or prospective customers and partners"
+        }
+      ]
+    },
+    {
+      "id": "kled-c125",
+      "statement": "The May 1, 2026 Terms also granted rights to use the contributor's name, image, voice and likeness for any AI training purpose.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7",
+        "Q4"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-05-01",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service/2026-05-01",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "rights to use for any AI training purpose without limitation: (1) any element of your name, image, signature, voice"
+        }
+      ]
+    },
+    {
+      "id": "kled-c126",
+      "statement": "The May 1, 2026 Terms bound contributors never to sue Kled or its customers over their use of Submitted Content.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q4"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-05-01",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service/2026-05-01",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "refrain and forebear forever (both during and after termination of these Terms) from commencing, instituting or prosecuting"
+        }
+      ]
+    },
+    {
+      "id": "kled-c127",
+      "statement": "The May 1, 2026 Terms gave consent for Kled's customers and partners to use and process personal data in Submitted Content for any purpose.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-05-01",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service/2026-05-01",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "partners or prospective customers and/or partners to use and process such Personal Data for any purpose"
+        }
+      ]
+    },
+    {
+      "id": "kled-c128",
+      "statement": "The May 1, 2026 Terms authorised Kled to charge the contributor's wallet automatically to recover amounts owed if consents were revoked.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q4",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-05-01",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service/2026-05-01",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "authorize Company to automatically charge your virtual currency wallet or other payment instrument for such amounts"
+        }
+      ]
+    },
+    {
+      "id": "kled-c129",
+      "statement": "Under the May 1, 2026 Terms, a deleted account forfeited pending cash-outs, balances and content sales to Kled.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform (Terms of Service)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-05-01",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service/2026-05-01",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "any pending cash outs, payment balances, and content sales will immediately be forfeited and assigned to Company"
+        }
+      ]
+    },
+    {
+      "id": "kled-c130",
+      "statement": "Kled's privacy policy says it licenses, sells or otherwise provides Submitted Content to third parties for their own purposes, including AI training.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/privacy-policy",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We license, sell, and/or otherwise provide this content to third parties for their own purposes"
+        }
+      ]
+    },
+    {
+      "id": "kled-c131",
+      "statement": "By sharing content with other individuals' personal information, the contributor confirms they obtained those individuals' prior permission.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/privacy-policy",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you confirm that you have obtained their prior permission in relation to such sharing"
+        }
+      ]
+    },
+    {
+      "id": "kled-c132",
+      "statement": "When a contributor deletes their account, their uploaded content is retained as per the Terms of Service.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Kled contributor app",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://help.kled.ai/article/how-to-delete-your-account",
+          "publisher": "Kled Help Center",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Your uploaded content will be retained as per the Terms of Service"
+        }
+      ]
+    },
+    {
+      "id": "kled-c133",
+      "statement": "Kled's white paper describes Nitrility's business as a two-sided marketplace enabling dataset licensing between data owners and AI labs.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q5",
+        "Q2"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-12-28",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/whitepaper",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "enabling dataset licensing between data owners and AI laboratories"
+        }
+      ]
+    },
+    {
+      "id": "kled-c134",
+      "statement": "Kled's white paper says revenues come from licensing and transaction fees.",
+      "kind": "offer",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-12-28",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/whitepaper",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Revenues are generated through licensing and transaction fees."
+        }
+      ]
+    },
+    {
+      "id": "kled-c135",
+      "statement": "The white paper lists, as features under development, automated licensing workflows letting developers obtain dataset-specific training rights.",
+      "kind": "architecture",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-12-28",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/whitepaper",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "automated licensing workflows enabling developers to obtain dataset-specific training rights"
+        }
+      ]
+    },
+    {
+      "id": "kled-c136",
+      "statement": "The white paper also lists planned tools to record licence terms, track downloads and usage, and remit fees to data owners.",
+      "kind": "architecture",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-12-28",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/whitepaper",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "track downloads/usage events, and facilitate fee remittance to data owners"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "matrix.who_pays_fee",
+      "urls_tried": [
+        "https://www.kled.ai/datasets",
+        "https://www.kled.ai/whitepaper",
+        "https://www.kled.ai/terms-of-service",
+        "https://enterprise.kled.ai/login"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.licence_model",
+      "urls_tried": [
+        "https://www.kled.ai/terms-of-service",
+        "https://www.kled.ai/datasets",
+        "https://enterprise.kled.ai/request-access",
+        "https://enterprise.kled.ai/datasets",
+        "https://trace.datafdn.org/audit/kled"
+      ],
+      "reason": "gated",
+      "note": "No buyer licence or data licence agreement is published; the enterprise portal renders empty without login/JavaScript."
+    },
+    {
+      "field": "matrix.exclusivity_offered",
+      "urls_tried": [
+        "https://www.kled.ai/datasets",
+        "https://www.kled.ai/blog/kled-signs-12m-enterprise-data-deal"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.buyer_vetting",
+      "urls_tried": [
+        "https://enterprise.kled.ai/request-access",
+        "https://enterprise.kled.ai/login",
+        "https://trust.kled.ai/"
+      ],
+      "reason": "js_empty"
+    },
+    {
+      "field": "matrix.versioning",
+      "urls_tried": [
+        "https://www.kled.ai/datasets",
+        "https://trace.datafdn.org/audit/kled",
+        "https://enterprise.kled.ai/datasets"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.buyer_delivery_mechanics",
+      "urls_tried": [
+        "https://enterprise.kled.ai/datasets",
+        "https://enterprise.kled.ai/request-access",
+        "https://help.kled.ai/"
+      ],
+      "reason": "gated",
+      "note": "How bytes reach buyers (bucket transfer, API, download) is not documented publicly."
+    },
+    {
+      "field": "other.trust_center",
+      "urls_tried": [
+        "https://trust.kled.ai/"
+      ],
+      "reason": "js_empty",
+      "note": "Trust center (sub-processors, security docs) renders only its title without JavaScript."
+    },
+    {
+      "field": "other.independent_press",
+      "urls_tried": [
+        "https://www.theguardian.com/world/southafrica",
+        "https://content.guardianapis.com/search?q=Kled&api-key=test"
+      ],
+      "reason": "blocked",
+      "note": "Kled cites a Guardian feature (March 2026) but links only the Guardian's South Africa section; the Guardian API was refused and web search was unavailable in this run, so no independent press was fetched. Every traction figure here is vendor-stated."
+    },
+    {
+      "field": "other.filings_and_court_records",
+      "urls_tried": [
+        "https://efts.sec.gov/LATEST/search-index?q=%22Nitrility%22",
+        "https://www.sec.gov/cgi-bin/browse-edgar?company=nitrility&type=&dateb=&owner=include&count=40&action=getcompany",
+        "https://www.courtlistener.com/api/rest/v4/search/?q=Nitrility&type=r"
+      ],
+      "reason": "not_found",
+      "note": "No SEC filings (no Form D) under Nitrility and no relevant court records; CourtListener hits were unrelated fuzzy matches."
+    },
+    {
+      "field": "other.partner_catalogue_terms",
+      "urls_tried": [
+        "https://www.kled.ai/blog/kled-secures-exclusive-rights-to-30-000-classic-titles",
+        "https://www.kled.ai/blog/kled-signs-exclusive-ai-deal-with-maryland-public-television",
+        "https://www.kled.ai/blog/kled-enterprise-v2-expands-with-growing-catalog"
+      ],
+      "reason": "not_published",
+      "note": "Revenue split or fees with media rights holders (MPT, Ninja Digital Holdings, film studios) not published."
+    },
+    {
+      "field": "other.property_owner_consent",
+      "urls_tried": [
+        "https://www.kled.ai/terms-of-service",
+        "https://www.kled.ai/privacy-policy"
+      ],
+      "reason": "not_published",
+      "note": "Nothing on consent from owners of places or property captured in uploads."
+    }
+  ],
+  "conflicts": [
+    {
+      "claim_ids": [
+        "kled-c095",
+        "kled-c133"
+      ],
+      "rule_applied": "live_primary_wins_terms",
+      "resolution": "The live Terms (21 July 2026) make Kled the licensee and sublicensor to its Data Customers, so Kled is licensor of record. The December 2025 MiCA white paper calls the business a two-sided marketplace licensing between data owners and AI labs. The Terms prevail on mechanics."
+    },
+    {
+      "claim_ids": [
+        "kled-c103",
+        "kled-c123"
+      ],
+      "rule_applied": "live_primary_wins_terms",
+      "resolution": "The current Terms (21 July 2026) make the contributor licence exclusive to Kled for AI use. The 1 May 2026 Terms granted a non-exclusive licence to Kled and its customers, so the current Terms apply."
+    },
+    {
+      "claim_ids": [
+        "kled-c094",
+        "kled-c087"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "The Terms page says it was last revised on 21 July 2026, but Kled's Trace audit portal lists ToS v2026-05-01 as 'current' on 100% of 208M receipts. It is unclear which version bound uploads made after July 2026, or whether the exclusivity clause reached earlier uploads."
+    },
+    {
+      "claim_ids": [
+        "kled-c009",
+        "kled-c007",
+        "kled-c008",
+        "kled-c003"
+      ],
+      "rule_applied": "newer_wins_status",
+      "resolution": "Funding figures differ: about USD 3M in SAFEs (white paper, Dec 2025); $5.5M seed and $10M total (Mar 2026); 'upwards of $10 million' with a ~$7M seed (Apr 2026); $14M total after the DATA Foundation's $3M (June 2026). The newest figure ($14M total) is taken; all are vendor-stated."
+    },
+    {
+      "claim_ids": [
+        "kled-c028",
+        "kled-c002"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "The white paper planned 5-10 million users by Q3 2026, while Kled's own July 2026 post reports 500,000 users. This is recorded as a gap between plan and outcome, not resolved."
+    }
+  ],
+  "leads": [
+    {
+      "url": "https://www.theguardian.com/",
+      "why": "Guardian feature (March 2026, by Shubham Agarwal) on AI data gig work featuring Kled contributors in Cape Town; would be the first independent source on pay and practice. Exact URL not found without search."
+    },
+    {
+      "url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
+      "why": "ESMA's MiCA white-paper register may hold Kled's notified white paper (notification date 2025-12-28, home member state IE) as a regulator-hosted copy."
+    },
+    {
+      "url": "https://www.kled.ai/consumer-health-data-privacy-policy",
+      "why": "Consumer health data privacy policy (not read); relevant to medical-record and radiology datasets."
+    },
+    {
+      "url": "https://www.kled.ai/terms-of-service-mobile",
+      "why": "Mobile ToS copy; appears identical to the 21 July 2026 Terms."
+    },
+    {
+      "url": "https://ufdp.ai",
+      "why": "Kled's paid-captcha validation network (UFDP); not fetched."
+    },
+    {
+      "url": "https://www.kled.ai/uncanny-valley",
+      "why": "Kled research write-up on fine-tuning with a 3.1K-image coreset; possible quality evidence."
+    }
+  ]
+}

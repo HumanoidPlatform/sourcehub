@@ -1,0 +1,335 @@
+{
+  "kind": "verify",
+  "slug": "snowflake-marketplace",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "snowflake-marketplace-c053",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://www.lseg.com/en/media-centre/press-releases/2026/lseg-snowflake-collaboration-financial-data-ai-workflows",
+        "publisher": "LSEG",
+        "source_class": "vendor_marketing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "reporting and Snowflake Marketplace services"
+      },
+      "corrected_statement": null,
+      "note": "Operation on 30 Sep 2026 is confirmed by the counterparty's own copy of the release on lseg.com (found via lseg.com sitemap; LSEG is a customer/partner, not Snowflake). Separately, Snowflake's 10-Q filed 2026-09-04 (sec.gov, accession 0001640147-26-000037) carries 'Accrued customer liabilities related to Snowflake Marketplace' at 31 Jul 2026, so the marketplace was trading then. The detail 'financial data, analytics and index products on it' appears only in Snowflake's version of the release (an 'Explore ... on Snowflake Marketplace' link line); LSEG's version does not mention index products or say which products are listed. No search available."
+    },
+    {
+      "claim_id": "snowflake-marketplace-c054",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://www.lseg.com/en/media-centre/press-releases/2026/lseg-snowflake-collaboration-financial-data-ai-workflows",
+        "publisher": "LSEG",
+        "source_class": "vendor_marketing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "LSEG announced an expanded five-year enterprise-wide collaboration at the Snowflake World Tour today"
+      },
+      "corrected_statement": null,
+      "note": "Source is LSEG's own publication of the joint release, dated 30 Sep 2026; it confirms the counterparty made the announcement, but it is the same joint text, not independent reporting. No 8-K or other filing for this agreement appears in Snowflake's EDGAR submissions list up to 2026-10-01. LSEG's text says the deal 'deepens LSEG's ongoing use of ... Snowflake Marketplace services', i.e. LSEG as a Snowflake customer and Marketplace provider. No independent press reached: no search available."
+    },
+    {
+      "claim_id": "snowflake-marketplace-c034",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A post-deletion access window is a rule in Snowflake's own docs/terms. Without search no partner restatement could be found; none attempted beyond EDGAR full-text (no hit)."
+    },
+    {
+      "claim_id": "snowflake-marketplace-c035",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Snowflake's own rule for paid listings; exists only in its docs/terms. No search available."
+    },
+    {
+      "claim_id": "snowflake-marketplace-c050",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The rebate schedule is a Snowflake programme term. Snowflake's FY2026 10-K and Q2 FY2027 10-Q (sec.gov) contain no mention of a data sharing rebate. Partner or consultant restatements could not be looked for: no search available."
+    },
+    {
+      "claim_id": "snowflake-marketplace-c052",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "An independent count of providers and listings would need a third-party crawl, analyst report or filing. Snowflake's EDGAR filings stopped stating Marketplace listing counts after 2023 (EDGAR full-text hits for 'Marketplace listings' end with the Oct 2023 10-Q); the FY2026 10-K says only 'hundreds of live, ready-to-query third-party data sets'. No search available to find press or analyst counts."
+    },
+    {
+      "claim_id": "snowflake-marketplace-c072",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause in Snowflake's own Provider and Consumer Terms; no independent source exists by nature. Checked against the live terms in the scope step."
+    },
+    {
+      "claim_id": "snowflake-marketplace-c003",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Contract-structure clause in Snowflake's own terms. No search available for law-firm commentary."
+    },
+    {
+      "claim_id": "snowflake-marketplace-c009",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Clause in Snowflake's own terms. The fee schedule itself was not looked for independently: no search available."
+    },
+    {
+      "claim_id": "snowflake-marketplace-c047",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Account-type eligibility rule in Snowflake's docs. No search available."
+    },
+    {
+      "claim_id": "snowflake-marketplace-c025",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1640147/000164014726000008/snow-20260131.htm",
+        "publisher": "Snowflake Inc. (SEC Form 10-K, fiscal year ended 31 Jan 2026)",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "generally without copying or moving the underlying data"
+      },
+      "corrected_statement": null,
+      "note": "Different domain and source class (a filing), though still Snowflake's own words. The filing qualifies the claim: sharing is 'generally' copy-free, and the next sentence says that across regions and public clouds the platform lets customers 'easily replicate data'. Cross-region Marketplace fulfilment therefore involves a replica, so 'without creating copies' holds for same-region sharing only. The 10-K also calls Marketplace data 'live, ready-to-query third-party data sets'."
+    },
+    {
+      "claim_id": "snowflake-marketplace-c040",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Definition of a Snowflake product feature; exists in its own docs. No search available."
+    },
+    {
+      "claim_id": "snowflake-marketplace-c058",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Listing-configuration rule in Snowflake's own docs. No search available."
+    },
+    {
+      "claim_id": "snowflake-marketplace-c007",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Warranty clause in Snowflake's own terms, plus an absence (no consent evidence delivered) that can only be read off the same terms. No search available for commentary."
+    },
+    {
+      "claim_id": "snowflake-marketplace-c053",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote is real (an 'Explore ... on Snowflake Marketplace' link line in Snowflake's 30 Sep 2026 release) and is enough for current operation. 'Announced LSEG's ... products on it' overreads it slightly: the announcement is the expanded collaboration, and the product line is a call-to-action, not news of a new listing. LSEG's own copy of the release does not have this line."
+    },
+    {
+      "claim_id": "snowflake-marketplace-c054",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote stops at 'expanded five-year' and shows neither 'enterprise-wide' nor the Marketplace link. Words that would: 'expanded five-year enterprise-wide collaboration', plus 'reporting and Snowflake Marketplace services' (the release says it 'deepens LSEG's continued use of' these). Note that the Marketplace element is LSEG's use of Marketplace services as a provider/customer, not a new Marketplace product."
+    },
+    {
+      "claim_id": "snowflake-marketplace-c034",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Fact is right, but the quote shows neither the listing types nor that consumers keep access. Words that would: 'The retirement window for free and limited trial listings is exactly 30 days from the date of deletion', plus 'consumers still retain access to the listing' (same page). Applies to deletion, not unpublishing."
+    },
+    {
+      "claim_id": "snowflake-marketplace-c035",
+      "check": "scope",
+      "status": "scope_wrong",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The page says the paid-listing retirement window 'always contains one full calendar month', not that it is one month. Its worked examples: deleted 1 March, removal effective 1 April; deleted 2 March, the window runs 'until the first and last day of a complete month pass' and removal is effective 1 May. So access runs from one month to just under two months, depending on the deletion date. Separately, advance-payment listings can be unpublished immediately but existing subscription terms must be honoured. See missed v003."
+    },
+    {
+      "claim_id": "snowflake-marketplace-c050",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote shows the 10%-50% range only. The base and the cap are in other words on the page: 'percentage of the Snowflake Credits consumed by your consumers and attributed to their Qualifying Jobs' and 'rebates are always capped at the level of consumption of a given Snowflake ORG, per month'. 'Pays' overstates: the rebate shows as a 'Collaboration Rebate line item' on the provider's billing usage statement, i.e. a credit against its Snowflake bill, and no cash payout is stated. The programme covers any data sharing between two organisations, not only Marketplace listings. The page carries no date."
+    },
+    {
+      "claim_id": "snowflake-marketplace-c052",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote is cut at '3,400' and does not show the date or what the 3,400 are. The page goes on 'live, AI-ready data, agents and integrated SaaS solutions' with a footnote 'As of July 31, 2025'. So the count includes agents and SaaS apps, not only datasets; 'live listings' is acceptable only if read that way. The figure is now 14 months old as of retrieval."
+    },
+    {
+      "claim_id": "snowflake-marketplace-c072",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Section 10.2 of the Terms (last updated 31 Mar 2026): 'either party's or its Affiliates' total liability ... exceed $50,000 (USD)', except Excluded Claims (payment, express indemnity, and liability that cannot be limited by law). The parties are Snowflake and the Customer (acting as Provider or Consumer), not Provider and Consumer against each other, as the value basis correctly says."
+    },
+    {
+      "claim_id": "snowflake-marketplace-c003",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Section 3.3 Listing Terms; quote matches the statement."
+    },
+    {
+      "claim_id": "snowflake-marketplace-c009",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote sits in Section 3 (Use as Provider), where 'Customer' is the Provider, so 'the Provider bears Snowflake's fees' is right. The fee rate is not in the Terms."
+    },
+    {
+      "claim_id": "snowflake-marketplace-c047",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote covers only the trial-account half. The preceding sentence on the page, 'You must use a full Snowflake account.', supports the first half. As evidence for matrix.supply_models it shows only that providers are Snowflake account holders, which is weak support for third_party_providers."
+    },
+    {
+      "claim_id": "snowflake-marketplace-c025",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote is under 'What can I do in the Snowflake Marketplace?' (provider capabilities), so it applies to Marketplace. The statement is correctly framed as what the docs say. For custody, the 10-K's 'generally' and the cross-region replication (c030/c032) limit it to same-region sharing."
+    },
+    {
+      "claim_id": "snowflake-marketplace-c040",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches. The same page adds 'Private offers aren't visible on the Snowflake Marketplace.'"
+    },
+    {
+      "claim_id": "snowflake-marketplace-c058",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the listing-reference Terms of Service field. The third option, offline terms, is 'Available for private listings only' (c059)."
+    },
+    {
+      "claim_id": "snowflake-marketplace-c007",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Section 4.12 (Personal Data Provided by Provider). The warranty is given by the Customer-as-Provider to Snowflake under these Terms, not directly to the Consumer. No clause on this page requires consent records to be delivered or allows consent audits, so the absence is correctly recorded in the statement."
+    }
+  ],
+  "missed": [
+    {
+      "id": "snowflake-marketplace-v001",
+      "statement": "Snowflake's 10-Q reports USD 162.2 million of accrued customer liabilities at 31 July 2026 for customer capacity commitments it expects to be spent on third-party products and services on Snowflake Marketplace.",
+      "kind": "number",
+      "section": "demand",
+      "question_ids": ["Q1", "Q9"],
+      "scope": {"product": "Snowflake Marketplace (third-party products bought with committed capacity)", "tier": "", "region": "global"},
+      "value": {"num": 162.196, "unit": "USD million", "basis": "Snowflake balance-sheet accrual: estimated portion of contractual customer commitments expected to be used on third-party Marketplace purchases; not GMV and not provider revenue", "period": "point in time, 31 Jul 2026"},
+      "origin": "filing",
+      "as_of": "2026-07-31",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/1640147/000164014726000037/snow-20260731.htm",
+          "publisher": "Snowflake Inc. (SEC Form 10-Q, quarter ended 31 Jul 2026)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Accrued customer liabilities related to Snowflake Marketplace (1) 162,196 122,893"
+        },
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/1640147/000164014726000037/snow-20260731.htm",
+          "publisher": "Snowflake Inc. (SEC Form 10-Q, quarter ended 31 Jul 2026)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "customer commitments expected to be utilized towards the purchases of third-party products and services"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-v002",
+      "statement": "Snowflake's FY2026 10-K shows accrued customer liabilities related to Snowflake Marketplace rising from USD 21.5 million at 31 January 2025 to USD 122.9 million at 31 January 2026.",
+      "kind": "number",
+      "section": "demand",
+      "question_ids": ["Q1", "Q9"],
+      "scope": {"product": "Snowflake Marketplace (third-party products bought with committed capacity)", "tier": "", "region": "global"},
+      "value": {"num": 122.893, "unit": "USD million", "basis": "Snowflake balance-sheet accrual for customer commitments expected to be spent on third-party Marketplace purchases; prior-year comparative 21.489; not GMV", "period": "point in time, 31 Jan 2026"},
+      "origin": "filing",
+      "as_of": "2026-01-31",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/1640147/000164014726000008/snow-20260131.htm",
+          "publisher": "Snowflake Inc. (SEC Form 10-K, fiscal year ended 31 Jan 2026)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Accrued customer liabilities related to Snowflake Marketplace (1) 122,893 21,489"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-v003",
+      "statement": "For a paid listing deleted after the first day of a month, consumers keep access until a complete calendar month has passed, so a listing deleted on 2 March is removed only on 1 May.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": ["Q10"],
+      "scope": {"product": "Snowflake Marketplace paid listings", "tier": "", "region": ""},
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/en/collaboration/provider-listings-removing",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the retirement window continues until the first and last day of a complete month pass"
+        }
+      ]
+    }
+  ]
+}

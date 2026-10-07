@@ -1,0 +1,2519 @@
+{
+  "kind": "profile",
+  "slug": "bee-maps",
+  "name": "Bee Maps",
+  "aliases": [
+    "Hivemapper",
+    "Hivemapper, Inc."
+  ],
+  "segment": "crowd_capture",
+  "tier": "light",
+  "status": {
+    "value": "active",
+    "claim_id": "bee-maps-c001"
+  },
+  "names_for": {
+    "catalogue_side": "Data APIs (consumption-based: Street Level Imagery, AI Event Videos, Road Detections)",
+    "custom_side": "Burst (on-demand mapping); also Bee Edge AI for custom workloads on network devices"
+  },
+  "matrix": {
+    "operator_role": {
+      "value": "reseller_licensor",
+      "claim_ids": [
+        "bee-maps-c023",
+        "bee-maps-c052",
+        "bee-maps-c062"
+      ],
+      "note": "Bee Maps sells its own data under its own name; its ToS makes it owner of data collected from Bees. No separate buyer licence document was found."
+    },
+    "economics_model": {
+      "value": "principal_margin",
+      "claim_ids": [
+        "bee-maps-c023",
+        "bee-maps-c005",
+        "bee-maps-c006",
+        "bee-maps-c004"
+      ],
+      "note": "Bee Maps owns the data and sells at its own list prices; contributor rewards are funded by Bee Maps at its discretion, not a share of each sale."
+    },
+    "who_pays_fee": {
+      "value": "not_applicable",
+      "claim_ids": [],
+      "note": "No marketplace fee: Bee Maps is the only seller and sells its own data at list price."
+    },
+    "supply_models": {
+      "value": [
+        "contributor_uploads"
+      ],
+      "claim_ids": [
+        "bee-maps-c024",
+        "bee-maps-c023",
+        "bee-maps-c066",
+        "bee-maps-c067",
+        "bee-maps-c026"
+      ],
+      "note": "Crowd drivers and fleets running Bee dashcams. Beekeeper fleet customers' data is also owned by Bee Maps (sale limited to aggregated or anonymized data). Whether Burst captures ordered by one buyer are resold to others is not stated."
+    },
+    "custody_model": {
+      "value": "copy_to_buyer",
+      "claim_ids": [
+        "bee-maps-c047",
+        "bee-maps-c048"
+      ],
+      "note": "Platform-hosted; buyers receive temporary signed URLs and download the files."
+    },
+    "transaction_mode": {
+      "value": "both",
+      "claim_ids": [
+        "bee-maps-c015",
+        "bee-maps-c016",
+        "bee-maps-c018",
+        "bee-maps-c068",
+        "bee-maps-c014"
+      ],
+      "note": "Self-serve prepaid API balance for all data APIs; a contact form for training-data and other needs."
+    },
+    "public_prices": {
+      "value": "all",
+      "claim_ids": [
+        "bee-maps-c005",
+        "bee-maps-c006",
+        "bee-maps-c007",
+        "bee-maps-c008",
+        "bee-maps-c011"
+      ],
+      "note": "Every data API and Burst has a published unit price; no price is published for whatever is agreed through the contact form."
+    },
+    "licence_model": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Only marketing statements (AI Event Videos licensed for commercial use incl. training; 'flexible licensing') were found; no buyer licence or data terms document."
+    },
+    "exclusivity_offered": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Nothing found either way for buyers."
+    },
+    "public_listing": {
+      "value": "public_summary_gated_detail",
+      "claim_ids": [
+        "bee-maps-c005",
+        "bee-maps-c051"
+      ],
+      "note": "Products and prices are public; querying imagery, clips or detections needs an API key from an account."
+    },
+    "buyer_vetting": {
+      "value": "account_only",
+      "claim_ids": [
+        "bee-maps-c019",
+        "bee-maps-c018",
+        "bee-maps-c051"
+      ],
+      "note": "An account and API key; no credit card needed to start with free credits. No business verification found."
+    },
+    "sample_mechanics": {
+      "value": "free_sample_download",
+      "claim_ids": [
+        "bee-maps-c018"
+      ],
+      "note": "No separate sample set; new accounts get USD 20 in free credits usable on real data before paying."
+    },
+    "versioning": {
+      "value": "unknown",
+      "claim_ids": [
+        "bee-maps-c049"
+      ],
+      "note": "Imagery is time-indexed (per week or latest) rather than versioned; no statement on versions or withdrawals."
+    },
+    "human_subject_consent_docs": {
+      "value": "unknown",
+      "claim_ids": [
+        "bee-maps-c058",
+        "bee-maps-c060"
+      ],
+      "note": "Approach is automatic blurring of faces, bodies, vehicles and plates before upload plus removal requests; no buyer licence found to say whether any consent warranty or evidence is given."
+    },
+    "contributor_pay_model": {
+      "value": "mixed",
+      "claim_ids": [
+        "bee-maps-c039",
+        "bee-maps-c038",
+        "bee-maps-c004",
+        "bee-maps-c043"
+      ],
+      "note": "Network terms pay Map Coverage Rewards for collecting and Consumption Rewards when paid demand is fulfilled; Burst adds targeted incentives; from August 2026 rewards are in USDC funded by Bee Maps at its discretion. Rates not published."
+    },
+    "catalogue_plus_custom": {
+      "value": "both",
+      "claim_ids": [
+        "bee-maps-c069",
+        "bee-maps-c042",
+        "bee-maps-c046"
+      ],
+      "note": ""
+    },
+    "erasure_after_sale": {
+      "value": "unknown",
+      "claim_ids": [
+        "bee-maps-c060"
+      ],
+      "note": "Removal and blurring requests exist, but nothing says whether copies already downloaded by buyers must be deleted."
+    },
+    "quality_evidence": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Bee Maps is operator and sole provider, so the operator/provider distinction does not fit; no quality statement on listings was found beyond vendor claims about freshness."
+    }
+  },
+  "questions": {
+    "Q1": {
+      "state": "partial",
+      "answer": "Bee Maps sells per image (USD 0.005) and per event clip (USD 6) and names world-model and AV training as uses; it says enterprise customers include HERE, Lyft, NBC Universal, Mapbox and Volkswagen (vendor-stated). Volumes bought are not published.",
+      "claim_ids": [
+        "bee-maps-c005",
+        "bee-maps-c006",
+        "bee-maps-c056",
+        "bee-maps-c063",
+        "bee-maps-c062"
+      ]
+    },
+    "Q2": {
+      "state": "unknown",
+      "answer": "",
+      "claim_ids": []
+    },
+    "Q3": {
+      "state": "sourced",
+      "answer": "Inventory comes from crowd drivers and fleets running Bee dashcams; Bee Maps' ToS says it owns data collected from Bees and from Beekeeper fleets, while the May 2026 Hivemapper network terms say contributors keep ownership and license each developer whose Work Order is fulfilled.",
+      "claim_ids": [
+        "bee-maps-c023",
+        "bee-maps-c024",
+        "bee-maps-c026",
+        "bee-maps-c035",
+        "bee-maps-c036",
+        "bee-maps-c037",
+        "bee-maps-c066"
+      ]
+    },
+    "Q4": {
+      "state": "partial",
+      "answer": "Burst lets one buyer pay to have drivers capture an area, but nothing says whether that imagery is then sold to others. Terms moved: ToS updated Q4 2025, network terms May 2026, and HONEY rewards replaced by Bee-Maps-funded USDC from August 2026.",
+      "claim_ids": [
+        "bee-maps-c042",
+        "bee-maps-c022",
+        "bee-maps-c034",
+        "bee-maps-c002",
+        "bee-maps-c003"
+      ]
+    },
+    "Q5": {
+      "state": "partial",
+      "answer": "Bee Maps sells as owner and licensor of the data under its own name; no buyer licence was found, so who warrants consent and who indemnifies the buyer is unknown.",
+      "claim_ids": [
+        "bee-maps-c023",
+        "bee-maps-c029",
+        "bee-maps-c052"
+      ]
+    },
+    "Q6": {
+      "state": "sourced",
+      "answer": "Platform-hosted; buyers query the API and receive temporary signed URLs to download images and clips into their own systems.",
+      "claim_ids": [
+        "bee-maps-c047",
+        "bee-maps-c048",
+        "bee-maps-c016"
+      ]
+    },
+    "Q7": {
+      "state": "partial",
+      "answer": "Capturers: covered by Bee Maps ToS ownership and the network licence to developers; Beekeeper data is not anonymized as to drivers. Depicted people and property: automatic on-device blurring plus blur/delete on request; no release evidence found.",
+      "claim_ids": [
+        "bee-maps-c023",
+        "bee-maps-c036",
+        "bee-maps-c028",
+        "bee-maps-c058",
+        "bee-maps-c059",
+        "bee-maps-c060",
+        "bee-maps-c041"
+      ]
+    },
+    "Q8": {
+      "state": "partial",
+      "answer": "Bee Maps says AI Event Videos are licensed for commercial use including training and derivatives, and imagery allows derived datasets; exclusivity, audit, leakage controls and fingerprinting are not addressed in anything found.",
+      "claim_ids": [
+        "bee-maps-c052",
+        "bee-maps-c053"
+      ]
+    },
+    "Q9": {
+      "state": "sourced",
+      "answer": "Self-serve: a prepaid USD API balance, debited per call at list price, with no subscription or minimum; a contact form handles training-data and other requests. Bee Maps owns the inventory, so there is no commission.",
+      "claim_ids": [
+        "bee-maps-c015",
+        "bee-maps-c016",
+        "bee-maps-c017",
+        "bee-maps-c020",
+        "bee-maps-c013",
+        "bee-maps-c068"
+      ]
+    },
+    "Q10": {
+      "state": "partial",
+      "answer": "The unit sold is an image, an event clip, a batch of detections or a Burst location, each debited per API call; imagery is indexed by week or latest, and a history endpoint logs credit use. Nothing on versions or withdrawals.",
+      "claim_ids": [
+        "bee-maps-c049",
+        "bee-maps-c050",
+        "bee-maps-c054",
+        "bee-maps-c045",
+        "bee-maps-c016"
+      ]
+    },
+    "Q11": {
+      "state": "partial",
+      "answer": "Before paying, a buyer gets USD 20 of free credits on an account with no card; trust signals are vendor claims of coverage and freshness, not independent evidence.",
+      "claim_ids": [
+        "bee-maps-c018",
+        "bee-maps-c019",
+        "bee-maps-c057",
+        "bee-maps-c064",
+        "bee-maps-c065"
+      ]
+    },
+    "Q12": {
+      "state": "sourced",
+      "answer": "The catalogue side is the consumption-priced 'Data APIs'; the bespoke side is 'Burst (on-demand mapping)', which pushes paid capture requests to nearby drivers through the same API and balance, plus Bee Edge AI for custom workloads on network devices.",
+      "claim_ids": [
+        "bee-maps-c069",
+        "bee-maps-c008",
+        "bee-maps-c042",
+        "bee-maps-c043",
+        "bee-maps-c046",
+        "bee-maps-c011"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "bee-maps-c001",
+      "statement": "Bee Maps was operating in July 2026, when it published a change to how it rewards contributors.",
+      "kind": "status",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-07-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/blog/get-paid-in-usdc-to-map-your-city",
+          "publisher": "Bee Maps",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "USDC will become the default rewards system"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c002",
+      "statement": "On 16 July 2026 Bee Maps announced that USDC rewards become the default for contributors in August 2026.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-07-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/blog/get-paid-in-usdc-to-map-your-city",
+          "publisher": "Bee Maps",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "USDC Rewards Become the Default in August 2026"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c003",
+      "statement": "With the USDC switch Bee Maps said it will no longer support HONEY token rewards in the Bee App.",
+      "kind": "event",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-07-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/blog/get-paid-in-usdc-to-map-your-city",
+          "publisher": "Bee Maps",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "we will no longer support HONEY token rewards"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c004",
+      "statement": "Bee Maps says the USDC rewards are funded directly by Bee Maps and paid at its sole discretion.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-07-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/blog/get-paid-in-usdc-to-map-your-city",
+          "publisher": "Bee Maps",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "USDC rewards are funded directly by Bee Maps and offered at our sole discretion"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c005",
+      "statement": "Bee Maps lists Street Level Imagery at USD 0.005 per image.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q1",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Street Level Imagery",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 0.005,
+        "unit": "USD per image",
+        "basis": "buyer pays list price, consumption-based, deducted from prepaid API balance",
+        "period": "per unit"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/pricing",
+          "publisher": "Bee Maps",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Street Level Imagery$0.005/ image"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c006",
+      "statement": "Bee Maps lists AI Event Videos at USD 6 per video clip.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q1",
+        "Q9"
+      ],
+      "scope": {
+        "product": "AI Event Videos",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 6,
+        "unit": "USD per video",
+        "basis": "buyer pays list price, consumption-based, deducted from prepaid API balance",
+        "period": "per unit"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/pricing",
+          "publisher": "Bee Maps",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AI Event Videos$6/ video"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c007",
+      "statement": "Bee Maps lists Road Detections at USD 3 per 1,000 detections.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Road Detections",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 3,
+        "unit": "USD per 1,000 detections",
+        "basis": "buyer pays list price, consumption-based",
+        "period": "per unit"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/pricing",
+          "publisher": "Bee Maps",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Road Detections$3/ 1K detections"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c008",
+      "statement": "Bee Maps lists Burst on-demand mapping at USD 1 per location requested.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9",
+        "Q12"
+      ],
+      "scope": {
+        "product": "Burst",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 1,
+        "unit": "USD per location",
+        "basis": "buyer pays per location requested for on-demand capture; delivery depends on drivers",
+        "period": "per request"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/pricing",
+          "publisher": "Bee Maps",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Burst (on-demand mapping)$1/ location"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c009",
+      "statement": "Bee Edge AI on the customer's own devices is listed at USD 15 per device per month including 1 GB.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "Bee Edge AI",
+        "tier": "Own Devices",
+        "region": ""
+      },
+      "value": {
+        "num": 15,
+        "unit": "USD per device per month",
+        "basis": "customer pays to run its own ML workloads on its own Bee devices; includes 1 GB",
+        "period": "per month"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/pricing",
+          "publisher": "Bee Maps",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Own Devices$15 / device / moincludes 1GB"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c010",
+      "statement": "Bee Edge AI on own devices charges USD 3 per GB above the included 1 GB.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "Bee Edge AI",
+        "tier": "Own Devices",
+        "region": ""
+      },
+      "value": {
+        "num": 3,
+        "unit": "USD per GB",
+        "basis": "overage above the included 1 GB per device, Own Devices scenario",
+        "period": "per unit"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/pricing",
+          "publisher": "Bee Maps",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "$3 / GB"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c011",
+      "statement": "Bee Edge AI on network devices is listed at USD 0.02 per km, including 5 MB per km.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "Bee Edge AI",
+        "tier": "Network Devices",
+        "region": ""
+      },
+      "value": {
+        "num": 0.02,
+        "unit": "USD per km",
+        "basis": "customer pays per km driven by network (contributor) devices running its workload; includes 5 MB/km",
+        "period": "per unit"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/pricing",
+          "publisher": "Bee Maps",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Network Devices$0.02 / kmincludes 5MB/km"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c012",
+      "statement": "Bee Edge AI on network devices charges USD 0.05 per 10 MB above the included allowance.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "Bee Edge AI",
+        "tier": "Network Devices",
+        "region": ""
+      },
+      "value": {
+        "num": 0.05,
+        "unit": "USD per 10 MB",
+        "basis": "overage above 5 MB/km, Network Devices scenario",
+        "period": "per unit"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/pricing",
+          "publisher": "Bee Maps",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "$0.05 / 10MB"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c013",
+      "statement": "Bee Maps' data API pricing has no upfront commitment.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/pricing",
+          "publisher": "Bee Maps",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "No upfront commitments."
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c014",
+      "statement": "The Bee Maps pricing page carries a 'Contact Us' button alongside 'Get Started'.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/pricing",
+          "publisher": "Bee Maps",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Contact Us"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c015",
+      "statement": "Bee Maps' data API usage is paid from a prepaid API balance.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/docs/platform/billing-and-payment",
+          "publisher": "Bee Maps",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Your API balance is a prepaid account used to pay for consumption-based data API usage"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c016",
+      "statement": "Bee Maps deducts each API call from the buyer's balance automatically.",
+      "kind": "architecture",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/docs/platform/billing-and-payment",
+          "publisher": "Bee Maps",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "API calls are deducted from your balance automatically."
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c017",
+      "statement": "A Bee Maps buyer can top up the API balance by a custom amount between USD 5 and USD 1,000.",
+      "kind": "number",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 1000,
+        "unit": "USD maximum custom top-up",
+        "basis": "buyer-paid prepaid top-up; custom amount range USD 5 to 1,000; presets USD 10, 25, 50, 100",
+        "period": "per top-up"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/docs/platform/billing-and-payment",
+          "publisher": "Bee Maps",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "or enter a custom amount between $5 and $1,000"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c018",
+      "statement": "Bee Maps says every new account starts with USD 20 in free API credits.",
+      "kind": "number",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 20,
+        "unit": "USD free API credit",
+        "basis": "granted by Bee Maps to each new buyer account, usable on data APIs",
+        "period": "one-off"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-03-06",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/blog/api-billing-and-free-credits",
+          "publisher": "Bee Maps",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Every new Bee Maps account starts with $20 in free API credits"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c019",
+      "statement": "Bee Maps does not require a credit card to open an account with free credits.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-03-06",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/blog/api-billing-and-free-credits",
+          "publisher": "Bee Maps",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "No credit card required"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c020",
+      "statement": "Bee Maps' pay-as-you-go data API billing has no subscriptions or monthly minimums.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-03-06",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/blog/api-billing-and-free-credits",
+          "publisher": "Bee Maps",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "No subscriptions, no monthly minimums, no commitments"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c021",
+      "statement": "Bee Maps added self-serve top-up of the API balance in USD from its billing page on 6 March 2026.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-03-06",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/changelog",
+          "publisher": "Bee Maps",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Top up your account with a USD amount directly from the billing page"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c022",
+      "statement": "The Bee Maps Terms of Service page is dated 'Last Updated: Q4 2025'.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Last Updated: Q4 2025"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c023",
+      "statement": "For Bee devices outside Beekeeper, Bee Maps owns the data it collects from the Bee, with the right to use, license, distribute or sell it.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "owns the data it collects from the Bee in this capacity, including the right to use, license, distribute, or sell that data"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c024",
+      "statement": "Under the Bee Maps ToS, Bee Maps leases access to the owner's Bee sensing device and collects data from it.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "leases access to your Bee sensing device and collects data from it"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c025",
+      "statement": "The data Bee Maps collects from a Bee includes privacy-blurred imagery, video, GPS and related sensor data.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "including privacy-blurred imagery, video, GPS data, and related sensor data"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c026",
+      "statement": "For fleets using Beekeeper, Bee Maps owns all data generated through their use of Beekeeper.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q4"
+      ],
+      "scope": {
+        "product": "Beekeeper fleet services",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Hivemapper, Inc. (dba Bee Maps) owns all data generated through your use of Beekeeper"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c027",
+      "statement": "Bee Maps holds an exclusive licence to data generated through Beekeeper.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q4",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Beekeeper fleet services",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Hivemapper, Inc. (dba Bee Maps) holds an exclusive license to this data"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c028",
+      "statement": "Beekeeper data is not anonymized with respect to the fleet's drivers.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Beekeeper fleet services",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "data generated through your use of Beekeeper will not be anonymized with respect to your drivers"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c029",
+      "statement": "Bee Maps reserves the right to sublicense, distribute or sell aggregated or anonymized Beekeeper data to third parties.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q4",
+        "Q5"
+      ],
+      "scope": {
+        "product": "Beekeeper fleet services",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the right to sublicense, distribute, or sell aggregated or anonymized data to third parties"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c030",
+      "statement": "The Bee Maps ToS says rewards for operating a Bee on the Hivemapper Network are governed by the separate Hivemapper Mapping Network Terms.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "including any rewards you may receive for participating, is also governed by the Hivemapper Mapping Network Terms of Service"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c031",
+      "statement": "The Bee membership terms say Bee Maps may license, distribute and exploit Fleet Data, including to create and sell map data.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q4"
+      ],
+      "scope": {
+        "product": "Beekeeper fleet services",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-10-06",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos/bee-membership",
+          "publisher": "Bee Maps",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "including but not limited to improving the Services, creating and selling map data and related products"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c032",
+      "statement": "Bee membership is priced at USD 19 per month per membership.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Bee membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 19,
+        "unit": "USD per membership per month",
+        "basis": "paid by the membership customer to Bee Maps; per Bee docs membership bundles device, Beekeeper software and LTE; not a data price",
+        "period": "per month"
+      },
+      "origin": "legal_text",
+      "as_of": "2025-10-06",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos/bee-membership",
+          "publisher": "Bee Maps",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Service Fees: $19 per month per membership"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c033",
+      "statement": "Under the membership terms, a customer who does not connect a wallet receives no rewards and forfeits unclaimed rewards.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-10-06",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos/bee-membership",
+          "publisher": "Bee Maps",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If Customer does not connect a wallet, no rewards will be issued"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c034",
+      "statement": "The Hivemapper network Terms of Service are dated 5 May 2026.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-05-05",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://hivemapper.com/tos",
+          "publisher": "Hivemapper",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Last Updated: May 5, 2026"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c035",
+      "statement": "The Hivemapper network terms say Hivemapper does not own and claims no rights in Contributor Data.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-05-05",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://hivemapper.com/tos",
+          "publisher": "Hivemapper",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Hivemapper does not own and does not claim rights in Contributor Data."
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c036",
+      "statement": "Under the Hivemapper network terms a contributor grants each developer whose Work Order is fulfilled a perpetual, irrevocable, royalty-free licence to its data.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-05-05",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://hivemapper.com/tos",
+          "publisher": "Hivemapper",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you grant a worldwide, perpetual, irrevocable, royalty-free license to use, reproduce, process, distribute"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c037",
+      "statement": "On the Hivemapper network, developers post Work Orders specifying the coverage and workloads they want executed.",
+      "kind": "architecture",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-05-05",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://hivemapper.com/tos",
+          "publisher": "Hivemapper",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Developers post Work Orders specifying geographic coverage and the workloads they wish to have executed."
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c038",
+      "statement": "Hivemapper network Consumption Rewards are distributed to contributors when paid developer demand against Work Orders is fulfilled.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-05-05",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://hivemapper.com/tos",
+          "publisher": "Hivemapper",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Consumption Rewards, distributed to Contributors when paid developer demand against Work Orders is fulfilled"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c039",
+      "statement": "Hivemapper network Map Coverage Rewards are paid for collecting and submitting eligible data.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-05-05",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://hivemapper.com/tos",
+          "publisher": "Hivemapper",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Map Coverage Rewards, for collecting and submitting eligible data"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c040",
+      "statement": "The Hivemapper network terms do not guarantee that a contributor will earn any HONEY.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-05-05",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://hivemapper.com/tos",
+          "publisher": "Hivemapper",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Hivemapper does not guarantee that you will earn any HONEY."
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c041",
+      "statement": "Hivemapper network contributors must operate their devices in compliance with privacy and data-protection law.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-05-05",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://hivemapper.com/tos",
+          "publisher": "Hivemapper",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You operate your Device in compliance with applicable law, including privacy and data-protection law"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c042",
+      "statement": "Bee Maps' Burst product lets a buyer request fresh imagery for specific locations, dispatching network devices in the area to capture it.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12",
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/api-products",
+          "publisher": "Bee Maps",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Request fresh imagery for specific locations. Network devices in the area are dispatched to capture it."
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c043",
+      "statement": "Burst incentivizes drivers to map specific areas on demand, and a new burst goes live in the Bee App immediately.",
+      "kind": "architecture",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/docs/platform/road-intelligence-api",
+          "publisher": "Bee Maps",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Incentivize drivers to map specific areas on-demand. When you create a burst, it goes live in the Bee App immediately."
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c044",
+      "statement": "Drivers within range of a Burst receive a push notification.",
+      "kind": "architecture",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/docs/platform/road-intelligence-api",
+          "publisher": "Bee Maps",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Drivers within range receive a push notification."
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c045",
+      "statement": "The Burst API endpoint creates bursts that incentivize Hivemapper drivers to map specific locations.",
+      "kind": "architecture",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/docs/api-reference",
+          "publisher": "Bee Maps",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Creates `bursts` that incentivize Hivemapper drivers to map specific locations."
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c046",
+      "statement": "Bee Edge AI lets a customer deploy custom Python ML workloads directly on Bee cameras.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/api-products",
+          "publisher": "Bee Maps",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Deploy custom Python ML workloads directly on Bee cameras."
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c047",
+      "statement": "Bee Maps returns street-level images as temporary URLs that the buyer must download promptly.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/docs/api-reference",
+          "publisher": "Bee Maps",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Image URLs are temporary—download promptly"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c048",
+      "statement": "AI Event Video clips are delivered as a temporary signed URL to download the clip.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/docs/api-reference",
+          "publisher": "Bee Maps",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Temporary signed URL to download the event video clip"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c049",
+      "statement": "The imagery API can query street-level imagery for a specific week within a polygon, as well as the most recent imagery.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/docs/api-reference",
+          "publisher": "Bee Maps",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Query street-level imagery for a specific week within a polygon"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c050",
+      "statement": "The API exposes a buyer's query history with credit consumption details.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/docs/api-reference",
+          "publisher": "Bee Maps",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Retrieve your API query history with credit consumption details"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c051",
+      "statement": "Most Bee Maps API endpoints require authentication with an API key.",
+      "kind": "architecture",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/docs/api-reference",
+          "publisher": "Bee Maps",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Most endpoints require authentication via API key"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c052",
+      "statement": "Bee Maps says AI Event Videos are licensed for commercial use, including model training, fine-tuning, simulation and derivative products.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "AI Event Videos",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-03-12",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/blog/deep-dive-ai-event-video-data",
+          "publisher": "Bee Maps",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AI Event Videos are licensed for commercial use, including model training, fine-tuning, simulation, and derivative products"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c053",
+      "statement": "Bee Maps' API docs advertise 'flexible licensing' allowing buyers to build derived datasets from imagery.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Street Level Imagery",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/docs/platform/road-intelligence-api",
+          "publisher": "Bee Maps",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Build derived datasets from imagery"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c054",
+      "statement": "AI Event Video clips are about 20-30 seconds of MP4 footage captured around the event.",
+      "kind": "offer",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "AI Event Videos",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-03-12",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/blog/deep-dive-ai-event-video-data",
+          "publisher": "Bee Maps",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "~20-30 seconds of MP4 footage captured around the event"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c055",
+      "statement": "AI Event Video search filters on event type, date range, device ID and geographic polygon, combinable.",
+      "kind": "architecture",
+      "section": "discovery",
+      "question_ids": [
+        "Q10",
+        "Q11"
+      ],
+      "scope": {
+        "product": "AI Event Videos",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-03-12",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/blog/deep-dive-ai-event-video-data",
+          "publisher": "Bee Maps",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "event type, date range, device ID, and geographic polygon can all be used together"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c056",
+      "statement": "Bee Maps describes AI Event Videos as clips of notable driving events for training autonomous driving and world models.",
+      "kind": "offer",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "AI Event Videos",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/docs/platform/road-intelligence-api",
+          "publisher": "Bee Maps",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Video clips of notable driving events for training autonomous driving models and world models."
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c057",
+      "statement": "Bee Maps claims its data is days to weeks old rather than months or years.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q1",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/docs/platform/road-intelligence-api",
+          "publisher": "Bee Maps",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Days to weeks old, not months/years like traditional providers"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c058",
+      "statement": "Bee Maps' privacy policy says the device blurs faces and license plates on the edge before imagery is uploaded.",
+      "kind": "architecture",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/privacy/privacy-policy",
+          "publisher": "Bee Maps",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Automatically blurs faces and license plates from the imagery on the edge"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c059",
+      "statement": "Bee Maps' privacy docs say blurring of faces, bodies, vehicles and license plates occurs automatically on the edge on all device models.",
+      "kind": "architecture",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/docs/help-and-support/data-protection-and-privacy",
+          "publisher": "Bee Maps",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Blurring occurs automatically on the edge on all device models."
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c060",
+      "statement": "Bee Maps offers to further blur or delete imagery an individual considers sensitive, such as a face, vehicle, plate or home, on request.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/privacy/privacy-policy",
+          "publisher": "Bee Maps",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We can assist with further blurring or deleting of imagery an individual considers sensitive or their personal information"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c061",
+      "statement": "The Bee Maps privacy policy is dated 'Last updated Q2 2026'.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/privacy/privacy-policy",
+          "publisher": "Bee Maps",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Last updated Q2 2026"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c062",
+      "statement": "Bee Maps' privacy policy says it builds Physical AI Data Products that businesses can consume.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q1",
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/privacy/privacy-policy",
+          "publisher": "Bee Maps",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We build Physical AI Data Products that businesses can consume."
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c063",
+      "statement": "Bee Maps says its enterprise customers include HERE Technologies, Lyft, NBC Universal, Mapbox and Volkswagen.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/about",
+          "publisher": "Bee Maps",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Enterprise customers include HERE Technologies, Lyft, NBC Universal, Mapbox, Volkswagen"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c064",
+      "statement": "Bee Maps says 754 million total km have been mapped.",
+      "kind": "number",
+      "section": "demand",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 754000000,
+        "unit": "km mapped (total)",
+        "basis": "vendor-stated cumulative km driven by the network; not independently verified",
+        "period": "cumulative"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/",
+          "publisher": "Bee Maps",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "754MTotal KM Mapped"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c065",
+      "statement": "Bee Maps says it covers 37% of global roads.",
+      "kind": "number",
+      "section": "demand",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 37,
+        "unit": "percent of world roads",
+        "basis": "vendor-stated coverage share; method not stated",
+        "period": "cumulative"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/",
+          "publisher": "Bee Maps",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "37%Global Road Coverage"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c066",
+      "statement": "Bee Maps says it has contributors across 100+ countries.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 100,
+        "unit": "countries with contributors (lower bound)",
+        "basis": "vendor-stated",
+        "period": "as of retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/about",
+          "publisher": "Bee Maps",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Contributors across 100+ countries."
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c067",
+      "statement": "Bee Maps says its coverage comes from thousands of fleet dashcams mapping the roads they drive every day.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-02-12",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/blog/how-bee-maps-gets-its-coverage",
+          "publisher": "Bee Maps",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "thousands of fleet dashcams mapping every road they drive, every day, automatically"
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c068",
+      "statement": "Bee Maps' contact page invites buyers who need training data to talk to its team.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/contact",
+          "publisher": "Bee Maps",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Tell us if you need training data, APIs, Bee cameras, or fleet deployment help."
+        }
+      ]
+    },
+    {
+      "id": "bee-maps-c069",
+      "statement": "Bee Maps' pricing page calls its catalogue side consumption-based pricing for Data APIs.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://beemaps.com/pricing",
+          "publisher": "Bee Maps",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Consumption-based pricing for Data APIs."
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "matrix.licence_model",
+      "urls_tried": [
+        "https://beemaps.com/tos",
+        "https://beemaps.com/docs/help-and-support/terms-of-service",
+        "https://beemaps.com/developers",
+        "https://beemaps.com/docs/api-reference",
+        "https://beemaps.com/sitemap.xml"
+      ],
+      "reason": "not_published",
+      "note": "No data-buyer licence or API data terms found; the ToS index lists only Bee and Bee Membership terms. A prior document profile noted a 'Data Products' tab on /tos that is not in served text."
+    },
+    {
+      "field": "matrix.exclusivity_offered",
+      "urls_tried": [
+        "https://beemaps.com/tos",
+        "https://beemaps.com/pricing",
+        "https://beemaps.com/api-products"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.versioning",
+      "urls_tried": [
+        "https://beemaps.com/docs/api-reference",
+        "https://beemaps.com/docs/platform/road-intelligence-api"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.human_subject_consent_docs",
+      "urls_tried": [
+        "https://beemaps.com/privacy/privacy-policy",
+        "https://beemaps.com/docs/help-and-support/data-protection-and-privacy",
+        "https://beemaps.com/tos"
+      ],
+      "reason": "not_published",
+      "note": "What the buyer receives about consent is unknown without buyer terms."
+    },
+    {
+      "field": "matrix.erasure_after_sale",
+      "urls_tried": [
+        "https://beemaps.com/privacy/privacy-policy",
+        "https://beemaps.com/docs/help-and-support/data-protection-and-privacy"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.quality_evidence",
+      "urls_tried": [
+        "https://beemaps.com/api-products",
+        "https://beemaps.com/docs/platform/road-intelligence-api"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "questions.Q2",
+      "urls_tried": [
+        "https://beemaps.com/",
+        "https://beemaps.com/api-products",
+        "https://beemaps.com/blog"
+      ],
+      "reason": "not_found",
+      "note": "Whether Bee Maps also lists on third-party marketplaces (cloud exchanges etc.) could not be checked without web search."
+    },
+    {
+      "field": "other.burst_resale",
+      "urls_tried": [
+        "https://beemaps.com/docs/api-reference",
+        "https://beemaps.com/docs/platform/road-intelligence-api",
+        "https://beemaps.com/pricing"
+      ],
+      "reason": "not_published",
+      "note": "Whether imagery captured for one buyer's Burst joins the general catalogue sold to others is not stated."
+    },
+    {
+      "field": "other.contributor_reward_rates",
+      "urls_tried": [
+        "https://beemaps.com/blog/get-paid-in-usdc-to-map-your-city",
+        "https://hivemapper.com/tos"
+      ],
+      "reason": "not_published",
+      "note": "No USDC or HONEY rates per km, per Burst or per consumption event were published on pages fetched."
+    },
+    {
+      "field": "other.independent_traction",
+      "urls_tried": [
+        "https://efts.sec.gov/LATEST/search-index?q=%22Hivemapper%22&forms=D",
+        "https://beemaps.com/about"
+      ],
+      "reason": "not_found",
+      "note": "EDGAR full-text search returned no Form D for Hivemapper; customer names, km and coverage figures are vendor-stated only. Independent press could not be discovered without web search."
+    }
+  ],
+  "conflicts": [
+    {
+      "claim_ids": [
+        "bee-maps-c023",
+        "bee-maps-c035"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "Bee Maps ToS (Q4 2025) says Bee Maps owns data it collects from a Bee; the Hivemapper network terms (May 2026) say Hivemapper claims no rights in Contributor Data and contributors license developers. Both may hold if Bee Maps acts as a 'developer' on the network, but the documents do not reconcile this; both kept."
+    },
+    {
+      "claim_ids": [
+        "bee-maps-c040",
+        "bee-maps-c003"
+      ],
+      "rule_applied": "newer_wins_status",
+      "resolution": "Network terms dated May 2026 still describe HONEY rewards; the July 2026 announcement ends HONEY support from August 2026. Newer event wins for the current reward currency."
+    }
+  ],
+  "leads": [
+    {
+      "url": "https://beemaps.com/tos/bee",
+      "why": "Bee Terms of Service linked from the docs ToS index; not fetched separately."
+    },
+    {
+      "url": "https://beemaps.com/privacy/overview",
+      "why": "Privacy center overview; may describe data products and sharing."
+    },
+    {
+      "url": "https://beemaps.com/docs/platform/fleets",
+      "why": "Fleet (Beekeeper) docs; may explain fleet data use in products."
+    },
+    {
+      "url": "https://beemaps.com/blog/case-study-here",
+      "why": "Vendor case study with HERE Technologies (vendor-stated demand evidence)."
+    }
+  ]
+}

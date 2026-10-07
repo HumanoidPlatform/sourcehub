@@ -1,0 +1,427 @@
+{
+  "kind": "verify",
+  "slug": "crowdworks-a1-data-marketplace",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "crowdworks-a1-data-marketplace-c002",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://dart.fss.or.kr/report/viewer.do?rcpNo=20260814001178&dcmNo=11529265&eleId=16&offset=214340&length=22769&dtd=dart4.xsd",
+        "publisher": "DART, Financial Supervisory Service (Crowdworks half-year report 2026.06, filed 2026-08-14)",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "당사는 현재 국내 민간 기업 중 최초로 피지컬 AI 데이터를 데이터 마켓플레이스를 통해 유통하고 있으며"
+      },
+      "corrected_statement": null,
+      "note": "The regulatory filing (company-authored, lodged with the FSS) confirms the marketplace was operating as of the 2026-08-14 half-year report. The 'Vietnam Physical AI dataset shown first' detail exists only on the vendor site; this verifier fetched a1dm.crowdworks.ai on 2026-10-01 and it did list '베트남 Physical AI' first under recently registered datasets. Web search was not available."
+    },
+    {
+      "claim_id": "crowdworks-a1-data-marketplace-c004",
+      "check": "blind",
+      "status": "corrected",
+      "independent_source": {
+        "url": "https://dart.fss.or.kr/report/viewer.do?rcpNo=20260930901153&dcmNo=11598125&eleId=0&offset=0&length=0&dtd=HTML",
+        "publisher": "DART / KOSDAQ Market Division, Korea Exchange",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "크라우드웍스/불성실공시법인지정예고/(2026.09.30)불성실공시법인지정예고(공시번복)"
+      },
+      "corrected_statement": "Crowdworks announced on 2026-09-10 that it had set up its first 'Physical AI Hub' in Changwon (Gyeongnam), but that is not its newest dated event: on 2026-09-30 the KOSDAQ Market Division gave notice that it intends to designate Crowdworks an unfaithful-disclosure corporation for withdrawing a third-party rights issue (decision due by 2026-10-27).",
+      "note": "The branch announcement itself is relayed by Digital Daily (https://www.ddaily.co.kr/page/view/2026091017134553802, 2026-09-10: '크라우드웍스가 경남 창원에 피지컬 AI 허브 1호 거점을 구축했다고 10일 밝혔다'), linked from Gyeongnam Technopark's own press list. Newer dated events found through DART's own search: 2026-09-30 KOSDAQ notice (reversal of disclosure: 유상증자결정(제3자배정) 철회; original disclosure 2025-12-16, withdrawal 2026-08-21; the notice warns an 8+ point penalty can suspend trading for a day); 2026-09-30 corrected rights-issue report; 2026-09-18 result of a ~KRW 1bn small public offering decided 2026-09-10. Digital Daily also reports a 2026-09-21 Mobirus agricultural-driving annotation contract. Context the profile's event list should carry: control changed 2026-02-06 from founder Park Min-woo to XRP1 investment association, with CEO changed to Kim Kwang-il (half-year report). Re-checked 2026-10-01 by decoding the page: it is served as MS949, so an automated quote check that assumes UTF-8 may see mojibake; the same notice is listed at https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260930901153."
+    },
+    {
+      "claim_id": "crowdworks-a1-data-marketplace-c016",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "How A1 purchases close is set out only by the vendor. The April 2025 launch coverage in Digital Daily says only that buyers 'can purchase' datasets and gives no mechanics; Crowdworks' DART filings say only that it sells data 'through a market it developed itself'. Nothing contradicts the claim. Web search was not available."
+    },
+    {
+      "claim_id": "crowdworks-a1-data-marketplace-c023",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A button label and contact route on the vendor's own site. This verifier saw the '데이터 구매 문의' button on a1dm.crowdworks.ai on 2026-10-01, which is the same domain and so not independent."
+    },
+    {
+      "claim_id": "crowdworks-a1-data-marketplace-c017",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The seller revenue-share rule is a vendor term. Related independent evidence: Crowdworks' DART half-year report shows a revenue line '입점수수료' (listing or entry commission) of KRW 28m in H1 2026 and KRW 29m in FY2025. It does not name the platform or a rate, so it neither confirms nor contradicts 'no standard percentage'."
+    },
+    {
+      "claim_id": "crowdworks-a1-data-marketplace-c038",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The claim is about what the listing says, and the partner is unnamed, so there is no route to its own site or filings. A Digital Daily site search for '베트남 피지컬' (2026) returned no results. Web search was not available, so Vietnamese press could not be searched."
+    },
+    {
+      "claim_id": "crowdworks-a1-data-marketplace-c048",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A pricing statement on the vendor's own page. For context only: the DART half-year report says prices for Crowdworks' services depend on the customer's requirements and that no standard price is set. That concerns build services, not catalogue datasets."
+    },
+    {
+      "claim_id": "crowdworks-a1-data-marketplace-c036",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The listing's own NDA and supply terms, and an absence on that page. No independent route exists."
+    },
+    {
+      "claim_id": "crowdworks-a1-data-marketplace-c031",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://www.ddaily.co.kr/page/view/2026071509522572229",
+        "publisher": "Digital Daily (디지털데일리)",
+        "source_class": "press_relaying_vendor",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "전 세계 145명의 오퍼레이터가 로봇팔을 직접 원격 조작해 수집한 성공 사례 1만 2천여 건으로 구성됐다"
+      },
+      "corrected_statement": null,
+      "note": "The 2026-07-15 article restates the company announcement. It gives about 12,000 successes, 12 scenario types and 145 operators worldwide, which matches the listing's 12,763, 12 and 145. The exact 12,763 appears only on the listing. The 2026-07-01 Digital Daily piece gives the same figures."
+    },
+    {
+      "claim_id": "crowdworks-a1-data-marketplace-c009",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://www.ddaily.co.kr/page/view/2026052809560175185",
+        "publisher": "Digital Daily (디지털데일리)",
+        "source_class": "press_relaying_vendor",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "센서 글러브 기반 데이터셋, 10개 손가락 로봇 데이터셋 등 총 100TB 이상 규모의 데이터를 유통하고 있다"
+      },
+      "corrected_statement": null,
+      "note": "This 2026-05-28 article relays the Physical AI Data Lab announcement. Caution: the vendor's own blog (crowdworks.blog/physical-ai-robot-dataset, 2026-01-13) calls the sensor-glove dataset alone '100TB 규모', so the '100 TB+' total rests mostly on one dataset. The figure is vendor-stated volume, not independently measured."
+    },
+    {
+      "claim_id": "crowdworks-a1-data-marketplace-c027",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The exact figure 567 exists only on the A1 homepage (re-fetched 2026-10-01: '함께 성장한 고객 수 : 567개 기업'). Press relaying company boilerplate gives different counts: '550개 이상 기업과 협업' (Digital Daily, 2026-07-15, https://www.ddaily.co.kr/page/view/2026071509522572229) and '600개 이상 기업' (Digital Daily, 2026-09-10). DART filings give no customer count. The claim is attributive and holds as 'Crowdworks says', but the number drifts by source and is not independently verified. Web search was not available."
+    },
+    {
+      "claim_id": "crowdworks-a1-data-marketplace-c028",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No independent source for the '70% of KOSPI top-30' customer claim. Crowdworks' DART annual (2025) and half-year (2026.06) business sections contain no such figure. A Digital Daily site search for '크라우드웍스 코스피' returned 0 results. No search available."
+    },
+    {
+      "claim_id": "crowdworks-a1-data-marketplace-c037",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Listing specifications for a dataset from an unnamed supplier. No independent route exists."
+    },
+    {
+      "claim_id": "crowdworks-a1-data-marketplace-c040",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The stock and capacity figures are the unnamed partner's statements, carried on the listing. A Digital Daily site search for '베트남 피지컬' returned nothing. Web search was not available."
+    },
+    {
+      "claim_id": "crowdworks-a1-data-marketplace-c042",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Listing specifications; the photographer and archive are not named, so there is no independent route. Web search was not available."
+    },
+    {
+      "claim_id": "crowdworks-a1-data-marketplace-c015",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://www.ddaily.co.kr/page/view/2025040309444759880",
+        "publisher": "Digital Daily (디지털데일리)",
+        "source_class": "press_relaying_vendor",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "다국어 기반의 총 57만 트랙 오디오 데이터셋"
+      },
+      "corrected_statement": null,
+      "note": "The launch coverage is dated 2025-04-03. Note that the vendor blog also carries an earlier post (2024-12-12) titled 'A1 데이터 거래소 오픈' with no figures, so 'at launch' means the April 2025 marketplace launch."
+    },
+    {
+      "claim_id": "crowdworks-a1-data-marketplace-c002",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote is the first entry under '최근 등록된 Datasets' on a1dm.crowdworks.ai, re-fetched 2026-10-01. A position on a page cannot be quoted, so the dataset title is the right quote. The site also still carries the operator's footer (대표이사 김광일)."
+    },
+    {
+      "claim_id": "crowdworks-a1-data-marketplace-c004",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The blog post is dated Sep 10, 2026 and covers the Changwon branch, but the quote only says a Gyeongnam branch was set up. The 'Physical AI Hub' label needs '크라우드웍스의 ‘피지컬 AI 허브’ 전략 거점인 경남 지사는', and 'first' needs '이번 경남 지사를 시작으로 울산, 전북 등'. No quote can carry the second half, 'this is the newest dated company event found', and the blind check shows it is false (2026-09-30 KOSDAQ notice)."
+    },
+    {
+      "claim_id": "crowdworks-a1-data-marketplace-c016",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote answers the sellers' FAQ question '구매자는 마켓플레이스에서 쇼핑몰처럼 온라인으로 결제하고 데이터를 구매하게 되나요?' with '아니요.' It applies to A1 as a whole and was live on 2026-10-01."
+    },
+    {
+      "claim_id": "crowdworks-a1-data-marketplace-c023",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote appears verbatim under 'for 구매자' on the A1 homepage, next to the '데이터 구매문의' button (re-fetched 2026-10-01)."
+    },
+    {
+      "claim_id": "crowdworks-a1-data-marketplace-c017",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote is the A1 sellers' FAQ answer to '데이터 판매 시 수익분배가 궁금합니다'. 'No standard percentage is published' is an absence. The FAQ gives none and offers a service document only by email on request, which this verifier did not obtain."
+    },
+    {
+      "claim_id": "crowdworks-a1-data-marketplace-c038",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote supports collection by a Vietnamese conglomerate-affiliated partner on real sites (factories, hospitals, restaurants, hotels). The humanoid-robot part needs the next words: '자사 휴머노이드 로봇 학습에 사용 중인 데이터를 기반으로 고객 요청 시 신규 촬영도 가능합니다'. The page says new shooting is possible on request, built on the data the partner uses for its own humanoid robots."
+    },
+    {
+      "claim_id": "crowdworks-a1-data-marketplace-c048",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote shows only that price can differ by scope of use and data source. The 'only on inquiry' half needs '데이터 수량과 세부 견젹, 활용 범위 등은 별도 문의 시 상세히 안내해 드립니다' ('견젹' is a typo on the page). The claim's scope.product is 'A1 Data Marketplace', but www.crowdworks.ai/data/datasets is Crowdworks' corporate dataset catalogue, a separate storefront. It mentions the 'A1 데이터 거래소' but not A1 Data Marketplace, so it is indirect evidence for A1's licence_model."
+    },
+    {
+      "claim_id": "crowdworks-a1-data-marketplace-c036",
+      "check": "scope",
+      "status": "scope_wrong",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The NDA part is right ('비밀유지계약 체결 시 얼굴 노출 원본 협의 가능'), and the page has no consent, release or de-identification wording (re-fetched 2026-10-01). But '300 face-on videos' claims more than the page says. It says each video shows one interviewee alone, and offers face-exposed originals only under an NDA. That implies the standard deliverable is not face-exposed. The metadata includes '표정·상반신 생체 데이터' (facial-expression and upper-body biometric data), which matters for Q7 and the profile does not say."
+    },
+    {
+      "claim_id": "crowdworks-a1-data-marketplace-c031",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote has the 12 task types and 145 operators but not the headline figure. That needs '총 12,763건의 성공 시연, 시연 1건당 평균 36초'. The listing also states '전 세계 사용자가 웹/휴대폰으로 로봇팔을 실시간 조작해 생성' and records an operator ID per episode. Nothing on how operators were paid."
+    },
+    {
+      "claim_id": "crowdworks-a1-data-marketplace-c009",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The blog's sentence begins '실제로 이 플랫폼에서는 그리퍼(Gripper)기반 양팔 로봇 데이터…', where 'this platform' is 'A1(에이원) 데이터 마켓플레이스' in the sentence before. The scope is right. The figure is the total volume listed, not volume sold, and the profile's basis already says so."
+    },
+    {
+      "claim_id": "crowdworks-a1-data-marketplace-c027",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote is verbatim on the A1 homepage. The profile's value basis correctly calls it company-wide, not A1-specific. The same block of the homepage also shows '12,000+ Happy Clients' and a testimonial from 'Alexander Barr, Sales Manager'. Those look like theme placeholder text and contradict 567, so the block is weak evidence."
+    },
+    {
+      "claim_id": "crowdworks-a1-data-marketplace-c028",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote is verbatim on the A1 homepage. It is company-wide marketing and is correctly framed as 'Crowdworks claims'."
+    },
+    {
+      "claim_id": "crowdworks-a1-data-marketplace-c037",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote has '롱폼 영상 300건 / 총 약 1,000시간' but not the metadata. That needs '메타데이터 표정·상반신 생체 데이터, 성별, 생년, 지역, 전사본'. The statement also leaves out the facial-expression and upper-body biometric metadata."
+    },
+    {
+      "claim_id": "crowdworks-a1-data-marketplace-c040",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote matches the spec table. The stock figure is labelled '(자사 로봇 학습용)', meaning it is the partner's own robot-training stock, so '100,000 hours in stock' is not necessarily all for sale. The profile's unit wording does not make that caveat."
+    },
+    {
+      "claim_id": "crowdworks-a1-data-marketplace-c042",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote has '39,967장 (390GB)' but not the period. That needs '1988년부터 약 30년간 전국을 직접 발로 누비며 촬영한'. The intro also says '총 4만 컷', a rounded figure."
+    },
+    {
+      "claim_id": "crowdworks-a1-data-marketplace-c015",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The blog post is dated Apr 03, 2025 and is titled ''A1 데이터 마켓플레이스' 오픈'. The quote is in the list of what buyers 'can purchase' on A1."
+    }
+  ],
+  "missed": [
+    {
+      "id": "crowdworks-a1-data-marketplace-v001",
+      "statement": "On 2026-09-30 the KOSDAQ Market Division of the Korea Exchange gave notice that it intends to designate Crowdworks an unfaithful-disclosure corporation for withdrawing a third-party-allotment rights issue (first disclosed 2025-12-16), with a decision due by 2026-10-27.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "Crowdworks (operator of A1 Data Marketplace)",
+        "tier": "",
+        "region": "KR"
+      },
+      "value": null,
+      "origin": "filing",
+      "as_of": "2026-09-30",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://dart.fss.or.kr/report/viewer.do?rcpNo=20260930901153&dcmNo=11598125&eleId=0&offset=0&length=0&dtd=HTML",
+          "publisher": "DART / Korea Exchange KOSDAQ Market Division",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "크라우드웍스/불성실공시법인지정예고/(2026.09.30)불성실공시법인지정예고(공시번복)"
+        }
+      ]
+    },
+    {
+      "id": "crowdworks-a1-data-marketplace-v002",
+      "statement": "Crowdworks' 2026 half-year report records that in February 2026 its largest shareholder changed from founder Park Min-woo to the investment association XRP1 (엑스알피1호조합).",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "Crowdworks (operator of A1 Data Marketplace)",
+        "tier": "",
+        "region": "KR"
+      },
+      "value": null,
+      "origin": "filing",
+      "as_of": "2026-02-06",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://dart.fss.or.kr/report/viewer.do?rcpNo=20260814001178&dcmNo=11529265&eleId=3&offset=5790&length=125381&dtd=dart4.xsd",
+          "publisher": "DART, Financial Supervisory Service (Crowdworks half-year report 2026.06)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "2026.02 최대주주 변경 (박민우 → 엑스알피1호조합)"
+        }
+      ]
+    },
+    {
+      "id": "crowdworks-a1-data-marketplace-v003",
+      "statement": "Crowdworks' 2026 half-year report shows revenue from 'listing commissions' (입점수수료) of KRW 28 million in H1 2026, 0.5% of total revenue, against KRW 29 million in FY2025 and none in FY2024; it does not say which platform the fees come from.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Crowdworks (company-wide revenue line; plausibly A1 seller fees, not stated)",
+        "tier": "",
+        "region": "KR"
+      },
+      "value": {
+        "num": 28,
+        "unit": "KRW million",
+        "basis": "company revenue line '입점수수료' (listing/entry commission), payer and platform not stated",
+        "period": "H1 2026 (Jan-Jun)"
+      },
+      "origin": "filing",
+      "as_of": "2026-06-30",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://dart.fss.or.kr/report/viewer.do?rcpNo=20260814001178&dcmNo=11529265&eleId=9&offset=131175&length=105974&dtd=dart4.xsd",
+          "publisher": "DART, Financial Supervisory Service (Crowdworks half-year report 2026.06)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "기타 사업 입점수수료 28 0.5 29 0.3"
+        }
+      ]
+    },
+    {
+      "id": "crowdworks-a1-data-marketplace-v004",
+      "statement": "Crowdworks' 'AI Data' segment revenue was KRW 613 million in H1 2026 (11.8% of revenue), against KRW 3,564 million for the full year 2025 and KRW 4,523 million in 2024.",
+      "kind": "number",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "Crowdworks AI Data segment (company-wide)",
+        "tier": "",
+        "region": "KR"
+      },
+      "value": {
+        "num": 613,
+        "unit": "KRW million",
+        "basis": "segment revenue as reported, half-year; prior figures are full-year",
+        "period": "H1 2026 (Jan-Jun)"
+      },
+      "origin": "filing",
+      "as_of": "2026-06-30",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://dart.fss.or.kr/report/viewer.do?rcpNo=20260814001178&dcmNo=11529265&eleId=9&offset=131175&length=105974&dtd=dart4.xsd",
+          "publisher": "DART, Financial Supervisory Service (Crowdworks half-year report 2026.06)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AI Data 613 11.8 3,564 34.0 4,523 37.7"
+        }
+      ]
+    }
+  ]
+}

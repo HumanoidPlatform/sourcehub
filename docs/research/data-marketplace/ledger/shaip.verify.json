@@ -1,0 +1,342 @@
+{
+  "kind": "verify",
+  "slug": "shaip",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "shaip-c034",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://www.ubiquity.com/resources/news/ubiquity-acquires-shaip-ai",
+        "publisher": "Ubiquity Global Services",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Ubiquity Global Services announced that it has entered into an agreement to acquire Shaip"
+      },
+      "corrected_statement": null,
+      "note": "Found via ubiquity.com/sitemap.xml. The source is the acquirer's own news release (dateline New York, February 12, 2026), so it is the counterparty to the deal rather than neutral press. It says 'entered into an agreement to acquire' and gives no closing date or terms; Shaip's own release of Feb 22, 2026 says it 'is now part of' Ubiquity. No filing exists to check: EDGAR full-text search for \"Shaip\" returns 0 hits, and PR Newswire's Ubiquity and Shaip newsrooms carry no 2026 release. No search available."
+    },
+    {
+      "claim_id": "shaip-c002",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The only trace is Shaip's own blog post (post-sitemap.xml lists /blog/computer-vision-data-catalog-with-new-image-and-video-datasets/ with lastmod 2026-09-22). No wire release: PR Newswire's Shaip newsroom lists only a January 2021 release; Shaip's press room lists nothing after Aug 14, 2026. No search available to look for trade-press coverage."
+    },
+    {
+      "claim_id": "shaip-c014",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No independent count exists that could be reached. The acquirer's release only relays 'multilingual conversational data across 60+ languages', and Shaip's own pages disagree with each other: the licensing page says '55k+ hours of speech data (50+ languages/100+ dialects)', while the speech catalogue page says '100+ Languages & Accents' and 'over 65 languages'. The language count is therefore inconsistent even on the vendor's side. No search available."
+    },
+    {
+      "claim_id": "shaip-c020",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The number appears only in Shaip's own September 2026 blog post. No independent listing, press or academic use could be reached (arXiv search for 'Shaip' returns no results; EDGAR 0 hits). The claim that 240,000 YouTube videos underlie a sold dataset is a rights question worth flagging, but I found no source on it. No search available."
+    },
+    {
+      "claim_id": "shaip-c023",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The number appears only in Shaip's own blog post and catalogue. No independent source was reachable (arXiv, EDGAR and PR Newswire all have nothing). No search available."
+    },
+    {
+      "claim_id": "shaip-c035",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The acquirer's release (ubiquity.com, Feb 12, 2026) gives no customer count; it says only 'leading AI labs and enterprise customers worldwide'. Neither company files with the SEC, and CourtListener returned HTTP 403. No search available."
+    },
+    {
+      "claim_id": "shaip-c037",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The source is Shaip's own press-room item dated Aug 13/14, 2026, which has no outbound links to a wire or to the client. No wire copy was found (PR Newswire's Shaip newsroom has nothing after 2021), and the client is not named, so there is no customer to check against. No search available."
+    },
+    {
+      "claim_id": "shaip-c041",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "I checked the app-store listings linked from Shaip's data collection page. The Google Play listing (id com.shaip.contributor) returns HTTP 404, both plain and with hl=en_US. The Apple App Store 'Shaip Work' app (seller Healthly.AI Data, LLC) shows 2.6 stars from 19 ratings. Neither can confirm or refute 500K+ contributors, since contributors may also work through the web portal. No search available."
+    },
+    {
+      "claim_id": "shaip-c006",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The claim is about a clause in Shaip's own website terms."
+    },
+    {
+      "claim_id": "shaip-c026",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "This is a catalogue listing on Shaip's own site. The AWS Marketplace search for 'shaip' rendered no listings (JS-rendered), so I could not check whether a marketplace operator shows the same listing, and I could not identify who licenses the footage."
+    },
+    {
+      "claim_id": "shaip-c043",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The claim is about a definition in Shaip's own vendor requirements document."
+    },
+    {
+      "claim_id": "shaip-c018",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The claim is about the FAQ on Shaip's own catalogue page."
+    },
+    {
+      "claim_id": "shaip-c016",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The claim is about the absence of prices on Shaip's own page."
+    },
+    {
+      "claim_id": "shaip-c009",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "This is Shaip's own offer description. Its data-catalogs-licensing page reads 'one-time purchase, subscription access, or custom enterprise agreements'."
+    },
+    {
+      "claim_id": "shaip-c022",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The claim is about what Shaip itself asserts. Whether contributors actually consented cannot be independently checked from any reachable source."
+    },
+    {
+      "claim_id": "shaip-c039",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The claim is about Shaip's own contributor portal text. The App Store description of 'Shaip Work' (written by the vendor) likewise speaks only of task earnings, e.g. 'Simple tasks to earn real money', and never of royalties."
+    },
+    {
+      "claim_id": "shaip-c034",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote matches the About page. The profile's status value 'acquired' rests on Shaip's own 'became part of' / 'is now part of' wording. The acquirer's release (Feb 12, 2026) says only 'agreement to acquire', and nobody reports a close; the profile already records this in conflicts and unknowns."
+    },
+    {
+      "claim_id": "shaip-c002",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The blog post shows a publication date of September 22, 2026, and the sitemap lastmod is 2026-09-22. It is a vendor blog post, not a press release."
+    },
+    {
+      "claim_id": "shaip-c014",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote comes from the data-catalogs-licensing page and supports the statement. However, Shaip's speech catalogue page gives different language counts ('over 65 languages and regional accents', '100+ Languages & Accents'), and the acquirer relays '60+ languages'. The 50+ figure is one of several inconsistent vendor numbers; see missed shaip-v003."
+    },
+    {
+      "claim_id": "shaip-c020",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote sits under the 'Video at scale' section of the Sept 22, 2026 post. The post says nothing about how the YouTube videos were licensed or obtained, which the profile correctly logs as unknown other.youtube_rights_basis."
+    },
+    {
+      "claim_id": "shaip-c023",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote sits under 'Facial and body part recognition' and reads 'New additions include a 10-million-image face recognition dataset'."
+    },
+    {
+      "claim_id": "shaip-c035",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The About page counter reads '100+ Customers worldwide'. It is a company-wide figure, not a count of catalogue buyers, and the value basis says so."
+    },
+    {
+      "claim_id": "shaip-c037",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "This is Shaip's own press-room item (dateline New York, Aug 13, 2026), correctly marked vendor_stated. It describes a custom collection programme for an unnamed client, not catalogue inventory."
+    },
+    {
+      "claim_id": "shaip-c041",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote matches. The same page also says '500k vetted contributors across 150+ languages'. Using this claim for matrix.supply_models own_collection is fair."
+    },
+    {
+      "claim_id": "shaip-c006",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote leaves out the subject. The clause sits under '3. Payments and Refunds' and reads 'If you are a customer purchasing services from Shaip (for example, enterprise data services or subscriptions), any refund rights are' before the quoted words; those words are needed to show that it is refund rights being deferred. The inference 'dataset deals run on separate contracts not published' goes beyond the text. The clause also says nothing about who is licensor of record, so citing it for matrix.operator_role is weak; it better supports transaction_mode and licence_model."
+    },
+    {
+      "claim_id": "shaip-c026",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote gives only the title; the '1.2M minutes' in the statement is not in it. The entry's count field reads '1.2M minutes', and its description reads 'Licensed video library of 1.2 million minutes spanning news, weather, sports, live events'. The page never names a licensor or says the footage is licensed in from a third party; its heading 'Licensed Video Datasets for AI' can mean licensable to buyers. Using c026 as evidence for partner_licensed supply, for operator_role ('licenses third-party footage'), or for economics_model is therefore an inference the page does not state."
+    },
+    {
+      "claim_id": "shaip-c043",
+      "check": "scope",
+      "status": "scope_wrong",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The page is titled the 'Vendor Privacy Notice' (effective 01/01/2020, last modified 12/06/2023), not 'vendor requirements'. The definition is quoted correctly. But the same notice says the vendor acts 'as a Processor or Sub-processor on behalf of the Company' and 'has no ownership or independent rights to the Company Data'. These vendors are therefore subcontracted collectors working under Shaip's instructions, not third-party providers supplying datasets of their own. The claim does not support supply_models third_party_providers; it fits own_collection through subcontractors."
+    },
+    {
+      "claim_id": "shaip-c018",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote answers the FAQ 'How can these datasets integrate into AI workflows?' on the computer-vision catalogue page. It shows delivery file formats, not where the bytes are handed over, so it supports copy_to_buyer only by implication."
+    },
+    {
+      "claim_id": "shaip-c016",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote answers the FAQ 'What is the cost of computer vision datasets?', whose answer begins 'The cost varies based on dataset size, level of customization, and licensing requirements.' No price appears on the page."
+    },
+    {
+      "claim_id": "shaip-c009",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote matches the data-catalogs-licensing page. Note that 'subscription access' sits uneasily with the profile's licence_model 'negotiated'; the profile's note covers this."
+    },
+    {
+      "claim_id": "shaip-c022",
+      "check": "scope",
+      "status": "scope_wrong",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quoted sentence appears under the heading 'How these Computer Vision datasets are built', so 'the catalog' refers to the computer-vision catalogue, not every Shaip catalogue. The statement should be narrowed to computer-vision datasets. The same post also lists a kids'-content set 'across 240,000 YouTube videos' without saying how the consent of uploaders or depicted children was obtained."
+    },
+    {
+      "claim_id": "shaip-c039",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The full sentence on collaborate.shaip.com reads 'Payment varies by project complexity and requirements, with opportunities ranging from quick microtasks to longer-term assignments'. The page mentions no royalties, revenue share or data ownership, so the absence is correctly stated."
+    }
+  ],
+  "missed": [
+    {
+      "id": "shaip-v001",
+      "statement": "Shaip recruits crowd workers through a phone app, 'Shaip Work', published on the Apple App Store by Healthly.AI Data, LLC, in which workers collect pictures, audio or video for pay.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": ["Q3", "Q7"],
+      "scope": {"product": "Shaip Work app", "tier": "", "region": "US App Store"},
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://apps.apple.com/us/app/shaip-work/id6447959870",
+          "publisher": "Healthly.AI Data, LLC (Apple App Store listing)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Select a job you like & work on tasks by collecting pictures, audio, or video using the app."
+        }
+      ]
+    },
+    {
+      "id": "shaip-v002",
+      "statement": "The US Apple App Store listing of Shaip's contributor app 'Shaip Work' shows 19 ratings averaging 2.6 out of 5, a platform-measured figure far below the 500K+ contributors Shaip claims (ratings are not downloads, and the Google Play listing linked from Shaip's site returned HTTP 404).",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": ["Q3"],
+      "scope": {"product": "Shaip Work app", "tier": "", "region": "US App Store"},
+      "value": {"num": 19, "unit": "App Store ratings", "basis": "count of user ratings on the US Apple App Store listing, not downloads or active contributors", "period": "cumulative, as of retrieval"},
+      "origin": "independent",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://apps.apple.com/us/app/shaip-work/id6447959870",
+          "publisher": "Apple App Store",
+          "source_class": "third_party_docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "2.6 out of 5 • 19 Ratings"
+        }
+      ]
+    },
+    {
+      "id": "shaip-v003",
+      "statement": "Shaip's speech data catalogue page says its datasets cover over 65 languages and regional accents, a different count from the 50+ languages on its licensing page.",
+      "kind": "number",
+      "section": "listing",
+      "question_ids": ["Q11"],
+      "scope": {"product": "speech data catalogue", "tier": "", "region": ""},
+      "value": {"num": 65, "unit": "languages and regional accents", "basis": "vendor-stated catalogue coverage, lower bound; languages and accents counted together", "period": "as of retrieval"},
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.shaip.com/offerings/speech-data-catalog/",
+          "publisher": "Shaip",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The datasets cover over 65 languages and regional accents"
+        }
+      ]
+    }
+  ]
+}

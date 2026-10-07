@@ -1,0 +1,190 @@
+{
+  "kind": "verify",
+  "slug": "build-ai",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "build-ai-c038",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://arxiv.org/html/2609.24411v2", "publisher": "arXiv (Zeva-Ego paper authors)", "source_class": "academic", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "The public release totals 10,000 hours, 192,900 clips, and 1.08 billion frames at 30 Hz"},
+      "corrected_statement": null,
+      "note": "A September 2026 robotics paper that trained on Egocentric-10K (it used 4,439 of the hours) describes the public release as 10,000 hours. The paper cites the Hugging Face card, so the count is the publisher's own figure restated by a user of the data, not an independent recount. Found through arXiv's own API search; WebSearch was not available."
+    },
+    {
+      "claim_id": "build-ai-c005",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A roadmap that exists only on build.ai. When read directly on 2026-10-01, the roadmap lists Egocentric-10M for Nov 2026, but it also lists Egocentric-100M (Oct 2027) and Egocentric-1B (Dec 2028). So Nov 2026 is the next planned date, not the newest dated item on the site, and that part of the statement is wrong."
+    },
+    {
+      "claim_id": "build-ai-c026",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A licence term of the vendor's own API. One check: I could not find the Egocentric API by navigating; build.ai links only to Hugging Face, X, Ashby and the founders' pages; docs.build.ai has an expired certificate and api.build.ai returns 404."
+    },
+    {
+      "claim_id": "build-ai-c035",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A file layout in the vendor's own API documentation. I found no third-party description of the API: docs.build.ai has an expired certificate and api.build.ai returns 404. The open Hugging Face releases use a different layout (factory/worker folders of WebDataset TAR shards pairing MP4 with JSON metadata, no IMU), and the Zeva-Ego paper using Egocentric-10K never mentions IMU."
+    },
+    {
+      "claim_id": "build-ai-c001",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No search available. The tagline 'Build AI is the data hyperscaler for Physical AI.' is live on build.ai (2026-10-01). Ten roles are open on the vendor's Ashby board (jobs.ashbyhq.com/build-ai), published between 30 Aug and 20 Sep 2026, but those postings are the vendor's own text. Routes tried for an independent source of 2026 operation: TechCrunch's site search ('Build AI' egocentric; 'Eddy Xu'; build.ai) found no coverage; the portfolio pages of the named investors Pear, Costanoa, Renegade, Abstract and Deepwater do not list it; the HF0 and cyber.fund home pages do not mention it; EDGAR company and full-text searches found no Form D; OpenCorporates (Delaware) found no matching PBC. The nearest independent trace is the Sept 2026 arXiv paper 2609.24411, which uses the company's dataset but says nothing about the company's status."
+    },
+    {
+      "claim_id": "build-ai-c003",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No search available. The only source found is the vendor's own homepage ('we scaled from 0->$100M revenue run rate in 2026'). No filing, investor page or press article with the figure could be reached: TechCrunch site search, the investor portfolio pages and EDGAR all came up empty (see c001). The figure must stay vendor_stated."
+    },
+    {
+      "claim_id": "build-ai-c004",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No search available. EDGAR company search ('build ai', 'build', 'build p') and full-text search ('Build AI' Form D; 'Eddy Xu') found no Form D for the company. 'Build Intelligence Group Inc.' (CIK 2118599) is an unrelated Delaware issuer with different officers. None of the named investors whose portfolio pages loaded (Pear, Costanoa, Renegade, Abstract, Deepwater) lists Build AI. The '$30M+ raised' figure is on build.ai only."
+    },
+    {
+      "claim_id": "build-ai-c042",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No search available. The 100,405-hour figure appears only on the vendor's own Hugging Face card, which is the owner's docs. The arXiv API and arxiv.org search for 'Egocentric-100K' return no paper that names the dataset, and the Zeva-Ego paper (2609.24411) cites only Egocentric-10K."
+    },
+    {
+      "claim_id": "build-ai-c050",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No search available. The founder's own site (eddy.build) has the words '$1M dedicated to research/compute grants for academic researchers', but that page is affiliated with the vendor. No university, grantee or press page could be reached by navigation."
+    },
+    {
+      "claim_id": "build-ai-c015",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No search available. The statement is in the vendor's own Ashby job post (Founding Legal Counsel, published 2026-09-20): 'pays a distributed network of partners and individual collectors at volume'. That is the vendor speaking on a third-party host, so it is not independent. No collector, partner or press account of the payments could be reached."
+    },
+    {
+      "claim_id": "build-ai-c014",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No search available. The wording ('collects data inside working factories and job sites across a growing number of countries') is from the vendor's own Ashby post (Founding Legal Counsel, 2026-09-20). build.ai adds 'we're based in sf and shenzhen and are actively launching countries'. The Zeva-Ego paper independently describes Egocentric-10K as 'real factory work through wearable monocular cameras', which supports factory collection but says nothing about job sites or countries."
+    },
+    {
+      "claim_id": "build-ai-c022",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No search available. The only source is the vendor's Ashby post 'Data Scientist, Marketplace Incentives' (published 2026-08-30), which describes work the new hire will do: 'Design marketplace mechanics (task mix, targeting, bonuses, payouts, eligibility)' and 'ship incentive and payout changes into the collection product'. That shows payouts exist and that bonuses are a design goal. It does not show that collectors are paid through such mechanics today. No independent account was found."
+    },
+    {
+      "claim_id": "build-ai-c013",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "How the vendor invites contact on its own site; such a fact exists only there. build.ai links research@build.ai, and no price or checkout appears on the page."
+    },
+    {
+      "claim_id": "build-ai-c036",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The owner sets the licence on its own Hugging Face cards, which are the owner's docs under LEDGER rules, not independent. On direct read both the Egocentric-10K and Egocentric-100K cards give the licence field 'apache-2.0' and the text 'Licensed under the Apache 2.0 License.' Both cards are gated: 'You need to agree to share your contact information to access this dataset'."
+    },
+    {
+      "claim_id": "build-ai-c047",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A fact about the vendor's own card. On direct read the sections are Dataset Statistics, Camera Intrinsics, Dataset Structure, Loading the Dataset, Loading Intrinsics, License and Citation. The License section reads only 'Licensed under the Apache 2.0 License.', and nothing on the card covers consent, releases, faces or anonymisation. The Zeva-Ego paper that uses the data likewise says nothing on consent."
+    }
+  ,
+    {"claim_id": "build-ai-c001", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "Tagline is live on build.ai on 2026-10-01; a live trading page retrieved today meets the LEDGER status rule. The profile's own source is the vendor's site; the blind step found nothing independent."},
+    {"claim_id": "build-ai-c005", "check": "scope", "status": "scope_wrong", "independent_source": null, "corrected_statement": null, "note": "The quote supports 'Egocentric-10M Nov 2026', but the statement claims more than is true. The same roadmap lists Egocentric-100M for Oct 2027 and Egocentric-1B for Dec 2028, so Nov 2026 is the next planned release, not the newest dated item on the site. A planned date is also a roadmap entry, not an event that has happened."},
+    {"claim_id": "build-ai-c003", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "The quote matches and the statement is correctly framed as 'Build AI says'. The figure appears only on the vendor's homepage."},
+    {"claim_id": "build-ai-c004", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "Quote '($30M+ raised)' matches 'more than $30M'; framed as vendor-stated."},
+    {"claim_id": "build-ai-c038", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "The card's statistics table ('Total Hours 10,000') applies to the open Egocentric-10K release."},
+    {"claim_id": "build-ai-c042", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "The card's statistics table ('Total Hours 100,405') applies to the open Egocentric-100K release, which is published at 256p, as c043 records."},
+    {"claim_id": "build-ai-c050", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "The quote is the founder's own words on eddy.build, framed as 'founder says'. The page is undated, so when the grants were announced is unknown; outbound X links on the page decode to about April 2026, but that date is not quotable."},
+    {"claim_id": "build-ai-c026", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "build.ai/terms defines the Service as the Egocentric API ('currently in preview'), and the clause applies to 'Data accessed through the Service'. The terms do not cover the Apache-licensed Hugging Face releases, and the profile keeps the two apart (c036)."},
+    {"claim_id": "build-ai-c015", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "The quote is from the vendor's own Founding Legal Counsel post on Ashby (published 2026-09-20), and the statement is framed as 'Build AI says'. The quote does not say how the collectors are paid (per task, per hour or by share), so it cannot carry contributor_pay_model alone."},
+    {"claim_id": "build-ai-c014", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "Same post as c015; the quote matches the statement word for word."},
+    {"claim_id": "build-ai-c035", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "The string comes from the Egocentric API dashboard bundle (on 2026-10-01 the same chunk also contains 'Egocentric API' and 'No dataset access is assigned to this account.'), so it applies to the API, not to the HF releases. Caveat: the source is a hashed Next.js chunk URL that will change on the next deploy, so the quote check may break even though the fact holds."},
+    {"claim_id": "build-ai-c013", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "The quote shows the research@build.ai invitation. 'Rather than a price or checkout' is an absence stated in the statement, which LEDGER rule 13 allows; I confirmed on build.ai that no price or checkout appears."},
+    {"claim_id": "build-ai-c036", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "Both cards carry the licence field apache-2.0 and the text 'Licensed under the Apache 2.0 License.' This covers the open HF releases only, not Egocentric-1M or API data."},
+    {"claim_id": "build-ai-c047", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "The quote shows the License section running straight into Citation. The absence of consent wording is put in the statement, which rule 13 allows, and I confirmed it on a direct read of all seven card sections."},
+    {"claim_id": "build-ai-c022", "check": "scope", "status": "scope_wrong", "independent_source": null, "corrected_statement": null, "note": "The quote is a job duty for a new hire ('Data Scientist, Marketplace Incentives', published 2026-08-30): 'Design marketplace mechanics (task mix, targeting, bonuses, payouts, eligibility)'. That lists levers the hire will design. It does not describe how collectors are paid now, and it does not tie bonuses or payouts to task mix or eligibility. The statement drops the 'Build AI says' framing and turns a hiring goal into current practice. Supportable: 'Build AI is hiring to design collector incentive mechanics, including bonuses, payouts and eligibility; a sibling bullet speaks of shipping incentive and payout changes into the collection product.' It does not support contributor_pay_model = one_off, since nothing says per-task or per-hour pay and nothing excludes a share."}
+  ],
+  "missed": [
+    {
+      "id": "build-ai-v001",
+      "statement": "An independent robotics paper from Tsinghua University's Institute for AI Industry Research (Zeva-Ego, arXiv 2609.24411) trained on 4,439 hours selected from the open Egocentric-10K release.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": ["Q1", "Q11"],
+      "scope": {"product": "Egocentric-10K", "tier": "open", "region": ""},
+      "value": null,
+      "origin": "academic",
+      "as_of": "2026-09",
+      "as_of_basis": "publication",
+      "sources": [
+        {"url": "https://arxiv.org/html/2609.24411v2", "publisher": "arXiv (Huang, Ding, Chen et al., Tsinghua AIR / Z-Trans AI)", "source_class": "academic", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "We use 4,439 hours selected through task-stratified sampling."}
+      ]
+    },
+    {
+      "id": "build-ai-v002",
+      "statement": "An independent paper that used Egocentric-10K reports that the open release does not include frame-aligned hand poses or action trajectories.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": ["Q10", "Q11"],
+      "scope": {"product": "Egocentric-10K", "tier": "open", "region": ""},
+      "value": null,
+      "origin": "academic",
+      "as_of": "2026-09",
+      "as_of_basis": "publication",
+      "sources": [
+        {"url": "https://arxiv.org/html/2609.24411v2", "publisher": "arXiv (Huang, Ding, Chen et al., Tsinghua AIR / Z-Trans AI)", "source_class": "academic", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "The source release does not include frame-aligned hand poses or action trajectories."}
+      ]
+    },
+    {
+      "id": "build-ai-v003",
+      "statement": "Build AI's Head of Global Expansion posting, published 2026-08-31, lists India and Shenzhen as secondary locations to San Francisco.",
+      "kind": "event",
+      "section": "supply",
+      "question_ids": ["Q3"],
+      "scope": {"product": "", "tier": "", "region": "India"},
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-08-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {"url": "https://api.ashbyhq.com/posting-api/job-board/build-ai", "publisher": "Build AI (job board hosted by Ashby)", "source_class": "vendor_marketing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "{\"location\":\"India\",\"address\":{\"postalAddress\":{\"addressCountry\":\"India\"}}}"}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,288 @@
+{
+  "kind": "verify",
+  "slug": "macgence",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "macgence-c001",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The timestamp itself is right on the vendor's side: the __NEXT_DATA__ JSON embedded in data.macgence.com carries updatedAt 2026-06-02T07:08:02Z for this listing, and 2026-06-02 is the newest updatedAt of all 1050 records, so nothing in the catalogue has changed for four months as of 2026-10-01. No independent evidence of current operation could be reached: EDGAR full-text search 'Macgence' 0 hits, CourtListener 0 results, arXiv 0 results, no Hugging Face datasets by or naming Macgence, and Macgence's own 'In the media' page lists only four April 2023 press releases (EIN Presswire, Issuewire, PR Log, UP 18 News). India's MCA company master data is behind a captcha (gated). WebSearch not available in this run, so no search for 2026 trade press; no search available."
+    },
+    {
+      "claim_id": "macgence-c002",
+      "check": "blind",
+      "status": "disputed",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The createdAt field of all 20 egocentric listings is 2026-04-26T06:45:40.956Z, identical to the millisecond, which looks like a bulk-assigned value rather than a record-creation time. Their MongoDB ObjectIds decode to 2026-05-25 (10 listings, 09:19-11:15 UTC, cooking first) and 2026-05-27 (10 listings, 12:07-13:44 UTC), and the 'Robotics Datasets' category record (6a1416e95d0e661f9f0d974d) decodes to 2026-05-25T09:31Z; a separate 'Robotics' top-level category decodes to the same day. Older listings show the same pattern (shared createdAt 2025-08-07, ObjectIds 2025-10-29). The evidence therefore points to the egocentric listings and the Robotics category being added on 25-27 May 2026, not 26 April. This is my reading of the vendor's own embedded data, not an independent source, so disputed rather than corrected. 19 of the 20 are also filed under Video Datasets. No independent announcement found (blog sitemap has no egocentric or robotics post; no press); no search available."
+    },
+    {
+      "claim_id": "macgence-c031",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The vendor listing does say 'Video Duration: 7000 hours' and 'The dataset contains 7000 hours'. No independent description of the dataset exists that could be reached (no Hugging Face card, no paper, no press; EDGAR, CourtListener and arXiv all return nothing for Macgence). The same listing gives 'Frame Rate: Adjustable based on project requirements' and 'Resolution: HD / Full HD / configurable', and its record has people '1', which sits oddly with 7000 finished hours; the figure should be read as vendor-stated capacity. No search available."
+    },
+    {
+      "claim_id": "macgence-c032",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Checked directly: the embedded JSON on data.macgence.com has projectCount 1050 with query {status: Active} and 1050 records (908 Audio, 106 Image, 36 Video). The count exists only in the vendor's own page data."
+    },
+    {
+      "claim_id": "macgence-c033",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "macgence.com/products/data-marketplace/ shows '700+ Speech Datasets' (with '5M+ Image Datasets', '200+ Languages'). It is a marketing figure on the vendor's own page; the marketplace's embedded data has 908 Audio listings, consistent with '700+'."
+    },
+    {
+      "claim_id": "macgence-c034",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The pricing page says off-the-shelf datasets 'start from $0.10' with no unit. A price on the vendor's own pricing page; no partner or marketplace restating it was found. No search available."
+    },
+    {
+      "claim_id": "macgence-c035",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The pricing page says data collection services 'start from $0.10' with no unit (localisation 'start at just $0.02'). Vendor's own price; no search available."
+    },
+    {
+      "claim_id": "macgence-c036",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The pricing page groups Data Marketplace, Annotation Tool, RLHF Tool and Transcription Tool as platforms 'starting at just $5 per month per seat'. Vendor's own price; no search available."
+    },
+    {
+      "claim_id": "macgence-c010",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "macgence.com/data-license-agreement/ names 'Macgence Technologies (OPC) Private Limited' as Licensor and 'all consumers of the data covered by this license' as Licensee. The Terms of Service footer instead names 'Macgence Technologies Private Limited' (no OPC), so the two documents disagree on the entity's form; India's MCA registry, which would settle whether the one-person company was converted, is gated behind a captcha."
+    },
+    {
+      "claim_id": "macgence-c014",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The DLA says 'Licensor owns all right, title, and interest, including all intellectual property rights, in and to the Data'. A clause of the vendor's own licence."
+    },
+    {
+      "claim_id": "macgence-c015",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The recital reads 'Licensor has compiled data into the proprietary [database/data feed] described in Exhibit A'. The published text is a template whose bracketed alternative '[database/data feed]' was never resolved; Exhibit A is only partly filled, describing the data generically as digital assets for training and/or testing AI models, with no dataset named. It recites compilation of a generic 'database/data feed', not of any specific listed dataset."
+    },
+    {
+      "claim_id": "macgence-c016",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The DLA says 'Licensor shall deliver the Data electronically, on tangible media, or by other means'. A clause of the vendor's own licence."
+    },
+    {
+      "claim_id": "macgence-c006",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Terms of Service section 2.1 'Paid Dataset License' says the licence 'may be either exclusive or non-exclusive as mutually agreed upon in writing' with Macgence's authorized representative during the purchase negotiation process. Note this sits against the DLA (OTS), which grants only a non-exclusive licence; exclusivity is therefore available only by separate written agreement."
+    },
+    {
+      "claim_id": "macgence-c011",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The DLA grants a 'Non-exclusive, non-sublicensable, and non-transferable (except in compliance with Section 8(f)) license during the Term'. The statement omits the Section 8(f) exception to non-transferability and the 'during the Term' limit, which is minor."
+    },
+    {
+      "claim_id": "macgence-c017",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The DLA says the data 'is provided \"as is\"' and the licensor disclaims all warranties; a read of the whole page found no mention of consent, releases, privacy or personal data. The Terms of Service are also silent on consent of people in the data. Vendor's own licence."
+    },
+    {
+      "claim_id": "macgence-c045",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "macgence.com/our-company/jobs/ has an application form whose position options include 'Video Data Collection' and 'Images / Photos Collection', and an FAQ answer 'we provide both remote and freelance work options'; no pay terms. These are form options, not job postings: the job-openings sitemap (30 postings, newest 2026-03-25) has no video or photo collection role. Vendor's own page; no independent route (job boards not reachable without search)."
+    },
+    {
+      "claim_id": "macgence-c001",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quoted updatedAt string occurs once in the listing page's embedded data, inside the cooking listing's own record, so it is the right listing. Blind step found only this vendor page. The status inference ('catalogue maintained') rests on a CMS timestamp alone; nothing independent shows the company trading."
+    },
+    {
+      "claim_id": "macgence-c002",
+      "check": "scope",
+      "status": "scope_wrong",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote shows only a createdAt value; it does not show the Robotics Datasets category (the string 'Robotics Datasets' does not occur on the cited listing page; the category is in data.macgence.com home-page data and sitemap as /category/robotics-datasets). And the createdAt value is shared to the millisecond by all 20 egocentric records, while their ObjectIds and the Robotics Datasets category's ObjectId decode to 25-27 May 2026, so it does not show when the records were created. The statement claims a creation date the evidence does not support; as_of 2026-04-26 is likely a month early."
+    },
+    {
+      "claim_id": "macgence-c031",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Right listing, and the statement is correctly framed as 'Macgence says'. The same specification block says frame rate and resolution are adjustable to project requirements, which the profile does not mention (see macgence-v001)."
+    },
+    {
+      "claim_id": "macgence-c032",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The count is right (1050), but the quote does not show that it counts active listings. The same object carries \"pWhere\":{\"status\":\"Active\"}, which would show the filter."
+    },
+    {
+      "claim_id": "macgence-c033",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "macgence-c034",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "macgence-c035",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "macgence-c036",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The two quotes together show the grouping and the price; value.basis rightly says what a marketplace seat buys is not stated."
+    },
+    {
+      "claim_id": "macgence-c010",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The profile already records the OPC versus non-OPC entity-name conflict with macgence-c009."
+    },
+    {
+      "claim_id": "macgence-c014",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The statement says the licensee acknowledges ownership, but the quote starts at 'Licensor owns'. The words 'Licensee acknowledges that, as between Licensee and Licensor, Licensor owns all right, title, and interest' would show it."
+    },
+    {
+      "claim_id": "macgence-c015",
+      "check": "scope",
+      "status": "scope_wrong",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote is an unresolved template recital ('[database/data feed] described in Exhibit A'), and Exhibit A names no dataset. It shows only that the boilerplate licence recites a compilation; it does not show that any listed dataset was compiled by Macgence into its own database. It is too weak to carry supply_models own_collection or economics_model principal_margin, where the profile cites it."
+    },
+    {
+      "claim_id": "macgence-c016",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Supports a delivered copy; the clause names no delivery channel or storage target."
+    },
+    {
+      "claim_id": "macgence-c006",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote does not contain the word exclusive, so on its own it does not show that exclusivity is what is agreed. The preceding words 'may be either exclusive or non-exclusive as mutually agreed upon' would show it."
+    },
+    {
+      "claim_id": "macgence-c011",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote shows the three restrictions and the Section 8(f) carve-out; the 'permitted use' part is carried by macgence-c012."
+    },
+    {
+      "claim_id": "macgence-c017",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The second half is an absence and cannot be quoted; the blind read of the whole agreement also found no mention of consent, releases or personal data."
+    },
+    {
+      "claim_id": "macgence-c045",
+      "check": "scope",
+      "status": "scope_wrong",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The first two quotes are option labels in the jobs page's application form, not job postings; the job-openings sitemap lists 30 postings (newest 2026-03-25) and none is for video or photo collection. The page accepts applications for such work; 'recruits for' claims more than the quotes show."
+    }
+  ],
+  "missed": [
+    {
+      "id": "macgence-v001",
+      "statement": "Macgence's off-the-shelf egocentric cooking video listing gives its frame rate as adjustable to the buyer's project requirements, so the listed dataset is described partly as a capture specification rather than as fixed files.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": ["Q11", "Q12"],
+      "scope": {"product": "Egocentric (First-Person) Cooking Activity Recognition Video Dataset", "tier": "", "region": ""},
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://data.macgence.com/video-datasets/egocentric-first-person-cooking-activity-recognition-video-dataset",
+          "publisher": "Macgence",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Frame Rate: Adjustable based on project requirements"
+        }
+      ]
+    }
+  ]
+}

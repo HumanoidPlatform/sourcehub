@@ -1,0 +1,1255 @@
+{
+  "kind": "document",
+  "slug": "doc-opendatabay-seller",
+  "platform_slug": "opendatabay",
+  "title": "Data Provider (Seller) Agreement",
+  "doc_type": "provider_agreement",
+  "url": "https://www.opendatabay.com/legal/seller",
+  "publisher": "Opendatabay",
+  "version_or_date": "Last Updated: February 27, 2026 (effective February 27, 2026)",
+  "retrieved_at": "2026-10-01",
+  "parties": {
+    "licensor": "Data Provider ('Seller', a registered business) - inferred; the document grants no buyer licence",
+    "licensee": "Data Consumers (buyers) introduced through the platform; not otherwise defined",
+    "operator_role": "venue (inferred: provider is Seller and may deliver; Opendatabay processes payment and pays out; no broker/agent clause)"
+  },
+  "terms": {
+    "term_duration": {
+      "value": "Open-ended while the provider is registered; Opendatabay may suspend or terminate access on breach or harmful behaviour. No provider termination or notice clause.",
+      "claim_ids": [
+        "doc-opendatabay-seller-c027"
+      ]
+    },
+    "audit_rights": {
+      "value": "Opendatabay may audit the provider's data sources and request documentation; the provider must cooperate with investigations. No buyer audit right.",
+      "claim_ids": [
+        "doc-opendatabay-seller-c026"
+      ]
+    },
+    "warranties_by_provider": {
+      "value": "Provider must own or have permission to sell the data, have collected it lawfully (GDPR, CCPA), not upload infringing or harmful content, and keep datasets complete, safe and accurately described; it bears full responsibility for uploads. Opendatabay gives only a mutual authority warranty.",
+      "claim_ids": [
+        "doc-opendatabay-seller-c006",
+        "doc-opendatabay-seller-c007",
+        "doc-opendatabay-seller-c010",
+        "doc-opendatabay-seller-c020",
+        "doc-opendatabay-seller-c023",
+        "doc-opendatabay-seller-c028"
+      ]
+    },
+    "consent_and_release_warranty": {
+      "value": "Provider-side prohibition only: 'unconsented' data may not be uploaded and data must be lawfully collected under GDPR/CCPA. No mention of people depicted, model or property releases, or passing consent evidence to buyers; the provider may be asked to confirm its rights (separate page) and may be audited.",
+      "claim_ids": [
+        "doc-opendatabay-seller-c007",
+        "doc-opendatabay-seller-c008",
+        "doc-opendatabay-seller-c014",
+        "doc-opendatabay-seller-c026"
+      ]
+    },
+    "indemnity": {
+      "value": "Provider indemnifies Opendatabay against third-party claims from its listing (IP infringement, unlawful content, lack of rights). Opendatabay indemnifies the provider only for its own material misrepresentation, payment errors or security failures in its systems. No indemnity to buyers in this document.",
+      "claim_ids": [
+        "doc-opendatabay-seller-c029",
+        "doc-opendatabay-seller-c030",
+        "doc-opendatabay-seller-c031"
+      ]
+    },
+    "liability_cap": {
+      "value": "Mutual cap: each party's aggregate liability limited to platform fees or commissions the provider paid Opendatabay in the prior 12 months; uncapped for fraud, wilful misconduct, personal injury and anything not legally limitable. The cap applies to Opendatabay too, so its own indemnity is capped at fees received.",
+      "claim_ids": [
+        "doc-opendatabay-seller-c032",
+        "doc-opendatabay-seller-c033"
+      ]
+    },
+    "payment_and_revenue_share": {
+      "value": "Opendatabay processes payment and pays providers out, only to verified business accounts; fee or commission rate is not in this agreement (points to a separate Fees page); fees are non-refundable; off-platform deals with introduced buyers are banned and may incur fees.",
+      "claim_ids": [
+        "doc-opendatabay-seller-c012",
+        "doc-opendatabay-seller-c013",
+        "doc-opendatabay-seller-c024",
+        "doc-opendatabay-seller-c025"
+      ]
+    },
+    "takedown_and_erasure": {
+      "value": "Opendatabay may remove content or suppliers for violations; deleted datasets are permanently removed from Opendatabay's systems (minimal metadata up to 100 days). Silent on copies buyers already hold: no buyer deletion or recall obligation.",
+      "claim_ids": [
+        "doc-opendatabay-seller-c005",
+        "doc-opendatabay-seller-c009",
+        "doc-opendatabay-seller-c035",
+        "doc-opendatabay-seller-c034"
+      ]
+    },
+    "governing_law": {
+      "value": "Laws of England and Wales; exclusive jurisdiction of the courts of London.",
+      "claim_ids": [
+        "doc-opendatabay-seller-c036",
+        "doc-opendatabay-seller-c037"
+      ]
+    },
+    "change_of_terms": {
+      "value": "Unilateral: Opendatabay may update at any time, and continued use is acceptance. No notice period.",
+      "claim_ids": [
+        "doc-opendatabay-seller-c038"
+      ]
+    },
+    "prohibited_uses": {
+      "value": "Provider may not upload illegal, stolen, scraped, unconsented, malicious, unlicensed or infringing content; may not bypass the platform (external links, direct deals with introduced buyers), exploit bugs, reverse engineer APIs or scrape. Buyer use restrictions are not in this document.",
+      "claim_ids": [
+        "doc-opendatabay-seller-c008",
+        "doc-opendatabay-seller-c016",
+        "doc-opendatabay-seller-c020",
+        "doc-opendatabay-seller-c021",
+        "doc-opendatabay-seller-c024"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "doc-opendatabay-seller-c001",
+      "statement": "Opendatabay's Data Provider (Seller) Agreement is dated 'Last Updated: February 27, 2026'.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Last Updated: February 27, 2026"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c002",
+      "statement": "The operator party to the agreement ('Opendatabay', 'we') is the owner of the marketplace, with a registered office in Beccles, United Kingdom.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "refers to the owner of the marketplace whose registered office is 7 Hungate, Beccles, NR349TT, United Kingdom"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c003",
+      "statement": "The agreement defines the Data Provider, also called the Seller, as the registered business or legal entity listing or selling datasets on Opendatabay.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "refers to the registered business, organization, or legal entity listing or selling datasets on Opendatabay"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c004",
+      "statement": "Only registered businesses, organisations or legal entities may supply data, and Opendatabay runs KYC/KYB due diligence before approving a provider.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Only registered businesses, organizations, or legal entities may supply data. Opendatabay conducts due diligence (KYC/KYB)"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c005",
+      "statement": "Opendatabay may reject or remove suppliers that fail verification or give misleading information.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Opendatabay may reject or remove suppliers that fail verification or provide misleading information"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c006",
+      "statement": "The provider must own the rights to the data or have permission to sell it.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You must own the rights to the data or have permission to sell it."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c007",
+      "statement": "The provider must ensure all data was collected lawfully and in compliance with GDPR, CCPA and other applicable laws.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All data must be collected lawfully and in compliance with GDPR, CCPA, and other applicable laws."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c008",
+      "statement": "Uploading unconsented data (as well as illegal, stolen or scraped data) is prohibited; the clause does not say whose consent or require release evidence.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Uploading illegal, stolen, scraped, or unconsented data is strictly prohibited."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c009",
+      "statement": "Violations of the data-rights rules may lead to removal of the content and reporting to authorities.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Any violation may result in removal and reporting to authorities."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c010",
+      "statement": "The provider is fully responsible for all content it uploads and bears legal liability for illegal or infringing data.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You are fully responsible for all uploaded content. Illegal or infringing data exposes you to legal liability."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c011",
+      "statement": "Opendatabay reserves the right to cooperate with authorities, pursue damages or take legal action over illegal or infringing uploads.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Opendatabay reserves the right to cooperate with authorities, pursue damages, or take legal action."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c012",
+      "statement": "By listing, the provider accepts the fee structure and payment processing set out on a separate Fees page, and fees are non-refundable; no rate is stated in this agreement.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you acknowledge the fee structure and payment processing outlined in the Fees page . Fees are non-refundable."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c013",
+      "statement": "Opendatabay pays sale proceeds out to providers, and only to verified business accounts.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Payouts are made only to verified business accounts."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c014",
+      "statement": "Before uploading, a provider may be asked to confirm its rights to list and sell the data, as described on a separate Right to List and Sell Data page.",
+      "kind": "terms",
+      "section": "listing",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you may be asked to confirm your rights to list and sell the data, as explained in the Right to List and Sell Data page"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c015",
+      "statement": "Provider profiles and dataset listings are public, and the provider is responsible for the accuracy of displayed information.",
+      "kind": "terms",
+      "section": "listing",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Your provider profile and dataset listings are public. You are responsible for the accuracy of displayed information."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c016",
+      "statement": "External links or contact details that bypass Opendatabay are prohibited in listings.",
+      "kind": "terms",
+      "section": "listing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "External links or contact info that bypass Opendatabay are prohibited."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c017",
+      "statement": "Opendatabay may use the provider's name, banners and public product information for marketing, listings and social media.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Opendatabay may use your name, banners, and public product info for marketing, listings, and social media."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c018",
+      "statement": "Listing metadata (provider names, product titles, descriptions) may be exposed to AI models, crawlers or search agents for discovery.",
+      "kind": "terms",
+      "section": "discovery",
+      "question_ids": [],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Metadata including provider names, product titles, and descriptions may be visible to AI models, crawlers, or search agents"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c019",
+      "statement": "Raw datasets are never exposed unless explicitly made public.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Raw datasets are never exposed unless explicitly public."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c020",
+      "statement": "Providers must not upload illegal, malicious, unlicensed, infringing or harmful content.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Providers must not upload illegal, malicious, unlicensed, infringing, or harmful content."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c021",
+      "statement": "Providers must not exploit platform bugs, reverse engineer APIs or scrape data beyond intended use.",
+      "kind": "terms",
+      "section": "other",
+      "question_ids": [],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Providers must not exploit platform bugs, reverse engineer APIs, or scrape data beyond intended use."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c022",
+      "statement": "Providers may deliver datasets themselves via download, API, email or other agreed methods.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Providers may deliver datasets via download, API, email, or other agreed methods."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c023",
+      "statement": "Providers must ensure datasets are complete, safe and accurately described.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Ensure datasets are complete, safe, and accurately described."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c024",
+      "statement": "Providers agree not to transact directly, outside the platform, with Data Consumers introduced through Opendatabay.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "not to engage or transact directly with Data Consumers introduced through the Platform outside of the Platform"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c025",
+      "statement": "Circumventing the platform may incur fees and legal consequences for the provider.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Violations may incur fees and legal consequences."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c026",
+      "statement": "Opendatabay may audit a provider's data sources or request documentation, and providers must cooperate with investigations.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Opendatabay may audit data sources or request documentation. Providers must cooperate with investigations."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c027",
+      "statement": "Opendatabay may suspend or terminate a provider's access for breach of the agreement or harmful behaviour.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Opendatabay may suspend or terminate your access if you violate this Agreement or engage in harmful behavior."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c028",
+      "statement": "The only mutual warranty is that each party has the legal right and authority to enter into and perform the agreement.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Each party warrants that it has the legal right and authority to enter into and perform under this Agreement."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c029",
+      "statement": "The Data Provider indemnifies and holds Opendatabay harmless against third-party claims arising from its listing.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Data Provider agrees to indemnify and hold harmless Opendatabay against any third-party claims arising from profile listing"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c030",
+      "statement": "The provider's indemnity expressly covers intellectual property infringement, unlawful content and lack of proper rights.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "including intellectual property infringement, unlawful content, or lack of proper rights"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c031",
+      "statement": "Opendatabay indemnifies the provider only against third-party claims from its own material misrepresentation, payment processing errors or security failures in its systems.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "arising from Opendatabay’s material misrepresentation, payment processing errors, or security failures"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c032",
+      "statement": "Each party's total aggregate liability is capped at the platform fees or commissions the provider paid Opendatabay in the 12 months before the event.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "shall not exceed the total platform fees or commissions paid by the Data Provider to Opendatabay in the twelve (12) months"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c033",
+      "statement": "The liability cap excludes liability that cannot legally be limited, including fraud, wilful misconduct and personal injury.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Except for liability that cannot be legally limited (including fraud, wilful misconduct, or personal injury)"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c034",
+      "statement": "User account data is deleted within 48 hours of a verified deletion request but may be retained up to 100 days for compliance and audit.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "User account data is deleted within 48 hours of a verified deletion request, but may be retained for up to 100 days"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c035",
+      "statement": "Deleted datasets are permanently removed from Opendatabay's systems, with only minimal metadata kept for up to 100 days; buyers' copies are not mentioned.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Deleted datasets are permanently removed from our systems; only minimal metadata may persist for up to 100 days."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c036",
+      "statement": "The agreement is governed by the laws of England and Wales.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "This Agreement is governed by the laws of England and Wales"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c037",
+      "statement": "Disputes go exclusively to the courts of London, England.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "shall be resolved exclusively in the courts of London, England."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-seller-c038",
+      "statement": "Opendatabay may update the terms at any time, and continued use counts as acceptance.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Opendatabay reserves the right to update these terms at any time; continued use constitutes acceptance."
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "other.ai_training_rights",
+      "urls_tried": [
+        "https://www.opendatabay.com/legal/seller"
+      ],
+      "reason": "not_published",
+      "note": "No clause on training, fine-tuning, evaluation, redistribution or model outputs for datasets; the only AI mention is that listing metadata may be visible to AI models, crawlers or search agents for discovery (c018)."
+    },
+    {
+      "field": "other.permitted_use_and_buyer_licence",
+      "urls_tried": [
+        "https://www.opendatabay.com/legal/seller"
+      ],
+      "reason": "not_published",
+      "note": "The agreement grants no licence to buyers and does not say who sets the buyer licence or its scope; no field-of-use, territory, sublicensing, derivatives or attribution terms."
+    },
+    {
+      "field": "other.licensor_of_record",
+      "urls_tried": [
+        "https://www.opendatabay.com/legal/seller"
+      ],
+      "reason": "not_published",
+      "note": "Provider is called the 'Seller' and may deliver data itself, while Opendatabay collects fees and pays out; the document never says who is licensor of record to the buyer or that Opendatabay acts as broker or agent."
+    },
+    {
+      "field": "other.licence_grant_to_operator",
+      "urls_tried": [
+        "https://www.opendatabay.com/legal/seller"
+      ],
+      "reason": "not_published",
+      "note": "No licence from provider to Opendatabay to host, sample or distribute the dataset itself; only a marketing licence over name, banners and public product info (c017)."
+    },
+    {
+      "field": "other.exclusivity",
+      "urls_tried": [
+        "https://www.opendatabay.com/legal/seller"
+      ],
+      "reason": "not_published",
+      "note": "Silent on whether provider listings are exclusive to Opendatabay or whether buyers can get exclusive rights; the only channel restriction is non-circumvention for buyers introduced through the platform (c024)."
+    },
+    {
+      "field": "other.consent_of_people_depicted",
+      "urls_tried": [
+        "https://www.opendatabay.com/legal/seller"
+      ],
+      "reason": "not_published",
+      "note": "No warranty about consent or releases of people depicted or property owners, and no obligation to supply consent evidence to buyers or Opendatabay beyond a possible audit."
+    },
+    {
+      "field": "other.buyer_copies_after_takedown",
+      "urls_tried": [
+        "https://www.opendatabay.com/legal/seller"
+      ],
+      "reason": "not_published",
+      "note": "Removal and deletion provisions cover Opendatabay's systems only; nothing obliges buyers to delete copies already delivered, and no deletion on termination."
+    },
+    {
+      "field": "other.commission_rate",
+      "urls_tried": [
+        "https://www.opendatabay.com/legal/seller"
+      ],
+      "reason": "not_published",
+      "note": "Fee structure is incorporated by reference to a separate Fees page, not stated in this agreement."
+    }
+  ]
+}

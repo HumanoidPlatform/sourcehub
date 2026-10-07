@@ -1,0 +1,3751 @@
+{
+ "kind": "profile",
+ "slug": "nexdata",
+ "name": "Nexdata",
+ "aliases": [
+  "Datatang"
+ ],
+ "segment": "ai_data_catalogue",
+ "tier": "deep",
+ "status": {
+  "value": "active",
+  "claim_id": "nexdata-c001"
+ },
+ "names_for": {
+  "catalogue_side": "Off-the-Shelf Datasets (also 'licensed datasets'; Datatang in Chinese: 版权数据集, 'copyright datasets')",
+  "custom_side": "Data Service / 'Bespoke data collection services' / 'customized data collection' (Datatang: 数据定制)"
+ },
+ "matrix": {
+  "operator_role": {
+   "value": "reseller_licensor",
+   "claim_ids": [
+    "nexdata-c046",
+    "nexdata-c050",
+    "nexdata-c025",
+    "nexdata-c082"
+   ],
+   "note": "Nexdata Technology Inc. is licensor of record on the only published licence (the research template), and listings sell data Nexdata says it owns or holds rights to. The commercial licence text is not public."
+  },
+  "economics_model": {
+   "value": "principal_margin",
+   "claim_ids": [
+    "nexdata-c082",
+    "nexdata-c050",
+    "nexdata-c078",
+    "nexdata-c007"
+   ],
+   "note": "Nexdata sells its own or licensed-in inventory at its own prices; no third-party seller programme or commission was found."
+  },
+  "who_pays_fee": {
+   "value": "not_applicable",
+   "claim_ids": [],
+   "note": "No marketplace fee: Nexdata sells its own inventory as principal. Whatever Datarade charges Nexdata for its storefront is not published."
+  },
+  "supply_models": {
+   "value": [
+    "own_collection",
+    "partner_licensed"
+   ],
+   "claim_ids": [
+    "nexdata-c003",
+    "nexdata-c094",
+    "nexdata-c097",
+    "nexdata-c010",
+    "nexdata-c018",
+    "nexdata-c021",
+    "nexdata-c083",
+    "nexdata-c084",
+    "nexdata-c085",
+    "nexdata-c099"
+   ],
+   "note": "Own collection: data factory, collectors wearing Pico headsets, recruited phone owners, and Datatang's crowd platform [c105]. Licensed in: creator/photographer photo and video and TV footage 'obtained through authorized channels'; the channel and licensor are never named. No provider or contributor-upload programme was found, and no evidence that client-commissioned data is relisted."
+  },
+  "custody_model": {
+   "value": "copy_to_buyer",
+   "claim_ids": [
+    "nexdata-c055",
+    "nexdata-c103",
+    "nexdata-c104"
+   ],
+   "note": "The research licence assumes the licensee holds copies on its own storage and must destroy them. Datarade lists S3, SFTP, email and API delivery, but that list looks like a generic form."
+  },
+  "transaction_mode": {
+   "value": "contact_sales",
+   "claim_ids": [
+    "nexdata-c026",
+    "nexdata-c028",
+    "nexdata-c012",
+    "nexdata-c081",
+    "nexdata-c039"
+   ],
+   "note": "Every listing ends in 'Ask for a Quote' or 'Request Information'; no checkout was found. Research datasets are released by application form."
+  },
+  "public_prices": {
+   "value": "some",
+   "claim_ids": [
+    "nexdata-c078",
+    "nexdata-c079",
+    "nexdata-c080"
+   ],
+   "note": "nexdata.ai shows no prices. Its Datarade storefront (data.nexdata.ai) shows 'Starts at' one-off floor prices (USD 10K, 20K or 100K) on 158 of 159 products (the profiler's own count of every storefront product page on 2026-10-01; one says 'Pricing available upon request')."
+  },
+  "licence_model": {
+   "value": "mixed",
+   "claim_ids": [
+    "nexdata-c048",
+    "nexdata-c061",
+    "nexdata-c011",
+    "nexdata-c025"
+   ],
+   "note": "Two tracks: a standard free research licence (published template: non-commercial, one year) and a commercial licence tailored by application, geography and usage scenario, which is negotiated and not published."
+  },
+  "exclusivity_offered": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": "The research template is non-exclusive; no page says whether commercial buyers can get exclusivity."
+  },
+  "public_listing": {
+   "value": "public_indexable",
+   "claim_ids": [
+    "nexdata-c009",
+    "nexdata-c036",
+    "nexdata-c030"
+   ],
+   "note": "Anonymous visitors see full listing pages with specs and sample images; the site's sitemap.xml lists about 445 dataset pages (the profiler's own count on 2026-10-01)."
+  },
+  "buyer_vetting": {
+   "value": "case_by_case",
+   "claim_ids": [
+    "nexdata-c039",
+    "nexdata-c029",
+    "nexdata-c061"
+   ],
+   "note": "No account needed to browse. Buyers submit a form asking for a company email and project details; purchases are accepted at Nexdata's discretion; free research data goes only to non-commercial organisations."
+  },
+  "sample_mechanics": {
+   "value": "sample_on_request",
+   "claim_ids": [
+    "nexdata-c027",
+    "nexdata-c030"
+   ],
+   "note": "Listings also embed a few sample images in the browser; fuller samples are requested via the 'Get Data Samples' form."
+  },
+  "versioning": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": "No listing, licence or storefront page mentions versions, updates or withdrawals."
+  },
+  "human_subject_consent_docs": {
+   "value": "asserted_only",
+   "claim_ids": [
+    "nexdata-c035",
+    "nexdata-c075",
+    "nexdata-c086",
+    "nexdata-c015"
+   ],
+   "note": "Only marketing assertions (GDPR/CCPA/PIPL compliance, 'collected with consent'). No consent or release evidence is offered to buyers, and the research template has no consent warranty [c059]. The commercial licence may say more, but it is not public."
+  },
+  "contributor_pay_model": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": "No page found says how collectors, crowd workers or the creators of licensed-in photos and videos are paid."
+  },
+  "catalogue_plus_custom": {
+   "value": "both",
+   "claim_ids": [
+    "nexdata-c017",
+    "nexdata-c014",
+    "nexdata-c006",
+    "nexdata-c091"
+   ],
+   "note": ""
+  },
+  "erasure_after_sale": {
+   "value": "contractual_deletion",
+   "claim_ids": [
+    "nexdata-c055",
+    "nexdata-c054"
+   ],
+   "note": "Evidence covers only the research licence (destroy all copies within 5 days of expiry and certify). Commercial terms are unknown, and data-subject erasure after sale is not addressed anywhere."
+  },
+  "quality_evidence": {
+   "value": "operator_verified",
+   "claim_ids": [
+    "nexdata-c065",
+    "nexdata-c066",
+    "nexdata-c067",
+    "nexdata-c032",
+    "nexdata-c086"
+   ],
+   "note": "Nexdata is both operator and data owner, so 'operator verified' here means Nexdata's own QA claims (three-round inspection, ISO 9001). The only external check cited is iBeta Level 2 for anti-spoofing data."
+  }
+ },
+ "questions": {
+  "Q1": {
+   "state": "partial",
+   "answer": "Nexdata says it has served 1,000+ companies and gives free speech datasets to universities. Its one worked example is a client that bought part of the 100,000-hour ego-centric dataset to start fast, then commissioned custom collection. Datarade floor prices run from USD 10K to 100K per one-off purchase.",
+   "claim_ids": [
+    "nexdata-c008",
+    "nexdata-c091",
+    "nexdata-c092",
+    "nexdata-c061",
+    "nexdata-c078",
+    "nexdata-c079"
+   ]
+  },
+  "Q2": {
+   "state": "partial",
+   "answer": "Nexdata sells through its own site (quote only) and through a Datarade-powered storefront that shows floor prices and a 'Request Information' button, and it recruits resale partners. It never says what the third-party channel gives it.",
+   "claim_ids": [
+    "nexdata-c077",
+    "nexdata-c078",
+    "nexdata-c081",
+    "nexdata-c071"
+   ]
+  },
+  "Q3": {
+   "state": "sourced",
+   "answer": "Inventory comes from Nexdata's own collection (a data factory, headset-wearing collectors, recruited phone owners, a Datatang crowd platform) and from licensed-in creator, photographer and TV content 'obtained through authorized channels'. The rights are asserted, never documented, and there is no third-party provider programme.",
+   "claim_ids": [
+    "nexdata-c003",
+    "nexdata-c094",
+    "nexdata-c097",
+    "nexdata-c105",
+    "nexdata-c018",
+    "nexdata-c021",
+    "nexdata-c083",
+    "nexdata-c084",
+    "nexdata-c085",
+    "nexdata-c071",
+    "nexdata-c050"
+   ]
+  },
+  "Q4": {
+   "state": "partial",
+   "answer": "Custom-service pages promise an NDA and 'data destroyed upon delivery', which suggests commissioned data is not relisted. No carve-out terms and no after-the-fact term change were found.",
+   "claim_ids": [
+    "nexdata-c074",
+    "nexdata-c076"
+   ]
+  },
+  "Q5": {
+   "state": "partial",
+   "answer": "Nexdata Technology Inc. (California) is licensor of record on the research template. That template gives no warranty from Nexdata and puts third-party liability on the licensee; the website terms disclaim everything 'as is'. The commercial licence's warranties and indemnities are not public.",
+   "claim_ids": [
+    "nexdata-c046",
+    "nexdata-c059",
+    "nexdata-c042",
+    "nexdata-c050"
+   ]
+  },
+  "Q6": {
+   "state": "partial",
+   "answer": "The data is copied to the buyer: the research licensee stores copies and must destroy them, and the catalogue promises delivery 'in seconds'. Delivery channels for commercial sales are not documented beyond Datarade's generic list.",
+   "claim_ids": [
+    "nexdata-c055",
+    "nexdata-c103",
+    "nexdata-c104"
+   ]
+  },
+  "Q7": {
+   "state": "partial",
+   "answer": "Listings and service pages assert GDPR/CCPA/PIPL compliance and 'consent with proper authorization'. Face-data listings are silent on consent, and creator works are described only as 'released by the author'. No consent or release documents are published, and the privacy policy does not cover data subjects.",
+   "claim_ids": [
+    "nexdata-c035",
+    "nexdata-c075",
+    "nexdata-c086",
+    "nexdata-c031",
+    "nexdata-c033",
+    "nexdata-c021",
+    "nexdata-c100",
+    "nexdata-c098"
+   ]
+  },
+  "Q8": {
+   "state": "partial",
+   "answer": "The research licence is non-exclusive, non-transferable and non-commercial, forbids derivatives (models included), runs one year, and requires confidentiality, per-quantity leakage damages and certified destruction. Commercial terms are 'tailored' and unpublished. Nexdata cites URL encryption and anti-hotlinking but no fingerprinting.",
+   "claim_ids": [
+    "nexdata-c048",
+    "nexdata-c049",
+    "nexdata-c053",
+    "nexdata-c054",
+    "nexdata-c055",
+    "nexdata-c011",
+    "nexdata-c069"
+   ]
+  },
+  "Q9": {
+   "state": "sourced",
+   "answer": "Deals close through sales: 'Ask for a Quote' forms, purchases subject to Nexdata's acceptance, and licence terms discussed before purchase. Nexdata sells as principal; Datarade shows 'starts at' prices but still routes buyers to a request form.",
+   "claim_ids": [
+    "nexdata-c026",
+    "nexdata-c028",
+    "nexdata-c039",
+    "nexdata-c012",
+    "nexdata-c081",
+    "nexdata-c078"
+   ]
+  },
+  "Q10": {
+   "state": "partial",
+   "answer": "A listing is one dataset with a specification table and samples, and part of a dataset can be bought. Research licences expire after one year with mandatory deletion. Nothing is published on versions, updates or withdrawals.",
+   "claim_ids": [
+    "nexdata-c030",
+    "nexdata-c091",
+    "nexdata-c054",
+    "nexdata-c095"
+   ]
+  },
+  "Q11": {
+   "state": "sourced",
+   "answer": "Listings show a spec table, stated label accuracy and embedded sample images; fuller samples come on request. Nexdata cites three-round QA with sampling rates, ISO 9001/27001/27701, and iBeta certification for anti-spoofing data.",
+   "claim_ids": [
+    "nexdata-c030",
+    "nexdata-c027",
+    "nexdata-c032",
+    "nexdata-c034",
+    "nexdata-c065",
+    "nexdata-c066",
+    "nexdata-c067",
+    "nexdata-c068",
+    "nexdata-c086"
+   ]
+  },
+  "Q12": {
+   "state": "sourced",
+   "answer": "'Off-the-Shelf Datasets' and 'Data Service' (also 'Bespoke data collection services') sit side by side in the navigation. Nexdata pitches the catalogue as the fast start and custom collection as the gap-filler.",
+   "claim_ids": [
+    "nexdata-c017",
+    "nexdata-c006",
+    "nexdata-c014",
+    "nexdata-c091",
+    "nexdata-c092",
+    "nexdata-c004"
+   ]
+  }
+ },
+ "sections": {
+  "positioning": "Nexdata (NEXDATA TECHNOLOGY INC, California office [c102]; 'based in Singapore' per its About page [c016]) sells an off-the-shelf catalogue alongside collection and annotation services [c007]. It is technically linked to Datatang, the Beijing AI-data company with stock code 831428 [c087]: Nexdata pages embed a datatang.com hostname [c089]. No page states the corporate relationship. Nexdata says it was founded in 2011 and Datatang says 2010 [c007][c087].",
+  "supply": "Supply is mainly Nexdata's own production: a Physical AI data factory it says is 10,000+ m² [c003], collectors wearing Pico headsets [c094], phone owners recruited for projects [c097], 20,000+ annotators [c010] and Datatang's crowd platform Shujiajia [c105]. Large photo and video sets are licensed in from creators, photographers and TV sources 'through authorized channels' [c018][c083][c084][c085], but the channel is never named. A Linkerbot alliance co-creates dexterous-hand data [c099]. The partner programme recruits sellers, not data suppliers [c071].",
+  "object_model": "The unit is a dataset listing with a specification table (size, demographics, device, format, accuracy) [c030][c032]. Buyers can buy part of a dataset [c091]. The research template lists datasets by ID with a market value in USD [c051]. No versioning or revision model is published.",
+  "listing": "Listings are public, with specs, a few sample images and the line 'This is a paid dataset licensed for commercial use' [c025]. The buttons are 'Get Data Samples' and 'Ask for a Quote' [c027][c026]. Face listings give nationality and demographic counts but say nothing about consent [c031][c033]. Headline sizes: 30 million videos [c019], 1,000+ to 1,500+ datasets [c009][c095].",
+  "discovery": "Category pages filter by task type and modality [c036] and offer a downloadable catalogue request and 'Contact Sales' [c037]. A second storefront on Datarade (data.nexdata.ai) lists 159 products [c077].",
+  "trust": "Trust rests on Nexdata's assertions: GDPR/CCPA compliance [c015], per-listing GDPR/CCPA/PIPL statements [c035], 'consent with proper authorization' [c075], ISO 27001/27701 [c068], and iBeta certification for anti-spoofing data [c086]. No consent documents are shown. The website terms give everything 'as is' [c042], and the research template gives no warranty from Nexdata [c059].",
+  "transaction": "Every purchase is sales-led. A form asks for a company email and a data-requirement description [c028][c029]. Purchases are subject to Nexdata's acceptance [c039], and licensing is discussed before purchase [c012]. Datarade pages also end in 'Request Information' [c081]. Research datasets are released after a form and review [c063].",
+  "pricing": "nexdata.ai publishes no prices. On its Datarade storefront, products carry one-off 'Starts at' prices: USD 20K for most, including the video datasets [c078]; USD 10K for face and anti-spoofing sets [c080]; USD 100K for 100,000 hours of ego-centric data [c079]. Monthly, yearly and usage-based licences are marked not available.",
+  "licence": "Two tracks. Research: a published template that is free, non-exclusive, non-transferable and non-commercial, with no derivatives (models included) [c048][c049], one year [c054], confidentiality [c058], attribution with notice [c056] and a speech-set cap of 4 per applicant [c062]. Converting to commercial use means paying full market value [c052]. Commercial: 'tailored' by application, geography and usage scenario [c011]; its text is not public. The website terms bar resellers [c040].",
+  "custody": "The data is copied to the buyer. The research licensee holds copies and must destroy them [c055]; the catalogue promises delivery 'in seconds' [c103]; Datarade lists S3, SFTP and API delivery [c104]. Nexdata protects its own hosting with URL encryption, anti-hotlinking and anti-crawling [c069].",
+  "vetting": "Quality control is internal: self-inspection, then initial inspection sampling at least 50%, then final inspection sampling 30%, under ISO 9001 [c065][c066][c067]. Listings state label accuracy, for example above 97% [c032] and above 95% [c034]. No independent audit is cited apart from iBeta [c086].",
+  "contributor_pay": "Not published. Case studies describe recruiting UK iPhone owners [c097] and headset-wearing collectors [c094], and Datatang runs a crowd-task platform [c105], but no page says how any of them, or the creators of licensed-in works [c021], are paid.",
+  "post_sale": "Research licensees must destroy all copies within 5 days of expiry and certify it [c055]. Leakage triggers full market value plus per-quantity damages [c053]. The website terms incorporate return and shipping policies that are not linked [c043]. Nothing covers data-subject erasure after sale.",
+  "catalogue_custom": "The navigation splits 'Off-the-Shelf Datasets' from 'Data Service' [c017], and press uses 'Bespoke data collection services' [c006]. Nexdata frames the catalogue as the fast start and custom collection as the gap-filler [c092][c091]. Custom work comes with an NDA and 'data destroyed upon delivery' [c074][c076]. Stated capacity: 50,000+ hours/month of bespoke UMI data [c004].",
+  "changes": "Active: news dated 17 Sep 2026 announces an AI-data-infrastructure award [c002][c001]. The facility claim grew from 8,000+ m² (Jul 2026) [c096] to 10,000+ m² (Sep 2026) [c003]. The strategic direction is Physical AI, including a Linkerbot alliance [c099]. The website terms date from May 2022 [c038].",
+  "demand": "Nexdata claims 1,000+ customer companies [c008]. Its one described buyer pattern is to buy part of the catalogue to start, then commission custom collection [c091]. Universities receive free speech data and are listed as logos [c061][c057]. There is a partner programme to extend sales abroad [c071]. None of this is independently verified.",
+  "regulation": "Nexdata's privacy policy covers site visitors and customers only [c100], and it shares customer data within its corporate group [c101]. The research template sends disputes to a Chinese 'people's court' [c060]; the website terms impose arbitration [c041]."
+ },
+ "buyer_journey": [
+  {
+   "step": "Lands on nexdata.ai: 'Off-the-Shelf Datasets' and 'Data Service' menus side by side, with a claim of 1,000+ ready datasets 'delivered in seconds'.",
+   "claim_ids": [
+    "nexdata-c017",
+    "nexdata-c009"
+   ]
+  },
+  {
+   "step": "Browses a category page (for example Computer Vision), filters by task type and modality; no prices are shown; 'Get Datasets Catalog' and 'Contact Sales' buttons.",
+   "claim_ids": [
+    "nexdata-c036",
+    "nexdata-c037"
+   ]
+  },
+  {
+   "step": "Opens a listing: spec table, stated label accuracy, a few embedded sample images and 'This is a paid dataset licensed for commercial use'. For licensed-in video, rights are described only as copyright-cleared works 'released by the author'.",
+   "claim_ids": [
+    "nexdata-c030",
+    "nexdata-c032",
+    "nexdata-c025",
+    "nexdata-c020",
+    "nexdata-c021"
+   ]
+  },
+  {
+   "step": "Clicks 'Get Data Samples' or 'Ask for a Quote' and fills a form: name, phone, company, company email, and a requirement of at least 5 words.",
+   "claim_ids": [
+    "nexdata-c027",
+    "nexdata-c026",
+    "nexdata-c028",
+    "nexdata-c029"
+   ]
+  },
+  {
+   "step": "Alternatively finds the same products on Nexdata's Datarade storefront with 'Starts at' one-off prices (USD 10K to 100K), but still presses 'Request Information'.",
+   "claim_ids": [
+    "nexdata-c078",
+    "nexdata-c079",
+    "nexdata-c081"
+   ]
+  },
+  {
+   "step": "Negotiates with sales: licence tailored to application, geography and usage scenario. The purchase is subject to Nexdata's acceptance; resellers are refused.",
+   "claim_ids": [
+    "nexdata-c011",
+    "nexdata-c012",
+    "nexdata-c039",
+    "nexdata-c040"
+   ]
+  },
+  {
+   "step": "Receives a copy of the data (the delivery mechanism for commercial sales is not documented) under an unpublished commercial licence with Nexdata Technology Inc.",
+   "claim_ids": [
+    "nexdata-c103",
+    "nexdata-c046"
+   ]
+  },
+  {
+   "step": "Academic route instead: applies through the sponsored-datasets form (at most 4 speech sets), signs the free one-year research licence, and must credit Nexdata, keep the data confidential and destroy it at expiry.",
+   "claim_ids": [
+    "nexdata-c061",
+    "nexdata-c062",
+    "nexdata-c063",
+    "nexdata-c054",
+    "nexdata-c056",
+    "nexdata-c055"
+   ]
+  }
+ ],
+ "claims": [
+  {
+   "id": "nexdata-c001",
+   "statement": "Nexdata was operating on 1 October 2026: its live homepage lists a news item dated 2026-09-17 about winning a 2026 Global Generative AI Award.",
+   "kind": "status",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Nexdata Wins 2026 Global Generative AI Award for AI Data Infrastructure"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c002",
+   "statement": "On 17 September 2026 Nexdata announced that it had won the 2026 Global Generative AI Award for AI Data Infrastructure for its Physical AI Data Solution.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-09-17",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/company/news/1453",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Nexdata wins the 2026 Global Generative AI Award for AI Data Infrastructure with its Physical AI Data Solution"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c003",
+   "statement": "Nexdata says it has built a Physical AI data factory of more than 10,000 square metres for data collection in simulated and practical scenarios.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 10000,
+    "unit": "square metres of data-collection floor space (lower bound)",
+    "basis": "vendor-stated facility size, '10,000+'",
+    "period": "as of 2026-09-17"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-09-17",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/company/news/1453",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "10,000+ m² Physical AI data factory"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c004",
+   "statement": "Nexdata says its bespoke UMI data collection has a capacity of more than 50,000 hours per month.",
+   "kind": "number",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 50000,
+    "unit": "hours of UMI data collected (lower bound)",
+    "basis": "vendor-stated production capacity for bespoke collection",
+    "period": "per month"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-09-17",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/company/news/1453",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Bespoke UMI data collection with a capacity of** 50,000+ hours per month"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c005",
+   "statement": "Nexdata says it holds more than 135,000 hours of single-, dual- and multi-camera ego-centric datasets.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 135000,
+    "unit": "hours of ego-centric video (lower bound)",
+    "basis": "vendor-stated inventory, off-the-shelf and bespoke not separated",
+    "period": "as of 2026-09-17"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-09-17",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/company/news/1453",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "135,000+ hours"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c006",
+   "statement": "Nexdata's award announcement says it offers physical-AI data together with off-the-shelf datasets and 'Bespoke data collection services'.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-09-17",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/company/news/1453",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "together with off-the-shelf datasets and Bespoke data collection services"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c007",
+   "statement": "Nexdata's homepage says it was founded in 2011 and owns an extensive library of off-the-shelf datasets as well as offering collection, annotation and curation services.",
+   "kind": "offer",
+   "section": "positioning",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Nexdata owns an extensive library of off-the-shelf datasets and provides flexible data collection, annotation and curation"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c008",
+   "statement": "Nexdata says it has served more than 1,000 companies worldwide over a decade.",
+   "kind": "number",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 1000,
+    "unit": "customer companies (lower bound)",
+    "basis": "vendor-stated cumulative customer count, no period or definition given",
+    "period": "cumulative over about a decade"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "we've empowered 1000+ companies worldwide to enhance their AI models' performance"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c009",
+   "statement": "Nexdata's homepage says it has over 1,000 off-the-shelf datasets 'ready to be delivered in seconds'.",
+   "kind": "number",
+   "section": "listing",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 1000,
+    "unit": "off-the-shelf datasets (lower bound)",
+    "basis": "vendor-stated catalogue size",
+    "period": "as of retrieval"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Nexdata have over 1000 off-the-shelf datasets ready to be delivered in seconds"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c010",
+   "statement": "Nexdata says it has global data processing factories and more than 20,000 professional annotators.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 20000,
+    "unit": "professional annotators (lower bound)",
+    "basis": "vendor-stated workforce; employment basis not stated",
+    "period": "as of retrieval"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "global data processing factories and more than 20,000 professional annotators"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c011",
+   "statement": "Nexdata's FAQ says licensing terms for its commercial datasets can be tailored to the intended application, geographic scope and usage scenario.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Licensing terms can be tailored according to the intended application, geographic scope, usage scenario"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c012",
+   "statement": "Nexdata's FAQ says customers can discuss specific licensing requirements with its team before purchasing a dataset.",
+   "kind": "terms",
+   "section": "transaction",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Customers can also discuss specific licensing requirements with our team before purchasing a dataset."
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c013",
+   "statement": "Nexdata's FAQ says it provides commercially licensed AI training datasets for enterprise use.",
+   "kind": "offer",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Nexdata provides commercially licensed AI training datasets for enterprise use."
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c014",
+   "statement": "Nexdata's FAQ says it provides customised data collection, annotation and curation based on the client's model type, scenario, languages, volume and quality requirements.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Nexdata provides customized data collection, annotation, and curation services based on your model type, application scenario"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c015",
+   "statement": "Nexdata's homepage says it is fully compliant with GDPR and CCPA and secures all data shared with it.",
+   "kind": "offer",
+   "section": "trust",
+   "question_ids": [
+    "Q7",
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "We are fully compliant with GDPR and CCPA regulations and secure all the data shared with us."
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c016",
+   "statement": "Nexdata's About page says it is based in Singapore and sells off-the-shelf datasets, customised data collection and annotation services.",
+   "kind": "offer",
+   "section": "positioning",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/company/about-us",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Based in Singapore, Nexdata provides top-notch AI training data solutions through off-the-shelf datasets"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c017",
+   "statement": "Nexdata's site navigation separates 'Off-the-Shelf Datasets' from 'Data Service', the menu for custom collection and annotation by data type.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Off-the-Shelf Datasets"
+    },
+    {
+     "url": "https://www.nexdata.ai/",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Multimodal Data Service"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c018",
+   "statement": "Nexdata's '30M High-Quality Video Dataset' listing says its 30 million clips were sourced from authorized and legally compliant channels.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "30M High-Quality Video Dataset (listing 1803)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/datasets/computervision/1803",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "This dataset features 30 million high-resolution video clips sourced from authorized and legally compliant channels"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c019",
+   "statement": "Nexdata's listing 1803 offers a dataset of 30 million video clips.",
+   "kind": "number",
+   "section": "listing",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "30M High-Quality Video Dataset (listing 1803)",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 30000000,
+    "unit": "video clips",
+    "basis": "vendor-stated dataset size on the listing",
+    "period": "as of retrieval"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/datasets/computervision/1803",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "30 million video"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c020",
+   "statement": "Nexdata's listing 1803 says all clips include clearly documented copyright ownership and commercial usage rights.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q3",
+    "Q8"
+   ],
+   "scope": {
+    "product": "30M High-Quality Video Dataset (listing 1803)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/datasets/computervision/1803",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "All clips include clearly documented copyright ownership and commercial usage rights"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c021",
+   "statement": "Nexdata's listing 1803 gives the data content as 'genuine image works released by the author' and names neither the authors, the source platform nor how the authors were paid.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q7"
+   ],
+   "scope": {
+    "product": "30M High-Quality Video Dataset (listing 1803)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/datasets/computervision/1803",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "genuine image works released by the author"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c022",
+   "statement": "Nexdata lists a 3-million-image dataset described as original copyrighted image works released by the author.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "High-quality Image Dataset (listing 1900)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/datasets/computervision/1900",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "A dataset of 3 million high-quality images, consisting of original copyrighted image works released by the author."
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c023",
+   "statement": "Nexdata lists a 200-million-image dataset whose materials it says were legally obtained through authorized channels.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "200 Million High-Quality Image Dataset (listing 1793)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/datasets/computervision/1793",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "All materials have been legally obtained through authorized channels"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c024",
+   "statement": "Nexdata lists an 80-million vector-image dataset in which it says each image is copyright-cleared and sourced through authorized channels.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "80M Vector Image Dataset (listing 1794)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/datasets/computervision/1794",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Each image is copyright-cleared and legally sourced through authorized channels"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c025",
+   "statement": "Nexdata's catalogue listings carry the line 'This is a paid dataset licensed for commercial use.'",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/datasets/computervision/2062",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "This is a paid dataset licensed for commercial use."
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c026",
+   "statement": "Nexdata's dataset listings offer an 'Ask for a Quote' button and show no price.",
+   "kind": "architecture",
+   "section": "transaction",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/datasets/computervision/1803",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Ask for a Quote"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c027",
+   "statement": "Nexdata's dataset listings offer a 'Get Data Samples' button that opens a contact form rather than a download.",
+   "kind": "architecture",
+   "section": "listing",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/datasets/computervision/1199",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Get Data Samples"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c028",
+   "statement": "The request form on Nexdata's listings requires full name, phone number, company name, company email and a data-requirement description of at least five words.",
+   "kind": "architecture",
+   "section": "transaction",
+   "question_ids": [
+    "Q9",
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/datasets/computervision/1803",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "The data requirement cannot be less than 5 words and cannot be pure numbers"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c029",
+   "statement": "Nexdata's listing request form asks specifically for a company email address.",
+   "kind": "architecture",
+   "section": "vetting",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/datasets/computervision/1803",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Please enter your company email"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c030",
+   "statement": "Nexdata's listing for a 3,919-person multi-pose face dataset shows sample images in a 'Sample' section alongside its specification table.",
+   "kind": "architecture",
+   "section": "listing",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "3,919 People Multi-pose Faces Dataset (listing 1199)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/datasets/computervision/1199",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "3,919 people, 24 images and 9 videos per person"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c031",
+   "statement": "Nexdata's 3,919-person face listing gives subjects' nationalities (Cambodia, Indonesia, Korea, Mongolia, Philippines, Vietnam) but says nothing about their consent or releases.",
+   "kind": "offer",
+   "section": "trust",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "3,919 People Multi-pose Faces Dataset (listing 1199)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/datasets/computervision/1199",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "114 people from Cambodia, 1,951 people from Indonesia, 34 people from Korea"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c032",
+   "statement": "Nexdata's 3,919-person face listing states label accuracy of more than 97% for pose, nationality, gender, environment and age.",
+   "kind": "number",
+   "section": "vetting",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "3,919 People Multi-pose Faces Dataset (listing 1199)",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 97,
+    "unit": "percent label accuracy (lower bound)",
+    "basis": "vendor-stated on the listing; method not stated",
+    "period": "as of retrieval"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/datasets/computervision/1199",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "the accuracy of labels of face pose, head pose, nationality, gender, collection environment and age are more than 97%"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c033",
+   "statement": "Nexdata's 900-person facial video listing describes participants instructed to simulate a video conference, but states nothing about their consent or release forms.",
+   "kind": "offer",
+   "section": "trust",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "900-Person Multi-Ethnic Facial Video Dataset (listing 2062)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/datasets/computervision/2062",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Participants are instructed to simulate a video conference scenario"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c034",
+   "statement": "Nexdata's 900-person facial video listing states label accuracy above 95%.",
+   "kind": "offer",
+   "section": "vetting",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "900-Person Multi-Ethnic Facial Video Dataset (listing 2062)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/datasets/computervision/2062",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Label accuracy exceeds 95%"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c035",
+   "statement": "Nexdata's 10,109-person face-image listing says all collection, storage and processing adhere to GDPR, CCPA and PIPL.",
+   "kind": "offer",
+   "section": "trust",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "Face Recognition Dataset, 10,109 people (listing 1402)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/datasets/computervision/1402",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "strictly adhere to global data protection regulations, including GDPR, CCPA, and PIPL"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c036",
+   "statement": "Nexdata's computer-vision catalogue page filters listings by task type and by modality (image or video) and shows no prices.",
+   "kind": "architecture",
+   "section": "discovery",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/datasets/computervision",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Modalities"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c037",
+   "statement": "Nexdata's catalogue pages offer 'Get Datasets Catalog' and 'Contact Sales' buttons.",
+   "kind": "architecture",
+   "section": "discovery",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/datasets",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Get Datasets Catalog"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c038",
+   "statement": "Nexdata's website Terms of Service carry an effective date of 17 May 2022.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/legal/terms-of-service",
+     "publisher": "Nexdata",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "17 May 2022"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c039",
+   "statement": "Under Nexdata's Terms of Service all purchases through the website are subject to Nexdata's acceptance and may be refused or cancelled.",
+   "kind": "terms",
+   "section": "transaction",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/legal/terms-of-service",
+     "publisher": "Nexdata",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "All purchases made through the Website are subject to our acceptance."
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c040",
+   "statement": "Nexdata's Terms of Service do not permit orders from dealers, wholesalers or customers who intend to resell items offered on the website.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/legal/terms-of-service",
+     "publisher": "Nexdata",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "The Website does not permit orders from dealers, wholesalers, or other customers who intend to resell items"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c041",
+   "statement": "Nexdata's Terms of Service contain a mandatory arbitration agreement and class-action waiver.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q5"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/legal/terms-of-service",
+     "publisher": "Nexdata",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "THIS AGREEMENT CONTAINS AN ARBITRATION AGREEMENT AND CLASS ACTION WAIVER"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c042",
+   "statement": "Nexdata's Terms of Service provide the website and all products 'as is' and 'as available', without warranty of any kind including non-infringement.",
+   "kind": "terms",
+   "section": "trust",
+   "question_ids": [
+    "Q5"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/legal/terms-of-service",
+     "publisher": "Nexdata",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c043",
+   "statement": "Nexdata's Terms of Service incorporate an Online Return Policy, Store Returns Policy and Shipping Policy that are not linked from the terms page.",
+   "kind": "terms",
+   "section": "post_sale",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/legal/terms-of-service",
+     "publisher": "Nexdata",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Online Return Policy, Store Returns Policy and Shipping Policy"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c044",
+   "statement": "Nexdata's Terms of Service take a perpetual, irrevocable, royalty-free, sublicensable licence to any user-generated content submitted on the site.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/legal/terms-of-service",
+     "publisher": "Nexdata",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "a perpetual, irrevocable, royalty-free, worldwide, royalty-free, sublicensable and transferable license"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c045",
+   "statement": "Nexdata's website footer names NEXDATA TECHNOLOGY INC as the copyright holder.",
+   "kind": "offer",
+   "section": "positioning",
+   "question_ids": [
+    "Q5"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/legal/terms-of-service",
+     "publisher": "Nexdata",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Copyright © 2023 NEXDATA TECHNOLOGY INC"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c046",
+   "statement": "Nexdata's published Data Licensing Agreement template names NEXDATA TECHNOLOGY INC. as licensor (Party A), with a domicile in Monrovia, California.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q5"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+     "publisher": "Nexdata",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "Licensor (Party A) ： NEXDATA TECHNOLOGY INC."
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c047",
+   "statement": "The Data Licensing Agreement template grants data free of charge to colleges, universities, scientific research institutions and key partners.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+     "publisher": "Nexdata",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "scientific research institutions, and key partners with a right to use the in a free-of-charge way"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c048",
+   "statement": "The Data Licensing Agreement template grants a limited, non-exclusive, non-transferable right to use the data for non-commercial purposes, without derivatives.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+     "publisher": "Nexdata",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "right to use the for non-commercial purposes, without derivatives"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c049",
+   "statement": "The Data Licensing Agreement template bars commercial use of the data or of derivatives, expressly including models trained on it.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+     "publisher": "Nexdata",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "The Data or the derivatives (including but not limited to models) from the Data shall not be used for any commercial purpose."
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c050",
+   "statement": "The Data Licensing Agreement template says Nexdata keeps all rights in the data, including the rights to sell, trade, lease, copy, publish and transfer it.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q3",
+    "Q5"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+     "publisher": "Nexdata",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "Party A shall reserve all the rights and intellectual property rights over the Data, including those of selling, trading"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c051",
+   "statement": "The Data Licensing Agreement template lists each licensed dataset with a 'Market Value (USD)' column, left blank in the published template.",
+   "kind": "architecture",
+   "section": "pricing",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+     "publisher": "Nexdata",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "Dataset ID Description Market Value(USD)"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c052",
+   "statement": "Under the Data Licensing Agreement template a research licensee that decides to use the data commercially must notify Nexdata within three days and pay the data's full market value within twenty days.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8",
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+     "publisher": "Nexdata",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "Party B shall send a written notice to Party A within three (3) days upon such decision"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c053",
+   "statement": "The Data Licensing Agreement template makes a licensee that leaks the data or passes it to a third party pay the full market value plus Nexdata's losses, calculated per quantity of data provided.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+     "publisher": "Nexdata",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "which results in the leakage of the Data, or furnishes all or part of the Data to any third party"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c054",
+   "statement": "The Data Licensing Agreement template runs for one year from signing and Nexdata may rescind it at any time.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+     "publisher": "Nexdata",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "The term of the Data Licensing Agreement shall be one year"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c055",
+   "statement": "The Data Licensing Agreement template requires the licensee to destroy all copies within five days of expiry or rescission and give a signed written statement confirming destruction.",
+   "kind": "terms",
+   "section": "post_sale",
+   "question_ids": [
+    "Q8",
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+     "publisher": "Nexdata",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "Within five (5) days upon the expiration or rescission of the Agreement, Party B shall destroy the Data"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c056",
+   "statement": "The Data Licensing Agreement template requires licensees to credit the data in publications and notify Nexdata in writing within five days; the published template still names 'Nexdata Chinese Mandarin Speech Datasets'.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+     "publisher": "Nexdata",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "it shall clearly indicate in such achievements its usage of Nexdata Chinese Mandarin Speech Datasets"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c057",
+   "statement": "The Data Licensing Agreement template lets Nexdata display the research licensee's name and logo on its website and in its articles.",
+   "kind": "terms",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+     "publisher": "Nexdata",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "To display Party B’s logo at the official website of Nexdata"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c058",
+   "statement": "The Data Licensing Agreement template obliges the licensee to keep the data and its technical details strictly confidential.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+     "publisher": "Nexdata",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "strictly keep confidential the Data and its technical details"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c059",
+   "statement": "The Data Licensing Agreement template puts liability for any third-party loss or breach of law arising from use of the data on the licensee, not Nexdata; the template contains no warranty from Nexdata about rights or consent.",
+   "kind": "terms",
+   "section": "trust",
+   "question_ids": [
+    "Q5",
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+     "publisher": "Nexdata",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "it is not Party A but Party B which shall independently assume the corresponding responsibility"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c060",
+   "statement": "The Data Licensing Agreement template sends unresolved disputes to the people's court with jurisdiction where Nexdata is located, despite naming a California licensor.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q5"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+     "publisher": "Nexdata",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "To file a lawsuit at the people’s court with the competent jurisdiction in the place where Party A lies."
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c061",
+   "statement": "Nexdata runs an 'AI Data-assisted Research Program' that gives training datasets to non-commercial organisations such as universities.",
+   "kind": "offer",
+   "section": "licence",
+   "question_ids": [
+    "Q1",
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/company/sponsored-datasets",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Nexdata has launched the AI Data-assisted Research Program for non-commercial organizations worldwide"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c062",
+   "statement": "The sponsored-datasets programme caps applications for speech recognition datasets at four sets per applicant.",
+   "kind": "number",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 4,
+    "unit": "datasets per applicant",
+    "basis": "cap on free speech-recognition datasets under the research programme",
+    "period": "not stated"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/company/sponsored-datasets",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "The maximum number of applications for speech recognition datasets is 4 sets."
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c063",
+   "statement": "The sponsored-datasets programme runs by form: select a dataset, submit the form, wait for feedback, receive the dataset.",
+   "kind": "architecture",
+   "section": "transaction",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/company/sponsored-datasets",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Wait for feedback"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c064",
+   "statement": "The datasets offered under the sponsored programme on the page retrieved were speech datasets, such as 20-hour reading and conversational sets in European and Asian languages; no image or video dataset was listed.",
+   "kind": "offer",
+   "section": "licence",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/company/sponsored-datasets",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "20 Hours - German Reading & Conversational Speech Data by Mobile Phone"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c065",
+   "statement": "Nexdata says it ensures data quality through three rounds of quality assurance under ISO 9001 certification.",
+   "kind": "offer",
+   "section": "vetting",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/company/data-security",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "ensures data quality through three rounds of quality assurance"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c066",
+   "statement": "Nexdata says its initial quality inspection samples at least 50% of self-inspected data, and at least 70% for high-requirement data.",
+   "kind": "number",
+   "section": "vetting",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 50,
+    "unit": "percent of items randomly inspected at initial inspection (minimum)",
+    "basis": "vendor-stated QA sampling rate; 70% for high-requirement data",
+    "period": "per project"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/company/data-security",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "the ratio of random inspection is at least 50%"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c067",
+   "statement": "Nexdata says its independent final inspection centre randomly inspects 30% of data before delivery.",
+   "kind": "number",
+   "section": "vetting",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 30,
+    "unit": "percent of items randomly inspected at final inspection",
+    "basis": "vendor-stated; at least 50% for high-requirement data",
+    "period": "per project"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/company/data-security",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "the ratio of random inspection is 30%"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c068",
+   "statement": "Nexdata says it holds ISO 27001 and ISO 27701 certification for information security and privacy.",
+   "kind": "offer",
+   "section": "trust",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/company/data-security",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "has obtained ISO27701 and ISO27001 certification"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c069",
+   "statement": "Nexdata lists technical protections including resource URL encryption, anti-hotlink and anti-crawling technology.",
+   "kind": "architecture",
+   "section": "custody",
+   "question_ids": [
+    "Q6",
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/company/data-security",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "resource file URL encryption, anti-hotlink technology, anti-crawling technology"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c070",
+   "statement": "Nexdata says staff at its annotation sites sign confidentiality agreements and have phone cameras sealed.",
+   "kind": "architecture",
+   "section": "custody",
+   "question_ids": [
+    "Q6"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/company/data-security",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "cell phone cameras sealed"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c071",
+   "statement": "Nexdata's partner programme recruits business partners to extend its sales network internationally, not data suppliers.",
+   "kind": "offer",
+   "section": "demand",
+   "question_ids": [
+    "Q2",
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/company/partners",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "We are looking for business partners to extend our sales network in international scale."
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c072",
+   "statement": "Nexdata's partner page says its off-the-shelf catalogue covers 200,000 hours of speech, 800TB of computer vision data and about 2 billion NLP items.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 800,
+    "unit": "terabytes of computer vision datasets",
+    "basis": "vendor-stated off-the-shelf catalogue volume",
+    "period": "as of retrieval"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/company/partners",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Covering 200,000 hours of speech datasets, 800TB of computer vision datasets"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c073",
+   "statement": "Nexdata's partner page claims 50+ overseas co-partners and global data processing centres.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/company/partners",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "50+ oversea co-partners"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c074",
+   "statement": "Nexdata's identity-recognition data service page promises 'NDA Guaranteed, Data destroyed upon delivery' for custom work.",
+   "kind": "terms",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q4",
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/service/identity-recognition",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "NDA Guaranteed, Data destroyed upon delivery"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c075",
+   "statement": "Nexdata's identity-recognition data service page lists 'Consent with proper authorization' under compliance.",
+   "kind": "offer",
+   "section": "trust",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/service/identity-recognition",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Consent with proper authorization"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c076",
+   "statement": "Nexdata's Datarade listing for speech-recognition data collection services says an NDA is signed and the collected data is destroyed upon delivery.",
+   "kind": "terms",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q4"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://data.nexdata.ai/products/nexdata-speech-recognition-data-collection-services-100-nexdata",
+     "publisher": "Nexdata (Datarade storefront)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "NDA is signed to gurantee secure implementation and Machine Learning (ML) Data is destroyed upon delivery."
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c077",
+   "statement": "Nexdata runs a storefront at data.nexdata.ai, linked from its site footer as 'Datarade' and powered by Datarade, listing 159 data products.",
+   "kind": "architecture",
+   "section": "discovery",
+   "question_ids": [
+    "Q2"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://data.nexdata.ai/",
+     "publisher": "Nexdata (Datarade storefront)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Showing 1-10 of 159 results"
+    },
+    {
+     "url": "https://data.nexdata.ai/",
+     "publisher": "Nexdata (Datarade storefront)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Powered by Datarade"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c078",
+   "statement": "On Nexdata's Datarade storefront the 41,605-person Multiple Styles Video Data product is priced from USD 20,000 as a one-off purchase, with monthly, yearly and usage-based licences marked not available.",
+   "kind": "number",
+   "section": "pricing",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "Multiple Styles Video Data, 41,605 people (Datarade storefront)",
+    "tier": "one-off purchase",
+    "region": ""
+   },
+   "value": {
+    "num": 20000,
+    "unit": "USD",
+    "basis": "buyer pays; 'Starts at' floor price for a one-off purchase of the dataset; final price not stated",
+    "period": "one-off"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://data.nexdata.ai/products/nexdata-multiple-styles-video-data-41605-people-nexdata",
+     "publisher": "Nexdata (Datarade storefront)",
+     "source_class": "pricing_page",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Starts at $20K"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c079",
+   "statement": "On Nexdata's Datarade storefront the 100,000-hour Multiple Scenes Ego-Centric Data product is priced from USD 100,000 as a one-off purchase.",
+   "kind": "number",
+   "section": "pricing",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "Multiple Scenes Ego-Centric Data, 100K hours (Datarade storefront)",
+    "tier": "one-off purchase",
+    "region": ""
+   },
+   "value": {
+    "num": 100000,
+    "unit": "USD",
+    "basis": "buyer pays; 'Starts at' floor price for a one-off purchase",
+    "period": "one-off"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://data.nexdata.ai/products/nexdata-multiple-scenes-ego-centric-data-egocentric-data-nexdata",
+     "publisher": "Nexdata (Datarade storefront)",
+     "source_class": "pricing_page",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Starts at $100K"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c080",
+   "statement": "On Nexdata's Datarade storefront the 200,000-ID face anti-spoofing dataset is priced from USD 10,000 as a one-off purchase.",
+   "kind": "number",
+   "section": "pricing",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "Face Anti-spoofing Data, 200,000 ID (Datarade storefront)",
+    "tier": "one-off purchase",
+    "region": ""
+   },
+   "value": {
+    "num": 10000,
+    "unit": "USD",
+    "basis": "buyer pays; 'Starts at' floor price for a one-off purchase",
+    "period": "one-off"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://data.nexdata.ai/products/nexdata-face-anti-spoofing-data-200-000-id-image-video-nexdata",
+     "publisher": "Nexdata (Datarade storefront)",
+     "source_class": "pricing_page",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Starts at $10K"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c081",
+   "statement": "Nexdata's Datarade product pages close with a 'Request Information' button rather than a checkout.",
+   "kind": "architecture",
+   "section": "transaction",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://data.nexdata.ai/products/nexdata-multiple-styles-video-data-41605-people-nexdata",
+     "publisher": "Nexdata (Datarade storefront)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Request Information"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c082",
+   "statement": "Nexdata's Datarade listing says Nexdata owns 150,000 hours of TV video, 20 million high-quality videos and 250 million high-quality images.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://data.nexdata.ai/products/high-quality-image-video-data-250-million-llm-data-mu-nexdata",
+     "publisher": "Nexdata (Datarade storefront)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Nexdata owns 150,000 hours of TV videos data, 20 Million high-quality video data and 250 Million high-quality imagery data"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c083",
+   "statement": "Nexdata's Datarade listing describes 20 million videos 'captured by photographers, with legitimate copyright'.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://data.nexdata.ai/products/high-quality-image-video-data-250-million-llm-data-mu-nexdata",
+     "publisher": "Nexdata (Datarade storefront)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "20 million high-quality videos captured by photographers, with legitimate copyright"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c084",
+   "statement": "Nexdata's Datarade listing describes 150,000 hours of TV video 'with legitimate copyright' and title metadata.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://data.nexdata.ai/products/high-quality-image-video-data-250-million-llm-data-mu-nexdata",
+     "publisher": "Nexdata (Datarade storefront)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "150,000 hours high-quality TV videos, with legitimate copyright and metadata like titles"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c085",
+   "statement": "Nexdata's Datarade listing for 300 million image-caption pairs describes them as original copyrighted works officially released by creators, with creator-written descriptions.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://data.nexdata.ai/products/nexdata-high-quality-image-caption-data-300-million-pairs-nexdata",
+     "publisher": "Nexdata (Datarade storefront)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Original copyrighted image works officially released by creators"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c086",
+   "statement": "Nexdata's Datarade listing says all its face anti-spoofing data was collected with consent and holds a Level 2 iBeta certificate.",
+   "kind": "offer",
+   "section": "trust",
+   "question_ids": [
+    "Q7",
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://data.nexdata.ai/products/nexdata-face-anti-spoofing-data-200-000-id-image-video-nexdata",
+     "publisher": "Nexdata (Datarade storefront)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "All the anti-spoofing data is collected with consent and has obtained Level 2 iBeta certificate."
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c087",
+   "statement": "Datatang says it has stock code 831428, was founded in 2010 and was China's first listed AI data service company.",
+   "kind": "status",
+   "section": "positioning",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.datatang.com/about-us",
+     "publisher": "Datatang",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "数据堂（股票代码：831428）成立于2010年，是国内首家上市的人工智能数据服务企业"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c088",
+   "statement": "Datatang's Chinese homepage describes its services as copyright datasets (版权数据集), data customisation and industry solutions.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.datatang.com/",
+     "publisher": "Datatang",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "数据堂提供全栈式数据服务，包括版权数据集、数据定制、行业解决方案"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c089",
+   "statement": "Nexdata's own pages embed the hostname m.nexdata.datatang.com, a technical link to Datatang; no Nexdata page retrieved states the corporate relationship.",
+   "kind": "architecture",
+   "section": "positioning",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/legal/terms-of-service",
+     "publisher": "Nexdata",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "m.nexdata.datatang.com"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c090",
+   "statement": "Datatang says it has tens of thousands of professional annotators worldwide and service centres in Beijing, Shenzhen, Zhengzhou, Nanjing, Baoding and Hefei.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.datatang.com/about-us",
+     "publisher": "Datatang",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "我们在全球范围内拥有数万名专业数据标注人员"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c091",
+   "statement": "Nexdata reports that an ego-centric data client first bought part of its off-the-shelf 100,000-hour multi-scenario Ego-Centric dataset, then commissioned custom collection in home environments.",
+   "kind": "outcome",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q1",
+    "Q12",
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-06-18",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/company/news/1417",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "the client initially purchased part of Nexdata’s off-the-shelf"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c092",
+   "statement": "Nexdata argues that off-the-shelf data lets clients start training and validation faster, and that custom real-scene collection then fills scenario-specific gaps.",
+   "kind": "offer",
+   "section": "demand",
+   "question_ids": [
+    "Q1",
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-06-18",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/company/news/1417",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "off-the-shelf data provides a faster way to start training and validating Physical AI models"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c093",
+   "statement": "Nexdata says it reached a production rate of about 5,000 hours of valid ego-centric data per week on a custom collection project.",
+   "kind": "number",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 5000,
+    "unit": "hours of valid ego-centric data",
+    "basis": "vendor-stated throughput on one custom project",
+    "period": "per week"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-06-18",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/company/news/1417",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Nexdata achieved a production capacity of approximately 5,000 hours of valid and usable data per week"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c094",
+   "statement": "On Nexdata's custom ego-centric project, data collectors wore Pico headsets and performed predefined task flows in real residential spaces.",
+   "kind": "architecture",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-06-18",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/company/news/1417",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "data collectors wore Pico devices and completed tasks according to predefined task flows"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c095",
+   "statement": "In July 2026 Nexdata said it provides more than 1,500 licensed datasets, including over 10 million hours of speech and more than 800 TB of computer vision data.",
+   "kind": "number",
+   "section": "listing",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 1500,
+    "unit": "licensed datasets (lower bound)",
+    "basis": "vendor-stated catalogue size",
+    "period": "as of 2026-07-08"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-07-08",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/company/news/1424",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "1,500 licensed datasets"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c096",
+   "statement": "In July 2026 Nexdata said it operated an 8,000+ square-metre Physical AI data collection facility with 300+ humanoid robots.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 8000,
+    "unit": "square metres of data-collection floor space (lower bound)",
+    "basis": "vendor-stated facility size, '8,000+'",
+    "period": "as of 2026-07-08"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-07-08",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/company/news/1424",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "8,000+ square-meter Physical AI data collection facility"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c097",
+   "statement": "For a custom lip-reading project Nexdata recruited 300 UK residents who owned Apple devices and had them record video on their own phones.",
+   "kind": "architecture",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2025-10-30",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/company/news/1351",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "we limited recruitment to UK residents with Apple devices"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c098",
+   "statement": "On the same lip-reading project, recordings were exported from participants' phones and uploaded to Google Drive; the case study says nothing about participant consent, releases or pay.",
+   "kind": "architecture",
+   "section": "custody",
+   "question_ids": [
+    "Q6",
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2025-10-30",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/company/news/1351",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "export the data from the phones and upload it to Google Drive according to the data upload guidelines"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c099",
+   "statement": "Nexdata announced a strategic partnership with Linkerbot to create dexterous-hand operation datasets.",
+   "kind": "event",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-06-15",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/company/news/1410",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Nexdata and Linkerbot have formed a strategic partnership"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c100",
+   "statement": "Nexdata's Privacy Policy (effective 22 May 2022) covers website visitors and customers; it says nothing about people who appear in its datasets.",
+   "kind": "terms",
+   "section": "regulation",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/legal/privacy-policy",
+     "publisher": "Nexdata",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "This Privacy Policy is effective upon"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c101",
+   "statement": "Nexdata's Privacy Policy says it shares customer information with other companies in its Group.",
+   "kind": "terms",
+   "section": "positioning",
+   "question_ids": [
+    "Q5"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/legal/privacy-policy",
+     "publisher": "Nexdata",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "We will share your information with other companies in our Group"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c102",
+   "statement": "Nexdata's Privacy Policy gives its registered office as 710 S Myrtle Ave, Monrovia, California.",
+   "kind": "offer",
+   "section": "positioning",
+   "question_ids": [
+    "Q5"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/legal/privacy-policy",
+     "publisher": "Nexdata",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "registered office is 710 S MYRTLE AVE, #666 MINROVIA, CA 91016, United States"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c103",
+   "statement": "Nexdata's computer-vision catalogue page advertises its datasets as 'Ready-To-Go' and 'Deliver in Seconds'.",
+   "kind": "offer",
+   "section": "custody",
+   "question_ids": [
+    "Q6"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.nexdata.ai/datasets/computervision",
+     "publisher": "Nexdata",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Deliver in Seconds"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c104",
+   "statement": "Nexdata's Datarade product pages list delivery methods including S3 bucket, SFTP, email and REST API; the same list appears on product pages of very different kinds.",
+   "kind": "architecture",
+   "section": "custody",
+   "question_ids": [
+    "Q6"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://data.nexdata.ai/products/nexdata-multiple-styles-video-data-41605-people-nexdata",
+     "publisher": "Nexdata (Datarade storefront)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "S3 Bucket"
+    }
+   ]
+  },
+  {
+   "id": "nexdata-c105",
+   "statement": "Shujiajia (数加加) describes itself as Datatang's crowdsourcing platform offering large volumes of data collection and annotation tasks; the page retrieved says nothing about pay.",
+   "kind": "offer",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.shujiajia.com/",
+     "publisher": "Datatang (Shujiajia)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "数加加-数据堂旗下众包平台：海量的数据采集和标注任务"
+    }
+   ]
+  }
+ ],
+ "unknowns": [
+  {
+   "field": "matrix.exclusivity_offered",
+   "urls_tried": [
+    "https://www.nexdata.ai/",
+    "https://www.nexdata.ai/legal/terms-of-service",
+    "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+    "https://www.nexdata.ai/datasets/computervision/1803",
+    "https://data.nexdata.ai/products/nexdata-multiple-styles-video-data-41605-people-nexdata"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "matrix.versioning",
+   "urls_tried": [
+    "https://www.nexdata.ai/datasets/computervision/1803",
+    "https://www.nexdata.ai/datasets/computervision/1199",
+    "https://www.nexdata.ai/legal/terms-of-service",
+    "https://data.nexdata.ai/"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "matrix.contributor_pay_model",
+   "urls_tried": [
+    "https://www.nexdata.ai/company/news/1351",
+    "https://www.nexdata.ai/company/news/1417",
+    "https://www.nexdata.ai/datasets/computervision/1803",
+    "https://www.nexdata.ai/company/about-us",
+    "https://www.shujiajia.com/",
+    "https://www.datatang.com/about-us"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "questions.Q10",
+   "urls_tried": [
+    "https://www.nexdata.ai/datasets/computervision/1803",
+    "https://www.nexdata.ai/legal/terms-of-service"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "other.commercial_licence_text",
+   "urls_tried": [
+    "https://www.nexdata.ai/legal/data-agreement",
+    "https://www.nexdata.ai/legal/terms-of-service",
+    "https://www.nexdata.ai/"
+   ],
+   "reason": "gated"
+  },
+  {
+   "field": "other.data_agreement_page",
+   "urls_tried": [
+    "https://www.nexdata.ai/legal/data-agreement"
+   ],
+   "reason": "js_empty"
+  },
+  {
+   "field": "other.licensed_in_video_source",
+   "urls_tried": [
+    "https://www.nexdata.ai/datasets/computervision/1803",
+    "https://www.nexdata.ai/datasets/computervision/1793",
+    "https://data.nexdata.ai/products/high-quality-image-video-data-250-million-llm-data-mu-nexdata",
+    "https://data.nexdata.ai/products/nexdata-high-quality-image-caption-data-300-million-pairs-nexdata"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "other.nexdata_datatang_corporate_relationship",
+   "urls_tried": [
+    "https://www.nexdata.ai/company/about-us",
+    "https://www.datatang.com/about-us",
+    "https://www.neeq.com.cn/products/detailCompany.html?companyCode=831428",
+    "https://www.neeq.com.cn/nq/detailcompany.html?companyCode=831428&typeId=1&typename=G",
+    "http://www.cninfo.com.cn/new/information/topSearch/query"
+   ],
+   "reason": "not_found"
+  },
+  {
+   "field": "other.filings_revenue_mix",
+   "urls_tried": [
+    "https://www.neeq.com.cn/products/detailCompany.html?companyCode=831428",
+    "http://www.cninfo.com.cn/new/information/topSearch/query",
+    "https://efts.sec.gov/LATEST/search-index?q=%22Nexdata%22",
+    "https://efts.sec.gov/LATEST/search-index?q=%22Datatang%22"
+   ],
+   "reason": "not_found"
+  },
+  {
+   "field": "other.independent_press",
+   "urls_tried": [],
+   "reason": "blocked"
+  },
+  {
+   "field": "other.return_and_shipping_policies",
+   "urls_tried": [
+    "https://www.nexdata.ai/legal/terms-of-service"
+   ],
+   "reason": "not_found"
+  },
+  {
+   "field": "other.customer_portal",
+   "urls_tried": [
+    "https://customer.nexdata.ai"
+   ],
+   "reason": "js_empty"
+  }
+ ],
+ "conflicts": [
+  {
+   "claim_ids": [
+    "nexdata-c096",
+    "nexdata-c003"
+   ],
+   "rule_applied": "newer_wins_status",
+   "resolution": "The facility size rose from 8,000+ m² (8 Jul 2026) to 10,000+ m² (17 Sep 2026). The newer figure is used; the pages do not say whether this is growth or a different measure."
+  },
+  {
+   "claim_ids": [
+    "nexdata-c072",
+    "nexdata-c095"
+   ],
+   "rule_applied": "unresolved",
+   "resolution": "Speech inventory is 200,000 hours on the partner page (undated) but 'over 10 million hours' in the July 2026 article. Datarade copy says 3 million hours. The figures cannot be reconciled from the sources."
+  },
+  {
+   "claim_ids": [
+    "nexdata-c009",
+    "nexdata-c095"
+   ],
+   "rule_applied": "unresolved",
+   "resolution": "The homepage says 'over 1000' off-the-shelf datasets and the July 2026 article says '1,500+ licensed datasets'; the site's sitemap.xml lists about 445 dataset pages (the profiler's own count). The claimed counts are vendor-stated and not reconciled."
+  },
+  {
+   "claim_ids": [
+    "nexdata-c007",
+    "nexdata-c087"
+   ],
+   "rule_applied": "unresolved",
+   "resolution": "Nexdata says it was founded in 2011; Datatang says 2010. These may be different entities' founding dates; the relationship is not published."
+  }
+ ],
+ "leads": [
+  {
+   "url": "https://www.neeq.com.cn/",
+   "why": "Datatang (831428) periodic reports should give revenue split between datasets and custom services, and name Nexdata-related subsidiaries; the disclosure search was not reachable without web search."
+  },
+  {
+   "url": "https://www.payititi.com/",
+   "why": "Linked from Datatang's footer: a Chinese dataset platform with token-based ('Token计费') pricing, run by 北京帕依提提科技有限公司. Its relationship to Datatang is unstated."
+  },
+  {
+   "url": "https://www.shujiajia.com/",
+   "why": "Datatang's crowdsourcing app; JS-only. The task and pay pages could answer contributor_pay_model."
+  },
+  {
+   "url": "https://customer.nexdata.ai",
+   "why": "Customer service portal, JS-only; it might show how delivery and entitlements work after purchase."
+  },
+  {
+   "url": "https://datarade.ai/",
+   "why": "Datarade's own provider profile and terms could show what the storefront costs Nexdata and whether it earns referral fees."
+  },
+  {
+   "url": "http://openmpd.com/",
+   "why": "Open autonomous-driving dataset linked from both Nexdata's and Datatang's footers; shows the shared web estate."
+  }
+ ]
+}

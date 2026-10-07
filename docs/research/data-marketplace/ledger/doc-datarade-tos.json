@@ -1,0 +1,2245 @@
+{
+  "kind": "document",
+  "slug": "doc-datarade-tos",
+  "platform_slug": "datarade",
+  "title": "Terms of Service",
+  "doc_type": "marketplace_terms",
+  "url": "https://datarade.ai/company/terms-of-service",
+  "publisher": "Datarade (Monda Labs GmbH)",
+  "version_or_date": "Last updated on January 9, 2026",
+  "retrieved_at": "2026-10-01",
+  "parties": {
+    "licensor": "None under these ToS for data: Monda Labs GmbH (Platform Operator) licenses only access to the Datarade platform; each data Product is licensed by its Seller under a separate Customer-Seller agreement",
+    "licensee": "Customer: a registered business or public entity (buyer or, under a separate Seller Agreement, Seller)",
+    "operator_role": "venue (the operator is not a party to any contract between Customers and does not sell or buy Products; it acts solely as an intermediary, not as an agent)"
+  },
+  "terms": {
+    "permitted_use": {
+      "value": "The ToS license only use of the Datarade platform, for business purposes only (browsing listings, contacting Sellers, reviews); what a buyer may do with a data Product is left entirely to the separate Customer-Seller agreement, and copying anything off-platform needs a Seller's agreement.",
+      "claim_ids": [
+        "doc-datarade-tos-c010",
+        "doc-datarade-tos-c026",
+        "doc-datarade-tos-c025",
+        "doc-datarade-tos-c029",
+        "doc-datarade-tos-c052"
+      ]
+    },
+    "field_of_use": {
+      "value": "Business use only: any private or non-business use of Datarade is prohibited and the operator may demand evidence of business capacity; no field-of-use terms for data Products.",
+      "claim_ids": [
+        "doc-datarade-tos-c025",
+        "doc-datarade-tos-c023"
+      ]
+    },
+    "term_duration": {
+      "value": "Open-ended platform agreement from registration; the Customer may terminate at any time, the operator for cause with reasons given 30 days ahead (shorter for serious or repeated breach); the content-hosting licence lasts for the agreement, the Reviews licence is perpetual and irrevocable.",
+      "claim_ids": [
+        "doc-datarade-tos-c053",
+        "doc-datarade-tos-c054",
+        "doc-datarade-tos-c036",
+        "doc-datarade-tos-c037"
+      ]
+    },
+    "exclusivity": {
+      "value": "Only the platform-access right is addressed, and it is non-exclusive and non-transferable; the ToS say nothing about exclusive rights in data Products.",
+      "claim_ids": [
+        "doc-datarade-tos-c026"
+      ]
+    },
+    "sublicensing": {
+      "value": "The Customer may not license, sublicense, sell or share its Customer Account, even with affiliates; the operator may let Sellers copy Reviews for display elsewhere. Sublicensing of data Products is not addressed.",
+      "claim_ids": [
+        "doc-datarade-tos-c027",
+        "doc-datarade-tos-c037"
+      ]
+    },
+    "derivatives_and_model_outputs": {
+      "value": "Covers the platform only: the Customer may not modify Datarade or create derivative works of it; derivatives of data Products and model outputs are not addressed.",
+      "claim_ids": [
+        "doc-datarade-tos-c028"
+      ]
+    },
+    "deletion_on_termination": {
+      "value": "The operator deletes Customer Content 30 days after termination (the Customer must download it first), unless it is legally bound to retain it. Separately, each party must destroy or return the other's Confidential Information (which is defined to include the Products offered on Datarade) and certify this in writing, subject to legal and backup exceptions.",
+      "claim_ids": [
+        "doc-datarade-tos-c055",
+        "doc-datarade-tos-c056",
+        "doc-datarade-tos-c057",
+        "doc-datarade-tos-c059",
+        "doc-datarade-tos-c060"
+      ]
+    },
+    "warranties_by_provider": {
+      "value": "No warranty about data Products from anyone: the operator warrants only that the platform works substantially as described, both parties give corporate reps (authority, anti-bribery, sanctions), and Sellers promise compliance with law and Publishing Policies to the operator under a separate Seller Agreement, not to buyers in these ToS.",
+      "claim_ids": [
+        "doc-datarade-tos-c038",
+        "doc-datarade-tos-c039",
+        "doc-datarade-tos-c007",
+        "doc-datarade-tos-c009"
+      ]
+    },
+    "indemnity": {
+      "value": "One-way and uncapped: every Customer (buyer or Seller) indemnifies Monda Labs and its affiliates, directors and employees against alleged third-party IP infringement from Content it posted, alleged breaches of law (notably data protection and export control) and breaches of account and use restrictions; the Customer controls defence and settlement. The operator indemnifies no one.",
+      "claim_ids": [
+        "doc-datarade-tos-c032",
+        "doc-datarade-tos-c033",
+        "doc-datarade-tos-c034",
+        "doc-datarade-tos-c035"
+      ]
+    },
+    "liability_cap": {
+      "value": "No monetary cap: the operator is liable in negligence only for breach of essential obligations, limited to foreseeable contract-typical damage; all other liability excluded; claims time-barred after 12 months; no liability for suspensions. German-law carve-outs: injury to life, limb or health, wilful misconduct or gross negligence, guarantees and mandatory law. The Customer's liability is not limited.",
+      "claim_ids": [
+        "doc-datarade-tos-c041",
+        "doc-datarade-tos-c042",
+        "doc-datarade-tos-c043",
+        "doc-datarade-tos-c044",
+        "doc-datarade-tos-c045"
+      ]
+    },
+    "payment_and_revenue_share": {
+      "value": "Customers (buyers) pay Datarade nothing; they pay Sellers for Products under their own agreements with them. The operator takes no commission in these ToS; Sellers need an active subscription to maintain provider pages, with Seller fees left to the Seller Agreement.",
+      "claim_ids": [
+        "doc-datarade-tos-c051",
+        "doc-datarade-tos-c052",
+        "doc-datarade-tos-c014",
+        "doc-datarade-tos-c004"
+      ]
+    },
+    "takedown_and_erasure": {
+      "value": "DSA notice-and-action: anyone can report unlawful content electronically, and the operator decides promptly and may demote, disable or remove it or suspend the account (including for Seller breach of Publishing Policies). Nothing covers data-subject erasure or copies a buyer already holds, which fall under the Customer-Seller agreement.",
+      "claim_ids": [
+        "doc-datarade-tos-c047",
+        "doc-datarade-tos-c048",
+        "doc-datarade-tos-c049",
+        "doc-datarade-tos-c046",
+        "doc-datarade-tos-c050"
+      ]
+    },
+    "governing_law": {
+      "value": "German law, CISG excluded; courts of Berlin (Landgericht Berlin) have exclusive jurisdiction after a mandatory 60-day attempt at amicable settlement.",
+      "claim_ids": [
+        "doc-datarade-tos-c062",
+        "doc-datarade-tos-c063",
+        "doc-datarade-tos-c064"
+      ]
+    },
+    "change_of_terms": {
+      "value": "The operator may amend the ToS only on important grounds, with written notice at least six weeks ahead, never in a way that unreasonably disadvantages the Customer, and the Customer gets a special termination right; platform features can change at the operator's sole discretion with notice.",
+      "claim_ids": [
+        "doc-datarade-tos-c065",
+        "doc-datarade-tos-c066",
+        "doc-datarade-tos-c067",
+        "doc-datarade-tos-c068"
+      ]
+    },
+    "prohibited_uses": {
+      "value": "No private or non-business use; no sharing or sublicensing of accounts; no modifying or copying the platform off-site without a Seller's agreement; no infringing or unlawful material; no malware or disruption; no use that breaks the law, including data protection law; competitors' employees are barred as Users.",
+      "claim_ids": [
+        "doc-datarade-tos-c025",
+        "doc-datarade-tos-c027",
+        "doc-datarade-tos-c029",
+        "doc-datarade-tos-c030",
+        "doc-datarade-tos-c031",
+        "doc-datarade-tos-c024"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "doc-datarade-tos-c001",
+      "statement": "Datarade's Terms of Service are dated 'Last updated on January 9, 2026'.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Last updated on January 9, 2026"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c002",
+      "statement": "The Datarade ToS form part of an agreement between the registering business ('Customer') and Monda Labs GmbH, Berlin, as provider and operator of Datarade.",
+      "kind": "terms",
+      "section": "positioning",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AND MONDA LABS GMBH, MOLLSTR. 32, 10249 BERLIN, GERMANY AS THE PROVIDER AND OPERATOR OF DATARADE"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c003",
+      "statement": "Under the Datarade ToS the Platform Operator (Monda Labs GmbH) is not a party to any contract between Customers, i.e. between data buyers and Sellers.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Platform Operator is not a party to any contractual relationships between Customers."
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c004",
+      "statement": "Under the Datarade ToS the Platform Operator does not sell or buy any data Products and acts solely as an intermediary service provider.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Platform Operator does not sell or buy any Products; it solely acts as an intermediary service provider"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c005",
+      "statement": "The Datarade ToS state that no agency, partnership or joint-venture relationship exists between a Customer and the Platform Operator.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "No joint venture, partnership, employment, or agency relationship exists between Customer and Platform Operator"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c006",
+      "statement": "Under the Datarade ToS a Customer that wants to sell Products must be accepted as a Seller under a separate Seller Agreement with the Platform Operator.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "a specific agreement concluded between Customer and Platform Operator for this purpose"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c007",
+      "statement": "Under the Datarade ToS every Seller Agreement must include the Seller's commitment to comply with Applicable Laws.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "any Seller Agreement must include Seller’s commitment to comply with Applicable Laws"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c008",
+      "statement": "Under the Datarade ToS the Seller's commitments extend to restrictions when offering Products on Datarade or any other marketplace or data commerce platform.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "abide by additional restrictions when offering Products on Datarade or any other marketplace or data commerce platform"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c009",
+      "statement": "Under the Datarade ToS the essential Seller Commitments include Datarade's separately published Publishing Policies.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Essential Seller Commitments will include, but are not limited to, the Publishing Policies"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c010",
+      "statement": "The Datarade ToS define Datarade's purpose as letting Customers browse listed Products, interact with Sellers and submit Reviews.",
+      "kind": "terms",
+      "section": "positioning",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Customers interested in purchasing one or more Products can browse the Products available on Datarade, interact with Sellers"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c011",
+      "statement": "The Datarade ToS describe Datarade's functional features as supporting search, communication and lead generation.",
+      "kind": "terms",
+      "section": "positioning",
+      "question_ids": [
+        "Q2",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "various functional features supporting search, communication, and lead generation"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c012",
+      "statement": "Under the Datarade ToS Product pages are published exclusively by Sellers.",
+      "kind": "terms",
+      "section": "listing",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Product pages are published exclusively by Sellers."
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c013",
+      "statement": "Under the Datarade ToS the Platform Operator does not generate or independently publish product-specific content on Product pages.",
+      "kind": "terms",
+      "section": "listing",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Platform Operator does not automatically generate or independently publish product-specific content on such pages."
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c014",
+      "statement": "Under the Datarade ToS Provider profile pages may be generated automatically by the Platform Operator or maintained by Sellers that hold an active subscription.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "provided that the respective Seller holds an active subscription"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c015",
+      "statement": "Under the Datarade ToS search listings of Sellers and Products may be curated algorithmically and/or manually by the Platform Operator.",
+      "kind": "terms",
+      "section": "discovery",
+      "question_ids": [],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Such listings may be curated algorithmically and/or manually by Platform Operator."
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c016",
+      "statement": "Under the Datarade ToS registered Customers can preview data samples only in exchange for providing their contact information.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Registered Customers may access previews of data samples in exchange for providing their contact information."
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c017",
+      "statement": "Under the Datarade ToS registered Customers may submit contact requests to Sellers, generally or about a specific Product.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Registered Customers may submit contact requests to Sellers, either generally or in relation to a specific Product."
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c018",
+      "statement": "Under the Datarade ToS registered Customers may post data needs to receive proposals from Sellers.",
+      "kind": "terms",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "may publish postings describing data needs or requirements in order to receive proposals or responses from Sellers"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c019",
+      "statement": "Under the Datarade ToS registered Customers may message Sellers through an instant messaging or chat function.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Registered Customers may send messages to and communicate with Sellers via an instant messaging or chat functionality."
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c020",
+      "statement": "Under the Datarade ToS users may submit Reviews relating to Sellers.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Users may submit Reviews relating to Sellers."
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c021",
+      "statement": "Under the Datarade ToS viewing and purchasing Products, contacting Sellers and submitting Reviews require registration.",
+      "kind": "terms",
+      "section": "listing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Registration-Based Services, including viewing and purchasing Products, interacting with Sellers and submitting Reviews"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c022",
+      "statement": "Under the Datarade ToS registration requires a business email address; trashmail and private accounts such as gmail.com are not permitted.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "trashmail addresses and private accounts (gmail.com, etc.) are not permitted"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c023",
+      "statement": "Under the Datarade ToS the Platform Operator may at its discretion request evidence of a Customer's business capacity at any time.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "request additional information and evidence at any time during the Term to satisfy itself of Customer’s business capacity"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c024",
+      "statement": "Under the Datarade ToS employees of the Platform Operator's competitors are not eligible as Users.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Employees of Platform Operator’s competitors are not eligible as Users"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c025",
+      "statement": "Under the Datarade ToS any use of Datarade for private or other non-business purposes is prohibited.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Any use of Datarade for private or other non-business purposes is prohibited."
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c026",
+      "statement": "Under the Datarade ToS the Platform Operator grants the Customer only a non-exclusive, non-transferable right to use Datarade and the Customer Account for the Purpose.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "grants Customer a non-exclusive and non-transferable right to use Datarade and Customer Account for the Purpose"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c027",
+      "statement": "Under the Datarade ToS the Customer may not license, sublicense, sell or otherwise make available its Customer Account to any third party, including affiliates.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "license, sublicense, sell, transfer, assign, distribute or otherwise commercially exploit or make available the Customer"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c028",
+      "statement": "Under the Datarade ToS the Customer may not modify Datarade or create derivative works of it.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "modify Datarade or create derivative works thereof"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c029",
+      "statement": "Under the Datarade ToS copying components of Datarade outside the platform is prohibited unless agreed with a Seller within the limits of the Purpose.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "unless such download or copy is agreed upon with a Seller in accordance with the limitations of the Purpose"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c030",
+      "statement": "Under the Datarade ToS the Customer may not send to or store on Datarade infringing, defamatory or otherwise unlawful or unauthorized material.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "send to or store on Datarade any infringing, obscene, threatening, defamatory, or otherwise unlawful or unauthorized material"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c031",
+      "statement": "Under the Datarade ToS the Customer may not use Datarade in violation of Applicable Laws, including Data Protection Laws.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "use Datarade in violation of Applicable Laws, including but not limited to Data Protection Laws"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c032",
+      "statement": "Under the Datarade ToS the Customer indemnifies the Platform Operator and its affiliates, directors and employees and holds them harmless.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Customer shall indemnify and hold Platform Operator and its affiliated companies, directors and/or employees harmless"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c033",
+      "statement": "Under the Datarade ToS the Customer's indemnity covers alleged third-party IP infringement due to Content the Customer made available on Datarade.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "alleged infringement of a third party’s intellectual property rights due to Content made available by Customer on Datarade"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c034",
+      "statement": "Under the Datarade ToS the Customer's indemnity covers alleged violations of Applicable Laws, in particular Data Protection Laws and export control laws.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the alleged violation of Applicable Laws, in particular Data Protection Laws and export control laws"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c035",
+      "statement": "Under the Datarade ToS, for an indemnified claim the Platform Operator gives the Customer sole control of the defense and settlement.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "give Customer sole control of the defense and settlement of the claim"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c036",
+      "statement": "Under the Datarade ToS the Customer grants the Platform Operator, for the duration of the Agreement, the right to store and access the Customer's Content.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Customer grants Platform Operator the right to store and access the files, data, information and other content"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c037",
+      "statement": "Under the Datarade ToS the Customer grants the Platform Operator a perpetual, irrevocable, worldwide right to make its Reviews available on Datarade.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Customer grants Platform Operator the perpetual, irrevocable, and worldwide right to make such Reviews available"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c038",
+      "statement": "Under the Datarade ToS the Platform Operator warrants only that Datarade's functionality will substantially match the Service Descriptions.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the functionality of Datarade will be substantially in accordance with the Service Descriptions"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c039",
+      "statement": "Under the Datarade ToS each Party gives mutual representations on its entity status, authority, anti-bribery and sanctions.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Each Party represents and warrants that"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c040",
+      "statement": "Under the Datarade ToS the Platform Operator commits to organisational and technical security precautions for all Content.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "take organizational and technical security precautions to protect the security, confidentiality and integrity of all Content"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c041",
+      "statement": "The Datarade ToS carve out of the liability limits injury to life, limb or health, and wilful misconduct or gross negligence.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "injury to life, limb or health; (b) in the event of willful misconduct or gross negligence"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c042",
+      "statement": "Under the Datarade ToS the Platform Operator's liability for negligence is limited to breaches of substantial obligations and to foreseeable, contract-typical damages.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the liability of Datarade is limited to the damages that are foreseeable according to the type of the business in question"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c043",
+      "statement": "Under the Datarade ToS all other liability of the Platform Operator is excluded.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All other liability on the part of Platform Operator shall be excluded regardless of its legal and factual foundation."
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c044",
+      "statement": "Under the Datarade ToS all liability claims become time-barred within twelve months.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All liability claims shall become statute-barred within twelve (12) months."
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c045",
+      "statement": "Under the Datarade ToS the Platform Operator is not liable for suspending a Customer's access under the content moderation section.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "CUSTOMER AGREES THAT PLATFORM OPERATOR SHALL NOT BE LIABLE FOR ANY SUSPENSION"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c046",
+      "statement": "Under the Datarade ToS the Platform Operator may suspend access where it has a right to terminate the Seller Agreement for cause, e.g. breach of the Publishing Policies.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "IF SELLER IS FOUND IN BREACH OF THE SELLER COMMITMENTS AND/OR THE PUBLISHING POLICIES"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c047",
+      "statement": "Under the Datarade ToS the Platform Operator offers an electronic procedure for reporting unlawful information on Datarade.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Platform Operator offers a procedure on Datarade for the purely electronic reporting"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c048",
+      "statement": "Under the Datarade ToS the Platform Operator decides on reported information promptly and informs the person concerned of the decision and available remedies.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "decide on the reported information promptly, carefully, free of arbitrariness and objectively"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c049",
+      "statement": "The Datarade ToS define content moderation to include demotion, disabling of access to, or removal of illegal or non-compliant content.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "such as demotion, demonetization, disabling of access to, or removal thereof"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c050",
+      "statement": "The Datarade ToS oblige the Platform Operator to report suspected criminal offences under Art. 18 of the EU Digital Services Act.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Art. 18 of Regulation (EU) 2022/2065 (Digital Services Act)"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c051",
+      "statement": "Under the Datarade ToS the Customer owes no remuneration to the Platform Operator for the Services or the right to use the Customer Account.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Customer owes no remuneration for Platform Operator’s Services and the granting of rights of use to the Customer Account"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c052",
+      "statement": "Under the Datarade ToS payment for Products is owed under the separate agreements between the Customer and a Seller.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q5",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "obligation to pay for Products in accordance with the respective agreements between Customer and a Seller remains unaffected"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c053",
+      "statement": "Under the Datarade ToS the Customer may terminate the Agreement at any time by closing its Customer Account.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Customer may terminate the Agreement at their convenience by closing their Customer Account"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c054",
+      "statement": "Under the Datarade ToS the Platform Operator must state reasons at least 30 days before terminating a Customer, subject to exceptions for serious or repeated breaches.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "provide Customer with a reason for this decision on a durable medium at least 30 days before the termination takes effect"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c055",
+      "statement": "Under the Datarade ToS it is the Customer's sole responsibility to download its Content within 30 days after termination.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "it is Customer’s sole responsibility to download and securely store a copy of all relevant Content"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c056",
+      "statement": "Under the Datarade ToS the Platform Operator deletes Customer Content 30 days after termination unless legally obliged to retain it.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "will delete or destroy the Content in its possession or under its control after the expiry of these thirty (30) days"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c057",
+      "statement": "The Datarade ToS define Confidential Information to include the Products offered on Datarade.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "includes, but is not limited to, the technology underlying Datarade, the Products offered on Datarade"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c058",
+      "statement": "Under the Datarade ToS a Receiving Party may use the other Party's Confidential Information only in connection with the Purpose.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "not use or exploit the Confidential Information in any way except solely in connection with the Purpose"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c059",
+      "statement": "Under the Datarade ToS on request, or at the latest on termination, the Receiving Party must destroy or return the other Party's Confidential Information.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "destroy or (at the option of the Disclosing Party) return to the Disclosing Party all Confidential Information"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c060",
+      "statement": "Under the Datarade ToS the Receiving Party must certify in writing that it has destroyed or returned Confidential Information.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "certify in writing (signed by an authorized Representative of the Receiving Party) to the Disclosing Party"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c061",
+      "statement": "Under the Datarade ToS confidentiality obligations survive for five years after termination.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "continue to apply for a period of five (5) years from the effective date of such termination or expiration"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c062",
+      "statement": "The Datarade ToS are governed by German law, excluding the UN Convention on the International Sale of Goods.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "governed by the laws of the Federal Republic of Germany"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c063",
+      "statement": "Under the Datarade ToS the courts of Berlin, Germany have exclusive jurisdiction over disputes.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "exclusive jurisdiction of the courts located in Berlin, Germany"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c064",
+      "statement": "Under the Datarade ToS the Parties must attempt an amicable settlement for at least 60 days before going to court, save for injunctive relief.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "attempt to find an amicable settlement at least for a period of sixty (60) days"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c065",
+      "statement": "Under the Datarade ToS the Platform Operator must announce changes to the ToS in writing no later than six weeks before they take effect.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "no later than six (6) weeks before the changes shall come into force"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c066",
+      "statement": "Under the Datarade ToS the right to change terms excludes changes that unreasonably disadvantage the Customer by disturbing the contractual balance.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "shall not include changes that would unreasonably disadvantage Customer by significantly disturbing the contractual balance"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c067",
+      "statement": "Under the Datarade ToS the Customer has a special right to terminate when the ToS are amended.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Customer shall have a special right of termination"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c068",
+      "statement": "Under the Datarade ToS the Platform Operator may change Datarade and the Service Descriptions at its sole discretion, with notice to the Customer.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "reserves the right, in its sole discretion, to make changes to Datarade and the Service Descriptions"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c069",
+      "statement": "The Datarade ToS name Monda Labs GmbH, registered at AG Berlin-Charlottenburg under HRB 199191 B, as the contracting operator entity.",
+      "kind": "terms",
+      "section": "positioning",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Commercial Register: AG Berlin-Charlottenburg, HRB 199191 B."
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c070",
+      "statement": "The Datarade ToS define a Seller as a Customer that offers Products on Datarade under a specific agreement with the Platform Operator.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "means a Customer of Platform Operator that offers Products on Datarade, subject to a specific agreement"
+        }
+      ]
+    },
+    {
+      "id": "doc-datarade-tos-c071",
+      "statement": "Datarade's terms page carries a 2026 copyright notice for Datarade, Monda Labs GmbH, showing the site is live.",
+      "kind": "status",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "Datarade marketplace (Monda Labs GmbH)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datarade.ai/company/terms-of-service",
+          "publisher": "Datarade (Monda Labs GmbH)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "©2026 Datarade, Monda Labs GmbH"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "other.ai_training_rights",
+      "urls_tried": [
+        "https://datarade.ai/company/terms-of-service"
+      ],
+      "reason": "not_published",
+      "note": "The ToS grant no rights in data Products at all, so they say nothing on training, fine-tuning, evaluation, redistribution or model outputs; these are left to each Customer-Seller agreement."
+    },
+    {
+      "field": "other.consent_and_release_warranty",
+      "urls_tried": [
+        "https://datarade.ai/company/terms-of-service"
+      ],
+      "reason": "not_published",
+      "note": "No one warrants consent or releases from people depicted or property owners. The only related terms are the Customer's indemnity for alleged breach of data protection law (c034) and Sellers' commitment to comply with law under the separate Seller Agreement (c007)."
+    },
+    {
+      "field": "other.buyer_copies_after_takedown",
+      "urls_tried": [
+        "https://datarade.ai/company/terms-of-service"
+      ],
+      "reason": "not_published",
+      "note": "Notice-and-action and content moderation act on Datarade's own pages only; nothing obliges a buyer to delete a Product already obtained from a Seller when it is taken down or a data subject objects."
+    },
+    {
+      "field": "other.product_exclusivity",
+      "urls_tried": [
+        "https://datarade.ai/company/terms-of-service"
+      ],
+      "reason": "not_published",
+      "note": "Silent on whether a buyer can obtain exclusive rights in a data Product; only the platform-access right is described as non-exclusive (c026)."
+    },
+    {
+      "field": "other.buyer_licence_terms",
+      "urls_tried": [
+        "https://datarade.ai/company/terms-of-service"
+      ],
+      "reason": "not_published",
+      "note": "Territory, attribution, sublicensing and derivatives for data Products are not in these ToS; the licence is whatever the Seller and buyer agree."
+    },
+    {
+      "field": "other.audit_rights",
+      "urls_tried": [
+        "https://datarade.ai/company/terms-of-service"
+      ],
+      "reason": "not_published",
+      "note": "No audit rights over buyers or Sellers; the operator may only ask for evidence of business capacity (c023)."
+    },
+    {
+      "field": "other.seller_fees",
+      "urls_tried": [
+        "https://datarade.ai/company/terms-of-service"
+      ],
+      "reason": "not_published",
+      "note": "Seller subscription pricing and any commission sit in the unpublished Seller Agreement; these ToS mention only that provider pages need an active subscription (c014)."
+    }
+  ]
+}

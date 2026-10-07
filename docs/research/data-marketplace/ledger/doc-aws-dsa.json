@@ -1,0 +1,2275 @@
+{
+  "kind": "document",
+  "slug": "doc-aws-dsa",
+  "platform_slug": "aws-data-exchange",
+  "title": "Data Subscription Agreement for AWS Marketplace",
+  "doc_type": "buyer_licence",
+  "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+  "publisher": "Amazon Web Services",
+  "version_or_date": "2022-07-14 (date in the published file name; the document text itself is undated)",
+  "retrieved_at": "2026-10-01",
+  "parties": {
+    "licensor": "Provider (the data provider that lists the Data under a DSA Offer on AWS Marketplace)",
+    "licensee": "Subscriber, extended to its Affiliates and their Users, including contractors",
+    "operator_role": "venue"
+  },
+  "terms": {
+    "permitted_use": {
+      "value": "Provider licenses Subscriber, its Affiliates and their Users (incl. contractors) to receive, retain, use and modify the Data and create Derived Data, subject to the DSA Offer; all other rights reserved; Third Party Data may carry narrower rights.",
+      "claim_ids": [
+        "doc-aws-dsa-c008",
+        "doc-aws-dsa-c009",
+        "doc-aws-dsa-c011",
+        "doc-aws-dsa-c012",
+        "doc-aws-dsa-c015"
+      ]
+    },
+    "ai_training_rights": {
+      "value": "Not named: no clause on training, fine-tuning, evaluation or model outputs; building models is permitted only implicitly as Derived Data ('models', 'algorithms'), owned by Subscriber; redistributing the Data itself is barred; any AI limits must come from the DSA Offer.",
+      "claim_ids": [
+        "doc-aws-dsa-c025",
+        "doc-aws-dsa-c024",
+        "doc-aws-dsa-c023",
+        "doc-aws-dsa-c016"
+      ]
+    },
+    "field_of_use": {
+      "value": "No field-of-use limit in the DSA beyond its listed restrictions (no service-bureau use); each DSA Offer or Third Party Terms may add restrictions.",
+      "claim_ids": [
+        "doc-aws-dsa-c015",
+        "doc-aws-dsa-c018"
+      ]
+    },
+    "territory": {
+      "value": "Worldwide, subject to US export-control and embargo restrictions.",
+      "claim_ids": [
+        "doc-aws-dsa-c008",
+        "doc-aws-dsa-c069"
+      ]
+    },
+    "term_duration": {
+      "value": "Runs until the Subscription concludes; Subscriber may cancel any time (refund per Offer); either party for uncured material breach (30 days); Provider may suspend/terminate without refund for law, non-cooperation with investigation, or security incidents.",
+      "claim_ids": [
+        "doc-aws-dsa-c054",
+        "doc-aws-dsa-c055",
+        "doc-aws-dsa-c057",
+        "doc-aws-dsa-c058",
+        "doc-aws-dsa-c059"
+      ]
+    },
+    "exclusivity": {
+      "value": "Nonexclusive licence; the DSA offers no exclusivity.",
+      "claim_ids": [
+        "doc-aws-dsa-c008"
+      ]
+    },
+    "sublicensing": {
+      "value": "No sale, sublicence, lending or third-party access; use only by Subscriber's Affiliates and Users, for whom Subscriber is liable; licence nontransferable, agreement assignable without consent only to Affiliates or an acquirer.",
+      "claim_ids": [
+        "doc-aws-dsa-c017",
+        "doc-aws-dsa-c009",
+        "doc-aws-dsa-c010",
+        "doc-aws-dsa-c068"
+      ]
+    },
+    "derivatives_and_model_outputs": {
+      "value": "Subscriber owns Derived Data (analytics, tools, models, algorithms) except any Data embedded in it; Derived Data excludes unmodified Data; Provider gets no rights in it; distributing a material subset of the Data inside it is still barred.",
+      "claim_ids": [
+        "doc-aws-dsa-c023",
+        "doc-aws-dsa-c024",
+        "doc-aws-dsa-c016"
+      ]
+    },
+    "attribution": {
+      "value": "No attribution duty; Subscriber must keep Provider's and its licensors' trademark and copyright notices intact; no publicity naming the other party without consent.",
+      "claim_ids": [
+        "doc-aws-dsa-c021",
+        "doc-aws-dsa-c022"
+      ]
+    },
+    "audit_rights": {
+      "value": "No audit right; Provider may suspend/terminate without refund if Subscriber does not cooperate with a reasonable breach investigation, and Subscriber must report unauthorised use or disclosure.",
+      "claim_ids": [
+        "doc-aws-dsa-c060",
+        "doc-aws-dsa-c036"
+      ]
+    },
+    "deletion_on_termination": {
+      "value": "On termination/expiry use rights end; within 90 days Subscriber removes the Data from its AWS account and other systems, and destroys other copies only if Provider instructs; Derived Data is not named in the deletion duty; confidentiality survives.",
+      "claim_ids": [
+        "doc-aws-dsa-c061",
+        "doc-aws-dsa-c062",
+        "doc-aws-dsa-c063",
+        "doc-aws-dsa-c064",
+        "doc-aws-dsa-c023"
+      ]
+    },
+    "warranties_by_provider": {
+      "value": "Provider warrants any personal data is already lawfully public and not sensitive, malware scanning, and no copyleft-type terms; remedy is correction, then termination with prorated refund in 30 days; no warranty of accuracy, completeness or fitness.",
+      "claim_ids": [
+        "doc-aws-dsa-c026",
+        "doc-aws-dsa-c027",
+        "doc-aws-dsa-c031",
+        "doc-aws-dsa-c032",
+        "doc-aws-dsa-c033",
+        "doc-aws-dsa-c034"
+      ]
+    },
+    "consent_and_release_warranty": {
+      "value": "Provider bears consent risk: warrants any identifying data is already lawfully public and contains no sensitive data (incl. biometric, precise geolocation), and indemnifies for missing consents/rights and privacy or publicity claims; no release documents go to the buyer.",
+      "claim_ids": [
+        "doc-aws-dsa-c026",
+        "doc-aws-dsa-c027",
+        "doc-aws-dsa-c028",
+        "doc-aws-dsa-c029",
+        "doc-aws-dsa-c044",
+        "doc-aws-dsa-c046",
+        "doc-aws-dsa-c045"
+      ]
+    },
+    "indemnity": {
+      "value": "One-way: Provider indemnifies Subscriber and Affiliates for personal-data warranty breaches, missing rights/consents, IP/publicity/privacy infringement, unlawful Data and missing disclosures; uncapped; excludes Subscriber modifications or misuse; backed by USD 5M insurance.",
+      "claim_ids": [
+        "doc-aws-dsa-c043",
+        "doc-aws-dsa-c047",
+        "doc-aws-dsa-c044",
+        "doc-aws-dsa-c046",
+        "doc-aws-dsa-c048",
+        "doc-aws-dsa-c049",
+        "doc-aws-dsa-c052",
+        "doc-aws-dsa-c041",
+        "doc-aws-dsa-c053"
+      ]
+    },
+    "liability_cap": {
+      "value": "Mutual cap at the greater of 3x Subscriber Spend (trailing 12 months) or USD 1M; no indirect/consequential damages; uncapped for indemnity, confidentiality breach, gross negligence, wilful misconduct, fraud, violation of law; breach-notice costs deemed direct; AWS bears no liability.",
+      "claim_ids": [
+        "doc-aws-dsa-c038",
+        "doc-aws-dsa-c039",
+        "doc-aws-dsa-c037",
+        "doc-aws-dsa-c040",
+        "doc-aws-dsa-c041",
+        "doc-aws-dsa-c042",
+        "doc-aws-dsa-c002"
+      ]
+    },
+    "payment_and_revenue_share": {
+      "value": "Fees, rates and refund policy are set in each DSA Offer; the DSA fixes refunds only for warranty failure (prorated) and infringement; no revenue share or AWS fee is stated.",
+      "claim_ids": [
+        "doc-aws-dsa-c007",
+        "doc-aws-dsa-c056",
+        "doc-aws-dsa-c033",
+        "doc-aws-dsa-c051"
+      ]
+    },
+    "takedown_and_erasure": {
+      "value": "No takedown or data-subject erasure mechanism; for infringing Data Provider modifies/replaces it or either party terminates with refund; Provider may suspend if law requires; buyer deletes only on termination (90 days), otherwise keeps downloaded copies.",
+      "claim_ids": [
+        "doc-aws-dsa-c050",
+        "doc-aws-dsa-c051",
+        "doc-aws-dsa-c059",
+        "doc-aws-dsa-c062",
+        "doc-aws-dsa-c063"
+      ]
+    },
+    "governing_law": {
+      "value": "New York law; exclusive forum in state and federal courts in Manhattan; CISG excluded.",
+      "claim_ids": [
+        "doc-aws-dsa-c065",
+        "doc-aws-dsa-c066"
+      ]
+    },
+    "change_of_terms": {
+      "value": "No unilateral changes: amendments only in a writing signed by both parties; precedence amendment > DSA > DSA Offer; Subscriber's AWS Customer Agreement and Service Terms prevail over all.",
+      "claim_ids": [
+        "doc-aws-dsa-c067",
+        "doc-aws-dsa-c004",
+        "doc-aws-dsa-c005"
+      ]
+    },
+    "prohibited_uses": {
+      "value": "No redistribution or third-party access, sale or sublicence, reverse engineering, consultant/service-bureau use, re-identification of de-identified data, or export to embargoed countries.",
+      "claim_ids": [
+        "doc-aws-dsa-c016",
+        "doc-aws-dsa-c017",
+        "doc-aws-dsa-c020",
+        "doc-aws-dsa-c018",
+        "doc-aws-dsa-c019",
+        "doc-aws-dsa-c069"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "doc-aws-dsa-c001",
+      "statement": "The DSA is a contract between the Provider that offers Data under a DSA Offer and the Subscriber that subscribes through AWS Marketplace.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "sets forth the terms and conditions applicable to Data subscriptions between the Party offering the Data under a DSA Offer"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c002",
+      "statement": "AWS and its affiliates are not parties to the DSA and take no liability or obligations under it.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Neither Amazon Web Services, Inc. nor any of its Affiliates are a party to this Agreement and none of them"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c003",
+      "statement": "Publishing a DSA Offer and purchasing the matching Subscription on AWS Marketplace are themselves each party's acceptance of the DSA.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "constitutes each Party’s respective acceptance of and their entry into this Agreement"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c004",
+      "statement": "Order of precedence: signed amendments first, then the DSA, then the DSA Offer.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "(1) any amendment agreed upon by t he Parties; (2) this Agreement; and (3) the DSA Offer"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c005",
+      "statement": "Subscriber's AWS Customer Agreement and AWS Service Terms prevail over the DSA, the DSA Offer and any amendments where they conflict.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "such terms shall prevail to the extent that they conflict with any of the foregoing components of the Subscription"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c006",
+      "statement": "Subscription Data is distributed via AWS Marketplace and may be downloaded via Amazon S3 or other available functionality ('Downloaded Data').",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "includes Data distributed via AWS Marketplace which may be downloaded via Amazon Simple Storage Services (Amazon S3)"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c007",
+      "statement": "Update frequency (data revisions) and the fees or rates for a Subscription are set in each DSA Offer, not in the DSA.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9",
+        "Q10"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "as well as fees or rates for the Subscription, shall be as set forth in the applicable DSA Offer"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c008",
+      "statement": "Provider grants Subscriber a nonexclusive, worldwide, nontransferable licence to receive, retain, use and modify the Data and to create Derived Data.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "a nonexclusive, worldwide, nontransferable license to receive, retain, use, and modify the Data and to create Derived Data"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c009",
+      "statement": "The licence runs to Subscriber, its Affiliates and each of their Users (which include contractors).",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Provider hereby grants to Subscriber, its Affiliates, and each of their Users"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c010",
+      "statement": "Subscriber is directly liable for the acts and omissions of its Affiliates and Users as if they were its own.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Subscriber agrees to be directly liable for any and all acts and omissions by such Affiliate or User"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c011",
+      "statement": "Provider retains all rights not expressly granted to Subscriber.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Provider retains all rights not expressly granted to Subscriber under this Agreement"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c012",
+      "statement": "Rights in Third Party Data may be narrower than the standard grant, with the differences set out in the DSA Offer or Third Party Terms.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q8"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "the rights and licenses granted to Subscriber with regard to Third Party Data may be more limited than the rights"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c013",
+      "statement": "Subscriber agrees to be bound by and comply with Third Party Terms (such as the originating source's terms of service or privacy policy) attached to Third Party Data.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Subscriber agrees that it will be subject to and will comply with Third Party Terms"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c014",
+      "statement": "AWS and its affiliates count as third parties for the definition of Third Party Data.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "common control with Amazon Web Services, Inc.) are third parties for purposes of this definition"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c015",
+      "statement": "Additional use restrictions may be added in each DSA Offer or in Third Party Terms.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Additional restrictions may be included in the DSA Offer or otherwise within the Third Party Terms"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c016",
+      "statement": "Subscriber may not publish, distribute or give any third party access of any kind to the Data or any material subset of it.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "publish, disseminate, distribute or provide access of any kind to the Data, or any material subset thereof"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c017",
+      "statement": "Subscriber may not sell, sublicense, lend, lease or assign the Data or any material subset, or authorise others to access or use it.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "sell, sublicense, loan, lease, assign, authorize others to access, use, or disclose, or attempt to grant any rights to"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c018",
+      "statement": "Subscriber may not use the Data to act as a consultant, service bureau or application service provider.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "use the Data or any material subset thereof to act as a consultant, service bureau, or application service provider"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c019",
+      "statement": "Where Data is provided in a non-identifying form, Subscriber may not use it to create, generate or infer the identity of an individual.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "use the Data to create, generate, or infer any information relating to the identity of an individual"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c020",
+      "statement": "Except as the law permits, Subscriber may not decompile or reverse engineer the Data.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "decompile, reverse engineer, or otherwise attempt to derive source code from the Data"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c021",
+      "statement": "Subscriber must not remove or alter trademarks, copyright notices or other proprietary notices of Provider or its licensors.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "will not remove, delete or alter any trademarks, copyright notices, or other Proprietary Rights notices of Provider"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c022",
+      "statement": "Neither party may issue publicity or use the other's marks without prior written consent.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Neither Party will issue any publicity materials or press releases that refer to the other Party"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c023",
+      "statement": "Apart from any Data embedded in it, Subscriber owns Derived Data, and the DSA grants Provider no rights in it.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Subscriber represents and warrants to Provider that it owns all right, title and interest in and to the Derived Data"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c024",
+      "statement": "Derived Data is defined to include analytics, research, tools, models, algorithms and statistical methods made using the Data, but excludes unmodified Data.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "presentations, discussions and/or models, calculations, algorithms or statistical methods, but excluding any unmodified Data"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c025",
+      "statement": "The DSA has no clause naming machine-learning training, fine-tuning or evaluation; model building is covered only through the licence to create Derived Data, subject to the DSA Offer.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "to create Derived Data using the Data, in each case subject to and in accordance with the terms hereof and the DSA Offer"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c026",
+      "statement": "Provider warrants that any Data that identifies or can identify a natural person has already lawfully been made available to the general public.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "has already lawfully been made available to the general public, such as via governmental records, widely distributed media"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c027",
+      "statement": "Provider warrants that the Data includes no Sensitive Personal Data about an individual.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "does not include Sensitive Personal Data about an individual or shall not otherwise be deemed to be Sensitive Personal Data"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c028",
+      "statement": "The DSA's definition of Sensitive Personal Data includes biometric data.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "genetic data; ( 3) biometric data; ( 4) data concerning health"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c029",
+      "statement": "The DSA's definition of Sensitive Personal Data includes precise geolocation.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "would permit access to a data subject’s account; and ( 10) precise geolocation"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c030",
+      "statement": "Where Personal Data is processed under the DSA, both parties warrant they will enter into a data processing agreement or equivalent as the law requires.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "that Parties will enter in to a data processing agreement or equivalent, as required under applicable Law"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c031",
+      "statement": "Provider warrants it uses industry-standard practices to detect and protect the Data against viruses and other harmful code.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Provider will use industry standard practices designed to detect and protect the Data against any viruses"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c032",
+      "statement": "Provider warrants the Data and its permitted use are not subject to terms requiring source disclosure, derivative-work rights for others, or free redistribution.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "source code form, be provided to others for the purpose of, or with authorization for making, derivative works, or be"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c033",
+      "statement": "If Data breaches the warranties and Provider fails to correct it within 30 days, Subscriber's sole remedy (apart from indemnity) is termination with a prorated refund.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "not to exceed thirty (30) calendar days, as Subscriber’s sole remedy and Provider’s exclusive liability"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c034",
+      "statement": "Provider does not warrant that the Data meets Subscriber's requirements or is accurate, complete or up to date.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "that the Data will be accurate, complete, or up-to-date"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c035",
+      "statement": "The Data itself, including its selection, arrangement and compilation, is Provider's Confidential Information in Subscriber's hands.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "means the Data (including the selection, arrangement, and compilation thereof)"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c036",
+      "statement": "Subscriber must promptly notify Provider of any unauthorised use or disclosure of the Data and cooperate to limit it.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "promptly notify Provider if it becomes aware of any unauthorized use or disclosure of the Confidential Information"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c037",
+      "statement": "Subject to the exceptions, neither party is liable to the other for indirect, special, punitive, incidental or consequential damages.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "IN NO EVENT WILL EITHER PARTY BE LIABLE TO THE OTHER PARTY FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL, OR"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c038",
+      "statement": "Each party's aggregate liability is capped at the greater of three times Subscriber Spend in the 12 months before the event or USD 1 million.",
+      "kind": "number",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 3,
+        "unit": "times Subscriber Spend",
+        "basis": "mutual aggregate cap; Subscriber Spend = all fees paid and payable by Subscriber to Provider under the DSA and DSA Offer; greater of this or USD 1 million",
+        "period": "trailing 12 months before the event"
+      },
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "SHALL EXCEED THE GREATER OF THREE TIMES THE SUBSCRIBER SPEND IN THE TWELVE (12) MONTHS PRECEDING THE"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c039",
+      "statement": "The alternative floor of the mutual liability cap is USD 1 million.",
+      "kind": "number",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 1000000,
+        "unit": "USD",
+        "basis": "mutual aggregate liability cap floor; applies when greater than 3x trailing-12-month Subscriber Spend",
+        "period": "aggregate under the agreement"
+      },
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "EVENT GIVI NG RISE TO THE DAMAGES OR $1 MILLION"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c040",
+      "statement": "Neither the damages exclusion nor the cap applies to a party's gross negligence, wilful misconduct, fraud or violation of law.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "ARISING FROM A PARTY’S GROSS NEGLIGENCE, WILLFUL MISCONDUCT, FRAUD, OR VIOLATION OF LAW"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c041",
+      "statement": "The cap does not apply to defence and indemnification obligations or to breach of confidentiality.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "NOT APPLY TO: (A) A PARTY’S DEFENSE AND INDEMNIFICATION OBLIGATIONS HEREUNDER; OR (B) A PARTY’S BREACH OF THE"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c042",
+      "statement": "For Data that is or may be personal data, Subscriber's investigation, notification, remediation and monitoring costs and resulting third-party claims are deemed direct damages, not excluded consequential loss.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "SUBSCRIBER’S COSTS OF INVESTIGATION, NOTIFICATION, REMEDIATION, AND MITIGATION RESULTING FROM A SUBSCRIBER’S"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c043",
+      "statement": "Provider indemnifies, defends and holds harmless Subscriber, its Affiliates and their personnel against third-party claims.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Provider will, at its expense, indemnify, defend and hold harmless Subscriber and each of Subscriber’s Affiliates"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c044",
+      "statement": "The Provider indemnity covers any actual or alleged failure by Provider to obtain the legal rights, consents and permissions needed to provide the Data and authorise its use.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "any actual or alleged failure by Provider to obtain and hold sufficient legal right and any consents, authorizations"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c045",
+      "statement": "The consents indemnity is framed so that Subscriber never has to pay a third party or clear additional rights to use the Data as authorised.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "without the need for Subscriber to clear or obtain additional rights to access and use the Data as authorized hereunder"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c046",
+      "statement": "The Provider indemnity covers infringement of IP, right of publicity, privacy or other third-party rights by the Data or by Subscriber's permitted use.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "violation of any Proprietary Rights, right of publicity, or privacy or other rights of a third party by the Data"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c047",
+      "statement": "The Provider indemnity covers any actual or alleged breach of the personal-data warranties in Section 4.1.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "any actual or alleged breach of Provider’s representations and warranties in Section 4.1 (Restrictions on Personal"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c048",
+      "statement": "The Provider indemnity covers Data that is actually or allegedly libellous, defamatory, obscene or unlawful.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "any Data that actually or allegedly is libelous, defamatory, obscene, or unlawful"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c049",
+      "statement": "Provider has no indemnity obligation for infringement claims that arise only from Subscriber's modifications or use in breach of the DSA.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "attributable to any modifications to the Data by Subscriber or its Personnel or use of the Data by Subscriber in breach"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c050",
+      "statement": "If Data infringes or is likely to, Provider must procure continued rights for Subscriber or modify or replace the Data with a reasonably comparable non-infringing version.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "modify or replace the affected Data so that the modified or replacement Data are reasonably comparable and do not infringe"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c051",
+      "statement": "If Provider cannot cure an infringement, either party may terminate and Provider refunds prepaid unused amounts and fees paid since the claim arose.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "either Party may terminate the Subscription and this Agreement and Provider will refund to Subscriber all prepaid"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c052",
+      "statement": "The DSA contains only a Provider indemnity; Subscriber gives none, although Section 10.8 still refers to 'Provider Indemnified Parties'.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "with respect to Subscriber Indemnified Parties and Provider Indemnified"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c053",
+      "statement": "Provider must carry at least USD 5 million Commercial General Liability insurance per occurrence and in aggregate, and USD 5 million Professional Liability insurance.",
+      "kind": "number",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 5000000,
+        "unit": "USD",
+        "basis": "Provider's minimum Commercial General Liability cover per occurrence and aggregate; Professional Liability also USD 5M per claim and annual aggregate; kept during the term and one year after",
+        "period": "per occurrence"
+      },
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "not less than $5,000,000 per occurrence and $5,000,000 aggregate limit, and Professional Liability insurance"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c054",
+      "statement": "The DSA runs until the Subscription concludes unless terminated earlier.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "This Agreement will continue in full force and effect until conclusion of the Subscription"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c055",
+      "statement": "Subscriber may terminate the Subscription or the DSA without cause at any time through AWS's cancellation functionality.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Subscriber may terminate the Subscription or this Agreement without cause at any time"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c056",
+      "statement": "Any refund on Subscriber's termination for convenience follows the refund policy in the DSA Offer.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "any applicable refund will be provided according to the refund policy set forth in the respective DSA Offer"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c057",
+      "statement": "Either party may terminate for material breach not cured within 30 days of written notice.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Either Party may terminate the Subscription or this Agreement if the other Party materially breaches this Agreement"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c058",
+      "statement": "Provider may suspend or terminate a Subscription without refund of unused prepaid fees in specified cases.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Provider may suspend or terminate Subscriber’s Subscription or this Agreement without refund of fees for any unused portion"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c059",
+      "statement": "One ground for Provider suspension or termination without refund is compliance with applicable law or government requests.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "if required to comply with any applicable Law or requests of governmental entities"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c060",
+      "statement": "Provider may suspend or terminate if Subscriber does not cooperate with a reasonable investigation of suspected breach (the text says 'investigation by Subscriber').",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "if Subscriber does not cooperate with any reasonable investigation by Subscriber of a suspected breach of this Agreement"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c061",
+      "statement": "On termination or expiry, Subscriber's authorisation to use the Data under that Subscription ends.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Subscriber’s authorization to use the Data under such Subscription"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c062",
+      "statement": "Within 90 days after termination or expiry, Subscriber must remove the Data from its AWS account.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "within ninety (90) calendar days following such termination or expiration, Subscriber will remove the Data"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c063",
+      "statement": "Removal also covers other systems operated by or for Subscriber, and Subscriber must destroy all other copies only if Provider instructs it to.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "any other computer systems operated by or for Subscriber, and if instructed by Provider, destroy all other copies of the"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c064",
+      "statement": "Proprietary rights, confidentiality, liability limits, indemnities and the effect-of-termination section survive termination.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Sections 3 (Proprietary Rights), 5 (Confidentiality), 6 (Limitations of Liability), 7 (Indemnification), 8.5 (Effect of"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c065",
+      "statement": "The DSA is governed by New York law.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "This Agreement will be governed and interpreted under the laws of the State of New York"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c066",
+      "statement": "The exclusive forum is the state and federal courts in Manhattan, New York.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "the exclusive forum for any action or proceeding will be in the Borough of Manhattan, New York"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c067",
+      "statement": "The DSA can be changed only by a writing signed by authorised representatives of both parties.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "will not be changed, amended, modified, or waived unless such change, amendment, modification, or waiver is in writing"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c068",
+      "statement": "Either party may assign without consent to Affiliates or an acquirer of substantially all its assets or business; otherwise consent is required.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "either Party may assign this Agreement, in whole or part, and delegate its obligations to its Affiliates or to any entity"
+        }
+      ]
+    },
+    {
+      "id": "doc-aws-dsa-c069",
+      "statement": "Neither party may export or transfer the Data to a country under US embargo or sanctions.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "AWS Marketplace Data Subscription Agreement (standard DSA offers)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Neither Party will export, re export, ship, or otherwise transfer the Data, to any country subject to an embargo"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "terms.ai_training_rights",
+      "urls_tried": [
+        "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf"
+      ],
+      "reason": "not_published",
+      "note": "No express grant or exclusion of ML training, fine-tuning, evaluation, or rights in model outputs; only the Derived Data definition (which lists 'models') covers it."
+    },
+    {
+      "field": "terms.takedown_and_erasure",
+      "urls_tried": [
+        "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf"
+      ],
+      "reason": "not_published",
+      "note": "No mechanism for a data subject's erasure request or for recalling specific items from a live subscription; nothing obliges the Subscriber to delete superseded or replaced revisions."
+    },
+    {
+      "field": "terms.consent_and_release_warranty",
+      "urls_tried": [
+        "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf"
+      ],
+      "reason": "not_published",
+      "note": "No model- or property-release warranty as such, and no delivery of consent or release evidence to the Subscriber; consent is handled through the Section 4.1 public-data warranty and the Section 7.1 indemnity."
+    },
+    {
+      "field": "other.subscriber_indemnity",
+      "urls_tried": [
+        "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf"
+      ],
+      "reason": "not_published",
+      "note": "Section 10.8 refers to 'Provider Indemnified Parties' but Section 7 contains no Subscriber indemnity."
+    },
+    {
+      "field": "terms.payment_and_revenue_share",
+      "urls_tried": [
+        "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf"
+      ],
+      "reason": "not_published",
+      "note": "AWS's own listing or transaction fee and payout mechanics are not in the DSA (AWS is not a party); they sit in AWS's seller terms."
+    },
+    {
+      "field": "other.derived_data_after_termination",
+      "urls_tried": [
+        "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf"
+      ],
+      "reason": "not_published",
+      "note": "The deletion duty names only 'the Data'; the DSA does not say whether models or other Derived Data built during the subscription may be kept, only that Subscriber owns them."
+    }
+  ]
+}

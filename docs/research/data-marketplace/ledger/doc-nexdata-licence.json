@@ -1,0 +1,1159 @@
+{
+  "kind": "document",
+  "slug": "doc-nexdata-licence",
+  "platform_slug": "nexdata",
+  "title": "Data Licensing Agreement (template)",
+  "doc_type": "buyer_licence",
+  "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+  "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+  "version_or_date": "undated template; no version or date printed",
+  "retrieved_at": "2026-10-01",
+  "parties": {
+    "licensor": "NEXDATA TECHNOLOGY INC. (Party A), Monrovia, California, which reserves all rights in the Data",
+    "licensee": "a college/university/scientific research institution or a partner designated by Nexdata (Party B)",
+    "operator_role": "reseller_licensor"
+  },
+  "terms": {
+    "permitted_use": {
+      "value": "Free, non-commercial scientific research only, by a university/research institution or a partner Nexdata designates; store and use during the term within the agreed scope.",
+      "claim_ids": [
+        "doc-nexdata-licence-c001",
+        "doc-nexdata-licence-c003",
+        "doc-nexdata-licence-c005",
+        "doc-nexdata-licence-c007"
+      ]
+    },
+    "ai_training_rights": {
+      "value": "No express training grant: research use is allowed, but the licence is 'without derivatives' and models derived from the data may not be used commercially; training, fine-tuning, evaluation and model outputs are not named separately; no redistribution; commercial use converts into paying full market value.",
+      "claim_ids": [
+        "doc-nexdata-licence-c005",
+        "doc-nexdata-licence-c008",
+        "doc-nexdata-licence-c013",
+        "doc-nexdata-licence-c021",
+        "doc-nexdata-licence-c019"
+      ]
+    },
+    "field_of_use": {
+      "value": "Scientific research only; no commercial purpose and no development or production of commercial products.",
+      "claim_ids": [
+        "doc-nexdata-licence-c007",
+        "doc-nexdata-licence-c013"
+      ]
+    },
+    "term_duration": {
+      "value": "One year from signing; Nexdata may rescind at any time.",
+      "claim_ids": [
+        "doc-nexdata-licence-c027",
+        "doc-nexdata-licence-c028"
+      ]
+    },
+    "exclusivity": {
+      "value": "Limited and non-exclusive; Nexdata reserves all rights including to sell, lease and transfer the data.",
+      "claim_ids": [
+        "doc-nexdata-licence-c006",
+        "doc-nexdata-licence-c009"
+      ]
+    },
+    "sublicensing": {
+      "value": "None: no publication or disclosure of any part of the data to third parties (by sale, transmission or otherwise) without Nexdata's prior consent; duplicates count as the original.",
+      "claim_ids": [
+        "doc-nexdata-licence-c015",
+        "doc-nexdata-licence-c016"
+      ]
+    },
+    "derivatives_and_model_outputs": {
+      "value": "Licence granted 'without derivatives'; derivatives including models may not be used for any commercial purpose, and commercial use of a derivative triggers the market-value payment.",
+      "claim_ids": [
+        "doc-nexdata-licence-c005",
+        "doc-nexdata-licence-c008",
+        "doc-nexdata-licence-c021"
+      ]
+    },
+    "attribution": {
+      "value": "Licensee must credit the Nexdata dataset in every published result and notify Nexdata within five days; licensee must also let Nexdata use its name and logo for promotion.",
+      "claim_ids": [
+        "doc-nexdata-licence-c011",
+        "doc-nexdata-licence-c012",
+        "doc-nexdata-licence-c010"
+      ]
+    },
+    "audit_rights": {
+      "value": "No audit or inspection right; Nexdata relies on five-day notice of publications and a signed destruction statement at the end.",
+      "claim_ids": [
+        "doc-nexdata-licence-c012",
+        "doc-nexdata-licence-c030"
+      ]
+    },
+    "deletion_on_termination": {
+      "value": "Destroy all data and duplicates within five days of expiry or rescission, with a statement signed by the licensee's legal representative; retaining copies means paying the original market value.",
+      "claim_ids": [
+        "doc-nexdata-licence-c029",
+        "doc-nexdata-licence-c030",
+        "doc-nexdata-licence-c024"
+      ]
+    },
+    "indemnity": {
+      "value": "One-way, licensee to Nexdata: licensee bears all third-party loss and legal violation from its use and compensates Nexdata's losses on breach or leakage; Nexdata gives no indemnity.",
+      "claim_ids": [
+        "doc-nexdata-licence-c026",
+        "doc-nexdata-licence-c022"
+      ]
+    },
+    "liability_cap": {
+      "value": "No cap on the licensee: pre-set per-unit or fixed damages (blank in the template) give way to actual losses where higher; Nexdata's own liability is not addressed.",
+      "claim_ids": [
+        "doc-nexdata-licence-c023",
+        "doc-nexdata-licence-c022"
+      ]
+    },
+    "payment_and_revenue_share": {
+      "value": "Free of charge for research; full market value (per Article II table, blank in the template) becomes payable on business use, with 3-day notice and payment within 20 days.",
+      "claim_ids": [
+        "doc-nexdata-licence-c004",
+        "doc-nexdata-licence-c019",
+        "doc-nexdata-licence-c020",
+        "doc-nexdata-licence-c033"
+      ]
+    },
+    "takedown_and_erasure": {
+      "value": "No takedown or data-subject clause, but Nexdata can rescind at any time and the licensee must then destroy every copy within five days.",
+      "claim_ids": [
+        "doc-nexdata-licence-c028",
+        "doc-nexdata-licence-c029"
+      ]
+    },
+    "governing_law": {
+      "value": "No governing law named; disputes to negotiation/mediation, then a lawsuit in the 'people's court' where Nexdata lies, although Nexdata's stated domicile is Monrovia, California.",
+      "claim_ids": [
+        "doc-nexdata-licence-c032",
+        "doc-nexdata-licence-c002"
+      ]
+    },
+    "prohibited_uses": {
+      "value": "Any commercial use or commercial product, disclosure to third parties, illegal use or harm to the public interest.",
+      "claim_ids": [
+        "doc-nexdata-licence-c013",
+        "doc-nexdata-licence-c015",
+        "doc-nexdata-licence-c017"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "doc-nexdata-licence-c001",
+      "statement": "Under the Nexdata Data Licensing Agreement template, NEXDATA TECHNOLOGY INC. (Party A) licenses the licensee (Party B) to use the data free of charge.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Party A licenses Party B to use the for free within the scope agreed upon hereunder"
+        }
+      ]
+    },
+    {
+      "id": "doc-nexdata-licence-c002",
+      "statement": "The template names the licensor NEXDATA TECHNOLOGY INC. with a domicile in Monrovia, California.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "MONROVIA, CA 91016"
+        }
+      ]
+    },
+    {
+      "id": "doc-nexdata-licence-c003",
+      "statement": "The template restricts the licensee to a college, university or scientific research institution, or a partner Nexdata designates.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Party B shall be a college/university/scientific research institution or a partner designated by Party A."
+        }
+      ]
+    },
+    {
+      "id": "doc-nexdata-licence-c004",
+      "statement": "The template's preamble says Nexdata grants universities, research institutions and key partners a free-of-charge right to use the data.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "scientific research institutions, and key partners with a right to use the in a free-of-charge way"
+        }
+      ]
+    },
+    {
+      "id": "doc-nexdata-licence-c005",
+      "statement": "The grant is limited to non-commercial purposes and excludes derivatives.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "right to use the for non-commercial purposes, without derivatives"
+        }
+      ]
+    },
+    {
+      "id": "doc-nexdata-licence-c006",
+      "statement": "The grant is limited and non-exclusive.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Party A hereby licenses Party B to have a limited, non-exclusive"
+        }
+      ]
+    },
+    {
+      "id": "doc-nexdata-licence-c007",
+      "statement": "During the agreement the licensee may store and use the data only for scientific research within the agreed scope.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Party B may be entitled to store and use the Data for the purpose of scientific research within the scope agreed"
+        }
+      ]
+    },
+    {
+      "id": "doc-nexdata-licence-c008",
+      "statement": "The data and its derivatives, expressly including models, may not be used for any commercial purpose.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "The Data or the derivatives (including but not limited to models) from the Data shall not be used for any commercial purpose."
+        }
+      ]
+    },
+    {
+      "id": "doc-nexdata-licence-c009",
+      "statement": "Nexdata reserves all rights and intellectual property in the data, including rights to sell, trade, lease, copy, publish and transfer it.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "reserve all the rights and intellectual property rights over the Data, including those of selling, trading, leasing"
+        }
+      ]
+    },
+    {
+      "id": "doc-nexdata-licence-c010",
+      "statement": "During the term the licensee must let Nexdata use its name and logo to promote open-source data and track dataset use, including on Nexdata's website.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Party B shall allow Party A to use Party B’s name and logo during Party A’s popularization of open source data"
+        }
+      ]
+    },
+    {
+      "id": "doc-nexdata-licence-c011",
+      "statement": "The licensee must state in any published research results (papers, talks, patents) that it used the Nexdata dataset; the template text names 'Nexdata Chinese Mandarin Speech Datasets'.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "it shall clearly indicate in such achievements its usage of Nexdata Chinese Mandarin Speech Datasets"
+        }
+      ]
+    },
+    {
+      "id": "doc-nexdata-licence-c012",
+      "statement": "The licensee must notify Nexdata in writing within five days of obtaining, publishing or publicly showing research results made with the data.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "shall notify Party A in writing within five (5) days upon its acquisition or publication or public showing"
+        }
+      ]
+    },
+    {
+      "id": "doc-nexdata-licence-c013",
+      "statement": "The licensee may not use the data for any commercial purpose or to develop or produce any commercial product.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "shall not utilize the Date for any commercial purpose or to develop or produce any commercial product"
+        }
+      ]
+    },
+    {
+      "id": "doc-nexdata-licence-c014",
+      "statement": "The licensee must protect the data's integrity, store it properly and keep the data and its technical details confidential.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "properly store the Data and strictly keep confidential the Data and its technical details"
+        }
+      ]
+    },
+    {
+      "id": "doc-nexdata-licence-c015",
+      "statement": "Without Nexdata's prior consent the licensee may not publish any content of the data or disclose any part of it to a third party by sale, transmission or any other method.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Party B shall not publish any content of the Data or disclose all or part of the Data to any third party"
+        }
+      ]
+    },
+    {
+      "id": "doc-nexdata-licence-c016",
+      "statement": "Any format or duplicate of the data is treated as the original data under the agreement.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Any format or duplicate of the Data shall be deemed as the original Data."
+        }
+      ]
+    },
+    {
+      "id": "doc-nexdata-licence-c017",
+      "statement": "The licensee must use the data lawfully and ensure it is not used for any illegal purpose or to damage the public interest.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "ensure that the Data will not be utilized for any illegal purpose or to damage any public interest"
+        }
+      ]
+    },
+    {
+      "id": "doc-nexdata-licence-c018",
+      "statement": "The licensee, not Nexdata, gives the only warranty in the template: that it is a legal person or duly authorised to sign.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Party B shall warrant that its organization has an independent legal person qualification"
+        }
+      ]
+    },
+    {
+      "id": "doc-nexdata-licence-c019",
+      "statement": "If the licensee decides to use the data for business, or uses it beyond scientific research, it must pay Nexdata the full market value of the data.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Party B shall pay all the market value of the Data of Party A"
+        }
+      ]
+    },
+    {
+      "id": "doc-nexdata-licence-c020",
+      "statement": "A licensee that decides to use the data for business development must notify Nexdata within three days and pay within twenty days of that notice.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "send a written notice to Party A within three (3) days upon such decision and then make the corresponding payment"
+        }
+      ]
+    },
+    {
+      "id": "doc-nexdata-licence-c021",
+      "statement": "Using any derivative of the data for a commercial purpose counts as use beyond scientific research and triggers the market-value payment.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "using any derivative from the Data for any commercial purpose"
+        }
+      ]
+    },
+    {
+      "id": "doc-nexdata-licence-c022",
+      "statement": "If the licensee breaches Article III, leaks the data through poor storage or furnishes it to a third party, it must pay the whole market value plus Nexdata's resulting losses.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q5"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "shall not only pay the whole market value of the Data, namely USD , to Party A but also compensate for the resulting losses"
+        }
+      ]
+    },
+    {
+      "id": "doc-nexdata-licence-c023",
+      "statement": "Losses from onward supply are pre-set as a per-unit amount or a fixed sum (left blank in the template), but actual losses apply where they are higher.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q5"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "the amount to be paid by Party B shall be computed as per the actual losses"
+        }
+      ]
+    },
+    {
+      "id": "doc-nexdata-licence-c024",
+      "statement": "A licensee that keeps any data or duplicate after expiry or rescission must compensate Nexdata on the basis of the data's original market value.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "still keeps all or part of the Data (including any duplicate of the Data), it shall compensate for Party A"
+        }
+      ]
+    },
+    {
+      "id": "doc-nexdata-licence-c025",
+      "statement": "If a missing or wrong dataset credit cannot be corrected after publication, the licensee must pay Nexdata a sum left blank in the template.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "impossibility of correction after the publication of the achievements shall cause Party B to pay USD to Party A"
+        }
+      ]
+    },
+    {
+      "id": "doc-nexdata-licence-c026",
+      "statement": "Where the licensee's use causes loss to a third party or breaks a law, the licensee alone, not Nexdata, bears the responsibility.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "it is not Party A but Party B which shall independently assume the corresponding responsibility"
+        }
+      ]
+    },
+    {
+      "id": "doc-nexdata-licence-c027",
+      "statement": "The agreement lasts one year from signing.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "The term of the Data Licensing Agreement shall be one year, and the contract will take effect from the date of signing"
+        }
+      ]
+    },
+    {
+      "id": "doc-nexdata-licence-c028",
+      "statement": "Nexdata may rescind the agreement at any time during its term.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Party A may rescind the Agreement at any time"
+        }
+      ]
+    },
+    {
+      "id": "doc-nexdata-licence-c029",
+      "statement": "Within five days of expiry or rescission the licensee must destroy the data, including every duplicate on any storage medium.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Within five (5) days upon the expiration or rescission of the Agreement, Party B shall destroy the Data"
+        }
+      ]
+    },
+    {
+      "id": "doc-nexdata-licence-c030",
+      "statement": "After destroying the data the licensee must give Nexdata a written statement signed by its legal representative confirming destruction.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Party B shall provide Party A with a written statement signed by the legal representative of Party B"
+        }
+      ]
+    },
+    {
+      "id": "doc-nexdata-licence-c031",
+      "statement": "The confidentiality, non-disclosure, non-commercial, credit, liability and deletion obligations survive expiry or rescission.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Party B shall be still restricted by Provision 3, Provision 4, Provision 5, and Provision 6 under Article III"
+        }
+      ]
+    },
+    {
+      "id": "doc-nexdata-licence-c032",
+      "statement": "Disputes go first to negotiation and mediation, then (the template selects option 2) to a lawsuit in the 'people's court' where Nexdata is located; no governing law is named.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "To file a lawsuit at the people’s court with the competent jurisdiction in the place where Party A lies."
+        }
+      ]
+    },
+    {
+      "id": "doc-nexdata-licence-c033",
+      "statement": "Article II lists the licensed datasets in a table with Dataset ID, Description and Market Value (USD) columns, left blank in the published template.",
+      "kind": "terms",
+      "section": "object_model",
+      "question_ids": [
+        "Q10",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Nexdata Data Licensing Agreement (free research licence template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf",
+          "publisher": "Nexdata (NEXDATA TECHNOLOGY INC.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Dataset ID Description Market Value(USD)"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "terms.consent_and_release_warranty",
+      "urls_tried": [
+        "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf"
+      ],
+      "reason": "not_published",
+      "note": "The template contains no statement or warranty that data subjects, speakers or people depicted consented or signed releases; the only warranty is the licensee's authority to sign."
+    },
+    {
+      "field": "terms.warranties_by_provider",
+      "urls_tried": [
+        "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf"
+      ],
+      "reason": "not_published",
+      "note": "Nexdata gives no warranty of title, quality, accuracy or non-infringement; the template neither gives nor disclaims one."
+    },
+    {
+      "field": "other.data_subject_erasure",
+      "urls_tried": [
+        "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf"
+      ],
+      "reason": "not_published",
+      "note": "No mechanism for a data subject's withdrawal or erasure request to reach licensees; only Nexdata's general right to rescind, which triggers destruction."
+    },
+    {
+      "field": "other.commercial_buyer_licence",
+      "urls_tried": [
+        "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf"
+      ],
+      "reason": "not_published",
+      "note": "This is Nexdata's free academic/partner research licence; the terms for paid commercial dataset purchases are not in this document."
+    },
+    {
+      "field": "terms.territory",
+      "urls_tried": [
+        "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf"
+      ],
+      "reason": "not_published",
+      "note": "No territorial limit or export clause."
+    },
+    {
+      "field": "terms.change_of_terms",
+      "urls_tried": [
+        "https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf"
+      ],
+      "reason": "not_published",
+      "note": "Signed bilateral agreement; no unilateral amendment clause."
+    }
+  ]
+}

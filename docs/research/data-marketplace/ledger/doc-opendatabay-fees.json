@@ -1,0 +1,857 @@
+{
+  "kind": "document",
+  "slug": "doc-opendatabay-fees",
+  "platform_slug": "opendatabay",
+  "title": "Platform Fees & Commission Schedule",
+  "doc_type": "marketplace_terms",
+  "url": "https://www.opendatabay.com/legal/fees",
+  "publisher": "Opendatabay",
+  "version_or_date": "Last Updated: August 24, 2026 (effective August 24, 2026)",
+  "retrieved_at": "2026-10-01",
+  "parties": {
+    "licensor": "Not stated in this schedule; the Data Provider is the 'Seller' who receives the sale proceeds net of Opendatabay's fee",
+    "licensee": "Not addressed; buyers are not a party to this schedule, which binds the Data Provider and Opendatabay Ltd",
+    "operator_role": "agent (inferred: the parent Brokerage & Listing Terms appoint Opendatabay a non-exclusive broker, and this schedule charges a commission on the provider's sale; it never names a licensor of record)"
+  },
+  "terms": {
+    "payment_and_revenue_share": {
+      "value": "Seller-paid commission on each transaction (dataset sale, API call or data access fee), deducted before payout: 30% up to GBP 100, sliding 'progressively' to 25% at GBP 1,000, 20% at 10,000, 15% at 25,000, 10% at 50,000 and 5% at 250,000 and above (seller keeps 70% to 95%). Rate depends on the single transaction's value, not cumulative volume; the method within a band is unstated. Bespoke brokerage or enterprise deals may carry different terms agreed in writing. No buyer fee, payout timing, threshold, processing cost, tax or refund/chargeback rule is published despite the parent terms saying the schedule covers them.",
+      "claim_ids": [
+        "doc-opendatabay-fees-c005",
+        "doc-opendatabay-fees-c006",
+        "doc-opendatabay-fees-c007",
+        "doc-opendatabay-fees-c008",
+        "doc-opendatabay-fees-c009",
+        "doc-opendatabay-fees-c010",
+        "doc-opendatabay-fees-c011",
+        "doc-opendatabay-fees-c012",
+        "doc-opendatabay-fees-c013",
+        "doc-opendatabay-fees-c014",
+        "doc-opendatabay-fees-c015",
+        "doc-opendatabay-fees-c016",
+        "doc-opendatabay-fees-c017",
+        "doc-opendatabay-fees-c022",
+        "doc-opendatabay-fees-c023"
+      ]
+    },
+    "governing_law": {
+      "value": "Laws of England and Wales; disputes exclusively in the courts of London (the platform Terms of Service instead send business disputes to LCIA arbitration).",
+      "claim_ids": [
+        "doc-opendatabay-fees-c018",
+        "doc-opendatabay-fees-c019",
+        "doc-opendatabay-fees-c024"
+      ]
+    },
+    "change_of_terms": {
+      "value": "Opendatabay may update the schedule at any time with no notice period; continued use is acceptance.",
+      "claim_ids": [
+        "doc-opendatabay-fees-c020",
+        "doc-opendatabay-fees-c001",
+        "doc-opendatabay-fees-c002"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "doc-opendatabay-fees-c001",
+      "statement": "Opendatabay's Platform Fees & Commission Schedule is dated 'Last Updated: August 24, 2026'.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Last Updated: August 24, 2026"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-fees-c002",
+      "statement": "The schedule states it is effective as of August 24, 2026.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "This policy is effective as of August 24, 2026"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-fees-c003",
+      "statement": "The fee schedule is incorporated by reference into Opendatabay's Brokerage & Listing Terms and binds the Data Provider and Opendatabay (buyers are not a party).",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q5",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "incorporated by reference into the Opendatabay Brokerage & Listing Terms and forms part of the agreement"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-fees-c004",
+      "statement": "The contracting operator is Opendatabay, a company registered in England and Wales under number 15711573.",
+      "kind": "terms",
+      "section": "other",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Our company registration number 15711573, registered in England and Wales."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-fees-c005",
+      "statement": "Opendatabay charges its tiered commission on dataset sales, API calls and data access fees alike.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Opendatabay applies a tiered commission structure on dataset sales, API calls, and data access fees."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-fees-c006",
+      "statement": "The commission rate is set by the value of each individual transaction, not by the provider's monthly or cumulative sales volume.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "calculated based on the individual transaction value, not on monthly or cumulative sales"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-fees-c007",
+      "statement": "For a sale priced GBP 1 to 100, Opendatabay takes 30% and the seller receives 70%.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": "GBP pricing"
+      },
+      "value": {
+        "num": 30,
+        "unit": "percent of sale price",
+        "basis": "Opendatabay commission deducted from the Data Provider's proceeds; single transaction value GBP 1-100; GBP",
+        "period": "per transaction"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "£1 - £100 30% 70%"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-fees-c008",
+      "statement": "For a sale priced GBP 101 to 1,000, Opendatabay's fee falls from 30% to 25% (seller 70% to 75%) progressively across the band.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": "GBP pricing"
+      },
+      "value": {
+        "num": 30,
+        "unit": "percent of sale price",
+        "basis": "Opendatabay commission deducted from the Data Provider's proceeds; single transaction value GBP 101-1,000, falling progressively from 30% to 25% across the band; GBP",
+        "period": "per transaction"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "£101 - £1,000 30% → 25% 70% → 75%"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-fees-c009",
+      "statement": "For a sale priced GBP 1,001 to 10,000, Opendatabay's fee falls from 25% to 20% (seller 75% to 80%) progressively across the band.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": "GBP pricing"
+      },
+      "value": {
+        "num": 25,
+        "unit": "percent of sale price",
+        "basis": "Opendatabay commission deducted from the Data Provider's proceeds; single transaction value GBP 1,001-10,000, falling progressively from 25% to 20% across the band; GBP",
+        "period": "per transaction"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "£1,001 - £10,000 25% → 20% 75% → 80%"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-fees-c010",
+      "statement": "For a sale priced GBP 10,001 to 25,000, Opendatabay's fee falls from 20% to 15% (seller 80% to 85%) progressively across the band.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": "GBP pricing"
+      },
+      "value": {
+        "num": 20,
+        "unit": "percent of sale price",
+        "basis": "Opendatabay commission deducted from the Data Provider's proceeds; single transaction value GBP 10,001-25,000, falling progressively from 20% to 15% across the band; GBP",
+        "period": "per transaction"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "£10,001 - £25,000 20% → 15% 80% → 85%"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-fees-c011",
+      "statement": "For a sale priced GBP 25,001 to 50,000, Opendatabay's fee falls from 15% to 10% (seller 85% to 90%) progressively across the band.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": "GBP pricing"
+      },
+      "value": {
+        "num": 15,
+        "unit": "percent of sale price",
+        "basis": "Opendatabay commission deducted from the Data Provider's proceeds; single transaction value GBP 25,001-50,000, falling progressively from 15% to 10% across the band; GBP",
+        "period": "per transaction"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "£25,001 - £50,000 15% → 10% 85% → 90%"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-fees-c012",
+      "statement": "For a sale priced GBP 50,001 to 250,000, Opendatabay's fee falls from 10% to 5% (seller 90% to 95%) progressively across the band.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": "GBP pricing"
+      },
+      "value": {
+        "num": 10,
+        "unit": "percent of sale price",
+        "basis": "Opendatabay commission deducted from the Data Provider's proceeds; single transaction value GBP 50,001-250,000, falling progressively from 10% to 5% across the band; GBP",
+        "period": "per transaction"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "£50,001 - £250,000 10% → 5% 90% → 95%"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-fees-c013",
+      "statement": "For a sale priced GBP 250,001 or more, Opendatabay takes 5% and the seller receives 95%.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": "GBP pricing"
+      },
+      "value": {
+        "num": 5,
+        "unit": "percent of sale price",
+        "basis": "Opendatabay commission deducted from the Data Provider's proceeds; single transaction value GBP 250,001 and above; GBP",
+        "period": "per transaction"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "£250,001 and above 5% 95%"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-fees-c014",
+      "statement": "Within each band the percentage is 'determined progressively'; the schedule does not say whether this is a marginal (bracket) calculation or a rate interpolated over the whole price.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "For transaction values within a range, the applicable percentage is determined progressively within that range."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-fees-c015",
+      "statement": "The exact fee and resulting seller payout are shown to the Data Provider when it sets or updates a product price.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The exact fee and resulting seller payout are displayed when a Data Provider sets or updates a product price."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-fees-c016",
+      "statement": "The fee is borne by the seller: Opendatabay deducts its platform fee from the sale and pays the remaining balance to the Data Provider.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9",
+        "Q5"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "After deducting the applicable platform fee, the remaining balance is paid to the Data Provider."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-fees-c017",
+      "statement": "Opendatabay may agree different commercial terms for bespoke brokerage or enterprise transactions if agreed separately in writing.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9",
+        "Q12"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "may also agree different commercial terms for bespoke brokerage or enterprise transactions where agreed separately in writing"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-fees-c018",
+      "statement": "The schedule is governed by the laws of England and Wales.",
+      "kind": "terms",
+      "section": "other",
+      "question_ids": [],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "This Agreement is governed by the laws of England and Wales, without regard to conflict of law principles."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-fees-c019",
+      "statement": "Disputes under the schedule go exclusively to the courts of London, England.",
+      "kind": "terms",
+      "section": "other",
+      "question_ids": [],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "shall be resolved exclusively in the courts of London, England."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-fees-c020",
+      "statement": "Opendatabay may change the schedule unilaterally at any time, and continued use counts as acceptance; no notice period is given.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Opendatabay reserves the right to update these terms at any time; continued use constitutes acceptance."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-fees-c021",
+      "statement": "In the parent Brokerage & Listing Terms, the Data Provider by default authorises Opendatabay to act as a non-exclusive broker for each listed data product.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "authorizes Opendatabay to act as a non-exclusive broker for the specific data product"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-fees-c022",
+      "statement": "In the parent Brokerage & Listing Terms, the Data Provider sets the price or pricing model for each data product, which is the base the commission applies to.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The Data Provider sets the price or pricing model for each data product."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-fees-c023",
+      "statement": "The parent Brokerage & Listing Terms say the fee schedule explains payment terms, payout schedules, minimum payout thresholds and refund or chargeback responsibility, but the published schedule contains none of these.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Opendatabay marketplace, data providers",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "also explains payment terms, payout schedules, minimum payout thresholds, and responsibility for refunds or chargebacks"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-fees-c024",
+      "statement": "Opendatabay's platform Terms of Service send unresolved business-user disputes to LCIA arbitration in London, unlike the exclusive London courts clause in the fee schedule.",
+      "kind": "terms",
+      "section": "other",
+      "question_ids": [],
+      "scope": {
+        "product": "Opendatabay platform, business users",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "disputes unresolved in 30 days will be submitted to binding arbitration under the London Court of International Arbitration"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "other.consent_and_release_warranty",
+      "urls_tried": [
+        "https://www.opendatabay.com/legal/fees"
+      ],
+      "reason": "not_published",
+      "note": "A fee schedule only; says nothing about consent or releases of people depicted, capturers or property owners."
+    },
+    {
+      "field": "other.takedown_and_erasure",
+      "urls_tried": [
+        "https://www.opendatabay.com/legal/fees"
+      ],
+      "reason": "not_published",
+      "note": "No takedown, erasure or buyer-deletion clause, and no rule on whether commission is refunded if a sold dataset is withdrawn."
+    },
+    {
+      "field": "other.ai_training_rights",
+      "urls_tried": [
+        "https://www.opendatabay.com/legal/fees"
+      ],
+      "reason": "not_published",
+      "note": "No licence terms of any kind; training, fine-tuning, evaluation, redistribution and model-output rights are not addressed."
+    },
+    {
+      "field": "other.exclusivity",
+      "urls_tried": [
+        "https://www.opendatabay.com/legal/fees",
+        "https://www.opendatabay.com/legal"
+      ],
+      "reason": "not_published",
+      "note": "The schedule is silent and has no fee difference for exclusive deals; the parent Brokerage & Listing Terms make brokerage non-exclusive by default (c021)."
+    },
+    {
+      "field": "other.payout_timing_and_thresholds",
+      "urls_tried": [
+        "https://www.opendatabay.com/legal/fees",
+        "https://www.opendatabay.com/legal"
+      ],
+      "reason": "not_published",
+      "note": "Parent terms say the schedule explains payout schedules and minimum payout thresholds (c023); the published schedule does not."
+    },
+    {
+      "field": "other.refunds_and_chargebacks",
+      "urls_tried": [
+        "https://www.opendatabay.com/legal/fees",
+        "https://www.opendatabay.com/legal"
+      ],
+      "reason": "not_published",
+      "note": "Parent terms say the schedule allocates responsibility for refunds and chargebacks (c023); the published schedule does not."
+    },
+    {
+      "field": "other.payment_processing_costs_and_tax",
+      "urls_tried": [
+        "https://www.opendatabay.com/legal/fees"
+      ],
+      "reason": "not_published",
+      "note": "Not stated whether card or payment processing costs or VAT are inside the commission or charged on top, or whether buyers pay any fee."
+    },
+    {
+      "field": "other.progressive_calculation_method",
+      "urls_tried": [
+        "https://www.opendatabay.com/legal/fees"
+      ],
+      "reason": "not_published",
+      "note": "'Determined progressively within that range' is not defined; the interactive calculator shows results but no formula, so marginal-bracket versus interpolated-rate cannot be settled from the text."
+    },
+    {
+      "field": "other.non_gbp_transactions",
+      "urls_tried": [
+        "https://www.opendatabay.com/legal/fees"
+      ],
+      "reason": "not_published",
+      "note": "Bands are in GBP only; no rule for prices set in other currencies."
+    }
+  ]
+}

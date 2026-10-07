@@ -1,0 +1,494 @@
+{
+  "kind": "verify",
+  "slug": "wejo",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "wejo-c001",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://find-and-update.company-information.service.gov.uk/company/08813730",
+        "publisher": "Companies House (UK government)",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "In Administration"
+      },
+      "corrected_statement": null,
+      "note": "Companies House company page for WEJO LIMITED, 08813730, retrieved 2026-10-01. Insolvency tab: administration started 10 July 2023; administrators Andrew Poxon and Hilary Pascoe of Leonard Curtis. Same URL as the profile cites; it is the UK government register, so it is independent of Wejo, but no second route was found."
+    },
+    {
+      "claim_id": "wejo-c002",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://find-and-update.company-information.service.gov.uk/company/08813730/filing-history",
+        "publisher": "Companies House (UK government)",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Administrator's progress report"
+      },
+      "corrected_statement": null,
+      "note": "Filing history lists 17 Aug 2026 AM10 'Administrator's progress report' as the newest row; earlier AM10s every six months plus AM19 extensions filed 04 Jul 2024 and 25 Jun 2025. The quote cannot carry the date; the date is in the same table row. The AM10 PDF itself is a scanned image (no text layer): it reports the period 10 Jan 2026 to 9 Jul 2026 and says the administration was extended to 9 January 2027 by court order of 20 June 2025, and that no distribution to preferential creditors is anticipated - not quotable because the PDF has no text. Same URL as the profile cites; it is the UK government register, so it is independent of Wejo, but no second route was found."
+    },
+    {
+      "claim_id": "wejo-c008",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000140/wejo-20230628.htm",
+        "publisher": "Wejo Group Ltd via SEC EDGAR",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "approximately $10.5 million in principal and interest through December 2023"
+      },
+      "corrected_statement": null,
+      "note": "The claim is about what Wejo's own 8-K says; it cites the same 8-K URL as the profile. The figure checks out (Item 2.04 names GM Holdings as note holder) but nothing outside Wejo corroborates it; no search available to find press. Blind result: the only source reached is the URL the profile cites, so this is not independent corroboration. The quote is kept below as a check."
+    },
+    {
+      "claim_id": "wejo-c015",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1963322/000162828023011417/wejo-20230412.htm",
+        "publisher": "Wejo Holdings Ltd / TKB Critical Technologies 1 via SEC EDGAR",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Revenue, net $ 8,396 $ 2,566"
+      },
+      "corrected_statement": null,
+      "note": "Joint S-4 for the TKB business combination (filed 2023-04-12 by Wejo Holdings Ltd), a different document from the 10-K, shows USD 8,396k vs 2,566k (in thousands), i.e. +227%. The 10-K itself says 'Revenue, net increased to $8.4 million, or 227%, compared to the prior year.' Both are Wejo-authored filings; no third-party press reached (no search available). The profile cites the 8-K Ex 99.1 / 10-K; this S-4 is a different document, but it is still Wejo-authored."
+    },
+    {
+      "claim_id": "wejo-c016",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1963322/000162828023011417/wejo-20230412.htm",
+        "publisher": "Wejo Holdings Ltd / TKB Critical Technologies 1 via SEC EDGAR",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Net loss (159,253) $ (217,778)"
+      },
+      "corrected_statement": null,
+      "note": "S-4 (2023-04-12) selected historical financial data, in thousands: FY2022 net loss USD 159,253k; FY2021 USD 217,778k. Matches the 10-K MD&A ('our net loss of $159.3 million'). The profile cites the 8-K Ex 99.1 / 10-K; this S-4 is a different document, but it is still Wejo-authored."
+    },
+    {
+      "claim_id": "wejo-c019",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1963322/000162828023011417/wejo-20230412.htm",
+        "publisher": "Wejo Holdings Ltd / TKB Critical Technologies 1 via SEC EDGAR",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "its independent registered public accounting firm, have expressed substantial doubt about Wejo's ability"
+      },
+      "corrected_statement": null,
+      "note": "The S-4 restates this from the 10-K. The 10-K's EY audit report says the negative operating cash flows give 'rise to substantial doubt about its ability to continue as a going concern'. The profile cites the 8-K Ex 99.1 / 10-K; this S-4 is a different document, but it is still Wejo-authored."
+    },
+    {
+      "claim_id": "wejo-c060",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1822888/000121390021029979/ea141712ex99-2_virtuosoacq.htm",
+        "publisher": "Virtuoso Acquisition Corp. via SEC EDGAR",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Net Revenue $1.3 $4.3 $23 $118 $325 $764"
+      },
+      "corrected_statement": null,
+      "note": "Investor presentation filed by the SPAC Virtuoso Acquisition Corp as Exhibit 99.2 to its 8-K of 2021-05-28. The table header is '$ mm 2020 A 2021 E 2022 E ...', so 2022E net revenue was USD 23m. Actual FY2022 was USD 8.4m (10-K, S-4): 36.5% of the projection, which is 'roughly a third'. The same deck projected 2021 at USD 4.3m; actual 2021 was USD 2.57m. The projection was Wejo management's ('Source: Wejo management'). The profile cites the same deck as Wejo's own Rule 425 filing; this is the copy the SPAC filed (different filer and URL, same content)."
+    },
+    {
+      "claim_id": "wejo-c049",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444822000079/wejo-20220630.htm",
+        "publisher": "Wejo Group Ltd via SEC EDGAR",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "has recognized a reduction of revenue of $ 1.3 million and $ 2.4 million, respectively"
+      },
+      "corrected_statement": null,
+      "note": "The only source is Wejo's own Q2 2022 10-Q, the URL the profile cites. Figure correct: USD 2.4m over six months. Blind result: the only source reached is the URL the profile cites, so this is not independent corroboration. The quote is kept below as a check."
+    },
+    {
+      "claim_id": "wejo-c047",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444822000079/wejo-20220630.htm",
+        "publisher": "Wejo Group Ltd via SEC EDGAR",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "the Company has determined it acts as the agent in this arrangement and recognizes revenue on a net basis"
+      },
+      "corrected_statement": null,
+      "note": "The only source is Wejo's own Q2 2022 10-Q, the URL the profile cites. Wording correct. Blind result: the only source reached is the URL the profile cites, so this is not independent corroboration. The quote is kept below as a check."
+    },
+    {
+      "claim_id": "wejo-c040",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1864448/000110465921093068/tm2121431d2_ex10-2.htm",
+        "publisher": "General Motors Holdings LLC and Wejo Limited (contract filed via SEC EDGAR)",
+        "source_class": "legal_terms",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Wejo shall pay GM of the gross revenue received by Wejo from Wejo's licensing or other use of the Data"
+      },
+      "corrected_statement": null,
+      "note": "The only source is the contract exhibit, the URL the profile cites; the clause exists only there. GM is the counterparty but the exhibit was filed by Wejo. Text matches s.4(a); the percentage is redacted with no marker. Blind result: the only source reached is the URL the profile cites, so this is not independent corroboration. The quote is kept below as a check."
+    },
+    {
+      "claim_id": "wejo-c039",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1864448/000110465921093068/tm2121431d2_ex10-2.htm",
+        "publisher": "General Motors Holdings LLC and Wejo Limited (contract filed via SEC EDGAR)",
+        "source_class": "legal_terms",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "a non-exclusive, non-transferable, sublicensable (solely to the extent permitted herein), license"
+      },
+      "corrected_statement": null,
+      "note": "The only source is the contract exhibit, the URL the profile cites. Text matches s.3(a); the grant also runs to each Wejo Affiliate. Blind result: the only source reached is the URL the profile cites, so this is not independent corroboration. The quote is kept below as a check."
+    },
+    {
+      "claim_id": "wejo-c052",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1864448/000110465921113474/filename1.htm",
+        "publisher": "Wejo Group Ltd (response letter to SEC staff) via SEC EDGAR",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "OEMs provide the Company this data through license agreements. The Company processes the data in its ADEPT platform"
+      },
+      "corrected_statement": null,
+      "note": "The claim is about what one document says, and the only source is that response letter (7 Sep 2021), the URL the profile cites. Wording correct. Blind result: the only source reached is the URL the profile cites, so this is not independent corroboration. The quote is kept below as a check."
+    },
+    {
+      "claim_id": "wejo-c051",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1864448/000110465921113474/filename1.htm",
+        "publisher": "Wejo Group Ltd (response letter to SEC staff) via SEC EDGAR",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "pay license fees to obtain one or more of these data services that may include a portion or all of the data in their market"
+      },
+      "corrected_statement": null,
+      "note": "The only source is the 7 Sep 2021 response letter, the URL the profile cites. Wording correct. Blind result: the only source reached is the URL the profile cites, so this is not independent corroboration. The quote is kept below as a check."
+    },
+    {
+      "claim_id": "wejo-c043",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1864448/000110465921093068/tm2121431d2_ex10-2.htm",
+        "publisher": "General Motors Holdings LLC and Wejo Limited (contract filed via SEC EDGAR)",
+        "source_class": "legal_terms",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "ensure that anyone accessing or using the Data or Derived Data Insights complies with terms that are at least as restrictive"
+      },
+      "corrected_statement": null,
+      "note": "The only source is the contract exhibit, the URL the profile cites. Text matches s.6(a). Blind result: the only source reached is the URL the profile cites, so this is not independent corroboration. The quote is kept below as a check."
+    },
+    {
+      "claim_id": "wejo-c036",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000068/wejo-20221231.htm",
+        "publisher": "Wejo Group Ltd via SEC EDGAR",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "PII is used with appropriate consent under our stringent privacy standards"
+      },
+      "corrected_statement": null,
+      "note": "The only source is the FY2022 10-K, the URL the profile cites. The S-4 does not repeat the phrase. Searching the 10-K for 'consent' found no other passage naming who obtains it, so the 'without saying' framing holds for the whole document, not only that passage. Blind result: the only source reached is the URL the profile cites, so this is not independent corroboration. The quote is kept below as a check."
+    },
+    {
+      "claim_id": "wejo-c025",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000068/wejo-20221231.htm",
+        "publisher": "Wejo Group Ltd via SEC EDGAR",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Our products rely on live data streams from OEMs on reasonable economic terms and with reasonable permissions"
+      },
+      "corrected_statement": null,
+      "note": "The only source is the FY2022 10-K, the URL the profile cites. Note: the sentence is a risk-factor heading that continues 'if we are unable to maintain sufficient contracts ... at reasonable prices'. Blind result: the only source reached is the URL the profile cites, so this is not independent corroboration. The quote is kept below as a check."
+    },
+    {
+      "claim_id": "wejo-c001",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote is the status field on the Companies House page for 08813730. Profile-level remark: the profile's status is 'shut', but the register says In Administration (not dissolved). The AM10 says the other Wejo entities are non-trading, which supports 'shut' in substance."
+    },
+    {
+      "claim_id": "wejo-c002",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote 'Administrator's progress report' matches several rows (AM10s from Feb 2024 to Aug 2026), so it shows neither the 17 Aug 2026 date nor that this is the newest filing. The row text '17 Aug 2026 AM10 Administrator's progress report' would show it, if the checker reads the row as one string."
+    },
+    {
+      "claim_id": "wejo-c008",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The amount is right, but the quote does not show that the note is GM's. Its 'in the aggregate under' trails off just before 'the Secured Convertible Notes'. Add the words naming the holder: 'Securities Purchase Agreement, dated December 16, 2022, by and between the Company and General Motors Holdings LLC'."
+    },
+    {
+      "claim_id": "wejo-c015",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "8-K Ex 99.1 (Q4/FY2022 results release), FY2022, company-wide; the quote states both USD 8.4m and 227%."
+    },
+    {
+      "claim_id": "wejo-c016",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Same release; the quote states the FY2022 net loss of USD 159.3m."
+    },
+    {
+      "claim_id": "wejo-c019",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote 'have expressed substantial doubt about our ability to continue as a going concern' does not show that the auditor joined in. The words 'We, as well as our independent registered public accounting firm, have expressed substantial doubt' would."
+    },
+    {
+      "claim_id": "wejo-c060",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The composite is arithmetically right (8.4/23 = 36.5%). But the second quote '$1.3 $4.3 $23 $118 $325 $764' has neither the row label nor the year, so on its own it does not show that USD 23m was the 2022 net revenue projection. 'Net Revenue $1.3 $4.3 $23 $118 $325 $764' gives the label; the header '$ mm 2020 A 2021 E 2022 E' is needed for the year. The profile's c059 is the cleaner carrier for the projection."
+    },
+    {
+      "claim_id": "wejo-c049",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The first quote gives '$1.3 million and $2.4 million' without the period, so it does not show that USD 2.4m is the six-month figure. The preceding words 'During the three and six months ended June 30, 2022' are needed. The scope use (economics_model supporting) is fine."
+    },
+    {
+      "claim_id": "wejo-c047",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Both quotes come from the Q2 2022 10-Q revenue note and support the statement. Caution for the matrix: 'agent' here is the ASC 606 principal-versus-agent accounting call, not the matrix's legal sense (selling under the provider's name). The DSA shows Wejo sublicensing in its own name. The profile's 'mixed' value and its note already reflect this."
+    },
+    {
+      "claim_id": "wejo-c040",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "DSA s.4(a); the quote supports the statement and the redaction is described correctly."
+    },
+    {
+      "claim_id": "wejo-c039",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "DSA s.3(a) grant clause; quote matches. Scope: this is GM only; c023 says 29 data partners, and this clause says nothing about the other OEMs' terms."
+    },
+    {
+      "claim_id": "wejo-c052",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote is Wejo's response text in the 7 Sep 2021 letter; the cloud-data-centre part ('running in cloud data centers') follows directly after it."
+    },
+    {
+      "claim_id": "wejo-c051",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The profile's quote ('one or more data services ...', without 'of these') is the SEC staff comment restating the S-4. Wejo's own response in the same letter repeats it as 'one or more of these data services'. Either supports the statement. For matrix.transaction_mode, this claim shows licence fees, not that deals closed through sales; contact_sales rests on the other cited claims."
+    },
+    {
+      "claim_id": "wejo-c043",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "DSA s.6(a); the quote matches and is correctly flagged as nearest evidence for the licence model (GM upstream flow-down, not a customer licence)."
+    },
+    {
+      "claim_id": "wejo-c036",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "FY2022 10-K Item 1; the quote matches. 'asserted_only' would be a stretch, and the profile rightly leaves the matrix field unknown."
+    },
+    {
+      "claim_id": "wejo-c025",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote 'Our products rely on live data streams from original equipment manufacturers' stops before 'on reasonable economic terms', the part the statement depends on. Extend it to '... (“OEMs”) on reasonable economic terms and with reasonable permissions'. Also note that this is a risk-factor heading."
+    }
+  ],
+  "missed": [
+    {
+      "id": "wejo-v001",
+      "statement": "The GM Data Sharing Agreement provides GM's data to Wejo 'as is' with all warranties disclaimed, including accuracy and non-infringement.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "GM connected-vehicle data supplied to Wejo",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2018-12-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/1864448/000110465921093068/tm2121431d2_ex10-2.htm",
+          "publisher": "General Motors Holdings LLC and Wejo Limited (contract filed via SEC EDGAR)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "THE DATA IS PROVIDED ON AN “AS IS” AND “AS AVAILABLE” BASIS, WITH ALL WARRANTIES DISCLAIMED"
+        }
+      ]
+    },
+    {
+      "id": "wejo-v002",
+      "statement": "Wejo's Q2 2022 10-Q recorded USD 2.4 million of revenue share owed to GM alone as a reduction of revenue in the six months to 30 June 2022, the same figure it gave for all OEM revenue sharing and fees.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Wejo Marketplace Data Solutions",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 2.4,
+        "unit": "USD million",
+        "basis": "revenue share owed by Wejo to GM, netted from Wejo's revenue",
+        "period": "six months to 30 June 2022"
+      },
+      "origin": "filing",
+      "as_of": "2022-08-15",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444822000079/wejo-20220630.htm",
+          "publisher": "Wejo Group Ltd via SEC EDGAR",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the Company recorded $ 1.4 million and $ 2.4 million, respectively, as a reduction to revenue, net"
+        },
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444822000079/wejo-20220630.htm",
+          "publisher": "Wejo Group Ltd via SEC EDGAR",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Comprehensive (Loss) Income for revenue sharing amounts owed to GM"
+        }
+      ]
+    },
+    {
+      "id": "wejo-v003",
+      "statement": "On 26 February 2024 the SEC declared Wejo Group Limited's pending registration statement (File 333-268929) abandoned after Wejo failed to respond to a Rule 479 notice.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": "US"
+      },
+      "value": null,
+      "origin": "government",
+      "as_of": "2024-02-26",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/1864448/999999999724000389/filename1.pdf",
+          "publisher": "U.S. Securities and Exchange Commission",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "it is ORDERED that the registration statement be declared abandoned on February 26, 2024"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2769 @@
+{
+ "kind": "profile",
+ "slug": "hugging-face-hub",
+ "name": "Hugging Face Hub (datasets)",
+ "aliases": [
+  "Hugging Face",
+  "Hugging Face, Inc.",
+  "HF Hub"
+ ],
+ "segment": "community_hub",
+ "tier": "light",
+ "status": {
+  "value": "active",
+  "claim_id": "hugging-face-hub-c047"
+ },
+ "names_for": {
+  "catalogue_side": "Datasets (the Hugging Face Hub's dataset repositories; 'gated datasets' for access-controlled ones)",
+  "custom_side": "none found: no bespoke data-collection offer was seen on the pricing page or Hub docs"
+ },
+ "matrix": {
+  "operator_role": {
+   "value": "venue",
+   "claim_ids": [
+    "hugging-face-hub-c014",
+    "hugging-face-hub-c015",
+    "hugging-face-hub-c016",
+    "hugging-face-hub-c063",
+    "hugging-face-hub-c066"
+   ],
+   "note": "Hugging Face hosts; the uploader keeps ownership, sets the licence and grants it; HF takes only a licence to provide the service."
+  },
+  "economics_model": {
+   "value": "free",
+   "claim_ids": [
+    "hugging-face-hub-c014",
+    "hugging-face-hub-c034",
+    "hugging-face-hub-c043",
+    "hugging-face-hub-c045"
+   ],
+   "note": "No per-dataset sale or fee: downloads are free. HF monetises hosting (subscriptions, storage, compute) paid by uploaders and teams, not transactions."
+  },
+  "who_pays_fee": {
+   "value": "not_applicable",
+   "claim_ids": [
+    "hugging-face-hub-c034"
+   ],
+   "note": "No transaction fee exists; storage and plan fees fall on the account that hosts or uses them."
+  },
+  "supply_models": {
+   "value": [
+    "contributor_uploads",
+    "third_party_providers",
+    "own_collection",
+    "public_or_scraped"
+   ],
+   "claim_ids": [
+    "hugging-face-hub-c076",
+    "hugging-face-hub-c066",
+    "hugging-face-hub-c072",
+    "hugging-face-hub-c054",
+    "hugging-face-hub-c077"
+   ],
+   "note": "Open uploads by any account; organisations such as NVIDIA and GenRobot publish their own datasets; HF's own team publishes web-scraped corpora such as FineWeb."
+  },
+  "custody_model": {
+   "value": "platform_hosted",
+   "claim_ids": [
+    "hugging-face-hub-c060",
+    "hugging-face-hub-c057",
+    "hugging-face-hub-c041"
+   ],
+   "note": "Files sit in HF's Xet/Git storage and are served via CDN; users download or clone copies. Some third-party datasets are links-only, but the Hub's model is hosting."
+  },
+  "transaction_mode": {
+   "value": "free_download",
+   "claim_ids": [
+    "hugging-face-hub-c003",
+    "hugging-face-hub-c071",
+    "hugging-face-hub-c060"
+   ],
+   "note": "Free download, optionally behind an author-run access gate; no checkout."
+  },
+  "public_prices": {
+   "value": "not_applicable",
+   "claim_ids": [
+    "hugging-face-hub-c043",
+    "hugging-face-hub-c037"
+   ],
+   "note": "Datasets carry no price; only plans and storage are priced."
+  },
+  "licence_model": {
+   "value": "provider_defined",
+   "claim_ids": [
+    "hugging-face-hub-c063",
+    "hugging-face-hub-c064",
+    "hugging-face-hub-c024",
+    "hugging-face-hub-c066",
+    "hugging-face-hub-c072"
+   ],
+   "note": "Each author picks a licence identifier or a custom 'other' licence; gated datasets can require acceptance of the provider's own agreement."
+  },
+  "exclusivity_offered": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": "No exclusivity mechanism found; the licences seen (open licences, NVIDIA's) are non-exclusive, but off-platform deals cannot be ruled out."
+  },
+  "public_listing": {
+   "value": "public_indexable",
+   "claim_ids": [
+    "hugging-face-hub-c027",
+    "hugging-face-hub-c030",
+    "hugging-face-hub-c047"
+   ],
+   "note": "Public dataset pages and cards are open to anonymous visitors; gated datasets show the card but files require an account and accepted request; private datasets are hidden."
+  },
+  "buyer_vetting": {
+   "value": "case_by_case",
+   "claim_ids": [
+    "hugging-face-hub-c004",
+    "hugging-face-hub-c009",
+    "hugging-face-hub-c003",
+    "hugging-face-hub-c012"
+   ],
+   "note": "HF itself checks nothing beyond an account for gated files; each author chooses no gate, an automatic gate, or manual approval with custom fields."
+  },
+  "sample_mechanics": {
+   "value": "preview_in_browser",
+   "claim_ids": [
+    "hugging-face-hub-c030",
+    "hugging-face-hub-c031",
+    "hugging-face-hub-c032"
+   ],
+   "note": "Data Studio shows rows, column distributions and SQL over the first 5GB of large non-Parquet datasets."
+  },
+  "versioning": {
+   "value": "mixed",
+   "claim_ids": [
+    "hugging-face-hub-c057",
+    "hugging-face-hub-c059",
+    "hugging-face-hub-c039",
+    "hugging-face-hub-c061",
+    "hugging-face-hub-c062"
+   ],
+   "note": "Git commits give pinnable revisions and DOIs can freeze a version, but the default branch is mutable and owners can squash history or delete repos."
+  },
+  "human_subject_consent_docs": {
+   "value": "not_addressed",
+   "claim_ids": [
+    "hugging-face-hub-c073",
+    "hugging-face-hub-c016",
+    "hugging-face-hub-c026"
+   ],
+   "note": "The platform asks for no consent evidence; the card template invites an optional personal-information statement, and the uploader's warranty runs to HF, not to downloaders."
+  },
+  "contributor_pay_model": {
+   "value": "not_applicable",
+   "claim_ids": [
+    "hugging-face-hub-c014",
+    "hugging-face-hub-c015"
+   ],
+   "note": "Nothing is sold, so uploaders are not paid; the licence they grant HF is royalty-free."
+  },
+  "catalogue_plus_custom": {
+   "value": "catalogue_only",
+   "claim_ids": [
+    "hugging-face-hub-c076",
+    "hugging-face-hub-c047"
+   ],
+   "note": "Hosting and discovery of ready-made datasets only; no collect-to-order offer found."
+  },
+  "erasure_after_sale": {
+   "value": "takedown_only",
+   "claim_ids": [
+    "hugging-face-hub-c019",
+    "hugging-face-hub-c029",
+    "hugging-face-hub-c028",
+    "hugging-face-hub-c005"
+   ],
+   "note": "HF can remove or disable content and authors can revoke gated access, but no platform term obliges downloaders to delete copies; some provider licences (e.g. NVIDIA's) do."
+  },
+  "quality_evidence": {
+   "value": "provider_asserted",
+   "claim_ids": [
+    "hugging-face-hub-c022",
+    "hugging-face-hub-c025",
+    "hugging-face-hub-c030"
+   ],
+   "note": "Quality statements are the author's own card text; HF supplies an automatic viewer and statistics but does not verify claims."
+  }
+ },
+ "questions": {
+  "Q1": {
+   "state": "partial",
+   "answer": "Usage is measured in developers and downloads, not purchases: HF-side counts of hosted datasets range from 500k public to over 1M, with 18M+ developers; no data on paying buyers or units exists because access is free.",
+   "claim_ids": [
+    "hugging-face-hub-c047",
+    "hugging-face-hub-c055",
+    "hugging-face-hub-c056",
+    "hugging-face-hub-c053"
+   ]
+  },
+  "Q2": {
+   "state": "partial",
+   "answer": "Providers get free public hosting, a rendered card, an in-browser viewer, library integrations and an audience; HF asks in return that large datasets be useful for community reuse and charges for private and above-quota storage.",
+   "claim_ids": [
+    "hugging-face-hub-c034",
+    "hugging-face-hub-c035",
+    "hugging-face-hub-c036",
+    "hugging-face-hub-c030",
+    "hugging-face-hub-c076",
+    "hugging-face-hub-c045"
+   ]
+  },
+  "Q3": {
+   "state": "sourced",
+   "answer": "Inventory comes from any account holder's uploads, from organisations publishing their own datasets (NVIDIA, GenRobot) and from HF's own scraped corpora; each is listed on the uploader's own warranty of rights and chosen licence.",
+   "claim_ids": [
+    "hugging-face-hub-c076",
+    "hugging-face-hub-c016",
+    "hugging-face-hub-c066",
+    "hugging-face-hub-c072",
+    "hugging-face-hub-c077",
+    "hugging-face-hub-c054"
+   ]
+  },
+  "Q4": {
+   "state": "not_applicable",
+   "answer": "HF commissions no data and sells none, so there is no resale carve-out; no after-the-fact change to uploader terms was found (ToS dated 2022-09-15).",
+   "claim_ids": []
+  },
+  "Q5": {
+   "state": "sourced",
+   "answer": "HF is a venue: uploaders own their content, warrant their rights to HF, choose the licence and indemnify HF, which disclaims all warranties; the licensor of record is the dataset author.",
+   "claim_ids": [
+    "hugging-face-hub-c014",
+    "hugging-face-hub-c015",
+    "hugging-face-hub-c016",
+    "hugging-face-hub-c017",
+    "hugging-face-hub-c018",
+    "hugging-face-hub-c063"
+   ]
+  },
+  "Q6": {
+   "state": "sourced",
+   "answer": "Platform-hosted: datasets are Xet-backed Git repositories on HF storage, served via CDN, and users download, clone or stream copies to their own machines.",
+   "claim_ids": [
+    "hugging-face-hub-c060",
+    "hugging-face-hub-c057",
+    "hugging-face-hub-c041",
+    "hugging-face-hub-c058"
+   ]
+  },
+  "Q7": {
+   "state": "partial",
+   "answer": "The platform requires no consent evidence from capturers, subjects or property owners; the uploader warrants rights, the content policy bars publishing others' private information without permission, and the card template invites an optional personal-data statement. Individual providers add their own terms (NVIDIA data-subject cooperation, FineWeb PII removal form).",
+   "claim_ids": [
+    "hugging-face-hub-c016",
+    "hugging-face-hub-c026",
+    "hugging-face-hub-c073",
+    "hugging-face-hub-c074",
+    "hugging-face-hub-c070",
+    "hugging-face-hub-c078"
+   ]
+  },
+  "Q8": {
+   "state": "sourced",
+   "answer": "Licences are author-defined (open licences or custom text); HF offers gating with custom acceptance fields, EU geo-blocking, access revocation and JSON access reports, but no fingerprinting or audit; downloaded copies are outside its control except where a provider licence demands destruction.",
+   "claim_ids": [
+    "hugging-face-hub-c063",
+    "hugging-face-hub-c064",
+    "hugging-face-hub-c009",
+    "hugging-face-hub-c010",
+    "hugging-face-hub-c011",
+    "hugging-face-hub-c005",
+    "hugging-face-hub-c008",
+    "hugging-face-hub-c069",
+    "hugging-face-hub-c068",
+    "hugging-face-hub-c065"
+   ]
+  },
+  "Q9": {
+   "state": "sourced",
+   "answer": "No deals close on HF: access is a free download, optionally behind an author-run gate with automatic or manual approval; HF earns from subscriptions and storage, not commission.",
+   "claim_ids": [
+    "hugging-face-hub-c003",
+    "hugging-face-hub-c004",
+    "hugging-face-hub-c071",
+    "hugging-face-hub-c034",
+    "hugging-face-hub-c042",
+    "hugging-face-hub-c043",
+    "hugging-face-hub-c021"
+   ]
+  },
+  "Q10": {
+   "state": "partial",
+   "answer": "A dataset is a Git repository with a README card; versions are commits, branches or tags loadable by revision, and DOIs can pin a revision. Entitlements are per-user gate approvals that the author can reset or revoke; owners can squash history.",
+   "claim_ids": [
+    "hugging-face-hub-c022",
+    "hugging-face-hub-c057",
+    "hugging-face-hub-c059",
+    "hugging-face-hub-c061",
+    "hugging-face-hub-c062",
+    "hugging-face-hub-c039",
+    "hugging-face-hub-c002",
+    "hugging-face-hub-c006",
+    "hugging-face-hub-c007"
+   ]
+  },
+  "Q11": {
+   "state": "sourced",
+   "answer": "Before downloading, anyone can read the dataset card and browse rows, distributions and SQL results in Data Studio; gated datasets still show the card. Quality evidence is the author's own card.",
+   "claim_ids": [
+    "hugging-face-hub-c022",
+    "hugging-face-hub-c023",
+    "hugging-face-hub-c030",
+    "hugging-face-hub-c031",
+    "hugging-face-hub-c032",
+    "hugging-face-hub-c027",
+    "hugging-face-hub-c025",
+    "hugging-face-hub-c075"
+   ]
+  },
+  "Q12": {
+   "state": "partial",
+   "answer": "Only the catalogue side exists: 'Datasets' on the Hub. No bespoke collection offer was found on pricing or Hub documentation pages.",
+   "claim_ids": [
+    "hugging-face-hub-c076",
+    "hugging-face-hub-c044"
+   ]
+  }
+ },
+ "sections": {},
+ "buyer_journey": [],
+ "claims": [
+  {
+   "id": "hugging-face-hub-c001",
+   "statement": "On the Hugging Face Hub a dataset author can enable access requests, making it a gated dataset whose files require sharing username and email with the author.",
+   "kind": "offer",
+   "section": "trust",
+   "question_ids": [
+    "Q9",
+    "Q11"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/datasets-gated",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "share their contact information (username and email address) with the datasets authors to access the datasets files"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c002",
+   "statement": "Hugging Face gated-dataset access is granted to individual user accounts, not to whole organisations.",
+   "kind": "terms",
+   "section": "transaction",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/datasets-gated",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Access requests are always granted to individual users rather than to entire organizations."
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c003",
+   "statement": "By default a gated Hugging Face dataset uses automatic approval: any user who shares their information gets access immediately.",
+   "kind": "offer",
+   "section": "vetting",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/datasets-gated",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "By default, access to the dataset is automatically granted to the user when requesting it."
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c004",
+   "statement": "A Hugging Face dataset author can switch the gate to manual approval and accept or reject each pending request.",
+   "kind": "offer",
+   "section": "vetting",
+   "question_ids": [
+    "Q9",
+    "Q5"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/datasets-gated",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "If you want to manually approve which users can access your dataset, you must set it to **manual approval**."
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c005",
+   "statement": "Hugging Face dataset authors can block an approved user's access at any time without prior notice, whatever the approval mode.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8",
+    "Q10"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/datasets-gated",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "they can decide at any time to block your access to the dataset without prior notice"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c006",
+   "statement": "Setting a Hugging Face access request to 'reset' revokes access and forces the user to re-accept the gating terms and request again.",
+   "kind": "architecture",
+   "section": "licence",
+   "question_ids": [
+    "Q8",
+    "Q10"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/datasets-gated",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Setting a request to `reset` revokes the previous decision and asks the user to start over"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c007",
+   "statement": "Hugging Face exposes API endpoints for authors to list, accept, reject, reset and grant gated-dataset access requests programmatically.",
+   "kind": "architecture",
+   "section": "transaction",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/datasets-gated",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "You can automate the approval of access requests by using the API."
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c008",
+   "statement": "A Hugging Face gated-dataset author can download a JSON access report listing each requester's user id, name, status, email and timestamps.",
+   "kind": "offer",
+   "section": "post_sale",
+   "question_ids": [
+    "Q8",
+    "Q10"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/datasets-gated",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Click on it to download a json file with a list of users."
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c009",
+   "statement": "Hugging Face gate forms can collect extra author-defined fields (text, checkbox, date, country, select) declared in the dataset card metadata.",
+   "kind": "offer",
+   "section": "vetting",
+   "question_ids": [
+    "Q9",
+    "Q8"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/datasets-gated",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "add an `extra_gated_fields` property to your [dataset card metadata]"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c010",
+   "statement": "Hugging Face's documented gate example asks for company and country and a checkbox acknowledging non-commercial use only.",
+   "kind": "offer",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/datasets-gated",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "the user is asked to provide their company name and country and acknowledge that the dataset is for non-commercial use only"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c011",
+   "statement": "A gated Hugging Face dataset can be set to refuse access to users in EU countries, identified by IP address, via extra_gated_eu_disallowed.",
+   "kind": "offer",
+   "section": "regulation",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": "European Union"
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/datasets-gated",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "you can add an additional layer of access control to specifically restrict users from European Union countries"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c012",
+   "statement": "To request access to a gated Hugging Face dataset a user must be logged in to a Hugging Face account and request it from the browser.",
+   "kind": "terms",
+   "section": "vetting",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/datasets-gated",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "you must be logged in to a Hugging Face user account"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c013",
+   "statement": "Hugging Face Team and Enterprise subscribers can use Gating Group Collections to grant or reject access to all datasets in a collection at once.",
+   "kind": "offer",
+   "section": "transaction",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "Team & Enterprise",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/datasets-gated",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "can create a Gating Group Collection to grant (or reject) access to all the models and datasets in a collection at once"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c014",
+   "statement": "Under Hugging Face's Terms of Service uploaders keep ownership of their content and Hugging Face says it will not sell it.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q5",
+    "Q3"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2022-09-15",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://huggingface.co/terms-of-service",
+     "publisher": "Hugging Face",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "You own the Content you create! We will not sell your Content"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c015",
+   "statement": "Uploaders grant Hugging Face a worldwide, royalty-free, non-exclusive licence to use and distribute their content only to provide the Services.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q5",
+    "Q3"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2022-09-15",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://huggingface.co/terms-of-service",
+     "publisher": "Hugging Face",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "worldwide, royalty-free and non-exclusive license to use, display, publish, reproduce, distribute"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c016",
+   "statement": "Hugging Face's Terms of Service make the uploader represent and warrant that it has the right to post the content and that it infringes no one's rights.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q5",
+    "Q7"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2022-09-15",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://huggingface.co/terms-of-service",
+     "publisher": "Hugging Face",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "You represent and warrant that you have ownership, control, and responsibility for the Content you post"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c017",
+   "statement": "Hugging Face disclaims all warranties on the Services and Content, which are provided as is, including non-infringement.",
+   "kind": "terms",
+   "section": "trust",
+   "question_ids": [
+    "Q5"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2022-09-15",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://huggingface.co/terms-of-service",
+     "publisher": "Hugging Face",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "The Services and Content are provided \"as is\" and \"as available\""
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c018",
+   "statement": "Users indemnify Hugging Face against claims arising from their use of the Services, including violation of the Terms.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q5"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2022-09-15",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://huggingface.co/terms-of-service",
+     "publisher": "Hugging Face",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "You agree to indemnify, defend and hold harmless us and Related Parties from all claims, liability, and expenses"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c019",
+   "statement": "Hugging Face may remove user content at any time at its sole discretion.",
+   "kind": "terms",
+   "section": "post_sale",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2022-09-15",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://huggingface.co/terms-of-service",
+     "publisher": "Hugging Face",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "We may remove your Content at any time, at our sole discretion, if we have a concern about your Content."
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c020",
+   "statement": "Hugging Face's Terms of Service are governed by New York law.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q5"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2022-09-15",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://huggingface.co/terms-of-service",
+     "publisher": "Hugging Face",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "governed by the Law of the State of New York"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c021",
+   "statement": "Hugging Face paid plans are billed monthly in advance with usage-based overage fees, and fees are non-refundable.",
+   "kind": "terms",
+   "section": "pricing",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2022-09-15",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://huggingface.co/terms-of-service",
+     "publisher": "Hugging Face",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "The plan is billed in advance on a monthly basis"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c022",
+   "statement": "A Hugging Face dataset card is the repository's README.md, which the Hub renders on the dataset's main page.",
+   "kind": "architecture",
+   "section": "listing",
+   "question_ids": [
+    "Q10",
+    "Q11"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/datasets-cards",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "This file is called a **dataset card**, and the Hugging Face Hub will render its contents on the dataset's main page."
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c023",
+   "statement": "Dataset card YAML metadata records licence, language, size and tags used to filter and discover datasets on the Hub.",
+   "kind": "architecture",
+   "section": "discovery",
+   "question_ids": [
+    "Q10",
+    "Q11"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/datasets-cards",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "The metadata describes important information about a dataset such as its license, language, and size."
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c024",
+   "statement": "On Hugging Face the dataset author chooses the licence in card metadata, and a recognised licence keyword is displayed on the dataset page.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/datasets-cards",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "license: \"any valid license identifier\""
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c025",
+   "statement": "Hugging Face recommends, but does not require, that a dataset card describe potential biases in the dataset.",
+   "kind": "offer",
+   "section": "trust",
+   "question_ids": [
+    "Q11",
+    "Q7"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/datasets-cards",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "it's a good idea to include information about any potential biases within the dataset"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c026",
+   "statement": "Hugging Face's Content Policy prohibits content that publishes others' private information without their explicit permission.",
+   "kind": "terms",
+   "section": "regulation",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2025-04-10",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://huggingface.co/content-policy",
+     "publisher": "Hugging Face",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "publishing others' private information, such as a physical or email address, without their explicit permission"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c027",
+   "statement": "Hugging Face's Content Policy defines gated repositories as visible to everyone, with artifact access requiring accepted conditions or maintainer approval.",
+   "kind": "terms",
+   "section": "listing",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2025-04-10",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://huggingface.co/content-policy",
+     "publisher": "Hugging Face",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Gated Repositories and their Community Content are visible to everyone"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c028",
+   "statement": "Hugging Face takes copyright takedown notices at dmca@huggingface.co.",
+   "kind": "terms",
+   "section": "post_sale",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2025-04-10",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://huggingface.co/content-policy",
+     "publisher": "Hugging Face",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "you can submit a Takedown notice to dmca@huggingface.co"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c029",
+   "statement": "Hugging Face's moderation actions include removing or disabling access to content; the policy does not address copies already downloaded.",
+   "kind": "terms",
+   "section": "post_sale",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2025-04-10",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://huggingface.co/content-policy",
+     "publisher": "Hugging Face",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Removing or Disabling access to the Content"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c030",
+   "statement": "Each Hugging Face dataset page includes an in-browser table of the dataset's contents, paged 100 rows at a time.",
+   "kind": "offer",
+   "section": "trust",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/datasets-viewer",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Each dataset page includes a table with the contents of the dataset, arranged by pages of 100 rows."
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c031",
+   "statement": "Hugging Face's dataset viewer lets visitors run SQL queries on a dataset in the browser via a SQL Console.",
+   "kind": "offer",
+   "section": "trust",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/datasets-viewer",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "You can run SQL queries on the dataset in the browser using the SQL Console."
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c032",
+   "statement": "For non-Parquet datasets over 5GB the Hugging Face viewer shows only the first 5GB.",
+   "kind": "number",
+   "section": "trust",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 5,
+    "unit": "GB previewed",
+    "basis": "viewer limit for datasets over 5GB not in Parquet",
+    "period": "per dataset"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/datasets-viewer",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "the Dataset Viewer only shows the first 5GB"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c033",
+   "statement": "For private datasets the Hugging Face viewer is enabled only for PRO users and Team or Enterprise organisations.",
+   "kind": "terms",
+   "section": "pricing",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/datasets-viewer",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "For **private** datasets, the Dataset Viewer is enabled for [PRO users]"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c034",
+   "statement": "Hugging Face offers free storage for public repositories and bills private storage above a free tier.",
+   "kind": "terms",
+   "section": "pricing",
+   "question_ids": [
+    "Q2",
+    "Q9"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/storage-limits",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "We also bill for storage space for **private repositories**, above a free tier"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c035",
+   "statement": "Hugging Face asks that large uploaded datasets be as useful to the community as possible, measured for instance by likes or downloads.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q2"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/storage-limits",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "make sure any uploaded large model or dataset is **as useful to the community as possible**"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c036",
+   "statement": "Hugging Face requires large hosted datasets to be shared to enable community reuse and to carry a dataset card.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q2",
+    "Q3"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/storage-limits",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "You are sharing the dataset to enable community reuse."
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c037",
+   "statement": "Hugging Face charges pay-as-you-go private storage above the included allowance at a base price of $18 per TB per month.",
+   "kind": "number",
+   "section": "pricing",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 18,
+    "unit": "USD per TB",
+    "basis": "paid by the account owner for private storage above the included allowance; base tier, discounts from 50TB",
+    "period": "per month"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/storage-limits",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "at a base price of $18/TB/mo"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c038",
+   "statement": "Hugging Face sells a public storage add-on for paid plans at $12 per TB per month (1-20 TB tiers).",
+   "kind": "number",
+   "section": "pricing",
+   "question_ids": [
+    "Q9",
+    "Q2"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 12,
+    "unit": "USD per TB",
+    "basis": "paid by the uploading account on PRO/Team/Enterprise for public storage above plan base; $10/TB at 50TB",
+    "period": "per month"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/storage-limits",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "$12/TB/month"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c039",
+   "statement": "A Hugging Face repo owner can squash a repository's whole Git history into one commit, permanently losing earlier revisions.",
+   "kind": "architecture",
+   "section": "object_model",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/storage-limits",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "This is a destructive operation that cannot be undone, commit history will be permanently lost"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c040",
+   "statement": "The Hugging Face Hub uses Git to version the data in a dataset repository.",
+   "kind": "architecture",
+   "section": "object_model",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/storage-limits",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Under the hood, the Hub uses Git to version the data"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c041",
+   "statement": "Hugging Face serves repository files to users through CloudFront.",
+   "kind": "architecture",
+   "section": "custody",
+   "question_ids": [
+    "Q6"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/storage-limits",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Files are served to the users using CloudFront."
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c042",
+   "statement": "Hugging Face's PRO personal account is priced at $9 per month.",
+   "kind": "number",
+   "section": "pricing",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 9,
+    "unit": "USD per user",
+    "basis": "paid by the individual account holder; plan price, not a dataset price",
+    "period": "per month"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/pricing",
+     "publisher": "Hugging Face",
+     "source_class": "pricing_page",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "$9 /month"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c043",
+   "statement": "Hugging Face's Team plan is priced at $20 per user per month.",
+   "kind": "number",
+   "section": "pricing",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 20,
+    "unit": "USD per user",
+    "basis": "paid by the organisation per seat; plan price, not a dataset price",
+    "period": "per month"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/pricing",
+     "publisher": "Hugging Face",
+     "source_class": "pricing_page",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "$20 /month per user"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c044",
+   "statement": "Hugging Face's Enterprise plan is listed from $50 per user per month.",
+   "kind": "number",
+   "section": "pricing",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 50,
+    "unit": "USD per user",
+    "basis": "paid by the organisation per seat; plan price, not a dataset price",
+    "period": "per month"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/pricing",
+     "publisher": "Hugging Face",
+     "source_class": "pricing_page",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "$50 /month per user"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c045",
+   "statement": "Hugging Face's pricing page lists Hub storage for public repositories at a base $12 per TB per month.",
+   "kind": "number",
+   "section": "pricing",
+   "question_ids": [
+    "Q9",
+    "Q2"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 12,
+    "unit": "USD per TB",
+    "basis": "paid by the uploading account for public repo storage; base tier, falling to $8/TB at 500TB+",
+    "period": "per month"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/pricing",
+     "publisher": "Hugging Face",
+     "source_class": "pricing_page",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "$12 /TB/mo"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c046",
+   "statement": "Hugging Face's paid plans list the dataset viewer for private datasets as a plan feature.",
+   "kind": "offer",
+   "section": "pricing",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/pricing",
+     "publisher": "Hugging Face",
+     "source_class": "pricing_page",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Dataset Viewer for private datasets"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c047",
+   "statement": "On 2026-10-01 the Hugging Face datasets directory was live and reported 1,069,830 datasets.",
+   "kind": "status",
+   "section": "changes",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/datasets",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "1,069,830"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c048",
+   "statement": "NVIDIA disclosed in an 8-K that on 2 September 2026 it entered into a definitive agreement to acquire Hugging Face, Inc.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "Hugging Face, Inc. (company)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-09-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000078/nvda-20260902.htm",
+     "publisher": "NVIDIA Corporation (SEC Form 8-K)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "On September 2, 2026, NVIDIA Corporation entered into a definitive agreement to acquire Hugging Face, Inc."
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c049",
+   "statement": "NVIDIA's 8-K states an approximately $11.9 billion cash purchase price payable to Hugging Face stockholders.",
+   "kind": "number",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "Hugging Face, Inc. (company)",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 11.9,
+    "unit": "USD billion",
+    "basis": "purchase price payable by NVIDIA to Hugging Face stockholders, excluding up to ~$1.0bn employee retention awards",
+    "period": "one-off"
+   },
+   "origin": "filing",
+   "as_of": "2026-09-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000078/nvda-20260902.htm",
+     "publisher": "NVIDIA Corporation (SEC Form 8-K)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "approximately $11.9 billion purchase price payable to Hugging Face stockholders"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c050",
+   "statement": "As of NVIDIA's 8-K of 3 September 2026 the Hugging Face acquisition was expected to close in the first half of 2027, subject to closing conditions.",
+   "kind": "status",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "Hugging Face, Inc. (company)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-09-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000078/nvda-20260902.htm",
+     "publisher": "NVIDIA Corporation (SEC Form 8-K)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "The transaction is expected to close in the first half of 2027"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c051",
+   "statement": "TechCrunch reported on 3 September 2026 that Nvidia confirmed it has acquired Hugging Face for $12.93 billion.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "Hugging Face, Inc. (company)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "press_relayed",
+   "as_of": "2026-09-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://techcrunch.com/2026/09/03/nvidia-confirms-it-will-buy-hugging-face-for-12-9-billion/",
+     "publisher": "TechCrunch",
+     "source_class": "press_relaying_vendor",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Nvidia confirmed today that it has acquired Hugging Face for $12.93 billion."
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c052",
+   "statement": "Nvidia's CEO said, as reported by TechCrunch, that Hugging Face will remain an open platform after the acquisition.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [
+    "Q2"
+   ],
+   "scope": {
+    "product": "Hugging Face, Inc. (company)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "press_relayed",
+   "as_of": "2026-09-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://techcrunch.com/2026/09/03/nvidia-confirms-it-will-buy-hugging-face-for-12-9-billion/",
+     "publisher": "TechCrunch",
+     "source_class": "press_relaying_vendor",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Hugging Face will remain an open platform for the entire AI ecosystem."
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c053",
+   "statement": "TechCrunch, relaying the deal announcement, said Hugging Face's platform hosts half a million datasets and has over 18 million developers.",
+   "kind": "number",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 500000,
+    "unit": "datasets hosted",
+    "basis": "as relayed by TechCrunch; public/private scope not stated",
+    "period": "point in time"
+   },
+   "origin": "press_relayed",
+   "as_of": "2026-09-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://techcrunch.com/2026/09/03/nvidia-confirms-it-will-buy-hugging-face-for-12-9-billion/",
+     "publisher": "TechCrunch",
+     "source_class": "press_relaying_vendor",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "one million applications used by over 18 million developers, and half a million datasets"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c054",
+   "statement": "Nvidia's CEO said, as reported by TechCrunch, that Nvidia has released more than 250 open datasets on Hugging Face.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 250,
+    "unit": "open datasets",
+    "basis": "released by NVIDIA on Hugging Face, per its CEO as relayed by TechCrunch",
+    "period": "cumulative"
+   },
+   "origin": "press_relayed",
+   "as_of": "2026-09-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://techcrunch.com/2026/09/03/nvidia-confirms-it-will-buy-hugging-face-for-12-9-billion/",
+     "publisher": "TechCrunch",
+     "source_class": "press_relaying_vendor",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "the chip company has released more than 500 models and 250 open datasets on Hugging Face"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c055",
+   "statement": "Hugging Face's Hub documentation says the Hub hosts over 500k public datasets in more than 8k languages.",
+   "kind": "number",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 500000,
+    "unit": "public datasets",
+    "basis": "vendor-stated count of public datasets",
+    "period": "point in time"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/index",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "The Hub is home to over 500k public datasets in more than 8k languages"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c056",
+   "statement": "The same Hugging Face documentation page elsewhere says the Hub hosts 1.5M datasets, all open and publicly available.",
+   "kind": "number",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 1500000,
+    "unit": "datasets",
+    "basis": "vendor-stated; conflicts with the 500k public figure on the same page",
+    "period": "point in time"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/index",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "It hosts over 2M models, 1.5M datasets, and 1.5M AI apps (Spaces), all open and publicly available."
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c057",
+   "statement": "The Hugging Face Hub hosts datasets as Git-based, version-controlled repositories with commit history, diffs and branches.",
+   "kind": "architecture",
+   "section": "object_model",
+   "question_ids": [
+    "Q10",
+    "Q6"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/index",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "The Hub offers **versioning, commit history, diffs, branches, and over a dozen library integrations**!"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c058",
+   "statement": "On Hugging Face organisations and individuals can keep datasets private to comply with licensing or privacy issues.",
+   "kind": "offer",
+   "section": "listing",
+   "question_ids": [
+    "Q6",
+    "Q7"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/index",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "organizations and individuals can create private datasets to comply with licensing or privacy issues"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c059",
+   "statement": "A Hugging Face dataset user can load a specific version by Git tag, branch or commit hash with the revision parameter.",
+   "kind": "architecture",
+   "section": "object_model",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/datasets/loading",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Use the `revision` parameter to specify the dataset version you want to load"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c060",
+   "statement": "All Hugging Face Hub datasets are Xet-backed Git repositories that users can clone to their own machines.",
+   "kind": "architecture",
+   "section": "custody",
+   "question_ids": [
+    "Q6"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/datasets-downloading",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Since all datasets on the Hub are Xet-backed Git repositories, you can clone the datasets locally"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c061",
+   "statement": "Hugging Face can mint a DataCite DOI for a dataset, and a new DOI can be assigned for each new revision.",
+   "kind": "offer",
+   "section": "object_model",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/doi",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "a new DOI is assigned for the current revision of your model or dataset"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c062",
+   "statement": "A Hugging Face dataset with a DOI may only be deleted, renamed or have its visibility changed on request to support.",
+   "kind": "terms",
+   "section": "object_model",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/doi",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "datasets/models with DOIs are intended to persist perpetually"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c063",
+   "statement": "On Hugging Face a dataset's licence is set by its author in the card metadata, chosen from a list of identifiers.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8",
+    "Q5"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/repositories-licenses",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "The license can be specified in your repository's `README.md` file"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c064",
+   "statement": "A Hugging Face author may use a custom licence by setting license: other and adding the licence text in a LICENSE file.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/repositories-licenses",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "In case of `license: other` please add the license's text to a `LICENSE` file inside your repo"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c065",
+   "statement": "Hugging Face tells users to seek out and respect a repository's licence; compliance rests with the user.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8",
+    "Q5"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/repositories-licenses",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Remember to seek out and respect a project's license if you're considering using their code or data."
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c066",
+   "statement": "NVIDIA's PhysicalAI-Autonomous-Vehicles dataset on Hugging Face is gated behind acceptance of NVIDIA's own dataset licence agreement.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8",
+    "Q3"
+   ],
+   "scope": {
+    "product": "nvidia/PhysicalAI-Autonomous-Vehicles",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/datasets/nvidia/PhysicalAI-Autonomous-Vehicles",
+     "publisher": "NVIDIA on Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "You must agree to the NVIDIA Autonomous Vehicle Dataset License Agreement to access this dataset."
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c067",
+   "statement": "NVIDIA's AV dataset licence on Hugging Face is non-exclusive, revocable and non-transferable.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "nvidia/PhysicalAI-Autonomous-Vehicles",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/datasets/nvidia/PhysicalAI-Autonomous-Vehicles",
+     "publisher": "NVIDIA on Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "NVIDIA grants you a non-exclusive, revocable, non-transferable, non-sublicensable license"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c068",
+   "statement": "NVIDIA's AV dataset licence on Hugging Face expires twelve months after initial delivery or download.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "nvidia/PhysicalAI-Autonomous-Vehicles",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/datasets/nvidia/PhysicalAI-Autonomous-Vehicles",
+     "publisher": "NVIDIA on Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "This Agreement expires twelve (12) months after the date of initial delivery or download"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c069",
+   "statement": "NVIDIA's AV dataset licence on Hugging Face requires the user to destroy all copies on termination.",
+   "kind": "terms",
+   "section": "post_sale",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "nvidia/PhysicalAI-Autonomous-Vehicles",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/datasets/nvidia/PhysicalAI-Autonomous-Vehicles",
+     "publisher": "NVIDIA on Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Upon termination, you must stop using and destroy all copies of the Dataset."
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c070",
+   "statement": "NVIDIA's AV dataset licence on Hugging Face requires users to cooperate with NVIDIA to honour data subject rights.",
+   "kind": "terms",
+   "section": "regulation",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "nvidia/PhysicalAI-Autonomous-Vehicles",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/datasets/nvidia/PhysicalAI-Autonomous-Vehicles",
+     "publisher": "NVIDIA on Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "You must cooperate with NVIDIA to honor any data subject rights where applicable."
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c071",
+   "statement": "GenRobot's Gen-HumanEgo egocentric video dataset on Hugging Face uses an automatic-approval gate that asks for intended use.",
+   "kind": "offer",
+   "section": "vetting",
+   "question_ids": [
+    "Q9",
+    "Q3"
+   ],
+   "scope": {
+    "product": "genrobot2025/Gen-HumanEgo",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/datasets/genrobot2025/Gen-HumanEgo",
+     "publisher": "GenRobot on Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Access is automatically granted after you submit the form."
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c072",
+   "statement": "GenRobot's Gen-HumanEgo dataset on Hugging Face (about 1,848 hours of egocentric video) is licensed CC-BY-SA-4.0.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8",
+    "Q3"
+   ],
+   "scope": {
+    "product": "genrobot2025/Gen-HumanEgo",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/datasets/genrobot2025/Gen-HumanEgo",
+     "publisher": "GenRobot on Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "cc-by-sa-4.0"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c073",
+   "statement": "Hugging Face's dataset card template asks the author to state whether the data contains personal or sensitive information and describe any anonymisation.",
+   "kind": "offer",
+   "section": "trust",
+   "question_ids": [
+    "Q7",
+    "Q11"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://raw.githubusercontent.com/huggingface/huggingface_hub/main/src/huggingface_hub/templates/datasetcard_template.md",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "State whether the dataset contains data that might be considered personal, sensitive, or private"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c074",
+   "statement": "Hugging Face's dataset card template has a section for describing the people or systems who originally created the data.",
+   "kind": "offer",
+   "section": "trust",
+   "question_ids": [
+    "Q7",
+    "Q3"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://raw.githubusercontent.com/huggingface/huggingface_hub/main/src/huggingface_hub/templates/datasetcard_template.md",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "This section describes the people or systems who originally created the data."
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c075",
+   "statement": "Reporting a Hugging Face repository opens a public discussion on it.",
+   "kind": "offer",
+   "section": "trust",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/moderation",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Once you do this, a **public discussion** will be opened."
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c076",
+   "statement": "Any Hugging Face account holder can upload datasets to the Hub as well as discover them.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q2"
+   ],
+   "scope": {
+    "product": "Hugging Face Hub datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/docs/hub/index",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "On it, you'll be able to upload and discover"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c077",
+   "statement": "Hugging Face's own FineWeb dataset consists of more than 18.5T tokens of English web data taken from CommonCrawl.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "HuggingFaceFW/fineweb",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/datasets/HuggingFaceFW/fineweb/raw/main/README.md",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "FineWeb dataset consists of more than 18.5T tokens of cleaned and deduplicated english web data from CommonCrawl"
+    }
+   ]
+  },
+  {
+   "id": "hugging-face-hub-c078",
+   "statement": "Hugging Face's FineWeb card offers people who find their own PII in the dataset a form to request its removal.",
+   "kind": "offer",
+   "section": "post_sale",
+   "question_ids": [
+    "Q7",
+    "Q8"
+   ],
+   "scope": {
+    "product": "HuggingFaceFW/fineweb",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/datasets/HuggingFaceFW/fineweb/raw/main/README.md",
+     "publisher": "Hugging Face",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "would like it removed, please fill out our"
+    }
+   ]
+  }
+ ],
+ "unknowns": [
+  {
+   "field": "matrix.exclusivity_offered",
+   "urls_tried": [
+    "https://huggingface.co/terms-of-service",
+    "https://huggingface.co/docs/hub/repositories-licenses",
+    "https://huggingface.co/docs/hub/datasets-gated"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "other.business_insider_sale_report",
+   "urls_tried": [
+    "https://www.businessinsider.com/s?q=hugging%20face"
+   ],
+   "reason": "blocked"
+  },
+  {
+   "field": "other.acquisition_close",
+   "urls_tried": [
+    "https://nvidianews.nvidia.com/news",
+    "https://huggingface.co/blog"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "questions.Q1",
+   "urls_tried": [
+    "https://huggingface.co/datasets",
+    "https://huggingface.co/docs/hub/index"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "questions.Q12",
+   "urls_tried": [
+    "https://huggingface.co/pricing",
+    "https://huggingface.co/docs/hub/index"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "other.gate_form_fields_on_live_listing",
+   "urls_tried": [
+    "https://huggingface.co/datasets/genrobot2025/Gen-HumanEgo"
+   ],
+   "reason": "gated"
+  }
+ ],
+ "conflicts": [
+  {
+   "claim_ids": [
+    "hugging-face-hub-c048",
+    "hugging-face-hub-c050",
+    "hugging-face-hub-c051"
+   ],
+   "rule_applied": "newer_wins_status",
+   "resolution": "Same-day sources: TechCrunch says Nvidia 'has acquired' Hugging Face, while NVIDIA's own 8-K describes a definitive agreement expected to close in H1 2027. The filing's wording is taken; status stays active pending close."
+  },
+  {
+   "claim_ids": [
+    "hugging-face-hub-c055",
+    "hugging-face-hub-c056",
+    "hugging-face-hub-c053",
+    "hugging-face-hub-c047"
+   ],
+   "rule_applied": "unresolved",
+   "resolution": "Dataset counts differ: 500k public (docs and TechCrunch), 1.5M (docs header), 1,069,830 (live directory). Definitions (public vs all) are not stated."
+  }
+ ],
+ "leads": [
+  {
+   "url": "https://www.businessinsider.com/",
+   "why": "Census lead: Business Insider reported on 2026-08-24 that Hugging Face was exploring a sale at $13B+; the site refused automated fetch."
+  },
+  {
+   "url": "https://fortune.com/2026/07/21/openai-says-ai-models-escaped-control-hacked-hugging-face/",
+   "why": "Reported July 2026 security incident on HF servers (from Wikipedia's references); not fetched."
+  },
+  {
+   "url": "https://www.reuters.com/technology/ai-startup-hugging-face-valued-45-bln-latest-round-funding-2023-08-24/",
+   "why": "Independent report of the 2023 $235M round at $4.5B; not fetched."
+  },
+  {
+   "url": "https://huggingface.co/docs/hub/enterprise-gating-group-collections",
+   "why": "Gating Group Collections for Team/Enterprise; org-level access management."
+  },
+  {
+   "url": "https://huggingface.co/docs/hub/storage-buckets",
+   "why": "Mutable, non-versioned storage buckets, a second custody model alongside Git repos."
+  }
+ ]
+}

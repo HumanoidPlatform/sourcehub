@@ -1,0 +1,2475 @@
+{
+  "kind": "profile",
+  "slug": "adobe-stock",
+  "name": "Adobe Stock",
+  "aliases": [
+    "Fotolia"
+  ],
+  "segment": "stock_media",
+  "tier": "light",
+  "status": {
+    "value": "active",
+    "claim_id": "adobe-stock-c001"
+  },
+  "names_for": {
+    "catalogue_side": "Adobe Stock (licensed 'Stock Assets' under Standard, Enhanced and Extended licences)",
+    "custom_side": "none found"
+  },
+  "matrix": {
+    "operator_role": {
+      "value": "reseller_licensor",
+      "claim_ids": [
+        "adobe-stock-c010",
+        "adobe-stock-c023",
+        "adobe-stock-c012"
+      ],
+      "note": "Adobe sublicenses contributors' Work to buyers under its own User Agreement; contributors are not principals behind an agency."
+    },
+    "economics_model": {
+      "value": "revenue_share",
+      "claim_ids": [
+        "adobe-stock-c050",
+        "adobe-stock-c051"
+      ],
+      "note": "Contributors get 33% (images) or 35% (video); Adobe keeps the rest."
+    },
+    "who_pays_fee": {
+      "value": "seller",
+      "claim_ids": [
+        "adobe-stock-c050",
+        "adobe-stock-c052"
+      ],
+      "note": "No buyer-side fee; Adobe's share comes out of the licence price before the contributor royalty."
+    },
+    "supply_models": {
+      "value": [
+        "contributor_uploads"
+      ],
+      "claim_ids": [
+        "adobe-stock-c056",
+        "adobe-stock-c006"
+      ],
+      "note": "Only contributor uploads evidenced; whether Adobe also licenses whole collections from partner agencies was not established."
+    },
+    "custody_model": {
+      "value": "copy_to_buyer",
+      "claim_ids": [
+        "adobe-stock-c039",
+        "adobe-stock-c031"
+      ],
+      "note": "Buyers download files; Adobe advises downloading because re-download may not be available after termination."
+    },
+    "transaction_mode": {
+      "value": "both",
+      "claim_ids": [
+        "adobe-stock-c043",
+        "adobe-stock-c049"
+      ],
+      "note": "Self-serve credit plans for individuals; phone and consultation for teams and enterprise."
+    },
+    "public_prices": {
+      "value": "some",
+      "claim_ids": [
+        "adobe-stock-c043",
+        "adobe-stock-c045",
+        "adobe-stock-c049"
+      ],
+      "note": "Individual plans and credit costs are published; enterprise pricing goes through a consultation."
+    },
+    "licence_model": {
+      "value": "tiered_standard",
+      "claim_ids": [
+        "adobe-stock-c024",
+        "adobe-stock-c026",
+        "adobe-stock-c027"
+      ],
+      "note": "Standard, Enhanced and Extended licences (plus Editorial and Comp)."
+    },
+    "exclusivity_offered": {
+      "value": "no",
+      "claim_ids": [
+        "adobe-stock-c011",
+        "adobe-stock-c024"
+      ],
+      "note": "Adobe's own right to sublicense is non-exclusive, so no exclusive licence can be offered."
+    },
+    "public_listing": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": ""
+    },
+    "buyer_vetting": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": ""
+    },
+    "sample_mechanics": {
+      "value": "free_sample_download",
+      "claim_ids": [
+        "adobe-stock-c031",
+        "adobe-stock-c032"
+      ],
+      "note": "Watermarked 'comp' downloads for 90-day preview use."
+    },
+    "versioning": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Single assets, not versioned datasets; nothing published on revisions."
+    },
+    "human_subject_consent_docs": {
+      "value": "asserted_only",
+      "claim_ids": [
+        "adobe-stock-c014",
+        "adobe-stock-c015",
+        "adobe-stock-c033"
+      ],
+      "note": "Contributor warrants releases and gives them to Adobe on request; buyers get an indemnity (capped) rather than release copies."
+    },
+    "contributor_pay_model": {
+      "value": "royalty_or_revenue_share",
+      "claim_ids": [
+        "adobe-stock-c050",
+        "adobe-stock-c051",
+        "adobe-stock-c002",
+        "adobe-stock-c005"
+      ],
+      "note": "Per-licence royalties plus a discretionary annual Firefly training bonus weighted by assets considered for training and the licences they earned."
+    },
+    "catalogue_plus_custom": {
+      "value": "catalogue_only",
+      "claim_ids": [
+        "adobe-stock-c057"
+      ],
+      "note": "No custom or commissioned service found; the business product page timed out, so this rests on the 10-K description and the pages fetched."
+    },
+    "erasure_after_sale": {
+      "value": "contractual_deletion",
+      "claim_ids": [
+        "adobe-stock-c036",
+        "adobe-stock-c020"
+      ],
+      "note": "Buyers must cease use and possession if Adobe instructs them over a suspected third-party claim; a contributor's own removal does not reach licences already sold."
+    },
+    "quality_evidence": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": ""
+    }
+  },
+  "questions": {
+    "Q1": {
+      "state": "partial",
+      "answer": "Designers and businesses license single assets through credit plans (10 to 750 credits a month) and in-app from Photoshop, Illustrator and Express; video costs more credits than images. Buyer terms forbid using assets to train AI, so it is not a training-data source for buyers; volumes and buyer mix are not published.",
+      "claim_ids": [
+        "adobe-stock-c057",
+        "adobe-stock-c058",
+        "adobe-stock-c045",
+        "adobe-stock-c046",
+        "adobe-stock-c028"
+      ]
+    },
+    "Q2": {
+      "state": "partial",
+      "answer": "Contributors get distribution into Adobe's apps (Stock, Firefly, Express, Creative Cloud) and to API partners and affiliates, with no API of their own; Adobe gives no reason a contributor would list here rather than sell directly.",
+      "claim_ids": [
+        "adobe-stock-c058",
+        "adobe-stock-c061",
+        "adobe-stock-c021",
+        "adobe-stock-c067",
+        "adobe-stock-c066"
+      ]
+    },
+    "Q3": {
+      "state": "sourced",
+      "answer": "Inventory comes from contributor uploads under a non-exclusive, perpetual, royalty-free licence to Adobe that also covers 'developing new features and services'; Adobe trains Firefly on licensed content and pays contributors a discretionary annual training bonus based on assets considered for training and the licences they earned.",
+      "claim_ids": [
+        "adobe-stock-c056",
+        "adobe-stock-c006",
+        "adobe-stock-c007",
+        "adobe-stock-c059",
+        "adobe-stock-c002",
+        "adobe-stock-c003",
+        "adobe-stock-c005"
+      ]
+    },
+    "Q4": {
+      "state": "partial",
+      "answer": "No commissioned work is resold. Contributor terms reach Work uploaded under earlier versions, and contributors accept new pricing simply by not removing their Work; Adobe's training use rests on a general 'new features and services' clause, compensated by a discretionary bonus. Contributor reaction to the training use was not researched (no search).",
+      "claim_ids": [
+        "adobe-stock-c008",
+        "adobe-stock-c009",
+        "adobe-stock-c007",
+        "adobe-stock-c002"
+      ]
+    },
+    "Q5": {
+      "state": "sourced",
+      "answer": "Adobe is licensor of record: it sublicenses under its own User Agreement and is not the contributor's agent. Contributors warrant rights and releases and indemnify buyers; Adobe also indemnifies buyers of paid, non-editorial assets up to US$10,000 per asset.",
+      "claim_ids": [
+        "adobe-stock-c010",
+        "adobe-stock-c023",
+        "adobe-stock-c012",
+        "adobe-stock-c017",
+        "adobe-stock-c033",
+        "adobe-stock-c034",
+        "adobe-stock-c035"
+      ]
+    },
+    "Q6": {
+      "state": "sourced",
+      "answer": "Assets are downloaded by the buyer (web or API); Adobe hosts the files and advises buyers to download licensed assets because re-download may not be available after termination.",
+      "claim_ids": [
+        "adobe-stock-c039",
+        "adobe-stock-c065"
+      ]
+    },
+    "Q7": {
+      "state": "partial",
+      "answer": "Contributors warrant model and property releases and hand them to Adobe on request; editorial work may go without releases. Buyers can filter for released assets but are not shown to receive the releases; Adobe's indemnity covers publicity and privacy claims, and use for identifying people is banned.",
+      "claim_ids": [
+        "adobe-stock-c014",
+        "adobe-stock-c015",
+        "adobe-stock-c016",
+        "adobe-stock-c062",
+        "adobe-stock-c033",
+        "adobe-stock-c029"
+      ]
+    },
+    "Q8": {
+      "state": "sourced",
+      "answer": "Non-exclusive tiered licences (Standard with a 500,000 cap, Enhanced, Extended); no resale of licences and a ban on AI training and face identification. Adobe can order a buyer to cease use and possession of an asset facing a claim, but enforcement against infringers is at Adobe's option; no audit or fingerprinting terms found.",
+      "claim_ids": [
+        "adobe-stock-c024",
+        "adobe-stock-c025",
+        "adobe-stock-c026",
+        "adobe-stock-c027",
+        "adobe-stock-c011",
+        "adobe-stock-c040",
+        "adobe-stock-c028",
+        "adobe-stock-c036",
+        "adobe-stock-c022"
+      ]
+    },
+    "Q9": {
+      "state": "sourced",
+      "answer": "Self-serve credit subscriptions and packs with published prices, plus a consultation route and an enterprise-only API for businesses. Adobe owns the licence relationship and pays contributors a 33% (images) or 35% (video) royalty.",
+      "claim_ids": [
+        "adobe-stock-c043",
+        "adobe-stock-c044",
+        "adobe-stock-c049",
+        "adobe-stock-c064",
+        "adobe-stock-c050",
+        "adobe-stock-c051",
+        "adobe-stock-c018"
+      ]
+    },
+    "Q10": {
+      "state": "partial",
+      "answer": "The unit is a single Stock Asset licensed to a user or business; licences are perpetual and survive a subscription ending or the asset's removal, while Adobe may stop licensing any asset. No dataset or revision object exists.",
+      "claim_ids": [
+        "adobe-stock-c041",
+        "adobe-stock-c038",
+        "adobe-stock-c020",
+        "adobe-stock-c037",
+        "adobe-stock-c019"
+      ]
+    },
+    "Q11": {
+      "state": "partial",
+      "answer": "Buyers can download watermarked comp versions for 90 days of preview use; the API exposes release and AI-generated flags. Adobe disclaims the accuracy of assets and their metadata.",
+      "claim_ids": [
+        "adobe-stock-c031",
+        "adobe-stock-c032",
+        "adobe-stock-c062",
+        "adobe-stock-c063",
+        "adobe-stock-c042"
+      ]
+    },
+    "Q12": {
+      "state": "partial",
+      "answer": "Only a catalogue side was found ('Adobe Stock', licensed 'Stock Assets'); Adobe's annual report describes a library and no custom collection service. The business product page timed out, so a custom offer cannot be ruled out.",
+      "claim_ids": [
+        "adobe-stock-c057"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "adobe-stock-c001",
+      "statement": "Adobe Stock is trading: its pricing page was selling credit subscriptions on 2026-10-01 (page served in Indian rupees).",
+      "kind": "status",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "Adobe Stock",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://stock.adobe.com/plans",
+          "publisher": "Adobe",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "₹2,394.22/mo"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c002",
+      "statement": "In September 2026 Adobe paid Adobe Stock contributors a Firefly Contributor bonus for helping train its Firefly generative AI models, per Adobe's email as quoted on Adobe's community forum on 2026-09-17.",
+      "kind": "event",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3",
+        "Q4"
+      ],
+      "scope": {
+        "product": "Firefly Contributor bonus",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "press_relayed",
+      "as_of": "2026-09-17",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://community.adobe.com/questions-38/fourteen-dollars-came-in-yesterday-but-i-don-t-know-the-source-1642374",
+          "publisher": "Adobe Community (post by a volunteer Community Expert quoting Adobe's email)",
+          "source_class": "press_relaying_vendor",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you are receiving a Firefly Contributor bonus payment, recognizing your continued support with helping train Adobe Firefly"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c003",
+      "statement": "The 2026 Firefly Contributor bonus covered assets considered for training between 3 June 2025 and 2 June 2026, per Adobe's email as relayed on its community forum.",
+      "kind": "event",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Firefly Contributor bonus",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "press_relayed",
+      "as_of": "2026-09-17",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://community.adobe.com/questions-38/fourteen-dollars-came-in-yesterday-but-i-don-t-know-the-source-1642374",
+          "publisher": "Adobe Community (post by a volunteer Community Expert quoting Adobe's email)",
+          "source_class": "press_relaying_vendor",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "considered for training between June 3, 2025, and June 2, 2026"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c004",
+      "statement": "The 2026 Firefly Contributor bonus counted photos, videos, vectors, illustrations and generative-AI content considered for training, per Adobe's email as relayed on its community forum.",
+      "kind": "event",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Firefly Contributor bonus",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "press_relayed",
+      "as_of": "2026-09-17",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://community.adobe.com/questions-38/fourteen-dollars-came-in-yesterday-but-i-don-t-know-the-source-1642374",
+          "publisher": "Adobe Community (post by a volunteer Community Expert quoting Adobe's email)",
+          "source_class": "press_relaying_vendor",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The 2026 bonus is based on photos, videos, vectors, illustrations, and Generative AI content"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c005",
+      "statement": "The 2026 Firefly Contributor bonus was also based on the number of licences the assets considered for training earned in the same 12-month period, per Adobe's email as relayed on its community forum.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Firefly Contributor bonus",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "press_relayed",
+      "as_of": "2026-09-17",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://community.adobe.com/questions-38/fourteen-dollars-came-in-yesterday-but-i-don-t-know-the-source-1642374",
+          "publisher": "Adobe Community (post by a volunteer Community Expert quoting Adobe's email)",
+          "source_class": "press_relaying_vendor",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "and the number of licenses that those assets generated in the same 12-month period"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c006",
+      "statement": "Adobe Stock contributors grant Adobe a non-exclusive, worldwide, perpetual, fully-paid and royalty-free licence to their Work.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "You grant us a non-exclusive, worldwide, perpetual, fully-paid, and royalty-free license to use, reproduce"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c007",
+      "statement": "The contributor licence lets Adobe use contributed Work for 'developing new features and services', besides licensing it to users; the agreement does not name AI training.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q4"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "licensing the Work to users; developing new features and services; archiving the Work"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c008",
+      "statement": "The February 2024 contributor terms apply to Work uploaded under any prior version of the terms, not only to new uploads.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "upload to a Website under these Additional Terms or any other prior version thereof"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c009",
+      "statement": "Contributors accept revised pricing and payment terms simply by continuing to upload or by not removing their Work.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "By continuing to submit or upload Works or by not removing Works, you are agreeing to any new Pricing and Payment Details"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c010",
+      "statement": "Adobe sublicenses contributed Work to buyers under its own User Agreement between Adobe and the user.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "We may sublicense Works pursuant to a written or electronic agreement between us and a user"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c011",
+      "statement": "Adobe's right to sublicense contributed Work to users is non-exclusive, so it cannot grant a buyer exclusive rights.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "on a non-exclusive, worldwide, and perpetual basis in any media or embodiment"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c012",
+      "statement": "The contributor agreement states Adobe and the contributor are independent contractors and not principal and agent.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "we are not joint venturers, partners, principal and agent, or employer and employee"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c013",
+      "statement": "Contributors resident outside the United States contract with Adobe Canada Services Corporation; US residents with Adobe Inc.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "If you reside outside of the United States, your relationship is with Adobe Canada Services Corporation"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c014",
+      "statement": "Contributors warrant that they hold model and property releases substantially similar to Adobe's standard releases for each person or property depicted.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "obtained all necessary and valid releases or agreements substantially similar to our standard model and property releases"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c015",
+      "statement": "Contributors must give Adobe copies of releases on Adobe's request; the agreement says nothing about giving releases to buyers.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "you will promptly provide copies of such releases or agreements to us upon our request"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c016",
+      "statement": "Adobe may accept 'editorial use only' Work without a model or property release, at its sole discretion.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "we may accept it without a model or property release, at our sole discretion"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c017",
+      "statement": "Contributors indemnify Adobe and its licensees, expressly including users (buyers), against claims arising from the Work they submit.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "partners, licensees, and licensors (including users) from any claim, demand, loss, or damages"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c018",
+      "statement": "Adobe pays contributors on sales of licences to their Work, less cancellations, returns and refunds, as set out on a separate pricing and payment page.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "for any sales of licenses to Work, less any cancellations, returns, and refunds"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c019",
+      "statement": "A contributor may remove Work at any time, but removing more than 100 items or 10% of its Work (whichever is greater) within 90 days needs 90 days' notice.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "you do not remove more than 100 items of Work or 10% of the Work, whichever is greater, in any 90-day period"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c020",
+      "statement": "Licences already granted to users before a contributor removes a Work, or ends the agreement, survive the removal.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Any licenses to a Work granted to our users or to us prior to the removal of that Work from the Website"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c021",
+      "statement": "Adobe runs an API programme through which partners showcase contributors' Work and facilitate its sale.",
+      "kind": "offer",
+      "section": "discovery",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "program that allows our partners to showcase and to facilitate sales of the Work"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c022",
+      "statement": "Adobe may enforce a contributor's rights against infringers but has no obligation to do so.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "You grant us the right to enforce your IP Rights against infringers, but we have no obligation to do so."
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c023",
+      "statement": "Under the Adobe Stock buyer terms, Adobe and its licensors retain title to Stock Assets and grant the buyer a licence.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Adobe Stock",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-08-08",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.adobe.com/cc-shared/assets/pdf/legal/servicetou/stock-product-specific-terms-en-us-20250808.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "we and our licensors retain all rights, title, and interest in and to the Stock Assets"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c024",
+      "statement": "The Adobe Stock Standard License is non-exclusive, perpetual, worldwide, non-transferable and non-sublicensable.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Adobe Stock",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-08-08",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.adobe.com/cc-shared/assets/pdf/legal/servicetou/stock-product-specific-terms-en-us-20250808.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "we grant you a non-exclusive, perpetual, worldwide, non-transferable and non-sublicensable"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c025",
+      "statement": "The Standard License caps a Work at 500,000 printed copies or an expected audience of 500,000 viewers, with no cap for web and social display.",
+      "kind": "number",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Adobe Stock",
+        "tier": "Standard License",
+        "region": ""
+      },
+      "value": {
+        "num": 500000,
+        "unit": "printed copies or viewers per Work",
+        "basis": "Standard License reproduction cap for the buyer; web, social and app display exempt from the audience cap",
+        "period": "aggregate over the licence"
+      },
+      "origin": "legal_text",
+      "as_of": "2025-08-08",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.adobe.com/cc-shared/assets/pdf/legal/servicetou/stock-product-specific-terms-en-us-20250808.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "cause or allow a Work to appear on more than 500,000 printed materials"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c026",
+      "statement": "The Enhanced License gives Standard License rights without the 500,000 reproduction and viewer cap.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Adobe Stock",
+        "tier": "Enhanced License",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-08-08",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.adobe.com/cc-shared/assets/pdf/legal/servicetou/stock-product-specific-terms-en-us-20250808.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "except without the limitation on the number of reproductions or viewers"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c027",
+      "statement": "The Extended License adds the right to use a Work in merchandise and template files for sale or distribution.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Adobe Stock",
+        "tier": "Extended License",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-08-08",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.adobe.com/cc-shared/assets/pdf/legal/servicetou/stock-product-specific-terms-en-us-20250808.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "for incorporation into merchandise and template files intended for sale or distribution"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c028",
+      "statement": "Adobe Stock buyers may not use Stock Assets, or data derived from the service, to create, train, test or improve machine-learning or AI systems.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q1",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Adobe Stock",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-08-08",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.adobe.com/cc-shared/assets/pdf/legal/servicetou/stock-product-specific-terms-en-us-20250808.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "to directly or indirectly create, train, test, or otherwise improve any machine learning algorithms"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c029",
+      "statement": "Adobe Stock buyers may not use Stock Assets with technologies designed to identify natural persons.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Adobe Stock",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-08-08",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.adobe.com/cc-shared/assets/pdf/legal/servicetou/stock-product-specific-terms-en-us-20250808.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "with technologies designed or intended for the identification of natural persons"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c030",
+      "statement": "Access through the Adobe Stock API is subject to the same machine-learning ban.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Adobe Stock API",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-08-08",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.adobe.com/cc-shared/assets/pdf/legal/servicetou/stock-product-specific-terms-en-us-20250808.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "You will not use your access to Adobe Stock API in violation of restrictions against use for machine learning"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c031",
+      "statement": "Before licensing, a buyer may download a watermarked 'comp' version of a Work for preview use.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Adobe Stock",
+        "tier": "Comp License",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-08-08",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.adobe.com/cc-shared/assets/pdf/legal/servicetou/stock-product-specific-terms-en-us-20250808.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "A Comp License version of a Stock Asset is downloaded as either a watermarked Work"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c032",
+      "statement": "A comp version may be used for up to 90 days, only to preview how the asset would look in production.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Adobe Stock",
+        "tier": "Comp License",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-08-08",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.adobe.com/cc-shared/assets/pdf/legal/servicetou/stock-product-specific-terms-en-us-20250808.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "For up to 90 days from the date of download of a Stock Asset"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c033",
+      "statement": "Adobe defends buyers against third-party claims that use of a paid-for Stock Asset infringes copyright, trademark, publicity or privacy rights.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Adobe Stock",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-08-08",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.adobe.com/cc-shared/assets/pdf/legal/servicetou/stock-product-specific-terms-en-us-20250808.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "directly infringes the third party’s copyright, trademark, publicity rights, or privacy rights"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c034",
+      "statement": "Adobe's aggregate liability for any indemnified Stock Asset is capped at US$10,000 per asset.",
+      "kind": "number",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Adobe Stock",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 10000,
+        "unit": "USD per asset",
+        "basis": "cap on Adobe's indemnity liability to the buyer for a licensed and paid-for Stock Asset; editorial works excluded",
+        "period": "aggregate"
+      },
+      "origin": "legal_text",
+      "as_of": "2025-08-08",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.adobe.com/cc-shared/assets/pdf/legal/servicetou/stock-product-specific-terms-en-us-20250808.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "will in no event exceed US$10,000 per each asset"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c035",
+      "statement": "Editorial Works and unpaid free assets are excluded from Adobe's buyer indemnity.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Adobe Stock",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-08-08",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.adobe.com/cc-shared/assets/pdf/legal/servicetou/stock-product-specific-terms-en-us-20250808.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "means a Stock Asset (excluding Editorial Works) that you have licensed and paid for"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c036",
+      "statement": "If Adobe reasonably believes a Stock Asset may face a third-party claim, it may instruct the buyer to cease all use and possession of it.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Adobe Stock",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-08-08",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.adobe.com/cc-shared/assets/pdf/legal/servicetou/stock-product-specific-terms-en-us-20250808.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Adobe may instruct you to cease all use, reproduction, modification, display, performance, distribution, and possession"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c037",
+      "statement": "Adobe may at any time discontinue licensing any Stock Asset or deny its download.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Adobe Stock",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-08-08",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.adobe.com/cc-shared/assets/pdf/legal/servicetou/stock-product-specific-terms-en-us-20250808.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "We may, at any time (1) discontinue the licensing of any Stock Asset"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c038",
+      "statement": "When a subscription ends, perpetual licences already granted survive and the buyer may keep using those assets (unmetered and unlimited plans aside).",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Adobe Stock",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-08-08",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.adobe.com/cc-shared/assets/pdf/legal/servicetou/stock-product-specific-terms-en-us-20250808.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "any perpetual licenses granted as to Stock Assets will survive and you may continue to use those licensed Stock Assets"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c039",
+      "statement": "Buyers are told to download licensed assets because they may not be available for re-download after termination.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q6",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Adobe Stock",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-08-08",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.adobe.com/cc-shared/assets/pdf/legal/servicetou/stock-product-specific-terms-en-us-20250808.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "as such Stock Assets and Output may not be available after termination"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c040",
+      "statement": "Adobe Stock buyers must not resell licences to Stock Assets.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Adobe Stock",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-08-08",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.adobe.com/cc-shared/assets/pdf/legal/servicetou/stock-product-specific-terms-en-us-20250808.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "You must not (a) resell licenses to Stock Assets"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c041",
+      "statement": "A licence taken by a Business User is granted to the business, not to the individual user.",
+      "kind": "terms",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Adobe Stock",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-08-08",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.adobe.com/cc-shared/assets/pdf/legal/servicetou/stock-product-specific-terms-en-us-20250808.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Any license or other Entitlement granted by Adobe to a Business User is granted to the Business."
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c042",
+      "statement": "Adobe disclaims responsibility for the accuracy of Stock Assets and of their descriptions, captions, metadata and keywords.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Adobe Stock",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-08-08",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.adobe.com/cc-shared/assets/pdf/legal/servicetou/stock-product-specific-terms-en-us-20250808.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "the accuracy of any Stock Asset, including any related descriptions, categories, captions, titles, metadata"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c043",
+      "statement": "The Adobe Stock plan of 10 credits a month without AI Studio was priced at ₹2,394.22 a month on the Indian pricing page.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Adobe Stock",
+        "tier": "10 Stock credits/mo",
+        "region": "India"
+      },
+      "value": {
+        "num": 2394.22,
+        "unit": "INR per month",
+        "basis": "buyer pays; 10 credits a month, annual commitment; price as displayed to an Indian visitor, tax treatment not stated",
+        "period": "per month"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://stock.adobe.com/plans",
+          "publisher": "Adobe",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "₹2,394.22/mo"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c044",
+      "statement": "The Adobe Stock plan of 10 credits a month with AI Studio was priced at ₹3,193.08 a month on the Indian pricing page.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Adobe Stock",
+        "tier": "10 Stock credits/mo with AI Studio",
+        "region": "India"
+      },
+      "value": {
+        "num": 3193.08,
+        "unit": "INR per month",
+        "basis": "buyer pays; 10 credits a month plus AI Studio; price as displayed to an Indian visitor, tax treatment not stated",
+        "period": "per month"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://stock.adobe.com/plans",
+          "publisher": "Adobe",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "₹3,193.08/mo"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c045",
+      "statement": "The Adobe Stock plan of 750 credits a month with AI Studio was priced at ₹15,965.40 a month on the Indian pricing page.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q1",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Adobe Stock",
+        "tier": "750 Stock credits/mo with AI Studio",
+        "region": "India"
+      },
+      "value": {
+        "num": 15965.4,
+        "unit": "INR per month",
+        "basis": "buyer pays; 750 credits a month; price as displayed to an Indian visitor, tax treatment not stated",
+        "period": "per month"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://stock.adobe.com/plans",
+          "publisher": "Adobe",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "₹15,965.40/mo"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c046",
+      "statement": "On a 10-credit plan a video costs 8 credits and is limited to one a month.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q1",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Adobe Stock",
+        "tier": "10 Stock credits/mo",
+        "region": "India"
+      },
+      "value": {
+        "num": 8,
+        "unit": "credits per video",
+        "basis": "credits the buyer spends per standard video on the 10-credit plan",
+        "period": "per asset"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://stock.adobe.com/plans",
+          "publisher": "Adobe",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "8 credits each"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c047",
+      "statement": "Premium images cost 12 to 50 credits each.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Adobe Stock",
+        "tier": "Premium images",
+        "region": "India"
+      },
+      "value": {
+        "num": 12,
+        "unit": "credits per premium image (lower bound of 12-50 range)",
+        "basis": "credits the buyer spends per premium image; range 12 to 50",
+        "period": "per asset"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://stock.adobe.com/plans",
+          "publisher": "Adobe",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "12 - 50credits each"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c048",
+      "statement": "Adobe Stock's pricing page says most assets come with a standard licence.",
+      "kind": "offer",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Adobe Stock",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://stock.adobe.com/plans",
+          "publisher": "Adobe",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Most assets come with a standard license."
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c049",
+      "statement": "For team and enterprise plans the pricing page offers a phone number and a consultation request alongside self-serve plans.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Adobe Stock",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://stock.adobe.com/plans",
+          "publisher": "Adobe",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Contact us at 1800 102 5567 or request a consultation"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c050",
+      "statement": "Adobe Stock pays contributors 33% royalties on photos, vectors and illustrations.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "Images",
+        "region": ""
+      },
+      "value": {
+        "num": 33,
+        "unit": "percent",
+        "basis": "contributor's share of the licence price; earnings per download based on US-customer pricing",
+        "period": "per licence"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://contributor.stock.adobe.com/royalties",
+          "publisher": "Adobe",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "33% royalties"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c051",
+      "statement": "Adobe Stock pays contributors 35% royalties on video.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "Video",
+        "region": ""
+      },
+      "value": {
+        "num": 35,
+        "unit": "percent",
+        "basis": "contributor's share of the licence price; earnings per download based on US-customer pricing",
+        "period": "per licence"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://contributor.stock.adobe.com/royalties",
+          "publisher": "Adobe",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "35% royalties"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c052",
+      "statement": "Adobe Stock contributor earnings per download are based on pricing for US customers.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://contributor.stock.adobe.com/royalties",
+          "publisher": "Adobe",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Earnings per download are based on pricing for US customers."
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c053",
+      "statement": "A contributor earns US$26.40 per on-demand Extended License image download ($21.12 via subscription).",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "Extended license",
+        "region": ""
+      },
+      "value": {
+        "num": 26.4,
+        "unit": "USD per download",
+        "basis": "contributor earning per on-demand Extended License image; $21.12 when licensed via subscription",
+        "period": "per licence"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://contributor.stock.adobe.com/royalties",
+          "publisher": "Adobe",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "$26.40 / $21.12"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c054",
+      "statement": "A contributor earns US$1.65 per image downloaded on a monthly 10-credit plan and $0.99 on an annual one.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "10 credits per month",
+        "region": ""
+      },
+      "value": {
+        "num": 1.65,
+        "unit": "USD per download",
+        "basis": "contributor earning per image from a monthly 10-credit subscriber; $0.99 from an annual subscriber",
+        "period": "per licence"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://contributor.stock.adobe.com/royalties",
+          "publisher": "Adobe",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "$1.65 / $0.99"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c055",
+      "statement": "Adobe tells contributors they enter a non-exclusive partnership that lets Adobe promote and license their content.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://contributor.stock.adobe.com/",
+          "publisher": "Adobe",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you enter a non-exclusive partnership that allows us to promote and license your content"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c056",
+      "statement": "Adobe Stock accepts contributor uploads of photos, illustrations, videos, vectors and generative-AI content.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://contributor.stock.adobe.com/",
+          "publisher": "Adobe",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We accept many types of content such as photos, illustrations, videos, vectors, Gen AI and more."
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c057",
+      "statement": "Adobe's fiscal 2025 annual report describes Adobe Stock as giving designers and businesses access to millions of curated, royalty-free assets; it describes no custom or commissioned content service.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q1",
+        "Q12"
+      ],
+      "scope": {
+        "product": "Adobe Stock",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "filing",
+      "as_of": "2026-01-15",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/796343/000079634326000003/adbe-20251128.htm",
+          "publisher": "Adobe Inc. (Form 10-K, fiscal 2025, SEC EDGAR)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Adobe Stock provides designers and businesses with access to millions of high-quality, curated, royalty-free photos"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c058",
+      "statement": "Adobe Stock is built into Adobe's apps, including Photoshop, Illustrator and Adobe Express, where users search and add assets.",
+      "kind": "offer",
+      "section": "discovery",
+      "question_ids": [
+        "Q1",
+        "Q2"
+      ],
+      "scope": {
+        "product": "Adobe Stock",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "filing",
+      "as_of": "2026-01-15",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/796343/000079634326000003/adbe-20251128.htm",
+          "publisher": "Adobe Inc. (Form 10-K, fiscal 2025, SEC EDGAR)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Adobe Stock is built into our apps, including Adobe Photoshop, Adobe Illustrator and Adobe Express"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c059",
+      "statement": "Adobe says in its fiscal 2025 annual report that it trains its Firefly generative AI models on licensed content and public-domain assets.",
+      "kind": "terms",
+      "section": "demand",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Adobe Stock",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "filing",
+      "as_of": "2026-01-15",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/796343/000079634326000003/adbe-20251128.htm",
+          "publisher": "Adobe Inc. (Form 10-K, fiscal 2025, SEC EDGAR)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "sourced from licensed content and public domain assets to train our Firefly generative AI models"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c060",
+      "statement": "Adobe's annual report says Firefly models are trained on data Adobe has the rights to use.",
+      "kind": "terms",
+      "section": "demand",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Adobe Stock",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "filing",
+      "as_of": "2026-01-15",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/796343/000079634326000003/adbe-20251128.htm",
+          "publisher": "Adobe Inc. (Form 10-K, fiscal 2025, SEC EDGAR)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "They are trained on data Adobe has the rights to use."
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c061",
+      "statement": "Adobe tells contributors their submissions fuel Adobe Stock, Firefly, Express and Creative Cloud.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q2",
+        "Q3"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://contributor.stock.adobe.com/",
+          "publisher": "Adobe",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Your submissions fuel Adobe Stock, Firefly, Express, and Creative Cloud"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c062",
+      "statement": "The Adobe Stock Search API lets a buyer filter for assets that have model or property releases.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q7",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Adobe Stock API",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://developer.adobe.com/stock/docs/api/11-search-reference/",
+          "publisher": "Adobe (Adobe Developer documentation)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Return found assets only if the asset has model or property releases."
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c063",
+      "statement": "The Adobe Stock Search API flags AI-generated ('gentech') assets and can filter them in or out.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Adobe Stock API",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://developer.adobe.com/stock/docs/api/11-search-reference/",
+          "publisher": "Adobe (Adobe Developer documentation)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Filter AI generated (gentech) and non-gentech assets."
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c064",
+      "statement": "Since November 2024 the Adobe Stock API is available only to Stock for Enterprise customers (and affiliates for search).",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Adobe Stock API",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://developer.adobe.com/stock/docs/getting-started/",
+          "publisher": "Adobe (Adobe Developer documentation)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Beginning in November, 2024, the Stock API will only be available to Stock for Enterprise customers."
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c065",
+      "statement": "With an authentication token the API can check a user's purchase status, license an asset and download the original.",
+      "kind": "architecture",
+      "section": "transaction",
+      "question_ids": [
+        "Q6",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Adobe Stock API",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://developer.adobe.com/stock/docs/getting-started/",
+          "publisher": "Adobe (Adobe Developer documentation)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "obtain a license for the user for a specific asset, and download the original asset"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c066",
+      "statement": "There is no API for Adobe Stock contributors.",
+      "kind": "architecture",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Adobe Stock API",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://developer.adobe.com/stock/docs/getting-started/",
+          "publisher": "Adobe (Adobe Developer documentation)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "there is no API for Stock Contributors"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c067",
+      "statement": "Adobe Stock affiliates earn a US$72 commission when a referred user subscribes to a plan of at least 10 images a month.",
+      "kind": "number",
+      "section": "discovery",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "Adobe Stock API",
+        "tier": "Affiliate programme",
+        "region": ""
+      },
+      "value": {
+        "num": 72,
+        "unit": "USD per referred subscription",
+        "basis": "Adobe pays the affiliate a referral commission when the referred user subscribes to a plan of 10+ images a month",
+        "period": "one-off"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://developer.adobe.com/stock/docs/faq/stock-api-business-faq",
+          "publisher": "Adobe (Adobe Developer documentation)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "$72 when referred user subscribe to a plan with minimum 10 images a month"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c068",
+      "statement": "Adobe's API FAQ says downloading Stock assets for machine-learning purposes is not permitted by the governing terms.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Adobe Stock API",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://developer.adobe.com/stock/docs/faq/stock-api-business-faq",
+          "publisher": "Adobe (Adobe Developer documentation)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "download of Stock assets for machine learning purposes, which is not permitted by the governing terms of use"
+        }
+      ]
+    },
+    {
+      "id": "adobe-stock-c069",
+      "statement": "On 3 September 2026 Adobe announced that Anil Chakravarthy will become its president and CEO on 1 December 2026, with Shantanu Narayen becoming executive chair.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "Adobe Inc.",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-03",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://news.adobe.com/news/2026/09/adobe-announces-anil-chakravarthy-to-become-president-and-ceo",
+          "publisher": "Adobe (newsroom)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "will become Adobe's next president and chief executive officer and join the Board of Directors effective December 1, 2026"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "matrix.public_listing",
+      "urls_tried": [
+        "https://stock.adobe.com/",
+        "https://stock.adobe.com/in/",
+        "https://stock.adobe.com/search?k=street%20market%20india",
+        "https://stock.adobe.com/images/id/123456789"
+      ],
+      "reason": "blocked",
+      "note": "stock.adobe.com returned HTTP 403 to WebFetch for the homepage, search and asset pages (only /plans and /license-terms loaded), so no real listing could be opened to see what an anonymous buyer sees."
+    },
+    {
+      "field": "matrix.buyer_vetting",
+      "urls_tried": [
+        "https://www.adobe.com/cc-shared/assets/pdf/legal/servicetou/stock-product-specific-terms-en-us-20250808.pdf",
+        "https://stock.adobe.com/plans",
+        "https://developer.adobe.com/stock/docs/getting-started/"
+      ],
+      "reason": "not_published",
+      "note": "Terms describe subscription accounts and restrict API access to enterprise customers, but no page says what Adobe checks about a buyer before a self-serve licence."
+    },
+    {
+      "field": "matrix.versioning",
+      "urls_tried": [
+        "https://www.adobe.com/cc-shared/assets/pdf/legal/servicetou/stock-product-specific-terms-en-us-20250808.pdf",
+        "https://developer.adobe.com/stock/docs/api/11-search-reference/"
+      ],
+      "reason": "not_published",
+      "note": "Items are single assets; nothing published on replacing or revising an asset after sale."
+    },
+    {
+      "field": "matrix.quality_evidence",
+      "urls_tried": [
+        "https://contributor.stock.adobe.com/",
+        "https://helpx.adobe.com/stock/contributor/help/submission-guidelines.html",
+        "https://helpx.adobe.com/stock/contributor/user-guide.html"
+      ],
+      "reason": "blocked",
+      "note": "Adobe calls the collection 'curated' in its 10-K and disclaims accuracy of metadata, but the submission-review guidelines on helpx.adobe.com returned 403, so operator review of submissions is not evidenced."
+    },
+    {
+      "field": "other.custom_side",
+      "urls_tried": [
+        "https://business.adobe.com/products/stock/adobe-stock.html"
+      ],
+      "reason": "blocked",
+      "note": "The Adobe Stock business page timed out three times; whether Adobe offers custom shoots or collections to enterprise buyers is unconfirmed."
+    },
+    {
+      "field": "other.traction",
+      "urls_tried": [
+        "https://www.sec.gov/Archives/edgar/data/796343/000079634326000003/adbe-20251128.htm",
+        "https://contributor.stock.adobe.com/"
+      ],
+      "reason": "not_published",
+      "note": "The 10-K gives no Adobe Stock revenue, asset count beyond 'millions', contributor count or bonus total."
+    },
+    {
+      "field": "other.video_purchase_for_training",
+      "urls_tried": [],
+      "reason": "not_found",
+      "note": "Reports that Adobe bought video from contributors per minute for Firefly training (2024) could not be looked for without web search."
+    },
+    {
+      "field": "other.firefly_bonus_official_terms",
+      "urls_tried": [
+        "https://helpx.adobe.com/stock/contributor/help/firefly-faq-for-adobe-stock-contributors.html",
+        "https://helpx.adobe.com/stock/contributor/help/royalty-details.html"
+      ],
+      "reason": "blocked",
+      "note": "helpx.adobe.com returned HTTP 403 to WebFetch; the official Firefly contributor FAQ (bonus formula, payout minimum) could not be read."
+    },
+    {
+      "field": "other.lowered_payout_minimum",
+      "urls_tried": [
+        "https://community.adobe.com/questions-38/fourteen-dollars-came-in-yesterday-but-i-don-t-know-the-source-1642374",
+        "https://helpx.adobe.com/stock/contributor/help/firefly-faq-for-adobe-stock-contributors.html"
+      ],
+      "reason": "not_found",
+      "note": "The census lead that the bonus is paid with a temporarily lowered payout minimum is not stated in the community thread fetched; the official FAQ was blocked."
+    },
+    {
+      "field": "other.fourth_annual_bonus",
+      "urls_tried": [
+        "https://community.adobe.com/questions-38/fourteen-dollars-came-in-yesterday-but-i-don-t-know-the-source-1642374"
+      ],
+      "reason": "not_found",
+      "note": "The thread calls it 'the 2026 bonus'; that it is the fourth annual edition was not confirmed by any fetched page. No web search in this run."
+    }
+  ],
+  "conflicts": [],
+  "leads": [
+    {
+      "url": "https://helpx.adobe.com/stock/contributor/help/firefly-faq-for-adobe-stock-contributors.html",
+      "why": "Official Firefly contributor bonus FAQ; 403 to WebFetch."
+    },
+    {
+      "url": "https://stock.adobe.com/license-terms",
+      "why": "Licence overview page; fetched, but it restates the Product Specific Terms, which were cited instead."
+    }
+  ]
+}

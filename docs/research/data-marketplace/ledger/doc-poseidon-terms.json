@@ -1,0 +1,2590 @@
+{
+  "kind": "document",
+  "slug": "doc-poseidon-terms",
+  "platform_slug": "poseidon",
+  "title": "Terms of Service",
+  "doc_type": "contributor_agreement",
+  "url": "https://www.psdn.ai/terms",
+  "publisher": "Poseidon AI, Inc.",
+  "version_or_date": "Last updated August 26, 2026 (previous version August 18, 2025)",
+  "retrieved_at": "2026-10-01",
+  "parties": {
+    "licensor": "The contributor (app user, 18+) licenses each User Contribution to Poseidon, and assigns it outright if Poseidon exercises its purchase option",
+    "licensee": "Poseidon AI, Inc., with rights to sublicense through multiple tiers to its service providers and partners",
+    "operator_role": "reseller_licensor"
+  },
+  "terms": {
+    "permitted_use": {
+      "value": "Contributor licenses Poseidon to use, host, reproduce, adapt, annotate, package, distribute and otherwise exploit contributions for any and all purposes, including making them available to service providers and partners.",
+      "claim_ids": [
+        "doc-poseidon-terms-c010",
+        "doc-poseidon-terms-c012",
+        "doc-poseidon-terms-c011"
+      ]
+    },
+    "ai_training_rights": {
+      "value": "Poseidon gets the exclusive right to use contributions for developing, training, testing, fine-tuning, grounding, improving and deploying (third-party) AI/ML models and systems, sublicensable to partners; the contributor may not license anyone else for these uses. Evaluation is covered by 'testing'; redistribution by the any-purpose licence.",
+      "claim_ids": [
+        "doc-poseidon-terms-c014",
+        "doc-poseidon-terms-c015",
+        "doc-poseidon-terms-c016",
+        "doc-poseidon-terms-c017",
+        "doc-poseidon-terms-c013",
+        "doc-poseidon-terms-c011"
+      ]
+    },
+    "field_of_use": {
+      "value": "No field restriction on Poseidon (any and all purposes); the AI/ML field is carved out as exclusive to Poseidon, while the contributor keeps non-AI uses of their own material.",
+      "claim_ids": [
+        "doc-poseidon-terms-c010",
+        "doc-poseidon-terms-c014",
+        "doc-poseidon-terms-c017"
+      ]
+    },
+    "territory": {
+      "value": "Worldwide.",
+      "claim_ids": [
+        "doc-poseidon-terms-c013"
+      ]
+    },
+    "term_duration": {
+      "value": "Perpetual and irrevocable; survives account termination, and rejection of a buy-out offer does not affect it.",
+      "claim_ids": [
+        "doc-poseidon-terms-c013",
+        "doc-poseidon-terms-c021",
+        "doc-poseidon-terms-c080"
+      ]
+    },
+    "exclusivity": {
+      "value": "Exclusive to Poseidon for AI/ML development and deployment uses (the 'Exclusive Use'); non-exclusive otherwise. Poseidon also holds a unilateral option to buy full ownership at a price it sets, deemed accepted unless rejected within 15 days.",
+      "claim_ids": [
+        "doc-poseidon-terms-c014",
+        "doc-poseidon-terms-c017",
+        "doc-poseidon-terms-c018",
+        "doc-poseidon-terms-c019",
+        "doc-poseidon-terms-c020",
+        "doc-poseidon-terms-c023"
+      ]
+    },
+    "sublicensing": {
+      "value": "Poseidon may sublicense through multiple tiers and transfer the licence, and may assign the Terms; contributors may not assign.",
+      "claim_ids": [
+        "doc-poseidon-terms-c013",
+        "doc-poseidon-terms-c011",
+        "doc-poseidon-terms-c081"
+      ]
+    },
+    "derivatives_and_model_outputs": {
+      "value": "Poseidon may adapt, annotate, modify and package contributions and the exclusive AI field covers 'modifications'; nothing is said about ownership of trained models or model outputs, and the contributor gets no share in either.",
+      "claim_ids": [
+        "doc-poseidon-terms-c012",
+        "doc-poseidon-terms-c014"
+      ]
+    },
+    "warranties_by_provider": {
+      "value": "Contributor warrants it holds all rights, licences, consents and permissions to submit and let Poseidon use or buy each contribution, that submission breaches no law or third-party right, and that no other consents or payments are owed to anyone by Poseidon or its downstream licensees. Poseidon gives no warranties and disclaims non-infringement.",
+      "claim_ids": [
+        "doc-poseidon-terms-c025",
+        "doc-poseidon-terms-c026",
+        "doc-poseidon-terms-c027",
+        "doc-poseidon-terms-c058"
+      ]
+    },
+    "consent_and_release_warranty": {
+      "value": "Consent of people depicted is covered only by the contributor's general warranty that it has all needed consents and that no further consents are needed from any person, plus a ban on content invasive of privacy or publicity rights; no model-release form or bystander-consent procedure is set out. Personal data in contributions may go to partners who use it for their own purposes.",
+      "claim_ids": [
+        "doc-poseidon-terms-c025",
+        "doc-poseidon-terms-c027",
+        "doc-poseidon-terms-c028",
+        "doc-poseidon-terms-c029",
+        "doc-poseidon-terms-c030"
+      ]
+    },
+    "indemnity": {
+      "value": "One-way and uncapped as written: the contributor defends and indemnifies Poseidon, its affiliates, officers, partners and licensors for breach, third-party rights violations, any User Contribution, and negligence; Poseidon controls defence and settlement.",
+      "claim_ids": [
+        "doc-poseidon-terms-c063",
+        "doc-poseidon-terms-c064",
+        "doc-poseidon-terms-c065"
+      ]
+    },
+    "liability_cap": {
+      "value": "Poseidon's total liability to the contributor is capped at USD 100 and indirect/consequential damages are excluded; no cap is stated on the contributor's indemnity.",
+      "claim_ids": [
+        "doc-poseidon-terms-c062",
+        "doc-poseidon-terms-c061",
+        "doc-poseidon-terms-c060"
+      ]
+    },
+    "payment_and_revenue_share": {
+      "value": "Per-accepted-submission pay in USD (Confirmed Balance), tokens or points, with amounts shown in-app before each task and set by Poseidon; fiat paid quarterly above a USD 25 threshold, only where the payment provider operates; quality gate and forfeiture at Poseidon's sole discretion; no royalty or revenue share on dataset sales; buy-out price set by Poseidon, payable in cash or tokens.",
+      "claim_ids": [
+        "doc-poseidon-terms-c033",
+        "doc-poseidon-terms-c034",
+        "doc-poseidon-terms-c035",
+        "doc-poseidon-terms-c036",
+        "doc-poseidon-terms-c037",
+        "doc-poseidon-terms-c038",
+        "doc-poseidon-terms-c040",
+        "doc-poseidon-terms-c046",
+        "doc-poseidon-terms-c047",
+        "doc-poseidon-terms-c050",
+        "doc-poseidon-terms-c052",
+        "doc-poseidon-terms-c019",
+        "doc-poseidon-terms-c022"
+      ]
+    },
+    "takedown_and_erasure": {
+      "value": "No contributor takedown or withdrawal right: the licence is irrevocable, Poseidon may but need not delete contributions when an account is deleted and disclaims responsibility either way, purchased contributions stay Poseidon's, and nothing addresses copies already given to partners or buyers.",
+      "claim_ids": [
+        "doc-poseidon-terms-c013",
+        "doc-poseidon-terms-c077",
+        "doc-poseidon-terms-c078",
+        "doc-poseidon-terms-c079",
+        "doc-poseidon-terms-c059"
+      ]
+    },
+    "deletion_on_termination": {
+      "value": "On account deletion Poseidon may, but is not obliged to, delete contributions; purchased contributions remain Poseidon's property and the licence survives.",
+      "claim_ids": [
+        "doc-poseidon-terms-c077",
+        "doc-poseidon-terms-c079",
+        "doc-poseidon-terms-c080"
+      ]
+    },
+    "prohibited_uses": {
+      "value": "Contributors may not submit unlawful, privacy- or publicity-invasive, pornographic or violent content, and may not redistribute, license or sell information obtained through the Services; they may not license their contributions to others for AI/ML use.",
+      "claim_ids": [
+        "doc-poseidon-terms-c028",
+        "doc-poseidon-terms-c056",
+        "doc-poseidon-terms-c017"
+      ]
+    },
+    "governing_law": {
+      "value": "California law; binding individual JAMS arbitration seated in San Francisco with class-action waiver and 30-day opt-out; IP disputes, small claims and injunctive relief go to court.",
+      "claim_ids": [
+        "doc-poseidon-terms-c071",
+        "doc-poseidon-terms-c066",
+        "doc-poseidon-terms-c067",
+        "doc-poseidon-terms-c068",
+        "doc-poseidon-terms-c070",
+        "doc-poseidon-terms-c069"
+      ]
+    },
+    "change_of_terms": {
+      "value": "Poseidon may change the Terms unilaterally, effective on posting, with only reasonable efforts to notify of material changes; continued use is acceptance. It may also change the payout programme on reasonable notice.",
+      "claim_ids": [
+        "doc-poseidon-terms-c073",
+        "doc-poseidon-terms-c074",
+        "doc-poseidon-terms-c075",
+        "doc-poseidon-terms-c053"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "doc-poseidon-terms-c001",
+      "statement": "Poseidon's Terms of Service are dated as last updated on August 26, 2026.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Terms of Service Last updated August 26, 2026"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c002",
+      "statement": "The page lists one previous version of the Terms, dated August 18, 2025.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Previous versions August 18, 2025"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c003",
+      "statement": "The Website, data contribution platform and App are operated by or on behalf of Poseidon AI, Inc.",
+      "kind": "terms",
+      "section": "other",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "operated by or on behalf of Poseidon AI, Inc."
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c004",
+      "statement": "Poseidon says it records skilled people at work and refines the recordings into datasets for physical AI.",
+      "kind": "terms",
+      "section": "positioning",
+      "question_ids": [
+        "Q3",
+        "Q12"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Poseidon records skilled people at work and refines it into the datasets optimized for physical AI"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c005",
+      "statement": "Contributors submit content, data or other materials in response to prompts that Poseidon makes available through the Service.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "submit information, content, data or other materials in response to prompts made available through the Service"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c006",
+      "statement": "Poseidon's prompts may set specific acceptance criteria for User Contributions.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Our prompts for User Contributions may include specific criteria for User Contributions to be acceptable"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c007",
+      "statement": "Poseidon may screen, edit, delete, restrict, remove or reject any User Contribution at any time.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We reserve the right to screen, edit, delete, restrict, remove or reject any User Contribution at any time"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c008",
+      "statement": "Poseidon may decide in its sole discretion that a User Contribution is not eligible to accrue points or other rewards.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "determine that User Contributions are not eligible to accrue points or other rewards, in our sole discretion"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c009",
+      "statement": "Poseidon does not claim ownership of User Contributions unless it exercises its purchase option under Section 1.1(c).",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the Company does not claim any ownership in your User Contributions"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c010",
+      "statement": "The contributor licenses Poseidon to use and exploit each User Contribution for any and all purposes, not only to run the Services.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "exploit your User Contribution for any and all purposes, including to provide, improve and promote the Services"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c011",
+      "statement": "The licence expressly lets Poseidon make User Contributions available to its service providers and partners.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "to make your User Contributions available to our service providers and partners"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c012",
+      "statement": "The licensed acts include adapting, publishing, distributing, annotating, modifying and packaging User Contributions.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "adapt, publish, distribute, annotate, modify, package and otherwise exploit your User Contribution"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c013",
+      "statement": "The contributor licence to Poseidon is royalty-free, transferable, sublicensable through multiple tiers, worldwide, perpetual and irrevocable.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q4",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "royalty free, transferable, fully sub-licensable (through multiple tiers), worldwide, perpetual and irrevocable"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c014",
+      "statement": "The contributor licence is exclusive to Poseidon for uses of User Contributions related to AI and machine learning (the 'Exclusive Use').",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q4",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "such license will be exclusive to us in connection with any uses or modifications of your User Contributions"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c015",
+      "statement": "The Exclusive Use covers developing, training, testing, improving, fine-tuning and grounding AI models.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "related to developing, training, testing, improving, fine-tuning, grounding"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c016",
+      "statement": "The Exclusive Use is defined by reference to deploying third-party AI and machine learning models, systems and related technologies.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "deploying third-party AI and machine learning models, systems and related technologies"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c017",
+      "statement": "The contributor may not allow or authorise anyone else to use their User Contributions for the Exclusive Use (AI/ML development and deployment).",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q4",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you will not allow or authorize any other person or entity to use your User Contributions for the Exclusive Use"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c018",
+      "statement": "Poseidon holds an option, exercisable at any time in its sole discretion, to buy all right, title and interest in any User Contribution.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q4"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "option, at any time and in its sole discretion, to purchase from you all right, title and interest"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c019",
+      "statement": "The purchase price under the option is set by Poseidon in its reasonable discretion, based on factors including nature, quality and volume.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "purchase price shall be determined by the Company in its reasonable discretion"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c020",
+      "statement": "A contributor is deemed to accept a Purchase Notice unless they reject it within 15 days of receipt.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "deemed to have accepted such offer unless you notify the Company of your rejection within fifteen (15) days"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c021",
+      "statement": "Rejecting a Purchase Notice does not affect the licence rights already granted to Poseidon under Section 1.1(b).",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q4",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "your rejection shall not affect any license rights previously granted under Section 1.1(b)"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c022",
+      "statement": "Poseidon may pay the purchase price in cash, Tokens or other consideration, at its election.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "which may be paid, at the Company’s election, in cash, Tokens or other consideration"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c023",
+      "statement": "On payment of the purchase price, the contributor irrevocably assigns all right, title and interest, including IP, in the contribution to Poseidon.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "irrevocably assign and transfer to the Company all right, title and interest in and to the applicable User Contribution"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c024",
+      "statement": "After a purchase, Poseidon's rights in the purchased contributions are absolute and free of the Terms' conditions on licensed contributions.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the Company’s rights in the purchased User Contribution(s) shall be absolute and unconditional"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c025",
+      "statement": "The contributor warrants they have all rights, licences, consents and permissions needed to submit each contribution and let Poseidon use or buy it.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "have obtained, all rights, licenses, consents, permissions, power and/or authority necessary to submit and use"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c026",
+      "statement": "The contributor warrants that creating or submitting a contribution will not violate any law or any third party's rights.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "will not violate any law or any third party’s rights"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c027",
+      "statement": "The contributor warrants that Poseidon and anyone deriving rights from it need no further licences or consents from, and owe no payments to, any other person.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "no other licenses, permissions, consents or authorizations must be obtained from or payments made to any other person"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c028",
+      "statement": "Contributors must not submit content that is unlawful or invasive of privacy or publicity rights, among other prohibited content.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "any content that is unlawful, defamatory, obscene, excessively violent, pornographic, invasive of privacy or publicity rights"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c029",
+      "statement": "Personal information contained in or associated with a User Contribution may be disclosed to Poseidon's service providers and partners.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "personal information contained within or associated with your User Contribution may be disclosed to our service providers"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c030",
+      "statement": "Poseidon's partners may use such personal information for their own purposes under their own terms and policies.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7",
+        "Q5"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Our partners may use such information for their own purposes, in accordance with their own terms and policies"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c031",
+      "statement": "The Terms describe the contributor's consent to disclosure of personal information in contributions as completely voluntary.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "your consent to such disclosure is completely voluntary"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c032",
+      "statement": "Users must be 18 or older to use the Services.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You must be 18 years of age or older to use the Services"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c033",
+      "statement": "Contributors may receive one or more forms of compensation (fiat payouts, third-party tokens or points), as Poseidon determines in its sole discretion.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "one or more of the following forms of compensation, as determined by us in our sole discretion"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c034",
+      "statement": "The form and amount of compensation for a task is communicated in the Services before the contributor begins the task.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "amount of any compensation offered will be communicated to you through the Services before you begin a task"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c035",
+      "statement": "Compensation may vary by task type, geography, demand and applicable law.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "may vary by task type, geography, demand, and applicable law"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c036",
+      "statement": "A contributor becomes eligible for a fiat payout once their Confirmed Balance reaches USD 25.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 25,
+        "unit": "USD",
+        "basis": "minimum Confirmed Balance before Poseidon pays a contributor a fiat payout; Poseidon may change it on reasonable notice",
+        "period": "per payout"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "once your Confirmed Balance reaches the minimum payout threshold of USD25"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c037",
+      "statement": "The Confirmed Balance is the accumulated USD value of the contributor's submissions that have passed quality review.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the accumulated USD value of a Contributor's submissions that have successfully passed quality review"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c038",
+      "statement": "Fiat payouts are processed quarterly, subject to change.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Payouts are processed on a quarterly basis, subject to change"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c039",
+      "statement": "Poseidon covers standard payout processing fees, but not extra fees charged by the contributor's bank or payout method.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We will cover standard payout processing fees on your behalf"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c040",
+      "statement": "Where Poseidon's third-party payment provider does not operate in a contributor's country, no fiat payout can be made.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If our payment provider is not available in your country, we will not be able to process a Fiat Payout to you"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c041",
+      "statement": "Contributors in countries without payout support may keep contributing and their contributions continue to be tracked.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You are still welcome to contribute to the Services and your contributions will continue to be tracked"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c042",
+      "statement": "Poseidon may require a W-9 or W-8BEN before paying a fiat payout.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "a Form W-9 for US persons or a Form W-8BEN for non-US persons"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c043",
+      "statement": "Tokens earned through the Services are third-party blockchain tokens not maintained by or affiliated with Poseidon.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Tokens are not associated with, maintained by, supported by or affiliated with the Company"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c044",
+      "statement": "Poseidon makes no promise about the availability, utility or value of Tokens, or that a contributor will receive any.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We make no promises or guarantees regarding the availability, functionality, utility or value of the Tokens"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c045",
+      "statement": "Points may have no monetary value and are not currency or property.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Points may have no monetary value and do not constitute any currency or property of any type"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c046",
+      "statement": "Quality standards that gate all compensation are determined by Poseidon in its sole discretion.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Quality standards are determined by us in our sole discretion"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c047",
+      "statement": "A submission that fails quality standards is not added to the contributor's Confirmed Balance.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If a submission does not meet quality standards, it will not be added to your Confirmed Balance"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c048",
+      "statement": "All compensation is framed as an incentive for voluntary participation, not pay for employment, contractor or agency services.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "do not constitute compensation for services rendered in an employment, contractor, or agency capacity"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c049",
+      "statement": "Contributors bear all tax obligations arising from compensation received through the Services.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You are solely responsible for all tax obligations arising from your receipt of any compensation"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c050",
+      "statement": "Poseidon may withhold, adjust or forfeit a contributor's Points, Token eligibility or Confirmed Balance for abuse, fraud or any breach, as it determines.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We may withhold, adjust, or forfeit any or all of your Points, Token eligibility, or Confirmed Balance"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c051",
+      "statement": "After forfeiting a contributor's earnings, Poseidon may still use any of their contributions that already passed quality review.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q4",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "we may still use any User Contributions that have already passed quality review"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c052",
+      "statement": "Poseidon does not guarantee any minimum earnings or continuous availability of tasks.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We do not guarantee any minimum level of earnings or that tasks will be continuously available"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c053",
+      "statement": "Poseidon may modify, suspend or discontinue the Points, Token or Fiat Payout programme at any time on reasonable notice.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "modify, suspend, or discontinue any aspect of the Points, Token, or Fiat Payout program at any time upon reasonable notice"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c054",
+      "statement": "The Terms state that no agency, partnership, joint venture or employment relationship is created with the contributor.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "no agency, partnership, joint venture or employment relationship is created"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c055",
+      "statement": "The Services may integrate with blockchain protocols such as the Story Protocol, which are not part of the Services.",
+      "kind": "terms",
+      "section": "other",
+      "question_ids": [],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "integrate with one or more blockchain protocols consisting of smart contracts such as the Story Protocol"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c056",
+      "statement": "Users may not copy, redistribute, license, create derivative works from or sell information obtained from or through the Services without permission.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "create derivative works from, or offer for sale any information contained on, or obtained from or through, the Services"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c057",
+      "statement": "Poseidon reserves all rights in the Services and their content, except User Contributions it has not purchased.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "other than any User Contributions not purchased by the Company pursuant to Section 1.1(c)"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c058",
+      "statement": "Poseidon disclaims all express and implied warranties, including merchantability, fitness for purpose and non-infringement.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "DISCLAIM ALL WARRANTIES AND CONDITIONS, WHETHER EXPRESS OR IMPLIED"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c059",
+      "statement": "Poseidon disclaims responsibility for the deletion of, or failure to store or transmit, any User Contribution.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the deletion of, or the failure to store or transmit, any User Contribution"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c060",
+      "statement": "Poseidon assumes no liability for any content users or third parties create or upload through the Services.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "TAKE NO RESPONSIBILITY AND ASSUME NO LIABILITY FOR ANY CONTENT THAT YOU, ANOTHER USER, OR A THIRD PARTY CREATES"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c061",
+      "statement": "Poseidon excludes liability for indirect, special, exemplary, incidental, consequential and punitive damages, including in connection with User Contributions.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "BE LIABLE FOR ANY INDIRECT SPECIAL, EXEMPLARY, INCIDENTAL, CONSEQUENTIAL OR PUNITIVE DAMAGES"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c062",
+      "statement": "Poseidon's total liability to a user is capped at USD 100 (the clause reads 'the greater of' but names only one amount).",
+      "kind": "number",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 100,
+        "unit": "USD",
+        "basis": "cap on Poseidon's total liability to the contributor/user for damages finally awarded; no cap stated on the contributor's indemnity",
+        "period": "aggregate"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "TOTAL LIABILITY TO YOU FOR ANY DAMAGES FINALLY AWARDED SHALL NOT EXCEED THE GREATER OF ONE HUNDRED DOLLARS ($100.00)"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c063",
+      "statement": "The contributor must defend, indemnify and hold harmless Poseidon and its affiliates, officers, partners and licensors against all claims and losses.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "defend, indemnify and hold the Company Entities harmless from and against any and all claims"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c064",
+      "statement": "The contributor's indemnity covers claims arising from any User Contribution and from the contributor's negligence or wilful misconduct.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "(d) any User Contribution, or (e) your negligence or wilful misconduct"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c065",
+      "statement": "Poseidon may control the defence and settlement of any claim the contributor must indemnify.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the right, in its sole discretion, to control any action or proceeding and to determine whether Company wishes to settle"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c066",
+      "statement": "Disputes go to binding individual arbitration administered by JAMS under its Comprehensive Arbitration Rules.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "administered by JAMS under its Comprehensive Arbitration Rules and Procedures"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c067",
+      "statement": "The seat of arbitration is San Francisco, California.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The seat of any arbitration shall be San Francisco, California."
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c068",
+      "statement": "Class arbitrations and class actions are not permitted.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "class arbitrations and class actions are not permitted"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c069",
+      "statement": "Intellectual property disputes are carved out of arbitration and go to a court of proper jurisdiction.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "(c) intellectual property disputes"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c070",
+      "statement": "Users may opt out of arbitration by written notice within 30 days of first registering or agreeing to the Terms.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The notice must be sent to the Company within thirty (30) days of your first registering to use the Services"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c071",
+      "statement": "The Terms are governed by California law, with San Francisco courts as venue where arbitration does not apply.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "These Terms are governed by the laws of the State of California, without regard to conflict of laws rules"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c072",
+      "statement": "Users accessing the Services from outside the United States do so on their own initiative and must comply with local law.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Those who choose to access the Services from locations outside the United States do so at their own initiative"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c073",
+      "statement": "Updated Terms take effect when posted, or on a later date the update specifies.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The updated Terms will be effective as of the time of posting"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c074",
+      "statement": "For material changes Poseidon only undertakes reasonable efforts to notify users, e.g. by email or a website notice.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If we make changes that are material, we will use reasonable efforts to attempt to notify you"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c075",
+      "statement": "Continued use of the Services after changes take effect is deemed acceptance of the modified Terms.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Your continued access or use of the Services after the modifications have become effective will be deemed your acceptance"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c076",
+      "statement": "Poseidon may suspend or delete a user's Account with or without notice, for any or no reason.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "delete your Account and/or the Services (or any part of the foregoing) with or without notice, for any or no reason"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c077",
+      "statement": "When an Account is deleted, Poseidon may, but is not obliged to, delete the user's User Contributions.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the Company may, but is not obligated to, delete any User Contribution"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c078",
+      "statement": "Poseidon is not responsible for failing to delete, or for deleting, any User Contribution.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The Company shall not be responsible for the failure to delete or deletion any User Contribution"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c079",
+      "statement": "Contributions Poseidon bought before termination remain its sole and exclusive property after termination.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "prior to termination shall remain the sole and exclusive property of the Company"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c080",
+      "statement": "Sections that by their nature should survive termination continue in force after termination.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All sections which by their nature should survive the termination of these Terms shall continue in full force"
+        }
+      ]
+    },
+    {
+      "id": "doc-poseidon-terms-c081",
+      "statement": "Poseidon may assign the Terms and the licences granted under them; the user may not without Poseidon's written consent.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Poseidon data contribution platform and App",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "These Terms and the licenses granted hereunder may be assigned by the Company but may not be assigned by you"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "terms.attribution",
+      "urls_tried": [
+        "https://www.psdn.ai/terms"
+      ],
+      "reason": "not_published",
+      "note": "No credit or attribution to contributors in datasets or models."
+    },
+    {
+      "field": "terms.audit_rights",
+      "urls_tried": [
+        "https://www.psdn.ai/terms"
+      ],
+      "reason": "not_published",
+      "note": "Contributors get no audit or reporting right over how or to whom their contributions are licensed."
+    },
+    {
+      "field": "other.downstream_copies_on_takedown",
+      "urls_tried": [
+        "https://www.psdn.ai/terms"
+      ],
+      "reason": "not_published",
+      "note": "Nothing on what happens to copies already made available to partners or dataset buyers if a contribution is deleted or a depicted person objects."
+    },
+    {
+      "field": "other.bystander_and_depicted_person_consent",
+      "urls_tried": [
+        "https://www.psdn.ai/terms"
+      ],
+      "reason": "not_published",
+      "note": "No release form, consent capture step or rule for filming co-workers, clients or bystanders; only the contributor's blanket consents warranty. Poseidon's datasets record 'skilled people at work'."
+    },
+    {
+      "field": "other.model_output_ownership",
+      "urls_tried": [
+        "https://www.psdn.ai/terms"
+      ],
+      "reason": "not_published",
+      "note": "Silent on who owns models trained on contributions or their outputs."
+    },
+    {
+      "field": "other.per_task_rates",
+      "urls_tried": [
+        "https://www.psdn.ai/terms"
+      ],
+      "reason": "not_published",
+      "note": "Per-submission rates are communicated in-app before each task; no rate card in the Terms."
+    },
+    {
+      "field": "other.buyer_licence",
+      "urls_tried": [
+        "https://www.psdn.ai/terms"
+      ],
+      "reason": "not_published",
+      "note": "This document is the contributor/user side only; the licence under which Poseidon sells datasets to buyers ('request dataset') is not in it."
+    }
+  ]
+}

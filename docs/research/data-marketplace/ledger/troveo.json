@@ -1,0 +1,4334 @@
+{
+  "kind": "profile",
+  "slug": "troveo",
+  "name": "Troveo",
+  "aliases": [
+    "Troveo AI",
+    "Troveo AI, Inc."
+  ],
+  "segment": "licensing_marketplace",
+  "tier": "deep",
+  "status": {
+    "value": "active",
+    "claim_id": "troveo-c001"
+  },
+  "names_for": {
+    "catalogue_side": "Dataset Library / \"Multimodal Data\" (\"Explore Our Library\", \"off-the-shelf datasets\"), browsed and assembled in Troveo Lens; business data shown as \"Company Data Snapshots\"",
+    "custom_side": "Sourcing / \"custom sourcing\" (\"Tell us your requirements we build the dataset\"; \"we produce new content to your exact technical and content specifications\")"
+  },
+  "matrix": {
+    "operator_role": {
+      "value": "reseller_licensor",
+      "claim_ids": [
+        "troveo-c086",
+        "troveo-c079",
+        "troveo-c042",
+        "troveo-c114",
+        "troveo-c018"
+      ],
+      "note": "Owners license to Troveo (sublicensable through multiple tiers); Troveo licenses onward to AI developers 'under its own agreements' and buyers sign one contract with Troveo; owners are never named publicly. Troveo's business-data page also says it licenses 'on your behalf' (see conflicts). No buyer licence text is published; the owner-side terms are Troveo's own description of its business data agreement."
+    },
+    "economics_model": {
+      "value": "revenue_share",
+      "claim_ids": [
+        "troveo-c118",
+        "troveo-c074",
+        "troveo-c052",
+        "troveo-c013"
+      ],
+      "note": "Owners receive a share of each licence fee (60% for business data, gross); Troveo keeps the rest. The video/creator royalty rate is not published."
+    },
+    "who_pays_fee": {
+      "value": "seller",
+      "claim_ids": [
+        "troveo-c074",
+        "troveo-c119"
+      ],
+      "note": "Troveo's cut is the 40% of buyer licence fees it retains before paying the owner's 60% (business data); it says it adds no further fees or deductions. Whether buyers pay anything on top is not published."
+    },
+    "supply_models": {
+      "value": [
+        "third_party_providers",
+        "contributor_uploads"
+      ],
+      "claim_ids": [
+        "troveo-c116",
+        "troveo-c003",
+        "troveo-c121",
+        "troveo-c015",
+        "troveo-c072",
+        "troveo-c009",
+        "troveo-c064"
+      ],
+      "note": "Creators and media companies (7,000+ licensors) and companies licensing business data supply the catalogue; individual creators upload through the owner portal. Troveo also says it 'activates exclusive supply networks to capture' content for custom requests, but no evidence shows that commissioned captures are relisted, and no speculative own collection was found."
+    },
+    "custody_model": {
+      "value": "copy_to_buyer",
+      "claim_ids": [
+        "troveo-c111",
+        "troveo-c115",
+        "troveo-c101",
+        "troveo-c039",
+        "troveo-c015"
+      ],
+      "note": "Owners transfer media into Troveo (S3 bucket, cloud transfer or physical drives); Troveo processes it and delivers copies to the buyer in the buyer's format."
+    },
+    "transaction_mode": {
+      "value": "contact_sales",
+      "claim_ids": [
+        "troveo-c012",
+        "troveo-c041",
+        "troveo-c112",
+        "troveo-c028",
+        "troveo-c114"
+      ],
+      "note": "Listings end in 'Request full dataset'; there is no price sheet and scope, rights and timelines are negotiated per deal. Troveo also says buyers can 'browse and assemble datasets self-serve in Lens' (see conflicts), but no checkout or published price exists and Lens could not be inspected."
+    },
+    "public_prices": {
+      "value": "none",
+      "claim_ids": [
+        "troveo-c041",
+        "troveo-c010",
+        "troveo-c012"
+      ],
+      "note": "No price on the library, on the three listings opened, or anywhere else found; Troveo states there is no public price sheet."
+    },
+    "licence_model": {
+      "value": "negotiated",
+      "claim_ids": [
+        "troveo-c112",
+        "troveo-c041",
+        "troveo-c028"
+      ],
+      "note": "Usage rights, licence scope and exclusivity are settled per deal. No standard buyer licence is published."
+    },
+    "exclusivity_offered": {
+      "value": "yes",
+      "claim_ids": [
+        "troveo-c041",
+        "troveo-c053"
+      ],
+      "note": "Exclusivity is named as a negotiated deal variable; Troveo says where exclusivity is part of an agreement it is time-limited and must be earned. The latter sentence sits in an owner-facing article, so its application to buyers is inferred from the deal-negotiation sentence."
+    },
+    "public_listing": {
+      "value": "public_summary_gated_detail",
+      "claim_ids": [
+        "troveo-c010",
+        "troveo-c012",
+        "troveo-c106",
+        "troveo-c018"
+      ],
+      "note": "The multimodal dataset library and listing pages are public; full datasets are by request, company data snapshot details sit behind a shared password, and Troveo Lens is behind login. Individual owners' content is not listed publicly."
+    },
+    "buyer_vetting": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "No published rule on buyer checks; 'work email' is requested on forms, but nothing states vetting."
+    },
+    "sample_mechanics": {
+      "value": "sample_on_request",
+      "claim_ids": [
+        "troveo-c113",
+        "troveo-c029",
+        "troveo-c036"
+      ],
+      "note": "Buyers 'ask for samples against your brief'; in a deal, Troveo delivers 'submitted hours' and the buyer then chooses which clips to license (accepted hours). Listings show stats, metadata fields and still images only."
+    },
+    "versioning": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Nothing found on dataset versions, updates, or what a past buyer receives when a dataset changes."
+    },
+    "human_subject_consent_docs": {
+      "value": "asserted_only",
+      "claim_ids": [
+        "troveo-c007",
+        "troveo-c084",
+        "troveo-c071",
+        "troveo-c037"
+      ],
+      "note": "Troveo asserts BIPA/CUBI compliance for every hour and says owners warrant consents; the per-asset licensing agreement 'can be produced per asset if anyone ever asks'. No person-level release or consent record is described as delivered to buyers, and the owner annotation template has no people/consent fields."
+    },
+    "contributor_pay_model": {
+      "value": "royalty_or_revenue_share",
+      "claim_ids": [
+        "troveo-c013",
+        "troveo-c052",
+        "troveo-c023",
+        "troveo-c116"
+      ],
+      "note": "Creators who upload footage are paid a royalty on each use, only after the buyer pays. Rate not published for video. How any capturers in custom 'supply networks' are paid is unknown."
+    },
+    "catalogue_plus_custom": {
+      "value": "both",
+      "claim_ids": [
+        "troveo-c010",
+        "troveo-c063",
+        "troveo-c049",
+        "troveo-c043"
+      ],
+      "note": ""
+    },
+    "erasure_after_sale": {
+      "value": "takedown_only",
+      "claim_ids": [
+        "troveo-c077",
+        "troveo-c078",
+        "troveo-c076"
+      ],
+      "note": "Business data agreement as Troveo describes it: removal applies only to future deals, buyer agreements survive the owner's termination, and nothing can be clawed back from trained models. No buyer-side deletion clause or data-subject erasure process was found; the video owner agreement was not available."
+    },
+    "quality_evidence": {
+      "value": "operator_verified",
+      "claim_ids": [
+        "troveo-c019",
+        "troveo-c065",
+        "troveo-c101",
+        "troveo-c030"
+      ],
+      "note": "Troveo's own pipeline clears, filters and annotates content, with programmatic classification plus human validation and a QA report on delivery. These are vendor statements; no third-party audit found."
+    }
+  },
+  "questions": {
+    "Q1": {
+      "state": "partial",
+      "answer": "Troveo says 40+ active buyers, including 'Mag 7' firms that took 1M+ hours and 500K+ clips, buying in hours or clips against a spec; business datasets average four sales. All figures are vendor-stated; why buyers choose catalogue over custom is not documented.",
+      "claim_ids": [
+        "troveo-c059",
+        "troveo-c107",
+        "troveo-c108",
+        "troveo-c109",
+        "troveo-c055",
+        "troveo-c004"
+      ]
+    },
+    "Q2": {
+      "state": "partial",
+      "answer": "For owners, Troveo does valuation, rights work, packaging and buyer matching, keeps the owner anonymous and handles payment, which owners would otherwise build themselves. No comparison with owners selling direct is published.",
+      "claim_ids": [
+        "troveo-c093",
+        "troveo-c016",
+        "troveo-c091",
+        "troveo-c018"
+      ]
+    },
+    "Q3": {
+      "state": "sourced",
+      "answer": "Inventory comes from 7,000+ creators and media companies who sign a partnership agreement explicitly covering AI training (about 95% exclusively), plus companies licensing anonymised business data; Troveo also captures to order through 'supply networks'.",
+      "claim_ids": [
+        "troveo-c116",
+        "troveo-c121",
+        "troveo-c070",
+        "troveo-c045",
+        "troveo-c009",
+        "troveo-c064"
+      ]
+    },
+    "Q4": {
+      "state": "partial",
+      "answer": "No evidence on relisting commissioned captures. On the owner side, buyer agreements survive the owner's termination and removal is prospective only; non-exclusive owners may license elsewhere.",
+      "claim_ids": [
+        "troveo-c076",
+        "troveo-c077",
+        "troveo-c088"
+      ]
+    },
+    "Q5": {
+      "state": "sourced",
+      "answer": "Troveo takes a sublicensable licence from owners and licenses onward under its own agreements; owners warrant rights and consents and indemnify Troveo and buyers, while Troveo's indemnity to owners is optional via a Rider (per Troveo's description of its business data agreement).",
+      "claim_ids": [
+        "troveo-c086",
+        "troveo-c079",
+        "troveo-c084",
+        "troveo-c082",
+        "troveo-c085",
+        "troveo-c058"
+      ]
+    },
+    "Q6": {
+      "state": "sourced",
+      "answer": "Owners upload or ship media into Troveo's storage; Troveo processes it and delivers copies to the buyer in the buyer's format with a manifest.",
+      "claim_ids": [
+        "troveo-c039",
+        "troveo-c015",
+        "troveo-c111",
+        "troveo-c115",
+        "troveo-c101"
+      ]
+    },
+    "Q7": {
+      "state": "partial",
+      "answer": "The capturer/owner consents by signing an agreement covering AI training and warrants consents; Troveo asserts BIPA/CUBI compliance for depicted people. No place-owner consent or person-level release process is described.",
+      "claim_ids": [
+        "troveo-c070",
+        "troveo-c084",
+        "troveo-c007",
+        "troveo-c037",
+        "troveo-c096"
+      ]
+    },
+    "Q8": {
+      "state": "partial",
+      "answer": "Terms are negotiated per deal; exclusivity is time-limited; data cannot be clawed back from trained models and buyer licences outlive owner termination. No buyer audit, leakage or fingerprinting terms were found.",
+      "claim_ids": [
+        "troveo-c112",
+        "troveo-c053",
+        "troveo-c078",
+        "troveo-c076"
+      ]
+    },
+    "Q9": {
+      "state": "sourced",
+      "answer": "Deals close through negotiation with Troveo (no public prices, 'Request full dataset'); Troveo runs a revenue share: 60% of fees to business-data owners, a royalty per use for video owners, paid after the buyer pays, often 4-5 months after delivery.",
+      "claim_ids": [
+        "troveo-c041",
+        "troveo-c012",
+        "troveo-c118",
+        "troveo-c074",
+        "troveo-c013",
+        "troveo-c023",
+        "troveo-c027"
+      ]
+    },
+    "Q10": {
+      "state": "partial",
+      "answer": "Listings are named dataset families with hour counts and metadata fields; a deal delivers 'submitted hours' against a spec, of which the buyer licenses 'accepted hours'. Nothing found on versions or on withdrawal after sale.",
+      "claim_ids": [
+        "troveo-c011",
+        "troveo-c034",
+        "troveo-c036",
+        "troveo-c105"
+      ]
+    },
+    "Q11": {
+      "state": "partial",
+      "answer": "Before purchase buyers see stats and metadata fields and can ask for samples against a brief; after delivery they choose clips. Troveo offers per-asset rights documentation on request and a QA report on delivery.",
+      "claim_ids": [
+        "troveo-c113",
+        "troveo-c029",
+        "troveo-c071",
+        "troveo-c101",
+        "troveo-c065"
+      ]
+    },
+    "Q12": {
+      "state": "sourced",
+      "answer": "The library (browsed in Lens) and custom sourcing are sold side by side; even catalogue deals are spec-driven matches from the licensed pool, and new capture is used 'when off-the-shelf datasets are not enough'.",
+      "claim_ids": [
+        "troveo-c043",
+        "troveo-c049",
+        "troveo-c063",
+        "troveo-c035",
+        "troveo-c034"
+      ]
+    }
+  },
+  "sections": {
+    "positioning": "Troveo presents itself as 'the world's largest network of real-world data for AI' [c001], a broker that licenses creator and media footage to AI labs and, since 2026, business data [c047][c009]. It describes its role as identifying value, working on rights, packaging for evaluation and matching buyers [c093]. Almost every scale figure (8M+ video hours, 7,000+ licensors, 40+ buyers) is vendor-stated.",
+    "supply": "Supply is 7,000+ creators and media companies who sign a partnership agreement covering AI training [c116][c121][c070], about 95% exclusively [c045]. Owners upload raw libraries via portal, S3 or shipped drives with no organising required [c015][c030]; Troveo clears, processes and annotates every clip [c019]. Business data owners license anonymised company data [c073]. Troveo also captures to order through 'exclusive supply networks' [c064].",
+    "object_model": "Public listings are dataset families (e.g. Talking Head, 449K+ hours) with metadata fields [c097][c011]. The deal unit is hours or clips cut to a client spec: Troveo delivers 'submitted hours', the buyer licenses 'accepted hours' [c034][c036]. Business data is packaged with a manifest [c062]. Versioning is undocumented.",
+    "listing": "The library at /datasets is public, sorted by modality, with hour counts and descriptions but no prices [c010]. Listing pages show stats, metadata fields, use cases and stills, and end in 'Request full dataset' [c012]. Owners and their content are never named publicly [c018][c091]; company snapshots are password-gated [c106].",
+    "discovery": "Buyers browse the public library, or build datasets in Troveo Lens, a logged-in tool, or tell Troveo what they are training toward [c043][c048].",
+    "trust": "Troveo asserts every hour was verified for BIPA and CUBI compliance [c007] and every asset has a documented chain of rights [c069], producible per asset on request [c071]. Buyers can ask for samples against a brief [c113].",
+    "transaction": "Deals are negotiated with Troveo over rights, scope, deliverables and timelines [c112], taking weeks [c028]; buyers sign one contract [c114]. After delivery the buyer finalises which clips to license [c029].",
+    "pricing": "There is no public price sheet; price turns on volume, scarcity, exclusivity and rights scope [c041]. Troveo runs a revenue share [c118]: business-data owners get 60% of gross licence fees [c074], with no further fees [c119].",
+    "licence": "Owners grant Troveo a sublicensable licence and Troveo licenses onward under its own agreements [c079][c086]. Owners warrant non-infringement and consents and indemnify Troveo and buyers [c084][c082]; Troveo's own indemnity is Rider-only [c085]. These are Troveo's descriptions of the business data agreement; no buyer licence is public.",
+    "custody": "Media moves from owner storage into Troveo (S3 upload, cloud transfer or drives) [c039][c015], then Troveo delivers copies in the buyer's format with manifest, provenance and QA report [c111][c101].",
+    "vetting": "Troveo filters duplicates [c030], rejects artificially slowed runtime [c032], and claims programmatic plus human validation [c065]. Business data is de-identified before delivery [c089].",
+    "contributor_pay": "Owners earn a royalty on every use [c013], paid only after the buyer pays [c023], often 4-5 months after delivery [c027]; business-data payouts follow within 45 days of receipt, $500 minimum in the US [c080][c081]. Troveo cites $20M+ paid (Sept 2026) [c120] but its owner page says $50M+ [c017].",
+    "post_sale": "Owner removal is prospective only; buyer agreements outlive the owner's agreement and nothing is clawed back from trained models [c077][c076][c078].",
+    "catalogue_custom": "The library and custom sourcing sit side by side [c049]; even catalogue deals are spec-driven matches from the licensed pool [c035], and new content is produced when off-the-shelf is not enough [c063].",
+    "changes": "In May 2026 Troveo expanded from video into audio, text, agentic workflows, gameplay and robot data [c067]; by September 2026 it also sells company business data [c009].",
+    "demand": "Vendor-stated: 40+ active buyers [c059], 1M+ hours to a 'Mag 7' enterprise [c107], 500K+ clips in three weeks [c108], four sales per business dataset on average [c055].",
+    "regulation": "Troveo AI, Inc. is the entity in the privacy policy [c124]; the only regulatory claim found is the BIPA/CUBI compliance assertion [c007]."
+  },
+  "buyer_journey": [
+    {
+      "step": "Lands on troveo.ai; the header splits buyers into 'Multimodal Data' (the dataset library) and 'Business Data' (company snapshots); a contact page routes to 'I need training data'.",
+      "claim_ids": [
+        "troveo-c001",
+        "troveo-c110"
+      ]
+    },
+    {
+      "step": "Browses the public dataset library by modality; each card shows a name, description and hour count, with no price.",
+      "claim_ids": [
+        "troveo-c010",
+        "troveo-c095"
+      ]
+    },
+    {
+      "step": "Opens a listing (e.g. Everyday Tasks POV): description, stats, metadata fields, use cases and stills; the only action is 'Request full dataset'.",
+      "claim_ids": [
+        "troveo-c011",
+        "troveo-c099",
+        "troveo-c012"
+      ]
+    },
+    {
+      "step": "Optionally builds a dataset in Troveo Lens (login) or submits a custom-sourcing request against a model roadmap.",
+      "claim_ids": [
+        "troveo-c043",
+        "troveo-c048",
+        "troveo-c049",
+        "troveo-c066"
+      ]
+    },
+    {
+      "step": "Asks for samples against the brief and gives Troveo detailed specifications.",
+      "claim_ids": [
+        "troveo-c113",
+        "troveo-c034"
+      ]
+    },
+    {
+      "step": "Negotiates usage rights, licence scope, deliverables, timelines and price (volume, scarcity, exclusivity) with Troveo; this takes weeks.",
+      "claim_ids": [
+        "troveo-c112",
+        "troveo-c041",
+        "troveo-c028"
+      ]
+    },
+    {
+      "step": "Signs one contract with Troveo, which licenses onward under its own agreement.",
+      "claim_ids": [
+        "troveo-c114",
+        "troveo-c086"
+      ]
+    },
+    {
+      "step": "Troveo matches its ingested content to the spec and delivers 'submitted hours' in the buyer's format, with manifest, provenance and QA report.",
+      "claim_ids": [
+        "troveo-c035",
+        "troveo-c111",
+        "troveo-c101",
+        "troveo-c115"
+      ]
+    },
+    {
+      "step": "Buyer reviews the delivery and finalises which clips it licenses ('accepted hours'); it is invoiced and pays Troveo, which then pays owners.",
+      "claim_ids": [
+        "troveo-c029",
+        "troveo-c036",
+        "troveo-c023"
+      ]
+    },
+    {
+      "step": "Rights documentation for any asset can be produced on request afterwards.",
+      "claim_ids": [
+        "troveo-c071"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "id": "troveo-c001",
+      "statement": "Troveo's website was live on 2026-10-01, presenting itself as a network of real-world data for AI.",
+      "kind": "status",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "The world's largest network of real-world data for AI"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c002",
+      "statement": "Troveo says 95% of its content is exclusive to Troveo and licensed directly from the source.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 95,
+        "unit": "percent of content",
+        "basis": "vendor-stated share of library exclusive to Troveo; denominator not stated",
+        "period": "as at retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "95% Exclusive to Troveo licensed direct from the source"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c003",
+      "statement": "Troveo says it has 7,000+ data providers in its sourcing network.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 7000,
+        "unit": "data providers",
+        "basis": "vendor-stated count, lower bound",
+        "period": "cumulative"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "7,000+ Data Providers in our global sourcing network"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c004",
+      "statement": "Troveo says its library holds 8M+ hours of video.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 8000000,
+        "unit": "hours of video",
+        "basis": "vendor-stated library size, lower bound",
+        "period": "as at retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "8M+ hours Videos"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c005",
+      "statement": "Troveo says its library holds 4M+ hours of audio.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 4000000,
+        "unit": "hours of audio",
+        "basis": "vendor-stated library size, lower bound",
+        "period": "as at retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "4M+ hours Audio"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c006",
+      "statement": "Troveo says it offers 350+ company (business) datasets.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 350,
+        "unit": "company datasets",
+        "basis": "vendor-stated count, lower bound",
+        "period": "as at retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "350+ Company Datasets"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c007",
+      "statement": "Troveo's homepage asserts that every hour of content was verified for compliance with Illinois BIPA and Texas CUBI biometric privacy laws.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Every hour of content was verified for full compliance with Illinois BIPA and Texas CUBI biometric privacy laws"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c008",
+      "statement": "Troveo pitches sourcing and curation of training-ready datasets for buyers, beyond its existing library.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Source, curate, and deploy training-ready datasets with zero prep friction."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c009",
+      "statement": "Troveo now also solicits companies to license internal business data (email, chat, CRM, tickets, files) for recurring revenue.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Turn your company's email, chat, CRM, tickets, and files into recurring revenue."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c010",
+      "statement": "Troveo's public dataset library shows named datasets with scope metrics but no prices or purchase buttons; its only buyer CTA is 'Contact us'.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q9",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/datasets",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Find the data your models actually need."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c011",
+      "statement": "The Everyday Tasks POV listing describes egocentric video of routine daily activities captured from head- or chest-mounted cameras.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q10",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/datasets/everyday-tasks-pov",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Egocentric video of routine daily activities (cooking, cleaning, tool use, work, navigating spaces)"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c012",
+      "statement": "The Everyday Tasks POV listing's call to action is 'Request full dataset'; no price, playable sample, licence terms or consent statement is shown.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/datasets/everyday-tasks-pov",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Request full dataset"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c013",
+      "statement": "Troveo tells content owners that every use of their content earns them a royalty.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/content-owners",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Every use earns you a royalty."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c014",
+      "statement": "Troveo tells content owners they retain full ownership of their content and earn each time it is used.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/content-owners",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "you retain full ownership and earn every time your content is used"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c015",
+      "statement": "Content owners can deliver footage by drag-and-drop upload, cloud transfer or shipping physical media, with processing said to take 1-2 weeks.",
+      "kind": "architecture",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/content-owners",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Drag & drop, cloud transfer, or ship physical media. Processing takes 1–2 weeks."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c016",
+      "statement": "Troveo tells content owners it handles licensing, processing and payment on their behalf.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/content-owners",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Troveo handles licensing, processing, and payment"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c017",
+      "statement": "Troveo's content-owner page says it has paid $50M+ to creators globally.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 50000000,
+        "unit": "USD paid to content owners",
+        "basis": "vendor-stated cumulative payouts to creators/rights holders, lower bound; gross or net not stated",
+        "period": "cumulative to retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/content-owners",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "$50M+$0M+ paid To creators globally"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c018",
+      "statement": "Troveo tells content owners that licensing is private and direct to AI labs under strict NDAs, with no public listings of their content.",
+      "kind": "terms",
+      "section": "listing",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/content-owners",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Private, direct-to-lab licensing under strict NDAs. No public listings."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c019",
+      "statement": "Troveo says its pipeline clears, processes and annotates every clip for AI training.",
+      "kind": "offer",
+      "section": "vetting",
+      "question_ids": [
+        "Q3",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/content-owners",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Our pipeline clears, processes, and annotates every clip for AI training."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c020",
+      "statement": "Content owners get a personal dashboard showing how their content is used and when they will be paid.",
+      "kind": "offer",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/content-owners",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Track everything in your personal dashboard"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c021",
+      "statement": "Troveo's content-owner page says 7M+ hours of video content have been licensed.",
+      "kind": "number",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 7000000,
+        "unit": "hours of video licensed",
+        "basis": "vendor-stated; unclear whether hours licensed to buyers or hours signed from owners",
+        "period": "cumulative to retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/content-owners",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "7M+0M+ hours Video content licensed"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c022",
+      "statement": "Troveo's content-owner onboarding has four steps: tell us about your content, upload it, Troveo prepares it, get paid.",
+      "kind": "architecture",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/content-owners",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "We prepare your content"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c023",
+      "statement": "Troveo's help centre says owners are paid only after their content has been licensed, the client invoiced and payment received.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://support.troveo.com/articles/6852961307-how-do-payouts-work-on-troveo",
+          "publisher": "Troveo",
+          "source_class": "docs",
+          "quote": "Payments occur only after your content has been licensed, the client has been invoiced, and payment has been received."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c024",
+      "statement": "Troveo's help centre says there is no fixed payout schedule for content owners.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://support.troveo.com/articles/6852961307-how-do-payouts-work-on-troveo",
+          "publisher": "Troveo",
+          "source_class": "docs",
+          "quote": "There is no fixed payout schedule."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c025",
+      "statement": "Troveo's payouts article says payments to owners are sent through Tipalti.",
+      "kind": "architecture",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://support.troveo.com/articles/6852961307-how-do-payouts-work-on-troveo",
+          "publisher": "Troveo",
+          "source_class": "docs",
+          "quote": "all payments will be sent directly through Tipalti"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c026",
+      "statement": "Another Troveo help article names Ramp as its payment platform requiring W-9 forms from US payees.",
+      "kind": "architecture",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://support.troveo.com/articles/1450601243-understanding-your-w-9-for-payments-via-ramp",
+          "publisher": "Troveo",
+          "source_class": "docs",
+          "quote": "Ramp, our payment platform, requires a W-9 form from U.S. individuals and entities receiving payments"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c027",
+      "statement": "Troveo says licensing deals can take 4-5 months from delivery to payout.",
+      "kind": "number",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 5,
+        "unit": "months from delivery to owner payout (upper end of 4-5)",
+        "basis": "vendor-stated typical upper range; varies by deal",
+        "period": "per deal"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://support.troveo.com/articles/7834088496-how-long-do-troveo-licensing-deals-take",
+          "publisher": "Troveo",
+          "source_class": "docs",
+          "quote": "It is not uncommon for deals to take up to 4-5 months from delivery to payout."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c028",
+      "statement": "Troveo negotiates deals with AI buyers, and negotiation can take several weeks, especially for larger or customised deals.",
+      "kind": "architecture",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://support.troveo.com/articles/7834088496-how-long-do-troveo-licensing-deals-take",
+          "publisher": "Troveo",
+          "source_class": "docs",
+          "quote": "Negotiation can take several weeks, especially for larger or customized deals."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c029",
+      "statement": "After delivery, the buyer reviews the content and decides which clips it will license.",
+      "kind": "architecture",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q10",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://support.troveo.com/articles/7834088496-how-long-do-troveo-licensing-deals-take",
+          "publisher": "Troveo",
+          "source_class": "docs",
+          "quote": "After delivery, the buyer reviews the content and finalizes which clips they wish to license."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c030",
+      "statement": "Owners need not organise footage before submitting it; Troveo's system filters out duplicates and non-video files.",
+      "kind": "architecture",
+      "section": "vetting",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://support.troveo.com/articles/8650348007-do-i-need-to-organize-my-footage-before-submitting-it",
+          "publisher": "Troveo",
+          "source_class": "docs",
+          "quote": "Troveo's system automatically filters out duplicates and non-video files."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c031",
+      "statement": "Troveo prefers .MOV and .MP4 submissions in H.264 or H.265.",
+      "kind": "architecture",
+      "section": "supply",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://support.troveo.com/articles/5318194645-i-have-some-technical-questions-about-raw-footage-file-formats-transcoding-color-grading-fps-bitrate-etc",
+          "publisher": "Troveo",
+          "source_class": "docs",
+          "quote": "The ideal file formats are .MOV and .MP4. We support both H.264 and H.265 codecs."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c032",
+      "statement": "Troveo says artificially slowing footage to increase runtime will not increase licensable minutes.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://support.troveo.com/articles/5318194645-i-have-some-technical-questions-about-raw-footage-file-formats-transcoding-color-grading-fps-bitrate-etc",
+          "publisher": "Troveo",
+          "source_class": "docs",
+          "quote": "artificially slowing footage to increase runtime will not increase licensable minutes"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c033",
+      "statement": "Troveo asks owners to submit footage free of watermarks.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://support.troveo.com/articles/5318194645-i-have-some-technical-questions-about-raw-footage-file-formats-transcoding-color-grading-fps-bitrate-etc",
+          "publisher": "Troveo",
+          "source_class": "docs",
+          "quote": "Please ensure all footage is free of watermarks before submission."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c034",
+      "statement": "Before each deal Troveo receives detailed specifications from the client.",
+      "kind": "architecture",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://support.troveo.com/articles/1950228339-what-are-submitted-hours-in-ai-deals",
+          "publisher": "Troveo",
+          "source_class": "docs",
+          "quote": "Before each deal, Troveo receives detailed specifications from the client."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c035",
+      "statement": "Troveo reviews ingested content to determine which hours match a client's specifications.",
+      "kind": "architecture",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q10",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://support.troveo.com/articles/1950228339-what-are-submitted-hours-in-ai-deals",
+          "publisher": "Troveo",
+          "source_class": "docs",
+          "quote": "determines which hours match the client's specifications"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c036",
+      "statement": "Troveo distinguishes submitted hours (delivered to a client for consideration) from accepted hours, the subset the client licenses.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://support.troveo.com/articles/1950228339-what-are-submitted-hours-in-ai-deals",
+          "publisher": "Troveo",
+          "source_class": "docs",
+          "quote": "Accepted hours are the subset of submitted hours that the client ultimately licenses."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c037",
+      "statement": "Troveo's owner annotation template asks for content type, title, year, country, mature-content flag and genre, and has no field for people, releases or consent.",
+      "kind": "architecture",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://support.troveo.com/articles/9851996087-annotations-sheet-guide",
+          "publisher": "Troveo",
+          "source_class": "docs",
+          "quote": "Annotations are brief, structured descriptors that enrich your videos with context"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c038",
+      "statement": "Owners include a troveo.yaml file at the top level of each upload so Troveo's system can recognise and process it.",
+      "kind": "architecture",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://support.troveo.com/articles/7499248682-where-should-I-attach-troveo_yaml_file",
+          "publisher": "Troveo",
+          "source_class": "docs",
+          "quote": "Your troveo.yaml file helps Troveo's system recognize and correctly process your uploaded content."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c039",
+      "statement": "Owners can upload content with the AWS CLI into a Troveo-provided S3 bucket.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://support.troveo.com/articles/8015095099-submitting-content-via-AWS-CLI",
+          "publisher": "Troveo",
+          "source_class": "docs",
+          "quote": "s3://troveo-your-bucket-name/folder_name_here/ --recursive"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c040",
+      "statement": "Troveo says videos become eligible for licensing on receipt, regardless of their processing status in the owner portal.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://support.troveo.com/articles/1654766997-how-long-does-it-take-for-my-footage-to-be-processed-and-show-up-in-my-dashboard",
+          "publisher": "Troveo",
+          "source_class": "docs",
+          "quote": "Every video you upload is eligible for licensing as soon as it has been received"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c041",
+      "statement": "Troveo's July 2026 video-licensing article says there is no public price sheet and deals are negotiated on volume, scarcity, exclusivity and rights scope.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-07-25",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/licensed-video-data-for-ai",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "There is no public price sheet; deals are negotiated on volume, scarcity, exclusivity, and rights scope."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c042",
+      "statement": "Troveo says labs sign one agreement, browse and build datasets in Troveo Lens, and receive cleaned footage.",
+      "kind": "architecture",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q6",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-07-25",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/licensed-video-data-for-ai",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Labs sign one agreement, browse and build datasets in Troveo Lens, and receive footage cleaned,"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c043",
+      "statement": "Troveo says buyers can browse and build video datasets in Troveo Lens or contact Troveo with what they are training toward.",
+      "kind": "offer",
+      "section": "discovery",
+      "question_ids": [
+        "Q9",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-07-25",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/licensed-video-data-for-ai",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "You can browse and build video datasets in Troveo Lens, or contact us and tell us what your team is training toward."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c044",
+      "statement": "In July 2026 Troveo said it had paid over $20 million through to rights holders.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 20000000,
+        "unit": "USD paid to rights holders",
+        "basis": "vendor-stated cumulative payouts, lower bound",
+        "period": "cumulative to 2026-07-25"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-07-25",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/licensed-video-data-for-ai",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "with over $20 million paid through to rights holders so far"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c045",
+      "statement": "Troveo says more than 7,000 licensors have signed with it, 95 percent of them exclusively.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 95,
+        "unit": "percent of licensors signed exclusively with Troveo",
+        "basis": "vendor-stated share of more than 7,000 licensors",
+        "period": "as at 2026-07-25"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-07-25",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/licensed-video-data-for-ai",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "More than 7,000 licensors globally, 95 percent signed exclusively"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c046",
+      "statement": "Troveo's glossary says 95 percent of licensors on Troveo have signed exclusively.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/glossary/data-exclusivity",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "On Troveo, 95 percent of licensors have signed exclusively."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c047",
+      "statement": "Troveo says its catalogue spans video, audio, text, gaming, robotics and enterprise workflow data.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-08-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/troveo-vs-protege",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "The catalog spans video, audio, text, gaming, robotics, and enterprise workflow data"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c048",
+      "statement": "Troveo says buyers can browse and assemble datasets self-serve in Lens, or work with its team on custom sourcing.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q9",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-08-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/troveo-vs-protege",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Buyers can browse and assemble datasets self-serve in Lens"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c049",
+      "statement": "Troveo offers custom sourcing work against a buyer's model roadmap.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-08-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/troveo-vs-protege",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "or work with the team directly on custom sourcing against a model roadmap"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c050",
+      "statement": "Troveo says every asset carries its own rights documentation and is delivered in training-ready formats.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-08-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/troveo-vs-protege",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "every asset carrying its own rights documentation and delivered in training-ready formats"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c051",
+      "statement": "Troveo says its marketplace is built around licensing the same data to multiple AI developers over time.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-10",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/exclusive-vs-non-exclusive-data-license",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Troveo's marketplace is built around licensing the same data to multiple AI developers over time"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c052",
+      "statement": "Troveo says owners get paid a share each time their data licenses to an AI developer.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-10",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/exclusive-vs-non-exclusive-data-license",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "get paid a share each time the data licenses to an AI developer"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c053",
+      "statement": "Troveo says that where exclusivity is part of an agreement it is time-limited, must be earned, and has clear exit terms.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-10",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/exclusive-vs-non-exclusive-data-license",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Where exclusivity is part of an agreement it's time-limited, has to be earned, and comes with clear exit terms."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c054",
+      "statement": "Troveo says re-licensing the same catalogue several times over an agreement's life is what paid its rights holders more than $20 million.",
+      "kind": "outcome",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-10",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/exclusive-vs-non-exclusive-data-license",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "The same catalog, licensed several times over the life of the agreement, is what has paid our rights holders more than 20"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c055",
+      "statement": "Troveo says business datasets average four sales per dataset.",
+      "kind": "number",
+      "section": "demand",
+      "question_ids": [
+        "Q1",
+        "Q9"
+      ],
+      "scope": {
+        "product": "business data licensing",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 4,
+        "unit": "sales per dataset",
+        "basis": "vendor-stated average for business data; method not stated",
+        "period": "average"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/business-data",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "4× AVG Sales Per Dataset"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c056",
+      "statement": "Troveo tells business-data owners it pays on every sale, not just the first.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "business data licensing",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/business-data",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "paying you on every sale, not just the first"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c057",
+      "statement": "Troveo's business-data page says it has paid $20M+ to licensors.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 20000000,
+        "unit": "USD paid to licensors",
+        "basis": "vendor-stated cumulative, lower bound",
+        "period": "cumulative to retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/business-data",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "$20M+ Paid to Licensors"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c058",
+      "statement": "Troveo says business data owners keep ownership while Troveo licenses it on their behalf under terms they sign off on.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "business data licensing",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/business-data",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "You do. Troveo licenses it on your behalf under terms that you sign off on; ownership never transfers."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c059",
+      "statement": "Troveo's business-data page says it has 40+ active buyers.",
+      "kind": "number",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 40,
+        "unit": "active buyers",
+        "basis": "vendor-stated, lower bound; scope (business data or whole marketplace) not stated",
+        "period": "as at retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/business-data",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "40+ Active Buyers"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c060",
+      "statement": "Troveo says names, contact details, credentials and client identities are scrubbed from business data under one documented standard.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "business data licensing",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/business-data",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "People's names, contact details, credentials, and client identities are scrubbed under one documented standard"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c061",
+      "statement": "Troveo's business-data owners agree to 'simple, standard terms' covering their licence and earnings.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "business data licensing",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/business-data",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Simple, standard terms covering your license and your earnings."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c062",
+      "statement": "Business data is anonymised, documented in a manifest and made market-ready before sale.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "business data licensing",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/business-data",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Anonymized to our standard, documented in a manifest, and made market-ready."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c063",
+      "statement": "Troveo describes a custom service in which it produces new content to a buyer's technical and content specifications when off-the-shelf data is not enough.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/sourcing",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "When off-the-shelf datasets are not enough, we produce new content to your exact technical and content specifications."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c064",
+      "statement": "Troveo says it activates exclusive supply networks to capture new content for custom requests.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/sourcing",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "We activate exclusive supply networks to capture and deliver high-quality, model-aligned content at scale."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c065",
+      "statement": "Troveo says programmatic classification plus human validation ensure taxonomy consistency and accuracy.",
+      "kind": "offer",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/sourcing",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Programmatic classification combined with human validation ensure taxonomy consistency and measurable accuracy."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c066",
+      "statement": "Troveo's custom sourcing page states a typical response time of under 24 hours.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/sourcing",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Typical response time: under 24 hours."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c067",
+      "statement": "On 2026-05-01 Techstrong.ai reported that Troveo was adding five content types beyond video: audio, text, agentic workflows, gameplay data and data collected from robots.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "press_relayed",
+      "as_of": "2026-05-01",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://techstrong.ai/features/troveo-expands-types-of-licensed-content-available-for-training-ai-models/",
+          "publisher": "Techstrong.ai",
+          "source_class": "press_relaying_vendor",
+          "quote": "audio, text, agentic workflows, gameplay data and data collected from robots"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c068",
+      "statement": "Techstrong.ai reported in May 2026 that Troveo had paid out more than $20 million to thousands of content owners.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 20000000,
+        "unit": "USD paid to content owners",
+        "basis": "vendor figure relayed by press, lower bound",
+        "period": "cumulative to 2026-05-01"
+      },
+      "origin": "press_relayed",
+      "as_of": "2026-05-01",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://techstrong.ai/features/troveo-expands-types-of-licensed-content-available-for-training-ai-models/",
+          "publisher": "Techstrong.ai",
+          "source_class": "press_relaying_vendor",
+          "quote": "it has paid out more than $20 million to thousands of content owners"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c069",
+      "statement": "Troveo says every marketplace asset carries a documented chain of rights.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-07-22",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/rights-cleared-training-data",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Every asset in the marketplace carries a documented chain of rights"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c070",
+      "statement": "Troveo says its 7,000+ licensors signed licensing agreements that explicitly cover AI training.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-07-22",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/rights-cleared-training-data",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "have signed licensing agreements with Troveo that explicitly cover AI training"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c071",
+      "statement": "Troveo says the licensing agreement behind each asset can be produced per asset if anyone asks, rather than being delivered by default.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-07-22",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/rights-cleared-training-data",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "the licensing agreement exists as a document that can be produced per asset if anyone ever asks"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c072",
+      "statement": "Troveo says every asset is licensed directly from its rights holder under an agreement explicitly covering AI training, with per-asset documentation.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-08-28",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/ai-data-provenance",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Every asset is licensed directly from its rights holder under an agreement that explicitly covers AI training"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c073",
+      "statement": "Under Troveo's business data licence agreement, as Troveo describes it, the owner licenses defined data to Troveo and keeps ownership.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "business data licence agreement (owner side), as described by Troveo",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/business-data-license-agreement",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "You license defined business data to Troveo. You keep ownership."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c074",
+      "statement": "Troveo says business-data owners receive 60 percent of the licence fees Troveo collects from buyers for their data, counted before costs.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "business data licence agreement (owner side), as described by Troveo",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 60,
+        "unit": "percent of licence fees collected from buyers",
+        "basis": "paid to the business-data owner; gross (counted before costs); Troveo retains the remaining 40 percent",
+        "period": "per sale"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-09-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/business-data-license-agreement",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "You receive 60 percent of the license fees Troveo collects from buyers for your data, and the fees are counted before any"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c075",
+      "statement": "Troveo says the business data licence has a three-year initial term renewing in one-year periods unless either side gives 30 days' notice.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "business data licence agreement (owner side), as described by Troveo",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/business-data-license-agreement",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "The initial term is three years, renewing in one-year periods unless either side gives notice thirty days before a period"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c076",
+      "statement": "Troveo says the owner licence is irrevocable during its term and buyer agreements Troveo signs can run past the end of the owner's agreement.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q4",
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "business data licence agreement (owner side), as described by Troveo",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/business-data-license-agreement",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "agreements Troveo signs with buyers can run past the end of your agreement, and ending your agreement does not unwind them"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c077",
+      "statement": "Troveo says the owner's removal right only keeps named files or categories out of future deals, prospectively.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "business data licence agreement (owner side), as described by Troveo",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/business-data-license-agreement",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "The Rider's removal right lets you name files, records, or categories to keep out of any future deal, prospectively"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c078",
+      "statement": "Troveo says owners cannot claw data back from a model that already learned from it.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "business data licence agreement (owner side), as described by Troveo",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/business-data-license-agreement",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "You cannot claw data back from a model that already learned from it"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c079",
+      "statement": "Troveo says the rights owners grant it are sublicensable through multiple tiers.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "business data licence agreement (owner side), as described by Troveo",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/business-data-license-agreement",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "sublicensable through multiple tiers"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c080",
+      "statement": "Troveo says owner payment follows within 45 days of Troveo receiving the buyer's fee.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "business data licence agreement (owner side), as described by Troveo",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 45,
+        "unit": "days after Troveo receives buyer's fee",
+        "basis": "maximum payment lag to owner under the business data agreement",
+        "period": "per payment"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-09-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/business-data-license-agreement",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Payment follows within 45 days of Troveo receiving the buyer's fee"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c081",
+      "statement": "Troveo says there is a minimum payout threshold of 500 dollars for US licensors.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "business data licence agreement (owner side), as described by Troveo",
+        "tier": "",
+        "region": "US"
+      },
+      "value": {
+        "num": 500,
+        "unit": "USD minimum payout",
+        "basis": "threshold before a US licensor is paid",
+        "period": "per payout"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-09-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/business-data-license-agreement",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "with a minimum payout threshold of 500 dollars for US licensors"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c082",
+      "statement": "Troveo says owners indemnify Troveo and the buyers for losses from a breach of the owner's promises.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "business data licence agreement (owner side), as described by Troveo",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/business-data-license-agreement",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "You cover Troveo and the buyers for losses arising from a breach of those promises"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c083",
+      "statement": "Troveo says owners promise the data does not infringe anyone's rights and is not encumbered by a conflicting grant.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "business data licence agreement (owner side), as described by Troveo",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/business-data-license-agreement",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "You promise the data does not infringe anyone's rights and is not encumbered by a conflicting grant"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c084",
+      "statement": "Troveo says owners warrant that they own the data or have secured every consent needed.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "business data licence agreement (owner side), as described by Troveo",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/business-data-license-agreement",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "that you own it or have secured every consent needed"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c085",
+      "statement": "Troveo says a Rider can add a matching indemnity from Troveo to the owner and a mutual liability cap.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "business data licence agreement (owner side), as described by Troveo",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/business-data-license-agreement",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "The Rider can add a matching indemnity from Troveo to you, for Troveo's own breaches or misconduct"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c086",
+      "statement": "Troveo says it prepares the data and licenses it onward to AI developers under its own agreements with them.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "business data licence agreement (owner side), as described by Troveo",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/business-data-license-agreement",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Troveo prepares the data and licenses it onward to AI developers under its own agreements with them."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c087",
+      "statement": "Troveo says derivative works belong to whoever made them and the owner has no ownership interest in them.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "business data licence agreement (owner side), as described by Troveo",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/business-data-license-agreement",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Derivative works belong to whoever made them, and you have no ownership interest"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c088",
+      "statement": "Troveo says under a non-exclusive licence the owner remains free to license the same data elsewhere.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q4",
+        "Q8"
+      ],
+      "scope": {
+        "product": "business data licence agreement (owner side), as described by Troveo",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/business-data-license-agreement",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Under a non-exclusive license you remain free to license the same data elsewhere"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c089",
+      "statement": "Troveo says personal information is removed, redacted or de-identified before delivery of business data.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "business data licence agreement (owner side), as described by Troveo",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/business-data-license-agreement",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Personal information is removed, redacted, or de-identified before delivery"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c090",
+      "statement": "Troveo says owners have an annual audit right over the calculation of their share.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q8",
+        "Q9"
+      ],
+      "scope": {
+        "product": "business data licence agreement (owner side), as described by Troveo",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/business-data-license-agreement",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "You have an annual audit right over the calculation of your share"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c091",
+      "statement": "Troveo tells sellers their company is never named publicly and they decide what is excluded before anything ships.",
+      "kind": "terms",
+      "section": "listing",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-08-29",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/sell-data-to-ai-companies",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "your company is never named publicly, and you get paid on every sale, not just the first"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c092",
+      "statement": "Troveo says it removes names and personal details to a documented standard before any buyer sees anything.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-08-29",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/sell-data-to-ai-companies",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "We remove names and personal details to a documented standard before any buyer sees anything."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c093",
+      "statement": "Troveo describes its role as identifying what is valuable, working with owners on rights and scope, packaging data for evaluation and matching it with AI buyers.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q2",
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/data-licensing-business-model",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "We identify what's valuable, work with you on rights and scope, package it for evaluation, and match it with AI buyers."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c094",
+      "statement": "The Broadcast News listing describes daily-news-cycle output including anchor reads, packages, live field shots, interviews and raw B-roll.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q10",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/datasets/broadcast-news",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "On-air and field output produced on a daily news cycle, including anchor reads, reported packages, live field shots"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c095",
+      "statement": "Troveo lists a Broadcast News dataset of 408K+ hours.",
+      "kind": "number",
+      "section": "listing",
+      "question_ids": [
+        "Q1",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 408000,
+        "unit": "hours",
+        "basis": "vendor-stated listing size, lower bound",
+        "period": "as at retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/datasets/broadcast-news",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "408K+"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c096",
+      "statement": "The Talking Head listing describes people speaking to camera or to an interviewer, framed tightly to isolate face and voice.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q7",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/datasets/talking-head",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "People speaking to camera or across from an interviewer, framed tightly with controlled lighting"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c097",
+      "statement": "Troveo lists a Talking Head dataset of 449K+ hours.",
+      "kind": "number",
+      "section": "listing",
+      "question_ids": [
+        "Q1",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 449000,
+        "unit": "hours",
+        "basis": "vendor-stated listing size, lower bound",
+        "period": "as at retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/datasets/talking-head",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "449K+"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c098",
+      "statement": "The Talking Head listing names avatar and digital human generation among its intended training uses; the page carries no consent, likeness or release statement.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/datasets/talking-head",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Avatar and digital human generation"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c099",
+      "statement": "The Everyday Tasks POV listing states 12.4K+ hours.",
+      "kind": "number",
+      "section": "listing",
+      "question_ids": [
+        "Q1",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 12400,
+        "unit": "hours",
+        "basis": "vendor-stated listing size, lower bound",
+        "period": "as at retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/datasets/everyday-tasks-pov",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "12.4K+"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c100",
+      "statement": "Troveo's world-models page says it has 500K+ hours of native action-aligned gameplay.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 500000,
+        "unit": "hours of gameplay",
+        "basis": "vendor-stated, lower bound",
+        "period": "as at retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/world-models",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "500K+ hours"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c101",
+      "statement": "Troveo says world-model data is delivered in the buyer's format with a schema manifest, provenance and a QA report.",
+      "kind": "offer",
+      "section": "custody",
+      "question_ids": [
+        "Q6",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/world-models",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Delivered in your format with a schema manifest, provenance and QA report."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c102",
+      "statement": "Troveo says its world-model data is rights-cleared for AI training and not scraped or re-licensed off a public set.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/world-models",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Not scraped, not re-licensed off a public set."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c103",
+      "statement": "For world-model buyers Troveo maps the buyer's training objective and gaps to data families and stages.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/world-models",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "You bring the training objective and the gaps. We map them to data families and stages."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c104",
+      "statement": "Troveo's gameplay data is described as frame-synced video, player inputs and game-state events captured at the source.",
+      "kind": "offer",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/world-models",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Frame-synced video, player inputs, and structured game-state events captured at the source."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c105",
+      "statement": "Troveo's company data snapshots each profile one operating company's licensable data, systems, trainable workflows and volumes.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Company Data Snapshots",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/snapshots",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Each snapshot profiles one operating company's licensable data, the systems it runs on, the workflows it can train,"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c106",
+      "statement": "Individual company data snapshot pages are gated behind a shared password.",
+      "kind": "architecture",
+      "section": "listing",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Company Data Snapshots",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/snapshots/1739528",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Enter the shared password to view licensor snapshot profiles"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c107",
+      "statement": "Troveo says it delivered 1M+ hours of structured footage from its licensor base to a 'Mag 7' global enterprise client.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Troveo provided 1M+ hours of structured, de-risked footage from our global licensor base"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c108",
+      "statement": "Troveo says it delivered 500K+ video clips with custom metadata to a 'Mag 7' AI company in three weeks.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Troveo delivered training-ready video with custom metadata in three weeks."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c109",
+      "statement": "Troveo says it isolated specific emotional expressions from long-form content and delivered 100K clips with emotion labels to an enterprise video platform.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Troveo identified and isolated specific emotional expressions from long-form content"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c110",
+      "statement": "Troveo's contact page routes visitors to two paths: 'I need training data' or 'I want to license my data'.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/contact",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Whether you're training a model or want to monetize your data, we'll get you to the right team."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c111",
+      "statement": "Troveo's help centre says that once terms are agreed, its team prepares and delivers the relevant content to the buyer.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://support.troveo.com/articles/7834088496-how-long-do-troveo-licensing-deals-take",
+          "publisher": "Troveo",
+          "source_class": "docs",
+          "quote": "Once terms are agreed upon, our team prepares and delivers the relevant content to the buyer."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c112",
+      "statement": "Troveo and the buyer negotiate usage rights, licence scope, deliverables and timelines per deal.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://support.troveo.com/articles/7834088496-how-long-do-troveo-licensing-deals-take",
+          "publisher": "Troveo",
+          "source_class": "docs",
+          "quote": "Troveo and the buyer discuss terms such as usage rights, license scope, deliverables, and timelines."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c113",
+      "statement": "Troveo invites buyers to ask for samples against their brief.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-07-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/buy-ai-training-data",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Ask for samples against your brief."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c114",
+      "statement": "Troveo says buyers deal with one company and sign one contract.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q5",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-07-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/buy-ai-training-data",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "you deal with one company and sign one contract."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c115",
+      "statement": "Troveo says it delivers data cleaned, normalised and in the formats the buyer's pipeline uses.",
+      "kind": "offer",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-07-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/buy-ai-training-data",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "We deliver the data cleaned, normalized and in the formats your pipeline uses"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c116",
+      "statement": "Troveo says its 8M+ hours of video and audio were contributed by creators and media companies who opted in and get paid.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-08-05",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/ai-training-data-marketplace",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "contributed by creators and media companies who opted in and get paid"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c117",
+      "statement": "Troveo says gameplay footage is delivered cleaned and normalised, with provenance traceable to its owner.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q6",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-07-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/gameplay-data-for-world-models",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Footage is cleaned, normalized, and delivered in the format a lab's pipeline expects, with provenance traceable to its owner"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c118",
+      "statement": "Troveo describes itself as a data licensing marketplace operating a revenue-share model.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-29",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/data-monetization-models",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Troveo is a data licensing marketplace, which is the revenue-share model above."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c119",
+      "statement": "Troveo tells data owners it takes no fees and no deductions from their payouts.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-29",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/data-monetization-models",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "we take no fees and no deductions from your payouts."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c120",
+      "statement": "In late September 2026 Troveo said it had paid rights holders more than $20 million across video, audio, gaming, robotics and business data.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 20000000,
+        "unit": "USD paid to rights holders",
+        "basis": "vendor-stated cumulative payouts across all modalities, lower bound",
+        "period": "cumulative to 2026-09-29"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-09-29",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/data-monetization-models",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "we've paid rights holders more than 20 million dollars across video, audio, gaming, robotics and business data"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c121",
+      "statement": "Troveo's content-owner onboarding requires signing a partnership agreement and answering a survey about what the owner holds.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/content-owners",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Sign the partnership agreement and answer a short survey about what you own."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c122",
+      "statement": "Troveo's content-owner page solicits categories including scripted, documentary/reality, sports, UGC, interviews, nature, animation, advertising, wildlife and aerial footage.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/content-owners",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Scripted Content, Documentary/Reality, Sports & Movement, New Media/UGC, Talking Person/Interview"
+        }
+      ]
+    },
+    {
+      "id": "troveo-c123",
+      "statement": "Troveo's robotics article describes its robotics offer as licensed real-world footage from over 7,000 rights holders, not its own capture.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-07-28",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/resources/robotics-training-data",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "quote": "Licensed real-world footage from over 7,000 rights holders, delivered training-ready with documented rights."
+        }
+      ]
+    },
+    {
+      "id": "troveo-c124",
+      "statement": "Troveo's privacy policy (last updated 1 January 2026) names the operating entity as Troveo AI, Inc.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-01",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "url": "https://www.troveo.ai/legal/privacy-policy",
+          "publisher": "Troveo",
+          "source_class": "legal_terms",
+          "quote": "Troveo AI, Inc."
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "matrix.buyer_vetting",
+      "urls_tried": [
+        "https://www.troveo.ai/contact",
+        "https://www.troveo.ai/resources/buy-ai-training-data",
+        "https://www.troveo.ai/datasets/everyday-tasks-pov"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.versioning",
+      "urls_tried": [
+        "https://www.troveo.ai/datasets",
+        "https://www.troveo.ai/datasets/everyday-tasks-pov",
+        "https://www.troveo.ai/datasets/broadcast-news",
+        "https://support.troveo.com/"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.buyer_licence_text",
+      "urls_tried": [
+        "https://www.troveo.ai/legal/terms-of-service",
+        "https://www.troveo.ai/legal/terms",
+        "https://www.troveo.ai/sitemap.xml",
+        "https://app.troveo.com/users/sign-in"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "other.video_owner_agreement_and_royalty_rate",
+      "urls_tried": [
+        "https://www.troveo.ai/content-owners",
+        "https://support.troveo.com/articles/6852961307-how-do-payouts-work-on-troveo",
+        "https://www.troveo.ai/resources/ai-data-licensing-deals",
+        "https://www.troveo.ai/resources/data-monetization-models"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.troveo_lens",
+      "urls_tried": [
+        "https://lens.troveo.ai/"
+      ],
+      "reason": "js_empty"
+    },
+    {
+      "field": "other.snapshot_detail",
+      "urls_tried": [
+        "https://www.troveo.ai/snapshots/1739528"
+      ],
+      "reason": "gated"
+    },
+    {
+      "field": "other.funding_and_filings",
+      "urls_tried": [
+        "https://efts.sec.gov/LATEST/search-index?q=%22Troveo%22",
+        "https://www.sec.gov/cgi-bin/browse-edgar?company=troveo&type=&dateb=&owner=include&count=40&action=getcompany",
+        "https://www.troveo.ai/resources"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "other.independent_press",
+      "urls_tried": [
+        "https://techcrunch.com/tag/troveo/",
+        "https://techstrong.ai/?s=troveo"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "other.custom_capture_pay_and_relisting",
+      "urls_tried": [
+        "https://www.troveo.ai/sourcing",
+        "https://www.troveo.ai/resources/robotics-training-data",
+        "https://www.troveo.ai/world-models"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.depicted_person_consent_records",
+      "urls_tried": [
+        "https://support.troveo.com/articles/9851996087-annotations-sheet-guide",
+        "https://www.troveo.ai/datasets/talking-head",
+        "https://www.troveo.ai/resources/rights-cleared-training-data",
+        "https://www.troveo.ai/legal/privacy-policy"
+      ],
+      "reason": "not_published"
+    }
+  ],
+  "conflicts": [
+    {
+      "claim_ids": [
+        "troveo-c017",
+        "troveo-c120"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "The undated content-owner page says $50M+ paid to creators; Troveo's own articles dated up to 2026-09-29, its business-data page and the contact page say $20M+. Both are vendor figures; the $20M figure is repeated more widely and more recently dated. Treat total payouts as between $20M and $50M+, vendor-stated."
+    },
+    {
+      "claim_ids": [
+        "troveo-c025",
+        "troveo-c026"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "Two live help articles name different payment platforms (Tipalti and Ramp); neither is dated, so which is current is unknown."
+    },
+    {
+      "claim_ids": [
+        "troveo-c018",
+        "troveo-c010"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "Owners are told 'No public listings', yet a public dataset library exists. Likely both hold: aggregated dataset families are public while individual owners and their content are not; recorded because the wording conflicts."
+    },
+    {
+      "claim_ids": [
+        "troveo-c048",
+        "troveo-c041"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "Troveo says buyers can assemble datasets 'self-serve in Lens', but no price or checkout is published and deals are negotiated; Lens could not be inspected, so transaction_mode is set to contact_sales."
+    },
+    {
+      "claim_ids": [
+        "troveo-c058",
+        "troveo-c086"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "Troveo says it licenses business data 'on your behalf' but also that it licenses onward 'under its own agreements' with a sublicensable grant; the latter describes the contract structure and sets operator_role to reseller_licensor."
+    }
+  ],
+  "leads": [
+    {
+      "url": "https://lens.troveo.ai/",
+      "why": "Troveo Lens, the buyer catalogue tool; renders empty without JavaScript/login."
+    },
+    {
+      "url": "https://app.troveo.com/users/sign-in",
+      "why": "Owner/buyer portal; login only."
+    },
+    {
+      "url": "https://jobs.ashbyhq.com/troveo",
+      "why": "Job listings may describe internal pipeline and team; not fetched."
+    },
+    {
+      "url": "https://www.linkedin.com/company/troveo-ai/",
+      "why": "Company page; may carry funding or headcount news. Not fetched."
+    },
+    {
+      "url": "https://www.troveo.ai/msp-data-assessment",
+      "why": "MSP business-data programme; not fetched."
+    },
+    {
+      "url": "https://www.troveo.ai/resources/troveo-vs-protege",
+      "why": "Vendor comparison with Protege; useful for the Protege profile."
+    }
+  ]
+}

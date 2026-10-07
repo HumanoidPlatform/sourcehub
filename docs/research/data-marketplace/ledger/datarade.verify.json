@@ -1,0 +1,160 @@
+{
+  "kind": "verify",
+  "slug": "datarade",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "datarade-c001",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://arxiv.org/html/2607.08785v1",
+        "publisher": "Sun et al., DaDaDa: A Dataset for Data Pricing in Data Marketplaces (arXiv, 13 Jun 2026)",
+        "source_class": "academic",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "giving rise to many data marketplaces, e.g., AWS Marketplace, Databricks, and Datarade"
+      },
+      "corrected_statement": null,
+      "note": "Confirms the 'live marketplace' part only: a June 2026 academic paper treats Datarade as an operating marketplace and crawled 4,396 of its products (Table I; crawl date not stated). The 2026 copyright line itself is by nature vendor-only (seen on datarade.ai/company/legal-notice and /terms-of-service as '©2026 Datarade, Monda Labs GmbH'). Company-register data relayed by North Data (northdata.com, Monda Labs GmbH, Amtsgericht Charlottenburg HRB 199191 B) shows the entity was formerly Datarade GmbH (still so named on 9 Oct 2024), filed its 2024 annual accounts on 29 Dec 2025, and shows no insolvency or liquidation entry. No search available: no press, layoffs, funding or acquisition news could be looked for; EDGAR full-text search for 'Datarade' returns 0 hits; the HTGF portfolio page for Datarade gives no status. Note also that the old datarade.ai/terms URL now 404s; the ToS lives at /company/terms-of-service."
+    },
+    {
+      "claim_id": "datarade-c002",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The update date of Datarade's own ToS exists only on its own page. Seen there on 2026-10-01: 'Last updated on January 9, 2026' (datarade.ai/company/terms-of-service). No search spent."
+    },
+    {
+      "claim_id": "datarade-c003",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause of Datarade's own ToS. Seen on datarade.ai/company/terms-of-service: 'Platform Operator is not a party to any contractual relationships between Customers.' No independent restatement expected."
+    },
+    {
+      "claim_id": "datarade-c024",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The claim is about what Datarade tells buyers. The ToS separately says 'Customer owes no remuneration for Platform Operator's Services'. The June 2026 DaDaDa paper (arXiv 2607.08785) describes Datarade's price modes but says nothing on who pays Datarade. No search available for a provider or journalist describing the fee flow."
+    },
+    {
+      "claim_id": "datarade-c061",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Eligibility wording in Datarade's own provider FAQ; by nature vendor-only."
+    },
+    {
+      "claim_id": "datarade-c066",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The claim reports what a Datarade blog article says. Circumstantial support that the provider, not Datarade, delivers: Nexdata's Datarade-powered storefront (data.nexdata.ai) ends every product page in 'Request Information' rather than a download. No independent description of Datarade's custody model was found (no search available)."
+    },
+    {
+      "claim_id": "datarade-c056",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Button labels on a Datarade listing page. Xverum's own homepage (xverum.com) does not mention Datarade or prices; it offers 'Start free' and 'Get in touch'."
+    },
+    {
+      "claim_id": "datarade-c014",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause of Datarade's own ToS. Seen on datarade.ai/company/terms-of-service: 'Customer's obligation to pay for Products in accordance with the respective agreements between Customer and a Seller remains unaffected.'"
+    },
+    {
+      "claim_id": "datarade-c015",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A rule in Datarade's own Publishing Policies; by nature vendor-only."
+    },
+    {
+      "claim_id": "datarade-c020",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A definition in Datarade's own Publishing Policies; by nature vendor-only."
+    },
+    {
+      "claim_id": "datarade-c029",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No search available, and no partner, provider or press page restating Datarade's provider plan table could be reached by navigation (provider help centre has no fee article; EDGAR 0 hits; arXiv DaDaDa paper silent on fees). The vendor page providers.datarade.ai/apply, fetched 2026-10-01, shows 'Commission-only' at '$0 / year' and '30% commission' with no small print on what the commission is charged on."
+    },
+    {
+      "claim_id": "datarade-c030",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No search available; no independent restatement reachable (same routes as c029). Vendor page providers.datarade.ai/apply shows Bronze at '$6,000 / year'."
+    },
+    {
+      "claim_id": "datarade-c031",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No search available; no independent restatement reachable (same routes as c029). Vendor page shows Bronze '20% commission'; the page does not say what revenue the commission applies to."
+    },
+    {
+      "claim_id": "datarade-c033",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No search available; no independent restatement reachable (same routes as c029). Vendor page shows Silver at '$12,000 / year' and '15% commission'."
+    },
+    {
+      "claim_id": "datarade-c040",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://data.nexdata.ai/products/nexdata-face-anti-spoofing-data-200-000-id-image-video-nexdata",
+        "publisher": "Nexdata (storefront powered by Datarade)",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Starts at $10K"
+      },
+      "corrected_statement": null,
+      "note": "Nexdata's own storefront (a nexdata.ai subdomain, 'Powered by Datarade') shows the '200,000 ID' Face Anti-spoofing product at 'Starts at $10K', one-off, with monthly, yearly and usage-based licences 'Not available' and a 'Request Information' button. It is the same provider-entered data served by Datarade's software, so it only shows the price is stated consistently. nexdata.ai itself publishes no prices. The claim does not say which of Nexdata's face anti-spoofing listings it means."
+    },
+    {
+      "claim_id": "datarade-c052",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://data.nexdata.ai/products/nexdata-multimodal-video-data-500-000-person-nexdata",
+        "publisher": "Nexdata (storefront powered by Datarade)",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Starts at $20K"
+      },
+      "corrected_statement": null,
+      "note": "Nexdata's Datarade-powered storefront shows the 500,000-person Multimodal Video Data at 'Starts at $20K' (one-off; monthly, yearly and usage-based 'Not available'; button 'Request Information'). Same provider-entered data on Datarade's software, so relayed rather than independent."
+    }
+  ],
+  "missed": []
+}

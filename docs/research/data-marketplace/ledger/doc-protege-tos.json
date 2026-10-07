@@ -1,0 +1,1606 @@
+{
+  "kind": "document",
+  "slug": "doc-protege-tos",
+  "platform_slug": "protege",
+  "title": "Terms of Service",
+  "doc_type": "marketplace_terms",
+  "url": "https://withprotege.ai/terms-of-service",
+  "publisher": "Protege Health Inc.",
+  "version_or_date": "Undated: no version or last-updated date printed on the Terms (site footer reads © 2025 Protege Health, Inc.)",
+  "retrieved_at": "2026-10-01",
+  "parties": {
+    "licensor": "Protege Health Inc. (Delaware), licensing Datasets it makes available; upstream data licensors stand behind it and are unnamed (their names are Protege Confidential Information)",
+    "licensee": "Customer: the entity or person accessing the Service (model builders), limited to its Authorized Users",
+    "operator_role": "reseller_licensor"
+  },
+  "terms": {
+    "permitted_use": {
+      "value": "Customer may view Datasets on the Platform (after an Access Fee) to decide on purchases, and use licensed Datasets only for the specific use cases in the Agreement / Statement of Work; every other use is prohibited.",
+      "claim_ids": [
+        "doc-protege-tos-c003",
+        "doc-protege-tos-c005",
+        "doc-protege-tos-c006",
+        "doc-protege-tos-c007",
+        "doc-protege-tos-c021",
+        "doc-protege-tos-c023"
+      ]
+    },
+    "ai_training_rights": {
+      "value": "Grants training of ML/AI models the Customer owns or licenses, solely for SOW-authorised purposes; fine-tuning, evaluation and model outputs are not mentioned; synthetic data generation is barred; redistribution, sublicensing and commercialising the Datasets or derivative works to third parties are barred (read literally this could reach trained models).",
+      "claim_ids": [
+        "doc-protege-tos-c022",
+        "doc-protege-tos-c023",
+        "doc-protege-tos-c009",
+        "doc-protege-tos-c010",
+        "doc-protege-tos-c011",
+        "doc-protege-tos-c024"
+      ]
+    },
+    "field_of_use": {
+      "value": "Narrow field of use set per deal: only the use cases/authorised purposes in the signed Statement of Work; no building of a competing service.",
+      "claim_ids": [
+        "doc-protege-tos-c006",
+        "doc-protege-tos-c007",
+        "doc-protege-tos-c023",
+        "doc-protege-tos-c025"
+      ]
+    },
+    "term_duration": {
+      "value": "No fixed term stated (set by SOW); either party may terminate for uncured material breach (30 days) or on 30 days' notice for insolvency; Protege may suspend or terminate access on a reasonable belief of breach or security risk.",
+      "claim_ids": [
+        "doc-protege-tos-c036",
+        "doc-protege-tos-c037",
+        "doc-protege-tos-c038"
+      ]
+    },
+    "exclusivity": {
+      "value": "Licence is non-exclusive under the standard Terms (a SOW could override).",
+      "claim_ids": [
+        "doc-protege-tos-c021",
+        "doc-protege-tos-c002"
+      ]
+    },
+    "sublicensing": {
+      "value": "Non-transferable and non-sublicensable; no resale, rental, lease or third-party access to Datasets; assignment by Customer needs Protege's consent.",
+      "claim_ids": [
+        "doc-protege-tos-c021",
+        "doc-protege-tos-c024",
+        "doc-protege-tos-c010",
+        "doc-protege-tos-c011",
+        "doc-protege-tos-c041"
+      ]
+    },
+    "derivatives_and_model_outputs": {
+      "value": "No derivative works using Dataset data without a signed SOW; no synthetic datasets or artifacts; derivative works may not be commercialised to third parties; ownership of trained models or outputs is not addressed beyond 'models owned or licensed by Customer'.",
+      "claim_ids": [
+        "doc-protege-tos-c012",
+        "doc-protege-tos-c009",
+        "doc-protege-tos-c010",
+        "doc-protege-tos-c022"
+      ]
+    },
+    "audit_rights": {
+      "value": "Protege and its licensors may audit the Customer on prior written notice (records, systems, interviews) to check use and deletion; Customer remedies and may bear audit costs.",
+      "claim_ids": [
+        "doc-protege-tos-c043",
+        "doc-protege-tos-c044",
+        "doc-protege-tos-c045"
+      ]
+    },
+    "deletion_on_termination": {
+      "value": "Customer must fully delete or return the Datasets on termination or expiration (stated inside the audit clause), verifiable by audit.",
+      "claim_ids": [
+        "doc-protege-tos-c044",
+        "doc-protege-tos-c043"
+      ]
+    },
+    "warranties_by_provider": {
+      "value": "Protege (licensor) warrants only its authority to contract; it disclaims all other warranties including non-infringement, and supplies Datasets as is, with no accuracy guarantee.",
+      "claim_ids": [
+        "doc-protege-tos-c026",
+        "doc-protege-tos-c027",
+        "doc-protege-tos-c028",
+        "doc-protege-tos-c029"
+      ]
+    },
+    "indemnity": {
+      "value": "One-way: Customer indemnifies Protege and its licensors for third-party claims from Customer's unlawful use or breach, uncapped; Protege gives no indemnity to the Customer.",
+      "claim_ids": [
+        "doc-protege-tos-c030",
+        "doc-protege-tos-c031",
+        "doc-protege-tos-c032",
+        "doc-protege-tos-c048"
+      ]
+    },
+    "liability_cap": {
+      "value": "Each party's aggregate liability capped at fees Customer paid in the 12 months before the event; indirect/consequential damages excluded; Customer's indemnity is carved out of both.",
+      "claim_ids": [
+        "doc-protege-tos-c034",
+        "doc-protege-tos-c035",
+        "doc-protege-tos-c033",
+        "doc-protege-tos-c048"
+      ]
+    },
+    "payment_and_revenue_share": {
+      "value": "Customer pays an Access Fee to use the Platform to browse Datasets; dataset prices and any provider revenue share are not stated in the Terms.",
+      "claim_ids": [
+        "doc-protege-tos-c003",
+        "doc-protege-tos-c005"
+      ]
+    },
+    "governing_law": {
+      "value": "Delaware and US federal law, CISG excluded; exclusive venue in state and federal courts of New Castle County, Delaware.",
+      "claim_ids": [
+        "doc-protege-tos-c039",
+        "doc-protege-tos-c040"
+      ]
+    },
+    "prohibited_uses": {
+      "value": "No illegal or fraudulent use, no re-identification, no synthetic data, no sale/sublicence/distribution or third-party access, no derivative works without SOW, no competing service, no reverse engineering.",
+      "claim_ids": [
+        "doc-protege-tos-c013",
+        "doc-protege-tos-c008",
+        "doc-protege-tos-c009",
+        "doc-protege-tos-c010",
+        "doc-protege-tos-c011",
+        "doc-protege-tos-c012",
+        "doc-protege-tos-c024",
+        "doc-protege-tos-c025"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "doc-protege-tos-c001",
+      "statement": "The Protege Terms of Service are a contract between Protege Health Inc., a Delaware corporation, and the entity or person accessing the Service (the Customer).",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "entered into by and between Protege Health Inc., a Delaware corporation"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c002",
+      "statement": "The Agreement consists of these Terms plus any Statement of Work, and a signed Statement of Work overrides any conflicting provision of the Terms.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the Statement of Work supersedes and controls with respect to that provision"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c003",
+      "statement": "Customers must pay Protege an Access Fee before they may use the Protege Platform to view the datasets Protege makes available there.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Upon payment of an Access Fee"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c004",
+      "statement": "Before buying, a Customer on the Platform can see a dataset's source, its record count and the fields it contains.",
+      "kind": "terms",
+      "section": "discovery",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Customers can see information about the Datasets, such as the source of a Dataset, number of records in a Dataset"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c005",
+      "statement": "Platform browsing and filtering exist to inform the Customer's decision to purchase Datasets from Protege, i.e. Protege is the seller.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q5",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Customers may perform these actions to inform their purchase decision for Datasets from Protege"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c006",
+      "statement": "Customers may use the Platform only for the specific use cases set out in the Agreement.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Customers may only use the Platform for the specific use cases outlined in the Agreement"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c007",
+      "statement": "Any use of the Platform, the Datasets or data from the Platform for a purpose other than the agreed use cases is prohibited.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Use of the Platform, Datasets, or data from the Platform for any other purpose is prohibited"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c008",
+      "statement": "Customers are prohibited from attempting to re-identify data or records in the Datasets.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Attempting to re-identify data or records in the Datasets"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c009",
+      "statement": "Customers are prohibited from creating synthetic datasets, data assets or other artifacts from the Datasets.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Creating any synthetic datasets, data assets, or other artifacts from the Datasets"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c010",
+      "statement": "Customers are prohibited from granting (or attempting to grant) any rights in the Datasets or in any derivative works created from them to any third party.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "grant any rights to, the Datasets or any derivative works created from the Datasets, to any third party"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c011",
+      "statement": "Customers are prohibited from publishing or giving any third party access to the Datasets or any material subset of them.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Publishing, disseminating, distributing, or providing access of any kind to the Datasets, or any material subset thereof"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c012",
+      "statement": "Customers may not use data from the Datasets in any derivative work unless a Statement of Work has been signed with Protege.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Using data from the Datasets in any derivative works without a Statement of Work signed with Protege"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c013",
+      "statement": "Customers are prohibited from using data about or from the Datasets for any illegal or fraudulent purpose.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Use of data about or from the Datasets for any illegal or fraudulent purpose"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c014",
+      "statement": "The Customer must implement and maintain appropriate technical and organisational measures to protect access to the Protege Platform.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "implement and maintain appropriate technical and organizational measures to protect access to the Protege Platform"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c015",
+      "statement": "The Customer must remove Platform access for departed staff and contractors within 5 business days and notify Protege of unauthorised access or compromised credentials.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "within 5 business days of the termination and will notify Protege if it becomes aware that any unauthorized users accessed"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c016",
+      "statement": "The Datasets and their metadata, including the licensor name and data sources, are Protege's Confidential Information.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "(including but not limited to, licensor name, description, and data sources), are Confidential Information of Protege"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c017",
+      "statement": "Each party must protect the other's Confidential Information during and after the term of the Agreement.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "During and after the term of the Agreement, each of Protege and Customer will use the same degree of care"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c018",
+      "statement": "Protege and its licensors retain ownership of Protege's intellectual property in the Platform and Services, including improvements.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Protege and its licensors retain ownership of all of Protege"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c019",
+      "statement": "All rights not expressly granted in the Terms are reserved by Protege and its licensors.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All rights not expressly granted are reserved and retained by Protege and its licensors"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c020",
+      "statement": "Protege may aggregate, anonymise or learn from data or feedback about the Customer's use of the Services to improve them.",
+      "kind": "terms",
+      "section": "other",
+      "question_ids": [],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Protege may aggregate, anonymize, or otherwise learn from data or feedback relating to Customer"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c021",
+      "statement": "Protege, not the upstream data owner, grants the Customer a non-exclusive, non-transferable, non-sublicensable, limited licence to access and use the Datasets.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Protege grants Customer a non-exclusive, non-transferable, non-sublicensable, and limited license to access and use"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c022",
+      "statement": "The licence permits the Customer to use the Datasets to train machine-learning or AI models that the Customer owns or licenses.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "use the Datasets to train machine-learning or artificial intelligence models owned by or licensed by Customer"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c023",
+      "statement": "The training licence is limited solely to the authorised purposes set out in the Statement of Work.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "solely for the authorized purposes set forth in the Statement of Work"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c024",
+      "statement": "The Customer may not sublicense, resell, rent or lease access to the Platform or the Datasets.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "sublicense, resell, rent, or lease access to the Platform or the Datasets"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c025",
+      "statement": "The Customer may not use the Datasets, the Platform or information gleaned from them to build a service that competes with Protege's Services.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "or any information gleaned therefrom, to create a service intended to compete with the Services"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c026",
+      "statement": "The only warranty each party gives is that it has the legal right and authority to enter into the Agreement; nothing is warranted about consent or releases of people in the data.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Each Party represents and warrants that it has the legal right and authority to enter into the Agreement"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c027",
+      "statement": "Protege gives no other express, implied or statutory warranties about the Datasets and Services.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Protege makes no other warranties, express, implied, or statutory, regarding the Datasets and Services"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c028",
+      "statement": "Protege's warranty disclaimer expressly covers non-infringement, so Protege does not warrant that the Datasets infringe no third-party rights.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "including any implied warranties of merchantability, non-infringement, and fitness for a particular purpose"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c029",
+      "statement": "The Customer acknowledges the Datasets are provided as is and as available, with no guarantee of accuracy, timeliness or availability.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the Datasets and Services are provided “as is” and “as available” with no guarantee of accuracy, timeliness, or availability"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c030",
+      "statement": "The Customer must indemnify Protege and its licensors against third-party claims, losses, fines and legal fees.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Customer shall indemnify Protege and its licensors for any third-party claims, losses, damages, judgments, fines"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c031",
+      "statement": "The Customer's indemnity covers claims arising from the Customer's unlawful use of the Platform or Datasets or its breach of the Agreement.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "arising out of or relating to Customer’s unlawful use of the Platform or Datasets or breach of Customer’s obligations"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c032",
+      "statement": "The indemnification clause runs only from Customer to Protege and its licensors; the Terms contain no indemnity from Protege to the Customer.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "To the extent allowed by applicable law, Customer shall indemnify Protege and its licensors"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c033",
+      "statement": "Except for the Customer's indemnity, neither party is liable for indirect, special, incidental or consequential damages.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "IN NO EVENT SHALL EITHER PARTY BE LIABLE TO THE OTHER PARTY FOR ANY INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c034",
+      "statement": "Except for the Customer's indemnity, each party's total liability is capped at the amounts the Customer paid under the Agreement.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "EACH PARTY’S TOTAL AGGREGATE LIABILITY UNDER THE AGREEMENT SHALL NOT EXCEED THE AMOUNTS PAID BY CUSTOMER UNDER THE AGREEMENT"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c035",
+      "statement": "The liability cap counts only fees paid in the twelve months before the event giving rise to liability.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "DURING THE TWELVE (12) MONTH PERIOD PRECEDING THE EVENT GIVING RISE TO SUCH LIABILITY"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c036",
+      "statement": "Protege may suspend or terminate the Customer's access to the Platform or Datasets if it reasonably believes the Customer breached the Agreement or poses a security risk.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Protege may suspend or terminate Customer’s access to the Platform or Dataset(s) if Protege reasonably believes"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c037",
+      "statement": "Either party may terminate for a material breach not cured within 30 days of written notice.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Either party may terminate the Agreement if the other party materially breaches the Agreement and fails to cure such breach"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c038",
+      "statement": "Either party may terminate on 30 days' written notice if the other becomes insolvent, goes bankrupt, or ceases business.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "either party may terminate on thirty (30) days’ written notice if the other party: (i) becomes insolvent"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c039",
+      "statement": "The Agreement is governed by the laws of the State of Delaware and the United States, excluding the UN Convention on the International Sale of Goods.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "governed by the laws of the State of Delaware and the United States without regard to conflicts of law provisions"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c040",
+      "statement": "Disputes go to the state and federal courts in New Castle County, Delaware.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the state and federal courts located in New Castle County, Delaware"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c041",
+      "statement": "Protege may assign the Agreement without consent to affiliates or an acquirer of substantially all its assets, while the Customer needs Protege's consent.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Protege may assign the Agreement, in whole or part, and delegate its obligations to its Affiliates or to any entity acquiring"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c042",
+      "statement": "Protege may subcontract its obligations without notifying the Customer, though it remains responsible for subcontractors' acts.",
+      "kind": "terms",
+      "section": "other",
+      "question_ids": [],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "may subcontract all or part of its obligations under these Terms at Protege’s own discretion and without notifying Customer"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c043",
+      "statement": "Protege and its licensors may audit the Customer, on prior written notice, to verify compliance with the Agreement.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Protege and its licensors reserve the right to audit Customer, with prior written notice, to verify compliance"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c044",
+      "statement": "The Customer must fully delete or return the Datasets on termination or expiration, which the audit right exists to verify; this implies the Customer holds copies.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q6",
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the Dataset(s) are used in accordance with the Agreement and fully deleted or returned upon termination or expiration"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c045",
+      "statement": "If an audit finds non-compliance, the Customer must remedy it and may have to pay the audit costs.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Customer shall promptly remedy the non-compliance and may be responsible for the costs of the audit"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c046",
+      "statement": "Confidentiality, indemnification, effect of termination and limitation of liability survive termination of the Agreement.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "including those provisions concerning confidentiality, indemnification, effect of termination, and limitation of liability"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c047",
+      "statement": "The customer Terms refer to a 'Provider' only in the subcontracting clause; they set no terms for data providers or their revenue share.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "without notifying Customer or Provider"
+        }
+      ]
+    },
+    {
+      "id": "doc-protege-tos-c048",
+      "statement": "The Customer's indemnification obligations are carved out of the liability cap, so the Customer's indemnity to Protege and its licensors is uncapped.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Protege Platform (customer / model-builder side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://withprotege.ai/terms-of-service",
+          "publisher": "Protege Health Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "EXCEPT FOR CUSTOMER’S INDEMNIFICATION OBLIGATIONS, EACH PARTY’S TOTAL AGGREGATE LIABILITY"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "terms.consent_and_release_warranty",
+      "urls_tried": [
+        "https://withprotege.ai/terms-of-service"
+      ],
+      "reason": "not_published",
+      "note": "No clause on consent, releases or privacy authorisations of people in the data, by Protege or its upstream licensors; the only warranty is mutual authority to contract, and non-infringement is disclaimed. Re-identification is prohibited."
+    },
+    {
+      "field": "terms.takedown_and_erasure",
+      "urls_tried": [
+        "https://withprotege.ai/terms-of-service"
+      ],
+      "reason": "not_published",
+      "note": "No mechanism for data-subject erasure requests or recalling items from copies a Customer already holds; deletion is required only at termination or expiration of the Agreement."
+    },
+    {
+      "field": "terms.change_of_terms",
+      "urls_tried": [
+        "https://withprotege.ai/terms-of-service"
+      ],
+      "reason": "not_published",
+      "note": "No clause on how Protege may change these Terms; the page carries no version or last-updated date."
+    },
+    {
+      "field": "terms.territory",
+      "urls_tried": [
+        "https://withprotege.ai/terms-of-service"
+      ],
+      "reason": "not_published",
+      "note": "No territorial scope stated; may be set in the Statement of Work."
+    },
+    {
+      "field": "terms.attribution",
+      "urls_tried": [
+        "https://withprotege.ai/terms-of-service"
+      ],
+      "reason": "not_published",
+      "note": "No attribution requirement; dataset licensor names are treated as Protege Confidential Information."
+    },
+    {
+      "field": "other.likeness_ban",
+      "urls_tried": [
+        "https://withprotege.ai/terms-of-service"
+      ],
+      "reason": "not_published",
+      "note": "The Terms contain no clause banning use of a person's likeness, voice or identity (e.g. deepfakes or face generation); the only related restriction is the ban on re-identification. Any such ban would sit in a Statement of Work, which is not public."
+    },
+    {
+      "field": "other.statement_of_work",
+      "urls_tried": [
+        "https://withprotege.ai/terms-of-service"
+      ],
+      "reason": "not_published",
+      "note": "The Statement of Work, which sets the authorised purposes, pricing and any overrides, is not published."
+    }
+  ]
+}

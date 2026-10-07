@@ -1,0 +1,296 @@
+{
+  "kind": "verify",
+  "slug": "elra-elda-catalogue",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "elra-elda-catalogue-c001",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The creation date of a catalogue entry exists only on ELRA's catalogue. Tried arXiv's own search (export.arxiv.org API, 'THERADIA'): the corpus papers 2405.06728v2 and 2604.27938v2 do not name ELRA, ELRA-S0499 or a distribution date (2405.06728 defers the URL to camera-ready). WebSearch not available in this run, so a HAL/press notice of the ELRA release could not be looked for."
+    },
+    {
+      "claim_id": "elra-elda-catalogue-c002",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://aclanthology.org/events/lrec-2026/",
+        "publisher": "ACL Anthology (Association for Computational Linguistics)",
+        "source_class": "academic",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Fifteenth Language Resources and Evaluation Conference Palma, Mallorca, Spain May 11–16, 2026"
+      },
+      "corrected_statement": null,
+      "note": "The ACL Anthology volume page https://aclanthology.org/volumes/2026.lrec-1/ gives the publisher as ELRA Language Resource Association and the location as Palma de Mallorca, Spain, May 2026 (945 papers in the main volume). The Anthology archives the proceedings that ELRA published, so it independently shows the conference took place and that ELRA ran it, but the Anthology's metadata comes from the organiser."
+    },
+    {
+      "claim_id": "elra-elda-catalogue-c028",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Who the agreement names as DISTRIBUTOR is a clause of ELRA's own licence. Partial independent support: the French government company register API (https://recherche-entreprises.api.gouv.fr/search?q=evaluations%20language%20resources%20distribution%20agency, retrieved 2026-10-01) lists 'EVALUATIONS AND LANGUAGE RESOURCES DISTRIBUTION AGENCY (ELDA)', SIREN 402781876, nature_juridique 5710 (SAS), active, created 1995-11-03, 9 rue des Cordelières 75013 Paris, president Khalid Choukri. So the legal form ELDA S.A.S. is confirmed. That ELRA commissioned ELDA could not be found on an independent page without search."
+    },
+    {
+      "claim_id": "elra-elda-catalogue-c009",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "This describes ELRA's own provider-side terms. An LREC or ELRA-authored paper on the licensing model may exist in the ACL Anthology, but the Anthology's search runs on a general search engine and WebSearch is not available here, so none was located."
+    },
+    {
+      "claim_id": "elra-elda-catalogue-c016",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "What the ELRA annual report says exists only in the report, but the underlying fact (a 2022 batch of 67 Datatang speech resources distributed via ELRA) ought to appear in Datatang's news. datatang.ai now redirects to datatang.com; its /news index (40 pages, 2026 items first) contains no ELRA/ELDA mention on the page that loads, and its pagination is script-driven (?page=35 returns page 1). WebSearch not available, so no other route was found."
+    },
+    {
+      "claim_id": "elra-elda-catalogue-c044",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Delivery mechanics of ELRA's own shop; exists only on ELRA's pages."
+    },
+    {
+      "claim_id": "elra-elda-catalogue-c041",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Order workflow of ELRA's own shop; exists only on ELRA's pages."
+    },
+    {
+      "claim_id": "elra-elda-catalogue-c020",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Describes ELRA's own contract set; exists only on ELRA's pages."
+    },
+    {
+      "claim_id": "elra-elda-catalogue-c036",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Contents of ELRA's own End-User agreement; only the agreement itself can show it."
+    },
+    {
+      "claim_id": "elra-elda-catalogue-c006",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Stated as what ELRA says about its own catalogue size, and the live count exists only on ELRA's site. No independent count was found; WebSearch not available."
+    },
+    {
+      "claim_id": "elra-elda-catalogue-c053",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A list price on ELRA's own catalogue entry."
+    },
+    {
+      "claim_id": "elra-elda-catalogue-c048",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A list price on ELRA's own catalogue entry."
+    },
+    {
+      "claim_id": "elra-elda-catalogue-c050",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A list price on ELRA's own catalogue entry. The THERADIA WoZ papers on arXiv (2405.06728v2, 2604.27938v2) say only that the corpus is available to industry and academia and give no price or channel."
+    },
+    {
+      "claim_id": "elra-elda-catalogue-c054",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A statement in ELRA's own FAQ."
+    },
+    {
+      "claim_id": "elra-elda-catalogue-c055",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A statement in ELRA's own annual report about its own member discounts."
+    },
+    {
+      "claim_id": "elra-elda-catalogue-c056",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "ELRA's own membership fee schedule. A member institution's page restating it could exist, but without WebSearch no route led to one."
+    },
+    {
+      "claim_id": "elra-elda-catalogue-c001",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Re-fetched ELRA-S0499: 'Created: 09/17/2026', last updated 09/17/2026, availability start date 17/09/2026. 'Still being extended' is a fair inference from one new entry dated two weeks before retrieval."
+    },
+    {
+      "claim_id": "elra-elda-catalogue-c002",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote gives only place and dates, not that the event was LREC 2026 or the 15th edition. The same sentence on elra.info/en/ begins 'LREC 2026, the 15th edition of the Language Resources and Evaluation Conference, took place in', and those words should be quoted. The page also says the main conference itself ran 13-15 May, with workshops on 11-12 and 16 May."
+    },
+    {
+      "claim_id": "elra-elda-catalogue-c028",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Read the full 4-page PDF. The party block names ELDA S.A.S. as DISTRIBUTOR, gives RCS Paris B 402 781 876, and has Khalid Choukri sign as Managing Director. The RCS number matches the SIREN in the French government register (see the blind note)."
+    },
+    {
+      "claim_id": "elra-elda-catalogue-c009",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The full sentence reads: 'the purpose of the contract is for the provider to supply the LRs and to receive, payment, royalties or other compensation in return'. Its subject is the provider, as the statement says. The page gives no split or rate."
+    },
+    {
+      "claim_id": "elra-elda-catalogue-c016",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The fact is right, but the quote does not show that the resources were added in 2022. The words that do are on page 2 of the report: 'Among the new LRs added to the catalogue in 2022: ... the 67 Speech Datatang resources distributed by ELRA' (an ellipsis is needed, so it would take two quotes or the shorter 'new LRs added to the catalogue in 2022')."
+    },
+    {
+      "claim_id": "elra-elda-catalogue-c044",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote matches the purchase-procedure page word for word. The page names no alternative delivery medium."
+    },
+    {
+      "claim_id": "elra-elda-catalogue-c041",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The full sentence reads 'Upon receipt of your order, the corresponding licence agreement will be emailed to you for signature'."
+    },
+    {
+      "claim_id": "elra-elda-catalogue-c020",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "'Chosen according to the restrictions of use' is not in the quote. The full sentence is 'Several licencing conditions may be proposed depending on the restrictions of use. Among them, ELRA has drafted 3 generic contracts'. 'Among them' also means the three are not the only possible terms. The three are End-User (research/non-commercial), Evaluation, and VAR (commercial)."
+    },
+    {
+      "claim_id": "elra-elda-catalogue-c036",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "I read all four pages: articles 1-20, a signature page, and Exhibits A (resource description), B (site of use) and C (compensation). None covers consent of recorded people, deletion on termination, audit or indemnity. Art. 16 excludes all liability and Art. 12 disclaims warranties. The absence is correctly carried by the statement, as LEDGER rule 13 requires."
+    },
+    {
+      "claim_id": "elra-elda-catalogue-c006",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The statement is properly framed as what ELRA says."
+    },
+    {
+      "claim_id": "elra-elda-catalogue-c053",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The fact is right: the re-fetched ELRA-L0211 table gives Non-Member / Commercial Use (VAR) / commercial user = 48,750. But the quote '48750.00 €' alone does not show which of the eight price cells it is (they run 11,700 to 48,750). It needs the row and column labels, or a separate quote for the tier."
+    },
+    {
+      "claim_id": "elra-elda-catalogue-c048",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The fact is right: the ELRA-S0490-01 page lists 'Commercial Use - ELRA VAR' at 811.90 € for members and 852.50 € for non-members, for both academic and commercial users. The quote '811.90 €' does not show the member/VAR tier."
+    },
+    {
+      "claim_id": "elra-elda-catalogue-c050",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The fact is right: academic users pay 0.00 € under 'Non Commercial Use - ELRA END USER', members and non-members alike. But '0.00 €' does not show the tier. The same listing charges commercial users 5,000/6,000 € (member/non-member) even under the END USER non-commercial licence, so the tier label matters."
+    },
+    {
+      "claim_id": "elra-elda-catalogue-c054",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote answers the FAQ question 'Are ELRA Language Resources expensive?'. The FAQ does not say which licence tier the 500 EUR applies to, and the claim's value.basis records this correctly."
+    },
+    {
+      "claim_id": "elra-elda-catalogue-c055",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The report continues 'up to 70% reduction on some items, including the resources produced by ELRA', under 'SERVICES TO ELRA MEMBERS'."
+    },
+    {
+      "claim_id": "elra-elda-catalogue-c056",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The fact is right, but '1500 €' alone does not show the category. The row label 'Profit making organisations (>= 50 employees)' should be quoted too. 1500 € is the basic first-year fee: the live page offers up to 30% off for renewing 3 consecutive years or more. The 2022 annual report's table gives 1500/1275/1050 € for years 1/2/3 and charges non-European profit-making organisations the same 1500 €."
+    }
+  ],
+  "missed": [
+    {
+      "id": "elra-elda-catalogue-v001",
+      "statement": "France's government company register lists ELDA (Evaluations and Language resources Distribution Agency, SIREN 402781876), the SAS that licenses ELRA catalogue resources, as an active company, with the record updated on 30 September 2026.",
+      "kind": "status",
+      "section": "changes",
+      "question_ids": ["Q5"],
+      "scope": {"product": "ELDA S.A.S.", "tier": "", "region": "France"},
+      "value": null,
+      "origin": "government",
+      "as_of": "2026-09-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://recherche-entreprises.api.gouv.fr/search?q=402781876",
+          "publisher": "Direction interministérielle du numérique (recherche-entreprises.api.gouv.fr, French government)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "\"etat_administratif\":\"A\""
+        }
+      ]
+    }
+  ]
+}

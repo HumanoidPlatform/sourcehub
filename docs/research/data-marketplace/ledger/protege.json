@@ -1,0 +1,5134 @@
+{
+ "kind": "profile",
+ "slug": "protege",
+ "name": "Protege",
+ "aliases": [
+  "Protege Health Inc.",
+  "withprotege.ai",
+  "Calliope Networks (acquired)"
+ ],
+ "segment": "licensing_marketplace",
+ "tier": "deep",
+ "status": {
+  "value": "active",
+  "claim_id": "protege-c063"
+ },
+ "names_for": {
+  "catalogue_side": "Named curated data products, e.g. 'SHOT (Selected Highlights Optimized for AI Training)' for video and 'CLERK by Protege' for healthcare admin; also 'our aggregated catalog' and 'Protege-curated dataset'",
+  "custom_side": "'custom datasets' assembled from the partner network ('Can datasets be customized or sourced for specific needs?'); 'Rapid sourcing and fulfillment ... From scoped request to structured dataset delivery'; evaluations are 'benchmarking work'"
+ },
+ "matrix": {
+  "operator_role": {
+   "value": "reseller_licensor",
+   "claim_ids": [
+    "protege-c005",
+    "protege-c017",
+    "protege-c036",
+    "protege-c004"
+   ],
+   "note": "Protege Health Inc. grants the buyer licence itself under a sublicensable, non-exclusive licence from each provider; providers keep ownership and licensor names are Protege confidential information."
+  },
+  "economics_model": {
+   "value": "revenue_share",
+   "claim_ids": [
+    "protege-c056",
+    "protege-c093",
+    "protege-c097",
+    "protege-c115",
+    "protege-c122"
+   ],
+   "note": "Providers receive a revenue share on each deal that includes their data; the split is not published. The Provider Terms themselves grant Protege a royalty-free licence and are silent on payment (see conflicts)."
+  },
+  "who_pays_fee": {
+   "value": "both",
+   "claim_ids": [
+    "protege-c002",
+    "protege-c122",
+    "protege-c115"
+   ],
+   "note": "Buyers pay an Access Fee for the Platform (general Terms) on top of the SOW licence fee; Protege's margin is otherwise the part of licence revenue it keeps before paying providers' share. Amounts and split not published."
+  },
+  "supply_models": {
+   "value": [
+    "third_party_providers"
+   ],
+   "claim_ids": [
+    "protege-c033",
+    "protege-c058",
+    "protege-c108",
+    "protege-c141",
+    "protege-c131"
+   ],
+   "note": "All evidenced inventory comes from rights-holder organisations (broadcasters, distributors, health data holders, crowd-capture firms such as Sunain) under provider agreements. Protege builds evaluations itself and says it can source new data types, but no own-collection inventory is evidenced. Legacy Calliope ran a creator 'License to Scrape'; whether it continues is unknown."
+  },
+  "custody_model": {
+   "value": "copy_to_buyer",
+   "claim_ids": [
+    "protege-c122",
+    "protege-c142",
+    "protege-c026",
+    "protege-c099",
+    "protege-c105"
+   ],
+   "note": "Providers upload to Protege's platform hosted on a major cloud provider; Protege then delivers the constructed dataset to the buyer, who must delete or return it at termination."
+  },
+  "transaction_mode": {
+   "value": "contact_sales",
+   "claim_ids": [
+    "protege-c067",
+    "protege-c074",
+    "protege-c016",
+    "protege-c007"
+   ],
+   "note": "No checkout; every buyer page leads to 'Contact for Data Access' and the licence fee is set in a Statement of Work."
+  },
+  "public_prices": {
+   "value": "none",
+   "claim_ids": [
+    "protege-c067",
+    "protege-c002",
+    "protege-c016"
+   ],
+   "note": "No dataset, Access Fee or revenue-share figure is published on any page fetched."
+  },
+  "licence_model": {
+   "value": "negotiated",
+   "claim_ids": [
+    "protege-c007",
+    "protege-c016",
+    "protege-c114",
+    "protege-c037"
+   ],
+   "note": "Two published customer templates (general Terms; Media Terms for audiovisual) set the baseline, but authorised purposes and fees are set per deal in a Statement of Work that overrides the Terms."
+  },
+  "exclusivity_offered": {
+   "value": "no",
+   "claim_ids": [
+    "protege-c005",
+    "protege-c017",
+    "protege-c035"
+   ],
+   "note": "Both customer templates are non-exclusive and Protege itself holds only a non-exclusive licence from providers. A Statement of Work could in principle differ; none is public."
+  },
+  "public_listing": {
+   "value": "login_required",
+   "claim_ids": [
+    "protege-c137",
+    "protege-c002",
+    "protege-c011"
+   ],
+   "note": "The public site shows only category pages and named products; dataset details sit on the Platform, reached after an Access Fee, and licensor names are confidential."
+  },
+  "buyer_vetting": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": "Sales-led with a signed SOW, but no published buyer checks."
+  },
+  "sample_mechanics": {
+   "value": "sample_on_request",
+   "claim_ids": [
+    "protege-c149",
+    "protege-c138",
+    "protege-c003"
+   ],
+   "note": "Representative samples, metadata and descriptions on request (healthcare page); the Platform also shows source, record counts, fields and criteria counts."
+  },
+  "versioning": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": "No terms or docs on dataset versions or updates."
+  },
+  "human_subject_consent_docs": {
+   "value": "not_addressed",
+   "claim_ids": [
+    "protege-c152",
+    "protege-c153",
+    "protege-c020",
+    "protege-c040"
+   ],
+   "note": "Providers warrant consents to Protege, but the buyer terms give only an authority-to-contract warranty, disclaim non-infringement and grant no name/image/likeness rights; no consent evidence is described as passing to buyers."
+  },
+  "contributor_pay_model": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": "Protege pays organisations (revenue share). How individual capturers are paid is set by upstream providers: Sunain pays contributors 'in exchange for compensation' (form unstated); pre-acquisition Calliope proposed a volume/subscriber formula for creators. Protege's own practice for individuals is not published."
+  },
+  "catalogue_plus_custom": {
+   "value": "both",
+   "claim_ids": [
+    "protege-c068",
+    "protege-c151",
+    "protege-c147",
+    "protege-c070"
+   ],
+   "note": "Named curated products (SHOT, CLERK) alongside custom datasets assembled per buyer from the partner network."
+  },
+  "erasure_after_sale": {
+   "value": "contractual_deletion",
+   "claim_ids": [
+    "protege-c025",
+    "protege-c026",
+    "protege-c010"
+   ],
+   "note": "Media Terms oblige the buyer to cease use on Protege's notice during the Term and to delete or return data at termination; whether cease-use requires retraining models is not stated."
+  },
+  "quality_evidence": {
+   "value": "operator_verified",
+   "claim_ids": [
+    "protege-c145",
+    "protege-c146",
+    "protege-c071",
+    "protege-c143",
+    "protege-c100"
+   ],
+   "note": "Protege says it evaluates all source data on onboarding and again per customer dataset; this is the vendor's own description, and the Terms disclaim accuracy."
+  }
+ },
+ "questions": {
+  "Q1": {
+   "state": "partial",
+   "answer": "Buyers are AI model builders (foundation labs, healthcare AI firms) buying pre-training to evaluation data; vendor case studies cite enterprise deals with 'marquee AI companies' and a radiology model buyer. Units, volumes and prices per deal are not published.",
+   "claim_ids": [
+    "protege-c065",
+    "protege-c098",
+    "protege-c140",
+    "protege-c107",
+    "protege-c109"
+   ]
+  },
+  "Q2": {
+   "state": "sourced",
+   "answer": "Protege pitches rights holders on existing lab relationships, legal guardrails, packaging and delivery support, and discretion, with revenue incremental to distribution; case studies claim $1M+ and $250k+ earnings.",
+   "claim_ids": [
+    "protege-c125",
+    "protege-c124",
+    "protege-c126",
+    "protege-c062",
+    "protege-c096",
+    "protege-c102"
+   ]
+  },
+  "Q3": {
+   "state": "sourced",
+   "answer": "Inventory comes from rights-holder organisations (100+ AV partners, healthcare data holders, Dailymotion, GrabMaps, crowd-capture firm Sunain) under Provider Terms granting Protege a non-exclusive, sublicensable licence; providers keep ownership and warrant rights and consents.",
+   "claim_ids": [
+    "protege-c033",
+    "protege-c035",
+    "protege-c039",
+    "protege-c040",
+    "protege-c050",
+    "protege-c051",
+    "protege-c058",
+    "protege-c131",
+    "protege-c134"
+   ]
+  },
+  "Q4": {
+   "state": "partial",
+   "answer": "Protege does not resell commissioned work; its only published position on channel conflict is that AI training licences rarely conflict with distribution rights because content is not publicly exhibited. No case of terms changed after the fact was found.",
+   "claim_ids": [
+    "protege-c055",
+    "protege-c062"
+   ]
+  },
+  "Q5": {
+   "state": "sourced",
+   "answer": "Protege Health Inc. is licensor of record, sublicensing provider data to buyers under its own Terms. Providers warrant rights and consents and indemnify Protege, buyers indemnify Protege and its licensors, and Protege indemnifies providers only for its own misrepresentations to buyers.",
+   "claim_ids": [
+    "protege-c005",
+    "protege-c036",
+    "protege-c039",
+    "protege-c040",
+    "protege-c042",
+    "protege-c043",
+    "protege-c012",
+    "protege-c030",
+    "protege-c152"
+   ]
+  },
+  "Q6": {
+   "state": "sourced",
+   "answer": "Providers upload to a Protege platform on a major cloud; Protege builds and delivers the dataset to the buyer (hundreds of TB in hours), who must protect, then delete or return it at termination.",
+   "claim_ids": [
+    "protege-c099",
+    "protege-c105",
+    "protege-c122",
+    "protege-c142",
+    "protege-c028",
+    "protege-c026"
+   ]
+  },
+  "Q7": {
+   "state": "partial",
+   "answer": "Providers warrant all necessary consents to Protege, healthcare data is de-identified with expert determination and video may get identifier removal or anonymisation. Buyers get no consent warranty or NIL rights, are barred from re-identification and digital replicas, and nothing addresses place or property owners.",
+   "claim_ids": [
+    "protege-c040",
+    "protege-c052",
+    "protege-c054",
+    "protege-c143",
+    "protege-c020",
+    "protege-c021",
+    "protege-c022",
+    "protege-c152"
+   ]
+  },
+  "Q8": {
+   "state": "sourced",
+   "answer": "Non-exclusive, non-sublicensable licence for training models, limited to SOW purposes; bans on synthetic data, redistribution, re-identification, digital replicas and verbatim scene output; audit rights and deletion on termination. No fingerprinting or leakage detection is described.",
+   "claim_ids": [
+    "protege-c005",
+    "protege-c017",
+    "protege-c018",
+    "protege-c009",
+    "protege-c024",
+    "protege-c021",
+    "protege-c023",
+    "protege-c027",
+    "protege-c026",
+    "protege-c047"
+   ]
+  },
+  "Q9": {
+   "state": "sourced",
+   "answer": "Sales-led: contact form, then a Statement of Work that sets the fee; the Platform also carries an Access Fee. Protege earns by keeping part of licence revenue and paying providers a revenue share on each deal.",
+   "claim_ids": [
+    "protege-c067",
+    "protege-c016",
+    "protege-c002",
+    "protege-c056",
+    "protege-c093",
+    "protege-c122"
+   ]
+  },
+  "Q10": {
+   "state": "partial",
+   "answer": "Datasets are constructed per buyer opportunity from qualified partners' data, and a media Licensed Dataset is audiovisual content plus metadata. After a provider leaves, existing buyers keep access 12 months (3 years for academic research); no versioning terms were found.",
+   "claim_ids": [
+    "protege-c015",
+    "protege-c120",
+    "protege-c121",
+    "protege-c037",
+    "protege-c044",
+    "protege-c045",
+    "protege-c046"
+   ]
+  },
+  "Q11": {
+   "state": "sourced",
+   "answer": "Before purchase the Platform shows source, record counts, fields and criteria counts, and Protege offers descriptions, metadata and representative samples on request. Quality evidence is Protege's own onboarding and per-dataset review; the Terms disclaim accuracy.",
+   "claim_ids": [
+    "protege-c003",
+    "protege-c138",
+    "protege-c149",
+    "protege-c145",
+    "protege-c146",
+    "protege-c013",
+    "protege-c029"
+   ]
+  },
+  "Q12": {
+   "state": "sourced",
+   "answer": "Both: named curated products (SHOT for video, CLERK for healthcare admin) plus custom datasets assembled per request from the partner network, including sourcing new data types; the Siemens Healthineers quote frames Protege as more than a data catalog.",
+   "claim_ids": [
+    "protege-c068",
+    "protege-c151",
+    "protege-c147",
+    "protege-c148",
+    "protege-c070",
+    "protege-c066",
+    "protege-c120"
+   ]
+  }
+ },
+ "sections": {
+  "positioning": "Protege Health Inc. (New York) calls itself the trusted source for AI-ready real-world data [c063] and describes its site as a data marketplace platform [c136]. It aggregates rights holders' data into datasets for AI builders [c076], across healthcare, video, audio, and spatial/physical AI.",
+  "supply": "All evidenced supply comes from rights-holder organisations under Provider Terms: a worldwide, non-exclusive, sublicensable licence to Protege [c035][c036], with provider warranties of rights and consents [c039][c040]. Protege claims 150+ global providers [c058] and 100+ AV partners [c059]. Partners include Dailymotion [c131], GrabMaps [c089] and crowd-capture firm Sunain [c134]. Video partners must own content outright or control it under broad rights [c051].",
+  "object_model": "A Licensed Dataset is audiovisual content and related metadata [c015]. For healthcare, datasets are constructed per opportunity: Protege qualifies which partners' data fits [c120], then works on linkages and transformations to build a buyer-ready dataset [c121]. Buyers use data according to the licence type purchased [c037].",
+  "listing": "No dataset listings are public. The Platform, reached after an Access Fee [c002], lets a customer view datasets [c137]. Licensor names and data sources are Protege confidential information [c011]. Public pages list only content categories [c072].",
+  "discovery": "On the Platform customers see a dataset's source and record count [c003] and can surface how many records fit their criteria [c138]. Otherwise discovery runs through sales contact [c074].",
+  "trust": "Protege offers descriptions, metadata and representative samples before licensing [c149], and keeps healthcare benchmark test cases private [c129]. Both customer templates disclaim accuracy [c013][c029] and non-infringement [c153].",
+  "transaction": "Deals are sales-led: 'Contact for Data Access' [c067], a Statement of Work that sets the fee [c016] and overrides the Terms [c007]. Protege says it closed multiple enterprise deals for one broadcaster [c098] and advised providers during negotiations [c101][c104].",
+  "pricing": "No prices are published. Buyers pay an Access Fee for the Platform [c002] and a fee set in the SOW [c016]; packaging and licensing are decided with each provider [c114].",
+  "licence": "Protege licenses buyers itself, non-exclusively [c005][c017], for training models they own or license [c006][c018]. Media Terms grant no NIL rights [c020], ban digital replicas [c021], re-identification [c022] and verbatim scene outputs [c023]. Marketing says use is limited to training, fine-tuning, evaluation and benchmarking [c047]. Audit rights [c010][c027] and buyer indemnity [c030] apply.",
+  "custody": "Providers upload to a Protege platform on a major cloud provider [c099][c105]. Protege delivers the finished dataset to the buyer [c122] with a system moving hundreds of terabytes in hours [c142]. Buyers must secure it [c028] and delete or return it at termination [c026].",
+  "vetting": "Protege says it evaluates all source data at onboarding and again per customer dataset [c145][c146], runs expert determination on delivered healthcare data [c143], and applies identifier removal, sampling and optional anonymisation to media [c052][c053][c054].",
+  "contributor_pay": "Providers receive a revenue share on each deal including their data [c056][c093][c103]; the split is not published. Protege says it has paid tens of millions to content partners [c060]. Individuals are paid by upstream providers, e.g. Sunain's compensated contributors [c135]; legacy Calliope proposed a volume and subscriber formula for creators [c086].",
+  "post_sale": "Buyers must cease use on Protege's notice [c025] and delete or return data at termination [c026]. If a provider leaves, Protege stops new sales [c044] but existing buyers keep access for twelve months [c045], or three years for academic research [c046].",
+  "catalogue_custom": "Protege runs both: named curated products such as SHOT for video [c068] and CLERK for healthcare admin [c151], and custom datasets assembled to buyer criteria [c147], including sourcing new data types [c148]. It also designs and runs healthcare evaluations [c128].",
+  "changes": "Founded in 2024 [c112]; $10M seed in September 2024 [c111]; acquired Calliope Networks in December 2024 [c079]; $25M Series A in August 2025 [c106]; $30M round in January 2026 [c091]; Dailymotion partnership July 2026 [c131]; GrabMaps partnership September 2026 [c089].",
+  "demand": "Demand evidence is vendor-stated: a 20x business growth claim [c109], enterprise deals with AI companies [c098], and a radiology imaging buyer [c140]. Funding totals $65M [c092]."
+ },
+ "buyer_journey": [
+  {
+   "step": "Lands on withprotege.ai and picks a domain page under 'For Model Builders' (healthcare, video, audio, spatial); sees categories and named products such as SHOT, but no listings or prices.",
+   "claim_ids": [
+    "protege-c068",
+    "protege-c072",
+    "protege-c067"
+   ]
+  },
+  {
+   "step": "Clicks 'Contact for Data Access' and fills in the model-builder contact form; Protege's team follows up.",
+   "claim_ids": [
+    "protege-c067",
+    "protege-c074"
+   ]
+  },
+  {
+   "step": "Scopes requirements with Protege (modality, cohort, geography, time range); Protege may assemble a custom dataset or point to a curated product.",
+   "claim_ids": [
+    "protege-c147",
+    "protege-c070",
+    "protege-c120"
+   ]
+  },
+  {
+   "step": "Evaluates before licensing: dataset descriptions, metadata and representative samples on request; on the Platform, after an Access Fee, sees each dataset's source, record count, fields and criteria counts.",
+   "claim_ids": [
+    "protege-c149",
+    "protege-c002",
+    "protege-c003",
+    "protege-c138"
+   ]
+  },
+  {
+   "step": "Signs the customer Terms (or Media Terms for audiovisual data) plus a Statement of Work that fixes the fee and the authorised purposes.",
+   "claim_ids": [
+    "protege-c016",
+    "protege-c007",
+    "protege-c014",
+    "protege-c023"
+   ]
+  },
+  {
+   "step": "Protege builds the dataset from qualified partners' data, runs privacy processing and delivers it to the buyer.",
+   "claim_ids": [
+    "protege-c121",
+    "protege-c143",
+    "protege-c122",
+    "protege-c142"
+   ]
+  },
+  {
+   "step": "Uses the data for training under the licence restrictions, subject to audit, cease-use notices and deletion or return at termination.",
+   "claim_ids": [
+    "protege-c018",
+    "protege-c021",
+    "protege-c027",
+    "protege-c025",
+    "protege-c026"
+   ]
+  }
+ ],
+ "claims": [
+  {
+   "id": "protege-c001",
+   "statement": "Protege's customer Terms of Service are entered into by Protege Health Inc., a Delaware corporation, and the customer accessing the Service.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q5"
+   ],
+   "scope": {
+    "product": "Datasets under the general customer Terms of Service",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "entered into by and between Protege Health Inc., a Delaware corporation"
+    }
+   ]
+  },
+  {
+   "id": "protege-c002",
+   "statement": "Under the general Terms, a customer pays Protege an Access Fee before it may use the Protege Platform.",
+   "kind": "terms",
+   "section": "pricing",
+   "question_ids": [
+    "Q9",
+    "Q11"
+   ],
+   "scope": {
+    "product": "Datasets under the general customer Terms of Service",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Upon payment of an Access Fee (\"Access Fee\") to Protege and subject to the terms"
+    }
+   ]
+  },
+  {
+   "id": "protege-c003",
+   "statement": "Before purchase, customers on the Platform can see dataset information such as the dataset's source and number of records.",
+   "kind": "terms",
+   "section": "discovery",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "Datasets under the general customer Terms of Service",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Customers can see information about the Datasets, such as the source of a Dataset, number"
+    }
+   ]
+  },
+  {
+   "id": "protege-c004",
+   "statement": "The general Terms describe Platform browsing as informing the customer's decision to purchase datasets from Protege, making Protege the seller.",
+   "kind": "terms",
+   "section": "transaction",
+   "question_ids": [
+    "Q5",
+    "Q9"
+   ],
+   "scope": {
+    "product": "Datasets under the general customer Terms of Service",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Customers may perform these actions to inform their purchase decision for Datasets from Protege."
+    }
+   ]
+  },
+  {
+   "id": "protege-c005",
+   "statement": "Protege itself grants the customer a non-exclusive, non-transferable, non-sublicensable, limited licence to the datasets under the general Terms.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q5",
+    "Q8"
+   ],
+   "scope": {
+    "product": "Datasets under the general customer Terms of Service",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Protege grants Customer a non-exclusive, non-transferable, non-sublicensable, and limited license"
+    }
+   ]
+  },
+  {
+   "id": "protege-c006",
+   "statement": "The general Terms licence permits training machine-learning or AI models that the customer owns or licenses.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "Datasets under the general customer Terms of Service",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "to train machine-learning or artificial intelligence models owned by or licensed by Customer"
+    }
+   ]
+  },
+  {
+   "id": "protege-c007",
+   "statement": "Where the general Terms conflict with a Statement of Work signed by Protege and the customer, the Statement of Work provision governs.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8",
+    "Q9"
+   ],
+   "scope": {
+    "product": "Datasets under the general customer Terms of Service",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "If any provision of these Terms conflicts with a Statement of Work signed by Protege and"
+    }
+   ]
+  },
+  {
+   "id": "protege-c008",
+   "statement": "The general Terms prohibit customers from attempting to re-identify data or records in the datasets.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q7",
+    "Q8"
+   ],
+   "scope": {
+    "product": "Datasets under the general customer Terms of Service",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Attempting to re-identify data or records in the Datasets;"
+    }
+   ]
+  },
+  {
+   "id": "protege-c009",
+   "statement": "The general Terms prohibit customers from creating synthetic datasets, data assets or other artifacts from the datasets.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "Datasets under the general customer Terms of Service",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Creating any synthetic datasets, data assets, or other artifacts from the Datasets;"
+    }
+   ]
+  },
+  {
+   "id": "protege-c010",
+   "statement": "Protege and its licensors may audit a customer on prior written notice to verify compliance with the agreement.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "Datasets under the general customer Terms of Service",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Protege and its licensors reserve the right to audit Customer, with prior written notice, to"
+    }
+   ]
+  },
+  {
+   "id": "protege-c011",
+   "statement": "Dataset metadata including the licensor name, description and data sources is Protege's Confidential Information under the general Terms.",
+   "kind": "terms",
+   "section": "listing",
+   "question_ids": [
+    "Q5",
+    "Q10"
+   ],
+   "scope": {
+    "product": "Datasets under the general customer Terms of Service",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "licensor name, description, and data sources), are Confidential Information of Protege."
+    }
+   ]
+  },
+  {
+   "id": "protege-c012",
+   "statement": "Under the general Terms the customer indemnifies Protege and its licensors against third-party claims; no indemnity from Protege to the customer was found.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q5"
+   ],
+   "scope": {
+    "product": "Datasets under the general customer Terms of Service",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Customer shall indemnify Protege and its licensors for any third-party claims, losses, damages"
+    }
+   ]
+  },
+  {
+   "id": "protege-c013",
+   "statement": "The general Terms give no guarantee of accuracy, timeliness or availability of the datasets.",
+   "kind": "terms",
+   "section": "trust",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "Datasets under the general customer Terms of Service",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "with no guarantee of accuracy, timeliness, or availability."
+    }
+   ]
+  },
+  {
+   "id": "protege-c014",
+   "statement": "Protege's Media Terms of Service are a separate customer contract between Protege Health Inc. and the entity accessing the Service, for audiovisual datasets.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q5",
+    "Q8"
+   ],
+   "scope": {
+    "product": "Media (audiovisual) datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/media-terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Protege Health Inc., a Delaware corporation (\"Protege\"), and the entity or person accessing the Service (\"Customer\")"
+    }
+   ]
+  },
+  {
+   "id": "protege-c015",
+   "statement": "Under the Media Terms a Licensed Dataset may include audiovisual content and related metadata, or other data the parties agree.",
+   "kind": "architecture",
+   "section": "object_model",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "Media (audiovisual) datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/media-terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "audiovisual content and related metadata, or such other data as the parties may agree"
+    }
+   ]
+  },
+  {
+   "id": "protege-c016",
+   "statement": "Under the Media Terms the customer's licence starts on payment of a Fee set in the Statement of Work.",
+   "kind": "terms",
+   "section": "pricing",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "Media (audiovisual) datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/media-terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Upon payment of a Fee, as set forth in the Statement of Work, to Protege"
+    }
+   ]
+  },
+  {
+   "id": "protege-c017",
+   "statement": "The Media Terms licence to the customer is non-exclusive, non-transferable, non-sublicensable and limited.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "Media (audiovisual) datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/media-terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "non-exclusive, non-transferable, non-sublicensable, and limited license"
+    }
+   ]
+  },
+  {
+   "id": "protege-c018",
+   "statement": "Under the Media Terms, licensed audiovisual data may be used to train machine-learning or AI models owned or licensed by the customer.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "Media (audiovisual) datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/media-terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "to train machine-learning or artificial intelligence models owned by or licensed by Customer"
+    }
+   ]
+  },
+  {
+   "id": "protege-c019",
+   "statement": "The Media Terms state that each Data Provider owns and retains all intellectual property rights in its content, not Protege.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q3",
+    "Q5"
+   ],
+   "scope": {
+    "product": "Media (audiovisual) datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/media-terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "each applicable Data Provider owns and retains all Intellectual Property Rights in and to any and all of its"
+    }
+   ]
+  },
+  {
+   "id": "protege-c020",
+   "statement": "The Media Terms grant no name, image or likeness rights or publicity rights for individuals appearing in the licensed content.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q7",
+    "Q8"
+   ],
+   "scope": {
+    "product": "Media (audiovisual) datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/media-terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "no 'name, image or likeness' rights or other statutory rights of publicity for individuals appearing in"
+    }
+   ]
+  },
+  {
+   "id": "protege-c021",
+   "statement": "Under the Media Terms, models trained on the data must not be used to generate digital replicas of people or characters appearing in it.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q7",
+    "Q8"
+   ],
+   "scope": {
+    "product": "Media (audiovisual) datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/media-terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Models must not enable, power, or otherwise be used to generate digital replicas of people or characters"
+    }
+   ]
+  },
+  {
+   "id": "protege-c022",
+   "statement": "Under the Media Terms, models must not be used to re-identify persons in the Licensed Dataset.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q7",
+    "Q8"
+   ],
+   "scope": {
+    "product": "Media (audiovisual) datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/media-terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Models must not be used to re-identify persons in the Licensed Dataset"
+    }
+   ]
+  },
+  {
+   "id": "protege-c023",
+   "statement": "Under the Media Terms, models must not output a substantial or verbatim copy of any scene or material portion of the licensed content.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "Media (audiovisual) datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/media-terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Models must not provide a substantial or verbatim copy of any scene or material portion of any Licensed Content"
+    }
+   ]
+  },
+  {
+   "id": "protege-c024",
+   "statement": "Under the Media Terms the licensee must not sell, sublicense, or authorise others to access, use or distribute the licensed data.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "Media (audiovisual) datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/media-terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Licensee must not sell, lease, sublicense, loan, assign, authorize others to access, use, disclose, distribute, or"
+    }
+   ]
+  },
+  {
+   "id": "protege-c025",
+   "statement": "Under the Media Terms a customer must cease use of a Licensed Dataset or Licensed Content during the Term if Protege gives notice to do so.",
+   "kind": "terms",
+   "section": "post_sale",
+   "question_ids": [
+    "Q8",
+    "Q10"
+   ],
+   "scope": {
+    "product": "Media (audiovisual) datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/media-terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "if it receives notice from Protege that it must cease use of any Licensed Dataset or Licensed Content during the Term"
+    }
+   ]
+  },
+  {
+   "id": "protege-c026",
+   "statement": "Under the Media Terms licensed data must be fully deleted or returned upon termination or expiration.",
+   "kind": "terms",
+   "section": "post_sale",
+   "question_ids": [
+    "Q6",
+    "Q8"
+   ],
+   "scope": {
+    "product": "Media (audiovisual) datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/media-terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "fully deleted or returned upon termination or expiration"
+    }
+   ]
+  },
+  {
+   "id": "protege-c027",
+   "statement": "Under the Media Terms Protege and its licensors may audit the customer within 30 days of written notice to verify compliance.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "Media (audiovisual) datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/media-terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Protege and its licensors reserve the right to audit Customer within 30 days of written notice, to verify compliance"
+    }
+   ]
+  },
+  {
+   "id": "protege-c028",
+   "statement": "The Media Terms require the customer to maintain industry-standard technical and organisational measures to protect access to the Licensed Dataset.",
+   "kind": "terms",
+   "section": "custody",
+   "question_ids": [
+    "Q6",
+    "Q8"
+   ],
+   "scope": {
+    "product": "Media (audiovisual) datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/media-terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "implement and maintain industry standard technical and organizational measures to protect access to the Licensed Dataset"
+    }
+   ]
+  },
+  {
+   "id": "protege-c029",
+   "statement": "The Media Terms provide the Licensed Dataset as is and as available, with no guarantee of accuracy or timeliness.",
+   "kind": "terms",
+   "section": "trust",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "Media (audiovisual) datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/media-terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Licensed Dataset and Services are provided \"as is\" and \"as available\" with no guarantee of accuracy, timeliness"
+    }
+   ]
+  },
+  {
+   "id": "protege-c030",
+   "statement": "Under the Media Terms the customer defends and indemnifies Protege and its licensors against third-party claims.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q5"
+   ],
+   "scope": {
+    "product": "Media (audiovisual) datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/media-terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Customer shall defend, indemnify, and hold harmless Protege and its licensors for any third-party"
+    }
+   ]
+  },
+  {
+   "id": "protege-c031",
+   "statement": "Under the Media Terms each party's aggregate liability is capped at amounts the customer paid under the agreement in a look-back period.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q5"
+   ],
+   "scope": {
+    "product": "Media (audiovisual) datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/media-terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "total aggregate liability under the Agreement shall not exceed the amounts paid by Customer under the Agreement during"
+    }
+   ]
+  },
+  {
+   "id": "protege-c032",
+   "statement": "The Media Terms are governed by Delaware and United States law.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q5"
+   ],
+   "scope": {
+    "product": "Media (audiovisual) datasets",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/media-terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Agreement will be governed by the laws of the State of Delaware and the United States without regard to conflicts"
+    }
+   ]
+  },
+  {
+   "id": "protege-c033",
+   "statement": "Protege's Provider Terms are an agreement between Protege Health Inc. and the provider organisation named in a Schedule.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q5"
+   ],
+   "scope": {
+    "product": "Provider Terms (data providers)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/provider-terms",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Protege Health Inc. (\"Protege\"), and the organization or entity (\"Provider\") named in the Schedule"
+    }
+   ]
+  },
+  {
+   "id": "protege-c034",
+   "statement": "Under the Provider Terms the provider supplies the initial data sets listed in the Schedule to be made available through Protege.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q6"
+   ],
+   "scope": {
+    "product": "Provider Terms (data providers)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/provider-terms",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Provider agrees to provide the initial data sets included in the Schedule (\"Data\") to be available"
+    }
+   ]
+  },
+  {
+   "id": "protege-c035",
+   "statement": "Under the Provider Terms the provider grants Protege a worldwide, royalty-free, non-exclusive licence to use, reproduce and distribute the data.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q5"
+   ],
+   "scope": {
+    "product": "Provider Terms (data providers)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/provider-terms",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "worldwide, royalty-free and non-exclusive license to use, display, publish, reproduce, distribute"
+    }
+   ]
+  },
+  {
+   "id": "protege-c036",
+   "statement": "The provider's licence to Protege expressly includes the right to sublicense the data to Consumers, so Protege licenses buyers itself.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q5"
+   ],
+   "scope": {
+    "product": "Provider Terms (data providers)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/provider-terms",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "This license expressly includes the right to sublicense such Data to Consumers in accordance with this Agreement."
+    }
+   ]
+  },
+  {
+   "id": "protege-c037",
+   "statement": "Under the Provider Terms, a Consumer who buys a licence may use the provider's data according to the licence type purchased.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8",
+    "Q10"
+   ],
+   "scope": {
+    "product": "Provider Terms (data providers)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/provider-terms",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Provider allows use of Data in accordance with the license type purchased by Consumer"
+    }
+   ]
+  },
+  {
+   "id": "protege-c038",
+   "statement": "The Provider Terms describe Consumer use as the internal business purpose of developing an algorithm or model.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "Provider Terms (data providers)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/provider-terms",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "use of Data for the internal business purpose of developing an algorithm or model"
+    }
+   ]
+  },
+  {
+   "id": "protege-c039",
+   "statement": "In the Provider Terms the provider warrants that it has ownership, control and responsibility for the data.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q5",
+    "Q7"
+   ],
+   "scope": {
+    "product": "Provider Terms (data providers)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/provider-terms",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Provider represents and warrants that Provider has ownership, control, and responsibility"
+    }
+   ]
+  },
+  {
+   "id": "protege-c040",
+   "statement": "The provider warrants it holds all necessary licences, rights, consents and approvals for the data; the buyer receives only this upstream assertion, not consent documents.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q5",
+    "Q7"
+   ],
+   "scope": {
+    "product": "Provider Terms (data providers)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/provider-terms",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "all necessary licenses, registrations, rights, consents and approvals to use or disclose"
+    }
+   ]
+  },
+  {
+   "id": "protege-c041",
+   "statement": "Under the Provider Terms Protege will not permit Consumers to attempt re-identification of de-identified datasets without the provider's prior approval.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q7",
+    "Q8"
+   ],
+   "scope": {
+    "product": "Provider Terms (data providers)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/provider-terms",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Protege will not permit Consumer to: (i) attempt any re-identification of de-identified datasets"
+    }
+   ]
+  },
+  {
+   "id": "protege-c042",
+   "statement": "Under the Provider Terms the provider indemnifies Protege and its affiliates.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q5"
+   ],
+   "scope": {
+    "product": "Provider Terms (data providers)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/provider-terms",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Provider agrees to indemnify, defend, and hold harmless Protege and its affiliates"
+    }
+   ]
+  },
+  {
+   "id": "protege-c043",
+   "statement": "Under the Provider Terms Protege indemnifies the provider, for claims from Protege's representations to Consumers that do not match the agreement.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q5"
+   ],
+   "scope": {
+    "product": "Provider Terms (data providers)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/provider-terms",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Protege agrees to indemnify, defend, and hold harmless Provider and its affiliates"
+    }
+   ]
+  },
+  {
+   "id": "protege-c044",
+   "statement": "On termination of a provider agreement, Protege stops making the provider's data available for purchase or access by new Consumers.",
+   "kind": "terms",
+   "section": "post_sale",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "Provider Terms (data providers)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/provider-terms",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Upon termination, Protege will no longer make Provider Data available for purchase or access by new Consumers"
+    }
+   ]
+  },
+  {
+   "id": "protege-c045",
+   "statement": "After a provider terminates, Consumers who already licensed its data keep access for an additional twelve months.",
+   "kind": "terms",
+   "section": "post_sale",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "Provider Terms (data providers)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/provider-terms",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Consumers who have previously licensed the Data have access to that Data for an additional twelve months"
+    }
+   ]
+  },
+  {
+   "id": "protege-c046",
+   "statement": "After a provider terminates, Consumers whose primary use is academic research keep access to the data for an additional three years.",
+   "kind": "terms",
+   "section": "post_sale",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "Provider Terms (data providers)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/provider-terms",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "enable Consumers whose primary use is academic research to have access to that Data for an additional three years"
+    }
+   ]
+  },
+  {
+   "id": "protege-c047",
+   "statement": "Protege tells video providers that licensed content is used exclusively for AI model training, fine-tuning, evaluation and benchmarking.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "Video / audiovisual data providers",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/data-provider/video",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Licensed content is used exclusively for AI model training, fine-tuning, evaluation, and benchmarking."
+    }
+   ]
+  },
+  {
+   "id": "protege-c048",
+   "statement": "Protege tells video providers that AI companies are generally not authorised to recreate proprietary information or original content.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "Video / audiovisual data providers",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/data-provider/video",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "to recreate proprietary information or original content."
+    }
+   ]
+  },
+  {
+   "id": "protege-c049",
+   "statement": "Protege states it does not permit Name-Image-Likeness duplication, copying or use from media companies' content.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q7",
+    "Q8"
+   ],
+   "scope": {
+    "product": "Video / audiovisual data providers",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/data-provider/video",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "We do not permit Name-Image-Likeness (NIL) duplication / copying / use from media"
+    }
+   ]
+  },
+  {
+   "id": "protege-c050",
+   "statement": "Protege tells video providers that partners always retain ownership and license only limited rights for defined AI training purposes.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q5"
+   ],
+   "scope": {
+    "product": "Video / audiovisual data providers",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/data-provider/video",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Yes. Partners always retain ownership. You are licensing limited rights for defined AI training purposes"
+    }
+   ]
+  },
+  {
+   "id": "protege-c051",
+   "statement": "Protege says video partners typically license content they own outright or control under global all-media or similarly broad rights.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q7"
+   ],
+   "scope": {
+    "product": "Video / audiovisual data providers",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/data-provider/video",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Control under global all media or similarly broad rights"
+    }
+   ]
+  },
+  {
+   "id": "protege-c052",
+   "statement": "Protege says that, depending on dataset and jurisdiction, privacy handling may include automated detection and removal of personal identifiers.",
+   "kind": "offer",
+   "section": "vetting",
+   "question_ids": [
+    "Q7",
+    "Q11"
+   ],
+   "scope": {
+    "product": "Video / audiovisual data providers",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/data-provider/video",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Automated detection and removal of personal identifiers"
+    }
+   ]
+  },
+  {
+   "id": "protege-c053",
+   "statement": "Protege lists sampling and quality assurance among the privacy steps it may apply to provider content.",
+   "kind": "offer",
+   "section": "vetting",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "Video / audiovisual data providers",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/data-provider/video",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Sampling and quality assurance"
+    }
+   ]
+  },
+  {
+   "id": "protege-c054",
+   "statement": "Protege lists optional anonymization or voice modification among the privacy steps it may apply.",
+   "kind": "offer",
+   "section": "vetting",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "Video / audiovisual data providers",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/data-provider/video",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Optional anonymization or voice modification"
+    }
+   ]
+  },
+  {
+   "id": "protege-c055",
+   "statement": "Protege tells providers that licensed content is not publicly exhibited or redistributed, so AI training licences rarely conflict with distribution deals.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q2",
+    "Q4"
+   ],
+   "scope": {
+    "product": "Video / audiovisual data providers",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/data-provider/video",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "rights. Content is not publicly exhibited or redistributed, and AI uses typically"
+    }
+   ]
+  },
+  {
+   "id": "protege-c056",
+   "statement": "Protege says video providers enter a revenue share agreement when licensing is formalised.",
+   "kind": "terms",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q9",
+    "Q3"
+   ],
+   "scope": {
+    "product": "Video / audiovisual data providers",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/data-provider/video",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "We formalize licensing through a clear revenue share agreement and structure sustainable terms"
+    }
+   ]
+  },
+  {
+   "id": "protege-c057",
+   "statement": "Protege says provider content is included in qualified deals and the provider receives revenue share payments.",
+   "kind": "terms",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "Video / audiovisual data providers",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/data-provider/video",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Your content is included in qualified deals, and you receive transparent, timely revenue share"
+    }
+   ]
+  },
+  {
+   "id": "protege-c058",
+   "statement": "Protege says it builds datasets by combining content across more than 150 global providers.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q2"
+   ],
+   "scope": {
+    "product": "Video / audiovisual data providers",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 150,
+    "unit": "global content providers (lower bound, '150+')",
+    "basis": "vendor-stated count of providers whose content is combined into datasets; not independently verified",
+    "period": "cumulative to date"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/data-provider/video",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "By combining content across 150+ global providers, we construct datasets that power multiple AI"
+    }
+   ]
+  },
+  {
+   "id": "protege-c059",
+   "statement": "Protege says it has 100+ producer and distributor partners for audiovisual content across six continents.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "Video / audiovisual data providers",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 100,
+    "unit": "AV producer and distributor partners (lower bound, '100+')",
+    "basis": "vendor-stated; number shown as '100+' next to this label",
+    "period": "cumulative to date"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/data-provider/video",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Producers & distributor partners for AV content across 6 continents"
+    }
+   ]
+  },
+  {
+   "id": "protege-c060",
+   "statement": "Protege says it has paid 'tens of millions' (currency not stated) to content partners to date.",
+   "kind": "outcome",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q2"
+   ],
+   "scope": {
+    "product": "Video / audiovisual data providers",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/data-provider/video",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Paid to Content Partners To-Date"
+    }
+   ]
+  },
+  {
+   "id": "protege-c061",
+   "statement": "Protege's video-provider process is presented as four steps: Discover, Structure, Prepare, Monetize.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q2",
+    "Q3"
+   ],
+   "scope": {
+    "product": "Video / audiovisual data providers",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/data-provider/video",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "We assess your library and rights framework to identify high value AI training applications"
+    }
+   ]
+  },
+  {
+   "id": "protege-c062",
+   "statement": "Protege tells video providers that revenue from AI licensing is typically incremental to existing distribution.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q2",
+    "Q4"
+   ],
+   "scope": {
+    "product": "Video / audiovisual data providers",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/data-provider/video",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "from AI licensing is typically incremental."
+    }
+   ]
+  },
+  {
+   "id": "protege-c063",
+   "statement": "Protege's homepage describes it as the trusted source for AI-ready, real-world data and expertise across the AI lifecycle; the site is live.",
+   "kind": "status",
+   "section": "positioning",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Protege is the trusted source for AI-ready, real-world data"
+    }
+   ]
+  },
+  {
+   "id": "protege-c064",
+   "statement": "Protege's homepage offers data providers a way to monetise existing data assets or content while keeping rights protections and provenance.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q2",
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Monetize your existing data assets or content with Protege"
+    }
+   ]
+  },
+  {
+   "id": "protege-c065",
+   "statement": "Protege's homepage markets data to AI model builders as tailored to current model-building needs.",
+   "kind": "offer",
+   "section": "positioning",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Data tailored to today's model-building needs"
+    }
+   ]
+  },
+  {
+   "id": "protege-c066",
+   "statement": "A Siemens Healthineers quote on Protege's homepage says Protege helps find the data needed for a specific problem rather than simply being a data catalog.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12",
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "rather than simply being a data catalog."
+    }
+   ]
+  },
+  {
+   "id": "protege-c067",
+   "statement": "Protege's buyer pages offer no checkout; the call to action for model builders is 'Contact for Data Access'.",
+   "kind": "offer",
+   "section": "transaction",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/model-builders",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Contact for Data Access"
+    }
+   ]
+  },
+  {
+   "id": "protege-c068",
+   "statement": "Protege's video buyer page offers SHOT (Selected Highlights Optimized for AI Training), audiovisual datasets of clipped scenes.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12",
+    "Q10"
+   ],
+   "scope": {
+    "product": "Video datasets for model builders",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/model-builders/video",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Selected Highlights Optimized for AI Training"
+    }
+   ]
+  },
+  {
+   "id": "protege-c069",
+   "statement": "Protege describes its video supply as an aggregated catalog spanning genres, languages and geographies.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q12"
+   ],
+   "scope": {
+    "product": "Video datasets for model builders",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/model-builders/video",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Our aggregated catalog enables both breadth and depth across genres, languages, and geographies."
+    }
+   ]
+  },
+  {
+   "id": "protege-c070",
+   "statement": "Protege's video buyer page offers rapid sourcing and fulfilment aligned to AI development cycles, from a scoped request to a structured dataset.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "Video datasets for model builders",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/model-builders/video",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Rapid sourcing and fulfillment aligned to AI development cycles."
+    }
+   ]
+  },
+  {
+   "id": "protege-c071",
+   "statement": "Protege says structured curation, quality control and rights verification are applied to its video datasets.",
+   "kind": "offer",
+   "section": "vetting",
+   "question_ids": [
+    "Q11",
+    "Q3"
+   ],
+   "scope": {
+    "product": "Video datasets for model builders",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/model-builders/video",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Structured curation, quality control, and rights verification ensure datasets meet the standards required"
+    }
+   ]
+  },
+  {
+   "id": "protege-c072",
+   "statement": "Protege's video buyer page lists content categories including Film & Television, Sports Action & Archives, News & Factual Programming and Real World / Real Life.",
+   "kind": "offer",
+   "section": "listing",
+   "question_ids": [
+    "Q1",
+    "Q10"
+   ],
+   "scope": {
+    "product": "Video datasets for model builders",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/model-builders/video",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Sports Action & Archives"
+    }
+   ]
+  },
+  {
+   "id": "protege-c073",
+   "statement": "Protege's video preparation includes segmenting long-form content into scenes, evaluating visual quality and filtering for relevance.",
+   "kind": "offer",
+   "section": "vetting",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "Video datasets for model builders",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/model-builders/video",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "segmenting long-form content into scenes, evaluating visual quality, filtering for relevance"
+    }
+   ]
+  },
+  {
+   "id": "protege-c074",
+   "statement": "Protege's contact page routes model builders interested in data or benchmarking expertise to a contact form.",
+   "kind": "offer",
+   "section": "transaction",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/contact",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Interested in Protege data or benchmarking expertise? Fill out the contact form below, and we'll be in touch."
+    }
+   ]
+  },
+  {
+   "id": "protege-c075",
+   "statement": "Protege's contact page routes prospective data partners to a separate partner form.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q2"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/contact",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Interested in becoming a Protege data partner? Fill out the partner form below, and we'll be in touch."
+    }
+   ]
+  },
+  {
+   "id": "protege-c076",
+   "statement": "Protege's About page says it aggregates data sources to deliver AI-ready datasets.",
+   "kind": "offer",
+   "section": "positioning",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/about",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "the connective tissue that aggregates data sources to deliver AI-ready datasets"
+    }
+   ]
+  },
+  {
+   "id": "protege-c077",
+   "statement": "Protege's About page says data providers protect their data assets through standard licensing agreements and rights protections.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q2",
+    "Q5"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/about",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "protect their data assets through standard licensing agreements and rights protections"
+    }
+   ]
+  },
+  {
+   "id": "protege-c078",
+   "statement": "Protege runs DataLab, a research team on data for AI, whose site shows research and a 'Collect Data' call to action rather than dataset listings.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datalab.withprotege.ai/",
+     "publisher": "Protege DataLab",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "a team of research scientists committed to tackling the fundamental challenges and open questions regarding data for AI"
+    }
+   ]
+  },
+  {
+   "id": "protege-c079",
+   "statement": "In December 2024 Protege announced it had acquired Calliope Networks, which aggregated media content for licensing.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2024-12-18",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/news/protege-acquires-calliope-networks-unlocking-premium-video-data-for-ai-training/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Protege today announced its acquisition of Calliope Networks, a leader in aggregating media content for licensing"
+    }
+   ]
+  },
+  {
+   "id": "protege-c080",
+   "statement": "Protege said Calliope Networks licensed movies, TV series and news to generative AI developers.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "Calliope Networks (pre-acquisition business)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2024-12-18",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/news/protege-acquires-calliope-networks-unlocking-premium-video-data-for-ai-training/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Calliope Networks aggregates and licenses media content, including movies, TV series, and news, for use by generative AI"
+    }
+   ]
+  },
+  {
+   "id": "protege-c081",
+   "statement": "Protege said Calliope brought hundreds of thousands of hours of TV, film, news and sports content.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "Calliope Networks (pre-acquisition business)",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 100000,
+    "unit": "hours of video (lower bound of 'hundreds of thousands')",
+    "basis": "vendor-stated catalogue size brought by Calliope at acquisition; not independently verified",
+    "period": "at December 2024"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2024-12-18",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/news/protege-acquires-calliope-networks-unlocking-premium-video-data-for-ai-training/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "hundreds of thousands of hours of global, high-quality TV, film, news and sports content"
+    }
+   ]
+  },
+  {
+   "id": "protege-c082",
+   "statement": "Protege said Calliope worked with over 70 data and content owners at acquisition.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "Calliope Networks (pre-acquisition business)",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 70,
+    "unit": "content owners (lower bound, 'over 70')",
+    "basis": "vendor-stated partner count for Calliope at acquisition",
+    "period": "at December 2024"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2024-12-18",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/news/protege-acquires-calliope-networks-unlocking-premium-video-data-for-ai-training/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "over 70 leading data and content owners"
+    }
+   ]
+  },
+  {
+   "id": "protege-c083",
+   "statement": "Calliope's CEO Davis became General Manager of Protege's media vertical after the acquisition.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2024-12-18",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/news/protege-acquires-calliope-networks-unlocking-premium-video-data-for-ai-training/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "with Davis becoming General Manager of Protege"
+    }
+   ]
+  },
+  {
+   "id": "protege-c084",
+   "statement": "Calliope Networks' own site now states that Calliope is part of Protege.",
+   "kind": "status",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "Calliope Networks (pre-acquisition business)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://calliopenetworks.ai/f/protege-acquires-calliope-networks",
+     "publisher": "Calliope Networks",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Calliope is now a part of Protege!"
+    }
+   ]
+  },
+  {
+   "id": "protege-c085",
+   "statement": "Calliope's site describes a 'License to Scrape', a voluntary collective licence under which creators authorise AI firms to use their videos.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q7"
+   ],
+   "scope": {
+    "product": "Calliope Networks (pre-acquisition business)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://calliopenetworks.ai/f/protege-acquires-calliope-networks",
+     "publisher": "Calliope Networks",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Calliope Networks is pioneering the 'License to Scrape,' an innovative model that enables creators"
+    }
+   ]
+  },
+  {
+   "id": "protege-c086",
+   "statement": "Calliope said creators in its License to Scrape would be compensated by a formula based on volume and subscriber count.",
+   "kind": "terms",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "Calliope Networks (pre-acquisition business)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://calliopenetworks.ai/f/protege-acquires-calliope-networks",
+     "publisher": "Calliope Networks",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "volume and subscriber count."
+    }
+   ]
+  },
+  {
+   "id": "protege-c087",
+   "statement": "Calliope's site says its TV and film catalogue offers more than 35,000 hours of content including 4K and 3D formats.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "Calliope Networks (pre-acquisition business)",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 35000,
+    "unit": "hours of TV and film content (lower bound)",
+    "basis": "vendor-stated Calliope catalogue size on its legacy site; conflicts in scale with Protege's 'hundreds of thousands of hours' figure",
+    "period": "undated legacy page"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://calliopenetworks.ai/f/protege-acquires-calliope-networks",
+     "publisher": "Calliope Networks",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Our industry-leading TV and film catalog offers more than 35,000 hours of diverse, high-quality, global content"
+    }
+   ]
+  },
+  {
+   "id": "protege-c088",
+   "statement": "Calliope says it operates on a revenue-share basis, negotiating with AI companies on behalf of rights holders and paying them most as royalties.",
+   "kind": "terms",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q9",
+    "Q5"
+   ],
+   "scope": {
+    "product": "Calliope Networks (pre-acquisition business)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://calliopenetworks.ai/faq",
+     "publisher": "Calliope Networks",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Calliope Networks operates on a revenue-share basis. We negotiate deals on behalf of our rights holders with AI companies"
+    }
+   ]
+  },
+  {
+   "id": "protege-c089",
+   "statement": "In September 2026 Protege announced a partnership with GrabMaps to bring Southeast Asian street data to spatial and physical AI.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-09-21",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/news/protege-and-grabmaps-partner-to-bring-real-world-southeast-asian-streets-to-spatial-and-physical-ai/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "today announced a partnership with Grab"
+    }
+   ]
+  },
+  {
+   "id": "protege-c090",
+   "statement": "Protege says it will support a licensed path for bringing selected GrabMaps data assets to AI model builders.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-09-21",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/news/protege-and-grabmaps-partner-to-bring-real-world-southeast-asian-streets-to-spatial-and-physical-ai/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Protege will support a clear, licensed path for bringing selected GrabMaps data assets to AI model builders"
+    }
+   ]
+  },
+  {
+   "id": "protege-c091",
+   "statement": "In January 2026 Protege announced a $30 million Series A round led by Andreessen Horowitz.",
+   "kind": "number",
+   "section": "demand",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 30000000,
+    "unit": "USD equity raised",
+    "basis": "vendor-announced Series A round (extension) led by a16z",
+    "period": "one-off, January 2026"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-01-07",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/news/protege-a16z-30million-fundraise/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "announced a $30 million Series A round led by Andreessen Horowitz (a16z)"
+    }
+   ]
+  },
+  {
+   "id": "protege-c092",
+   "statement": "Protege says the January 2026 round brought its total funding to $65 million since its founding in 2024.",
+   "kind": "number",
+   "section": "demand",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 65000000,
+    "unit": "USD total equity raised",
+    "basis": "vendor-stated cumulative funding since founding",
+    "period": "cumulative to January 2026"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-01-07",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/news/protege-a16z-30million-fundraise/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "brings total funding to $65 million since the company's founding in 2024"
+    }
+   ]
+  },
+  {
+   "id": "protege-c093",
+   "statement": "Protege says it provides revenue share payouts to data partners with each use of their data.",
+   "kind": "terms",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-01-07",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/news/protege-a16z-30million-fundraise/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "provides revenue share payouts to data partners with each use"
+    }
+   ]
+  },
+  {
+   "id": "protege-c094",
+   "statement": "Protege says it expanded its data partner network to hundreds of organisations in 2025.",
+   "kind": "outcome",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-01-07",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/news/protege-a16z-30million-fundraise/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "expanded its data partner network to hundreds of organizations"
+    }
+   ]
+  },
+  {
+   "id": "protege-c095",
+   "statement": "Protege says it aggregates data from providers via licensing agreements and also provides expertise for curating and creating datasets.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12",
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-01-07",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/news/protege-a16z-30million-fundraise/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "aggregates data sources from trusted data providers via licensing agreements"
+    }
+   ]
+  },
+  {
+   "id": "protege-c096",
+   "statement": "Protege says an EMEA broadcaster earned over $1M in six months by licensing its scripted and cinematic library through Protege.",
+   "kind": "outcome",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q2"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2025-10-08",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/blog/media-partner-case-study-broadcaster-earns-1m-in-6-months/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "A major EMEA-based broadcaster earned over $1M in 6 months by licensing its scripted and cinematic library"
+    }
+   ]
+  },
+  {
+   "id": "protege-c097",
+   "statement": "In the broadcaster case study Protege says the partner signed a standard revenue-share agreement based on future licensing deals.",
+   "kind": "terms",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2025-10-08",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/blog/media-partner-case-study-broadcaster-earns-1m-in-6-months/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "standard revenue-share agreement based on any future licensing deals"
+    }
+   ]
+  },
+  {
+   "id": "protege-c098",
+   "statement": "In the broadcaster case study Protege says it closed multiple enterprise licensing deals with AI companies using the content.",
+   "kind": "outcome",
+   "section": "transaction",
+   "question_ids": [
+    "Q9",
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2025-10-08",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/blog/media-partner-case-study-broadcaster-earns-1m-in-6-months/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Protege closed multiple enterprise licensing deals with marquee AI companies"
+    }
+   ]
+  },
+  {
+   "id": "protege-c099",
+   "statement": "Protege says it hosts provider content on a major cloud provider and the broadcaster uploaded its data to the Protege platform.",
+   "kind": "architecture",
+   "section": "custody",
+   "question_ids": [
+    "Q6"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2025-10-08",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/blog/media-partner-case-study-broadcaster-earns-1m-in-6-months/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Protege hosts its content on a secure major cloud provider"
+    }
+   ]
+  },
+  {
+   "id": "protege-c100",
+   "statement": "In the broadcaster case study Protege says it evaluated the partner's data for quality and metadata richness.",
+   "kind": "offer",
+   "section": "vetting",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2025-10-08",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/blog/media-partner-case-study-broadcaster-earns-1m-in-6-months/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Protege evaluated the broadcaster's data for quality and metadata richness"
+    }
+   ]
+  },
+  {
+   "id": "protege-c101",
+   "statement": "In the broadcaster case study Protege says it advised the broadcaster on the negotiations with buyers.",
+   "kind": "terms",
+   "section": "transaction",
+   "question_ids": [
+    "Q5",
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2025-10-08",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/blog/media-partner-case-study-broadcaster-earns-1m-in-6-months/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "advising the broadcaster on the negotiations"
+    }
+   ]
+  },
+  {
+   "id": "protege-c102",
+   "statement": "Protege says a regional sports rights distributor earned $250,000+ in net-new revenue within months by licensing archival footage.",
+   "kind": "outcome",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q2"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2025-10-17",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/blog/media-partner-case-study-sports-rights-distributor-unlocks-250k/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "This landed the distributor $250,000+ in net-new revenue in a matter of months"
+    }
+   ]
+  },
+  {
+   "id": "protege-c103",
+   "statement": "Protege says the sports distributor's revenue-share agreement covered any Protege deals that included its content.",
+   "kind": "terms",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q9",
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2025-10-17",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/blog/media-partner-case-study-sports-rights-distributor-unlocks-250k/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "signed a clean revenue-share agreement covering any Protege deals that included the distributor's content"
+    }
+   ]
+  },
+  {
+   "id": "protege-c104",
+   "statement": "Protege says the sports distributor retained visibility throughout negotiations.",
+   "kind": "terms",
+   "section": "transaction",
+   "question_ids": [
+    "Q5"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2025-10-17",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/blog/media-partner-case-study-sports-rights-distributor-unlocks-250k/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "The distributor retained visibility throughout negotiations"
+    }
+   ]
+  },
+  {
+   "id": "protege-c105",
+   "statement": "Protege says the sports distributor uploaded thousands of hours of content to the Protege platform, then tripled the volume as demand showed.",
+   "kind": "architecture",
+   "section": "custody",
+   "question_ids": [
+    "Q6",
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2025-10-17",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/blog/media-partner-case-study-sports-rights-distributor-unlocks-250k/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "uploaded thousands of hours of content to the Protege platform"
+    }
+   ]
+  },
+  {
+   "id": "protege-c106",
+   "statement": "In August 2025 Protege announced a $25 million Series A round led by Footwork.",
+   "kind": "number",
+   "section": "demand",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 25000000,
+    "unit": "USD equity raised",
+    "basis": "vendor-announced Series A round led by Footwork",
+    "period": "one-off, August 2025"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2025-08-13",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/news/protege-series-a/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "announced the close of a $25 million Series A funding round."
+    }
+   ]
+  },
+  {
+   "id": "protege-c107",
+   "statement": "Protege said in August 2025 that it had access to over 300,000 hours of video and over 500,000 hours of audio.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 300000,
+    "unit": "hours of video content accessible (lower bound)",
+    "basis": "vendor-stated; 'access to' content held by partners, not owned inventory; audio stated as 500,000+ hours",
+    "period": "at August 2025"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2025-08-13",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/news/protege-series-a/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "access to over 300,000 hours of video content, over 500,000 hours of audio"
+    }
+   ]
+  },
+  {
+   "id": "protege-c108",
+   "statement": "Protege said in August 2025 that it had over 100 data partners across healthcare and media.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 100,
+    "unit": "data partners (lower bound)",
+    "basis": "vendor-stated count across healthcare and media",
+    "period": "at August 2025"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2025-08-13",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/news/protege-series-a/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Protege has over 100 data partners across healthcare and media and boasts"
+    }
+   ]
+  },
+  {
+   "id": "protege-c109",
+   "statement": "Protege said it grew its business 20x (metric not stated) before the August 2025 Series A.",
+   "kind": "outcome",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2025-08-13",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/news/protege-series-a/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "After growing its business 20x in 2025, Protege will use the Series A"
+    }
+   ]
+  },
+  {
+   "id": "protege-c110",
+   "statement": "In August 2025 Protege launched Audio & Speech and Motion Capture verticals.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2025-08-13",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/news/protege-series-a/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Last week, Protege launched two new verticals, Audio & Speech and Motion Capture"
+    }
+   ]
+  },
+  {
+   "id": "protege-c111",
+   "statement": "In September 2024 Protege announced a $10 million seed round led by CRV and the launch of its platform.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2024-09-10",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/news/protege-raises-10-million-and-launches-platform-for-ai-training-data/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "The round was led by CRV"
+    }
+   ]
+  },
+  {
+   "id": "protege-c112",
+   "statement": "Protege says it was founded in 2024 by Samuels and Travis May.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2024-09-10",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/news/protege-raises-10-million-and-launches-platform-for-ai-training-data/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Protege was founded earlier in 2024 by Samuels and Travis May"
+    }
+   ]
+  },
+  {
+   "id": "protege-c113",
+   "statement": "Protege tells healthcare providers that they retain ownership of their data.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q5"
+   ],
+   "scope": {
+    "product": "Healthcare data providers",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/data-provider/healthcare",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "You always retain ownership of your data"
+    }
+   ]
+  },
+  {
+   "id": "protege-c114",
+   "statement": "Protege says it decides with each healthcare provider how its dataset is packaged and licensed based on uniqueness, scale and applications.",
+   "kind": "terms",
+   "section": "pricing",
+   "question_ids": [
+    "Q9",
+    "Q10"
+   ],
+   "scope": {
+    "product": "Healthcare data providers",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/data-provider/healthcare",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "datasets. Together, we determine how your dataset should be packaged and licensed based on its"
+    }
+   ]
+  },
+  {
+   "id": "protege-c115",
+   "statement": "Protege tells healthcare providers that revenue is shared with them according to agreed partnership terms when developers license their data.",
+   "kind": "terms",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "Healthcare data providers",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/data-provider/healthcare",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "shared with you according to the agreed partnership terms. This creates a new way to generate"
+    }
+   ]
+  },
+  {
+   "id": "protege-c116",
+   "statement": "Protege says healthcare datasets are prepared before sharing with de-identification, certification and tokenization.",
+   "kind": "offer",
+   "section": "vetting",
+   "question_ids": [
+    "Q7",
+    "Q11"
+   ],
+   "scope": {
+    "product": "Healthcare data providers",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/data-provider/healthcare",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "partners to prepare datasets appropriately before sharing, including de-identification,"
+    }
+   ]
+  },
+  {
+   "id": "protege-c117",
+   "statement": "Protege says datasets are handled through infrastructure with access controls that limit who can access the data and how it is delivered.",
+   "kind": "architecture",
+   "section": "custody",
+   "question_ids": [
+    "Q6"
+   ],
+   "scope": {
+    "product": "Healthcare data providers",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/data-provider/healthcare",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "infrastructure with access controls and protections that limit who can access the data and"
+    }
+   ]
+  },
+  {
+   "id": "protege-c118",
+   "statement": "Protege says licensing agreements define permitted uses and restrictions from the data source through to data licensees.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q5",
+    "Q8"
+   ],
+   "scope": {
+    "product": "Healthcare data providers",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/data-provider/healthcare",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "how it is delivered. Third, all access is governed by clear licensing agreements that define"
+    }
+   ]
+  },
+  {
+   "id": "protege-c119",
+   "statement": "For healthcare, Protege reviews provider data and gets it ready for inclusion in future buyer datasets.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q12"
+   ],
+   "scope": {
+    "product": "Healthcare data providers",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/data-provider/healthcare",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "We review your data, align on quality and privacy standards, and get it ready for inclusion in future buyer datasets."
+    }
+   ]
+  },
+  {
+   "id": "protege-c120",
+   "statement": "For each new buyer opportunity, Protege evaluates which partners' data best fits the use case, quality needs and timelines.",
+   "kind": "architecture",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12",
+    "Q10"
+   ],
+   "scope": {
+    "product": "Healthcare data providers",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/data-provider/healthcare",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "For each new opportunity, we evaluate which partners' data best fits the use case, quality needs, and timelines"
+    }
+   ]
+  },
+  {
+   "id": "protege-c121",
+   "statement": "For selected opportunities Protege works with providers on linkages and transformations to build a de-identified, buyer-ready dataset.",
+   "kind": "architecture",
+   "section": "object_model",
+   "question_ids": [
+    "Q10",
+    "Q12"
+   ],
+   "scope": {
+    "product": "Healthcare data providers",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/data-provider/healthcare",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "we work with you on linkages and transformations to build a de-identified, buyer-ready dataset."
+    }
+   ]
+  },
+  {
+   "id": "protege-c122",
+   "statement": "Protege delivers the constructed dataset to the buyer and pays revenue share to the participating partner or partners.",
+   "kind": "architecture",
+   "section": "custody",
+   "question_ids": [
+    "Q6",
+    "Q9"
+   ],
+   "scope": {
+    "product": "Healthcare data providers",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/data-provider/healthcare",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "We deliver the dataset to the buyer and pay out revenue share to the participating partner(s)."
+    }
+   ]
+  },
+  {
+   "id": "protege-c123",
+   "statement": "Protege says healthcare partners' data comprises 5B+ patient encounters.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "Healthcare data providers",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 5000000000,
+    "unit": "patient encounters (lower bound)",
+    "basis": "vendor-stated aggregate across healthcare partners; label reads patient encounters",
+    "period": "cumulative to date"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/data-provider/healthcare",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "5B+"
+    }
+   ]
+  },
+  {
+   "id": "protege-c124",
+   "statement": "Protege lists 'Discretion around AI licensing activity' among reasons for providers to work with it rather than license directly.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q2"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/data-provider/video",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Discretion around AI licensing activity"
+    }
+   ]
+  },
+  {
+   "id": "protege-c125",
+   "statement": "Protege lists established relationships with model labs among reasons providers should use it instead of licensing directly.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q2"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/data-provider/video",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Established relationships with leading model labs and emerging AI companies"
+    }
+   ]
+  },
+  {
+   "id": "protege-c126",
+   "statement": "Protege lists operational support for packaging, delivery and compliance among reasons providers should use it.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q2"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/data-provider/video",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Operational support for packaging, delivery, and compliance"
+    }
+   ]
+  },
+  {
+   "id": "protege-c127",
+   "statement": "Protege's spatial provider page seeks egocentric video of diverse settings among other physical-AI data types.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q1"
+   ],
+   "scope": {
+    "product": "Spatial & physical intelligence data",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/data-provider/spatial",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Egocentric video of diverse settings"
+    }
+   ]
+  },
+  {
+   "id": "protege-c128",
+   "statement": "Protege designs and runs real-world healthcare evaluations itself using de-identified healthcare data.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12",
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/model-builders/healthcare-evaluation",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Protege designs and runs real-world evaluations"
+    }
+   ]
+  },
+  {
+   "id": "protege-c129",
+   "statement": "Protege says its healthcare evaluation test cases stay private and separate from model development, with contamination controls.",
+   "kind": "terms",
+   "section": "trust",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/model-builders/healthcare-evaluation",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Test cases remain private and separate from model development with contamination controls"
+    }
+   ]
+  },
+  {
+   "id": "protege-c130",
+   "statement": "Protege's spatial buyer page claims 50k+ unique performers in its motion data offer.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q1",
+    "Q3"
+   ],
+   "scope": {
+    "product": "Spatial & physical intelligence data",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 50000,
+    "unit": "unique performers (lower bound)",
+    "basis": "vendor-stated across spatial/motion datasets available through Protege",
+    "period": "cumulative to date"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/model-builders/spatial",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "50k+ Unique Performers"
+    }
+   ]
+  },
+  {
+   "id": "protege-c131",
+   "statement": "In July 2026 Dailymotion and Protege announced a partnership making Dailymotion's video catalogue available for AI training and evaluation via Protege.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-07-16",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/news/dailymotion-protege-partnership-announcement-video/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Dailymotion and Protege today announced a partnership to make Dailymotion"
+    }
+   ]
+  },
+  {
+   "id": "protege-c132",
+   "statement": "Protege said AI builders will be able to access Dailymotion's catalogue of roughly 40 million videos through Protege.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 40000000,
+    "unit": "videos in Dailymotion catalogue (approximate)",
+    "basis": "vendor-stated size of partner catalogue made accessible; not a count of licensed or delivered videos",
+    "period": "at July 2026"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-07-16",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/news/dailymotion-protege-partnership-announcement-video/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "roughly 40 million videos"
+    }
+   ]
+  },
+  {
+   "id": "protege-c133",
+   "statement": "In February 2026 Protege announced a partnership with Sunain, a supplier of multimodal human data.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-02-02",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/news/protege-and-sunain-partner-to-bring-global-scale-multimodal-human-data-to-ai-development/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "today announced a new partnership with Sunain"
+    }
+   ]
+  },
+  {
+   "id": "protege-c134",
+   "statement": "Protege says Sunain collects unscripted human behaviour through a global contributor network rather than synthetic data.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-02-02",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/news/protege-and-sunain-partner-to-bring-global-scale-multimodal-human-data-to-ai-development/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "collecting real, unscripted human behavior via a global contributor network rather than relying on synthetic"
+    }
+   ]
+  },
+  {
+   "id": "protege-c135",
+   "statement": "Protege says Sunain's contributors record conversations, play games and capture activities in exchange for compensation paid by Sunain's network.",
+   "kind": "terms",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3",
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-02-02",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/news/protege-and-sunain-partner-to-bring-global-scale-multimodal-human-data-to-ai-development/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "capture real-world activities in exchange for compensation"
+    }
+   ]
+  },
+  {
+   "id": "protege-c136",
+   "statement": "Protege's privacy policy describes its website as a data marketplace platform.",
+   "kind": "offer",
+   "section": "positioning",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/privacy-policy",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "when you visit our data marketplace platform"
+    }
+   ]
+  },
+  {
+   "id": "protege-c137",
+   "statement": "Under the general Terms the Platform lets a customer view datasets that Protege makes available there.",
+   "kind": "architecture",
+   "section": "listing",
+   "question_ids": [
+    "Q10",
+    "Q11"
+   ],
+   "scope": {
+    "product": "Datasets under the general customer Terms of Service",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Customer may use the Protege Platform (\"Platform\") to view datasets Protege makes available there"
+    }
+   ]
+  },
+  {
+   "id": "protege-c138",
+   "statement": "Customers can use the Platform to surface information such as how many records fit their criteria, a feasibility count before purchase.",
+   "kind": "architecture",
+   "section": "discovery",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "Datasets under the general customer Terms of Service",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Customer can use the Protege platform to surface additional information about the Dataset, such as how many records fit"
+    }
+   ]
+  },
+  {
+   "id": "protege-c139",
+   "statement": "Protege may aggregate, anonymise or learn from data or feedback about a customer's use of the Services.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "Datasets under the general customer Terms of Service",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Protege may aggregate, anonymize, or otherwise learn from data or feedback relating to Customer"
+    }
+   ]
+  },
+  {
+   "id": "protege-c140",
+   "statement": "In a vendor case study a healthcare AI model company came to Protege for radiology imaging data to improve an imaging model.",
+   "kind": "outcome",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "Healthcare datasets for model builders",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2025-11-25",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/blog/healthcare-ai-case-study-millions-of-verified-imaging-studies-for-pre-training-in-30-days/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "A leading AI model company building for healthcare AI use cases came to Protege looking to accelerate"
+    }
+   ]
+  },
+  {
+   "id": "protege-c141",
+   "statement": "Protege says it works with dozens of data aggregators and healthcare providers to build its healthcare datasets.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "Healthcare datasets for model builders",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2025-11-25",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/blog/healthcare-ai-case-study-millions-of-verified-imaging-studies-for-pre-training-in-30-days/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Protege works with dozens of data aggregators and healthcare providers"
+    }
+   ]
+  },
+  {
+   "id": "protege-c142",
+   "statement": "Protege says its delivery system transfers hundreds of terabytes and millions of files to buyers in hours.",
+   "kind": "architecture",
+   "section": "custody",
+   "question_ids": [
+    "Q6"
+   ],
+   "scope": {
+    "product": "Healthcare datasets for model builders",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2025-11-25",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/blog/healthcare-ai-case-study-millions-of-verified-imaging-studies-for-pre-training-in-30-days/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Protege has built a delivery system that allows for the transfer of hundreds of terabytes and millions of files"
+    }
+   ]
+  },
+  {
+   "id": "protege-c143",
+   "statement": "Protege says expert determination is run on the final dataset for all Protege-delivered healthcare data.",
+   "kind": "offer",
+   "section": "vetting",
+   "question_ids": [
+    "Q7",
+    "Q11"
+   ],
+   "scope": {
+    "product": "Healthcare datasets for model builders",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2025-11-25",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/blog/healthcare-ai-case-study-millions-of-verified-imaging-studies-for-pre-training-in-30-days/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "as is the case for all Protege-delivered healthcare data"
+    }
+   ]
+  },
+  {
+   "id": "protege-c144",
+   "statement": "Protege says it secures individual agreements with healthcare data providers and acts as intermediary to the end buyer.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q5",
+    "Q3"
+   ],
+   "scope": {
+    "product": "Healthcare datasets for model builders",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2025-11-25",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/articles/blog/healthcare-ai-case-study-millions-of-verified-imaging-studies-for-pre-training-in-30-days/",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "by securing individual agreements with a broad network of healthcare data providers"
+    }
+   ]
+  },
+  {
+   "id": "protege-c145",
+   "statement": "Protege says it evaluates all source data for completeness, metadata richness, technical quality and relevance when onboarded.",
+   "kind": "offer",
+   "section": "vetting",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "Healthcare datasets for model builders",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/model-builders/healthcare",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Protege first evaluates all source data as it is onboarded into our network on generalizable factors"
+    }
+   ]
+  },
+  {
+   "id": "protege-c146",
+   "statement": "Protege says quality is evaluated again for each customer's specific dataset.",
+   "kind": "offer",
+   "section": "vetting",
+   "question_ids": [
+    "Q11",
+    "Q10"
+   ],
+   "scope": {
+    "product": "Healthcare datasets for model builders",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/model-builders/healthcare",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Quality is then evaluated again for each customer's specific dataset"
+    }
+   ]
+  },
+  {
+   "id": "protege-c147",
+   "statement": "Protege says it assembles custom datasets from its partner network to criteria such as modality, cohort, geography or time range.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "Healthcare datasets for model builders",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/model-builders/healthcare",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "allowing us to assemble custom datasets that meet criteria such as modality, cohort characteristics, geography"
+    }
+   ]
+  },
+  {
+   "id": "protege-c148",
+   "statement": "Protege says it will source new data types if needed to meet a customer's requirements.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12",
+    "Q3"
+   ],
+   "scope": {
+    "product": "Healthcare datasets for model builders",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/model-builders/healthcare",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "including sourcing new data types if needed"
+    }
+   ]
+  },
+  {
+   "id": "protege-c149",
+   "statement": "Protege says it can provide prospective buyers with dataset descriptions, metadata and representative samples before a licence is finalised.",
+   "kind": "offer",
+   "section": "trust",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "Healthcare datasets for model builders",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/model-builders/healthcare",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Our team can provide dataset descriptions, metadata, and representative samples"
+    }
+   ]
+  },
+  {
+   "id": "protege-c150",
+   "statement": "Protege says all healthcare datasets are de-identified before being made available for AI development.",
+   "kind": "terms",
+   "section": "vetting",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "Healthcare datasets for model builders",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/model-builders/healthcare",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "All healthcare datasets are de-identified and processed using established privacy protection standards"
+    }
+   ]
+  },
+  {
+   "id": "protege-c151",
+   "statement": "Protege names a curated EHR and claims data product, CLERK, for training AI models on healthcare administration tasks.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12",
+    "Q10"
+   ],
+   "scope": {
+    "product": "Healthcare datasets for model builders",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/model-builders/healthcare",
+     "publisher": "Protege",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "A curated EHR x Claims data product for training AI models for healthcare admin tasks"
+    }
+   ]
+  },
+  {
+   "id": "protege-c152",
+   "statement": "The only warranty in the general Terms is each party's authority to contract; no warranty of data-subject consent or releases is given to the buyer.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q5",
+    "Q7"
+   ],
+   "scope": {
+    "product": "Datasets under the general customer Terms of Service",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Each Party represents and warrants that it has the legal right and authority to enter into the Agreement."
+    }
+   ]
+  },
+  {
+   "id": "protege-c153",
+   "statement": "The general Terms disclaim implied warranties including non-infringement.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q5"
+   ],
+   "scope": {
+    "product": "Datasets under the general customer Terms of Service",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://withprotege.ai/terms-of-service",
+     "publisher": "Protege",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "implied warranties of merchantability, non-infringement, and fitness for a particular purpose."
+    }
+   ]
+  }
+ ],
+ "unknowns": [
+  {
+   "field": "matrix.buyer_vetting",
+   "urls_tried": [
+    "https://withprotege.ai/terms-of-service",
+    "https://withprotege.ai/media-terms-of-service",
+    "https://withprotege.ai/contact",
+    "https://withprotege.ai/model-builders"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "matrix.versioning",
+   "urls_tried": [
+    "https://withprotege.ai/terms-of-service",
+    "https://withprotege.ai/media-terms-of-service",
+    "https://withprotege.ai/provider-terms",
+    "https://withprotege.ai/model-builders/healthcare"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "matrix.contributor_pay_model",
+   "urls_tried": [
+    "https://withprotege.ai/data-provider/video",
+    "https://withprotege.ai/provider-terms",
+    "https://withprotege.ai/articles/news/protege-and-sunain-partner-to-bring-global-scale-multimodal-human-data-to-ai-development/",
+    "https://calliopenetworks.ai/f/protege-acquires-calliope-networks"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "other.revenue_share_split",
+   "urls_tried": [
+    "https://withprotege.ai/provider-terms",
+    "https://withprotege.ai/data-provider/video",
+    "https://withprotege.ai/data-provider/healthcare",
+    "https://calliopenetworks.ai/faq"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "other.access_fee_and_prices",
+   "urls_tried": [
+    "https://withprotege.ai/terms-of-service",
+    "https://withprotege.ai/model-builders",
+    "https://withprotege.ai/model-builders/video",
+    "https://withprotege.ai/model-builders/healthcare"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "other.platform_listings",
+   "urls_tried": [
+    "https://app.withprotege.ai/",
+    "https://datalab.withprotege.ai/",
+    "https://withprotege.ai/sitemap.xml"
+   ],
+   "reason": "gated"
+  },
+  {
+   "field": "other.statement_of_work",
+   "urls_tried": [
+    "https://withprotege.ai/terms-of-service",
+    "https://withprotege.ai/media-terms-of-service"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "other.independent_traction",
+   "urls_tried": [
+    "https://www.theinformation.com/articles/one-year-old-startup-notching-data-deals-model-makers",
+    "https://efts.sec.gov/LATEST/search-index?q=%22Protege%20Health%22&forms=D",
+    "https://www.sec.gov/cgi-bin/browse-edgar?company=protege&type=D&dateb=&owner=include&count=40&action=getcompany",
+    "https://www.courtlistener.com/?q=%22Protege+Health%22"
+   ],
+   "reason": "paywalled"
+  },
+  {
+   "field": "other.web_search_unavailable",
+   "urls_tried": [],
+   "reason": "blocked"
+  },
+  {
+   "field": "other.media_buyer_delivery",
+   "urls_tried": [
+    "https://withprotege.ai/model-builders/video",
+    "https://withprotege.ai/media-terms-of-service"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "other.place_property_consent",
+   "urls_tried": [
+    "https://withprotege.ai/provider-terms",
+    "https://withprotege.ai/media-terms-of-service",
+    "https://withprotege.ai/data-provider/spatial"
+   ],
+   "reason": "not_published"
+  }
+ ],
+ "conflicts": [
+  {
+   "claim_ids": [
+    "protege-c047",
+    "protege-c018"
+   ],
+   "rule_applied": "live_primary_wins_terms",
+   "resolution": "Marketing FAQ says use is limited to training, fine-tuning, evaluation and benchmarking; the live Media Terms grant only training of customer-owned or licensed models, with purposes set in the SOW. The legal text governs; fine-tuning/evaluation are not named in either customer template."
+  },
+  {
+   "claim_ids": [
+    "protege-c035",
+    "protege-c056"
+   ],
+   "rule_applied": "unresolved",
+   "resolution": "Provider Terms grant Protege a royalty-free licence and are silent on payment, while provider pages and case studies describe a revenue-share agreement; the revenue share presumably sits in a separate Schedule or agreement that is not public."
+  },
+  {
+   "claim_ids": [
+    "protege-c081",
+    "protege-c087"
+   ],
+   "rule_applied": "unresolved",
+   "resolution": "Protege said Calliope brought hundreds of thousands of hours; Calliope's own legacy page states 35,000+ hours for its TV and film catalogue. Different scopes or dates may explain it; neither is independently verified."
+  },
+  {
+   "claim_ids": [
+    "protege-c045",
+    "protege-c025"
+   ],
+   "rule_applied": "unresolved",
+   "resolution": "Provider Terms promise existing buyers 12 more months of access after a provider leaves; Media Terms let Protege order a buyer to cease use during the Term. How a provider exit or takedown is handled for media buyers is not stated."
+  }
+ ],
+ "leads": [
+  {
+   "url": "https://www.theinformation.com/articles/one-year-old-startup-notching-data-deals-model-makers",
+   "why": "Independent reporting on Protege deals (Natasha Mascarenhas); paywalled."
+  },
+  {
+   "url": "https://withprotege.substack.com",
+   "why": "Vendor Substack with launch posts; not fetched."
+  },
+  {
+   "url": "https://withprotege.ai/articles/news/protege-and-toughdata-partner-to-unlock-human-skill-data-for-physical-ai-applications/",
+   "why": "Physical-AI human skill data supplier; may show capture/consent model."
+  },
+  {
+   "url": "https://withprotege.ai/articles/blog/render-ready-case-study-clothing/",
+   "why": "3D asset case study; possible buyer-side delivery detail."
+  },
+  {
+   "url": "https://withprotege.ai/articles/blog/protege-ai-navigating-training-data-privacy-and-ethics/",
+   "why": "Vendor view on privacy and ethics of training data."
+  },
+  {
+   "url": "https://withprotege.ai/data-provider/audio-speech",
+   "why": "Audio provider page; likely repeats NIL/voice ban for audio."
+  }
+ ]
+}

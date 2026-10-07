@@ -1,0 +1,2538 @@
+{
+  "kind": "profile",
+  "slug": "aikosh",
+  "name": "AIKosh (IndiaAI Datasets Platform)",
+  "aliases": [
+    "IndiaAI Datasets Platform",
+    "AIKosh Datasets Platform"
+  ],
+  "segment": "government",
+  "tier": "light",
+  "status": {
+    "value": "active",
+    "claim_id": "aikosh-c001"
+  },
+  "names_for": {
+    "catalogue_side": "Datasets Repository",
+    "custom_side": "Request Artefact (a link on the dataset page; what happens after a request is not documented; AIKosh does no collection to order)"
+  },
+  "matrix": {
+    "operator_role": {
+      "value": "venue",
+      "claim_ids": [
+        "aikosh-c004",
+        "aikosh-c006",
+        "aikosh-c008",
+        "aikosh-c010",
+        "aikosh-c044"
+      ],
+      "note": "Government-run host: contributors keep IP, set the end-use licence and approve restricted downloads; AIKosh takes only a non-exclusive hosting licence."
+    },
+    "economics_model": {
+      "value": "free",
+      "claim_ids": [
+        "aikosh-c072",
+        "aikosh-c042"
+      ],
+      "note": "No dataset fee, price or payment mechanism appears in the terms, FAQ or manual; the platform is funded under the IndiaAI Mission."
+    },
+    "who_pays_fee": {
+      "value": "not_applicable",
+      "claim_ids": [],
+      "note": "No fees are charged to contributors or downloaders in any document found."
+    },
+    "supply_models": {
+      "value": [
+        "third_party_providers",
+        "public_or_scraped"
+      ],
+      "claim_ids": [
+        "aikosh-c021",
+        "aikosh-c022",
+        "aikosh-c036",
+        "aikosh-c037",
+        "aikosh-c053",
+        "aikosh-c055"
+      ],
+      "note": "Ministries and registered institutions upload their own data; contributors also relist public Kaggle, Hugging Face and research datasets such as Flickr30k. No evidence of AIKosh collecting its own datasets."
+    },
+    "custody_model": {
+      "value": "mixed",
+      "claim_ids": [
+        "aikosh-c041",
+        "aikosh-c038",
+        "aikosh-c053",
+        "aikosh-c056"
+      ],
+      "note": "Uploaded files are hosted by AIKosh; Kaggle imports are redirect links; the API route leaves data with the contributor while downloads pass through AIKosh."
+    },
+    "transaction_mode": {
+      "value": "free_download",
+      "claim_ids": [
+        "aikosh-c011",
+        "aikosh-c072",
+        "aikosh-c012",
+        "aikosh-c014"
+      ],
+      "note": "Open datasets download after login; restricted ones after the contributor approves a reasoned request. Nothing is sold."
+    },
+    "public_prices": {
+      "value": "not_applicable",
+      "claim_ids": [],
+      "note": "No dataset is priced; the only published figures are free compute tiers (c042)."
+    },
+    "licence_model": {
+      "value": "provider_defined",
+      "claim_ids": [
+        "aikosh-c007",
+        "aikosh-c008",
+        "aikosh-c061",
+        "aikosh-c054"
+      ],
+      "note": "Contributor picks from a dropdown of standard licences (CC, ODC, Open Government License India, Other, NA) or carries its own, e.g. ICAR Data Use License."
+    },
+    "exclusivity_offered": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": ""
+    },
+    "public_listing": {
+      "value": "public_indexable",
+      "claim_ids": [
+        "aikosh-c070",
+        "aikosh-c045"
+      ],
+      "note": "Live detail pages were readable anonymously and are listed in the public sitemap; the user manual says detail view needs login (see conflicts). Download needs login."
+    },
+    "buyer_vetting": {
+      "value": "account_only",
+      "claim_ids": [
+        "aikosh-c046",
+        "aikosh-c043",
+        "aikosh-c012"
+      ],
+      "note": "Platform check is a login via MeriPehchaan/Entity Locker; for restricted datasets the contributor vets each requester case by case."
+    },
+    "sample_mechanics": {
+      "value": "preview_in_browser",
+      "claim_ids": [
+        "aikosh-c047"
+      ],
+      "note": "Tabular snippet plus column-level statistics on the dataset page."
+    },
+    "versioning": {
+      "value": "immutable_revisions",
+      "claim_ids": [
+        "aikosh-c050",
+        "aikosh-c034",
+        "aikosh-c060"
+      ],
+      "note": "File edits create a new version and downloads are addressed by version number; whether old versions stay downloadable is not stated."
+    },
+    "human_subject_consent_docs": {
+      "value": "not_addressed",
+      "claim_ids": [
+        "aikosh-c020",
+        "aikosh-c057",
+        "aikosh-c071"
+      ],
+      "note": "Platform policy is non-personal, anonymised data only; no consent or release evidence is shown to downloaders, and masking is left to contributors."
+    },
+    "contributor_pay_model": {
+      "value": "none",
+      "claim_ids": [
+        "aikosh-c006",
+        "aikosh-c072"
+      ],
+      "note": "Contributors grant a royalty-free licence and nothing is sold, so no one is paid per download."
+    },
+    "catalogue_plus_custom": {
+      "value": "catalogue_only",
+      "claim_ids": [
+        "aikosh-c020",
+        "aikosh-c066"
+      ],
+      "note": "AIKosh only lists ready-made datasets; the Request Artefact link is the only gesture toward demand-led supply and its handling is undocumented."
+    },
+    "erasure_after_sale": {
+      "value": "takedown_only",
+      "claim_ids": [
+        "aikosh-c051",
+        "aikosh-c067",
+        "aikosh-c009"
+      ],
+      "note": "Artefacts can be deleted or removed from AIKosh, but content is meant to stay under its licence once downloaded; no downloader deletion duty found."
+    },
+    "quality_evidence": {
+      "value": "both",
+      "claim_ids": [
+        "aikosh-c033",
+        "aikosh-c026",
+        "aikosh-c048",
+        "aikosh-c069"
+      ],
+      "note": "Org admin and platform admin approve each upload and the platform computes a quality score; descriptions and metadata are the contributor's; terms disclaim accuracy."
+    }
+  },
+  "questions": {
+    "Q1": {
+      "state": "partial",
+      "answer": "IndiaAI says AIKosh had over 25,000 registrations and pitches datasets to public and private sectors building AI applications; no data on who downloads photo or video, in what volume, or why.",
+      "claim_ids": [
+        "aikosh-c065",
+        "aikosh-c029"
+      ]
+    },
+    "Q2": {
+      "state": "partial",
+      "answer": "The EOI pitches contributors on reach to public and private AI builders, community cleaning, versioning, and running challenges and hackathons on their data; there is no revenue motive because nothing is sold.",
+      "claim_ids": [
+        "aikosh-c029",
+        "aikosh-c030",
+        "aikosh-c031"
+      ]
+    },
+    "Q3": {
+      "state": "sourced",
+      "answer": "Supply is ministries, departments and registered institutions (individuals barred), plus relisted public Kaggle, Hugging Face and research datasets; each is listed under the contributor's chosen licence with AIKosh holding only a non-exclusive hosting licence.",
+      "claim_ids": [
+        "aikosh-c021",
+        "aikosh-c022",
+        "aikosh-c036",
+        "aikosh-c053",
+        "aikosh-c055",
+        "aikosh-c037",
+        "aikosh-c006",
+        "aikosh-c007"
+      ]
+    },
+    "Q4": {
+      "state": "not_applicable",
+      "answer": "AIKosh hosts free contributions; there is no commissioned work and no resale, so no carve-out or after-the-fact term change was found.",
+      "claim_ids": []
+    },
+    "Q5": {
+      "state": "sourced",
+      "answer": "AIKosh is a government-run venue: the contributor keeps IP and is licensor under its chosen licence, represents it has rights to the content, and indemnifies AIKosh; AIKosh disclaims all warranties including licence compliance.",
+      "claim_ids": [
+        "aikosh-c004",
+        "aikosh-c006",
+        "aikosh-c008",
+        "aikosh-c010",
+        "aikosh-c016",
+        "aikosh-c017",
+        "aikosh-c069"
+      ]
+    },
+    "Q6": {
+      "state": "sourced",
+      "answer": "Mixed: uploads are hosted on AIKosh and downloaded by file or version via UI or API; Kaggle imports are redirect links; an API route leaves the data on the contributor's systems.",
+      "claim_ids": [
+        "aikosh-c041",
+        "aikosh-c038",
+        "aikosh-c053",
+        "aikosh-c056",
+        "aikosh-c060"
+      ]
+    },
+    "Q7": {
+      "state": "partial",
+      "answer": "Only non-personal, anonymised data is meant to be contributed, in line with DPDPA; responsibility for masking sits with the contributor; no consent from people depicted is documented to downloaders, even on a photo dataset.",
+      "claim_ids": [
+        "aikosh-c020",
+        "aikosh-c024",
+        "aikosh-c057",
+        "aikosh-c071",
+        "aikosh-c016"
+      ]
+    },
+    "Q8": {
+      "state": "partial",
+      "answer": "The contributor's chosen licence is meant to travel with the data after download; AIKosh shares downloader identity and usage with contributors and contributors can revoke restricted access; no audit, fingerprinting or exclusivity terms were found.",
+      "claim_ids": [
+        "aikosh-c009",
+        "aikosh-c007",
+        "aikosh-c015",
+        "aikosh-c052"
+      ]
+    },
+    "Q9": {
+      "state": "sourced",
+      "answer": "No purchase: open datasets download after login; restricted ones need a reasoned request the contributor approves, with appeal after 5 days and escalation to support after 10; no fees or commission.",
+      "claim_ids": [
+        "aikosh-c011",
+        "aikosh-c012",
+        "aikosh-c014",
+        "aikosh-c044",
+        "aikosh-c059",
+        "aikosh-c072"
+      ]
+    },
+    "Q10": {
+      "state": "partial",
+      "answer": "A dataset is an artefact with metadata, access level and numbered versions; file edits create a new version; contributors can request deletion subject to admin approval; what past downloaders get on a new version or withdrawal is not stated.",
+      "claim_ids": [
+        "aikosh-c013",
+        "aikosh-c034",
+        "aikosh-c050",
+        "aikosh-c051",
+        "aikosh-c060",
+        "aikosh-c068"
+      ]
+    },
+    "Q11": {
+      "state": "sourced",
+      "answer": "Before download a user sees metadata, a tabular sample preview, column statistics and a platform-computed Data Quality / AI Readiness score; uploads are approved by organisation and platform admins, though the terms disclaim accuracy.",
+      "claim_ids": [
+        "aikosh-c047",
+        "aikosh-c048",
+        "aikosh-c049",
+        "aikosh-c040",
+        "aikosh-c033",
+        "aikosh-c026",
+        "aikosh-c069"
+      ]
+    },
+    "Q12": {
+      "state": "partial",
+      "answer": "AIKosh is catalogue-only (Datasets Repository); a 'Request Artefact' link invites requests for missing data but its handling is undocumented and AIKosh does not collect to order.",
+      "claim_ids": [
+        "aikosh-c066",
+        "aikosh-c020"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "aikosh-c001",
+      "statement": "The AIKosh home page, fetched 2026-10-01, shows the platform was last deployed on 30 September 2026, so it is live and maintained.",
+      "kind": "status",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Last Deployed : 30th Sept, 26"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c002",
+      "statement": "AIKosh says on its home page that it lists more than 15,999 datasets.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": {
+        "num": 15999,
+        "unit": "datasets listed",
+        "basis": "vendor home-page counter, shown as a lower bound ('15999+'); includes open, restricted and redirected listings",
+        "period": "as of retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "15999+"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c003",
+      "statement": "AIKosh says on its home page that 671 organisations are on the platform.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": {
+        "num": 671,
+        "unit": "organisations",
+        "basis": "vendor home-page counter; not stated whether all have contributed artefacts",
+        "period": "as of retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "671"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c004",
+      "statement": "AIKosh is designed, developed and hosted by the IndiaAI Division of India's Ministry of Electronics and IT, i.e. a government operator.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/terms-n-conditions",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AIKosh is a platform designed, developed and hosted by the IndiaAI Division under the Ministry"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c005",
+      "statement": "IndiaAI, which runs AIKosh, is an Independent Business Division within Digital India Corporation under MeitY.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "government",
+      "as_of": "2025-03-25",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/static/datasets_EOI.pdf",
+          "publisher": "IndiaAI IBD, Digital India Corporation",
+          "source_class": "regulator_guidance",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "IndiaAI, an Independent Business Division (IBD) under the Digital India Corporation"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c006",
+      "statement": "By contributing, a contributor grants AIKosh only a worldwide, royalty-free, non-exclusive licence to use, display, publish and reproduce the content.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/terms-n-conditions",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you grant AIKosh a worldwide, royalty-free and non-exclusive license to use, display, publish, reproduce"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c007",
+      "statement": "AIKosh gives contributors a dropdown of commonly used licences from which they set the end-use terms of each artefact.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/terms-n-conditions",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AIKosh provides Contributors with a dropdown of commonly used licenses to define the terms of end use"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c008",
+      "statement": "AIKosh's terms say a contributor's chosen licence is not replaced or overridden by the AIKosh Terms of Use.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/terms-n-conditions",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the license terms are not intended to be replaced or overridden by the terms of these Terms"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c009",
+      "statement": "AIKosh's terms say contributed content is meant to stay under its chosen licence when further accessed, distributed or used after download.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/terms-n-conditions",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "such Content is intended to remain under the terms of such license when further accessed, distributed, or used."
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c010",
+      "statement": "A contributor keeps its intellectual property rights in content it contributes to AIKosh.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/terms-n-conditions",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You retain any intellectual property rights that you have Content contributed by you."
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c011",
+      "statement": "An artefact set to open access is discoverable by any user and downloadable.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/terms-n-conditions",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If the Artefact is made available under open access, it will be discoverable by any User and downloadable"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c012",
+      "statement": "An artefact set to restricted access is discoverable by anyone but can be downloaded and used only with the contributor's explicit consent.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/terms-n-conditions",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "its download and use will only be possible with the explicit consent of the Contributor."
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c013",
+      "statement": "An artefact set to private is discoverable and downloadable only by its contributor.",
+      "kind": "terms",
+      "section": "listing",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/terms-n-conditions",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If the Artefact is private, it will only be discoverable and downloadable by the Contributor."
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c014",
+      "statement": "For a restricted dataset, a user must submit a request stating the reason for download and the dataset owner decides whether to grant access.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/faqs",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "For restricted datasets, users must submit a request stating the reason for download."
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c015",
+      "statement": "AIKosh may share a user's name, email address and usage with the contributor of an artefact the user accessed.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/terms-n-conditions",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "sharing the User's name, email address, and usage with the Contributor of an artefact accessed"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c016",
+      "statement": "Under AIKosh's terms the contributing user, not AIKosh, represents that it has ownership, control and responsibility for content it posts.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/terms-n-conditions",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you have ownership, control, and responsibility for the Content you post or otherwise make available"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c017",
+      "statement": "Users indemnify AIKosh against claims, liability and expenses; AIKosh gives no indemnity to downloaders.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/terms-n-conditions",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you agree to indemnify, defend and hold harmless AIKosh from all claims, liability, and expenses"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c018",
+      "statement": "AIKosh provides its services and content 'as is' and 'as available', disclaiming warranties.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q11"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/terms-n-conditions",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the Services and Content are provided \"as is\" and \"as available\"."
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c019",
+      "statement": "AIKosh's terms are governed by Indian law.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/terms-n-conditions",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "These Terms shall be governed by and construed in accordance with the Indian law."
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c020",
+      "statement": "AIKosh's terms describe its Datasets Repository as a collection of non-personal, anonymised datasets.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/terms-n-conditions",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Datasets Repository: A collection of non-personal, anonymized datasets"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c021",
+      "statement": "Artefacts on AIKosh may come from Government of India organisations, departments and ministries or from non-government contributors.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/terms-n-conditions",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Ministries of the Government of India or Non-Government Contributors"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c022",
+      "statement": "Under the 2025 expression of interest, only institutional entities may contribute datasets; individual submissions are not permitted.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "government",
+      "as_of": "2025-03-25",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/static/datasets_EOI.pdf",
+          "publisher": "IndiaAI IBD, Digital India Corporation",
+          "source_class": "regulator_guidance",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Only institutional entities are eligible to contribute datasets. Individual submissions are not permitted."
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c023",
+      "statement": "Contributing organisations must have a valid and verifiable legal status such as a registered society or company.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "government",
+      "as_of": "2025-03-25",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/static/datasets_EOI.pdf",
+          "publisher": "IndiaAI IBD, Digital India Corporation",
+          "source_class": "regulator_guidance",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "All applying organizations must have valid and verifiable legal status"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c024",
+      "statement": "Datasets shared with AIKosh under the EOI must comply with India's Digital Personal Data Protection Act and the NDSAP data-sharing policy.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "government",
+      "as_of": "2025-03-25",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/static/datasets_EOI.pdf",
+          "publisher": "IndiaAI IBD, Digital India Corporation",
+          "source_class": "regulator_guidance",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "with the provisions of the Digital Personal Data Protection Act (DPDPA), the National"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c025",
+      "statement": "EOI submissions must include complete metadata and specify licensing terms.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "government",
+      "as_of": "2025-03-25",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/static/datasets_EOI.pdf",
+          "publisher": "IndiaAI IBD, Digital India Corporation",
+          "source_class": "regulator_guidance",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Submissions must include complete and accurate metadata, specify licensing"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c026",
+      "statement": "Submitted datasets undergo backend validation against AIKosh's data quality standards before approval and publication.",
+      "kind": "offer",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "government",
+      "as_of": "2025-03-25",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/static/datasets_EOI.pdf",
+          "publisher": "IndiaAI IBD, Digital India Corporation",
+          "source_class": "regulator_guidance",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Submitted datasets undergo backend validation to ensure alignment with AIKosh"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c027",
+      "statement": "In its March 2025 EOI, IndiaAI said AIKosh was in a beta phase with some features still under development.",
+      "kind": "status",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "government",
+      "as_of": "2025-03-25",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/static/datasets_EOI.pdf",
+          "publisher": "IndiaAI IBD, Digital India Corporation",
+          "source_class": "regulator_guidance",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "AIKosh is currently in its beta phase; certain features may still be under"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c028",
+      "statement": "A 2025 addendum to the EOI extended private contributions from datasets to AI models and use cases.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "government",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/static/datasets_EOI.pdf",
+          "publisher": "IndiaAI IBD, Digital India Corporation",
+          "source_class": "regulator_guidance",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "AI artefacts, specifically AI models and relevant use cases, are now being"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c029",
+      "statement": "The EOI pitches contributors that datasets hosted on AIKosh can be used directly by public and private sectors to build AI applications.",
+      "kind": "offer",
+      "section": "demand",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "government",
+      "as_of": "2025-03-25",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/static/datasets_EOI.pdf",
+          "publisher": "IndiaAI IBD, Digital India Corporation",
+          "source_class": "regulator_guidance",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Hosted datasets can be directly utilized by public and private sectors to build real-world AI applications"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c030",
+      "statement": "The EOI tells contributors they can run challenges and hackathons on their AIKosh datasets for visibility.",
+      "kind": "offer",
+      "section": "demand",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "government",
+      "as_of": "2025-03-25",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/static/datasets_EOI.pdf",
+          "publisher": "IndiaAI IBD, Digital India Corporation",
+          "source_class": "regulator_guidance",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Contributors can run challenges and"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c031",
+      "statement": "The EOI offers contributors versioning features for continuous refinement of datasets.",
+      "kind": "offer",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "government",
+      "as_of": "2025-03-25",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/static/datasets_EOI.pdf",
+          "publisher": "IndiaAI IBD, Digital India Corporation",
+          "source_class": "regulator_guidance",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Versioning features enable continuous refinement"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c032",
+      "statement": "Only contributors may upload datasets to AIKosh, subject to verification by the organisation admin and the platform admin.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q3",
+        "Q11"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/faqs",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Only contributors are allowed to upload datasets on AIKosh, subject to verification from the organization admin"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c033",
+      "statement": "Uploaded datasets must be approved by both the organisation admin and the platform admin before they are visible on AIKosh.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/faqs",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "must be approved by the Organization Admin and Platform Admin before they are visible on the platform"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c034",
+      "statement": "AIKosh contributors can modify metadata and upload new versions of a dataset's data files.",
+      "kind": "offer",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/faqs",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "contributors can modify metadata and update new versions of the data files."
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c035",
+      "statement": "AIKosh accepts video (MP4, MKV, AVI) and image (JPEG, PNG, TIFF, BMP, RAW) dataset files.",
+      "kind": "offer",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/faqs",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Video Files (MP4, MKV, AVI), Image Format (JPEG, PNG, TIFF, BMP, RAW)"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c036",
+      "statement": "Public organisations, private companies, non-profits, research organisations, universities and startups/MSMEs can register as organisations on AIKosh.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/faqs",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Public Organizations, Private Companies, Non-profit organizations, Research Organizations, Universities and Startups/MSMEs"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c037",
+      "statement": "AIKosh lists Flickr30k, a public research dataset of 31,000 Flickr images with human captions, uploaded by a third-party foundation rather than its creators.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "AIKosh listing: Flickr30k",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/datasets/details/flickr30k.html",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Contains 31,000 images collected from Flickr, each accompanied by five reference sentences provided by human annotators"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c038",
+      "statement": "The Flickr30k listing on AIKosh is marked as redirected rather than hosted, i.e. the files sit on an external host.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "AIKosh listing: Flickr30k",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/datasets/details/flickr30k.html",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Hosted / Redirected"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c039",
+      "statement": "AIKosh dataset pages carry a platform 'Data Quality Score (Beta)' field, shown blank on some listings.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "AIKosh listing: Flickr30k",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/datasets/details/flickr30k.html",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Data Quality Score (Beta)"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c040",
+      "statement": "The UJALA-2025 listing breaks its quality score into Data Quality & Integrity, Consistency & Usability, and Maintenance & Documentation.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "AIKosh listing: UJALA-2025",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/datasets/details/ujala_2025.html",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Data Consistency & Usability"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c041",
+      "statement": "The UJALA-2025 listing, contributed by the Ministry of Power, is hosted on AIKosh as a versioned file set with a Download Dataset button.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6",
+        "Q10"
+      ],
+      "scope": {
+        "product": "AIKosh listing: UJALA-2025",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/datasets/details/ujala_2025.html",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Download Dataset"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c042",
+      "statement": "AIKosh's home page lists CPU-only and basic GPU notebook compute as free.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "AIKosh Notebook compute",
+        "tier": "",
+        "region": "India"
+      },
+      "value": {
+        "num": 0,
+        "unit": "INR",
+        "basis": "price to the user for CPU-only and Basic GPU notebook tiers; Advance GPU also free but requires approval",
+        "period": "not stated"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Basic GPU - Free"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c043",
+      "statement": "Explorers, the default role of any registered individual, can raise requests to download restricted datasets.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/manual/User_Manual_AIKosh.pdf",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Can raise requests to download restricted datasets/models"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c044",
+      "statement": "On AIKosh the contributor, not the platform, approves or rejects download requests for the restricted datasets it uploaded.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q5",
+        "Q9"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/manual/User_Manual_AIKosh.pdf",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Can approve/ reject download requests for restricted datasets/models uploaded by them"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c045",
+      "statement": "AIKosh's user manual says a user who is not logged in cannot open the detailed dataset view or download any dataset.",
+      "kind": "terms",
+      "section": "listing",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/manual/User_Manual_AIKosh.pdf",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "User will not be able to access detailed view of datasets and download rights for any of the datasets and"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c046",
+      "statement": "The dataset download button on AIKosh requires the user to log in.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/manual/User_Manual_AIKosh.pdf",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "The button is prominently displayed and require user to login."
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c047",
+      "statement": "AIKosh dataset pages include a sample-data preview showing a snippet of the data in tabular form before download.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/manual/User_Manual_AIKosh.pdf",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "A preview of the dataset that shows a snippet of the data in tabular form"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c048",
+      "statement": "AIKosh computes a data quality score by processing a dataset's files when the contributor uploads it.",
+      "kind": "architecture",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/manual/User_Manual_AIKosh.pdf",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "click on initiate file processing for calculation of Data quality score"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c049",
+      "statement": "AIKosh's manual says each dataset in the repository is accompanied by an AI Readiness Score.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/manual/User_Manual_AIKosh.pdf",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "each accompanied by an AI Readiness Score"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c050",
+      "statement": "Editing the files of a published AIKosh dataset creates a separate new version rather than overwriting it.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/manual/User_Manual_AIKosh.pdf",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Edit of files of datasets and models will create the separate new version of the respective datasets and models."
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c051",
+      "statement": "AIKosh contributors can request deletion of their artefacts, which the organisation administrator must approve before removal.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/manual/User_Manual_AIKosh.pdf",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "contributors can raise requests to delete their artifacts. These requests must be"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c052",
+      "statement": "AIKosh contributors can revoke a previously approved access request to a restricted artefact.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/manual/User_Manual_AIKosh.pdf",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "contributors retain the ability to revoke access if"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c053",
+      "statement": "Contributors can list a public Kaggle dataset on AIKosh, which fetches its metadata and a redirection link rather than the files.",
+      "kind": "architecture",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q6"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/manual/User_Manual_AIKosh.pdf",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "The AIKosh platform will fetch metadata and redirection link"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c054",
+      "statement": "For Kaggle imports, the licence shown on AIKosh is auto-populated from the Kaggle metadata.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/manual/User_Manual_AIKosh.pdf",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Tags, license, and documentation are auto populated from the Kaggle metadata."
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c055",
+      "statement": "Contributors can import a dataset from Hugging Face, and AIKosh fetches the dataset and its metadata.",
+      "kind": "architecture",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q6"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/manual/User_Manual_AIKosh.pdf",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "AIKosh fetches the Dataset and the metadata from the Hugging face."
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c056",
+      "statement": "Under AIKosh's API contribution route the data stays with the contributing organisation while being discoverable and downloadable through AIKosh.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/manual/User_Manual_AIKosh.pdf",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "data will remain with the contributor organization, however it will be discoverable and downloadable"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c057",
+      "statement": "On the API contribution route, sensitive-data masking and deletion are the sole responsibility of the contributing organisation.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/manual/User_Manual_AIKosh.pdf",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "sensitive data masking/deletion remains the sole"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c058",
+      "statement": "AIKosh's dataset filters let users pick by licence type, including open-source, commercial and custom agreements.",
+      "kind": "offer",
+      "section": "discovery",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/manual/User_Manual_AIKosh.pdf",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Select datasets based on the type of licensing agreement they come with, such as open-source"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c059",
+      "statement": "If a download request stays pending over 5 days the requester can appeal, and after 5 more days it escalates to platform support.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/manual/User_Manual_AIKosh.pdf",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "a request remains pending for more than 5 days, Explorers can raise an appeal"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c060",
+      "statement": "Registered users can download a whole dataset version through an authenticated API call using the dataset identifier and version number.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6",
+        "Q10"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/manual/User_Manual_AIKosh.pdf",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Download the entire dataset (all files in a version) by making a GET request"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c061",
+      "statement": "The ICAR Video Gallery listing on AIKosh carries the contributor's own 'ICAR Data Use License' rather than a standard open licence.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "AIKosh listing: ICAR Video Gallery",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/datasets/details/icar_video_gallery.html",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "ICAR Data Use License"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c062",
+      "statement": "IndiaAI says AIKosh was launched on 6 March 2025.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-03-06",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/cdn/documents/Call_for_Proposal_AIKosh_University_Engagement_Programme_final_v2.pdf",
+          "publisher": "IndiaAI IBD, Digital India Corporation",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Launched on 6 March 2025, AIKosh is India's national platform for AI"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c063",
+      "statement": "An undated IndiaAI call for proposals says AIKosh had onboarded over 10,000 datasets.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": {
+        "num": 10000,
+        "unit": "datasets onboarded",
+        "basis": "IndiaAI's own statement in an undated call for proposals; lower bound ('over')",
+        "period": "cumulative since launch"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/cdn/documents/Call_for_Proposal_AIKosh_University_Engagement_Programme_final_v2.pdf",
+          "publisher": "IndiaAI IBD, Digital India Corporation",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "The platform has onboarded over 10,000 datasets and approximately 300 AI models from more than 55 entities"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c064",
+      "statement": "The same IndiaAI call for proposals says AIKosh's datasets and models came from more than 55 entities.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": {
+        "num": 55,
+        "unit": "contributing entities",
+        "basis": "IndiaAI's own statement in an undated call for proposals; lower bound ('more than')",
+        "period": "cumulative since launch"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/cdn/documents/Call_for_Proposal_AIKosh_University_Engagement_Programme_final_v2.pdf",
+          "publisher": "IndiaAI IBD, Digital India Corporation",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "from more than 55 entities across 20 sectors"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c065",
+      "statement": "IndiaAI says AIKosh had recorded over 25,000 registrations.",
+      "kind": "number",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": {
+        "num": 25000,
+        "unit": "user registrations",
+        "basis": "IndiaAI's own statement in an undated call for proposals; lower bound ('over')",
+        "period": "cumulative since launch"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/cdn/documents/Call_for_Proposal_AIKosh_University_Engagement_Programme_final_v2.pdf",
+          "publisher": "IndiaAI IBD, Digital India Corporation",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "the platform has recorded over 17 lakh visits and 25,000 registrations"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c066",
+      "statement": "AIKosh's dataset listing page offers a 'Request Artefact' link for users who cannot find what they need.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/datasets",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Can't find what you're looking for? Request Artefact"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c067",
+      "statement": "AIKosh's terms say it does not actively pre-screen content but may refuse or remove any content or account at its discretion.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q10",
+        "Q11"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/terms-n-conditions",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AIKosh does not actively pre-screen Content but reserves the right, at its sole discretion"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c068",
+      "statement": "On account termination AIKosh will use reasonable efforts to delete the user's contributed content within 90 days.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/terms-n-conditions",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "delete your information and Content contributed by you, whether public or private, within 90 days"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c069",
+      "statement": "AIKosh disclaims warranties about the accuracy, reliability and copyright or licence compliance of its services.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q11"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/terms-n-conditions",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AIKosh disclaims all warranties or guarantees about the accuracy, reliability, copyright or license compliance"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c070",
+      "statement": "An anonymous visitor can open an AIKosh dataset detail page showing source organisation, licence and files without logging in.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "AIKosh listing: UJALA-2025",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/datasets/details/ujala_2025.html",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Source Organisation: MINISTRY OF POWER"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c071",
+      "statement": "The AIKosh Flickr30k listing, 31,000 Flickr photographs with captions, shows no consent, release or privacy information to downloaders; its licence reads 'Other'.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "AIKosh listing: Flickr30k",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/home/datasets/details/flickr30k.html",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Contains 31,000 images collected from Flickr"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-c072",
+      "statement": "Registered explorers download open datasets without raising a request; neither the manual nor the terms describe any fee or payment.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aikosh.indiaai.gov.in/manual/User_Manual_AIKosh.pdf",
+          "publisher": "IndiaAI (MeitY)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "View and download open datasets/models that are readily available without raising requests."
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "matrix.exclusivity_offered",
+      "urls_tried": [
+        "https://aikosh.indiaai.gov.in/home/terms-n-conditions",
+        "https://aikosh.indiaai.gov.in/home/faqs",
+        "https://aikosh.indiaai.gov.in/manual/User_Manual_AIKosh.pdf"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.request_artefact_handling",
+      "urls_tried": [
+        "https://aikosh.indiaai.gov.in/home/datasets",
+        "https://aikosh.indiaai.gov.in/home/faqs",
+        "https://aikosh.indiaai.gov.in/manual/User_Manual_AIKosh.pdf"
+      ],
+      "reason": "js_empty"
+    },
+    {
+      "field": "other.old_version_retention",
+      "urls_tried": [
+        "https://aikosh.indiaai.gov.in/home/faqs",
+        "https://aikosh.indiaai.gov.in/manual/User_Manual_AIKosh.pdf"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.independent_press_and_newest_event",
+      "urls_tried": [
+        "https://pib.gov.in/PressReleasePage.aspx?PRID=2108810",
+        "https://indiaai.gov.in/",
+        "https://aikosh.indiaai.gov.in/home/article/all",
+        "http://export.arxiv.org/api/query?search_query=all:AIKosh"
+      ],
+      "reason": "blocked"
+    },
+    {
+      "field": "other.data_onboarding_sop",
+      "urls_tried": [
+        "https://aikosh.indiaai.gov.in/home/user-manual"
+      ],
+      "reason": "js_empty"
+    },
+    {
+      "field": "other.downloader_deletion_duty",
+      "urls_tried": [
+        "https://aikosh.indiaai.gov.in/home/terms-n-conditions",
+        "https://aikosh.indiaai.gov.in/manual/User_Manual_AIKosh.pdf"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "questions.Q1",
+      "urls_tried": [
+        "https://aikosh.indiaai.gov.in/",
+        "https://aikosh.indiaai.gov.in/cdn/documents/Call_for_Proposal_AIKosh_University_Engagement_Programme_final_v2.pdf"
+      ],
+      "reason": "not_published"
+    }
+  ],
+  "conflicts": [
+    {
+      "claim_ids": [
+        "aikosh-c045",
+        "aikosh-c070"
+      ],
+      "rule_applied": "live_primary_wins_terms",
+      "resolution": "The manual says detail views need login, but live detail pages were readable anonymously on 2026-10-01; public_listing follows the live pages."
+    },
+    {
+      "claim_ids": [
+        "aikosh-c067",
+        "aikosh-c033"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "The terms say AIKosh does not actively pre-screen content, while the FAQ says every upload needs organisation-admin and platform-admin approval before it is visible; both are live."
+    },
+    {
+      "claim_ids": [
+        "aikosh-c063",
+        "aikosh-c002"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "Different undated counts (over 10,000 datasets from 55+ entities vs 15999+ datasets and 671 organisations on the live home page); likely different dates and measures, not reconcilable from the sources."
+    }
+  ],
+  "leads": [
+    {
+      "url": "https://pib.gov.in/",
+      "why": "PIB press releases on the 6 March 2025 launch and later AIKosh milestones; WebFetch got 403 and no search was available to find release IDs."
+    },
+    {
+      "url": "https://aikosh.indiaai.gov.in/manual/AIKosha-Security-Measure.pdf",
+      "why": "Security-measures document found in the site's JS bundle; not read."
+    },
+    {
+      "url": "https://aikosh.indiaai.gov.in/home/privacy-policy",
+      "why": "Privacy policy; may say more on sharing downloader data with contributors."
+    },
+    {
+      "url": "https://aikosh.indiaai.gov.in/home/competitions",
+      "why": "Competitions with prize pools; relevant to how contributors are rewarded without sales."
+    }
+  ]
+}

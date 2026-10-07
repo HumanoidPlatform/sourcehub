@@ -1,0 +1,214 @@
+{
+  "kind": "verify",
+  "slug": "laion-5b",
+  "search_available": true,
+  "verdicts": [
+    {
+      "claim_id": "laion-5b-c001",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://huggingface.co/datasets/laion/relaion2B-en-research-safe", "publisher": "Hugging Face", "source_class": "docs", "retrieved_at": "2026-09-30", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "You need to agree to share your contact information to access this dataset"},
+      "corrected_statement": null,
+      "note": "The gate notice is Hugging Face platform text on the hosting operator's domain (huggingface.co), not LAION's own site; it is the only source that can show current (2026-09-30) status. The dataset card itself is LAION-authored, so independence is limited to the gate mechanism. Next.ink (2024-09-03) independently reported both versions were 'accessibles sur Hugging Face seulement après s'être identifié sur la plateforme', but that is 2024, not current."
+    },
+    {
+      "claim_id": "laion-5b-c004",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://www.404media.co/laion-datasets-removed-stanford-csam-child-abuse/", "publisher": "404 Media", "source_class": "independent_press", "retrieved_at": "2026-09-30", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "3,226 suspected instances of child sexual abuse material, 1,008 of which were externally validated."},
+      "corrected_statement": null,
+      "note": "404 Media, 2023-12-20. Also checked the SIO report PDF itself (stacks.stanford.edu, Thiel, 2023-12-23): it says 'we identified 3,226 dataset entries of suspected CSAM'; 1,008 is not printed but equals the validated totals of its Tables 2 and 3 (825 + 183), validated by C3P. The report's PDF text extracts without spaces, so the press quote is cited instead. The Stanford FSI news page returned 403."
+    },
+    {
+      "claim_id": "laion-5b-c010",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://arxiv.org/html/2507.05300", "publisher": "arXiv (Merchant et al., Supermodel)", "source_class": "academic", "retrieved_at": "2026-09-30", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "removing 2236 identified links by matching against over 16 million image and URL hashes of known illegal content"},
+      "corrected_statement": null,
+      "note": "Authors are not LAION (Supermodel). The figure is still LAION's own count, relayed; no partner (IWF, C3P, SIO) publication giving 2,236 was found. TechCrunch 2024-08-30 and The Decoder 2024-08-31 relay the same number."
+    },
+    {
+      "claim_id": "laion-5b-c011",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://the-decoder.com/laion-releases-ai-dataset-re-laion-5b-purged-of-links-to-child-abuse-images/", "publisher": "The Decoder", "source_class": "press_relaying_vendor", "retrieved_at": "2026-09-30", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "Re-LAION-5B contains 5.5 billion text-image pairs in total."},
+      "corrected_statement": null,
+      "note": "Confirms only the rounded figure (about 5.5 billion); no independent source reached prints the exact 5,526,641,167 (a WebSearch for the exact string found nothing citable). TechCrunch and arXiv 2507.05300 also say about 5.5 billion. Treat the exact count as LAION-stated only."
+    },
+    {
+      "claim_id": "laion-5b-c012",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://arxiv.org/abs/2210.08402", "publisher": "arXiv (Schuhmann et al., NeurIPS 2022 Datasets and Benchmarks)", "source_class": "academic", "retrieved_at": "2026-09-30", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "a dataset consisting of 5.85 billion CLIP-filtered image-text pairs, of which 2.32B contain English language"},
+      "corrected_statement": null,
+      "note": "Peer-reviewed paper, different domain and class, but authored by LAION members, so it evidences LAION's own description rather than an outside count. Human Rights Watch (2024-06-10) independently uses the figure: 'the 5.85 billion images and captions contained in the data set'."
+    },
+    {
+      "claim_id": "laion-5b-c022",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://www.hrw.org/news/2024/06/10/brazil-childrens-personal-photos-misused-power-ai-tools", "publisher": "Human Rights Watch", "source_class": "independent_press", "retrieved_at": "2026-09-30", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "Human Rights Watch found 170 photos of children from at least 10 states"},
+      "corrected_statement": null,
+      "note": "HRW's own report page (primary for its own finding; NGO, no closer source_class available). HRW later (2024-09-03) put the combined total at 362 Australian and 358 Brazilian children, so 170 is the June 2024 Brazil figure only."
+    },
+    {
+      "claim_id": "laion-5b-c026",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://next.ink/148346/laion-5b-revient-sans-contenus-pedocriminels-promis-quid-des-autres-problemes/", "publisher": "Next (next.ink)", "source_class": "press_relaying_vendor", "retrieved_at": "2026-09-30", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "Sur les 399 signalées par l'ONG, LAION affirme que toutes ne contenaient pas des données sensibles mais"},
+      "corrected_statement": null,
+      "note": "Next, 2024-09-03, relaying LAION; the same sentence continues that 'par prudence' LAION removed them all. HRW's own follow-up (hrw.org, 2024-09-03) confirms removal ('Human Rights Watch has confirmed the removal of the children's photos identified to LAION from its newly released dataset') but counts children (362 Australian + 358 Brazilian), not links, and never prints 399. So the 399 link count is LAION-stated; removal is independently confirmed by HRW."
+    },
+    {
+      "claim_id": "laion-5b-c039",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://next.ink/148346/laion-5b-revient-sans-contenus-pedocriminels-promis-quid-des-autres-problemes/", "publisher": "Next (next.ink)", "source_class": "press_relaying_vendor", "retrieved_at": "2026-09-30", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "l'association a supprimé 3,04 % de sa base de données, soit 176 millions d'images enlevées"},
+      "corrected_statement": null,
+      "note": "Next, 2024-09-03, relaying LAION's figures for the 'safe' version; gives 3,04 % (rounded) and 176 million. Next says 'images' where LAION's datasets hold links. No non-relaying independent source gives the percentage."
+    },
+    {
+      "claim_id": "laion-5b-c031",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://legalblogs.wolterskluwer.com/copyright-blog/kneschke-vs-laion-landmark-ruling-on-tdm-exceptions-for-ai-training-data-part-1/", "publisher": "Kluwer Copyright Blog (Goldstein, Stuetzle, Bischoff)", "source_class": "independent_press", "retrieved_at": "2026-09-30", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "It is sufficient that the data set is published free of charge, making it available (also) to researchers"},
+      "corrected_statement": null,
+      "note": "Kluwer Copyright Blog, 2024-11-13, summarising LG Hamburg 310 O 227/23 (27 Sept 2024). Confirms the underlying fact the claim attributes to IPWatchdog; IPWatchdog itself was not fetched in the blind pass, and the court's own judgment text was not fetched. The same blog stresses 'The only decisive factor is that the activity is non-commercial'. Note this is a first-instance ruling about LAION's own download for dataset creation, not a finding about any fee model."
+    },
+    {
+      "claim_id": "laion-5b-c013",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://techcrunch.com/2024/08/30/the-org-behind-the-data-set-used-to-train-stable-diffusion-claims-it-has-removed-csam/", "publisher": "TechCrunch", "source_class": "independent_press", "retrieved_at": "2026-09-30", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "Important to note is that LAION's datasets don't — and never did — contain images."},
+      "corrected_statement": null,
+      "note": "TechCrunch (Kyle Wiggers), 2024-08-30, in its own voice. Heise (2024-08-30) independently: 'The image databases do not contain the images themselves, but rather a hash value of the image file and the URL'. HRW likewise describes LAION-5B as containing links to photos."
+    },
+    {
+      "claim_id": "laion-5b-c001",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote is the Hugging Face gate text on the named repo, retrieved 2026-09-30; it supports current availability behind a contact-information gate. Caveat for the orchestrator: the blind confirmation above turned out to use the same URL as the profile, so c001 has no second, truly independent source; only Hugging Face's platform text (not LAION's) makes it more than vendor-stated. The profile tags it origin vendor_stated although the gate wording is Hugging Face's; LAION's own blog words the gate as affiliation information and consent (c018)."
+    },
+    {
+      "claim_id": "laion-5b-c004",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the statement exactly (404 Media, 2023-12-20). Minor: value.unit says 'links' where the source says 'instances'; the SIO report counts 'dataset entries', which are URL entries, so this is acceptable."
+    },
+    {
+      "claim_id": "laion-5b-c010",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "LAION blog quote and The Decoder relay both give 2,236 links removed after hash-list matching; statement is correctly framed as 'LAION says'."
+    },
+    {
+      "claim_id": "laion-5b-c011",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote gives the total for Re-LAION-5B overall; LAION's page gives no separate total for the research-safe variant, so the figure should not be reused for relaion2B-en-research-safe or research-safe generally."
+    },
+    {
+      "claim_id": "laion-5b-c012",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote ('5,85 billion CLIP-filtered image-text pairs', European decimal comma) is LAION's 2022 announcement of the original LAION-5B; matches. Used for supply_models and quality_evidence, which it supports (Common Crawl-derived, CLIP-filtered)."
+    },
+    {
+      "claim_id": "laion-5b-c013",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote 'The datasets of LAION only contain links and metadata.' supports the statement and the link-only custody description. It does not by itself establish how users obtain images; the custody_model 'mixed' value relies on c014, c018 and c028 for that."
+    },
+    {
+      "claim_id": "laion-5b-c022",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "HRW's own June 2024 page, quote matches. It is a sample-based finding for Brazil only; HRW's later total (358 Brazilian children) differs and is not in the profile (see missed)."
+    },
+    {
+      "claim_id": "laion-5b-c026",
+      "check": "scope",
+      "status": "scope_wrong",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The cited quote '= 399 links to public web provided by HRW' only says HRW provided 399 links; it does not say they were removed, and it does not say they were links to children's private information. LAION's same page says only a part of those links were found to contain private info and that it removed all links matching HRW's collection 'in abundance of caution' (see c040). The statement should read along the lines of 'LAION says it removed all 399 links reported by HRW, though only some were found to contain private information', and the quote should be the removal sentence."
+    },
+    {
+      "claim_id": "laion-5b-c031",
+      "check": "scope",
+      "status": "scope_wrong",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The statement itself matches the IPWatchdog quote. But the claim is used to back five matrix fields, and the quote only speaks to price: it supports economics_model=free and, by implication, who_pays_fee and public_prices = not_applicable. It says nothing about operator_role (whether LAION intermediates anyone's sale) or transaction_mode (it says 'made available', not how, and not gated download). It is also a court's description of the original LAION-5B at the time of the 2021 download, not of current Re-LAION-5B distribution terms."
+    },
+    {
+      "claim_id": "laion-5b-c039",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "LAION's page ties the 3.044% (176M of 5.8B) removal to the research-safe p_unsafe > 0.45 filter; product scope Re-LAION-5B-research-safe is correct. The percentage is of the original LAION-5B, not of Re-LAION-5B."
+    }
+  ],
+  "missed": [
+    {
+      "id": "laion-5b-v001",
+      "statement": "Human Rights Watch says it confirmed that the children's photos it identified to LAION were removed from the newly released dataset.",
+      "kind": "outcome",
+      "section": "changes",
+      "question_ids": ["Q7", "Q10"],
+      "scope": {"product": "Re-LAION-5B", "tier": "", "region": ""},
+      "value": null,
+      "origin": "independent",
+      "as_of": "2024-09-03",
+      "as_of_basis": "publication",
+      "sources": [
+        {"url": "https://www.hrw.org/news/2024/09/03/720-australian-and-brazilian-children-better-protected-ai-misuse", "publisher": "Human Rights Watch", "source_class": "independent_press", "retrieved_at": "2026-09-30", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "Human Rights Watch has confirmed the removal of the children's photos identified to LAION from its newly released dataset."}
+      ]
+    },
+    {
+      "id": "laion-5b-v002",
+      "statement": "Human Rights Watch says the images it found in LAION's dataset captured 362 Australian and 358 Brazilian children without their consent.",
+      "kind": "number",
+      "section": "regulation",
+      "question_ids": ["Q7"],
+      "scope": {"product": "LAION-5B", "tier": "", "region": "Australia, Brazil"},
+      "value": {"num": 720, "unit": "children depicted without consent (362 Australian + 358 Brazilian)", "basis": "HRW count from its sample reviews across two investigations; not a full audit", "period": "as of September 2024"},
+      "origin": "independent",
+      "as_of": "2024-09-03",
+      "as_of_basis": "publication",
+      "sources": [
+        {"url": "https://www.hrw.org/news/2024/09/03/720-australian-and-brazilian-children-better-protected-ai-misuse", "publisher": "Human Rights Watch", "source_class": "independent_press", "retrieved_at": "2026-09-30", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "captured the faces and bodies of 362 Australian children and 358 Brazilian children without their consent"}
+      ]
+    },
+    {
+      "id": "laion-5b-v003",
+      "statement": "Commentary on the Hamburg ruling says the only decisive factor for the research exception was that LAION's activity was non-commercial, making its organisation and financing irrelevant.",
+      "kind": "outcome",
+      "section": "regulation",
+      "question_ids": ["Q5", "Q9"],
+      "scope": {"product": "LAION-5B", "tier": "", "region": "Germany"},
+      "value": null,
+      "origin": "independent",
+      "as_of": "2024-11-13",
+      "as_of_basis": "publication",
+      "sources": [
+        {"url": "https://legalblogs.wolterskluwer.com/copyright-blog/kneschke-vs-laion-landmark-ruling-on-tdm-exceptions-for-ai-training-data-part-1/", "publisher": "Kluwer Copyright Blog", "source_class": "independent_press", "retrieved_at": "2026-09-30", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "The only decisive factor is that the activity is non-commercial, making LAION's organization and financing irrelevant"}
+      ]
+    }
+  ]
+}

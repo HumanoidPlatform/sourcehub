@@ -1,0 +1,198 @@
+{
+  "kind": "verify",
+  "slug": "bee-maps",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "bee-maps-c001",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://apps.apple.com/us/app/bee-maps-drive-earn-fun/id6740009613", "publisher": "Apple (App Store listing; seller Hivemapper Inc.)", "source_class": "third_party_docs", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "Email Sign In Enable USDC wallet to Beekeeper users"},
+      "corrected_statement": null,
+      "note": "Apple's version history dates these release notes to Jul 27 (v10.12.10), with further Circle-wallet releases on Jul 9 and Jul 15 and a release one day before retrieval (v10.13.16), so the app was being shipped in July 2026 and is still shipped in late September 2026. The dates are Apple's metadata; the release-note wording is the vendor's. WebSearch was not available, so no independent press on the July 2026 change could be found."
+    },
+    {
+      "claim_id": "bee-maps-c002",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No search available. The only non-vendor-domain trace reached is Apple's App Store version history (Circle wallet added Jul 9, 'Email Sign In Enable USDC wallet to Beekeeper users' Jul 27), which fits the change but does not confirm a 16 July announcement or an August 2026 default. CoinDesk's Hivemapper tag page has nothing after January 2024; EDGAR full-text search for 'Bee Maps' returns 0 hits."
+    },
+    {
+      "claim_id": "bee-maps-c005",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A list price set on the vendor's own pricing page. One check: AWS Marketplace search for 'hivemapper' shows no listing that could relay the price."
+    },
+    {
+      "claim_id": "bee-maps-c006",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A list price on the vendor's own pricing page; no third-party marketplace listing found (AWS Marketplace search empty)."
+    },
+    {
+      "claim_id": "bee-maps-c008",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A list price on the vendor's own pricing page; no third-party marketplace listing found (AWS Marketplace search empty)."
+    },
+    {
+      "claim_id": "bee-maps-c018",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A sign-up offer that exists only in the vendor's own billing terms and blog."
+    },
+    {
+      "claim_id": "bee-maps-c063",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No search available. Tried partner sites by navigation: Mapbox's data-sources page (mapbox.com/about/maps) lists no Hivemapper or Bee Maps source; the HERE press release linked from Bee Maps' HERE case study does not mention Bee Maps; Volkswagen's US media-site search returned an empty JS page; here.com search redirects to its consumer map. Lyft appears only in a social post quoted on hivemapper.com (affiliated, not independent). No partner or customer confirmation of any of the five names reached. The homepage logo wall also lists TomTom and Trimble."
+    },
+    {
+      "claim_id": "bee-maps-c064",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No search available. The network's own coverage dashboard (hivemapper.com/coverage) renders placeholder zeros without JavaScript; no on-chain dashboard, filing or press figure reachable by navigation."
+    },
+    {
+      "claim_id": "bee-maps-c023",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause of the vendor's own terms of service."
+    },
+    {
+      "claim_id": "bee-maps-c004",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The vendor's own statement of how it funds its rewards; no counterparty document addresses it."
+    },
+    {
+      "claim_id": "bee-maps-c024",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause of the vendor's own terms of service."
+    },
+    {
+      "claim_id": "bee-maps-c047",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "API behaviour documented only in the vendor's own API reference; no third-party integration doc found by navigation."
+    },
+    {
+      "claim_id": "bee-maps-c015",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The vendor's own billing mechanics."
+    },
+    {
+      "claim_id": "bee-maps-c052",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The vendor's own licence statement for its product."
+    },
+    {
+      "claim_id": "bee-maps-c058",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {"url": "https://docs.hivemapper.com/welcome/data-protection-and-privacy/", "publisher": "Hivemapper Foundation (network documentation)", "source_class": "third_party_docs", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "Blurring occurs automatically on the edge on all device models."},
+      "corrected_statement": null,
+      "note": "The Hivemapper Foundation docs are a different domain and a separate entity, but affiliated with the vendor and pointing to 'Hivemapper Inc.'s Privacy Policy'; they repeat the vendor's technical statement rather than test it. They say 'on the edge'; 'before upload' is implied, not stated. No independent audit or regulator statement reached."
+    },
+    {
+      "claim_id": "bee-maps-c038",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A rule of the Hivemapper network, which only the network's own governance texts state. Found on docs.hivemapper.com MIP-26 (Hivemapper Foundation, part of the profiled organisation's family of sites, so not independent): 'Rewards accrue when Map Credits are consumed and distribute weekly.' MIP-26 took effect on 4 May 2026 and sets the pool at 25% of Map Credits consumed, reminted as HONEY. The Foundation's 'Reward Types' page still describes the earlier MIP-15 model (25% of burned HONEY, capped at 500,000 HONEY a week)."
+    },
+    {"claim_id": "bee-maps-c001", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "The post is dated 16 July 2026 and the quote states the rewards change."},
+    {"claim_id": "bee-maps-c002", "check": "scope", "status": "scope_wrong", "independent_source": null, "corrected_statement": null, "note": "The post makes USDC the default 'in the Bee App' and limits it to 'most regions' ('We expect to offer USDC rewards in most regions.'), so 'the default for contributors' overstates it. The same post also ends HONEY rewards in the app and terminates the services agreement with the Hivemapper Foundation."},
+    {"claim_id": "bee-maps-c005", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "Live /pricing reads 'Street Level Imagery' '$0.005/ image'. The page shows no tiers or regional variation. The basis 'deducted from prepaid API balance' is supported by the billing docs, not by this quote."},
+    {"claim_id": "bee-maps-c006", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "The page says '$6/ video'; 'clip' is wording from the API reference ('event video clip') and changes nothing."},
+    {"claim_id": "bee-maps-c008", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "The page says '$1/ location'. The pricing page does not say whether the charge applies when a request goes unfulfilled, so 'per location requested' is the profiler's reading."},
+    {"claim_id": "bee-maps-c018", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "Blog dated 6 March 2026. It also says no credit card is required and gives no expiry date."},
+    {"claim_id": "bee-maps-c063", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "The /about sentence continues '…Volkswagen, and other leading mapping, automotive, and mobility companies.' The claim is correctly worded as vendor-stated."},
+    {"claim_id": "bee-maps-c064", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "The homepage shows 754M total km beside 22M unique km and 37% global road coverage; the claim correctly says total, which counts repeat drives."},
+    {"claim_id": "bee-maps-c023", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null, "note": "The statement is right, but the quote ('in this capacity') does not show the Beekeeper condition. The words that do: 'If you own or operate a Bee device and have not opted into Beekeeper, Hivemapper, Inc.' The ToS is dated Q4 2025."},
+    {"claim_id": "bee-maps-c004", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": ""},
+    {"claim_id": "bee-maps-c024", "check": "scope", "status": "scope_wrong", "independent_source": null, "corrected_statement": null, "note": "The clause is conditional, and the statement drops the condition. It applies only to owners who 'have not opted into Beekeeper', and Bee Maps acts 'as a developer on the Hivemapper Network'. The ToS (Q4 2025) predates the July 2026 termination of Bee Maps' services agreement with the Hivemapper Foundation, so this network-developer framing may be stale."},
+    {"claim_id": "bee-maps-c047", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "The scope is right: the imagery /poly endpoint, with no expiry time given; AI Event Video URLs are also 'Temporary signed URL'. QUOTE DEFECT: the stored quote contains mojibake ('temporaryâ€”download'), which quotecheck rejects; it should read 'Image URLs are temporary—download promptly'."},
+    {"claim_id": "bee-maps-c015", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "The same page says Bee Membership, fleet software subscriptions and Bee Edge AI device services are paid by card on file, not from the API balance, so the claim holds for data APIs only, as worded."},
+    {"claim_id": "bee-maps-c052", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "Blog FAQ dated 12 March 2026. It is a blog statement, not the licence text; the governing licence terms were not quoted."},
+    {"claim_id": "bee-maps-c058", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null, "note": "The quote supports 'on the edge' but not 'before imagery is uploaded'. The policy (last updated Q2 2026) supports that with 'Bee Maps has no access to unblurred imagery'."},
+    {"claim_id": "bee-maps-c038", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "hivemapper.com/tos (Hivemapper, Inc., last updated 5 May 2026) is network terms in HONEY, not Bee Maps' app terms. It matches MIP-26, effective 4 May 2026. Since August 2026 the Bee App no longer pays HONEY, so it is unclear which contributors still receive these rewards."}
+  ],
+  "missed": [
+    {
+      "id": "bee-maps-v001",
+      "statement": "Bee Maps said in July 2026 that it had terminated its services agreement with the Hivemapper Foundation as part of removing Phantom and Breeze wallets from the Bee App.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": ["Q4", "Q3"],
+      "scope": {"product": "Bee App", "tier": "", "region": ""},
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-07-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {"url": "https://beemaps.com/blog/get-paid-in-usdc-to-map-your-city", "publisher": "Bee Maps", "source_class": "vendor_marketing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "we have terminated our services agreement with the Hivemapper Foundation"}
+      ]
+    },
+    {
+      "id": "bee-maps-v002",
+      "statement": "Under Hivemapper network rule MIP-26, effective 4 May 2026, the work-order consumption reward pool equals 25% of the Map Credits consumed in the period, reminted as HONEY.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": ["Q3"],
+      "scope": {"product": "Hivemapper network", "tier": "", "region": ""},
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-05-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {"url": "https://docs.hivemapper.com/welcome/network-governance/mip-26/", "publisher": "Hivemapper Foundation", "source_class": "docs", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "The total work order consumption reward pool equals 25% of the Map Credits consumed during that period, reminted as HONEY"}
+      ]
+    },
+    {
+      "id": "bee-maps-v003",
+      "statement": "Apple's App Store shows the Bee Maps app (seller Hivemapper Inc.) updated to version 10.13.16 one day before 1 October 2026, so the consumer app was still being shipped at the end of September 2026.",
+      "kind": "status",
+      "section": "other",
+      "question_ids": [],
+      "scope": {"product": "Bee Maps app (iOS)", "tier": "", "region": "US App Store"},
+      "value": null,
+      "origin": "independent",
+      "as_of": "2026-09-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {"url": "https://apps.apple.com/us/app/bee-maps-drive-earn-fun/id6740009613", "publisher": "Apple (App Store)", "source_class": "third_party_docs", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "Goal Rewards and video gateway bugfixes"}
+      ]
+    }
+  ]
+}

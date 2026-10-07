@@ -1,0 +1,1948 @@
+{
+  "kind": "profile",
+  "slug": "macgence",
+  "name": "Macgence",
+  "aliases": [
+    "Macgence Technologies",
+    "Macgence AI Data Marketplace"
+  ],
+  "segment": "ai_data_catalogue",
+  "tier": "light",
+  "status": {
+    "value": "active",
+    "claim_id": "macgence-c001"
+  },
+  "names_for": {
+    "catalogue_side": "Data Marketplace / AI Data Marketplace; listings called Off-The-Shelf (OTS) datasets",
+    "custom_side": "Custom Data Sourcing (\"Build Custom Datasets\"); data collection services"
+  },
+  "matrix": {
+    "operator_role": {
+      "value": "reseller_licensor",
+      "claim_ids": [
+        "macgence-c010",
+        "macgence-c014"
+      ],
+      "note": "Macgence is Licensor of record and claims ownership of the data; the catalogue is first-party."
+    },
+    "economics_model": {
+      "value": "principal_margin",
+      "claim_ids": [
+        "macgence-c014",
+        "macgence-c015",
+        "macgence-c034"
+      ],
+      "note": "Macgence owns or compiles the data and sets its own price; no third-party sellers are shown on the marketplace."
+    },
+    "who_pays_fee": {
+      "value": "not_applicable",
+      "claim_ids": [],
+      "note": "First-party sales only; no intermediary fee between a provider and a buyer."
+    },
+    "supply_models": {
+      "value": [
+        "own_collection",
+        "partner_licensed"
+      ],
+      "claim_ids": [
+        "macgence-c015",
+        "macgence-c025",
+        "macgence-c026",
+        "macgence-c045",
+        "macgence-c043"
+      ],
+      "note": "partner_licensed rests only on the Data Licensing page (publisher/creator content, LLM-oriented); whether client-commissioned data is resold is unknown."
+    },
+    "custody_model": {
+      "value": "copy_to_buyer",
+      "claim_ids": [
+        "macgence-c016"
+      ],
+      "note": "Delivered electronically or on tangible media."
+    },
+    "transaction_mode": {
+      "value": "contact_sales",
+      "claim_ids": [
+        "macgence-c006",
+        "macgence-c037",
+        "macgence-c038"
+      ],
+      "note": "No checkout found; listings lead to a request form and terms are negotiated."
+    },
+    "public_prices": {
+      "value": "some",
+      "claim_ids": [
+        "macgence-c034",
+        "macgence-c035",
+        "macgence-c036"
+      ],
+      "note": "Only 'from $0.10' starting prices with no unit, and a per-seat platform price; no listing shows a price."
+    },
+    "licence_model": {
+      "value": "mixed",
+      "claim_ids": [
+        "macgence-c011",
+        "macgence-c004",
+        "macgence-c007",
+        "macgence-c005"
+      ],
+      "note": "A standard non-exclusive OTS licence is published, but the ToS says each paid dataset gets a separately negotiated licence."
+    },
+    "exclusivity_offered": {
+      "value": "yes",
+      "claim_ids": [
+        "macgence-c005"
+      ],
+      "note": "Per deal, by written agreement."
+    },
+    "public_listing": {
+      "value": "public_indexable",
+      "claim_ids": [
+        "macgence-c050",
+        "macgence-c032"
+      ],
+      "note": "Listing pages open without login and are in data.macgence.com/sitemap.xml; content is client-rendered."
+    },
+    "buyer_vetting": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "The request form requires a company name; no verification step is described."
+    },
+    "sample_mechanics": {
+      "value": "sample_on_request",
+      "claim_ids": [
+        "macgence-c038"
+      ],
+      "note": ""
+    },
+    "versioning": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Listings say datasets are regularly refreshed (macgence-c028); nothing on versions or what past buyers receive."
+    },
+    "human_subject_consent_docs": {
+      "value": "not_addressed",
+      "claim_ids": [
+        "macgence-c017",
+        "macgence-c027",
+        "macgence-c039"
+      ],
+      "note": "Listings depict identifiable people; no consent or release evidence is offered and the licence disclaims all warranties; only a marketing assertion of GDPR/HIPAA compliance."
+    },
+    "contributor_pay_model": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Freelance collection roles are advertised but pay terms are not published."
+    },
+    "catalogue_plus_custom": {
+      "value": "both",
+      "claim_ids": [
+        "macgence-c042",
+        "macgence-c040",
+        "macgence-c029"
+      ],
+      "note": ""
+    },
+    "erasure_after_sale": {
+      "value": "contractual_deletion",
+      "claim_ids": [
+        "macgence-c019",
+        "macgence-c020"
+      ],
+      "note": "Deletion is required on termination; Macgence may terminate on 60 days' notice."
+    },
+    "quality_evidence": {
+      "value": "provider_asserted",
+      "claim_ids": [
+        "macgence-c041"
+      ],
+      "note": "Macgence is both operator and sole provider; its quality statements are self-asserted with no independent check shown."
+    }
+  },
+  "questions": {
+    "Q1": {
+      "state": "partial",
+      "answer": "Only the vendor's target sectors (banking, healthcare, retail and others) are published; no buyer names, units bought or volumes.",
+      "claim_ids": [
+        "macgence-c051"
+      ]
+    },
+    "Q2": {
+      "state": "partial",
+      "answer": "Macgence built its own storefront (about 1050 listings) rather than relying on a third-party marketplace; whether it also lists elsewhere could not be checked without search.",
+      "claim_ids": [
+        "macgence-c032"
+      ]
+    },
+    "Q3": {
+      "state": "partial",
+      "answer": "Inventory is presented as Macgence-compiled and owned, made with a network of experts and freelance collectors, plus content licensed from publishers and creators; rights per source are not broken down.",
+      "claim_ids": [
+        "macgence-c015",
+        "macgence-c014",
+        "macgence-c026",
+        "macgence-c045",
+        "macgence-c043"
+      ]
+    },
+    "Q4": {
+      "state": "unknown",
+      "answer": "",
+      "claim_ids": []
+    },
+    "Q5": {
+      "state": "sourced",
+      "answer": "Macgence is Licensor of record and owner; it indemnifies buyers against IP infringement claims but disclaims all other warranties, including anything on consent.",
+      "claim_ids": [
+        "macgence-c010",
+        "macgence-c014",
+        "macgence-c018",
+        "macgence-c017"
+      ]
+    },
+    "Q6": {
+      "state": "sourced",
+      "answer": "Macgence delivers copies to the buyer electronically or on tangible media.",
+      "claim_ids": [
+        "macgence-c016"
+      ]
+    },
+    "Q7": {
+      "state": "partial",
+      "answer": "Listings depict identifiable people with demographic metadata, but no consent evidence is offered for capturer, subject or place; only a marketing claim of GDPR/HIPAA compliance.",
+      "claim_ids": [
+        "macgence-c027",
+        "macgence-c039",
+        "macgence-c017"
+      ]
+    },
+    "Q8": {
+      "state": "sourced",
+      "answer": "Standard OTS licence is non-exclusive, internal-use, no redistribution, with audit rights and deletion on termination; the ToS allows exclusive licences per negotiated deal. No fingerprinting is described.",
+      "claim_ids": [
+        "macgence-c011",
+        "macgence-c005",
+        "macgence-c013",
+        "macgence-c022",
+        "macgence-c019",
+        "macgence-c020"
+      ]
+    },
+    "Q9": {
+      "state": "sourced",
+      "answer": "Deals close through contact-sales: a request form on each listing and negotiated terms; Macgence sells its own inventory at its own price.",
+      "claim_ids": [
+        "macgence-c006",
+        "macgence-c037",
+        "macgence-c038",
+        "macgence-c014"
+      ]
+    },
+    "Q10": {
+      "state": "partial",
+      "answer": "A listing is a record with type, media type, volume, format and device; datasets are said to be refreshed but no version or entitlement model is published, and termination ends access with no refund.",
+      "claim_ids": [
+        "macgence-c050",
+        "macgence-c028",
+        "macgence-c020",
+        "macgence-c021"
+      ]
+    },
+    "Q11": {
+      "state": "partial",
+      "answer": "Buyers see a spec sheet and can request a data sample through a form; quality and security claims are self-asserted.",
+      "claim_ids": [
+        "macgence-c038",
+        "macgence-c027",
+        "macgence-c041",
+        "macgence-c048"
+      ]
+    },
+    "Q12": {
+      "state": "sourced",
+      "answer": "Ready-made datasets are called Off-The-Shelf (OTS) datasets in the Data Marketplace; bespoke work is Custom Data Sourcing, and listings offer customisation as an upsell.",
+      "claim_ids": [
+        "macgence-c030",
+        "macgence-c042",
+        "macgence-c040",
+        "macgence-c029"
+      ]
+    }
+  },
+  "sections": {},
+  "buyer_journey": [],
+  "claims": [
+    {
+      "id": "macgence-c001",
+      "statement": "Macgence's AI Data Marketplace listing for its egocentric cooking video dataset was last updated on 2026-06-02, so the catalogue was being maintained within the last six months.",
+      "kind": "status",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "AI Data Marketplace (data.macgence.com)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-06-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://data.macgence.com/video-datasets/egocentric-first-person-cooking-activity-recognition-video-dataset",
+          "publisher": "Macgence",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "\"updatedAt\":\"2026-06-02T07:08:02.388Z\""
+        }
+      ]
+    },
+    {
+      "id": "macgence-c002",
+      "statement": "Macgence added egocentric (first-person) activity video datasets, filed under a new Robotics Datasets category, with listing records created on 2026-04-26.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "AI Data Marketplace (data.macgence.com)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-04-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://data.macgence.com/video-datasets/egocentric-first-person-cooking-activity-recognition-video-dataset",
+          "publisher": "Macgence",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "\"createdAt\":\"2026-04-26T06:45:40.956Z\""
+        }
+      ]
+    },
+    {
+      "id": "macgence-c003",
+      "statement": "The newest item on Macgence's own In The Media page is dated April 22, 2023; the page lists no funding, acquisition or later company news.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2023-04-22",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://macgence.com/our-company/in-the-media/",
+          "publisher": "Macgence",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Macgence Transforms Data Collection And Generation With Human Intelligence. April 22, 2023"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c004",
+      "statement": "Macgence's website Terms of Service say a buyer of a paid dataset receives a separate licence agreement governing its use.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/macgence-terms-of-service/",
+          "publisher": "Macgence",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Customer shall receive a separate license agreement governing the use of such datasets"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c005",
+      "statement": "Macgence's Terms of Service say the licence for a paid dataset may be exclusive or non-exclusive, as agreed in writing per deal.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/macgence-terms-of-service/",
+          "publisher": "Macgence",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The license granted for paid datasets may be either exclusive or non-exclusive as mutually agreed upon in writing"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c006",
+      "statement": "Under Macgence's Terms of Service, the exclusivity of a paid dataset licence is settled with Macgence's authorised representative during a purchase negotiation.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/macgence-terms-of-service/",
+          "publisher": "Macgence",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "in writing between Customer and Macgence's authorized representative during the purchase negotiation process"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c007",
+      "statement": "Macgence's Terms of Service leave permitted uses, distribution and modification rights, territory, term and sublicensing to be defined in each executed dataset licence agreement.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/macgence-terms-of-service/",
+          "publisher": "Macgence",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "shall be specifically defined in the executed dataset license agreement"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c008",
+      "statement": "Macgence's website Terms of Service are governed by the laws of India.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/macgence-terms-of-service/",
+          "publisher": "Macgence",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The laws of India govern these terms and conditions"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c009",
+      "statement": "The entity named at the foot of Macgence's Terms of Service is Macgence Technologies Private Limited, with a Noida, Uttar Pradesh address.",
+      "kind": "terms",
+      "section": "positioning",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/macgence-terms-of-service/",
+          "publisher": "Macgence",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Macgence Technologies Private Limited"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c010",
+      "statement": "Macgence's published Data License Agreement (OTS) names Macgence Technologies (OPC) Private Limited as Licensor and all consumers of the covered data as Licensee.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/data-license-agreement/",
+          "publisher": "Macgence",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "by and between Macgence Technologies (OPC) Private Limited, An Indian company (“Licensor”), and all consumers of the data"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c011",
+      "statement": "The Data License Agreement (OTS) grants a non-exclusive, non-sublicensable and non-transferable licence to use the data for the permitted use.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/data-license-agreement/",
+          "publisher": "Macgence",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "grants Licensee a non-exclusive, non-sublicensable, and non-transferable (except in compliance with Section 8(f)) license"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c012",
+      "statement": "The Data License Agreement (OTS) limits permitted use to the licensee's internal business operations.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/data-license-agreement/",
+          "publisher": "Macgence",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Use of the Data for the benefit of the Licensee in the ordinary course of its internal business operations."
+        }
+      ]
+    },
+    {
+      "id": "macgence-c013",
+      "statement": "The Data License Agreement (OTS) forbids the licensee to disclose, distribute or deliver the data to any third party without Macgence's prior written consent.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/data-license-agreement/",
+          "publisher": "Macgence",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "shall not disclose, release, distribute, or deliver the Data, or any portion thereof, to any third party"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c014",
+      "statement": "In the Data License Agreement (OTS) the licensee acknowledges that Macgence, as Licensor, owns all right, title and interest in the data.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q5",
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/data-license-agreement/",
+          "publisher": "Macgence",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensor owns all right, title, and interest, including all intellectual property rights, in and to the Data"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c015",
+      "statement": "The Data License Agreement (OTS) recites that Macgence compiled the licensed data into its own proprietary database.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/data-license-agreement/",
+          "publisher": "Macgence",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensor has compiled data into the proprietary [database/data feed] described in Exhibit A"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c016",
+      "statement": "Under the Data License Agreement (OTS), Macgence delivers the data electronically, on tangible media, or by other means.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/data-license-agreement/",
+          "publisher": "Macgence",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensor shall deliver the Data electronically, on tangible media, or by other means."
+        }
+      ]
+    },
+    {
+      "id": "macgence-c017",
+      "statement": "The Data License Agreement (OTS) provides the data as is and disclaims all warranties; it contains no warranty about consent or releases from people in the data.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/data-license-agreement/",
+          "publisher": "Macgence",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The data is provided “as is” and the licensor hereby disclaims all warranties"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c018",
+      "statement": "In the Data License Agreement (OTS), Macgence indemnifies the licensee against third-party claims that the licensee's permitted use infringes intellectual property rights.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/data-license-agreement/",
+          "publisher": "Macgence",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "that Licensee’s Permitted Use of the Data infringes or misappropriates such third party’s intellectual property rights"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c019",
+      "statement": "On termination of the Data License Agreement (OTS), the licensee must stop using the data, delete, destroy or return all copies, and certify this in writing.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/data-license-agreement/",
+          "publisher": "Macgence",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensee shall cease using and delete, destroy, or return all copies of the Data and certify in writing"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c020",
+      "statement": "The Data License Agreement (OTS) lets Macgence terminate the licence on 60 days' written notice.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/data-license-agreement/",
+          "publisher": "Macgence",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the Licensor may terminate this Agreement, effective on written notice to the other Party, given a 60-day notice."
+        }
+      ]
+    },
+    {
+      "id": "macgence-c021",
+      "statement": "The Data License Agreement (OTS) says termination does not entitle the licensee to any refund.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/data-license-agreement/",
+          "publisher": "Macgence",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "or entitle Licensee to any refund"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c022",
+      "statement": "The Data License Agreement (OTS) gives Macgence a right to inspect and audit the licensee's records on reasonable notice.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/data-license-agreement/",
+          "publisher": "Macgence",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensor may, at its own expense, on reasonable prior notice, periodically inspect and audit Licensee’s records"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c023",
+      "statement": "The Data License Agreement (OTS) is governed by Indian law with suits to be brought in the courts of India.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/data-license-agreement/",
+          "publisher": "Macgence",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The laws of India will govern and interpret this Agreement"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c024",
+      "statement": "Exhibit A of the Data License Agreement (OTS) describes the licensed data as digital assets for training and/or testing AI models.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/data-license-agreement/",
+          "publisher": "Macgence",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Digital assets for training and/or testing of speech, NLP, computer vision, and other AI models."
+        }
+      ]
+    },
+    {
+      "id": "macgence-c025",
+      "statement": "Macgence's egocentric cooking video listing says the dataset is exclusively curated by Macgence and available for commercial AI development, research and enterprise training.",
+      "kind": "offer",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q8"
+      ],
+      "scope": {
+        "product": "AI Data Marketplace (data.macgence.com)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://data.macgence.com/video-datasets/egocentric-first-person-cooking-activity-recognition-video-dataset",
+          "publisher": "Macgence",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Exclusively curated by Macgence, this egocentric activity dataset is available for commercial AI development, research"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c026",
+      "statement": "Macgence says its selfie image dataset was created through collaboration with a network of experts.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "AI Data Marketplace (data.macgence.com)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://data.macgence.com/image-datasets/image-dataset-of-selfie-images-to-train-aiml-models",
+          "publisher": "Macgence",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Created through collaboration with a network of experts, it captures realistic"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c027",
+      "statement": "Macgence's selfie image listing says each participant (the people pictured) comes with metadata including age, gender and location.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "AI Data Marketplace (data.macgence.com)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://data.macgence.com/image-datasets/image-dataset-of-selfie-images-to-train-aiml-models",
+          "publisher": "Macgence",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Each participant is accompanied by comprehensive metadata, which includes detailed information about their age"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c028",
+      "statement": "Macgence's selfie image listing says the dataset is regularly refreshed with new images; no version history or buyer entitlement to updates is described.",
+      "kind": "offer",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "AI Data Marketplace (data.macgence.com)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://data.macgence.com/image-datasets/image-dataset-of-selfie-images-to-train-aiml-models",
+          "publisher": "Macgence",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Our dataset is regularly refreshed with new Images"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c029",
+      "statement": "Macgence's listings offer customisation of a catalogue dataset, such as adjusting samples or tailoring the dataset to the buyer's criteria.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "AI Data Marketplace (data.macgence.com)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://data.macgence.com/image-datasets/image-dataset-of-selfie-images-to-train-aiml-models",
+          "publisher": "Macgence",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We offer customization options such as adjusting samples and providing datasets tailored to your specific criteria and needs."
+        }
+      ]
+    },
+    {
+      "id": "macgence-c030",
+      "statement": "Macgence calls its ready-made marketplace datasets Off-The-Shelf (OTS) datasets on the listing pages.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "AI Data Marketplace (data.macgence.com)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://data.macgence.com/video-datasets/egocentric-first-person-cooking-activity-recognition-video-dataset",
+          "publisher": "Macgence",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "This Off-The-Shelf (OTS) dataset provides a rich collection of real-world"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c031",
+      "statement": "Macgence says its egocentric cooking activity video dataset contains 7000 hours of video.",
+      "kind": "number",
+      "section": "listing",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "AI Data Marketplace (data.macgence.com)",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 7000,
+        "unit": "hours of video",
+        "basis": "vendor-stated total duration of one listed dataset",
+        "period": "not applicable"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://data.macgence.com/video-datasets/egocentric-first-person-cooking-activity-recognition-video-dataset",
+          "publisher": "Macgence",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Video Duration: 7000 hours"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c032",
+      "statement": "The data embedded in Macgence's marketplace home page reports 1050 active dataset listings.",
+      "kind": "number",
+      "section": "listing",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "AI Data Marketplace (data.macgence.com)",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 1050,
+        "unit": "active dataset listings",
+        "basis": "listing count in the page data of data.macgence.com, filter status Active; a category page built at another time showed 1061",
+        "period": "point in time"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://data.macgence.com/",
+          "publisher": "Macgence",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "\"projectCount\":1050"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c033",
+      "statement": "Macgence's Data Marketplace page says it offers 700+ speech datasets.",
+      "kind": "number",
+      "section": "listing",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 700,
+        "unit": "speech datasets (lower bound)",
+        "basis": "vendor-stated catalogue size, stated as 700+",
+        "period": "point in time"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/products/data-marketplace/",
+          "publisher": "Macgence",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "700+ Speech Datasets"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c034",
+      "statement": "Macgence's pricing page says its off-the-shelf datasets start from $0.10, without stating the unit the price applies to.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 0.1,
+        "unit": "USD (unit of measure not stated)",
+        "basis": "starting price paid by the buyer; unit not stated; marked with an asterisk; page says prices are estimates",
+        "period": "not stated"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/pricing/",
+          "publisher": "Macgence",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Our pre-curated, high-quality off-the-shelf datasets start from $0.10"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c035",
+      "statement": "Macgence's pricing page says its data collection services start from $0.10, without stating the unit.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 0.1,
+        "unit": "USD (unit of measure not stated)",
+        "basis": "starting price for custom collection paid by the buyer; unit not stated; asterisked",
+        "period": "not stated"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/pricing/",
+          "publisher": "Macgence",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Our data collection services start from $0.10"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c036",
+      "statement": "Macgence's pricing page groups the Data Marketplace with its annotation, RLHF and transcription tools as platforms starting at $5 per month per seat.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 5,
+        "unit": "USD per seat per month",
+        "basis": "starting platform subscription price for the four named platforms together; what a Data Marketplace seat buys is not stated",
+        "period": "per month"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/pricing/",
+          "publisher": "Macgence",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Data Marketplace, Annotation Tool, RLHF Tool, and Transcription Tool"
+        },
+        {
+          "url": "https://macgence.com/pricing/",
+          "publisher": "Macgence",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Starting at just $5 per month per seat"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c037",
+      "statement": "Macgence's pricing page says its prices are estimates and directs buyers to contact it for a quote.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/pricing/",
+          "publisher": "Macgence",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "These prices are estimates and may vary by project. Contact us for an accurate quote or request one."
+        }
+      ]
+    },
+    {
+      "id": "macgence-c038",
+      "statement": "Macgence's dataset pages carry a 'Request Dataset' form requiring name, email and company, and access to a data sample is conditioned on accepting its Privacy Policy, Terms and Data License Agreement.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q11"
+      ],
+      "scope": {
+        "product": "AI Data Marketplace (data.macgence.com)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://data.macgence.com/_next/static/chunks/992-9b43ca8a5fa9605c.js",
+          "publisher": "Macgence",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "By accessing this data sample, you agree to receive communications from Maggence and accept our"
+        },
+        {
+          "url": "https://data.macgence.com/_next/static/chunks/992-9b43ca8a5fa9605c.js",
+          "publisher": "Macgence",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Company name is required"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c039",
+      "statement": "Macgence's Data Marketplace page asserts that all its datasets comply with data protection laws such as GDPR and HIPAA, without describing consent evidence.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/products/data-marketplace/",
+          "publisher": "Macgence",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "we make sure all datasets comply with industry standards and data protection laws, such as GDPR and HIPAA"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c040",
+      "statement": "Macgence's Data Marketplace page says it provides bespoke data solutions adjusted to a buyer's models.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/products/data-marketplace/",
+          "publisher": "Macgence",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "we provide bespoke data solutions that can be adjusted to your AI and ML models’ specific needs"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c041",
+      "statement": "Macgence says it uses annotation tools and data curators to guarantee dataset quality; no independent quality evidence is shown.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/products/data-marketplace/",
+          "publisher": "Macgence",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "we employ sophisticated annotation tools and knowledgeable data curators"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c042",
+      "statement": "Macgence's pricing FAQ says it has ready-made datasets plus custom-built solutions.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/pricing/",
+          "publisher": "Macgence",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We have ready-made datasets and AI services, plus custom-built solutions for unique needs."
+        }
+      ]
+    },
+    {
+      "id": "macgence-c043",
+      "statement": "Macgence's Data Licensing page says it acquires licensed content directly from publishers, media houses and creators.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/ai-training-data/data-licensing/",
+          "publisher": "Macgence",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We acquire licensed content directly from publishers, media houses, and creators"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c044",
+      "statement": "Macgence's Data Licensing page says creators receive recognition and revenue for their work, without stating how or how much they are paid.",
+      "kind": "offer",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/ai-training-data/data-licensing/",
+          "publisher": "Macgence",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "creators receive rightful recognition and revenue for their work"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c045",
+      "statement": "Macgence's jobs page recruits for video data collection and image/photo collection work and offers remote and freelance arrangements; pay terms are not published.",
+      "kind": "offer",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/our-company/jobs/",
+          "publisher": "Macgence",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Audio Data Collection Video Data Collection Image Labelling"
+        },
+        {
+          "url": "https://macgence.com/our-company/jobs/",
+          "publisher": "Macgence",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Healthcare Audio Labeling Images / Photos Collection"
+        },
+        {
+          "url": "https://macgence.com/our-company/jobs/",
+          "publisher": "Macgence",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Yes, we provide both remote and freelance work options, depending on the project and role requirements."
+        }
+      ]
+    },
+    {
+      "id": "macgence-c046",
+      "statement": "Macgence's Return & Refund Policy treats datasets as digital products whose sale is final once delivered or access is granted.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2023-04-01",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://macgence.com/return-refund-policy/",
+          "publisher": "Macgence",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "all sales are final once the delivery has been made or access has been granted"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c047",
+      "statement": "Macgence's Return & Refund Policy allows a refund if a delivered dataset does not match the contract's specifications and cannot be fixed in reasonable time.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2023-04-01",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://macgence.com/return-refund-policy/",
+          "publisher": "Macgence",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If the delivered dataset does not match the specifications agreed upon in the contract (e.g., format, volume, or language)"
+        }
+      ]
+    },
+    {
+      "id": "macgence-c048",
+      "statement": "Macgence's Data Marketplace page says its platform is SOC II certified.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/products/data-marketplace/",
+          "publisher": "Macgence",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We uphold the highest standards of security and privacy with our SOC II certified platform."
+        }
+      ]
+    },
+    {
+      "id": "macgence-c049",
+      "statement": "Macgence's listing metadata points the dataset licence to data.macgence.com/terms-and-conditions, a URL that returned HTTP 404 when fetched.",
+      "kind": "architecture",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "AI Data Marketplace (data.macgence.com)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://data.macgence.com/",
+          "publisher": "Macgence",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "\"license\": \"https://data.macgence.com/terms-and-conditions\""
+        }
+      ]
+    },
+    {
+      "id": "macgence-c050",
+      "statement": "A Macgence listing record carries structured fields such as dataset type, media type and volume, alongside format and capture device.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10",
+        "Q11"
+      ],
+      "scope": {
+        "product": "AI Data Marketplace (data.macgence.com)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://data.macgence.com/video-datasets/video-dataset-of-construction-site-for-training-ai-ml-models",
+          "publisher": "Macgence",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "\"Datasets Type\":\"Video\",\"Media Type\":\"Video\",\"Volume\":\"5000\""
+        }
+      ]
+    },
+    {
+      "id": "macgence-c051",
+      "statement": "Macgence's Data Marketplace page says the marketplace targets sectors including banking and finance, healthcare and retail; it gives no buyer names or volumes.",
+      "kind": "offer",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://macgence.com/products/data-marketplace/",
+          "publisher": "Macgence",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "our marketplace caters to a wide range of sectors, including banking & finance, healthcare, retail"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "matrix.buyer_vetting",
+      "urls_tried": [
+        "https://data.macgence.com/_next/static/chunks/992-9b43ca8a5fa9605c.js",
+        "https://macgence.com/data-license-agreement/",
+        "https://macgence.com/macgence-terms-of-service/"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.versioning",
+      "urls_tried": [
+        "https://data.macgence.com/image-datasets/image-dataset-of-selfie-images-to-train-aiml-models",
+        "https://data.macgence.com/video-datasets/egocentric-first-person-cooking-activity-recognition-video-dataset",
+        "https://macgence.com/data-license-agreement/"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.contributor_pay_model",
+      "urls_tried": [
+        "https://macgence.com/our-company/jobs/",
+        "https://macgence.com/ai-training-data/data-licensing/",
+        "https://macgence.com/ai-training-data/crowd-as-a-service/"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "questions.Q4",
+      "urls_tried": [
+        "https://macgence.com/macgence-terms-of-service/",
+        "https://macgence.com/data-license-agreement/",
+        "https://macgence.com/ai-training-data/ai-data-collection-services/"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.commissioned_resale",
+      "urls_tried": [
+        "https://macgence.com/macgence-terms-of-service/",
+        "https://macgence.com/data-license-agreement/",
+        "https://macgence.com/ai-training-data/ai-data-collection-services/"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.dataset_terms_page",
+      "urls_tried": [
+        "https://data.macgence.com/terms-and-conditions"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "other.marketplace_prices_page",
+      "urls_tried": [
+        "https://data.macgence.com/prices"
+      ],
+      "reason": "js_empty"
+    },
+    {
+      "field": "other.independent_press_and_filings",
+      "urls_tried": [
+        "https://macgence.com/our-company/in-the-media/",
+        "https://macgence.com/resources/blogs/"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "other.blog_index",
+      "urls_tried": [
+        "https://macgence.com/resources/blogs/",
+        "https://macgence.com/sitemap.xml",
+        "https://macgence.com/sitemap_index.xml"
+      ],
+      "reason": "blocked"
+    },
+    {
+      "field": "other.funding_headcount",
+      "urls_tried": [
+        "https://macgence.com/our-company/about-us/",
+        "https://macgence.com/our-company/in-the-media/"
+      ],
+      "reason": "not_published"
+    }
+  ],
+  "conflicts": [
+    {
+      "claim_ids": [
+        "macgence-c005",
+        "macgence-c011"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "Both are live primary text. The published OTS licence is non-exclusive, while the ToS says a paid dataset's licence may be exclusive by written agreement; read together, exclusivity is a negotiated override of the standard licence."
+    },
+    {
+      "claim_ids": [
+        "macgence-c009",
+        "macgence-c010"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "The ToS names Macgence Technologies Private Limited; the Data License Agreement names Macgence Technologies (OPC) Private Limited. Company registry records could not be checked without search."
+    }
+  ],
+  "leads": [
+    {
+      "url": "https://data.macgence.com/category/medical-image-datasets",
+      "why": "MRI listings are named glioma, meningioma, notumor and pituitary; worth checking whether these derive from a public dataset (would add public_or_scraped supply). Not verified."
+    },
+    {
+      "url": "https://www.mca.gov.in/",
+      "why": "Indian company registry could settle the Private Limited vs OPC Private Limited entity name and incorporation date; not reachable without a search or login."
+    },
+    {
+      "url": "https://www.prlog.org/12960964-macgence-expands-its-presence-in-india-with-the-opening-of-new-office-in-noida.html",
+      "why": "2023 press release listed on the vendor's media page; press_relayed at best, not fetched."
+    },
+    {
+      "url": "https://data.macgence.com/sitemap.xml",
+      "why": "Full list of listing URLs by category; useful for counting video/image listings."
+    }
+  ]
+}

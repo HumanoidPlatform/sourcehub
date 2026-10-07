@@ -1,0 +1,1941 @@
+{
+  "kind": "profile",
+  "slug": "build-ai",
+  "name": "Build AI",
+  "aliases": [
+    "Build",
+    "builddotai",
+    "Build PBC"
+  ],
+  "segment": "vision_physical_ai",
+  "tier": "light",
+  "status": {
+    "value": "active",
+    "claim_id": "build-ai-c001"
+  },
+  "names_for": {
+    "catalogue_side": "\"OTS dataset\" (paid, via the \"Egocentric API\"); open releases are named by scale: Egocentric-10K, Egocentric-100K, Egocentric-1M ...",
+    "custom_side": "No name found; the home page says only \"or tell us what you’re looking for\""
+  },
+  "matrix": {
+    "operator_role": {
+      "value": "reseller_licensor",
+      "claim_ids": [
+        "build-ai-c026",
+        "build-ai-c027",
+        "build-ai-c016"
+      ],
+      "note": "First-party: Build AI licenses data it collected itself; its consent is needed to redistribute."
+    },
+    "economics_model": {
+      "value": "principal_margin",
+      "claim_ids": [
+        "build-ai-c015",
+        "build-ai-c016",
+        "build-ai-c007"
+      ],
+      "note": "Build pays partners and collectors and licenses the result at its own (unpublished) price; open tiers are given away free under Apache 2.0."
+    },
+    "who_pays_fee": {
+      "value": "not_applicable",
+      "claim_ids": [],
+      "note": "First-party sales only; no intermediary fee between a provider and a buyer."
+    },
+    "supply_models": {
+      "value": [
+        "own_collection"
+      ],
+      "claim_ids": [
+        "build-ai-c014",
+        "build-ai-c015",
+        "build-ai-c039",
+        "build-ai-c041",
+        "build-ai-c024"
+      ],
+      "note": "Collected with Build's own head-mounted device through factory/business partners and individual collectors it pays; no third-party datasets found."
+    },
+    "custody_model": {
+      "value": "copy_to_buyer",
+      "claim_ids": [
+        "build-ai-c035",
+        "build-ai-c037"
+      ],
+      "note": "Open tiers download from Hugging Face; the paid Egocentric API delivers downloadable hour folders."
+    },
+    "transaction_mode": {
+      "value": "contact_sales",
+      "claim_ids": [
+        "build-ai-c013",
+        "build-ai-c033",
+        "build-ai-c051",
+        "build-ai-c017"
+      ],
+      "note": "Paid access is assigned by Build after contact; open tiers are free downloads behind a contact-info gate."
+    },
+    "public_prices": {
+      "value": "none",
+      "claim_ids": [
+        "build-ai-c030",
+        "build-ai-c013"
+      ],
+      "note": "API terms make pricing confidential; no price on site."
+    },
+    "licence_model": {
+      "value": "mixed",
+      "claim_ids": [
+        "build-ai-c036",
+        "build-ai-c026",
+        "build-ai-c017"
+      ],
+      "note": "Apache 2.0 on open tiers; fixed non-commercial research terms on the API preview; customer agreements are negotiated."
+    },
+    "exclusivity_offered": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": ""
+    },
+    "public_listing": {
+      "value": "public_summary_gated_detail",
+      "claim_ids": [
+        "build-ai-c037",
+        "build-ai-c049"
+      ],
+      "note": "Applies to the open tiers on Hugging Face; the paid OTS tiers have no public listing at all."
+    },
+    "buyer_vetting": {
+      "value": "case_by_case",
+      "claim_ids": [
+        "build-ai-c033",
+        "build-ai-c034"
+      ],
+      "note": "API access is assigned by Build after it confirms the account; the Hugging Face gate only collects contact details."
+    },
+    "sample_mechanics": {
+      "value": "free_sample_download",
+      "claim_ids": [
+        "build-ai-c044",
+        "build-ai-c036",
+        "build-ai-c037"
+      ],
+      "note": "The open Apache 2.0 tiers and ungated evaluation sets act as free samples; no sample of the paid tier itself is documented."
+    },
+    "versioning": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Scale tiers are separate, disjoint datasets (c048), but how a released dataset is revised is not documented."
+    },
+    "human_subject_consent_docs": {
+      "value": "not_addressed",
+      "claim_ids": [
+        "build-ai-c047",
+        "build-ai-c020"
+      ],
+      "note": "Consent documents are internal collection paperwork; neither the dataset cards nor the API terms give buyers consent evidence or a consent warranty."
+    },
+    "contributor_pay_model": {
+      "value": "one_off",
+      "claim_ids": [
+        "build-ai-c022",
+        "build-ai-c015"
+      ],
+      "note": "Collectors are paid payouts and bonuses for collection; no royalty or share of sales found."
+    },
+    "catalogue_plus_custom": {
+      "value": "both",
+      "claim_ids": [
+        "build-ai-c009",
+        "build-ai-c013"
+      ],
+      "note": ""
+    },
+    "erasure_after_sale": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "API terms require ceasing use on termination (c029) but say nothing about deletion or data-subject takedown; Apache 2.0 copies cannot be recalled."
+    },
+    "quality_evidence": {
+      "value": "provider_asserted",
+      "claim_ids": [
+        "build-ai-c011",
+        "build-ai-c045",
+        "build-ai-c046",
+        "build-ai-c023"
+      ],
+      "note": "Operator and provider are the same company; all quality evidence is Build's own (in-house eval with gemini-2.5-flash, promised SLA); no third-party check found."
+    }
+  },
+  "questions": {
+    "Q1": {
+      "state": "partial",
+      "answer": "Build targets researchers and labs with its OTS dataset and courts academics with a $1M grant pool; it claims a $100M run rate in 2026, vendor-stated only. Units, volumes and buyer names are not published.",
+      "claim_ids": [
+        "build-ai-c009",
+        "build-ai-c003",
+        "build-ai-c050",
+        "build-ai-c051"
+      ]
+    },
+    "Q2": {
+      "state": "partial",
+      "answer": "Build puts free open tiers on Hugging Face (with a contact-info gate that collects leads) and sells the larger tiers through its own gated Egocentric API; no third-party marketplace listing of the paid tiers was found.",
+      "claim_ids": [
+        "build-ai-c036",
+        "build-ai-c037",
+        "build-ai-c049",
+        "build-ai-c033"
+      ]
+    },
+    "Q3": {
+      "state": "partial",
+      "answer": "All inventory is Build's own collection, filmed on its own head-mounted device inside factories and job sites through local partners and individual collectors it pays. The rights basis is consent and worker terms Build writes itself, country by country.",
+      "claim_ids": [
+        "build-ai-c014",
+        "build-ai-c015",
+        "build-ai-c024",
+        "build-ai-c041",
+        "build-ai-c039",
+        "build-ai-c020",
+        "build-ai-c018"
+      ]
+    },
+    "Q4": {
+      "state": "unknown",
+      "answer": "No commissioned client work is resold that we could find, so there is no carve-out to describe; Build can change its API terms at any time (c032).",
+      "claim_ids": []
+    },
+    "Q5": {
+      "state": "partial",
+      "answer": "Build AI is licensor of record of its own data and its consent is needed to redistribute. Who warrants worker consent and who indemnifies is not published.",
+      "claim_ids": [
+        "build-ai-c026",
+        "build-ai-c027",
+        "build-ai-c016",
+        "build-ai-c019"
+      ]
+    },
+    "Q6": {
+      "state": "sourced",
+      "answer": "Copied to the buyer: open tiers download from Hugging Face, and the Egocentric API delivers hour folders of MP4 and IMU files for download.",
+      "claim_ids": [
+        "build-ai-c035",
+        "build-ai-c037"
+      ]
+    },
+    "Q7": {
+      "state": "partial",
+      "answer": "Build writes its own consent and worker terms for the people it films, answered country by country, and says a factory should not wait for the paperwork. Nothing about consent reaches the buyer, and nothing covers site owners beyond partnerships.",
+      "claim_ids": [
+        "build-ai-c020",
+        "build-ai-c021",
+        "build-ai-c018",
+        "build-ai-c047"
+      ]
+    },
+    "Q8": {
+      "state": "partial",
+      "answer": "Open tiers are Apache 2.0 with no control after download. API data is non-commercial R&D only, with no redistribution, derivatives allowed, and use to stop on termination. No audit, fingerprinting or exclusivity terms were found.",
+      "claim_ids": [
+        "build-ai-c036",
+        "build-ai-c026",
+        "build-ai-c027",
+        "build-ai-c028",
+        "build-ai-c029"
+      ]
+    },
+    "Q9": {
+      "state": "partial",
+      "answer": "No checkout. Paid access comes after emailing research@build.ai: Build assigns a dataset 'grant' to an API account, and pricing is confidential. Build owns the inventory, so it keeps the whole price.",
+      "claim_ids": [
+        "build-ai-c013",
+        "build-ai-c033",
+        "build-ai-c034",
+        "build-ai-c030",
+        "build-ai-c017",
+        "build-ai-c051"
+      ]
+    },
+    "Q10": {
+      "state": "partial",
+      "answer": "Datasets are separate, disjoint releases named by scale (10K, 100K, 1M, 10M ...) on a dated roadmap. API access is a per-account 'grant' delivered as hour folders. What a past buyer gets on a new version is not documented.",
+      "claim_ids": [
+        "build-ai-c005",
+        "build-ai-c006",
+        "build-ai-c048",
+        "build-ai-c034",
+        "build-ai-c035",
+        "build-ai-c029"
+      ]
+    },
+    "Q11": {
+      "state": "partial",
+      "answer": "Buyers can download free open tiers and ungated evaluation sets. Build publishes its own hand-visibility and manipulation comparison, labelled with gemini-2.5-flash, and promises an SLA on pose MPJPE, diversity and quality for the paid OTS.",
+      "claim_ids": [
+        "build-ai-c044",
+        "build-ai-c045",
+        "build-ai-c046",
+        "build-ai-c011",
+        "build-ai-c043",
+        "build-ai-c010"
+      ]
+    },
+    "Q12": {
+      "state": "partial",
+      "answer": "The ready-made side is called the 'OTS dataset'. Bespoke needs are handled by 'tell us what you’re looking for' by email, with no separate product name or terms found.",
+      "claim_ids": [
+        "build-ai-c009",
+        "build-ai-c013"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "build-ai-c001",
+      "statement": "Build AI's live website describes the company as a data hyperscaler for physical AI, showing it is trading as of 2026-10-01.",
+      "kind": "status",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.build.ai/",
+          "publisher": "Build AI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Build AI is the data hyperscaler for Physical AI."
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c002",
+      "statement": "Build AI says it is a public benefit corporation.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.build.ai/",
+          "publisher": "Build AI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "we’re a public benefit corporation"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c003",
+      "statement": "Build AI says it scaled from zero to a $100M revenue run rate in 2026.",
+      "kind": "number",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 100000000,
+        "unit": "USD revenue run rate",
+        "basis": "company-stated annualised revenue run rate on its hiring blurb; not audited or independently reported",
+        "period": "per year"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.build.ai/",
+          "publisher": "Build AI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "we scaled from 0->$100M revenue run rate in 2026"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c004",
+      "statement": "Build AI says it has raised more than $30M from investors.",
+      "kind": "number",
+      "section": "other",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 30000000,
+        "unit": "USD raised (lower bound)",
+        "basis": "company-stated cumulative funding, 'more than'; no filing found",
+        "period": "cumulative"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.build.ai/",
+          "publisher": "Build AI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "backed by top investors ($30M+ raised)"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c005",
+      "statement": "Build AI's website roadmap lists Egocentric-10M for November 2026, the newest dated item on the site (a planned release).",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Egocentric-10M",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.build.ai/",
+          "publisher": "Build AI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Egocentric-10M Nov 2026"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c006",
+      "statement": "Build AI's website roadmap dates Egocentric-1M to March 2026 and Egocentric-100K to December 2025.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Egocentric-1M",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.build.ai/",
+          "publisher": "Build AI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Egocentric-100K Dec 2025 Egocentric-1M Mar 2026"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c007",
+      "statement": "Build AI says it is vertically integrated across hardware, manufacturing, logistics, collection and model training.",
+      "kind": "architecture",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.build.ai/",
+          "publisher": "Build AI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "vertically integrated across hardware, manufacturing, logistics, collection, and model training"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c008",
+      "statement": "Build AI says it is based in San Francisco and Shenzhen and is launching operations in further countries.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.build.ai/",
+          "publisher": "Build AI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "we’re based in sf and shenzhen and are actively launching countries"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c009",
+      "statement": "Build AI offers researchers and labs training on what it calls its OTS (off-the-shelf) dataset.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12",
+        "Q1"
+      ],
+      "scope": {
+        "product": "OTS dataset",
+        "tier": "paid",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.build.ai/",
+          "publisher": "Build AI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "we’re a partner for scaling core research bets. train on our OTS dataset"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c010",
+      "statement": "Build AI describes its OTS dataset as monocular video at 1920x1080 and 30fps.",
+      "kind": "offer",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "OTS dataset",
+        "tier": "paid",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.build.ai/",
+          "publisher": "Build AI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "monocular, 1920x1080p 30fps"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c011",
+      "statement": "Build AI says its OTS dataset comes with SLA guarantees on 3D pose MPJPE, diversity and quality.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "OTS dataset",
+        "tier": "paid",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.build.ai/",
+          "publisher": "Build AI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "SLA guarantees on 3D pose MPJPE, diversity, and quality"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c012",
+      "statement": "Build AI says its OTS dataset is collected in the wild from real workers at real businesses.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "OTS dataset",
+        "tier": "paid",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.build.ai/",
+          "publisher": "Build AI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "in-the-wild (real workers, real businesses)"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c013",
+      "statement": "Besides the OTS dataset, Build AI invites researchers to say what data they want, pointing to a research@build.ai address rather than a price or checkout.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.build.ai/",
+          "publisher": "Build AI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "or tell us what you’re looking for research@build.ai"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c014",
+      "statement": "Build AI says it collects data inside working factories and job sites across a growing number of countries.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://jobs.ashbyhq.com/build-ai/14a9873a-9016-476a-996c-188266281f6c",
+          "publisher": "Build AI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "collects data inside working factories and job sites across a growing number of countries"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c015",
+      "statement": "Build AI says it pays a distributed network of partners and individual collectors.",
+      "kind": "offer",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://jobs.ashbyhq.com/build-ai/14a9873a-9016-476a-996c-188266281f6c",
+          "publisher": "Build AI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "pays a distributed network of partners and individual collectors at volume"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c016",
+      "statement": "Build AI says its commercial agreements cover two sides: partners who collect the data and customers who license it.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://jobs.ashbyhq.com/build-ai/14a9873a-9016-476a-996c-188266281f6c",
+          "publisher": "Build AI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the partners who collect the data and the customers who license it"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c017",
+      "statement": "Build AI's legal role description includes drafting and negotiating customer agreements alongside partner and vendor agreements.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://jobs.ashbyhq.com/build-ai/14a9873a-9016-476a-996c-188266281f6c",
+          "publisher": "Build AI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Draft and negotiate customer, partner, vendor, manufacturing, employment, consulting, and other commercial agreements"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c018",
+      "statement": "Build AI says its consent, data-transfer and collector-structuring questions are currently answered country by country by outside counsel.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7",
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://jobs.ashbyhq.com/build-ai/14a9873a-9016-476a-996c-188266281f6c",
+          "publisher": "Build AI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Today those questions are answered country by country, by outside counsel across several firms"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c019",
+      "statement": "Build AI says its in-house counsel will run diligence on its data rights and provenance for customers, regulators, investors and acquirers.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://jobs.ashbyhq.com/build-ai/14a9873a-9016-476a-996c-188266281f6c",
+          "publisher": "Build AI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Run diligence on Build's data rights and provenance for customers, regulators, investors, and acquirers"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c020",
+      "statement": "Build AI says it writes consent, contractor/worker terms, privacy notices and retention documents for its in-the-wild collection.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://jobs.ashbyhq.com/build-ai/7a9ce4ea-f908-4ef6-920c-b8117e21f99a",
+          "publisher": "Build AI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Write and maintain consent, contractor/worker terms, privacy notices, retention, and cross-border transfer docs"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c021",
+      "statement": "Build AI's compliance brief says factory operations should not pause because consent paperwork is unfinished.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://jobs.ashbyhq.com/build-ai/7a9ce4ea-f908-4ef6-920c-b8117e21f99a",
+          "publisher": "Build AI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Ops should not pause a factory because the paperwork is not done."
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c022",
+      "statement": "Build AI pays its collectors through marketplace mechanics that include bonuses and payouts tied to task mix and eligibility.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://jobs.ashbyhq.com/build-ai/493a31c5-edd4-4bd2-8ea3-5cbad3d38e47",
+          "publisher": "Build AI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Design marketplace mechanics (task mix, targeting, bonuses, payouts, eligibility) so collectors produce high-value data"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c023",
+      "statement": "Build AI says it defines taxonomy, golden sets, acceptance criteria and audit for its collectors so data quality is measurable.",
+      "kind": "architecture",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://jobs.ashbyhq.com/build-ai/82ea03e8-3714-4fd6-a9d6-3f259eb21f5c",
+          "publisher": "Build AI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Design the taxonomy collectors actually use, plus golden sets, acceptance criteria, and audit so quality is measurable"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c024",
+      "statement": "Build AI's country leads recruit collection partners through partnerships with local businessmen, politicians and enterprises.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://jobs.ashbyhq.com/build-ai/85ed9b03-c2b2-49b9-bbe6-46fe0a5b5146",
+          "publisher": "Build AI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "establishing partnerships with local businessmen, politicians, and enterprises"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c025",
+      "statement": "Build AI's Egocentric API terms say the API is in preview with no service-level agreement during the preview period.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Egocentric API",
+        "tier": "preview",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.build.ai/terms",
+          "publisher": "Build AI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "There is no service-level agreement (SLA) during the preview period."
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c026",
+      "statement": "Data accessed through Build AI's Egocentric API is licensed for non-commercial research and development only.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q5"
+      ],
+      "scope": {
+        "product": "Egocentric API",
+        "tier": "preview",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.build.ai/terms",
+          "publisher": "Build AI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "licensed for non-commercial research and development purposes only"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c027",
+      "statement": "The Egocentric API terms forbid redistributing, sublicensing or selling the raw data without Build AI's prior written consent.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q5"
+      ],
+      "scope": {
+        "product": "Egocentric API",
+        "tier": "preview",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.build.ai/terms",
+          "publisher": "Build AI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You may not redistribute, sublicense, sell, or make the raw data available to third parties without prior written consent"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c028",
+      "statement": "The Egocentric API terms permit derivative works such as trained models, embeddings and extracted features.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Egocentric API",
+        "tier": "preview",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.build.ai/terms",
+          "publisher": "Build AI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Derivative works (trained models, embeddings, extracted features) are permitted."
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c029",
+      "statement": "On termination of Egocentric API access, users must cease using the data obtained, except derivative works already incorporated in research.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Egocentric API",
+        "tier": "preview",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.build.ai/terms",
+          "publisher": "Build AI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you must cease use of any data obtained through the Service, except for derivative works already incorporated"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c030",
+      "statement": "The Egocentric API terms make its endpoints, data formats and pricing confidential during the preview.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Egocentric API",
+        "tier": "preview",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.build.ai/terms",
+          "publisher": "Build AI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "details of the Service — including API endpoints, data formats, pricing, and internal documentation — are confidential"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c031",
+      "statement": "By creating an Egocentric API account, a user lets Build AI name them and their institution in marketing and investor communications.",
+      "kind": "terms",
+      "section": "other",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Egocentric API",
+        "tier": "preview",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.build.ai/terms",
+          "publisher": "Build AI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you grant Build AI permission to reference your name, institutional affiliation"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c032",
+      "statement": "Build AI reserves the right to modify the Egocentric API terms at any time.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "Egocentric API",
+        "tier": "preview",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.build.ai/terms",
+          "publisher": "Build AI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Build AI reserves the right to modify these terms at any time."
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c033",
+      "statement": "The Egocentric API web app shows no data to a new account until Build AI confirms and assigns dataset access.",
+      "kind": "architecture",
+      "section": "vetting",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Egocentric API",
+        "tier": "preview",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.build.ai/_next/static/chunks/0b2-ohnsga4v8.js",
+          "publisher": "Build AI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "No dataset access is assigned to this account. If you’re expecting an invitation, refresh after Build AI confirms access."
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c034",
+      "statement": "The Egocentric API web app refers to assigned dataset access as a grant and tells users with several to contact Build AI.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Egocentric API",
+        "tier": "preview",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.build.ai/_next/static/chunks/0b2-ohnsga4v8.js",
+          "publisher": "Build AI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "More than one dataset is assigned. Contact Build AI to choose which grant to use."
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c035",
+      "statement": "Through the Egocentric API a user downloads hour folders each holding 20 MP4 video and raw IMU text pairs.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Egocentric API",
+        "tier": "preview",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.build.ai/_next/static/chunks/0b2-ohnsga4v8.js",
+          "publisher": "Build AI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Downloads hour folders containing 20 MP4 and raw IMU text pairs."
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c036",
+      "statement": "Build AI publishes Egocentric-10K and Egocentric-100K on Hugging Face under the Apache 2.0 licence.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Egocentric-10K; Egocentric-100K",
+        "tier": "open",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/builddotai/Egocentric-10K",
+          "publisher": "Build AI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensed under the Apache 2.0 License."
+        },
+        {
+          "url": "https://huggingface.co/datasets/builddotai/Egocentric-100K",
+          "publisher": "Build AI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensed under the Apache 2.0 License."
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c037",
+      "statement": "Egocentric-10K's files require a Hugging Face login and agreeing to share contact information, while the card itself is public.",
+      "kind": "terms",
+      "section": "listing",
+      "question_ids": [
+        "Q11",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Egocentric-10K",
+        "tier": "open",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/builddotai/Egocentric-10K",
+          "publisher": "Build AI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You need to agree to share your contact information to access this dataset"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c038",
+      "statement": "Build AI's Egocentric-10K contains 10,000 hours of video.",
+      "kind": "number",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Egocentric-10K",
+        "tier": "open",
+        "region": ""
+      },
+      "value": {
+        "num": 10000,
+        "unit": "hours of video",
+        "basis": "dataset card statistics table",
+        "period": "one-off"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/builddotai/Egocentric-10K",
+          "publisher": "Build AI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Total Hours 10,000"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c039",
+      "statement": "Build AI describes Egocentric-10K as the first dataset collected exclusively in real factories.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Egocentric-10K",
+        "tier": "open",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/builddotai/Egocentric-10K",
+          "publisher": "Build AI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "It is the first dataset collected exclusively in real factories."
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c040",
+      "statement": "Egocentric-10K is published at 1080p (1920x1080) resolution.",
+      "kind": "offer",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Egocentric-10K",
+        "tier": "open",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/builddotai/Egocentric-10K",
+          "publisher": "Build AI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Resolution 1080p (1920x1080)"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c041",
+      "statement": "Egocentric-10K was recorded with a monocular head-mounted camera on Build AI's own Gen 1 device, without audio.",
+      "kind": "architecture",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Egocentric-10K",
+        "tier": "open",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/builddotai/Egocentric-10K",
+          "publisher": "Build AI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Camera Type Monocular head-mounted Audio No Device Build AI Gen 1"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c042",
+      "statement": "Build AI's Egocentric-100K contains 100,405 hours of video.",
+      "kind": "number",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Egocentric-100K",
+        "tier": "open",
+        "region": ""
+      },
+      "value": {
+        "num": 100405,
+        "unit": "hours of video",
+        "basis": "dataset card statistics table",
+        "period": "one-off"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/builddotai/Egocentric-100K",
+          "publisher": "Build AI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Total Hours 100,405"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c043",
+      "statement": "The open Egocentric-100K release is published at 256p (456x256) resolution.",
+      "kind": "offer",
+      "section": "object_model",
+      "question_ids": [
+        "Q10",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Egocentric-100K",
+        "tier": "open",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/builddotai/Egocentric-100K",
+          "publisher": "Build AI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Resolution 256p (456x256)"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c044",
+      "statement": "Build AI publishes a 30,000-frame evaluation set for Egocentric-10K as a separate Hugging Face dataset.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Egocentric-10K-Evaluation",
+        "tier": "open",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/builddotai/Egocentric-10K",
+          "publisher": "Build AI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The complete 30,000 frame evaluation set is available at Egocentric-10K-Evaluation"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c045",
+      "statement": "Build AI's quality comparison samples 10k frames per dataset and labels them with gemini-2.5-flash for hand visibility and manipulation.",
+      "kind": "architecture",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Egocentric-10K-Evaluation",
+        "tier": "open",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/builddotai/Egocentric-10K-Evaluation",
+          "publisher": "Build AI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "we randomly sample 10k frames from each dataset and run them through a gemini-2.5-flash"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c046",
+      "statement": "Build AI claims Egocentric-10K is state-of-the-art in hand visibility and active manipulation density.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Egocentric-10K",
+        "tier": "open",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/builddotai/Egocentric-10K",
+          "publisher": "Build AI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Egocentric-10K is state-of-the-art in hand visibility and active manipulation density"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c047",
+      "statement": "The Egocentric-10K dataset card's License section states only the Apache 2.0 licence; the card gives no consent or release statement for the workers filmed.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Egocentric-10K",
+        "tier": "open",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/builddotai/Egocentric-10K",
+          "publisher": "Build AI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "License Licensed under the Apache 2.0 License. Citation"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c048",
+      "statement": "A Build AI organisation member stated on Hugging Face in August 2026 that Egocentric-10K and Egocentric-100K are completely disjoint.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Egocentric-10K; Egocentric-100K",
+        "tier": "open",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-08-11",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/builddotai/Egocentric-100K/discussions/7",
+          "publisher": "Build AI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "nope, they are completely disjoint!"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c049",
+      "statement": "Build AI's Hugging Face organisation lists four datasets and no Egocentric-1M, so the 1M tier is not openly published there.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q10",
+        "Q12"
+      ],
+      "scope": {
+        "product": "Egocentric-1M",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/builddotai",
+          "publisher": "Build AI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "models 0 None public yet datasets 4"
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c050",
+      "statement": "Build AI's founder says the company announced $1M for research and compute grants for academic researchers.",
+      "kind": "number",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 1000000,
+        "unit": "USD in research/compute grants",
+        "basis": "founder-stated grant pool for academic researchers",
+        "period": "not stated"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://eddy.build",
+          "publisher": "Eddy Xu (Build AI founder)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "we recently announced $1M dedicated to research/compute grants for academic researchers."
+        }
+      ]
+    },
+    {
+      "id": "build-ai-c051",
+      "statement": "Build AI's founder asks researchers who find Egocentric-1M useful to reach out for collaboration rather than download it.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q1"
+      ],
+      "scope": {
+        "product": "Egocentric-1M",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://eddy.build",
+          "publisher": "Eddy Xu (Build AI founder)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "if Egocentric-1M is useful to your research, please reach out for collaboration"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "matrix.exclusivity_offered",
+      "urls_tried": [
+        "https://www.build.ai/",
+        "https://www.build.ai/terms",
+        "https://huggingface.co/datasets/builddotai/Egocentric-10K",
+        "https://huggingface.co/datasets/builddotai/Egocentric-100K"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.versioning",
+      "urls_tried": [
+        "https://huggingface.co/datasets/builddotai/Egocentric-10K",
+        "https://huggingface.co/datasets/builddotai/Egocentric-100K",
+        "https://huggingface.co/api/datasets/builddotai/Egocentric-100K/commits/main",
+        "https://www.build.ai/terms"
+      ],
+      "reason": "gated"
+    },
+    {
+      "field": "matrix.erasure_after_sale",
+      "urls_tried": [
+        "https://www.build.ai/terms",
+        "https://huggingface.co/datasets/builddotai/Egocentric-10K",
+        "https://www.build.ai/privacy"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "questions.Q4",
+      "urls_tried": [
+        "https://www.build.ai/",
+        "https://www.build.ai/terms",
+        "https://jobs.ashbyhq.com/build-ai/14a9873a-9016-476a-996c-188266281f6c"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.paid_tier_licence",
+      "urls_tried": [
+        "https://www.build.ai/",
+        "https://www.build.ai/terms",
+        "https://www.build.ai/data"
+      ],
+      "reason": "gated"
+    },
+    {
+      "field": "other.privacy_policy",
+      "urls_tried": [
+        "https://www.build.ai/privacy",
+        "https://www.build.ai/privacy-policy",
+        "https://www.build.ai/legal"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "other.independent_press",
+      "urls_tried": [
+        "https://arxiv.org/search/?query=Egocentric-10K&searchtype=all",
+        "https://efts.sec.gov/LATEST/search-index?q=%22build.ai%22"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "other.funding_filing",
+      "urls_tried": [
+        "https://efts.sec.gov/LATEST/search-index?q=%22Build%20AI%22&forms=D"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "other.egocentric_1m_release",
+      "urls_tried": [
+        "https://huggingface.co/builddotai",
+        "https://www.build.ai/egocentric-1m",
+        "https://x.com/eddybuild/status/2041751488817774968"
+      ],
+      "reason": "not_found"
+    }
+  ],
+  "conflicts": [
+    {
+      "claim_ids": [
+        "build-ai-c011",
+        "build-ai-c025"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "The home page promises SLA guarantees on dataset quality for the OTS dataset, while the Egocentric API terms say there is no SLA during the preview. They may cover different channels (negotiated contract vs API preview); both kept."
+    },
+    {
+      "claim_ids": [
+        "build-ai-c040",
+        "build-ai-c043",
+        "build-ai-c010"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "Not a contradiction but a tier gap: the open 100K release is 256p while the OTS dataset is advertised at 1920x1080. The paid tier appears to be the full-resolution version, which the sources do not state outright."
+    }
+  ],
+  "leads": [
+    {
+      "url": "https://x.com/eddybuild/status/2041751488817774968",
+      "why": "Founder's post announcing Egocentric-1M (linked from eddy.build); X not fetched."
+    },
+    {
+      "url": "https://x.com/buildpbc/status/2048292663078850624",
+      "why": "Linked from the home page as a collaboration call; X not fetched."
+    },
+    {
+      "url": "https://huggingface.co/datasets/builddotai/Egocentric-10K/discussions/4",
+      "why": "A user says earlier versions of Egocentric-10K had dense action annotation; that points to annotations removed from the open tier. Third-party comment, not cited."
+    },
+    {
+      "url": "https://huggingface.co/datasets/builddotai/Egocentric-10K/discussions/2",
+      "why": "A 'Copyright infringement' report opened and closed 2025-11-17, content hidden."
+    },
+    {
+      "url": "https://youtu.be/cdiD-9MMpb0?t=4604",
+      "why": "Video linked from the home page (Karpathy on Tesla Vision); not relevant to terms."
+    },
+    {
+      "url": "https://jobs.ashbyhq.com/build-ai",
+      "why": "23 open roles (2026-08/09) including Head of Data Compliance and Marketplace Incentives; more operating detail may appear there."
+    }
+  ]
+}

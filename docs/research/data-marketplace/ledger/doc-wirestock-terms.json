@@ -1,0 +1,3022 @@
+{
+  "kind": "document",
+  "slug": "doc-wirestock-terms",
+  "platform_slug": "wirestock",
+  "title": "Terms of Service (creators, including the Dataset Deals Program)",
+  "doc_type": "contributor_agreement",
+  "url": "https://wirestock.io/docs/terms-of-use",
+  "publisher": "Wirestock",
+  "version_or_date": "Effective as of January 20, 2026",
+  "retrieved_at": "2026-10-01",
+  "parties": {
+    "licensor": "The contributor (creator/uploader) grants the licence to Wirestock, Inc.",
+    "licensee": "Wirestock, Inc., which sublicenses to Dataset Partners, stock content marketplaces and Ultimate Consumers (Wirestock Marketplace buyers)",
+    "operator_role": "reseller_licensor"
+  },
+  "terms": {
+    "permitted_use": {
+      "value": "Contributor licenses Wirestock to use, modify, distribute, sell and otherwise exploit the content for any purpose not expressly prohibited, sublicensable through multiple tiers, and to place it in stock marketplaces, the Wirestock Marketplace, portfolios and Dataset Deals.",
+      "claim_ids": [
+        "doc-wirestock-terms-c007",
+        "doc-wirestock-terms-c008",
+        "doc-wirestock-terms-c039",
+        "doc-wirestock-terms-c038"
+      ]
+    },
+    "ai_training_rights": {
+      "value": "Broad grant: content may be used and sublicensed (via Dataset Deals, bundled with others' content) to develop, build, train, test, validate and improve any products or AI (generative and non-generative); no carve-out excludes training, fine-tuning, evaluation or redistribution in datasets; contributors get no rights in resulting models; training rights and continued retraining survive termination.",
+      "claim_ids": [
+        "doc-wirestock-terms-c009",
+        "doc-wirestock-terms-c010",
+        "doc-wirestock-terms-c011",
+        "doc-wirestock-terms-c019",
+        "doc-wirestock-terms-c013",
+        "doc-wirestock-terms-c076"
+      ]
+    },
+    "field_of_use": {
+      "value": "No field restriction: any purpose not expressly prohibited by the Terms, expressly including AI development.",
+      "claim_ids": [
+        "doc-wirestock-terms-c008",
+        "doc-wirestock-terms-c009"
+      ]
+    },
+    "territory": {
+      "value": "Worldwide.",
+      "claim_ids": [
+        "doc-wirestock-terms-c007"
+      ]
+    },
+    "term_duration": {
+      "value": "Grant runs until the contributor terminates (Wirestock has up to 120 days to close the account and 90 days to one year to pull content from marketplaces); licences to customers and sublicensees are perpetual and the grant survives termination for content already submitted.",
+      "claim_ids": [
+        "doc-wirestock-terms-c070",
+        "doc-wirestock-terms-c072",
+        "doc-wirestock-terms-c073",
+        "doc-wirestock-terms-c074",
+        "doc-wirestock-terms-c044"
+      ]
+    },
+    "exclusivity": {
+      "value": "Contributor grant to Wirestock is non-exclusive; the Terms say nothing about exclusivity offered to buyers or Dataset Partners.",
+      "claim_ids": [
+        "doc-wirestock-terms-c007",
+        "doc-wirestock-terms-c094"
+      ]
+    },
+    "sublicensing": {
+      "value": "Wirestock may sublicense through multiple tiers (affiliates, contractors, end users, distributors, developers, partners), to Dataset Partners it picks, stock marketplaces and Ultimate Consumers, at prices and scope it alone sets.",
+      "claim_ids": [
+        "doc-wirestock-terms-c007",
+        "doc-wirestock-terms-c020",
+        "doc-wirestock-terms-c021",
+        "doc-wirestock-terms-c040"
+      ]
+    },
+    "derivatives_and_model_outputs": {
+      "value": "Wirestock and sublicensees may create derivative works; all resulting products and Developed Technology (models, datasets, new Metadata) belong to others, and Wirestock owns all Metadata anyone creates; Wirestock AI Services output may be used by Wirestock for any purpose.",
+      "claim_ids": [
+        "doc-wirestock-terms-c012",
+        "doc-wirestock-terms-c013",
+        "doc-wirestock-terms-c014",
+        "doc-wirestock-terms-c093"
+      ]
+    },
+    "attribution": {
+      "value": "Contributors waive moral rights (or covenant not to enforce them); Wirestock will not require buyers of Paid Content to credit the contributor; Wirestock may use contributor name and content in marketing without pay.",
+      "claim_ids": [
+        "doc-wirestock-terms-c016",
+        "doc-wirestock-terms-c017",
+        "doc-wirestock-terms-c043",
+        "doc-wirestock-terms-c018"
+      ]
+    },
+    "deletion_on_termination": {
+      "value": "No deletion duty: on termination the licence and sublicences survive, Wirestock may retain copies, and neither Wirestock nor its licensees/sublicensees must remove content from servers, datasets or models.",
+      "claim_ids": [
+        "doc-wirestock-terms-c074",
+        "doc-wirestock-terms-c075",
+        "doc-wirestock-terms-c077",
+        "doc-wirestock-terms-c076"
+      ]
+    },
+    "warranties_by_provider": {
+      "value": "Contributor warrants sole, unencumbered ownership, originality, that no party's use infringes any third-party right (incl. publicity and privacy) so Wirestock needs no further permission, AI-generated content is clear, and they are 18+; Wirestock gives contributors no warranties.",
+      "claim_ids": [
+        "doc-wirestock-terms-c053",
+        "doc-wirestock-terms-c054",
+        "doc-wirestock-terms-c055",
+        "doc-wirestock-terms-c056",
+        "doc-wirestock-terms-c057",
+        "doc-wirestock-terms-c059"
+      ]
+    },
+    "consent_and_release_warranty": {
+      "value": "Contributor (the capturer) must supply valid model releases where Wirestock judges a person identifiable (face, figure, voice, likeness) and property releases where Wirestock requires them, keeps original release records, and warrants no publicity/privacy infringement; a defective release is a material breach; releases may be shown to customers. Nothing ties release scope to AI-training use.",
+      "claim_ids": [
+        "doc-wirestock-terms-c045",
+        "doc-wirestock-terms-c046",
+        "doc-wirestock-terms-c047",
+        "doc-wirestock-terms-c048",
+        "doc-wirestock-terms-c049",
+        "doc-wirestock-terms-c050",
+        "doc-wirestock-terms-c055"
+      ]
+    },
+    "indemnity": {
+      "value": "One-way and uncapped as written: contributor defends and indemnifies Wirestock, its licensees, sublicensees, Dataset Partners, content marketplaces and Ultimate Consumers against claims from the contributor's content, conduct or breach; Wirestock may withhold royalties pending a claim.",
+      "claim_ids": [
+        "doc-wirestock-terms-c060",
+        "doc-wirestock-terms-c061",
+        "doc-wirestock-terms-c058"
+      ]
+    },
+    "liability_cap": {
+      "value": "Wirestock's aggregate liability to the contributor and all third parties capped at USD 500; indirect and consequential damages excluded; claims barred after one year. No cap on the contributor's indemnity.",
+      "claim_ids": [
+        "doc-wirestock-terms-c062",
+        "doc-wirestock-terms-c063",
+        "doc-wirestock-terms-c064"
+      ]
+    },
+    "payment_and_revenue_share": {
+      "value": "Dataset Deals: Wirestock picks Method 1 (contributor gets item-count share of 50% of the partner payment; Wirestock keeps 50%) or Method 2 (bundled deals, discretionary pay pre-agreed as fair). Stock royalties and Instant Pay 85/15, prints 70/30, Marketplace pay per an amendable FAQ; monthly payouts over USD 30/50 minimum.",
+      "claim_ids": [
+        "doc-wirestock-terms-c022",
+        "doc-wirestock-terms-c023",
+        "doc-wirestock-terms-c024",
+        "doc-wirestock-terms-c025",
+        "doc-wirestock-terms-c027",
+        "doc-wirestock-terms-c028",
+        "doc-wirestock-terms-c029",
+        "doc-wirestock-terms-c030",
+        "doc-wirestock-terms-c031",
+        "doc-wirestock-terms-c037",
+        "doc-wirestock-terms-c032",
+        "doc-wirestock-terms-c033"
+      ]
+    },
+    "takedown_and_erasure": {
+      "value": "Wirestock may remove or suspend content at will or on complaint and runs a DMCA process; on termination it pulls content from marketplaces within 90 days to one year, but licences already issued stay in force in perpetuity, buyers and Ultimate Users keep their copies, and Dataset Partners/sublicensees need not remove content from datasets or trained models.",
+      "claim_ids": [
+        "doc-wirestock-terms-c067",
+        "doc-wirestock-terms-c079",
+        "doc-wirestock-terms-c080",
+        "doc-wirestock-terms-c072",
+        "doc-wirestock-terms-c068",
+        "doc-wirestock-terms-c071",
+        "doc-wirestock-terms-c075",
+        "doc-wirestock-terms-c076"
+      ]
+    },
+    "governing_law": {
+      "value": "California law; AAA arbitration by a single arbitrator with class-action waiver; Los Angeles federal courts for non-arbitrable matters.",
+      "claim_ids": [
+        "doc-wirestock-terms-c083",
+        "doc-wirestock-terms-c084",
+        "doc-wirestock-terms-c085",
+        "doc-wirestock-terms-c086"
+      ]
+    },
+    "change_of_terms": {
+      "value": "Wirestock may change the Terms unilaterally; changes can take effect within three days of an email; continued use is acceptance. The January 2026 version made Dataset Deals enrolment automatic with no opt-out, grandfathering only earlier opt-outs.",
+      "claim_ids": [
+        "doc-wirestock-terms-c087",
+        "doc-wirestock-terms-c088",
+        "doc-wirestock-terms-c089",
+        "doc-wirestock-terms-c003",
+        "doc-wirestock-terms-c002",
+        "doc-wirestock-terms-c004"
+      ]
+    },
+    "prohibited_uses": {
+      "value": "Contributors may not upload unlawful pornographic, extremely violent or terrorist content, duplicate content across accounts, or misuse AI Services; Wirestock may delete AI-generated content at will. No use restrictions on buyers or Dataset Partners are stated in this document.",
+      "claim_ids": [
+        "doc-wirestock-terms-c090",
+        "doc-wirestock-terms-c091",
+        "doc-wirestock-terms-c092"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "doc-wirestock-terms-c001",
+      "statement": "Wirestock's contributor Terms automatically include in the Dataset Deals Program all Content a contributor submits after the Terms' effective date.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Dataset Deals Program",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Wirestock will automatically include in the Dataset Deals Program (described below) all Content you submit to Wirestock"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c002",
+      "statement": "The contributor Terms state there is no option to opt out of the Dataset Deals Program; the only way to keep content out is not to submit it.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Dataset Deals Program",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You understand and agree that there is no option to opt out of the Dataset Deals Program."
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c003",
+      "statement": "Wirestock honours Dataset Deals opt-outs requested before the Terms' effective date, but only for that previously opted-out content.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "Dataset Deals Program",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Wirestock will respect your request but only as to that Previously Opted-Out Content"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c004",
+      "statement": "The contributor Terms are dated effective January 20, 2026.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Effective as of January 20, 2026."
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c005",
+      "statement": "From January 20, 2026 Wirestock no longer licenses or supplies newly submitted content to third-party stock content marketplaces.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q3",
+        "Q4"
+      ],
+      "scope": {
+        "product": "content marketplace distribution",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "starting January 20, 2026, Wirestock will not license or otherwise provide to the content marketplaces any New Content"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c006",
+      "statement": "Content submitted to AI Services uploads is also licensed to Wirestock and enrolled in the Dataset Deals Program.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Wirestock AI Services",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "agree and enroll those images for the Wirestock Dataset Deals Program"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c007",
+      "statement": "The contributor grants Wirestock a worldwide, non-exclusive, transferable licence that is sublicensable through multiple tiers.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "grant Wirestock a worldwide, non-exclusive, transferable, sublicensable (with the right to sublicense through multiple tiers"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c008",
+      "statement": "The contributor licence lets Wirestock exploit the content for any purpose not expressly prohibited by the Terms.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "each element or part of the Content for any purpose, not expressly prohibited by these Terms"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c009",
+      "statement": "The contributor licence expressly covers using content to develop, build, train, test, validate and improve products, software and Developed Technology.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "purpose of developing, building, training, testing, validating, and improving any products, services, tools, technology"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c010",
+      "statement": "'Developed Technology' covers technology trained or improved using the content by or for Wirestock's sublicensees and their affiliates.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "or otherwise modified or improved by or on behalf of Wirestock’s sublicensees or any of their affiliates using the Content"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c011",
+      "statement": "'Developed Technology' expressly includes generative and non-generative AI, statistical-learning models and neural networks.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "including generative and non-generative AI, statistical-learning models, neural networks"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c012",
+      "statement": "The licence lets Wirestock alter, adapt and create derivative works from or incorporating the content.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "adapt, create or prepare derivative works from or incorporating"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c013",
+      "statement": "Contributors have no right, title or interest in any products or Developed Technology built using their content, by Wirestock or its sublicensees.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you have no right, title, or interest in any such products, services, tools, technology, software, or Developed Technology"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c014",
+      "statement": "Wirestock owns all Metadata created by Wirestock or anyone else, including its contractors, sublicensees or business partners.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Wirestock owns all right, title, and interest in and to any Metadata created or developed, in part or in whole, by Wirestock"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c015",
+      "statement": "Copyright stays with the copyright owner; the Terms do not transfer copyright to Wirestock.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "nothing in these Terms will be construed as a transfer of copyright to Wirestock"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c016",
+      "statement": "Contributors irrevocably waive moral rights and droit moral to the fullest extent permitted by law.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you expressly and irrevocably waive any and all “moral rights” and “droit moral” that you may have"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c017",
+      "statement": "Where a moral-rights waiver is not permitted, contributors covenant not to enforce moral rights against Wirestock, the marketplaces or their customers.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you covenant not to enforce any moral rights in Content against Wirestock, the content marketplaces"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c018",
+      "statement": "Contributors grant Wirestock and the content marketplaces the right to use their name and content in marketing without compensation.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "without the payment of any compensation to you"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c019",
+      "statement": "In the Dataset Deals Program Wirestock licenses sets of a contributor's content, usually pooled with other users' images, to third-party Dataset Partners.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q3",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Dataset Deals Program",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "license sets of Content (typically images) belonging to you, usually along with images provided by other Wirestock users"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c020",
+      "statement": "Wirestock selects the Dataset Partners in its sole discretion.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Dataset Deals Program",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Wirestock will select the Dataset Partners in its sole discretion."
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c021",
+      "statement": "Wirestock may license a contributor's content and all associated Metadata to Dataset Partners at a price, form, extent and scope it alone chooses.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q5",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Dataset Deals Program",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "license your Content, as well as all associated Metadata, to Wirestock’s Dataset Partners for the price and in the form"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c022",
+      "statement": "Wirestock chooses in its sole discretion which of two compensation methods applies to a contributor's Dataset Deals content.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Dataset Deals Program",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you agree to be compensated in either of the two following methods, as determined by Wirestock in its sole discretion"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c023",
+      "statement": "Under Method 1 (Fractional Participation) the contributor receives their Fractional Participation times 50% of the total payment Wirestock receives from the Dataset Partner.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Dataset Deals Program",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 50,
+        "unit": "percent",
+        "basis": "contributor pool share: 50% of the total payment Wirestock receives from the Dataset Partner, split among contributors by item count",
+        "period": "per dataset deal"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Fractional Participation multiplied by 50 percent of the total payment Wirestock receives from the Dataset Partner"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c024",
+      "statement": "Under Method 1 Wirestock retains the remaining 50% of the total Dataset Partner payment.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Dataset Deals Program",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 50,
+        "unit": "percent",
+        "basis": "Wirestock's retained share of the total payment received from the Dataset Partner",
+        "period": "per dataset deal"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You agree that Wirestock shall retain the remaining 50 percent of the total payment."
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c025",
+      "statement": "Fractional Participation is the contributor's number of participating items divided by all participating items, so pay is per item count, not per item value.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Dataset Deals Program",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "total number of items of your Content participating in the Dataset Program divided by the total number of items of Content"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c026",
+      "statement": "Under Method 2 (bundled deals) content may be commingled with other providers' content or Wirestock's own content.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Dataset Deals Program",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "commingled with other content, provided by other content providers or by Wirestock"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c027",
+      "statement": "For bundled deals, contributor compensation varies and is determined by Wirestock in its sole discretion.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Dataset Deals Program",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "your compensation will vary and will be determined by Wirestock in its sole discretion"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c028",
+      "statement": "Contributors agree in advance that their compensation in any bundled deal is fair and reasonable consideration.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Dataset Deals Program",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "agree that your compensation in any bundled deals is fair and reasonable consideration"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c029",
+      "statement": "For stock downloads paid by a content marketplace, Wirestock pays the contributor 85% of the royalty it receives and keeps 15%.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "content marketplace distribution",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 85,
+        "unit": "percent",
+        "basis": "contributor share of the royalty Wirestock receives from the content marketplace per download",
+        "period": "per download"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Wirestock will pay you 85% of the Royalty, but will keep 15% of the Royalty"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c030",
+      "statement": "For Instant Pay content, Wirestock pays the contributor 85% of the advanced fixed rate it receives from a marketplace and keeps 15%.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Instant Pay Program",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 85,
+        "unit": "percent",
+        "basis": "contributor share of the fixed per-image rate Wirestock receives from a participating marketplace",
+        "period": "per image"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Wirestock will pay you 85% of the Advanced Rate Payout, but will keep 15% of the Advanced Rate Payout"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c031",
+      "statement": "For prints, Wirestock pays the contributor 70% of the amount it receives from the purchaser, excluding shipping, processing and taxes.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Prints",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 70,
+        "unit": "percent",
+        "basis": "contributor share of the amount received from the print purchaser, excluding shipping, processing and taxes",
+        "period": "per sale"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Wirestock will pay you an amount equal to 70% of the total amount Wirestock receives from the purchaser"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c032",
+      "statement": "Royalty payments are issued monthly for the previous month's downloads.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Royalty payments to you will be issued monthly for the previous month’s downloads."
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c033",
+      "statement": "The minimum payout is USD 30 via PayPal or USD 50 via Payoneer; balances below it roll over.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 30,
+        "unit": "USD",
+        "basis": "minimum contributor payout per accounting period via PayPal (USD 50 via Payoneer)",
+        "period": "per accounting period"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "thirty U.S. Dollars (USD $30.00) for PayPal and fifty U.S. Dollars (USD $50.00) for Payoneer"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c034",
+      "statement": "If a contributor terminates before reaching the payout minimum, Wirestock deducts a USD 20 funds administration fee from the balance each month.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 20,
+        "unit": "USD",
+        "basis": "deducted by Wirestock from a terminated contributor's sub-minimum royalty balance",
+        "period": "per month"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "a funds administration fee of $20 USD"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c035",
+      "statement": "If an account is terminated for breach, Wirestock may retain royalties payable as liquidated damages.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Wirestock shall have the right to retain any Royalties payable to you hereunder as liquidated damages"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c036",
+      "statement": "Wirestock may recoup previously paid royalties when a content marketplace refunds a customer and penalises Wirestock.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "content marketplace distribution",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Wirestock may recoup Royalties previously paid to you by deducting from applicable Royalties credited to your account"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c037",
+      "statement": "Wirestock Marketplace compensation is set in a separate Marketplace Compensation FAQ that Wirestock may amend from time to time.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Wirestock Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Wirestock may amend the Marketplace Compensation FAQ from time to time."
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c038",
+      "statement": "Wirestock may submit and license contributor content to stock marketplaces including Shutterstock, Adobe Stock, Alamy, Dreamstime, Depositphotos and Pond5.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "content marketplace distribution",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "such as (but not limited to) Shutterstock, Adobe Stock, Alamy, Dreamstime, Depositphotos, and Pond5"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c039",
+      "statement": "Wirestock may offer contributors' Marketplace Content for licensing to any person through the Wirestock Marketplace.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Wirestock Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "for Wirestock to offer your Marketplace Content for licensing to any person"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c040",
+      "statement": "Wirestock may license Portfolio Content at a price, form, extent and scope it alone chooses.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q5",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Portfolio",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "grant Wirestock the ability to grant a license to your Portfolio Content for the price and in the form, extent, and scope"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c041",
+      "statement": "A contributor who disagrees with how Portfolio Content is licensed can only hide the Portfolio or unregister.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Portfolio",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "your sole remedies are to hide your Portfolio or unregister from Wirestock"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c042",
+      "statement": "Wirestock may designate any part of a contributor's Marketplace Content as Free Content, licensable without payment.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Wirestock Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "may designate and list in the Wirestock Marketplace all or a portion of your Marketplace Content as Free Content"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c043",
+      "statement": "Wirestock will not require licensees of Paid Content to attribute the contributor.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Wirestock Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "for Paid Content, Wirestock will not require attribution by the licensee"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c044",
+      "statement": "Customer licences for content are issued by Wirestock or by the content marketplaces under their own licence agreements, in perpetuity.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "for use in perpetuity in accordance with license agreements entered into by Wirestock or the content marketplaces"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c045",
+      "statement": "Contributors must provide Wirestock a valid, accurate model release for content that, in Wirestock's judgment, shows an identifiable person.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "provide Wirestock a valid and accurate model release for any and all Content you contribute"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c046",
+      "statement": "The model-release duty covers an identifiable face, human figure or other identifiable attribute such as voice, appearance or likeness.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "identifiable face or identifiable human figure or other identifiable attribute including, without limitation, voice"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c047",
+      "statement": "Contributors must provide property releases for content that Wirestock, in its sole discretion, decides requires them.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "provide valid and accurate property releases to Wirestock for all Content that requires such releases"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c048",
+      "statement": "The contributor alone is responsible for retaining original releases and keeping release records.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you are solely responsible for retaining all original releases and maintaining complete and accurate release records"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c049",
+      "statement": "Submitting a falsified, inaccurate or defective release is a material breach of the Terms.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The submission of any falsified, inaccurate, or otherwise defective release is a material breach of the Terms."
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c050",
+      "statement": "Wirestock, Dataset Partners or content marketplaces may furnish copies of releases to customers, e.g. to respond to legal action or comply with law.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Wirestock, Dataset Partners, or the content marketplaces, may furnish copies of releases to customers"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c051",
+      "statement": "Contributors must provide true information about the content, including the date, location and equipment used to create it.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "information relating to the date, location, and equipment used in connection with creation of the Content"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c052",
+      "statement": "Contributors must flag at upload any content that includes any AI-generated aspect.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You must indicate at the time of upload which Content is AI-Generated Content"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c053",
+      "statement": "The contributor warrants the content is solely owned or controlled by them, unencumbered, with no third-party rights in it.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the Content and all parts thereof and rights therein are solely owned or controlled by you, unencumbered"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c054",
+      "statement": "The contributor warrants that no party's use of the content will infringe any third party's rights.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the Content does not, and any party’s use of the Content will not, infringe any rights of any third parties"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c055",
+      "statement": "The contributor's non-infringement warranty covers rights of publicity or privacy and says Wirestock needs no third-party permission to use the content.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "rights of publicity or privacy, and Wirestock will not need to obtain any permission or license from any third party"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c056",
+      "statement": "The contributor warrants AI-generated content and its use will not infringe third-party rights, including of owners of images used to train the AI tool.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "any AI-Generated Content will not, and use thereof will not, infringe any rights of any third parties"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c057",
+      "statement": "Contributors warrant they are at least 18 years old.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you are at least 18 years of age"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c058",
+      "statement": "On learning of a claim inconsistent with the contributor's warranties, Wirestock may withhold royalties reasonably related to the claim's probable value.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Wirestock may withhold from royalties or other compensation due to you hereunder, such sums as are reasonably related"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c059",
+      "statement": "Wirestock makes no warranties to contributors; the Services are provided as is and earnings are not guaranteed.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "we do not guarantee that you will earn any money from using Wirestock’s Services"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c060",
+      "statement": "The contributor must defend, indemnify and hold harmless Wirestock and its licensees, sublicensees, Dataset Partners, content marketplaces and Ultimate Consumers.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "hold harmless Wirestock, its partners, affiliates, licensors, licensees, sublicensees, transferees, Dataset Partners"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c061",
+      "statement": "The contributor indemnity covers claims arising from the contributor's content, use of the Services, violation of others' rights or breach; no cap is stated on it.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "arising out of or relating to your use of the Services, your conduct in relation to the Services, your Content"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c062",
+      "statement": "Wirestock's aggregate liability to the contributor and all third parties is limited to general money damages of at most USD 500.",
+      "kind": "number",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 500,
+        "unit": "USD",
+        "basis": "cap on aggregate liability of Wirestock and its partners to the contributor and all third parties",
+        "period": "aggregate"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "shall be limited to general money damages not to exceed five hundred dollars ($500.00 USD)"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c063",
+      "statement": "Where the law allows, Wirestock and its partners exclude indirect, special, incidental, punitive and consequential damages.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "won’t be liable for any indirect, special, incidental, punitive, exemplary, or consequential damages"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c064",
+      "statement": "Any contributor claim must be commenced within one year after it accrues.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "must be commenced within one year after the cause of action accrues"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c065",
+      "statement": "The Terms state they create no third-party beneficiary rights.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "These Terms create no third party beneficiary rights."
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c066",
+      "statement": "The Terms state that Wirestock and the contributor are independent contractors with no agency relationship.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "There is no relationship of partnership, joint venture, employment, franchise or agency created hereby between the parties."
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c067",
+      "statement": "Wirestock may remove content, or direct content marketplaces to remove it, for any reason or no reason.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Wirestock has the right to remove your Content from its Website, or direct its content marketplaces to remove the Content"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c068",
+      "statement": "Licences Wirestock issued to a sublicensee remain in force in perpetuity even if the content is later removed from Wirestock.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "if later removed from Wirestock, will remain in full force and effect, in perpetuity"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c069",
+      "statement": "A contributor ends the relationship by emailing support@wirestock.io with 'Termination' in the subject line.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Send notice to support@wirestock.io and include in the subject line “Termination”."
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c070",
+      "statement": "On a contributor's written request, Wirestock terminates the account no later than 120 days after receipt.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "it will terminate your account no later than 120 days following our receipt of a written request from you"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c071",
+      "statement": "Licences already granted to Ultimate Users survive termination because Wirestock has no feasible way to retrieve the content.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Wirestock has no feasible way to retrieve such content from Ultimate Users"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c072",
+      "statement": "Wirestock has 90 days after termination to remove content from content marketplaces for up to 100 items, plus 30 days per further 100 items.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "content marketplace distribution",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "For each additional 100 items of Content, Wirestock shall have an additional 30 days to remove your Content"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c073",
+      "statement": "Where a marketplace takes six months or more to remove content, Wirestock has up to one year to remove it.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "content marketplace distribution",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you agree that Wirestock shall have up to one year to remove your Content"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c074",
+      "statement": "On termination, the contributor's licence to Wirestock and its partners, including Dataset Partners, survives for content provided before termination.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the license you granted to Wirestock or its business partners (e.g., Dataset Partners, content marketplaces) shall survive"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c075",
+      "statement": "After termination neither Wirestock nor its licensees or sublicensees must remove the content from servers, databases, products or Developed Technology.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "neither Wirestock nor its respective licensees, sublicensees, and transferees will be obligated to remove the Content"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c076",
+      "statement": "After termination Wirestock and its licensees keep the right to retrain, tune and commercialise models that rely on the content.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "continue to have the right to support, maintain, update, improve, retrain, tune, validate, revalidate"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c077",
+      "statement": "Wirestock may retain copies of licensed content after termination.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q6",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "retain copies of your Content that you licensed to Wirestock prior to the effective date of the termination"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c078",
+      "statement": "Wirestock disclaims being a storage service and is not responsible for keeping a copy of contributor content.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Wirestock is not a content or data storage company, and is not responsible for storing a copy of your Content"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c079",
+      "statement": "Wirestock may suspend access to content when it receives a complaint about it.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "In the event Wirestock receives a complaint about your Content, Wirestock may suspend access to such Content"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c080",
+      "statement": "Wirestock operates a DMCA takedown process through a designated agent.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Wirestock has designated an agent for purposes of takedown notices under the Digital Millennium Copyright Act"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c081",
+      "statement": "Contributors may not act against Dataset Partners, marketplaces or their licensees over licence misuse without notifying Wirestock and getting its written consent.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "without first providing notice of such misuse to Wirestock and receiving Wirestock’s prior written consent"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c082",
+      "statement": "Wirestock has no obligation to pursue legal action against infringers of a contributor's content.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Wirestock has no obligation to pursue legal action against any alleged infringer"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c083",
+      "statement": "The Terms are governed by California law.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "governed by and construed in accordance with the internal laws of the California, USA"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c084",
+      "statement": "Disputes go to binding AAA arbitration before a single arbitrator, with IP claims and emergency injunctions carved out.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "through final and binding arbitration by a single arbitrator"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c085",
+      "statement": "Contributors waive class and representative actions against Wirestock.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "not as a plaintiff or class member in any purported class or representative action"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c086",
+      "statement": "Judicial proceedings are brought in the federal courts of Los Angeles, California.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "will be brought in the federal courts of Los Angeles, California"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c087",
+      "statement": "Wirestock may modify the Terms at any time in its sole discretion.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Wirestock reserves the right to modify these Terms at any time in its sole discretion."
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c088",
+      "statement": "Modified Terms can take effect as soon as three days after Wirestock emails the contributor.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "no later than three (3) days after Wirestock has sent an email"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c089",
+      "statement": "Continuing to use the Services after changes take effect binds the contributor to the revised Terms; the alternative is to cancel the account.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "By continuing to use or access the Services after the updates come into effect, you agree to be bound by the revised Terms."
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c090",
+      "statement": "Contributors must not upload unlawfully pornographic or indecent content or content with extreme violence or terrorist activity.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "upload content that is unlawfully pornographic or indecent, or that contain extreme acts of violence or terrorist activity"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c091",
+      "statement": "Contributors may not submit identical or substantially similar content to more than one account without Wirestock's written consent.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You may not submit identical or substantially similar Content to more than one account without the prior written consent"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c092",
+      "statement": "Wirestock may block or delete AI-generated content for any reason without notice or liability.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Wirestock can block, delete, or otherwise remove any AI-Generated Content for any reason whatsoever"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c093",
+      "statement": "Wirestock or its Partners may use AI Services output for any purpose, including to develop and improve the AI Services.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Wirestock AI Services",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "may use the AI Content for any purpose, including to develop and improve the AI Services"
+        }
+      ]
+    },
+    {
+      "id": "doc-wirestock-terms-c094",
+      "statement": "The Terms describe themselves as a non-exclusive agreement between the contributor and Wirestock.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wirestock.io/docs/terms-of-use",
+          "publisher": "Wirestock",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The Terms is a legally binding, non-exclusive agreement between you and Wirestock."
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "other.buyer_exclusivity",
+      "urls_tried": [
+        "https://wirestock.io/docs/terms-of-use"
+      ],
+      "reason": "not_published",
+      "note": "The Terms do not say whether Wirestock may grant Dataset Partners or buyers exclusive rights; the contributor grant is non-exclusive and Wirestock sets form, extent and scope in its sole discretion."
+    },
+    {
+      "field": "other.dataset_partner_licence_terms",
+      "urls_tried": [
+        "https://wirestock.io/docs/terms-of-use"
+      ],
+      "reason": "not_published",
+      "note": "The licence Wirestock gives Dataset Partners (use limits, redistribution, model-output rights, deletion duties) is not published here; Dataset Partners are not named."
+    },
+    {
+      "field": "other.data_subject_erasure",
+      "urls_tried": [
+        "https://wirestock.io/docs/terms-of-use"
+      ],
+      "reason": "not_published",
+      "note": "No mechanism for a person depicted to withdraw consent or have images removed from datasets already licensed; termination provisions say licensees need not remove content from datasets or models."
+    },
+    {
+      "field": "other.release_scope_for_ai_training",
+      "urls_tried": [
+        "https://wirestock.io/docs/terms-of-use"
+      ],
+      "reason": "not_published",
+      "note": "The Terms require model releases but do not say the release must cover AI training or dataset licensing, nor provide a release template."
+    },
+    {
+      "field": "other.contributor_audit_or_statement",
+      "urls_tried": [
+        "https://wirestock.io/docs/terms-of-use"
+      ],
+      "reason": "not_published",
+      "note": "No contributor right to audit or see Dataset Partner payments, deal prices or the total item counts behind Fractional Participation."
+    }
+  ]
+}

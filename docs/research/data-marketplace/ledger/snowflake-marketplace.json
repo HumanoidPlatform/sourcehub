@@ -1,0 +1,2602 @@
+{
+  "kind": "profile",
+  "slug": "snowflake-marketplace",
+  "name": "Snowflake Marketplace",
+  "aliases": [
+    "Snowflake Data Marketplace",
+    "Snowflake Data Exchange"
+  ],
+  "segment": "cloud_exchange",
+  "tier": "light",
+  "status": {
+    "value": "active",
+    "claim_id": "snowflake-marketplace-c053"
+  },
+  "names_for": {
+    "catalogue_side": "Snowflake Marketplace listings (public listings; access types Free, Limited trial, Paid)",
+    "custom_side": "No bespoke collection side; the nearest are 'private listings' and 'private offers' ('individualized offers that providers can extend directly to specific consumers')"
+  },
+  "matrix": {
+    "operator_role": {
+      "value": "venue",
+      "claim_ids": [
+        "snowflake-marketplace-c002",
+        "snowflake-marketplace-c003",
+        "snowflake-marketplace-c028",
+        "snowflake-marketplace-c073"
+      ],
+      "note": "Snowflake is not seller of record and not a party to Listing Terms, except for products it lists itself (c012)."
+    },
+    "economics_model": {
+      "value": "commission",
+      "claim_ids": [
+        "snowflake-marketplace-c009",
+        "snowflake-marketplace-c010",
+        "snowflake-marketplace-c070"
+      ],
+      "note": "Fee deducted from Product Cost on paid listings using the Monetization Offering; the rate is in a fee schedule not published on the pages fetched. Snowflake also earns compute consumption and pays providers 10-50% rebates on consumer credits (c050)."
+    },
+    "who_pays_fee": {
+      "value": "seller",
+      "claim_ids": [
+        "snowflake-marketplace-c009",
+        "snowflake-marketplace-c010",
+        "snowflake-marketplace-c070"
+      ],
+      "note": ""
+    },
+    "supply_models": {
+      "value": [
+        "third_party_providers"
+      ],
+      "claim_ids": [
+        "snowflake-marketplace-c047",
+        "snowflake-marketplace-c052",
+        "snowflake-marketplace-c054"
+      ],
+      "note": "Providers are Snowflake customer organisations; Snowflake may also list its own products (c012) but no evidence was found of it listing its own collected data."
+    },
+    "custody_model": {
+      "value": "share_in_place",
+      "claim_ids": [
+        "snowflake-marketplace-c025",
+        "snowflake-marketplace-c030",
+        "snowflake-marketplace-c032"
+      ],
+      "note": "Live share without copying into the consumer's account; cross-region auto-fulfilment replicates into a Snowflake-managed secure share area, at the provider's cost."
+    },
+    "transaction_mode": {
+      "value": "both",
+      "claim_ids": [
+        "snowflake-marketplace-c021",
+        "snowflake-marketplace-c067",
+        "snowflake-marketplace-c040",
+        "snowflake-marketplace-c041",
+        "snowflake-marketplace-c046"
+      ],
+      "note": "Self-serve Get > Paid checkout on public paid listings; private offers with negotiated pricing and terms for specific consumers."
+    },
+    "public_prices": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Listing pages render only with JavaScript; no concrete listing price was observed."
+    },
+    "licence_model": {
+      "value": "provider_defined",
+      "claim_ids": [
+        "snowflake-marketplace-c003",
+        "snowflake-marketplace-c026",
+        "snowflake-marketplace-c058",
+        "snowflake-marketplace-c059"
+      ],
+      "note": "Provider picks Snowflake's Standard Agreement, its own terms at a public URL, or (private listings) offline terms."
+    },
+    "exclusivity_offered": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Standard Agreement licence is non-exclusive (c027); custom or offline terms could differ, no evidence either way."
+    },
+    "public_listing": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "app.snowflake.com/marketplace returns an empty JavaScript shell to the fetcher; docs do not say whether anonymous browsing is possible."
+    },
+    "buyer_vetting": {
+      "value": "account_only",
+      "claim_ids": [
+        "snowflake-marketplace-c023",
+        "snowflake-marketplace-c069",
+        "snowflake-marketplace-c022"
+      ],
+      "note": "Consumer must be a Snowflake account whose org admin accepted the terms, with the right privileges and a billing address in a supported country for paid listings."
+    },
+    "sample_mechanics": {
+      "value": "preview_in_browser",
+      "claim_ids": [
+        "snowflake-marketplace-c063",
+        "snowflake-marketplace-c062",
+        "snowflake-marketplace-c060",
+        "snowflake-marketplace-c020"
+      ],
+      "note": "Listing previews with a representative sample and a data dictionary; limited trials are required for public paid listings."
+    },
+    "versioning": {
+      "value": "mutable_latest",
+      "claim_ids": [
+        "snowflake-marketplace-c025",
+        "snowflake-marketplace-c065"
+      ],
+      "note": "Data shares are live and updated at the provider's declared frequency; no immutable data revisions were found."
+    },
+    "human_subject_consent_docs": {
+      "value": "asserted_only",
+      "claim_ids": [
+        "snowflake-marketplace-c007",
+        "snowflake-marketplace-c008"
+      ],
+      "note": "Provider warrants lawful collection 'e.g., obtaining any required consents'; nothing indicates consent evidence reaches the Consumer."
+    },
+    "contributor_pay_model": {
+      "value": "not_applicable",
+      "claim_ids": [
+        "snowflake-marketplace-c047"
+      ],
+      "note": "Suppliers are organisations with full Snowflake accounts; the platform pays no individual capturers or contributors."
+    },
+    "catalogue_plus_custom": {
+      "value": "catalogue_only",
+      "claim_ids": [
+        "snowflake-marketplace-c052",
+        "snowflake-marketplace-c038",
+        "snowflake-marketplace-c040"
+      ],
+      "note": "Snowflake does not collect to order; private listings and private offers vary access and terms for existing products. Professional-services listings exist (c018) but their scope was not examined."
+    },
+    "erasure_after_sale": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Shared-in-place data is revoked on termination (c029) and copying is barred by default (c005), but no clause obliging deletion of data already extracted was found; neither contractual_deletion nor takedown_only fits on the evidence."
+    },
+    "quality_evidence": {
+      "value": "provider_asserted",
+      "claim_ids": [
+        "snowflake-marketplace-c014",
+        "snowflake-marketplace-c066",
+        "snowflake-marketplace-c013"
+      ],
+      "note": "Snowflake reviews and approves listings (c037) but disclaims accuracy; compliance certifications are provider-configured from third-party audits."
+    }
+  },
+  "questions": {
+    "Q1": {
+      "state": "partial",
+      "answer": "Snowflake says 820+ providers offer 3,400+ listings (as of July 2025) and pitches Marketplace data for enrichment and AI training; no buyer volumes, units or photo/video demand were found.",
+      "claim_ids": [
+        "snowflake-marketplace-c052",
+        "snowflake-marketplace-c056"
+      ]
+    },
+    "Q2": {
+      "state": "partial",
+      "answer": "Listing reaches existing Snowflake customers, lets buyers pay from committed Snowflake capacity, and earns providers 10-50% rebates on consumer compute; paid listings need an approved profile, Stripe payouts and a billing address in an eligible country (India not listed for providers).",
+      "claim_ids": [
+        "snowflake-marketplace-c048",
+        "snowflake-marketplace-c049",
+        "snowflake-marketplace-c050",
+        "snowflake-marketplace-c057",
+        "snowflake-marketplace-c043",
+        "snowflake-marketplace-c044",
+        "snowflake-marketplace-c045"
+      ]
+    },
+    "Q3": {
+      "state": "partial",
+      "answer": "Inventory comes from provider organisations with full Snowflake accounts (e.g. LSEG), each warranting it holds the rights to license and sell; Snowflake may also list its own products.",
+      "claim_ids": [
+        "snowflake-marketplace-c047",
+        "snowflake-marketplace-c054",
+        "snowflake-marketplace-c006",
+        "snowflake-marketplace-c012"
+      ]
+    },
+    "Q4": {
+      "state": "not_applicable",
+      "answer": "Snowflake does not commission collection; resale rights are the provider's own warranty (c006), and no post-hoc term change dispute was found.",
+      "claim_ids": []
+    },
+    "Q5": {
+      "state": "sourced",
+      "answer": "Venue: Snowflake is not seller of record nor party to Listing Terms; the provider warrants rights and defends Snowflake, and no provider-to-consumer indemnity is set by Snowflake.",
+      "claim_ids": [
+        "snowflake-marketplace-c002",
+        "snowflake-marketplace-c003",
+        "snowflake-marketplace-c006",
+        "snowflake-marketplace-c071",
+        "snowflake-marketplace-c073",
+        "snowflake-marketplace-c028"
+      ]
+    },
+    "Q6": {
+      "state": "sourced",
+      "answer": "Shared in place: live data without copies into the consumer account; cross-region delivery replicates to a Snowflake-managed secure share area at the provider's cost.",
+      "claim_ids": [
+        "snowflake-marketplace-c025",
+        "snowflake-marketplace-c030",
+        "snowflake-marketplace-c032",
+        "snowflake-marketplace-c031"
+      ]
+    },
+    "Q7": {
+      "state": "partial",
+      "answer": "Only a provider warranty of lawful personal-data collection with any required consents and a ban on sensitive data (incl. face geometry) in public listings; nothing on capturer, depicted-person releases or property owners.",
+      "claim_ids": [
+        "snowflake-marketplace-c007",
+        "snowflake-marketplace-c008"
+      ]
+    },
+    "Q8": {
+      "state": "partial",
+      "answer": "Provider-defined licence; by default no resale, sublicensing or transfer outside Snowflake, and in-place sharing limits leakage; Snowflake does not monitor use and offers no audit or fingerprinting.",
+      "claim_ids": [
+        "snowflake-marketplace-c005",
+        "snowflake-marketplace-c015",
+        "snowflake-marketplace-c026",
+        "snowflake-marketplace-c027",
+        "snowflake-marketplace-c029",
+        "snowflake-marketplace-c058"
+      ]
+    },
+    "Q9": {
+      "state": "sourced",
+      "answer": "Self-serve paid listings (usage or subscription plans, card/bank/capacity drawdown) and negotiated private offers; Snowflake deducts an unpublished fee from the provider's price and pays out via Stripe.",
+      "claim_ids": [
+        "snowflake-marketplace-c019",
+        "snowflake-marketplace-c021",
+        "snowflake-marketplace-c040",
+        "snowflake-marketplace-c041",
+        "snowflake-marketplace-c009",
+        "snowflake-marketplace-c010",
+        "snowflake-marketplace-c045",
+        "snowflake-marketplace-c070"
+      ]
+    },
+    "Q10": {
+      "state": "partial",
+      "answer": "A listing carries a data product, pricing plans and offers with contract dates; data is live-updated; on removal existing consumers keep access 30 days (free/trial) or a calendar month (paid), and subscriptions must be honoured.",
+      "claim_ids": [
+        "snowflake-marketplace-c039",
+        "snowflake-marketplace-c042",
+        "snowflake-marketplace-c065",
+        "snowflake-marketplace-c033",
+        "snowflake-marketplace-c034",
+        "snowflake-marketplace-c035",
+        "snowflake-marketplace-c036",
+        "snowflake-marketplace-c011"
+      ]
+    },
+    "Q11": {
+      "state": "sourced",
+      "answer": "Snowflake approves every listing but disclaims accuracy; buyers see data dictionaries, previews, SQL examples, provider-configured compliance certifications and limited trials (required for public paid listings).",
+      "claim_ids": [
+        "snowflake-marketplace-c037",
+        "snowflake-marketplace-c014",
+        "snowflake-marketplace-c062",
+        "snowflake-marketplace-c063",
+        "snowflake-marketplace-c064",
+        "snowflake-marketplace-c066",
+        "snowflake-marketplace-c060",
+        "snowflake-marketplace-c020"
+      ]
+    },
+    "Q12": {
+      "state": "partial",
+      "answer": "No bespoke collection side; the variant of the catalogue is private listings and private offers extended to specific consumers with negotiated terms.",
+      "claim_ids": [
+        "snowflake-marketplace-c038",
+        "snowflake-marketplace-c040",
+        "snowflake-marketplace-c059"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "snowflake-marketplace-c001",
+      "statement": "The Snowflake Provider and Consumer Terms, which govern Snowflake Marketplace, were last updated on 31 March 2026.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Last Updated: March 31, 2026"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c002",
+      "statement": "Except for its own listed Products, Snowflake is not the seller of record of any Product on Snowflake Marketplace.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q5",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Snowflake is not the seller of record of any Products"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c003",
+      "statement": "Except where Snowflake is itself the Provider, Snowflake is not a party to the Listing Terms between Provider and Consumer.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "except where Snowflake is the applicable Provider, Snowflake (a) is not a party to any such Listing Terms"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c004",
+      "statement": "A Consumer must enter into Listing Terms with the relevant Provider before executing any Transaction.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Prior to executing any Transaction, Customer shall enter into Listing Terms with the relevant Provider"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c005",
+      "statement": "Unless the Provider's Listing Terms expressly allow it, a Consumer may not resell or sublicense a Product or transfer it outside the Snowflake Service.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "(c) resell or sublicense the Product, (d) transfer the Product outside the Service without specific authorization to do so"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c006",
+      "statement": "The Provider warrants that it has all rights and permissions needed to license and sell its Provider Materials to Snowflake and Consumers.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "has all necessary rights and permissions to license and, if applicable, sell its Provider Materials to Snowflake"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c007",
+      "statement": "Where Provider Materials include personal data, the Provider warrants lawful collection, giving obtaining any required consents as an example; no consent evidence is delivered to the Consumer under the Terms.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "maintains the Personal Data in accordance with such laws (e.g., obtaining any required consents)"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c008",
+      "statement": "A Provider may not reveal Sensitive Personal Data to Consumers in any Provider Materials offered publicly on the Marketplace.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "disclose or reveal Sensitive Personal Data to Consumers in any Provider Materials offered publicly via the Marketplace"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c009",
+      "statement": "Under the Monetization Offering, the Provider bears Snowflake's fees, which are set in a separate Monetization Offering Fee Schedule rather than in the Terms.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Customer is responsible for the Snowflake fees set forth in the relevant Monetization Offering Fee Schedule"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c010",
+      "statement": "The Provider's Net Payment equals the Product Cost minus Snowflake's Fees, taxes and other expenses incurred by Snowflake.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "which shall equal the Product Cost minus: (i) the Fees"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c011",
+      "statement": "When a Provider retires a Product, it must let existing Consumers keep accessing and using it for the period set by the Listing Retirement requirements.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Customer will allow Consumers who are accessing or using Customer's Product(s) to continue to access and use such Product(s)"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c012",
+      "statement": "Snowflake may list and sell its own Products on the Marketplace as a Provider.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Snowflake may provide or sell its own Product(s) as a Provider."
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c013",
+      "statement": "Snowflake has no duty to review, accept or deny, or monitor Provider Materials listed on the Marketplace.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "has no duty or obligation to review, accept or deny, monitor, or otherwise control any Provider Materials"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c014",
+      "statement": "Snowflake makes no representation about the completeness, accuracy or reliability of Provider Materials.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "makes no representations as to the Provider Materials' completeness, accuracy, reliability, validity, availability, security"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c015",
+      "statement": "Snowflake has no obligation to monitor or limit Consumers' use of Provider Materials.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Snowflake is under no obligation to monitor or otherwise limit Consumers' use of any Provider Materials"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c016",
+      "statement": "Payments under the Monetization Offering are processed by Stripe or another processor Snowflake designates.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the third-party payment processor, Stripe Inc. (\"Stripe\") or such other third-party payment processors"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c017",
+      "statement": "Snowflake's docs say Marketplace Capacity Drawdown reserves a portion of a customer's committed Snowflake capacity for Marketplace purchases.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/collaboration/marketplace-capacity-drawdown",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "a portion of your committed capacity is reserved for Snowflake Marketplace purchases"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c018",
+      "statement": "Only data shares, Native Apps and Connected Apps can be bought with Marketplace Capacity Drawdown; managed applications and professional services cannot.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q12"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/collaboration/marketplace-capacity-drawdown",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Only eligible Marketplace product types can be purchased with MCD: data shares, Native Apps, and Connected Apps."
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c019",
+      "statement": "A provider's paid listing can use either a usage-based pricing plan or a subscription-based pricing plan.",
+      "kind": "offer",
+      "section": "pricing",
+      "question_ids": [
+        "Q9",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/collaboration/provider-listings-pricing-model",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You can choose from a usage-based plan or a subscription-based plan"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c020",
+      "statement": "Trials are required for paid listings offered publicly on Snowflake Marketplace.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/collaboration/provider-listings-pricing-model",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Trials are required for listings offered publicly on the Snowflake Marketplace."
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c021",
+      "statement": "Consumers can pay for paid listings by credit card, bank transfer or Marketplace Capacity Drawdown funds.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/collaboration/consumer-listings-paying",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Snowflake supports credit card, bank transfer, and Marketplace Capacity Drawdown (MCD) Program funds for paid listings."
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c022",
+      "statement": "Paid listings are available only to organisations whose billing address is in a supported country; India is on the supported list as retrieved.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/collaboration/consumer-listings-paying",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "can access paid listings only if the billing address registered to the account is in a supported country"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c023",
+      "statement": "Before buying paid listings, an organisation administrator must accept the combined Snowflake Provider and Consumer Terms.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/collaboration/consumer-listings-paying",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "an organization administrator must accept the combined Snowflake Provider and Consumer Terms"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c024",
+      "statement": "Consumers are told to contact the provider first, using the support email on the listing, for listing-specific issues including refund requests.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/collaboration/consumer-listings-paying",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "always contact the provider first using the support email listed on the Snowflake Marketplace listing"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c025",
+      "statement": "Snowflake's docs describe Marketplace sharing as live datasets shared without creating copies of the data.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/collaboration/collaboration-marketplace-about",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Share live datasets securely and in real-time without creating copies of the data"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c026",
+      "statement": "Snowflake publishes a Standard Agreement for Marketplace Products, last updated 17 November 2023, which a provider can offer its product subject to.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2023-11-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/marketplace/standard-agreement/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Provider's offering of the Product on the Marketplace subject to this Agreement"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c027",
+      "statement": "The Standard Agreement grants the consumer a non-exclusive, non-transferable, revocable, worldwide, royalty-free licence to access and use the Product.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2023-11-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/marketplace/standard-agreement/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "non-exclusive, non-transferable, revocable (as described herein), worldwide, and royalty-free license to access, use, deploy"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c028",
+      "statement": "Under the Standard Agreement, Snowflake is not a party and has no liability or obligations (except when Snowflake is the Consumer).",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2023-11-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/marketplace/standard-agreement/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Snowflake is not a party to this Agreement and will not have any liability or obligations hereunder"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c029",
+      "statement": "Under the Standard Agreement, the consumer's right to use a Product ends on termination or expiry and access may be disabled; no deletion clause was found.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2023-11-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/marketplace/standard-agreement/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Consumer's right to use the associated Product will terminate, and Consumer's access to such Product may be disabled"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c030",
+      "statement": "With Cross-Cloud Auto-Fulfillment, Snowflake automatically fulfils a provider's data product to the consumer regions where it is needed.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/collaboration/provider-listings-auto-fulfillment",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Snowflake automatically fulfills your data product to consumer regions as needed."
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c031",
+      "statement": "A provider incurs additional costs when it makes a data product available in other regions.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q6",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/collaboration/provider-listings-auto-fulfillment",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "When you make a data product available in other regions, you incur additional costs."
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c032",
+      "statement": "An auto-fulfilled data product is transferred to a Snowflake-managed secure share area (SSA) in the remote region, not into the consumer's account.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/collaboration/provider-listings-auto-fulfillment",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "When your data product is auto-fulfilled to a new region for the first time, it's transferred to an SSA in that region."
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c033",
+      "statement": "When a provider unpublishes a listing, existing consumers continue to have access to it.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/en/collaboration/provider-listings-removing",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "existing consumers will continue to have access to the listing"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c034",
+      "statement": "When a free or trial listing is deleted, existing consumers keep access for exactly 30 days from the date of deletion.",
+      "kind": "number",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 30,
+        "unit": "days of continued consumer access",
+        "basis": "free and trial listings, after provider deletes the listing",
+        "period": "one-off"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/en/collaboration/provider-listings-removing",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "exactly 30 days from the date of deletion"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c035",
+      "statement": "For paid listings, the post-removal access window is one full calendar month regardless of the number of days.",
+      "kind": "number",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 1,
+        "unit": "calendar month of continued consumer access",
+        "basis": "paid listings, after provider removes the listing",
+        "period": "one-off"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/en/collaboration/provider-listings-removing",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "one full calendar month, regardless of the number of days"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c036",
+      "statement": "Providers may unpublish advance-payment listings immediately but must fulfil all existing consumer subscription terms.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/en/collaboration/provider-listings-removing",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Providers can unpublish advance payment listings from the Snowflake Marketplace immediately, but they must fulfill all"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c037",
+      "statement": "Every listing on Snowflake Marketplace must go through Snowflake's review and approval process.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/en/collaboration/provider-listings-creating-publishing",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Every listing in the Snowflake Marketplace must go through the review and approval process."
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c038",
+      "statement": "Private listings do not appear on Snowflake Marketplace.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q10",
+        "Q12"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/en/collaboration/provider-listings-creating-publishing",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Private listings do not appear on the Snowflake Marketplace"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c039",
+      "statement": "Offers carry individualised billing, payment terms, payment schedules and contract start and end dates.",
+      "kind": "offer",
+      "section": "object_model",
+      "question_ids": [
+        "Q10",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/en/user-guide/collaboration/listings/pricing-plans-offers/pricing-plans-and-offers",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Offers provide individualized billing, payment terms, payment schedules, and contract start and end dates."
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c040",
+      "statement": "Private offers are individualised offers that a provider extends directly to specific consumers.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q12"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/en/user-guide/collaboration/listings/pricing-plans-offers/pricing-plans-and-offers",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Private offers are individualized offers that providers can extend directly to specific consumers."
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c041",
+      "statement": "Private offers tied to pricing plans can carry negotiated pricing including discounts and custom terms.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q8",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/en/user-guide/collaboration/listings/pricing-plans-offers/pricing-plans-and-offers",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "providers can apply negotiated pricing that includes discounts and custom terms"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c042",
+      "statement": "Providers can configure multiple pricing plans for one listing, such as Good-Better-Best pricing.",
+      "kind": "offer",
+      "section": "pricing",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/en/user-guide/collaboration/listings/pricing-plans-offers/pricing-plans-and-offers",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Providers can configure multiple pricing plans for a listing"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c043",
+      "statement": "A provider's profile must be approved before it can offer paid or Marketplace listings.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q2",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/en/collaboration/provider-becoming",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Your provider profile must be approved before you can offer paid listings or marketplace listings."
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c044",
+      "statement": "Only providers whose account billing address is in one of a listed set of countries can create paid listings; India was not on that list as retrieved.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q2",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/en/collaboration/provider-becoming",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "As a provider, you can create paid listings if the billing address on your account is in one of the"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c045",
+      "statement": "Snowflake Marketplace uses Stripe for provider payouts, and providers must create a Stripe Express connected account to receive them.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/en/collaboration/provider-becoming",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Snowflake Marketplace uses Stripe to process Provider payouts. To receive payouts, Providers must create"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c046",
+      "statement": "A provider must contact Snowflake before creating a paid listing it wants to publish on the Marketplace.",
+      "kind": "terms",
+      "section": "listing",
+      "question_ids": [
+        "Q2",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/en/collaboration/provider-becoming",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Before creating a paid listing that you want to publish on the Snowflake Marketplace, contact your"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c047",
+      "statement": "A provider must use a full Snowflake account; trial accounts can share with specified consumers but not on the Marketplace.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q2",
+        "Q3"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/en/collaboration/provider-becoming",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Trial accounts can share data with specified consumers, but not on the Snowflake Marketplace."
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c048",
+      "statement": "Snowflake pitches the Marketplace to providers as reach to thousands of organisations with deals closed directly on Snowflake.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/product/features/marketplace/snowflake-marketplace-for-providers/",
+          "publisher": "Snowflake",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Offer your products to thousands of organizations in the AI Data Cloud and close deals directly on Snowflake."
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c049",
+      "statement": "Snowflake tells providers the Marketplace Capacity Drawdown Program lets buyers use committed Snowflake spend, removing budget delays.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q2",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/product/features/marketplace/snowflake-marketplace-for-providers/",
+          "publisher": "Snowflake",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Tap into committed Snowflake spend to remove budgetary delays with the Marketplace Capacity Drawdown Program."
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c050",
+      "statement": "Under the Data Sharing Rebate Program, Snowflake pays providers tiered rebates of 10% to 50% of the Snowflake credits consumers spend using their shared data, capped by the provider's spend.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q2",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 50,
+        "unit": "percent of consumers' Snowflake credits on qualifying jobs (range 10-50%)",
+        "basis": "rebate paid by Snowflake to the provider, tiered by consumer usage, capped based on provider spend",
+        "period": "not stated"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/data-sharing-rebate-program/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "providers can earn tiered rebates from 10% to 50% based on their consumers' usage of shared data"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c051",
+      "statement": "Snowflake's tiered rebate structure for the Data Sharing Rebate Program started on 1 May 2025.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-05-01",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/data-sharing-rebate-program/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Starting May 1, 2025, Snowflake will calculate rebates based on a new, higher paying tiered rebate structure"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c052",
+      "statement": "Snowflake says the Marketplace connects buyers to over 820 providers offering more than 3,400 live listings, as of 31 July 2025.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1",
+        "Q2"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-07-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/data-cloud/marketplace/",
+          "publisher": "Snowflake",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Snowflake Marketplace connects you to over 820 providers, offering more than 3,400"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c053",
+      "statement": "Snowflake Marketplace was operating on 30 September 2026, when Snowflake announced LSEG's financial data, analytics and index products on it.",
+      "kind": "status",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/news/press-releases/lseg-snowflake-expand-collaboration/",
+          "publisher": "Snowflake",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Explore LSEG's trusted financial data, analytics, and index products on Snowflake Marketplace"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c054",
+      "statement": "On 30 September 2026 Snowflake and LSEG announced an expanded five-year enterprise-wide collaboration that includes Snowflake Marketplace services.",
+      "kind": "event",
+      "section": "supply",
+      "question_ids": [
+        "Q2",
+        "Q3"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/news/press-releases/lseg-snowflake-expand-collaboration/",
+          "publisher": "Snowflake",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "September 30, 2026 – Snowflake (NYSE: SNOW), the AI Data Cloud company, and LSEG announced an expanded five-year"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c055",
+      "statement": "In late September 2026 Snowflake Inc. priced an upsized USD 3.75 billion private placement of 0.00% convertible senior notes, including USD 1.75 billion due 2031.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "Snowflake Inc. (parent company)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/news/press-releases/snowflake-prices-upsized-private-placement-3-75-billion-convertible-senior-notes/",
+          "publisher": "Snowflake",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "$1.75 billion aggregate principal amount of its 0.00% Convertible Senior Notes due 2031"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c056",
+      "statement": "Snowflake's FY2026 10-K tells customers they can use public and commercially available Marketplace data sets to enrich analysis and train AI models.",
+      "kind": "offer",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "filing",
+      "as_of": "2026-03-20",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/1640147/000164014726000008/snow-20260131.htm",
+          "publisher": "Snowflake Inc. (SEC Form 10-K)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Leverage public and commercially available data sets on the Snowflake Marketplace to enrich insights"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c057",
+      "statement": "Snowflake's FY2026 10-K pitches the Marketplace to providers as a way to list data, applications and AI products and tap new monetization streams.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "filing",
+      "as_of": "2026-03-20",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/1640147/000164014726000008/snow-20260131.htm",
+          "publisher": "Snowflake Inc. (SEC Form 10-K)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "List data, applications and AI products on the Snowflake Marketplace and tap into new monetization streams."
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c058",
+      "statement": "A provider can attach its own listing terms by URL, which must be publicly accessible without authentication, instead of the Standard Agreement.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/en/collaboration/provider-listings-reference",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Provide a URL to your own listing terms. Must be publicly accessible and not require authentication to access."
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c059",
+      "statement": "For private listings only, a provider can choose to provide the listing terms to consumers offline rather than at a URL.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q12"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/en/collaboration/provider-listings-reference",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Listing terms will be provided offline: Available for private listings only."
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c060",
+      "statement": "A limited trial listing lets consumers trial the provider's data product for a limited period.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/en/collaboration/provider-listings-reference",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Consumers can trial your data product for a limited period of time."
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c061",
+      "statement": "Free listings are available to all consumers on the Marketplace but require Snowflake approval before publishing.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q9",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/en/collaboration/provider-listings-reference",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Available to all consumers on the Snowflake Marketplace. Requires Snowflake approval before publishing."
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c062",
+      "statement": "Listings can include a data dictionary that shows consumers the contents and structure of the listing before they install the data product.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/en/collaboration/provider-listings-reference",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "give consumers insight into the contents and structure of your listing before they install the data product"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c063",
+      "statement": "Listings can include data previews that provide a representative sample of the data.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/en/collaboration/provider-listings-reference",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Previews provide a representative sample of the data"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c064",
+      "statement": "Public listings with a Secure Share data product must include at least one SQL quick-start example.",
+      "kind": "terms",
+      "section": "listing",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/en/collaboration/provider-listings-reference",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Required for public listings with a Secure Share data product."
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c065",
+      "statement": "Listings declare an update frequency attribute stating how often the data product is updated.",
+      "kind": "offer",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/en/collaboration/provider-listings-reference",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "How often your data product is updated. If updated at different frequencies, choose the highest frequency."
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c066",
+      "statement": "A provider that has completed a third-party-audited compliance certification can configure its listings to show that certification.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/en/collaboration/provider-listings-reference",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "completed compliance certification by a third-party auditor, you can configure your listings to include this certification"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c067",
+      "statement": "When getting a paid listing, the consumer selects the Paid option and reviews the price details before proceeding.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/en/collaboration/consumer-listings-access",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "review details about the price"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c068",
+      "statement": "After a consumer requests a limited trial listing, the provider is notified and contacts the consumer.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/en/collaboration/consumer-listings-access",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "After you request a limited trial listing, the listing provider is notified and contacts you."
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c069",
+      "statement": "To get listings a consumer account needs the CREATE DATABASE and IMPORT SHARE privileges, plus a purchase privilege for paid listings.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/en/collaboration/consumer-becoming",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the CREATE DATABASE and IMPORT SHARE privileges"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c070",
+      "statement": "Snowflake's disbursement report shows pre-tax fees owed to Snowflake by the provider, subtracted from the gross amount; no fee rate is given.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.snowflake.com/en/collaboration/views/marketplace-disbursement-report-ds",
+          "publisher": "Snowflake",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Pre-tax fees, owed to Snowflake by the provider. Snowflake subtracts the fees from the gross amount."
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c071",
+      "statement": "The Provider must defend Snowflake against third-party claims arising from its Provider Materials; the Terms give no Provider indemnity to Consumers.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "defend Snowflake against any claim by a third party arising from or relating to any of Customer's Provider Materials"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c072",
+      "statement": "Each party's aggregate liability to the other under the Provider and Consumer Terms is capped at USD 50,000, outside excluded claims.",
+      "kind": "number",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 50000,
+        "unit": "USD aggregate liability cap",
+        "basis": "each party's total liability to the other under the Provider and Consumer Terms (Snowflake vs Customer); excludes payment and indemnity obligations",
+        "period": "aggregate, all claims"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "for all claims in the aggregate (for damages or liability of any type) in connection with these Terms exceed $50,000 (USD)"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c073",
+      "statement": "Snowflake requires Providers' Listing Terms to state that the agreement is solely between Provider and Consumer, not Snowflake.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the agreement is solely between Customer and the Consumer, and not Snowflake (except where Snowflake is the Consumer)"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-marketplace-c074",
+      "statement": "The Provider alone must handle Consumer inquiries, complaints and claims about its materials, including those on quality, errors or refunds.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "including those related to quality, content, errors, or refunds, relating to its Provider Materials"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "matrix.public_prices",
+      "urls_tried": [
+        "https://app.snowflake.com/marketplace",
+        "https://app.snowflake.com/marketplace/providers/GZ1M6ZEU47J/LSEG?search=lseg"
+      ],
+      "reason": "js_empty"
+    },
+    {
+      "field": "matrix.public_listing",
+      "urls_tried": [
+        "https://app.snowflake.com/marketplace",
+        "https://docs.snowflake.com/en/collaboration/consumer-becoming",
+        "https://docs.snowflake.com/en/collaboration/consumer-listings-access"
+      ],
+      "reason": "js_empty"
+    },
+    {
+      "field": "matrix.exclusivity_offered",
+      "urls_tried": [
+        "https://www.snowflake.com/marketplace/standard-agreement/",
+        "https://docs.snowflake.com/en/collaboration/provider-listings-reference"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.erasure_after_sale",
+      "urls_tried": [
+        "https://www.snowflake.com/marketplace/standard-agreement/",
+        "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.monetization_fee_rate",
+      "urls_tried": [
+        "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+        "https://docs.snowflake.com/collaboration/provider-listings-pricing-model",
+        "https://docs.snowflake.com/en/collaboration/provider-becoming",
+        "https://docs.snowflake.com/en/collaboration/provider-monetization-usage",
+        "https://docs.snowflake.com/en/collaboration/views/marketplace-disbursement-report-ds"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.listing_pages",
+      "urls_tried": [
+        "https://app.snowflake.com/marketplace",
+        "https://app.snowflake.com/marketplace/providers/GZ1M6ZEU47J/LSEG?search=lseg"
+      ],
+      "reason": "js_empty"
+    },
+    {
+      "field": "other.traction_filing",
+      "urls_tried": [
+        "https://www.sec.gov/Archives/edgar/data/1640147/000164014726000037/snow-20260731.htm",
+        "https://www.sec.gov/Archives/edgar/data/1640147/000164014726000008/snow-20260131.htm"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "questions.Q1",
+      "urls_tried": [
+        "https://www.snowflake.com/en/data-cloud/marketplace/",
+        "https://www.sec.gov/Archives/edgar/data/1640147/000164014726000008/snow-20260131.htm"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.independent_press",
+      "urls_tried": [],
+      "reason": "blocked"
+    }
+  ],
+  "conflicts": [
+    {
+      "claim_ids": [
+        "snowflake-marketplace-c025",
+        "snowflake-marketplace-c032"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "Docs say Marketplace shares are made 'without creating copies', while auto-fulfilment transfers the data product to a Snowflake-managed secure share area in each remote region. Both hold at different scopes: no copy lands in the consumer's account, but cross-region delivery is a replica."
+    },
+    {
+      "claim_ids": [
+        "snowflake-marketplace-c022",
+        "snowflake-marketplace-c044"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "Not a contradiction but an asymmetry worth flagging: India is on the consumer paid-listing country list but not on the provider paid-listing list as retrieved."
+    }
+  ],
+  "leads": [
+    {
+      "url": "https://www.snowflake.com/content/dam/snowflake-site/legal/legal-files/Snowflake-Data-Sharing-Rebate-Credit-Terms-And-Conditions.pdf",
+      "why": "Full rebate terms (tiers, caps, eligibility); not read in this run."
+    },
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1640147/000164014726000037/snow-20260731.htm",
+      "why": "Q2 FY2027 10-Q matched 'Snowflake Marketplace' in EDGAR full-text search, but the fetcher truncated before MD&A."
+    },
+    {
+      "url": "https://docs.snowflake.com/en/collaboration/policies-guidelines-enforcement",
+      "why": "Listing review policies and enforcement; not fetched."
+    },
+    {
+      "url": "https://docs.snowflake.com/en/collaboration/views/marketplace-disbursement-report-org",
+      "why": "Organisation-level disbursement view; may carry fee detail."
+    }
+  ]
+}

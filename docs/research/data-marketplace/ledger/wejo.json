@@ -1,0 +1,2315 @@
+{
+ "kind": "profile",
+ "slug": "wejo",
+ "name": "Wejo Group Limited",
+ "aliases": [
+  "Wejo",
+  "Wejo Limited",
+  "Wejo Marketplace"
+ ],
+ "segment": "failure",
+ "tier": "light",
+ "status": {
+  "value": "shut",
+  "claim_id": "wejo-c001"
+ },
+ "names_for": {
+  "catalogue_side": "Wejo Marketplace Data Solutions (also 'Wejo Data Marketplace')",
+  "custom_side": ""
+ },
+ "matrix": {
+  "operator_role": {
+   "value": "mixed",
+   "claim_ids": [
+    "wejo-c039",
+    "wejo-c041",
+    "wejo-c047",
+    "wejo-c048",
+    "wejo-c029"
+   ],
+   "note": "Legally Wejo sublicensed OEM data in its own name (GM DSA), but OEMs kept approval rights and Wejo booked itself as agent where OEMs retained rights and principal where it controlled the data."
+  },
+  "economics_model": {
+   "value": "revenue_share",
+   "claim_ids": [
+    "wejo-c040",
+    "wejo-c049",
+    "wejo-c055"
+   ],
+   "note": "Wejo paid OEM data suppliers a share of gross revenue (GM DSA; OEM revenue-share fees netted from revenue). SaaS fees were a second revenue line."
+  },
+  "who_pays_fee": {
+   "value": "seller",
+   "claim_ids": [
+    "wejo-c040",
+    "wejo-c049"
+   ],
+   "note": "No buyer-side fee is published; Wejo's take is what remains of the licence fee after the OEM's revenue share, so the supplier bears it out of proceeds."
+  },
+  "supply_models": {
+   "value": [
+    "partner_licensed"
+   ],
+   "claim_ids": [
+    "wejo-c039",
+    "wejo-c025",
+    "wejo-c023",
+    "wejo-c052"
+   ],
+   "note": "All inventory was connected-vehicle data licensed from OEM, Tier 1 and fleet partners; no own collection or contributor uploads found."
+  },
+  "custody_model": {
+   "value": "mixed",
+   "claim_ids": [
+    "wejo-c031",
+    "wejo-c032",
+    "wejo-c052",
+    "wejo-c044"
+   ],
+   "note": "Data was processed on Wejo's cloud platform (ADEPT / Neural Edge) and also delivered to customers, whose copies had to be destroyed on GM DSA termination. Delivery mechanics (API, files, cloud shares) were not reachable."
+  },
+  "transaction_mode": {
+   "value": "contact_sales",
+   "claim_ids": [
+    "wejo-c051",
+    "wejo-c053",
+    "wejo-c041",
+    "wejo-c018"
+   ],
+   "note": "Term licence contracts recognised ratably, reported as bookings and TCV, with GM approval of each licensing opportunity; no self-serve checkout found (website unreachable)."
+  },
+  "public_prices": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": "wejo.com unreachable; no price found in filings."
+  },
+  "licence_model": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": "Customer licence template not found; only the upstream GM DSA flow-down requirement is known."
+  },
+  "exclusivity_offered": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": "Upstream GM licence to Wejo was non-exclusive; whether any buyer could obtain exclusivity is not published."
+  },
+  "public_listing": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": "wejo.com and marketplace pages unreachable; Wayback blocked."
+  },
+  "buyer_vetting": {
+   "value": "case_by_case",
+   "claim_ids": [
+    "wejo-c041"
+   ],
+   "note": "For GM data at least, each commercial licensing opportunity went to GM for approval via the Joint Approval Process; practice for other OEMs' data unknown."
+  },
+  "sample_mechanics": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": "No sample or trial terms found."
+  },
+  "versioning": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": "Products were near real-time and historic data services; no versioning terms found."
+  },
+  "human_subject_consent_docs": {
+   "value": "unknown",
+   "claim_ids": [
+    "wejo-c036",
+    "wejo-c035",
+    "wejo-c046"
+   ],
+   "note": "Only an investor-facing assertion that PII is used with appropriate consent; what, if anything, buyers received is not published."
+  },
+  "contributor_pay_model": {
+   "value": "not_applicable",
+   "claim_ids": [],
+   "note": "Data came from OEM connected-vehicle feeds under company-to-company licences; no individual capturers or uploaders were engaged or paid by Wejo in any source found."
+  },
+  "catalogue_plus_custom": {
+   "value": "catalogue_only",
+   "claim_ids": [
+    "wejo-c028",
+    "wejo-c030",
+    "wejo-c021"
+   ],
+   "note": "Data was sold as standardised data sets from OEM feeds; the second line (Software & Cloud Solutions) was software and integration, not collection to order."
+  },
+  "erasure_after_sale": {
+   "value": "contractual_deletion",
+   "claim_ids": [
+    "wejo-c044",
+    "wejo-c043"
+   ],
+   "note": "Evidence is the upstream GM DSA: on its termination Wejo had to make those it let use the data destroy their copies, and licensees had to accept terms at least as restrictive."
+  },
+  "quality_evidence": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": "No listing pages or quality statements reachable."
+  }
+ },
+ "questions": {
+  "Q1": {
+   "state": "partial",
+   "answer": "Not photo/video: buyers were departments of transportation, mapping, logistics, insurers and others licensing connected-vehicle data; about 108 customers and USD 8.4m revenue in FY2022, a third of the USD 23m projected in 2021.",
+   "claim_ids": [
+    "wejo-c033",
+    "wejo-c020",
+    "wejo-c015",
+    "wejo-c017",
+    "wejo-c018",
+    "wejo-c060",
+    "wejo-c059"
+   ]
+  },
+  "Q2": {
+   "state": "partial",
+   "answer": "OEMs supplied data to Wejo's marketplace for a revenue share rather than selling it themselves; Wejo pitched source-agnostic integration. Why OEMs chose this over their own channels is not stated.",
+   "claim_ids": [
+    "wejo-c055",
+    "wejo-c040",
+    "wejo-c058"
+   ]
+  },
+  "Q3": {
+   "state": "sourced",
+   "answer": "All supply was connected-vehicle data licensed from OEM, Tier 1 and fleet partners (29 at end-2022) under agreements of up to seven years; GM's was non-exclusive, sublicensable only as permitted, for a revenue share.",
+   "claim_ids": [
+    "wejo-c023",
+    "wejo-c024",
+    "wejo-c039",
+    "wejo-c040",
+    "wejo-c045",
+    "wejo-c025",
+    "wejo-c052"
+   ]
+  },
+  "Q4": {
+   "state": "partial",
+   "answer": "The supplier kept control: GM approved each licensing opportunity through a Joint Approval Process and barred licensing outside the agreement. No record found of terms being changed after the fact.",
+   "claim_ids": [
+    "wejo-c041",
+    "wejo-c042",
+    "wejo-c047"
+   ]
+  },
+  "Q5": {
+   "state": "partial",
+   "answer": "Wejo licensed data in its own name under sublicensable OEM licences, but accounted as agent where OEMs retained rights and principal where it controlled data. Consent warranties and indemnities to buyers are not published.",
+   "claim_ids": [
+    "wejo-c039",
+    "wejo-c047",
+    "wejo-c048",
+    "wejo-c029"
+   ]
+  },
+  "Q6": {
+   "state": "partial",
+   "answer": "OEM data was ingested and processed on Wejo's cloud platform and delivered to customers within 60 seconds; exact delivery mechanics were not reachable.",
+   "claim_ids": [
+    "wejo-c052",
+    "wejo-c031",
+    "wejo-c032"
+   ]
+  },
+  "Q7": {
+   "state": "partial",
+   "answer": "Drivers are the data subjects. Wejo asserted PII was used with appropriate consent and that two product lines used anonymised data; the GM DSA excludes individual-attributable insights. Who obtained consent is not stated.",
+   "claim_ids": [
+    "wejo-c036",
+    "wejo-c035",
+    "wejo-c037",
+    "wejo-c046"
+   ]
+  },
+  "Q8": {
+   "state": "partial",
+   "answer": "Upstream, GM required flow-down terms at least as restrictive as the DSA and destruction of all copies, including licensees', on termination. Customer licence terms themselves were not found.",
+   "claim_ids": [
+    "wejo-c043",
+    "wejo-c044",
+    "wejo-c042",
+    "wejo-c029"
+   ]
+  },
+  "Q9": {
+   "state": "partial",
+   "answer": "Customers paid licence fees under term contracts recognised ratably; OEMs received a revenue share (USD 2.4m netted in H1 2022). No self-serve checkout found.",
+   "claim_ids": [
+    "wejo-c051",
+    "wejo-c053",
+    "wejo-c040",
+    "wejo-c049",
+    "wejo-c055",
+    "wejo-c026"
+   ]
+  },
+  "Q10": {
+   "state": "partial",
+   "answer": "Products were standardised data sets and data services (portion or all of the data in a market), near real-time and historic. Revisions, entitlements and withdrawal rules not found.",
+   "claim_ids": [
+    "wejo-c028",
+    "wejo-c034",
+    "wejo-c051"
+   ]
+  },
+  "Q11": {
+   "state": "unknown",
+   "answer": "",
+   "claim_ids": []
+  },
+  "Q12": {
+   "state": "partial",
+   "answer": "Wejo Marketplace Data Solutions (74% of FY2022 revenue) sold data; Wejo Software & Cloud Solutions (26%) sold software and services around it. There was no collect-to-order data side.",
+   "claim_ids": [
+    "wejo-c021",
+    "wejo-c030",
+    "wejo-c054",
+    "wejo-c028"
+   ]
+  }
+ },
+ "claims": [
+  {
+   "statement": "Companies House lists Wejo Limited (company 08813730) with status In Administration as of the retrieval date.",
+   "kind": "status",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://find-and-update.company-information.service.gov.uk/company/08813730",
+     "publisher": "Companies House",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "In Administration"
+    }
+   ],
+   "id": "wejo-c001"
+  },
+  {
+   "statement": "The newest filing on Wejo Limited's Companies House record is an administrator's progress report (AM10) dated 17 August 2026.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2026-08-17",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://find-and-update.company-information.service.gov.uk/company/08813730/filing-history",
+     "publisher": "Companies House",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Administrator's progress report"
+    }
+   ],
+   "id": "wejo-c002"
+  },
+  {
+   "statement": "The administrators of Wejo Limited filed notices extending the period of administration (AM19) in July 2024 and June 2025.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2025-06-25",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://find-and-update.company-information.service.gov.uk/company/08813730/filing-history",
+     "publisher": "Companies House",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Notice of extension of period"
+    }
+   ],
+   "id": "wejo-c003"
+  },
+  {
+   "statement": "Andrew Poxon and Hilary Pascoe of Leonard Curtis were appointed administrators of Wejo Limited on 10 July 2023, per the London Gazette notice.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2023-07-10",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.thegazette.co.uk/notice/4399698",
+     "publisher": "The London Gazette",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "10 July 2023"
+    },
+    {
+     "url": "https://www.thegazette.co.uk/notice/4399698",
+     "publisher": "The London Gazette",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Andrew Poxon (IP No. 8620) and Hilary Pascoe (IP No. 27590) both of Leonard Curtis"
+    }
+   ],
+   "id": "wejo-c004"
+  },
+  {
+   "statement": "Wejo Group's 8-K of 18 July 2023 disclosed that Wejo Limited, its UK operating subsidiary, had appointed joint administrators from Leonard Curtis Recovery Limited.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2023-07-18",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000143/wejo-20230718.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "appointed Andrew Poxon and Hilary Pascoe of Leonard Curtis Recovery Limited as joint administrators of Wejo Limited"
+    }
+   ],
+   "id": "wejo-c005"
+  },
+  {
+   "statement": "Wejo Group's 8-K of 18 July 2023 states that filing the notice of appointment of administrators was an event of default that accelerated the company's debt obligations.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2023-07-18",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000143/wejo-20230718.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "The filing of the NOA constitutes a continuing event of default that accelerated"
+    }
+   ],
+   "id": "wejo-c006"
+  },
+  {
+   "statement": "Among the accelerated obligations was a secured convertible note issued under a 16 December 2022 securities purchase agreement with General Motors Holdings LLC.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2023-07-18",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000143/wejo-20230718.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "dated December 16, 2022, by and between the Company and General Motors Holdings LLC"
+    }
+   ],
+   "id": "wejo-c007"
+  },
+  {
+   "statement": "Wejo's 8-K of 28 June 2023 put the accelerated amount under the GM secured convertible note at about USD 10.5 million of principal and interest.",
+   "kind": "number",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 10.5,
+    "unit": "USD million",
+    "basis": "principal and interest owed by Wejo Group under the GM Holdings secured convertible note, accelerated on default",
+    "period": "as at June 2023"
+   },
+   "origin": "filing",
+   "as_of": "2023-06-28",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000140/wejo-20230628.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "approximately $10.5 million in principal and interest through December 2023 in the aggregate under"
+    }
+   ],
+   "id": "wejo-c008"
+  },
+  {
+   "statement": "Wejo's 8-K of 28 June 2023 put the accelerated amount under its April 2021 secured loan notes (Securis Investment Partners as security agent) at about USD 42.6 million.",
+   "kind": "number",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 42.6,
+    "unit": "USD million",
+    "basis": "principal and unpaid interest owed under the 21 April 2021 secured loan notes, accelerated on default",
+    "period": "as at June 2023"
+   },
+   "origin": "filing",
+   "as_of": "2023-06-28",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000140/wejo-20230628.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "approximately $42.6 million in principal and unpaid interest through April 2024 in the aggregate under"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000140/wejo-20230628.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Securis Investment Partners LLP, as security agent"
+    }
+   ],
+   "id": "wejo-c009"
+  },
+  {
+   "statement": "A third notice of intent to appoint administrators over Wejo Limited was filed on 27 June 2023.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2023-06-28",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000140/wejo-20230628.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "was filed at 10.00 am BST on June 27, 2023"
+    }
+   ],
+   "id": "wejo-c010"
+  },
+  {
+   "statement": "Wejo and TKB Critical Technologies mutually agreed in June 2023 to terminate their business combination agreement.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2023-06-28",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000140/wejo-20230628.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "the parties mutually agreed to terminate the Business Combination Agreement"
+    }
+   ],
+   "id": "wejo-c011"
+  },
+  {
+   "statement": "Nasdaq determined that Wejo Group's common shares and public warrants would be delisted after the notice of intent to appoint administrators.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2023-06-28",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000140/wejo-20230628.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Nasdaq had determined that the Company's common shares and public warrants"
+    }
+   ],
+   "id": "wejo-c012"
+  },
+  {
+   "statement": "Wejo Group's last 8-K, filed 7 November 2023, reported the immediate resignation of director and audit committee chair Ann M Schwister.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2023-11-07",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000154/wejo-20231107.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "of her decision to resign, effective immediately"
+    }
+   ],
+   "id": "wejo-c013"
+  },
+  {
+   "statement": "The administrators' statement of proposals for Wejo Limited (AM03) was filed at Companies House on 12 September 2023.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2023-09-12",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://find-and-update.company-information.service.gov.uk/company/08813730/filing-history",
+     "publisher": "Companies House",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Statement of administrator's proposal"
+    }
+   ],
+   "id": "wejo-c014"
+  },
+  {
+   "statement": "Wejo reported FY2022 net revenue of USD 8.4 million, up 227% on 2021.",
+   "kind": "number",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 8.4,
+    "unit": "USD million",
+    "basis": "Wejo Group consolidated net revenue, all product lines",
+    "period": "per year (FY2022)"
+   },
+   "origin": "filing",
+   "as_of": "2023-04-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000064/wejo-8kex991q42022.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Net Revenue for 2022 increased to $8.4 million, up 227% compared to the full-year 2021"
+    }
+   ],
+   "id": "wejo-c015"
+  },
+  {
+   "statement": "Wejo reported an FY2022 net loss of USD 159.3 million.",
+   "kind": "number",
+   "section": "demand",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 159.3,
+    "unit": "USD million",
+    "basis": "Wejo Group consolidated net loss",
+    "period": "per year (FY2022)"
+   },
+   "origin": "filing",
+   "as_of": "2023-04-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000064/wejo-8kex991q42022.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Net loss for 2022 was $159.3 million and Adjusted EBITDA loss was $97.2 million"
+    }
+   ],
+   "id": "wejo-c016"
+  },
+  {
+   "statement": "Wejo reported FY2022 gross bookings of USD 18.8 million.",
+   "kind": "number",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 18.8,
+    "unit": "USD million",
+    "basis": "gross bookings as defined by Wejo (company metric, not GAAP revenue)",
+    "period": "per year (FY2022)"
+   },
+   "origin": "filing",
+   "as_of": "2023-04-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000064/wejo-8kex991q42022.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Gross Bookings increased by approximately 124% to $18.8 million in 2022"
+    }
+   ],
+   "id": "wejo-c017"
+  },
+  {
+   "statement": "Wejo reported total contract value of USD 39.4 million as of 31 December 2022.",
+   "kind": "number",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 39.4,
+    "unit": "USD million",
+    "basis": "total contract value as defined by Wejo (company metric)",
+    "period": "as at 31 Dec 2022"
+   },
+   "origin": "filing",
+   "as_of": "2023-04-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000064/wejo-8kex991q42022.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "as of December 31, 2022 increased 92% to $39.4 million"
+    }
+   ],
+   "id": "wejo-c018"
+  },
+  {
+   "statement": "Wejo and its auditor expressed substantial doubt about its ability to continue as a going concern in the FY2022 10-K.",
+   "kind": "outcome",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2023-04-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000068/wejo-20221231.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "have expressed substantial doubt about our ability to continue as a going concern"
+    }
+   ],
+   "id": "wejo-c019"
+  },
+  {
+   "statement": "Wejo said it had approximately 108 customers as of 31 December 2022.",
+   "kind": "number",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 108,
+    "unit": "customers",
+    "basis": "all Wejo customers across both business lines",
+    "period": "as at 31 Dec 2022"
+   },
+   "origin": "filing",
+   "as_of": "2023-04-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000068/wejo-20221231.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "the Company had approximately 108 customers across a variety of industries and sectors"
+    }
+   ],
+   "id": "wejo-c020"
+  },
+  {
+   "statement": "Wejo earned 74% of FY2022 revenue from Wejo Marketplace Data Solutions and 26% from Wejo Software & Cloud Solutions.",
+   "kind": "number",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q1",
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 74,
+    "unit": "percent of revenue",
+    "basis": "share of Wejo Group FY2022 revenue from Wejo Marketplace Data Solutions",
+    "period": "per year (FY2022)"
+   },
+   "origin": "filing",
+   "as_of": "2023-04-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000068/wejo-20221231.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "the Company earned 74% of its revenue from the Wejo Marketplace Data Solutions"
+    }
+   ],
+   "id": "wejo-c021"
+  },
+  {
+   "statement": "Wejo said it had 20.8 million monetizable vehicles on its Wejo Neural Edge platform at 31 December 2022.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 20.8,
+    "unit": "million vehicles",
+    "basis": "connected vehicles whose data Wejo could monetise, per Wejo",
+    "period": "as at 31 Dec 2022"
+   },
+   "origin": "filing",
+   "as_of": "2023-04-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000068/wejo-20221231.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Wejo had 20.8 million monetizable vehicles on the Wejo Neural Edge platform"
+    }
+   ],
+   "id": "wejo-c022"
+  },
+  {
+   "statement": "Wejo said it had 29 OEM, Tier 1 and fleet data access relationships at 31 December 2022.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 29,
+    "unit": "data access relationships",
+    "basis": "OEM, Tier 1 and fleet data suppliers",
+    "period": "as at 31 Dec 2022"
+   },
+   "origin": "filing",
+   "as_of": "2023-04-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000068/wejo-20221231.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Wejo had 29 OEM, Tier 1, and Fleet data access relationships"
+    }
+   ],
+   "id": "wejo-c023"
+  },
+  {
+   "statement": "Wejo said its preferred data-partner relationships typically have terms of up to seven years.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2023-04-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000068/wejo-20221231.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "29 preferred partner relationships, which typically have terms of up to seven years"
+    }
+   ],
+   "id": "wejo-c024"
+  },
+  {
+   "statement": "Wejo's 10-K states that its products rely on live data streams from vehicle manufacturers (OEMs) obtained on reasonable economic terms.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2023-04-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000068/wejo-20221231.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Our products rely on live data streams from original equipment manufacturers"
+    }
+   ],
+   "id": "wejo-c025"
+  },
+  {
+   "statement": "Wejo's 10-K warns that if it cannot keep contracts with OEM partners for data streams at reasonable prices, its products could be impaired.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2023-04-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000068/wejo-20221231.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "if we are unable to maintain sufficient contracts with such partners for data streams at reasonable prices"
+    }
+   ],
+   "id": "wejo-c026"
+  },
+  {
+   "statement": "Wejo named General Motors, Sompo Holdings, Palantir and Microsoft as strategic partners in its FY2022 10-K.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2023-04-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000068/wejo-20221231.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Our strong partnerships with companies such as General Motors Holdings LLC"
+    }
+   ],
+   "id": "wejo-c027"
+  },
+  {
+   "statement": "Wejo Marketplace Data Solutions takes ingested data from multiple sources and transforms it into standardized data sets for customers.",
+   "kind": "offer",
+   "section": "object_model",
+   "question_ids": [
+    "Q3",
+    "Q10",
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2023-04-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000068/wejo-20221231.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Wejo Marketplace Data Solutions utilizes ingested data from multiple sources"
+    }
+   ],
+   "id": "wejo-c028"
+  },
+  {
+   "statement": "Wejo sold data licences of its own proprietary data to customers.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q5",
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2023-04-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000068/wejo-20221231.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "data licenses of our proprietary data used by customers for ongoing and efficient access"
+    }
+   ],
+   "id": "wejo-c029"
+  },
+  {
+   "statement": "Wejo Software & Cloud Solutions provided software platforms, analytics tools, data management and data privacy solutions for OEMs, fleets, insurers and others.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2023-04-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000068/wejo-20221231.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Wejo Software & Cloud Solutions supports usage of these valuable data sets with solutions such as software platforms"
+    }
+   ],
+   "id": "wejo-c030"
+  },
+  {
+   "statement": "Wejo Neural Edge was described as a cloud-based platform for accessing and sharing connected vehicle data.",
+   "kind": "architecture",
+   "section": "custody",
+   "question_ids": [
+    "Q6"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2023-04-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000068/wejo-20221231.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Wejo Neural Edge is a cloud-based software and analytics platform"
+    }
+   ],
+   "id": "wejo-c031"
+  },
+  {
+   "statement": "Wejo said it could deliver data from vehicle to customer in under 60 seconds.",
+   "kind": "architecture",
+   "section": "custody",
+   "question_ids": [
+    "Q6"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2023-04-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000068/wejo-20221231.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "We are able to deliver data from vehicle to customer in less than 60 seconds"
+    }
+   ],
+   "id": "wejo-c032"
+  },
+  {
+   "statement": "Wejo's target customers included departments of transportation, mapping and navigation firms, logistics and geospatial companies.",
+   "kind": "offer",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2022-03-31",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444822000015/wejo-20211231.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "departments of transportation, mapping and navigation organizations, logistics companies"
+    }
+   ],
+   "id": "wejo-c033"
+  },
+  {
+   "statement": "Wejo's Traffic Management Services line provided near real-time and historic intelligence about traffic patterns and roads.",
+   "kind": "offer",
+   "section": "object_model",
+   "question_ids": [
+    "Q1",
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2023-04-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000068/wejo-20221231.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Traffic Management Services offering provides near real-time and historic intelligence about traffic patterns"
+    }
+   ],
+   "id": "wejo-c034"
+  },
+  {
+   "statement": "Wejo said its Traffic Management Services and Audience and Media Measurement lines used anonymized or de-identified data, and its other lines used PII.",
+   "kind": "terms",
+   "section": "regulation",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2023-04-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000068/wejo-20221231.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Traffic Management Services and Audience and Media Measurement use anonymized or de-identified data"
+    }
+   ],
+   "id": "wejo-c035"
+  },
+  {
+   "statement": "Wejo's 10-K asserts that PII is used with appropriate consent, without saying in that passage who obtains it or what the buyer receives.",
+   "kind": "terms",
+   "section": "regulation",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2023-04-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000068/wejo-20221231.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "PII is used with appropriate consent under our stringent privacy standards"
+    }
+   ],
+   "id": "wejo-c036"
+  },
+  {
+   "statement": "Wejo said its data collection and handling processes aim to comply with applicable laws including GDPR and CCPA.",
+   "kind": "terms",
+   "section": "regulation",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2023-04-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000068/wejo-20221231.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "All of Wejo's data collection and handling processes aim to achieve compliance with all applicable laws"
+    }
+   ],
+   "id": "wejo-c037"
+  },
+  {
+   "statement": "Wejo Limited and General Motors Holdings LLC signed a Data Sharing Agreement effective 21 December 2018, filed as an exhibit to Wejo's 2021 S-4.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2018-12-21",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000110465921093068/tm2121431d2_ex10-2.htm",
+     "publisher": "General Motors Holdings LLC and Wejo Limited (exhibit on SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "effective as of the 21st day of December, 2018"
+    }
+   ],
+   "id": "wejo-c038"
+  },
+  {
+   "statement": "Under the GM Data Sharing Agreement, GM granted Wejo a non-exclusive, non-transferable licence to its vehicle data, sublicensable only as the agreement permits.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q5"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2018-12-21",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000110465921093068/tm2121431d2_ex10-2.htm",
+     "publisher": "General Motors Holdings LLC and Wejo Limited (exhibit on SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "a non-exclusive, non-transferable, sublicensable (solely to the extent permitted herein), license to reproduce"
+    }
+   ],
+   "id": "wejo-c039"
+  },
+  {
+   "statement": "Under the GM Data Sharing Agreement, Wejo pays GM a share (percentage redacted) of the gross revenue Wejo receives from licensing or otherwise using the data.",
+   "kind": "terms",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3",
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2018-12-21",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000110465921093068/tm2121431d2_ex10-2.htm",
+     "publisher": "General Motors Holdings LLC and Wejo Limited (exhibit on SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "of the gross revenue received by Wejo from Wejo's licensing or other use of the Data"
+    }
+   ],
+   "id": "wejo-c040"
+  },
+  {
+   "statement": "Under the GM Data Sharing Agreement, Wejo must present commercial licensing opportunities for GM data to GM for approval through a Joint Approval Process.",
+   "kind": "terms",
+   "section": "vetting",
+   "question_ids": [
+    "Q4",
+    "Q5",
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2018-12-21",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000110465921093068/tm2121431d2_ex10-2.htm",
+     "publisher": "General Motors Holdings LLC and Wejo Limited (exhibit on SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "licensing opportunities to GM for approval via the Joint Approval Process"
+    }
+   ],
+   "id": "wejo-c041"
+  },
+  {
+   "statement": "The GM Data Sharing Agreement bars Wejo from licensing GM data or derived insights to any third party except as the agreement expressly permits.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q4",
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2018-12-21",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000110465921093068/tm2121431d2_ex10-2.htm",
+     "publisher": "General Motors Holdings LLC and Wejo Limited (exhibit on SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Wejo will not license the Data or Derived Data Insights to any third party or permit any third party to"
+    }
+   ],
+   "id": "wejo-c042"
+  },
+  {
+   "statement": "The GM Data Sharing Agreement requires Wejo to ensure anyone using GM data or derived insights complies with terms at least as restrictive as the agreement.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2018-12-21",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000110465921093068/tm2121431d2_ex10-2.htm",
+     "publisher": "General Motors Holdings LLC and Wejo Limited (exhibit on SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "complies with terms that are at least as restrictive as the relevant terms of this Agreement"
+    }
+   ],
+   "id": "wejo-c043"
+  },
+  {
+   "statement": "On expiry or termination of the GM Data Sharing Agreement, Wejo must destroy all copies of the data and ensure those it let use the data do the same.",
+   "kind": "terms",
+   "section": "post_sale",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2018-12-21",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000110465921093068/tm2121431d2_ex10-2.htm",
+     "publisher": "General Motors Holdings LLC and Wejo Limited (exhibit on SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "destroy all copies of the Data (and ensure others that Wejo has permitted to access or use the Data do the same)"
+    }
+   ],
+   "id": "wejo-c044"
+  },
+  {
+   "statement": "The GM Data Sharing Agreement ran for a term of seven years from its effective date.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2018-12-21",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000110465921093068/tm2121431d2_ex10-2.htm",
+     "publisher": "General Motors Holdings LLC and Wejo Limited (exhibit on SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "begins on the Effective Date and ends on the seventh (7th)"
+    }
+   ],
+   "id": "wejo-c045"
+  },
+  {
+   "statement": "The GM Data Sharing Agreement defines Derived Data Insights to exclude observations that can be attributed to GM or to any individual.",
+   "kind": "terms",
+   "section": "regulation",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2018-12-21",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000110465921093068/tm2121431d2_ex10-2.htm",
+     "publisher": "General Motors Holdings LLC and Wejo Limited (exhibit on SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "that can be attributed to GM or to any individual"
+    }
+   ],
+   "id": "wejo-c046"
+  },
+  {
+   "statement": "Wejo's Q2 2022 10-Q says that where OEMs retained rights over the vehicle data supplied to customers, Wejo acted as agent and recognised revenue net.",
+   "kind": "terms",
+   "section": "transaction",
+   "question_ids": [
+    "Q5",
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2022-08-15",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444822000079/wejo-20220630.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "the Company has determined it acts as the agent in this arrangement and recognizes revenue on a net basis"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444822000079/wejo-20220630.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "certain rights retained by the OEMs over the connected vehicle data being supplied to the customers"
+    }
+   ],
+   "id": "wejo-c047"
+  },
+  {
+   "statement": "Wejo's Q2 2022 10-Q says that where Wejo controlled the underlying data, it acted as principal and recognised revenue gross.",
+   "kind": "terms",
+   "section": "transaction",
+   "question_ids": [
+    "Q5",
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2022-08-15",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444822000079/wejo-20220630.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "the Company has control over the underlying data and is acting as the principal and recognizes revenue on a gross basis"
+    }
+   ],
+   "id": "wejo-c048"
+  },
+  {
+   "statement": "Wejo recognised a USD 2.4 million reduction of revenue in the six months to 30 June 2022 for revenue sharing and other fees paid to OEM partners.",
+   "kind": "number",
+   "section": "pricing",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 2.4,
+    "unit": "USD million",
+    "basis": "revenue sharing and other fees paid by Wejo to OEM data partners, netted against revenue where Wejo acted as agent",
+    "period": "six months to 30 Jun 2022"
+   },
+   "origin": "filing",
+   "as_of": "2022-08-15",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444822000079/wejo-20220630.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "recognized a reduction of revenue of $1.3 million and $2.4 million"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444822000079/wejo-20220630.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "These reductions of revenue arise from revenue sharing and other fees paid to the Company's OEM partners"
+    }
+   ],
+   "id": "wejo-c049"
+  },
+  {
+   "statement": "Wejo carried its GM data sharing agreement on its balance sheet as an intangible asset.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2022-08-15",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444822000079/wejo-20220630.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "gross book value of the General Motors"
+    }
+   ],
+   "id": "wejo-c050"
+  },
+  {
+   "statement": "Wejo's 2021 SEC correspondence describes customers as paying licence fees for data services covering part or all of the data in their market.",
+   "kind": "terms",
+   "section": "transaction",
+   "question_ids": [
+    "Q9",
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2021-09-07",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000110465921113474/filename1.htm",
+     "publisher": "Wejo Group Limited / US SEC (EDGAR correspondence)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "customers pay license fees to obtain one or more data services that may include a portion or all of the data"
+    }
+   ],
+   "id": "wejo-c051"
+  },
+  {
+   "statement": "Wejo's 2021 SEC correspondence states that OEMs provide Wejo their data through licence agreements and Wejo processes it on its ADEPT platform in cloud data centres.",
+   "kind": "architecture",
+   "section": "custody",
+   "question_ids": [
+    "Q3",
+    "Q6"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2021-09-07",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000110465921113474/filename1.htm",
+     "publisher": "Wejo Group Limited / US SEC (EDGAR correspondence)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "OEMs provide the Company this data through license agreements. The Company processes the data in its ADEPT platform"
+    }
+   ],
+   "id": "wejo-c052"
+  },
+  {
+   "statement": "Wejo's 2021 SEC correspondence notes that it generally recognised data licence revenue ratably over the contract term.",
+   "kind": "terms",
+   "section": "transaction",
+   "question_ids": [
+    "Q9",
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2021-09-07",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000110465921113474/filename1.htm",
+     "publisher": "Wejo Group Limited / US SEC (EDGAR correspondence)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "you generally recognize revenue ratably over the term of the contract"
+    }
+   ],
+   "id": "wejo-c053"
+  },
+  {
+   "statement": "Wejo's May 2021 investor presentation said it earns from proprietary data sets through its Data Marketplace and SaaS solutions.",
+   "kind": "offer",
+   "section": "positioning",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2021-05-28",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000110465921074265/tm2117781d1_425.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Through its Data Marketplace and SaaS solutions, Wejo maximizes revenue opportunities from proprietary data sets"
+    }
+   ],
+   "id": "wejo-c054"
+  },
+  {
+   "statement": "Wejo's May 2021 investor presentation showed a Wejo Data Marketplace revenue flow with a revenue-share leg alongside licence, data and platform fees (the text does not label each party).",
+   "kind": "offer",
+   "section": "pricing",
+   "question_ids": [
+    "Q2",
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2021-05-28",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000110465921074265/tm2117781d1_425.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Demonstrating revenue flow from Wejo Data Marketplaces and Wejo SaaS"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000110465921074265/tm2117781d1_425.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Receives Revenue Share Pays License & Platform Fees"
+    }
+   ],
+   "id": "wejo-c055"
+  },
+  {
+   "statement": "Wejo's May 2021 investor presentation claimed active agreements with 17 OEM and Tier 1 partners.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 17,
+    "unit": "OEM and Tier 1 data partners",
+    "basis": "active supply agreements, per Wejo",
+    "period": "as at May 2021"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2021-05-28",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000110465921074265/tm2117781d1_425.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Active agreements with 17 OEM and Tier 1 partners"
+    }
+   ],
+   "id": "wejo-c056"
+  },
+  {
+   "statement": "Wejo's May 2021 investor presentation named GM and Hella as strategic investors.",
+   "kind": "event",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2021-05-28",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000110465921074265/tm2117781d1_425.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "GM and Hella are strategic investors"
+    }
+   ],
+   "id": "wejo-c057"
+  },
+  {
+   "statement": "Wejo's May 2021 investor presentation described its platform as having source-agnostic interfaces for OEM and Tier 1 data.",
+   "kind": "architecture",
+   "section": "positioning",
+   "question_ids": [
+    "Q2"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2021-05-28",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000110465921074265/tm2117781d1_425.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Source-agnostic interfaces provide flexible integration with OEM and Tier 1 data"
+    }
+   ],
+   "id": "wejo-c058"
+  },
+  {
+   "statement": "Wejo's May 2021 investor presentation projected net revenue of USD 23 million for 2022.",
+   "kind": "number",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 23,
+    "unit": "USD million",
+    "basis": "projected Wejo net revenue for 2022 (estimate), presented to investors before the SPAC merger",
+    "period": "per year (2022E)"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2021-05-28",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000110465921074265/tm2117781d1_425.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "2020 A 2021 E 2022 E 2023 E 2024 E 2025 E"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000110465921074265/tm2117781d1_425.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "$1.3 $4.3 $23 $118 $325 $764"
+    }
+   ],
+   "id": "wejo-c059"
+  },
+  {
+   "statement": "Wejo's reported FY2022 net revenue of USD 8.4 million was roughly a third of the USD 23 million it had projected for 2022 in May 2021.",
+   "kind": "outcome",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2023-04-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000064/wejo-8kex991q42022.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Net Revenue for 2022 increased to $8.4 million"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1864448/000110465921074265/tm2117781d1_425.htm",
+     "publisher": "Wejo Group Limited (SEC EDGAR)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "$1.3 $4.3 $23 $118 $325 $764"
+    }
+   ],
+   "id": "wejo-c060"
+  }
+ ],
+ "unknowns": [
+  {
+   "field": "matrix.public_prices",
+   "urls_tried": [
+    "https://www.wejo.com",
+    "http://www.wejo.com",
+    "https://developer.wejo.com",
+    "https://marketplace.wejo.com",
+    "https://docs.wejo.com",
+    "https://aws.amazon.com/marketplace/search/results?searchTerms=wejo"
+   ],
+   "reason": "not_found"
+  },
+  {
+   "field": "matrix.licence_model",
+   "urls_tried": [
+    "https://www.wejo.com",
+    "http://www.wejo.com",
+    "https://developer.wejo.com",
+    "https://marketplace.wejo.com",
+    "https://docs.wejo.com",
+    "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000068/wejo-20221231.htm"
+   ],
+   "reason": "not_found"
+  },
+  {
+   "field": "matrix.exclusivity_offered",
+   "urls_tried": [
+    "https://www.wejo.com",
+    "http://www.wejo.com",
+    "https://developer.wejo.com",
+    "https://marketplace.wejo.com",
+    "https://docs.wejo.com",
+    "https://www.sec.gov/Archives/edgar/data/1864448/000110465921093068/tm2121431d2_ex10-2.htm"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "matrix.public_listing",
+   "urls_tried": [
+    "https://www.wejo.com",
+    "http://www.wejo.com",
+    "https://developer.wejo.com",
+    "https://marketplace.wejo.com",
+    "https://docs.wejo.com"
+   ],
+   "reason": "not_found"
+  },
+  {
+   "field": "matrix.sample_mechanics",
+   "urls_tried": [
+    "https://www.wejo.com",
+    "http://www.wejo.com",
+    "https://developer.wejo.com",
+    "https://marketplace.wejo.com",
+    "https://docs.wejo.com",
+    "https://www.sec.gov/Archives/edgar/data/1864448/000110465921113474/filename1.htm"
+   ],
+   "reason": "not_found"
+  },
+  {
+   "field": "matrix.versioning",
+   "urls_tried": [
+    "https://www.wejo.com",
+    "http://www.wejo.com",
+    "https://developer.wejo.com",
+    "https://marketplace.wejo.com",
+    "https://docs.wejo.com"
+   ],
+   "reason": "not_found"
+  },
+  {
+   "field": "matrix.human_subject_consent_docs",
+   "urls_tried": [
+    "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000068/wejo-20221231.htm",
+    "https://www.sec.gov/Archives/edgar/data/1864448/000110465921093068/tm2121431d2_ex10-2.htm"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "matrix.quality_evidence",
+   "urls_tried": [
+    "https://www.wejo.com",
+    "http://www.wejo.com",
+    "https://developer.wejo.com",
+    "https://marketplace.wejo.com",
+    "https://docs.wejo.com"
+   ],
+   "reason": "not_found"
+  },
+  {
+   "field": "questions.Q11",
+   "urls_tried": [
+    "https://www.wejo.com",
+    "http://www.wejo.com",
+    "https://developer.wejo.com",
+    "https://marketplace.wejo.com",
+    "https://docs.wejo.com",
+    "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000068/wejo-20221231.htm",
+    "https://www.sec.gov/Archives/edgar/data/1864448/000110465921113474/filename1.htm"
+   ],
+   "reason": "not_found"
+  },
+  {
+   "field": "other.website",
+   "urls_tried": [
+    "https://www.wejo.com",
+    "http://www.wejo.com",
+    "https://developer.wejo.com",
+    "https://marketplace.wejo.com",
+    "https://docs.wejo.com"
+   ],
+   "reason": "not_found"
+  },
+  {
+   "field": "other.administrators_reports",
+   "urls_tried": [
+    "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000151/wejocompanieshouseadmini.htm",
+    "https://find-and-update.company-information.service.gov.uk/company/08813730/filing-history/MzM5MTY1OTY5OGFkaXF6a2N4/document?format=pdf&download=0",
+    "https://find-and-update.company-information.service.gov.uk/company/08813730/filing-history/MzUzNzIzMzcxMGFkaXF6a2N4/document?format=pdf&download=0"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "other.trading_status_and_asset_sale",
+   "urls_tried": [
+    "https://find-and-update.company-information.service.gov.uk/company/08813730/filing-history",
+    "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000151/wejo-20230918.htm",
+    "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000151/wejocompanieshouseadmini.htm"
+   ],
+   "reason": "not_found"
+  },
+  {
+   "field": "other.sec_staff_action_2024",
+   "urls_tried": [
+    "https://www.sec.gov/Archives/edgar/data/1864448/999999999724000389/filename1.pdf",
+    "https://www.sec.gov/Archives/edgar/data/1864448/999999999724000389/9999999997-24-000389.txt"
+   ],
+   "reason": "blocked"
+  },
+  {
+   "field": "other.independent_press",
+   "urls_tried": [],
+   "reason": "not_found"
+  },
+  {
+   "field": "other.oem_share_percentages",
+   "urls_tried": [
+    "https://www.sec.gov/Archives/edgar/data/1864448/000110465921093068/tm2121431d2_ex10-2.htm"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "other.names_for_custom_side",
+   "urls_tried": [
+    "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000068/wejo-20221231.htm",
+    "https://www.sec.gov/Archives/edgar/data/1864448/000110465921074265/tm2117781d1_425.htm"
+   ],
+   "reason": "not_found"
+  }
+ ],
+ "conflicts": [],
+ "leads": [
+  {
+   "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000151/wejocompanieshouseadmini.htm",
+   "why": "Administrators' report of 1 Sept 2023 (60 page images, no text layer): background to failure, marketing of the business, creditors. Needs OCR; not citable by quote."
+  },
+  {
+   "url": "https://find-and-update.company-information.service.gov.uk/company/08813730/filing-history",
+   "why": "AM03 proposals (Sept 2023) and AM10 progress reports to Aug 2026 are scanned PDFs; they would say whether assets were sold and what creditors (incl. GM) recover."
+  },
+  {
+   "url": "https://www.sec.gov/Archives/edgar/data/1864448/999999999724000389/filename1.pdf",
+   "why": "SEC staff action order of 26 Feb 2024 on Wejo Group; the PDF could not be read (403 to the extractor)."
+  },
+  {
+   "url": "https://www.sec.gov/Archives/edgar/data/1864448/000110465921113474/filename1.htm",
+   "why": "SEC comment-letter response pointing to the S-4/A (p.213) for the principal-versus-agent policy on OEM data sharing agreements."
+  },
+  {
+   "url": "https://www.sec.gov/Archives/edgar/data/1864448/000186444823000125/wejo-20230331.htm",
+   "why": "Last 10-Q (Q1 2023): going-concern note and concentration disclosures beyond what WebFetch returned."
+  }
+ ]
+}

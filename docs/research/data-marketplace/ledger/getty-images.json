@@ -1,0 +1,2513 @@
+{
+ "kind": "profile",
+ "slug": "getty-images",
+ "name": "Getty Images",
+ "aliases": [
+  "Getty Images Holdings, Inc.",
+  "GETY",
+  "iStock",
+  "Unsplash",
+  "Generative AI by Getty Images"
+ ],
+ "segment": "stock_media",
+ "tier": "light",
+ "status": {
+  "value": "active",
+  "claim_id": "getty-images-c001"
+ },
+ "names_for": {
+  "catalogue_side": "Creative and Editorial stock content sold under the Content License Agreement; for AI buyers, 'Data Licensing' of its 'dataset of creative images, videos and metadata'",
+  "custom_side": "'Custom Content' (commissioned shoots, also 'Assignments'); for AI buyers, 'purpose‑built datasets ... for your exclusive use'"
+ },
+ "matrix": {
+  "operator_role": {
+   "value": "reseller_licensor",
+   "claim_ids": [
+    "getty-images-c014",
+    "getty-images-c024",
+    "getty-images-c069"
+   ],
+   "note": "Getty is the licensing party and gives the warranties although content is owned by Getty or its suppliers."
+  },
+  "economics_model": {
+   "value": "revenue_share",
+   "claim_ids": [
+    "getty-images-c011",
+    "getty-images-c049",
+    "getty-images-c029"
+   ],
+   "note": "Stock side: contributors and contracted suppliers receive a royalty share of each licence fee; economics of negotiated AI data deals are not published."
+  },
+  "who_pays_fee": {
+   "value": "seller",
+   "claim_ids": [
+    "getty-images-c011",
+    "getty-images-c049"
+   ],
+   "note": "No buyer fee on top: Getty keeps the part of the licence fee not paid out as royalty, i.e. the supplier bears it out of proceeds."
+  },
+  "supply_models": {
+   "value": [
+    "own_collection",
+    "contributor_uploads",
+    "partner_licensed"
+   ],
+   "claim_ids": [
+    "getty-images-c014",
+    "getty-images-c010",
+    "getty-images-c049",
+    "getty-images-c050",
+    "getty-images-c064",
+    "getty-images-c057"
+   ],
+   "note": "Content is owned by Getty or its suppliers; 600,000+ contributors and 360+ premium content partners. Commissioned Custom Content is exclusive to the client, so not commissioned_nonexclusive."
+  },
+  "custody_model": {
+   "value": "copy_to_buyer",
+   "claim_ids": [
+    "getty-images-c061",
+    "getty-images-c062",
+    "getty-images-c038"
+   ],
+   "note": "Files are downloaded by the buyer (site, API with short-lived URLs); the sample dataset is CSV/JSON of pre-signed URLs. Delivery mechanics of full AI datasets are not published."
+  },
+  "transaction_mode": {
+   "value": "both",
+   "claim_ids": [
+    "getty-images-c045",
+    "getty-images-c047",
+    "getty-images-c019",
+    "getty-images-c039",
+    "getty-images-c067",
+    "getty-images-c060"
+   ],
+   "note": "Self-serve subscriptions and UltraPacks for stock; AI training rights, API access and datasets only through sales."
+  },
+  "public_prices": {
+   "value": "some",
+   "claim_ids": [
+    "getty-images-c045",
+    "getty-images-c046",
+    "getty-images-c047",
+    "getty-images-c042",
+    "getty-images-c043",
+    "getty-images-c048",
+    "getty-images-c054"
+   ],
+   "note": "Subscription, UltraPack and Custom Content prices are published; enterprise and data licensing are custom priced; asset pages ask the visitor to sign in to see prices."
+  },
+  "licence_model": {
+   "value": "mixed",
+   "claim_ids": [
+    "getty-images-c015",
+    "getty-images-c018",
+    "getty-images-c019",
+    "getty-images-c032"
+   ],
+   "note": "Stock: fixed menu of RF / RR / RM licences that bans ML use; AI training rights are negotiated per deal."
+  },
+  "exclusivity_offered": {
+   "value": "yes",
+   "claim_ids": [
+    "getty-images-c017",
+    "getty-images-c032",
+    "getty-images-c044"
+   ],
+   "note": ""
+  },
+  "public_listing": {
+   "value": "public_indexable",
+   "claim_ids": [
+    "getty-images-c053",
+    "getty-images-c054"
+   ],
+   "note": "Asset pages with preview, licence type and release status are public; price needs an account. No public listing of AI datasets beyond the Hugging Face sample."
+  },
+  "buyer_vetting": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": "Stock purchase needs an account; what Getty checks about AI data buyers is not published."
+  },
+  "sample_mechanics": {
+   "value": "free_sample_download",
+   "claim_ids": [
+    "getty-images-c026",
+    "getty-images-c036",
+    "getty-images-c037"
+   ],
+   "note": "Stock: free comp use for 30 days; AI data: a 3,750-image gated sample on Hugging Face."
+  },
+  "versioning": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": ""
+  },
+  "human_subject_consent_docs": {
+   "value": "asserted_only",
+   "claim_ids": [
+    "getty-images-c024",
+    "getty-images-c053",
+    "getty-images-c030",
+    "getty-images-c059",
+    "getty-images-c025"
+   ],
+   "note": "Getty warrants privacy/publicity for RF creative content and flags 'model and property released'; releases themselves are not shown to buyers in any source fetched. Editorial content generally has no releases."
+  },
+  "contributor_pay_model": {
+   "value": "royalty_or_revenue_share",
+   "claim_ids": [
+    "getty-images-c049",
+    "getty-images-c029",
+    "getty-images-c008"
+   ],
+   "note": ""
+  },
+  "catalogue_plus_custom": {
+   "value": "both",
+   "claim_ids": [
+    "getty-images-c033",
+    "getty-images-c032",
+    "getty-images-c044",
+    "getty-images-c042"
+   ],
+   "note": ""
+  },
+  "erasure_after_sale": {
+   "value": "contractual_deletion",
+   "claim_ids": [
+    "getty-images-c020",
+    "getty-images-c021"
+   ],
+   "note": ""
+  },
+  "quality_evidence": {
+   "value": "operator_verified",
+   "claim_ids": [
+    "getty-images-c056",
+    "getty-images-c055"
+   ],
+   "note": "Getty says library content is vetted; no quality evidence specific to AI datasets was found."
+  }
+ },
+ "questions": {
+  "Q1": {
+   "state": "partial",
+   "answer": "Getty's buyers are businesses and media on subscriptions (58.8% of revenue in Q2 2026) and, per its 10-Q, AI developers who pay for access to content for model training; it also markets data for physical AI and has display deals with OpenAI. Volumes and revenue from AI data deals are not published.",
+   "claim_ids": [
+    "getty-images-c006",
+    "getty-images-c007",
+    "getty-images-c031",
+    "getty-images-c034",
+    "getty-images-c040",
+    "getty-images-c063"
+   ]
+  },
+  "Q2": {
+   "state": "partial",
+   "answer": "Getty sells from its own sites and API rather than listing on others' marketplaces; the one outside listing found is a gated sample dataset on Hugging Face that routes buyers back to its data licensing team.",
+   "claim_ids": [
+    "getty-images-c036",
+    "getty-images-c039",
+    "getty-images-c061"
+   ]
+  },
+  "Q3": {
+   "state": "sourced",
+   "answer": "Inventory comes from over 600,000 contributors on non-exclusive or exclusive royalty agreements, more than 360 premium content partners, and content Getty owns; Getty rejects AI-generated submissions and requires releases for recognisable people. Its generator was trained on 479 million licensed Getty and Bria-partner images, with no scraping.",
+   "claim_ids": [
+    "getty-images-c010",
+    "getty-images-c014",
+    "getty-images-c049",
+    "getty-images-c050",
+    "getty-images-c051",
+    "getty-images-c052",
+    "getty-images-c057",
+    "getty-images-c058",
+    "getty-images-c064"
+   ]
+  },
+  "Q4": {
+   "state": "partial",
+   "answer": "Commissioned Custom Content is licensed to the commissioning client only, so it is not resold. No source fetched describes how contributor terms were changed to allow AI training, only that contributors are now paid when their content is used.",
+   "claim_ids": [
+    "getty-images-c044",
+    "getty-images-c008",
+    "getty-images-c029"
+   ]
+  },
+  "Q5": {
+   "state": "sourced",
+   "answer": "Getty is licensor of record: it licenses content owned by itself or its suppliers, warrants non-violation of privacy and publicity for royalty-free creative content, and disclaims warranties over people and trademarks beyond that.",
+   "claim_ids": [
+    "getty-images-c014",
+    "getty-images-c024",
+    "getty-images-c069",
+    "getty-images-c068"
+   ]
+  },
+  "Q6": {
+   "state": "partial",
+   "answer": "Buyers download copies: the API returns short-lived download URLs and the sample dataset is a list of pre-signed URLs. How full training datasets are delivered is not published.",
+   "claim_ids": [
+    "getty-images-c061",
+    "getty-images-c062",
+    "getty-images-c038"
+   ]
+  },
+  "Q7": {
+   "state": "partial",
+   "answer": "Getty requires model or property releases from contributors for recognisable people and property, flags release status on asset pages, and warrants privacy/publicity for royalty-free creative content; editorial content generally has no releases. Contributors are paid for AI training use, but no opt-in or opt-out mechanism was found.",
+   "claim_ids": [
+    "getty-images-c051",
+    "getty-images-c053",
+    "getty-images-c024",
+    "getty-images-c025",
+    "getty-images-c030",
+    "getty-images-c059",
+    "getty-images-c008"
+   ]
+  },
+  "Q8": {
+   "state": "sourced",
+   "answer": "The stock licence is non-exclusive (exclusive buy-outs on request), bans ML/AI use, allows audits and download monitoring, and requires deletion on termination or on an infringement claim. Getty is enforcing training-data rights in court against Stability AI.",
+   "claim_ids": [
+    "getty-images-c016",
+    "getty-images-c017",
+    "getty-images-c018",
+    "getty-images-c022",
+    "getty-images-c023",
+    "getty-images-c020",
+    "getty-images-c021",
+    "getty-images-c012"
+   ]
+  },
+  "Q9": {
+   "state": "sourced",
+   "answer": "Stock is sold self-serve by subscription or UltraPack at published prices; AI training rights, API access and datasets are sold through sales. Getty keeps the licence fee minus a 15-45% contributor royalty (20-50% for contracted suppliers).",
+   "claim_ids": [
+    "getty-images-c045",
+    "getty-images-c047",
+    "getty-images-c019",
+    "getty-images-c039",
+    "getty-images-c060",
+    "getty-images-c067",
+    "getty-images-c049",
+    "getty-images-c011"
+   ]
+  },
+  "Q10": {
+   "state": "partial",
+   "answer": "The unit of sale is a licence to an individual asset under the RF/RR/RM model, delivered as a download; Getty may require deletion and stop licensing content. No dataset, revision or version model for AI data was found.",
+   "claim_ids": [
+    "getty-images-c015",
+    "getty-images-c061",
+    "getty-images-c021"
+   ]
+  },
+  "Q11": {
+   "state": "partial",
+   "answer": "Buyers see public asset pages with preview, licence type and release status, can use comps free for 30 days, and AI buyers can get a 3,750-image gated sample dataset. Getty says its library is vetted and AI-free.",
+   "claim_ids": [
+    "getty-images-c053",
+    "getty-images-c026",
+    "getty-images-c036",
+    "getty-images-c037",
+    "getty-images-c055",
+    "getty-images-c056"
+   ]
+  },
+  "Q12": {
+   "state": "sourced",
+   "answer": "The stock licence excludes AI training and sends training needs to a representative; Data Licensing then offers both library datasets and new purpose-built datasets for exclusive use, alongside commissioned 'Custom Content' shoots for brands.",
+   "claim_ids": [
+    "getty-images-c018",
+    "getty-images-c019",
+    "getty-images-c031",
+    "getty-images-c032",
+    "getty-images-c033",
+    "getty-images-c044"
+   ]
+  }
+ },
+ "claims": [
+  {
+   "id": "getty-images-c001",
+   "statement": "Getty Images was operating as of its second-quarter 2026 results release dated 10 August 2026, which reported revenue for the quarter.",
+   "kind": "status",
+   "section": "positioning",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-08-10",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://newsroom.gettyimages.com/en/getty-images/getty-images-reports-second-quarter-2026-results",
+     "publisher": "Getty Images",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Revenue of $229.1 million in Q2'26, a decrease of 2.5% year over year"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c002",
+   "statement": "On 7 July 2026 Getty Images gave Shutterstock written notice terminating their merger agreement.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-07-07",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/0001898496/000162828026055246/gety-20260630.htm",
+     "publisher": "Getty Images Holdings, Inc. (SEC Form 10-Q)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "On July 7, 2026, Getty Images delivered a written notice to Shutterstock terminating the Merger Agreement"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c003",
+   "statement": "Getty's Q2 2026 10-Q records that the UK CMA would let the Shutterstock merger proceed only if Shutterstock's entire editorial business was divested to CMA-approved purchasers.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-08",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/0001898496/000162828026055246/gety-20260630.htm",
+     "publisher": "Getty Images Holdings, Inc. (SEC Form 10-Q)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "the Merger could proceed if Shutterstock's entire editorial business was divested to one or more CMA approved purchasers"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c004",
+   "statement": "In July 2026 Getty Images engaged Guggenheim Securities as financial adviser for its evaluation of strategic financing alternatives.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-07",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/0001898496/000162828026055246/gety-20260630.htm",
+     "publisher": "Getty Images Holdings, Inc. (SEC Form 10-Q)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "In July 2026, the Company engaged Guggenheim Securities, LLC"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c005",
+   "statement": "Getty Images says its Q2 2026 revenue was USD 229.1 million, down 2.5% year over year.",
+   "kind": "number",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 229.1,
+    "unit": "USD million",
+    "basis": "total company revenue as reported by Getty, all products",
+    "period": "per quarter (Q2 2026)"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-08-10",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://newsroom.gettyimages.com/en/getty-images/getty-images-reports-second-quarter-2026-results",
+     "publisher": "Getty Images",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Revenue of $229.1 million in Q2'26, a decrease of 2.5% year over year"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c006",
+   "statement": "Getty Images says annual subscription revenue was 58.8% of total revenue in Q2 2026, up from 53.5% in Q2 2025.",
+   "kind": "number",
+   "section": "demand",
+   "question_ids": [
+    "Q1",
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 58.8,
+    "unit": "percent of total revenue",
+    "basis": "share of Getty's total revenue from annual subscriptions, as reported by Getty",
+    "period": "per quarter (Q2 2026)"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-08-10",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://newsroom.gettyimages.com/en/getty-images/getty-images-reports-second-quarter-2026-results",
+     "publisher": "Getty Images",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Annual Subscription Revenue grew to 58.8% of total revenue, up from 53.5% in Q2'25"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c007",
+   "statement": "Getty's 10-Q states that the company also earns revenue by giving customers access to its data and content for machine-learning and generative-AI model training.",
+   "kind": "offer",
+   "section": "positioning",
+   "question_ids": [
+    "Q1",
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-08",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/0001898496/000162828026055246/gety-20260630.htm",
+     "publisher": "Getty Images Holdings, Inc. (SEC Form 10-Q)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "The Company also generates revenue by providing customers with access to its data and content for machine learning"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c008",
+   "statement": "Getty's 10-Q states that contributors are compensated when their content is included in AI training data sets and may share in revenue from AI tools.",
+   "kind": "terms",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3",
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-08",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/0001898496/000162828026055246/gety-20260630.htm",
+     "publisher": "Getty Images Holdings, Inc. (SEC Form 10-Q)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Contributors are compensated for any inclusion of their content in AI data training sets and may share in the revenue"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c009",
+   "statement": "Getty's 10-Q says over 662 million visual assets are available through its sites.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 662000000,
+    "unit": "visual assets",
+    "basis": "company-reported count of assets available through Getty's sites (lower bound, 'over')",
+    "period": "as at Q2 2026 filing"
+   },
+   "origin": "filing",
+   "as_of": "2026-08",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/0001898496/000162828026055246/gety-20260630.htm",
+     "publisher": "Getty Images Holdings, Inc. (SEC Form 10-Q)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "over 662 million visual assets available through its industry-leading sites"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c010",
+   "statement": "Getty's 10-Q says it works with over 600,000 contributors and more than 360 premium content partners.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 600000,
+    "unit": "contributors",
+    "basis": "company-reported lower bound ('over'); separately more than 360 premium content partners",
+    "period": "as at Q2 2026 filing"
+   },
+   "origin": "filing",
+   "as_of": "2026-08",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/0001898496/000162828026055246/gety-20260630.htm",
+     "publisher": "Getty Images Holdings, Inc. (SEC Form 10-Q)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "over 600,000 contributors and more than 360 premium content partners"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c011",
+   "statement": "Getty's 10-Q says suppliers who work with it under contract typically receive royalties of 20% to 50% of the licence fee charged to customers.",
+   "kind": "number",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3",
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 20,
+    "unit": "percent of licence fee (low end of 20-50% range)",
+    "basis": "royalty paid by Getty to contracted suppliers out of the total licence fee charged to the customer; range 20% to 50%",
+    "period": "per licence"
+   },
+   "origin": "filing",
+   "as_of": "2026-08",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/0001898496/000162828026055246/gety-20260630.htm",
+     "publisher": "Getty Images Holdings, Inc. (SEC Form 10-Q)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Suppliers who choose to work with us under contract typically receive royalties of 20% to 50% of"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c012",
+   "statement": "In Getty's UK case against Stability AI, the court granted Getty permission to appeal the secondary-infringement ruling and refused Stability permission to appeal the trademark ruling, per Getty's 10-Q.",
+   "kind": "outcome",
+   "section": "regulation",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-08",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/0001898496/000162828026055246/gety-20260630.htm",
+     "publisher": "Getty Images Holdings, Inc. (SEC Form 10-Q)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "granted Getty Images' request to appeal the decision on secondary infringement and denied Stability AI's request to appeal"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c013",
+   "statement": "Getty's 10-Q says the appeal on secondary infringement in its UK case against Stability AI is expected to be heard in November 2026.",
+   "kind": "event",
+   "section": "regulation",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-08",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/0001898496/000162828026055246/gety-20260630.htm",
+     "publisher": "Getty Images Holdings, Inc. (SEC Form 10-Q)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "The appeal of the decision on secondary infringement is expected to be held in November 2026"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c014",
+   "statement": "Getty's buyer Content License Agreement (last updated April 2026) states that licensed content is owned either by Getty Images or by its content suppliers.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q5",
+    "Q3"
+   ],
+   "scope": {
+    "product": "Content License Agreement",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-04",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.in/eula",
+     "publisher": "Getty Images",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "All the licensed content is owned by either Getty Images or its content suppliers."
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c015",
+   "statement": "Getty's Content License Agreement offers three licence models: royalty-free (RF), rights-ready (RR) and rights-managed (RM).",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "Content License Agreement",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-04",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.in/eula",
+     "publisher": "Getty Images",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Getty Images offers three types of licence models: royalty-free (\"RF\"), rights-ready (\"RR\") and rights-managed (\"RM\")."
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c016",
+   "statement": "Under the Content License Agreement the buyer's licence is non-exclusive.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "Content License Agreement",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-04",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.in/eula",
+     "publisher": "Getty Images",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Non-Exclusive, meaning that you do not have exclusive rights to use the content."
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c017",
+   "statement": "A buyer who wants exclusive rights to royalty-free content must contact Getty Images to discuss a buy-out.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "Content License Agreement",
+    "tier": "royalty-free",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-04",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.in/eula",
+     "publisher": "Getty Images",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "If you would like exclusive rights to use royalty-free content, please contact Getty Images to discuss a buy-out."
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c018",
+   "statement": "The standard Content License Agreement forbids using content, including captions, keywords and other metadata, for any machine-learning or AI purpose.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8",
+    "Q12"
+   ],
+   "scope": {
+    "product": "Content License Agreement",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-04",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.in/eula",
+     "publisher": "Getty Images",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "for any machine learning and/or artificial intelligence purposes"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c019",
+   "statement": "The Content License Agreement tells customers with content-training needs to contact their Getty Images representative, so training rights are sold outside the standard licence.",
+   "kind": "terms",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q9",
+    "Q12"
+   ],
+   "scope": {
+    "product": "Content License Agreement",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-04",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.in/eula",
+     "publisher": "Getty Images",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "If you have any content training needs, please reach out to your Getty Images' representative."
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c020",
+   "statement": "On termination of the Content License Agreement the buyer must immediately stop using the content and delete or destroy all copies.",
+   "kind": "terms",
+   "section": "post_sale",
+   "question_ids": [
+    "Q8",
+    "Q10"
+   ],
+   "scope": {
+    "product": "Content License Agreement",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-04",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.in/eula",
+     "publisher": "Getty Images",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "cease using the content; delete or destroy any copies"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c021",
+   "statement": "If licensed content may be subject to an infringement claim, Getty can require the buyer to stop using it and delete all copies at the buyer's own expense.",
+   "kind": "terms",
+   "section": "post_sale",
+   "question_ids": [
+    "Q8",
+    "Q10"
+   ],
+   "scope": {
+    "product": "Content License Agreement",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-04",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.in/eula",
+     "publisher": "Getty Images",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "and at your own expense: cease using the content, delete or destroy any copies"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c022",
+   "statement": "The Content License Agreement lets Getty Images audit the buyer's records related to the agreement.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "Content License Agreement",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-04",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.in/eula",
+     "publisher": "Getty Images",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "audit your records directly related to this agreement"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c023",
+   "statement": "Getty Images reserves the right to monitor downloads and user activity to check licence compliance.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "Content License Agreement",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-04",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.in/eula",
+     "publisher": "Getty Images",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Getty Images reserves the right to monitor downloads and user activity"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c024",
+   "statement": "For royalty-free creative content, Getty Images itself warrants to the buyer that use will not violate any right of privacy or publicity.",
+   "kind": "terms",
+   "section": "trust",
+   "question_ids": [
+    "Q5",
+    "Q7"
+   ],
+   "scope": {
+    "product": "Content License Agreement",
+    "tier": "royalty-free, non-editorial",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-04",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.in/eula",
+     "publisher": "Getty Images",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "will not violate any right of privacy or right of publicity"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c025",
+   "statement": "The buyer acknowledges under the Content License Agreement that releases are generally not obtained for editorial content.",
+   "kind": "terms",
+   "section": "trust",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "Content License Agreement",
+    "tier": "editorial",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-04",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.in/eula",
+     "publisher": "Getty Images",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "You acknowledge that no releases are generally obtained for content identified as \"editorial\""
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c026",
+   "statement": "Buyers may use content from the Getty site free of charge for test or sample (comp) use for up to 30 days after download.",
+   "kind": "terms",
+   "section": "listing",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "Content License Agreement",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-04",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.in/eula",
+     "publisher": "Getty Images",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "for test or sample (composite or comp) use only, for up to 30 days following download"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c027",
+   "statement": "Getty's AI model card says the Generative AI by Getty Images model was trained on photography, illustrations and stills from Getty Images and Bria's other creative partners.",
+   "kind": "architecture",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "Generative AI by Getty Images model card",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-04",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://developer.gettyimages.com/ai-generation/model-card/",
+     "publisher": "Getty Images",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "still images from Getty Images and Bria's other creative partners"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c028",
+   "statement": "Getty's AI model card states that all training data for its generator is owned or licensed.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "Generative AI by Getty Images model card",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-04",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://developer.gettyimages.com/ai-generation/model-card/",
+     "publisher": "Getty Images",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "All training data is owned or licensed."
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c029",
+   "statement": "Getty's model card says contributors whose content trained the AI Generator get an annual share of its revenue, split pro rata per file and by traditional licensing revenue.",
+   "kind": "terms",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "Generative AI by Getty Images",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-04",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://developer.gettyimages.com/ai-generation/model-card/",
+     "publisher": "Getty Images",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "allocating both a pro rata share in respect of every file and allocating a share based on traditional licensing revenue"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c030",
+   "statement": "Getty's model card says it maintains model and property releases for people and certain places in the training set, or holds contractual guarantees of them for images from other libraries.",
+   "kind": "terms",
+   "section": "trust",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "Generative AI by Getty Images training set",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-04",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://developer.gettyimages.com/ai-generation/model-card/",
+     "publisher": "Getty Images",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "maintains model and property releases for images depicting persons and certain places (as necessary)"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c031",
+   "statement": "Getty's Data Licensing page offers curated, rights-cleared datasets for AI model training, tailored to the buyer's use case.",
+   "kind": "offer",
+   "section": "positioning",
+   "question_ids": [
+    "Q1",
+    "Q12"
+   ],
+   "scope": {
+    "product": "Data Licensing",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.in/enterprise/data-licensing",
+     "publisher": "Getty Images",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Accelerate AI model training with curated, rights‑cleared datasets tailored to your specific use case"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c032",
+   "statement": "Getty's Data Licensing page offers to create new purpose-built datasets with its photographer and videographer network for the buyer's exclusive use.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12",
+    "Q8"
+   ],
+   "scope": {
+    "product": "Data Licensing (custom datasets)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.in/enterprise/data-licensing",
+     "publisher": "Getty Images",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "create new, purpose‑built datasets aligned to your training objectives—for your exclusive use"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c033",
+   "statement": "Getty's Data Licensing page describes a training dataset of creative images, videos and metadata that it calls safe for commercial use.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12",
+    "Q3"
+   ],
+   "scope": {
+    "product": "Data Licensing",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.in/enterprise/data-licensing",
+     "publisher": "Getty Images",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "our diverse dataset of creative images, videos and metadata. Safe for commercial use"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c034",
+   "statement": "Getty's Data Licensing page markets multimodal data for physical AI such as robotics and spatial computing.",
+   "kind": "offer",
+   "section": "positioning",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "Data Licensing",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.in/enterprise/data-licensing",
+     "publisher": "Getty Images",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Improve performance for AI systems in robotics, spatial computing, and applied environments"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c035",
+   "statement": "Getty's Data Licensing page links to a sample custom dataset rather than publishing prices.",
+   "kind": "offer",
+   "section": "listing",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "Data Licensing",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.in/enterprise/data-licensing",
+     "publisher": "Getty Images",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Click here for access to a sample custom dataset"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c036",
+   "statement": "Getty's sample dataset on Hugging Face contains 3,750 images from 15 categories.",
+   "kind": "number",
+   "section": "listing",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "Getty Images Sample Dataset (Hugging Face)",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 3750,
+    "unit": "images",
+    "basis": "size of the free gated sample dataset published by Getty on Hugging Face",
+    "period": "one-off"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/datasets/GettyImages/Getty-Images-Sample-Dataset",
+     "publisher": "Getty Images",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "This sample Dataset includes 3,750 images from 15 categories"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c037",
+   "statement": "Access to Getty's Hugging Face sample dataset is gated: a user must agree to share contact information.",
+   "kind": "terms",
+   "section": "vetting",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "Getty Images Sample Dataset (Hugging Face)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/datasets/GettyImages/Getty-Images-Sample-Dataset",
+     "publisher": "Getty Images",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "You need to agree to share your contact information to access this dataset"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c038",
+   "statement": "Getty's sample dataset is delivered as CSV or JSON files of asset IDs and pre-signed URLs, not as hosted image files.",
+   "kind": "architecture",
+   "section": "custody",
+   "question_ids": [
+    "Q6",
+    "Q10"
+   ],
+   "scope": {
+    "product": "Getty Images Sample Dataset (Hugging Face)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/datasets/GettyImages/Getty-Images-Sample-Dataset",
+     "publisher": "Getty Images",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "CSV or JSON files containing asset IDs and pre-signed URLs"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c039",
+   "statement": "The Hugging Face sample dataset card routes licensing of further data from the full library to Getty's data licensing team.",
+   "kind": "terms",
+   "section": "transaction",
+   "question_ids": [
+    "Q9",
+    "Q12"
+   ],
+   "scope": {
+    "product": "Getty Images Sample Dataset (Hugging Face)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/datasets/GettyImages/Getty-Images-Sample-Dataset",
+     "publisher": "Getty Images",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "to license additional data from the full Getty Images library, contact the data licensing team"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c040",
+   "statement": "Getty announced a display agreement on 21 June 2026 under which its licensed content libraries appear in OpenAI search and discovery within ChatGPT.",
+   "kind": "event",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "OpenAI display partnership",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-06-21",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://newsroom.gettyimages.com/en/getty-images/getty-images-announces-display-partnership-with-openai",
+     "publisher": "Getty Images",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "licensed content libraries will appear across OpenAI search and discovery experiences within ChatGPT"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c041",
+   "statement": "Getty announced on 13 January 2026 that Nfinite would transform select 2D imagery from Getty's creative library into 3D scenes.",
+   "kind": "event",
+   "section": "supply",
+   "question_ids": [
+    "Q1",
+    "Q3"
+   ],
+   "scope": {
+    "product": "Nfinite collaboration",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-01-13",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://newsroom.gettyimages.com/en/getty-images/nfiniteai-collaborates-with-getty-images-to-bring-2d-visual-content-into-the-3d-physical-ai-era",
+     "publisher": "Getty Images",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "select content from Getty Images' extensive creative library of 2D imagery into high‑fidelity 3D scenes"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c042",
+   "statement": "Getty Custom Content (commissioned shoots) lists a price of USD 8,300 per brief on the 3-brief plan.",
+   "kind": "number",
+   "section": "pricing",
+   "question_ids": [
+    "Q9",
+    "Q12"
+   ],
+   "scope": {
+    "product": "Custom Content",
+    "tier": "3 briefs",
+    "region": ""
+   },
+   "value": {
+    "num": 8300,
+    "unit": "USD per brief",
+    "basis": "list price paid by the client per creative brief on the 3-brief tier; tier includes 75 image/video selects in total",
+    "period": "one-off"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.in/enterprise/custom-content",
+     "publisher": "Getty Images",
+     "source_class": "pricing_page",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "$8,300 per brief"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c043",
+   "statement": "Getty Custom Content lists a price of USD 5,000 per brief on the 20-brief plan.",
+   "kind": "number",
+   "section": "pricing",
+   "question_ids": [
+    "Q9",
+    "Q12"
+   ],
+   "scope": {
+    "product": "Custom Content",
+    "tier": "20 briefs",
+    "region": ""
+   },
+   "value": {
+    "num": 5000,
+    "unit": "USD per brief",
+    "basis": "list price paid by the client per creative brief on the 20-brief tier; tier includes 500 image/video selects in total",
+    "period": "one-off"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.in/enterprise/custom-content",
+     "publisher": "Getty Images",
+     "source_class": "pricing_page",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "$5,000 per brief"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c044",
+   "statement": "Getty says Custom Content assets are licensed to the commissioning client only.",
+   "kind": "terms",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q4",
+    "Q12"
+   ],
+   "scope": {
+    "product": "Custom Content",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.in/enterprise/custom-content",
+     "publisher": "Getty Images",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Only you have the license to use your assets, so you'll never see your images on a competitor's website"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c045",
+   "statement": "Getty's Indian pricing page lists a creative subscription at INR 21,000 per month.",
+   "kind": "number",
+   "section": "pricing",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "Creative subscription",
+    "tier": "10 downloads per month",
+    "region": "India (gettyimages.in)"
+   },
+   "value": {
+    "num": 21000,
+    "unit": "INR per month",
+    "basis": "list price paid by buyer for the creative subscription with 10 monthly downloads",
+    "period": "per month"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.in/plans-and-pricing",
+     "publisher": "Getty Images",
+     "source_class": "pricing_page",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "₹21,000 /mo"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c046",
+   "statement": "Getty's Indian pricing page lists an editorial subscription at INR 15,550 per month.",
+   "kind": "number",
+   "section": "pricing",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "Editorial subscription",
+    "tier": "",
+    "region": "India (gettyimages.in)"
+   },
+   "value": {
+    "num": 15550,
+    "unit": "INR per month",
+    "basis": "list price paid by buyer for the editorial subscription",
+    "period": "per month"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.in/plans-and-pricing",
+     "publisher": "Getty Images",
+     "source_class": "pricing_page",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "₹15,550 /mo"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c047",
+   "statement": "Getty's Indian pricing page lists the 5-download UltraPack at INR 12,800 per download (INR 64,000 per pack).",
+   "kind": "number",
+   "section": "pricing",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "UltraPack",
+    "tier": "5 pack",
+    "region": "India (gettyimages.in)"
+   },
+   "value": {
+    "num": 12800,
+    "unit": "INR per download",
+    "basis": "list price paid by buyer for an UltraPack download; 5-pack total INR 64,000",
+    "period": "one-off"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.in/plans-and-pricing",
+     "publisher": "Getty Images",
+     "source_class": "pricing_page",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "₹12,800.00 per download"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c048",
+   "statement": "Getty's pricing page gives enterprise plans as custom pricing rather than a list price.",
+   "kind": "terms",
+   "section": "pricing",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "Enterprise / Premium Access",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.in/plans-and-pricing",
+     "publisher": "Getty Images",
+     "source_class": "pricing_page",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Custom pricing available"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c049",
+   "statement": "Getty's contributor page says individual contributors earn a royalty of 15% to 45% on each file licence, depending on their Contributor Agreement.",
+   "kind": "number",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "Getty Images / iStock contributor programme",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 15,
+    "unit": "percent of licence (low end of 15-45% range)",
+    "basis": "royalty paid by Getty to the contributor on each file licence; range 15% to 45% depending on Contributor Agreement",
+    "period": "per licence"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.co.uk/workwithus",
+     "publisher": "Getty Images",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "you will earn a royalty between 15% and 45% on each file license"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c050",
+   "statement": "Getty offers contributors a non-exclusive agreement that still lets them submit the same work to other stock agencies.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "Contributor programme",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.co.uk/workwithus",
+     "publisher": "Getty Images",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "allows you to still submit photos, illustrations, and videos to other stock agencies if you wish"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c051",
+   "statement": "Getty tells contributors that content featuring recognisable people or property normally needs a model or property release.",
+   "kind": "terms",
+   "section": "vetting",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "Contributor programme",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.co.uk/workwithus",
+     "publisher": "Getty Images",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "if your content features recognizable people or property, you need to complete a model or property release"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c052",
+   "statement": "Getty does not accept contributor files created or modified with generative AI models.",
+   "kind": "terms",
+   "section": "vetting",
+   "question_ids": [
+    "Q3",
+    "Q11"
+   ],
+   "scope": {
+    "product": "Contributor programme",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.co.uk/workwithus",
+     "publisher": "Getty Images",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "We do not accept files created or modified using any generative AI models"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c053",
+   "statement": "A Getty royalty-free asset page shown to an anonymous visitor states the licence type and that the image is model and property released.",
+   "kind": "offer",
+   "section": "listing",
+   "question_ids": [
+    "Q7",
+    "Q11"
+   ],
+   "scope": {
+    "product": "Asset detail page (creative image 1581299897)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.in/detail/photo/young-man-working-at-distribution-warehouse-royalty-free-image/1581299897",
+     "publisher": "Getty Images",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Model and property released"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c054",
+   "statement": "On the Indian Getty site an asset page does not show a price to an anonymous visitor; it asks the visitor to join to view pricing.",
+   "kind": "offer",
+   "section": "listing",
+   "question_ids": [
+    "Q9",
+    "Q11"
+   ],
+   "scope": {
+    "product": "Asset detail page (creative image 1581299897)",
+    "tier": "",
+    "region": "India (gettyimages.in)"
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.in/detail/photo/young-man-working-at-distribution-warehouse-royalty-free-image/1581299897",
+     "publisher": "Getty Images",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Join today to view pricing and explore download options"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c055",
+   "statement": "Getty asset pages state that Getty does not allow AI-generated visuals in its library.",
+   "kind": "terms",
+   "section": "vetting",
+   "question_ids": [
+    "Q3",
+    "Q11"
+   ],
+   "scope": {
+    "product": "Asset detail page",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.in/detail/photo/young-man-working-at-distribution-warehouse-royalty-free-image/1581299897",
+     "publisher": "Getty Images",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "We do not allow AI-generated visuals in our library."
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c056",
+   "statement": "Getty's pricing page says library content comes from its contributor community and is vetted against its standards.",
+   "kind": "terms",
+   "section": "vetting",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "Getty Images library",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.in/plans-and-pricing",
+     "publisher": "Getty Images",
+     "source_class": "pricing_page",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "comes from our community of contributors and is vetted to ensure it meets our high standards"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c057",
+   "statement": "Getty's summary of training content says its generator was trained on 479 million fully licensed images from Getty Images and Bria data partners.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "Generative AI by Getty Images",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 479000000,
+    "unit": "images",
+    "basis": "size of the image training set for Getty's generator (Bria), as stated by Getty",
+    "period": "training data collected up to mid-2025"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-07",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://developer.gettyimages.com/ai-generation/summary-of-training-content/",
+     "publisher": "Getty Images",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "479 million images, fully licensed images provided by Getty Images and Bria data partners"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c058",
+   "statement": "Getty's summary of training content states that no data scraping was performed for its generator's training set.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "Generative AI by Getty Images",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-07",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://developer.gettyimages.com/ai-generation/summary-of-training-content/",
+     "publisher": "Getty Images",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "No data scraping is performed"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c059",
+   "statement": "Getty's summary of training content says the training set is subject to model and property releases wherever identifiable persons or property appear.",
+   "kind": "terms",
+   "section": "trust",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "Generative AI by Getty Images",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-07",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://developer.gettyimages.com/ai-generation/summary-of-training-content/",
+     "publisher": "Getty Images",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "subject to all necessary model and property releases where identifiable persons or property are depicted"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c060",
+   "statement": "Getty's API documentation tells developers to contact their Getty account rep to discuss API access and licensing options.",
+   "kind": "terms",
+   "section": "transaction",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "Getty Images API",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://developer.gettyimages.com/docs/",
+     "publisher": "Getty Images",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Please contact your Getty Images account rep to discuss API access and licensing options."
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c061",
+   "statement": "Getty's API delivers licensed files by download: a POST to a provided URI with a valid key and token downloads the image.",
+   "kind": "architecture",
+   "section": "custody",
+   "question_ids": [
+    "Q6"
+   ],
+   "scope": {
+    "product": "Getty Images API",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://developer.gettyimages.com/docs/",
+     "publisher": "Getty Images",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "A POST to the provided URI with a valid Api-Key and access token will download the image."
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c062",
+   "statement": "Getty API download URLs are not permalinks and are valid for less than 24 hours.",
+   "kind": "architecture",
+   "section": "custody",
+   "question_ids": [
+    "Q6",
+    "Q8"
+   ],
+   "scope": {
+    "product": "Getty Images API",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://developer.gettyimages.com/docs/",
+     "publisher": "Getty Images",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Download URLs are not permalinks and should be used shortly after they are received."
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c063",
+   "statement": "On 12 August 2026 Getty launched an MCP server that lets AI agents discover, retrieve and use licensed Getty visual content.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [
+    "Q1",
+    "Q6"
+   ],
+   "scope": {
+    "product": "Getty Images MCP server",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-08-12",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://newsroom.gettyimages.com/en/getty-images/getty-images-launches-mcp-server-to-connect-creative-and-editorial-content-to-ai-workflows-and-products",
+     "publisher": "Getty Images",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "enables AI agents to discover, retrieve and use licensed Getty Images extensive collection"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c064",
+   "statement": "On 8 September 2026 Getty announced a multiyear agreement with World Athletics to launch The WA Collection, with Getty as exclusive photo provider.",
+   "kind": "event",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "The WA Collection",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-09-08",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://newsroom.gettyimages.com/en/getty-images/world-athletics-selects-getty-images-as-exclusive-photo-provider",
+     "publisher": "Getty Images",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "World Athletics has entered into a multiyear agreement with Getty Images"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c065",
+   "statement": "The newest item in Getty's newsroom on 2026-10-01, dated 21 September 2026, announced Getty as official photographer of the 64th New York Film Festival.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-09-21",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://newsroom.gettyimages.com/en/getty-images/getty-images-named-official-photographer-of-the-64th-new-york-film-festival",
+     "publisher": "Getty Images",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Getty Images Named Official Photographer of the 64th New York Film Festival"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c066",
+   "statement": "On 9 July 2026 Getty extended its creative and editorial subscriptions to individual professionals as single-seat plans.",
+   "kind": "event",
+   "section": "pricing",
+   "question_ids": [
+    "Q1",
+    "Q9"
+   ],
+   "scope": {
+    "product": "Single-seat subscriptions",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-07-09",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://newsroom.gettyimages.com/en/getty-images/getty-images-extends-creative-and-editorial-subscriptions-to-individual-professionals",
+     "publisher": "Getty Images",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "The new plans are single‑seat subscriptions providing access to AI‑free, authentic, commercially ready imagery"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c067",
+   "statement": "Getty's Data Licensing page ends with a Contact Sales call to action rather than a checkout.",
+   "kind": "offer",
+   "section": "transaction",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "Data Licensing",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.in/enterprise/data-licensing",
+     "publisher": "Getty Images",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Ready to talk to us about your Data Licensing needs?"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c068",
+   "statement": "Getty's licence text says that Getty Images and its licensors exclude liability for lost profits and indirect or consequential damages.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q5"
+   ],
+   "scope": {
+    "product": "Content License Agreement (company terms page)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.in/company/terms",
+     "publisher": "Getty Images",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "WILL NOT BE LIABLE TO YOU OR ANY OTHER PERSON OR ENTITY FOR ANY LOST PROFITS"
+    }
+   ]
+  },
+  {
+   "id": "getty-images-c069",
+   "statement": "Getty says it gives no right or warranty over the names, people or trademarks shown in content beyond what it specifically warrants.",
+   "kind": "terms",
+   "section": "trust",
+   "question_ids": [
+    "Q5",
+    "Q7"
+   ],
+   "scope": {
+    "product": "Content License Agreement (company terms page)",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.gettyimages.in/company/terms",
+     "publisher": "Getty Images",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Getty Images does not grant any right or make any warranty with regard to the use of names, people, trademarks"
+    }
+   ]
+  }
+ ],
+ "unknowns": [
+  {
+   "field": "matrix.versioning",
+   "urls_tried": [
+    "https://www.gettyimages.in/enterprise/data-licensing",
+    "https://huggingface.co/datasets/GettyImages/Getty-Images-Sample-Dataset",
+    "https://www.gettyimages.in/eula"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "matrix.buyer_vetting",
+   "urls_tried": [
+    "https://www.gettyimages.in/enterprise/data-licensing",
+    "https://developer.gettyimages.com/docs/"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "other.ai_dataset_pricing",
+   "urls_tried": [
+    "https://www.gettyimages.in/enterprise/data-licensing",
+    "https://www.gettyimages.in/plans-and-pricing"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "other.ai_licensing_revenue",
+   "urls_tried": [
+    "https://www.sec.gov/Archives/edgar/data/0001898496/000162828026055246/gety-20260630.htm",
+    "https://newsroom.gettyimages.com/en/getty-images/getty-images-reports-second-quarter-2026-results"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "other.dataset_licence_terms",
+   "urls_tried": [
+    "https://www.gettyimages.in/enterprise/data-licensing",
+    "https://huggingface.co/datasets/GettyImages/Getty-Images-Sample-Dataset"
+   ],
+   "reason": "gated"
+  },
+  {
+   "field": "other.contributor_ai_opt_out_and_terms_change",
+   "urls_tried": [
+    "https://contributors.gettyimages.com/help?lang=en-gb",
+    "https://www.gettyimages.co.uk/workwithus"
+   ],
+   "reason": "js_empty"
+  },
+  {
+   "field": "other.us_stability_docket",
+   "urls_tried": [
+    "https://www.courtlistener.com/docket/71112094/getty-images-us-inc-v-stability-ai-ltd/",
+    "https://www.courtlistener.com/api/rest/v4/dockets/71112094/"
+   ],
+   "reason": "blocked"
+  },
+  {
+   "field": "other.independent_press_on_ai_deals",
+   "urls_tried": [],
+   "reason": "not_found"
+  }
+ ],
+ "conflicts": [
+  {
+   "claim_ids": [
+    "getty-images-c011",
+    "getty-images-c049"
+   ],
+   "rule_applied": "unresolved",
+   "resolution": "The 10-Q gives 20-50% royalties for suppliers under contract; the contributor page gives 15-45% per file licence. They may describe different supplier groups (partners vs individual contributors); both kept."
+  }
+ ],
+ "leads": [
+  {
+   "url": "https://www.courtlistener.com/docket/71112094/getty-images-us-inc-v-stability-ai-ltd/",
+   "why": "US case Getty Images (US) v. Stability AI, N.D. Cal. 3:25-cv-06891, filed 2025-08-14 after the D. Del. case 1:23-cv-00135 ended 2025-08-18 (per CourtListener search); docket page returned 403."
+  },
+  {
+   "url": "https://contributors.gettyimages.com/help?lang=en-gb",
+   "why": "Contributor help centre renders empty to the fetcher; likely holds AI-training compensation and royalty details."
+  },
+  {
+   "url": "https://www.gettyimages.in/ai",
+   "why": "AI Solutions overview, not fetched; may describe generator indemnity and AI licensing."
+  },
+  {
+   "url": "https://www.gettyimages.co.uk/rights-and-clearance",
+   "why": "Rights and clearance service, not fetched; relevant to Q7."
+  },
+  {
+   "url": "https://www.gettyimages.in/company/ai-free-imagery-policy",
+   "why": "AI-free imagery policy, not fetched."
+  }
+ ]
+}

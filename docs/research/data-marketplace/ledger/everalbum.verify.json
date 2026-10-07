@@ -1,0 +1,190 @@
+{
+  "kind": "verify",
+  "slug": "everalbum",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "everalbum-c001",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://www.dhs.gov/science-and-technology/news/2026/09/01/feature-article-biometrics-border-making-exit-secure-and-efficient", "publisher": "U.S. Department of Homeland Security, Science and Technology Directorate", "source_class": "regulator_guidance", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "said Carl Gohringer, Vice President of Global Public Sector at Paravision"},
+      "corrected_statement": null,
+      "note": "The DHS S&T feature dated 2026-09-01 describes a joint Paravision/AiFi solution in operational exit-biometrics testing and quotes a Paravision VP, so Paravision was visibly trading in September 2026. It does not itself show a product announcement; the 2026-09-23 ISO/ICAO Image Quality Suite release exists only on paravision.ai (vendor). Biometric Update (2026-09-17, SITA article) also mentions Paravision's emaratech partnership. No search available."
+    },
+    {
+      "claim_id": "everalbum-c005",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {"url": "https://www.biometricupdate.com/202602/paravision-alcatraz-id-me-one-identity-trulioo-strengthen-leadership-teams", "publisher": "Biometric Update", "source_class": "press_relaying_vendor", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "Paravision has promoted Tiffany Lee to Chief Financial Officer"},
+      "corrected_statement": null,
+      "note": "Trade-press round-up dated 2026-02-05 restating Paravision's own 2026-01-26 announcement; reached via biometricupdate.com's own Paravision tag page (no search available). Nothing found newer than this that is a corporate event, but without search a later event (layoffs, funding) cannot be ruled out."
+    },
+    {
+      "claim_id": "everalbum-c033",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://www.ftc.gov/system/files/documents/cases/1923172_-_everalbum_complaint_final.pdf", "publisher": "U.S. Federal Trade Commission", "source_class": "court_record", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "pdf_read", "quote": "approximately 25% of the approximately 300,000 users who made a selection when presented with the pop-up message"},
+      "corrected_statement": null,
+      "note": "The sentence continues 'chose to turn face recognition off'. FTC complaint para 8 (Docket C-4743, issued 2021-05-06). The figure appears only in the complaint; no second FTC document or press source restating it was reachable without search. Added after Part 2: this is the same URL the profile cites, so it confirms the profile read the complaint correctly but is not a second, independent corroboration."
+    },
+    {
+      "claim_id": "everalbum-c034",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://www.ftc.gov/system/files/documents/cases/1923172_-_everalbum_complaint_final.pdf", "publisher": "U.S. Federal Trade Commission", "source_class": "court_record", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "pdf_read", "quote": "Globally, approximately 12 million consumers have installed Ever."},
+      "corrected_statement": null,
+      "note": "FTC complaint para 3. Added after Part 2: same URL as the profile's only source; no second source found (no search available). The figure is the FTC's, not the vendor's, so the statement's attribution is right."
+    },
+    {
+      "claim_id": "everalbum-c035",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://www.ftc.gov/system/files/documents/cases/1923172_-_everalbum_complaint_final.pdf", "publisher": "U.S. Federal Trade Commission", "source_class": "court_record", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "pdf_read", "quote": "Since January 2017, approximately 36,000 Ever users have deactivated their accounts."},
+      "corrected_statement": null,
+      "note": "FTC complaint para 17. Added after Part 2: same URL as the profile's only source; no second source found (no search available)."
+    },
+    {
+      "claim_id": "everalbum-c043",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No search available. The 13-billion / 95-countries figure is not in any FTC document on the case page (complaint, analysis, order, response letters, Chopra statement, compliance report). Contemporaneous 2019 press (NBC News reporting on Ever) ought to exist but its URL could not be reached by navigation, and the Wayback Machine (for ever.ai 2019) is blocked. arXiv's own search for Everalbum returned nothing. Added after Part 2: the profile's own source is NBC News (Solon and Farivar, 2019-05-09), which attributes the figure to Ever AI's news releases; fetched, it does relay it, so had it been reachable blind this would have been confirmed_relayed, not independent."
+    },
+    {
+      "claim_id": "everalbum-c017",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://www.ftc.gov/system/files/documents/cases/wpf_response_final_0.pdf", "publisher": "U.S. Federal Trade Commission, Office of the Secretary", "source_class": "regulator_guidance", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "pdf_read", "quote": "Section 5 of the Federal Trade Commission Act does not allow the Commission to seek civil penalties for a party's first"},
+      "corrected_statement": null,
+      "note": "FTC letter of 2021-05-06 to the World Privacy Forum, answering its criticism that the consent agreement had no monetary penalty. Commissioner Chopra's statement also says 'the settlement does not require the defendant to pay any penalty' and attributes it to the absence of a Section 18 rule. Added after Part 2: both are the profile's own sources; no source outside ftc.gov found."
+    },
+    {
+      "claim_id": "everalbum-c020",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {"url": "https://www.ftc.gov/system/files/ftc_gov/pdf/paravision_compliance_report_redacted.pdf", "publisher": "Paravision, Inc. (published by the U.S. Federal Trade Commission)", "source_class": "filing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "pdf_read", "quote": "Paravision timely submitted written statements to the Commission confirming it deleted the data required under Order § III"},
+      "corrected_statement": null,
+      "note": "The only source is Paravision's own sworn compliance report (executed 2022-05-05 by CEO Doug Aley), hosted on ftc.gov. It shows Paravision said this under penalty of perjury; no FTC finding or independent audit confirming the deletions was found. The statement's framing ('Paravision states') is accurate."
+    },
+    {
+      "claim_id": "everalbum-c021",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {"url": "https://www.ftc.gov/system/files/ftc_gov/pdf/paravision_compliance_report_redacted.pdf", "publisher": "Paravision, Inc. (published by the U.S. Federal Trade Commission)", "source_class": "filing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "pdf_read", "quote": "the technology that Paravision sells was not trained on any Covered Information collected through the Ever application"},
+      "corrected_statement": null,
+      "note": "Paravision's own sworn statement; no independent check exists. Same report says its sold technology is trained exclusively on public datasets, consenting employees, and third parties outside the US/EEA contractually obliged to obtain consent."
+    },
+    {
+      "claim_id": "everalbum-c030",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://www.ftc.gov/news-events/news/press-releases/2021/01/california-company-settles-ftc-allegations-it-deceived-consumers-about-use-facial-recognition-photo", "publisher": "U.S. Federal Trade Commission", "source_class": "regulator_guidance", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "did not share images from Ever users' photos or their photos, videos, or personal information with those customers"},
+      "corrected_statement": null,
+      "note": "FTC press release of 2021-01-11 restating complaint para 16 (the complaint itself says the same)."
+    },
+    {
+      "claim_id": "everalbum-c039",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://www.ftc.gov/system/files/documents/cases/1923172_-_everalbum_complaint_final.pdf", "publisher": "U.S. Federal Trade Commission", "source_class": "court_record", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "pdf_read", "quote": "to enterprise customers for purposes such as security, access control, and facilitating payments"},
+      "corrected_statement": null,
+      "note": "FTC complaint para 16. Chopra's statement adds clients 'in the security and air travel industries'. Added after Part 2: same URL as the profile's source."
+    },
+    {
+      "claim_id": "everalbum-c022",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://www.ftc.gov/news-events/news/press-releases/2021/01/california-company-settles-ftc-allegations-it-deceived-consumers-about-use-facial-recognition-photo", "publisher": "U.S. Federal Trade Commission", "source_class": "regulator_guidance", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "with facial images that Everalbum obtained from publicly available datasets to create four datasets"},
+      "corrected_statement": null,
+      "note": "Press release sentence begins 'Between September 2017 and August 2019, Everalbum combined millions of facial images'. Complaint para 12 says the same. Per complaint paras 13-16 the four datasets were built with differing geographic exclusions, and two were discarded after testing."
+    },
+    {
+      "claim_id": "everalbum-c040",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {"url": "https://www.ftc.gov/system/files/ftc_gov/pdf/paravision_compliance_report_redacted.pdf", "publisher": "Paravision, Inc. (published by the U.S. Federal Trade Commission)", "source_class": "filing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "pdf_read", "quote": "Paravision operates solely on a business-to-business or business-to-government basis and does not offer any products"},
+      "corrected_statement": null,
+      "note": "Paravision's own sworn statement (2022-05-05), hosted by the FTC. The FTC complaint independently describes the enterprise brand selling to enterprise customers, but nothing independent confirms the absence of any consumer offering after Ever's shutdown on 2020-09-30."
+    },
+    {
+      "claim_id": "everalbum-c048",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {"url": "https://www.ftc.gov/system/files/ftc_gov/pdf/paravision_compliance_report_redacted.pdf", "publisher": "Paravision, Inc. (published by the U.S. Federal Trade Commission)", "source_class": "filing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "pdf_read", "quote": "Conducts a review of all applicable licenses for public datasets it uses."},
+      "corrected_statement": null,
+      "note": "The compliance report summarises Paravision's AI Principles (published August 2020) and repeats the licence-review point; this is the vendor restating its own principle, so it confirms the vendor said it, not that reviews happen. The wording 'well-recognized' is not in the report and could only be checked on the vendor's own page."
+    },
+    {
+      "claim_id": "everalbum-c032",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://www.ftc.gov/system/files/documents/cases/1923172_-_everalbum_complaint_final.pdf", "publisher": "U.S. Federal Trade Commission", "source_class": "court_record", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "pdf_read", "quote": "and that you have the approval of everyone featured in your photos and videos"},
+      "corrected_statement": null,
+      "note": "Complaint para 9 quotes the 'What is Face Recognition?' help article posted from July 2018; the FTC alleged it was misleading for users outside TX, IL, WA and the EU before April 2019. The original everalbum.com article is not reachable (Wayback blocked). Added after Part 2: same URL as the profile's source; no second source found."
+    },
+    {
+      "claim_id": "everalbum-c038",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://www.ftc.gov/system/files/documents/public_statements/1585858/updated_final_chopra_statement_on_everalbum_for_circulation.pdf", "publisher": "U.S. Federal Trade Commission, Office of Commissioner Rohit Chopra", "source_class": "regulator_guidance", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "pdf_read", "quote": "The company enhanced their facial recognition technology by allegedly baiting consumers into using Ever, a “free” app"},
+      "corrected_statement": null,
+      "note": "Statement dated 2021-01-08. This is the primary document itself and the same URL the profile cites; no second source quoting it was reachable without search."
+    },
+    {"claim_id": "everalbum-c001", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null,
+     "note": "The fact is right (page dated 2026-09-23) but the quote is a product tagline that shows neither the date nor that Paravision announced it. Words that would: 'September 23, 2026 — Paravision, a leader in trusted Identity AI, today announced the Paravision ISO/ICAO Image Quality Suite'. The profile's status rests on a vendor page alone; see everalbum-v001 for an independent September 2026 source."},
+    {"claim_id": "everalbum-c005", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null,
+     "note": "Quote matches the page dated 2026-01-26. As 'newest dated corporate event' it holds on what was reachable: later newsroom items (March, August, September 2026) are product and benchmark news, not corporate events. Without search a later layoff or funding event cannot be excluded."},
+    {"claim_id": "everalbum-c033", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null,
+     "note": "The quote stops before what the 25% did. The complaint's next words are 'when presented with the pop-up message chose to turn face recognition off'."},
+    {"claim_id": "everalbum-c034", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": ""},
+    {"claim_id": "everalbum-c035", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": ""},
+    {"claim_id": "everalbum-c043", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null,
+     "note": "The quote shows only '13 billion photos and videos'; 'tens of millions of users in 95 countries' is in the next words of the NBC sentence. NBC attributes the figure to Ever AI's news releases, which are not dated in the article, so 'said in 2019' is the article's date, not necessarily the release's. The source is tagged independent_press but here it relays the vendor (press_relayed); the claim's origin vendor_stated is right."},
+    {"claim_id": "everalbum-c017", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null,
+     "note": "The two quotes together support it. The FTC letter's sentence begins 'Section 5 of the Federal Trade Commission Act does not allow'; the quoted fragment omits 'Section 5' but the claim is right. Chopra frames the cause more narrowly (no Section 18 rule restating the precedent)."},
+    {"claim_id": "everalbum-c020", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null,
+     "note": "The quote ends at 'confirming it deleted the data', which does not show that the statements covered photos, embeddings and models. Words that would: 'confirming it deleted the data required under Order § III (A), (B), and (C)' (III A photos/videos, B face embeddings, C Affected Work Product)."},
+    {"claim_id": "everalbum-c021", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null,
+     "note": "The report says 'Covered Information', an order-defined term for information from or about an individual consumer; the statement's 'any information' is a fair rendering. The claim is correctly framed as Paravision's own sworn statement."},
+    {"claim_id": "everalbum-c030", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null,
+     "note": "Complaint quote supports it. The profile's second source (NBC News) quotes Ever's CEO, so it is the vendor relayed (press_relaying_vendor), not independent_press for this point."},
+    {"claim_id": "everalbum-c039", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null,
+     "note": "The quote is cut after 'access control' and omits payments, which the statement names. The complaint continues ', and facilitating payments'."},
+    {"claim_id": "everalbum-c022", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null,
+     "note": "The quote shows only that face images from users' photos were combined 'with facial images'; it does not show the dates, the public datasets or the four datasets. The same complaint sentence has 'Between September 2017 and August 2019' and 'obtained from publicly available datasets in order to create four new datasets'. Separately, its use for matrix.supply_models stretches the field: these were training inputs, not listed inventory, and storage-app uploads are not 'contributor_uploads' in the vocab's sense; the profile's own note admits this."},
+    {"claim_id": "everalbum-c040", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null,
+     "note": "The quote shows B2B/B2G only; the 'offers nothing to individual consumers' half needs the next words, 'and does not offer any products or services to individual consumers'. The statement is in the present tense but rests on a 2022-05-05 filing."},
+    {"claim_id": "everalbum-c048", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null,
+     "note": "The AI Principles quote matches the statement. The page date (2022-04-06) is the principles page's own date; the compliance report says they were first published in August 2020."},
+    {"claim_id": "everalbum-c032", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null,
+     "note": "The words are the help article's as quoted in complaint para 9; the article was posted from July 2018. The statement could say it is known only through the FTC complaint."},
+    {"claim_id": "everalbum-c038", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null,
+     "note": "Supports the statement. As support for contributor_pay_model 'none' it is indirect: 'free' describes the app's price to users, not the absence of payment to them, though no payment appears anywhere in the FTC record."}
+  ],
+  "missed": [
+    {
+      "id": "everalbum-v001",
+      "statement": "A DHS Science and Technology feature dated 1 September 2026 describes a joint Paravision and AiFi solution in operational testing of biometric exit capture and quotes Paravision's VP of Global Public Sector.",
+      "kind": "status",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {"product": "", "tier": "", "region": "US"},
+      "value": null,
+      "origin": "government",
+      "as_of": "2026-09-01",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.dhs.gov/science-and-technology/news/2026/09/01/feature-article-biometrics-border-making-exit-secure-and-efficient",
+          "publisher": "U.S. Department of Homeland Security, Science and Technology Directorate",
+          "source_class": "regulator_guidance",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "said Carl Gohringer, Vice President of Global Public Sector at Paravision"
+        }
+      ]
+    }
+  ]
+}

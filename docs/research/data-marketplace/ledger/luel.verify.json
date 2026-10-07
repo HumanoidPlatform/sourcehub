@@ -1,0 +1,614 @@
+{
+  "kind": "verify",
+  "slug": "luel",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "luel-c001",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The 17 Sept 2026 announcement exists only on luel.ai/blog. No search available; publisher site searches (techcrunch.com, siliconangle.com, fortune.com) found no coverage of it. Separate support for 'trading': YC directory lists Luel 'Status: Active' (see luel-v001)."
+    },
+    {
+      "claim_id": "luel-c002",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Own ToS date. luel.ai/legal lists Terms 17 Sept 2026, Privacy 16 Sept, Data License 15 Sept, Supplier Terms 15 Sept, so 17 Sept is indeed the newest dated change there."
+    },
+    {
+      "claim_id": "luel-c006",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No search available. Lightspeed's portfolio page (lsvp.com/company/luel/) confirms a Seed-stage investment in 2026 but gives no amount; General Catalyst's portfolio page does not list Luel; EDGAR company and full-text search show no Form D for Luel Inc.; techcrunch.com, siliconangle.com and fortune.com site search found no funding story."
+    },
+    {
+      "claim_id": "luel-c008",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Vendor-stated in its seed post; independent press would be the only route and none was reachable. No search available; techcrunch.com/siliconangle.com/fortune.com site search found nothing on Luel's seed."
+    },
+    {
+      "claim_id": "luel-c025",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Figure appears on luel.ai/contribute ('850,000+ contributors already earning with Luel', near an unlabelled '$131.10M' figure). No independent count found; TechCrunch's Demo Day piece and the YC and Lightspeed pages give none. Luel's own seed post (15 May 2026) says only 'hundreds of thousands' of people. No search available."
+    },
+    {
+      "claim_id": "luel-c026",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No independent country count found (YC, Lightspeed, TechCrunch pages give none). Luel's own seed post (15 May 2026) says 'across almost 100 countries', not 96+. No search available."
+    },
+    {
+      "claim_id": "luel-c033",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Listing text; live page luel.ai/datasets/diverse-egocentric-video says '400+ unique contributors' and 'Pineye egocentric camera system'. Its linked Hugging Face sample (Luel-ai/Ego-Realm) returned 401 and is Luel-authored anyway."
+    },
+    {
+      "claim_id": "luel-c034",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Listing text; live page says '1,000+ hours'."
+    },
+    {
+      "claim_id": "luel-c035",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Listing text; live luel.ai/datasets/egocentric-video says '20,000+ unique tasks captured across households, factories, shops'."
+    },
+    {
+      "claim_id": "luel-c039",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause of Luel's own Marketplace Supplier Terms (luel.ai/marketplace/agreement, dated 15 Sept 2026 on luel.ai/legal)."
+    },
+    {
+      "claim_id": "luel-c054",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Live luel.ai/marketplace filter counts: All (30), Audio (24), Video (5), Sensor (4), which sum to 33, so the overlap reading holds. Note the sitemap lists 30 /datasets/ pages including a 'cutaneous-medical-imagery' listing, i.e. an image listing outside those three filters."
+    },
+    {
+      "claim_id": "luel-c068",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Own docs limit; live luel.ai/docs/data/limits says the public beta includes 'at most 12 corpora'."
+    },
+    {
+      "claim_id": "luel-c074",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Own docs. Live luel.ai/data/skill.md ('Staging catalog' section) says 'Every SKU on sale in production is 125 minor per minute ($1.25/min)' and adds 'Staging fixtures are priced differently'. The catalogue itself is behind authentication, so per-SKU prices could not be inspected."
+    },
+    {
+      "claim_id": "luel-c075",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Own docs; live quickstart reads '125 minor is $1.25 a minute, so an hour is $75'."
+    },
+    {
+      "claim_id": "luel-c080",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No independent customer list reachable. Partial relays only: TechCrunch (28 Mar 2026) relays 'high demand from robotics and voice AI labs'; Lightspeed's portfolio page names 'Generative AI labs, robotics companies, and speech research teams'. Neither mentions social platforms, universities, hospitals or banks. No search available."
+    },
+    {
+      "claim_id": "luel-c081",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A capability claim that only customer testimony or press could confirm; none found. The founders' own Launch YC post says submissions are 'delivered within days', not a 24-hour campaign launch. No search available."
+    },
+    {
+      "claim_id": "luel-c084",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Own limit; live luel.ai/data/skill.md gives a $5,000 lifetime spend cap for the self-declared 'licensed' rung."
+    },
+    {
+      "claim_id": "luel-c085",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Own limit; live skill.md: 'Today that range is 5 to 10 hours, so a licensed buyer can hold at most 10 hours of any one SKU'. The Data Buyer Policy (14 Sept 2026) instead says 'at most 20 hours held of any one hourly-priced dataset'."
+    },
+    {
+      "claim_id": "luel-c096",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Own limit; live luel.ai/docs/data/limits: new-session cap 5 per 30-day window per buyer org and dataset version (hard ceiling 100 signed-URL issuances)."
+    },
+    {
+      "claim_id": "luel-c105",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Luel's own disclosure. Its lab papers are hosted only on luel.ai (no arXiv version found via the arXiv API search for 'Luel')."
+    },
+    {
+      "claim_id": "luel-c145",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Own task board; live luel.ai/contribute lists 'American English Conversations - Emotive & Spontaneous (3 People)' at '$12/hr ($0.20/min)'. Rates change as tasks open and close."
+    },
+    {
+      "claim_id": "luel-c146",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Own task board; live luel.ai/contribute lists Uyghur, Hmong, Tibetan, Jamaican Creole and Guarani conversational audio at '$7.50/hr ($0.13/min)'."
+    },
+    {
+      "claim_id": "luel-c036",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause of Luel's own Supplier Terms; no independent source exists by nature."
+    },
+    {
+      "claim_id": "luel-c020",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://www.ycombinator.com/launches/PKl-luel-the-marketplace-for-multimodal-data",
+        "publisher": "Y Combinator (Launch YC post by Luel co-founder Inigo Lenderking)",
+        "source_class": "press_relaying_vendor",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "completed collections become ready-to-license catalogue datasets"
+      },
+      "corrected_statement": null,
+      "note": "The founders' own post on YC's domain names off-the-shelf licensing next to custom collections; it does not say 'second revenue stream' or 'no new collection cost'. Not independent."
+    },
+    {
+      "claim_id": "luel-c021",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "How Luel describes its own revenue streams; the founders' Launch YC post does not mention third-party listings."
+    },
+    {
+      "claim_id": "luel-c045",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause of Luel's own Supplier Terms."
+    },
+    {
+      "claim_id": "luel-c070",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Own API behaviour. The API reference confirms an availability value 'contact_sales' and that 'Only agent-deliverable modalities are listed'; the catalogue itself needs authentication, so the rows could not be inspected."
+    },
+    {
+      "claim_id": "luel-c064",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Listing text on Luel's own Music Library page."
+    },
+    {
+      "claim_id": "luel-c099",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Own receipt format in its docs."
+    },
+    {
+      "claim_id": "luel-c141",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause of Luel's own contributor terms."
+    },
+    {
+      "claim_id": "luel-c001",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches. The profile itself records a conflict (c005) with docs saying the API is off in production; that bears on the self-serve launch, not on the organisation trading."
+    },
+    {
+      "claim_id": "luel-c002",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "luel-c006",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Correctly framed as 'Luel says'; the only source is the vendor's post."
+    },
+    {
+      "claim_id": "luel-c008",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "luel-c025",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "luel-c026",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote is from the 17 Sept 2026 post; the 15 May 2026 seed post says 'almost 100 countries' and 'hundreds of thousands of people', so the figures moved between posts."
+    },
+    {
+      "claim_id": "luel-c033",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "luel-c034",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "luel-c035",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "luel-c039",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The 15% is derived from 'Luel keeps the rest', which is fair. The 'draft' status is shown elsewhere on the page ('Draft pending counsel review. Luel is not accepting signatures yet.')."
+    },
+    {
+      "claim_id": "luel-c054",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote shows only the total of 30. The per-category counts need the filter labels on the same page: 'Audio (24)', 'Video (5)', 'Sensor (4)'."
+    },
+    {
+      "claim_id": "luel-c068",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote is from /docs/data/buying; /docs/data/limits says the same thing ('at most 12 corpora')."
+    },
+    {
+      "claim_id": "luel-c074",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote sits under skill.md's 'Staging catalog' heading but explicitly speaks of production and is followed by 'Staging fixtures are priced differently'. 'Of paired conversation' is not in the quote and comes from other docs."
+    },
+    {
+      "claim_id": "luel-c075",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "luel-c080",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "luel-c081",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "luel-c084",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The $5,000 figure is right, but the quote does not name the tier. The words 'Licensed' tier (self-declared) on the Data Buyer Policy would show it. The same quote gives a 20-hour per-dataset cap, which the profile correctly records as a conflict with c085."
+    },
+    {
+      "claim_id": "luel-c085",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote supports the statement, but the Data Buyer Policy's 20-hour cap disagrees. The profile records this conflict and resolves it as the 10-hour tier range binding first. That resolution comes from skill.md and is an interpretation, not the policy's text."
+    },
+    {
+      "claim_id": "luel-c096",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote ('more than five genuine re-downloads per window') gives neither the 30-day window nor the per-dataset-version scope. The limits table does: 'New-session cap' 5, under 'Per 30-day window, per buyer org/dataset version'. The statement also says 'rolling', which I did not see."
+    },
+    {
+      "claim_id": "luel-c105",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "luel-c145",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A posted task rate, correctly scoped to one task; board rates change."
+    },
+    {
+      "claim_id": "luel-c146",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Live board shows the same $7.50/hr rate for Uyghur, Hmong, Tibetan, Jamaican Creole and Guarani tasks."
+    },
+    {
+      "claim_id": "luel-c036",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Draft terms, correctly labelled."
+    },
+    {
+      "claim_id": "luel-c020",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches; 'second' is the list order in the seed post, which enumerates three streams."
+    },
+    {
+      "claim_id": "luel-c021",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches; 'third' is the list order in the seed post."
+    },
+    {
+      "claim_id": "luel-c045",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "'Supplier's own storage' slightly paraphrases 'the storage you give Luel access to'; acceptable."
+    },
+    {
+      "claim_id": "luel-c070",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote shows video/sensor listings are never orderable, but not that they are contact_sales rows with no price or version. The same skill.md says 'No id, no datasetVersionId, no price — there is nothing to order' about contact_sales rows."
+    },
+    {
+      "claim_id": "luel-c064",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "luel-c099",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "luel-c141",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Contributor payout clause sits in the Terms of Service; scope matches."
+    }
+  ],
+  "missed": [
+    {
+      "id": "luel-v001",
+      "statement": "Y Combinator's company directory lists Luel (Winter 2026 batch, San Francisco) as Active with a team size of 12.",
+      "kind": "status",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "independent",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ycombinator.com/companies/luel",
+          "publisher": "Y Combinator",
+          "source_class": "third_party_docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Team Size: 12"
+        }
+      ]
+    },
+    {
+      "id": "luel-v002",
+      "statement": "TechCrunch reported at YC Demo Day (28 March 2026) that Luel claimed ARR of nearly US$2 million within six weeks.",
+      "kind": "number",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 2000000,
+        "unit": "USD ARR",
+        "basis": "company-claimed annual recurring revenue, 'nearly', relayed by press",
+        "period": "per year"
+      },
+      "origin": "press_relayed",
+      "as_of": "2026-03-28",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://techcrunch.com/2026/03/28/from-moon-hotels-to-cattle-herding-8-startups-investors-chased-at-yc-demo-day/",
+          "publisher": "TechCrunch",
+          "source_class": "press_relaying_vendor",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The company claims it's generating ARR of nearly $2 million within six weeks"
+        }
+      ]
+    },
+    {
+      "id": "luel-v003",
+      "statement": "TechCrunch attributed Luel's early revenue to high demand from robotics and voice AI labs.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "press_relayed",
+      "as_of": "2026-03-28",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://techcrunch.com/2026/03/28/from-moon-hotels-to-cattle-herding-8-startups-investors-chased-at-yc-demo-day/",
+          "publisher": "TechCrunch",
+          "source_class": "press_relaying_vendor",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "fueled by high demand from robotics and voice AI labs"
+        }
+      ]
+    },
+    {
+      "id": "luel-v004",
+      "statement": "Lightspeed Venture Partners' portfolio page lists Luel as a Seed-stage investment made in 2026, independently corroborating Lightspeed's participation but not the round size.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "independent",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://lsvp.com/company/luel/",
+          "publisher": "Lightspeed Venture Partners",
+          "source_class": "third_party_docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Stage Invested: Seed"
+        }
+      ]
+    }
+  ]
+}

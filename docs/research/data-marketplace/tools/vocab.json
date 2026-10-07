@@ -1,0 +1,107 @@
+{
+  "segments": [
+    "ai_data_catalogue", "priced_catalogue", "licensing_marketplace", "stock_media",
+    "crowd_capture", "vision_physical_ai", "cloud_exchange", "community_hub",
+    "independent_marketplace", "government", "failure", "other"
+  ],
+  "tiers": ["deep", "light"],
+  "platform_status": ["active", "acquired", "pivoted", "shut", "unknown"],
+  "claim_kinds": ["offer", "terms", "number", "architecture", "outcome", "event", "status"],
+  "claim_sections": [
+    "positioning", "supply", "object_model", "listing", "discovery", "trust", "transaction",
+    "pricing", "licence", "custody", "vetting", "contributor_pay", "post_sale",
+    "catalogue_custom", "changes", "demand", "regulation", "other"
+  ],
+  "origins": [
+    "vendor_stated", "legal_text", "filing", "independent", "press_relayed", "court",
+    "standard_text", "government", "academic"
+  ],
+  "as_of_basis": ["page_dated", "snapshot", "publication", "retrieved_only"],
+  "source_classes": [
+    "legal_terms", "docs", "pricing_page", "filing", "court_record", "eng_blog",
+    "standard_text", "statute_or_regulation", "regulator_guidance", "academic",
+    "independent_press", "press_relaying_vendor", "vendor_marketing", "ngo_report",
+    "third_party_docs", "professional_commentary"
+  ],
+  "banned_source_classes": ["directory_or_listicle", "search_snippet", "memory"],
+  "fetch_status": ["ok", "redirected"],
+  "fetched_via": ["webfetch", "pdf_read"],
+  "unknown_reasons": ["gated", "js_empty", "not_published", "not_found", "blocked", "paywalled"],
+  "question_states": ["sourced", "partial", "unknown", "not_applicable"],
+  "questions": {
+    "Q1": "Demand: who buys off-the-shelf photo and video, in what unit and volume, and why instead of custom?",
+    "Q2": "Build, list, or both: what does listing on someone else's marketplace get a provider that building its own does not?",
+    "Q3": "Supply and rights: where does inventory come from (own collection, commissioned work, third parties, contributors) and on what rights is each listed?",
+    "Q4": "Channel conflict: how are resale rights carved out of commissioned work, and what happened when terms were changed after the fact?",
+    "Q5": "Operator's legal role: reseller, agent or venue; who is licensor of record, who warrants consent, who indemnifies?",
+    "Q6": "Custody: platform-hosted, shared in place from the provider's storage, or copied into the buyer's storage?",
+    "Q7": "Consent for onward sale, by party: the capturer, the person depicted, the place or property owner.",
+    "Q8": "Licence terms and defensibility once the file has left: exclusivity, audit, leakage, fingerprinting.",
+    "Q9": "How deals close: self-serve checkout or contact-sales; commission, revenue share, or owning the inventory.",
+    "Q10": "Object model: what a listing, dataset, revision, order and entitlement are; what a past buyer gets on a new version or a withdrawal.",
+    "Q11": "Samples, trust and quality evidence: what is shown before purchase, and which evidence buyers rely on.",
+    "Q12": "Catalogue and custom together: how the off-the-shelf side and the bespoke side relate, and what each is called."
+  },
+  "matrix": {
+    "operator_role": ["reseller_licensor", "agent", "venue", "mixed", "not_applicable"],
+    "economics_model": ["commission", "revenue_share", "principal_margin", "subscription", "free", "mixed"],
+    "who_pays_fee": ["buyer", "seller", "both", "not_applicable"],
+    "supply_models": [
+      "own_collection", "commissioned_nonexclusive", "client_relisting", "third_party_providers",
+      "contributor_uploads", "public_or_scraped", "partner_licensed"
+    ],
+    "custody_model": ["platform_hosted", "share_in_place", "copy_to_buyer", "provider_delivers", "links_only", "mixed"],
+    "transaction_mode": ["self_serve_checkout", "contact_sales", "both", "free_download"],
+    "public_prices": ["all", "some", "none", "not_applicable"],
+    "licence_model": ["standard_licence", "tiered_standard", "negotiated", "open_licences", "provider_defined", "mixed"],
+    "exclusivity_offered": ["yes", "no"],
+    "public_listing": ["public_indexable", "public_summary_gated_detail", "login_required"],
+    "buyer_vetting": ["none", "account_only", "business_verification", "case_by_case"],
+    "sample_mechanics": ["free_sample_download", "sample_on_request", "preview_in_browser", "stats_only", "none"],
+    "versioning": ["immutable_revisions", "mutable_latest", "withdrawn_and_replaced", "mixed", "none"],
+    "human_subject_consent_docs": ["provided_to_buyer", "asserted_only", "not_addressed", "not_applicable"],
+    "contributor_pay_model": ["none", "one_off", "royalty_or_revenue_share", "mixed", "not_applicable"],
+    "catalogue_plus_custom": ["catalogue_only", "custom_only", "both"],
+    "erasure_after_sale": ["contractual_deletion", "takedown_only", "not_addressed"],
+    "quality_evidence": ["operator_verified", "provider_asserted", "both", "none"]
+  },
+  "matrix_list_fields": ["supply_models"],
+  "conflict_rules": ["newer_wins_status", "live_primary_wins_terms", "unresolved"],
+  "matrix_definitions": {
+    "operator_role": "Who the buyer contracts with for the licence. reseller_licensor: the platform itself is licensor of record. agent: the platform sells on the provider's behalf under the provider's name. venue: the platform only hosts the listing and the provider is seller and licensor.",
+    "economics_model": "How the operator earns from a dataset sale. commission: a percentage fee on the provider's sale. revenue_share: the contributor or provider receives a share and the operator keeps the rest (stock-media style). principal_margin: the operator owns or buys the data and sells at its own price.",
+    "who_pays_fee": "Who bears the operator's fee: the buyer on top of the price, the seller out of proceeds, or both.",
+    "supply_models": "Every source of listed inventory the evidence shows. commissioned_nonexclusive: data first collected for a paying client and then also sold to others. client_relisting: a buyer lists data it bought or owns.",
+    "custody_model": "Where the bytes sit when a buyer gets access. share_in_place: read access to the provider's own storage, no copy. copy_to_buyer: data copied or delivered into the buyer's storage. links_only: the platform distributes URLs or metadata and the media stays on third-party hosts.",
+    "transaction_mode": "How a purchase actually completes. contact_sales: price and licence settled with a salesperson; a 'request a quote' button counts.",
+    "public_prices": "Prices published anywhere by the platform itself, including press releases and pricing pages. some: some listings or tiers have a published price.",
+    "licence_model": "standard_licence: one licence for everything. tiered_standard: a fixed menu (for example research vs commercial). provider_defined: each provider sets its own licence. negotiated: settled per deal.",
+    "exclusivity_offered": "Whether a buyer can obtain exclusive rights to a listed dataset, at any price.",
+    "public_listing": "What an anonymous visitor can see.",
+    "buyer_vetting": "What the platform checks about a buyer before a sale.",
+    "sample_mechanics": "What a buyer can inspect before paying.",
+    "versioning": "immutable_revisions: a published version never changes and a buyer keeps access to the versions bought. withdrawn_and_replaced: the dataset was pulled and reissued under a new name.",
+    "human_subject_consent_docs": "For data showing people: whether the buyer receives consent or release evidence, gets only a warranty that it exists, or nothing.",
+    "contributor_pay_model": "How the INDIVIDUALS who captured or created the content are paid when it is sold: crowd workers, photographers, uploaders. Not organisations supplying whole datasets; that is economics_model.",
+    "erasure_after_sale": "What happens to copies already sold when content must come out (a data subject's request, a takedown). contractual_deletion: buyers are obliged by contract to delete, including on licence termination. takedown_only: the platform removes the listing but buyers keep their copies.",
+    "catalogue_plus_custom": "Whether the organisation sells ready-made datasets, collects to order, or both.",
+    "quality_evidence": "Whether quality statements on a listing were checked by the operator or are the provider's own."
+  },
+  "doc_types": [
+    "buyer_licence", "provider_agreement", "contributor_agreement", "release_form",
+    "custom_collection_terms", "marketplace_terms", "licence_template", "standard",
+    "statute", "regulator_guidance"
+  ],
+  "term_fields": [
+    "permitted_use", "ai_training_rights", "field_of_use", "territory", "term_duration",
+    "exclusivity", "sublicensing", "derivatives_and_model_outputs", "attribution", "audit_rights",
+    "deletion_on_termination", "warranties_by_provider", "consent_and_release_warranty",
+    "indemnity", "liability_cap", "payment_and_revenue_share", "takedown_and_erasure",
+    "governing_law", "change_of_terms", "prohibited_uses"
+  ],
+  "verdict_status": [
+    "confirmed_independent", "corrected", "disputed", "refuted", "unverifiable",
+    "confirmed_relayed", "vendor_only", "scope_ok", "scope_wrong", "quote_incomplete"
+  ],
+  "verdict_checks": ["blind", "scope"]
+}

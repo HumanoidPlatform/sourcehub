@@ -1,0 +1,2015 @@
+{
+  "kind": "profile",
+  "slug": "ibm-diversity-in-faces",
+  "name": "IBM Diversity in Faces",
+  "aliases": [
+    "DiF",
+    "Diversity in Faces (DiF) dataset",
+    "IBM Research DiF Dataset"
+  ],
+  "segment": "failure",
+  "tier": "light",
+  "status": {
+    "value": "unknown",
+    "claim_id": "ibm-diversity-in-faces-c054"
+  },
+  "names_for": {
+    "catalogue_side": "dataset (IBM: 'a new large and diverse dataset called Diversity in Faces (DiF)'; released to 'the global research community')",
+    "custom_side": "none found; no collect-to-order offer was attached to DiF"
+  },
+  "matrix": {
+    "operator_role": {
+      "value": "not_applicable",
+      "claim_ids": [
+        "ibm-diversity-in-faces-c017",
+        "ibm-diversity-in-faces-c016"
+      ],
+      "note": "No intermediary: IBM Research built DiF and distributed it directly under its own terms of use, so there is no platform role to classify."
+    },
+    "economics_model": {
+      "value": "free",
+      "claim_ids": [
+        "ibm-diversity-in-faces-c015"
+      ],
+      "note": "Provided free of charge to approved researchers."
+    },
+    "who_pays_fee": {
+      "value": "not_applicable",
+      "claim_ids": [
+        "ibm-diversity-in-faces-c015"
+      ],
+      "note": "No fee on either side."
+    },
+    "supply_models": {
+      "value": [
+        "public_or_scraped"
+      ],
+      "claim_ids": [
+        "ibm-diversity-in-faces-c008",
+        "ibm-diversity-in-faces-c009"
+      ],
+      "note": "About one million Creative Commons Flickr photos drawn from Yahoo's public YFCC-100M release; IBM added its own machine-generated annotations."
+    },
+    "custody_model": {
+      "value": "mixed",
+      "claim_ids": [
+        "ibm-diversity-in-faces-c017",
+        "ibm-diversity-in-faces-c025",
+        "ibm-diversity-in-faces-c039",
+        "ibm-diversity-in-faces-c018"
+      ],
+      "note": "The annotation files went out through a temporary Box link and were copied into each recipient's own storage (copy_to_buyer). The photos stayed on Flickr and were reached through links (links_only)."
+    },
+    "transaction_mode": {
+      "value": "free_download",
+      "claim_ids": [
+        "ibm-diversity-in-faces-c015",
+        "ibm-diversity-in-faces-c021"
+      ],
+      "note": "Free download link sent after a questionnaire and a manual check by IBM."
+    },
+    "public_prices": {
+      "value": "not_applicable",
+      "claim_ids": [
+        "ibm-diversity-in-faces-c015"
+      ],
+      "note": "Free; nothing priced."
+    },
+    "licence_model": {
+      "value": "standard_licence",
+      "claim_ids": [
+        "ibm-diversity-in-faces-c016",
+        "ibm-diversity-in-faces-c046"
+      ],
+      "note": "One DiF terms of use for every recipient: non-commercial research only, no identification of individuals. The full text (Merler decl. Ex. H) was not reachable."
+    },
+    "exclusivity_offered": {
+      "value": "no",
+      "claim_ids": [
+        "ibm-diversity-in-faces-c015",
+        "ibm-diversity-in-faces-c020"
+      ],
+      "note": "Handed out free to any approved research requester; about 250 organisations had requested it by March 2019. No exclusive offer found."
+    },
+    "public_listing": {
+      "value": "public_summary_gated_detail",
+      "claim_ids": [
+        "ibm-diversity-in-faces-c052",
+        "ibm-diversity-in-faces-c053",
+        "ibm-diversity-in-faces-c015"
+      ],
+      "note": "The announcement and the paper, with dataset statistics, were public. The data itself required an approved questionnaire."
+    },
+    "buyer_vetting": {
+      "value": "case_by_case",
+      "claim_ids": [
+        "ibm-diversity-in-faces-c017",
+        "ibm-diversity-in-faces-c022",
+        "ibm-diversity-in-faces-c019"
+      ],
+      "note": "An IBM researcher checked each request for a legitimate research purpose. IBM refused a journalist, and told an Amazon requester who cited 'internal testing' that the data was for research only, then still approved the request."
+    },
+    "sample_mechanics": {
+      "value": "stats_only",
+      "claim_ids": [
+        "ibm-diversity-in-faces-c053"
+      ],
+      "note": "The public paper carries statistical analysis of the annotations. No sample download was found."
+    },
+    "versioning": {
+      "value": "mutable_latest",
+      "claim_ids": [
+        "ibm-diversity-in-faces-c021",
+        "ibm-diversity-in-faces-c023",
+        "ibm-diversity-in-faces-c024"
+      ],
+      "note": "Numbered versions (1A, then 1B in April 2019). IBM told recipients to delete the superseded version, so only the latest version was valid."
+    },
+    "human_subject_consent_docs": {
+      "value": "not_addressed",
+      "claim_ids": [
+        "ibm-diversity-in-faces-c049",
+        "ibm-diversity-in-faces-c031",
+        "ibm-diversity-in-faces-c009",
+        "ibm-diversity-in-faces-c030"
+      ],
+      "note": "The only rights basis was the photographer's Creative Commons licence. No consent or release from the people depicted was sought or passed on."
+    },
+    "contributor_pay_model": {
+      "value": "not_applicable",
+      "claim_ids": [
+        "ibm-diversity-in-faces-c009",
+        "ibm-diversity-in-faces-c055"
+      ],
+      "note": "No contributors in the platform sense: the photos were reused under Creative Commons licences, and no payment to photographers was found."
+    },
+    "catalogue_plus_custom": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "DiF was a single released dataset. Whether IBM Research offered collection to order alongside it was not established."
+    },
+    "erasure_after_sale": {
+      "value": "takedown_only",
+      "claim_ids": [
+        "ibm-diversity-in-faces-c047",
+        "ibm-diversity-in-faces-c048",
+        "ibm-diversity-in-faces-c024"
+      ],
+      "note": "IBM removed images from its own copy on request, and IBM itself said copies already shared were not affected. The one known recall was an email telling recipients to delete Version 1A when 1B shipped; whether that was a contractual duty is not shown."
+    },
+    "quality_evidence": {
+      "value": "provider_asserted",
+      "claim_ids": [
+        "ibm-diversity-in-faces-c053",
+        "ibm-diversity-in-faces-c026"
+      ],
+      "note": "IBM's own paper and statistics. A recipient (Amazon) found the demographic annotations unreliable."
+    }
+  },
+  "questions": {
+    "Q1": {
+      "state": "partial",
+      "answer": "Corporate and academic face-recognition teams requested it: about 250 organisations by March 2019 (IBM's figure), including Microsoft, Amazon, Google and FaceFirst (the last two only alleged), mainly for fairness benchmarking. Microsoft and Amazon found it unsuitable.",
+      "claim_ids": [
+        "ibm-diversity-in-faces-c020",
+        "ibm-diversity-in-faces-c028",
+        "ibm-diversity-in-faces-c026",
+        "ibm-diversity-in-faces-c038",
+        "ibm-diversity-in-faces-c041",
+        "ibm-diversity-in-faces-c012"
+      ]
+    },
+    "Q2": {
+      "state": "not_applicable",
+      "answer": "IBM distributed DiF itself by email and Box link; there was no marketplace listing to compare against.",
+      "claim_ids": [
+        "ibm-diversity-in-faces-c017"
+      ]
+    },
+    "Q3": {
+      "state": "sourced",
+      "answer": "All inventory was public Flickr photos from Yahoo's YFCC-100M release, filtered to Creative Commons licences, plus IBM's machine-generated facial annotations. The only rights basis was the photographer's CC licence.",
+      "claim_ids": [
+        "ibm-diversity-in-faces-c008",
+        "ibm-diversity-in-faces-c009",
+        "ibm-diversity-in-faces-c011",
+        "ibm-diversity-in-faces-c051",
+        "ibm-diversity-in-faces-c055"
+      ]
+    },
+    "Q4": {
+      "state": "not_applicable",
+      "answer": "No commissioned work was involved; the source images came from a public release.",
+      "claim_ids": []
+    },
+    "Q5": {
+      "state": "sourced",
+      "answer": "IBM was maker and sole licensor, and BIPA suits reached both IBM and the downloaders: Microsoft, Amazon, Google and FaceFirst. Microsoft and Amazon won summary judgment on extraterritoriality after a court held that downloading could be 'obtaining' under BIPA; IBM and FaceFirst were dismissed by stipulation, and Google settled (final dismissal 12 December 2025).",
+      "claim_ids": [
+        "ibm-diversity-in-faces-c001",
+        "ibm-diversity-in-faces-c002",
+        "ibm-diversity-in-faces-c003",
+        "ibm-diversity-in-faces-c004",
+        "ibm-diversity-in-faces-c005",
+        "ibm-diversity-in-faces-c006",
+        "ibm-diversity-in-faces-c027",
+        "ibm-diversity-in-faces-c029",
+        "ibm-diversity-in-faces-c034",
+        "ibm-diversity-in-faces-c040",
+        "ibm-diversity-in-faces-c044",
+        "ibm-diversity-in-faces-c042",
+        "ibm-diversity-in-faces-c043"
+      ]
+    },
+    "Q6": {
+      "state": "sourced",
+      "answer": "IBM emailed a temporary Box link, and recipients copied the files into their own storage (Amazon S3, Azure, laptops). The files carried annotations and Flickr links, and the photos themselves stayed on Flickr.",
+      "claim_ids": [
+        "ibm-diversity-in-faces-c017",
+        "ibm-diversity-in-faces-c025",
+        "ibm-diversity-in-faces-c039",
+        "ibm-diversity-in-faces-c018"
+      ]
+    },
+    "Q7": {
+      "state": "sourced",
+      "answer": "IBM filtered on the photographer's Creative Commons licence only. No consent was sought from the people depicted, some of whom were strangers photographed on the street. The court in the IBM suit held that facial measurements taken from photographs can be biometric identifiers, and Microsoft's Creative Commons argument was never reached.",
+      "claim_ids": [
+        "ibm-diversity-in-faces-c009",
+        "ibm-diversity-in-faces-c030",
+        "ibm-diversity-in-faces-c031",
+        "ibm-diversity-in-faces-c035",
+        "ibm-diversity-in-faces-c045",
+        "ibm-diversity-in-faces-c049"
+      ]
+    },
+    "Q8": {
+      "state": "partial",
+      "answer": "The terms of use allowed non-commercial research only and banned identifying people. IBM said removals would not reach copies already shared, apart from an email telling recipients to delete Version 1A. No audit or fingerprinting was found.",
+      "claim_ids": [
+        "ibm-diversity-in-faces-c016",
+        "ibm-diversity-in-faces-c046",
+        "ibm-diversity-in-faces-c048",
+        "ibm-diversity-in-faces-c024",
+        "ibm-diversity-in-faces-c033"
+      ]
+    },
+    "Q9": {
+      "state": "sourced",
+      "answer": "No sale took place: access was a free download after an emailed questionnaire and a manual check by IBM of the research purpose.",
+      "claim_ids": [
+        "ibm-diversity-in-faces-c015",
+        "ibm-diversity-in-faces-c017",
+        "ibm-diversity-in-faces-c021",
+        "ibm-diversity-in-faces-c022"
+      ]
+    },
+    "Q10": {
+      "state": "partial",
+      "answer": "The dataset held annotations for about one million faces plus Flickr links. It had numbered versions (1A, then 1B), and IBM told past recipients to delete the old version; what happened at withdrawal is not documented.",
+      "claim_ids": [
+        "ibm-diversity-in-faces-c010",
+        "ibm-diversity-in-faces-c021",
+        "ibm-diversity-in-faces-c023",
+        "ibm-diversity-in-faces-c024",
+        "ibm-diversity-in-faces-c054"
+      ]
+    },
+    "Q11": {
+      "state": "partial",
+      "answer": "Before requesting, a user could see only the public paper and its statistics. Amazon's evaluators found the demographic annotations unreliable and the data unbalanced.",
+      "claim_ids": [
+        "ibm-diversity-in-faces-c053",
+        "ibm-diversity-in-faces-c026"
+      ]
+    },
+    "Q12": {
+      "state": "not_applicable",
+      "answer": "A single free research dataset with no bespoke collection side.",
+      "claim_ids": []
+    }
+  },
+  "claims": [
+    {
+      "id": "ibm-diversity-in-faces-c001",
+      "statement": "The last DiF-related BIPA suit, Vance v. Google LLC (N.D. Cal. 5:20-cv-04696), ended on 12 December 2025 when the court approved the plaintiffs' stipulation of dismissal.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Vance v. Google LLC",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2025-12-12",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.courtlistener.com/api/rest/v4/search/?q=docket_id%3A17348824&type=r&order_by=entry_date_filed%20desc",
+          "publisher": "CourtListener (docket of Vance v. Google, N.D. Cal. 5:20-cv-04696)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "ORDER APPROVING 137 STIPULATION OF DISMISSAL"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c002",
+      "statement": "On 11 May 2023 Vance v. IBM (N.D. Ill. 1:20-cv-00577), the suit against the dataset's maker, was dismissed with prejudice under the parties' stipulation of dismissal.",
+      "kind": "outcome",
+      "section": "regulation",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Vance v. IBM",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2023-05-11",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.courtlistener.com/api/rest/v4/search/?q=docket_id%3A16759907&type=r&order_by=entry_date_filed%20desc",
+          "publisher": "CourtListener (docket of Vance v. IBM, N.D. Ill. 1:20-cv-00577)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "this case is dismissed with prejudice"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c003",
+      "statement": "On 17 October 2022 the court granted Microsoft summary judgment in the DiF BIPA suit against it.",
+      "kind": "outcome",
+      "section": "regulation",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Vance v. Microsoft",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2022-10-17",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.courtlistener.com/api/rest/v4/search/?q=docket_id%3A17348496&type=r&order_by=entry_date_filed%20desc",
+          "publisher": "CourtListener (docket of Vance v. Microsoft, W.D. Wash. 2:20-cv-01082)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "JUDGMENT BY COURT: Defendant's motion for summary judgment is GRANTED"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c004",
+      "statement": "On 17 October 2022 the court granted Amazon's renewed motion for summary judgment in the DiF BIPA suit against it.",
+      "kind": "outcome",
+      "section": "regulation",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Vance v. Amazon",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2022-10-17",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.courtlistener.com/api/rest/v4/search/?q=docket_id%3A17348493&type=r&order_by=entry_date_filed%20desc",
+          "publisher": "CourtListener (docket of Vance v. Amazon, W.D. Wash. 2:20-cv-01084)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "ORDER granting Defendant's 111 Renewed MOTION for Summary Judgment"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c005",
+      "statement": "On 17 October 2023 the DiF BIPA suit against FaceFirst was dismissed with prejudice on the parties' stipulation.",
+      "kind": "outcome",
+      "section": "regulation",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Vance v. FaceFirst",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2023-10-17",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.courtlistener.com/api/rest/v4/search/?q=docket_id%3A17352098&type=r&order_by=entry_date_filed%20desc",
+          "publisher": "CourtListener (docket of Vance v. FaceFirst, C.D. Cal. 2:20-cv-06244)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the Court hereby DISMISSES this action with prejudice"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c006",
+      "statement": "The Microsoft ruling held that BIPA does not apply extraterritorially, so the downloader's conduct had to have occurred primarily and substantially in Illinois, which the plaintiffs could not show.",
+      "kind": "outcome",
+      "section": "regulation",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Vance v. Microsoft",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2022-10-17",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.wawd.287400/gov.uscourts.wawd.287400.145.0.pdf",
+          "publisher": "U.S. District Court, W.D. Washington (Vance v. Microsoft, Dkt. 145, via CourtListener RECAP)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "the extraterritoriality doctrine bars Plaintiffs' BIPA claims as a matter of law"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c007",
+      "statement": "The Microsoft court noted that the photo collection, scanning and generation of facial measurements were done by other entities (Flickr, Yahoo and IBM), not by the downloader.",
+      "kind": "outcome",
+      "section": "regulation",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Vance v. Microsoft",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2022-10-17",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.wawd.287400/gov.uscourts.wawd.287400.145.0.pdf",
+          "publisher": "U.S. District Court, W.D. Washington (Vance v. Microsoft, Dkt. 145, via CourtListener RECAP)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "rather than Microsoft—were responsible for the collection of the photographs, the scanning of the photographs"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c008",
+      "statement": "IBM built DiF from about one million photos drawn from YFCC-100M, a set of roughly 100 million Flickr photos that Yahoo released publicly in 2014.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "IBM Diversity in Faces (DiF)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2022-10-17",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.wawd.287400/gov.uscourts.wawd.287400.145.0.pdf",
+          "publisher": "U.S. District Court, W.D. Washington (Vance v. Microsoft, Dkt. 145, via CourtListener RECAP)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "used one million of the photos in the YFCC-100M Dataset to develop the Diversity in Faces"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c009",
+      "statement": "IBM's pipeline downloaded a YFCC-100M photo only if its licence type was Creative Commons.",
+      "kind": "architecture",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "scope": {
+        "product": "IBM Diversity in Faces (DiF)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "academic",
+      "as_of": "2019-04-08",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://arxiv.org/pdf/1901.10436",
+          "publisher": "arXiv (Merler, Ratha, Feris, Smith; IBM Research)",
+          "source_class": "academic",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "We proceeded with the download only if the license type was Creative Commons"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c010",
+      "statement": "IBM's paper describes DiF as annotations of one million publicly available face images, produced with ten facial coding schemes.",
+      "kind": "offer",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "IBM Diversity in Faces (DiF)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "academic",
+      "as_of": "2019-04-08",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://arxiv.org/pdf/1901.10436",
+          "publisher": "arXiv (Merler, Ratha, Feris, Smith; IBM Research)",
+          "source_class": "academic",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "provides a new data set of annotations of one million publicly available face images"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c011",
+      "statement": "DiF annotations included craniofacial distances, areas and ratios, facial symmetry and contrast, skin colour, age and gender predictions, subjective annotations, and pose and resolution.",
+      "kind": "offer",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "IBM Diversity in Faces (DiF)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "academic",
+      "as_of": "2019-04-08",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://arxiv.org/pdf/1901.10436",
+          "publisher": "arXiv (Merler, Ratha, Feris, Smith; IBM Research)",
+          "source_class": "academic",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "craniofacial distances, areas and ratios, facial symmetry and contrast, skin color, age and gender predictions"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c012",
+      "statement": "IBM stated its purpose for DiF as accelerating research towards fairer and more accurate facial recognition.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "IBM Diversity in Faces (DiF)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "academic",
+      "as_of": "2019-04-08",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/1901.10436",
+          "publisher": "arXiv (Merler, Ratha, Feris, Smith; IBM Research)",
+          "source_class": "academic",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "we can accelerate research towards creating more fair and accurate facial recognition systems"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c013",
+      "statement": "Exposing.ai counts 1,070,000 images from 98,153 Flickr users in DiF.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "IBM Diversity in Faces (DiF)",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 98153,
+        "unit": "Flickr users whose photos are in DiF",
+        "basis": "Exposing.ai's count; total images stated as 1,070,000",
+        "period": "as published"
+      },
+      "origin": "independent",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://exposing.ai/ibm_dif/",
+          "publisher": "Exposing.ai (Adam Harvey)",
+          "source_class": "ngo_report",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "98,153"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c014",
+      "statement": "Exposing.ai reports that IBM provides no attribution links or public credit for the Creative Commons images in DiF.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "IBM Diversity in Faces (DiF)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "independent",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://exposing.ai/ibm_dif/",
+          "publisher": "Exposing.ai (Adam Harvey)",
+          "source_class": "ngo_report",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "IBM does not provide any attribution links, nor any public credit for any of the images"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c015",
+      "statement": "IBM provided the DiF dataset free of charge to researchers who filled out a questionnaire and emailed it to IBM.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "IBM Diversity in Faces (DiF)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2022-10-17",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.wawd.287400/gov.uscourts.wawd.287400.145.0.pdf",
+          "publisher": "U.S. District Court, W.D. Washington (Vance v. Microsoft, Dkt. 145, via CourtListener RECAP)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "IBM provided the DiF Dataset free of charge to researchers who filled out a"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c016",
+      "statement": "DiF's terms of use limited it to non-commercial research and prohibited using it to identify any individual in the linked images.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "IBM Diversity in Faces (DiF)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2022-10-17",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.wawd.287400/gov.uscourts.wawd.287400.145.0.pdf",
+          "publisher": "U.S. District Court, W.D. Washington (Vance v. Microsoft, Dkt. 145, via CourtListener RECAP)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "could only be used for non-commercial, research purposes and prohibited using the DiF Dataset to identify any"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c017",
+      "statement": "After verifying a request was for a legitimate research purpose, an IBM researcher emailed the requester a link to a temporary Box folder containing the dataset.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6",
+        "Q9"
+      ],
+      "scope": {
+        "product": "IBM Diversity in Faces (DiF)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2022-10-17",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.wawd.287400/gov.uscourts.wawd.287400.145.0.pdf",
+          "publisher": "U.S. District Court, W.D. Washington (Vance v. Microsoft, Dkt. 145, via CourtListener RECAP)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "via an email that included a link to a temporary Box folder that contained the DiF Dataset"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c018",
+      "statement": "DiF itself carried Flickr URLs, face coordinates and annotations; the downloader's evaluation used the Flickr URLs, a sample of photos and face spatial coordinates.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6",
+        "Q10"
+      ],
+      "scope": {
+        "product": "IBM Diversity in Faces (DiF)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2022-10-17",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.wawd.287400/gov.uscourts.wawd.287400.145.0.pdf",
+          "publisher": "U.S. District Court, W.D. Washington (Vance v. Microsoft, Dkt. 145, via CourtListener RECAP)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "his evaluation used only the Flickr URLs for the photos, a sample of"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c019",
+      "statement": "NBC News reported IBM declined to share DiF with it, saying the dataset could be used only by academic or corporate research groups.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "IBM Diversity in Faces (DiF)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "independent",
+      "as_of": "2019-03-12",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.nbcnews.com/tech/internet/facial-recognition-s-dirty-little-secret-millions-online-photos-scraped-n981921",
+          "publisher": "NBC News",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "saying it could be used only by academic or corporate research groups"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c020",
+      "statement": "IBM told NBC News that about 250 organisations had requested access to DiF by March 2019.",
+      "kind": "number",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "IBM Diversity in Faces (DiF)",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 250,
+        "unit": "organisations that requested access",
+        "basis": "IBM's figure relayed by NBC News; requests, not approvals",
+        "period": "cumulative to March 2019"
+      },
+      "origin": "press_relayed",
+      "as_of": "2019-03-12",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.nbcnews.com/tech/internet/facial-recognition-s-dirty-little-secret-millions-online-photos-scraped-n981921",
+          "publisher": "NBC News",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "about 250 organizations have requested access so far"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c021",
+      "statement": "IBM approved Amazon researcher Tal Hassner's questionnaire request and sent him a download link to Version 1A of the DiF dataset in February 2019.",
+      "kind": "event",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q10"
+      ],
+      "scope": {
+        "product": "IBM Diversity in Faces (DiF)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2022-10-17",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.wawd.287404/gov.uscourts.wawd.287404.135.0.pdf",
+          "publisher": "U.S. District Court, W.D. Washington (Vance v. Amazon, Dkt. 135, via CourtListener RECAP)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "IBM approved the request and sent him a link"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c022",
+      "statement": "When Amazon's researcher said he wanted DiF for 'research and internal testing', IBM's Dr. Merler replied that it was for research purposes only and directed him to the questionnaire.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "IBM Diversity in Faces (DiF)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2022-10-17",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.wawd.287404/gov.uscourts.wawd.287404.135.0.pdf",
+          "publisher": "U.S. District Court, W.D. Washington (Vance v. Amazon, Dkt. 135, via CourtListener RECAP)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Dr. Merler responded that the DiF Dataset was meant for research purposes only"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c023",
+      "statement": "On 8 April 2019 IBM emailed recipients that Version 1B of DiF was available.",
+      "kind": "event",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "IBM Diversity in Faces (DiF)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2022-10-17",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.wawd.287404/gov.uscourts.wawd.287404.135.0.pdf",
+          "publisher": "U.S. District Court, W.D. Washington (Vance v. Amazon, Dkt. 135, via CourtListener RECAP)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "On April 8, 2019, IBM notified Dr. Hassner by email that Version 1B of the DiF"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c024",
+      "statement": "Following IBM's email instruction, Amazon's researcher deleted Version 1A from Amazon's storage when downloading Version 1B.",
+      "kind": "terms",
+      "section": "object_model",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "IBM Diversity in Faces (DiF)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2022-10-17",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.wawd.287404/gov.uscourts.wawd.287404.135.0.pdf",
+          "publisher": "U.S. District Court, W.D. Washington (Vance v. Amazon, Dkt. 135, via CourtListener RECAP)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "As IBM had instructed in its email, Dr. Xiong deleted Version 1A from the Amazon EBS and the S3 Bucket"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c025",
+      "statement": "Amazon stored its downloaded copy of DiF in its own S3 bucket in an Oregon data centre, with access limited to about 50 research-team members.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "IBM Diversity in Faces (DiF)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2022-10-17",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.wawd.287404/gov.uscourts.wawd.287404.135.0.pdf",
+          "publisher": "U.S. District Court, W.D. Washington (Vance v. Amazon, Dkt. 135, via CourtListener RECAP)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "restricted to the approximately 50 members of the Research Team"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c026",
+      "statement": "Amazon's researchers concluded DiF was not demographically balanced and that its demographic annotations were unreliable.",
+      "kind": "outcome",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "IBM Diversity in Faces (DiF)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2022-10-17",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.wawd.287404/gov.uscourts.wawd.287404.135.0.pdf",
+          "publisher": "U.S. District Court, W.D. Washington (Vance v. Amazon, Dkt. 135, via CourtListener RECAP)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "not a demographically balanced dataset and its demographic annotations were unreliable"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c027",
+      "statement": "The Amazon ruling, like the Microsoft one, held that BIPA's extraterritoriality doctrine barred the claims against the downloader.",
+      "kind": "outcome",
+      "section": "regulation",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Vance v. Amazon",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2022-10-17",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.wawd.287404/gov.uscourts.wawd.287404.135.0.pdf",
+          "publisher": "U.S. District Court, W.D. Washington (Vance v. Amazon, Dkt. 135, via CourtListener RECAP)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "extraterritoriality doctrine bars Plaintiffs' BIPA claims as a matter of law"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c028",
+      "statement": "Microsoft's contractor obtained DiF to help define a benchmark protocol for evaluating a third-party face recognition technology Microsoft was considering acquiring.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "Vance v. Microsoft",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2022-10-17",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.wawd.287400/gov.uscourts.wawd.287400.145.0.pdf",
+          "publisher": "U.S. District Court, W.D. Washington (Vance v. Microsoft, Dkt. 145, via CourtListener RECAP)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "defining a benchmark protocol for evaluating a third-party facial recognition"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c029",
+      "statement": "The Microsoft court read BIPA section 15(b) as regulating the acquisition of biometric data, not the later encrypted storage of data already acquired.",
+      "kind": "outcome",
+      "section": "regulation",
+      "question_ids": [
+        "Q5",
+        "Q6"
+      ],
+      "scope": {
+        "product": "Vance v. Microsoft",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2022-10-17",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.wawd.287400/gov.uscourts.wawd.287400.145.0.pdf",
+          "publisher": "U.S. District Court, W.D. Washington (Vance v. Microsoft, Dkt. 145, via CourtListener RECAP)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "regulates only the acquisition of data, rather than the encrypted storage of data after it is acquired"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c030",
+      "statement": "One plaintiff photographed strangers on Chicago streets and did not know the names or residence of most people depicted in his photos in DiF.",
+      "kind": "outcome",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Vance v. Microsoft",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2022-10-17",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.wawd.287400/gov.uscourts.wawd.287400.145.0.pdf",
+          "publisher": "U.S. District Court, W.D. Washington (Vance v. Microsoft, Dkt. 145, via CourtListener RECAP)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "he does not know the names or places of residence of the individuals depicted in most of his photos"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c031",
+      "statement": "The complaint against IBM alleged that IBM never sought or received the plaintiff's consent before scanning his facial geometry.",
+      "kind": "outcome",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Vance v. IBM",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2020-01-24",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.ilnd.372910/gov.uscourts.ilnd.372910.1.0.pdf",
+          "publisher": "U.S. District Court, N.D. Illinois (Vance v. IBM complaint, Dkt. 1, via CourtListener RECAP)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "never sought, nor received, his consent before doing so"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c032",
+      "statement": "The complaint against IBM alleged that IBM released the database of facial measurements to third parties.",
+      "kind": "outcome",
+      "section": "regulation",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Vance v. IBM",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2020-01-24",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.ilnd.372910/gov.uscourts.ilnd.372910.1.0.pdf",
+          "publisher": "U.S. District Court, N.D. Illinois (Vance v. IBM complaint, Dkt. 1, via CourtListener RECAP)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Defendant then released this database to third parties."
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c033",
+      "statement": "The IBM complaint sought an injunction requiring IBM to delete the data, inform recipients, and claw back the data from third parties it was disseminated to.",
+      "kind": "outcome",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Vance v. IBM",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2020-01-24",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.ilnd.372910/gov.uscourts.ilnd.372910.1.0.pdf",
+          "publisher": "U.S. District Court, N.D. Illinois (Vance v. IBM complaint, Dkt. 1, via CourtListener RECAP)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "claw back the data from any third parties to whom it was disseminated"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c034",
+      "statement": "In September 2020 the court denied IBM's motion to dismiss the BIPA claims, following cases holding that biometric data obtained from photographs is a biometric identifier.",
+      "kind": "outcome",
+      "section": "regulation",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Vance v. IBM",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2020-09-15",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.ilnd.372910/gov.uscourts.ilnd.372910.48.0_1.pdf",
+          "publisher": "U.S. District Court, N.D. Illinois (Vance v. IBM memorandum opinion, Dkt. 48, via CourtListener RECAP)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "IBM's motion to dismiss Plaintiffs' BIPA claims is denied"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c035",
+      "statement": "The IBM court noted that courts have held biometric data obtained from photographs to be a biometric identifier under BIPA, despite BIPA's exclusion of photographs.",
+      "kind": "outcome",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Vance v. IBM",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2020-09-15",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.ilnd.372910/gov.uscourts.ilnd.372910.48.0_1.pdf",
+          "publisher": "U.S. District Court, N.D. Illinois (Vance v. IBM memorandum opinion, Dkt. 48, via CourtListener RECAP)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "courts have held that biometric data obtained from photographs is a biometric identifier"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c036",
+      "statement": "The DiF plaintiffs sought statutory damages of USD 5,000 per wilful or reckless BIPA violation.",
+      "kind": "number",
+      "section": "regulation",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Vance v. IBM",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 5000,
+        "unit": "USD per violation",
+        "basis": "BIPA liquidated damages claimed by plaintiffs against the dataset maker, per wilful or reckless violation",
+        "period": "per violation"
+      },
+      "origin": "court",
+      "as_of": "2020-09-15",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.ilnd.372910/gov.uscourts.ilnd.372910.48.0_1.pdf",
+          "publisher": "U.S. District Court, N.D. Illinois (Vance v. IBM memorandum opinion, Dkt. 48, via CourtListener RECAP)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Plaintiffs seek statutory damages of $5,000 for each willful and reckless violation"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c037",
+      "statement": "The DiF plaintiffs sought statutory damages of USD 1,000 per negligent BIPA violation.",
+      "kind": "number",
+      "section": "regulation",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Vance v. IBM",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 1000,
+        "unit": "USD per violation",
+        "basis": "BIPA liquidated damages claimed by plaintiffs, per negligent violation",
+        "period": "per violation"
+      },
+      "origin": "court",
+      "as_of": "2020-09-15",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.ilnd.372910/gov.uscourts.ilnd.372910.48.0_1.pdf",
+          "publisher": "U.S. District Court, N.D. Illinois (Vance v. IBM memorandum opinion, Dkt. 48, via CourtListener RECAP)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "and $1,000 for each negligent violation of BIPA"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c038",
+      "statement": "The complaint against Google alleged that Google applied for and obtained DiF from IBM.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1",
+        "Q5"
+      ],
+      "scope": {
+        "product": "Vance v. Google",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2020-07-14",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.362392/gov.uscourts.cand.362392.1.0.pdf",
+          "publisher": "U.S. District Court, N.D. California (Vance v. Google complaint, Dkt. 1, via CourtListener RECAP)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "applied for and obtained the Diversity in Faces Dataset from IBM"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c039",
+      "statement": "The Google complaint alleged that what recipients received included the extracted biometric data plus links to each source photograph on Flickr.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Vance v. Google",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2020-07-14",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.362392/gov.uscourts.cand.362392.1.0.pdf",
+          "publisher": "U.S. District Court, N.D. California (Vance v. Google complaint, Dkt. 1, via CourtListener RECAP)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "links to each photograph on Flickr from which IBM extracted the biometric data"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c040",
+      "statement": "In October 2025 the Google suit was first dismissed without prejudice under a stipulation that referred to the parties' settlement agreement.",
+      "kind": "outcome",
+      "section": "regulation",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Vance v. Google",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2025-10-10",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.362392/gov.uscourts.cand.362392.134.0.pdf",
+          "publisher": "U.S. District Court, N.D. California (Vance v. Google stipulation, Dkt. 134, via CourtListener RECAP)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "solely for the purpose of enforcing the terms of the parties' settlement agreement"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c041",
+      "statement": "The complaint against FaceFirst, a retail face-recognition vendor, alleged that FaceFirst applied for and obtained DiF from IBM.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1",
+        "Q5"
+      ],
+      "scope": {
+        "product": "Vance v. FaceFirst",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2020-07-14",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.cacd.788189/gov.uscourts.cacd.788189.1.0.pdf",
+          "publisher": "U.S. District Court, C.D. California (Vance v. FaceFirst complaint, Dkt. 1, via CourtListener RECAP)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "FaceFirst applied for and obtained the Diversity in Faces Dataset from IBM"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c042",
+      "statement": "An Amazon shareholder used the DiF BIPA suit as grounds to demand Amazon's books and records to investigate possible privacy-law violations.",
+      "kind": "outcome",
+      "section": "regulation",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Thompson v. Amazon.com",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2023-04-24",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/pdf/2023/04/24/aleta_thompson_v._amazon.com_inc..pdf",
+          "publisher": "Court of Appeals of Washington, Division One (Thompson v. Amazon.com, No. 84066-5-I, via CourtListener)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Thompson seeks to investigate possible wrongdoing by Amazon in violating privacy laws"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c043",
+      "statement": "After Amazon won summary judgment in the DiF suit, the Washington Court of Appeals vacated the shareholder inspection order and directed dismissal.",
+      "kind": "outcome",
+      "section": "regulation",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Thompson v. Amazon.com",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2023-04-24",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/pdf/2023/04/24/aleta_thompson_v._amazon.com_inc..pdf",
+          "publisher": "Court of Appeals of Washington, Division One (Thompson v. Amazon.com, No. 84066-5-I, via CourtListener)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "we vacate the superior court's inspection order and remand with instructions to dismiss Thompson's complaint"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c044",
+      "statement": "At the motion-to-dismiss stage the Vance v. Amazon court held that allegedly downloading DiF was enough to fall within BIPA section 15(b) ('otherwise obtain').",
+      "kind": "outcome",
+      "section": "regulation",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Vance v. Amazon",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2023-04-24",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/pdf/2023/04/24/aleta_thompson_v._amazon.com_inc..pdf",
+          "publisher": "Court of Appeals of Washington, Division One (Thompson v. Amazon.com, No. 84066-5-I, via CourtListener)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "the allegations that Amazon downloaded the Diversity in Faces dataset were sufficient"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c045",
+      "statement": "Microsoft argued that the plaintiffs had uploaded their photos under a Creative Commons licence rather than restricting access.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Vance v. Microsoft (defendant's brief)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2022-05-19",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.wawd.287400/gov.uscourts.wawd.287400.127.0.pdf",
+          "publisher": "Microsoft Corporation, renewed motion for summary judgment (Vance v. Microsoft, Dkt. 127, via CourtListener RECAP)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "they uploaded their photos under the Creative Commons license"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c046",
+      "statement": "Microsoft's brief states that the DiF terms of use prohibited recipients from attempting to identify any individuals in the dataset.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Vance v. Microsoft (defendant's brief)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2022-05-19",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.wawd.287400/gov.uscourts.wawd.287400.127.0.pdf",
+          "publisher": "Microsoft Corporation, renewed motion for summary judgment (Vance v. Microsoft, Dkt. 127, via CourtListener RECAP)",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "to identify any individuals within the IBM Research DiF Dataset"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c047",
+      "statement": "IBM told NBC News that people could send it links to photos they wanted removed from DiF, whether they took them or appear in them.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "IBM Diversity in Faces (DiF)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "press_relayed",
+      "as_of": "2019-03-12",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.nbcnews.com/tech/internet/facial-recognition-s-dirty-little-secret-millions-online-photos-scraped-n981921",
+          "publisher": "NBC News",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "People can contact IBM with individual links to photographs they want removed from the dataset"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c048",
+      "statement": "IBM told NBC News that removing an image would not remove it from copies of DiF already shared with research partners.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "IBM Diversity in Faces (DiF)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "press_relayed",
+      "as_of": "2019-03-12",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.nbcnews.com/tech/internet/facial-recognition-s-dirty-little-secret-millions-online-photos-scraped-n981921",
+          "publisher": "NBC News",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "it won't be removed from the versions of the dataset already shared with research partners"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c049",
+      "statement": "A photographer whose Flickr photos were in DiF told NBC News that none of the people he photographed knew their images were used this way.",
+      "kind": "outcome",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "IBM Diversity in Faces (DiF)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "independent",
+      "as_of": "2019-03-12",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.nbcnews.com/tech/internet/facial-recognition-s-dirty-little-secret-millions-online-photos-scraped-n981921",
+          "publisher": "NBC News",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "None of the people I photographed had any idea their images were being used in this way"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c050",
+      "statement": "IBM told NBC News that DiF was purely for academic research and would not be used to improve IBM's commercial facial recognition tools.",
+      "kind": "terms",
+      "section": "positioning",
+      "question_ids": [
+        "Q1",
+        "Q8"
+      ],
+      "scope": {
+        "product": "IBM Diversity in Faces (DiF)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "press_relayed",
+      "as_of": "2019-03-12",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.nbcnews.com/tech/internet/facial-recognition-s-dirty-little-secret-millions-online-photos-scraped-n981921",
+          "publisher": "NBC News",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "purely for academic research and won't be used to improve the company's commercial facial recognition tools"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c051",
+      "statement": "NBC News noted that some of the Creative Commons licences on Flickr photos allow commercial use.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "scope": {
+        "product": "IBM Diversity in Faces (DiF)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "independent",
+      "as_of": "2019-03-12",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.nbcnews.com/tech/internet/facial-recognition-s-dirty-little-secret-millions-online-photos-scraped-n981921",
+          "publisher": "NBC News",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Some of these licenses allow commercial use."
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c052",
+      "statement": "IBM's January 2019 announcement called DiF the first of its kind available to the global research community.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "IBM Diversity in Faces (DiF)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2019-01-29",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://research.ibm.com/blog/diversity-in-faces",
+          "publisher": "IBM Research (blog, John R. Smith)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The first of its kind available to the global research community"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c053",
+      "statement": "IBM's DiF paper publishes a statistical analysis of the coding schemes extracted for the face images, which is what a prospective user could inspect without requesting the data.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "IBM Diversity in Faces (DiF)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "academic",
+      "as_of": "2019-04-08",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://arxiv.org/pdf/1901.10436",
+          "publisher": "arXiv (Merler, Ratha, Feris, Smith; IBM Research)",
+          "source_class": "academic",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "we provide a statistical analysis of the coding schemes extracted for the face images"
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c054",
+      "statement": "As of 2026-10-01 IBM's 2019 DiF announcement page is still live on research.ibm.com, but it carries no request or download link for the dataset.",
+      "kind": "status",
+      "section": "changes",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "IBM Diversity in Faces (DiF)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://research.ibm.com/blog/diversity-in-faces",
+          "publisher": "IBM Research (blog, John R. Smith)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Today's release is simply the first step."
+        },
+        {
+          "url": "https://research.ibm.com/artificial-intelligence/trusted-ai/diversity-in-faces/",
+          "publisher": "IBM Research",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Our trust in technology relies on understanding how it works."
+        }
+      ]
+    },
+    {
+      "id": "ibm-diversity-in-faces-c055",
+      "statement": "NBC News explained that Creative Commons licences on Flickr let others reuse the pictures without paying licence fees.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "scope": {
+        "product": "IBM Diversity in Faces (DiF)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "independent",
+      "as_of": "2019-03-12",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.nbcnews.com/tech/internet/facial-recognition-s-dirty-little-secret-millions-online-photos-scraped-n981921",
+          "publisher": "NBC News",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "others can reuse their pictures without paying license fees"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "other.withdrawal",
+      "urls_tried": [
+        "https://research.ibm.com/blog/diversity-in-faces",
+        "https://research.ibm.com/artificial-intelligence/trusted-ai/diversity-in-faces/",
+        "https://research.ibm.com/sitemap-0.xml",
+        "https://exposing.ai/ibm_dif/",
+        "https://exposing.ai/datasets/",
+        "https://www.courtlistener.com/api/rest/v4/search/?q=%22Diversity%20in%20Faces%22%20AND%20(%22no%20longer%22%20OR%20discontinued%20OR%20withdrew)&type=r"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "matrix.catalogue_plus_custom",
+      "urls_tried": [
+        "https://research.ibm.com/blog/diversity-in-faces",
+        "https://arxiv.org/abs/1901.10436"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.terms_of_use_full_text",
+      "urls_tried": [
+        "https://www.courtlistener.com/api/rest/v4/search/?q=docket_id%3A17348496%20AND%20Merler&type=r",
+        "https://www.courtlistener.com/api/rest/v4/search/?q=docket_id%3A17348493%20AND%20Merler&type=r"
+      ],
+      "reason": "paywalled"
+    },
+    {
+      "field": "other.settlement_terms",
+      "urls_tried": [
+        "https://storage.courtlistener.com/recap/gov.uscourts.cand.362392/gov.uscourts.cand.362392.134.0.pdf",
+        "https://storage.courtlistener.com/recap/gov.uscourts.ilnd.372910/gov.uscourts.ilnd.372910.208.0.pdf"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.ibm_2020_face_recognition_exit",
+      "urls_tried": [
+        "https://www.ibm.com/policy/facial-recognition-sunset-racial-justice-reforms/",
+        "https://www.ibm.com/blogs/policy/facial-recognition-sunset-racial-justice-reforms/"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "other.courtlistener_html_pages",
+      "urls_tried": [
+        "https://www.courtlistener.com/docket/17348496/145/vance-v-microsoft-corporation/",
+        "https://www.courtlistener.com/docket/17348824/138/vance-v-google-llc/"
+      ],
+      "reason": "blocked"
+    }
+  ],
+  "conflicts": [],
+  "leads": [
+    {
+      "url": "https://www.courtlistener.com/api/rest/v4/search/?q=docket_id%3A63265678&type=r",
+      "why": "Nelson v. Bezos (W.D. Wash. 2:22-cv-00559): stockholder derivative complaint citing the DiF suit; a further downstream effect on a buyer. Not read."
+    },
+    {
+      "url": "https://www.courtlistener.com/api/rest/v4/search/?q=docket_id%3A16821454&type=r",
+      "why": "Janecyk v. IBM (N.D. Ill. 1:20-cv-00783), a parallel suit against IBM, terminated 2023-08-09. Not read."
+    },
+    {
+      "url": "https://www.courtlistener.com/api/rest/v4/search/?q=docket_id%3A60033441&type=r",
+      "why": "Vance v. IBM miscellaneous matter (N.D. Cal. 3:21-mc-80156), probably third-party discovery about DiF recipients. Not read."
+    },
+    {
+      "url": "https://storage.courtlistener.com/recap/gov.uscourts.wawd.287404/gov.uscourts.wawd.287404.1.0.pdf",
+      "why": "Vance v. Amazon complaint; cites the IBM DiF paper dated Apr. 10, 2019. Not read."
+    },
+    {
+      "url": "https://arxiv.org/abs/2111.04424",
+      "why": "Luccioni et al., A Framework for Deprecating Datasets; cites the DiF litigation as a case where deprecation had legal grounds."
+    }
+  ]
+}

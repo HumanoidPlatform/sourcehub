@@ -1,0 +1,1682 @@
+{
+  "kind": "document",
+  "slug": "doc-futurebeeai-licence",
+  "platform_slug": "futurebeeai",
+  "title": "Data Usage & Licensing Policy (published as 'AI Data License Agreement')",
+  "doc_type": "buyer_licence",
+  "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+  "publisher": "FutureBeeAI",
+  "version_or_date": "Last Updated: Feb 2025",
+  "retrieved_at": "2026-10-01",
+  "parties": {
+    "licensor": "FutureBeeAI, which asserts that all datasets remain its sole property and retains all IP",
+    "licensee": "the Buyer/Licensee: anyone purchasing or using a FutureBeeAI dataset",
+    "operator_role": "reseller_licensor"
+  },
+  "terms": {
+    "permitted_use": {
+      "value": "Only the listed approved uses: AI/ML training and testing, academic research without public redistribution, product development, internal analytics, internal annotation/enrichment; anything else needs FutureBeeAI's written approval; a signed agreement overrides the policy.",
+      "claim_ids": [
+        "doc-futurebeeai-licence-c009",
+        "doc-futurebeeai-licence-c011",
+        "doc-futurebeeai-licence-c018",
+        "doc-futurebeeai-licence-c019",
+        "doc-futurebeeai-licence-c020",
+        "doc-futurebeeai-licence-c021",
+        "doc-futurebeeai-licence-c022",
+        "doc-futurebeeai-licence-c023",
+        "doc-futurebeeai-licence-c004"
+      ]
+    },
+    "ai_training_rights": {
+      "value": "Training, validating and testing AI models is expressly permitted (standard licence names AI/ML training); fine-tuning and benchmarking are not named separately; resulting models belong to the Buyer only so long as the original dataset is not exposed, distributed or shared; no redistribution of the data in any form; samples are evaluation-only before purchase; model outputs are not addressed.",
+      "claim_ids": [
+        "doc-futurebeeai-licence-c018",
+        "doc-futurebeeai-licence-c011",
+        "doc-futurebeeai-licence-c020",
+        "doc-futurebeeai-licence-c035",
+        "doc-futurebeeai-licence-c036",
+        "doc-futurebeeai-licence-c024",
+        "doc-futurebeeai-licence-c007"
+      ]
+    },
+    "field_of_use": {
+      "value": "Any lawful field within the approved use cases, excluding discriminatory AI, illegal surveillance and 'unethical' applications; no sector restriction otherwise.",
+      "claim_ids": [
+        "doc-futurebeeai-licence-c009",
+        "doc-futurebeeai-licence-c025",
+        "doc-futurebeeai-licence-c027"
+      ]
+    },
+    "exclusivity": {
+      "value": "Standard licence is non-exclusive and FutureBeeAI may sell the same dataset to others; an Exclusive License (no other party gets the dataset) is available by separate agreement and pricing; custom-collected data can be exclusive or non-exclusive per contract.",
+      "claim_ids": [
+        "doc-futurebeeai-licence-c009",
+        "doc-futurebeeai-licence-c012",
+        "doc-futurebeeai-licence-c014",
+        "doc-futurebeeai-licence-c015",
+        "doc-futurebeeai-licence-c016",
+        "doc-futurebeeai-licence-c017"
+      ]
+    },
+    "sublicensing": {
+      "value": "Not permitted: the licence is non-transferable and non-sublicensable, and resale, sharing or sublicensing of the dataset is prohibited.",
+      "claim_ids": [
+        "doc-futurebeeai-licence-c009",
+        "doc-futurebeeai-licence-c024",
+        "doc-futurebeeai-licence-c013"
+      ]
+    },
+    "derivatives_and_model_outputs": {
+      "value": "Insights, models and products derived from the dataset belong to the Buyer, conditional on not exposing or sharing the original data; internal annotation/enrichment allowed; an altered dataset may not be resold as a derivative dataset; FutureBeeAI keeps ownership of the dataset itself.",
+      "claim_ids": [
+        "doc-futurebeeai-licence-c035",
+        "doc-futurebeeai-licence-c036",
+        "doc-futurebeeai-licence-c022",
+        "doc-futurebeeai-licence-c026",
+        "doc-futurebeeai-licence-c033",
+        "doc-futurebeeai-licence-c034"
+      ]
+    },
+    "deletion_on_termination": {
+      "value": "FutureBeeAI may terminate immediately for violation; the Buyer must then delete all copies of the dataset; silent on whether models trained before termination survive.",
+      "claim_ids": [
+        "doc-futurebeeai-licence-c040",
+        "doc-futurebeeai-licence-c042"
+      ]
+    },
+    "warranties_by_provider": {
+      "value": "FutureBeeAI gives no warranty of any kind in the policy; the only quality remedy is that a Buyer whose dataset misses agreed specifications may request a resolution, with no guaranteed refund.",
+      "claim_ids": [
+        "doc-futurebeeai-licence-c039"
+      ]
+    },
+    "payment_and_revenue_share": {
+      "value": "No prices in the policy; no refund once a dataset is accessed or downloaded; refund before download at FutureBeeAI's discretion; exclusive licences priced by separate agreement.",
+      "claim_ids": [
+        "doc-futurebeeai-licence-c037",
+        "doc-futurebeeai-licence-c038",
+        "doc-futurebeeai-licence-c039",
+        "doc-futurebeeai-licence-c015"
+      ]
+    },
+    "governing_law": {
+      "value": "Laws of India; arbitration seated in Ahmedabad, Gujarat, unless otherwise agreed.",
+      "claim_ids": [
+        "doc-futurebeeai-licence-c048",
+        "doc-futurebeeai-licence-c049"
+      ]
+    },
+    "change_of_terms": {
+      "value": "FutureBeeAI may change the policy unilaterally at any time; material changes notified by email or website; continued use of the dataset is acceptance; a signed agreement overrides the policy.",
+      "claim_ids": [
+        "doc-futurebeeai-licence-c045",
+        "doc-futurebeeai-licence-c046",
+        "doc-futurebeeai-licence-c047",
+        "doc-futurebeeai-licence-c044",
+        "doc-futurebeeai-licence-c004"
+      ]
+    },
+    "prohibited_uses": {
+      "value": "No resale, sharing, sublicensing or public/open-source distribution; no discriminatory AI, illegal surveillance or unethical use; no resale of altered derivative datasets; no use violating GDPR/CCPA etc.; no ownership claims; breach allows immediate termination, damages action and blacklisting.",
+      "claim_ids": [
+        "doc-futurebeeai-licence-c024",
+        "doc-futurebeeai-licence-c025",
+        "doc-futurebeeai-licence-c026",
+        "doc-futurebeeai-licence-c027",
+        "doc-futurebeeai-licence-c028",
+        "doc-futurebeeai-licence-c040",
+        "doc-futurebeeai-licence-c041",
+        "doc-futurebeeai-licence-c043"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "doc-futurebeeai-licence-c001",
+      "statement": "The document served at FutureBeeAI's 'AI Data License Agreement' URL is headed 'Data Usage & Licensing Policy' and dated Feb 2025.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Data Usage & Licensing Policy Last Updated: Feb 2025"
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c002",
+      "statement": "The FutureBeeAI policy governs the usage and licensing of datasets purchased from FutureBeeAI, which acts as the selling party.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "This Data Usage & Licensing Policy (\"Policy\") governs the usage and licensing of datasets purchased from FutureBeeAI"
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c003",
+      "statement": "Anyone purchasing or using a FutureBeeAI dataset is the Buyer or Licensee and is bound by the policy on purchase or use.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "By purchasing or using any dataset from FutureBeeAI, you (\"Buyer\" or \"Licensee\") agree to comply with this Policy"
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c004",
+      "statement": "Under the FutureBeeAI policy, any specific agreement signed between the Buyer and FutureBeeAI supersedes the policy's clauses where they conflict.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q9"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "any specific agreement signed between the Buyer and FutureBeeAI shall supersede these clauses in case of any conflicts"
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c005",
+      "statement": "The FutureBeeAI policy's scope expressly includes custom-collected datasets specially collected at a Buyer's request, as well as processed datasets.",
+      "kind": "terms",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q4",
+        "Q12"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Custom-collected datasets (specially collected as per Buyer’s request)"
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c006",
+      "statement": "The FutureBeeAI policy's scope includes video datasets of human activities, scene analysis and surveillance.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Video datasets (human activities, scene analysis, surveillance, etc.)"
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c007",
+      "statement": "The FutureBeeAI policy does not cover dataset samples, metadata, attribute details or descriptions; these fall under the Terms of Use and may only be used for evaluation before purchase.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "may only be used for evaluation before purchasing"
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c008",
+      "statement": "FutureBeeAI's licensing policy excludes dataset samples and metadata from its scope, leaving them to the site Terms of Use.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "does not cover dataset samples, metadata, attribute details, or descriptions, which are governed by the Terms of Use"
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c009",
+      "statement": "FutureBeeAI grants the Buyer a non-exclusive, non-transferable, non-sublicensable licence to use a purchased dataset only for the approved use cases in the policy.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "a non-exclusive, non-transferable, non-sublicensable license to use the purchased dataset solely for the approved use cases"
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c010",
+      "statement": "FutureBeeAI retains all intellectual property rights over a licensed dataset unless a signed agreement explicitly states otherwise.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "retains all intellectual property rights over the dataset unless explicitly stated otherwise in a signed agreement"
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c011",
+      "statement": "Under FutureBeeAI's Standard (non-exclusive) License a dataset may be used for internal research, AI/ML training and product development.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The dataset may be used for internal research, AI/ML training, and product development."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c012",
+      "statement": "Under FutureBeeAI's Standard License, FutureBeeAI may sell the same dataset to other buyers.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q4"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "FutureBeeAI may sell the same dataset to other buyers."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c013",
+      "statement": "Under FutureBeeAI's Standard License, redistribution or reselling of the dataset by the Buyer is strictly prohibited.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Redistribution or reselling is strictly prohibited."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c014",
+      "statement": "FutureBeeAI offers an Exclusive License upon agreement under which the dataset is sold only to that Buyer and no other party gets access to the same dataset.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The dataset is sold exclusively to the Buyer, and no other party will have access to the same dataset."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c015",
+      "statement": "FutureBeeAI's Exclusive License is subject to a separate agreement with its own pricing and licensing terms.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q8",
+        "Q9"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Subject to a separate agreement, pricing, and licensing terms."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c016",
+      "statement": "For a Custom Dataset License, where a dataset is collected or processed specifically for a Buyer, usage rights are defined in the contract rather than the policy.",
+      "kind": "terms",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q4",
+        "Q12"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If a dataset is specifically collected or processed for a Buyer, usage rights will be defined in the contract."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c017",
+      "statement": "A FutureBeeAI Custom Dataset License can be exclusive or non-exclusive depending on the agreement.",
+      "kind": "terms",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q4",
+        "Q8"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Can be exclusive or non-exclusive depending on the agreement."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c018",
+      "statement": "FutureBeeAI permits Buyers to train, validate and test AI models on a purchased dataset, in compliance with applicable laws.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Training, validating, and testing AI models in compliance with applicable laws."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c019",
+      "statement": "FutureBeeAI permits academic and scientific research on a purchased dataset provided the research does not involve public redistribution of the dataset.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Conducting research that does not involve public redistribution of the dataset."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c020",
+      "statement": "FutureBeeAI permits Buyers to incorporate insights from a dataset into proprietary software, models or applications.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Incorporating insights from the dataset into proprietary software, models, or applications."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c021",
+      "statement": "FutureBeeAI permits internal business use of a dataset for internal analytics, market research or innovation.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Using datasets for internal analytics, market research, or innovation."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c022",
+      "statement": "FutureBeeAI permits Buyers to annotate, process or otherwise add value to a dataset internally.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Using the dataset for internal annotation, processing, or other value additions."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c023",
+      "statement": "Any use of a FutureBeeAI dataset outside the listed permitted uses requires FutureBeeAI's explicit written approval.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "they must obtain explicit written approval from FutureBeeAI"
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c024",
+      "statement": "FutureBeeAI Buyers may not resell, share, sublicense or publicly distribute datasets, including on open-source platforms.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Datasets cannot be resold, shared, sublicensed, or publicly distributed, including open-source platforms."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c025",
+      "statement": "FutureBeeAI prohibits use of its datasets in discriminatory AI models, illegal surveillance or unethical applications.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "No use in discriminatory AI models, illegal surveillance, or unethical applications."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c026",
+      "statement": "FutureBeeAI Buyers may not alter a dataset and resell it as a derivative dataset.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Buyers cannot alter the dataset and resell it as a derivative dataset."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c027",
+      "statement": "FutureBeeAI prohibits any use of its datasets that violates GDPR, CCPA or other applicable data protection laws.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q7"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "No use that violates GDPR, CCPA, or other applicable data protection laws."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c028",
+      "statement": "FutureBeeAI Buyers may not claim a FutureBeeAI dataset as their own intellectual property.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Buyers cannot claim FutureBeeAI’s dataset as their own intellectual property."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c029",
+      "statement": "FutureBeeAI requires Buyers to implement reasonable security measures against unauthorised access, copying or redistribution of a dataset.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Buyers must implement reasonable security measures to prevent unauthorized access, copying, or redistribution of the dataset."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c030",
+      "statement": "FutureBeeAI says access to a licensed dataset should be limited to authorised personnel within the Buyer's organisation.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Access to the dataset should be limited to authorized personnel within the Buyer’s organization."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c031",
+      "statement": "Under the FutureBeeAI policy the Buyer, not FutureBeeAI, is responsible for ensuring its use of a dataset complies with GDPR, CCPA and other applicable regulations.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The Buyer is responsible for ensuring their use of the dataset complies with GDPR, CCPA, or any other applicable regulations."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c032",
+      "statement": "FutureBeeAI Buyers must notify FutureBeeAI immediately of unauthorised access or misuse of a dataset.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If unauthorized access or misuse occurs, the Buyer must notify FutureBeeAI immediately."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c033",
+      "statement": "All FutureBeeAI datasets remain FutureBeeAI's sole property unless an exclusive licence is granted in writing.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All datasets remain the sole property of FutureBeeAI unless an exclusive license is granted in writing."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c034",
+      "statement": "FutureBeeAI Buyers acquire no ownership, copyright, trademark or proprietary rights in a licensed dataset.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Buyers do not acquire any ownership rights, copyrights, trademarks, or proprietary rights related to the dataset."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c035",
+      "statement": "Insights, models and products derived from a FutureBeeAI dataset belong to the Buyer.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Any insights, models, or products derived from the dataset belong to the Buyer"
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c036",
+      "statement": "The Buyer's ownership of models and products derived from a FutureBeeAI dataset is conditional on their not exposing, distributing or sharing the original dataset.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "provided they do not expose, distribute, or share the original dataset"
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c037",
+      "statement": "FutureBeeAI gives no refund once a dataset has been accessed or downloaded.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "refunds are not provided once a dataset has been accessed or downloaded."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c038",
+      "statement": "If a Buyer cancels before accessing a dataset, FutureBeeAI may offer a refund at its discretion.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If a Buyer cancels before accessing the dataset, FutureBeeAI may offer a refund at its discretion."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c039",
+      "statement": "If a FutureBeeAI dataset does not meet agreed specifications the Buyer may only request a resolution, and refunds are not guaranteed.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11",
+        "Q5"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If a dataset does not meet agreed-upon specifications, Buyers may request a resolution, but refunds are not guaranteed."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c040",
+      "statement": "FutureBeeAI may terminate a Buyer's licence immediately if the Buyer violates the policy.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "FutureBeeAI may terminate the license immediately."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c041",
+      "statement": "FutureBeeAI reserves the right to pursue legal action for damages against a Buyer that violates the policy.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "FutureBeeAI reserves the right to pursue legal action for damages."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c042",
+      "statement": "On termination of a FutureBeeAI licence the Buyer must delete all copies of the dataset.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The Buyer must delete all copies of the dataset upon termination of the license."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c043",
+      "statement": "FutureBeeAI may blacklist Buyers who engage in unauthorised use of datasets.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "FutureBeeAI may also blacklist Buyers who engage in unauthorized use of datasets."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c044",
+      "statement": "Where a separate signed agreement and the FutureBeeAI policy differ, the final signed agreement takes precedence.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q9"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "In case of any discrepancies, the terms outlined in the final signed agreement will take precedence over this Policy."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c045",
+      "statement": "FutureBeeAI may update its Data Usage & Licensing Policy at any time.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "FutureBeeAI may update this Policy at any time."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c046",
+      "statement": "FutureBeeAI says material changes to the policy will be communicated by email or website updates.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Material changes will be communicated via email or website updates."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c047",
+      "statement": "Continued use of a FutureBeeAI dataset after a policy update constitutes acceptance of the revised terms.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Continued use of the dataset after updates constitutes acceptance of the revised terms."
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c048",
+      "statement": "The FutureBeeAI policy is governed by the laws of India.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "This Policy is governed by the laws of India"
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c049",
+      "statement": "Disputes under the FutureBeeAI policy go to arbitration in Ahmedabad, Gujarat unless otherwise agreed.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "disputes will be resolved through arbitration in Ahmedabad, Gujarat unless otherwise agreed upon"
+        }
+      ]
+    },
+    {
+      "id": "doc-futurebeeai-licence-c050",
+      "statement": "FutureBeeAI's site navigation on the licence page says it offers 2000+ 'unbiased and ethically sourced' datasets; this is a vendor claim, not a term of the licence.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "FutureBeeAI datasets (standard Data Usage & Licensing Policy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Explore 2000+ Unbiased & Ethically sourced datasets"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "terms.consent_and_release_warranty",
+      "urls_tried": [
+        "https://www.futurebeeai.com/policies/ai-data-license-agreement"
+      ],
+      "reason": "not_published",
+      "note": "The policy contains no warranty from FutureBeeAI that contributors or people depicted consented or signed releases; the only related words are the site banner 'ethically sourced' (marketing), while the policy puts GDPR/CCPA compliance of the Buyer's use on the Buyer."
+    },
+    {
+      "field": "terms.indemnity",
+      "urls_tried": [
+        "https://www.futurebeeai.com/policies/ai-data-license-agreement"
+      ],
+      "reason": "not_published",
+      "note": "No indemnity in either direction; FutureBeeAI only reserves a right to sue a violating Buyer for damages."
+    },
+    {
+      "field": "terms.liability_cap",
+      "urls_tried": [
+        "https://www.futurebeeai.com/policies/ai-data-license-agreement"
+      ],
+      "reason": "not_published",
+      "note": "No limitation or cap on either party's liability and no disclaimer of warranties."
+    },
+    {
+      "field": "terms.takedown_and_erasure",
+      "urls_tried": [
+        "https://www.futurebeeai.com/policies/ai-data-license-agreement"
+      ],
+      "reason": "not_published",
+      "note": "No mechanism for a data subject's erasure request or a takedown reaching copies already sold; the only deletion duty arises on licence termination for Buyer breach."
+    },
+    {
+      "field": "terms.term_duration",
+      "urls_tried": [
+        "https://www.futurebeeai.com/policies/ai-data-license-agreement"
+      ],
+      "reason": "not_published",
+      "note": "No stated licence term (perpetual or fixed); termination is described only for Buyer violation."
+    },
+    {
+      "field": "terms.territory",
+      "urls_tried": [
+        "https://www.futurebeeai.com/policies/ai-data-license-agreement"
+      ],
+      "reason": "not_published",
+      "note": "No territorial scope stated."
+    },
+    {
+      "field": "terms.audit_rights",
+      "urls_tried": [
+        "https://www.futurebeeai.com/policies/ai-data-license-agreement"
+      ],
+      "reason": "not_published",
+      "note": "No audit or inspection right for FutureBeeAI; the Buyer must only keep reasonable security, limit access to authorised personnel and report misuse."
+    },
+    {
+      "field": "terms.attribution",
+      "urls_tried": [
+        "https://www.futurebeeai.com/policies/ai-data-license-agreement"
+      ],
+      "reason": "not_published",
+      "note": "No attribution or citation requirement."
+    },
+    {
+      "field": "other.third_party_provenance",
+      "urls_tried": [
+        "https://www.futurebeeai.com/policies/ai-data-license-agreement"
+      ],
+      "reason": "not_published",
+      "note": "The policy treats every dataset as FutureBeeAI's sole property and does not distinguish own-collected, crowd-collected or third-party-supplied data, nor pass through any provider terms."
+    },
+    {
+      "field": "other.models_after_termination",
+      "urls_tried": [
+        "https://www.futurebeeai.com/policies/ai-data-license-agreement"
+      ],
+      "reason": "not_published",
+      "note": "Silent on whether models trained before termination may continue in use once all dataset copies must be deleted."
+    }
+  ]
+}

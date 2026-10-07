@@ -1,0 +1,357 @@
+{
+  "kind": "verify",
+  "slug": "appen",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "appen-c040",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://asx.api.markitdigital.com/asx-research/1.0/companies/apx/announcements",
+        "publisher": "ASX (company announcements index)",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "H1FY26 Results and FY26 Outlook"
+      },
+      "corrected_statement": null,
+      "note": "The exchange own announcements index for APX records the lodgement, timestamped 2026-08-26T22:42:20Z (= 08:42 AEST 27 Aug 2026), flagged price-sensitive, with the Appendix 4D and investor presentation lodged the same minute. Followed on 2026-08-18 by a Change of Office Address notice. Shows continued listing and disclosure; the index is the exchange record, not an Appen page."
+    },
+    {
+      "claim_id": "appen-c039",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Blind step reached only the profile own source URL (the same ASX-lodged Appen document on cdn-api.markitdigital.com), which does read as stated. Body text: an incremental ~$12 million in operational efficiencies via AI-enabled operations, ~70% before year end, remainder in Q1 FY27. Not counted as independent. Independent press (AFR, The Australian, Market Index) could not be reached: marketindex.com.au returned 403 and no search available."
+    },
+    {
+      "claim_id": "appen-c037",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://cdn-api.markitdigital.com/apiman-gateway/ASX/asx-research/1.0/file/2924-03126942-2A1692505?access_token=83ff96335c2d45a094df02a206a39ff4",
+        "publisher": "ASX (Appen Limited Appendix 4D and Interim Financial Report)",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "pdf_read",
+        "quote": "Operating revenue increased 17.5% to $119.9 million (H1 2025: $102.1 million)"
+      },
+      "corrected_statement": null,
+      "note": "Different document from the profile source: the Appendix 4D / interim financial report (KPMG-reviewed statements) lodged on ASX in the same minute. Revenue from contracts with customers 119,915 (US$000). Growth is 17.5%, rounded to 17% in the announcement. Segment split: Appen China 76,196, Appen Global 43,719 - growth is entirely China. Still company-prepared; no independent press reached (marketindex.com.au returned 403; no search available)."
+    },
+    {
+      "claim_id": "appen-c038",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Blind step reached only the profile own source URL (the same ASX-lodged Appen document on cdn-api.markitdigital.com), which does read as stated. (Appen China segment paragraph, alongside a greater mix of higher-margin generative AI projects; no dataset revenue figure disclosed). Not counted as independent; no search available to find analyst or press restatement."
+    },
+    {
+      "claim_id": "appen-c042",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Blind step reached only the profile own source URL (the same ASX-lodged Appen document on cdn-api.markitdigital.com), which does read as stated. (slide 18, row Audio catalog for speech models, status EXISTING). Not counted as independent; the figure is by nature company-stated and no other source was reachable (no search available)."
+    },
+    {
+      "claim_id": "appen-c032",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://announcements.asx.com.au/asxpdf/20210224/pdf/44szn13hdlty6k.pdf",
+        "publisher": "ASX (Appen Limited 2020 Annual Report lodged 24 Feb 2021)",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "pdf_read",
+        "quote": "provide more than 250 licensable off-the-shelf datasets across 80 languages"
+      },
+      "corrected_statement": null,
+      "note": "Partial: the Feb 2021 ASX-lodged annual report confirms '>250 datasets across 80 languages' at that date, but not the 11,000 audio hours, 25,000 images or 8.7 million words; those three figures were found only in Appen's own material (not reached elsewhere; no search available). The FY20 investor presentation (same day) does not mention OTS datasets."
+    },
+    {
+      "claim_id": "appen-c033",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Delivery-time comparison (one week vs eight to twelve weeks) not in the FY20 annual report, FY20 results release or FY20 investor presentation lodged on ASX 24 Feb 2021. Trade-press coverage of a Feb 2021 announcement may exist but could not be located: no search available."
+    },
+    {
+      "claim_id": "appen-c036",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The customer's own site (mediainterface.de home and ueber-uns) confirms it sells medical speech recognition with French among its languages ('Deutsch, Französisch, Schweizer Hochdeutsch') but says nothing of Appen, France expansion or bought datasets. No press route found without search; outcome rests on Appen's case study only."
+    },
+    {
+      "claim_id": "appen-c007",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Live catalogue count exists only on Appen's site. The H1 FY26 ASX presentation (slide 18) gives category scales (e.g. ~25 enterprise datasets, ~10 LLM-training book sets, ~20 journal corpora, >500 repositories) but no total count, so neither confirms nor contradicts 596. No search available."
+    },
+    {
+      "claim_id": "appen-c011",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Per-listing counts on Appen's own catalogue page; no independent route (no search available)."
+    },
+    {
+      "claim_id": "appen-c023",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Appen's own statement of the rights it grants; exists only on its site."
+    },
+    {
+      "claim_id": "appen-c015",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A source label on Appen's own listing. Related, not confirming: the H1 FY26 ASX presentation lists 'Book corpuses ... journals, course textbooks' (~10 LLM-training sets, ~20 academic journal corpora) as a NEW dataset category, without saying who supplies them."
+    },
+    {
+      "claim_id": "appen-c027",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Button label and page mechanics on Appen's own site."
+    },
+    {
+      "claim_id": "appen-c016",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Licence field on Appen's own listings."
+    },
+    {
+      "claim_id": "appen-c022",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Appen's own assertion about its catalogue; no independent audit or buyer documentation reachable without search."
+    },
+    {
+      "claim_id": "appen-c053",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "CrowdGen is Appen's own contributor brand; its pay description exists only on Appen/CrowdGen pages. Independent contributor-pay reporting could not be looked for: no search available."
+    },
+    {
+      "claim_id": "appen-c040",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Fact right, but the quote shows only that results were provided, not the 27 August 2026 date or the ASX listing. The page header 'ASX Announcement 27 August 2026' and '(ASX: APX)' would show them."
+    },
+    {
+      "claim_id": "appen-c039",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote shows '~$12 million in operational efficiencies' but not 'annualised', 'within Appen Global' or the ~70% by end FY26. The highlights line '~$12 million annualised cost out identified within Appen Global' and '~70% of cost out will be executed before the end of the year' would. Statement also drops 'incremental' (additional to earlier cost-outs)."
+    },
+    {
+      "claim_id": "appen-c037",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches. Currency is printed as '$'; US$ is right because the same document converts cash as '$44.7 million (A$64.8 million)'."
+    },
+    {
+      "claim_id": "appen-c038",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote is from the Appen China segment paragraph, as the statement says."
+    },
+    {
+      "claim_id": "appen-c042",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Slide 18 row 'Audio catalog for speech models' (call-centre/dictation audio, 15+ languages), marked EXISTING."
+    },
+    {
+      "claim_id": "appen-c007",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Live /data-catalog page carries the sentence as quoted. Vendor-stated count."
+    },
+    {
+      "claim_id": "appen-c011",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Live listing IMG_VID_SELFIE_US carries the sentence verbatim. Scope region 'US' is inferred from the identifier; the listing shows no region field."
+    },
+    {
+      "claim_id": "appen-c032",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Page (an Appen press release dated Feb 2021) supports the statement, but the quote stops at '25,000 images'; the words 'over 8.7 million words across 80 languages' are needed. Also the source is Appen's own press release on appen.com, so source_class should be vendor_marketing, not press_relaying_vendor."
+    },
+    {
+      "claim_id": "appen-c033",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the Feb 2021 Appen press release. Note for matrix.custody_model: 'delivered' says nothing about where bytes land, so it does not settle copy_to_buyer; source_class should be vendor_marketing, not press_relaying_vendor."
+    },
+    {
+      "claim_id": "appen-c036",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "'Appen helped us out with French lexicon data' does not show pre-labeled datasets or France expansion; the page's 'MediaInterface was looking to expand to France next' and 'pre-labeled datasets' would. The engagement dates from after INTERSPEECH 2015, so as_of 2026-10-01 (retrieved_only) makes a roughly ten-year-old outcome look current."
+    },
+    {
+      "claim_id": "appen-c023",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Live /data-catalog 'Consent & licensing' section reads as quoted. It is a catalogue-wide marketing statement, not licence text."
+    },
+    {
+      "claim_id": "appen-c015",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Listing TEXTBOOK_PLASMA_001_v1 shows 'Source: Third Party Vendor'. Only a textbook corpus is cited; the statement's 'journal corpora' is not shown by this listing."
+    },
+    {
+      "claim_id": "appen-c027",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "/ots-datasets shows 'Talk to an expert' plus 'Explore our datasets', 'Browse the full catalog' and 'Get in touch'; no cart, checkout or price on the page."
+    },
+    {
+      "claim_id": "appen-c016",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "TASK_GDPVAL_001 shows 'Licence Type: Perpetual — Non-Exclusive'. Only one tasks-verifiers listing is cited, so 'other tasks-verifiers listings' in scope is unshown."
+    },
+    {
+      "claim_id": "appen-c022",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Live /data-catalog 'Consent & licensing' section reads as quoted. It is an assertion, not consent documents supplied to the buyer."
+    },
+    {
+      "claim_id": "appen-c053",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote shows hours adding up to earnings but not 'rates stated before they begin'; crowdgen.com's 'Competitive rates, stated clearly before you begin.' would. The page also advertises hourly rates ('$100+/hr* Top hourly pay', pay 'based on location and skills')."
+    }
+  ],
+  "missed": [
+    {
+      "id": "appen-v001",
+      "statement": "Appen's H1 FY26 ASX announcement reports Appen Global segment revenue of US$43.7 million for the six months to 30 June 2026, down 27% on the prior period, while Appen China grew 80%.",
+      "kind": "number",
+      "section": "changes",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "Appen Global segment",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 43.7,
+        "unit": "USD million revenue",
+        "basis": "Appen Global segment revenue, all business lines, H1 FY26",
+        "period": "half-year"
+      },
+      "origin": "filing",
+      "as_of": "2026-08-27",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://cdn-api.markitdigital.com/apiman-gateway/ASX/asx-research/1.0/file/2924-03126948-2A1692509?access_token=83ff96335c2d45a094df02a206a39ff4",
+          "publisher": "Appen Limited (ASX announcement)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Revenue of $43.7 million, -27% vs pcp"
+        }
+      ]
+    },
+    {
+      "id": "appen-v002",
+      "statement": "Appen's H1 FY26 investor presentation gives the scale of its book-corpus dataset category as about 10 LLM-training sets and about 20 academic journal corpora.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Book corpuses category",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 20,
+        "unit": "academic journal corpora",
+        "basis": "vendor-stated approximate count in ASX-lodged investor presentation; category marked NEW",
+        "period": "as of 2026-08"
+      },
+      "origin": "filing",
+      "as_of": "2026-08-27",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://cdn-api.markitdigital.com/apiman-gateway/ASX/asx-research/1.0/file/2924-03126949-2A1692513?access_token=83ff96335c2d45a094df02a206a39ff4",
+          "publisher": "Appen Limited (ASX investor presentation)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "~10 LLM-training sets, ~20 academic journal corpora"
+        }
+      ]
+    }
+  ]
+}

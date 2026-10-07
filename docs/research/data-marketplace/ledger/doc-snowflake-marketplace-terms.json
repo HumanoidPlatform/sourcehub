@@ -1,0 +1,2252 @@
+{
+  "kind": "document",
+  "slug": "doc-snowflake-marketplace-terms",
+  "platform_slug": "snowflake-marketplace",
+  "title": "Snowflake Provider and Consumer Terms",
+  "doc_type": "marketplace_terms",
+  "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+  "publisher": "Snowflake",
+  "version_or_date": "Last Updated: March 31, 2026",
+  "retrieved_at": "2026-10-01",
+  "parties": {
+    "licensor": "The Provider (a Snowflake customer listing its Product) under its own Listing Terms; Snowflake only for Products it lists itself",
+    "licensee": "The Consumer (a Snowflake customer), under the Provider's Listing Terms",
+    "operator_role": "venue"
+  },
+  "terms": {
+    "permitted_use": {
+      "value": "Set per listing by the Provider's own Listing Terms; absent contrary Listing Terms the Consumer gets use inside Snowflake only, with no modification, derivative works, resale, sublicensing, export outside the Service or copying.",
+      "claim_ids": [
+        "doc-snowflake-marketplace-terms-c003",
+        "doc-snowflake-marketplace-terms-c004",
+        "doc-snowflake-marketplace-terms-c006",
+        "doc-snowflake-marketplace-terms-c007",
+        "doc-snowflake-marketplace-terms-c008",
+        "doc-snowflake-marketplace-terms-c009"
+      ]
+    },
+    "territory": {
+      "value": "Marketplace available worldwide except U.S.-embargoed countries; the Provider warrants it holds the rights to make its Products available to Consumers in all those countries (no territory restriction offered in these Terms).",
+      "claim_ids": [
+        "doc-snowflake-marketplace-terms-c053"
+      ]
+    },
+    "term_duration": {
+      "value": "Terms run until terminated: Customer on 10 days' notice, Snowflake on 90 days' notice or for cause; a Provider stays bound until any Listing Retirement Period ends. Licence duration for a Product itself is left to Listing Terms.",
+      "claim_ids": [
+        "doc-snowflake-marketplace-terms-c059",
+        "doc-snowflake-marketplace-terms-c060",
+        "doc-snowflake-marketplace-terms-c021"
+      ]
+    },
+    "sublicensing": {
+      "value": "Consumer may not resell or sublicense a Product unless the Provider's Listing Terms expressly allow it; Snowflake's own licence (listing metadata only) is non-sublicensable.",
+      "claim_ids": [
+        "doc-snowflake-marketplace-terms-c008",
+        "doc-snowflake-marketplace-terms-c006",
+        "doc-snowflake-marketplace-terms-c055"
+      ]
+    },
+    "derivatives_and_model_outputs": {
+      "value": "Default bar on modifying or creating derivative works of any Product unless Listing Terms expressly state otherwise; the Terms say nothing about model outputs or trained models.",
+      "claim_ids": [
+        "doc-snowflake-marketplace-terms-c007",
+        "doc-snowflake-marketplace-terms-c006"
+      ]
+    },
+    "audit_rights": {
+      "value": "No audit right is granted. Snowflake has no duty to monitor Consumer use, and the Provider's only recourse for misuse is against the Consumer (under its Listing Terms).",
+      "claim_ids": [
+        "doc-snowflake-marketplace-terms-c020"
+      ]
+    },
+    "warranties_by_provider": {
+      "value": "Provider warrants it has all rights and permissions to license and sell its materials to Snowflake and Consumers, including in every Marketplace country; it is solely responsible for their accuracy, content and legality. Snowflake gives no warranty on Provider Materials.",
+      "claim_ids": [
+        "doc-snowflake-marketplace-terms-c010",
+        "doc-snowflake-marketplace-terms-c011",
+        "doc-snowflake-marketplace-terms-c053",
+        "doc-snowflake-marketplace-terms-c027",
+        "doc-snowflake-marketplace-terms-c028"
+      ]
+    },
+    "consent_and_release_warranty": {
+      "value": "Only a general personal-data warranty by the Provider: lawful collection 'e.g., obtaining any required consents', data subject requests handled by the Provider, no Sensitive Personal Data (incl. face-geometry biometrics, under-16s) in public listings. The Consumer separately warrants it obtains the consents its own use needs. No model or property release, and no consent evidence goes to the buyer.",
+      "claim_ids": [
+        "doc-snowflake-marketplace-terms-c013",
+        "doc-snowflake-marketplace-terms-c014",
+        "doc-snowflake-marketplace-terms-c015",
+        "doc-snowflake-marketplace-terms-c016",
+        "doc-snowflake-marketplace-terms-c017"
+      ]
+    },
+    "indemnity": {
+      "value": "Provider defends and indemnifies Snowflake (not the Consumer) for third-party claims over its materials; Consumer indemnifies Snowflake for claims arising from its use; Snowflake indemnifies only for IP infringement by the Marketplace itself, excluding Provider Materials. Any Provider-to-Consumer indemnity is left to Listing Terms. Indemnities sit outside the cap.",
+      "claim_ids": [
+        "doc-snowflake-marketplace-terms-c029",
+        "doc-snowflake-marketplace-terms-c030",
+        "doc-snowflake-marketplace-terms-c031",
+        "doc-snowflake-marketplace-terms-c032",
+        "doc-snowflake-marketplace-terms-c012",
+        "doc-snowflake-marketplace-terms-c034"
+      ]
+    },
+    "liability_cap": {
+      "value": "Each party's aggregate liability to the other under these Terms is capped at USD 50,000, with consequential and lost-data damages excluded; payment obligations, indemnities and non-limitable liability are uncapped. Provider-Consumer caps are left to Listing Terms.",
+      "claim_ids": [
+        "doc-snowflake-marketplace-terms-c033",
+        "doc-snowflake-marketplace-terms-c034",
+        "doc-snowflake-marketplace-terms-c035"
+      ]
+    },
+    "payment_and_revenue_share": {
+      "value": "Provider sets the price. Under the optional Monetization Offering, Snowflake invoices on the Provider's behalf via Stripe and pays the Provider the price minus Snowflake's fees (rate in a separate fee schedule), taxes and expenses. The seller pays the fee, can be offset, and handles refunds with the buyer. Otherwise the Provider invoices directly.",
+      "claim_ids": [
+        "doc-snowflake-marketplace-terms-c036",
+        "doc-snowflake-marketplace-terms-c037",
+        "doc-snowflake-marketplace-terms-c038",
+        "doc-snowflake-marketplace-terms-c039",
+        "doc-snowflake-marketplace-terms-c040",
+        "doc-snowflake-marketplace-terms-c041",
+        "doc-snowflake-marketplace-terms-c042",
+        "doc-snowflake-marketplace-terms-c043",
+        "doc-snowflake-marketplace-terms-c044",
+        "doc-snowflake-marketplace-terms-c045",
+        "doc-snowflake-marketplace-terms-c046"
+      ]
+    },
+    "takedown_and_erasure": {
+      "value": "Provider handles takedown and data-subject requests; Snowflake may remove listings or suspend the Provider, including ongoing Transactions, on a credible notice. A retiring Provider must keep serving existing Consumers for the Retirement Period. Nothing requires Consumers to delete data they already hold; by default they cannot copy it out of Snowflake.",
+      "claim_ids": [
+        "doc-snowflake-marketplace-terms-c023",
+        "doc-snowflake-marketplace-terms-c024",
+        "doc-snowflake-marketplace-terms-c014",
+        "doc-snowflake-marketplace-terms-c021",
+        "doc-snowflake-marketplace-terms-c022",
+        "doc-snowflake-marketplace-terms-c008"
+      ]
+    },
+    "governing_law": {
+      "value": "Delaware and U.S. federal law; exclusive venue in state and federal courts of New Castle County, Delaware (these Terms only; Listing Terms may choose their own).",
+      "claim_ids": [
+        "doc-snowflake-marketplace-terms-c061"
+      ]
+    },
+    "change_of_terms": {
+      "value": "Snowflake may change the Terms unilaterally by posting them, effective 30 days after posting, or immediately for new functionality or legal requirements; a notification subscription is offered.",
+      "claim_ids": [
+        "doc-snowflake-marketplace-terms-c062"
+      ]
+    },
+    "prohibited_uses": {
+      "value": "Default Consumer bans: modification, reverse engineering, resale, sublicensing, transfer outside the Service and unauthorised copies. Providers may not put personal data in listings, Sensitive Personal Data in public listings, or ITAR-controlled information anywhere. AI technology in Products is declared unfit for sensitive or hazardous uses.",
+      "claim_ids": [
+        "doc-snowflake-marketplace-terms-c007",
+        "doc-snowflake-marketplace-terms-c008",
+        "doc-snowflake-marketplace-terms-c009",
+        "doc-snowflake-marketplace-terms-c015",
+        "doc-snowflake-marketplace-terms-c054",
+        "doc-snowflake-marketplace-terms-c019"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "doc-snowflake-marketplace-terms-c001",
+      "statement": "The Snowflake Provider and Consumer Terms are dated 'Last Updated: March 31, 2026' and replace earlier separate Provider and Consumer Terms of Service.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Last Updated: March 31, 2026"
+        },
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If you previously accepted either the Provider Terms of Service or Consumer Terms of Service"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c002",
+      "statement": "Outside its own listed Products, Snowflake is not the seller of record of any Product on Snowflake Marketplace.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Except as provided in Section 5.1 (Snowflake Products), Snowflake is not the seller of record of any Products."
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c003",
+      "statement": "The licence for a Marketplace Product is set by Listing Terms between Provider and Consumer, to which Snowflake is not a party unless it is the Provider.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "except where Snowflake is the applicable Provider, Snowflake (a) is not a party to any such Listing Terms"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c004",
+      "statement": "Listing Terms are defined as the contract, licence rights and pricing terms between a Provider and a Consumer governing a Transaction.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "license rights, pricing terms (including the Product Cost), and other terms between a Provider and a Consumer"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c005",
+      "statement": "A Consumer must enter into Listing Terms with the Provider before any Transaction, and acceptance by its users in the Marketplace binds it.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Prior to executing any Transaction, Customer shall enter into Listing Terms with the relevant Provider"
+        },
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "accept a Provider’s Listing Terms within the Marketplace, such acceptance shall be binding on Customer"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c006",
+      "statement": "The Terms impose default use restrictions on Consumers that apply unless the Provider's Listing Terms expressly state otherwise.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Except to the extent a Product is provided to Customer under Listing Terms that expressly state otherwise, Customer will not"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c007",
+      "statement": "By default a Consumer may not modify or create derivative works of any Product.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Customer will not (a) modify, alter, tamper with, repair, or otherwise create derivative works of any Product"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c008",
+      "statement": "By default a Consumer may not resell or sublicense a Product or transfer it outside the Snowflake Service without specific authorisation.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q6",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "(c) resell or sublicense the Product, (d) transfer the Product outside the Service without specific authorization to do so"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c009",
+      "statement": "By default a Consumer may not circumvent controls or make unauthorised copies of a Product.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "tamper with or circumvent any controls or make unauthorized copies of the Product"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c010",
+      "statement": "The Provider represents and warrants that it has all rights and permissions needed to license and sell its Provider Materials to Snowflake and Consumers.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "has all necessary rights and permissions to license and, if applicable, sell its Provider Materials to Snowflake"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c011",
+      "statement": "The Provider is solely responsible for the accuracy, content and legality of its Provider Materials, and Snowflake bears no responsibility for them.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "solely responsible for its Provider Materials (including the accuracy, content, and legality of such Provider Materials)"
+        },
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Snowflake bears no responsibility or liability for Customer’s Provider Materials"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c012",
+      "statement": "The Provider, not Snowflake, must address claims about Provider Materials, including IP, third-party-rights and data-protection claims ('Provider Materials Claims').",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the Provider, not Snowflake, is responsible for addressing any claims relating to the Provider Materials"
+        },
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "(iv) obligations required under applicable data protection laws"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c013",
+      "statement": "Where Provider Materials contain personal data, the Provider warrants compliance with law, including collecting the data with any legally required consents.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If any Personal Data is included within the Provider Materials, Customer represents and warrants"
+        },
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "maintains the Personal Data in accordance with such laws (e.g., obtaining any required consents)"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c014",
+      "statement": "Where Provider Materials contain personal data, the Provider must satisfy applicable data subject requests and enter any legally required terms with Consumers before a Transaction.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "enters into any legally required terms with Consumers prior to a Transaction"
+        },
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "satisfies any applicable data subject request or notification required by applicable law"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c015",
+      "statement": "A Provider may not reveal Sensitive Personal Data to Consumers in Provider Materials offered publicly, nor any personal data in listing metadata.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "not disclose or reveal Sensitive Personal Data to Consumers in any Provider Materials offered publicly"
+        },
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Customer shall not disclose any Personal Data in any Listing Information or Provider Profile"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c016",
+      "statement": "Sensitive Personal Data is defined to include biometric data such as a scan of face geometry, and personal data of children under 16.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "biometric data, such as a retina or iris scan, fingerprint, voiceprint, or scan of hand or face geometry"
+        },
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Personal Data of children under 16 years of age"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c017",
+      "statement": "The Consumer warrants it will comply with law and obtain all necessary consents, permissions and licences for its access to and use of Provider Materials.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "by obtaining all necessary consents, permissions, and licenses with respect to its access, use, and, if applicable, purchase"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c018",
+      "statement": "Where Provider Materials include AI technology, the Consumer is responsible for assessing suitability and for the consequences of its use, absent a different allocation agreed with the Provider.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Customer is responsible for assessing the suitability of AI Technology for its specific use case"
+        },
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "any different allocation of risk as may be directly agreed upon between the relevant Provider and Customer"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c019",
+      "statement": "The Terms state AI technology in Provider Materials is not designed for sensitive, critical or hazardous systems or uses that could harm persons or violate individual rights.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the AI Technology is not designed for use with any sensitive, critical, vulnerable, or hazardous systems or environments"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c020",
+      "statement": "Snowflake has no obligation to monitor Consumers' use of Provider Materials, and a Provider's recourse for misuse lies solely against the Consumer.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Snowflake is under no obligation to monitor or otherwise limit Consumers’ use of any Provider Materials"
+        },
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "misuse of Provider Materials by a Consumer shall be solely recoverable against the applicable Consumer"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c021",
+      "statement": "When a Provider stops offering a Product, it must let current Consumers keep accessing and using it for the Retirement Period set in the Documentation.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Customer will allow Consumers who are accessing or using Customer’s Product(s) to continue to access and use such Product(s)"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c022",
+      "statement": "Providers may stop offering their Provider Materials at any time, subject to the Terms, policies and Listing Terms.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Providers may at any time stop offering their Provider Materials via the Marketplace"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c023",
+      "statement": "The Provider must promptly handle takedown requests and infringement or illegality notices about its Provider Materials and notify Snowflake.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Customer will promptly handle any takedown requests, and other notices of alleged infringement or illegality"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c024",
+      "statement": "Snowflake may remove listing content or suspend a Provider, including for ongoing Transactions, if its materials are subject to a credible third-party or government take-down notice.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "limit, suspend, or terminate Customer’s access to or use of the Marketplace, including with respect to ongoing Transactions"
+        },
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "or a credible take-down notice from a third-party"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c025",
+      "statement": "Snowflake may review Provider Materials for abuse or security issues but has no liability for failing to find deficiencies, including legal non-compliance.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Snowflake may review Provider Materials from time to time, for abuse or security issues, or as may be required by law"
+        },
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "failure to identify any deficiencies or problems of any type with the Provider Materials"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c026",
+      "statement": "Snowflake has no duty to review, monitor or control any Provider Materials.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "has no duty or obligation to review, accept or deny, monitor, or otherwise control any Provider Materials"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c027",
+      "statement": "Snowflake makes no representation about the completeness, accuracy, reliability or security of Provider Materials.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "makes no representations as to the Provider Materials’ completeness, accuracy, reliability, validity, availability, security"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c028",
+      "statement": "Snowflake warrants only that the Marketplace works in substantial conformity with its Documentation and does not warrant Provider Materials are free of harmful content.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Snowflake warrants that the Marketplace will work in substantial conformity with the Documentation"
+        },
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Snowflake cannot and does not represent or warrant that any Provider Materials are free of harmful content or materials"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c029",
+      "statement": "The Provider defends and indemnifies Snowflake against third-party claims arising from its Provider Materials.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "defend Snowflake against any claim by a third party arising from or relating to any of Customer’s Provider Materials"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c030",
+      "statement": "The Provider's indemnity of Snowflake does not apply to claims caused by Snowflake's gross negligence or by Snowflake's modification of the materials outside the Provider's instructions.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "any modification of the relevant Provider Materials by Snowflake (other than in accordance with Provider’s instructions)"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c031",
+      "statement": "The Consumer defends and indemnifies Snowflake against third-party claims arising from its use of Provider Materials.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "defend Snowflake against any claims by a third party arising from or relating to Customer’s use of Provider Materials"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c032",
+      "statement": "Snowflake indemnifies Customers only against claims that the Marketplace itself infringes IP, excluding infringement by Provider Materials.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Snowflake will defend Customer against any claim by a third party alleging that the Marketplace"
+        },
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "infringement of intellectual property by any materials not provided by Snowflake (including any Provider Materials"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c033",
+      "statement": "Each party's aggregate liability to the other under the Terms is capped at USD 50,000, except for Excluded Claims.",
+      "kind": "number",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 50000,
+        "unit": "USD",
+        "basis": "each party's total liability to the other (Snowflake vs. Customer) under these Terms, all claims in aggregate; excludes Excluded Claims",
+        "period": "aggregate for the Terms"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "for all claims in the aggregate (for damages or liability of any type) in connection with these Terms exceed $50,000 (USD)"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c034",
+      "statement": "Excluded Claims, outside the liability cap and damages exclusion, are payment obligations, indemnity obligations and liability that cannot be limited by law.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "a party’s payment obligations under these Terms; (b) a party’s express obligations under Section 8 (Indemnification)"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c035",
+      "statement": "Neither party is liable to the other for lost or inaccurate data, lost profits or consequential damages, except for Excluded Claims.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "liable to the other party or its Affiliates for any loss of use, lost or inaccurate data, interruption of business"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c036",
+      "statement": "The Provider sets the Product Cost for its listings.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Customer is responsible for setting and configuring the Product Cost as part of the Listing Information"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c037",
+      "statement": "Use of Snowflake's on-platform Monetization Offering for purchase, invoicing and payment collection is optional; otherwise the Provider invoices the Consumer directly.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Customer, at its option, may use the on-platform monetization offering that Snowflake makes available"
+        },
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "(ii) Snowflake, on behalf of the Provider, if the Provider is leveraging the Monetization Offering"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c038",
+      "statement": "Under the Monetization Offering, Snowflake issues invoices to Consumers on the Provider's behalf and payments are processed by Stripe.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Snowflake will issue the Product Invoice to each Consumer on Customer’s behalf"
+        },
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the third-party payment processor, Stripe Inc."
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c039",
+      "statement": "For Consumer funds paid to Snowflake and redirected to Provider purchases, the Provider appoints Snowflake as its payment agent.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q5",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Solely with respect to such payment to Snowflake from the Consumer, Customer appoints Snowflake as its agent"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c040",
+      "statement": "The Provider pays Snowflake's Monetization Offering fees, deducted from the Product Cost to give the Provider's Net Payment; the fee rate is in a separate fee schedule.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Customer is responsible for the Snowflake fees set forth in the relevant Monetization Offering Fee Schedule"
+        },
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Snowflake will calculate the amount owed to Customer, which shall equal the Product Cost minus: (i) the Fees"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c041",
+      "statement": "The Monetization Offering Fee Schedule is published in Snowsight or the Documentation, not in these Terms.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the schedule of fees made available in Snowsight (the Web interface of the Service) or as described in the Documentation"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c042",
+      "statement": "Product Costs paid by Consumers through the Payment Processor are non-cancelable and non-refundable except under the refund clause or law.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "paid by Consumers to Payment Processor are non-cancelable and non-refundable"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c043",
+      "statement": "Refunds and payment disputes are settled directly between Provider and Consumer, not by Snowflake.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "any adjustment to the Net Payment must be agreed upon directly between Customer and the Consumer"
+        },
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "any settlements of such disputes must be agreed upon directly between Customer and the Provider"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c044",
+      "statement": "Snowflake may offset from a Provider's Net Payment amounts for Provider Materials not delivered to the Consumer, billing disputes and prior overpayments.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Snowflake may offset any amounts that are or were: (i) based on Provider Materials that were not delivered to the Consumer"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c045",
+      "statement": "Overdue amounts owed by a Consumer to Providers or Snowflake accrue late charges of 1.5% per month.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 1.5,
+        "unit": "percent per month",
+        "basis": "late charge on overdue amounts owed by the Consumer to Providers or Snowflake, or the legal maximum if lower",
+        "period": "per month"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "will accrue late charges at a rate of 1.5% per month"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c046",
+      "statement": "The Provider is responsible for calculating, invoicing and paying taxes on the Product Cost and on Snowflake's Fees.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "responsible for calculating, invoicing, and paying all Taxes associated with (i) the Product Cost and (ii) the Fees"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c047",
+      "statement": "The Provider, not Snowflake, handles Consumer support, quality complaints and refund requests about its Provider Materials.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the Provider will be solely responsible for addressing any inquiries, requests, complaints, claims"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c048",
+      "statement": "Snowflake requires Providers' Listing Terms to state the agreement is solely between Provider and Consumer and that the Provider is solely liable for its materials.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the agreement is solely between Customer and the Consumer, and not Snowflake"
+        },
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Customer is solely responsible and liable for its Provider Materials and obligations under the Listing Terms"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c049",
+      "statement": "Snowflake may list and sell its own Products as a Provider, and its own Listing Terms prevail over these Terms for those Products.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Snowflake may provide or sell its own Product(s) as a Provider."
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c050",
+      "statement": "A Product's presence on the Marketplace does not imply Snowflake's endorsement or affiliation with the Provider.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the availability of any Product in the Marketplace does not imply Snowflake’s endorsement of such Product"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c051",
+      "statement": "Except where it is the Provider, Snowflake is not responsible for delivering any Product.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q5",
+        "Q6"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "is not responsible for the delivery of any Product"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c052",
+      "statement": "Products may be data and code deployed by Providers inside the Snowflake Service or deployed outside it.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Products may consist of data and code that are deployed by Providers within the Service"
+        },
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "as well as data or code that are deployed by Providers outside the Service"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c053",
+      "statement": "The Marketplace is available worldwide except embargoed countries, and the Provider warrants it has the rights to make its Products available to Consumers there.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "available in countries around the world (excluding countries, or parts thereof, that are subject to a complete U.S."
+        },
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Customer has all rights needed for Customer and Snowflake to make Customer's Listing Information and Products available"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c054",
+      "statement": "Providers must not share information controlled under the U.S. International Traffic in Arms Regulations via the Marketplace.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "will not offer or share any information that is controlled under the U.S. International Traffic in Arms Regulations"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c055",
+      "statement": "The Provider grants Snowflake a non-exclusive, worldwide, royalty-free, non-sublicensable licence only to its listing metadata and provider profile, for operating and marketing the Marketplace.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "a non-exclusive, worldwide, royalty-free, non-sublicensable, non-transferable"
+        },
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "license to reproduce, distribute, display, and translate its Listing Information and Provider Profile"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c056",
+      "statement": "Listing Information is metadata about a Product and excludes the Product itself.",
+      "kind": "terms",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "metadata about a Product (but not the Product itself)"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c057",
+      "statement": "Apart from express grants, the Terms give Snowflake no rights in the Customer's intellectual property.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "these Terms do not grant to Snowflake any rights in Customer’s intellectual property"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c058",
+      "statement": "Snowflake may share a Consumer's usage data, including account and contact details, with the relevant Provider.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Snowflake may share Customer Usage Data relating to Customer’s procurement, purchase, access, and use of a Product"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c059",
+      "statement": "Snowflake may terminate the Terms for convenience on 90 days' notice; a Customer may do so on 10 days' notice.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Snowflake may terminate these Terms for convenience upon 90 days’ prior notice to Customer"
+        },
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Customer may terminate these Terms for convenience at any time upon ten (10) days’ prior notice to Snowflake"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c060",
+      "statement": "For a Provider, the Terms stay in force until any Listing Retirement Period ends.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "these Terms will continue in full force and effect until the end of any applicable Retirement Period(s)"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c061",
+      "statement": "The Terms are governed by Delaware and U.S. law, with exclusive venue in the state and federal courts of New Castle County, Delaware.",
+      "kind": "terms",
+      "section": "other",
+      "question_ids": [],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "These Terms will be governed by the laws of the State of Delaware and the United States"
+        },
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the state and federal courts located in New Castle County, Delaware"
+        }
+      ]
+    },
+    {
+      "id": "doc-snowflake-marketplace-terms-c062",
+      "statement": "Snowflake may change the Terms by posting them, with changes taking effect 30 days after posting, or immediately for new functionality or legal requirements.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "Snowflake Marketplace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Changes to these Terms will become effective 30 days after they are posted"
+        },
+        {
+          "url": "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/",
+          "publisher": "Snowflake",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "except to the extent that the changes apply to new functionality, or are required by applicable law"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "other.ai_training_rights",
+      "urls_tried": [
+        "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/"
+      ],
+      "reason": "not_published",
+      "note": "The Terms neither grant nor exclude training, fine-tuning, evaluation or model-output rights; they are left to each Provider's Listing Terms. The only default is the bar on derivative works, resale and copying. The AI clauses cover AI technology inside Products, not training on data."
+    },
+    {
+      "field": "other.exclusivity",
+      "urls_tried": [
+        "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/"
+      ],
+      "reason": "not_published",
+      "note": "Nothing on exclusive licences to Consumers; the only 'non-exclusive' grant is the Provider's licence to Snowflake of listing metadata."
+    },
+    {
+      "field": "other.deletion_on_termination",
+      "urls_tried": [
+        "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/"
+      ],
+      "reason": "not_published",
+      "note": "No obligation on Consumers to delete Product data at the end of a licence, Retirement Period or termination; left to Listing Terms."
+    },
+    {
+      "field": "other.consent_and_release_warranty",
+      "urls_tried": [
+        "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/"
+      ],
+      "reason": "not_published",
+      "note": "No specific warranty covering releases from people depicted or property owners, and no provision for passing consent evidence to Consumers; only the general personal-data compliance warranty."
+    },
+    {
+      "field": "other.monetization_fee_rate",
+      "urls_tried": [
+        "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/"
+      ],
+      "reason": "not_published",
+      "note": "The Fee percentage is in the Monetization Offering Fee Schedule in Snowsight/Documentation, not in the Terms."
+    },
+    {
+      "field": "other.retirement_period_length",
+      "urls_tried": [
+        "https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/"
+      ],
+      "reason": "not_published",
+      "note": "Length of the Listing Retirement Period is set in the Documentation, not the Terms."
+    },
+    {
+      "field": "other.provider_and_consumer_policies",
+      "urls_tried": [
+        "https://www.snowflake.com/provider-and-consumer-policies/"
+      ],
+      "reason": "not_published",
+      "note": "Incorporated Provider and Consumer Policies (content moderation, prohibited content) not read in this run; a separate document."
+    }
+  ]
+}

@@ -1,0 +1,214 @@
+{
+  "kind": "verify",
+  "slug": "adobe-stock",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "adobe-stock-c001",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://www.sec.gov/Archives/edgar/data/796343/000079634326000056/adbe-20260227.htm", "publisher": "U.S. SEC (EDGAR), Adobe Inc. Form 10-Q for the quarter ended 2026-02-27", "source_class": "filing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "partially offset by a decrease from Adobe Stock"},
+      "corrected_statement": null,
+      "note": "Confirms Adobe Stock was a live, revenue-bearing subscription business in Q1 FY2026 (10-Q filed 2026-03-25), and that its ARR was shrinking. The FY2025 10-K (filed 2026-01-15) also describes Adobe Stock as licensed in-app, on stock.adobe.com or by multi-asset subscription. The Q2 and Q3 FY2026 10-Qs (filed 2026-06-15 and 2026-09-22) do not mention Adobe Stock at all. The rupee pricing page on 2026-10-01 is vendor-only by nature. No search available, so no independent 2026 report on Adobe Stock specifically could be reached."
+    },
+    {
+      "claim_id": "adobe-stock-c002",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The September 2026 payment itself could not be confirmed outside Adobe's forum: no search available, and no press link reached by navigation. The programme's existence is attested independently: the BIPA class complaint Dorcus v. Adobe, N.D. Ill. 1:26-cv-05575, filed 2026-05-14 (CourtListener RECAP, ¶9), says Adobe 'created the Firefly Stock Contributor Bonus, which compensates Adobe Stock contributors when their licensed content is used to train Firefly's image models'; the derivative complaint Hirschberger v. Narayen, N.D. Cal. 5:26-cv-05882 (filed 2026-06-16), relays Bloomberg reporting that bonuses were paid in September 2023. Neither speaks to a 2026 payment."
+    },
+    {
+      "claim_id": "adobe-stock-c010",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause of Adobe's own contributor terms. The Hirschberger derivative complaint quotes Adobe's 2024 web copy that 'Adobe Stock content is covered under a separate license agreement', which is consistent but not this clause."
+    },
+    {
+      "claim_id": "adobe-stock-c050",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Contributor-side reporting of the rate ought to exist but none could be reached: no search available. Adobe's FY2025 10-K and FY2026 10-Qs mention royalty fees in cost of subscription revenue and royalties payable, but give no contributor rate. arXiv's own search for 'Adobe Stock' returned two computer-vision papers only. Wirestock (a distributor to stock agencies) FAQ and home page carry no Adobe rate."
+    },
+    {
+      "claim_id": "adobe-stock-c056",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.472306/gov.uscourts.cand.472306.1.0_1.pdf", "publisher": "CourtListener RECAP: Hirschberger v. Narayen, N.D. Cal. 5:26-cv-05882, verified stockholder derivative complaint (filed 2026-06-16)", "source_class": "court_record", "retrieved_at": "2026-10-01", "fetched_via": "pdf_read", "fetch_status": "ok", "quote": "including those who supplied AI-generated content via Adobe Stock"},
+      "corrected_statement": null,
+      "note": "Page 47, ¶154, relaying an April 2024 Bloomberg investigation: Adobe paid Firefly bonuses in September 2023 to contributors, including those who supplied AI-generated content via Adobe Stock; ¶155 relays that Adobe said Midjourney-derived images were about 5% of training data. This confirms contributor uploads and the generative-AI part. The other media types are confirmed only as what Adobe Stock offers (FY2025 10-K: 'photos, vectors, illustrations, videos, templates, audio and 3D assets'), not as contributor uploads. Plaintiffs' allegation relaying press; not a finding of the court."
+    },
+    {
+      "claim_id": "adobe-stock-c039",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause of Adobe's own buyer terms."
+    },
+    {
+      "claim_id": "adobe-stock-c049",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A feature of Adobe's own India pricing page."
+    },
+    {
+      "claim_id": "adobe-stock-c026",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause of Adobe's own licence terms. No search available to look for a library or partner guide restating it."
+    },
+    {
+      "claim_id": "adobe-stock-c014",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A warranty clause in Adobe's own contributor terms."
+    },
+    {
+      "claim_id": "adobe-stock-c005",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The bonus formula is set out only in Adobe's email to contributors; no independent report of the 2026 formula could be reached (no search available). Dorcus v. Adobe ¶59 (N.D. Ill., filed 2026-05-14) describes eligibility as contributors 'whose images were considered for inclusion in the Firefly image-model training corpus', with no formula."
+    },
+    {
+      "claim_id": "adobe-stock-c051",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "As for c050: no independent statement of the video rate reachable without search; Adobe's filings give no contributor rates."
+    },
+    {
+      "claim_id": "adobe-stock-c034",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause of Adobe's own buyer terms."
+    },
+    {
+      "claim_id": "adobe-stock-c045",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A price on Adobe's own India pricing page; no reseller page for India could be reached without search."
+    },
+    {
+      "claim_id": "adobe-stock-c053",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Per-download contributor earnings appear only in Adobe's contributor help; no independent source reachable without search."
+    },
+    {
+      "claim_id": "adobe-stock-c067",
+      "check": "blind",
+      "status": "disputed",
+      "independent_source": {"url": "https://www.adobe.com/affiliates.html", "publisher": "Adobe (adobe.com Affiliate Program page)", "source_class": "vendor_marketing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "Monthly subscription: Earn US$43"},
+      "corrected_statement": null,
+      "note": "Not independent: this is Adobe's own adobe.com affiliate page, which on 2026-10-01 listed Adobe Stock commissions as US$43 for a monthly or yearly-paid-monthly subscription, 8.33% on single purchases and 85% of the first month on '3 standard assets/month', with no US$72 figure and no 10-images-a-month plan. The affiliate network is Partnerize (adobe.com links signup.partnerize.com/signup/en/adobe, which redirects to join.partnerize.com/adobe/en, a page rendering only 'Sign Up to PHG Affiliate Program'), so no third-party statement of the rate was reachable. The US$72 figure may be from an older or regional stock.adobe.com page; see scope verdict."
+    },
+    {
+      "claim_id": "adobe-stock-c025",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause of Adobe's own licence terms; no library or partner restatement reachable without search."
+    },
+    {"claim_id": "adobe-stock-c001", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null,
+     "note": "Page re-fetched 2026-10-01: prices are in rupees and the plans are credit subscriptions, so the fact holds. But the quote '₹2,394.22/mo' shows only a rupee price, not what is sold; the page's '10 Stock credits/mo ₹2,394.22/mo' would show the credit subscription."},
+    {"claim_id": "adobe-stock-c002", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null,
+     "note": "Thread opened 2026-09-17 ('Fourteen dollars came in yesterday'), and a Community Expert reply quotes Adobe's email; the September 2026 date comes from the post date, not the email, which gives no payment date. The source is mislabelled press_relaying_vendor: it is a user post on Adobe's own forum (community.adobe.com), not press, and it is the only source."},
+    {"claim_id": "adobe-stock-c005", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null,
+     "note": "The relayed email bases the 2026 bonus on content considered for training between 3 June 2025 and 2 June 2026 'and the number of licenses that those assets generated in the same 12-month period'. Same source-class mislabel as c002."},
+    {"claim_id": "adobe-stock-c010", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null,
+     "note": "Contributor Agreement Additional Terms, 'Effective as of February 16, 2024', s.2: the sublicensing agreement is defined as the 'User Agreement'."},
+    {"claim_id": "adobe-stock-c014", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null,
+     "note": "s.3.2 Releases. Contributors also warrant to provide copies to Adobe on request (not to buyers). Editorial-use-only Work may be accepted without releases."},
+    {"claim_id": "adobe-stock-c025", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null,
+     "note": "Right for the Standard License (s.3.1(B)(1) of the 2025-08-08 Stock product terms). The quote covers only printed copies; the viewer cap and the web exemption are in 'audience is expected to exceed 500,000 viewers' and 'does not apply to Works displayed only on websites, social media sites, or mobile applications'."},
+    {"claim_id": "adobe-stock-c026", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null,
+     "note": "s.3.2(A): same rights as a Standard License 'except without the limitation on the number of reproductions or viewers'. The merchandise, template and press-release restrictions still apply (s.3.2(B))."},
+    {"claim_id": "adobe-stock-c034", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null,
+     "note": "s.10.3(A) applies 'irrespective of the number of times' an asset is downloaded and 'notwithstanding anything to the contrary' in any other agreement, so it covers all licence tiers. A separate US$10,000 cap applies per Indemnified Firefly Output or per claim (s.10.3(B))."},
+    {"claim_id": "adobe-stock-c039", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null,
+     "note": "s.14.1(C). Perpetual licences survive termination (s.14.1(B)), except for unmetered or unlimited plans (s.9.4(E))."},
+    {"claim_id": "adobe-stock-c045", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null,
+     "note": "Price confirmed on re-fetch. But the quote '₹15,965.40/mo' does not show which tier it belongs to; the page's '750 Stock credits/mo' label next to the price would. Whether the price is month-to-month or an annual commitment, and whether GST is included, is not shown."},
+    {"claim_id": "adobe-stock-c049", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null,
+     "note": "The phone number and consultation link sit under the heading 'Subscription plans made for business'. The page as fetched does not say 'team' or 'enterprise', so the statement's 'team and enterprise plans' is an inference; the heading should be quoted."},
+    {"claim_id": "adobe-stock-c050", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null,
+     "note": "The quote '33% royalties' does not show that the rate is for images; the page pairs it with 'Photos, vectors, illustrations'. The same table shows a '350+ credits/month' buyer tier paying a 'Minimum guaranteed' US$0.33 to $0.40 per download, so 33% is the headline rate, not necessarily the share on every plan. Earnings are 'based on pricing for US customers'."},
+    {"claim_id": "adobe-stock-c051", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null,
+     "note": "The quote '35% royalties' does not show that the rate is for video; the page places it over the video earnings table (for example HD US$22.40 to $28.00 and 4K US$56.00 to $70.00 per download)."},
+    {"claim_id": "adobe-stock-c053", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null,
+     "note": "The figures are correct and sit in the images table. But the quote '$26.40 / $21.12' leaves out the row label 'Extended license' and the column 'On demand / Subscription' that tie it to the tier."},
+    {"claim_id": "adobe-stock-c056", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null,
+     "note": "Quote names photos, illustrations, videos, vectors and Gen AI. Source class vendor_marketing is right."},
+    {"claim_id": "adobe-stock-c067", "check": "scope", "status": "scope_wrong", "independent_source": null, "corrected_statement": null,
+     "note": "The quote is from an undated Stock API business FAQ on developer.adobe.com, and the claim dates it as 2026-10-01 using only the retrieval date. That FAQ links to adobe.com/affiliates.html, which on 2026-10-01 gave Adobe Stock affiliate commissions of US$43 (monthly subscription), 8.33% (single purchase) and 85% of the first month (3 assets/month), and had no US$72 figure or 10-images plan. The figure is probably stale. The scope 'Adobe Stock API' is also wrong: this is the Adobe Affiliate Program (via Partnerize), not the API."}
+  ],
+  "missed": [
+    {
+      "id": "adobe-stock-v001",
+      "statement": "Adobe told the SEC that Adobe Stock was a drag on growth in Q1 fiscal 2026: Total Adobe ARR growth of 10.9% to US$26.06 billion was partially offset by a decrease from Adobe Stock.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": ["Q1"],
+      "scope": {"product": "Adobe Stock", "tier": "", "region": ""},
+      "value": null,
+      "origin": "filing",
+      "as_of": "2026-02-27",
+      "as_of_basis": "publication",
+      "sources": [
+        {"url": "https://www.sec.gov/Archives/edgar/data/796343/000079634326000056/adbe-20260227.htm", "publisher": "U.S. SEC (EDGAR), Adobe Inc. Form 10-Q for the quarter ended 2026-02-27 (filed 2026-03-25)", "source_class": "filing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "partially offset by a decrease from Adobe Stock"}
+      ]
+    },
+    {
+      "id": "adobe-stock-v002",
+      "statement": "A shareholder derivative complaint filed against Adobe's directors on 2026-06-16, quoting April 2024 press, says Adobe acknowledged that Midjourney-made images supplied by Adobe Stock contributors made up about 5% of Firefly's training material.",
+      "kind": "event",
+      "section": "supply",
+      "question_ids": ["Q3", "Q5"],
+      "scope": {"product": "Adobe Stock generative-AI submissions", "tier": "", "region": ""},
+      "value": null,
+      "origin": "court",
+      "as_of": "2026-06-16",
+      "as_of_basis": "publication",
+      "sources": [
+        {"url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.472306/gov.uscourts.cand.472306.1.0_1.pdf", "publisher": "CourtListener RECAP: Hirschberger v. Narayen, N.D. Cal. 5:26-cv-05882, verified stockholder derivative complaint", "source_class": "court_record", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "pdf_read", "quote": "Adobe said the images from Midjourney only made up 5% of the training"}
+      ]
+    },
+    {
+      "id": "adobe-stock-v003",
+      "statement": "A BIPA class action filed against Adobe on 2026-05-14 over Firefly voice models cites the Firefly Stock Contributor Bonus as consent and compensation infrastructure that Adobe built for image contributors but not for voice subjects.",
+      "kind": "event",
+      "section": "regulation",
+      "question_ids": ["Q7"],
+      "scope": {"product": "Adobe Firefly / Adobe Stock contributor bonus", "tier": "", "region": "Illinois, US"},
+      "value": null,
+      "origin": "court",
+      "as_of": "2026-05-14",
+      "as_of_basis": "publication",
+      "sources": [
+        {"url": "https://storage.courtlistener.com/recap/gov.uscourts.ilnd.500617/gov.uscourts.ilnd.500617.1.0.pdf", "publisher": "CourtListener RECAP: Dorcus v. Adobe Inc., N.D. Ill. 1:26-cv-05575, class action complaint", "source_class": "court_record", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "pdf_read", "quote": "Adobe built consent infrastructure for image contributors"}
+      ]
+    }
+  ]
+}

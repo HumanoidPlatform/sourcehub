@@ -1,0 +1,472 @@
+{
+  "kind": "verify",
+  "slug": "defined-ai",
+  "search_available": true,
+  "verdicts": [
+    {
+      "claim_id": "defined-ai-c001",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The 28 Apr 2026 ISO 42001 announcement appears only on defined.ai and on wire copies (accessnewswire), which relay the vendor. The release names no certification body, so no certifier registry could be checked. The company's operating status is independently confirmed later: ECO (eco.sapo.pt, 30 Jul 2026) and Jornal de Negocios report a restructuring with about a 30% staff cut while the company continues operating (see defined-ai-v001). A status built on c001 should cite that newer report too."
+    },
+    {
+      "claim_id": "defined-ai-c005",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A live catalogue count exists only on the vendor's own catalogue page; no independent source counts it. Search snippets gave other counts (700+, 817) from listicle-type pages, which are banned as citations and are no basis for correcting it."
+    },
+    {
+      "claim_id": "defined-ai-c006",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The 1.6M+/150+ figure appears only on defined.ai and on bios or event pages that repeat it. The only independent figure found is older and company-attributed: The Seattle Times (31 Jul 2019, via Tech Xplore) says DefinedCrowd 'says' 130,000 people across 60 countries had worked on its tasks. That does not contradict a 2026 figure."
+    },
+    {
+      "claim_id": "defined-ai-c028",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Partner-page marketing figure; searches found it only on defined.ai. No independent reporting or filing states it. EDGAR full-text search for \"Defined.ai\" returns no filings."
+    },
+    {
+      "claim_id": "defined-ai-c029",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Partner-page marketing figure; searches found it only on defined.ai. No independent source."
+    },
+    {
+      "claim_id": "defined-ai-c030",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Appears in the Jan 2026 release and its wire copies (newswire.com, Yahoo Finance), which are press_relayed, not independent. The ECO report of 30 Jul 2026 does not repeat it."
+    },
+    {
+      "claim_id": "defined-ai-c031",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Appears only in the Jan 2026 release and its wire copies (press_relayed). No independent report repeats the 1,200% figure."
+    },
+    {
+      "claim_id": "defined-ai-c032",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://eco.sapo.pt/2026/07/30/defined-ai-avanca-com-reestruturacao-e-corta-em-30-o-numero-de-trabalhadores/",
+        "publisher": "ECO (eco.sapo.pt)",
+        "source_class": "independent_press",
+        "retrieved_at": "2026-09-30",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Em janeiro, a empresa reportava um crescimento anual de 65% das receitas"
+      },
+      "corrected_statement": null,
+      "note": "Independent press confirms that the company reported 65% growth in January. It does not audit the figure, which is still vendor-stated. The same article reports a 30% staff cut in July 2026 that ECO's sources tie to a sharp fall in AI training data sales."
+    },
+    {
+      "claim_id": "defined-ai-c040",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Checkout/payment mechanics appear only in the vendor FAQ. No independent source describes them."
+    },
+    {
+      "claim_id": "defined-ai-c066",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "DAP tier prices appear only on defined.ai (press room, blog, data-access-plan page, and resources.defined.ai, which is the same organisation). No independent report or partner page found."
+    },
+    {
+      "claim_id": "defined-ai-c069",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "As for c066: Elite tier figures appear only on Defined.ai's own sites."
+    },
+    {
+      "claim_id": "defined-ai-c091",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "143% NRR appears only in the Jan 2026 release and its wire copies (press_relayed). ECO's July 2026 piece repeats the 65% growth but not the NRR."
+    },
+    {
+      "claim_id": "defined-ai-c007",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The licence text is vendor-hosted only. NVIDIA NGC's Defined.ai collection links to getdata.defined.ai/default/data-license-agreement-standard (vendor domain) without naming the licensor. The AWS Marketplace seller profile is titled 'DefinedCrowd, Corp.', which corroborates the legal entity name but not its role as Licensor."
+    },
+    {
+      "claim_id": "defined-ai-c022",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The partner-programme economics appear only on defined.ai partner pages and in wire copies of the Jan 2026 release. No partner's own documentation found."
+    },
+    {
+      "claim_id": "defined-ai-c055",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Only the vendor release and its wire copies (newswire.com, accessnewswire, Yahoo Finance) were found. Getty's newsroom returned nothing on Defined.ai, a PYMNTS piece on Getty's GenAI strategy does not mention it, and EDGAR full-text search for \"Defined.ai\" returns no filings, including none from Getty Images. The wire copy says Getty datasets are available 'through Defined.ai's sales team' (a lead for the scope check)."
+    },
+    {
+      "claim_id": "defined-ai-c019",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The licence clause is published only on defined.ai. No independent copy exists (not on EDGAR)."
+    },
+    {
+      "claim_id": "defined-ai-c036",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "UI elements of a vendor listing page can only be evidenced by that page."
+    },
+    {
+      "claim_id": "defined-ai-c033",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Vendor FAQ statement. NVIDIA NGC's Defined.ai sample pages say 'By downloading and using this dataset, you accept the terms and conditions of the license', linking to Defined.ai's standard DLA. That fits the claim but covers only NGC samples, not all datasets."
+    },
+    {
+      "claim_id": "defined-ai-c024",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The partner sourcing requirement appears only on defined.ai partner pages. No independent source states what Defined.ai requires of partners."
+    },
+    {
+      "claim_id": "defined-ai-c050",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://techxplore.com/news/2019-07-crowdworking-humans-artificial-intelligence.html",
+        "publisher": "Tech Xplore (The Seattle Times, Melissa Hellmann, via Tribune Content Agency)",
+        "source_class": "independent_press",
+        "retrieved_at": "2026-09-30",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "calculating payment based on the minimum hourly rate of the country where the job is aimed"
+      },
+      "corrected_statement": null,
+      "note": "Independent reporting from 31 Jul 2019, attributed to a DefinedCrowd spokesperson, confirms a minimum-wage-based pay policy. Pay is set from the local minimum hourly rate and the ESTIMATED task time, so the 'at least minimum wage' floor applies to estimated rather than actual time worked. The report is from 2019 and says nothing about the current FAQ wording. The seattletimes.com original returned 403."
+    },
+    {
+      "claim_id": "defined-ai-c001",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote supports the 28 Apr 2026 announcement. For the profile's status, the newer independent report (ECO, 30 Jul 2026) of a restructuring that cut about 30% of staff should sit beside it (see v001). Status 'active' still holds."
+    },
+    {
+      "claim_id": "defined-ai-c005",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "'Showing 10 of 819 datasets' is a point-in-time count at retrieval, and the statement says so."
+    },
+    {
+      "claim_id": "defined-ai-c006",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote matches and the statement is correctly framed as 'says'. The quote says '1.6M+ global experts', and the statement's 'contributors' is a fair gloss."
+    },
+    {
+      "claim_id": "defined-ai-c028",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The two split quotes ('319%' and 'YoY growth in dataset sales') are adjacent as number and label on the live page, so they belong together. The block sits in the general Partnership Programs section, covering Data Partners and AI Service Suppliers, and no period is given. The statement does not over-claim."
+    },
+    {
+      "claim_id": "defined-ai-c029",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "'$600K+' and 'Average partner revenue' are adjacent as number and label on the page. The figure spans the page's general partner programmes, which include AI Service Suppliers as well as data partners. The profile files the claim under contributor_pay, which could read it as data-partner earnings only; the page does not say which partners. No period is given, and the value basis already says so."
+    },
+    {
+      "claim_id": "defined-ai-c030",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote matches the statement, including 'annually'. The partner page gives a related variant: '$1M+ Revenue for 5+ partners'."
+    },
+    {
+      "claim_id": "defined-ai-c031",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote says the NUMBER of third-party partner datasets grew 1,200%, not sales. The statement matches that."
+    },
+    {
+      "claim_id": "defined-ai-c032",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote matches. Independent press (ECO) confirms the report."
+    },
+    {
+      "claim_id": "defined-ai-c040",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The cited quote alone ('This generally takes 2-3 business days.') does not mention ACH or delivery. The sentence just before it on the live FAQ does: 'ACH bank transfer orders will be delivered once funds are cleared.' The statement is correct, but a quotecheck on the cited words alone would not show the ACH scope."
+    },
+    {
+      "claim_id": "defined-ai-c066",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The statement correctly scopes this to the 26 Sep 2024 release in the past tense, and the page does say 'off-the-shelf (OTS) speech datasets'. DEFECT: the cited quote is mojibake ('â‚¬50,000'). The page reads 'Standard Plan: 315 hours of speech data for €50,000 (30% discount)', so the quote will fail a verbatim string match until the euro sign is repaired."
+    },
+    {
+      "claim_id": "defined-ai-c069",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Correct tier and date. Same DEFECT as c066: the quote holds 'â‚¬500,000' where the page says '€500,000' ('Elite Plan: 3,125 hours for €500,000 (55% discount)')."
+    },
+    {
+      "claim_id": "defined-ai-c091",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote matches."
+    },
+    {
+      "claim_id": "defined-ai-c007",
+      "check": "scope",
+      "status": "scope_wrong",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The cited quote 'DefinedCrowd Corporation' is only the party name and does not show that it is the Licensor. The statement is TRUE, but the quote says less than it claims. The live DLA (effective 30 Nov 2022) reads 'DefinedCrowd Corporation (\"Licensor\") with its registered address at 1201 3rd Avenue, STE 2200, Seattle WA 98101, USA'. Re-quote e.g. 'DefinedCrowd Corporation (\"Licensor\")'."
+    },
+    {
+      "claim_id": "defined-ai-c022",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "On the page the quote is the revenue model listed for Data Partners. The statement leaves out that the page also says commercial terms are 'aligned with and approved by the partner' (see v003)."
+    },
+    {
+      "claim_id": "defined-ai-c055",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote supports it (8 Jan 2025). The same release also says Getty datasets are 'now available through Defined.ai's sales team', which matters for matrix.transaction_mode: they are sold through contact-sales, not self-serve checkout (see v004)."
+    },
+    {
+      "claim_id": "defined-ai-c019",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The clause is verbatim from the DLA effective 30 Nov 2022. It is generic and permits any delivery means, so on its own it does not settle custody_model beyond 'provider delivers'."
+    },
+    {
+      "claim_id": "defined-ai-c036",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The live page shows 'Get a quote' (twice, within the listing) and 'Request a Sample', with no price and no cart or buy button. That supports contact_sales for this listing only."
+    },
+    {
+      "claim_id": "defined-ai-c033",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote matches the FAQ. For matrix.licence_model it sits uneasily with the partner page's 'Commercial terms depend on the dataset type, usage, and customer needs, and are always aligned with and approved by the partner' (v003). The profile's 'All are sold under Defined.ai's own licence' may overstate uniformity for partner datasets."
+    },
+    {
+      "claim_id": "defined-ai-c024",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote matches. It is a stated requirement, which supports human_subject_consent_docs 'asserted_only' at most, not 'provided_to_buyer'."
+    },
+    {
+      "claim_id": "defined-ai-c050",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote matches. The FAQ sentence goes on: 'and in some countries and locales we are required to pay \"living wages\"'."
+    }
+  ],
+  "missed": [
+    {
+      "id": "defined-ai-v001",
+      "statement": "Portuguese business press reported on 30 July 2026 that Defined.ai had restructured its global operations, cutting about 30% of its staff, mainly in Europe.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": "global, mainly Europe"
+      },
+      "value": null,
+      "origin": "independent",
+      "as_of": "2026-07-30",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://eco.sapo.pt/2026/07/30/defined-ai-avanca-com-reestruturacao-e-corta-em-30-o-numero-de-trabalhadores/",
+          "publisher": "ECO (eco.sapo.pt)",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "redução de cerca de 30% do número de trabalhadores"
+        },
+        {
+          "url": "https://www.jornaldenegocios.pt/empresas/tecnologias/detalhe/defined-ai-despede-30-dos-trabalhadores-em-reestruturacao",
+          "publisher": "Jornal de Negócios",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "redução de aproximadamente 30% do número total de colaboradores"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-v002",
+      "statement": "ECO reported, from information it gathered, that Defined.ai's July 2026 restructuring followed a significant fall in its sales of data for AI model training.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "independent",
+      "as_of": "2026-07-30",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://eco.sapo.pt/2026/07/30/defined-ai-avanca-com-reestruturacao-e-corta-em-30-o-numero-de-trabalhadores/",
+          "publisher": "ECO (eco.sapo.pt)",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "quebra significativa das vendas de dados para o treino de modelos de inteligência artificial"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-v003",
+      "statement": "Defined.ai's partner page says commercial terms for partner datasets depend on dataset type, usage and customer needs, and are always approved by the partner.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Data Partner programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/partnership-programs",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "are always aligned with and approved by the partner"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-v004",
+      "statement": "Defined.ai's January 2025 release says datasets featuring Getty Images content are available through its sales team.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q3"
+      ],
+      "scope": {
+        "product": "Getty Images-derived datasets",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-01-08",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://defined.ai/press-room/strategic-engagement-with-getty-images",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Datasets featuring visual content from Getty Images are now available through Defined.ai's sales team."
+        }
+      ]
+    }
+  ]
+}

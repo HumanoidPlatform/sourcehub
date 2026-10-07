@@ -1,0 +1,311 @@
+{
+  "kind": "verify",
+  "slug": "empiric-earth",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "empiric-earth-c001",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://www.automotive-fleet.com/news/nexar-nauto-merger-aims-to-give-fleets-better-safety-intelligence-through-larger-driving-dataset", "publisher": "Automotive Fleet", "source_class": "independent_press", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "As of Sept. 15, 2026, the merger has been finalized, and the combined company is now operating under the name Empiric Earth"},
+      "corrected_statement": null,
+      "note": "Trade-press editor's note on an article first published July 2026 (when the merger was signed, not closed). The PR Newswire release of 2026-09-15 (NEW YORK dateline) says the same. Found by navigation from the vendor newsroom; no search available."
+    },
+    {
+      "claim_id": "empiric-earth-c004",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {"url": "https://www.prnewswire.com/news-releases/nexar-and-nauto-are-now-empiric-earth-302878910.html", "publisher": "PR Newswire (Empiric Earth release)", "source_class": "press_relaying_vendor", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "more than 10 billion miles of observed driving and 60 million edge cases across 98% of US roads"},
+      "corrected_statement": null,
+      "note": "Only the vendor's own wire release and trade press relaying it (Automotive Fleet: 'more than 10 billion miles of historical driving data', attributed to the companies). No independent audit of the figures exists that could be reached without search."
+    },
+    {
+      "claim_id": "empiric-earth-c005",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {"url": "https://www.prnewswire.com/news-releases/nexar-and-nauto-are-now-empiric-earth-302878910.html", "publisher": "PR Newswire (Empiric Earth release)", "source_class": "press_relaying_vendor", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "More than 350,000 connected sensors add over 300 million new miles every month"},
+      "corrected_statement": null,
+      "note": "Vendor wire release. Automotive Fleet relays the 300 million miles per month (attributed to the companies) but not the 350,000 sensors. No independent count reachable without search."
+    },
+    {
+      "claim_id": "empiric-earth-c010",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {"url": "https://www.prnewswire.com/news-releases/nexar-and-nauto-are-now-empiric-earth-302878910.html", "publisher": "PR Newswire (Empiric Earth release)", "source_class": "press_relaying_vendor", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "supported a 50 to 80% reduction in collision loss across enterprise fleets"},
+      "corrected_statement": null,
+      "note": "The wire release says the models 'supported' the reduction, which is softer than 'produced'. Automotive Fleet's merger article gives no collision-reduction figure. No customer or insurer study reachable without search."
+    },
+    {
+      "claim_id": "empiric-earth-c008",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {"url": "https://www.automotive-fleet.com/news/nexar-nauto-merger-aims-to-give-fleets-better-safety-intelligence-through-larger-driving-dataset", "publisher": "Automotive Fleet", "source_class": "press_relaying_vendor", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "used by more than 1,000 commercial fleets worldwide"},
+      "corrected_statement": null,
+      "note": "Trade press attributes the figure to the companies' merger announcement; it is not the publication's own count. The AFC partner release on the vendor newsroom gives no fleet count. No search available to find a customer-side or analyst count."
+    },
+    {
+      "claim_id": "empiric-earth-c027",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No independent source for the Atlas size could be reached without search. The merger wire release (PR Newswire, 2026-09-15) does not mention Atlas or video counts; Automotive Fleet does not either. arXiv's own search for 'Nexar' (export.arxiv.org API) finds Nexar-authored papers citing much smaller labelled sets (BADAS-2.0: 178,500 labelled videos, 2.25M unlabelled), none citing 6 million curated Atlas videos."
+    },
+    {
+      "claim_id": "empiric-earth-c043",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A cap stated in Nauto's own privacy policy; exists only on the vendor's site. WebSearch not available; no further search spent."
+    },
+    {
+      "claim_id": "empiric-earth-c050",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=DOI:10.1080/15389588.2024.2364050&resultType=core&format=json", "publisher": "Europe PMC (record of Campolettano et al., Traffic Injury Prevention 25(sup1), 2024)", "source_class": "academic", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "video and sensor data (Global Positioning System and accelerometer) from vehicles equipped with Nexar dash cameras"},
+      "corrected_statement": null,
+      "note": "Peer-reviewed paper (PMID 39485694, 2024-11-01) by Waymo LLC and Nexar authors confirms Nexar supplied anonymized dashcam data from over 500 million vehicle miles (335 video-verified VRU collisions) for Waymo's research. It does not confirm 'largest known ... of its kind'; that superlative remains Nexar's own. The publisher page (tandfonline.com) returned 403; reached via the Nexar blog's link and Europe PMC's API."
+    },
+    {
+      "claim_id": "empiric-earth-c013",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause in Nexar's own consumer terms. No search available; none spent."
+    },
+    {
+      "claim_id": "empiric-earth-c014",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause in Nexar's own consumer terms. No search available; none spent."
+    },
+    {
+      "claim_id": "empiric-earth-c042",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause in Nauto's own solution privacy policy. No search available; none spent."
+    },
+    {
+      "claim_id": "empiric-earth-c030",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Access channel shown on the vendor's own Atlas product page."
+    },
+    {
+      "claim_id": "empiric-earth-c033",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A button and the absence of a checkout on the vendor's own Atlas page."
+    },
+    {
+      "claim_id": "empiric-earth-c040",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause in the vendor's own website terms."
+    },
+    {
+      "claim_id": "empiric-earth-c021",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The claim is about what Nexar's privacy policy says. Whether anonymization really happens on-device could be tested by independent reporting or a regulator, but none could be reached without search; the Waymo/Nexar paper says only that the data was 'anonymized', not where."
+    },
+    {
+      "claim_id": "empiric-earth-c063",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Presentation and absence of a reward on the vendor's own consumer site. No search available to look for third-party reports of contributor payment."
+    },
+    {
+      "claim_id": "empiric-earth-c001",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Both cited quotes match the 2026-09-15 launch release (vendor newsroom and PR Newswire, NEW YORK dateline). The blind step found an independent trade-press confirmation (Automotive Fleet editor's note), so the status no longer rests only on the vendor."
+    },
+    {
+      "claim_id": "empiric-earth-c004",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the launch release and the statement is correctly framed as 'says'."
+    },
+    {
+      "claim_id": "empiric-earth-c005",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the launch release word for word."
+    },
+    {
+      "claim_id": "empiric-earth-c008",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote is from the 'About Nauto, Inc.' boilerplate of the 2026-07-01 merger release, so it is Nauto's own figure, dated before the merger closed."
+    },
+    {
+      "claim_id": "empiric-earth-c010",
+      "check": "scope",
+      "status": "scope_wrong",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The statement says the models 'have produced' the reduction; the release says 'Empiric Earth safety models have supported a 50 to 80% reduction in collision loss across enterprise fleets'. 'Supported' is a weaker causal claim, and the cited quote leaves the verb out. Restate as 'supported'."
+    },
+    {
+      "claim_id": "empiric-earth-c027",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote is on the Atlas product page, as the scope says."
+    },
+    {
+      "claim_id": "empiric-earth-c043",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The page is titled 'Nauto Solution Privacy Policy for Nauto Products and Services', effective 07/14/2026. The full clause reads 'anonymize or pseudonymize a small fraction of Customer Data (less than 1% of data collected and processed ...)', so the 1% figure does define that fraction."
+    },
+    {
+      "claim_id": "empiric-earth-c050",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote is from the Nexar blog post dated 2024-11-11 and the statement keeps the superlative as Nexar's own. The underlying Waymo/Nexar paper (Traffic Injury Prevention, 2024-11-01) confirms the data use but not the superlative."
+    },
+    {
+      "claim_id": "empiric-earth-c013",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The fact is right, but the cited quote ('royalty-free license to use, in any way, your fully anonymized User Content') shows neither 'perpetual', 'irrevocable' nor 'sub-licensable'. The words 'worldwide, perpetual, irrevocable, transferable, sub-licensable, royalty-free license' from the same grant (terms last updated February 12, 2026) would show them."
+    },
+    {
+      "claim_id": "empiric-earth-c014",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote is in Nexar's consumer terms (last updated February 12, 2026)."
+    },
+    {
+      "claim_id": "empiric-earth-c042",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the Nauto Solution Privacy Policy (effective 07/14/2026), now hosted at empiricearth.com/legal/products-and-services."
+    },
+    {
+      "claim_id": "empiric-earth-c030",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The cited quote 'Access: Web, and API' does not show that the API is not yet available. The page reads 'Access: Web, and API [Coming soon]'; the quote should include 'Coming soon'."
+    },
+    {
+      "claim_id": "empiric-earth-c033",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The Atlas page has no price, checkout or self-serve sign-up. Its other calls to action are 'Schedule a demo' and 'Ask for a scenario', which are consistent with contact-sales."
+    },
+    {
+      "claim_id": "empiric-earth-c040",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote is in the Website Terms of Use (last updated September 15, 2026), preceded by 'These Terms apply to this website only.'"
+    },
+    {
+      "claim_id": "empiric-earth-c021",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote is accurate (policy last updated September 2025), but on-device anonymization covers only the anonymized-content stream. The same policy's Training data section says that data includes non-anonymized content capturing pedestrians and licence plates, processed under legitimate interest. Do not read c021 as 'everything leaves the device anonymized'; see missed empiric-earth-v001."
+    },
+    {
+      "claim_id": "empiric-earth-c063",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The absence is properly put in the statement. The footer has a 'Refer a friend' referral programme, which rewards referrals, not footage; it does not contradict the claim."
+    }
+  ],
+  "missed": [
+    {
+      "id": "empiric-earth-v001",
+      "statement": "Nexar's privacy policy says its training data, drawn from in-cabin and road-facing cameras, includes non-anonymized content.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": ["Q7"],
+      "scope": {"product": "Nexar consumer dashcams", "tier": "", "region": ""},
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.getnexar.com/privacy/",
+          "publisher": "Nexar",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Despite the inclusion of non-anonymized content, we uphold the highest standards of data security"
+        }
+      ]
+    },
+    {
+      "id": "empiric-earth-v002",
+      "statement": "A 2024 peer-reviewed paper by Waymo and Nexar authors (Traffic Injury Prevention) used anonymized Nexar dashcam data from over 500 million vehicle miles, with 335 video-verified collisions involving vulnerable road users.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": ["Q1"],
+      "scope": {"product": "Nexar driving data", "tier": "", "region": "US"},
+      "value": null,
+      "origin": "academic",
+      "as_of": "2024-11-01",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=DOI:10.1080/15389588.2024.2364050&resultType=core&format=json",
+          "publisher": "Europe PMC (Campolettano et al., Traffic Injury Prevention 25(sup1):S94-S104)",
+          "source_class": "academic",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "From over 500 million vehicle miles traveled, a total of 335 collision events involving VRUs were video verified"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,614 @@
+{
+  "kind": "verify",
+  "slug": "protege",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "protege-c091",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://a16z.com/announcement/investing-in-protege-ai/",
+        "publisher": "Andreessen Horowitz (Daisy Wolf and Eva Steinman, 2026-01-08)",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "leading a $30M round in Protege, the platform building the real-world data infrastructure for AI"
+      },
+      "corrected_statement": null,
+      "note": "Found via a16z.com/announcement-sitemap.xml (lastmod 2026-01-08). The lead investor's own announcement confirms amount and lead; it calls it a '$30M round' and does not use the words 'Series A' (Protege describes it as an extension of its August 2025 Series A)."
+    },
+    {
+      "claim_id": "protege-c106",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://nbt.substack.com/p/protege",
+        "publisher": "Footwork (Nikhil Basu Trivedi and Mike Smith, 2025-08-13)",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Protege's $25M Series A, led by Footwork"
+      },
+      "corrected_statement": null,
+      "note": "Lead investor's own post, reached from the Protege entry on footwork.vc's portfolio list. Also names CRV, Flex Capital, Shaper Capital, Bloomberg Beta and Liquid 2 as participating existing investors."
+    },
+    {
+      "claim_id": "protege-c092",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Investor posts independently confirm $25M (Footwork, Aug 2025) and $30M (a16z, Jan 2026) = $55M; the remaining ~$10M implied by the $65M total (pre-Series A funding) and the 2024 founding date appear only in Protege's statement. Footwork says Protege 'launched last year' (i.e. 2024) but gives no seed amount. No Form D found on EDGAR (company search 'protege' and full-text 'Protege Health' Form D return nothing for this company). No search available to find seed-round press."
+    },
+    {
+      "claim_id": "protege-c108",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://nbt.substack.com/p/protege",
+        "publisher": "Footwork (Nikhil Basu Trivedi and Mike Smith, 2025-08-13)",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "It works with over 100 data providers across four verticals: healthcare, media, audio and speech, and motion capture data"
+      },
+      "corrected_statement": null,
+      "note": "The lead investor restates the partner count on announcement day; it necessarily comes from the company, so relayed rather than independent. Note the investor lists four verticals (healthcare, media, audio and speech, motion capture), not only healthcare and media."
+    },
+    {
+      "claim_id": "protege-c109",
+      "check": "blind",
+      "status": "corrected",
+      "independent_source": {
+        "url": "https://nbt.substack.com/p/protege",
+        "publisher": "Footwork (Nikhil Basu Trivedi and Mike Smith, 2025-08-13)",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Protege has grown more than 20X in GMV already in 2025 up from 2024"
+      },
+      "corrected_statement": "Protege's lead Series A investor Footwork said in August 2025 that Protege had grown more than 20x in GMV in 2025 compared with 2024.",
+      "note": "The metric is stated: GMV (gross merchandise value), 2025 year-to-date vs 2024. The figure is still the company's own, relayed by its investor, not audited."
+    },
+    {
+      "claim_id": "protege-c107",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Footwork's Aug 2025 investor post gives no hours of video or audio. The Information's contemporaneous article (theinformation.com, 'The One-Year-Old Startup Notching Data Deals For Model Makers') is paywalled. No search available."
+    },
+    {
+      "claim_id": "protege-c089",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Grab's Singapore press index (grab.com/sg/press/, releases through 2026-09-23) has no Protege or GrabMaps data-licensing release; grabmaps.grab.com is JS-rendered and its sitemap's /resources list has no Protege item. No search available to find other coverage."
+    },
+    {
+      "claim_id": "protege-c132",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Dailymotion's own press and news indexes (about.dailymotion.com/en/press/, /en/news/) list no Protege partnership or AI-licensing release in 2026; havas.com press page 404. No search available."
+    },
+    {
+      "claim_id": "protege-c087",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The claim is about Calliope's own site, which is live on calliopenetworks.ai (different domain but the acquired company's own marketing, now marked 'Calliope is now a part of Protege!') and states 'more than 35,000 hours of diverse, high-quality, global content' 'including a broad selection of 4K and 3D formats'. No independent count exists."
+    },
+    {
+      "claim_id": "protege-c081",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Calliope's own homepage and FAQ give 35,000+ hours for the TV and film catalogue only and no total across news and sports; nothing independent found. EDGAR full-text 'Protege' + 'Calliope' and CourtListener 'Calliope Networks' return 0 hits. No search available for acquisition press."
+    },
+    {
+      "claim_id": "protege-c082",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Calliope's homepage and FAQ give no count of content owners. No search available for acquisition coverage."
+    },
+    {
+      "claim_id": "protege-c063",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Homepage fetched 2026-10-01 is live and reads 'Protege is the trusted source for AI-ready, real-world data and expertise at every stage of the AI lifecycle.' A tagline exists only on the site. Independent signs of operation: a16z investment post 2026-01-08; Protege's own article index lists dated items to 2026-09-21. No independent source newer than January 2026 found; no search available to look for layoffs or other status events."
+    },
+    {
+      "claim_id": "protege-c058",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Provider counts are stated only by Protege; partner sites reached (autentic.com, sunain.com, calliopenetworks.ai) give no Protege-wide count. No search available."
+    },
+    {
+      "claim_id": "protege-c059",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No independent count of audiovisual partners or continents found; Autentic's homepage news items (to 2026-09-28) do not mention Protege. No search available."
+    },
+    {
+      "claim_id": "protege-c123",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Aggregate across unnamed healthcare partners; no independent route. Segmed and HC1 are named partners but Protege's pages about them give no link to partner-published figures. No search available."
+    },
+    {
+      "claim_id": "protege-c130",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Motion-capture performer count is stated only by Protege; no named motion-data partner source reachable. No search available."
+    },
+    {
+      "claim_id": "protege-c060",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Payout totals appear only in Protege's own statements; Footwork (2025-08-13) and a16z (2026-01-08) investor posts give no payout figure. No search available."
+    },
+    {
+      "claim_id": "protege-c094",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No independent count. For context, Footwork (lead investor, 2025-08-13) wrote Protege 'works with over 100 data providers', which is consistent with growth to a larger number by year end but does not confirm 'hundreds'. No search available."
+    },
+    {
+      "claim_id": "protege-c096",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Anonymised case study ('an EMEA broadcaster'); the counterparty is not named, so no independent route exists. No search available."
+    },
+    {
+      "claim_id": "protege-c098",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Anonymised case study; the AI-company buyers are not named. No search available."
+    },
+    {
+      "claim_id": "protege-c102",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Anonymised case study ('a regional sports rights distributor'); no independent route. No search available."
+    },
+    {
+      "claim_id": "protege-c140",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Anonymised healthcare case study; no named customer. No search available."
+    },
+    {
+      "claim_id": "protege-c135",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Sunain's own site (sunain.com, linked from Protege's announcement) is JS-rendered: homepage, sitemap.xml and /terms return only the tagline 'Be part of the growing AI economy', so Sunain's own description of contributor pay could not be read. No search available."
+    },
+    {
+      "claim_id": "protege-c093",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Protege's own description of its payout model; neither investor post (Footwork 2025-08-13, a16z 2026-01-08) states it. Related but different entity: Calliope Networks' FAQ (calliopenetworks.ai/faq, now part of Protege) says Calliope 'operates on a revenue-share basis' and pays 'the lion's share as royalties to the rights holders'."
+    },
+    {
+      "claim_id": "protege-c005",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause in Protege's own Terms; exists only on the vendor's site."
+    },
+    {
+      "claim_id": "protege-c007",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Order-of-precedence clause in Protege's own Terms."
+    },
+    {
+      "claim_id": "protege-c152",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Concerns the content of Protege's own Terms (warranty clause)."
+    },
+    {
+      "claim_id": "protege-c033",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Party clause of Protege's own Provider Terms. Entity 'Protege Health Inc.' not found in SEC EDGAR company search (no Form D); state registry not reachable without search."
+    },
+    {
+      "claim_id": "protege-c122",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Protege's own description of its delivery and payout flow on its healthcare page."
+    },
+    {
+      "claim_id": "protege-c067",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A button label on Protege's own buyer pages."
+    },
+    {
+      "claim_id": "protege-c063",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Homepage subheadline verified live 2026-10-01."
+    },
+    {
+      "claim_id": "protege-c089",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote says only 'a partnership with Grab'; the statement's GrabMaps and Southeast Asian street data rest on the title. The words 'Protege and GrabMaps Partner to Bring Real-World Southeast Asian Streets' (the headline) would show it. Partnership is announced only on Protege's site; see blind note."
+    },
+    {
+      "claim_id": "protege-c058",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Video data-provider page: 'By combining content across 150+ global providers, we construct datasets that power multiple AI buyers'."
+    },
+    {
+      "claim_id": "protege-c059",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote is only the label; the number '100+' sits in the stat block above it ('100+ Producers & distributor partners for AV content across 6 continents')."
+    },
+    {
+      "claim_id": "protege-c081",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Dated acquisition announcement (2024-12-18); stated as what Protege said. Note Calliope's own site gives 35,000+ hours for TV and film alone, so the larger figure must include news and sports or partner access."
+    },
+    {
+      "claim_id": "protege-c082",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "protege-c087",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Same sentence is on calliopenetworks.ai homepage (fetched 2026-10-01). Page is undated legacy marketing; statement correctly scoped to TV and film."
+    },
+    {
+      "claim_id": "protege-c091",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Blind step found no independent source other than the investor's own post; the profile's source is Protege's own article."
+    },
+    {
+      "claim_id": "protege-c092",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "protege-c106",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote gives the amount but not the lead; the page's next sentence 'The round was led by Footwork' would show it."
+    },
+    {
+      "claim_id": "protege-c107",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Statement correctly says 'access to', which the page uses; these are partner-held hours, not owned inventory."
+    },
+    {
+      "claim_id": "protege-c108",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Matches Protege's wording ('healthcare and media'); the lead investor's same-day post names four verticals."
+    },
+    {
+      "claim_id": "protege-c123",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote '5B+' alone does not show what is counted; the label on the page is 'Number of total patient encounters'."
+    },
+    {
+      "claim_id": "protege-c130",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Stat sits under the page's motion-capture block ('Broad & Diverse Motion Capture Content')."
+    },
+    {
+      "claim_id": "protege-c132",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Statement correctly says 'will be able to access'; catalogue size, not licensed or delivered volume."
+    },
+    {
+      "claim_id": "protege-c060",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote is the label only; the amount on the page is the words 'Tens of Millions' directly above 'Paid to Content Partners To-Date'. Currency is indeed not stated."
+    },
+    {
+      "claim_id": "protege-c094",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The date in the statement is not in the quote; the page's words 'In 2025, Protege expanded its data partner network to hundreds of organizations' would show it."
+    },
+    {
+      "claim_id": "protege-c096",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "protege-c098",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "protege-c102",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "protege-c109",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Matches Protege's page, which indeed does not name the metric; the lead investor's post names it as GMV (see blind verdict)."
+    },
+    {
+      "claim_id": "protege-c140",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote stops before the radiology and imaging model; the same sentence continues 'to accelerate their imaging model's performance, focusing on a radiology use case'."
+    },
+    {
+      "claim_id": "protege-c005",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "protege-c093",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Source is the January 2026 funding announcement; the quote supports 'with each use'."
+    },
+    {
+      "claim_id": "protege-c033",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "protege-c122",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Applies to the healthcare data-provider page only ('deliver the dataset to the buyer'); it does not by itself settle custody for video, audio or spatial data."
+    },
+    {
+      "claim_id": "protege-c067",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Absence of checkout recorded in the statement, CTA quoted, per rule 13."
+    },
+    {
+      "claim_id": "protege-c007",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote is cut before the rule; the page continues 'the Statement of Work supersedes and controls with respect to that provision'."
+    },
+    {
+      "claim_id": "protege-c152",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Fact holds on the live Terms, but the quote shows only that one warranty exists, not that it is the only one; the page's 'Except as expressly provided herein, Protege makes no other warranties' shows that. An SOW could add warranties; the statement is correctly limited to the general Terms."
+    },
+    {
+      "claim_id": "protege-c135",
+      "check": "scope",
+      "status": "scope_wrong",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The statement adds a payer ('compensation paid by Sunain's network') that the page does not name. The page says Sunain operates 'The Human Data Network' where contributors 'record conversations, play games, and capture real-world activities in exchange for compensation'; who pays (Sunain, its clients or Protege) is not stated. Quote also omits that the contributors are Sunain's."
+    }
+  ],
+  "missed": [
+    {
+      "id": "protege-v001",
+      "statement": "Protege's lead investor a16z said in January 2026 that Protege is a core data partner to the majority of the 'MAG7' public technology companies.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "independent",
+      "as_of": "2026-01-08",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://a16z.com/announcement/investing-in-protege-ai/",
+          "publisher": "Andreessen Horowitz (Daisy Wolf and Eva Steinman, 2026-01-08)",
+          "source_class": "third_party_docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "is a core data partner to the majority of MAG7 public companies, as well as many of the largest private players in AI"
+        }
+      ]
+    },
+    {
+      "id": "protege-v002",
+      "statement": "Protege's lead Series A investor Footwork said in August 2025 that Protege had most of the major foundation-model companies as customers, plus many application-layer AI companies.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "independent",
+      "as_of": "2025-08-13",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://nbt.substack.com/p/protege",
+          "publisher": "Footwork (Nikhil Basu Trivedi and Mike Smith, 2025-08-13)",
+          "source_class": "third_party_docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Protege has landed most of the major foundational model companies as customers"
+        }
+      ]
+    },
+    {
+      "id": "protege-v003",
+      "statement": "Footwork said in August 2025 that Protege's GMV in 2025 had already grown more than 20 times over 2024.",
+      "kind": "number",
+      "section": "demand",
+      "question_ids": [
+        "Q1",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 20,
+        "unit": "times growth in GMV (lower bound, 'more than 20X')",
+        "basis": "gross merchandise value, 2025 year-to-date vs 2024; stated by investor, figures from the company",
+        "period": "2025 vs 2024"
+      },
+      "origin": "independent",
+      "as_of": "2025-08-13",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://nbt.substack.com/p/protege",
+          "publisher": "Footwork (Nikhil Basu Trivedi and Mike Smith, 2025-08-13)",
+          "source_class": "third_party_docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Protege has grown more than 20X in GMV already in 2025 up from 2024"
+        }
+      ]
+    }
+  ]
+}

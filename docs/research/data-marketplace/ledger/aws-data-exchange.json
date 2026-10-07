@@ -1,0 +1,4509 @@
+{
+  "kind": "profile",
+  "slug": "aws-data-exchange",
+  "name": "AWS Data Exchange",
+  "aliases": [
+    "ADX",
+    "AWS Marketplace data products"
+  ],
+  "segment": "cloud_exchange",
+  "tier": "deep",
+  "status": {
+    "value": "active",
+    "claim_id": "aws-data-exchange-c128"
+  },
+  "names_for": {
+    "catalogue_side": "data products with a public offer, listed in the \"AWS Marketplace product catalog\" (browsed via \"Browse catalog\")",
+    "custom_side": "\"custom offers\" (\"private offers\" and \"Bring Your Own Subscription (BYOS) offers\") and \"private products\"; AWS itself does no bespoke collection, and \"Request data product\" routes a buyer to the \"Data Discovery Team\" for recommendations"
+  },
+  "matrix": {
+    "operator_role": {
+      "value": "venue",
+      "claim_ids": [
+        "aws-data-exchange-c074",
+        "aws-data-exchange-c118",
+        "aws-data-exchange-c047",
+        "aws-data-exchange-c088",
+        "aws-data-exchange-c017"
+      ],
+      "note": "AWS is not a party to the DSA or buyer-seller agreements and the provider's account is seller of record, but AWS invoices the buyer, collects and disburses net of fees."
+    },
+    "economics_model": {
+      "value": "commission",
+      "claim_ids": [
+        "aws-data-exchange-c050",
+        "aws-data-exchange-c051",
+        "aws-data-exchange-c052",
+        "aws-data-exchange-c053",
+        "aws-data-exchange-c054",
+        "aws-data-exchange-c126",
+        "aws-data-exchange-c058",
+        "aws-data-exchange-c059"
+      ],
+      "note": "Percentage listing fee on contract value; data grants (no marketplace) are instead billed per active grant-hour plus storage."
+    },
+    "who_pays_fee": {
+      "value": "seller",
+      "claim_ids": [
+        "aws-data-exchange-c126",
+        "aws-data-exchange-c017",
+        "aws-data-exchange-c058",
+        "aws-data-exchange-c129"
+      ],
+      "note": "Listing fee is deducted from the seller's disbursement; data-grant hourly fee is paid by the sender; buyers pay only their own AWS infrastructure usage."
+    },
+    "supply_models": {
+      "value": [
+        "third_party_providers",
+        "public_or_scraped"
+      ],
+      "claim_ids": [
+        "aws-data-exchange-c009",
+        "aws-data-exchange-c049",
+        "aws-data-exchange-c012",
+        "aws-data-exchange-c076"
+      ],
+      "note": "Third-party providers list only data sets they own; Open Data on AWS public data sets are also findable. AWS does not list its own collected data."
+    },
+    "custody_model": {
+      "value": "mixed",
+      "claim_ids": [
+        "aws-data-exchange-c013",
+        "aws-data-exchange-c028",
+        "aws-data-exchange-c014",
+        "aws-data-exchange-c025",
+        "aws-data-exchange-c026",
+        "aws-data-exchange-c098"
+      ],
+      "note": "Files: AWS-hosted copy exported to buyer's S3; S3 data access / Redshift / Lake Formation: shared in place from the provider's own storage."
+    },
+    "transaction_mode": {
+      "value": "both",
+      "claim_ids": [
+        "aws-data-exchange-c033",
+        "aws-data-exchange-c016",
+        "aws-data-exchange-c097",
+        "aws-data-exchange-c105",
+        "aws-data-exchange-c111",
+        "aws-data-exchange-c113"
+      ],
+      "note": "Self-serve subscription to public offers; private offers negotiated off-platform and accepted in console."
+    },
+    "public_prices": {
+      "value": "some",
+      "claim_ids": [
+        "aws-data-exchange-c006",
+        "aws-data-exchange-c114",
+        "aws-data-exchange-c107",
+        "aws-data-exchange-c113"
+      ],
+      "note": "Public offers show prices; private offer prices are not public; many image listings are free samples with full data on request."
+    },
+    "licence_model": {
+      "value": "provider_defined",
+      "claim_ids": [
+        "aws-data-exchange-c035",
+        "aws-data-exchange-c036",
+        "aws-data-exchange-c034",
+        "aws-data-exchange-c063"
+      ],
+      "note": "Default standard DSA template, but the provider controls terms and may edit or replace it."
+    },
+    "exclusivity_offered": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Standard DSA licence is non-exclusive [c063]; nothing found on whether custom DSAs grant exclusivity."
+    },
+    "public_listing": {
+      "value": "public_indexable",
+      "claim_ids": [
+        "aws-data-exchange-c107",
+        "aws-data-exchange-c114",
+        "aws-data-exchange-c127"
+      ],
+      "note": "Product detail pages on AWS Marketplace were fetched without login; data set descriptions are visible only to active subscribers."
+    },
+    "buyer_vetting": {
+      "value": "account_only",
+      "claim_ids": [
+        "aws-data-exchange-c033",
+        "aws-data-exchange-c015"
+      ],
+      "note": "An AWS account suffices by default; providers may switch on subscription verification to review each subscriber."
+    },
+    "sample_mechanics": {
+      "value": "free_sample_download",
+      "claim_ids": [
+        "aws-data-exchange-c085",
+        "aws-data-exchange-c103",
+        "aws-data-exchange-c107"
+      ],
+      "note": "Optional provider-uploaded samples and dictionaries downloadable before subscribing; many providers also list free sample products."
+    },
+    "versioning": {
+      "value": "immutable_revisions",
+      "claim_ids": [
+        "aws-data-exchange-c022",
+        "aws-data-exchange-c027",
+        "aws-data-exchange-c083"
+      ],
+      "note": "Files revisions are immutable once finalized; S3 data access shares are live and need no new revision [c102]."
+    },
+    "human_subject_consent_docs": {
+      "value": "asserted_only",
+      "claim_ids": [
+        "aws-data-exchange-c067",
+        "aws-data-exchange-c068",
+        "aws-data-exchange-c040",
+        "aws-data-exchange-c041"
+      ],
+      "note": "Provider warrants personal data is public and indemnifies for missing consents; no consent or release documents are delivered to buyers by the platform."
+    },
+    "contributor_pay_model": {
+      "value": "not_applicable",
+      "claim_ids": [
+        "aws-data-exchange-c009",
+        "aws-data-exchange-c017"
+      ],
+      "note": "No contributor programme; supply comes from registered provider businesses paid monthly disbursements."
+    },
+    "catalogue_plus_custom": {
+      "value": "both",
+      "claim_ids": [
+        "aws-data-exchange-c123",
+        "aws-data-exchange-c016",
+        "aws-data-exchange-c109",
+        "aws-data-exchange-c111",
+        "aws-data-exchange-c121"
+      ],
+      "note": "Custom work is provider-run via private offers/private products; AWS offers recommendation, not bespoke collection."
+    },
+    "erasure_after_sale": {
+      "value": "contractual_deletion",
+      "claim_ids": [
+        "aws-data-exchange-c071",
+        "aws-data-exchange-c082"
+      ],
+      "note": "Default DSA requires removal within 90 days of end; exported files otherwise remain with buyer."
+    },
+    "quality_evidence": {
+      "value": "provider_asserted",
+      "claim_ids": [
+        "aws-data-exchange-c043",
+        "aws-data-exchange-c075",
+        "aws-data-exchange-c005",
+        "aws-data-exchange-c085"
+      ],
+      "note": "AWS reviews listings for policy compliance, not data quality; samples and descriptions come from the provider."
+    }
+  },
+  "questions": {
+    "Q1": {
+      "state": "partial",
+      "answer": "No demand volumes are published; for photo and image data, listings seen are free samples with the full or custom corpus sold by contacting the provider. Buyers who cannot find data can file a request with budget and cadence.",
+      "claim_ids": [
+        "aws-data-exchange-c107",
+        "aws-data-exchange-c111",
+        "aws-data-exchange-c113",
+        "aws-data-exchange-c109",
+        "aws-data-exchange-c121",
+        "aws-data-exchange-c122",
+        "aws-data-exchange-c119"
+      ]
+    },
+    "Q2": {
+      "state": "sourced",
+      "answer": "Listing gives the provider AWS billing, entitlement and delivery plumbing, catalogue reach (vendor-stated 3,500+ products) and free migration of existing subscribers; it costs a 3% listing fee and requires seller registration, ADX qualification and an eligible jurisdiction.",
+      "claim_ids": [
+        "aws-data-exchange-c014",
+        "aws-data-exchange-c119",
+        "aws-data-exchange-c061",
+        "aws-data-exchange-c050",
+        "aws-data-exchange-c046",
+        "aws-data-exchange-c045",
+        "aws-data-exchange-c115"
+      ]
+    },
+    "Q3": {
+      "state": "partial",
+      "answer": "Only registered providers list, and only data sets their own account owns; the DSA contemplates resold third-party data under extra terms. Open Data on AWS public data sets are also surfaced.",
+      "claim_ids": [
+        "aws-data-exchange-c049",
+        "aws-data-exchange-c009",
+        "aws-data-exchange-c076",
+        "aws-data-exchange-c012",
+        "aws-data-exchange-c108"
+      ]
+    },
+    "Q4": {
+      "state": "partial",
+      "answer": "Not a commissioning platform, so no resale carve-outs; on term changes, an auto-renewing subscription renews onto the new price and DSA.",
+      "claim_ids": [
+        "aws-data-exchange-c081",
+        "aws-data-exchange-c056"
+      ]
+    },
+    "Q5": {
+      "state": "sourced",
+      "answer": "AWS is a venue: the DSA is solely between provider and subscriber, AWS is not a party, the provider is seller of record and warrants and indemnifies; AWS invoices and collects.",
+      "claim_ids": [
+        "aws-data-exchange-c074",
+        "aws-data-exchange-c118",
+        "aws-data-exchange-c047",
+        "aws-data-exchange-c068",
+        "aws-data-exchange-c088",
+        "aws-data-exchange-c017"
+      ]
+    },
+    "Q6": {
+      "state": "sourced",
+      "answer": "Mixed: Files products are copied into AWS Data Exchange and exported to the buyer's S3; S3 data access shares read-only from the provider's own bucket through an AWS-provisioned access point, revoked when the subscription ends.",
+      "claim_ids": [
+        "aws-data-exchange-c013",
+        "aws-data-exchange-c028",
+        "aws-data-exchange-c014",
+        "aws-data-exchange-c025",
+        "aws-data-exchange-c026",
+        "aws-data-exchange-c098",
+        "aws-data-exchange-c099"
+      ]
+    },
+    "Q7": {
+      "state": "partial",
+      "answer": "Guidelines ban identifiable personal data outside the Extended Provider Program and require sensitive categories anonymised; the DSA has the provider warrant public-only personal data and indemnify for missing consents. Nothing addresses capturer, depicted-person or property releases as documents.",
+      "claim_ids": [
+        "aws-data-exchange-c040",
+        "aws-data-exchange-c041",
+        "aws-data-exchange-c067",
+        "aws-data-exchange-c068",
+        "aws-data-exchange-c069",
+        "aws-data-exchange-c020"
+      ]
+    },
+    "Q8": {
+      "state": "partial",
+      "answer": "Default DSA: non-exclusive, worldwide, no redistribution, no re-identification, buyer owns derived data incl. models, deletion within 90 days of end, NY law; providers may substitute their own terms. No audit or fingerprinting mechanism found.",
+      "claim_ids": [
+        "aws-data-exchange-c063",
+        "aws-data-exchange-c064",
+        "aws-data-exchange-c065",
+        "aws-data-exchange-c066",
+        "aws-data-exchange-c071",
+        "aws-data-exchange-c073",
+        "aws-data-exchange-c036"
+      ]
+    },
+    "Q9": {
+      "state": "sourced",
+      "answer": "Public offers are self-serve subscriptions paid upfront or on schedule; private and BYOS offers handle negotiated deals. AWS takes a listing fee (3% public; 3/2/1.5% private by contract value; 1.5% renewals) deducted from disbursement.",
+      "claim_ids": [
+        "aws-data-exchange-c033",
+        "aws-data-exchange-c016",
+        "aws-data-exchange-c097",
+        "aws-data-exchange-c050",
+        "aws-data-exchange-c051",
+        "aws-data-exchange-c052",
+        "aws-data-exchange-c053",
+        "aws-data-exchange-c054",
+        "aws-data-exchange-c126"
+      ]
+    },
+    "Q10": {
+      "state": "sourced",
+      "answer": "Product > data sets > revisions > assets; offers carry terms; a subscription yields entitled (read-only) data sets. Finalized revisions are immutable; the offer sets historical and future revision access; access ends at expiry; unpublishing keeps active subscribers; revisions can be revoked with a stated reason.",
+      "claim_ids": [
+        "aws-data-exchange-c002",
+        "aws-data-exchange-c021",
+        "aws-data-exchange-c022",
+        "aws-data-exchange-c024",
+        "aws-data-exchange-c083",
+        "aws-data-exchange-c079",
+        "aws-data-exchange-c080",
+        "aws-data-exchange-c023"
+      ]
+    },
+    "Q11": {
+      "state": "sourced",
+      "answer": "Providers may attach up to 10 samples and data dictionaries viewable before purchase; listings must be accurate and flag anonymisation; AWS reviews for policy, while the DSA disclaims accuracy.",
+      "claim_ids": [
+        "aws-data-exchange-c085",
+        "aws-data-exchange-c103",
+        "aws-data-exchange-c005",
+        "aws-data-exchange-c043",
+        "aws-data-exchange-c003",
+        "aws-data-exchange-c075"
+      ]
+    },
+    "Q12": {
+      "state": "partial",
+      "answer": "The platform is the catalogue; custom deals run through provider private offers and 'private products', and image providers use free samples as a funnel to curated custom sets.",
+      "claim_ids": [
+        "aws-data-exchange-c123",
+        "aws-data-exchange-c016",
+        "aws-data-exchange-c109",
+        "aws-data-exchange-c111",
+        "aws-data-exchange-c113",
+        "aws-data-exchange-c121"
+      ]
+    }
+  },
+  "sections": {
+    "positioning": "AWS Data Exchange is AWS's data-sharing and data-marketplace service [c128]: data grants for direct sharing with any AWS account [c001][c007], and data products sold through AWS Marketplace [c002]. It went GA in November 2019 [c089]; AWS claims 3,500+ products from 300+ providers (vendor-stated) [c119].",
+    "supply": "Supply is third-party only: providers must be registered AWS Marketplace sellers qualified by the ADX team [c046], in an eligible jurisdiction [c045], and may list only data sets their own account owns [c049]. The FAQ's narrower US/EU rule conflicts with the docs [c094]. Indian sellers can list ADX products but only to Indian buyers [c115][c116], while the ADX jurisdiction list omits India [c045]. Image providers such as PIXTA list from their own stock libraries [c108].",
+    "object_model": "Assets sit in revisions, revisions in data sets, data sets in products [c021][c002]. Offers attach price, duration, DSA and refund policy [c006]. Subscribing creates read-only entitled data sets [c024]. Finalized revisions are immutable [c022]; the offer sets how many historical and future revisions a subscriber gets [c083]. S3 data access shares need no new revision when objects change [c102]. Grants and products are single-Region [c030].",
+    "listing": "Product pages carry descriptions, samples, logo and support contact [c005]; up to 10 samples [c103]; data dictionaries and samples are viewable before purchase [c085]. Data set descriptions are subscriber-only [c127]. Listings must note anonymisation [c043]. Real image listings are free samples [c107][c110].",
+    "discovery": "One catalogue across Regions [c010], filterable by category and data set type [c124]. A buyer who finds nothing can file a 'Request data product' with cadence and budget; the Data Discovery Team replies within 2 business days [c121][c122].",
+    "trust": "AWS reviews products against guidelines before listing [c003] and removes breaching products [c044]. Providers flag sensitive data categories shown on the product page [c086]. The DSA puts personal-data warranties [c067] and USD 5M insurance [c072] on the provider but disclaims accuracy [c075].",
+    "transaction": "Public offers are self-serve: pick a price and duration and pay upfront [c033]. Private offers target named accounts with an acceptance deadline [c105][c097]; BYOS migrates existing customers [c016][c061]. AWS invoices the buyer [c088] and pays the provider monthly after collection [c017][c018].",
+    "pricing": "Providers pay AWS a listing fee: 3% on ADX public offers [c050]; private offers 3%/2%/1.5% by contract value [c051][c052][c053]; renewals 1.5% [c054], on pre-tax TCV [c055], deducted from payouts [c126]. Data grants cost senders USD 0.04167 per active grant-hour [c058] plus storage [c059]. Prices are USD only [c032], durations 1-36 months [c031].",
+    "licence": "The default Data Subscription Agreement [c034] grants a non-exclusive, worldwide, non-transferable licence incl. derived data [c063], bans redistribution [c064] and re-identification [c065], lets buyers own derived models [c066], caps liability at 3x spend or USD 1M [c070] and uses NY law [c073]. AWS is not a party [c074][c118]; providers may replace it [c036].",
+    "custody": "Files products are copied into ADX and exported to the buyer's S3 [c013][c028]. S3 data access leaves data in the provider's bucket: ADX provisions an access point granting read-only access [c098][c025] without copies [c026], revoked at expiry [c099]. Requester Pays is recommended [c062]. Objects must be S3 Standard or Intelligent-Tiering [c100].",
+    "vetting": "Providers need a support organisation [c048], seller registration and ADX qualification [c046]. Identifiable personal data is barred unless public [c040]; sensitive categories must be anonymised [c041]; the Extended Provider Program adds review for sensitive data [c019][c020]. Buyers need only an AWS account unless the provider enables subscription verification [c015].",
+    "contributor_pay": "Not applicable: there is no contributor or crowd programme; supply comes from provider businesses that receive monthly disbursements net of listing fees [c017][c126].",
+    "post_sale": "Access ends when the subscription expires [c079][c096]; unpublishing does not cut off active subscribers [c080]. Providers can revoke a revision with a stated reason [c023][c092]. Exported files stay with the buyer [c082], but the default DSA requires deletion within 90 days of termination [c071]. Providers can notify subscribers of updates, delays and deprecations [c093].",
+    "catalogue_custom": "AWS runs only the catalogue. Custom deals run through provider private offers and 'private products' [c123][c016]. Image providers use free samples as a funnel: PIXTA offers to curate a specific set [c109], Shutterstock sells tailored datasets via sales [c111], InfoBay licenses its full corpus on request [c113].",
+    "changes": "Key dates: GA 2019-11-13 [c089]; revision revocation 2022-03-15 [c092]; S3 data access GA 2023-03-14 [c091]; data grants without seller registration 2023-12-14 [c090]; current listing fee schedule 2024-01-05 [c056]. On auto-renewal, changed terms and DSA apply [c081].",
+    "demand": "Demand evidence is thin and vendor-stated: 3,500+ products and 300+ providers [c119]; 80+ providers and 1,000+ products at launch, as relayed by press [c120].",
+    "regulation": "The publishing guidelines bar identifiable personal data unless publicly available, outside the Extended Provider Program [c040], and require biometric, health and other sensitive categories to be aggregated or anonymised [c041]. The default DSA bans re-identification [c065]. AWS tells buyers to do their own privacy-law due diligence [c011]."
+  },
+  "buyer_journey": [
+    {
+      "step": "Lands on the AWS Marketplace catalogue (single catalogue for all Regions), searches or filters by category and data set type such as Files or Access to Amazon S3.",
+      "claim_ids": [
+        "aws-data-exchange-c010",
+        "aws-data-exchange-c124"
+      ]
+    },
+    {
+      "step": "Opens a product page without logging in: provider, descriptions, logo, support contact, sensitive-data flag, offer price/duration, DSA or EULA link and refund policy.",
+      "claim_ids": [
+        "aws-data-exchange-c005",
+        "aws-data-exchange-c006",
+        "aws-data-exchange-c086",
+        "aws-data-exchange-c114",
+        "aws-data-exchange-c107"
+      ]
+    },
+    {
+      "step": "Evaluates free samples and data dictionaries before buying (for image providers, often a separate free sample product).",
+      "claim_ids": [
+        "aws-data-exchange-c085",
+        "aws-data-exchange-c103",
+        "aws-data-exchange-c110",
+        "aws-data-exchange-c111"
+      ]
+    },
+    {
+      "step": "If nothing fits or the full dataset is not self-serve, contacts the provider for a private offer or custom set, or files a 'Request data product' to the Data Discovery Team.",
+      "claim_ids": [
+        "aws-data-exchange-c109",
+        "aws-data-exchange-c113",
+        "aws-data-exchange-c121",
+        "aws-data-exchange-c097"
+      ]
+    },
+    {
+      "step": "Signs in with an AWS account and subscribes: chooses one price/duration, accepts the offer terms and DSA, pays upfront or on schedule; if the provider enabled subscription verification, first submits a request for approval.",
+      "claim_ids": [
+        "aws-data-exchange-c033",
+        "aws-data-exchange-c015",
+        "aws-data-exchange-c078"
+      ]
+    },
+    {
+      "step": "AWS invoices the buyer and may share contact details with the provider; the buyer receives entitled read-only data sets.",
+      "claim_ids": [
+        "aws-data-exchange-c088",
+        "aws-data-exchange-c087",
+        "aws-data-exchange-c024"
+      ]
+    },
+    {
+      "step": "Accesses data: exports Files revisions to their own S3 (optionally auto-export new revisions), or reads the provider's S3 bucket in place through an access point.",
+      "claim_ids": [
+        "aws-data-exchange-c028",
+        "aws-data-exchange-c084",
+        "aws-data-exchange-c098",
+        "aws-data-exchange-c025"
+      ]
+    },
+    {
+      "step": "Holds a licence under the DSA (non-exclusive, no redistribution); at expiry access is revoked and DSA may require deletion of exported data within 90 days.",
+      "claim_ids": [
+        "aws-data-exchange-c063",
+        "aws-data-exchange-c064",
+        "aws-data-exchange-c079",
+        "aws-data-exchange-c071"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "id": "aws-data-exchange-c001",
+      "statement": "In AWS Data Exchange a data grant is the unit of exchange that a data sender creates to give a data receiver access to a data set.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/what-is.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "A data grant is the unit of exchange in AWS Data Exchange that is created by a data sender"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c002",
+      "statement": "On AWS Marketplace the unit of exchange for data is a product, published by a provider and containing one or more AWS Data Exchange data sets.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/what-is.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "A product is the unit of exchange in AWS Marketplace that is published by a provider"
+        },
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/what-is.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "A data product is a product that includes AWS Data Exchange data sets."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c003",
+      "statement": "AWS reviews a data product against its guidelines and terms before the product is listed in the AWS Marketplace catalogue.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q5",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/what-is.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "that product is listed in the AWS Marketplace product catalog after being reviewed by AWS against our guidelines"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c004",
+      "statement": "AWS Data Exchange supports five data set types: Files, API, Amazon Redshift, Amazon S3 (data access) and AWS Lake Formation (preview).",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q6",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/what-is.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AWS Data Exchange supports five types of data sets: Files, API, Amazon Redshift, Amazon S3, and AWS Lake Formation (Preview)"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c005",
+      "statement": "A data product's provider-completed details include short and long descriptions, data samples, a logo and support contact information.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/what-is.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "includes name, descriptions (both short and long), data samples, a logo image, and support contact information"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c006",
+      "statement": "A public offer on a data product includes prices and durations, a data subscription agreement, a refund policy and the option to create custom offers.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/what-is.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "This offer includes prices and durations, data subscription agreement, refund policy, and the option to create custom offers"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c007",
+      "statement": "Anyone with an AWS account can create and send data grants to data receivers.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q2",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/what-is.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Anyone with an AWS account can create and send data grants to data receivers."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c008",
+      "statement": "AWS Data Exchange lets data recipients directly access and use a provider's own Amazon S3 buckets.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/what-is.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AWS Data Exchange also enables recipients to directly access and use providers' Amazon S3 buckets."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c009",
+      "statement": "Providers who publish data sets as products in AWS Marketplace must be registered AWS Marketplace sellers.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q2",
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/what-is.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AWS Data Exchange data providers must be registered as AWS Marketplace sellers"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c010",
+      "statement": "AWS Marketplace shows subscribers a single data product catalogue regardless of the AWS Region they use.",
+      "kind": "architecture",
+      "section": "discovery",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/what-is.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Subscribers can see the same catalog regardless of which supported AWS Region they are using."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c011",
+      "statement": "AWS tells customers to do their own additional due diligence on compliance with data privacy laws for data obtained through AWS Data Exchange.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7",
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/what-is.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you are encouraged to conduct your own additional due-diligence to ensure compliance with any applicable data privacy laws"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c012",
+      "statement": "Open Data on AWS data sets can be found and used through AWS Data Exchange by anyone, with or without an AWS account.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/what-is.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "anyone, with or without an AWS account, can find and use publicly available data sets"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c013",
+      "statement": "When a provider publishes a Files data set in a product, AWS Data Exchange creates a copy of it that subscribers access as an entitled data set.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/providing-data-sets.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AWS Data Exchange creates a copy of the data set. Subscribers can access that copy of the data set as an entitled data set"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c014",
+      "statement": "With Amazon S3 data access products, providers share direct access to their own S3 bucket or prefix and use AWS Data Exchange only to manage subscriptions, entitlements, billing and payment.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/providing-data-sets.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Providers share direct access to an Amazon S3 bucket or specific prefix and Amazon S3 objects"
+        },
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/providing-data-sets.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "use AWS Data Exchange to manage subscriptions, entitlements, billing, and payment"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c015",
+      "statement": "A provider may enable subscription verification, which makes subscribers request a subscription so the provider can review them before they get access.",
+      "kind": "offer",
+      "section": "vetting",
+      "question_ids": [
+        "Q5",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/providing-data-sets.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If you enable subscription verification, subscribers must request a subscription to your product."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c016",
+      "statement": "Besides a public offer, a provider can create custom offers, including private offers and Bring Your Own Subscription (BYOS) offers, for selected customers.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/providing-data-sets.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you can create custom offers, including private and Bring Your Own Subscription (BYOS) offers, for select customers"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c017",
+      "statement": "AWS disburses provider proceeds monthly to the bank account of the registered seller account, net of AWS Marketplace service fees.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/provider-financials.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AWS disburses payments monthly directly to the bank account associated with the AWS account registered as a seller"
+        },
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/provider-financials.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "minus AWS Marketplace service fees"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c018",
+      "statement": "AWS disburses funds to a data provider only after they are collected from the subscriber.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/provider-financials.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Funds are disbursed to you only after they are collected from the subscriber."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c019",
+      "statement": "The Extended Provider Program lets qualified providers publish data products containing sensitive or non-public personal information.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/providing-data-sets.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "a program for qualified data providers to publish data products containing sensitive categories of personal information"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c020",
+      "statement": "Providers seeking the Extended Provider Program must pass an additional review by the AWS Data Exchange team.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/providing-data-sets.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Providers seeking to participate in the EPP must complete an additional review process by the AWS Data Exchange team."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c021",
+      "statement": "AWS Data Exchange organises data in three building blocks: assets (a piece of data), revisions (containers of assets) and data sets (a series of revisions).",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/data-sets.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Data is organized in AWS Data Exchange using three building blocks"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c022",
+      "statement": "A finalized revision published to at least one data grant or product cannot be unfinalized or changed, except through the revoke revision process.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/data-sets.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "A finalized revision published to at least one data grant or product can't be unfinalized or changed in any way."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c023",
+      "statement": "A provider can revoke subscribers' access to a revision and must give subscribers a comment stating the reason.",
+      "kind": "architecture",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/data-sets.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "A required comment to inform subscribers of the reason their access to the revision was revoked."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c024",
+      "statement": "Entitled data sets are a read-only view of a sender's owned data sets, created when a data grant is created or a product is published.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/data-sets.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Entitled data sets are a read-only view of a sender's owned data sets."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c025",
+      "statement": "Subscribers to an Amazon S3 data access data set get read-only access to shared objects hosted in the provider's own S3 buckets.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/data-sets.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "they're granted read-only access to shared Amazon S3 objects hosted in the provider's Amazon S3 buckets"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c026",
+      "statement": "Amazon S3 data access lets subscribers use a provider's data without creating or managing copies of it.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/data-sets.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "directly access and use the provider's data without creating or managing data copies"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c027",
+      "statement": "A subscriber to a Files data set accesses specific revisions, so providers can change the data over time without altering historical data.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/data-sets.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "When recipients or subscribers access a Files data set, they're accessing a specific revision in the data set."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c028",
+      "statement": "A subscriber to a Files data set can export the data to a local computer or to the subscriber's own Amazon S3 bucket.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/data-sets.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you can export data either locally (download to your computer) or to your Amazon S3 bucket."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c029",
+      "statement": "For Amazon Redshift data sets, access to the datashare starts when the grant or subscription activates and is lost when it expires.",
+      "kind": "architecture",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/data-sets.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "lose access after your either of these expire"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c030",
+      "statement": "All data sets in a single data grant or product must be in the same AWS Region.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/data-sets.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "all data sets in a single data grant or product must be in the same AWS Region."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c031",
+      "statement": "Offer durations for AWS Data Exchange subscriptions run from 1 to 36 months.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/prepare-offers.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Durations are 1–36 months."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c032",
+      "statement": "The only supported pricing currency for AWS Data Exchange offers is US dollars.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/prepare-offers.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The only supported currency for pricing is US dollars (USD)."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c033",
+      "statement": "On a subscription offer the subscriber picks one price and duration, accepts the offer terms and pays the purchase charges upfront.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/prepare-offers.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "they must agree to your offer terms and pay upfront for the purchase charges"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c034",
+      "statement": "The Data Subscription Agreement (DSA) is the standard contract template that AWS Data Exchange offers as the default for data products.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/prepare-offers.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The Data Subscription Agreement (DSA) is the standard contract template that AWS Data Exchange offers as the default."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c035",
+      "statement": "On AWS Data Exchange the provider, not AWS, controls the legal terms and usage rights attached to each offer.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/prepare-offers.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "As a provider, you control the legal terms and usage rights."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c036",
+      "statement": "A provider can edit the default DSA or upload its own custom agreement, which AWS attaches to the offer without further modification.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/prepare-offers.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you can specify your own custom terms by uploading the DSA of your choice"
+        },
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/prepare-offers.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AWS Data Exchange associates the DSA that you specify for the product's offer without any further modifications."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c037",
+      "statement": "AWS says the DSA sets common ground on use, warranty, indemnification and governing law.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/prepare-offers.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "common ground across key contractual clauses like use, warranty, indemnification and governing law"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c038",
+      "statement": "AWS Data Exchange does not require providers to offer refunds but requires each offer to state its refund policy; AWS processes refunds only when the provider authorises them.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/prepare-offers.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AWS Data Exchange doesn't require you to offer refunds, you must clearly specify your refund policy in the offer details"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c039",
+      "statement": "A custom offer extended to a selected AWS account lets the provider set specific terms and pricing for that buyer.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/prepare-offers.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The custom offer makes it possible for you to set specific terms and pricing for your product."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c040",
+      "statement": "Outside the Extended Provider Program, data products may not include information that identifies any person unless it is Publicly Available Information.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/publishing-guidelines.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "your data products may not include information that can be used to identify any person, unless that information is"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c041",
+      "statement": "Biometric, health, racial or ethnic origin and other listed sensitive categories must be aggregated or anonymised so no person in the data product can be identified.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/publishing-guidelines.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "must be aggregated or anonymized so that no person in your data product can be identified: biometric or genetic data"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c042",
+      "statement": "The publishing guidelines tell providers to state in their DSA how subscribers may and may not use the data product.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/publishing-guidelines.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you should clearly include this information in your Data Subscription Agreement (DSA)"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c043",
+      "statement": "Data product listing descriptions must be accurate, give valid contact information and state whether any data was aggregated or anonymised.",
+      "kind": "terms",
+      "section": "listing",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/publishing-guidelines.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "must be accurate, contain valid contact information, and note if any data has been aggregated or anonymized"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c044",
+      "statement": "AWS removes any data product that breaches the publishing guidelines and may suspend the provider from the service.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/publishing-guidelines.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AWS removes any product that breaches these guidelines and may suspend the provider from future use of the service."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c045",
+      "statement": "To provide data products a provider must be a resident, citizen or business entity of an eligible jurisdiction; the list retrieved on 2026-09-30 names Australia, Bahrain, EU states, Hong Kong, Israel, Japan, New Zealand, Norway, Qatar, Switzerland, UAE, UK and US, and not India.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/provider-getting-started.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Be a permanent resident or citizen in an eligible jurisdiction, or a business entity organized or incorporated"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c046",
+      "statement": "To provide data products an AWS account must be a registered AWS Marketplace seller and also be qualified by the AWS Data Exchange team.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/provider-getting-started.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you must be a registered seller on AWS Marketplace and be qualified by the AWS Data Exchange team"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c047",
+      "statement": "The provider's registered AWS Marketplace seller account is the seller of record for its data products.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/provider-getting-started.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the account is the seller of record for your products and is used for reporting and disbursement"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c048",
+      "statement": "Data product providers must have a defined customer support process and support organisation.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/provider-getting-started.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Have a defined customer support process and support organization."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c049",
+      "statement": "Only data sets owned by the listing AWS account can be included in the products that account publishes.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/provider-getting-started.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Only data sets owned by that account can be included in products published by that account."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c050",
+      "statement": "AWS Marketplace charges a 3% listing fee on AWS Data Exchange public offers.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 3,
+        "unit": "percent",
+        "basis": "listing fee paid by the seller (deducted from disbursement), percent of pre-tax total contract value, AWS Data Exchange public offers",
+        "period": "per transaction"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2024-01-05",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/marketplace/latest/userguide/listing-fees.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AWS Data Exchange – 3%"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c051",
+      "statement": "AWS Marketplace charges a 3% listing fee on private offers with total contract value under USD 1M.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 3,
+        "unit": "percent",
+        "basis": "listing fee paid by the seller, percent of pre-tax total contract value, private offers under USD 1M (all product types incl. data)",
+        "period": "per transaction"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2024-01-05",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/marketplace/latest/userguide/listing-fees.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Less than $1M – 3%"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c052",
+      "statement": "AWS Marketplace charges a 2% listing fee on private offers with total contract value from USD 1M to under USD 10M.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 2,
+        "unit": "percent",
+        "basis": "listing fee paid by the seller, percent of pre-tax total contract value, private offers USD 1M to under 10M",
+        "period": "per transaction"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2024-01-05",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/marketplace/latest/userguide/listing-fees.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Between $1M and less than $10M – 2%"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c053",
+      "statement": "AWS Marketplace charges a 1.5% listing fee on private offers with total contract value of USD 10M or more.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 1.5,
+        "unit": "percent",
+        "basis": "listing fee paid by the seller, percent of pre-tax total contract value, private offers USD 10M or more",
+        "period": "per transaction"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2024-01-05",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/marketplace/latest/userguide/listing-fees.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Equal to or greater than $10M – 1.5%"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c054",
+      "statement": "AWS Marketplace charges a 1.5% listing fee on all private offer renewals.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 1.5,
+        "unit": "percent",
+        "basis": "listing fee paid by the seller, percent of pre-tax total contract value, renewals of private offers or of prior off-Marketplace agreements",
+        "period": "per transaction"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2024-01-05",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/marketplace/latest/userguide/listing-fees.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All renewals – 1.5%"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c055",
+      "statement": "AWS Marketplace listing fees are calculated on the pre-tax total contract value.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/marketplace/latest/userguide/listing-fees.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The fee is calculated based on the pre-tax Total Contract Value (TCV)."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c056",
+      "statement": "The current AWS Marketplace listing fee schedule took effect on 5 January 2024.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2024-01-05",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/marketplace/latest/userguide/listing-fees.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "These listing fees are effective as of January 5, 2024 at midnight UTC."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c057",
+      "statement": "Channel partner private offers add a 0.5 percentage-point uplift to the AWS Marketplace listing fee.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 0.5,
+        "unit": "percentage points",
+        "basis": "uplift on the seller's listing fee for channel partner private offers, any offer type or deployment method",
+        "period": "per transaction"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2024-01-05",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/marketplace/latest/userguide/listing-fees.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "CPPO products have a 0.5% uplift on the listing fee"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c058",
+      "statement": "AWS Data Exchange charges data senders USD 0.04167 per hour while an accepted data grant is active.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9",
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 0.04167,
+        "unit": "USD per hour",
+        "basis": "paid by the data sender, per active accepted data grant (worked example on pricing page)",
+        "period": "per hour"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aws.amazon.com/data-exchange/pricing/",
+          "publisher": "Amazon Web Services",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you will be charged $.04167 per hour until your data grant expires"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c059",
+      "statement": "AWS Data Exchange charges for storing data loaded into the service; the pricing example uses USD 0.023 per GB-month.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 0.023,
+        "unit": "USD per GB-month",
+        "basis": "storage of Files assets loaded into AWS Data Exchange, paid by the data sender; rate taken from the page's worked example",
+        "period": "per month"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aws.amazon.com/data-exchange/pricing/",
+          "publisher": "Amazon Web Services",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "at $0.023/GB/month"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c060",
+      "statement": "AWS Marketplace charges tiered fulfilment fees on revenue that AWS collects for all new subscriptions to data products.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aws.amazon.com/data-exchange/pricing/",
+          "publisher": "Amazon Web Services",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "charges tiered fulfillment fees for revenue collections made by AWS for all new subscriptions to your data products"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c061",
+      "statement": "Bring Your Own Subscription offers let providers migrate pre-existing subscribers onto AWS Data Exchange at no additional cost.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q2",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aws.amazon.com/data-exchange/pricing/",
+          "publisher": "Amazon Web Services",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "offers to migrate and fulfill pre-existing subscriptions with AWS customers at no additional cost"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c062",
+      "statement": "AWS recommends that providers sharing S3 objects directly enable Requester Pays so subscribers pay for data requests and downloads.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aws.amazon.com/data-exchange/pricing/",
+          "publisher": "Amazon Web Services",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "it is recommended to enable Requester Pays such that requesters pay for data requests and downloads"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c063",
+      "statement": "The standard DSA grants the subscriber, its affiliates and users a non-exclusive, worldwide, non-transferable licence to receive, retain, use and modify the data and create Derived Data.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Data Subscription Agreement for AWS Marketplace (2022-07-14 template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "a nonexclusive, worldwide, nontransferable license to receive, retain, use, and modify the Data and to create Derived Data"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c064",
+      "statement": "The standard DSA forbids the subscriber to publish, distribute or give any third party access to the data or any material subset of it.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Data Subscription Agreement for AWS Marketplace (2022-07-14 template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "publish, disseminate, distribute or provide access of any kind to the Data, or any material subset thereof"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c065",
+      "statement": "The standard DSA forbids using de-identified data to create or infer information about the identity of an individual.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Data Subscription Agreement for AWS Marketplace (2022-07-14 template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "use the Data to create, generate, or infer any information relating to the identity of an individual"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c066",
+      "statement": "Under the standard DSA the subscriber owns Derived Data, which is defined to include analytics, tools and models created using the data.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Data Subscription Agreement for AWS Marketplace (2022-07-14 template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "it owns all right, title and interest in and to the Derived Data"
+        },
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "including data analytics, reports, research, analysis, tools, notes, presentations, discussions and/or models"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c067",
+      "statement": "In the standard DSA the provider warrants that any data identifying a natural person has already lawfully been made public and contains no Sensitive Personal Data.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Data Subscription Agreement for AWS Marketplace (2022-07-14 template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "already lawfully been made available to the general public, such as via governmental"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c068",
+      "statement": "In the standard DSA the provider indemnifies the subscriber against claims arising from the provider's failure to hold the rights and consents needed to supply the data.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Data Subscription Agreement for AWS Marketplace (2022-07-14 template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "any actual or alleged failure by Provider to obtain and hold sufficient legal right and any consents, authorizations"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c069",
+      "statement": "The standard DSA's provider indemnity also covers claims that the data violates third parties' rights of publicity or privacy.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Data Subscription Agreement for AWS Marketplace (2022-07-14 template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "violation of any Proprietary Rights, right of publicity, or privacy or other rights of a third party by the Data"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c070",
+      "statement": "The standard DSA caps each party's aggregate liability at the greater of three times the subscriber's spend in the prior twelve months or USD 1 million.",
+      "kind": "number",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Data Subscription Agreement for AWS Marketplace (2022-07-14 template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 3,
+        "unit": "multiple of subscriber spend in the preceding 12 months",
+        "basis": "general liability cap for either party under the default DSA; the cap is the greater of this or USD 1,000,000; carve-outs for indemnity, confidentiality, gross negligence, fraud",
+        "period": "trailing 12 months"
+      },
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "SHALL EXCEED THE GREATER OF THREE TIMES THE SUBSCRIBER SPEND IN THE TWELVE (12) MONTHS"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c071",
+      "statement": "Under the standard DSA the subscriber must remove the data from its systems within 90 days after the subscription ends and destroy other copies if the provider instructs.",
+      "kind": "number",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Data Subscription Agreement for AWS Marketplace (2022-07-14 template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 90,
+        "unit": "calendar days",
+        "basis": "deadline for subscriber to remove data after termination or expiry, default DSA",
+        "period": "one-off"
+      },
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "within ninety (90) calendar days following such termination or expiration, Subscriber will remove the Data"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c072",
+      "statement": "The standard DSA requires the provider to carry at least USD 5 million of commercial general liability insurance per occurrence.",
+      "kind": "number",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Data Subscription Agreement for AWS Marketplace (2022-07-14 template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 5000000,
+        "unit": "USD",
+        "basis": "minimum commercial general liability insurance the provider must maintain, per occurrence and aggregate, default DSA; USD 5M professional liability also required",
+        "period": "per occurrence"
+      },
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "not less than $5,000,000 per occurrence and $5,000,000 aggregate limit"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c073",
+      "statement": "The standard DSA is governed by New York law with exclusive forum in Manhattan.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Data Subscription Agreement for AWS Marketplace (2022-07-14 template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "governed and interpreted under the laws of the State of New York"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c074",
+      "statement": "The standard DSA is solely between subscriber and provider; Amazon Web Services is not a party to it and has no liability under it.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Data Subscription Agreement for AWS Marketplace (2022-07-14 template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "This Agreement is solely between Subscriber and Provider."
+        },
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Neither Amazon Web Services, Inc. nor any of its Affiliates are a party to this Agreement"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c075",
+      "statement": "In the standard DSA the provider does not warrant that the data will be accurate, complete or up to date.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Data Subscription Agreement for AWS Marketplace (2022-07-14 template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "that the Data will be accurate, complete, or up-to-date"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c076",
+      "statement": "The standard DSA contemplates Third Party Data that the provider obtains from a third party and resells, possibly under additional Third Party Terms.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Data Subscription Agreement for AWS Marketplace (2022-07-14 template)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+          "publisher": "Amazon Web Services",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "means information or data that Provider obtains from a third party and makes available to Subscriber"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c077",
+      "statement": "AWS Marketplace lists the Data Subscription Agreement among its standardised contracts, describing it as simplifying procurement of data in AWS Data Exchange.",
+      "kind": "offer",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aws.amazon.com/marketplace/features/standardized-contracts",
+          "publisher": "Amazon Web Services",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "helps customers simplify procurement and quickly access data solutions available in AWS Data Exchange"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c078",
+      "statement": "All AWS Data Exchange products are subscription-based.",
+      "kind": "architecture",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/product-subscriptions.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All AWS Data Exchange products are subscription-based."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c079",
+      "statement": "Once an AWS Data Exchange subscription has expired, the subscriber can no longer view or export the data sets.",
+      "kind": "architecture",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/product-subscriptions.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Once a subscription has expired, you can no longer view or export the data sets."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c080",
+      "statement": "If a provider unpublishes a product, existing subscribers keep access to its data sets while their subscription is active but cannot auto-renew.",
+      "kind": "architecture",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/product-subscriptions.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If a provider decides to unpublish a product, you still have access to the data sets as long as your subscription is active."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c081",
+      "statement": "If offer terms have changed when an auto-renewing subscription renews, the new price and new DSA apply to the renewed subscription.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/product-subscriptions.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the new product offer terms (including new price and new DSA) apply"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c082",
+      "statement": "When a Files subscription ends the subscriber keeps files already exported; whether they must be deleted depends on the DSA.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/product-subscriptions.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you retain access to any files that you already exported"
+        },
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/product-subscriptions.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Review your Data Subscription Agreement to verify if your agreement requires that you delete exported data"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c083",
+      "statement": "The provider decides per offer whether subscribers get none, some or all historical revisions, and may also grant future revisions published during the subscription.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/product-subscriptions.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "they give you access to 0 or more historical revisions, up to all historical revisions"
+        },
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/product-subscriptions.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "They can also give you access to future revisions that are made available during your subscription period."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c084",
+      "statement": "Subscribers to file products can auto-export new revisions to up to five of their own S3 buckets when the provider publishes them.",
+      "kind": "number",
+      "section": "custody",
+      "question_ids": [
+        "Q6",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 5,
+        "unit": "S3 buckets",
+        "basis": "maximum number of subscriber-owned buckets for automatic export of new revisions, Files products",
+        "period": "not stated"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/product-subscriptions.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "automatically export new revisions to your Amazon S3 buckets (up to five buckets maximum)"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c085",
+      "statement": "Some products include data dictionaries and samples that prospective subscribers can view and download before subscribing.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/product-subscriptions.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you can view and download the data dictionaries and samples before you subscribe to it"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c086",
+      "statement": "If a provider indicates a product contains sensitive or personal data categories, this is displayed with the product details.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/product-subscriptions.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If the data provider has indicated that the product contains any categories of sensitive or personal data"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c087",
+      "statement": "When a buyer subscribes to a data product AWS may share the buyer's contact information with the provider.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/product-subscriptions.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "When you subscribe to a data product, we might share your contact information with the provider."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c088",
+      "statement": "For a data product with an upfront commitment the subscriber is invoiced by Amazon Web Services immediately.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q5",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/product-subscriptions.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you will receive an invoice from Amazon Web Services (AWS) immediately"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c089",
+      "statement": "AWS Data Exchange became generally available on 13 November 2019.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2019-11-13",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/doc-history.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AWS Data Exchange is now generally available"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c090",
+      "statement": "Since 14 December 2023 data owners can share data through AWS Data Exchange data grants without registering as AWS Marketplace sellers.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2023-12-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/doc-history.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Data owners can now share data using AWS Data Exchange without registering as a AWS Marketplace seller."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c091",
+      "statement": "Products containing Amazon S3 data access became generally available on 14 March 2023.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2023-03-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/doc-history.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Subscribing to and publishing data products containing Amazon S3 data access is now generally available."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c092",
+      "statement": "Since 15 March 2022 providers can revoke subscribers' access to a revision and delete the revision's assets.",
+      "kind": "event",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2022-03-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/doc-history.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Providers can revoke subscribers' access to a revision and delete the assets of the revision."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c093",
+      "statement": "Providers can send subscribers notifications about data updates, delays, schema changes and deprecations (launched 31 October 2023).",
+      "kind": "event",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2023-10-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/doc-history.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Providers can send notifications corresponding to data updates, data delays, schema changes, and deprecations."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c094",
+      "statement": "The AWS Data Exchange FAQ states that a provider must use a legal entity domiciled in the United States or an EU member state.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aws.amazon.com/data-exchange/faqs/",
+          "publisher": "Amazon Web Services",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "valid legal entity domiciled in the United States or a member state of the EU"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c095",
+      "statement": "The AWS Data Exchange FAQ says providers receive a monthly disbursement for subscriptions less fulfilment fees.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aws.amazon.com/data-exchange/faqs/",
+          "publisher": "Amazon Web Services",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You will receive a disbursement for subscriptions less fulfillment fees once a month."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c096",
+      "statement": "When a subscription is no longer active, AWS Data Exchange revokes the subscriber's entitlement to the provider's data.",
+      "kind": "architecture",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aws.amazon.com/data-exchange/faqs/",
+          "publisher": "Amazon Web Services",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AWS Data Exchange revokes that subscriber's entitlement to your data."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c097",
+      "statement": "Private offers let a provider make a public product available to selected AWS customers with custom price, duration, payment schedule, DSA or refund policy.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aws.amazon.com/data-exchange/faqs/",
+          "publisher": "Amazon Web Services",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "set terms including price, duration, payment schedule, DSA, or refund policy"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c098",
+      "statement": "When a buyer subscribes to an S3 data access product, AWS Data Exchange provisions an S3 access point and updates its policies on the provider's behalf to grant read-only access.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/publish-s3-data-access-product.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AWS Data Exchange automatically provisions an Amazon S3 access point and updates its resource policies on your behalf"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c099",
+      "statement": "For S3 data access products the subscriber's permissions on the provider's bucket are revoked when the subscription ends.",
+      "kind": "architecture",
+      "section": "post_sale",
+      "question_ids": [
+        "Q6",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/publish-s3-data-access-product.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "When the subscription ends, the subscriber’s permissions are revoked."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c100",
+      "statement": "Objects shared through S3 data access must be in the S3 Standard storage class or managed by S3 Intelligent-Tiering.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/publish-s3-data-access-product.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Your shared objects must be in the Amazon S3 Standard Storage class, or be managed using S3 Intelligent Tiering"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c101",
+      "statement": "An S3 data access data set can share an entire bucket or up to five prefixes or objects within one bucket.",
+      "kind": "number",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 5,
+        "unit": "prefixes or objects per S3 data access share",
+        "basis": "maximum locations selectable within one bucket per data access share; whole bucket also allowed",
+        "period": "not stated"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/publish-s3-data-access-product.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "specify up to five prefixes or objects within an Amazon S3 bucket"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c102",
+      "statement": "A provider sharing S3 data in place does not need to create a new revision when it updates the shared objects.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q6",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/publish-s3-data-access-product.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You don't need to create a new revision when updating the shared Amazon S3 objects"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c103",
+      "statement": "A provider can attach up to 10 samples of at most 50 MB to a product; CSV samples can be previewed.",
+      "kind": "number",
+      "section": "listing",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 10,
+        "unit": "samples per product data set",
+        "basis": "maximum number of provider-uploaded samples, 50 MB maximum size",
+        "period": "not stated"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/publish-s3-data-access-product.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You can upload up to 10 samples with a maximum size of 50 MB."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c104",
+      "statement": "After a provider submits a product with a public offer, its status is Awaiting approval until AWS Data Exchange publishes it.",
+      "kind": "architecture",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/publish-s3-data-access-product.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AWS Data Exchange prepares and publishes your product."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c105",
+      "statement": "A private offer names at least one subscriber account and carries an offer expiration date by which the subscriber must accept.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/publish-s3-data-access-product.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "add at least one subscriber account to which you want to extend the offer"
+        },
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/publish-s3-data-access-product.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "by which the subscriber must accept the offer"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c106",
+      "statement": "Products can be set to Restricted, which stops new subscriptions and hides the product while existing allowlisted users keep using it.",
+      "kind": "architecture",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/product-visibility.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "it will no longer be visible to the public or available to new users"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c107",
+      "statement": "PIXTA AI lists a car image dataset on AWS Data Exchange free of charge, with subscriptions that have no end date.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q1",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Car dataset in multiple scenes for AI & Computer Vision",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aws.amazon.com/marketplace/pp/prodview-6i7gc6mi7hlgs",
+          "publisher": "PIXTA AI (AWS Marketplace listing)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "This product is available free of charge. Free subscriptions have no end date and may be canceled any time."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c108",
+      "statement": "PIXTA AI says the listed car dataset is sourced from its own stock library of 80M+ Asian-featured images and videos.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Car dataset in multiple scenes for AI & Computer Vision",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aws.amazon.com/marketplace/pp/prodview-6i7gc6mi7hlgs",
+          "publisher": "PIXTA AI (AWS Marketplace listing)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All of the contents is sourced from PIXTA's stock library of 80M+ Asian-featured images and videos."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c109",
+      "statement": "PIXTA AI's listing directs buyers to contact its representative to curate a specific data set, i.e. the full or custom dataset is sold off the self-serve path.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Car dataset in multiple scenes for AI & Computer Vision",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aws.amazon.com/marketplace/pp/prodview-6i7gc6mi7hlgs",
+          "publisher": "PIXTA AI (AWS Marketplace listing)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "who will work with you to curate your specific data set"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c110",
+      "statement": "PIXTA AI's listing describes its sample as limited images with thumbnails for visual check only.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Car dataset in multiple scenes for AI & Computer Vision",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aws.amazon.com/marketplace/pp/prodview-6i7gc6mi7hlgs",
+          "publisher": "PIXTA AI (AWS Marketplace listing)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The sample set includes limited images with thumbnail for visual check only."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c111",
+      "statement": "Shutterstock lists a free 1,000-image sample on AWS Data Exchange and asks buyers wanting its full library to contact its sales team for tailored datasets.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q1",
+        "Q12"
+      ],
+      "scope": {
+        "product": "Free Sample Dataset - 1000 High Resolution Images & Metadata",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aws.amazon.com/marketplace/pp/prodview-w6cuvuwu6qrlo",
+          "publisher": "Shutterstock (AWS Marketplace listing)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "to start using our tailored services to help ideate, curate and customize datasets for your unique business needs"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c112",
+      "statement": "The Shutterstock sample listing's metadata fields include a model-release flag.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Free Sample Dataset - 1000 High Resolution Images & Metadata",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aws.amazon.com/marketplace/pp/prodview-w6cuvuwu6qrlo",
+          "publisher": "Shutterstock (AWS Marketplace listing)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "has_model_release"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c113",
+      "statement": "InfoBay AI's image dataset listing is sample data only, with enterprise licensing of the complete corpus available on request.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q1",
+        "Q12"
+      ],
+      "scope": {
+        "product": "Multidomain Image Dataset for Computer Vision & Multimodal AI",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aws.amazon.com/marketplace/pp/prodview-jzwdtminy6cnq",
+          "publisher": "InfoBay AI Ltd. (AWS Marketplace listing)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Enterprise licensing and access to the complete image corpus are available upon request."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c114",
+      "statement": "SilverLining.Cloud's currency history data product shows a public price of USD 370 for a 12-month contract.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Currency Exchange Historical Data (140+ currencies)",
+        "tier": "12-month contract",
+        "region": ""
+      },
+      "value": {
+        "num": 370,
+        "unit": "USD",
+        "basis": "public offer list price paid by buyer, Product Access dimension, 12-month contract",
+        "period": "per 12 months"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aws.amazon.com/marketplace/pp/prodview-vyrjcczmkjaeu",
+          "publisher": "SilverLining.Cloud GmbH (AWS Marketplace listing)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "$370.00"
+        },
+        {
+          "url": "https://aws.amazon.com/marketplace/pp/prodview-vyrjcczmkjaeu",
+          "publisher": "SilverLining.Cloud GmbH (AWS Marketplace listing)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "12-month contract"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c115",
+      "statement": "AWS Marketplace sellers in India can create offers for AWS Data Exchange product types.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/marketplace/latest/userguide/india-seller-faq.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You can create products and offers for SaaS, AMI, Containers, Professional Services, ML and AWS Data Exchange product types."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c116",
+      "statement": "AWS Marketplace sellers in India can only sell to buyers in India.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/marketplace/latest/userguide/india-seller-faq.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Sellers in India can only sell to buyers in India."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c117",
+      "statement": "For sellers in India, AWS India issues GST tax invoices to buyers with the seller as seller on record.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/marketplace/latest/userguide/india-seller-faq.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AWS India facilitates issuing GST tax invoices to buyers with you as the seller on record (SoR)"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c118",
+      "statement": "AWS says usage of data products sold on AWS Marketplace is governed by agreements between buyers and sellers to which AWS is not a party.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/marketplace/latest/buyerguide/contract-structure.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AWS is not a party to these agreements."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c119",
+      "statement": "AWS says AWS Data Exchange has more than 3,500 products from over 300 providers.",
+      "kind": "number",
+      "section": "demand",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 3500,
+        "unit": "data products",
+        "basis": "vendor-stated catalogue size, over 300 providers; undated page",
+        "period": "not stated"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aws.amazon.com/data-exchange/why-aws-data-exchange/",
+          "publisher": "Amazon Web Services",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AWS Data Exchange is the only data marketplace with more than 3,500 products from over 300 providers"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c120",
+      "statement": "VentureBeat reported, citing Amazon, that more than 80 providers contributed over 1,000 data products at launch in November 2019.",
+      "kind": "number",
+      "section": "demand",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 80,
+        "unit": "data providers",
+        "basis": "providers at launch, as stated by Amazon and relayed by press; over 1,000 products",
+        "period": "at launch"
+      },
+      "origin": "press_relayed",
+      "as_of": "2019-11-13",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://venturebeat.com/2019/11/13/amazons-aws-data-exchange-launches-with-over-80-data-providers/",
+          "publisher": "VentureBeat",
+          "source_class": "press_relaying_vendor",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "More than 80 data providers have contributed over 1,000 products containing data at launch, Amazon says."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c121",
+      "statement": "A buyer who cannot find a product can request personalised recommendations from the AWS Data Exchange Data Discovery Team, which aims to respond within 2 business days.",
+      "kind": "offer",
+      "section": "discovery",
+      "question_ids": [
+        "Q12",
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/subscriber-getting-started.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You should receive a response from the AWS Data Exchange Data Discovery Team within 2 business days."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c122",
+      "statement": "A data product request lets the buyer state delivery cadence, subscription length and subscription budget.",
+      "kind": "offer",
+      "section": "discovery",
+      "question_ids": [
+        "Q1",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/subscriber-getting-started.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Delivery cadence"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c123",
+      "statement": "AWS's data consultation page says additional custom products are available through private products.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://pages.awscloud.com/adx-contact-dex-contact-us.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Additional custom products available through private products"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c124",
+      "statement": "A buyer can browse the AWS Data Exchange catalogue by category and filter by data set type, including Access to Amazon S3.",
+      "kind": "architecture",
+      "section": "discovery",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/subscriber-getting-started.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Products containing Amazon S3 data access"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c125",
+      "statement": "A data grant names the recipient's AWS account ID and can optionally be given an end date on which it expires.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/creating-data-grants.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "optionally set an end date on which the data grant should expire"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c126",
+      "statement": "AWS Marketplace deducts the listing fee from the amount it disburses to the seller.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/marketplace/latest/userguide/listing-fees.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AWS Marketplace deducts this listing fee from the amount disbursed to the ISV."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c127",
+      "statement": "Data set descriptions are visible only to recipients or subscribers with an active data grant or subscription.",
+      "kind": "architecture",
+      "section": "listing",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/data-sets.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The description is visible to recipients or subscribers who have an active data grant or subscription to the product."
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c128",
+      "statement": "AWS Data Exchange is live: its user guide describes it in the present tense as a service for sharing and managing data entitlements, retrieved 2026-09-30.",
+      "kind": "status",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.aws.amazon.com/data-exchange/latest/userguide/what-is.html",
+          "publisher": "Amazon Web Services",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AWS Data Exchange is a service that helps AWS customers easily share and manage data entitlements"
+        }
+      ]
+    },
+    {
+      "id": "aws-data-exchange-c129",
+      "statement": "Buyers also pay for any AWS services they use to store, process or analyse subscribed data products.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://aws.amazon.com/data-exchange/pricing/",
+          "publisher": "Amazon Web Services",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "charges for any AWS services you choose to store, process, or analyze the data products"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "matrix.exclusivity_offered",
+      "urls_tried": [
+        "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+        "https://docs.aws.amazon.com/data-exchange/latest/userguide/prepare-offers.html"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "questions.Q5 (Terms and Conditions for AWS Marketplace Sellers: AWS's role in payment collection, agent status)",
+      "urls_tried": [
+        "https://aws.amazon.com/marketplace/management/seller-settings/terms"
+      ],
+      "reason": "gated"
+    },
+    {
+      "field": "questions.Q1 (subscription volumes, buyer types, spend for image/video data)",
+      "urls_tried": [
+        "https://aws.amazon.com/data-exchange/why-aws-data-exchange/",
+        "https://aws.amazon.com/data-exchange/faqs/",
+        "https://venturebeat.com/2019/11/13/amazons-aws-data-exchange-launches-with-over-80-data-providers/"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "questions.Q8 (audit rights, leakage detection, fingerprinting)",
+      "urls_tried": [
+        "https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf",
+        "https://docs.aws.amazon.com/data-exchange/latest/userguide/data-sets.html"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "status (a dated source within six months)",
+      "urls_tried": [
+        "https://docs.aws.amazon.com/data-exchange/latest/userguide/doc-history.html",
+        "https://aws.amazon.com/blogs/big-data/category/analytics/aws-data-exchange/",
+        "https://aws.amazon.com/blogs/industries/financial-market-infrastructure-providers-cloud-adoption-update-for-1h26/"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "pricing (tier table behind 'tiered fulfillment fees' on the ADX pricing page)",
+      "urls_tried": [
+        "https://aws.amazon.com/data-exchange/pricing/"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "licence (whether a DSA version newer than 2022-07-14 exists)",
+      "urls_tried": [
+        "https://aws.amazon.com/marketplace/features/standardized-contracts"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "supply (independent evidence of provider count, revenue or GMV)",
+      "urls_tried": [
+        "https://press.aboutamazon.com/2019/11/aws-announces-aws-data-exchange"
+      ],
+      "reason": "not_published"
+    }
+  ],
+  "conflicts": [
+    {
+      "claim_ids": [
+        "aws-data-exchange-c094",
+        "aws-data-exchange-c045"
+      ],
+      "rule_applied": "live_primary_wins_terms",
+      "resolution": "FAQ says provider entity must be US or EU domiciled; the user guide lists 13 eligible jurisdictions. The user guide (documentation) is taken as current; both kept."
+    },
+    {
+      "claim_ids": [
+        "aws-data-exchange-c115",
+        "aws-data-exchange-c045"
+      ],
+      "rule_applied": "live_primary_wins_terms",
+      "resolution": "Unresolved: the AWS Marketplace India seller FAQ says Indian sellers can offer AWS Data Exchange products (India-only buyers), but the ADX eligible-jurisdiction list omits India. Both are live primary docs; the India FAQ is more specific and possibly newer. Needs confirmation before relying on it."
+    },
+    {
+      "claim_ids": [
+        "aws-data-exchange-c060",
+        "aws-data-exchange-c050"
+      ],
+      "rule_applied": "live_primary_wins_terms",
+      "resolution": "ADX pricing page speaks of 'tiered fulfillment fees'; the Marketplace seller guide gives a flat 3% for ADX public offers and TCV tiers only for private offers. Read as: tiers apply to private offers; the seller guide figures are used."
+    }
+  ],
+  "leads": [
+    {
+      "url": "https://investor.shutterstock.com/news-releases/news-release-details/shutterstockai-launches-data-aws-data-exchange-advance-computer",
+      "why": "Shutterstock press release on its computer-vision datasets on ADX; vendor-relayed, not fetched."
+    },
+    {
+      "url": "https://aws.amazon.com/blogs/awsmarketplace/using-shutterstocks-image-datasets-to-train-your-computer-vision-models/",
+      "why": "AWS blog walkthrough of buying and using image datasets from ADX; not fetched."
+    },
+    {
+      "url": "https://aws.amazon.com/about-aws/whats-new/2023/12/aws-data-exchange-data-grants-sharing-organizations/",
+      "why": "Data grants launch announcement."
+    },
+    {
+      "url": "https://aws.amazon.com/service-terms/",
+      "why": "AWS Service Terms may contain an AWS Data Exchange / Marketplace section on AWS's role; not fetched."
+    },
+    {
+      "url": "https://techcrunch.com/2021/11/30/aws-launches-data-exchange-for-apis-to-update-changing-data-automatically/",
+      "why": "Independent-ish coverage of ADX for APIs; not fetched."
+    },
+    {
+      "url": "https://aws.amazon.com/marketplace/pp/prodview-2u4rkbf5hpvia",
+      "why": "Airborne Object Tracking dataset listing (5.9M images) delivered as S3 bucket access; a vision dataset example not opened."
+    }
+  ]
+}

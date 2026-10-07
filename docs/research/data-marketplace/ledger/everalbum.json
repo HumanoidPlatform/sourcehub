@@ -1,0 +1,1855 @@
+{
+ "kind": "profile",
+ "slug": "everalbum",
+ "name": "Everalbum",
+ "aliases": [
+  "Ever",
+  "Ever AI",
+  "Paravision",
+  "Paravision, Inc."
+ ],
+ "segment": "failure",
+ "tier": "light",
+ "status": {
+  "value": "active",
+  "claim_id": "everalbum-c001"
+ },
+ "names_for": {
+  "catalogue_side": "not applicable: sold no datasets; its enterprise brand Paravision (formerly Ever AI) sells 'face recognition technology' / 'AI building blocks'",
+  "custom_side": "not applicable: no custom data collection offered"
+ },
+ "matrix": {
+  "operator_role": {
+   "value": "not_applicable",
+   "claim_ids": [
+    "everalbum-c030",
+    "everalbum-c039"
+   ],
+   "note": "No dataset was ever sold or brokered: Everalbum used its own app users' photos to train its own face models and sold only the models (Paravision)."
+  },
+  "economics_model": {
+   "value": "not_applicable",
+   "claim_ids": [],
+   "note": "Earned from selling face recognition technology to businesses and governments, not from data sales; model pricing not published. Supporting claims: c039, c040, c030."
+  },
+  "who_pays_fee": {
+   "value": "not_applicable",
+   "claim_ids": [
+    "everalbum-c030"
+   ],
+   "note": "No data transaction and no marketplace fee."
+  },
+  "supply_models": {
+   "value": [
+    "contributor_uploads",
+    "public_or_scraped",
+    "own_collection",
+    "third_party_providers"
+   ],
+   "claim_ids": [
+    "everalbum-c022",
+    "everalbum-c046",
+    "everalbum-c051"
+   ],
+   "note": "Training inputs, not listed inventory. 2017-2019: face crops extracted from consumers' uploads to the Ever storage app (uploaded for storage, not contributed for training) mixed with public datasets. After the case (2022 filing): public datasets, consenting employees, and purchased third-party images with contractual consent."
+  },
+  "custody_model": {
+   "value": "not_applicable",
+   "claim_ids": [],
+   "note": "The photos stayed on Everalbum's own cloud servers and were never delivered to customers; only trained models left the company. Supporting claims: c030."
+  },
+  "transaction_mode": {
+   "value": "not_applicable",
+   "claim_ids": [],
+   "note": "No dataset transaction existed; Paravision sells its models B2B/B2G and its sales process for them was not examined. Supporting claims: c040, c030."
+  },
+  "public_prices": {
+   "value": "not_applicable",
+   "claim_ids": [
+    "everalbum-c030"
+   ],
+   "note": "Nothing data-related was priced or sold."
+  },
+  "licence_model": {
+   "value": "not_applicable",
+   "claim_ids": [],
+   "note": "No data licence was ever granted to buyers. On the input side, Paravision says it reviews the licences of public datasets it uses. Supporting claims: c030, c048."
+  },
+  "exclusivity_offered": {
+   "value": "not_applicable",
+   "claim_ids": [],
+   "note": "No data sold. Supporting claims: c030."
+  },
+  "public_listing": {
+   "value": "not_applicable",
+   "claim_ids": [],
+   "note": "No data listings existed. Supporting claims: c030."
+  },
+  "buyer_vetting": {
+   "value": "case_by_case",
+   "claim_ids": [
+    "everalbum-c050",
+    "everalbum-c049"
+   ],
+   "note": "Applies to buyers of Paravision's face recognition technology, not of data: vetting of partners and customers, a country exclusion list, and use-case limits."
+  },
+  "sample_mechanics": {
+   "value": "not_applicable",
+   "claim_ids": [],
+   "note": "No data listings existed. Supporting claims: c030."
+  },
+  "versioning": {
+   "value": "not_applicable",
+   "claim_ids": [],
+   "note": "No data product. The model analogue: models from datasets 1-2 were discarded, and all models built from Ever data were ordered destroyed. Supporting claims: c030."
+  },
+  "human_subject_consent_docs": {
+   "value": "not_addressed",
+   "claim_ids": [
+    "everalbum-c031",
+    "everalbum-c032",
+    "everalbum-c022",
+    "everalbum-c011"
+   ],
+   "note": "The people depicted were never asked; Ever's help text shifted responsibility to the uploader ('you have the approval of everyone featured'), and face recognition was on by default for most users until April 2019. Paravision later relies on suppliers' contractual consent warranties (asserted, not shown to anyone)."
+  },
+  "contributor_pay_model": {
+   "value": "none",
+   "claim_ids": [
+    "everalbum-c038",
+    "everalbum-c022"
+   ],
+   "note": "The individuals whose photos fed the models were consumers of a free storage app; no payment to them appears anywhere in the FTC record."
+  },
+  "catalogue_plus_custom": {
+   "value": "not_applicable",
+   "claim_ids": [],
+   "note": "Sold neither ready-made nor custom datasets; sells models. Supporting claims: c030, c041."
+  },
+  "erasure_after_sale": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": "The order made Everalbum destroy the photos, embeddings and every model built even partly from them, but nothing fetched says whether copies of those models already deployed at Paravision customers were recalled."
+  },
+  "quality_evidence": {
+   "value": "not_applicable",
+   "claim_ids": [],
+   "note": "No data listings. For models, evidence was third-party benchmarking (NIST accuracy testing). Supporting claims: c029."
+  }
+ },
+ "questions": {
+  "Q1": {
+   "state": "partial",
+   "answer": "Buyers were of models, not data: enterprises for security, access control and payments, plus law-enforcement uses pitched in 2019. Paravision itself is now a buyer of consented face images from third parties outside the US and EEA.",
+   "claim_ids": [
+    "everalbum-c039",
+    "everalbum-c042",
+    "everalbum-c046"
+   ]
+  },
+  "Q2": {
+   "state": "not_applicable",
+   "answer": "Everalbum never listed or sold datasets, on its own site or anyone else's.",
+   "claim_ids": []
+  },
+  "Q3": {
+   "state": "sourced",
+   "answer": "Face crops were scripted out of consumers' storage-app uploads (about 12 million installs) and mixed with public datasets, under no training right. After the case, Paravision says it uses public datasets after licence review, consenting employees, and purchased images with contractual consent.",
+   "claim_ids": [
+    "everalbum-c022",
+    "everalbum-c034",
+    "everalbum-c043",
+    "everalbum-c046",
+    "everalbum-c048",
+    "everalbum-c021"
+   ]
+  },
+  "Q4": {
+   "state": "partial",
+   "answer": "Photos uploaded for storage were repurposed for commercial model training; face recognition was on by default, and opt-in controls and a privacy-policy mention came only in 2018-2019, after the data had been used.",
+   "claim_ids": [
+    "everalbum-c031",
+    "everalbum-c045",
+    "everalbum-c022"
+   ]
+  },
+  "Q5": {
+   "state": "partial",
+   "answer": "No data was resold, so there was no licensor to buyers. Ever's help text pushed consent for depicted people onto the uploader; Paravision now relies on suppliers' contractual consent duties and its own customer vetting.",
+   "claim_ids": [
+    "everalbum-c032",
+    "everalbum-c046",
+    "everalbum-c047",
+    "everalbum-c050"
+   ]
+  },
+  "Q6": {
+   "state": "partial",
+   "answer": "The data never left Everalbum's servers; the FTC says no photos or personal information went to Paravision customers, only the trained models.",
+   "claim_ids": [
+    "everalbum-c030"
+   ]
+  },
+  "Q7": {
+   "state": "sourced",
+   "answer": "The uploader was not asked for most of 2017-2019 (default-on outside IL/TX/WA/EU); the people depicted were never asked. The order now requires separate disclosure and affirmative express consent before training, except for products offered only outside the US.",
+   "claim_ids": [
+    "everalbum-c031",
+    "everalbum-c032",
+    "everalbum-c024",
+    "everalbum-c026",
+    "everalbum-c033",
+    "everalbum-c011",
+    "everalbum-c012",
+    "everalbum-c013"
+   ]
+  },
+  "Q8": {
+   "state": "partial",
+   "answer": "The remedy reached derived works: every model or algorithm built even partly from the improperly used data had to be destroyed, binding those in active concert who receive notice. Whether that reached models already at customers is not shown.",
+   "claim_ids": [
+    "everalbum-c007",
+    "everalbum-c008",
+    "everalbum-c014",
+    "everalbum-c018",
+    "everalbum-c019"
+   ]
+  },
+  "Q9": {
+   "state": "not_applicable",
+   "answer": "No dataset sales took place; Paravision sells models B2B and B2G.",
+   "claim_ids": [
+    "everalbum-c040"
+   ]
+  },
+  "Q10": {
+   "state": "partial",
+   "answer": "No data product existed. For withdrawal, the order ordered destruction of the photos, face embeddings and all Affected Work Product, confirmed by sworn statements, which Paravision says it made.",
+   "claim_ids": [
+    "everalbum-c010",
+    "everalbum-c009",
+    "everalbum-c008",
+    "everalbum-c020",
+    "everalbum-c028"
+   ]
+  },
+  "Q11": {
+   "state": "partial",
+   "answer": "Not a data seller; for its models the evidence was NIST accuracy testing, and the FTC says a model trained on Ever data was submitted to NIST.",
+   "claim_ids": [
+    "everalbum-c029"
+   ]
+  },
+  "Q12": {
+   "state": "not_applicable",
+   "answer": "Sold neither ready-made nor custom datasets; the consumer brand (Ever) supplied data to the enterprise brand (Paravision, formerly Ever AI), which sells models.",
+   "claim_ids": [
+    "everalbum-c027",
+    "everalbum-c041"
+   ]
+  }
+ },
+ "claims": [
+  {
+   "id": "everalbum-c001",
+   "statement": "Paravision, the company formerly named Everalbum, was still publishing product announcements in September 2026.",
+   "kind": "status",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-09-23",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.paravision.ai/news/paravision-announces-iso-icao-image-quality-suite-for-travel-and-border-applications/",
+     "publisher": "Paravision",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "New capability helps organizations evaluate biometric face images against ISO and ICAO image-quality requirements"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c002",
+   "statement": "Everalbum, Inc. changed its name to Paravision, Inc. on 7 September 2021.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2021-09-07",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/paravision_compliance_report_redacted.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "On September 7, 2021, Everalbum, Inc. changed its name to Paravision, Inc."
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c003",
+   "statement": "Paravision says it stopped offering any consumer product when it shut down the Ever photo app on 30 September 2020, about nine months before the FTC order.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2020-09-30",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/paravision_compliance_report_redacted.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "stopped offering any product or service to consumers on September 30, 2020 when it shut down the Ever application"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c004",
+   "statement": "On 7 May 2021 the FTC announced that the Commission had voted 4-0 to finalize its settlement with Everalbum.",
+   "kind": "event",
+   "section": "regulation",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2021-05-07",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/news-events/news/press-releases/2021/05/ftc-finalizes-settlement-photo-app-developer-related-misuse-facial-recognition-technology",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "regulator_guidance",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "the Commission voted 4-0 to finalize the settlement"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c005",
+   "statement": "In January 2026 Paravision announced the promotion of Tiffany Lee to Chief Financial Officer.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-01-26",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.paravision.ai/news/paravision-appoints-tiffany-lee-as-chief-financial-officer/",
+     "publisher": "Paravision",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Paravision today announced the promotion of Tiffany Lee to Chief Financial Officer (CFO)"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c006",
+   "statement": "Paravision executed its one-year sworn compliance report under the FTC order on 5 May 2022, and the FTC published a redacted copy.",
+   "kind": "event",
+   "section": "regulation",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2022-05-05",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/paravision_compliance_report_redacted.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "is true and correct. Executed on: May 5, 2022."
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c007",
+   "statement": "The FTC order defines 'Affected Work Product' as any models or algorithms developed even partly from biometric data collected from Ever users.",
+   "kind": "terms",
+   "section": "regulation",
+   "question_ids": [
+    "Q8",
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2021-05-06",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/documents/cases/1923172_-_everalbum_decision_final.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "court_record",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "any models or algorithms developed in whole or in part using Biometric Information Respondent collected from Users"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c008",
+   "statement": "The FTC order required Everalbum to delete or destroy all Affected Work Product within 90 days and confirm it in a sworn statement.",
+   "kind": "terms",
+   "section": "regulation",
+   "question_ids": [
+    "Q8",
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2021-05-06",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/documents/cases/1923172_-_everalbum_decision_final.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "court_record",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "Within ninety (90) days after the issuance of this Order, delete or destroy any Affected Work Product"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c009",
+   "statement": "The FTC order required deletion within 90 days of all face embeddings derived from users who had not by then given express affirmative consent.",
+   "kind": "terms",
+   "section": "regulation",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2021-05-06",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/documents/cases/1923172_-_everalbum_decision_final.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "court_record",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "delete or destroy all Face Embeddings derived from Biometric Information Respondent collected from Users who"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c010",
+   "statement": "The FTC order required deletion within 30 days of all photos and videos of Ever users who had requested deactivation of their accounts.",
+   "kind": "terms",
+   "section": "regulation",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2021-05-06",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/documents/cases/1923172_-_everalbum_decision_final.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "court_record",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "delete or destroy all photos and videos that Respondent collected from Users who requested deactivation"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c011",
+   "statement": "The FTC order bars Everalbum from using a user's biometric data to train or alter any face recognition model without that user's affirmative express consent.",
+   "kind": "terms",
+   "section": "regulation",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2021-05-06",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/documents/cases/1923172_-_everalbum_decision_final.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "court_record",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "Obtain the affirmative express consent of the User from whom Respondent collected the Biometric Information"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c012",
+   "statement": "The FTC order requires the biometric-use disclosure to be made separately from any privacy policy or terms of use page.",
+   "kind": "terms",
+   "section": "regulation",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2021-05-06",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/documents/cases/1923172_-_everalbum_decision_final.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "court_record",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "separate and apart from any “privacy policy,” “terms of use” page, or other similar document"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c013",
+   "statement": "The FTC order's notice-and-consent provision does not apply to a product or service offered only to users outside the United States.",
+   "kind": "terms",
+   "section": "regulation",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2021-05-06",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/documents/cases/1923172_-_everalbum_decision_final.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "court_record",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "any product or service that is only offered to Users outside the United States"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c014",
+   "statement": "The FTC order's deletion duties bind Everalbum's officers, agents and employees and all persons in active concert with them who receive actual notice of the order.",
+   "kind": "terms",
+   "section": "regulation",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2021-05-06",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/documents/cases/1923172_-_everalbum_decision_final.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "court_record",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "all other persons in active concert or participation with any of them, who receive actual notice of this Order"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c015",
+   "statement": "The FTC order runs for twenty years from its issuance, subject to the order's exceptions.",
+   "kind": "terms",
+   "section": "regulation",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2021-05-06",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/documents/cases/1923172_-_everalbum_decision_final.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "court_record",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "This Order will terminate twenty (20) years from the date of its issuance"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c016",
+   "statement": "Everalbum settled without admitting or denying the FTC's allegations, so the data-use facts in the complaint remain allegations.",
+   "kind": "terms",
+   "section": "regulation",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2021-05-06",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/documents/cases/1923172_-_everalbum_decision_final.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "court_record",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "it neither admits nor denies any of the allegations in the Complaint"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c017",
+   "statement": "The Everalbum settlement imposed no monetary penalty, because FTC Act Section 5 does not allow civil penalties for a first offense.",
+   "kind": "outcome",
+   "section": "regulation",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2021-05-06",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/documents/public_statements/1585858/updated_final_chopra_statement_on_everalbum_for_circulation.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "regulator_guidance",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "the settlement does not require the defendant to pay any penalty"
+    },
+    {
+     "url": "https://www.ftc.gov/system/files/documents/cases/wpf_response_final_0.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "regulator_guidance",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "does not allow the Commission to seek civil penalties for a party’s first offense"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c018",
+   "statement": "Commissioner Chopra described the remedy as requiring the company to delete the facial recognition technologies enhanced by improperly obtained photos.",
+   "kind": "terms",
+   "section": "regulation",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2021-01-08",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/documents/public_statements/1585858/updated_final_chopra_statement_on_everalbum_for_circulation.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "regulator_guidance",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "the company must delete the facial recognition technologies enhanced by any improperly obtained photos"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c019",
+   "statement": "Chopra called model deletion a course correction because earlier FTC settlements had let data-protection violators keep algorithms built on ill-gotten data.",
+   "kind": "event",
+   "section": "regulation",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2021-01-08",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/documents/public_statements/1585858/updated_final_chopra_statement_on_everalbum_for_circulation.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "regulator_guidance",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "Commissioners have previously voted to allow data protection law violators to retain algorithms"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c020",
+   "statement": "Paravision states in its sworn 2022 compliance report that it timely submitted statements to the FTC confirming the ordered deletions of photos, embeddings and models.",
+   "kind": "outcome",
+   "section": "regulation",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2022-05-05",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/paravision_compliance_report_redacted.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "Paravision timely submitted written statements to the Commission confirming it deleted the data"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c021",
+   "statement": "Paravision states in its sworn 2022 compliance report that the technology it sells was not trained on any information collected through the Ever app.",
+   "kind": "outcome",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2022-05-05",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/paravision_compliance_report_redacted.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "the technology that Paravision sells was not trained on any Covered Information collected through the Ever application"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c022",
+   "statement": "The FTC alleged that between September 2017 and August 2019 Everalbum combined millions of face images extracted from Ever users' photos with public datasets to build four training datasets.",
+   "kind": "architecture",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2021-05-06",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/documents/cases/1923172_-_everalbum_complaint_final.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "court_record",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "Everalbum combined millions of facial images that it extracted from Ever users’ photos with facial images"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c023",
+   "statement": "The FTC alleged that Everalbum's scripts filtered out faces its machines judged to be under thirteen in three of the four datasets.",
+   "kind": "architecture",
+   "section": "vetting",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2021-05-06",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/documents/cases/1923172_-_everalbum_complaint_final.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "court_record",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "not identified by Everalbum’s machines as being an image of someone under the age of thirteen"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c024",
+   "statement": "The FTC alleged that for its June 2018 dataset Everalbum excluded users it believed from their IP addresses to be in Illinois, Texas, Washington or the EU.",
+   "kind": "architecture",
+   "section": "supply",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2021-05-06",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/documents/cases/1923172_-_everalbum_complaint_final.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "court_record",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "excluded facial images extracted from the photos of Ever users Everalbum believed to be residents of Illinois, Texas"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c025",
+   "statement": "Commissioner Chopra noted that Everalbum took greater care with users in states that had biometric laws, so its deception fell on users in other states.",
+   "kind": "terms",
+   "section": "regulation",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2021-01-08",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/documents/public_statements/1585858/updated_final_chopra_statement_on_everalbum_for_circulation.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "regulator_guidance",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "Everalbum took greater care when it came to these individuals in these states"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c026",
+   "statement": "The FTC alleged that the August 2019 dataset excluded users who had not turned on face recognition or clicked 'Yes' on the consent pop-up.",
+   "kind": "architecture",
+   "section": "supply",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2021-05-06",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/documents/cases/1923172_-_everalbum_complaint_final.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "court_record",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "excluded facial images extracted from the photos of Ever users who had not either turned on the setting, or clicked “Yes”"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c027",
+   "statement": "The FTC alleged that the model trained on the August 2019 dataset was used to build the face recognition services of Everalbum's enterprise brand Paravision, formerly Ever AI.",
+   "kind": "architecture",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2021-05-06",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/documents/cases/1923172_-_everalbum_complaint_final.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "court_record",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "to build the face recognition services offered by its enterprise brand, Paravision (formerly Ever AI)"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c028",
+   "statement": "The FTC alleged that Everalbum discarded, after testing, the models built from its first two datasets of autumn 2017 and April 2018.",
+   "kind": "architecture",
+   "section": "changes",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2021-05-06",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/documents/cases/1923172_-_everalbum_complaint_final.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "court_record",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "Everalbum discarded the face recognition technology that it developed in the Fall of 2017 and April 2018"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c029",
+   "statement": "The FTC alleged that Everalbum submitted the model from its June 2018 dataset to NIST for accuracy testing against competing face recognition technologies.",
+   "kind": "architecture",
+   "section": "trust",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2021-05-06",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/documents/cases/1923172_-_everalbum_complaint_final.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "court_record",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "submitted the resulting face recognition technology to the National Institute of Science and Technology for accuracy testing"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c030",
+   "statement": "The FTC complaint states that Everalbum did not share Ever users' photos, face images or personal information with Paravision's customers; only the resulting technology was sold.",
+   "kind": "architecture",
+   "section": "custody",
+   "question_ids": [
+    "Q6"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2021-05-06",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/documents/cases/1923172_-_everalbum_complaint_final.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "court_record",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "not shared images from Ever users’ photos or Ever users’ photos, videos, or personal information with Paravision’s customers"
+    },
+    {
+     "url": "https://www.nbcnews.com/tech/security/millions-people-uploaded-photos-ever-app-then-company-used-them-n1003371",
+     "publisher": "NBC News",
+     "source_class": "independent_press",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Ever AI does not share the photos or any identifying information about users with its facial recognition customers."
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c031",
+   "statement": "The FTC alleged that when Ever's face-grouping 'Friends' feature launched in February 2017, face recognition was on by default for all mobile users with no way to turn it off.",
+   "kind": "terms",
+   "section": "vetting",
+   "question_ids": [
+    "Q7",
+    "Q4"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2021-05-06",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/documents/cases/1923172_-_everalbum_complaint_final.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "court_record",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "it enabled face recognition by default for all users of the Ever mobile app"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c032",
+   "statement": "Ever's help article told users that turning face recognition on meant they had the approval of everyone featured in their photos and videos.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q5",
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2021-05-06",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/documents/cases/1923172_-_everalbum_complaint_final.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "court_record",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "and that you have the approval of everyone featured in your photos and videos"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c033",
+   "statement": "The FTC reported that about 25% of the roughly 300,000 Ever users who answered the face-recognition pop-up chose to turn it off.",
+   "kind": "number",
+   "section": "demand",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 25,
+    "unit": "percent of respondents",
+    "basis": "share of the ~300,000 Ever users who made a selection on the opt-in pop-up and chose to turn face recognition off",
+    "period": "since the pop-up was introduced (May 2018 / April 2019) to the complaint"
+   },
+   "origin": "government",
+   "as_of": "2021-05-06",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/documents/cases/1923172_-_everalbum_complaint_final.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "court_record",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "approximately 25% of the approximately 300,000 users who made a selection"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c034",
+   "statement": "The FTC reported that about 12 million consumers worldwide had installed the Ever app.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 12000000,
+    "unit": "app installs",
+    "basis": "consumers who installed Ever, worldwide, cumulative",
+    "period": "cumulative since 2015"
+   },
+   "origin": "government",
+   "as_of": "2021-05-06",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/documents/cases/1923172_-_everalbum_complaint_final.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "court_record",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "Globally, approximately 12 million consumers have installed Ever."
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c035",
+   "statement": "The FTC reported that about 36,000 Ever users had deactivated their accounts since January 2017.",
+   "kind": "number",
+   "section": "post_sale",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 36000,
+    "unit": "deactivated accounts",
+    "basis": "Ever users who deactivated, cumulative",
+    "period": "January 2017 to the complaint"
+   },
+   "origin": "government",
+   "as_of": "2021-05-06",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/documents/cases/1923172_-_everalbum_complaint_final.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "court_record",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "Since January 2017, approximately 36,000 Ever users have deactivated their accounts."
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c036",
+   "statement": "The FTC alleged that until at least October 2019 Everalbum deleted none of the photos or videos of users who had deactivated their accounts, despite promising to.",
+   "kind": "terms",
+   "section": "post_sale",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2021-05-06",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/documents/cases/1923172_-_everalbum_complaint_final.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "court_record",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "did not, in fact, delete the photos or videos of any users who had deactivated their accounts"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c037",
+   "statement": "From October 2019 Everalbum began deleting the photos and videos of Ever accounts deactivated for more than three months.",
+   "kind": "architecture",
+   "section": "post_sale",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2021-05-06",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/documents/cases/1923172_-_everalbum_complaint_final.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "court_record",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "deleting all the photos and videos associated with Ever accounts that have been deactivated for more than three months"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c038",
+   "statement": "Commissioner Chopra wrote that the company allegedly enhanced its face recognition by baiting consumers into using Ever, a 'free' photo app.",
+   "kind": "terms",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3",
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2021-01-08",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/documents/public_statements/1585858/updated_final_chopra_statement_on_everalbum_for_circulation.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "regulator_guidance",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "The company enhanced their facial recognition technology by allegedly baiting consumers into using Ever, a “free” app"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c039",
+   "statement": "The FTC complaint describes Paravision as offering its face recognition technology to enterprise customers for security, access control and payments.",
+   "kind": "offer",
+   "section": "positioning",
+   "question_ids": [
+    "Q1",
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "government",
+   "as_of": "2021-05-06",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/documents/cases/1923172_-_everalbum_complaint_final.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "court_record",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "Paravision offers its face recognition technology to enterprise customers for purposes such as security, access control"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c040",
+   "statement": "Paravision states that it operates solely business-to-business or business-to-government and offers nothing to individual consumers.",
+   "kind": "offer",
+   "section": "transaction",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2022-05-05",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/paravision_compliance_report_redacted.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "Paravision operates solely on a business-to-business or business-to-government basis"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c041",
+   "statement": "Paravision presents itself as a maker of ethically developed AI building blocks for identity, not as a seller of datasets.",
+   "kind": "offer",
+   "section": "positioning",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.paravision.ai/",
+     "publisher": "Paravision",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Ethically developed AI building blocks for the next generation of identity"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c042",
+   "statement": "NBC News reported in 2019 that Ever AI offered law enforcement the ability to identify faces in body-cam recordings or live video feeds.",
+   "kind": "offer",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "independent",
+   "as_of": "2019-05-09",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.nbcnews.com/tech/security/millions-people-uploaded-photos-ever-app-then-company-used-them-n1003371",
+     "publisher": "NBC News",
+     "source_class": "independent_press",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "It offers law enforcement the ability to identify faces in body-cam recordings or live video feeds."
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c043",
+   "statement": "Ever AI said in 2019 that it had a private global dataset of 13 billion photos and videos from tens of millions of users in 95 countries.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 13000000000,
+    "unit": "photos and videos",
+    "basis": "company's own claim quoted by NBC News; not independently verified; size of the Ever user corpus, not a training set",
+    "period": "as of May 2019"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2019-05-09",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.nbcnews.com/tech/security/millions-people-uploaded-photos-ever-app-then-company-used-them-n1003371",
+     "publisher": "NBC News",
+     "source_class": "independent_press",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "ever-expanding private global dataset of 13 billion photos and videos"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c044",
+   "statement": "Ever's CEO told NBC News the company turned to face recognition after concluding that a free photo app with small paid features would not be a venture-scale business.",
+   "kind": "event",
+   "section": "positioning",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2019-05-09",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.nbcnews.com/tech/security/millions-people-uploaded-photos-ever-app-then-company-used-them-n1003371",
+     "publisher": "NBC News",
+     "source_class": "independent_press",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "a free photo app with some small paid premium features \"wasn't going to be a venture-scale business.\""
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c045",
+   "statement": "NBC News reported that Ever's only disclosure of training use was a brief privacy-policy reference added after NBC News contacted the company.",
+   "kind": "event",
+   "section": "licence",
+   "question_ids": [
+    "Q4",
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "independent",
+   "as_of": "2019-05-09",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.nbcnews.com/tech/security/millions-people-uploaded-photos-ever-app-then-company-used-them-n1003371",
+     "publisher": "NBC News",
+     "source_class": "independent_press",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "except for a brief reference that was added to the privacy policy after NBC News reached out"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c046",
+   "statement": "Paravision states that the face recognition it sells is trained only on public datasets, consenting employees, and images bought from third parties outside the US and EEA who must contractually obtain consent.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q1",
+    "Q3",
+    "Q5",
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2022-05-05",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/paravision_compliance_report_redacted.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "from third parties outside of the United States and Europe Economic Area who are contractually obligated to obtain consent"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c047",
+   "statement": "Paravision's AI Principles commit it to obtaining all necessary consents, including appropriate releases, before collecting data.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q5",
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2022-04-06",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.paravision.ai/ai-principles/",
+     "publisher": "Paravision",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "we will ensure that we have obtained all necessary consents, including appropriate releases, prior to the collection of data"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c048",
+   "statement": "Paravision's AI Principles say it uses well-recognized public datasets subject to its review of their licences.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q3",
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2022-04-06",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.paravision.ai/ai-principles/",
+     "publisher": "Paravision",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "we will collect widely-used and well-recognized, public datasets subject to our review of their corresponding licenses."
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c049",
+   "statement": "Paravision keeps a list of countries where it will not do business, available on request.",
+   "kind": "terms",
+   "section": "vetting",
+   "question_ids": [
+    "Q5"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2022-04-06",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.paravision.ai/ai-principles/",
+     "publisher": "Paravision",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "We maintain and make available on request a list of countries in which we will not do business at all."
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c050",
+   "statement": "Paravision states that it vets the partners and customers it does business with.",
+   "kind": "terms",
+   "section": "vetting",
+   "question_ids": [
+    "Q5"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2022-05-05",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/paravision_compliance_report_redacted.pdf",
+     "publisher": "U.S. Federal Trade Commission",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "Paravision vets partners and customers with whom the Company does business"
+    }
+   ]
+  },
+  {
+   "id": "everalbum-c051",
+   "statement": "Paravision's privacy policy (May 2024) says it gets product-development images from people it photographs and from third parties contractually obligated to obtain their consent.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2024-05-22",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.paravision.ai/privacy-policy/",
+     "publisher": "Paravision",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "through third parties who are contractually obligated to obtain your consent"
+    }
+   ]
+  }
+ ],
+ "unknowns": [
+  {
+   "field": "matrix.erasure_after_sale",
+   "urls_tried": [
+    "https://www.ftc.gov/system/files/ftc_gov/pdf/paravision_compliance_report_redacted.pdf",
+    "https://www.ftc.gov/system/files/documents/cases/1923172_-_everalbum_decision_final.pdf",
+    "https://www.ftc.gov/legal-library/browse/cases-proceedings/192-3172-everalbum-inc-matter",
+    "https://www.ftc.gov/news-events/news/press-releases/2021/05/ftc-finalizes-settlement-photo-app-developer-related-misuse-facial-recognition-technology"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "other.recall_of_deployed_models",
+   "urls_tried": [
+    "https://www.ftc.gov/system/files/ftc_gov/pdf/paravision_compliance_report_redacted.pdf",
+    "https://www.ftc.gov/legal-library/browse/cases-proceedings/192-3172-everalbum-inc-matter",
+    "https://www.nbcnews.com/tech/security/millions-people-uploaded-photos-ever-app-then-company-used-them-n1003371"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "other.sworn_deletion_statements",
+   "urls_tried": [
+    "https://www.ftc.gov/legal-library/browse/cases-proceedings/192-3172-everalbum-inc-matter",
+    "https://www.ftc.gov/system/files/ftc_gov/pdf/paravision_compliance_report_redacted.pdf"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "other.model_pricing_and_sales_process",
+   "urls_tried": [
+    "https://www.paravision.ai/",
+    "https://www.paravision.ai/newsroom/"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "other.funding_and_headcount_after_2022",
+   "urls_tried": [
+    "https://www.paravision.ai/newsroom/",
+    "https://www.paravision.ai/news/paravision-appoints-tiffany-lee-as-chief-financial-officer/"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "other.independent_press_after_order",
+   "urls_tried": [
+    "https://www.nbcnews.com/tech/security/millions-people-uploaded-photos-ever-app-then-company-used-them-n1003371"
+   ],
+   "reason": "not_found"
+  },
+  {
+   "field": "other.ever_help_article_and_privacy_policy_originals",
+   "urls_tried": [],
+   "reason": "not_found"
+  }
+ ],
+ "conflicts": [
+  {
+   "claim_ids": [
+    "everalbum-c027",
+    "everalbum-c021"
+   ],
+   "rule_applied": "newer_wins_status",
+   "resolution": "Both hold at their dates: the FTC alleged a model trained on Ever data was built into Paravision's services (2019); after the ordered deletion, Paravision swore in May 2022 that what it sells was not trained on Ever data."
+  }
+ ],
+ "leads": [
+  {
+   "url": "https://www.federalregister.gov/documents/2021/01/25/2021-01430/everalbum-inc-analysis-of-proposed-consent-order-to-aid-public-comment",
+   "why": "Federal Register notice of the proposed order; not fetched."
+  },
+  {
+   "url": "https://www.ftc.gov/system/files/documents/cases/valentine_response_final.pdf",
+   "why": "FTC response to a second public comment; not fetched."
+  },
+  {
+   "url": "https://www.nytimes.com/interactive/2019/10/11/technology/flickr-facial-recognition.html",
+   "why": "Cited by Chopra on photo-sharing apps feeding face recognition; not fetched (paywall likely)."
+  },
+  {
+   "url": "https://www.ftc.gov/system/files/documents/cases/everalbum_analysis.pdf",
+   "why": "FTC analysis to aid public comment; read, restates the complaint and order."
+  }
+ ]
+}

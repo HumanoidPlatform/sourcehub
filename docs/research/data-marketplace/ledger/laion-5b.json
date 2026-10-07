@@ -1,0 +1,1597 @@
+{
+  "kind": "profile",
+  "slug": "laion-5b",
+  "name": "LAION-5B",
+  "aliases": [
+    "Re-LAION-5B",
+    "LAION e.V."
+  ],
+  "segment": "failure",
+  "tier": "light",
+  "status": {
+    "value": "active",
+    "claim_id": "laion-5b-c001"
+  },
+  "names_for": {
+    "catalogue_side": "datasets (LAION: 'provides datasets, tools and models')",
+    "custom_side": "unknown"
+  },
+  "matrix": {
+    "operator_role": {
+      "value": "not_applicable",
+      "claim_ids": [
+        "laion-5b-c029",
+        "laion-5b-c031",
+        "laion-5b-c037"
+      ],
+      "note": "No sale or intermediation: LAION publishes its own link datasets free of charge as a non-profit; it is licensor of the metadata only."
+    },
+    "economics_model": {
+      "value": "free",
+      "claim_ids": [
+        "laion-5b-c031",
+        "laion-5b-c029"
+      ],
+      "note": "Published free of charge; non-profit."
+    },
+    "who_pays_fee": {
+      "value": "not_applicable",
+      "claim_ids": [
+        "laion-5b-c031"
+      ],
+      "note": "No fee is charged to either side."
+    },
+    "supply_models": {
+      "value": [
+        "public_or_scraped"
+      ],
+      "claim_ids": [
+        "laion-5b-c021",
+        "laion-5b-c012"
+      ],
+      "note": "URLs and alt text harvested from Common Crawl, CLIP-filtered."
+    },
+    "custody_model": {
+      "value": "mixed",
+      "claim_ids": [
+        "laion-5b-c013",
+        "laion-5b-c014",
+        "laion-5b-c018",
+        "laion-5b-c028"
+      ],
+      "note": "Link-only dataset: metadata hosted (gated) on Hugging Face; images stay with third-party web hosts and each user downloads its own copy. None of the enum values fits exactly."
+    },
+    "transaction_mode": {
+      "value": "free_download",
+      "claim_ids": [
+        "laion-5b-c018",
+        "laion-5b-c001",
+        "laion-5b-c031"
+      ],
+      "note": "Free download behind a Hugging Face gate that collects contact / affiliation information."
+    },
+    "public_prices": {
+      "value": "not_applicable",
+      "claim_ids": [
+        "laion-5b-c031"
+      ],
+      "note": "Free; nothing is priced."
+    },
+    "licence_model": {
+      "value": "open_licences",
+      "claim_ids": [
+        "laion-5b-c015",
+        "laion-5b-c016",
+        "laion-5b-c017"
+      ],
+      "note": "CC-BY 4.0 (original) then Apache-2.0 (Re-LAION) for the metadata; linked images remain under their owners' copyright."
+    },
+    "exclusivity_offered": {
+      "value": "no",
+      "claim_ids": [
+        "laion-5b-c015",
+        "laion-5b-c016"
+      ],
+      "note": "Open licences are non-exclusive by construction; no exclusive offer found."
+    },
+    "public_listing": {
+      "value": "public_summary_gated_detail",
+      "claim_ids": [
+        "laion-5b-c001",
+        "laion-5b-c018"
+      ],
+      "note": "Dataset page is public; files require accepting the gate."
+    },
+    "buyer_vetting": {
+      "value": "account_only",
+      "claim_ids": [
+        "laion-5b-c001",
+        "laion-5b-c018"
+      ],
+      "note": "Hugging Face account plus submitted contact/affiliation information; whether LAION reviews requests manually was not found."
+    },
+    "sample_mechanics": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Not established from fetched pages."
+    },
+    "versioning": {
+      "value": "unknown",
+      "claim_ids": [
+        "laion-5b-c009",
+        "laion-5b-c010",
+        "laion-5b-c020"
+      ],
+      "note": "Observed pattern: withdraw the release, publish a new named release (Re-LAION-5B, two variants) and provide diffs; whether old revisions stay retrievable was not established."
+    },
+    "human_subject_consent_docs": {
+      "value": "not_addressed",
+      "claim_ids": [
+        "laion-5b-c023",
+        "laion-5b-c027",
+        "laion-5b-c017"
+      ],
+      "note": "No consent documentation; web-scraped images of people, including children, without their knowledge; only an after-the-fact GDPR takedown route."
+    },
+    "contributor_pay_model": {
+      "value": "not_applicable",
+      "claim_ids": [
+        "laion-5b-c021"
+      ],
+      "note": "No contributors: content is scraped links from Common Crawl."
+    },
+    "catalogue_plus_custom": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "LAION publishes datasets; no evidence either way on custom collection."
+    },
+    "erasure_after_sale": {
+      "value": "takedown_only",
+      "claim_ids": [
+        "laion-5b-c027",
+        "laion-5b-c019",
+        "laion-5b-c020",
+        "laion-5b-c028"
+      ],
+      "note": "Entries removed from LAION's own copy on request; downstream holders are urged, not obliged, to migrate or apply diffs."
+    },
+    "quality_evidence": {
+      "value": "provider_asserted",
+      "claim_ids": [
+        "laion-5b-c033",
+        "laion-5b-c038",
+        "laion-5b-c036",
+        "laion-5b-c012"
+      ],
+      "note": "LAION as producer publishes CLIP filtering and NSFW/watermark scores; no separate operator verification. Independent audit (Stanford) found its filters missed CSAM [c004, c008]."
+    }
+  },
+  "questions": {
+    "Q1": {
+      "state": "partial",
+      "answer": "Used to train text-to-image models such as Stable Diffusion, whose developer funded it; LAION itself steered use toward research rather than products. No buyer units or volumes exist since it is free.",
+      "claim_ids": [
+        "laion-5b-c035",
+        "laion-5b-c034"
+      ]
+    },
+    "Q2": {
+      "state": "partial",
+      "answer": "LAION distributes through Hugging Face gated repositories rather than its own storefront; why it chose that channel is not stated.",
+      "claim_ids": [
+        "laion-5b-c018",
+        "laion-5b-c001"
+      ]
+    },
+    "Q3": {
+      "state": "sourced",
+      "answer": "All inventory is URLs and alt text scraped from Common Crawl; LAION asserts the images stay under their owners' copyright and relies on text-and-data-mining exceptions, which German courts upheld.",
+      "claim_ids": [
+        "laion-5b-c021",
+        "laion-5b-c017",
+        "laion-5b-c029",
+        "laion-5b-c030",
+        "laion-5b-c032"
+      ]
+    },
+    "Q4": {
+      "state": "not_applicable",
+      "answer": "No commissioned work: the dataset is built from scraped public web links.",
+      "claim_ids": []
+    },
+    "Q5": {
+      "state": "partial",
+      "answer": "LAION is a non-profit publisher, not an intermediary; it relies on the scientific-research TDM exception, upheld in Kneschke v LAION partly because the dataset was free. No warranty or indemnity terms were found.",
+      "claim_ids": [
+        "laion-5b-c029",
+        "laion-5b-c030",
+        "laion-5b-c031",
+        "laion-5b-c032"
+      ]
+    },
+    "Q6": {
+      "state": "sourced",
+      "answer": "Link-only: LAION hosts metadata, the images stay on third-party hosts, and every user fetches its own copy; removing a link does not remove the image from the web.",
+      "claim_ids": [
+        "laion-5b-c013",
+        "laion-5b-c014",
+        "laion-5b-c028"
+      ]
+    },
+    "Q7": {
+      "state": "partial",
+      "answer": "No consent from capturers or people depicted; HRW found children's photos included without knowledge or consent, and LAION removed them after the fact; individuals can only request a GDPR takedown of the entry.",
+      "claim_ids": [
+        "laion-5b-c022",
+        "laion-5b-c023",
+        "laion-5b-c024",
+        "laion-5b-c025",
+        "laion-5b-c026",
+        "laion-5b-c040",
+        "laion-5b-c027"
+      ]
+    },
+    "Q8": {
+      "state": "partial",
+      "answer": "Open licences (CC-BY 4.0, then Apache-2.0) on the metadata with no audit, fingerprinting or recall; copies already downloaded kept the illegal links, and LAION could only urge migration.",
+      "claim_ids": [
+        "laion-5b-c015",
+        "laion-5b-c016",
+        "laion-5b-c006",
+        "laion-5b-c019"
+      ]
+    },
+    "Q9": {
+      "state": "sourced",
+      "answer": "Free download through a Hugging Face gate that asks for contact and affiliation information; no commission or revenue.",
+      "claim_ids": [
+        "laion-5b-c018",
+        "laion-5b-c001",
+        "laion-5b-c031"
+      ]
+    },
+    "Q10": {
+      "state": "partial",
+      "answer": "LAION-5B was pulled on 19 Dec 2023 with no instruction to existing holders in the notice; Re-LAION-5B (Aug 2024) removed 2,236 links, and past users were urged to migrate and given metadata to diff their derivatives.",
+      "claim_ids": [
+        "laion-5b-c002",
+        "laion-5b-c005",
+        "laion-5b-c009",
+        "laion-5b-c010",
+        "laion-5b-c019",
+        "laion-5b-c020",
+        "laion-5b-c007"
+      ]
+    },
+    "Q11": {
+      "state": "partial",
+      "answer": "Quality evidence was LAION's own CLIP and NSFW scores and filters; an independent Stanford hash-matching audit found hundreds of known CSAM items the filters had missed.",
+      "claim_ids": [
+        "laion-5b-c033",
+        "laion-5b-c038",
+        "laion-5b-c039",
+        "laion-5b-c036",
+        "laion-5b-c004",
+        "laion-5b-c008"
+      ]
+    },
+    "Q12": {
+      "state": "unknown",
+      "answer": "",
+      "claim_ids": []
+    }
+  },
+  "claims": [
+    {
+      "id": "laion-5b-c001",
+      "statement": "As of 2026-09-30 the Re-LAION-5B subset relaion2B-en-research-safe is still offered on Hugging Face behind a gate that requires sharing contact information.",
+      "kind": "status",
+      "section": "changes",
+      "question_ids": [
+        "Q9",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Re-LAION-5B (relaion2B-en-research-safe)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/laion/relaion2B-en-research-safe",
+          "publisher": "LAION on Hugging Face",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You need to agree to share your contact information to access this dataset"
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c002",
+      "statement": "On 19 December 2023 LAION announced it was temporarily taking down the LAION datasets to ensure they were safe before republishing them.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2023-12-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://laion.ai/notes/laion-maintenance/",
+          "publisher": "LAION",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "we are temporarily taking down the LAION datasets to ensure they are safe before republishing them"
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c003",
+      "statement": "LAION's takedown notice cited a zero tolerance policy for illegal content and an abundance of caution as the reason for the takedown.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2023-12-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://laion.ai/notes/laion-maintenance/",
+          "publisher": "LAION",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "LAION has a zero tolerance policy for illegal content and in an abundance of caution"
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c004",
+      "statement": "The Stanford Internet Observatory investigation reported 3,226 suspected instances of child sexual abuse material in LAION-5B, of which 1,008 were externally validated.",
+      "kind": "number",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 3226,
+        "unit": "suspected CSAM instances (links) in LAION-5B",
+        "basis": "Stanford Internet Observatory count as reported by 404 Media; 1,008 of these externally validated",
+        "period": "as of the December 2023 report"
+      },
+      "origin": "independent",
+      "as_of": "2023-12-20",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.404media.co/laion-datasets-removed-stanford-csam-child-abuse/",
+          "publisher": "404 Media",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "3,226 suspected instances of child sexual abuse material, 1,008 of which were externally validated"
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c005",
+      "statement": "404 Media reported on 20 December 2023 that LAION was taking down its datasets, including LAION-5B and LAION-400M.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "independent",
+      "as_of": "2023-12-20",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.404media.co/laion-datasets-removed-stanford-csam-child-abuse/",
+          "publisher": "404 Media",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "it was taking down its datasets, including LAION-5B and another called LAION-400M"
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c006",
+      "statement": "404 Media quoted the view that anyone who had downloaded the full LAION-5B dataset, including for research model training, holds CSAM.",
+      "kind": "outcome",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "independent",
+      "as_of": "2023-12-20",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.404media.co/laion-datasets-removed-stanford-csam-child-abuse/",
+          "publisher": "404 Media",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "full dataset for whatever purpose, for training a model for research purposes, then yes, you absolutely have CSAM"
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c007",
+      "statement": "The Stanford report on LAION-5B includes recommendations for those who need to maintain copies of the training set and for hosting models trained on it.",
+      "kind": "outcome",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "academic",
+      "as_of": "2023-12-20",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://purl.stanford.edu/kh752sm9123",
+          "publisher": "Stanford Digital Repository (Stanford Internet Observatory)",
+          "source_class": "academic",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "recommendations for mitigating this issue for those that need to maintain copies of this training set"
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c008",
+      "statement": "The Stanford report says its methodology detected many hundreds of instances of known CSAM in the LAION-5B training set.",
+      "kind": "outcome",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "academic",
+      "as_of": "2023-12-20",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://purl.stanford.edu/kh752sm9123",
+          "publisher": "Stanford Digital Repository (Stanford Internet Observatory)",
+          "source_class": "academic",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "This methodology detected many hundreds of instances of known CSAM in the training set"
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c009",
+      "statement": "LAION says Re-LAION-5B, released 30 August 2024, is the first web-scale text-link to image pair dataset thoroughly cleaned of known links to suspected CSAM.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2024-08-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://laion.ai/blog/relaion-5b/",
+          "publisher": "LAION",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the first web-scale, text-link to images pair dataset to be thoroughly cleaned of known links to suspected CSAM"
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c010",
+      "statement": "LAION says 2,236 links were removed from LAION-5B to make Re-LAION-5B, after matching against link and image hash lists from its partners.",
+      "kind": "number",
+      "section": "changes",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 2236,
+        "unit": "links removed",
+        "basis": "links in LAION-5B matched against hash lists from C3P, IWF and Stanford Internet Observatory; vendor-stated",
+        "period": "one-off (Re-LAION-5B release)"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2024-08-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://laion.ai/blog/relaion-5b/",
+          "publisher": "LAION",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "In all, 2236 links were removed after matching with the lists of link and image hashes provided by our partners."
+        },
+        {
+          "url": "https://the-decoder.com/laion-releases-ai-dataset-re-laion-5b-purged-of-links-to-child-abuse-images/",
+          "publisher": "The Decoder",
+          "source_class": "press_relaying_vendor",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "A total of 2,236 links were removed after checking against lists provided by partners."
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c011",
+      "statement": "LAION says Re-LAION-5B contains 5,526,641,167 text-link to image pairs.",
+      "kind": "number",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 5526641167,
+        "unit": "text-link to image pairs",
+        "basis": "dataset size stated by LAION for Re-LAION-5B",
+        "period": "as of the August 2024 release"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2024-08-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://laion.ai/blog/relaion-5b/",
+          "publisher": "LAION",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Total number of text-link to images pairs in Re-LAION-5B: 5.5 B (5,526,641,167)"
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c012",
+      "statement": "LAION described the original LAION-5B as a dataset of 5.85 billion CLIP-filtered image-text pairs.",
+      "kind": "number",
+      "section": "object_model",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 5850000000,
+        "unit": "image-text pairs",
+        "basis": "dataset size stated by LAION for the original LAION-5B",
+        "period": "as of the March 2022 release"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2022-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://laion.ai/blog/laion-5b/",
+          "publisher": "LAION",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We present a dataset of 5,85 billion CLIP-filtered image-text pairs"
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c013",
+      "statement": "LAION states that its datasets contain only links and metadata, not the images themselves.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2024-08-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://laion.ai/blog/relaion-5b/",
+          "publisher": "LAION",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The datasets of LAION only contain links and metadata."
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c014",
+      "statement": "LAION's FAQ states that its datasets do not contain any original media samples such as images, audio or video.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://laion.ai/faq/",
+          "publisher": "LAION",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "LAION datasets do not contain any original media samples such as images, audio, or video."
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c015",
+      "statement": "Re-LAION-5B is released under the Apache-2.0 licence.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Re-LAION-5B",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2024-08-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://laion.ai/blog/relaion-5b/",
+          "publisher": "LAION",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "released under Apache-2.0 license"
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c016",
+      "statement": "The original LAION-5B announcement gave the dataset licence as Creative Commons CC-BY 4.0.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "LAION-5B (original)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2022-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://laion.ai/blog/laion-5b/",
+          "publisher": "LAION",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Creative Common CC-BY 4.0"
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c017",
+      "statement": "The LAION-5B announcement states that the linked images remain under their own copyright.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2022-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://laion.ai/blog/laion-5b/",
+          "publisher": "LAION",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The images are under their copyright."
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c018",
+      "statement": "Both Re-LAION-5B versions are released via gated access on Hugging Face that requires submitting affiliation information.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2024-08-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://laion.ai/blog/relaion-5b/",
+          "publisher": "LAION",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "released via gated access on HF, requiring submission of affiliation information"
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c019",
+      "statement": "LAION urged all research labs and organisations still using the old LAION-5B to migrate to Re-LAION-5B as soon as possible.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2024-08-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://laion.ai/blog/relaion-5b/",
+          "publisher": "LAION",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We strongly urge all research labs and organizations who still make use of old LAION-5B to migrate to Re-LAION-5B datasets"
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c020",
+      "statement": "LAION says third parties can use Re-LAION-5B metadata to clean existing derivatives of LAION-5B by generating diffs.",
+      "kind": "architecture",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2024-08-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://laion.ai/blog/relaion-5b/",
+          "publisher": "LAION",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Re-LAION-5B metadata can be utilized by third parties to clean existing derivatives of LAION-5B by generating diffs"
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c021",
+      "statement": "LAION states its datasets are sourced from the Common Crawl web index and offer only links to content.",
+      "kind": "architecture",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2023-12-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://laion.ai/notes/laion-maintenance/",
+          "publisher": "LAION",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "are sourced from the freely available Common Crawl web index and offer only links to content"
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c022",
+      "statement": "Human Rights Watch reported finding 170 photos of Brazilian children from at least 10 states in LAION-5B.",
+      "kind": "number",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 170,
+        "unit": "photos of identifiable Brazilian children found in LAION-5B",
+        "basis": "Human Rights Watch count from a sample review, not a full audit",
+        "period": "as of June 2024"
+      },
+      "origin": "independent",
+      "as_of": "2024-06-10",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.hrw.org/news/2024/06/10/brazil-childrens-personal-photos-misused-power-ai-tools",
+          "publisher": "Human Rights Watch",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Human Rights Watch found 170 photos of children from at least 10 states"
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c023",
+      "statement": "Human Rights Watch said the Brazilian children's photos were in LAION-5B without the children's knowledge or consent.",
+      "kind": "outcome",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "independent",
+      "as_of": "2024-06-10",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.hrw.org/news/2024/06/10/brazil-childrens-personal-photos-misused-power-ai-tools",
+          "publisher": "Human Rights Watch",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "without the children’s knowledge or consent"
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c024",
+      "statement": "According to Human Rights Watch, LAION confirmed the children's photos were in LAION-5B and pledged to remove them.",
+      "kind": "event",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "independent",
+      "as_of": "2024-06-10",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.hrw.org/news/2024/06/10/brazil-childrens-personal-photos-misused-power-ai-tools",
+          "publisher": "Human Rights Watch",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "confirmed that the data set contained the children’s personal photos found by Human Rights Watch and pledged to remove them"
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c025",
+      "statement": "LAION says Re-LAION-5B also removed privacy-related data that contained no illegal content, in cooperation with Human Rights Watch.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2024-08-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://laion.ai/blog/relaion-5b/",
+          "publisher": "LAION",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "further privacy related data that did not contain any illegal content was removed in cooperation with the Human Rights Watch"
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c026",
+      "statement": "LAION says 399 links to children's private information reported by Human Rights Watch were removed in Re-LAION-5B.",
+      "kind": "number",
+      "section": "changes",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 399,
+        "unit": "links removed for privacy reasons",
+        "basis": "41 links from a first HRW report plus 358 from a second; vendor-stated",
+        "period": "one-off (Re-LAION-5B release)"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2024-08-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://laion.ai/blog/relaion-5b/",
+          "publisher": "LAION",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "= 399 links to public web provided by HRW"
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c027",
+      "statement": "LAION's FAQ says a person whose image is in a URL or picture may request a takedown of the dataset entry through its GDPR page.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://laion.ai/faq/",
+          "publisher": "LAION",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you may request a takedown of the dataset entry in the GDPR page."
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c028",
+      "statement": "LAION's FAQ says that to remove content from the web entirely a person must contact the original hosting provider.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q6",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://laion.ai/faq/",
+          "publisher": "LAION",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you will need to contact the original hosting provider directly"
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c029",
+      "statement": "LAION's FAQ describes LAION as a non-profit research organisation and says text and data mining exemptions are therefore valid.",
+      "kind": "terms",
+      "section": "positioning",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://laion.ai/faq/",
+          "publisher": "LAION",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "LAION is a non-profit research organization that studies how learning algorithms work. Therefore, TDM exemptions are valid"
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c030",
+      "statement": "The Hamburg Regional Court (case 310 O 227/23) dismissed photographer Robert Kneschke's copyright infringement claim against LAION in September 2024.",
+      "kind": "event",
+      "section": "regulation",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "independent",
+      "as_of": "2024-10-10",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://ipwatchdog.com/2024/10/10/german-court-non-commercial-ai-training-data-meets-scientific-research-exception-copyright-infringement/",
+          "publisher": "IPWatchdog",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "dismissed Kneschke’s copyright infringement claim against LAION"
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c031",
+      "statement": "IPWatchdog reports the Hamburg court relied on the dataset having been published free of charge and made available to researchers.",
+      "kind": "outcome",
+      "section": "regulation",
+      "question_ids": [
+        "Q5",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "independent",
+      "as_of": "2024-10-10",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://ipwatchdog.com/2024/10/10/german-court-non-commercial-ai-training-data-meets-scientific-research-exception-copyright-infringement/",
+          "publisher": "IPWatchdog",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "published free of charge and thus made available to researchers"
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c032",
+      "statement": "On 10 December 2025 the Higher Regional Court of Hamburg rejected Kneschke's appeal against the ruling in LAION's favour.",
+      "kind": "event",
+      "section": "regulation",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "independent",
+      "as_of": "2025-12-10",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.dlapiper.com/en/insights/blogs/mse-today/2025/robert-kneschke-v-laion",
+          "publisher": "DLA Piper",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "In its judgment of 10 December 2025, the court rejected the appeal filed by photographer Robert Kneschke"
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c033",
+      "statement": "Re-LAION-5B-research-safe removes the majority of NSFW samples using a p_unsafe threshold of 0.45.",
+      "kind": "architecture",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Re-LAION-5B-research-safe",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2024-08-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://laion.ai/blog/relaion-5b/",
+          "publisher": "LAION",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "elimination of the majority of NSFW presence: p_unsafe > 0.45"
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c038",
+      "statement": "For Re-LAION-5B-research the p_unsafe removal threshold, applied together with keyword text filters, is 0.95.",
+      "kind": "architecture",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Re-LAION-5B-research",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2024-08-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://laion.ai/blog/relaion-5b/",
+          "publisher": "LAION",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "For Re-LAION-5B-research, this threshold is determined to be p_unsafe>0.95"
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c039",
+      "statement": "LAION says the research-safe NSFW filter removes 3.044% of samples from the original LAION-5B, about 176M of 5.8B.",
+      "kind": "number",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Re-LAION-5B-research-safe",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 3.044,
+        "unit": "percent of samples removed",
+        "basis": "share of original LAION-5B samples removed by the p_unsafe > 0.45 filter in Re-LAION-5B-research-safe; vendor-stated",
+        "period": "one-off (Re-LAION-5B release)"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2024-08-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://laion.ai/blog/relaion-5b/",
+          "publisher": "LAION",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "This leads to removal of 3.044% (60.88M from 2B, 176M from 5.8B) samples from original LAION-5B."
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c040",
+      "statement": "LAION says many of the 399 links reported by Human Rights Watch were not confirmed to contain sensitive data but it removed all of them anyway.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2024-08-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://laion.ai/blog/relaion-5b/",
+          "publisher": "LAION",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "In abundance of caution, we have still removed any of the links that were matching HRW collection"
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c034",
+      "statement": "LAION recommended that LAION-5B be used for research and did not recommend using it to create ready-to-go industrial products.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q1",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2022-03-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://laion.ai/blog/laion-5b/",
+          "publisher": "LAION",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "do not recommend using it for creating ready-to-go industrial products"
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c035",
+      "statement": "404 Media reported that Stable Diffusion uses LAION-5B and that Stability AI funded the dataset's development.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "independent",
+      "as_of": "2023-12-20",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.404media.co/laion-datasets-removed-stanford-csam-child-abuse/",
+          "publisher": "404 Media",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Stable Diffusion, for example, uses LAION-5B, and Stability AI funded its development."
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c036",
+      "statement": "Before the takedown LAION said it had developed and published its own filters to detect and remove illegal content before releasing datasets.",
+      "kind": "architecture",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2023-12-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://laion.ai/notes/laion-maintenance/",
+          "publisher": "LAION",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We developed and published our own rigorous filters to detect and remove illegal content from LAION datasets"
+        }
+      ]
+    },
+    {
+      "id": "laion-5b-c037",
+      "statement": "LAION describes itself as a non-profit organisation that provides datasets, tools and models for machine learning research.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2023-12-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://laion.ai/notes/laion-maintenance/",
+          "publisher": "LAION",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "LAION is a non-profit organization that provides datasets, tools and models for the advancement of machine learning research"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "matrix.sample_mechanics",
+      "urls_tried": [
+        "https://huggingface.co/datasets/laion/relaion2B-en-research-safe",
+        "https://laion.ai/blog/relaion-5b/",
+        "https://laion.ai/blog/laion-5b/"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.versioning",
+      "urls_tried": [
+        "https://laion.ai/blog/relaion-5b/",
+        "https://huggingface.co/datasets/laion/relaion2B-en-research-safe",
+        "https://huggingface.co/datasets/laion/laion2B-en"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.catalogue_plus_custom",
+      "urls_tried": [
+        "https://laion.ai/",
+        "https://laion.ai/faq/",
+        "https://laion.ai/blog/"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "names_for.custom_side",
+      "urls_tried": [
+        "https://laion.ai/",
+        "https://laion.ai/faq/"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "questions.Q12",
+      "urls_tried": [
+        "https://laion.ai/",
+        "https://laion.ai/faq/",
+        "https://laion.ai/blog/"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "questions.Q10.notice_to_existing_holders_dec_2023",
+      "urls_tried": [
+        "https://laion.ai/notes/laion-maintenance/"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "questions.Q5.warranty_and_indemnity",
+      "urls_tried": [
+        "https://laion.ai/faq/",
+        "https://huggingface.co/datasets/laion/relaion2B-en-research-safe",
+        "https://laion.ai/dataset-requests/",
+        "https://laion.ai/gdpr/"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "questions.Q5.court_record",
+      "urls_tried": [
+        "https://www.euipo.europa.eu/en/law/recent-case-law/germany-hamburg-district-court-310-o-22723-laion-v-robert-kneschke",
+        "https://www.twobirds.com/en/insights/2025/germany/higher-regional-court-hamburg-confirms-ai-training-was-permitted-(kneschke-v,-d-,-laion)"
+      ],
+      "reason": "blocked"
+    },
+    {
+      "field": "questions.Q11.stanford_press_release",
+      "urls_tried": [
+        "https://cyber.fsi.stanford.edu/news/investigation-finds-ai-image-generation-models-trained-child-abuse"
+      ],
+      "reason": "blocked"
+    }
+  ],
+  "conflicts": [],
+  "leads": [
+    {
+      "url": "https://purl.stanford.edu/kh752sm9123",
+      "why": "Landing page only was read; the full Stanford PDF has the specific recommendations for holders of copies and model hosts."
+    },
+    {
+      "url": "https://huggingface.co/datasets/laion/laion2B-en",
+      "why": "Original-name repo is live and gated with recent downloads; unclear whether its files now hold the cleaned Re-LAION data or the original."
+    },
+    {
+      "url": "https://www.euipo.europa.eu/en/law/recent-case-law/germany-hamburg-district-court-310-o-22723-laion-v-robert-kneschke",
+      "why": "EUIPO case-law summary of Kneschke v LAION; returned 403."
+    },
+    {
+      "url": "https://arxiv.org/abs/2506.17185",
+      "why": "Academic paper on privacy problems in a large web-scraped dataset (DataComp CommonPool); related failure mode."
+    },
+    {
+      "url": "https://laion.ai/dataset-requests/",
+      "why": "Issue-report form (name, email, dataset, sample ID, URL); no stated process or SLA for removals."
+    }
+  ]
+}

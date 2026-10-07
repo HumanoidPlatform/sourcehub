@@ -1,0 +1,4703 @@
+{
+  "kind": "profile",
+  "slug": "truelabel",
+  "name": "truelabel",
+  "aliases": [
+    "truelabel FZCO",
+    "truelabel.ai"
+  ],
+  "segment": "vision_physical_ai",
+  "tier": "deep",
+  "status": {
+    "value": "active",
+    "claim_id": "truelabel-c131"
+  },
+  "names_for": {
+    "catalogue_side": "off-the-shelf (OTS) datasets / OTS sourcing requests",
+    "custom_side": "net-new sourcing requests (NET_NEW; 'net-new exclusive capture')"
+  },
+  "matrix": {
+    "operator_role": {
+      "value": "mixed",
+      "claim_ids": [
+        "truelabel-c031",
+        "truelabel-c036",
+        "truelabel-c061",
+        "truelabel-c050"
+      ],
+      "note": "Terms cast truelabel as a venue not party to the buyer-supplier contract, but collector output is truelabel-owned work for hire, and licensed data runs under truelabel's own MSA and Order."
+    },
+    "economics_model": {
+      "value": "mixed",
+      "claim_ids": [
+        "truelabel-c043",
+        "truelabel-c057",
+        "truelabel-c061",
+        "truelabel-c019"
+      ],
+      "note": "Terms refer to commissions on marketplace transactions (rates unpublished); workforce data is bought from collectors at a fixed fee, owned by truelabel and sold at a quoted price."
+    },
+    "who_pays_fee": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Fees and commissions are disclosed only in-product or in transaction terms."
+    },
+    "supply_models": {
+      "value": [
+        "own_collection",
+        "third_party_providers"
+      ],
+      "claim_ids": [
+        "truelabel-c004",
+        "truelabel-c061",
+        "truelabel-c002",
+        "truelabel-c022",
+        "truelabel-c111"
+      ],
+      "note": "Own collector workforce (work for hire) plus 100+ vendors and buyer-introduced partners. The public /datasets directory links to public datasets but does not sell them, so public_or_scraped is not listed. No evidence that data collected for one buyer is resold to others."
+    },
+    "custody_model": {
+      "value": "copy_to_buyer",
+      "claim_ids": [
+        "truelabel-c005",
+        "truelabel-c109"
+      ],
+      "note": "Delivered into the buyer's S3, GCS or Azure."
+    },
+    "transaction_mode": {
+      "value": "contact_sales",
+      "claim_ids": [
+        "truelabel-c018",
+        "truelabel-c019",
+        "truelabel-c129",
+        "truelabel-c095"
+      ],
+      "note": ""
+    },
+    "public_prices": {
+      "value": "some",
+      "claim_ids": [
+        "truelabel-c121",
+        "truelabel-c122",
+        "truelabel-c093"
+      ],
+      "note": "Only indicative ranges in a blog comparison and an estimator; no listing has a price and the FAQ says there is no public rate card."
+    },
+    "licence_model": {
+      "value": "negotiated",
+      "claim_ids": [
+        "truelabel-c014",
+        "truelabel-c037",
+        "truelabel-c015"
+      ],
+      "note": ""
+    },
+    "exclusivity_offered": {
+      "value": "yes",
+      "claim_ids": [
+        "truelabel-c112",
+        "truelabel-c137",
+        "truelabel-c136"
+      ],
+      "note": ""
+    },
+    "public_listing": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "The public /datasets directory lists third-party public datasets only; no OTS offer for sale was visible anonymously, and whether sale listings sit behind login could not be checked."
+    },
+    "buyer_vetting": {
+      "value": "case_by_case",
+      "claim_ids": [
+        "truelabel-c042"
+      ],
+      "note": "Terms say truelabel 'may require' identity, organisation or sanctions checks before some actions."
+    },
+    "sample_mechanics": {
+      "value": "sample_on_request",
+      "claim_ids": [
+        "truelabel-c009",
+        "truelabel-c007",
+        "truelabel-c108"
+      ],
+      "note": "Sample packets are produced against the buyer's spec and reviewed in a dashboard before scale-up."
+    },
+    "versioning": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Nothing published on dataset versions, updates or withdrawal."
+    },
+    "human_subject_consent_docs": {
+      "value": "provided_to_buyer",
+      "claim_ids": [
+        "truelabel-c016",
+        "truelabel-c113",
+        "truelabel-c046"
+      ],
+      "note": "Vendor pages say consent artifacts ship with delivery; the Terms only oblige suppliers to produce records on buyer due diligence."
+    },
+    "contributor_pay_model": {
+      "value": "one_off",
+      "claim_ids": [
+        "truelabel-c057",
+        "truelabel-c064",
+        "truelabel-c097",
+        "truelabel-c098"
+      ],
+      "note": "Fixed fee per accepted job, quoted per approved hour; no royalty on resale."
+    },
+    "catalogue_plus_custom": {
+      "value": "both",
+      "claim_ids": [
+        "truelabel-c110",
+        "truelabel-c111",
+        "truelabel-c004"
+      ],
+      "note": ""
+    },
+    "erasure_after_sale": {
+      "value": "takedown_only",
+      "claim_ids": [
+        "truelabel-c049",
+        "truelabel-c048",
+        "truelabel-c119",
+        "truelabel-c073"
+      ],
+      "note": "truelabel can pull files and listings; rights under completed transactions survive and no buyer deletion duty is stated."
+    },
+    "quality_evidence": {
+      "value": "both",
+      "claim_ids": [
+        "truelabel-c060",
+        "truelabel-c010",
+        "truelabel-c045",
+        "truelabel-c033"
+      ],
+      "note": ""
+    }
+  },
+  "questions": {
+    "Q1": {
+      "state": "partial",
+      "answer": "truelabel names frontier model labs, embodied-AI startups, robotics OEMs and well-funded academic groups as buyers; it prices by accepted hour or per episode within programmes of USD 25k-200k (vendor-stated). Why buyers pick OTS over custom is not stated.",
+      "claim_ids": [
+        "truelabel-c020",
+        "truelabel-c121",
+        "truelabel-c122",
+        "truelabel-c093"
+      ]
+    },
+    "Q2": {
+      "state": "partial",
+      "answer": "Suppliers apply, are vetted and receive buyer specs routed by truelabel; buyers can also bring their own partners in. No page states what a supplier gains from listing versus selling direct.",
+      "claim_ids": [
+        "truelabel-c077",
+        "truelabel-c009",
+        "truelabel-c022",
+        "truelabel-c076"
+      ]
+    },
+    "Q3": {
+      "state": "sourced",
+      "answer": "Inventory comes from off-the-shelf vendor catalogues, 100+ vendors and truelabel's own collector workforce. Vendors keep ownership and grant truelabel a non-exclusive sublicensable licence; collector output is truelabel-owned work for hire.",
+      "claim_ids": [
+        "truelabel-c004",
+        "truelabel-c036",
+        "truelabel-c039",
+        "truelabel-c061",
+        "truelabel-c063"
+      ]
+    },
+    "Q4": {
+      "state": "partial",
+      "answer": "Net-new collection is typically exclusive to the buyer by default, while OTS is non-exclusive unless exclusivity is paid for; collector work product is owned by truelabel and licensable onward. No after-the-fact term change or dispute was found.",
+      "claim_ids": [
+        "truelabel-c112",
+        "truelabel-c137",
+        "truelabel-c061",
+        "truelabel-c063"
+      ]
+    },
+    "Q5": {
+      "state": "sourced",
+      "answer": "The Terms make truelabel a venue not party to the buyer-supplier contract, yet data licences run under truelabel's MSA and Order. Suppliers and collectors warrant rights and consents and indemnify truelabel; truelabel does not validate them.",
+      "claim_ids": [
+        "truelabel-c031",
+        "truelabel-c050",
+        "truelabel-c051",
+        "truelabel-c033"
+      ]
+    },
+    "Q6": {
+      "state": "sourced",
+      "answer": "Data is copied into the buyer's own S3, GCS or Azure in formats such as RLDS, LeRobot or MCAP.",
+      "claim_ids": [
+        "truelabel-c005",
+        "truelabel-c023",
+        "truelabel-c116"
+      ]
+    },
+    "Q7": {
+      "state": "sourced",
+      "answer": "Collectors must get written, documented consent and release from anyone depicted and from owners of private locations that are a subject of the capture, covering AI training and downstream licensees, kept six to ten years. Collectors assign their own rights to truelabel with no further compensation.",
+      "claim_ids": [
+        "truelabel-c065",
+        "truelabel-c066",
+        "truelabel-c067",
+        "truelabel-c068",
+        "truelabel-c069",
+        "truelabel-c064"
+      ]
+    },
+    "Q8": {
+      "state": "partial",
+      "answer": "The licence is set per request or order; default buyer bans include reselling raw data and re-identification. There is no published audit right over buyers, no fingerprinting, and no buyer deletion duty.",
+      "claim_ids": [
+        "truelabel-c037",
+        "truelabel-c047",
+        "truelabel-c048",
+        "truelabel-c015"
+      ]
+    },
+    "Q9": {
+      "state": "sourced",
+      "answer": "Deals close through a request form, spec, supplier matching, sample approval and a bespoke quote, not self-serve checkout. The Terms refer to commissions but publish no rate.",
+      "claim_ids": [
+        "truelabel-c018",
+        "truelabel-c019",
+        "truelabel-c109",
+        "truelabel-c043"
+      ]
+    },
+    "Q10": {
+      "state": "partial",
+      "answer": "The objects are a request or spec, a supplier bid, listing or order, sample packets and a delivery with per-sample metadata including consent and licence ids. Nothing is said about versions or what past buyers get on withdrawal.",
+      "claim_ids": [
+        "truelabel-c035",
+        "truelabel-c034",
+        "truelabel-c106",
+        "truelabel-c083"
+      ]
+    },
+    "Q11": {
+      "state": "sourced",
+      "answer": "Buyers see sample packets of 10-25 accepted samples with QA evidence, rights and metadata, and approve or reject them in a dashboard. truelabel vets partners against a quality bar and QA-checks collector footage, but disclaims validating rights.",
+      "claim_ids": [
+        "truelabel-c010",
+        "truelabel-c108",
+        "truelabel-c012",
+        "truelabel-c100",
+        "truelabel-c033"
+      ]
+    },
+    "Q12": {
+      "state": "sourced",
+      "answer": "One request flow covers both: a request is typed OTS (existing supplier datasets) or NET_NEW (exclusive capture); the public /datasets directory feeds custom request specs.",
+      "claim_ids": [
+        "truelabel-c102",
+        "truelabel-c110",
+        "truelabel-c111",
+        "truelabel-c027"
+      ]
+    }
+  },
+  "sections": {
+    "positioning": "truelabel calls itself 'the data marketplace built for physical AI' [c001] for sourcing, evaluating, licensing and delivering training data [c030]. The site is live in 2026 [c131]. In practice it routes buyer specs, mostly net-new capture, to suppliers [c120]. The operating entity named is truelabel FZCO under Dubai law [c054].",
+    "supply": "Three supply routes: off-the-shelf catalogues, truelabel's own collector workforce and vendors [c004]. truelabel claims 100+ vendors [c002] in 100+ countries [c003], all vendor-stated. Buyers can bring their own named partners [c022]. Vendors keep ownership and grant truelabel a non-exclusive, sublicensable licence to pass data to buyers [c036][c039][c040]. Collector output is instead work for hire owned by truelabel [c061][c062], licensable to buyers and end clients [c063]. Partners apply and optionally declare off-the-shelf hours [c077][c080].",
+    "object_model": "A request carries protocol, format, acceptance criteria, licence scope and usage restrictions [c034]; once accepted, the request, listing, bid, order or SOW becomes the transaction terms [c035]. Buyers set provenance, rig, consent, exclusivity and QA before suppliers submit samples [c115]. Sample packages hold files, manifest, rights and QA notes [c083]; per-sample metadata includes consent_artifact_id and license_or_terms_id [c106], with a chain-of-custody record [c133]. Versioning is not described.",
+    "listing": "The only public 'listings' are directory pages for third-party public datasets, showing modality, platform, licence, commercial-use and procurement notes [c025]; for DROID the buyer is told to check the upstream licence [c026]. Per the Terms, listing metadata and sample previews may be visible to other users [c041]; no priced sale listing was reachable anonymously.",
+    "discovery": "Discovery runs through a public directory of 658 dataset pages [c127], nine modality 'marketplaces' landing pages [c132], and a rights register [c124]. Directory pages turn a public dataset into a custom request via 'Generate request spec' [c027].",
+    "trust": "Buyers get sample packets with QA evidence [c010] and review clips and metadata side by side [c007]. truelabel says rights-cleared delivery includes consent artifacts and location releases [c016][c113], and consent covers perpetual, worldwide commercial training with revocation terms [c114]. The Terms are narrower: suppliers describe consent status [c045] and produce records on due diligence [c046], and truelabel does not validate rights [c033]. Its rights register is 'not legal advice' [c126].",
+    "transaction": "Buyers submit a request, the spec is fanned to qualified partners, sample packets return, the buyer approves suppliers and scales [c009][c011][c109]. Spec to first sample takes one to three weeks (vendor-stated) [c021]. The spec-generator milestones begin with a 'Bounty lock' [c107]. truelabel disclaims being an escrow agent [c044].",
+    "pricing": "Pricing is bespoke and quoted per spec after partner matching, with no public rate card [c018][c019][c138]. Its own blog nevertheless gives indicative figures: USD 25k-200k programmes [c121] and USD 1.50-4.00 per episode [c122]; a public estimator's default shows USD 2,825-4,408 per accepted hour [c093], including a line for rights, consent and exclusivity [c094]. Commission rates are disclosed only in-product [c043].",
+    "licence": "The licence is negotiated per engagement [c014]. Buyers get only what the request, listing or order states [c037], and nothing broader passes by default [c038]. Exclusivity, retention, redistribution and resale are separate terms [c015]. Net-new data is typically exclusive by default [c112]; OTS is non-exclusive unless exclusivity is paid for [c137]. Default bans include reselling raw data [c047]. Data licences run under truelabel's MSA and Order [c050], which is not public.",
+    "custody": "Data ships straight into the buyer's S3, GCS or Azure [c005] in RLDS, LeRobot, MCAP, ROS bags, HDF5 or Parquet [c023][c116]. Public directory entries link to upstream hosts such as Hugging Face [c028].",
+    "vetting": "Supplier side: every partner is vetted against a published quality bar covering rig, calibration, capture history and consent infrastructure [c012][c013], and applications are reviewed personally [c078]. Collector footage goes through automated and human QA [c059][c100]; truelabel is sole arbiter [c060] and may audit records for two years [c074]. Buyer side: identity, organisation or sanctions checks 'may' be required [c042].",
+    "contributor_pay": "Collectors are independent contractors [c056] paid a fixed fee shown at job acceptance [c057], only for accepted submissions [c058], with no further compensation when data is licensed onward [c064]. Opportunity pages show USD 20 (US) and USD 18 (Mexico) per approved hour of usable footage [c097][c098]. A referral scheme pays USD 0.50-1.00 per referred accepted hour with caps [c085][c087][c089], and warns that most earn little [c090].",
+    "post_sale": "truelabel may suspend files and listings over a rights concern [c049], but rights under completed transactions survive termination [c048], and deletion requests leave data needed for completed transactions [c119]. A depicted person may withdraw consent [c072]; collectors must only notify truelabel [c073]. No duty on buyers to delete is published.",
+    "catalogue_custom": "A request is typed OTS or NET_NEW [c102]; it can ask for off-the-shelf data, net-new exclusive capture or an eval set [c110]. OTS means existing supplier datasets licensable quickly [c111][c134]. The site's own emphasis is net-new capture [c120]; the public directory is a lead-in to custom specs [c082][c027].",
+    "changes": "Terms of Service, Privacy Policy and Collector Services Agreement were all dated 19 June 2026 [c029][c117][c055]. The collector referral policy took effect on 4 July 2026 [c084], the newest dated event found. No funding, customer or independent press event could be found without search.",
+    "demand": "truelabel names its buyers as frontier model labs, embodied-AI startups, robotics OEMs and academic groups with industrial budgets [c020]. Volumes and named customers are not published; the traction figures available are vendor-stated only [c002][c003].",
+    "regulation": "Governing law is Dubai and UAE federal law, with Dubai courts having exclusive jurisdiction over truelabel FZCO [c054]. Collector consent must be valid under applicable law and acknowledge withdrawal rights [c072]."
+  },
+  "buyer_journey": [
+    {
+      "step": "Lands on truelabel.ai, sees 'The data marketplace built for physical AI' and a 'Request data' call to action; can browse a free directory of public datasets and a rights register.",
+      "claim_ids": [
+        "truelabel-c001",
+        "truelabel-c129",
+        "truelabel-c127",
+        "truelabel-c124"
+      ]
+    },
+    {
+      "step": "Optionally uses the public spec generator or cost estimator, or clicks 'Generate request spec' from a public dataset page.",
+      "claim_ids": [
+        "truelabel-c092",
+        "truelabel-c093",
+        "truelabel-c027"
+      ]
+    },
+    {
+      "step": "Submits a request (work email, company, data needed) choosing OTS or net-new, with provenance, rig, consent, exclusivity and QA requirements.",
+      "claim_ids": [
+        "truelabel-c102",
+        "truelabel-c115",
+        "truelabel-c034"
+      ]
+    },
+    {
+      "step": "truelabel fans the spec to vetted partners (vendors or its own workforce); sample packets return in about one to three weeks.",
+      "claim_ids": [
+        "truelabel-c009",
+        "truelabel-c004",
+        "truelabel-c021"
+      ]
+    },
+    {
+      "step": "Reviews samples, QA evidence and metadata in a dashboard; approves, rejects or asks for more, and approves matching suppliers.",
+      "claim_ids": [
+        "truelabel-c128",
+        "truelabel-c010",
+        "truelabel-c011"
+      ]
+    },
+    {
+      "step": "Receives a bespoke quote; licence scope, exclusivity and resale terms are negotiated and fixed in the accepted order, under truelabel's MSA and Order.",
+      "claim_ids": [
+        "truelabel-c019",
+        "truelabel-c014",
+        "truelabel-c035",
+        "truelabel-c050"
+      ]
+    },
+    {
+      "step": "Data ships into the buyer's own S3, GCS or Azure in RLDS, LeRobot or MCAP, with rights, consent artifacts and metadata attached.",
+      "claim_ids": [
+        "truelabel-c005",
+        "truelabel-c023",
+        "truelabel-c016"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "id": "truelabel-c001",
+      "statement": "truelabel positions itself on its homepage as a data marketplace built for physical AI.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The data marketplace built for physical AI."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c002",
+      "statement": "truelabel says on its homepage that it works with more than 100 vendors.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 100,
+        "unit": "vendors (lower bound)",
+        "basis": "vendor-stated count of supply vendors on the platform, stated as 100+",
+        "period": "as of retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "100+ vendors."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c003",
+      "statement": "truelabel says on its homepage that it operates in more than 100 countries.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 100,
+        "unit": "countries (lower bound)",
+        "basis": "vendor-stated geographic reach, stated as 100+",
+        "period": "as of retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "100+ countries."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c004",
+      "statement": "truelabel says it fills a buyer's request from off-the-shelf catalogs, its own workforce, or vendors.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We grab from off-the-shelf catalogs, our workforce, or vendors."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c005",
+      "statement": "truelabel says data ships straight into the buyer's own S3, GCS or Azure storage.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Data ships straight to your S3, GCS, or Azure."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c006",
+      "statement": "truelabel's homepage says rights and metadata are attached to delivered data.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Rights and metadata attached."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c007",
+      "statement": "Before delivery, buyers review sample clips and metadata side by side and can approve, reject or request more.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Clips and metadata side-by-side. Approve, reject, request more"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c008",
+      "statement": "truelabel claims samples arrive in days rather than months.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Samples in days, not months."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c009",
+      "statement": "The truelabel FAQ says the spec is fanned out to qualified capture partners and sample packets come back first.",
+      "kind": "architecture",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/faq",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "truelabel fans the spec to qualified capture partners. Sample packets"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c010",
+      "statement": "The FAQ says sample packets are small, labeled, rights-cleared and carry QA evidence.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/faq",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "small, labeled, rights-cleared, QA evidence attached"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c011",
+      "statement": "The FAQ says the buyer approves the matching suppliers and then scales the order.",
+      "kind": "architecture",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/faq",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The buyer approves the suppliers that match, then scales."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c012",
+      "statement": "truelabel says every capture partner is vetted against a published quality bar before receiving specs.",
+      "kind": "offer",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/faq",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Every partner is vetted against a published quality bar before they receive specs"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c013",
+      "statement": "The partner vetting covers rig inventory, calibration evidence, capture history and consent infrastructure.",
+      "kind": "offer",
+      "section": "vetting",
+      "question_ids": [
+        "Q11",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/faq",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "rig inventory, calibration evidence, capture history, consent infrastructure"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c014",
+      "statement": "The FAQ says data rights are negotiated per engagement and stated in the spec.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/faq",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Rights are negotiated per engagement and stated in the spec."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c015",
+      "statement": "The FAQ says exclusivity, retention, redistribution and resale are separate terms to review, not defaults.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q4"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/faq",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "exclusivity, retention, redistribution, and resale are separate terms to review rather than assumed defaults"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c016",
+      "statement": "The FAQ says rights-cleared delivery includes contributor consent artifacts and location releases for buyer review.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/faq",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Rights-cleared delivery includes contributor consent artifacts, location releases where applicable"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c017",
+      "statement": "The FAQ says delivery includes per-trajectory provenance and metadata for buyer review.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/faq",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "per-trajectory provenance/metadata for buyer review"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c018",
+      "statement": "truelabel says its pricing is bespoke.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/faq",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Pricing is bespoke."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c019",
+      "statement": "truelabel quotes per spec after partner matching and does not publish a rate card.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/faq",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "truelabel quotes per spec after partner matching, not from a public rate card."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c020",
+      "statement": "truelabel names its target buyers as frontier model labs, embodied-AI startups, robotics OEMs and well-funded academic groups.",
+      "kind": "offer",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/faq",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Frontier foundation-model labs, embodied-AI startups, robotics OEMs, and academic groups with industrial budgets."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c021",
+      "statement": "The FAQ says spec to first sample packet usually takes one to three weeks.",
+      "kind": "number",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 3,
+        "unit": "weeks (upper end of a 1-3 week range)",
+        "basis": "vendor-stated typical time from buyer spec to first sample packet",
+        "period": "per engagement"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/faq",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Spec to first sample packet is usually one to three weeks"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c022",
+      "statement": "Buyers can bring their own named capture partners into the marketplace, where they pass the same verification gate.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q2",
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/faq",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Buyers can bring named partners into the marketplace"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c023",
+      "statement": "truelabel delivers in RLDS, LeRobot v2, MCAP, ROS bags, HDF5, Parquet and per-buyer custom layouts.",
+      "kind": "offer",
+      "section": "custody",
+      "question_ids": [
+        "Q6",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/faq",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "RLDS, LeRobot v2, MCAP, ROS 1 / ROS 2 bags, HDF5, Parquet, and per-buyer custom layouts."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c024",
+      "statement": "truelabel's /datasets page is a browsable directory of physical AI datasets rather than a priced catalogue.",
+      "kind": "offer",
+      "section": "discovery",
+      "question_ids": [
+        "Q12",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/datasets",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Every physical AI dataset, in one browsable directory."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c025",
+      "statement": "Each directory row links to a page with modality, robot platform, licence, commercial-use and procurement notes.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q10",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/datasets",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "modality, robot platform, license, commercial-use, and procurement notes"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c026",
+      "statement": "On a directory page for a public dataset (DROID 1.0.1), truelabel tells the buyer to review the upstream licence for commercial use.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q8",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/datasets/huggingface/lerobot-droid-1-0-1",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Commercial use: Review the linked license and upstream rights."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c027",
+      "statement": "The directory page's call to action turns the public dataset into a custom data request spec rather than a purchase.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/datasets/huggingface/lerobot-droid-1-0-1",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Generate request spec"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c028",
+      "statement": "Directory pages link out to the upstream source; DROID's facts are cached from the Hugging Face API.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/datasets/huggingface/lerobot-droid-1-0-1",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "source facts cached from the per-dataset Hugging Face API"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c029",
+      "statement": "truelabel's Terms of Service were last updated on 19 June 2026.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Last updated: 2026-06-19."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c030",
+      "statement": "The Terms describe truelabel as a marketplace for sourcing, evaluating, licensing and delivering physical AI training data.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "a marketplace for sourcing, evaluating, licensing, and delivering physical AI training data"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c031",
+      "statement": "Unless a separate agreement says otherwise, truelabel is not a party to the underlying buyer-supplier contract.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "we are not a party to the underlying buyer-supplier contract"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c032",
+      "statement": "The Terms say truelabel does not employ suppliers or contributors.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "we do not employ suppliers or contributors"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c033",
+      "statement": "truelabel's review of listings and files does not make it responsible for validating rights, consents or releases.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q5",
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Review does not make us responsible for user content or for validating every right, consent, release"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c034",
+      "statement": "A buyer's request can specify collection protocol, delivery format, acceptance criteria, licence scope and usage restrictions.",
+      "kind": "terms",
+      "section": "object_model",
+      "question_ids": [
+        "Q10",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "collection protocol, hardware environment, annotations, metadata, delivery format, acceptance criteria, license scope"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c035",
+      "statement": "Once accepted, the request, listing, bid, order or written statement of work becomes part of the transaction terms.",
+      "kind": "terms",
+      "section": "object_model",
+      "question_ids": [
+        "Q10",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the applicable request, listing, bid, order, or written statement of work becomes part of the transaction terms"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c036",
+      "statement": "As between users and truelabel, suppliers retain ownership of the dataset materials they provide.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "suppliers retain ownership of dataset materials they provide"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c037",
+      "statement": "Buyers receive only the licence stated in the applicable request, listing, order or written agreement.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Buyers receive only the license stated in the applicable request, listing, order, or written agreement."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c038",
+      "statement": "A purchase or payout does not transfer broader rights by default.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q4"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "A purchase or payout does not transfer broader rights by default."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c039",
+      "statement": "Users grant truelabel a non-exclusive, worldwide, sublicensable licence to host, copy, process and preview what they submit.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "non-exclusive, worldwide, sublicensable license to host, copy, process, preview, analyze"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c040",
+      "statement": "That licence lets truelabel make submitted content available to buyers, end clients and service providers under the transaction terms.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "make submitted content available to buyers, end clients, and service providers under the applicable transaction terms"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c041",
+      "statement": "Public listing metadata, sample previews and supplier names may be visible to other users.",
+      "kind": "terms",
+      "section": "listing",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Public listing metadata, sample previews, supplier names, organization names, and marketplace activity may be visible"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c042",
+      "statement": "truelabel may require identity, organisation, sanctions, tax, payment or rights verification before enabling some marketplace actions.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We may require identity, organization, sanctions, tax, payment, or rights verification before enabling certain marketplace"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c043",
+      "statement": "The Terms publish no fee or commission rates; fees, commissions and payout timing are disclosed in-product or in transaction terms.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Fees, commissions, payout timing, refund rules, currency handling, chargeback handling, and applicable taxes are disclosed"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c044",
+      "statement": "truelabel says it is not a bank, money transmitter or escrow agent.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q5",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "truelabel is not a bank, money transmitter, escrow agent, trustee, or fiduciary"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c045",
+      "statement": "Suppliers must accurately describe dataset provenance, collection conditions, consent status and geographic scope.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You must accurately describe dataset provenance, collection conditions, consent status, geographic scope"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c046",
+      "statement": "Suppliers must keep records supporting provenance and consent claims and provide them when buyer due diligence requires.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "provide them when required by a request, buyer due diligence, or marketplace compliance review"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c047",
+      "statement": "By default buyers may not extract biometric identifiers, remove provenance or licence notices, or resell raw dataset materials.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "extract biometric identifiers, remove provenance or license notices, resell raw dataset materials"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c048",
+      "statement": "Rights already granted under completed transactions survive termination of an account.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "rights already granted under completed transactions"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c049",
+      "statement": "truelabel may suspend or remove accounts, files, listings or payouts, including over a rights concern.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We may limit, suspend, or terminate access to accounts, files, listings, requests, payouts, or features"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c050",
+      "statement": "For data licensed through the marketplace, the truelabel Master Services Agreement and the Order govern warranties and liability.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the truelabel Master Services Agreement and the applicable Order govern the representations, warranties, disclaimers"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c051",
+      "statement": "Every user indemnifies truelabel for claims arising from a failure to obtain required consents or releases.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "your failure to obtain required consents or releases"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c052",
+      "statement": "Unless authorised, truelabel says it does not use private buyer or supplier data to train foundation models.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "we do not use private buyer or supplier dataset materials to train foundation models"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c053",
+      "statement": "The service may integrate with hosting, storage, dataset hosting and repository tools.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The service may integrate with hosting, storage, authentication, analytics, email, payment, compliance, labeling, annotation"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c054",
+      "statement": "The Terms are governed by Dubai and UAE federal law, with Dubai courts having jurisdiction over truelabel FZCO.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the courts of the Emirate of Dubai having jurisdiction over truelabel FZCO have exclusive jurisdiction"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c055",
+      "statement": "truelabel's Collector Services Agreement is effective 19 June 2026.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Effective June 19, 2026."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c056",
+      "statement": "Collectors perform jobs for truelabel as independent contractors.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You perform as an independent contractor."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c057",
+      "statement": "A collector's fee for a job is fixed at the amount displayed when the job is accepted.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The fee for a job is fixed at the amount displayed when you accept it"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c058",
+      "statement": "truelabel pays collectors only for submissions it accepts.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We pay only for submissions that we accept."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c059",
+      "statement": "Collector submissions that fail automated or human quality review may be rejected without payment.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Submissions that fail automated or human quality review may be rejected without payment"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c060",
+      "statement": "truelabel is the sole arbiter of whether a collector's submission meets the job standards.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "truelabel is the sole arbiter of whether a submission conforms to those standards."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c061",
+      "statement": "Media, recordings, annotations and metadata a collector creates for a job are works made for hire owned by truelabel.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q4"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "are works made for hire owned by truelabel"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c062",
+      "statement": "Where work product is not work for hire, the collector irrevocably assigns all worldwide rights to truelabel on creation.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q4"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you irrevocably assign to truelabel, effective upon creation, all worldwide right, title, and interest"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c063",
+      "statement": "The collector's grant covers truelabel providing the data and datasets to buyers, end clients and their service providers.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q4"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "providing data and datasets to buyers, end clients, and their service providers"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c064",
+      "statement": "These onward uses require no further compensation, notice or attribution to the collector.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "without any further compensation, notice, or attribution to you"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c065",
+      "statement": "Collectors must obtain a valid, informed, written and documented consent and release from each individual captured.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "a valid, informed, written, and documented consent, permission, and release"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c066",
+      "statement": "The consent collectors obtain must authorise use of the recording for AI and machine-learning training.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "authorizes use of the recording for artificial-intelligence and machine-learning training"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c067",
+      "statement": "The release must extend to any further-tier or downstream licensee or sublicensee of truelabel or a buyer.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7",
+        "Q4"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "any further-tier or downstream licensee or sublicensee"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c068",
+      "statement": "Consent is also needed from the owner of a private home or location that is a subject of the capture, unless it appears only incidentally in public view.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "appears only incidentally and is in public view and whose owner is not reasonably identifiable"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c069",
+      "statement": "Collectors must retain each consent and release for six years after the job completes.",
+      "kind": "number",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 6,
+        "unit": "years",
+        "basis": "minimum retention of each consent and release by the collector, counted from job completion",
+        "period": "one-off"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You will retain each such consent, permission, and release for six (6) years after the job completes"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c070",
+      "statement": "truelabel may extend the consent-retention period to up to ten years in total to support an active buyer engagement.",
+      "kind": "number",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 10,
+        "unit": "years",
+        "basis": "maximum total consent-retention period truelabel may require of a collector",
+        "period": "one-off"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "not exceeding ten (10) years in total"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c071",
+      "statement": "On truelabel's request the collector must promptly provide a copy of a consent or release.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "at our request you will promptly provide a copy"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c072",
+      "statement": "The Collector Agreement acknowledges a depicted person may withdraw data-protection consent as a matter of law.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "data-protection consent may be withdrawn by the individual as a matter of law"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c073",
+      "statement": "The collector must promptly notify truelabel if a consent is withdrawn or challenged.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you will promptly notify us if any such consent is withdrawn or challenged"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c074",
+      "statement": "truelabel may audit records relating to a collector's jobs for up to two years after completion.",
+      "kind": "number",
+      "section": "vetting",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 2,
+        "unit": "years",
+        "basis": "period after job completion during which truelabel may audit a collector's records",
+        "period": "one-off"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We may audit records relating to your jobs for up to two (2) years after a job completes"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c075",
+      "statement": "Buyers and end clients are intended third-party beneficiaries of the collector's confidentiality, data and IP obligations.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Buyers and end clients are intended third-party beneficiaries"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c076",
+      "statement": "Collectors may not try to identify, contact or solicit any buyer or end client.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q2",
+        "Q4"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You will not attempt to identify, contact, or solicit any buyer or end client"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c077",
+      "statement": "truelabel invites capture companies to apply as partners on a public application page.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q2",
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/apply",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Apply to be a truelabel partner"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c078",
+      "statement": "truelabel says its operator team reviews every partner application personally.",
+      "kind": "offer",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/apply",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Our operator team reviews every application personally"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c079",
+      "statement": "Shortlisted partner applicants receive a sample-upload link by email.",
+      "kind": "offer",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/apply",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If shortlisted, you'll receive a sample-upload link by email"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c080",
+      "statement": "The partner application asks, optionally, for the partner's off-the-shelf hours of existing data.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12",
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/apply",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Off-the-shelf hours (optional)"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c081",
+      "statement": "truelabel's About page describes it as where robotics, embodied-AI and VLA teams source training data.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/about",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "truelabel is where robotics, embodied-AI, and VLA teams source training data."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c082",
+      "statement": "truelabel's sourcing hub is for buyers whose needs the public catalogue does not meet, and shows what to specify in a sourcing request.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/sourcing",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "When the public catalog doesn't have what you need, these pages show what to specify in a sourcing request"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c083",
+      "statement": "truelabel says a supplier sample package includes files, a manifest, rights and QA notes.",
+      "kind": "offer",
+      "section": "object_model",
+      "question_ids": [
+        "Q10",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/sourcing",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "A sample package includes files, manifest, rights, and QA notes"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c084",
+      "statement": "The collector referral policy took effect on 4 July 2026.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/referral-incentive-program-policy",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Effective date: July 4, 2026"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c085",
+      "statement": "A referring collector earns USD 0.50 per accepted hour the referred collector is paid for.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 0.5,
+        "unit": "USD per accepted hour of referred collector's footage",
+        "basis": "referral bonus paid by truelabel to a referring collector (buddy leg)",
+        "period": "per accepted hour"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-07-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/referral-incentive-program-policy",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "US$0.50 per Accepted Hour a Referred Collector is paid for"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c086",
+      "statement": "The buddy referral bonus is capped at a flat USD 25 per week.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 25,
+        "unit": "USD",
+        "basis": "weekly cap on buddy referral bonus paid to a collector",
+        "period": "per week"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-07-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/referral-incentive-program-policy",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "flat US$25 per Week"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c087",
+      "statement": "A community partner earns USD 1.00 per accepted hour an introduced collector is paid for.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 1.0,
+        "unit": "USD per accepted hour of introduced collector's footage",
+        "basis": "referral bonus paid by truelabel to a community partner",
+        "period": "per accepted hour"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-07-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/referral-incentive-program-policy",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "US$1.00 per Accepted Hour an Introduced Collector is paid for"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c088",
+      "statement": "Community partner bonuses are capped at USD 150 per introduced collector.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 150,
+        "unit": "USD",
+        "basis": "cap on community partner bonus per introduced collector",
+        "period": "one-off"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-07-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/referral-incentive-program-policy",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "US$150 per Introduced Collector"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c089",
+      "statement": "Community partner bonuses are capped at USD 2,000 per calendar month across all recruits.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 2000,
+        "unit": "USD",
+        "basis": "monthly cap on community partner bonus across all recruits",
+        "period": "per month"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-07-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/referral-incentive-program-policy",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "US$2,000 per calendar month across all recruits"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c090",
+      "statement": "The referral policy warns that most people will earn a small amount or nothing.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/referral-incentive-program-policy",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Most people will earn a small amount or nothing"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c091",
+      "statement": "truelabel publishes a dataset licence risk checker that triages licence, redistribution, consent, PII and takedown risk.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q8",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/tools",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Triage license, model-output rights, redistribution, consent, PII, private-space, provenance, and takedown risk."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c092",
+      "statement": "truelabel publishes a data spec generator that produces a request spec including a rights route, QA, delivery and milestones.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/tools",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Generate a structured request spec with objective, capture requirements, rights route, metadata, QA, delivery"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c093",
+      "statement": "truelabel's cost estimator, in its default scenario, shows an expected cost of USD 2,825 to 4,408 per accepted hour.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9",
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 2825,
+        "unit": "USD per accepted hour (low end of 2,825-4,408 range)",
+        "basis": "buyer-side budget estimate from the public estimator's default inputs; the page says it is not a quote",
+        "period": "per accepted hour"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/tools/robotics-data-cost-estimator",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Expected cost per accepted hour: $2,825-$4,408"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c094",
+      "statement": "The cost estimator's default budget includes a separate line for rights, consent and exclusivity.",
+      "kind": "offer",
+      "section": "pricing",
+      "question_ids": [
+        "Q8",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/tools/robotics-data-cost-estimator",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Rights, consent, and exclusivity"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c095",
+      "statement": "The estimator says a real quote still needs a sample packet, rejection rules, rights route and delivery schema.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/tools/robotics-data-cost-estimator",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "A real quote still needs a sample packet, rejection rules, rights route, collection environment, and delivery schema"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c096",
+      "statement": "truelabel's collector opportunity pages are evergreen and not guarantees of active jobs.",
+      "kind": "offer",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/collector-jobs",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "They are not active-job guarantees; matching depends on location, equipment, sample quality, and available collector work."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c097",
+      "statement": "A US smartphone collector opportunity pays USD 20 per approved hour of usable footage.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "smartphone video collector",
+        "tier": "",
+        "region": "United States"
+      },
+      "value": {
+        "num": 20,
+        "unit": "USD per approved hour of usable footage",
+        "basis": "paid by truelabel to an individual collector; United States smartphone opportunity page",
+        "period": "per approved hour"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/collector-jobs/opportunities/smartphone-video-data-collector-united-states",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "$20 per approved hour of usable footage"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c098",
+      "statement": "A Mexico first-person collector opportunity pays USD 18 per approved hour of usable footage.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "first-person video collector",
+        "tier": "",
+        "region": "Mexico"
+      },
+      "value": {
+        "num": 18,
+        "unit": "USD per approved hour of usable footage",
+        "basis": "paid by truelabel to an individual collector; Mexico first-person opportunity page",
+        "period": "per approved hour"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/collector-jobs/opportunities/first-person-video-data-collector-mexico",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "$18 per approved hour of usable footage"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c099",
+      "statement": "Collectors are told to keep faces, children and bystanders out of frame.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "smartphone video collector",
+        "tier": "",
+        "region": "United States"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/collector-jobs/opportunities/smartphone-video-data-collector-united-states",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Keep faces, children, and bystanders out of frame"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c100",
+      "statement": "Every collector submission is checked for task completion, framing, privacy, file quality and duplicate content.",
+      "kind": "offer",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/collector-jobs/opportunities/smartphone-video-data-collector-united-states",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Every submission is checked for task completion, framing, privacy, file quality, and duplicate content."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c101",
+      "statement": "Collectors are paid after machine and human review of their footage.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/collector-jobs/opportunities/smartphone-video-data-collector-united-states",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "after machine and human review"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c102",
+      "statement": "truelabel's egocentric data licensing guide lists the request type as either OTS or NET_NEW.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-05-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/egocentric-data-licensing",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Request type: OTS or NET_NEW"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c103",
+      "statement": "The egocentric licensing guide tells buyers to require contributor releases, site permissions, a retention/deletion policy and consent artifacts.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-05-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/egocentric-data-licensing",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Require contributor release, site/location permission, bystander handling, retention/deletion policy"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c104",
+      "statement": "The spec generator's example spec sets the rights route to exclusive net-new commercial training and evaluation rights.",
+      "kind": "offer",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q4"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/tools/data-spec-generator",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Rights route: exclusive net-new commercial training and evaluation rights."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c105",
+      "statement": "The spec generator offers an 'Exclusive commercial rights' preset.",
+      "kind": "offer",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/tools/data-spec-generator",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Exclusive commercial rights"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c106",
+      "statement": "The spec generator's required metadata fields include a consent_artifact_id and a license_or_terms_id per sample.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q7",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/tools/data-spec-generator",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "consent_artifact_id"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c107",
+      "statement": "The spec generator's first milestone is a 'Bounty lock' fixing the final spec, rights route and sample manifest.",
+      "kind": "architecture",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/tools/data-spec-generator",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Final spec, rights route, sample manifest, validation checklist, and reviewer owners."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c108",
+      "statement": "The spec generator's pilot packet milestone is 10 to 25 accepted samples plus rejected samples and source notes.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/tools/data-spec-generator",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "10-25 accepted samples, rejected samples, source notes, and parser output"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c109",
+      "statement": "truelabel's marketplace page says buyers post a sourcing request, review matched samples and ingest data with rights and metadata attached.",
+      "kind": "architecture",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-05-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/physical-ai-data-marketplace",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Buyers post a sourcing request, review matched samples, and ingest data with rights and metadata attached."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c110",
+      "statement": "A truelabel request can specify off-the-shelf data, net-new exclusive capture, or a smaller eval set.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-05-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/physical-ai-data-marketplace",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "A request can specify off-the-shelf data, net-new exclusive capture, or a smaller eval set."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c111",
+      "statement": "OTS sourcing requests are for existing datasets that a supplier can license quickly.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12",
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-05-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/physical-ai-data-marketplace",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "OTS sourcing requests are for existing datasets that a supplier can license quickly."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c112",
+      "statement": "Net-new sourcing requests are collected after contract execution and are typically exclusive to the buyer by default.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q4",
+        "Q8",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-05-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/physical-ai-data-marketplace",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Net-new sourcing requests are collected after contract execution and are typically exclusive to the buyer by default."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c113",
+      "statement": "truelabel says each egocentric session ships with a contributor consent artifact.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-05-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/physical-ai-data-marketplace",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Each egocentric session ships with a contributor consent artifact"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c114",
+      "statement": "The shipped consent artifact covers commercial training use, perpetual and worldwide, with revocation terms documented.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-05-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/physical-ai-data-marketplace",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "commercial training use, perpetual, worldwide, with revocation terms documented"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c115",
+      "statement": "Buyers specify provenance, capture rig, location, consent, exclusivity and QA context before suppliers submit samples.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-05-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/physical-ai-data-marketplace",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Buyers specify provenance, capture rig, location, consent, exclusivity, and QA context before suppliers submit samples."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c116",
+      "statement": "truelabel says deliveries use LeRobotDataset v3 or RLDS so buyers can ingest without bespoke ETL.",
+      "kind": "offer",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-05-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/physical-ai-data-marketplace",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Deliveries use LeRobotDataset v3 or RLDS so buyers can ingest without bespoke ETL."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c117",
+      "statement": "truelabel's Privacy Policy was last updated on 19 June 2026.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/privacy",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Last updated: 2026-06-19."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c118",
+      "statement": "The Privacy Policy says collectors' mobile capture video, audio and motion data are used for delivery to buyers, end clients and service providers.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/privacy",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "delivery to buyers, end clients, and service providers"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c119",
+      "statement": "After an account deletion or deletion request, some information may remain where necessary for completed transactions.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/privacy",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "some information may remain where necessary for completed transactions"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c120",
+      "statement": "truelabel's own blog describes it as routing net-new commercial capture requests to candidate suppliers for sample review.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q9",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-05-07",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/blog/best-robotics-dataset-marketplaces-2026",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Truelabel routes net-new commercial capture requests to candidate suppliers for sample review"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c121",
+      "statement": "truelabel's blog comparison table lists truelabel at USD 25,000 to 200,000 programs with 60 to 90 day delivery.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9",
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 25000,
+        "unit": "USD per program (low end of 25,000-200,000 range)",
+        "basis": "vendor-stated indicative buyer spend per custom capture programme, in its own blog comparison table",
+        "period": "per program"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-05-07",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/blog/best-robotics-dataset-marketplaces-2026",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "$25,000-$200,000 programs, 60-90 day delivery"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c122",
+      "statement": "truelabel's blog gives an indicative candidate capture price of USD 1.50 to 4.00 per episode for a 5,000-episode baseline.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9",
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 1.5,
+        "unit": "USD per episode (low end of 1.50-4.00 range)",
+        "basis": "vendor-stated indicative buyer price for capture, before QA and licence overhead",
+        "period": "per episode"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-05-07",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/blog/best-robotics-dataset-marketplaces-2026",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Truelabel candidate capture at $1.50-$4.00 per episode"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c123",
+      "statement": "truelabel's egocentric video data page lists public datasets such as Ego4D with their own licences, e.g. a research licence, rather than priced truelabel inventory.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12",
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-06-11",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/egocentric-video-data",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Research license"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c124",
+      "statement": "truelabel publishes a rights register sorting robotics datasets by commercial-use status.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q8",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/datasets/commercial-use",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Robotics datasets by commercial-use status"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c125",
+      "statement": "The rights register reports counts of 5 allowed, 6 restricted, 25 unclear and 0 research-only datasets.",
+      "kind": "number",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 36,
+        "unit": "datasets reviewed in the rights register (5+6+25+0)",
+        "basis": "sum of the register's stated status counts",
+        "period": "as of retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/datasets/commercial-use",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Current counts: 5 allowed · 6 restricted · 25 unclear · 0 research-only."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c126",
+      "statement": "truelabel says its commercial-use status is a conservative review signal, not legal advice or commercial clearance.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/datasets/commercial-use",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "no catalog verdict is legal advice or commercial clearance"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c127",
+      "statement": "truelabel's public dataset directory indexes 658 dataset pages.",
+      "kind": "number",
+      "section": "discovery",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 658,
+        "unit": "dataset pages",
+        "basis": "count of third-party and public dataset pages in the directory",
+        "period": "as of retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/datasets",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "658 dataset pages indexed"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c128",
+      "statement": "truelabel's homepage says buyers review samples in their dashboard and approve, reject or request more until the spec is right.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q11",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Samples in your dashboard. Approve, reject, request more"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c129",
+      "statement": "The homepage's two calls to action are 'Request data' for buyers and 'Become a partner' for suppliers.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Become a partner"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c130",
+      "statement": "The homepage tells buyers to scope contributor consent artifacts and location releases with the task, not after capture.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Scope contributor consent artifacts, location releases where applicable"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c131",
+      "statement": "truelabel's website is live in 2026 and presents itself as a physical AI data marketplace.",
+      "kind": "status",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "© 2026 truelabel · Physical AI data marketplace"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c132",
+      "statement": "truelabel's site groups its buyer landing pages under 'All 9 marketplaces', one per modality or use case.",
+      "kind": "offer",
+      "section": "discovery",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/marketplaces",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All 9 marketplaces"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c133",
+      "statement": "truelabel says each sourcing record carries a chain-of-custody record through ingestion, quality review and delivery.",
+      "kind": "architecture",
+      "section": "trust",
+      "question_ids": [
+        "Q10",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-05-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/blog/data-provenance-physical-ai",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Each truelabel sourcing record carries a chain-of-custody record"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c134",
+      "statement": "truelabel's glossary defines an off-the-shelf dataset as an existing dataset a supplier can license without a new capture program.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/glossary",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "An existing dataset a supplier can license without running a new capture program."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c135",
+      "statement": "truelabel's glossary defines a consent artifact as a record that a contributor or site granted permission for capture and downstream use.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/glossary",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "A record showing that a contributor or site granted permission for data capture and downstream use."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c136",
+      "statement": "truelabel's teleoperation page says net-new teleop sourcing requests can specify exclusive rights.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q4"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-07-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/teleoperation-data-marketplace",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Net-new teleop sourcing requests can specify exclusive rights."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c137",
+      "statement": "truelabel says off-the-shelf datasets are typically non-exclusive unless the buyer pays for exclusivity.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q4",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-07-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/teleoperation-data-marketplace",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Off-the-shelf datasets are typically non-exclusive unless the buyer pays for exclusivity."
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c138",
+      "statement": "The teleoperation page says no per-episode price is published there and pricing is quote-based.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-07-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/teleoperation-data-marketplace",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "No per-episode price is published here"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-c139",
+      "statement": "The teleoperation page says candidate suppliers are reviewed against the buyer's capability vector before scale-up is funded.",
+      "kind": "architecture",
+      "section": "vetting",
+      "question_ids": [
+        "Q11",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-07-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/teleoperation-data-marketplace",
+          "publisher": "truelabel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Candidate suppliers should be reviewed against the buyer's capability vector before any scale-up is funded."
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "matrix.who_pays_fee",
+      "urls_tried": [
+        "https://truelabel.ai/legal/terms",
+        "https://truelabel.ai/faq",
+        "https://truelabel.ai/apply",
+        "https://truelabel.ai/physical-ai-data-marketplace",
+        "https://truelabel.ai/teleoperation-data-marketplace"
+      ],
+      "reason": "not_published",
+      "note": "Terms say fees and commissions are disclosed in-product or in transaction terms."
+    },
+    {
+      "field": "matrix.public_listing",
+      "urls_tried": [
+        "https://truelabel.ai/datasets",
+        "https://truelabel.ai/marketplaces",
+        "https://truelabel.ai/egocentric-video-data"
+      ],
+      "reason": "gated",
+      "note": "No priced OTS offer visible anonymously; the buyer dashboard needs login, which rules forbid."
+    },
+    {
+      "field": "matrix.versioning",
+      "urls_tried": [
+        "https://truelabel.ai/legal/terms",
+        "https://truelabel.ai/faq",
+        "https://truelabel.ai/blog/data-provenance-physical-ai",
+        "https://truelabel.ai/teleoperation-data-marketplace"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.msa",
+      "urls_tried": [
+        "https://truelabel.ai/legal/terms",
+        "https://truelabel.ai/sitemap.xml"
+      ],
+      "reason": "not_found",
+      "note": "The MSA governing data licences is not linked from the Terms, footer or sitemap legal entries."
+    },
+    {
+      "field": "other.commission_rate",
+      "urls_tried": [
+        "https://truelabel.ai/legal/terms",
+        "https://truelabel.ai/faq",
+        "https://truelabel.ai/apply"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.commissioned_resale",
+      "urls_tried": [
+        "https://truelabel.ai/legal/collector-agreement",
+        "https://truelabel.ai/legal/terms",
+        "https://truelabel.ai/physical-ai-data-marketplace"
+      ],
+      "reason": "not_published",
+      "note": "Collector agreement lets truelabel license work product to buyers generally; whether net-new data made for one buyer is later sold to others is not stated."
+    },
+    {
+      "field": "other.buyer_audit_fingerprinting",
+      "urls_tried": [
+        "https://truelabel.ai/legal/terms",
+        "https://truelabel.ai/faq"
+      ],
+      "reason": "not_published",
+      "note": "No audit right over buyers and no watermarking or fingerprinting found."
+    },
+    {
+      "field": "other.independent_sources",
+      "urls_tried": [
+        "https://efts.sec.gov/LATEST/search-index?q=%22truelabel%22"
+      ],
+      "reason": "not_found",
+      "note": "No web search this run; EDGAR full text has zero hits. Founders, funding, customers and independent press could not be looked for."
+    },
+    {
+      "field": "other.collector_program_page",
+      "urls_tried": [
+        "https://truelabel.ai/collectors"
+      ],
+      "reason": "js_empty"
+    }
+  ],
+  "conflicts": [
+    {
+      "claim_ids": [
+        "truelabel-c019",
+        "truelabel-c121"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "FAQ says quotes are not from a public rate card, while the blog publishes indicative programme and per-episode ranges; both kept, treated as indicative prices only."
+    },
+    {
+      "claim_ids": [
+        "truelabel-c016",
+        "truelabel-c046"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "Marketing says consent artifacts ship with delivery; the Terms oblige suppliers only to produce records when buyer due diligence requires. Both kept; matrix follows the marketing statement, with a note."
+    },
+    {
+      "claim_ids": [
+        "truelabel-c031",
+        "truelabel-c050"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "The Terms say truelabel is not a party to the buyer-supplier contract, yet say data licences run under truelabel's own MSA and Order; recorded as operator_role mixed."
+    }
+  ],
+  "leads": [
+    {
+      "url": "https://truelabel.ai/login",
+      "why": "The buyer dashboard where samples and listings live; gated, not fetched."
+    },
+    {
+      "url": "https://truelabel.ai/recruiters",
+      "why": "Recruiter programme for collectors; not fetched."
+    },
+    {
+      "url": "https://truelabel.ai/collector-jobs/opportunities/egocentric-video-data-collector-latam",
+      "why": "More collector pay rates by region."
+    },
+    {
+      "url": "https://truelabel.ai/robot-training-data-marketplace",
+      "why": "Another modality landing page; may state OTS terms."
+    }
+  ]
+}

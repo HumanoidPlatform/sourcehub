@@ -1,0 +1,3382 @@
+{
+  "kind": "profile",
+  "slug": "defined-ai",
+  "name": "Defined.ai",
+  "aliases": [
+    "DefinedCrowd",
+    "DefinedCrowd Corporation"
+  ],
+  "segment": "ai_data_catalogue",
+  "tier": "deep",
+  "status": {
+    "value": "active",
+    "claim_id": "defined-ai-c001"
+  },
+  "names_for": {
+    "catalogue_side": "Marketplace / Data Marketplace (\"off-the-shelf (OTS)\" or \"ready-to-use\" datasets); speech bundles sold as the Data Access Plan",
+    "custom_side": "Custom data collection (\"custom collection\", \"custom request\"; also custom-packaged subsets of catalogue data)"
+  },
+  "matrix": {
+    "operator_role": {
+      "value": "reseller_licensor",
+      "claim_ids": [
+        "defined-ai-c007",
+        "defined-ai-c015",
+        "defined-ai-c033"
+      ],
+      "note": "DefinedCrowd Corporation is Licensor on the single standard Data License Agreement covering all datasets, including partner-supplied ones; the DLA says the Licensor owns the data."
+    },
+    "economics_model": {
+      "value": "mixed",
+      "claim_ids": [
+        "defined-ai-c070",
+        "defined-ai-c015",
+        "defined-ai-c022",
+        "defined-ai-c088"
+      ],
+      "note": "Own crowd-collected data sold as principal; third-party partners earn 'licensing fees from data marketplace sales'. The split or percentage is not published."
+    },
+    "who_pays_fee": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "No fee schedule for buyers or providers is published."
+    },
+    "supply_models": {
+      "value": [
+        "own_collection",
+        "third_party_providers",
+        "partner_licensed"
+      ],
+      "claim_ids": [
+        "defined-ai-c070",
+        "defined-ai-c048",
+        "defined-ai-c031",
+        "defined-ai-c046",
+        "defined-ai-c055",
+        "defined-ai-c077"
+      ],
+      "note": "Own crowd (Neevo) collections; third-party partners admitted via the Supplier Program; Getty Images content under a strategic engagement. No evidence found that client-commissioned custom collections are relisted."
+    },
+    "custody_model": {
+      "value": "copy_to_buyer",
+      "claim_ids": [
+        "defined-ai-c019",
+        "defined-ai-c039"
+      ],
+      "note": "DLA: Licensor delivers data electronically or on tangible media; FAQ: delivered after payment clears."
+    },
+    "transaction_mode": {
+      "value": "contact_sales",
+      "claim_ids": [
+        "defined-ai-c036",
+        "defined-ai-c057",
+        "defined-ai-c063",
+        "defined-ai-c064",
+        "defined-ai-c037"
+      ],
+      "note": "Every listing checked shows 'Get a quote'; no prices or cart; payment by ACH transfer. FAQ still refers to 'standard buying options' and 2021 rebrand mentioned one-off purchases and subscriptions (see conflicts)."
+    },
+    "public_prices": {
+      "value": "some",
+      "claim_ids": [
+        "defined-ai-c057",
+        "defined-ai-c066",
+        "defined-ai-c069"
+      ],
+      "note": "No prices on the catalogue or on the four listings opened; the only published prices are the 2024 Data Access Plan speech bundles in a press release."
+    },
+    "licence_model": {
+      "value": "standard_licence",
+      "claim_ids": [
+        "defined-ai-c033",
+        "defined-ai-c008"
+      ],
+      "note": "FAQ: all datasets under the standard licence agreement. The partner page mentions 'agreed use cases', so per-deal variation is possible but undocumented."
+    },
+    "exclusivity_offered": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Standard DLA is non-exclusive; no page says whether exclusive licences are offered on request."
+    },
+    "public_listing": {
+      "value": "public_indexable",
+      "claim_ids": [
+        "defined-ai-c005",
+        "defined-ai-c063",
+        "defined-ai-c064",
+        "defined-ai-c065"
+      ],
+      "note": "Catalogue and listing pages load without login and appear in web search."
+    },
+    "buyer_vetting": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Quote-based sales imply some screening, but no published buyer-vetting rule was found."
+    },
+    "sample_mechanics": {
+      "value": "sample_on_request",
+      "claim_ids": [
+        "defined-ai-c036",
+        "defined-ai-c064",
+        "defined-ai-c035"
+      ],
+      "note": "Live listings show 'Request a Sample'; the FAQ's 'instantly download free samples' conflicts (see conflicts)."
+    },
+    "versioning": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "DLA and listings are silent on versions, updates or corrections."
+    },
+    "human_subject_consent_docs": {
+      "value": "asserted_only",
+      "claim_ids": [
+        "defined-ai-c024",
+        "defined-ai-c071",
+        "defined-ai-c072",
+        "defined-ai-c061",
+        "defined-ai-c016"
+      ],
+      "note": "Consent is asserted and provenance records are said to be kept, but no source says consent records are handed to buyers, and the DLA disclaims all warranties."
+    },
+    "contributor_pay_model": {
+      "value": "one_off",
+      "claim_ids": [
+        "defined-ai-c050",
+        "defined-ai-c051"
+      ],
+      "note": "Crowd contributors are paid task rates (at least minimum wage). Third-party data partners are paid licensing fees from sales (c022), which is a provider, not contributor, arrangement."
+    },
+    "catalogue_plus_custom": {
+      "value": "both",
+      "claim_ids": [
+        "defined-ai-c002",
+        "defined-ai-c004",
+        "defined-ai-c043",
+        "defined-ai-c058"
+      ],
+      "note": ""
+    },
+    "erasure_after_sale": {
+      "value": "not_addressed",
+      "claim_ids": [
+        "defined-ai-c014"
+      ],
+      "note": "The DLA's deletion duty is triggered only by termination of the licence; its Data Protection section says nothing about data-subject withdrawal after delivery."
+    },
+    "quality_evidence": {
+      "value": "both",
+      "claim_ids": [
+        "defined-ai-c023",
+        "defined-ai-c047",
+        "defined-ai-c053"
+      ],
+      "note": "Defined.ai reviews and tests partner data; suppliers must document provenance and quality."
+    }
+  },
+  "questions": {
+    "Q1": {
+      "state": "partial",
+      "answer": "Defined.ai (vendor-stated only) says demand is strongest for multimodal data for robotics, computer vision and healthcare, with 65% revenue growth in 2025; it sells by hours or file counts with volume and academic discounts. No independent source on who the buyers are was found.",
+      "claim_ids": [
+        "defined-ai-c089",
+        "defined-ai-c032",
+        "defined-ai-c091",
+        "defined-ai-c041",
+        "defined-ai-c042"
+      ]
+    },
+    "Q2": {
+      "state": "partial",
+      "answer": "Providers get Defined.ai's enterprise buyer reach and sales handling in return for licensing fees and a non-circumvention clause; Defined.ai also resells through Crowdworks in Korea. Partner earnings figures are vendor-stated only.",
+      "claim_ids": [
+        "defined-ai-c022",
+        "defined-ai-c029",
+        "defined-ai-c030",
+        "defined-ai-c031",
+        "defined-ai-c090",
+        "defined-ai-c088",
+        "defined-ai-c092"
+      ]
+    },
+    "Q3": {
+      "state": "sourced",
+      "answer": "Inventory comes from Defined.ai's own Neevo crowd collections, third-party partners admitted through a staged Supplier Program that requires consent, documentation and the right to commercialise, and licensed content such as Getty Images. All are sold under Defined.ai's own licence.",
+      "claim_ids": [
+        "defined-ai-c070",
+        "defined-ai-c048",
+        "defined-ai-c031",
+        "defined-ai-c046",
+        "defined-ai-c055",
+        "defined-ai-c024",
+        "defined-ai-c077",
+        "defined-ai-c079",
+        "defined-ai-c080"
+      ]
+    },
+    "Q4": {
+      "state": "unknown",
+      "answer": "No source says whether custom-collected client data is ever relisted, or how resale rights are carved out.",
+      "claim_ids": []
+    },
+    "Q5": {
+      "state": "sourced",
+      "answer": "DefinedCrowd Corporation is licensor of record and claims ownership of the data. It indemnifies buyers against US IP and data-protection claims, capped at fees paid, while suppliers indemnify Defined.ai up to twice the business value.",
+      "claim_ids": [
+        "defined-ai-c007",
+        "defined-ai-c015",
+        "defined-ai-c017",
+        "defined-ai-c018",
+        "defined-ai-c083",
+        "defined-ai-c084",
+        "defined-ai-c085"
+      ]
+    },
+    "Q6": {
+      "state": "partial",
+      "answer": "Data is copied to the buyer: delivered electronically or on physical media after payment clears. Mechanism (download link, bucket transfer) is not published.",
+      "claim_ids": [
+        "defined-ai-c019",
+        "defined-ai-c039",
+        "defined-ai-c040"
+      ]
+    },
+    "Q7": {
+      "state": "partial",
+      "answer": "Contributor consent is asserted (platform ToU/Privacy consent) and suppliers must warrant consent and privacy/publicity rights, but buyers get no consent records and the DLA disclaims warranties. Nothing addresses property or store owners, e.g. for in-store retail imagery.",
+      "claim_ids": [
+        "defined-ai-c049",
+        "defined-ai-c024",
+        "defined-ai-c083",
+        "defined-ai-c071",
+        "defined-ai-c072",
+        "defined-ai-c065",
+        "defined-ai-c016"
+      ]
+    },
+    "Q8": {
+      "state": "sourced",
+      "answer": "The standard DLA is non-exclusive, internal-use, non-transferable and forbids resale, but allows commercial models trained on the data; Defined.ai may audit and requires certified deletion on termination. No fingerprinting or leakage controls were found.",
+      "claim_ids": [
+        "defined-ai-c008",
+        "defined-ai-c009",
+        "defined-ai-c010",
+        "defined-ai-c011",
+        "defined-ai-c012",
+        "defined-ai-c013",
+        "defined-ai-c014",
+        "defined-ai-c020",
+        "defined-ai-c034"
+      ]
+    },
+    "Q9": {
+      "state": "sourced",
+      "answer": "Deals close through sales: every listing is 'Get a quote', payment is USD by ACH with no refunds, and 2024 speech bundles were published at EUR 50k-500k. Provider revenue share is not published; suppliers' payment terms sit in a separate agreement.",
+      "claim_ids": [
+        "defined-ai-c036",
+        "defined-ai-c057",
+        "defined-ai-c037",
+        "defined-ai-c038",
+        "defined-ai-c066",
+        "defined-ai-c069",
+        "defined-ai-c022",
+        "defined-ai-c078"
+      ]
+    },
+    "Q10": {
+      "state": "partial",
+      "answer": "A listing is a dataset page with type, amount, duration, format and domain; buyers can have custom subsets packaged. Nothing published on revisions, orders or what past buyers get on updates or withdrawal.",
+      "claim_ids": [
+        "defined-ai-c063",
+        "defined-ai-c064",
+        "defined-ai-c045",
+        "defined-ai-c082"
+      ]
+    },
+    "Q11": {
+      "state": "partial",
+      "answer": "Buyers see listing metadata and can request a sample (FAQ says free instant download). Defined.ai says it reviews and tests partner data and keeps provenance and bias records.",
+      "claim_ids": [
+        "defined-ai-c035",
+        "defined-ai-c036",
+        "defined-ai-c059",
+        "defined-ai-c023",
+        "defined-ai-c047",
+        "defined-ai-c072"
+      ]
+    },
+    "Q12": {
+      "state": "sourced",
+      "answer": "The off-the-shelf side is the 'Marketplace' of 'ready-to-use' datasets; the bespoke side is 'custom data collection'. Buyers who cannot find data are routed to a custom collection or the planned quarterly pipeline.",
+      "claim_ids": [
+        "defined-ai-c002",
+        "defined-ai-c003",
+        "defined-ai-c004",
+        "defined-ai-c043",
+        "defined-ai-c044",
+        "defined-ai-c058",
+        "defined-ai-c062"
+      ]
+    }
+  },
+  "sections": {
+    "positioning": "Defined.ai (formerly DefinedCrowd, renamed 2021 [c075]) pitches 'ready-to-use' AI training datasets across speech, text, image and video [c003] next to custom collection and annotation [c004], calling itself an ethical AI data marketplace 'alongside custom services' [c002]. Growth and partner-earnings figures are all vendor-stated [c032][c031][c030].",
+    "supply": "Three supply streams: its own crowd (Neevo, 1.6M+ claimed contributors) [c070][c006]; third-party data partners, whose datasets it says grew 1,200% in 2025 [c031][c046]; and licensed content such as Getty Images [c055]. Contributors are recruited through own channels, ads and local partners [c048].",
+    "vetting": "Suppliers pass four stages: Enrolment (company policy appraisal) [c081], Clearance (sign Defined.ai's supplier DLA and dataset-level Ethical Questionnaires) [c079][c080], Onboarding, and Maintenance, with every new sample set re-vetted [c082]. Suppliers warrant IP, privacy and publicity rights [c083], indemnify Defined.ai up to 2x business value [c084][c085], and accept yearly audits [c086]. Data must carry consent, documentation and commercial rights [c024].",
+    "listing": "Listings show type, content type, amount, duration, subtype, domain and file format plus use cases, with 'Get a quote' and 'Request a Sample' [c036][c063][c064]. No price and no third-party provider name appeared on the four listings opened.",
+    "transaction": "Purchase is quote-led [c036][c057]. Payment is USD by ACH, PO/SOW on request, no refunds [c037][c038]; delivery follows cleared funds, typically 2-3 business days [c039][c040]. Suppliers may not bypass Defined.ai with referred customers [c088].",
+    "pricing": "No list prices on the catalogue [c057]. The 2024 Data Access Plan sold speech hours in bundles from EUR 50,000 for 315 h to EUR 500,000 for 3,125 h [c066][c069]. Volume and academic discounts are quoted [c041][c042].",
+    "licence": "One standard DLA for all datasets [c033]: DefinedCrowd Corporation licenses non-exclusive, non-transferable, internal-use rights [c007][c008][c009]; models trained on the data may be commercialised, the data itself may not [c010][c011][c012]. Washington law [c021]. The FAQ calls it perpetual; the DLA runs until terminated [c034][c020].",
+    "custody": "Data is copied to the buyer, electronically or on physical media [c019], after payment clears [c039].",
+    "trust": "Defined.ai asserts full contributor consent and keeps provenance records [c071][c072][c060], but the DLA provides the data 'as is' [c016]; its indemnity covers US IP and data-protection claims [c017].",
+    "contributor_pay": "Crowd contributors are paid task rates of at least minimum wage [c050][c051]. Data partners earn licensing fees from marketplace sales [c022]; the split is not published and supplier obligations sit in a separate agreement [c078].",
+    "post_sale": "Licensee must delete, destroy or return data and certify on termination [c014]; Defined.ai may audit licensee records [c013]. No provision on data-subject erasure after delivery.",
+    "catalogue_custom": "Buyers who cannot find data can order a custom collection or wait for planned catalogue releases [c043][c044]; catalogue subsets are custom-packaged [c045]. Custom work is sold via 'Talk to a data expert' [c062].",
+    "demand": "Vendor-stated: 65% revenue growth and 143% NRR in 2025, with strongest demand for multimodal robotics, vision and healthcare data [c032][c091][c089]. Crowdworks AI resells the catalogue in Korea [c092].",
+    "changes": "Operating as of April 2026 [c001]. At the 2021 rebrand, buyers could purchase by subscription or one-off and developers could sell as third-party vendors [c074]; today's listings are quote-only [c036]."
+  },
+  "buyer_journey": [
+    {
+      "step": "Lands on defined.ai, which pitches ready-to-use datasets and custom collection side by side.",
+      "claim_ids": [
+        "defined-ai-c003",
+        "defined-ai-c004"
+      ]
+    },
+    {
+      "step": "Clicks 'Browse Marketplace' to /datasets: filters by type, language and domain across 819 datasets; no prices are shown and 'Get in touch' is offered if nothing fits.",
+      "claim_ids": [
+        "defined-ai-c005",
+        "defined-ai-c057"
+      ]
+    },
+    {
+      "step": "Opens a listing: sees type, amount (hours or files), duration, domain, file format and use cases; the only actions are 'Get a quote' and 'Request a Sample'.",
+      "claim_ids": [
+        "defined-ai-c036",
+        "defined-ai-c063",
+        "defined-ai-c064"
+      ]
+    },
+    {
+      "step": "Requests a sample; the FAQ describes an instant free download and the website terms license samples for limited use.",
+      "claim_ids": [
+        "defined-ai-c035",
+        "defined-ai-c056"
+      ]
+    },
+    {
+      "step": "Requests a quote; volume and academic discounts and custom-packaged subsets (by age, gender, accent) are negotiated with sales.",
+      "claim_ids": [
+        "defined-ai-c041",
+        "defined-ai-c042",
+        "defined-ai-c045"
+      ]
+    },
+    {
+      "step": "Accepts the standard Data License Agreement with DefinedCrowd Corporation: non-exclusive, internal-use, no resale, models may be commercialised.",
+      "claim_ids": [
+        "defined-ai-c033",
+        "defined-ai-c007",
+        "defined-ai-c008",
+        "defined-ai-c010",
+        "defined-ai-c012"
+      ]
+    },
+    {
+      "step": "Pays in USD by ACH bank transfer (PO/SOW available); no refunds.",
+      "claim_ids": [
+        "defined-ai-c037",
+        "defined-ai-c038"
+      ]
+    },
+    {
+      "step": "Receives the data once funds clear, generally 2-3 business days, delivered electronically or on physical media.",
+      "claim_ids": [
+        "defined-ai-c039",
+        "defined-ai-c040",
+        "defined-ai-c019"
+      ]
+    },
+    {
+      "step": "If the data is not listed, orders a custom collection or waits for planned catalogue releases.",
+      "claim_ids": [
+        "defined-ai-c043",
+        "defined-ai-c044",
+        "defined-ai-c058"
+      ]
+    },
+    {
+      "step": "After purchase: subject to audit of its records, and must delete and certify destruction if the licence terminates.",
+      "claim_ids": [
+        "defined-ai-c013",
+        "defined-ai-c014"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "id": "defined-ai-c001",
+      "statement": "Defined.ai was operating and issuing company announcements on 28 April 2026, when it said it had been awarded ISO 42001 certification.",
+      "kind": "status",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-04-28",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://defined.ai/press-room/defined-ai-awarded-iso-42001-certification",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "announced that it has been awarded the ISO 42001 certification"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c002",
+      "statement": "Defined.ai describes itself as offering an ethical AI data marketplace alongside custom services.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-04-28",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://defined.ai/press-room/defined-ai-awarded-iso-42001-certification",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "offering the world's biggest ethical AI data marketplace alongside custom services"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c003",
+      "statement": "Defined.ai's home page presents ready-to-use AI training datasets across speech, text, image, video and multimodal.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The largest selection of ready-to-use AI training datasets across speech, text, image, video, and multimodal"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c004",
+      "statement": "Defined.ai offers custom data collection, annotation and evaluation services alongside its datasets.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Custom data collection and annotation to evaluation, we support your entire AI lifecycle"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c005",
+      "statement": "Defined.ai's public dataset catalogue page listed 819 datasets when retrieved.",
+      "kind": "number",
+      "section": "discovery",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 819,
+        "unit": "datasets listed",
+        "basis": "count shown on the public catalogue page, all modalities",
+        "period": "point in time"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/datasets",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Showing 10 of 819 datasets"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c006",
+      "statement": "Defined.ai says it has a crowd of more than 1.6 million contributors in over 150 countries.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 1600000,
+        "unit": "crowd contributors",
+        "basis": "vendor-stated lower bound of crowd size, not verified",
+        "period": "point in time"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Tap into a crowd of 1.6M+ global experts spanning 150+ countries"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c007",
+      "statement": "Defined.ai's Data License Agreement names DefinedCrowd Corporation as the Licensor.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "DefinedCrowd Corporation"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c008",
+      "statement": "Defined.ai's Data License Agreement grants the buyer a non-exclusive, non-sublicensable, non-transferable licence for the Term.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "non-exclusive, non-sublicensable, and non-transferable license during the Term"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c009",
+      "statement": "The Data License Agreement limits use of the data to the licensee's internal business operations.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Use is solely for the benefit of Licensee in the ordinary course of its internal business operations"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c010",
+      "statement": "The Data License Agreement permits commercial exploitation of models trained, tested or benchmarked on the licensed data.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "commercial exploitation of models based that have used the Data for training, testing or bench-marking purposes"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c011",
+      "statement": "The Data License Agreement excludes commercialisation of the data itself, paid or free.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "excludes commercialization of the Data itself, whether free of charge or paid"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c012",
+      "statement": "The Data License Agreement forbids the licensee to sell, sublicense or distribute the data.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "rent, lease, lend, sell, sublicense, assign, distribute, publish, transfer, or otherwise make available"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c013",
+      "statement": "The Data License Agreement lets the Licensor periodically inspect and audit the licensee's records.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "periodically inspect and audit Licensee's records with respect to matters covered by this Agreement"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c014",
+      "statement": "On termination the Data License Agreement requires the licensee to delete, destroy or return all copies of the data and certify it in writing.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "cease using and delete, destroy, or return all copies of the Data and certify in writing"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c015",
+      "statement": "The Data License Agreement states that the Licensor owns all rights, title and interest in the data.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensor owns all rights, title, and interest, including all intellectual property rights, in and to the Data"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c016",
+      "statement": "The Data License Agreement provides the data 'as is' and disclaims all warranties.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AND LICENSOR HEREBY DISCLAIMS ALL WARRANTIES"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c017",
+      "statement": "The Data License Agreement has the Licensor indemnify the licensee against third-party claims that permitted use infringes US IP or data protection rights.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensee's Permitted Use of the Data infringes or misappropriates such third party's US intellectual property rights"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c018",
+      "statement": "The Data License Agreement caps the Licensor's aggregate liability at the total amounts paid to it under the agreement.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "EXCEED THE TOTAL AMOUNTS PAID TO LICENSOR UNDER THIS AGREEMENT"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c019",
+      "statement": "Under the Data License Agreement the Licensor delivers the data electronically, on tangible media or by other means.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensor shall deliver the Data electronically, on tangible media, or by other means"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c020",
+      "statement": "The Data License Agreement's licence runs from the Effective Date until terminated.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The term of this License begins on the Effective Date and will continue in effect until terminated"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c021",
+      "statement": "The Data License Agreement is governed by the laws of the State of Washington, USA.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "governed by and interpreted in accordance with the laws of the state of Washington"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c022",
+      "statement": "Defined.ai's partner programme pays data partners licensing fees from data marketplace sales.",
+      "kind": "offer",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q2",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/partnership-programs",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensing fees from data marketplace sales"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c023",
+      "statement": "Defined.ai says partner datasets go through a review for quality, relevance and compliance.",
+      "kind": "offer",
+      "section": "vetting",
+      "question_ids": [
+        "Q3",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/partnership-programs",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Datasets go through a review process focused on quality, relevance, and compliance."
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c024",
+      "statement": "Defined.ai requires partner data to be ethically sourced with consent, documentation and the right to commercialise it.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/partnership-programs",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All data must be ethically sourced, including proper consent, documentation, and the right to commercialize"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c025",
+      "statement": "Defined.ai says usage of partner data is governed by defined licensing terms and agreed use cases.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/partnership-programs",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Data usage is governed by clearly defined licensing terms and agreed use cases"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c026",
+      "statement": "Defined.ai sets no fixed minimum dataset size for data partners.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/partnership-programs",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "There is no fixed minimum. Requirements depend on the dataset type, domain, and expected use cases."
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c027",
+      "statement": "Defined.ai's partner onboarding runs through steps named Account Creation, Industry Contacts, Data Expertise and AI Ethics and Compliance.",
+      "kind": "offer",
+      "section": "vetting",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/partnership-programs",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AI Ethics and Compliance"
+        },
+        {
+          "url": "https://defined.ai/partnership-programs",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Data Expertise"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c028",
+      "statement": "Defined.ai's partner page claims 319% year-on-year growth in dataset sales.",
+      "kind": "number",
+      "section": "demand",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 319,
+        "unit": "percent YoY growth",
+        "basis": "vendor-stated growth in dataset sales, period not stated",
+        "period": "per year"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/partnership-programs",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "YoY growth in dataset sales"
+        },
+        {
+          "url": "https://defined.ai/partnership-programs",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "319%"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c029",
+      "statement": "Defined.ai's partner page claims average partner revenue of more than USD 600,000.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 600000,
+        "unit": "USD per partner",
+        "basis": "vendor-stated average revenue earned by data partners, period and gross/net not stated",
+        "period": "not stated"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/partnership-programs",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Average partner revenue"
+        },
+        {
+          "url": "https://defined.ai/partnership-programs",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "$600K+"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c030",
+      "statement": "Defined.ai says several partners generate more than USD 1 million a year licensing datasets through its marketplace.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 1000000,
+        "unit": "USD per partner per year",
+        "basis": "vendor-stated lower bound for 'several' partners' annual licensing revenue, gross/net not stated",
+        "period": "per year"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-01-27",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://defined.ai/press-room/defined-ai-reports-sixty-five-percent-revenue-growth",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Several partners now generate more than $1 million annually by licensing proprietary datasets through the marketplace."
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c031",
+      "statement": "Defined.ai says third-party partner datasets on its marketplace grew 1,200% in 2025.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q2",
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 1200,
+        "unit": "percent increase in third-party partner datasets",
+        "basis": "vendor-stated, calendar 2025",
+        "period": "per year"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-01-27",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://defined.ai/press-room/defined-ai-reports-sixty-five-percent-revenue-growth",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "In 2025, the Defined.ai Data Marketplace saw a 1,200% increase in third-party partner datasets"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c032",
+      "statement": "Defined.ai reported 65% year-on-year revenue growth in its January 2026 announcement.",
+      "kind": "number",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 65,
+        "unit": "percent YoY revenue growth",
+        "basis": "vendor-stated company-wide revenue, unaudited",
+        "period": "per year"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-01-27",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://defined.ai/press-room/defined-ai-reports-sixty-five-percent-revenue-growth",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The company reported 65% Year-over-Year revenue growth"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c033",
+      "statement": "Defined.ai's FAQ says all its datasets are covered by its standard licence agreement.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/faq",
+          "publisher": "Defined.ai",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All Defined.ai datasets are covered by our standard license agreement"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c034",
+      "statement": "Defined.ai's FAQ describes the data licence as perpetual.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/faq",
+          "publisher": "Defined.ai",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The license agreement is perpetual and allows for the"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c035",
+      "statement": "Defined.ai's FAQ says buyers can instantly download free samples from the website.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/faq",
+          "publisher": "Defined.ai",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Sure, you can instantly download free samples from the website."
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c036",
+      "statement": "Defined.ai's listing page for its Stock Videos dataset offers 'Get a quote' and 'Request a Sample' buttons.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q9",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/datasets/stock-videos",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Get a quote"
+        },
+        {
+          "url": "https://defined.ai/datasets/stock-videos",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Request a Sample"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c037",
+      "statement": "Defined.ai's FAQ says it accepts payment in USD by ACH bank transfer.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/faq",
+          "publisher": "Defined.ai",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We accept USD via ACH bank transfer."
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c038",
+      "statement": "Defined.ai's FAQ says it does not offer refunds.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/faq",
+          "publisher": "Defined.ai",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Unfortunately, we do not offer refunds."
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c039",
+      "statement": "Defined.ai's FAQ says standard purchases are delivered once payment is received.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q6",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/faq",
+          "publisher": "Defined.ai",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "For standard buying options, we deliver the datasets as soon as we"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c040",
+      "statement": "Defined.ai's FAQ says ACH-paid orders are delivered once funds clear, generally in 2-3 business days.",
+      "kind": "number",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 3,
+        "unit": "business days (upper bound)",
+        "basis": "time for ACH funds to clear before delivery of a standard purchase; range 2-3",
+        "period": "per order"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/faq",
+          "publisher": "Defined.ai",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "This generally takes 2-3 business days."
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c041",
+      "statement": "Defined.ai's FAQ offers volume discounts on a quotation basis.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/faq",
+          "publisher": "Defined.ai",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Yes, we do offer discounts depending on the volume of data that you purchase."
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c042",
+      "statement": "Defined.ai's FAQ offers datasets to academia at significant discounts or free.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q1",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/faq",
+          "publisher": "Defined.ai",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Yes, we offer datasets for Academia with significant discounts"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c043",
+      "statement": "Defined.ai's FAQ says buyers whose data is not listed can order a custom collection or wait for it to appear in the marketplace.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/faq",
+          "publisher": "Defined.ai",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You can either order a custom collection, or you can"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c044",
+      "statement": "Defined.ai's FAQ invites buyers to ask what data is planned for the quarter, implying a planned pipeline of catalogue releases.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q3",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/faq",
+          "publisher": "Defined.ai",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Contact us to learn about what"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c045",
+      "statement": "Defined.ai's FAQ says it will package custom subsets of catalogue data by age, gender and accent on request.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q10",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/faq",
+          "publisher": "Defined.ai",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "will package your custom dataset for you."
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c046",
+      "statement": "Defined.ai's FAQ says data owners can sell quality AI training data on its marketplace.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q2",
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/faq",
+          "publisher": "Defined.ai",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If you own quality AI training data, we would be happy to help you sell it"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c047",
+      "statement": "Defined.ai's FAQ says it asks about and tests the quality of data offered by would-be sellers.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q3",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/faq",
+          "publisher": "Defined.ai",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "prepared that we ask about and test the quality of your data."
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c048",
+      "statement": "Defined.ai's FAQ says it recruits contributors via its own channels, third-party advertising platforms and local partnerships.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/faq",
+          "publisher": "Defined.ai",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "self-owned channels, 3rd party advertisement platforms, and partnerships"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c049",
+      "statement": "Defined.ai's FAQ says contributors must consent to its Terms of Use and Privacy Policy before using its platform.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/faq",
+          "publisher": "Defined.ai",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "they need to give their consent before start using our platform."
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c050",
+      "statement": "Defined.ai's FAQ says it pays contributors at least minimum wage under a fair pay policy.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/faq",
+          "publisher": "Defined.ai",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We have a fair pay policy, ensuring at least minimum wage payment"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c051",
+      "statement": "Defined.ai's FAQ says contributor pay rates are set by the ability to attract contributors to complete tasks.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/faq",
+          "publisher": "Defined.ai",
+          "source_class": "docs",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Pay rate is determined based on ability to attract contributors to"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c052",
+      "statement": "Defined.ai's Supplier Code of Conduct requires suppliers to collect data only with informed consent.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/supplier-code-of-conduct",
+          "publisher": "Defined.ai",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Collect data only with informed consent, respecting all privacy laws."
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c053",
+      "statement": "Defined.ai's Supplier Code of Conduct requires suppliers to document data provenance and quality.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q3",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/supplier-code-of-conduct",
+          "publisher": "Defined.ai",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Provide accurate documentation of data provenance and quality."
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c054",
+      "statement": "Defined.ai's Supplier Code of Conduct requires suppliers to cooperate in audits.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/supplier-code-of-conduct",
+          "publisher": "Defined.ai",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Cooperate in audits and provide required documentation."
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c055",
+      "statement": "Defined.ai announced in January 2025 that datasets incorporating Getty Images content would be available on its marketplace.",
+      "kind": "event",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-01-08",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://defined.ai/press-room/strategic-engagement-with-getty-images",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "will be accessible on Defined.ai's Marketplace"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c056",
+      "statement": "Defined.ai's website Terms of Use grant visitors a limited non-exclusive licence to use dataset samples.",
+      "kind": "terms",
+      "section": "listing",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2023-09-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/terms-of-use",
+          "publisher": "Defined.ai",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "limited, non-exclusive, non-transferable license to use the dataset samples"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c057",
+      "statement": "Defined.ai's public catalogue page shows no prices and points buyers who cannot find a dataset to 'Get in touch'.",
+      "kind": "offer",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/datasets",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Get in touch"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c058",
+      "statement": "Defined.ai's blog says that when off-the-shelf data is not enough, buyers can scope a custom request.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-03-25",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://defined.ai/blog/future-ai-marketplace",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "When off-the-shelf data is not enough, businesses can scope a custom request tailored to their specific needs."
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c059",
+      "statement": "Defined.ai's blog describes buyers browsing the marketplace and reviewing free samples before larger sourcing decisions.",
+      "kind": "offer",
+      "section": "discovery",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-03-25",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://defined.ai/blog/future-ai-marketplace",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "they can review free samples to assess fit before making larger sourcing decisions"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c060",
+      "statement": "Defined.ai's marketplace explainer says it sources all its data with explicit contributor consent.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-03-16",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://defined.ai/blog/data-marketplace-explainer",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We source all our data ethically, with explicit consent from contributors."
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c061",
+      "statement": "Defined.ai's custom data collection page says every dataset is fully consented, copyright-cleared and privacy-compliant.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/solutions/data-collection",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Every dataset is fully consented, copyright-cleared, and privacy-compliant, meeting GDPR and HIPAA requirements."
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c062",
+      "statement": "Defined.ai's custom data collection page invites buyers to talk to a data expert rather than order online.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/solutions/data-collection",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Talk to a data expert"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c063",
+      "statement": "Defined.ai's Meeting Recordings listing describes 99.5K hours of meeting video with audio, transcripts and metadata, and offers 'Get a quote'.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q10",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/datasets/meeting-recordings",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "99.5K hours"
+        },
+        {
+          "url": "https://defined.ai/datasets/meeting-recordings",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Get a quote"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c064",
+      "statement": "Defined.ai's Dental X-ray listing describes 10,000 CBCT studies in DICOM format and offers 'Get a quote' and 'Request a Sample'.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q10",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/datasets/medical-imaging-dental-xrays",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "10,000 dental X-ray studies in DICOM format of 10,000 individuals"
+        },
+        {
+          "url": "https://defined.ai/datasets/medical-imaging-dental-xrays",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Request a Sample"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c065",
+      "statement": "Defined.ai's Retail Imaging listing describes over a million in-store images from grocery retailers in six countries.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q7",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.defined.ai/datasets/retail-images",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "over a million real world, in-store images showcasing fixtures, signage, displays, product adjacencies"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c066",
+      "statement": "Defined.ai's Data Access Plan Standard tier offered 315 hours of off-the-shelf speech data for EUR 50,000.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 50000,
+        "unit": "EUR per plan (315 hours of speech)",
+        "basis": "price paid by buyer for Standard Data Access Plan; stated as 30% discount on list; implies ~EUR 159 per hour",
+        "period": "not stated"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2024-09-26",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://defined.ai/press-room/defined-ai-launches-data-access-plan-dap-allowing-access-to-speech-datasets-at-affordable-prices",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "315 hours of speech data for €50,000 (30% discount)"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c067",
+      "statement": "Defined.ai's Data Access Plan Premium tier offered 625 hours of speech data for EUR 100,000.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 100000,
+        "unit": "EUR per plan (625 hours of speech)",
+        "basis": "price paid by buyer for Premium Data Access Plan; stated as 40% discount",
+        "period": "not stated"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2024-09-26",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://defined.ai/press-room/defined-ai-launches-data-access-plan-dap-allowing-access-to-speech-datasets-at-affordable-prices",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "625 hours of speech data for €100,000 (40% discount)"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c068",
+      "statement": "Defined.ai's Data Access Plan Ultimate tier offered 1,565 hours of speech data for EUR 250,000.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 250000,
+        "unit": "EUR per plan (1,565 hours of speech)",
+        "basis": "price paid by buyer for Ultimate Data Access Plan; stated as 50% discount",
+        "period": "not stated"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2024-09-26",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://defined.ai/press-room/defined-ai-launches-data-access-plan-dap-allowing-access-to-speech-datasets-at-affordable-prices",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "1,565 hours for €250,000 (50% discount)"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c069",
+      "statement": "Defined.ai's Data Access Plan Elite tier offered 3,125 hours of speech data for EUR 500,000.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 500000,
+        "unit": "EUR per plan (3,125 hours of speech)",
+        "basis": "price paid by buyer for Elite Data Access Plan; stated as 55% discount; implies EUR 160 per hour",
+        "period": "not stated"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2024-09-26",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://defined.ai/press-room/defined-ai-launches-data-access-plan-dap-allowing-access-to-speech-datasets-at-affordable-prices",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "3,125 hours for €500,000 (55% discount)"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c070",
+      "statement": "Defined.ai says its Data Access Plan speech datasets are sourced from its own crowd platform, Neevo.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2024-09-26",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://defined.ai/press-room/defined-ai-launches-data-access-plan-dap-allowing-access-to-speech-datasets-at-affordable-prices",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "provides the source for these high-quality datasets"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c071",
+      "statement": "Defined.ai's AI governance page says all its data is sourced with contributor consent and no scraping.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/about-us/ai-governance",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All data is sourced with 100% contributor consent"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c072",
+      "statement": "Defined.ai's AI governance page says it documents provenance for every dataset, including contributor consent records.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/about-us/ai-governance",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "contributor consent, data lineage, demographic coverage and bias assessment records"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c073",
+      "statement": "Defined.ai's AI governance page describes a Partner Vetting Process for organisations it works with.",
+      "kind": "offer",
+      "section": "vetting",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/about-us/ai-governance",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Our Partner Vetting Process ensures that every organization we work with adheres to"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c074",
+      "statement": "At its 2021 rebrand Defined.ai said developers could buy datasets by subscription or one-off, sell datasets as third-party vendors, or request custom datasets.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q3",
+        "Q9",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2021-11-19",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://defined.ai/press-room/definedcrowd-rebrands-as-defined-ai-reflecting-expanded-position-as-a-developer-platform-for-artificial-intelligence",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "sell their own datasets as third-party vendors, or request highly specialized, custom datasets built by the Defined.ai team"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c075",
+      "statement": "DefinedCrowd renamed itself Defined.ai in 2021.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2021-11-19",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://defined.ai/press-room/definedcrowd-rebrands-as-defined-ai-reflecting-expanded-position-as-a-developer-platform-for-artificial-intelligence",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "DefinedCrowd Rebrands as Defined.ai"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c076",
+      "statement": "Defined.ai's Supplier Program terms describe Defined.ai as building a marketplace for ethical AI training data.",
+      "kind": "terms",
+      "section": "positioning",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/supplier-program",
+          "publisher": "Defined.ai",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Defined.ai is building the ultimate marketplace for ethical, high-quality AI training data"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c077",
+      "statement": "Under the Supplier Program terms, an applicant grants Defined.ai a free, worldwide, non-exclusive licence to share its data samples with Defined.ai's customers.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/supplier-program",
+          "publisher": "Defined.ai",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "grants Defined.ai a worldwide, free, non-exclusive and unencumbered license to share the data samples"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c078",
+      "statement": "The Supplier Program terms defer Defined.ai's obligations to suppliers to a separate Data License Agreement.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q5",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/supplier-program",
+          "publisher": "Defined.ai",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "shall be addressed separately in a Data License Agreement"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c079",
+      "statement": "Supplier Program Stage 2 (Clearance) requires executing Defined.ai's Data License Agreement & Provision of Services.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/supplier-program",
+          "publisher": "Defined.ai",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "execution of Defined.ai's Data License Agreement & Provision of Services"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c080",
+      "statement": "Supplier Program Clearance requires dataset-level Ethical Questionnaire Forms.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/supplier-program",
+          "publisher": "Defined.ai",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "full completion of Defined.ai's Dataset-level Ethical Questionnaire Forms"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c081",
+      "statement": "Supplier Program Stage 1 (Enrolment) is an appraisal of the applicant company's compliance standards.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/supplier-program",
+          "publisher": "Defined.ai",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "overarching appraisal of Applicant Company's compliance standards"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c082",
+      "statement": "Under the Supplier Program terms, each new set of data samples is re-vetted under Stage 2.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q3",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/supplier-program",
+          "publisher": "Defined.ai",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "each new set of Data samples submitted by Supplier are subject to Stage 2 of the Vetting Process"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c083",
+      "statement": "Supplier Program applicants warrant that samples do not infringe third-party IP, privacy or publicity rights.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/supplier-program",
+          "publisher": "Defined.ai",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "including any intellectual property rights, privacy rights, publicity rights"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c084",
+      "statement": "Supplier Program applicants must defend and indemnify Defined.ai against claims.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/supplier-program",
+          "publisher": "Defined.ai",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Applicant Company agrees to defend, indemnify and hold harmless Defined.ai"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c085",
+      "statement": "The supplier's indemnity under the Supplier Program terms is capped at two times the value of business between the parties.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/supplier-program",
+          "publisher": "Defined.ai",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "two (2) times the total value of business conducted between the parties"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c086",
+      "statement": "Defined.ai may audit Supplier Program applicants no more than once a year unless a material breach is suspected.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/supplier-program",
+          "publisher": "Defined.ai",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Such audits shall be conducted no more than once per calendar year, unless a material breach is suspected"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c087",
+      "statement": "The Supplier Program terms are non-exclusive for both parties.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/supplier-program",
+          "publisher": "Defined.ai",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The GT&C are non-exclusive, and nothing in the GT&C prevents either Party from entering into the same or similar"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c088",
+      "statement": "Supplier Program terms entitle Defined.ai to all fees arising if a supplier circumvents it to deal directly with a referred customer.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q2",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-30",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://defined.ai/supplier-program",
+          "publisher": "Defined.ai",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Defined.ai shall immediately be entitled to any and all fees arising from the breach of the non-circumvention"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c089",
+      "statement": "Defined.ai says demand has been particularly strong for multimodal data for robotics, computer vision and healthcare.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-01-27",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://defined.ai/press-room/defined-ai-reports-sixty-five-percent-revenue-growth",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Demand has been particularly strong for multimodal data, including datasets supporting robotics, computer vision"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c090",
+      "statement": "Defined.ai says it has become a preferred monetization channel for organisations holding proprietary data.",
+      "kind": "outcome",
+      "section": "supply",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-01-27",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://defined.ai/press-room/defined-ai-reports-sixty-five-percent-revenue-growth",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Defined.ai has emerged as a preferred monetization channel for organizations holding valuable proprietary data assets."
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c091",
+      "statement": "Defined.ai reported a net revenue retention of 143% in its January 2026 announcement.",
+      "kind": "number",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 143,
+        "unit": "percent net revenue retention",
+        "basis": "vendor-stated, company-wide, unaudited",
+        "period": "per year"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-01-27",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://defined.ai/press-room/defined-ai-reports-sixty-five-percent-revenue-growth",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "achieved a Net Revenue Retention (NRR) of 143%"
+        }
+      ]
+    },
+    {
+      "id": "defined-ai-c092",
+      "statement": "Defined.ai announced in June 2025 that Crowdworks AI would resell Defined.ai datasets to South Korean clients through Crowdworks' marketplace.",
+      "kind": "event",
+      "section": "demand",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-06-17",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://defined.ai/press-room/defined-ai-crowdworks-ai-partnership",
+          "publisher": "Defined.ai",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-09-30",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Crowdworks AI will offer Defined.ai's ethically sourced datasets to its local client base through its AI data marketplace"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "matrix.who_pays_fee",
+      "urls_tried": [
+        "https://defined.ai/partnership-programs",
+        "https://defined.ai/supplier-program",
+        "https://defined.ai/faq",
+        "https://defined.ai/data-license-agreement"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.exclusivity_offered",
+      "urls_tried": [
+        "https://defined.ai/data-license-agreement",
+        "https://defined.ai/faq",
+        "https://defined.ai/datasets/stock-videos",
+        "https://defined.ai/datasets/meeting-recordings",
+        "https://defined.ai/datasets/medical-imaging-dental-xrays",
+        "https://www.defined.ai/datasets/retail-images"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.buyer_vetting",
+      "urls_tried": [
+        "https://defined.ai/faq",
+        "https://defined.ai/data-license-agreement",
+        "https://defined.ai/terms-of-use"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.versioning",
+      "urls_tried": [
+        "https://defined.ai/data-license-agreement",
+        "https://defined.ai/faq",
+        "https://defined.ai/datasets/stock-videos",
+        "https://defined.ai/datasets/meeting-recordings",
+        "https://defined.ai/datasets/medical-imaging-dental-xrays",
+        "https://www.defined.ai/datasets/retail-images"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "Q4",
+      "urls_tried": [
+        "https://defined.ai/solutions/data-collection",
+        "https://defined.ai/data-license-agreement",
+        "https://defined.ai/faq",
+        "https://defined.ai/supplier-program"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "provider revenue share percentage and who sets partner dataset prices",
+      "urls_tried": [
+        "https://defined.ai/partnership-programs",
+        "https://defined.ai/supplier-program",
+        "https://defined.ai/faq",
+        "https://defined.ai/blog/data-marketplace-explainer"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "supplier-side 'Data License Agreement & Provision of Services' text",
+      "urls_tried": [
+        "https://defined.ai/supplier-program",
+        "https://defined.ai/partnership-programs"
+      ],
+      "reason": "gated"
+    },
+    {
+      "field": "delivery mechanism (download link, cloud bucket, API)",
+      "urls_tried": [
+        "https://defined.ai/data-license-agreement",
+        "https://defined.ai/faq",
+        "https://developers.definedcrowd.com/"
+      ],
+      "reason": "js_empty"
+    },
+    {
+      "field": "whether listings disclose the third-party provider behind a dataset",
+      "urls_tried": [
+        "https://defined.ai/datasets/stock-videos",
+        "https://defined.ai/datasets/meeting-recordings",
+        "https://defined.ai/datasets/medical-imaging-dental-xrays",
+        "https://www.defined.ai/datasets/retail-images"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "https://defined.ai/terms-of-service (lead given in brief)",
+      "urls_tried": [
+        "https://defined.ai/terms-of-service"
+      ],
+      "reason": "not_found"
+    }
+  ],
+  "conflicts": [
+    {
+      "claim_ids": [
+        "defined-ai-c034",
+        "defined-ai-c020"
+      ],
+      "rule_applied": "live_primary_wins_terms",
+      "resolution": "FAQ calls the licence perpetual; the DLA says it runs until terminated. The DLA (legal text) governs; both kept."
+    },
+    {
+      "claim_ids": [
+        "defined-ai-c035",
+        "defined-ai-c036"
+      ],
+      "rule_applied": "live_primary_wins_terms",
+      "resolution": "FAQ says samples download instantly; every live listing opened shows 'Request a Sample'. Listings taken as current mechanics."
+    },
+    {
+      "claim_ids": [
+        "defined-ai-c074",
+        "defined-ai-c036"
+      ],
+      "rule_applied": "newer_wins_status",
+      "resolution": "2021 rebrand described subscriptions and one-off purchases; current listings are quote-only. Current listings taken as current mode."
+    }
+  ],
+  "leads": [
+    {
+      "url": "https://www.newswire.com/news/defined-ai-reports-65-revenue-growth-as-global-demand-for-ai-training-data",
+      "why": "Wire copy of the Jan 2026 growth release; press_relayed, not independent."
+    },
+    {
+      "url": "https://defined.ai/press-room/defined-ai-reinforces-physical-ai-data-for-robotics",
+      "why": "Physical-AI / robotics video data push; not fetched."
+    },
+    {
+      "url": "https://defined.ai/press-room/definedcrowd-launches-portfolio-of-ai-training-data-products",
+      "why": "Origin of the off-the-shelf catalogue; not fetched."
+    },
+    {
+      "url": "https://defined.ai/privacy-policy",
+      "why": "Contributor-facing privacy terms that the FAQ says contributors consent to; not fetched."
+    },
+    {
+      "url": "https://defined.ai/datasets/wound-skin-image",
+      "why": "Another image listing (medical) to check consent statements; not fetched."
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?company=definedcrowd",
+      "why": "Possible Form D filings for funding; not fetched."
+    }
+  ]
+}

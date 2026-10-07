@@ -1,0 +1,415 @@
+{
+  "kind": "verify",
+  "slug": "ibm-diversity-in-faces",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "ibm-diversity-in-faces-c001",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://www.courtlistener.com/api/rest/v4/search/?q=docket_id%3A17348824&type=rd&order_by=entry_date_filed+desc",
+        "publisher": "CourtListener (Free Law Project), RECAP docket of N.D. Cal. 5:20-cv-04696",
+        "source_class": "court_record",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "ORDER APPROVING 137 STIPULATION OF DISMISSAL. Signed by Judge Beth Labson Freeman on 12/12/2025."
+      },
+      "corrected_statement": null,
+      "note": "Docket entry 137 (12 Dec 2025) is the plaintiffs' stipulation of dismissal and 138 the order approving it. 'Last' checked against the other DiF dockets on CourtListener: Amazon and Microsoft ended on summary judgment 17 Oct 2022, IBM 11 May 2023, FaceFirst (C.D. Cal. 2:20-cv-06244) dismissed 17 Oct 2023. No search available, so a later suit outside CourtListener cannot be excluded. Part 2 finding: the profile cites the same CourtListener docket, under a different query URL, so this is not a second document. The docket is the authoritative record and no search was available to find another."
+    },
+    {
+      "claim_id": "ibm-diversity-in-faces-c040",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.362392/gov.uscourts.cand.362392.134.0.pdf",
+        "publisher": "U.S. District Court N.D. Cal. (Dkt. 134, via CourtListener RECAP)",
+        "source_class": "court_record",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "pdf_read",
+        "quote": "solely for the purpose of enfor cing the terms of the parties’ settlement agreement"
+      },
+      "corrected_statement": null,
+      "note": "Stipulation dated 10 Oct 2025 asks for dismissal 'with out prejudice' (pdf spacing) and says a with-prejudice stipulation will follow within 60 days; order 135 approved it on 10 Oct 2025. Part 2 finding: this is the same document the profile cites. No second independent document was found; no search available."
+    },
+    {
+      "claim_id": "ibm-diversity-in-faces-c002",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://www.courtlistener.com/api/rest/v4/search/?q=docket_id%3A16759907&type=rd&order_by=entry_date_filed+desc",
+        "publisher": "CourtListener (Free Law Project), RECAP docket of N.D. Ill. 1:20-cv-00577",
+        "source_class": "court_record",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "the parties' Stipulation of Dismissal 208, this case is dismissed with prejudice. Civil case terminated."
+      },
+      "corrected_statement": null,
+      "note": "Minute entry 209, entered 05/11/2023, Judge Nancy L. Maldonado, under Fed. R. Civ. P. 41(a)(1)(A)(ii). Part 2 finding: the profile cites the same CourtListener docket, under a different query URL, so this is not a second document. The docket is the authoritative record and no search was available to find another."
+    },
+    {
+      "claim_id": "ibm-diversity-in-faces-c003",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://www.courtlistener.com/api/rest/v4/search/?q=docket_id%3A17348496&type=rd&order_by=entry_date_filed+desc",
+        "publisher": "CourtListener (Free Law Project), RECAP docket of W.D. Wash. 2:20-cv-01082",
+        "source_class": "court_record",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "ORDER granting Defendant's 127 Motion for Summary Judgment. Signed by Judge James L. Robart. (LH) (Entered: 10/17/2022)"
+      },
+      "corrected_statement": null,
+      "note": "Judgment entry 146 of the same date records that the motion for summary judgment is granted. Amazon (W.D. Wash. 2:20-cv-01084) received summary judgment the same day (Dkt. 135/136). Part 2 finding: the profile cites the same CourtListener docket, under a different query URL, so this is not a second document. The docket is the authoritative record and no search was available to find another."
+    },
+    {
+      "claim_id": "ibm-diversity-in-faces-c036",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.ilnd.372910/gov.uscourts.ilnd.372910.19.0_1.pdf",
+        "publisher": "Plaintiffs' Second Amended Class Action Complaint, N.D. Ill. 1:20-cv-00577 Dkt. 19 (via CourtListener RECAP)",
+        "source_class": "court_record",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "pdf_read",
+        "quote": "statutory damages of $5,000 per BIPA violation, or, alternatively, if Defendant IBM acted negligently"
+      },
+      "corrected_statement": null,
+      "note": "This is the pleading itself, a different document from the court's opinion (Dkt. 48), which also summarises the figure as '$5,000 for each willful and reckless violation'. The complaint ties $5,000 to 'intentional and reckless' violations, following BIPA's 'intentional or reckless'. Number confirmed."
+    },
+    {
+      "claim_id": "ibm-diversity-in-faces-c034",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.ilnd.372910/gov.uscourts.ilnd.372910.48.0_1.pdf",
+        "publisher": "U.S. District Court N.D. Ill. (Memorandum Opinion, Dkt. 48, via CourtListener RECAP)",
+        "source_class": "court_record",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "pdf_read",
+        "quote": "courts have held that biometric data obtained from photographs is a “biometric identifier.”"
+      },
+      "corrected_statement": null,
+      "note": "Opinion dated 15 Sep 2020 concludes 'IBM’s motion to dismiss Plaintiffs’ BIPA claims is denied.' Nuance the statement omits: the court dismissed the BIPA s.15(a) count (Count One) sua sponte for lack of Article III standing and the injunctive-relief count; the s.15(b)-(e) and unjust-enrichment counts survived. Part 2 finding: this is the same document the profile cites. No second independent document was found; no search available."
+    },
+    {
+      "claim_id": "ibm-diversity-in-faces-c015",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.wawd.287404/gov.uscourts.wawd.287404.135.0.pdf",
+        "publisher": "U.S. District Court W.D. Wash. (Order on Amazon's motion for summary judgment, Dkt. 135, via CourtListener RECAP)",
+        "source_class": "court_record",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "pdf_read",
+        "quote": "IBM provided the DiF Dataset free of charge to researchers who filled out a questionnaire and submitted it to IBM via email."
+      },
+      "corrected_statement": null,
+      "note": "Court's background section, citing IBM researcher Merler's declaration (so the underlying fact is IBM's sworn account, adopted by the court). Part 2 finding: the profile cites the Microsoft order (W.D. Wash. 2:20-cv-01082 Dkt. 145). This is the separate Amazon order, in which the same judge restates the same finding from the Merler declaration. Both are court records, but they are not fully independent of each other."
+    },
+    {
+      "claim_id": "ibm-diversity-in-faces-c017",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.wawd.287404/gov.uscourts.wawd.287404.135.0.pdf",
+        "publisher": "U.S. District Court W.D. Wash. (Order on Amazon's motion for summary judgment, Dkt. 135, via CourtListener RECAP)",
+        "source_class": "court_record",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "pdf_read",
+        "quote": "via an email that included a link to a temporary Box folder that contained the DiF Dataset."
+      },
+      "corrected_statement": null,
+      "note": "Same page: 'After verifying that a request was for a “legitimate research purpose,” IBM researcher Dr. Michele Merler sent the DiF Dataset'. Part 2 finding: the profile cites the Microsoft order (W.D. Wash. 2:20-cv-01082 Dkt. 145). This is the separate Amazon order, in which the same judge restates the same finding from the Merler declaration. Both are court records, but they are not fully independent of each other."
+    },
+    {
+      "claim_id": "ibm-diversity-in-faces-c016",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.wawd.287404/gov.uscourts.wawd.287404.135.0.pdf",
+        "publisher": "U.S. District Court W.D. Wash. (Order on Amazon's motion for summary judgment, Dkt. 135, via CourtListener RECAP)",
+        "source_class": "court_record",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "pdf_read",
+        "quote": "could only be used for non-commercial, research purposes and prohibited using the DiF Dataset to identify any individuals"
+      },
+      "corrected_statement": null,
+      "note": "The terms of use themselves (Merler Decl. Ex. H) were not reachable; the court's description of them is the independent source. Part 2 finding: the profile cites the Microsoft order (W.D. Wash. 2:20-cv-01082 Dkt. 145). This is the separate Amazon order, in which the same judge restates the same finding from the Merler declaration. Both are court records, but they are not fully independent of each other."
+    },
+    {
+      "claim_id": "ibm-diversity-in-faces-c008",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.wawd.287404/gov.uscourts.wawd.287404.135.0.pdf",
+        "publisher": "U.S. District Court W.D. Wash. (Order on Amazon's motion for summary judgment, Dkt. 135, via CourtListener RECAP)",
+        "source_class": "court_record",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "pdf_read",
+        "quote": "used one million of the photos in the YFCC-100M Dataset to develop the Diversity in Faces (“DiF”) Dataset"
+      },
+      "corrected_statement": null,
+      "note": "Same order, p.2: 'In 2014, Yahoo!, Flickr’s then-parent company, publicly released a dataset of about 100 million photographs'. The IBM MTD opinion (N.D. Ill. Dkt. 48) says 'over 99 million photos'. Part 2 finding: the profile cites the Microsoft order (W.D. Wash. 2:20-cv-01082 Dkt. 145). This is the separate Amazon order, in which the same judge restates the same finding from the Merler declaration. Both are court records, but they are not fully independent of each other."
+    },
+    {
+      "claim_id": "ibm-diversity-in-faces-c021",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.wawd.287404/gov.uscourts.wawd.287404.135.0.pdf",
+        "publisher": "U.S. District Court W.D. Wash. (Order on Amazon's motion for summary judgment, Dkt. 135, via CourtListener RECAP)",
+        "source_class": "court_record",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "pdf_read",
+        "quote": "IBM approved the request and sent him a link to download Version 1A of the DiF Dataset."
+      },
+      "corrected_statement": null,
+      "note": "The order dates Hassner's questionnaire to 9 Feb 2019 and the Amazon download to February 2019; it does not give the exact date of IBM's approval, so 'February 2019' is an inference bounded by those two facts. Part 2 finding: this is the same document the profile cites. No second independent document was found; no search available."
+    },
+    {
+      "claim_id": "ibm-diversity-in-faces-c025",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.wawd.287404/gov.uscourts.wawd.287404.135.0.pdf",
+        "publisher": "U.S. District Court W.D. Wash. (Order on Amazon's motion for summary judgment, Dkt. 135, via CourtListener RECAP)",
+        "source_class": "court_record",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "pdf_read",
+        "quote": "Access to the S3 Bucket was restricted to the approximately 50 members of the Research Team."
+      },
+      "corrected_statement": null,
+      "note": "Same order: the S3 bucket was 'also physically located in the Oregon data center'; the copy was first downloaded to an EBS virtual machine in the same data centre. Part 2 finding: this is the same document the profile cites. No second independent document was found; no search available."
+    },
+    {
+      "claim_id": "ibm-diversity-in-faces-c020",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://www.nbcnews.com/tech/internet/facial-recognition-s-dirty-little-secret-millions-online-photos-scraped-n981921",
+        "publisher": "NBC News (Olivia Solon, 12 Mar 2019)",
+        "source_class": "press_relaying_vendor",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "about 250 organizations have requested access so far), IBM said."
+      },
+      "corrected_statement": null,
+      "note": "NBC attributes the figure to IBM; no source independent of IBM gives a count. Reached by navigating from exposing.ai's DiF page, which links the article; no search available. This is the profile's own source, so it does not count as independent. Article dated 12 Mar 2019, updated 17 Mar 2019. Part 2 finding: the profile cites the same NBC article."
+    },
+    {
+      "claim_id": "ibm-diversity-in-faces-c049",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://www.nbcnews.com/tech/internet/facial-recognition-s-dirty-little-secret-millions-online-photos-scraped-n981921",
+        "publisher": "NBC News (Olivia Solon, 12 Mar 2019)",
+        "source_class": "independent_press",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "None of the people I photographed had any idea their images were being used in this way"
+      },
+      "corrected_statement": null,
+      "note": "The speaker is Greg Peverill-Conti, who NBC says has more than 700 photos in the dataset. The claim is about what NBC reported, so the article is the record itself; it is also the profile's source. No second outlet reachable without search. Part 2 finding: the profile cites the same NBC article."
+    },
+    {
+      "claim_id": "ibm-diversity-in-faces-c055",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://www.nbcnews.com/tech/internet/facial-recognition-s-dirty-little-secret-millions-online-photos-scraped-n981921",
+        "publisher": "NBC News (Olivia Solon, 12 Mar 2019)",
+        "source_class": "independent_press",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Creative Commons licenses, which means that others can reuse their pictures without paying license fees"
+      },
+      "corrected_statement": null,
+      "note": "The claim is about what NBC said, so the article is the record; it is also the profile's source. IBM's own 2019 announcement also calls YFCC-100M a Creative Commons dataset. Part 2 finding: the profile cites the same NBC article."
+    },
+    {
+      "claim_id": "ibm-diversity-in-faces-c054",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Whether IBM's own page is live and lacks a link can only be checked on IBM's site. Fetched https://research.ibm.com/blog/diversity-in-faces on 2026-10-01: live, dated 29 Jan 2019 (updated 15 Feb 2019), and no link mentioning request, download, access or questionnaire was found. The Wayback Machine is blocked, so when the link disappeared cannot be established."
+    },
+    {
+      "claim_id": "ibm-diversity-in-faces-c054",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The first source (research.ibm.com/blog/diversity-in-faces) is the dated DiF announcement and supports 'still live'. The absence of a link is not quotable, as LEDGER rule 13 allows. The second source (research.ibm.com/artificial-intelligence/trusted-ai/diversity-in-faces/) now serves IBM's generic 'Trustworthy AI' page, which does not mention DiF. Its quote is generic and supports nothing about DiF, except that the old DiF project URL no longer resolves to a DiF page; that is worth stating as such."
+    },
+    {
+      "claim_id": "ibm-diversity-in-faces-c001",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Fact correct. The quote 'ORDER APPROVING 137 STIPULATION OF DISMISSAL' does not show the date; '... Signed by Judge Beth Labson Freeman on 12/12/2025' would. 'Last' is an inference across the other dockets (c003-c005), not something this source states."
+    },
+    {
+      "claim_id": "ibm-diversity-in-faces-c002",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Fact correct. 'this case is dismissed with prejudice' does not show that it was under the stipulation; 'and the parties' Stipulation of Dismissal 208, this case is dismissed with prejudice' would. The date comes from the entry metadata (Entered: 05/11/2023)."
+    },
+    {
+      "claim_id": "ibm-diversity-in-faces-c003",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Judgment entry 146 on the Microsoft docket (W.D. Wash. 2:20-cv-01082), dated 2022-10-17."
+    },
+    {
+      "claim_id": "ibm-diversity-in-faces-c008",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Microsoft order Dkt. 145 supports the one-million figure. The YFCC-100M size and the 2014 Yahoo release are in the same order but not in the quote: 'In 2014, Yahoo!, Flickr’s then-parent company, publicly released a dataset of about 100 million photographs'."
+    },
+    {
+      "claim_id": "ibm-diversity-in-faces-c015",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote stops at 'filled out a' and does not show the questionnaire or email. The full sentence is in the same order: '... filled out a questionnaire and submitted it to IBM via email.'"
+    },
+    {
+      "claim_id": "ibm-diversity-in-faces-c016",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "This is the court's paraphrase of the DiF terms of use, not the terms themselves; the profile's unknowns already say so."
+    },
+    {
+      "claim_id": "ibm-diversity-in-faces-c017",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote shows the Box link but not the vetting step, which this claim is used for (operator_role, buyer_vetting). It needs 'After verifying that a request was for a “legitimate research purpose,” IBM researcher Dr. Michele Merler sent'."
+    },
+    {
+      "claim_id": "ibm-diversity-in-faces-c020",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The statement attributes the number to IBM, but the quote omits the attribution; 'about 250 organizations have requested access so far), IBM said.' shows it. The figure is IBM's own, so source_class press_relaying_vendor or origin vendor_stated would fit better than independent_press."
+    },
+    {
+      "claim_id": "ibm-diversity-in-faces-c021",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "'IBM approved the request and sent him a link' omits 'to download Version 1A of the DiF Dataset' (next page) and any date. The order dates the questionnaire to 9 Feb 2019 and Amazon's download to February 2019, but gives no date for IBM's approval."
+    },
+    {
+      "claim_id": "ibm-diversity-in-faces-c025",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote shows the 50-member restriction only. The Oregon location is in the same order ('a specific cloud storage location also physically located in the Oregon data center'), as is the S3 bucket."
+    },
+    {
+      "claim_id": "ibm-diversity-in-faces-c034",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the court's words. The statement leaves out that the same opinion dismissed the BIPA s.15(a) count for lack of standing and dismissed the injunctive-relief count. 'The BIPA claims' therefore means the s.15(b)-(e) counts. Not wrong, but worth a qualifier."
+    },
+    {
+      "claim_id": "ibm-diversity-in-faces-c036",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "From the IBM opinion. The same plaintiffs brought every DiF suit, so 'the DiF plaintiffs' is fair, though the figure is the statutory amount in the IBM complaint as the court summarised it."
+    },
+    {
+      "claim_id": "ibm-diversity-in-faces-c040",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote shows the settlement reference but not 'without prejudice'. 'the dismissal of this action with out prejudice' (pdf spacing) would show it. The date is on the face of the document (Filed 10/10/25)."
+    },
+    {
+      "claim_id": "ibm-diversity-in-faces-c049",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "ibm-diversity-in-faces-c055",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "This is NBC's general explanation of Creative Commons, not a DiF-specific term. It supports contributor_pay_model only by inference that Flickr photographers received nothing."
+    }
+  ],
+  "missed": [
+    {
+      "id": "ibm-diversity-in-faces-v001",
+      "statement": "NBC News reported in March 2019 that IBM had not publicly shared the list of Flickr users and photos in DiF, so people had no easy way to find out whether their photos were included.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "IBM Diversity in Faces (DiF)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "independent",
+      "as_of": "2019-03-12",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.nbcnews.com/tech/internet/facial-recognition-s-dirty-little-secret-millions-online-photos-scraped-n981921",
+          "publisher": "NBC News (Olivia Solon)",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "IBM has not publicly shared the list of Flickr users and photos included in the dataset"
+        }
+      ]
+    }
+  ]
+}

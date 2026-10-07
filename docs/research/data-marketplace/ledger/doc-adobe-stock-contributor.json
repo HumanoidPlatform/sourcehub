@@ -1,0 +1,2384 @@
+{
+  "kind": "document",
+  "slug": "doc-adobe-stock-contributor",
+  "platform_slug": "adobe-stock",
+  "title": "Adobe Stock Contributor Agreement — Additional Terms to Adobe General Terms of Use",
+  "doc_type": "contributor_agreement",
+  "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+  "publisher": "Adobe",
+  "version_or_date": "Effective as of February 16, 2024. Replaces all prior versions.",
+  "retrieved_at": "2026-10-01",
+  "parties": {
+    "licensor": "The contributor (or the copyright owner on whose behalf the contributor submits) grants the licence to Adobe.",
+    "licensee": "Adobe Inc. for contributors resident in the US; Adobe Canada Services Corporation for contributors resident elsewhere (including India). Adobe sublicenses to users (buyers) under its own User Agreements.",
+    "operator_role": "reseller_licensor"
+  },
+  "terms": {
+    "permitted_use": {
+      "value": "Contributor licenses Adobe to use, reproduce, display, perform, distribute, index, translate and modify the Work to run the site, license it to users, develop new features and services, archive and protect it, and (for discretionary pay) to market Adobe; users/partners may share on social media and via an API partner programme.",
+      "claim_ids": [
+        "doc-adobe-stock-contributor-c008",
+        "doc-adobe-stock-contributor-c009",
+        "doc-adobe-stock-contributor-c011",
+        "doc-adobe-stock-contributor-c019",
+        "doc-adobe-stock-contributor-c020"
+      ]
+    },
+    "ai_training_rights": {
+      "value": "Not addressed expressly: no mention of AI, machine learning, training, fine-tuning, evaluation, dataset redistribution or model outputs; the only possible hook is Adobe's own perpetual, royalty-free licence for 'developing new features and services', with no AI-specific payment; what users may do with Works for AI is left to Adobe's User Agreements, not in this document.",
+      "claim_ids": [
+        "doc-adobe-stock-contributor-c010",
+        "doc-adobe-stock-contributor-c009",
+        "doc-adobe-stock-contributor-c008",
+        "doc-adobe-stock-contributor-c015"
+      ]
+    },
+    "field_of_use": {
+      "value": "Any media or embodiment and any subject matter, except pornographic or illegal uses (contributor waives objection); Adobe may treat Work as editorial-use-only, which can be accepted without releases.",
+      "claim_ids": [
+        "doc-adobe-stock-contributor-c014",
+        "doc-adobe-stock-contributor-c033",
+        "doc-adobe-stock-contributor-c027",
+        "doc-adobe-stock-contributor-c029"
+      ]
+    },
+    "territory": {
+      "value": "Worldwide, both for Adobe's licence and for sublicences to users.",
+      "claim_ids": [
+        "doc-adobe-stock-contributor-c008",
+        "doc-adobe-stock-contributor-c014"
+      ]
+    },
+    "term_duration": {
+      "value": "Perpetual licences; contributor may end the Additional Terms on 90 days' written notice, Adobe without notice; licences already granted survive.",
+      "claim_ids": [
+        "doc-adobe-stock-contributor-c008",
+        "doc-adobe-stock-contributor-c014",
+        "doc-adobe-stock-contributor-c060",
+        "doc-adobe-stock-contributor-c057",
+        "doc-adobe-stock-contributor-c064"
+      ]
+    },
+    "exclusivity": {
+      "value": "Non-exclusive in both directions: contributor to Adobe, and Adobe's sublicences to users; the document offers no exclusive licence route.",
+      "claim_ids": [
+        "doc-adobe-stock-contributor-c008",
+        "doc-adobe-stock-contributor-c014"
+      ]
+    },
+    "sublicensing": {
+      "value": "Adobe may sublicense use, reproduction, display, distribution and modification to users under its own User Agreements, and let users and authorised third parties share Works; API partners facilitate sales.",
+      "claim_ids": [
+        "doc-adobe-stock-contributor-c013",
+        "doc-adobe-stock-contributor-c015",
+        "doc-adobe-stock-contributor-c019",
+        "doc-adobe-stock-contributor-c020"
+      ]
+    },
+    "derivatives_and_model_outputs": {
+      "value": "User licences may include modifying and creating derivative works and selling merchandise incorporating the Work; modified Work limited to the uses allowed for the original; silent on model outputs.",
+      "claim_ids": [
+        "doc-adobe-stock-contributor-c016",
+        "doc-adobe-stock-contributor-c017",
+        "doc-adobe-stock-contributor-c018"
+      ]
+    },
+    "attribution": {
+      "value": "No attribution duty: Adobe and users may but need not credit the creator, users are not obliged to credit in commercial use, metadata may be changed; Adobe may use the contributor's name and marks in marketing.",
+      "claim_ids": [
+        "doc-adobe-stock-contributor-c031",
+        "doc-adobe-stock-contributor-c032",
+        "doc-adobe-stock-contributor-c035",
+        "doc-adobe-stock-contributor-c012"
+      ]
+    },
+    "deletion_on_termination": {
+      "value": "No deletion duty on Adobe: after termination it may keep the Work for internal archival and reference use; licences already granted to users and Adobe survive.",
+      "claim_ids": [
+        "doc-adobe-stock-contributor-c063",
+        "doc-adobe-stock-contributor-c064"
+      ]
+    },
+    "warranties_by_provider": {
+      "value": "Contributor warrants ownership of or rights to the Work (including privacy, publicity and moral rights), non-infringement, no misleading/illegal/defamatory content, authority when submitting for other owners, and truthfulness for editorial Work; warranties survive termination.",
+      "claim_ids": [
+        "doc-adobe-stock-contributor-c021",
+        "doc-adobe-stock-contributor-c022",
+        "doc-adobe-stock-contributor-c023",
+        "doc-adobe-stock-contributor-c006",
+        "doc-adobe-stock-contributor-c028",
+        "doc-adobe-stock-contributor-c067"
+      ]
+    },
+    "consent_and_release_warranty": {
+      "value": "Contributor warrants it holds valid model/property releases similar to Adobe's standard forms for every identifiable person, logo or protected property, and must hand copies to Adobe on request; editorial-only Work may be accepted without releases; nothing requires releases to reach buyers.",
+      "claim_ids": [
+        "doc-adobe-stock-contributor-c024",
+        "doc-adobe-stock-contributor-c025",
+        "doc-adobe-stock-contributor-c026",
+        "doc-adobe-stock-contributor-c027"
+      ]
+    },
+    "indemnity": {
+      "value": "Contributor indemnifies Adobe, its affiliates, partners, licensees and licensors including users against claims from submitted Works, site use or breach; no cap stated; Adobe controls the defence and may offset against royalties; survives termination.",
+      "claim_ids": [
+        "doc-adobe-stock-contributor-c052",
+        "doc-adobe-stock-contributor-c053",
+        "doc-adobe-stock-contributor-c054",
+        "doc-adobe-stock-contributor-c055",
+        "doc-adobe-stock-contributor-c056",
+        "doc-adobe-stock-contributor-c067"
+      ]
+    },
+    "liability_cap": {
+      "value": "No cap stated here; Adobe excludes liability to contributors for users' breach of User Agreements or third-party misuse, for metadata changes and for representatives' advice, and gives no revenue warranty; any general cap is in the General Terms.",
+      "claim_ids": [
+        "doc-adobe-stock-contributor-c036",
+        "doc-adobe-stock-contributor-c035",
+        "doc-adobe-stock-contributor-c072",
+        "doc-adobe-stock-contributor-c073",
+        "doc-adobe-stock-contributor-c002"
+      ]
+    },
+    "payment_and_revenue_share": {
+      "value": "Adobe pays per licence sale, net of cancellations/returns/refunds, at rates on a separate help page it can change unilaterally; nothing for free content, promotions, trials or watermarked versions, discretionary for marketing use, none if terminated for cause; tax withheld; indemnity amounts offset; post-termination licence fees still paid.",
+      "claim_ids": [
+        "doc-adobe-stock-contributor-c039",
+        "doc-adobe-stock-contributor-c040",
+        "doc-adobe-stock-contributor-c041",
+        "doc-adobe-stock-contributor-c043",
+        "doc-adobe-stock-contributor-c045",
+        "doc-adobe-stock-contributor-c011",
+        "doc-adobe-stock-contributor-c058",
+        "doc-adobe-stock-contributor-c046",
+        "doc-adobe-stock-contributor-c056",
+        "doc-adobe-stock-contributor-c066",
+        "doc-adobe-stock-contributor-c044"
+      ]
+    },
+    "takedown_and_erasure": {
+      "value": "Contributor may remove Work any time (bulk removals over 100 items/10% in 90 days need 90 days' notice); affiliates' copies removed within 60 days on reasonable efforts, with new licences possible until then; licences already sold survive, so buyers keep their copies, and comp holders may still convert.",
+      "claim_ids": [
+        "doc-adobe-stock-contributor-c049",
+        "doc-adobe-stock-contributor-c061",
+        "doc-adobe-stock-contributor-c062",
+        "doc-adobe-stock-contributor-c064",
+        "doc-adobe-stock-contributor-c065",
+        "doc-adobe-stock-contributor-c050"
+      ]
+    },
+    "change_of_terms": {
+      "value": "Terms replace all prior versions and apply to Works uploaded under earlier versions; Adobe may change Pricing and Payment Details unilaterally, accepted by continuing to upload or not removing Works; Guidelines incorporated by reference.",
+      "claim_ids": [
+        "doc-adobe-stock-contributor-c001",
+        "doc-adobe-stock-contributor-c005",
+        "doc-adobe-stock-contributor-c041",
+        "doc-adobe-stock-contributor-c042",
+        "doc-adobe-stock-contributor-c047"
+      ]
+    },
+    "prohibited_uses": {
+      "value": "User Agreements bar pornographic or illegal use of Works; contributors may not download content to inflate download counts or trigger payments.",
+      "claim_ids": [
+        "doc-adobe-stock-contributor-c034",
+        "doc-adobe-stock-contributor-c033",
+        "doc-adobe-stock-contributor-c059"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "doc-adobe-stock-contributor-c001",
+      "statement": "The Adobe Stock Contributor Agreement Additional Terms are effective as of February 16, 2024 and replace all prior versions.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Effective as of February 16, 2024. Replaces all prior versions."
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c002",
+      "statement": "The Additional Terms are incorporated into the Adobe General Terms of Use, so terms not in this document (such as governing law and Adobe's liability limits) sit in the General Terms.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "These Additional Terms are incorporated by reference into the Adobe General Terms of Use"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c003",
+      "statement": "Contributors resident in Germany are governed by a separate German contributor agreement rather than these Additional Terms.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": "Germany"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "except if you are a resident of Germany, the terms at"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c004",
+      "statement": "The Additional Terms cover photographs, illustrations, vectors, images, templates, 3D assets and videos, together with their keywords, descriptions and captions.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "apply to all Content, photographs, illustrations, vectors, images, templates, 3D assets, videos"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c005",
+      "statement": "The Additional Terms apply to Works uploaded under any prior version of the contributor terms, not only to new uploads.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "that you submit to us or upload to a Website under these Additional Terms or any other prior version thereof"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c006",
+      "statement": "A contributor submitting on behalf of copyright owners warrants that it has authority to, and will, ensure those owners comply with the Terms.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "If you submit Work on behalf of the applicable copyright owner(s), you represent and warrant that you have the authority to"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c007",
+      "statement": "When Work is submitted on behalf of an entity, the Terms bind that entity and its affiliates.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "If you submit Work on behalf of an entity, then the Terms apply to that entity and its affiliates."
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c008",
+      "statement": "The contributor grants Adobe a non-exclusive, worldwide, perpetual, fully-paid and royalty-free licence to use and reproduce the Work.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "You grant us a non-exclusive, worldwide, perpetual, fully-paid, and royalty-free license to use, reproduce"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c009",
+      "statement": "The purposes of Adobe's own licence include licensing the Work to users, developing new features and services, archiving and protecting the Work.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "licensing the Work to users; developing new features and services; archiving the Work; and protecting the Work"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c010",
+      "statement": "The Additional Terms nowhere mention artificial intelligence, machine learning, or model training, fine-tuning, evaluation or outputs; the only general purpose that could reach such use is 'developing new features and services'.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "for the purposes of operating the Website; presenting, distributing, marketing, promoting, and licensing the Work to users"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c011",
+      "statement": "Adobe may use Works to market its business and other products, and for that use it may compensate the contributor only at its discretion.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "we may compensate you at our discretion as described in section 5 (Payment) below"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c012",
+      "statement": "The contributor gives Adobe the right, but not the obligation, to use the contributor's display name, trademarks and trade names in marketing.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "the right, but not the obligation, to use your display name, trademarks, and trade names"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c013",
+      "statement": "The contributor grants Adobe the right to sublicense its rights to use, reproduce, display, distribute and modify the Work.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "You grant us a license to further sublicense our right to use, reproduce, publicly display, distribute, modify"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c014",
+      "statement": "Sublicences to users are non-exclusive, worldwide and perpetual, in any media or embodiment.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "on a non-exclusive, worldwide, and perpetual basis in any media or embodiment"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c015",
+      "statement": "Adobe sublicenses Works to users under its own written or electronic User Agreement between Adobe and the user.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "We may sublicense Works pursuant to a written or electronic agreement between us and a user"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c016",
+      "statement": "Adobe's licence to users may include the right to modify the Work and create derivative works from it.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "The license to users may include the right to modify and create derivative works based upon the Work"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c017",
+      "statement": "Adobe's licence to users may include the right to sell the Work or reproductions of it when incorporated into merchandise or other works.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "the right to sell or distribute for sale the Work or any reproductions thereof if incorporated"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c018",
+      "statement": "A user's use of a modified Work is limited to the uses permitted for the original Work.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "use of the modified Work is limited solely to the same uses permitted with respect to the original Work"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c019",
+      "statement": "Adobe may let users and authorised third parties post or share the Work on social media and third-party sites, subject to the User Agreement.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "post or share the Work onto social media sites or other third-party websites, subject to any restrictions"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c020",
+      "statement": "Adobe runs an API programme through which partners showcase and facilitate sales of contributors' Works.",
+      "kind": "terms",
+      "section": "discovery",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "program that allows our partners to showcase and to facilitate sales of the Work"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c021",
+      "statement": "The contributor warrants that it owns all rights in the Work or has all rights needed to grant Adobe the licences.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "You represent and warrant that you own all rights, title, and interest in and to the Work"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c022",
+      "statement": "The contributor's IP Rights warranty expressly includes rights of privacy and rights of publicity.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "rights of privacy, rights of publicity, moral rights, and other proprietary rights"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c023",
+      "statement": "The contributor warrants that the Work will not infringe others' IP Rights or contain misleading, illegal or defamatory content.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "You further represent and warrant that the Work will not infringe the IP Rights of others"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c024",
+      "statement": "The release warranty applies whenever a Work contains an identifiable person, a trademark or logo, or distinctive protected property.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "If the Work contains an image or likeness of an identifiable person, trademark or logo, or certain distinctive property"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c025",
+      "statement": "The contributor, not Adobe, warrants that it holds valid model and property releases substantially similar to Adobe's standard releases for every person or property depicted.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "obtained all necessary and valid releases or agreements substantially similar to our standard model and property releases"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c026",
+      "statement": "The contributor must promptly give Adobe copies of the releases on Adobe's request; the document does not require releases to be passed to buyers.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "you will promptly provide copies of such releases or agreements to us upon our request"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c027",
+      "statement": "Adobe may accept Work designated 'editorial use only' without a model or property release, at its sole discretion.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "we may accept it without a model or property release, at our sole discretion"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c028",
+      "statement": "For editorial-use-only Work the contributor warrants that the Work truthfully depicts the subject and its captions are accurate.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "the Work truthfully depicts the subject"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c029",
+      "statement": "Adobe may itself designate a Work as 'editorial use only' where it deems appropriate.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "You agree that we may apply the designation of a Work as “editorial use only” where deemed appropriate by us."
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c030",
+      "statement": "No title or ownership in the Work transfers to Adobe; the contributor keeps ownership subject to the licences.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Neither title nor any ownership interest in or to the Work is transferred to us as a result of the Terms."
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c031",
+      "statement": "Adobe and users may, but need not, credit the contributor as creator of the Work.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Both we and our users who use a Work have the right, but not the obligation, to identify you as the creator"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c032",
+      "statement": "Users are not obliged to credit creators in commercial uses of the Work.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "users will not be obligated to credit creators"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c033",
+      "statement": "The contributor agrees the Work may be modified and used with any subject matter except pornographic or illegal uses, and waives any right to object.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Work may be modified and used in connection with any subject matter (except pornographic or illegal)"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c034",
+      "statement": "User Agreements do not permit use of Works for pornographic or illegal purposes.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "User Agreements do not permit use of Works for pornographic or illegal purposes"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c035",
+      "statement": "Metadata on a Work may be altered, removed or added without liability to Adobe, its distributors or users.",
+      "kind": "terms",
+      "section": "listing",
+      "question_ids": [],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "metadata may be altered, removed, or added, without any liability to us, our distributors, or users"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c036",
+      "statement": "Adobe is not liable to the contributor for a user's non-compliance with a User Agreement or for misuse by any third party.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "We are not liable for non- compliance with the terms of a User Agreement or for misuse by any third party."
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c037",
+      "statement": "Adobe may enforce the contributor's IP Rights against infringers but has no obligation to do so.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "You grant us the right to enforce your IP Rights against infringers, but we have no obligation to do so."
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c038",
+      "statement": "A contributor who believes its Work has been misused must notify Adobe and take no action without Adobe's prior written consent.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "you agree to notify us and take no action without our prior written consent"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c039",
+      "statement": "Adobe pays contributors only as set out in separate Pricing and Payment Details on an Adobe help page, not in this document.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "We will pay you solely to the extent expressly described in the pricing and payment details at"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c040",
+      "statement": "Contributor payment is due on sales of licences to the Work, less cancellations, returns and refunds.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "for any sales of licenses to Work, less any cancellations, returns, and refunds"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c041",
+      "statement": "Adobe may modify the Pricing and Payment Details from time to time, including pricing and payment terms.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "We may modify the Pricing and Payment Details from time to time"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c042",
+      "statement": "A contributor accepts revised Pricing and Payment Details by continuing to upload or by not removing its Works.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "By continuing to submit or upload Works or by not removing Works, you are agreeing to any new Pricing and Payment Details"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c043",
+      "statement": "A contributor may designate Work as free content, which Adobe may then distribute without payment.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "You may designate Work as free content, in which case we may distribute such Work without liability or payment to you."
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c044",
+      "statement": "A contributor who is not the copyright owner is solely responsible for compensating the copyright owners.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "If you are not the copyright owner of a Work, you are solely responsible for compensating such copyright owner(s)"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c045",
+      "statement": "Adobe owes no payment for promotional, trial, test or watermarked versions of a Work offered by Adobe or its partners.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "If we or our partners offer a promotion, trial, test, or watermarked version of your Work, we are not subject to the payment"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c046",
+      "statement": "Adobe deducts any tax withheld at source from fees payable to the contributor.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "we will deduct such tax from the fee payable to you"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c047",
+      "statement": "Contributors must follow Adobe's submission Guidelines, which are incorporated into the Terms by reference.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "which are hereby incorporated by reference into the Terms"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c048",
+      "statement": "A contributor whose Work Adobe removes for violating the Terms may appeal the removal.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "If you believe that your Work was removed in error, you may submit an appeal"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c049",
+      "statement": "A contributor may remove Work at any time, but removing more than 100 items or 10% of its Work (whichever is greater) in 90 days needs 90 days' notice.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "you do not remove more than 100 items of Work or 10% of the Work, whichever is greater, in any 90-day period"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c050",
+      "statement": "Adobe may remove Work or terminate a contributor account at its sole discretion without prior notice.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "We may remove Work or terminate your account at our sole discretion without prior notice."
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c051",
+      "statement": "Adobe may close a contributor account for breach or for its own convenience.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "for breach of these Terms or any other agreement that you have with us, or for our convenience"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c052",
+      "statement": "The contributor indemnifies Adobe's partners, licensees and licensors, expressly including users (buyers), against claims, losses and damages.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "partners, licensees, and licensors (including users) from any claim, demand, loss, or damages"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c053",
+      "statement": "The contributor indemnity covers claims arising from Works it submits, its use of the Website, or its breach of the Terms.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "arising out of or related to Works or other content that you submit to us, your use of the Website"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c054",
+      "statement": "The contributor indemnity in the Additional Terms states no cap and applies in addition to indemnity obligations in the General Terms.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Without limiting your obligations in the General Terms, you will indemnify us"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c055",
+      "statement": "Adobe controls the defence of any indemnified claim with counsel of its choosing.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "We have the right to control the defense of any claim, action, or matter subject to indemnification by you"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c056",
+      "statement": "Adobe may offset amounts the contributor owes under the indemnity against royalties due to it.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q5",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "may be offset and reduced by any amount owed by you pursuant to your indemnity obligations hereunder"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c057",
+      "statement": "Adobe may terminate the Additional Terms, remove any Work or suspend an account without prior notice.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "We may terminate these Additional Terms, remove any Work, or suspend your account, without prior notice."
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c058",
+      "statement": "Adobe owes the contributor no payment if it terminates the Additional Terms for cause.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "We will have no payment obligation to you if we terminate these Additional Terms for cause."
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c059",
+      "statement": "Downloading Adobe Stock content mainly to inflate download counts or trigger payments is prohibited.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "you may not download Adobe Stock content for the primary purpose of artificially inflating the number of downloads"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c060",
+      "statement": "A contributor may terminate the Additional Terms on at least 90 days' prior written notice by email.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "You may terminate these Additional Terms at any time with at least 90 days' prior written notice to us"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c061",
+      "statement": "Adobe will use reasonable efforts to remove a withdrawn Work from affiliate and co-branded websites within 60 days of its removal from the Website.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "removed from the websites of any of our affiliates (including co-branded websites) within 60 days"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c062",
+      "statement": "Until termination or removal from affiliates' websites, users may continue to obtain new licences to a Work.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "our users may continue to obtain new licenses to the Work"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c063",
+      "statement": "After termination Adobe may continue to use the Work for internal archival and reference purposes; the document imposes no deletion duty on Adobe.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "we may continue to use the Work solely for internal archival and reference purposes"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c064",
+      "statement": "Licences granted to users or to Adobe before a Work is removed or the Terms end survive, so buyers keep the copies and rights they already hold.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "prior to the removal of that Work from the Website or the date of termination of these Additional Terms will survive"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c065",
+      "statement": "Users holding a Work as a comp (preview sample) version may convert it to a usage licence even after termination.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "may further convert that license to a usage license"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c066",
+      "statement": "Adobe pays the contributor on licence fees it receives for a Work after termination.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "for any license fee that we receive as related to the Work after termination of these Additional Terms"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c067",
+      "statement": "The contributor's IP and release warranties, indemnity and payment terms survive termination of the Additional Terms.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "7 (Indemnification Obligations), 8 (Termination and Survival), and 9.1 (Relationship) will survive"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c068",
+      "statement": "Contributors resident in the United States contract with Adobe Inc.",
+      "kind": "terms",
+      "section": "positioning",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": "United States"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "If you reside in the United States, your relationship is with Adobe Inc., a United States company."
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c069",
+      "statement": "Contributors resident outside the United States (including India) contract with Adobe Canada Services Corporation.",
+      "kind": "terms",
+      "section": "positioning",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": "Outside the United States"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "If you reside outside of the United States, your relationship is with Adobe Canada Services Corporation"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c070",
+      "statement": "Adobe and the contributor are independent contractors, and Adobe is expressly not the contributor's agent.",
+      "kind": "terms",
+      "section": "positioning",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "we are not joint venturers, partners, principal and agent, or employer and employee"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c071",
+      "statement": "The Additional Terms confer no rights on third parties.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Nothing in these Additional Terms is intended to, nor will, confer upon any third person or entity any rights"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c072",
+      "statement": "Adobe disclaims liability for information or answers its representatives provide, which do not amend the Terms.",
+      "kind": "terms",
+      "section": "other",
+      "question_ids": [],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "We expressly disclaim any liability for information, feedback, materials, or answers to questions provided"
+        }
+      ]
+    },
+    {
+      "id": "doc-adobe-stock-contributor-c073",
+      "statement": "Adobe makes no warranty that a contributor will achieve any level of payments or revenue.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Adobe Stock contributor programme",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2024-02-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf",
+          "publisher": "Adobe",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "we make no representation or warranty that you or any other party may or will achieve any level of payments or revenue"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "terms.governing_law",
+      "urls_tried": [
+        "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf"
+      ],
+      "reason": "not_published",
+      "note": "The Additional Terms contain no governing-law or forum clause; they defer to the Adobe General Terms of Use (www.adobe.com/go/terms), which were not read for this file."
+    },
+    {
+      "field": "terms.audit_rights",
+      "urls_tried": [
+        "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf"
+      ],
+      "reason": "not_published",
+      "note": "No contributor audit right over Adobe's sales records or royalty calculations, and no Adobe audit right over users, is stated."
+    },
+    {
+      "field": "other.ai_training_express_terms",
+      "urls_tried": [
+        "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf"
+      ],
+      "reason": "not_published",
+      "note": "The document never names AI or model training, fine-tuning, evaluation, dataset redistribution or model-output rights, nor any payment tied to AI use; whether Adobe relies on 'developing new features and services' for training is not stated here."
+    },
+    {
+      "field": "other.royalty_rates",
+      "urls_tried": [
+        "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf"
+      ],
+      "reason": "not_published",
+      "note": "Royalty percentages sit on the separate Pricing and Payment Details help page (helpx.adobe.com/stock/contributor/help/royalty-details.html), not in this document."
+    },
+    {
+      "field": "other.user_agreement_terms",
+      "urls_tried": [
+        "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf"
+      ],
+      "reason": "not_published",
+      "note": "The User Agreement under which Adobe sublicenses to buyers (AI use, deletion duties, exclusivity, indemnity to buyers) is referenced but not part of this document."
+    },
+    {
+      "field": "other.release_evidence_to_buyers",
+      "urls_tried": [
+        "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf"
+      ],
+      "reason": "not_published",
+      "note": "Releases must be supplied to Adobe on request; the document says nothing about releases being shown or delivered to buyers."
+    },
+    {
+      "field": "other.erasure_of_personal_data_in_sold_copies",
+      "urls_tried": [
+        "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf"
+      ],
+      "reason": "not_published",
+      "note": "No mechanism for a depicted person's erasure request reaching copies already licensed; the only rule stated is that licences granted before removal survive."
+    },
+    {
+      "field": "terms.liability_cap_amount",
+      "urls_tried": [
+        "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf"
+      ],
+      "reason": "not_published",
+      "note": "No monetary cap on either party's liability or on the contributor's indemnity appears in the Additional Terms."
+    }
+  ]
+}

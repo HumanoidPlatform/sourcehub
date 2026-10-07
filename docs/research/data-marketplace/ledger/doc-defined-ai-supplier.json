@@ -1,0 +1,431 @@
+{
+  "kind": "document",
+  "slug": "doc-defined-ai-supplier",
+  "platform_slug": "defined-ai",
+  "title": "Supplier Program - General Terms & Conditions",
+  "doc_type": "provider_agreement",
+  "url": "https://defined.ai/supplier-program",
+  "publisher": "Defined.ai",
+  "version_or_date": "undated (no version or date printed; page footer (c) 2026 DefinedCrowd)",
+  "retrieved_at": "2026-10-01",
+  "parties": {
+    "licensor": "The Applicant Company (the data supplier) licenses its data samples to Defined.ai",
+    "licensee": "Defined.ai (DefinedCrowd), which may then share samples with its own customers",
+    "operator_role": "reseller_licensor"
+  },
+  "terms": {
+    "permitted_use": {
+      "value": "Supplier grants Defined.ai a free licence to share submitted data samples with Defined.ai's customers only to gauge interest and seek business; the full dataset licence is left to a separate Data License Agreement.",
+      "claim_ids": ["doc-defined-ai-supplier-c010", "doc-defined-ai-supplier-c006"]
+    },
+    "territory": {
+      "value": "Worldwide (sample showcase licence).",
+      "claim_ids": ["doc-defined-ai-supplier-c010"]
+    },
+    "exclusivity": {
+      "value": "Non-exclusive both ways with no minimum commitment, but the supplier may not go around Defined.ai to deal directly with a customer Defined.ai named to it, for 12 months after the GT&C end.",
+      "claim_ids": ["doc-defined-ai-supplier-c020", "doc-defined-ai-supplier-c021", "doc-defined-ai-supplier-c022", "doc-defined-ai-supplier-c023"]
+    },
+    "audit_rights": {
+      "value": "Defined.ai may audit the supplier for Supplier Program compliance at most once a calendar year (more often if material breach is suspected), on 15 business days' written notice, in business hours.",
+      "claim_ids": ["doc-defined-ai-supplier-c024", "doc-defined-ai-supplier-c025", "doc-defined-ai-supplier-c026"]
+    },
+    "warranties_by_provider": {
+      "value": "Supplier warrants that samples infringe no Defined.ai or third-party IP, privacy, publicity or contractual rights, that it holds the right to make them available, that they are lawful and malware-free, and that they are representative of its datasets; it is solely accountable for their legal and technical conformity.",
+      "claim_ids": ["doc-defined-ai-supplier-c011", "doc-defined-ai-supplier-c012", "doc-defined-ai-supplier-c013", "doc-defined-ai-supplier-c015"]
+    },
+    "consent_and_release_warranty": {
+      "value": "No express consent or model-release warranty; the only coverage of people depicted is the supplier's warranty that SAMPLES do not infringe third-party privacy or publicity rights. Consent evidence is sought through Defined.ai's dataset-level ethical questionnaires, not a warranty.",
+      "claim_ids": ["doc-defined-ai-supplier-c011", "doc-defined-ai-supplier-c004"]
+    },
+    "indemnity": {
+      "value": "One-way: the supplier defends and indemnifies Defined.ai, its affiliates, licensors, service providers and their personnel against third-party claims from the supplier's breach of the GT&C; any Defined.ai obligations are deferred to the Data License Agreement.",
+      "claim_ids": ["doc-defined-ai-supplier-c016", "doc-defined-ai-supplier-c017", "doc-defined-ai-supplier-c018"]
+    },
+    "liability_cap": {
+      "value": "Supplier's indemnity liability capped at 2x the total value of business done between the parties under the GT&C; Defined.ai disclaims all liability for content the supplier provides.",
+      "claim_ids": ["doc-defined-ai-supplier-c019", "doc-defined-ai-supplier-c014"]
+    },
+    "payment_and_revenue_share": {
+      "value": "No price, commission or revenue share is set; no minimum business on either side; if the supplier circumvents Defined.ai, Defined.ai is entitled on demand to all fees arising from the breach.",
+      "claim_ids": ["doc-defined-ai-supplier-c021", "doc-defined-ai-supplier-c023"]
+    },
+    "term_duration": {
+      "value": "Starts when the supplier submits the application form (or signs, if earlier) and runs until terminated: 60 days' notice for convenience, or immediately for material breach uncured within 30 days; commitments survive termination.",
+      "claim_ids": ["doc-defined-ai-supplier-c001", "doc-defined-ai-supplier-c030", "doc-defined-ai-supplier-c031", "doc-defined-ai-supplier-c032"]
+    },
+    "deletion_on_termination": {
+      "value": "Only Confidential Information must be returned, with all copies, within 10 calendar days of the relationship ending or on request; nothing says what happens to data samples already shared with customers.",
+      "claim_ids": ["doc-defined-ai-supplier-c027"]
+    },
+    "prohibited_uses": {
+      "value": "Supplier must not submit malware or damaging code, content infringing third-party IP or trade secrets, or unlawful, defamatory, harassing, fraudulent or obscene content; each party may use the other's confidential information only for the relationship.",
+      "claim_ids": ["doc-defined-ai-supplier-c012", "doc-defined-ai-supplier-c013", "doc-defined-ai-supplier-c028"]
+    },
+    "governing_law": {
+      "value": "Laws of the State of Washington (USA); after a 30-day management negotiation, exclusive jurisdiction of federal or state courts in King County, Washington; prevailing party recovers attorneys' fees.",
+      "claim_ids": ["doc-defined-ai-supplier-c033", "doc-defined-ai-supplier-c034"]
+    },
+    "change_of_terms": {
+      "value": "Amendment only with both parties' written consent, though Defined.ai reserves a right to revalidate the NDA terms when the Data License Agreement is signed.",
+      "claim_ids": ["doc-defined-ai-supplier-c035", "doc-defined-ai-supplier-c036"]
+    }
+  },
+  "claims": [
+    {
+      "id": "doc-defined-ai-supplier-c001",
+      "statement": "Defined.ai's Supplier Program GT&C take effect as soon as the applicant company submits the partnership application form, or on signature if earlier.",
+      "kind": "terms", "section": "vetting", "question_ids": ["Q3"],
+      "scope": {"product": "Supplier Program", "tier": "", "region": ""},
+      "value": null, "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [{"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "as of the moment the Applicant Company either submits an application form"}]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c002",
+      "statement": "Defined.ai's supplier terms describe its service catalogue as delivering both its own Marketplace data (OTS) and third-party Data Suppliers' proprietary datasets (PD), alongside new data collection services.",
+      "kind": "terms", "section": "supply", "question_ids": ["Q3", "Q12"],
+      "scope": {"product": "Supplier Program", "tier": "", "region": ""},
+      "value": null, "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [{"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "data out of its Marketplace (“OTS”) or (ii) third-parties (Data Suppliers) proprietary datasets (“PD”)"}]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c003",
+      "statement": "Passing Defined.ai's vetting process is a non-negotiable condition for a supplier to gain and keep Supplier status.",
+      "kind": "terms", "section": "vetting", "question_ids": ["Q3", "Q11"],
+      "scope": {"product": "Supplier Program", "tier": "", "region": ""},
+      "value": null, "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [{"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "as an essential and non-negotiable condition to qualify and retain the Supplier status"}]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c004",
+      "statement": "Stage 2 (Clearance) of Defined.ai's supplier vetting requires the supplier to sign Defined.ai's Data License Agreement & Provision of Services and complete a Dataset-level Ethical Questionnaire for each category of data samples submitted.",
+      "kind": "terms", "section": "vetting", "question_ids": ["Q3", "Q7"],
+      "scope": {"product": "Supplier Program", "tier": "", "region": ""},
+      "value": null, "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [{"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "full completion of Defined.ai’s Dataset-level Ethical Questionnaire Forms, each one linked to the category of data samples"}]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c005",
+      "statement": "Stage 1 (Enrolment) of Defined.ai's supplier vetting appraises the supplier's company-level policies, including its AI Governance and Intellectual Property Management policies.",
+      "kind": "terms", "section": "vetting", "question_ids": ["Q3"],
+      "scope": {"product": "Supplier Program", "tier": "", "region": ""},
+      "value": null, "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [{"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "Company-level Ethical Questionnaire), focused on Applicant Company’s Terms of Service"},
+        {"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "AI Governance Policy, Intellectual Property Management Policy"}]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c006",
+      "statement": "The licence to supply full datasets is not in the Supplier Program GT&C but in a separate Data License Agreement & Provision of Services, which the supplier signs at the Clearance stage.",
+      "kind": "terms", "section": "licence", "question_ids": ["Q5"],
+      "scope": {"product": "Supplier Program", "tier": "", "region": ""},
+      "value": null, "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [{"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "This stage entails both the execution of Defined.ai’s Data License Agreement & Provision of Services"}]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c007",
+      "statement": "Every new set of data samples a Defined.ai supplier submits goes through the Clearance vetting stage again.",
+      "kind": "terms", "section": "vetting", "question_ids": ["Q11"],
+      "scope": {"product": "Supplier Program", "tier": "", "region": ""},
+      "value": null, "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [{"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "each new set of Data samples submitted by Supplier are subject to Stage 2 of the Vetting Process"}]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c008",
+      "statement": "By accepting the GT&C a supplier also accepts Defined.ai's Privacy Notice, Ethical AI Manifesto and Code of Conduct for Suppliers.",
+      "kind": "terms", "section": "vetting", "question_ids": ["Q3"],
+      "scope": {"product": "Supplier Program", "tier": "", "region": ""},
+      "value": null, "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [{"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "Defined.ai’s Ethical Manifesto (Ethical AI Manifesto by Defined.ai) and Defined.ai’s Code of Conduct for Suppliers"}]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c009",
+      "statement": "Defined.ai may decline to license any goods from a supplier that fails to provide documented evidence of compliance with the Supplier Program, indicating Defined.ai itself licenses supplier data.",
+      "kind": "terms", "section": "supply", "question_ids": ["Q5"],
+      "scope": {"product": "Supplier Program", "tier": "", "region": ""},
+      "value": null, "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [{"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "reserves the right not to proceed with the hiring of any services, purchasing or licensing any goods from Applicant Company"}]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c010",
+      "statement": "The applicant supplier grants Defined.ai a worldwide, free, non-exclusive licence to share its data samples with Defined.ai's customers in order to gauge interest and seek business.",
+      "kind": "terms", "section": "licence", "question_ids": ["Q11", "Q5"],
+      "scope": {"product": "Supplier Program", "tier": "", "region": ""},
+      "value": null, "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [{"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "a worldwide, free, non-exclusive and unencumbered license to share the data samples with Defined.ai’s customers"}]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c011",
+      "statement": "The supplier warrants that the samples it submits do not infringe Defined.ai's or any third party's intellectual property, privacy, publicity or contractual rights.",
+      "kind": "terms", "section": "trust", "question_ids": ["Q5", "Q7"],
+      "scope": {"product": "Supplier Program", "tier": "data samples", "region": ""},
+      "value": null, "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [{"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "any third-party rights, including any intellectual property rights, privacy rights, publicity rights, or contractual rights"}]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c012",
+      "statement": "The supplier undertakes not to submit content that it does not hold the legal right to make available to third parties.",
+      "kind": "terms", "section": "trust", "question_ids": ["Q5"],
+      "scope": {"product": "Supplier Program", "tier": "data samples", "region": ""},
+      "value": null, "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [{"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "it does not hold, in accordance with applicable legislation, the right to make it available to third-parties"}]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c013",
+      "statement": "The supplier undertakes not to submit unlawful, defamatory, harassing, abusive, fraudulent, obscene or otherwise objectionable content.",
+      "kind": "terms", "section": "trust", "question_ids": ["Q5"],
+      "scope": {"product": "Supplier Program", "tier": "data samples", "region": ""},
+      "value": null, "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [{"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "any unlawful, defamatory, harassing, abusive, fraudulent, obscene, or otherwise objectionable content"}]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c014",
+      "statement": "Defined.ai disclaims all liability for any action or inaction regarding content the supplier provides.",
+      "kind": "terms", "section": "trust", "question_ids": ["Q5"],
+      "scope": {"product": "Supplier Program", "tier": "", "region": ""},
+      "value": null, "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [{"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "assumes no liability for any action or inaction regarding transmissions, communications or content provided by Applicant"}]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c015",
+      "statement": "The supplier is the sole party accountable for the legal and technical conformity of the data samples and metadata it submits, and warrants that the samples are representative of its datasets.",
+      "kind": "terms", "section": "trust", "question_ids": ["Q5", "Q11"],
+      "scope": {"product": "Supplier Program", "tier": "data samples", "region": ""},
+      "value": null, "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [
+        {"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+          "quote": "sole and exclusive accountable Party vis-à-vis legal and technical conformity of the data samples"},
+        {"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+          "quote": "that the samples submitted are representative of Applicant Company’s datasets at large"}
+      ]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c016",
+      "statement": "The supplier must defend, indemnify and hold harmless Defined.ai and its affiliates, licensors and service providers.",
+      "kind": "terms", "section": "trust", "question_ids": ["Q5"],
+      "scope": {"product": "Supplier Program", "tier": "", "region": ""},
+      "value": null, "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [{"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "agrees to defend, indemnify and hold harmless Defined.ai and its affiliates, licensors and service providers"}]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c017",
+      "statement": "The supplier's indemnity covers third-party claims arising out of or relating to the supplier's breach of the GT&C.",
+      "kind": "terms", "section": "trust", "question_ids": ["Q5"],
+      "scope": {"product": "Supplier Program", "tier": "", "region": ""},
+      "value": null, "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [{"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "from and against any third-party claims arising out of or relating to Applicant Company’s breach of the GT&C"}]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c018",
+      "statement": "The GT&C impose no reciprocal indemnity on Defined.ai; any Defined.ai obligations towards the supplier or third parties are deferred to a Data License Agreement if one is signed.",
+      "kind": "terms", "section": "trust", "question_ids": ["Q5"],
+      "scope": {"product": "Supplier Program", "tier": "", "region": ""},
+      "value": null, "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [{"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "reciprocal obligations of Defined.ai towards the Applicant and/or Third Parties shall be addressed separately"}]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c019",
+      "statement": "The supplier's total liability under the indemnity clause is capped at two times the total value of business conducted between the parties under the GT&C.",
+      "kind": "number", "section": "trust", "question_ids": ["Q5"],
+      "scope": {"product": "Supplier Program", "tier": "", "region": ""},
+      "value": {"num": 2, "unit": "multiple of total business value", "basis": "cap on the supplier's indemnity liability, as a multiple of the total value of business conducted between the parties under the GT&C", "period": "aggregate over the GT&C"},
+      "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [{"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "limited to an amount not exceeding two (2) times the total value of business conducted between the parties under the GT&C"}]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c020",
+      "statement": "The Supplier Program GT&C are non-exclusive, leaving both Defined.ai and the supplier free to enter the same relationship with others.",
+      "kind": "terms", "section": "supply", "question_ids": ["Q2", "Q8"],
+      "scope": {"product": "Supplier Program", "tier": "", "region": ""},
+      "value": null, "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [{"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "GT&C are non-exclusive, and nothing in the GT&C prevents either Party from entering into the same or similar relationship"}]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c021",
+      "statement": "The Supplier Program GT&C create no minimum business commitment for either Defined.ai or the supplier.",
+      "kind": "terms", "section": "contributor_pay", "question_ids": ["Q9"],
+      "scope": {"product": "Supplier Program", "tier": "", "region": ""},
+      "value": null, "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [{"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "nothing herein will be construed as creating a minimum commitment for business on either Party"}]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c022",
+      "statement": "Once Defined.ai names a customer and the scope of an opportunity to a supplier, the supplier may deal on that opportunity only through Defined.ai, during the GT&C and for 12 months after.",
+      "kind": "terms", "section": "transaction", "question_ids": ["Q2", "Q9"],
+      "scope": {"product": "Supplier Program", "tier": "", "region": ""},
+      "value": null, "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [
+        {"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+          "quote": "directly or indirectly do business dealings regarding such business opportunity except as directly through Defined.ai"},
+        {"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+          "quote": "During and for a period of 12 (twelve) months after the term of this Agreement"}
+      ]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c023",
+      "statement": "If a supplier circumvents Defined.ai on an introduced opportunity, it is in material breach and Defined.ai is entitled on demand to all fees arising from the breach.",
+      "kind": "terms", "section": "transaction", "question_ids": ["Q9"],
+      "scope": {"product": "Supplier Program", "tier": "", "region": ""},
+      "value": null, "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [{"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "Defined.ai shall immediately be entitled to any and all fees arising from the breach of the non-circumvention obligation"}]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c024",
+      "statement": "Defined.ai reserves the right to audit a supplier to assess its compliance with the Supplier Program.",
+      "kind": "terms", "section": "vetting", "question_ids": ["Q8", "Q11"],
+      "scope": {"product": "Supplier Program", "tier": "", "region": ""},
+      "value": null, "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [{"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "Defined.ai reserves the right to audit the Applicant Company to assess compliance with the Supplier Program"}]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c025",
+      "statement": "Defined.ai's supplier audits are limited to once per calendar year unless a material breach is suspected.",
+      "kind": "number", "section": "vetting", "question_ids": ["Q8"],
+      "scope": {"product": "Supplier Program", "tier": "", "region": ""},
+      "value": {"num": 1, "unit": "audit", "basis": "maximum routine audits of the supplier by Defined.ai; more allowed if a material breach is suspected", "period": "per calendar year"},
+      "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [{"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "no more than once per calendar year, unless a material breach is suspected"}]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c026",
+      "statement": "Defined.ai must give a supplier at least 15 business days' written notice before starting an audit.",
+      "kind": "number", "section": "vetting", "question_ids": ["Q8"],
+      "scope": {"product": "Supplier Program", "tier": "", "region": ""},
+      "value": {"num": 15, "unit": "business days", "basis": "minimum prior written notice Defined.ai gives the supplier before an audit", "period": "per audit"},
+      "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [{"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "at least fifteen (15) business days’ prior written notice before initiating any audit"}]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c027",
+      "statement": "Materials containing the other party's Confidential Information must be returned with all copies within 10 calendar days after the relationship ends or on written request.",
+      "kind": "terms", "section": "post_sale", "question_ids": ["Q8"],
+      "scope": {"product": "Supplier Program", "tier": "NDA terms", "region": ""},
+      "value": null, "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [{"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "promptly returned by the receiving party, accompanied by all copies of such documentation, within ten (10) calendar days"}]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c028",
+      "statement": "Under the embedded mutual NDA each party may use the other's Confidential Information only for discussions about the relationship, and must keep it confidential for three years after termination.",
+      "kind": "terms", "section": "other", "question_ids": [],
+      "scope": {"product": "Supplier Program", "tier": "NDA terms", "region": ""},
+      "value": null, "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [
+        {"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+          "quote": "for any purpose other than to carry out discussions concerning the undertaking and maintenance of the Relationship"},
+        {"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+          "quote": "for a period of 3 (three) years following its termination"}
+      ]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c029",
+      "statement": "Defined.ai and its suppliers are independent contractors, not partners, joint venturers or co-owners.",
+      "kind": "terms", "section": "transaction", "question_ids": ["Q5"],
+      "scope": {"product": "Supplier Program", "tier": "", "region": ""},
+      "value": null, "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [{"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "The Parties are independent contractors"}]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c030",
+      "statement": "The Supplier Program GT&C have no fixed term and continue until terminated.",
+      "kind": "terms", "section": "changes", "question_ids": [],
+      "scope": {"product": "Supplier Program", "tier": "", "region": ""},
+      "value": null, "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [{"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "continue in effect until terminated pursuant to Section 5.5.1"}]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c031",
+      "statement": "Either Defined.ai or the supplier may terminate the GT&C for convenience on 60 days' written notice.",
+      "kind": "number", "section": "changes", "question_ids": [],
+      "scope": {"product": "Supplier Program", "tier": "", "region": ""},
+      "value": {"num": 60, "unit": "days", "basis": "prior written notice either party must give to terminate for convenience", "period": "one-off"},
+      "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [{"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "terminate this the GT&C by convenience, effective on written notice to the other Party, given 60 (sixty) days’ prior notice"}]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c032",
+      "statement": "Either party may terminate immediately for a material breach left uncured 30 days after notice, and the parties' commitments under the GT&C survive termination.",
+      "kind": "terms", "section": "changes", "question_ids": [],
+      "scope": {"product": "Supplier Program", "tier": "", "region": ""},
+      "value": null, "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [
+        {"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+          "quote": "fails to cure that breach within 30 (thirty) days after written notice of that breach"},
+        {"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+          "quote": "The commitments made by each Party pursuant to the GT&C shall survive any termination"}
+      ]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c033",
+      "statement": "The Supplier Program GT&C are governed by the laws of the State of Washington.",
+      "kind": "terms", "section": "regulation", "question_ids": [],
+      "scope": {"product": "Supplier Program", "tier": "", "region": ""},
+      "value": null, "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [{"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "governed, construed, and interpreted in accordance with the laws of the State of Washington"}]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c034",
+      "statement": "Disputes not settled by management within 30 days go exclusively to federal or state courts in King County, Washington.",
+      "kind": "terms", "section": "regulation", "question_ids": [],
+      "scope": {"product": "Supplier Program", "tier": "", "region": ""},
+      "value": null, "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [{"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "brought exclusively in the federal or state courts located in King County, Washington"}]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c035",
+      "statement": "Any term of the Supplier Program GT&C can be amended only with the written consent of both parties.",
+      "kind": "terms", "section": "changes", "question_ids": ["Q4"],
+      "scope": {"product": "Supplier Program", "tier": "", "region": ""},
+      "value": null, "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [{"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "Any term of the GT&C may only be amended with the written consent of the Parties"}]
+    },
+    {
+      "id": "doc-defined-ai-supplier-c036",
+      "statement": "Defined.ai reserves the right to revalidate the NDA terms when its Data License Agreement & Provision of Services is signed.",
+      "kind": "terms", "section": "changes", "question_ids": [],
+      "scope": {"product": "Supplier Program", "tier": "NDA terms", "region": ""},
+      "value": null, "origin": "legal_text", "as_of": "2026-10-01", "as_of_basis": "retrieved_only",
+      "sources": [{"url": "https://defined.ai/supplier-program", "publisher": "Defined.ai", "source_class": "legal_terms", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch",
+        "quote": "reserves the right to revalidate NDA terms upon execution of Defined.ai’s Data License Agreement & Provision of Services"}]
+    }
+  ],
+  "unknowns": [
+    {"field": "terms.consent_and_release_warranty", "urls_tried": ["https://defined.ai/supplier-program"], "reason": "not_published", "note": "No warranty that people depicted or recorded in full datasets consented to onward sale or AI use; only a sample-level privacy/publicity non-infringement warranty. Likely in the separate Data License Agreement & Provision of Services, not read here."},
+    {"field": "terms.ai_training_rights", "urls_tried": ["https://defined.ai/supplier-program"], "reason": "not_published", "note": "The GT&C grant no training, fine-tuning, evaluation, redistribution or model-output rights; the only licence is to share samples with customers to gauge interest."},
+    {"field": "terms.derivatives_and_model_outputs", "urls_tried": ["https://defined.ai/supplier-program"], "reason": "not_published"},
+    {"field": "terms.sublicensing", "urls_tried": ["https://defined.ai/supplier-program"], "reason": "not_published", "note": "Whether Defined.ai may sublicense full supplier datasets to its buyers is not stated; deferred to the Data License Agreement."},
+    {"field": "terms.takedown_and_erasure", "urls_tried": ["https://defined.ai/supplier-program"], "reason": "not_published", "note": "Nothing on withdrawal of samples or datasets, data-subject erasure, or what happens to sample copies Defined.ai already shared with customers."},
+    {"field": "terms.payment_and_revenue_share", "urls_tried": ["https://defined.ai/supplier-program"], "reason": "not_published", "note": "No commission, revenue split or purchase price; money terms are left to the Data License Agreement."},
+    {"field": "terms.field_of_use", "urls_tried": ["https://defined.ai/supplier-program"], "reason": "not_published"}
+  ]
+}

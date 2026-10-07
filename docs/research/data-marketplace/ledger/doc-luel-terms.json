@@ -1,0 +1,2516 @@
+{
+  "kind": "document",
+  "slug": "doc-luel-terms",
+  "platform_slug": "luel",
+  "title": "Terms of Service (Luel Inc.)",
+  "doc_type": "marketplace_terms",
+  "url": "https://luel.ai/terms",
+  "publisher": "Luel Inc.",
+  "version_or_date": "Last Modified: September 17, 2026",
+  "retrieved_at": "2026-10-01",
+  "parties": {
+    "licensor": "The Contributor (individual uploading video, audio and voice), who grants Luel a perpetual, irrevocable, worldwide, sublicensable, non-exclusive licence including the right to sell and license to Enterprises; the Contributor also grants each User a direct non-exclusive licence to content made available to them.",
+    "licensee": "Enterprises (AI companies, research institutions, individual developers and researchers), who buy a limited, non-exclusive, non-sublicensable, revocable internal licence; Luel is the intermediate licensee.",
+    "operator_role": "reseller_licensor"
+  },
+  "terms": {
+    "permitted_use": {
+      "value": "Enterprises get a limited, non-exclusive, non-transferable, non-sublicensable, revocable licence for internal purposes only: training/developing/testing/improving their own models, making embeddings, weights and synthetic data for those models, and commercially deploying and keeping the models. Contributors in turn give Luel a licence to operate the Service, including selling and licensing their content to Enterprises, and to improve Luel's products and for its other business purposes.",
+      "claim_ids": [
+        "doc-luel-terms-c029",
+        "doc-luel-terms-c030",
+        "doc-luel-terms-c031",
+        "doc-luel-terms-c032",
+        "doc-luel-terms-c033",
+        "doc-luel-terms-c007",
+        "doc-luel-terms-c074"
+      ]
+    },
+    "ai_training_rights": {
+      "value": "Buyer may train, develop, test (evaluation) and improve its own AI/ML models, and commercially deploy and retain the resulting models; fine-tuning is not named separately. Redistribution of the data, or of any dataset, embedding set or synthetic set that substitutes for it, is barred, including uploading to public model or dataset hubs. The Terms place no limit on buyers' model outputs. Luel itself may train and exploit 'Digital Replicas' of contributors' voice and likeness, and owns them outright. Separately, Luel promises not to train on materials submitted to its processing features or their Output.",
+      "claim_ids": [
+        "doc-luel-terms-c031",
+        "doc-luel-terms-c033",
+        "doc-luel-terms-c035",
+        "doc-luel-terms-c036",
+        "doc-luel-terms-c008",
+        "doc-luel-terms-c009",
+        "doc-luel-terms-c043"
+      ]
+    },
+    "field_of_use": {
+      "value": "Buyers may use the content internally for AI/ML development only. Biometric identification, surveillance and law-enforcement uses are barred unless Luel authorises them in a separate written agreement.",
+      "claim_ids": [
+        "doc-luel-terms-c030",
+        "doc-luel-terms-c039"
+      ]
+    },
+    "territory": {
+      "value": "The contributor-to-Luel licence is worldwide. The buyer licence names no territory. All users must comply with US export-control and sanctions law.",
+      "claim_ids": [
+        "doc-luel-terms-c005",
+        "doc-luel-terms-c077"
+      ]
+    },
+    "term_duration": {
+      "value": "The contributor licence to Luel is perpetual and irrevocable, and a completed sale is final. The buyer licence is revocable, with no stated term, but the buyer may keep models already trained. Luel may terminate any account for any reason.",
+      "claim_ids": [
+        "doc-luel-terms-c005",
+        "doc-luel-terms-c022",
+        "doc-luel-terms-c029",
+        "doc-luel-terms-c033",
+        "doc-luel-terms-c071"
+      ]
+    },
+    "exclusivity": {
+      "value": "Non-exclusive on both sides. Contributors grant Luel a non-exclusive licence, and Enterprises receive a non-exclusive licence. The Terms offer buyers no route to exclusivity.",
+      "claim_ids": [
+        "doc-luel-terms-c005",
+        "doc-luel-terms-c029"
+      ]
+    },
+    "sublicensing": {
+      "value": "Luel's licence from contributors is sublicensable and transferable, which lets Luel license the content onward to Enterprises. The Enterprise licence cannot be sublicensed or transferred, and its restrictions bind affiliates, contractors and downstream recipients.",
+      "claim_ids": [
+        "doc-luel-terms-c005",
+        "doc-luel-terms-c029",
+        "doc-luel-terms-c034"
+      ]
+    },
+    "derivatives_and_model_outputs": {
+      "value": "Buyers may create embeddings, model weights and synthetic data for use in their own models, and may deploy and keep those models. They may not distribute derivatives that reproduce, reconstitute or substitute for the data. Digital Replicas made from contributor content, and anything derived from them, belong exclusively to Luel. Output from Luel's processing features belongs to the user.",
+      "claim_ids": [
+        "doc-luel-terms-c032",
+        "doc-luel-terms-c033",
+        "doc-luel-terms-c036",
+        "doc-luel-terms-c009",
+        "doc-luel-terms-c042"
+      ]
+    },
+    "audit_rights": {
+      "value": "The Terms give no buyer-audit clause. Luel may use technological and other lawful measures to verify compliance, and buyers must not remove or defeat watermarks, canaries, provenance signals or licence notices.",
+      "claim_ids": [
+        "doc-luel-terms-c072",
+        "doc-luel-terms-c038"
+      ]
+    },
+    "warranties_by_provider": {
+      "value": "The contributor gives the warranties: rights and consents obtained, no infringement of IP, privacy or confidentiality rights, no children's data, no one's personal data without consent, and no third-party images or audio. Luel gives buyers none: the Service and content are 'as is', and Luel disclaims non-infringement and all responsibility for User Content.",
+      "claim_ids": [
+        "doc-luel-terms-c013",
+        "doc-luel-terms-c014",
+        "doc-luel-terms-c015",
+        "doc-luel-terms-c016",
+        "doc-luel-terms-c017",
+        "doc-luel-terms-c059",
+        "doc-luel-terms-c040"
+      ]
+    },
+    "consent_and_release_warranty": {
+      "value": "The contributor alone warrants and is solely responsible for having every consent and permission for content relating to third parties. The contributor also warrants the content holds no one's personal data without consent and no third-party images or audio, and licenses their own voice, likeness and biometrics to Luel. No release form or consent evidence is delivered to buyers, and Luel gives buyers no consent warranty.",
+      "claim_ids": [
+        "doc-luel-terms-c013",
+        "doc-luel-terms-c016",
+        "doc-luel-terms-c017",
+        "doc-luel-terms-c006",
+        "doc-luel-terms-c018",
+        "doc-luel-terms-c040"
+      ]
+    },
+    "indemnity": {
+      "value": "One-way and uncapped: every user, contributor or Enterprise, indemnifies Luel and its affiliates, agents, suppliers and licensors, including for User Content and third-party privacy or IP claims. Luel indemnifies no one. Users also release Luel from claims over disputes with other users.",
+      "claim_ids": [
+        "doc-luel-terms-c057",
+        "doc-luel-terms-c058",
+        "doc-luel-terms-c076"
+      ]
+    },
+    "liability_cap": {
+      "value": "Luel's liability is capped at the greater of the amount the user paid Luel or US$100, and indirect, consequential and punitive damages are excluded. The user's indemnity to Luel has no cap.",
+      "claim_ids": [
+        "doc-luel-terms-c060",
+        "doc-luel-terms-c061"
+      ]
+    },
+    "payment_and_revenue_share": {
+      "value": "Enterprises pay Luel's Fees as displayed at purchase, by card or invoice. Sales are final, with no cash refunds and remedies given only as platform credit; a Luel Data order is reversed only if Luel fails to deliver. Contributors 'may' be paid per listing rate (per participant and duration for conversations). No rate is fixed until Luel marks a submission payable, and Luel may claw back payouts. No revenue-share percentage is stated.",
+      "claim_ids": [
+        "doc-luel-terms-c051",
+        "doc-luel-terms-c052",
+        "doc-luel-terms-c053",
+        "doc-luel-terms-c054",
+        "doc-luel-terms-c055",
+        "doc-luel-terms-c046",
+        "doc-luel-terms-c047",
+        "doc-luel-terms-c048",
+        "doc-luel-terms-c049",
+        "doc-luel-terms-c050",
+        "doc-luel-terms-c056"
+      ]
+    },
+    "takedown_and_erasure": {
+      "value": "A completed sale is final. Contributors cannot demand deletion from a buyer's systems or trained models, and Luel says it cannot retrieve delivered copies. On a verified request, Luel stops further licensing, revokes the entitlements of buyers still holding access, and deletes its own copies. Buyers are not obliged to delete copies they already downloaded. A DMCA procedure applies, and Luel may remove content at its discretion.",
+      "claim_ids": [
+        "doc-luel-terms-c022",
+        "doc-luel-terms-c023",
+        "doc-luel-terms-c024",
+        "doc-luel-terms-c025",
+        "doc-luel-terms-c026",
+        "doc-luel-terms-c027",
+        "doc-luel-terms-c028",
+        "doc-luel-terms-c068",
+        "doc-luel-terms-c069"
+      ]
+    },
+    "governing_law": {
+      "value": "California law. Disputes go to mandatory individual JAMS arbitration after 60 days of informal resolution, with a 30-day opt-out for new users, a class-action and jury waiver, and the FAA governing the arbitration clause.",
+      "claim_ids": [
+        "doc-luel-terms-c062",
+        "doc-luel-terms-c063",
+        "doc-luel-terms-c064",
+        "doc-luel-terms-c065"
+      ]
+    },
+    "change_of_terms": {
+      "value": "Luel may change the Terms at any time, and continued use counts as acceptance. The Terms govern a user's use from the start of their access, even access that began before publication. Payout rates and terms can also change at any time, and a product-specific agreement (such as the Luel Data licence) overrides these Terms where they conflict.",
+      "claim_ids": [
+        "doc-luel-terms-c066",
+        "doc-luel-terms-c067",
+        "doc-luel-terms-c050",
+        "doc-luel-terms-c044"
+      ]
+    },
+    "prohibited_uses": {
+      "value": "Buyers may not resell, redistribute, publish, sublicense or upload the data or data-substituting derivatives. They may not re-identify or contact the people in it, strip watermarks, canaries or provenance signals, or use it for biometric identification, surveillance or law enforcement without written authorisation. These bars reach downstream recipients, and an Acceptable Use Policy also applies.",
+      "claim_ids": [
+        "doc-luel-terms-c034",
+        "doc-luel-terms-c035",
+        "doc-luel-terms-c036",
+        "doc-luel-terms-c037",
+        "doc-luel-terms-c038",
+        "doc-luel-terms-c039",
+        "doc-luel-terms-c073"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "doc-luel-terms-c001",
+      "statement": "Luel's Terms of Service, issued by Luel Inc., state they were last modified on September 17, 2026.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Terms of Service Last Modified: September 17, 2026"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c002",
+      "statement": "The Terms describe Luel as a marketplace for AI training data connecting individual Contributors of video, audio and voice recordings with buyers.",
+      "kind": "terms",
+      "section": "positioning",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Luel operates as a specialized marketplace for AI training data, connecting individuals who contribute video, audio"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c003",
+      "statement": "The Terms define the buyer side ('Enterprises') as AI companies, research institutions and individual developers and researchers seeking training datasets.",
+      "kind": "terms",
+      "section": "positioning",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AI companies, research institutions, and individual developers and researchers seeking high-quality training datasets"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c004",
+      "statement": "One set of Terms binds every visitor and user of the Service, so Contributors and Enterprise buyers sign the same document.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "These Terms apply to all visitors and users of the Service"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c005",
+      "statement": "A Contributor grants Luel a perpetual, irrevocable, worldwide, sublicensable, transferable and non-exclusive licence to their User Content.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you hereby grant to Luel a perpetual, irrevocable, worldwide, sublicensable, transferable, and non-exclusive license"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c006",
+      "statement": "The Contributor licence to Luel expressly covers personal information, biometric data including voice characteristics, voice, likeness and image embedded in the content.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "including any and all personal information, biometric data (including voice characteristics), voice, likeness, image"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c007",
+      "statement": "The purpose of the Contributor licence includes Luel selling, licensing and transferring the User Content and Contributor Data to Enterprises.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "including selling, licensing, and transferring your User Content and Contributor Data to Enterprises"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c008",
+      "statement": "The Contributor licence expressly includes Luel creating, training and using synthetic or digital representations of the content ('Digital Replicas').",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the rights granted herein include the creation, training, and use of synthetic, digital, or simulated representations"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c009",
+      "statement": "Digital Replicas of Contributor content and anything derived from them are owned exclusively by Luel, with the Contributor assigning all rights in them.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "any derivative works or outputs created therefrom shall be deemed derivative works owned exclusively by Luel"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c010",
+      "statement": "Separately, every user grants each other User a non-exclusive licence to access and use the User Content they make available to that User through the Service.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You hereby grant each User a non-exclusive license to access your User Content and Output through the Service"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c011",
+      "statement": "Luel claims no ownership of User Content; as between Luel and the user, the content remains the user's.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We claim no ownership rights over User Content"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c012",
+      "statement": "Users irrevocably waive moral rights in their User Content to the extent the law permits.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you irrevocably waive any moral rights or equivalent rights you may have in your User Content"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c013",
+      "statement": "The Contributor, not Luel, warrants having obtained all rights, licences, consents and permissions needed to provide content relating to third parties.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you have obtained, and are solely responsible for obtaining, all necessary rights, licenses, consents, and permissions"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c014",
+      "statement": "The user warrants that the content and Luel's contemplated use will not infringe third-party rights including IP, privacy and confidentiality rights.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "infringe any rights of any third party, including, but not limited to, any intellectual property rights, privacy rights"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c015",
+      "statement": "Users promise not to upload personal information of children under 13 or the applicable age of digital consent.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "any personal information of children under 13 or the applicable age of digital consent"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c016",
+      "statement": "Users warrant their content contains no person's personal information without that person's consent.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "any person's personal information without such person's consent"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c017",
+      "statement": "Users warrant their content includes no third-party images or audio.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "your content does not include any third-party images or audio"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c018",
+      "statement": "New York and California residents warrant they had the chance to get independent counsel and were represented by counsel or a union or guild.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you were represented by such counsel or by a labor union or guild with authority to represent your interests"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c019",
+      "statement": "All submitted User Content undergoes Luel's review for AI training suitability, including technical quality, appropriateness and an AI ethics review.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All submitted User Content shall undergo specialized review for AI training suitability"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c020",
+      "statement": "Luel may approve, reject, remove or invalidate submissions in its sole discretion without explanation.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Luel may approve, reject, remove, or invalidate submissions in its sole discretion, with or without explanation"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c021",
+      "statement": "Contributors are independent contractors of Luel, not employees, agents or partners.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "your relationship with us is that of an independent contractor"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c022",
+      "statement": "Once a Contributor's content is sold or licensed to a business through the Service, the sale or licence is final and irrevocable.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "YOUR USER CONTENT HAS BEEN SOLD OR LICENSED TO A BUSINESS THROUGH THE SERVICE, SUCH SALE OR LICENSE IS FINAL AND IRREVOCABLE"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c023",
+      "statement": "A Contributor may not ask for deletion of sold content from a buyer's systems or trained models, or its return.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "REQUEST DELETION OF YOUR USER CONTENT FROM A BUSINESS'S SYSTEMS OR TRAINED MODELS"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c024",
+      "statement": "The Terms warn Contributors that biometric data, voice and likeness may be built into AI models irreversibly.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "MAY BE INCORPORATED INTO AI MODELS IN A MANNER THAT CANNOT BE REVERSED OR EXTRACTED"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c025",
+      "statement": "Luel states it cannot retrieve copies already delivered to a buyer.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "This Section addresses copies already delivered to a Business, which we cannot retrieve."
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c026",
+      "statement": "The finality clause does not remove a Contributor's right to withdraw consent to future licensing or opt out of further sales.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "to withdraw consent as to future licensing of your User Content, to opt out of further sales"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c027",
+      "statement": "On a verified request, Luel stops offering the content for further licensing.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "On a verified request we stop offering the content for further licensing"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c028",
+      "statement": "On a verified request, Luel also revokes the entitlements of buyers that still hold access and deletes its own copies.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "revoke the entitlements of Businesses that still hold access, and delete our own copies"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c029",
+      "statement": "Enterprises buying User Content get a limited, non-exclusive, non-transferable, non-sublicensable and revocable licence.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "receive a limited, non-exclusive, non-transferable, non-sublicensable, revocable license to use such content solely"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c030",
+      "statement": "The Enterprise licence is limited to internal purposes and is subject to the listed restrictions.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "subject to the restrictions below, for the following internal purposes"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c031",
+      "statement": "Enterprises may use purchased content for training, developing, testing and improving their own AI and ML models.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "training, developing, testing, and improving their own artificial intelligence and machine learning models"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c032",
+      "statement": "Enterprises may create derivative works such as embeddings, model weights and synthetic data for use in those models.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "creating derivative works, including embeddings, model weights, and synthetic data, for use in such models"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c033",
+      "statement": "Enterprises may commercially deploy and retain the models trained on purchased content.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "commercially deploying and retaining the models so trained"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c034",
+      "statement": "The Enterprise restrictions extend to affiliates, contractors and any downstream recipient.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Enterprises will not, and will not permit or enable any person, affiliate, contractor, or downstream recipient to"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c035",
+      "statement": "Enterprises may not resell, redistribute, publish, sublicense or upload purchased content, including to public model hubs or dataset hosts.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "resell, redistribute, publish, sublicense, torrent, upload (including to any public model hub or dataset host)"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c036",
+      "statement": "Enterprises may not distribute the data or any derivative that functions as a substitute for it, though models trained on it may be deployed.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "distributing the data, or a derivative that functions as a substitute for the data, is not"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c037",
+      "statement": "Enterprises may not try to re-identify or contact any individual whose voice, likeness or personal information is in purchased content.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "re-identify, reverse-engineer the identity of, or contact any individual whose voice, likeness, or personal information"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c038",
+      "statement": "Enterprises may not remove or circumvent watermarks, canaries, provenance signals or licence notices embedded in purchased content.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "remove, alter, obscure, degrade, circumvent, or reverse-engineer any watermark, canary, provenance signal, or license notice"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c039",
+      "statement": "Use of purchased content for biometric identification, surveillance or law enforcement is barred unless separately authorised in writing by Luel.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "purchased User Content for biometric identification, surveillance, or law enforcement purposes unless expressly authorized"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c040",
+      "statement": "Luel disclaims all responsibility and liability for User Content.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "WE TAKE NO RESPONSIBILITY AND ASSUME NO LIABILITY FOR ANY USER CONTENT"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c041",
+      "statement": "The Terms describe Luel as only a passive conduit for users' distribution of their User Content.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "WE ARE ACTING ONLY AS A PASSIVE CONDUIT FOR YOUR ONLINE DISTRIBUTION AND PUBLICATION OF YOUR USER CONTENT"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c042",
+      "statement": "For Luel's content-processing features, the user owns the Output the Service returns from materials they submit.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you own the Output the Service returns to you from the materials you submit"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c043",
+      "statement": "Luel says it does not use materials submitted for processing, or the resulting Output, to train or fine-tune any AI model.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We do not use the materials you submit to the Service for processing, or the Output the Service returns to you, to train"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c044",
+      "statement": "A separate product-specific agreement accepted for a particular Luel product overrides these Terms where they conflict.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "a separate, product-specific agreement with us that governs a particular Luel product, that agreement governs"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c045",
+      "statement": "Content licensed through Luel Data is covered by a separate Data License Agreement, which sets the buyer's only credit remedy.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q8",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "For content licensed through Luel Data, the Data License Agreement states when credit is given and is your only remedy."
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c046",
+      "statement": "Contributors may receive compensation for User Content that is sold or licensed through the Service.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Contributors may receive compensation for User Content that is sold or licensed through the Service"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c047",
+      "statement": "For conversation recordings, Contributor payouts are calculated per participant from duration and listing payout rates.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "For conversation recordings, payouts are calculated per participant based on duration and listing payout rates."
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c048",
+      "statement": "No Contributor payout rate is locked at upload, recording or submission time; the rate applies when Luel marks the submission payable.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "No payout rate is locked at upload, recording, or submission time."
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c049",
+      "statement": "Luel may withhold, adjust, reverse or recover any payout, including amounts already marked payable, at its sole discretion.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "withhold, suspend, offset, adjust, reverse, cancel, or recover any payout (including previously marked payable amounts)"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c050",
+      "statement": "Listing rates, submission caps, eligibility requirements and payout terms may change at any time.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Listing rates, submission caps, eligibility requirements, and payout terms may change at any time."
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c051",
+      "statement": "Enterprises pay Fees for purchased or licensed content on the payment terms shown at the time of purchase.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Enterprises will pay all applicable Fees for content purchased or licensed through the Service"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c052",
+      "statement": "Enterprises can pay by credit card, invoice or other methods offered through the Service.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Payments may be made by credit card, invoice, or other methods made available through the Service."
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c053",
+      "statement": "All sales of User Content to Enterprises are final and Luel does not issue cash refunds.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All sales of User Content to Enterprises are final: we do not issue cash refunds"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c054",
+      "statement": "Any remedy due to a buyer is platform credit with no cash value that can only be spent on the Service.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Where a remedy is due, it is platform credit added to your balance, which can be spent only on the Service, has no cash value"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c055",
+      "statement": "A Luel Data order is reversed, as platform credit, only when Luel fails to deliver it.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "an order is reversed only when Luel fails to deliver it, returning that amount to the same balance"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c056",
+      "statement": "Buyers bear all taxes associated with their purchases; Fees are stated exclusive of tax.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You will be responsible for paying all Taxes associated with your purchases in connection with the Service."
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c057",
+      "statement": "Every user, Contributor or buyer, must defend, indemnify and hold harmless Luel and its affiliates, agents, suppliers and licensors.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You will defend, indemnify, and hold us and our subsidiaries and affiliates"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c058",
+      "statement": "The user's indemnity covers claims arising from User Content, violation of third-party privacy or IP rights, and use of the Service.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "your violation of any third-party right, including, without limitation, any privacy right or intellectual property right"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c059",
+      "statement": "The Service and content on it are provided as is, without warranties including merchantability, fitness for purpose or non-infringement.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "implied warranties of merchantability, fitness for a particular purpose, and/or non-infringement"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c060",
+      "statement": "Luel's total liability to a user is capped at the greater of the amount the user paid Luel or US$100.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "in an amount exceeding the amount you paid to us hereunder or one hundred U.S. Dollars ($100.00), whichever is greater"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c061",
+      "statement": "Luel excludes liability for indirect, punitive, incidental, special, consequential and exemplary damages.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "any Luel Indemnitee be liable for any indirect, punitive, incidental, special, consequential, or exemplary damages"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c062",
+      "statement": "The Terms are governed by California law, excluding its conflict-of-laws rules.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "These Terms will be governed by the laws of the State of California, without respect to its conflict of laws principles."
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c063",
+      "statement": "Disputes go to binding individual arbitration by JAMS before a single arbitrator after 60 days of informal resolution.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "resolve such Claim exclusively through binding arbitration by JAMS before a single arbitrator"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c064",
+      "statement": "New users may opt out of the arbitration agreement within 30 days of accepting the Terms.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you can reject and opt out of this Arbitration Agreement within thirty (30) days of accepting these Terms"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c065",
+      "statement": "Users waive jury trial and class, collective and representative actions.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "WAIVING THE RIGHT TO A TRIAL BY JURY OR TO BRING, JOIN, OR PARTICIPATE IN ANY PURPORTED CLASS ACTION"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c066",
+      "statement": "Luel may modify the Terms, and continued use of the Service after a change counts as acceptance.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Your continued use of the Service after any change to these Terms constitutes your acceptance of the new Terms of Service."
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c067",
+      "statement": "The current Terms govern a user's use from the start of their access, even access that began before these Terms were published.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "effective as of the start of your access to the Service, even if such access began before publication of these Terms"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c068",
+      "statement": "Luel operates a DMCA notice procedure for alleged copyright infringement on the Service.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "it is our policy to respond to alleged infringement notices that comply with the Digital Millennium Copyright Act"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c069",
+      "statement": "Luel may, but need not, remove any User Content shared via the Service at its sole discretion.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "in our sole discretion to remove any of your User Content that is shared via the Service"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c070",
+      "statement": "Users must be at least 18 or the age of majority in their jurisdiction.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "To use the Service, you must be at least 18 years old (or the age of majority in your jurisdiction)."
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c071",
+      "statement": "Luel may terminate or suspend any account for any or no reason, without liability.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "suspend your access to your User Account and/or the Service without liability and for any or no reason"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c072",
+      "statement": "Luel reserves the right to use technological and other lawful measures to verify users' compliance with the Terms.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "we may use these and other lawful measures to verify your compliance with these Terms and to enforce our rights"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c073",
+      "statement": "Use of the Service must comply with Luel's separate Acceptable Use Policy.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Your use of the Service shall comply with our Acceptable Use Policy"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c074",
+      "statement": "Each user also grants Luel a non-exclusive, royalty-free licence to User Content to provide the Service and to improve Luel's products and for its other business purposes.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "to improve our products and the Service and for our other business purposes"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c075",
+      "statement": "Luel may alter, transfer or delete account content on its servers at any time in its sole discretion, without liability.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "user account content residing on the servers running the service may be altered, transferred, or deleted at any time"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c076",
+      "statement": "Users release Luel from all claims arising from disputes with third parties, including other Users, connected with the Service.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "arising out of a dispute between you and a third party (including any other User) in connection with the Service"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c077",
+      "statement": "Users must comply with US export control and sanctions laws.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "comply with all applicable import and export and re-export control and trade and economic sanctions laws"
+        }
+      ]
+    },
+    {
+      "id": "doc-luel-terms-c078",
+      "statement": "When an individual uses the Service for an Organization, that Organization is bound and liable for its users' acts and omissions.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Luel Service (AI training-data marketplace)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://luel.ai/terms",
+          "publisher": "Luel Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "that Organization will be solely responsible and liable for all acts and omissions of the Org Users"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "terms.deletion_on_termination",
+      "urls_tried": [
+        "https://luel.ai/terms"
+      ],
+      "reason": "not_published",
+      "note": "No clause obliges an Enterprise to delete purchased content when its licence is revoked or ends. Luel 'revokes entitlements' on a verified erasure request, but the Terms say nothing about copies a buyer already downloaded or about models trained on them (which the buyer may keep)."
+    },
+    {
+      "field": "terms.attribution",
+      "urls_tried": [
+        "https://luel.ai/terms"
+      ],
+      "reason": "not_published",
+      "note": "No attribution or credit requirement for buyers; the only related duty is not to remove watermarks, provenance signals or licence notices."
+    },
+    {
+      "field": "other.depicted_person_release",
+      "urls_tried": [
+        "https://luel.ai/terms"
+      ],
+      "reason": "not_published",
+      "note": "No model/property release mechanism, no consent evidence passed to buyers, and no route for a depicted third party (as opposed to the contributor) to object; only the contributor's warranty and the DMCA route."
+    },
+    {
+      "field": "other.luel_data_license_agreement",
+      "urls_tried": [
+        "https://luel.ai/terms"
+      ],
+      "reason": "not_published",
+      "note": "Content licensed through 'Luel Data' is governed by a separate Data License Agreement that overrides these Terms on conflict; it is not reproduced in this document and was not read here."
+    },
+    {
+      "field": "other.acceptable_use_policy",
+      "urls_tried": [
+        "https://luel.ai/terms"
+      ],
+      "reason": "not_published",
+      "note": "Section 3.2 incorporates a separate Acceptable Use Policy whose text is not in this document and was not read here."
+    },
+    {
+      "field": "other.revenue_share_percentage",
+      "urls_tried": [
+        "https://luel.ai/terms"
+      ],
+      "reason": "not_published",
+      "note": "No commission or revenue-share split between Luel and contributors is stated; payouts follow listing rates posted elsewhere on the Service."
+    },
+    {
+      "field": "other.third_party_provider_supply",
+      "urls_tried": [
+        "https://luel.ai/terms"
+      ],
+      "reason": "not_published",
+      "note": "The Terms address only individual Contributors and Enterprises; no terms for organisations or third-party dataset providers supplying whole datasets."
+    }
+  ]
+}

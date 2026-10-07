@@ -1,0 +1,2737 @@
+{
+ "kind": "profile",
+ "slug": "datarade",
+ "name": "Datarade",
+ "aliases": [
+  "Datarade.ai",
+  "Monda Labs GmbH"
+ ],
+ "segment": "independent_marketplace",
+ "tier": "light",
+ "status": {
+  "value": "active",
+  "claim_id": "datarade-c001"
+ },
+ "names_for": {
+  "catalogue_side": "AI-Ready Data Products / Datasets on the Datarade Marketplace ('Products' in its ToS)",
+  "custom_side": "Data requests ('Post your data request', 'postings' in its ToS) answered by providers' proposals, plus free sourcing advice from its data acquisition specialists"
+ },
+ "matrix": {
+  "operator_role": {
+   "value": "venue",
+   "claim_ids": [
+    "datarade-c003",
+    "datarade-c004",
+    "datarade-c006",
+    "datarade-c014"
+   ],
+   "note": "Monda Labs is not a party to buyer-seller contracts and neither buys nor sells data; each Seller is licensor."
+  },
+  "economics_model": {
+   "value": "mixed",
+   "claim_ids": [
+    "datarade-c024",
+    "datarade-c029",
+    "datarade-c030",
+    "datarade-c031",
+    "datarade-c032",
+    "datarade-c033",
+    "datarade-c008"
+   ],
+   "note": "Provider subscription ($0, $6,000 or $12,000 a year) plus a 15-30% commission; the commission's base is not published."
+  },
+  "who_pays_fee": {
+   "value": "seller",
+   "claim_ids": [
+    "datarade-c024",
+    "datarade-c013",
+    "datarade-c029",
+    "datarade-c063"
+   ],
+   "note": "Buyers pay nothing to Datarade; the provider pays membership and commission."
+  },
+  "supply_models": {
+   "value": [
+    "third_party_providers"
+   ],
+   "claim_ids": [
+    "datarade-c020",
+    "datarade-c061",
+    "datarade-c007",
+    "datarade-c026"
+   ],
+   "note": "Only incorporated companies list; Datarade collects nothing itself. Some providers source from their own photographer or consumer platforms."
+  },
+  "custody_model": {
+   "value": "provider_delivers",
+   "claim_ids": [
+    "datarade-c066",
+    "datarade-c044",
+    "datarade-c069"
+   ],
+   "note": "Datarade hosts only sample previews; full data goes from the provider to the buyer by the methods the provider lists (S3, SFTP, API, email, GCS)."
+  },
+  "transaction_mode": {
+   "value": "contact_sales",
+   "claim_ids": [
+    "datarade-c005",
+    "datarade-c056",
+    "datarade-c047",
+    "datarade-c019",
+    "datarade-c074"
+   ],
+   "note": "No checkout seen, even on fixed-price listings; buyers contact the provider or request pricing."
+  },
+  "public_prices": {
+   "value": "some",
+   "claim_ids": [
+    "datarade-c040",
+    "datarade-c052",
+    "datarade-c039",
+    "datarade-c030"
+   ],
+   "note": "Some listings show provider-set starting prices; most image/video listings say 'Pricing available upon request'. Provider plan prices are public."
+  },
+  "licence_model": {
+   "value": "provider_defined",
+   "claim_ids": [
+    "datarade-c014",
+    "datarade-c003",
+    "datarade-c069"
+   ],
+   "note": "No platform licence for data; terms are in each buyer-seller agreement, which is not published on listings."
+  },
+  "exclusivity_offered": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": "Nothing on the ToS, policies or listings fetched says whether exclusivity can be bought."
+  },
+  "public_listing": {
+   "value": "public_summary_gated_detail",
+   "claim_ids": [
+    "datarade-c039",
+    "datarade-c046",
+    "datarade-c010",
+    "datarade-c068"
+   ],
+   "note": "Listing pages and prices were readable without an account; data previews need sign-in and contact details."
+  },
+  "buyer_vetting": {
+   "value": "account_only",
+   "claim_ids": [
+    "datarade-c012",
+    "datarade-c067",
+    "datarade-c072"
+   ],
+   "note": "Business email required and business use only; the operator may ask for evidence of business capacity at its discretion. Sellers qualify their own leads."
+  },
+  "sample_mechanics": {
+   "value": "preview_in_browser",
+   "claim_ids": [
+    "datarade-c010",
+    "datarade-c046",
+    "datarade-c018",
+    "datarade-c041"
+   ],
+   "note": "Previews on Datarade in exchange for contact details, with personal-data columns redacted; some listings instead offer a sample on request."
+  },
+  "versioning": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": "Listings show update frequency but nothing on revisions or what a past buyer keeps."
+  },
+  "human_subject_consent_docs": {
+   "value": "asserted_only",
+   "claim_ids": [
+    "datarade-c015",
+    "datarade-c060",
+    "datarade-c042",
+    "datarade-c045"
+   ],
+   "note": "Policies require consent and listings assert it; no consent or release documents are shown to buyers on the platform."
+  },
+  "contributor_pay_model": {
+   "value": "not_applicable",
+   "claim_ids": [
+    "datarade-c020"
+   ],
+   "note": "Datarade admits only companies as providers and pays no individual capturers; how providers such as DataSeeds.AI pay their photographers is not disclosed."
+  },
+  "catalogue_plus_custom": {
+   "value": "both",
+   "claim_ids": [
+    "datarade-c076",
+    "datarade-c062",
+    "datarade-c064",
+    "datarade-c025",
+    "datarade-c059"
+   ],
+   "note": "Datarade brokers both: listed products and buyer data requests answered by providers; it collects nothing itself."
+  },
+  "erasure_after_sale": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": "Takedown can remove a listing ([datarade-c065], [datarade-c070]) but whether buyers must delete copies depends on unpublished buyer-seller agreements."
+  },
+  "quality_evidence": {
+   "value": "provider_asserted",
+   "claim_ids": [
+    "datarade-c006",
+    "datarade-c017",
+    "datarade-c043",
+    "datarade-c009"
+   ],
+   "note": "Product pages are written only by Sellers; the operator reviews provider applications and shows a 'Verified Data Provider' badge, but quality figures (e.g. '97% Accuracy') are the provider's."
+  }
+ },
+ "questions": {
+  "Q1": {
+   "state": "partial",
+   "answer": "Buyers must be businesses (business email, no private use); Datarade claims 120k monthly visitors and lists 718 AI-training datasets. Image/video is sold per purchase with listed starts of $10,000-$20,000; why buyers choose catalogue over custom is not published.",
+   "claim_ids": [
+    "datarade-c072",
+    "datarade-c012",
+    "datarade-c027",
+    "datarade-c055",
+    "datarade-c038",
+    "datarade-c040",
+    "datarade-c052"
+   ]
+  },
+  "Q2": {
+   "state": "partial",
+   "answer": "Listing buys reach (vendor-stated 120k monthly visitors), qualified leads, buyer intent insights and access to a pool of buyer data requests, for $0-$12,000 a year plus 15-30% commission.",
+   "claim_ids": [
+    "datarade-c027",
+    "datarade-c035",
+    "datarade-c036",
+    "datarade-c028",
+    "datarade-c029",
+    "datarade-c030",
+    "datarade-c032",
+    "datarade-c051"
+   ]
+  },
+  "Q3": {
+   "state": "sourced",
+   "answer": "All inventory comes from incorporated third-party providers under a separate Seller Agreement, which must hold the rights, licences or consent to distribute; web data only if publicly sourced. Providers' own sourcing varies (photographer competitions, own consumer platform).",
+   "claim_ids": [
+    "datarade-c020",
+    "datarade-c061",
+    "datarade-c007",
+    "datarade-c060",
+    "datarade-c016",
+    "datarade-c023",
+    "datarade-c058",
+    "datarade-c048"
+   ]
+  },
+  "Q4": {
+   "state": "unknown",
+   "answer": "",
+   "claim_ids": []
+  },
+  "Q5": {
+   "state": "sourced",
+   "answer": "Venue: Monda Labs is not a party to buyer-seller contracts and neither buys nor sells data, so the Seller is licensor. Sellers commit to rights and consent via the Seller Agreement and Publishing Policies; each Customer indemnifies the operator for IP claims over Content it posts.",
+   "claim_ids": [
+    "datarade-c003",
+    "datarade-c004",
+    "datarade-c014",
+    "datarade-c007",
+    "datarade-c060",
+    "datarade-c071"
+   ]
+  },
+  "Q6": {
+   "state": "partial",
+   "answer": "Datarade says it does not host or deliver data; providers deliver by the methods they list (S3, SFTP, APIs, email, Google Cloud Storage). Only sample previews sit on Datarade.",
+   "claim_ids": [
+    "datarade-c066",
+    "datarade-c044",
+    "datarade-c010"
+   ]
+  },
+  "Q7": {
+   "state": "partial",
+   "answer": "Policies ban personal data without legal authority and valid consent and require documentation of collection; listings only assert consent or model/property releases. Capturer consent is not addressed.",
+   "claim_ids": [
+    "datarade-c015",
+    "datarade-c022",
+    "datarade-c021",
+    "datarade-c060",
+    "datarade-c042",
+    "datarade-c045",
+    "datarade-c048"
+   ]
+  },
+  "Q8": {
+   "state": "partial",
+   "answer": "Data licence terms live in the unpublished buyer-seller agreement. Platform terms bar copying outside Datarade unless agreed with a Seller and allow removal of reported content; nothing on exclusivity, audit or fingerprinting.",
+   "claim_ids": [
+    "datarade-c069",
+    "datarade-c065",
+    "datarade-c070",
+    "datarade-c014"
+   ]
+  },
+  "Q9": {
+   "state": "sourced",
+   "answer": "Contact-sales: buyers contact providers, chat or request pricing, even on fixed-price listings. Datarade is free to buyers and earns a provider subscription plus 15-30% commission.",
+   "claim_ids": [
+    "datarade-c005",
+    "datarade-c056",
+    "datarade-c047",
+    "datarade-c019",
+    "datarade-c024",
+    "datarade-c029",
+    "datarade-c031",
+    "datarade-c033",
+    "datarade-c013"
+   ]
+  },
+  "Q10": {
+   "state": "partial",
+   "answer": "Objects are Seller-published product pages (declaring pricing models such as one-off, monthly, yearly, usage-based), provider profiles and buyer postings. No order or entitlement object is visible; revisions and withdrawals are not addressed.",
+   "claim_ids": [
+    "datarade-c006",
+    "datarade-c057",
+    "datarade-c008",
+    "datarade-c011",
+    "datarade-c054"
+   ]
+  },
+  "Q11": {
+   "state": "sourced",
+   "answer": "Registered buyers preview samples in exchange for contact details, with personal-data columns redacted and samples required to be representative. Trust signals are a 'Verified Data Provider' badge, reviews and curated listings; quality figures are provider-written.",
+   "claim_ids": [
+    "datarade-c010",
+    "datarade-c018",
+    "datarade-c017",
+    "datarade-c043",
+    "datarade-c073",
+    "datarade-c009",
+    "datarade-c053",
+    "datarade-c041"
+   ]
+  },
+  "Q12": {
+   "state": "sourced",
+   "answer": "The catalogue side is 'AI-Ready Data Products'; the custom side is free buyer data requests ('Post your data request') answered by providers within 24-48 hours, plus free sourcing advice. Providers such as DataSeeds.AI offer custom collection on their listings.",
+   "claim_ids": [
+    "datarade-c076",
+    "datarade-c062",
+    "datarade-c064",
+    "datarade-c011",
+    "datarade-c036",
+    "datarade-c025",
+    "datarade-c059"
+   ]
+  }
+ },
+ "sections": {},
+ "buyer_journey": [],
+ "claims": [
+  {
+   "id": "datarade-c001",
+   "statement": "Datarade's terms page carried a 2026 copyright notice for Datarade, Monda Labs GmbH when fetched on 2026-10-01, showing the marketplace is live.",
+   "kind": "status",
+   "section": "positioning",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/terms-of-service",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "©2026 Datarade, Monda Labs GmbH"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c002",
+   "statement": "Datarade's Terms of Service were last updated on 9 January 2026.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-01-09",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/terms-of-service",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Last updated on January 9, 2026"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c003",
+   "statement": "Under Datarade's ToS the platform operator is not a party to any contract between buyers and sellers (both are 'Customers').",
+   "kind": "terms",
+   "section": "transaction",
+   "question_ids": [
+    "Q5",
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-01-09",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/terms-of-service",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Platform Operator is not a party to any contractual relationships between Customers."
+    }
+   ]
+  },
+  {
+   "id": "datarade-c004",
+   "statement": "Under Datarade's ToS the operator does not sell or buy any data Products and acts only as an intermediary service provider.",
+   "kind": "terms",
+   "section": "transaction",
+   "question_ids": [
+    "Q5",
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-01-09",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/terms-of-service",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Platform Operator does not sell or buy any Products; it solely acts as an intermediary service provider"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c005",
+   "statement": "Datarade's ToS describe the platform's features as supporting search, communication and lead generation.",
+   "kind": "terms",
+   "section": "positioning",
+   "question_ids": [
+    "Q9",
+    "Q2"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-01-09",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/terms-of-service",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "various functional features supporting search, communication, and lead generation"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c006",
+   "statement": "Under Datarade's ToS product pages are published exclusively by Sellers, not by the operator.",
+   "kind": "terms",
+   "section": "listing",
+   "question_ids": [
+    "Q5",
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-01-09",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/terms-of-service",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Product pages are published exclusively by Sellers."
+    }
+   ]
+  },
+  {
+   "id": "datarade-c007",
+   "statement": "Under Datarade's ToS a Seller must accept Seller Commitments, including Datarade's Publishing Policies, in a separate Seller Agreement.",
+   "kind": "terms",
+   "section": "vetting",
+   "question_ids": [
+    "Q3",
+    "Q5"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-01-09",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/terms-of-service",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Essential Seller Commitments will include, but are not limited to, the Publishing Policies"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c008",
+   "statement": "Under Datarade's ToS Sellers can publish and maintain their own provider profile pages only while they hold an active subscription.",
+   "kind": "terms",
+   "section": "pricing",
+   "question_ids": [
+    "Q2",
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-01-09",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/terms-of-service",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "provided that the respective Seller holds an active subscription"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c009",
+   "statement": "Under Datarade's ToS search listing pages of Sellers and Products may be curated algorithmically and/or manually by the operator.",
+   "kind": "terms",
+   "section": "discovery",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-01-09",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/terms-of-service",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Such listings may be curated algorithmically and/or manually by Platform Operator."
+    }
+   ]
+  },
+  {
+   "id": "datarade-c010",
+   "statement": "Under Datarade's ToS registered buyers can preview data samples only in exchange for providing their contact information.",
+   "kind": "terms",
+   "section": "trust",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-01-09",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/terms-of-service",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Registered Customers may access previews of data samples in exchange for providing their contact information."
+    }
+   ]
+  },
+  {
+   "id": "datarade-c011",
+   "statement": "Under Datarade's ToS registered buyers may publish postings describing their data needs to receive proposals from Sellers.",
+   "kind": "terms",
+   "section": "demand",
+   "question_ids": [
+    "Q12",
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-01-09",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/terms-of-service",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Registered Customers may publish postings describing data needs or requirements"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c012",
+   "statement": "Under Datarade's ToS registration requires a business email address; private accounts such as gmail.com are not permitted.",
+   "kind": "terms",
+   "section": "vetting",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-01-09",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/terms-of-service",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "trashmail addresses and private accounts (gmail.com, etc.) are not permitted"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c013",
+   "statement": "Under Datarade's ToS a Customer owes the operator no remuneration for its Services.",
+   "kind": "terms",
+   "section": "pricing",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-01-09",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/terms-of-service",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Customer owes no remuneration for Platform Operator's Services"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c014",
+   "statement": "Under Datarade's ToS payment for data Products is owed under the separate agreement between the buyer and the Seller.",
+   "kind": "terms",
+   "section": "transaction",
+   "question_ids": [
+    "Q5",
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-01-09",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/terms-of-service",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "obligation to pay for Products in accordance with the respective agreements between Customer and a Seller remains unaffected"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c015",
+   "statement": "Datarade's Publishing Policies forbid listing Personal Data unless the provider is legally authorised and has valid consent to collect, process and share it.",
+   "kind": "terms",
+   "section": "vetting",
+   "question_ids": [
+    "Q7",
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/publishing-policies",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Personal Data unless you are legally authorized and have obtained valid consent to collect, process, and share this Data."
+    }
+   ]
+  },
+  {
+   "id": "datarade-c016",
+   "statement": "Datarade's Publishing Policies require providers to ensure they have the right to use and distribute the Data they list.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q3",
+    "Q5"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/publishing-policies",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "ensure you have the right to use and distribute the Data"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c017",
+   "statement": "Datarade's Publishing Policies require data sample previews to be representative of the actual data quality and completeness.",
+   "kind": "terms",
+   "section": "trust",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/publishing-policies",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Be representative of the actual Data quality and completeness"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c018",
+   "statement": "Datarade's Publishing Policies say Datarade automatically redacts sample-preview columns that potentially contain Personal Data.",
+   "kind": "terms",
+   "section": "trust",
+   "question_ids": [
+    "Q11",
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/publishing-policies",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Datarade will automatically redact any columns that potentially contain Personal Data"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c019",
+   "statement": "Datarade's Publishing Policies let providers withhold exact prices, in which case buyers contact the provider for a quote.",
+   "kind": "terms",
+   "section": "pricing",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/publishing-policies",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "If you do not want to disclose exact numbers, Users can contact you for a quote."
+    }
+   ]
+  },
+  {
+   "id": "datarade-c020",
+   "statement": "Datarade's Publishing Policies define a provider as an incorporated, active company publishing listings for products it offers.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/publishing-policies",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "An incorporated, active company that publishes Listings on Datarade referring to Products offered by the company."
+    }
+   ]
+  },
+  {
+   "id": "datarade-c021",
+   "statement": "Datarade's Publishing Policies say listings are removed if inadequate documentation is provided.",
+   "kind": "terms",
+   "section": "vetting",
+   "question_ids": [
+    "Q7",
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/publishing-policies",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Listings will be removed from the platform if inadequate documentation is provided"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c022",
+   "statement": "Datarade's Publishing Policies require providers listing personal data to document how it is collected and used.",
+   "kind": "terms",
+   "section": "vetting",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/publishing-policies",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Provide detailed documentation on how the Personal Data is collected and used."
+    }
+   ]
+  },
+  {
+   "id": "datarade-c023",
+   "statement": "Datarade's Publishing Policies prohibit products containing web data unless it is sourced from publicly available sources.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/publishing-policies",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Contain Web Data unless it is sourced from publicly available sources"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c024",
+   "statement": "Datarade tells buyers its service is free to them and that it is paid by the provider if the buyer makes a purchase.",
+   "kind": "terms",
+   "section": "pricing",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Our service is free for you. We're paid by the provider in case you make a purchase."
+    }
+   ]
+  },
+  {
+   "id": "datarade-c025",
+   "statement": "Datarade offers buyers complimentary sourcing advice from its own data acquisition specialists.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Get complimentary sourcing advice by our team of data acquisition specialists."
+    }
+   ]
+  },
+  {
+   "id": "datarade-c026",
+   "statement": "Datarade says buyers can compare data products from 2700+ data providers (vendor-stated count).",
+   "kind": "outcome",
+   "section": "supply",
+   "question_ids": [
+    "Q1",
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "find and compare data products from 2700+ trusted data providers worldwide, for free"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c027",
+   "statement": "Datarade tells providers that listing reaches 120k monthly visitors (vendor-stated).",
+   "kind": "number",
+   "section": "demand",
+   "question_ids": [
+    "Q2",
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 120000,
+    "unit": "visitors",
+    "basis": "vendor-stated monthly visitors to the marketplace",
+    "period": "per month"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "List your data on our global B2B platform to reach 120k monthly visitors"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c028",
+   "statement": "Datarade tells providers they get B2B intent insights on data buyers.",
+   "kind": "offer",
+   "section": "demand",
+   "question_ids": [
+    "Q2"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Get B2B intent insights on data buyers"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c029",
+   "statement": "Datarade's Commission-only provider plan carries a 30% commission with a $0 annual fee.",
+   "kind": "number",
+   "section": "pricing",
+   "question_ids": [
+    "Q9",
+    "Q2"
+   ],
+   "scope": {
+    "product": "Provider Studio",
+    "tier": "Commission-only",
+    "region": ""
+   },
+   "value": {
+    "num": 30,
+    "unit": "percent",
+    "basis": "commission paid by the provider; what it is levied on is not stated on the page",
+    "period": "per deal"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://providers.datarade.ai/apply",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "pricing_page",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "30% commission"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c030",
+   "statement": "Datarade's Bronze provider plan costs $6,000 per year.",
+   "kind": "number",
+   "section": "pricing",
+   "question_ids": [
+    "Q9",
+    "Q2"
+   ],
+   "scope": {
+    "product": "Provider Studio",
+    "tier": "Bronze",
+    "region": ""
+   },
+   "value": {
+    "num": 6000,
+    "unit": "USD",
+    "basis": "membership fee paid by the provider",
+    "period": "per year"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://providers.datarade.ai/apply",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "pricing_page",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "$6,000 / year"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c031",
+   "statement": "Datarade's Bronze provider plan carries a 20% commission on top of its annual fee.",
+   "kind": "number",
+   "section": "pricing",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "Provider Studio",
+    "tier": "Bronze",
+    "region": ""
+   },
+   "value": {
+    "num": 20,
+    "unit": "percent",
+    "basis": "commission paid by the provider; base not stated",
+    "period": "per deal"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://providers.datarade.ai/apply",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "pricing_page",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "20% commission"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c032",
+   "statement": "Datarade's Silver provider plan costs $12,000 per year.",
+   "kind": "number",
+   "section": "pricing",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "Provider Studio",
+    "tier": "Silver",
+    "region": ""
+   },
+   "value": {
+    "num": 12000,
+    "unit": "USD",
+    "basis": "membership fee paid by the provider",
+    "period": "per year"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://providers.datarade.ai/apply",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "pricing_page",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "$12,000 / year"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c033",
+   "statement": "Datarade's Silver provider plan carries a 15% commission on top of its annual fee.",
+   "kind": "number",
+   "section": "pricing",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "Provider Studio",
+    "tier": "Silver",
+    "region": ""
+   },
+   "value": {
+    "num": 15,
+    "unit": "percent",
+    "basis": "commission paid by the provider; base not stated",
+    "period": "per deal"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://providers.datarade.ai/apply",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "pricing_page",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "15% commission"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c034",
+   "statement": "Datarade says its team reviews provider applications for quality and marketplace fit, most within 1-2 business days.",
+   "kind": "terms",
+   "section": "vetting",
+   "question_ids": [
+    "Q3",
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://providers.datarade.ai/apply",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Our team reviews your application to ensure quality and marketplace fit."
+    }
+   ]
+  },
+  {
+   "id": "datarade-c035",
+   "statement": "Datarade providers receive buyer inquiries and qualified leads and manage deals through the sales pipeline in the Datarade Provider Studio.",
+   "kind": "offer",
+   "section": "transaction",
+   "question_ids": [
+    "Q2",
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://providers.datarade.ai/apply",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Receive and accept qualified leads, communicate with buyers, and move deals through the sales pipeline"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c036",
+   "statement": "Datarade providers can respond to buyers' data requests from Datarade's posting pool.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12",
+    "Q2"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://providers.datarade.ai/apply",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Proactively respond to data requests from our posting pool"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c037",
+   "statement": "Datarade says it launched the Datarade Marketplace in 2020.",
+   "kind": "event",
+   "section": "positioning",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2020",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Launch of Datarade Marketplace"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c038",
+   "statement": "Datarade's search for 'image datasets' returned 137 product results on 2026-10-01.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 137,
+    "unit": "product listings",
+    "basis": "search result count for the query 'image datasets'; includes non-image products",
+    "period": "snapshot"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/search/products/image-datasets",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "137 product results"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c039",
+   "statement": "Most listings on Datarade's 'image datasets' results page show 'Pricing available upon request' instead of a price.",
+   "kind": "offer",
+   "section": "pricing",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/search/products/image-datasets",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Pricing available upon request"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c040",
+   "statement": "Nexdata's Face Anti-spoofing listing on Datarade shows a provider-set price starting at $10,000 per purchase.",
+   "kind": "number",
+   "section": "pricing",
+   "question_ids": [
+    "Q9",
+    "Q1"
+   ],
+   "scope": {
+    "product": "Nexdata Face Anti-spoofing Data",
+    "tier": "One-off purchase",
+    "region": ""
+   },
+   "value": {
+    "num": 10000,
+    "unit": "USD per purchase",
+    "basis": "provider-listed starting price paid by the buyer to the provider, one-off purchase",
+    "period": "one-off"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/data-products/nexdata-face-anti-spoofing-data-200-000-id-image-video-nexdata",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Starts at $10,000 / purchase"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c041",
+   "statement": "Nexdata's Face Anti-spoofing listing on Datarade offers a 'Request Data Sample' button rather than a download.",
+   "kind": "offer",
+   "section": "trust",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/data-products/nexdata-face-anti-spoofing-data-200-000-id-image-video-nexdata",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Request Data Sample"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c042",
+   "statement": "Nexdata's listing on Datarade asserts in its own description that its anti-spoofing data was collected with consent; no consent documents are shown.",
+   "kind": "terms",
+   "section": "trust",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/data-products/nexdata-face-anti-spoofing-data-200-000-id-image-video-nexdata",
+     "publisher": "Nexdata (listing on Datarade)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "All the anti-spoofing data is collected with consent"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c043",
+   "statement": "Nexdata's Datarade listing carries a 'Verified Data Provider' badge.",
+   "kind": "offer",
+   "section": "trust",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/data-products/nexdata-face-anti-spoofing-data-200-000-id-image-video-nexdata",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Verified Data Provider"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c044",
+   "statement": "Nexdata's Datarade listing lists delivery methods including S3 Bucket, SFTP, Email and REST API.",
+   "kind": "offer",
+   "section": "custody",
+   "question_ids": [
+    "Q6"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/data-products/nexdata-face-anti-spoofing-data-200-000-id-image-video-nexdata",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "S3 Bucket"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c045",
+   "statement": "M-ART's drone video listing on Datarade claims its content is 100% rights-cleared with model and property releases.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/data-products/m-art-5-000-drone-view-datasets-4k-video-content-commerc-m-art",
+     "publisher": "M-ART (listing on Datarade)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "100% rights-cleared with model and property releases"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c046",
+   "statement": "M-ART's listing on Datarade gates its data preview behind sign-in ('Sign In To Preview Data').",
+   "kind": "offer",
+   "section": "trust",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/data-products/m-art-5-000-drone-view-datasets-4k-video-content-commerc-m-art",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Sign In To Preview Data"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c047",
+   "statement": "M-ART's listing on Datarade offers 'Contact Provider' as the primary action and no checkout.",
+   "kind": "offer",
+   "section": "transaction",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/data-products/m-art-5-000-drone-view-datasets-4k-video-content-commerc-m-art",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Contact Provider"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c048",
+   "statement": "Woilo's Indonesian UGC image and video listing on Datarade says the content comes from its own consumer platform, with no consent statement.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/data-products/large-scale-indonesian-ugc-image-video-dataset-for-ai-training-woilo",
+     "publisher": "Woilo (listing on Datarade)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "our own consumer platform"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c049",
+   "statement": "Datarade says it passed $1M+ ARR and its Data Commerce Cloud's 500th customer in 2023 (vendor-stated).",
+   "kind": "number",
+   "section": "positioning",
+   "question_ids": [
+    "Q2"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 1000000,
+    "unit": "USD annual recurring revenue (at least)",
+    "basis": "vendor-stated company ARR, all products; not independently verified",
+    "period": "per year"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2023",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Celebrating $1M+ ARR and DCC's 500th customer"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c050",
+   "statement": "Datarade says it raised a EUR 1.2M pre-seed round from Techstars, High-Tech Gruenderfonds and HPI Seed Fund (dated 2019 on its company page).",
+   "kind": "event",
+   "section": "positioning",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2019",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "1.2M pre-seed funding from Techstars"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c051",
+   "statement": "Datarade says 500 data providers use its B2B SaaS product (vendor-stated).",
+   "kind": "outcome",
+   "section": "supply",
+   "question_ids": [
+    "Q2"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "500 Data providers using our B2B SaaS product"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c052",
+   "statement": "Nexdata's Multimodal Video Data (500,000 person) listing on Datarade shows a provider-set price starting at $20,000 per purchase.",
+   "kind": "number",
+   "section": "pricing",
+   "question_ids": [
+    "Q9",
+    "Q1"
+   ],
+   "scope": {
+    "product": "Nexdata Multimodal Video Data | 500,000 Person",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 20000,
+    "unit": "USD per purchase",
+    "basis": "provider-listed starting price paid by the buyer to the provider",
+    "period": "one-off"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/data-categories/video-data",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Starts at $20,000 / purchase"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c053",
+   "statement": "Datarade's video-data category page says many providers offer free samples for buyers to evaluate.",
+   "kind": "offer",
+   "section": "trust",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/data-categories/video-data",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Many providers offer free samples, allowing you to evaluate the suitability of Video Data for your needs."
+    }
+   ]
+  },
+  {
+   "id": "datarade-c054",
+   "statement": "Datarade's video-data category page says pricing models may include one-off purchases, subscriptions or usage-based fees, set by factors such as size and customisation.",
+   "kind": "offer",
+   "section": "pricing",
+   "question_ids": [
+    "Q10",
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/data-categories/video-data",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "The cost of Video Data depends on factors like the datasets size, scope, update frequency, and customization"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c055",
+   "statement": "Datarade's AI training data category listed 718 datasets on 2026-10-01.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q1",
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 718,
+    "unit": "dataset listings",
+    "basis": "category count shown on the AI training data category page, all modalities",
+    "period": "snapshot"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/data-categories/ai-ml-training-data",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "718 AI Training Data Datasets"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c056",
+   "statement": "Even Xverum's fixed-price listing on Datarade offers 'Request detailed pricing' and 'Contact Provider' rather than a buy button.",
+   "kind": "offer",
+   "section": "transaction",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/data-products/ai-search-data-global-coverage-real-time-xverum",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Request detailed pricing"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c057",
+   "statement": "Datarade listings such as Xverum's declare which pricing models a product supports, including a yearly licence alongside one-off, monthly and usage-based options.",
+   "kind": "architecture",
+   "section": "object_model",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/data-products/ai-search-data-global-coverage-real-time-xverum",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Yearly License"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c058",
+   "statement": "DataSeeds.AI's image listing on Datarade says its images are collected through a gamified competition platform for photographers.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/data-products/15m-images-ai-training-data-annotated-imagery-data-for-a-data-seeds",
+     "publisher": "DataSeeds.AI (listing on Datarade)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Images are collected through a proprietary gamified platform for photographers."
+    }
+   ]
+  },
+  {
+   "id": "datarade-c059",
+   "statement": "DataSeeds.AI's image listing on Datarade offers custom datasets sourced on demand within 72 hours.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/data-products/15m-images-ai-training-data-annotated-imagery-data-for-a-data-seeds",
+     "publisher": "DataSeeds.AI (listing on Datarade)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Custom datasets can be sourced on-demand within 72 hours"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c060",
+   "statement": "Datarade's provider FAQ says a provider's business must hold the necessary rights, licences or consent to distribute the data.",
+   "kind": "terms",
+   "section": "vetting",
+   "question_ids": [
+    "Q3",
+    "Q5",
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://providers.datarade.ai/apply",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Your business must hold the necessary rights, licenses, or consent to distribute the data."
+    }
+   ]
+  },
+  {
+   "id": "datarade-c061",
+   "statement": "Datarade's provider FAQ says legally registered businesses of all sizes may list on the Datarade Marketplace.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://providers.datarade.ai/apply",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "We welcome legally registered businesses of all sizes to list on the Datarade Marketplace."
+    }
+   ]
+  },
+  {
+   "id": "datarade-c062",
+   "statement": "Datarade's buyer data-request form is headed 'Post your data request!'.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/postings/new",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Post your data request!"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c063",
+   "statement": "Datarade describes posting a data request as free of charge for buyers.",
+   "kind": "terms",
+   "section": "pricing",
+   "question_ids": [
+    "Q9",
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/postings/new",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Free of charge"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c064",
+   "statement": "Datarade tells buyers who post a data request that they receive multiple offers in 24-48 hours.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12",
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/postings/new",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Receive multiple offers in 24-48 hours"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c065",
+   "statement": "Datarade's IP infringement report form says a report could lead to removal of the reported product or information.",
+   "kind": "terms",
+   "section": "post_sale",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/ip-infringement-report-form",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "This could involve removing the product or information you've reported."
+    }
+   ]
+  },
+  {
+   "id": "datarade-c066",
+   "statement": "A Datarade blog article (16 Sep 2025) says Datarade does not host or deliver data and focuses on discovery, comparability and transparency.",
+   "kind": "architecture",
+   "section": "custody",
+   "question_ids": [
+    "Q6"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2025-09-16",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/blog/ai-ready-data-marketplaces",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "eng_blog",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Datarade doesn't host or deliver data, instead, it focuses on discovery, comparability, and transparency."
+    }
+   ]
+  },
+  {
+   "id": "datarade-c067",
+   "statement": "Under Datarade's ToS the operator may at its discretion request evidence of a Customer's business capacity at any time.",
+   "kind": "terms",
+   "section": "vetting",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-01-09",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/terms-of-service",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Platform Operator may, at its reasonable discretion, request additional information and evidence at any time"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c068",
+   "statement": "Datarade's ToS list viewing and purchasing Products, interacting with Sellers and submitting Reviews as registration-based services.",
+   "kind": "terms",
+   "section": "listing",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-01-09",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/terms-of-service",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "viewing and purchasing Products, interacting with Sellers and submitting Reviews"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c069",
+   "statement": "Under Datarade's ToS copying any component of Datarade outside the platform is prohibited unless agreed with a Seller.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-01-09",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/terms-of-service",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "unless such download or copy is agreed upon with a Seller"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c070",
+   "statement": "Datarade's ToS define content moderation to include demotion, demonetisation, disabling of access to, or removal of content.",
+   "kind": "terms",
+   "section": "post_sale",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-01-09",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/terms-of-service",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "demotion, demonetization, disabling of access to, or removal thereof"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c071",
+   "statement": "Under Datarade's ToS each Customer indemnifies the operator against alleged third-party IP infringement due to Content it made available.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q5"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-01-09",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/terms-of-service",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "alleged infringement of a third party's intellectual property rights due to Content"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c072",
+   "statement": "Datarade's ToS prohibit any use of Datarade for private or other non-business purposes.",
+   "kind": "terms",
+   "section": "vetting",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-01-09",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/terms-of-service",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Any use of Datarade for private or other non-business purposes is prohibited"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c073",
+   "statement": "Under Datarade's ToS users may submit Reviews relating to Sellers.",
+   "kind": "terms",
+   "section": "trust",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-01-09",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/terms-of-service",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Users may submit Reviews relating to Sellers"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c074",
+   "statement": "Under Datarade's ToS registered buyers may message Sellers through an instant messaging or chat function.",
+   "kind": "terms",
+   "section": "transaction",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-01-09",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/terms-of-service",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Registered Customers may send messages to and communicate with Sellers via an instant messaging or chat functionality"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c075",
+   "statement": "Datarade's legal notice gives the operator Monda Labs GmbH's registration as Amtsgericht Charlottenburg, HRB 199191 B.",
+   "kind": "status",
+   "section": "positioning",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/company/legal-notice",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Amtsgericht Charlottenburg, HRB 199191 B"
+    }
+   ]
+  },
+  {
+   "id": "datarade-c076",
+   "statement": "Datarade's footer calls its off-the-shelf side 'AI-Ready Data Products' within its 'AI Data Marketplace'.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://datarade.ai/",
+     "publisher": "Datarade (Monda Labs GmbH)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "AI-Ready Data Products"
+    }
+   ]
+  }
+ ],
+ "unknowns": [
+  {
+   "field": "matrix.exclusivity_offered",
+   "urls_tried": [
+    "https://datarade.ai/company/terms-of-service",
+    "https://datarade.ai/company/publishing-policies",
+    "https://datarade.ai/data-products/nexdata-face-anti-spoofing-data-200-000-id-image-video-nexdata",
+    "https://datarade.ai/data-products/m-art-5-000-drone-view-datasets-4k-video-content-commerc-m-art",
+    "https://datarade.ai/data-products/large-scale-indonesian-ugc-image-video-dataset-for-ai-training-woilo",
+    "https://datarade.ai/data-products/15m-images-ai-training-data-annotated-imagery-data-for-a-data-seeds"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "matrix.versioning",
+   "urls_tried": [
+    "https://datarade.ai/company/terms-of-service",
+    "https://datarade.ai/company/publishing-policies",
+    "https://datarade.ai/data-products/nexdata-face-anti-spoofing-data-200-000-id-image-video-nexdata",
+    "https://datarade.ai/data-products/m-art-5-000-drone-view-datasets-4k-video-content-commerc-m-art",
+    "https://datarade.ai/data-products/ai-search-data-global-coverage-real-time-xverum"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "matrix.erasure_after_sale",
+   "urls_tried": [
+    "https://datarade.ai/company/terms-of-service",
+    "https://datarade.ai/company/publishing-policies",
+    "https://datarade.ai/company/ip-infringement-report-form"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "questions.Q4",
+   "urls_tried": [
+    "https://datarade.ai/company/terms-of-service",
+    "https://datarade.ai/company/publishing-policies",
+    "https://providers.datarade.ai/apply",
+    "https://datarade.ai/postings/new"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "other.commission_base",
+   "urls_tried": [
+    "https://providers.datarade.ai/apply",
+    "https://providers.datarade.ai/"
+   ],
+   "reason": "not_published",
+   "note": "Plan cards show '+ 30% commission' etc. but not what the commission is levied on or how deals are tracked."
+  },
+  {
+   "field": "other.seller_agreement_text",
+   "urls_tried": [
+    "https://datarade.ai/company/terms-of-service",
+    "https://providers.datarade.ai/apply"
+   ],
+   "reason": "gated"
+  },
+  {
+   "field": "other.buyer_licence_text",
+   "urls_tried": [
+    "https://datarade.ai/data-products/nexdata-face-anti-spoofing-data-200-000-id-image-video-nexdata",
+    "https://datarade.ai/data-products/m-art-5-000-drone-view-datasets-4k-video-content-commerc-m-art",
+    "https://datarade.ai/data-products/large-scale-indonesian-ugc-image-video-dataset-for-ai-training-woilo",
+    "https://datarade.ai/data-products/ai-search-data-global-coverage-real-time-xverum",
+    "https://datarade.ai/data-products/15m-images-ai-training-data-annotated-imagery-data-for-a-data-seeds"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "other.sourcing_guide",
+   "urls_tried": [
+    "https://datarade.ai/company/successful-data-sourcing"
+   ],
+   "reason": "gated"
+  },
+  {
+   "field": "other.independent_traction",
+   "urls_tried": [
+    "https://datarade.ai/company",
+    "https://www.htgf.de/en/portfolio/"
+   ],
+   "reason": "not_found",
+   "note": "Web search unavailable; no independent press, filing or register extract on traction, funding or headcount could be reached by navigation. HTGF's portfolio page did not list Datarade."
+  },
+  {
+   "field": "other.white_label_marketplace",
+   "urls_tried": [
+    "https://datarade.ai/features/white-label-data-marketplace"
+   ],
+   "reason": "not_found"
+  }
+ ],
+ "conflicts": [
+  {
+   "claim_ids": [
+    "datarade-c068",
+    "datarade-c039"
+   ],
+   "rule_applied": "unresolved",
+   "resolution": "The ToS list viewing Products as a registration-based service, yet listing pages with prices and descriptions were readable without an account on 2026-10-01; only data previews were gated."
+  }
+ ],
+ "leads": [
+  {
+   "url": "https://providers.datarade.ai/apply/basics",
+   "why": "Provider application form; not submitted (no sign-ups)."
+  },
+  {
+   "url": "https://datarade.ai/platforms",
+   "why": "Datarade's own data-marketplace directory; a discovery source for other marketplaces, not citable as evidence about them."
+  },
+  {
+   "url": "https://datarade.ai/chat",
+   "why": "'AI Chat' discovery feature in the header; not examined."
+  },
+  {
+   "url": "https://datarade.ai/company/careers",
+   "why": "Could show current headcount or hiring as a status signal."
+  }
+ ]
+}

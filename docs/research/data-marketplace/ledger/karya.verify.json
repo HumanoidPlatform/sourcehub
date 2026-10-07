@@ -1,0 +1,427 @@
+{
+  "kind": "verify",
+  "slug": "karya",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "karya-c001",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The impact page itself was live on 2026-10-01 and does say 'As of July 2026' (vendor page, not independent). No independent source dated after April 2026 was reachable. The newest independent items found by navigation are the Berkeley Haas case 'Karya: Elevating Ethical Data for AI' (2025-10-01, cases.haas.berkeley.edu) and Karya-affiliated arXiv papers from late 2025, which are too old for the six-month rule. No newer dated event such as funding, layoffs or a restructuring was found. Microsoft Research's Project Karya page says the research project 'was spun off as an impact-focused startup'. CourtListener returned 403. WebSearch is not available in this run, and that is the main reason this stays unverifiable."
+    },
+    {
+      "claim_id": "karya-c002",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No independent source for the July 2026 cumulative wage figure was reachable. The only independent dated wage figure is older: TIME (Billy Perrigo, 2023-07-27) wrote 'Karya says it has paid out 65 million rupees (nearly $800,000) in wages to some 30,000 rural Indians'. That is relayed and fits the growth trend, but it does not test USD 4.42M. No search available."
+    },
+    {
+      "claim_id": "karya-c004",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No independent evaluation of the 25.8% figure was found. A J-PAL search for 'karya' finds only an earlier RCT whose partner was 'Project Karya at Microsoft Research', about women's take-up of flexible gig work. That study reports no income-change figure for FY2025-26. The Haas case abstract says only 'above-market wages and royalties'. No search available."
+    },
+    {
+      "claim_id": "karya-c003",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No independent 2026 worker count was reachable. Older figures for context: TIME (2023-07-27), relaying Karya, says 'some 30,000 rural Indians'. Karya's own 2024 report (reports.karya.in/2024) says '50,000+ Workers engaged'. The jump to 200k+ 'onboarded' may count onboarded rather than paid or engaged workers, and nothing independent separates the two. No search available."
+    },
+    {
+      "claim_id": "karya-c009",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Project Apollo appears only on karya.in/case-studies/project-apollo/, which names no partner or funder and links to nothing outside Karya. A WebFetch read of Karya's 2025 year-end report found no 'Apollo' branding there either. No press, partner or funder page reachable by navigation mentions it. No search available."
+    },
+    {
+      "claim_id": "karya-c034",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A catalogue listing is by nature on the vendor site only. I checked it directly: the karya.in catalogue JS bundle (chunk 4648) has entry id 18, language Kannada, type 'Read Speech', hours '629.61', speakerCount '604', domain 'Questions related to Tuberculosis'. Its sample link, storage.googleapis.com/karyadata-catalogue-samples/domain_specific_speech/kn_R_1807.tgz, returned HTTP 200 (2,456,382 bytes) on 2026-10-01. TIME (2023-07-27) independently describes the underlying Kannada TB speech collection but gives no hours or speaker count."
+    },
+    {
+      "claim_id": "karya-c035",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A WebFetch read of Karya's 2025 report (reports.karya.in/2025) does give 'USD 3.2 million' in cumulative direct wages, but that is the vendor's own page. No independent or relayed restatement was reachable. No search available."
+    },
+    {
+      "claim_id": "karya-c042",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://www.microsoft.com/en-us/research/video/karya-is-creating-ethical-ai-datasets-and-lifting-rural-indians-from-poverty/",
+        "publisher": "Microsoft Research",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "employing rural Indians at 20x the minimum wage to build ethical datasets for low-resourced languages"
+      },
+      "corrected_statement": null,
+      "note": "Microsoft Research incubated Karya and is a partner, so its video description repeats the 20x claim without testing it. Independent press gives only one worker's case: TIME (2023-07-27) reports a worker earning 'an hourly wage of about $5, nearly 20 times the Indian minimum'. That is one example, not a platform-wide rate."
+    },
+    {
+      "claim_id": "karya-c020",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "This is a clause in the vendor's own refund policy. It is live at karya.in/legal/refund-and-cancellation/ ('Once our services or datasets are delivered to you, they cannot be refunded or cancelled', operator DAIA Tech Pvt. Ltd., last updated May 1, 2023)."
+    },
+    {
+      "claim_id": "karya-c006",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The launch event is stated only on Karya's Project Apollo case study ('In Q1 2026, Karya launched Project Apollo'). No independent report of it was reachable by navigation: Karya's pages link to no press about it, and the Anthropic newsroom index and Microsoft Research's Karya news page have nothing on it. No search available."
+    },
+    {
+      "claim_id": "karya-c031",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://time.com/6297403/the-workers-behind-ai-rarely-see-its-rewards-this-indian-startup-wants-to-fix-that/",
+        "publisher": "TIME",
+        "source_class": "independent_press",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "The recordings will also go up for sale on Karya's platform as part of its Kannada dataset"
+      },
+      "corrected_statement": null,
+      "note": "TIME (Billy Perrigo, 2023-07-27) reports the plan for the Kannada tuberculosis speech recordings collected 'for an Indian healthcare NGO'. TIME does not name KHPT. The KHPT link comes from KHPT's own press page (khpt.org/press/), which lists 'Karya, NGO create Kannada Q&A bot for TB' (Times of India, March 19, 2024). WebFetch refuses timesofindia.indiatimes.com, so that article was not read. Note that TIME reports a plan as of 2023 and says the recordings will 'also' be sold. It does not say the sale waits until KHPT has used the data."
+    },
+    {
+      "claim_id": "karya-c017",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "This is a fact about the vendor's own catalogue. Checked directly: the karya.in catalogue bundle (chunk 4648) has 60 entries, and 54 carry a downloadLink. Of those, 45 point to storage.googleapis.com/karyadata-catalogue-samples/ and 9 point to Google Drive folders, including the Egocentric video entry. So 'catalogue entries carry a ... link hosted in karyadata-catalogue-samples' holds for most entries, not all."
+    },
+    {
+      "claim_id": "karya-c015",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "This is a link on the vendor's own homepage. Checked directly on 2026-10-01: 'Explore Egocentric Datasets' points to mailto:sales@karya.in?subject=Egocentric+datasets+inquiry."
+    },
+    {
+      "claim_id": "karya-c023",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "This concerns the vendor's own terms. Checked directly: karya.in/legal/terms-and-conditions/ licenses access 'for your own personal use' and contains no dataset licence. platform.karya.in links only to the same T&C and privacy policy. No other published dataset licence was found by navigation; karya.in/sitemap.xml returns 404."
+    },
+    {
+      "claim_id": "karya-c037",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "This is about what Karya's own report says and leaves out. Checked: a WebFetch read of reports.karya.in/2025 says consent, wages and grievance handling 'form the shared set of safeguards' across Platform by Karya deployments. Nothing found there or on the catalogue about giving consent records to buyers."
+    },
+    {
+      "claim_id": "karya-c032",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://time.com/6297403/the-workers-behind-ai-rarely-see-its-rewards-this-indian-startup-wants-to-fix-that/",
+        "publisher": "TIME",
+        "source_class": "independent_press",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Every time it's resold, 100% of the revenue will be distributed to the Karya workers who contributed to the dataset"
+      },
+      "corrected_statement": null,
+      "note": "TIME (2023-07-27) is more specific than the claim. It says 100% of resale revenue goes to the contributing workers, 'apportioned by the hours they put in'. It refers to the Kannada TB recordings within Karya's Kannada dataset. This is a plan reported in 2023, and no source shows payouts actually made. The Haas case abstract (2025-10-01) also says Karya 'provides above-market wages and royalties'."
+    },
+    {
+      "claim_id": "karya-c001",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote is the impact page's own footnote ('Data is as of July 2026, per internal platform data.') and supports the statement. The organisation's status rests only on its own live page."
+    },
+    {
+      "claim_id": "karya-c002",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The figure is quoted exactly. The July 2026 date comes from the same page's footnote (quoted in c001), and as_of carries it."
+    },
+    {
+      "claim_id": "karya-c004",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote supports the 25.8% figure but not the 'self-reported baselines' part of the statement. The impact page footnote that would show it reads 'Calculated on a baseline established through self-reported surveys from workers'."
+    },
+    {
+      "claim_id": "karya-c003",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches. The page says 'onboarded', which counts sign-ups, not paid or active workers. The 2024 report says '50,000+ Workers engaged', so the two counts measure different things."
+    },
+    {
+      "claim_id": "karya-c009",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote states both numbers for Project Apollo."
+    },
+    {
+      "claim_id": "karya-c034",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote shows language, type, hours, speakers and domain but not the sample download in the statement. The words that would show it come right after it in the same object: downloadLink:\"https://storage.googleapis.com/karyadata-catalogue-samples/domain_specific_speech/kn_R_1807.tgz\". That URL returned HTTP 200 on 2026-10-01."
+    },
+    {
+      "claim_id": "karya-c035",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The full sentence in the 2025 year-end report reads: 'Wages directly distributed to our communities grew 6.8× year-on-year, bringing cumulative wages distributed to over USD 3.2 million.'"
+    },
+    {
+      "claim_id": "karya-c042",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The 2024 report headline tile reads '20x Indian minimum wage paid'. It gives no method and no basis (an average, a typical task rate, or a top rate). The 2023 report says 'nearly 20 times' (c025), and TIME 2023 illustrates it with one worker earning about $5/hour."
+    },
+    {
+      "claim_id": "karya-c020",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote supports the refund term. Used for matrix.operator_role, it shows only that datasets are 'purchased from us' (DAIA Tech Pvt. Ltd., see c021). It says nothing about licence terms, so 'reseller_licensor' remains an inference."
+    },
+    {
+      "claim_id": "karya-c006",
+      "check": "scope",
+      "status": "scope_wrong",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Two problems. (1) The quote leaves out 'In Q1 2026', the date in the statement; the page reads 'In Q1 2026, Karya launched Project Apollo'. (2) For matrix.economics_model, which the profile sets to principal_margin: the same page says Apollo is building 'one of India's largest publicly available multilingual conversational speech corpora' and names no buyer or price. The impact page also says the Vaani dataset 'has been open-sourced'. So c006 shows Karya investing in its own data, not selling it at its own price. TIME 2023 ('sells data to big tech companies and other clients at the market rate'; see karya-v001) is better evidence for principal_margin."
+    },
+    {
+      "claim_id": "karya-c031",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote matches the case-study sentence for the KHPT dataset. The page carries no date, and it does not appear among the 10 titles on the current /case-studies/ index, so it is an older, unlinked page. That makes as_of 'retrieved_only' generous: TIME reported the same plan on 2023-07-27."
+    },
+    {
+      "claim_id": "karya-c017",
+      "check": "scope",
+      "status": "scope_wrong",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The statement claims more than is true. The quote shows a single entry (Telugu). In the same bundle, 45 of the 60 catalogue entries link to karyadata-catalogue-samples. Nine link to Google Drive folders: ids 1-8, the Assamese, Kannada, Bodo, Manipuri, Gujarati, Malayalam, Punjabi and Tamil conversational sets, plus 16, Egocentric video. Six have no sample link at all: ids 9, 10 and 12-15, including the 2,000-hour Hindi set in c019. The profile's sample_mechanics note ('Speech samples download without login from a public GCS bucket; the egocentric sample is a Google Drive folder') is wrong in the same way."
+    },
+    {
+      "claim_id": "karya-c015",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The fact is right, but the quote is only the anchor text. The mailto target, 'mailto:sales@karya.in?subject=Egocentric+datasets+inquiry', sits in the href attribute, which a text-matching quote check cannot show. Say so in the statement, or quote the visible contact text instead."
+    },
+    {
+      "claim_id": "karya-c023",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote covers the personal-use licence. The absence of a dataset licence is properly put in the statement, and I confirmed it on platform.karya.in, which links only to the same T&C and privacy policy."
+    },
+    {
+      "claim_id": "karya-c037",
+      "check": "scope",
+      "status": "scope_wrong",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quoted words come from a sentence about partner deployments abroad: 'Project teams in Kenya and Ethiopia are designing tasks, onboarding workers, and managing quality and payments within a shared set of safeguards covering consent, wages, and grievance handling.' It describes Platform by Karya projects run by other teams. It is not a statement about the architecture behind Karya's own India collections or catalogue datasets. It supports nothing about consent for the catalogue's data, which leaves human_subject_consent_docs even weaker than the profile suggests."
+    },
+    {
+      "claim_id": "karya-c032",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote ends the same sentence as c031 on the KHPT case-study page. TIME 2023 adds the mechanism, 100% of resale revenue apportioned by hours worked (see karya-v002). The profile lists that as unknown under other.royalty_rate_and_mechanism."
+    }
+  ],
+  "missed": [
+    {
+      "id": "karya-v001",
+      "statement": "TIME reported in July 2023 that Karya sells data to big tech companies and other clients at the market rate.",
+      "kind": "offer",
+      "section": "pricing",
+      "question_ids": ["Q9"],
+      "scope": {"product": "", "tier": "", "region": ""},
+      "value": null,
+      "origin": "independent",
+      "as_of": "2023-07-27",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://time.com/6297403/the-workers-behind-ai-rarely-see-its-rewards-this-indian-startup-wants-to-fix-that/",
+          "publisher": "TIME",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "it sells data to big tech companies and other clients at the market rate"
+        }
+      ]
+    },
+    {
+      "id": "karya-v002",
+      "statement": "TIME reported in July 2023 that each time the Kannada tuberculosis recordings are resold, 100% of the revenue is to go to the Karya workers who contributed, apportioned by hours worked.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": ["Q3", "Q4", "Q7"],
+      "scope": {"product": "Kannada TB speech dataset", "tier": "", "region": "India"},
+      "value": null,
+      "origin": "independent",
+      "as_of": "2023-07-27",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://time.com/6297403/the-workers-behind-ai-rarely-see-its-rewards-this-indian-startup-wants-to-fix-that/",
+          "publisher": "TIME",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Every time it's resold, 100% of the revenue will be distributed to the Karya workers who contributed to the dataset"
+        }
+      ]
+    },
+    {
+      "id": "karya-v003",
+      "statement": "Karya says the Project Vaani dataset, made with 48,000 workers, has been open-sourced.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": ["Q3", "Q12"],
+      "scope": {"product": "Project Vaani dataset", "tier": "", "region": "India"},
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-07",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.karya.in/impact",
+          "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "which has been open-sourced to support the development of more inclusive and representative language technologies"
+        }
+      ]
+    },
+    {
+      "id": "karya-v004",
+      "statement": "KHPT, the health NGO that commissioned the Kannada tuberculosis speech data, lists a Times of India story dated 19 March 2024 headed 'Karya, NGO create Kannada Q&A bot for TB', showing the commissioned project reached the client.",
+      "kind": "event",
+      "section": "supply",
+      "question_ids": ["Q4"],
+      "scope": {"product": "KHPT tuberculosis Q&A bot", "tier": "", "region": "Karnataka, India"},
+      "value": null,
+      "origin": "independent",
+      "as_of": "2024-03-19",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://khpt.org/press/",
+          "publisher": "KHPT (Karnataka Health Promotion Trust)",
+          "source_class": "third_party_docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Karya, NGO create Kannada Q&A bot for TB"
+        }
+      ]
+    },
+    {
+      "id": "karya-v005",
+      "statement": "Of the 60 entries in Karya's public data catalogue, 6 conversational speech datasets carry no sample link and 9 link samples to Google Drive folders rather than Karya's public sample bucket.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": ["Q11"],
+      "scope": {"product": "Karya Data Catalogue", "tier": "", "region": ""},
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://karya.in/_next/static/chunks/4648-1bbb200c1c8ebd90.js",
+          "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "language:\"Bengali\",type:\"Conversational\",hours:\"500\",domain:\"General Dual Channel Conversations\"}"
+        }
+      ]
+    },
+    {
+      "id": "karya-v006",
+      "statement": "TIME described Karya in July 2023 as a nonprofit launched in 2021 in Bengaluru (the karya.in site and dataset refund terms name DAIA Tech Pvt. Ltd. as operator).",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": ["Q5"],
+      "scope": {"product": "", "tier": "", "region": "India"},
+      "value": null,
+      "origin": "independent",
+      "as_of": "2023-07-27",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://time.com/6297403/the-workers-behind-ai-rarely-see-its-rewards-this-indian-startup-wants-to-fix-that/",
+          "publisher": "TIME",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "a nonprofit launched in 2021 in Bengaluru"
+        }
+      ]
+    }
+  ]
+}

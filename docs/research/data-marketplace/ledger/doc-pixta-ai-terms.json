@@ -1,0 +1,1996 @@
+{
+  "kind": "document",
+  "slug": "doc-pixta-ai-terms",
+  "platform_slug": "pixta-ai",
+  "title": "PIXTA AI Terms of Use",
+  "doc_type": "marketplace_terms",
+  "url": "https://www.pixta.ai/term",
+  "publisher": "PIXTA Inc.",
+  "version_or_date": "We have updated our Terms of Use on March 3rd, 2025 (footer: As of March 3rd, 2025)",
+  "retrieved_at": "2026-10-01",
+  "parties": {
+    "licensor": "Partner (registered member listing Data to sell or license it); licenses the Data to the buyer under a separate Agreement between the Members",
+    "licensee": "Registered User (registered member who wishes to procure the Data); receives only an evaluation right in Samples under these Terms",
+    "operator_role": "venue"
+  },
+  "terms": {
+    "permitted_use": {
+      "value": "The Terms license buyers nothing in the Data: Registered Users may only use free Samples to judge suitability as training/validation/testing data; use of the Data itself is set by the Partner in a separate, unpublished Agreement between the Members.",
+      "claim_ids": [
+        "doc-pixta-ai-terms-c014",
+        "doc-pixta-ai-terms-c015",
+        "doc-pixta-ai-terms-c005",
+        "doc-pixta-ai-terms-c007"
+      ]
+    },
+    "ai_training_rights": {
+      "value": "Data is defined as material for ML training, validation and testing, but the Terms grant no training, fine-tuning, evaluation, redistribution or model-output right in the Data (left to the Partner's licence). Samples: evaluation of suitability only; training/validation/testing use expressly excluded.",
+      "claim_ids": [
+        "doc-pixta-ai-terms-c006",
+        "doc-pixta-ai-terms-c014",
+        "doc-pixta-ai-terms-c015",
+        "doc-pixta-ai-terms-c005"
+      ]
+    },
+    "attribution": {
+      "value": "No attribution duty to buyers; the Partner waives (and must procure waiver of) authors' moral rights against Pixta for its Posted Information, which Pixta may modify and use for promotion unpaid.",
+      "claim_ids": [
+        "doc-pixta-ai-terms-c026",
+        "doc-pixta-ai-terms-c025",
+        "doc-pixta-ai-terms-c027",
+        "doc-pixta-ai-terms-c029"
+      ]
+    },
+    "audit_rights": {
+      "value": "Pixta (not the buyer) may require the Partner to submit consent contracts and acquisition documents on request; no buyer audit right and no general audit clause.",
+      "claim_ids": [
+        "doc-pixta-ai-terms-c035",
+        "doc-pixta-ai-terms-c034"
+      ]
+    },
+    "deletion_on_termination": {
+      "value": "What happens to licensed Data after exit is left to the Agreement between the Members; Pixta deletes a cancelling Partner's Samples/listing within 30 days but may retain Data and Samples it holds for a period it chooses; a Registered User expelled for breach-type grounds must destroy all Samples.",
+      "claim_ids": [
+        "doc-pixta-ai-terms-c054",
+        "doc-pixta-ai-terms-c055",
+        "doc-pixta-ai-terms-c057",
+        "doc-pixta-ai-terms-c056"
+      ]
+    },
+    "warranties_by_provider": {
+      "value": "Partner warrants to Pixta (not to the buyer): lawful acquisition and production; right to deliver and license the Data under the members' agreement; no infringement or illegality in Pixta's or Users' exercise of rights; malware-free. Pixta itself gives nothing: Data is 'as is' with no accuracy or completeness warranty.",
+      "claim_ids": [
+        "doc-pixta-ai-terms-c030",
+        "doc-pixta-ai-terms-c031",
+        "doc-pixta-ai-terms-c036",
+        "doc-pixta-ai-terms-c037",
+        "doc-pixta-ai-terms-c048",
+        "doc-pixta-ai-terms-c049"
+      ]
+    },
+    "consent_and_release_warranty": {
+      "value": "Partner warrants to Pixta that Data has no personal information or that each person agreed to the provision and use set out in the members' agreement and Terms, including cross-border transfer; Partner must hold written consents and hand them to Pixta on request. No model/property release language, and nothing passes consent evidence to the buyer.",
+      "claim_ids": [
+        "doc-pixta-ai-terms-c032",
+        "doc-pixta-ai-terms-c033",
+        "doc-pixta-ai-terms-c034",
+        "doc-pixta-ai-terms-c035",
+        "doc-pixta-ai-terms-c022"
+      ]
+    },
+    "indemnity": {
+      "value": "One-way to Pixta: any User in breach (Partner or buyer) holds Pixta harmless and indemnifies it for damage and expenses including attorney's fees; the Partner must settle all User and third-party complaints about its Data at its own cost. Pixta indemnifies nobody; buyer-Partner indemnities are left to their own agreement.",
+      "claim_ids": [
+        "doc-pixta-ai-terms-c044",
+        "doc-pixta-ai-terms-c045",
+        "doc-pixta-ai-terms-c041",
+        "doc-pixta-ai-terms-c011"
+      ]
+    },
+    "liability_cap": {
+      "value": "Pixta excludes all liability to Users; failing that, only direct ordinary damages (no lost profits) capped at fees paid between Pixta and the User in the prior 3 months, per member or per corporation. Under Japan's Consumer Contract Act the exclusion falls and the cap covers only ordinary negligence. No cap on Users' liability to Pixta.",
+      "claim_ids": [
+        "doc-pixta-ai-terms-c050",
+        "doc-pixta-ai-terms-c051",
+        "doc-pixta-ai-terms-c052",
+        "doc-pixta-ai-terms-c053"
+      ]
+    },
+    "payment_and_revenue_share": {
+      "value": "Pixta earns from Partners, not buyers: listing fees, referral fees and performance rewards on transactions after its referrals, at rates in a separate unpublished Application Form; Partner pays transfer charges; no refunds. The Data price is paid directly between buyer and Partner; Pixta pays Partners nothing for sample or promotional use.",
+      "claim_ids": [
+        "doc-pixta-ai-terms-c038",
+        "doc-pixta-ai-terms-c039",
+        "doc-pixta-ai-terms-c040",
+        "doc-pixta-ai-terms-c058",
+        "doc-pixta-ai-terms-c008",
+        "doc-pixta-ai-terms-c029"
+      ]
+    },
+    "takedown_and_erasure": {
+      "value": "Pixta can delete or change listings and Samples without notice, act at its discretion on reports about Samples, and order a breaching User to stop using the Data and Samples. There is no data-subject erasure mechanism and no obligation on buyers to delete Data already delivered; that is governed by the members' agreement; Pixta may itself retain Data after exit.",
+      "claim_ids": [
+        "doc-pixta-ai-terms-c028",
+        "doc-pixta-ai-terms-c047",
+        "doc-pixta-ai-terms-c042",
+        "doc-pixta-ai-terms-c054",
+        "doc-pixta-ai-terms-c057"
+      ]
+    },
+    "governing_law": {
+      "value": "Japanese law (CISG excluded); exclusive first-instance jurisdiction of the Tokyo District Court, after good-faith consultation.",
+      "claim_ids": [
+        "doc-pixta-ai-terms-c059",
+        "doc-pixta-ai-terms-c060"
+      ]
+    },
+    "change_of_terms": {
+      "value": "Pixta may amend the Terms when it reasonably considers it necessary, with advance notice of effective date and details; it may change, suspend or end the Service without liability. Current version dated 3 March 2025.",
+      "claim_ids": [
+        "doc-pixta-ai-terms-c019",
+        "doc-pixta-ai-terms-c020",
+        "doc-pixta-ai-terms-c018",
+        "doc-pixta-ai-terms-c001"
+      ]
+    },
+    "prohibited_uses": {
+      "value": "Users may not infringe copyright, portrait, privacy or other rights (including unauthorised use of Data), post false information, disrupt or reverse-engineer the Service, harass, or do anything Pixta deems inappropriate; Samples may not be used as training data.",
+      "claim_ids": [
+        "doc-pixta-ai-terms-c022",
+        "doc-pixta-ai-terms-c023",
+        "doc-pixta-ai-terms-c015"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "doc-pixta-ai-terms-c001",
+      "statement": "The PIXTA AI Terms of Use state they were last updated on 3 March 2025.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We have updated our Terms of Use on March 3rd, 2025"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c002",
+      "statement": "The PIXTA AI service is operated and provided by PIXTA Inc. ('Pixta').",
+      "kind": "terms",
+      "section": "positioning",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "for your use of the service PIXTA AI as defined below operated and provided by PIXTA Inc."
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c003",
+      "statement": "The Terms define a 'Partner' as a member registered on PIXTA AI for the purpose of selling, licensing or otherwise distributing the Data.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "membership registration on this Service for the purpose of selling, licensing, and otherwise distributing the Data"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c004",
+      "statement": "The Terms define a 'Registered User' (the buyer side) as a registered member who wishes to procure the Data.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "“Registered User” means the User who wishes to procure the Data"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c005",
+      "statement": "The licence for the Data itself is a separate 'Agreement between the Members' made between the Registered User and the Partner, including licence agreements.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "entered into between the Registered User and the Partner including, but not limited to, license agreements"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c006",
+      "statement": "The Terms define 'Data' as photos, illustrations and videos with accompanying metadata suitable for use as machine-learning training, validation and testing data.",
+      "kind": "terms",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "suitable for use as machine learning Training Data, Validation Data, and Testing Data"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c007",
+      "statement": "Pixta states it is not involved in offering products between Registered User and Partner, nor in negotiating, concluding or executing the Agreement between the Members.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q9"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Pixta is not involved in the part or the whole of the process of offering products and services"
+        },
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "as well as the negotiation, conclusion, and execution of the Agreement between the Members"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c008",
+      "statement": "Selling and buying of the Data and all related communications take place directly between the User and the Partner.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q5",
+        "Q9"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The process of selling and buying the Data and all related communications shall be carried out directly"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c009",
+      "statement": "A Registered User's route to procure Data is an inquiry to the Partner through Pixta; Pixta passes the buyer's details to the Partner (no checkout).",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The Registered User is able to make an inquiry to the Partner through Pixta for the purpose of procuring the Data"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c010",
+      "statement": "When a User inquires about a Partner's Data, Pixta provides the inquiring User's information to that Partner.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Pixta provides the information of the inquiring User to the Partner of the Data in question"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c011",
+      "statement": "Pixta disclaims liability for the negotiation and content of the Agreement between the Members and for the Data itself.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Pixta shall not be liable for the negotiation and content of the Agreement between the Members as well as for the Data."
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c012",
+      "statement": "Pixta may withhold an inquiry it judges inappropriate from the Partner, without having to explain why.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Pixta will not provide the content of the inquiry to the Partner"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c013",
+      "statement": "Pixta may analyse and use the content of Registered Users' inquiries for its own advertising and marketing of the Service.",
+      "kind": "terms",
+      "section": "other",
+      "question_ids": [],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "will be analyzed and used by Pixta for provision to the Partner and for Pixta’s advertising and marketing purposes"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c014",
+      "statement": "Registered Users may use a Partner's Samples only to evaluate whether the Data can be used as training, validation or testing data.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q11"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The Samples may only be used by the Registered User for the purpose of evaluating whether the Data can be used"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c015",
+      "statement": "The Terms expressly bar using the Samples for any other purpose, including as training, validation or testing data.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q11"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "may not be used for any other purpose (including the use of the Samples as the Training Data etc.)"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c016",
+      "statement": "The Partner agrees Pixta may give the Samples to Registered Users free of charge, with or without watermark, solely for evaluation.",
+      "kind": "terms",
+      "section": "listing",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Pixta may provide the Samples, whether with or without watermark, for free to the Registered User only for the purpose"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c017",
+      "statement": "Partners publish descriptions and Samples of Data that is licensable under the Agreement between the Members, under the Partner's own name and logo.",
+      "kind": "terms",
+      "section": "listing",
+      "question_ids": [
+        "Q5",
+        "Q10"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "descriptions and the Samples of the Data licensable under the Agreement between the Members"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c018",
+      "statement": "Pixta may change, suspend or discontinue all or part of the Service without liability to the User.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Pixta may change, suspend or discontinue all or part of the Service without any liability to the User"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c019",
+      "statement": "Pixta may revise the Terms of Use whenever it reasonably considers it necessary.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Pixta may revise, amend, change or update the Terms of Use according to its necessity"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c020",
+      "statement": "If Pixta revises the Terms, it must notify Users in advance of the effective dates and details of the amendments.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Pixta shall notify the User of effective dates and details of amendments in advance"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c021",
+      "statement": "Pixta may subcontract Service operations to its subsidiary PIXTA VIETNAM CO., LTD. or other third parties, who may sub-delegate with Pixta's consent.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "subcontract all or part of the Service’s operations to PIXTA VIETNAM CO., LTD., a subsidiary of Pixta, or other third parties"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c022",
+      "statement": "Users are prohibited from infringing copyright, portrait rights, privacy or other rights of Pixta or third parties, including unauthorised use of the Data.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "To conduct any act which would infringe intellectual proprietary rights such as copyright, portrait right, right of privacy"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c023",
+      "statement": "The prohibited-acts list ends with a catch-all for any other act Pixta deems inappropriate.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "To conduct any other act which Pixta deems inappropriate"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c024",
+      "statement": "Pixta may refuse or cancel any membership application or registration (e.g. breach, false information, anti-social forces) without liability or giving reasons.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Pixta may refuse or cancel the User’s application or registration at any time without any liability to the User"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c025",
+      "statement": "By providing Posted Information, the Partner lets Pixta freely use and modify it for providing the Service.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Pixta may freely use and modify the Posted Information that the Partner has made public"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c026",
+      "statement": "The Partner agrees not to exercise, and not to have third parties exercise, authors' moral rights in the Posted Information.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The Partner agrees not to exercise, and not to have any third party exercise, moral right of an author"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c027",
+      "statement": "Pixta may use the Partner's Posted Information for promotion on PIXTA AI, email, social media, press releases and other media.",
+      "kind": "terms",
+      "section": "listing",
+      "question_ids": [],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Pixta is entitled to use the Partner’s Posted Information for promotional/marketing purposes"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c028",
+      "statement": "Pixta may delete or change the Partner's Posted Information and Samples without prior notice or consent whenever it reasonably considers it necessary.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Pixta may delete or change the Posted Information and/or the Samples without prior notice to the Partner"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c029",
+      "statement": "Pixta owes the Partner no remuneration or royalties for these uses of the Posted Information and Samples, including free sample distribution.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Pixta is not required to pay any remuneration, royalties, price for the non-exercise of the moral rights, or any other prices"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c030",
+      "statement": "The Partner warrants to Pixta that the Data, Samples and Posted Information were obtained lawfully and appropriately and legally produced.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the Data, the Samples, and the Posted Information have been obtained and acquired in a lawful and appropriate manner"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c031",
+      "statement": "The Partner warrants to Pixta that it has the lawful right to deliver the Data and grant the licences in the Agreement between the Members.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "in respect of the Data to be licensed under the Agreement between the Members, the Partner has the lawful right to deliver"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c032",
+      "statement": "The Partner warrants that either the Data and Samples contain no personal information, or each data subject agrees to how they are provided and used under the Agreement between the Members and the Terms.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "agrees how the Data and the Samples are provided and to what extent used, as set forth in the Agreement between the Members"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c033",
+      "statement": "The data-subject consent the Partner warrants must cover transfer, storage, access or use of their information in countries with different data protection laws.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "may be transferred to, stored, accessed, or used in a country or countries with different data protection or privacy laws"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c034",
+      "statement": "The Partner warrants that it obtains and stores the contracts and documents, including written consent from each data subject, showing how personal data was acquired.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "obtains and stores all contracts and other documents, including, but not limited to, written consent from the Person"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c035",
+      "statement": "On Pixta's request the Partner must submit those consent contracts and documents to Pixta; the Terms give no route for the buyer to receive them.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If requested by Pixta, the Partner shall submit the contracts or documents and related necessary information to Pixta"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c036",
+      "statement": "The Partner warrants that Pixta's and Users' exercise of the rights granted under the Terms does not infringe third-party rights or violate laws.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Pixta and the User’s exercise of the rights and licenses granted under the Terms of Use does not infringe"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c037",
+      "statement": "The Partner warrants the Data, Samples and Posted Information are free of viruses, ransomware and other malicious code.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "free from any virus, “Trojan horse”, ransomware, or other malicious or harmful code"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c038",
+      "statement": "Pixta may charge the Partner listing fees, referral fees and other fees for publishing its listing and passing on buyer contacts.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Pixta is entitled to charge the Partner the listing fees, referral fees, and other fees"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c039",
+      "statement": "Partner fees include performance rewards on transactions that follow Pixta's referrals, with amounts set in a separate Application Form not published in the Terms.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "(including the performance rewards for transactions after the Pixta’s referrals) set forth in the separate Application Form"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c040",
+      "statement": "The Partner bears the bank transfer charge for paying Pixta.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The transfer charge required for the payment shall be borne by the Partner."
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c041",
+      "statement": "The Partner must resolve at its own cost any complaint or claim by Users or third parties about the Data, Samples or Posted Information.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The Partner shall resolve at its own cost and expense any complaint or claim made by the User or any other third parties"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c042",
+      "statement": "On a User's breach, Pixta may order the breaching User to cease using the Data and Samples, suspend the Service, expel the member and claim damages.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "ceasing and desisting use of the Data and the Samples, suspending use of all or a part of the Service"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c043",
+      "statement": "Pixta may demand a penalty separately designated by Pixta from a User in breach.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "requesting for payment of penalty separately designated by Pixta"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c044",
+      "statement": "A User in breach must handle third-party claims at its own expense and hold Pixta harmless from all related damage.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "shall warrant and agree to keep and hold Pixta harmless from and against any and all damage related thereto"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c045",
+      "statement": "A User in breach must indemnify Pixta for all damage and expenses, including reasonable attorney's fees, from claims against Pixta.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the breaching User shall indemnify Pixta for and against any and all damage and expenses related thereto incurred by Pixta"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c046",
+      "statement": "After a breach, Pixta may disclose the breaching User's contact details to the third party in the dispute.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Pixta may disclose to the third party involved in the dispute or claim due to the User’s breach, the User’s contact address"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c047",
+      "statement": "On a report of a breach concerning the Samples, Pixta will make reasonable efforts to cure it, with measures at its own discretion.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If Pixta receives a report about a breach of the Terms of Use with respect to any of the Samples"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c048",
+      "statement": "Pixta provides all Data, Samples and Posted Information 'as is'.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "ANY AND ALL THE DATA, THE SAMPLES AND THE POSTED INFORMATION SHALL BE PROVIDED “AS IS.”"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c049",
+      "statement": "Pixta makes no warranty of correctness, completeness or currency of the Data, Samples or Posted Information.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "PIXTA MAKES NO WARRANTY OF CORRECTNESS, COMPLETENESS, OR LATESTNESS REGARDING THE DATA"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c050",
+      "statement": "Pixta's primary position is that it is not liable for any damage to the User arising from the Service.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "IN NO EVENT SHALL PIXTA BE LIABLE FOR ANY DAMAGE INCURRED BY THE USER ARISING OUT OF OR IN RELATION TO THE SERVICE."
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c051",
+      "statement": "Where Pixta is liable, it is liable only for actual direct and ordinary damages, excluding lost profits.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "PIXTA SHALL BE LIABLE FOR ONLY ACTUAL DIRECT AND ORDINARY DAMAGES (EXCEPT LOST PROFITS)"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c052",
+      "statement": "Pixta's aggregate liability is capped at the fees paid between Pixta and the User in the three months before the damage arose, per member or per registered corporation.",
+      "kind": "number",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 3,
+        "unit": "months of fees paid between Pixta and the User",
+        "basis": "cap on Pixta's aggregate liability to a member (or per registered corporation); direct ordinary damages only",
+        "period": "trailing three months before the damage"
+      },
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "FEES THAT HAS BEEN PAID BETWEEN PIXTA AND THE USER FOR A TERM OF THREE (3) MONTHS PRIOR TO THE DATE WHEN THE DAMAGE ARISED"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c053",
+      "statement": "Where Japan's Consumer Contract Act applies, Pixta's total exclusion falls away and the cap applies only to damage from Pixta's ordinary (not gross) negligence.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "IN CASES WHERE THE CONSUMER CONTRACT ACT OF JAPAN APPLIES TO USE OF THE SERVICE, THE PROVISION OF THE ABOVE ITEM (i)"
+        },
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "SHALL APPLY ONLY TO THE CASES WHERE PIXTA CAUSES DAMAGE TO THE USER DUE TO PIXTA’S NEGLIGENCE (EXCEPT GROSS NEGLIGENCE)"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c054",
+      "statement": "After a member leaves the Service, rights and obligations in the Agreement between the Members are governed by that agreement, and Pixta is not involved.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "shall be subject to the Agreement between the Members, and Pixta shall not be involved in such treatment"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c055",
+      "statement": "When a Partner cancels, Pixta deletes its Samples and Posted Information from the Service within 30 days of the application.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Pixta will delete the Samples and the Posted Information from the Service within thirty (30) days"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c056",
+      "statement": "A Registered User withdrawn for a registration ground or for being inappropriate must stop using and destroy all Samples and copies.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the Registered User shall cease the use of, and destroy, all the Samples (including its copies)"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c057",
+      "statement": "Even after a member cancels or is withdrawn, Pixta may keep and use the Data, Samples and other information provided to it for a period Pixta designates.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q6",
+        "Q10"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the Data, the Samples, and other information that the User has provided to Pixta for a period designated by Pixta"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c058",
+      "statement": "Pixta has no obligation to refund money it collected from a member who cancels or is withdrawn.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Pixta shall have no liability to refund money collected by Pixta related to the Member"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c059",
+      "statement": "The Service is governed by Japanese law, excluding the UN Convention on Contracts for the International Sale of Goods.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Any legal problems relating to the Service shall be governed by the laws of Japan"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c060",
+      "statement": "Lawsuits under the Terms go to the exclusive first-instance jurisdiction of the Tokyo District Court.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "exclusive jurisdiction of the Tokyo District Court of Japan in the first instance"
+        }
+      ]
+    },
+    {
+      "id": "doc-pixta-ai-terms-c061",
+      "statement": "Materials on the Service are stated to be the property of Pixta or its licensor, protected under Japan's Copyright Act.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "PIXTA AI dataset marketplace (Terms of Use)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-03-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.pixta.ai/term",
+          "publisher": "PIXTA Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "are the property of Pixta or its licensor as the case may be, and are protected by intellectual property laws"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "terms.exclusivity",
+      "urls_tried": [
+        "https://www.pixta.ai/term"
+      ],
+      "reason": "not_published",
+      "note": "The Terms say nothing on whether Data licences are exclusive or non-exclusive; left to the unpublished Agreement between the Members."
+    },
+    {
+      "field": "terms.derivatives_and_model_outputs",
+      "urls_tried": [
+        "https://www.pixta.ai/term"
+      ],
+      "reason": "not_published",
+      "note": "No clause on ownership or use of models trained on the Data or of model outputs."
+    },
+    {
+      "field": "terms.sublicensing",
+      "urls_tried": [
+        "https://www.pixta.ai/term"
+      ],
+      "reason": "not_published",
+      "note": "No buyer sublicensing or redistribution terms; only Pixta's subcontracting of operations (c021) is addressed."
+    },
+    {
+      "field": "terms.field_of_use",
+      "urls_tried": [
+        "https://www.pixta.ai/term"
+      ],
+      "reason": "not_published",
+      "note": "No field-of-use or territory restriction for the Data; the only territorial language is the cross-border transfer consent the Partner warrants (c033)."
+    },
+    {
+      "field": "terms.term_duration",
+      "urls_tried": [
+        "https://www.pixta.ai/term"
+      ],
+      "reason": "not_published",
+      "note": "Licence term for the Data is not in the Terms; membership runs until cancellation or withdrawal."
+    },
+    {
+      "field": "other.fee_amounts",
+      "urls_tried": [
+        "https://www.pixta.ai/term"
+      ],
+      "reason": "not_published",
+      "note": "Listing fees, referral fees and performance rewards are set in a separate Application Form that is not public."
+    },
+    {
+      "field": "other.buyer_licence_template",
+      "urls_tried": [
+        "https://www.pixta.ai/term"
+      ],
+      "reason": "not_published",
+      "note": "No standard Agreement between the Members or Partner licence template is linked from the Terms."
+    },
+    {
+      "field": "other.data_subject_erasure_downstream",
+      "urls_tried": [
+        "https://www.pixta.ai/term"
+      ],
+      "reason": "not_published",
+      "note": "No mechanism for a depicted person's withdrawal or erasure request to reach buyers who already hold the Data."
+    }
+  ]
+}

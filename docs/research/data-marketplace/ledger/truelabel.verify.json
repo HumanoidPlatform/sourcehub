@@ -1,0 +1,544 @@
+{
+  "kind": "verify",
+  "slug": "truelabel",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "truelabel-c131",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "How the site presents itself exists only on the site. I fetched truelabel.ai on 2026-10-01 and it is live, headed as a physical AI training data marketplace; Terms and Privacy both say last updated 19 June 2026. No independent evidence that the company is trading (registry entry, press, funding, staff changes) could be found. No search available (WebSearch refused for this run). Routes tried by navigation: EDGAR full-text search for \"truelabel\" 2025-01-01..2026-10-01 = 0 hits; arXiv search = 1 unrelated 2012 paper; huggingface.co/truelabel 404; github.com/truelabel is an unrelated individual; truelabel.ai home, /about, /faq, /collectors and the sitemap link to no press, investor, partner or customer on another domain, and no app-store listing. The Terms name the operator as truelabel FZCO (Dubai), but the free zone is not stated, so no registry could be queried."
+    },
+    {
+      "claim_id": "truelabel-c084",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The effective date of the vendor's own referral policy exists only on its own policy page (/legal/referral-incentive-program-policy)."
+    },
+    {
+      "claim_id": "truelabel-c002",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Traction figure stated only by the vendor ('100+ vendors' on the homepage, seen 2026-10-01). An independent count ought to exist (press, investor material) but none could be found. No search available (WebSearch refused for this run). Routes tried by navigation: EDGAR full-text search for \"truelabel\" 2025-01-01..2026-10-01 = 0 hits; arXiv search = 1 unrelated 2012 paper; huggingface.co/truelabel 404; github.com/truelabel is an unrelated individual; truelabel.ai home, /about, /faq, /collectors and the sitemap link to no press, investor, partner or customer on another domain, and no app-store listing. The Terms name the operator as truelabel FZCO (Dubai), but the free zone is not stated, so no registry could be queried."
+    },
+    {
+      "claim_id": "truelabel-c003",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Reach figure stated only by the vendor ('100+ countries' on the homepage, seen 2026-10-01). No independent source found. No search available (WebSearch refused for this run). Routes tried by navigation: EDGAR full-text search for \"truelabel\" 2025-01-01..2026-10-01 = 0 hits; arXiv search = 1 unrelated 2012 paper; huggingface.co/truelabel 404; github.com/truelabel is an unrelated individual; truelabel.ai home, /about, /faq, /collectors and the sitemap link to no press, investor, partner or customer on another domain, and no app-store listing. The Terms name the operator as truelabel FZCO (Dubai), but the free zone is not stated, so no registry could be queried."
+    },
+    {
+      "claim_id": "truelabel-c021",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A delivery-time statement in the vendor's own FAQ; no buyer-side source reachable without search."
+    },
+    {
+      "claim_id": "truelabel-c069",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause in the vendor's own Collector Agreement."
+    },
+    {
+      "claim_id": "truelabel-c070",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause in the vendor's own Collector Agreement."
+    },
+    {
+      "claim_id": "truelabel-c074",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause in the vendor's own Collector Agreement."
+    },
+    {
+      "claim_id": "truelabel-c085",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A rate in the vendor's own referral policy; no third party restates it on any page reachable without search."
+    },
+    {
+      "claim_id": "truelabel-c086",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A cap in the vendor's own referral policy."
+    },
+    {
+      "claim_id": "truelabel-c087",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A rate in the vendor's own referral policy."
+    },
+    {
+      "claim_id": "truelabel-c088",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A cap in the vendor's own referral policy."
+    },
+    {
+      "claim_id": "truelabel-c089",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A cap in the vendor's own referral policy."
+    },
+    {
+      "claim_id": "truelabel-c093",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Output of the vendor's own cost-estimator tool (/tools/robotics-data-cost-estimator)."
+    },
+    {
+      "claim_id": "truelabel-c097",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A pay rate on the vendor's own opportunity page. A third-party job board could restate it, but none is linked from /collector-jobs or /collectors (no external links at all) and there is no search to find one."
+    },
+    {
+      "claim_id": "truelabel-c098",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A pay rate on the vendor's own opportunity page. No third-party job posting is linked, and there is no search to find one."
+    },
+    {
+      "claim_id": "truelabel-c121",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A table in the vendor's own blog post."
+    },
+    {
+      "claim_id": "truelabel-c122",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "An indicative price in the vendor's own blog post."
+    },
+    {
+      "claim_id": "truelabel-c125",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Counts on the vendor's own rights-register page."
+    },
+    {
+      "claim_id": "truelabel-c127",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The size of the vendor's own dataset directory. Context only (vendor source, not independent): truelabel.ai/sitemap.xml held about 1,050 URLs of all types on 2026-10-01; the number of dataset pages among them was not counted during the blind step."
+    },
+    {
+      "claim_id": "truelabel-c031",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause in the vendor's own Terms. Context only (same domain, not independent): truelabel.ai/legal/terms (updated 19 June 2026) reads 'Unless a separate written agreement says otherwise, we are not a party to the underlying buyer-supplier contract'."
+    },
+    {
+      "claim_id": "truelabel-c043",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The absence of fee rates in the vendor's own Terms. Context only (same domain): the Terms say fees, commissions and payout timing 'are disclosed in-product or in the applicable transaction terms'."
+    },
+    {
+      "claim_id": "truelabel-c061",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause in the vendor's own Collector Agreement."
+    },
+    {
+      "claim_id": "truelabel-c005",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A delivery claim made by the vendor. A buyer's or cloud partner's documentation could confirm it, but none is named or linked on the vendor's site, and there is no search to find one."
+    },
+    {
+      "claim_id": "truelabel-c019",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A pricing practice stated in the vendor's own FAQ ('truelabel quotes per spec after partner matching, not from a public rate card')."
+    },
+    {
+      "claim_id": "truelabel-c014",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A statement in the vendor's own FAQ."
+    },
+    {
+      "claim_id": "truelabel-c113",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A vendor offer about what it ships. Only a buyer could confirm it independently; no buyer is named on the vendor's site and there is no search to find one."
+    },
+    {
+      "claim_id": "truelabel-c057",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause in the vendor's own Collector Agreement or job terms."
+    },
+    {
+      "claim_id": "truelabel-c131",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote is the live footer ('© 2026 truelabel · Physical AI data marketplace'), confirmed on 2026-10-01. The copyright year alone does not prove operation; the status rests on retrieval today (retrieved_only). The newest dated items found are the Terms, Privacy Policy and Collector Agreement (19 June 2026) and the referral policy (4 July 2026). No dated corporate event (funding, layoffs, acquisition) was found, and without search none could be looked for."
+    },
+    {
+      "claim_id": "truelabel-c084",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Page reads 'Effective date: July 4, 2026'."
+    },
+    {
+      "claim_id": "truelabel-c002",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Homepage opening line reads '100+ vendors. One platform. Sourced from where the work happens.' It is a vendor-stated figure, not a verified count."
+    },
+    {
+      "claim_id": "truelabel-c003",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Homepage says 'homes in San Francisco, factories in Munich, streets in Tokyo, 100+ countries' about where data is sourced. 'Sources data from 100+ countries' would be more exact than 'operates in'. Vendor-stated."
+    },
+    {
+      "claim_id": "truelabel-c021",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The FAQ sentence goes on: 'depending on rig availability and capture geography'."
+    },
+    {
+      "claim_id": "truelabel-c069",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "truelabel-c070",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote 'not exceeding ten (10) years in total' does not show the trigger in the statement. The clause continues 'or for such longer period ... as we notify you in writing is required to support an active buyer engagement'; quoting 'as we notify you in writing is required to support an active buyer engagement' would show it."
+    },
+    {
+      "claim_id": "truelabel-c074",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "truelabel-c085",
+      "check": "scope",
+      "status": "scope_wrong",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Stated as an unconditional rate, but the policy limits it: bonuses accrue 'only on their first 250 Accepted Hours and only for up to 12 months after they join — whichever comes first'. The USD 0.50 is also a 'general default framework value' that a program's dated Schedule A may replace. See truelabel-v001 and v003."
+    },
+    {
+      "claim_id": "truelabel-c086",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "'Flat' in the policy means the cap is not linked to the referrer's own base earnings. The policy also lets uncapped excess carry forward for up to 8 weeks before it expires. As with every amount in the policy, it is a default that a program's Schedule A may change (truelabel-v001)."
+    },
+    {
+      "claim_id": "truelabel-c087",
+      "check": "scope",
+      "status": "scope_wrong",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "USD 1.00 per accepted hour holds only for the first 30 days. The policy tapers it: 'days 1–30: 100%; 31–60: 66%; 61–90: 33%; after 90 days: $0'. It is also a default value that a program's Schedule A may replace. See truelabel-v001 and v002."
+    },
+    {
+      "claim_id": "truelabel-c088",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A default value; a program's Schedule A may change it (truelabel-v001)."
+    },
+    {
+      "claim_id": "truelabel-c089",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A default value; a program's Schedule A may change it (truelabel-v001)."
+    },
+    {
+      "claim_id": "truelabel-c093",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The default scenario is teleoperation, 120 accepted hours, 4 sites, a single region, net-new human capture, strict QA and exclusive commercial rights. The default budget range is $339,000–$529,000. The number means little without these inputs, and they belong in scope or basis."
+    },
+    {
+      "claim_id": "truelabel-c097",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The page says '$20 USD per approved hour of usable footage', paid only for accepted hours after machine and human review. It is dated June 5, 2026, so as_of could be page_dated. /collector-jobs calls these evergreen pages 'not active-job guarantees' (covered by c096)."
+    },
+    {
+      "claim_id": "truelabel-c098",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The page says '$18 in USD per approved hour'. It is dated June 5, 2026 and is an evergreen page, not a guaranteed job (c096)."
+    },
+    {
+      "claim_id": "truelabel-c121",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The truelabel row reads 'Net-new commercial capture, supplier review | $25,000-$200,000 programs, 60-90 day delivery'. The post was updated 2026-05-07 and is the vendor's own comparison."
+    },
+    {
+      "claim_id": "truelabel-c122",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The full line is 'Truelabel candidate capture at $1.50-$4.00 per episode = $7,500-$20,000'. It covers capture only, before QA and licensing, for a 5,000-episode example."
+    },
+    {
+      "claim_id": "truelabel-c125",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The counts cover 36 curated third-party robotics datasets that truelabel reviewed for commercial use. Entries show a check date of 2026-07-22. They are not truelabel's own inventory."
+    },
+    {
+      "claim_id": "truelabel-c127",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The directory mostly indexes third-party public datasets (Open X-Embodiment, DROID, BridgeData V2 and others). None is offered for sale on truelabel; see c024 and c027."
+    },
+    {
+      "claim_id": "truelabel-c031",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The statement includes the condition 'unless a separate agreement says otherwise', which the quote leaves out. Full words (108 chars): 'Unless a separate written agreement says otherwise, we are not a party to the underlying buyer-supplier contract'."
+    },
+    {
+      "claim_id": "truelabel-c043",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote stops at 'are disclosed' and does not show where. The page goes on 'in-product or in the applicable transaction terms'; quoting 'and applicable taxes are disclosed in-product or in the applicable transaction terms' shows it. The absence of rates cannot be quoted, which is acceptable."
+    },
+    {
+      "claim_id": "truelabel-c061",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote 'are works made for hire owned by truelabel' does not name the materials. Better: 'materials you create or submit in connection with a job (collectively, \"Work Product\") are works made for hire owned by truelabel'. The clause lists media, recordings, annotations, metadata, derivative works, reports and feedback. The fallback assignment is covered by c062."
+    },
+    {
+      "claim_id": "truelabel-c005",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Homepage: 'Data ships straight to your S3, GCS, or Azure. Rights and metadata attached.' This is a vendor claim; which party does the copy (truelabel or the supplier) is not stated."
+    },
+    {
+      "claim_id": "truelabel-c019",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "truelabel-c014",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "truelabel-c113",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The phrase is in the FAQ-style section 'How does truelabel handle consent and licensing for egocentric data?' on /physical-ai-data-marketplace (dated May 21, 2026). It is a general promise for egocentric sessions, not tied to one listing."
+    },
+    {
+      "claim_id": "truelabel-c057",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The clause continues: 'no increase, expense reimbursement, or additional compensation is owed unless we agree in writing. We pay only for submissions that we accept' (acceptance is covered by c058)."
+    }
+  ],
+  "missed": [
+    {
+      "id": "truelabel-v001",
+      "statement": "The referral policy's dollar rates and caps are default values that a programme's own published, dated Schedule A may replace.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Referral & Incentive Program",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/referral-incentive-program-policy",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "They apply to a program unless that program's own published, dated Schedule A adopts different values"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-v002",
+      "statement": "The community partner bonus tapers to 66% of the rate in days 31-60, 33% in days 61-90, and nothing after 90 days.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Referral & Incentive Program",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/referral-incentive-program-policy",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "days 1–30: 100%; 31–60: 66%; 61–90: 33%; after 90 days: $0"
+        }
+      ]
+    },
+    {
+      "id": "truelabel-v003",
+      "statement": "Buddy referral bonuses accrue only on a referred collector's first 250 accepted hours or first 12 months, whichever ends first.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Referral & Incentive Program",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/referral-incentive-program-policy",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you earn Buddy Referral Bonuses only on their first 250 Accepted Hours and only for up to 12 months after they join"
+        }
+      ]
+    }
+  ]
+}

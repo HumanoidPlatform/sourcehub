@@ -1,0 +1,1959 @@
+{
+  "kind": "document",
+  "slug": "doc-truelabel-collector",
+  "platform_slug": "truelabel",
+  "title": "Collector Services Agreement",
+  "doc_type": "contributor_agreement",
+  "url": "https://truelabel.ai/legal/collector-agreement",
+  "publisher": "truelabel",
+  "version_or_date": "Effective June 19, 2026",
+  "retrieved_at": "2026-10-01",
+  "parties": {
+    "licensor": "Collector (independent-contractor data collector); Work Product is work made for hire owned by truelabel, or assigned to it, plus a licence of any other submitted data",
+    "licensee": "truelabel (the entity in the Collector's account record; Dubai courts over truelabel FZCO) with its affiliates, successors and designees; buyers, end clients and their service providers as downstream recipients and third-party beneficiaries",
+    "operator_role": "reseller_licensor"
+  },
+  "terms": {
+    "permitted_use": {
+      "value": "Collector's Work Product is owned by truelabel (work for hire / assignment); truelabel, affiliates, successors and designees may host, reproduce, modify, distribute and use it for any lawful purpose permitted by the job, transaction terms, platform terms or buyer requirements, including supplying datasets to buyers, end clients and their service providers.",
+      "claim_ids": [
+        "doc-truelabel-collector-c018",
+        "doc-truelabel-collector-c019",
+        "doc-truelabel-collector-c021",
+        "doc-truelabel-collector-c022",
+        "doc-truelabel-collector-c023"
+      ]
+    },
+    "ai_training_rights": {
+      "value": "Granted downstream to buyers, end clients and service providers for 'project-permitted' AI/ML training, evaluation, validation, dataset development, model development, model improvement and commercial use; fine-tuning and model outputs are not named separately; redistribution runs through a sublicensable licence and releases that reach further-tier/downstream sublicensees; the Collector must also obtain the depicted person's written consent to AI/ML training.",
+      "claim_ids": [
+        "doc-truelabel-collector-c024",
+        "doc-truelabel-collector-c022",
+        "doc-truelabel-collector-c021",
+        "doc-truelabel-collector-c031",
+        "doc-truelabel-collector-c032"
+      ]
+    },
+    "field_of_use": {
+      "value": "No fixed field; bounded only by what the accepted job, transaction terms, platform terms or buyer requirements permit ('project-permitted' uses).",
+      "claim_ids": [
+        "doc-truelabel-collector-c022",
+        "doc-truelabel-collector-c024"
+      ]
+    },
+    "territory": {
+      "value": "Worldwide (assignment of worldwide rights; worldwide licence).",
+      "claim_ids": [
+        "doc-truelabel-collector-c019",
+        "doc-truelabel-collector-c021"
+      ]
+    },
+    "term_duration": {
+      "value": "Rights to truelabel are perpetual and irrevocable and survive termination; the Agreement itself runs while the Collector keeps an account, terminable by either side on 30 days' notice without cause.",
+      "claim_ids": [
+        "doc-truelabel-collector-c021",
+        "doc-truelabel-collector-c045",
+        "doc-truelabel-collector-c046",
+        "doc-truelabel-collector-c048"
+      ]
+    },
+    "exclusivity": {
+      "value": "Collector side is total: truelabel owns the Work Product outright as work for hire or by assignment, so the Collector keeps no right to reuse or resell it; the Agreement says nothing about whether buyers get exclusive rights.",
+      "claim_ids": [
+        "doc-truelabel-collector-c018",
+        "doc-truelabel-collector-c019"
+      ]
+    },
+    "sublicensing": {
+      "value": "truelabel's licence is transferable and sublicensable to affiliates, successors and designees; the people-release must cover buyers, end clients, service providers and any further-tier or downstream sublicensee a buyer permits.",
+      "claim_ids": [
+        "doc-truelabel-collector-c021",
+        "doc-truelabel-collector-c031"
+      ]
+    },
+    "derivatives_and_model_outputs": {
+      "value": "Derivative works are part of the Work Product owned by truelabel, and truelabel may create further derivatives; downstream model development and improvement are licensed; ownership of trained models or model outputs is not addressed.",
+      "claim_ids": [
+        "doc-truelabel-collector-c018",
+        "doc-truelabel-collector-c021",
+        "doc-truelabel-collector-c024"
+      ]
+    },
+    "attribution": {
+      "value": "Collector waives moral rights and any right of attribution; uses need no notice or attribution to the Collector.",
+      "claim_ids": [
+        "doc-truelabel-collector-c020",
+        "doc-truelabel-collector-c025"
+      ]
+    },
+    "audit_rights": {
+      "value": "truelabel may audit a Collector's job records for 2 years after the job; consent/release records must be kept 6 years (extendable by notice up to 10 years for an active buyer engagement) and copied to truelabel on request; buyers and end clients may directly enforce the Collector's confidentiality, data and IP obligations.",
+      "claim_ids": [
+        "doc-truelabel-collector-c013",
+        "doc-truelabel-collector-c014",
+        "doc-truelabel-collector-c036",
+        "doc-truelabel-collector-c037",
+        "doc-truelabel-collector-c038",
+        "doc-truelabel-collector-c053"
+      ]
+    },
+    "deletion_on_termination": {
+      "value": "No deletion-on-termination clause for Work Product (truelabel's rights survive); the Collector may not copy or retain data outside the platform except as a job requires, and disposes of consent records only when the retention period expires, per data-protection law.",
+      "claim_ids": [
+        "doc-truelabel-collector-c048",
+        "doc-truelabel-collector-c052",
+        "doc-truelabel-collector-c039"
+      ]
+    },
+    "warranties_by_provider": {
+      "value": "Collector warrants originality, spec conformance, no encumbering open-source or third-party material, and non-infringement of IP, privacy and publicity rights; truelabel gives the Collector the platform 'as is' and disclaims all warranties.",
+      "claim_ids": [
+        "doc-truelabel-collector-c026",
+        "doc-truelabel-collector-c027",
+        "doc-truelabel-collector-c028",
+        "doc-truelabel-collector-c040"
+      ]
+    },
+    "consent_and_release_warranty": {
+      "value": "Collector warrants flatly that, before capture, it got valid, informed, written, documented consent and release from every identifiable individual and from owners of non-incidental private locations, running to truelabel, buyers, end clients, service providers and downstream sublicensees, authorising AI/ML training and commercial use; it must report withdrawals and keep the records 6 years (up to 10).",
+      "claim_ids": [
+        "doc-truelabel-collector-c029",
+        "doc-truelabel-collector-c030",
+        "doc-truelabel-collector-c031",
+        "doc-truelabel-collector-c032",
+        "doc-truelabel-collector-c034",
+        "doc-truelabel-collector-c035",
+        "doc-truelabel-collector-c036",
+        "doc-truelabel-collector-c037"
+      ]
+    },
+    "indemnity": {
+      "value": "Collector defends and indemnifies truelabel, affiliates, personnel, buyers and end clients for breach, unlawful or infringing submissions, failure to obtain consents or releases, negligence, confidentiality breaches and tax failures; no cap on the Collector's indemnity is stated; truelabel gives no indemnity to the Collector.",
+      "claim_ids": [
+        "doc-truelabel-collector-c041",
+        "doc-truelabel-collector-c042",
+        "doc-truelabel-collector-c015"
+      ]
+    },
+    "liability_cap": {
+      "value": "truelabel's liability to a Collector is capped at the fees actually paid for that specific job, with indirect and consequential damages and lost profits excluded; no cap on the Collector's liability is stated.",
+      "claim_ids": [
+        "doc-truelabel-collector-c044",
+        "doc-truelabel-collector-c043"
+      ]
+    },
+    "payment_and_revenue_share": {
+      "value": "One-off fixed fee per job as shown at acceptance, paid only for accepted submissions; no royalty or revenue share on resale to buyers ('without any further compensation'); rejected work unpaid; nothing further owed after termination for material breach.",
+      "claim_ids": [
+        "doc-truelabel-collector-c010",
+        "doc-truelabel-collector-c011",
+        "doc-truelabel-collector-c012",
+        "doc-truelabel-collector-c025",
+        "doc-truelabel-collector-c047"
+      ]
+    },
+    "takedown_and_erasure": {
+      "value": "Only that a depicted person may withdraw data-protection consent by law and the Collector must notify truelabel of any withdrawal or challenge; no mechanism to pull affected media from datasets, and nothing on copies already delivered to buyers.",
+      "claim_ids": [
+        "doc-truelabel-collector-c033",
+        "doc-truelabel-collector-c035"
+      ]
+    },
+    "governing_law": {
+      "value": "Laws of the Emirate of Dubai and applicable UAE federal law; exclusive jurisdiction of Dubai courts over truelabel FZCO, unless applicable law provides otherwise.",
+      "claim_ids": [
+        "doc-truelabel-collector-c056",
+        "doc-truelabel-collector-c057"
+      ]
+    },
+    "change_of_terms": {
+      "value": "truelabel may amend unilaterally by posting a revised version with a new effective date; continued platform use is acceptance; truelabel may also assign the Agreement freely.",
+      "claim_ids": [
+        "doc-truelabel-collector-c055",
+        "doc-truelabel-collector-c001",
+        "doc-truelabel-collector-c058"
+      ]
+    },
+    "prohibited_uses": {
+      "value": "Collector may not disclose confidential information or use it for competing collection or labeling methods, identify or solicit buyers or end clients, copy or retain data outside the platform, publicise the engagement, subcontract without consent, or use forced or child labour.",
+      "claim_ids": [
+        "doc-truelabel-collector-c017",
+        "doc-truelabel-collector-c051",
+        "doc-truelabel-collector-c052",
+        "doc-truelabel-collector-c059",
+        "doc-truelabel-collector-c008",
+        "doc-truelabel-collector-c009"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "doc-truelabel-collector-c001",
+      "statement": "truelabel's Collector Services Agreement is dated effective 19 June 2026.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Effective June 19, 2026"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c002",
+      "statement": "The Collector's counterparty is the truelabel entity named in the Collector's account record, not a fixed entity named in the Agreement.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "operated by the truelabel entity identified in your account record"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c003",
+      "statement": "The Collector Agreement applies on top of truelabel's Terms of Service and Privacy Policy.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "It applies in addition to our Terms of Service and Privacy Policy"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c004",
+      "statement": "Each job a Collector accepts, with its specifications and pay terms, forms a binding statement of work incorporating the Agreement.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q12"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "forms a binding statement of work that incorporates this Agreement"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c005",
+      "statement": "truelabel alone decides whether a Collector's submission meets its specifications and quality standards.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "truelabel is the sole arbiter of whether a submission conforms to those standards"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c006",
+      "statement": "Accepting a job guarantees the Collector no minimum volume of work or level of earnings.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Acceptance of a job does not guarantee any minimum volume of work"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c007",
+      "statement": "Collectors work for truelabel as independent contractors, not employees or agents.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You perform as an independent contractor."
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c008",
+      "statement": "A Collector may not subcontract or delegate a job without truelabel's prior written consent.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you may not subcontract or delegate a job without our prior written consent"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c009",
+      "statement": "The Collector covenants that no forced, bonded, trafficked or child labour is used by it or by anyone assisting it.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you use no forced, bonded, trafficked, or child labor and permit none in any person you allow to assist you"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c010",
+      "statement": "The Collector's fee for a job is fixed at the amount shown when the job is accepted, with no increase or reimbursement unless agreed in writing.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The fee for a job is fixed at the amount displayed when you accept it"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c011",
+      "statement": "truelabel pays Collectors only for submissions it accepts.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We pay only for submissions that we accept."
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c012",
+      "statement": "Submissions failing automated or human quality review may be rejected without payment.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Submissions that fail automated or human quality review may be rejected without payment"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c013",
+      "statement": "truelabel may audit records relating to a Collector's jobs for up to two years after a job completes.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We may audit records relating to your jobs for up to two (2) years after a job completes"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c014",
+      "statement": "The records a Collector must keep for audit include the consents, releases and provenance information for its submissions.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "including the consents, releases, and provenance information relating to your submissions"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c015",
+      "statement": "The Collector must indemnify truelabel for costs arising from the Collector's failure to meet tax or reporting obligations.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You will indemnify us for any liability, penalty, or cost we incur because of your failure to satisfy a tax"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c016",
+      "statement": "The Collector's confidentiality obligations last five years after they arise, and indefinitely for trade secrets.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "These obligations survive for five (5) years after they arise, and indefinitely for trade secrets."
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c017",
+      "statement": "The Collector may not use truelabel's confidential information to build or advise on competing collection or labeling methodologies.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "will not use Confidential Information to build or advise others on competing collection or labeling methodologies"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c018",
+      "statement": "All media, recordings, annotations, metadata and derivative works a Collector creates or submits for a job are works made for hire owned by truelabel.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q4",
+        "Q5"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "are works made for hire owned by truelabel"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c019",
+      "statement": "Where Work Product is not a work made for hire, the Collector irrevocably assigns all worldwide rights in it to truelabel on creation.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q4"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you irrevocably assign to truelabel, effective upon creation, all worldwide right, title, and interest"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c020",
+      "statement": "The Collector waives moral rights and any right of attribution in the Work Product.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you waive any moral rights and any right of attribution"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c021",
+      "statement": "The Collector also grants truelabel, its affiliates, successors and designees a perpetual, irrevocable, worldwide, royalty-free, transferable, sublicensable licence to the Work Product and submitted data.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "a perpetual, irrevocable, worldwide, royalty-free, fully paid-up, transferable, and sublicensable license"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c022",
+      "statement": "The Collector's licence to truelabel covers any lawful purpose permitted by the accepted job, transaction terms, platform terms or buyer requirements.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q4",
+        "Q8"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "for any lawful purpose permitted by the accepted job, transaction terms, platform terms, or buyer requirements"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c023",
+      "statement": "The licence expressly extends to truelabel providing the data and datasets to buyers, end clients and their service providers.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q4",
+        "Q5"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "including providing data and datasets to buyers, end clients, and their service providers"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c024",
+      "statement": "The uses licensed to buyers and end clients include project-permitted AI/ML training, evaluation, validation, dataset and model development, and model improvement.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "for project-permitted AI/ML training, evaluation, validation, dataset development, model development, model improvement"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c025",
+      "statement": "These licensed uses require no further compensation, notice or attribution to the Collector.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q4",
+        "Q9"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "without any further compensation, notice, or attribution to you"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c026",
+      "statement": "The Collector warrants that each submission is its original work and conforms to the job specifications.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "it is your original work and conforms to the job specifications"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c027",
+      "statement": "The Collector warrants that submissions contain no open-source or third-party material imposing obligations on truelabel or any buyer.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "contains no open-source or third-party material that would impose obligations on truelabel or any buyer"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c028",
+      "statement": "The Collector warrants that submissions do not infringe third parties' intellectual-property, privacy or publicity rights.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "it does not infringe or misappropriate any third party’s intellectual property, privacy, publicity, or other rights"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c029",
+      "statement": "Before capturing any individual appearing in a submission, the Collector must obtain a valid, informed, written and documented consent and release.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "a valid, informed, written, and documented consent, permission, and release"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c030",
+      "statement": "Owner consent is required for private premises or locations that are a subject of the capture, except incidental, public-view locations whose owner is not reasonably identifiable.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "appears only incidentally and is in public view and whose owner is not reasonably identifiable"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c031",
+      "statement": "The required release must run to truelabel, its buyers, end clients, their service providers and any further-tier or downstream licensee or sublicensee.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7",
+        "Q5"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "any further-tier or downstream licensee or sublicensee to whom truelabel or a buyer may permit the recording to flow"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c032",
+      "statement": "The consent the Collector obtains must authorise use of the recording for AI and machine-learning training by the permitted recipients.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "authorizes use of the recording for artificial-intelligence and machine-learning training"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c033",
+      "statement": "The Agreement acknowledges that a person depicted may withdraw data-protection consent as a matter of law.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7",
+        "Q10"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "data-protection consent may be withdrawn by the individual as a matter of law"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c034",
+      "statement": "The Collector warrants flatly that each consent and release is valid under applicable law when captured and when submitted.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You warrant flatly that, when captured and when submitted, each such consent, permission, and release is valid"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c035",
+      "statement": "The Collector must promptly notify truelabel if any consent is withdrawn or challenged.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7",
+        "Q10"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you will promptly notify us if any such consent is withdrawn or challenged"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c036",
+      "statement": "The Collector must keep each consent and release for six years after the job completes.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You will retain each such consent, permission, and release for six (6) years after the job completes"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c037",
+      "statement": "truelabel may extend the Collector's consent-retention period, up to ten years in total, to support an active buyer engagement.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "not exceeding ten (10) years in total) as we notify you in writing is required to support an active buyer engagement"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c038",
+      "statement": "On truelabel's request the Collector must promptly provide a copy of a consent or release.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "at our request you will promptly provide a copy"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c039",
+      "statement": "When the retention period expires the Collector retains or securely disposes of the consent records according to data-protection law.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "On expiry of that period you will retain or securely dispose of the records in accordance with applicable data-protection law"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c040",
+      "statement": "truelabel provides the platform and its materials to Collectors 'as is' and disclaims all warranties.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "furnished \"as is,\" and we disclaim all warranties to the fullest extent permitted by law"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c041",
+      "statement": "The Collector must defend, indemnify and hold harmless truelabel, its affiliates, personnel, buyers and end clients.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "hold harmless truelabel, its affiliates, and their respective personnel, buyers, and end clients"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c042",
+      "statement": "The Collector's indemnity covers claims arising from its failure to obtain required consents or releases.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "your failure to obtain required consents or releases"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c043",
+      "statement": "truelabel excludes liability to Collectors for indirect, consequential and punitive damages and lost profits.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "truelabel will not be liable for any indirect, incidental, special, consequential, exemplary, or punitive damages"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c044",
+      "statement": "truelabel's total liability to a Collector for any claim about a job is capped at the fees it actually paid for that job; the Agreement states no cap on the Collector's own liability or indemnity.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "liability for any claim relating to a job will not exceed the fees we actually paid you for that specific job"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c045",
+      "statement": "The Collector Agreement applies for as long as the Collector keeps an account.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "This Agreement applies for as long as you maintain a Collector account."
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c046",
+      "statement": "Either party may terminate the Collector Agreement without cause on thirty days' notice.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "either party may terminate without cause on thirty (30) days’ notice"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c047",
+      "statement": "If truelabel terminates for the Collector's material breach, no further amounts are owed to the Collector.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Upon termination for your material breach, no further amounts are owed to you."
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c048",
+      "statement": "The IP grant, warranties, indemnity and liability sections survive termination of the Collector Agreement.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q4",
+        "Q8"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "including 3, 5, 6, 7, 8, 9, 11, 12, and 14 — survive termination"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c049",
+      "statement": "Results of truelabel's automated and human quality control of Collector submissions are final and binding.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the results of which are final and binding"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c050",
+      "statement": "truelabel may transfer Collector personal information to buyers, end clients and their service providers, including across borders, where relevant to a job.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q6",
+        "Q7"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "buyers, end clients, and their service providers, including across borders"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c051",
+      "statement": "The Collector may not try to identify, contact or solicit any buyer or end client.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You will not attempt to identify, contact, or solicit any buyer or end client"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c052",
+      "statement": "The Collector may not copy, retain or extract any data outside the platform except as a job requires.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q6",
+        "Q8"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "will not copy, retain, or extract any data outside the platform except as a job requires"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c053",
+      "statement": "Buyers and end clients are intended third-party beneficiaries of the Collector's confidentiality, data and IP obligations and may enforce them directly.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Buyers and end clients are intended third-party beneficiaries"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c054",
+      "statement": "The Collector must report any actual or suspected loss or unauthorised access to protected data within 72 hours.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "and in any event within seventy-two (72) hours, after you become aware of any actual or reasonably suspected loss"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c055",
+      "statement": "truelabel may change the Collector Agreement by posting a revised version, and continued platform use counts as acceptance.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "your continued use of the platform after the revised version is posted constitutes acceptance"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c056",
+      "statement": "The Collector Agreement is governed by the laws of the Emirate of Dubai and applicable UAE federal law.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "governed by the laws of the Emirate of Dubai and the federal laws of the United Arab Emirates"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c057",
+      "statement": "Disputes go to the exclusive jurisdiction of the Dubai courts having jurisdiction over truelabel FZCO, unless applicable law provides otherwise.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "exclusive jurisdiction of the courts of the Emirate of Dubai having jurisdiction over truelabel FZCO"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c058",
+      "statement": "truelabel may assign the Collector Agreement freely, including on a merger or sale; the Collector may not without consent.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We may assign this Agreement freely, including in connection with a merger or sale"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-collector-c059",
+      "statement": "The Collector may not publicise truelabel's or any buyer's name or the existence of the engagement without approval.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "truelabel Collector Services Agreement",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/collector-agreement",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You will not use truelabel’s or any buyer’s name, marks, or the existence of this engagement in any publicity"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "other.erasure_of_sold_copies",
+      "urls_tried": [
+        "https://truelabel.ai/legal/collector-agreement"
+      ],
+      "reason": "not_published",
+      "note": "Nothing says what happens to media, or to buyer-held copies and trained models, when a depicted person withdraws consent; the Collector only has to notify truelabel."
+    },
+    {
+      "field": "other.buyer_side_terms",
+      "urls_tried": [
+        "https://truelabel.ai/legal/collector-agreement"
+      ],
+      "reason": "not_published",
+      "note": "What 'project-permitted' uses, buyer exclusivity and redistribution limits mean is set by transaction terms, job terms and buyer requirements that this Agreement refers to but does not reproduce."
+    },
+    {
+      "field": "other.consent_form_template",
+      "urls_tried": [
+        "https://truelabel.ai/legal/collector-agreement"
+      ],
+      "reason": "not_published",
+      "note": "The Agreement requires written consent and release with specified content, but no template release form is linked or published in it; whether buyers receive the consent records is not stated."
+    },
+    {
+      "field": "other.contracting_entity",
+      "urls_tried": [
+        "https://truelabel.ai/legal/collector-agreement"
+      ],
+      "reason": "not_published",
+      "note": "The contracting truelabel entity is 'the entity identified in your account record'; only truelabel FZCO (Dubai) is named, in the jurisdiction clause."
+    }
+  ]
+}

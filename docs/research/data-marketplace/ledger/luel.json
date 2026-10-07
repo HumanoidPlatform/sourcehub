@@ -1,0 +1,5430 @@
+{
+  "kind": "profile",
+  "slug": "luel",
+  "name": "Luel",
+  "aliases": [
+    "Luel Inc.",
+    "Luel Data",
+    "Luel Labs"
+  ],
+  "segment": "crowd_capture",
+  "tier": "deep",
+  "status": {
+    "value": "active",
+    "claim_id": "luel-c001"
+  },
+  "names_for": {
+    "catalogue_side": "Marketplace / 'Off-the-shelf licensing' (self-serve API product: 'Luel Data')",
+    "custom_side": "'Custom collections' / 'collection engine'; listings badged 'Scoped to order'; form label 'Request custom dataset'"
+  },
+  "matrix": {
+    "operator_role": {
+      "value": "reseller_licensor",
+      "claim_ids": [
+        "luel-c036",
+        "luel-c037",
+        "luel-c113",
+        "luel-c138"
+      ],
+      "note": "Luel grants the buyer licence in its own name for contributor-captured, own and (draft) third-party supply alike; suppliers need not be named to buyers."
+    },
+    "economics_model": {
+      "value": "mixed",
+      "claim_ids": [
+        "luel-c019",
+        "luel-c020",
+        "luel-c021",
+        "luel-c039",
+        "luel-c141"
+      ],
+      "note": "Principal margin on contributor-captured and owned catalogue (contributors paid a fixed task rate, Luel sets the price); 85/15 revenue share for third-party suppliers under draft terms; paid custom collections."
+    },
+    "who_pays_fee": {
+      "value": "seller",
+      "claim_ids": [
+        "luel-c039"
+      ],
+      "note": "Applies to third-party listings only: Luel's 15% comes out of the order amount. On its own inventory there is no separate fee."
+    },
+    "supply_models": {
+      "value": [
+        "own_collection",
+        "contributor_uploads",
+        "commissioned_nonexclusive",
+        "third_party_providers",
+        "partner_licensed"
+      ],
+      "claim_ids": [
+        "luel-c023",
+        "luel-c020",
+        "luel-c024",
+        "luel-c017",
+        "luel-c022",
+        "luel-c027",
+        "luel-c021",
+        "luel-c030",
+        "luel-c031"
+      ],
+      "note": "commissioned_nonexclusive rests on vendor statements that completed collections and deliveries feed the catalogue; the same source calls custom datasets 'exclusive', so how commissioned data is carved out is not public. third_party_providers: submissions open, but listing waits on unsigned Supplier Terms. partner_licensed: Music Library from one catalogue provider. The 16-year dermatology archive is 'exclusively owned' by Luel, origin unstated."
+    },
+    "custody_model": {
+      "value": "copy_to_buyer",
+      "claim_ids": [
+        "luel-c071",
+        "luel-c097",
+        "luel-c096",
+        "luel-c121",
+        "luel-c045"
+      ],
+      "note": "Luel copies supplier data from the supplier bucket, hosts it, and delivers via short-lived signed download URLs; buyers hold copies and must delete them on licence end. Delivery mechanics for contact-sales video listings are not published."
+    },
+    "transaction_mode": {
+      "value": "both",
+      "claim_ids": [
+        "luel-c071",
+        "luel-c074",
+        "luel-c062",
+        "luel-c070"
+      ],
+      "note": "Self-serve prepaid-credit checkout (console or MCP agent) for audio SKUs; every video, sensor and image listing is contact-sales only."
+    },
+    "public_prices": {
+      "value": "some",
+      "claim_ids": [
+        "luel-c074",
+        "luel-c075"
+      ],
+      "note": "Self-serve speech SKUs are $1.25/min in the docs; marketplace listing pages show no price."
+    },
+    "licence_model": {
+      "value": "mixed",
+      "claim_ids": [
+        "luel-c113",
+        "luel-c064",
+        "luel-c036"
+      ],
+      "note": "One standard clickwrap DLA for Luel Data; contact-sales listings negotiated (Music Library rights negotiated per buyer); supplier terms allow other written licence terms Luel sets per dataset."
+    },
+    "exclusivity_offered": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Luel Data licences are non-exclusive [c113]; custom builds are described as exclusive [c019]; no source says whether a listed dataset can be bought exclusively via sales."
+    },
+    "public_listing": {
+      "value": "public_indexable",
+      "claim_ids": [
+        "luel-c054",
+        "luel-c056"
+      ],
+      "note": "Marketplace and dataset pages are public and in the sitemap; the self-serve API catalogue needs a signed-in buyer org."
+    },
+    "buyer_vetting": {
+      "value": "account_only",
+      "claim_ids": [
+        "luel-c083",
+        "luel-c086",
+        "luel-c084",
+        "luel-c087"
+      ],
+      "note": "Entry 'Licensed' tier: DLA acceptance plus a country check, capped at $5,000 lifetime. 'Verified' tier above that adds operator review and restricted-party screening (business_verification)."
+    },
+    "sample_mechanics": {
+      "value": "sample_on_request",
+      "claim_ids": [
+        "luel-c063",
+        "luel-c106",
+        "luel-c107",
+        "luel-c108"
+      ],
+      "note": "Listing pages send sample clips on request; the API has a one-minute free sample grant but no SKU has one yet; separate sample sets sit on Hugging Face."
+    },
+    "versioning": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Licences attach to a dataset version and quantity, and Luel may withdraw a version; no source says whether a published version is immutable or what a past buyer gets on a new version."
+    },
+    "human_subject_consent_docs": {
+      "value": "provided_to_buyer",
+      "claim_ids": [
+        "luel-c099",
+        "luel-c135",
+        "luel-c136",
+        "luel-c126"
+      ],
+      "note": "Weakly met. Each API delivery carries a signed consent projection and consent-reference hash, and marketing says consent evidence/records ship. The binding DLA only gives a knowledge-qualified promise, and no source shows signed release forms reaching the buyer."
+    },
+    "contributor_pay_model": {
+      "value": "one_off",
+      "claim_ids": [
+        "luel-c141",
+        "luel-c145",
+        "luel-c147",
+        "luel-c148"
+      ],
+      "note": "Contributors are paid a posted per-minute, per-task or per-scene rate when a submission is approved; no share of later sales."
+    },
+    "catalogue_plus_custom": {
+      "value": "both",
+      "claim_ids": [
+        "luel-c013",
+        "luel-c014",
+        "luel-c015",
+        "luel-c061"
+      ],
+      "note": ""
+    },
+    "erasure_after_sale": {
+      "value": "contractual_deletion",
+      "claim_ids": [
+        "luel-c123",
+        "luel-c121",
+        "luel-c152",
+        "luel-c124"
+      ],
+      "note": "Buyers must delete withdrawn recordings within 30 days (models kept). Contributor-facing Terms say delivered copies cannot be retrieved. The DLA covers audio only."
+    },
+    "quality_evidence": {
+      "value": "operator_verified",
+      "claim_ids": [
+        "luel-c109",
+        "luel-c110",
+        "luel-c052",
+        "luel-c104"
+      ],
+      "note": "All current listings are Luel's own and Luel reviews every submission. Supplier promises are not checked. The English speech listing advertises transcripts that the buying docs say no self-serve corpus has."
+    }
+  },
+  "questions": {
+    "Q1": {
+      "state": "partial",
+      "answer": "Luel says its buyers are AI labs, robotics firms, platforms, universities, hospitals and banks; self-serve speech is sold by the minute ($1.25) with capped entry-tier volumes. No volumes or reasons for off-the-shelf over custom are published beyond the pitch against slow procurement.",
+      "claim_ids": [
+        "luel-c080",
+        "luel-c012",
+        "luel-c074",
+        "luel-c084",
+        "luel-c079"
+      ]
+    },
+    "Q2": {
+      "state": "partial",
+      "answer": "Third-party sellers get Luel's pricing, clickwrap licence, buyer vetting and agent/MCP distribution for 15% under draft terms, but Luel alone decides listing, price and licence and does not name the seller. Seller listing is not yet open.",
+      "claim_ids": [
+        "luel-c039",
+        "luel-c040",
+        "luel-c037",
+        "luel-c066",
+        "luel-c004",
+        "luel-c029"
+      ]
+    },
+    "Q3": {
+      "state": "sourced",
+      "answer": "Inventory comes from paid crowd contributors (perpetual non-exclusive licence to Luel), Luel-subsidised speculative collection, completed custom collections, a licensed music catalogue, an owned clinical archive, and (pending) third-party suppliers under a non-exclusive licence.",
+      "claim_ids": [
+        "luel-c137",
+        "luel-c023",
+        "luel-c017",
+        "luel-c030",
+        "luel-c031",
+        "luel-c038",
+        "luel-c027"
+      ]
+    },
+    "Q4": {
+      "state": "partial",
+      "answer": "Luel calls custom datasets 'exclusive' yet says completed collections and each delivery feed the re-licensable catalogue; how resale rights are carved out of commissioned work is not published. Terms apply retroactively to earlier access and new DLA versions govern past licences once accepted; no dispute over a change was found.",
+      "claim_ids": [
+        "luel-c019",
+        "luel-c020",
+        "luel-c017",
+        "luel-c022",
+        "luel-c095",
+        "luel-c094"
+      ]
+    },
+    "Q5": {
+      "state": "sourced",
+      "answer": "Luel is licensor of record and licenses supplier data in its own name. Contributors and suppliers warrant consent to Luel; Luel's promise to buyers is knowledge-qualified, it gives no indemnity, and buyers indemnify Luel.",
+      "claim_ids": [
+        "luel-c036",
+        "luel-c113",
+        "luel-c153",
+        "luel-c042",
+        "luel-c126",
+        "luel-c127",
+        "luel-c128"
+      ]
+    },
+    "Q6": {
+      "state": "sourced",
+      "answer": "Copy to buyer: Luel copies supplier data from the supplier's bucket, then issues short-lived signed download URLs under per-version download caps; buyers become independent controllers of their copies.",
+      "claim_ids": [
+        "luel-c045",
+        "luel-c050",
+        "luel-c071",
+        "luel-c096",
+        "luel-c157"
+      ]
+    },
+    "Q7": {
+      "state": "partial",
+      "answer": "Capturers give written consent at sign-up and per submission and warrant consent for anyone else; egocentric video claims signed scene-level consent with screens masked. Depicted third parties have no documented release route, and buyers get a consent projection, not forms.",
+      "claim_ids": [
+        "luel-c156",
+        "luel-c153",
+        "luel-c154",
+        "luel-c160",
+        "luel-c161",
+        "luel-c099",
+        "luel-c042"
+      ]
+    },
+    "Q8": {
+      "state": "sourced",
+      "answer": "Non-exclusive, internal-only training licence with no redistribution; audit on suspicion; deletion within 30 days on end or withdrawal, models kept. Audio ships unmarked and byte-identical, and per-buyer marking is not live.",
+      "claim_ids": [
+        "luel-c113",
+        "luel-c117",
+        "luel-c120",
+        "luel-c121",
+        "luel-c100",
+        "luel-c101"
+      ]
+    },
+    "Q9": {
+      "state": "sourced",
+      "answer": "Audio SKUs close self-serve on prepaid credits (card via Stripe, invoice fallback) with no cash refunds; video/sensor/image listings are contact-sales. Luel earns principal margin on its own data and 15% on third-party sales.",
+      "claim_ids": [
+        "luel-c071",
+        "luel-c073",
+        "luel-c072",
+        "luel-c077",
+        "luel-c062",
+        "luel-c070",
+        "luel-c039"
+      ]
+    },
+    "Q10": {
+      "state": "sourced",
+      "answer": "Dataset = corpus sold as portions; each portion is a SKU with its own version id, price and tier; a buyer holds one grant per SKU, ordered as cumulative hours. The licence binds to the version bought; withdrawals revoke affected recordings with pro-rata credit.",
+      "claim_ids": [
+        "luel-c088",
+        "luel-c089",
+        "luel-c090",
+        "luel-c091",
+        "luel-c092",
+        "luel-c093",
+        "luel-c125"
+      ]
+    },
+    "Q11": {
+      "state": "sourced",
+      "answer": "Before purchase: sample clips on request, a one-minute API sample (none cut yet), Hugging Face samples, and listing specs. Delivery carries a signed receipt; the docs disclose defects such as band-limited audio and missing transcripts.",
+      "claim_ids": [
+        "luel-c063",
+        "luel-c106",
+        "luel-c107",
+        "luel-c108",
+        "luel-c098",
+        "luel-c104",
+        "luel-c102"
+      ]
+    },
+    "Q12": {
+      "state": "sourced",
+      "answer": "Luel sells both: 'Off-the-shelf licensing' / marketplace and 'Custom collections' / collection engine, on one pipeline. Listings flagged 'Scoped to order' are scoped with a buyer, so the catalogue entry doubles as a collection brief.",
+      "claim_ids": [
+        "luel-c017",
+        "luel-c018",
+        "luel-c016",
+        "luel-c055",
+        "luel-c056",
+        "luel-c059",
+        "luel-c061"
+      ]
+    }
+  },
+  "sections": {
+    "positioning": "Luel (YC W26, founded 2025) sells itself as two things on one pipeline: a marketplace of completed datasets and a collection engine that captures to a buyer's spec [c014][c015][c016]. Its Terms describe a marketplace connecting individual contributors with AI-company buyers [c011][c012].",
+    "supply": "Supply is mainly a paid crowd (850,000+ contributors claimed) capturing to posted tasks [c025][c024], plus Luel-subsidised collection [c023], completed collections recycled into the catalogue [c017][c020], a music catalogue from one provider [c030] and an owned clinical archive [c031]. Third-party supply is announced at 85/15 [c021][c039], but the Supplier Terms are an unsigned draft [c004][c029].",
+    "object_model": "Self-serve: a dataset is one corpus sold in portions, each a SKU with its own version id, price and verification tier [c088][c089]. Buyers order cumulative hours and hold one grant per SKU [c091][c090]. The licence binds to the version and quantity paid for [c092], and Luel may withdraw a version [c093].",
+    "listing": "The public marketplace shows 30 datasets [c054]. Cards carry 'Scoped to order', 'Custom' or 'Enterprise' badges [c056][c057][c058]. Detail pages give specs and volume claims [c034][c035] but no price. Only audio is self-serve [c069].",
+    "discovery": "Buyers browse the public marketplace or let an MCP agent search and license from Claude Code, Cursor or Codex [c066][c067]. In the API, video and sensor listings appear only as contact-sales rows [c070].",
+    "trust": "Luel says listings are quality-verified [c109] and ship with consent evidence [c135][c136]. API deliveries carry an Ed25519-signed receipt with a consent projection [c098][c099]. The docs disclose band-limited audio and no transcripts [c104][c102], contradicting the English listing [c103].",
+    "transaction": "Audio SKUs close self-serve from a prepaid balance funded via Stripe, with an invoice fallback [c071][c073][c072]. There are no cash refunds [c077]. Other listings say licensing is arranged with the team [c062]. The docs say the API is switched off in production [c005], but a 17 September post says it is live [c001].",
+    "pricing": "Every self-serve SKU is $1.25 per minute of paired conversation, or $75 an hour [c074][c075]. An hour counts paired time, not speech [c076]. Third-party suppliers would get 85% of each order [c039], and Luel alone sets prices [c040].",
+    "licence": "The DLA (v5) is a non-exclusive, non-sublicensable, worldwide licence to train and evaluate models, which buyers may deploy and keep [c113][c114][c115]. It bars redistribution, affiliate access and biometric uses [c117][c116][c118], allows audits [c120][c119], and gives no indemnity [c127]. Audio ships unmarked [c100][c101].",
+    "custody": "Luel copies supplier data out of the supplier's bucket with read-only keys [c050][c045][c046]. Buyers download through signed URLs under a 5-session, 30-day cap [c096] and hold a licence, not ownership [c097].",
+    "vetting": "Any buyer can reach the 'Licensed' tier with a clickwrap and a country check, with no KYC, capped at $5,000 [c083][c086][c084][c085]. The 'Verified' tier adds operator review and sanctions screening [c087]. Supply is reviewed by hand [c052][c110], but supplier warranties are not checked [c044].",
+    "contributor_pay": "Contributors grant a perpetual, irrevocable, non-exclusive licence [c137]. They are paid a posted rate, for example $12/hr English or $7.50/hr low-resource conversation [c145][c146], fixed when Luel approves the submission, not at upload [c141][c142]. Luel may claw back payouts [c144]. Contributors get no share of later sales.",
+    "post_sale": "Contributor sales are final [c149]. On a verified request Luel stops licensing, revokes live entitlements and deletes its own copies [c151][c152], but says it cannot retrieve delivered copies [c150]. The DLA nonetheless obliges buyers to delete withdrawn recordings within 30 days, keeping models, with pro-rata credit [c123][c124][c125].",
+    "catalogue_custom": "Every listing doubles as a brief: 'Scoped to order' means Luel scopes the collection with a buyer [c055]. Listings offer coverage extended on request [c059][c060], and one request form covers samples, licences and custom collections [c061]. Custom work is described as exclusive [c019], yet deliveries grow the catalogue [c022].",
+    "changes": "Recent dated events: $31.2M seed (May 2026) [c006][c007], the agent-native marketplace (17 Sep 2026) [c001], and a Terms update on 17 Sep 2026 [c002]. Terms apply back to the start of access [c095], and each accepted DLA version governs past licences [c094].",
+    "demand": "Luel names labs, robotics companies, social platforms, universities, hospitals and banks as customers [c080], and pitches self-serve licensing against slow procurement and samples [c079]. No independent traction evidence was found.",
+    "regulation": "Speech is sold as identifiable, non-anonymised personal data, and the buyer is an independent controller [c130][c131]. Luel takes biometric consent at sign-up and per submission [c156] and treats the transfer as a sale of sensitive data [c158]. The dermatology set is de-identified [c112]."
+  },
+  "buyer_journey": [
+    {
+      "step": "Lands on luel.ai/marketplace: 30 public dataset cards with modality tags and 'Scoped to order', 'Custom' or 'Enterprise' badges, no prices [c054][c056].",
+      "claim_ids": [
+        "luel-c054",
+        "luel-c056"
+      ]
+    },
+    {
+      "step": "Opens a listing such as General Egocentric Video: overview, specs, provenance lines, and buttons to request a custom dataset, request samples or talk about pricing [c062][c063][c160].",
+      "claim_ids": [
+        "luel-c062",
+        "luel-c063",
+        "luel-c160"
+      ]
+    },
+    {
+      "step": "Video, sensor or image route: submits the request form (sample, licence or custom collection); Luel replies with samples, a price and a scope; licence terms are negotiated [c061][c064].",
+      "claim_ids": [
+        "luel-c061",
+        "luel-c064"
+      ]
+    },
+    {
+      "step": "Speech route: creates a buyer organisation, accepts the DLA by clickwrap and states a country to reach the Licensed tier ($5,000 cap) [c083][c084].",
+      "claim_ids": [
+        "luel-c083",
+        "luel-c084"
+      ]
+    },
+    {
+      "step": "Funds a prepaid balance through Stripe Checkout, or invoice for enterprise, and optionally connects an MCP agent [c073][c072][c066].",
+      "claim_ids": [
+        "luel-c073",
+        "luel-c072",
+        "luel-c066"
+      ]
+    },
+    {
+      "step": "Previews a SKU (price, hours, tier, sample availability) and orders cumulative hours at $1.25/min, pinning the quote; no cash refunds [c089][c074][c091][c077].",
+      "claim_ids": [
+        "luel-c089",
+        "luel-c074",
+        "luel-c091",
+        "luel-c077"
+      ]
+    },
+    {
+      "step": "Downloads WAV plus JSON sidecars via signed URLs (5 sessions per 30 days) and verifies the Ed25519 rights receipt [c096][c098].",
+      "claim_ids": [
+        "luel-c096",
+        "luel-c098"
+      ]
+    },
+    {
+      "step": "Afterwards: must delete withdrawn recordings within 30 days on notice (models kept, credit given) and all copies when the licence ends; may be audited [c123][c121][c120].",
+      "claim_ids": [
+        "luel-c123",
+        "luel-c121",
+        "luel-c120"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "id": "luel-c001",
+      "statement": "On 17 September 2026 Luel announced that agent-native access to its Luel Data marketplace was available that day, showing the company trading.",
+      "kind": "status",
+      "section": "changes",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-17",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/blog/luel-data-marketplace-agent-native",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Agent-native access to the Luel data marketplace is available today."
+        }
+      ]
+    },
+    {
+      "id": "luel-c002",
+      "statement": "Luel's Terms of Service were last modified on 17 September 2026, the newest dated change found on the site.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/terms",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Terms of Service Last Modified: September 17, 2026"
+        }
+      ]
+    },
+    {
+      "id": "luel-c003",
+      "statement": "The Luel Data License Agreement in force is version luel-data-dla-v5, last modified 15 September 2026.",
+      "kind": "event",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data-license",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Last Modified: September 15, 2026 Version luel-data-dla-v5"
+        }
+      ]
+    },
+    {
+      "id": "luel-c004",
+      "statement": "The Luel Marketplace Supplier Terms (v2, 15 September 2026) are published as a draft pending counsel review, and Luel is not yet accepting signatures.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q2",
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/marketplace/agreement",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Draft pending counsel review. Luel is not accepting signatures yet."
+        }
+      ]
+    },
+    {
+      "id": "luel-c005",
+      "statement": "Luel's Data API limits page says the marketplace API runs behind a feature flag that is off in production, so every data path answers 404.",
+      "kind": "status",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/docs/data/limits",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The marketplace runs behind DATA_MARKET_ENABLED , and it is off in production today"
+        }
+      ]
+    },
+    {
+      "id": "luel-c006",
+      "statement": "Luel says it raised US$31.2 million in seed funding, announced 15 May 2026.",
+      "kind": "number",
+      "section": "changes",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 31200000,
+        "unit": "USD",
+        "basis": "seed round total, company-announced; no filing found",
+        "period": "one-off"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-05-15",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/blog/luel-seed-31m-general-catalyst-lightspeed",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "today announced it has raised $31.2 million in seed funding"
+        }
+      ]
+    },
+    {
+      "id": "luel-c007",
+      "statement": "Luel says its seed round was led by General Catalyst and Lightspeed Venture Partners.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-05-15",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/blog/luel-seed-31m-general-catalyst-lightspeed",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The round was led by General Catalyst and Lightspeed Venture Partners."
+        }
+      ]
+    },
+    {
+      "id": "luel-c008",
+      "statement": "Luel says it turned down three acquisition offers during its seed raise.",
+      "kind": "outcome",
+      "section": "changes",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-05-15",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/blog/luel-seed-31m-general-catalyst-lightspeed",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "During the raise, the company turned down three acquisition offers."
+        }
+      ]
+    },
+    {
+      "id": "luel-c009",
+      "statement": "Luel announced its launch on 12 February 2026 as part of the Y Combinator W26 batch.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-02-12",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/blog/launching-luel-yc-w26",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We're announcing it today as part of the Y Combinator W26 batch"
+        }
+      ]
+    },
+    {
+      "id": "luel-c010",
+      "statement": "Luel says it was founded in 2025 by William Namgyal (CEO) and Inigo Lenderking (COO).",
+      "kind": "event",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-05-15",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/blog/luel-seed-31m-general-catalyst-lightspeed",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Luel was founded in 2025 by William Namgyal, CEO (18), and Inigo Lenderking, COO (19)."
+        }
+      ]
+    },
+    {
+      "id": "luel-c011",
+      "statement": "Luel's Terms describe the Service as a marketplace for AI training data connecting individual contributors of video, audio and other recordings with buyers.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/terms",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Luel operates as a specialized marketplace for AI training data, connecting individuals who contribute video, audio"
+        }
+      ]
+    },
+    {
+      "id": "luel-c012",
+      "statement": "The Terms define the buying side ('Enterprises') as AI companies, research institutions and individual developers and researchers.",
+      "kind": "terms",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/terms",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AI companies, research institutions, and individual developers and researchers seeking high-quality training datasets"
+        }
+      ]
+    },
+    {
+      "id": "luel-c013",
+      "statement": "Luel's marketplace page offers both licensing of existing datasets and a custom build scoped from scratch.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/marketplace",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Explore, license, and analyze production-ready datasets or brief us on a custom build we scope from scratch."
+        }
+      ]
+    },
+    {
+      "id": "luel-c014",
+      "statement": "Luel's launch post describes the business as a marketplace of completed, ready-to-license datasets.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-02-12",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/blog/launching-luel-yc-w26",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The first is a marketplace of completed datasets, ready to license."
+        }
+      ]
+    },
+    {
+      "id": "luel-c015",
+      "statement": "Luel's second line is a collection engine: a vetted contributor network that produces datasets to a buyer's specification.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-02-12",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/blog/launching-luel-yc-w26",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The second is a collection engine: a global, vetted contributor network that produces datasets to a buyer's spec"
+        }
+      ]
+    },
+    {
+      "id": "luel-c016",
+      "statement": "Luel says the same pipeline fills the catalogue and runs custom collections.",
+      "kind": "architecture",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12",
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-02-12",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/blog/launching-luel-yc-w26",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The same pipeline that fills the catalog also runs custom collections, nothing is one-off."
+        }
+      ]
+    },
+    {
+      "id": "luel-c017",
+      "statement": "In its Launch YC post Luel calls its catalogue side 'Off-the-shelf licensing', in which completed collections become ready-to-license catalogue datasets.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12",
+        "Q4"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ycombinator.com/companies/luel",
+          "publisher": "Y Combinator (Launch YC post written by Luel founders)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Off-the-shelf licensing: completed collections become ready-to-license catalogue datasets"
+        }
+      ]
+    },
+    {
+      "id": "luel-c018",
+      "statement": "In its Launch YC post Luel calls its bespoke side 'Custom collections', which it scopes, recruits, QAs and delivers to the buyer's specification.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ycombinator.com/companies/luel",
+          "publisher": "Y Combinator (Launch YC post written by Luel founders)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Custom collections: you specify exactly what you need; we scope, recruit, QA, and deliver"
+        }
+      ]
+    },
+    {
+      "id": "luel-c019",
+      "statement": "Luel's seed announcement names exclusive custom datasets built to spec as one of its three revenue streams.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q4",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-05-15",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/blog/luel-seed-31m-general-catalyst-lightspeed",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "exclusive, custom datasets built to spec with custom annotations"
+        }
+      ]
+    },
+    {
+      "id": "luel-c020",
+      "statement": "Luel names an off-the-shelf catalogue that can be re-licensed to more buyers at no new collection cost as a second revenue stream.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q4"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-05-15",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/blog/luel-seed-31m-general-catalyst-lightspeed",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "an off-the-shelf catalog that can be re-licensed to additional buyers at no new collection cost"
+        }
+      ]
+    },
+    {
+      "id": "luel-c021",
+      "statement": "Luel names third-party listings, where external labs post their own datasets on its marketplace for a revenue share, as a third revenue stream.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q2",
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-05-15",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/blog/luel-seed-31m-general-catalyst-lightspeed",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "third-party listings, where external labs post their own datasets on Luel's marketplace for a revenue share"
+        }
+      ]
+    },
+    {
+      "id": "luel-c022",
+      "statement": "Luel says each delivery grows its catalogue.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q4",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-05-15",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/blog/luel-seed-31m-general-catalyst-lightspeed",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Each delivery grows the catalog, and the catalog grows the margin."
+        }
+      ]
+    },
+    {
+      "id": "luel-c023",
+      "statement": "Luel says it will use seed funds to subsidise the collection of strategically important datasets, meaning speculative collection on its own account.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-05-15",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/blog/luel-seed-31m-general-catalyst-lightspeed",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "subsidize the collection of strategically important datasets"
+        }
+      ]
+    },
+    {
+      "id": "luel-c024",
+      "statement": "Luel's contributor page invites individuals to get paid for everyday conversations, videos and photos.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/contribute",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Get paid for your everyday conversations, videos and photos."
+        }
+      ]
+    },
+    {
+      "id": "luel-c025",
+      "statement": "Luel says more than 850,000 contributors earn through its platform.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 850000,
+        "unit": "contributors",
+        "basis": "vendor-stated headcount of contributors, no definition of active",
+        "period": "as of retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/contribute",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Join 850,000+ contributors already earning with Luel."
+        }
+      ]
+    },
+    {
+      "id": "luel-c026",
+      "statement": "Luel says its contributor network spans 96 or more countries.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 96,
+        "unit": "countries",
+        "basis": "vendor-stated lower bound",
+        "period": "as of 2026-09-17"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-09-17",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/blog/luel-data-marketplace-agent-native",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "more than 850,000 contributors across 96+ countries"
+        }
+      ]
+    },
+    {
+      "id": "luel-c027",
+      "statement": "Anyone in a Luel Data organisation can submit a dataset of any modality for sale.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q2",
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/docs/data/selling",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Anyone in a Luel Data organization can submit a dataset, of any modality."
+        }
+      ]
+    },
+    {
+      "id": "luel-c028",
+      "statement": "Console submission for sellers opens only once Luel's supplier terms clear review.",
+      "kind": "status",
+      "section": "supply",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Console submission for sellers opens once our supplier terms clear review."
+        }
+      ]
+    },
+    {
+      "id": "luel-c029",
+      "statement": "The endpoint for accepting the supplier terms is not open in production, so no seller account can be completed today.",
+      "kind": "status",
+      "section": "supply",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/docs/data/selling",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "no organization can accept them today and no seller account can be completed through the console"
+        }
+      ]
+    },
+    {
+      "id": "luel-c030",
+      "statement": "Luel's Music Library listing says every track is sourced from a single long-standing professional catalogue provider.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/datasets/music-library",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Every track is sourced from the same long-standing catalog provider"
+        }
+      ]
+    },
+    {
+      "id": "luel-c031",
+      "statement": "Luel's Cancer Medical Imagery listing says the collection is exclusively owned by Luel.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/datasets/cutaneous-medical-imagery",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Exclusively owned by Luel"
+        }
+      ]
+    },
+    {
+      "id": "luel-c032",
+      "statement": "The dermatology listing describes an archive built over 16 years of clinical documentation, which predates Luel's 2025 founding.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/datasets/cutaneous-medical-imagery",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "An exceptional dermatological imaging archive built over 16 years of continuous clinical documentation."
+        }
+      ]
+    },
+    {
+      "id": "luel-c033",
+      "statement": "Luel's Diverse Egocentric POV Video listing says it was filmed by more than 400 contributors on the Pineye camera system.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 400,
+        "unit": "contributors",
+        "basis": "vendor-stated lower bound for one dataset",
+        "period": "as of retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/datasets/diverse-egocentric-video",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Filmed by 400+ contributors using the Pineye egocentric camera system"
+        }
+      ]
+    },
+    {
+      "id": "luel-c034",
+      "statement": "Luel's Diverse Egocentric POV Video listing states a total duration of more than 1,000 hours.",
+      "kind": "number",
+      "section": "listing",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 1000,
+        "unit": "hours of video",
+        "basis": "vendor-stated lower bound, one listing",
+        "period": "as of retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/datasets/diverse-egocentric-video",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "1,000+ hours of footage"
+        }
+      ]
+    },
+    {
+      "id": "luel-c035",
+      "statement": "Luel's General Egocentric Video listing claims recordings spanning more than 20,000 unique tasks.",
+      "kind": "number",
+      "section": "listing",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 20000,
+        "unit": "unique tasks",
+        "basis": "vendor-stated lower bound, one listing",
+        "period": "as of retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/datasets/egocentric-video",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "20,000+ unique tasks captured across households, factories, shops, and many more real-world environments"
+        }
+      ]
+    },
+    {
+      "id": "luel-c036",
+      "statement": "Under the draft Supplier Terms Luel licenses a supplier's data to buyers in Luel's own name.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/marketplace/agreement",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "license it to buyers in Luel's own name, under the Data License Agreement or other written licence terms Luel sets"
+        }
+      ]
+    },
+    {
+      "id": "luel-c037",
+      "statement": "The draft Supplier Terms say Luel need not tell buyers who the supplier is.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/marketplace/agreement",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Luel does not have to tell buyers who you are."
+        }
+      ]
+    },
+    {
+      "id": "luel-c038",
+      "statement": "A supplier keeps ownership and gives Luel a worldwide, non-exclusive, sublicensable licence.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/marketplace/agreement",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You keep ownership of your data. You give Luel a worldwide, non-exclusive, sublicensable licence"
+        }
+      ]
+    },
+    {
+      "id": "luel-c039",
+      "statement": "Under the draft Supplier Terms a supplier earns 85% of each order amount that licenses its data, and Luel keeps the remaining 15%.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9",
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 85,
+        "unit": "percent",
+        "basis": "supplier's share of the buyer's order amount; Luel retains 15% out of proceeds; draft terms not yet open for signature",
+        "period": "per order"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/marketplace/agreement",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you earn 85% of the order amount, rounded down to the cent, and Luel keeps the rest"
+        }
+      ]
+    },
+    {
+      "id": "luel-c040",
+      "statement": "Luel alone decides whether to copy, screen, price and list a supplier's data, and on what licence terms.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9",
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/marketplace/agreement",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Luel decides at its sole discretion whether to copy, screen, price and list your data, on what licence terms"
+        }
+      ]
+    },
+    {
+      "id": "luel-c041",
+      "statement": "Luel promises suppliers not to train its own AI models on their data without written agreement.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/marketplace/agreement",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Luel will not train its own AI models on your data unless you agree in writing"
+        }
+      ]
+    },
+    {
+      "id": "luel-c042",
+      "statement": "A supplier warrants that every identifiable person consented to their data being licensed to Luel, resold to buyers and used to train AI.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7",
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/marketplace/agreement",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "gave informed consent to their data being licensed to Luel, resold and sublicensed by Luel to its buyers"
+        }
+      ]
+    },
+    {
+      "id": "luel-c043",
+      "statement": "A supplier must keep records of every consent, release and notice behind its data and hand copies to Luel on request.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/marketplace/agreement",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You will keep records of every consent, release and notice behind your data for as long as Luel holds it"
+        }
+      ]
+    },
+    {
+      "id": "luel-c044",
+      "statement": "Luel's review of a supplier dataset does not check that the supplier's rights and consent promises are true.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11",
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/marketplace/agreement",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "it does not check that your promises in section 4 are true"
+        }
+      ]
+    },
+    {
+      "id": "luel-c045",
+      "statement": "The supplier licence lets Luel access, download and copy the data, including from the supplier's own storage.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/marketplace/agreement",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "access, download and copy your data, including from the storage you give Luel access to"
+        }
+      ]
+    },
+    {
+      "id": "luel-c046",
+      "statement": "Luel may delete a supplier's access keys once it has copied the data.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/marketplace/agreement",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Luel may delete your keys at any time, including once it has copied your data"
+        }
+      ]
+    },
+    {
+      "id": "luel-c047",
+      "statement": "When a supplier withdraws a dataset, Luel stops selling new licences within 30 days, and licences already sold continue.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q4",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/marketplace/agreement",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Luel will stop selling new licences of the affected data within 30 days of your notice"
+        }
+      ]
+    },
+    {
+      "id": "luel-c048",
+      "statement": "On a withdrawal or claim, Luel may remove supplier data, tell buyers, revoke their licences to it and credit them.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/marketplace/agreement",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "remove any of your data, stop selling it, tell buyers, revoke their licences to the affected data and credit them"
+        }
+      ]
+    },
+    {
+      "id": "luel-c049",
+      "statement": "A supplier must tell Luel within 5 business days if a person in its data withdraws consent or asks for erasure.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/marketplace/agreement",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "within 5 business days at most, if a person in your data withdraws consent or asks for their data to be erased"
+        }
+      ]
+    },
+    {
+      "id": "luel-c050",
+      "statement": "A seller submits a dataset by giving Luel read-only credentials to its own storage bucket.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/docs/data/selling",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Get read-only credentials for your bucket."
+        }
+      ]
+    },
+    {
+      "id": "luel-c051",
+      "statement": "A seller must have a person confirm that everyone identifiable in the data consented to it being licensed to others, including for AI training.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/docs/data/selling",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "every person who can be identified in it consented to it being licensed to others, including for training AI"
+        }
+      ]
+    },
+    {
+      "id": "luel-c052",
+      "statement": "A person at Luel reviews every seller submission by hand, and nothing is priced, published or unpublished automatically.",
+      "kind": "architecture",
+      "section": "vetting",
+      "question_ids": [
+        "Q11",
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/docs/data/selling",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "A person at Luel reviews every submission by hand. Nothing is priced,"
+        }
+      ]
+    },
+    {
+      "id": "luel-c053",
+      "statement": "Sellers cannot edit a live listing through the API; they file change requests (update details, change price, unpublish) that Luel staff apply.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10",
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/docs/data/selling",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "change is one of update_details , change_price , unpublish , other"
+        }
+      ]
+    },
+    {
+      "id": "luel-c054",
+      "statement": "Luel's public marketplace lists 30 datasets: 24 audio, 4 sensor and 5 video, with some listings in more than one category.",
+      "kind": "number",
+      "section": "listing",
+      "question_ids": [
+        "Q10",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 30,
+        "unit": "datasets listed",
+        "basis": "public marketplace count shown on the page",
+        "period": "as of retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/marketplace",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Showing 1 – 12 of 30 datasets"
+        }
+      ]
+    },
+    {
+      "id": "luel-c055",
+      "statement": "The 'Scoped to order' badge on a marketplace card means Luel scopes that collection with a buyer.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/marketplace",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Scoped to order. Luel scopes this collection with a buyer. Talk to us about scope."
+        }
+      ]
+    },
+    {
+      "id": "luel-c056",
+      "statement": "General Egocentric Video, Computer-Use Workflows and Music Library carry a 'Scoped to order' badge alongside an 'Enterprise' badge.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/marketplace",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Scoped to order Video Sensor Enterprise General Egocentric Video"
+        }
+      ]
+    },
+    {
+      "id": "luel-c057",
+      "statement": "Other listings, such as the gemstone-carving video set, carry a 'Custom' badge instead, and no page explains what that badge means.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/marketplace/video",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Video Custom Egocentric Gemstone Carving & Lapidary Video"
+        }
+      ]
+    },
+    {
+      "id": "luel-c058",
+      "statement": "Some listings, such as English Conversational Speech Full, carry only an 'Enterprise' badge, so not every listing is marked 'Scoped to order' or 'Custom'.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/marketplace",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Audio Enterprise English English Conversational Speech Full"
+        }
+      ]
+    },
+    {
+      "id": "luel-c059",
+      "statement": "The General Egocentric Video listing says coverage extends to custom scenes, regions and activity targets on request.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/datasets/egocentric-video",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "coverage extends to custom scenes, regions, and activity targets on request"
+        }
+      ]
+    },
+    {
+      "id": "luel-c060",
+      "statement": "The Computer-Use Workflows listing says coverage extends to virtually any software on request.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/datasets/computer-use-workflows",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "coverage extends to virtually any software on request"
+        }
+      ]
+    },
+    {
+      "id": "luel-c061",
+      "statement": "Luel's request form covers samples, licensing a listed dataset and commissioning a custom collection in one data request.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/request",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "From samples to a licensed dataset or a custom collection."
+        }
+      ]
+    },
+    {
+      "id": "luel-c062",
+      "statement": "Marketplace listing pages show no price, and licensing is arranged with Luel's team, which replies with pricing.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/datasets/egocentric-video",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensing is arranged with our team, tell us the use case and we will come back with pricing and next steps."
+        }
+      ]
+    },
+    {
+      "id": "luel-c063",
+      "statement": "Listing pages offer sample clips on request, sent by Luel after the buyer shares a use case.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/datasets/egocentric-video",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Share your use case and we'll send sample clips, pricing, and recommended next steps for your pipeline."
+        }
+      ]
+    },
+    {
+      "id": "luel-c064",
+      "statement": "On the Music Library listing, sublicensing and commercial-redistribution rights are negotiated with each buyer.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/datasets/music-library",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Sublicensing terms and commercial-redistribution rights are negotiated per buyer."
+        }
+      ]
+    },
+    {
+      "id": "luel-c065",
+      "statement": "Access to the Music Library is gated and granted per team at Luel's discretion.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/datasets/music-library",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Access is gated and provisioned on a per-team basis at Luel's discretion."
+        }
+      ]
+    },
+    {
+      "id": "luel-c066",
+      "statement": "Luel Data can be browsed and licensed over MCP from Claude Code, Cursor, Codex and other MCP clients.",
+      "kind": "offer",
+      "section": "discovery",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-17",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/blog/luel-data-marketplace-agent-native",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Luel Data works over MCP with Claude Code, Cursor, Codex and other MCP clients"
+        }
+      ]
+    },
+    {
+      "id": "luel-c067",
+      "statement": "The marketplace says an agent can license a growing subset of the listed datasets, or list the user's own, without a procurement thread.",
+      "kind": "offer",
+      "section": "discovery",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/marketplace",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Your agent can license a growing set of these datasets, or list your own, without a procurement thread."
+        }
+      ]
+    },
+    {
+      "id": "luel-c068",
+      "statement": "Luel's public beta of self-serve Luel Data publishes at most 12 corpora.",
+      "kind": "number",
+      "section": "listing",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 12,
+        "unit": "corpora",
+        "basis": "release bound on self-serve API catalogue, not enforced by the API",
+        "period": "public beta"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/docs/data/buying",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The public beta ships at most 12 corpora"
+        }
+      ]
+    },
+    {
+      "id": "luel-c069",
+      "statement": "Only text and audio can be licensed self-serve, and every self-serve SKU on sale is audio.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q9",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/docs/data/limits",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Only agent-deliverable modalities are listed: text and audio . Every SKU on sale today is audio."
+        }
+      ]
+    },
+    {
+      "id": "luel-c070",
+      "statement": "In the API catalogue, video and sensor listings appear only as 'contact_sales' rows with no price or version and cannot be ordered.",
+      "kind": "architecture",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data/skill.md",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "a `video` or `sensor` listing appears here even though no `orderable` SKU of that modality ever will"
+        }
+      ]
+    },
+    {
+      "id": "luel-c071",
+      "statement": "The Luel Data API lets agents and services take a licence with prepaid credits and download signed packages without a dashboard.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/docs/data",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "take a license with prepaid credits, and download signed packages"
+        }
+      ]
+    },
+    {
+      "id": "luel-c072",
+      "statement": "Luel Data is funded by prepaid credits, with invoicing as a fallback for enterprise buyers.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/docs/data",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Prepaid credits (or Invoice fallback for enterprise)"
+        }
+      ]
+    },
+    {
+      "id": "luel-c073",
+      "statement": "An owner funds the Luel Data balance through hosted Stripe Checkout.",
+      "kind": "architecture",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/docs/data/buying",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "an owner funds the balance through hosted Stripe Checkout"
+        }
+      ]
+    },
+    {
+      "id": "luel-c074",
+      "statement": "Every self-serve Luel Data SKU on sale in production is priced at US$1.25 per minute of paired conversation.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9",
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 1.25,
+        "unit": "USD per minute",
+        "basis": "buyer pays; list price per minute of paired conversation audio, all self-serve speech SKUs",
+        "period": "per minute licensed"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data/skill.md",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Every SKU on sale in production is 125 minor per minute ($1.25/min)"
+        }
+      ]
+    },
+    {
+      "id": "luel-c075",
+      "statement": "Luel's quickstart says the $1.25-a-minute rate makes one hour cost $75.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9",
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 75,
+        "unit": "USD per hour",
+        "basis": "buyer pays; per hour of paired conversation time at the per-minute list rate",
+        "period": "per hour licensed"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/docs/data/quickstart",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "125 minor is $1.25 a minute, so an hour is $75"
+        }
+      ]
+    },
+    {
+      "id": "luel-c076",
+      "statement": "A Luel Data hour is paired conversation time rather than speech time, and speech-active audio is about a quarter of it.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/docs/data/buying",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "An hour is paired conversation time , not speech time."
+        }
+      ]
+    },
+    {
+      "id": "luel-c077",
+      "statement": "Luel Data gives no cash refunds, and an order is reversed to platform credit only when Luel fails to deliver.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data-license",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Luel Data does not issue cash refunds and reversals cannot be requested"
+        }
+      ]
+    },
+    {
+      "id": "luel-c078",
+      "statement": "Luel's Terms allow buyers to pay by credit card, invoice or other offered methods.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/terms",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Payments may be made by credit card, invoice, or other methods made available through the Service."
+        }
+      ]
+    },
+    {
+      "id": "luel-c079",
+      "statement": "Luel pitches self-serve licensing at buyers frustrated by procurement threads, licence reviews and slow samples.",
+      "kind": "offer",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "still moves through a procurement thread, a licence review, and a sample that arrives weeks later"
+        }
+      ]
+    },
+    {
+      "id": "luel-c080",
+      "statement": "Luel says its customers include generative AI labs, robotics companies, major social platforms, universities, hospitals and banks.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-05-15",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/blog/luel-seed-31m-general-catalyst-lightspeed",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "generative AI labs, robotics companies, major social platforms, universities, hospitals, banks"
+        }
+      ]
+    },
+    {
+      "id": "luel-c081",
+      "statement": "Luel says it can spin up a new dataset campaign in under 24 hours.",
+      "kind": "outcome",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-05-15",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/blog/luel-seed-31m-general-catalyst-lightspeed",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "new dataset campaigns can be spun up in under 24 hours"
+        }
+      ]
+    },
+    {
+      "id": "luel-c082",
+      "statement": "For custom work, AI labs and enterprises submit a dataset specification covering modality, scenario, devices and quality rules.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-05-15",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/blog/luel-seed-31m-general-catalyst-lightspeed",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AI labs and enterprises submit a dataset specification covering modality, scenario, device requirements, and quality rules."
+        }
+      ]
+    },
+    {
+      "id": "luel-c083",
+      "statement": "Luel Data is open to any buyer, with no company-registration, work-email or address requirement at the entry tier.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data-buyer-policy",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "There is no company-registration, work-email, or address requirement to license data at our entry tier."
+        }
+      ]
+    },
+    {
+      "id": "luel-c084",
+      "statement": "The unverified 'Licensed' buyer tier is capped at US$5,000 of lifetime spend.",
+      "kind": "number",
+      "section": "vetting",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 5000,
+        "unit": "USD",
+        "basis": "lifetime spend cap per buyer account at the self-declared Licensed tier",
+        "period": "account lifetime"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-09-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data-buyer-policy",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "$5,000 of spend in total, ever, and at most 20 hours held of any one hourly-priced dataset"
+        }
+      ]
+    },
+    {
+      "id": "luel-c085",
+      "statement": "Luel's agent guide says the Licensed tier's order range is 5 to 10 hours, so such a buyer can hold at most 10 hours of any one SKU.",
+      "kind": "number",
+      "section": "vetting",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 10,
+        "unit": "hours per SKU",
+        "basis": "maximum cumulative hours a Licensed-tier buyer may hold of one SKU",
+        "period": "account lifetime"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data/skill.md",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Today that range is 5 to 10 hours, so a `licensed` buyer can hold at most **10** hours of any"
+        }
+      ]
+    },
+    {
+      "id": "luel-c086",
+      "statement": "Luel requests no KYC, KYB, identity or business-registration documents at either buyer tier.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data-buyer-policy",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "we do not request KYC, KYB, identity documents, business-registration documents, beneficial-owner forms, or liveness checks"
+        }
+      ]
+    },
+    {
+      "id": "luel-c087",
+      "statement": "The 'Verified' tier, needed above the cap, is decided by a Luel operator and includes a restricted-party check against OFAC, EU, UK and UN lists.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data-buyer-policy",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "records a restricted-party check against the OFAC, EU, UK and UN lists before approving"
+        }
+      ]
+    },
+    {
+      "id": "luel-c088",
+      "statement": "In Luel Data one dataset is one corpus, sold as one or more portions.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/docs/data/buying",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "One dataset is one corpus, sold as one or more portions"
+        }
+      ]
+    },
+    {
+      "id": "luel-c089",
+      "statement": "Each portion is a separate SKU with its own dataset-version id, price and required verification tier.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/docs/data/buying",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Each portion is a separate SKU with its own datasetVersionId , its own price and its own required verification tier."
+        }
+      ]
+    },
+    {
+      "id": "luel-c090",
+      "statement": "A buyer holds at most one active full grant per SKU, and re-ordering it charges nothing.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/docs/data/buying",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "One active full grant exists per buyer per SKU."
+        }
+      ]
+    },
+    {
+      "id": "luel-c091",
+      "statement": "Orders specify the cumulative hours a buyer wants to hold, and hours already held are credited.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/docs/data/buying",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "hours is the cumulative total you want to hold , not this order's delta."
+        }
+      ]
+    },
+    {
+      "id": "luel-c092",
+      "statement": "A Luel Data licence covers only the dataset version and quantity paid for.",
+      "kind": "terms",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data-license",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The license covers the dataset version and quantity you paid for and nothing else."
+        }
+      ]
+    },
+    {
+      "id": "luel-c093",
+      "statement": "When recordings must be removed, Luel may withdraw the whole dataset version from sale and end download access to it.",
+      "kind": "terms",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data-license",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Luel may also withdraw the dataset version that contains them from sale and end download access to it"
+        }
+      ]
+    },
+    {
+      "id": "luel-c094",
+      "statement": "When a buyer accepts a new version of the DLA, it governs every corpus the buyer has already licensed.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data-license",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "once you accept it, it governs every Corpus you have licensed"
+        }
+      ]
+    },
+    {
+      "id": "luel-c095",
+      "statement": "Luel's Terms apply from the start of a user's access, even where access began before the Terms were published.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/terms",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "effective as of the start of your access to the Service, even if such access began before publication of these Terms"
+        }
+      ]
+    },
+    {
+      "id": "luel-c096",
+      "statement": "A buyer may open 5 new download sessions per dataset version in a rolling 30-day window.",
+      "kind": "number",
+      "section": "custody",
+      "question_ids": [
+        "Q6",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 5,
+        "unit": "download sessions",
+        "basis": "per buyer org and dataset version, full-corpus lane",
+        "period": "per rolling 30 days"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/docs/data/limits",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Do not architect around more than five genuine re-downloads per window."
+        }
+      ]
+    },
+    {
+      "id": "luel-c097",
+      "statement": "Luel Data buyers get a non-exclusive licence and a revocable entitlement to download the files, not ownership of them.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q6",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/docs/data",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You do not buy ownership of the files."
+        }
+      ]
+    },
+    {
+      "id": "luel-c098",
+      "statement": "Every Luel Data delivery ships an Ed25519-signed rights and provenance receipt.",
+      "kind": "architecture",
+      "section": "trust",
+      "question_ids": [
+        "Q8",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/docs/data/buying",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Every delivery ships an Ed25519-signed rights and provenance receipt"
+        }
+      ]
+    },
+    {
+      "id": "luel-c099",
+      "statement": "The signed receipt carries a buyer-safe consent projection, a consent reference hash and a lineage reference.",
+      "kind": "architecture",
+      "section": "trust",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/docs/data/buying",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "a buyer-safe consent projection, a consentRef hash, a lineageRef"
+        }
+      ]
+    },
+    {
+      "id": "luel-c100",
+      "statement": "Audio is delivered unmarked, so every buyer gets byte-identical files and a leaked file cannot be traced to a buyer.",
+      "kind": "architecture",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/docs/data/buying",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "two buyers of the same hours receive byte-identical files and a leaked audio file cannot be traced to either from its bytes"
+        }
+      ]
+    },
+    {
+      "id": "luel-c101",
+      "statement": "Per-buyer forensic marking has been tested on staging but is not live in production.",
+      "kind": "architecture",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/docs/data/buying",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Per-buyer marking is proven on staging and is not live in production."
+        }
+      ]
+    },
+    {
+      "id": "luel-c102",
+      "statement": "Luel's buying docs state that no conversation in the published self-serve catalogue carries a transcript.",
+      "kind": "architecture",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/docs/data/buying",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "There are no transcripts. Not one conversation in the published catalogue carries one"
+        }
+      ]
+    },
+    {
+      "id": "luel-c103",
+      "statement": "The English Conversational Speech Full listing advertises JSON transcripts with diarization, word-level timestamps and emotion labels.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/datasets/english-conversational-speech",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "JSON transcripts with speaker diarization labels"
+        }
+      ]
+    },
+    {
+      "id": "luel-c104",
+      "statement": "Luel discloses that a sampled quarter of its launch corpus is band-limited to 16 kHz or below inside a 48 kHz container.",
+      "kind": "architecture",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/docs/data/buying",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "a sampled quarter of the launch corpus holds audio band-limited to 16 kHz or below inside a 48 kHz container"
+        }
+      ]
+    },
+    {
+      "id": "luel-c105",
+      "statement": "Luel discloses that only 5.6% of sessions in its published corpora have two tracks of exactly equal length.",
+      "kind": "number",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 5.6,
+        "unit": "percent of sessions",
+        "basis": "measured by Luel across published self-serve corpora",
+        "period": "as of retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/docs/data/buying",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "only 5.6% of sessions have two tracks of exactly equal length"
+        }
+      ]
+    },
+    {
+      "id": "luel-c106",
+      "statement": "A self-serve sample is a free grant of at most six 10-second excerpts (one minute), where one exists.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/docs/data/buying",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "mints a free grant for at most 6 excerpts of 10 seconds"
+        }
+      ]
+    },
+    {
+      "id": "luel-c107",
+      "statement": "Luel's agent guide says no self-serve SKU on sale has a sample yet.",
+      "kind": "status",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data/skill.md",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "No SKU on sale has a sample today, so every sample call answers `404 sample_not_available`."
+        }
+      ]
+    },
+    {
+      "id": "luel-c108",
+      "statement": "Luel publishes sample sets on Hugging Face, including egocentric video, CAD, gaming, music and conversational-speech samples.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/Luel-ai",
+          "publisher": "Luel (Hugging Face organisation page)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Luel-ai/luel-egocentric-video-samples"
+        }
+      ]
+    },
+    {
+      "id": "luel-c109",
+      "statement": "The Diverse Egocentric POV Video listing says the data was sourced and quality-verified by Luel.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/datasets/diverse-egocentric-video",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Sourced and quality-verified by Luel"
+        }
+      ]
+    },
+    {
+      "id": "luel-c110",
+      "statement": "Every contributor submission undergoes Luel review for AI training suitability, including quality and an AI ethics review.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/terms",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All submitted User Content shall undergo specialized review for AI training suitability"
+        }
+      ]
+    },
+    {
+      "id": "luel-c111",
+      "statement": "Luel's contributor app rejects clips that fail basic checks before they leave the device, and reviewers on a competence ladder score the rest.",
+      "kind": "architecture",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-05-08",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/blog/scaling-egocentric-video-data-pipeline",
+          "publisher": "Luel",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "is rejected before it ever leaves the device"
+        }
+      ]
+    },
+    {
+      "id": "luel-c112",
+      "statement": "The dermatology listing says images are de-identified before delivery and buyers remain responsible for their own regulatory review.",
+      "kind": "offer",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/datasets/cutaneous-medical-imagery",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "De-identified before delivery. Buyers remain responsible for their own regulatory review before deployment."
+        }
+      ]
+    },
+    {
+      "id": "luel-c113",
+      "statement": "For each paid order Luel grants a non-exclusive, non-sublicensable, non-transferable, worldwide licence.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data-license",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Luel grants you a non-exclusive, non-sublicensable, non-transferable, worldwide license"
+        }
+      ]
+    },
+    {
+      "id": "luel-c114",
+      "statement": "The DLA lets buyers train, fine-tune, evaluate and test machine-learning models on the corpus.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data-license",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "use the Corpus to train, fine-tune, evaluate and test machine learning models"
+        }
+      ]
+    },
+    {
+      "id": "luel-c115",
+      "statement": "Buyers may use, deploy, commercialise and keep the models trained, and their outputs.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data-license",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "use, deploy, commercialize and retain the models so trained (Models) and their outputs"
+        }
+      ]
+    },
+    {
+      "id": "luel-c116",
+      "statement": "Affiliates, parent or subsidiary companies, clients and research partners may not access the corpus without Luel's written agreement.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data-license",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "including your affiliates, parent or subsidiary companies, clients and research partners, unless Luel agrees in writing"
+        }
+      ]
+    },
+    {
+      "id": "luel-c117",
+      "statement": "Buyers may not redistribute, upload to a model hub or dataset host, resell or sublicense the corpus or derived data.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data-license",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "upload to a model hub or dataset host, sell, resell, lend, sublicense or otherwise make available the Corpus"
+        }
+      ]
+    },
+    {
+      "id": "luel-c118",
+      "statement": "The DLA bars biometric identification, verification and surveillance uses without a separate written agreement.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data-license",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "for biometric identification, biometric verification or biometric surveillance"
+        }
+      ]
+    },
+    {
+      "id": "luel-c119",
+      "statement": "On reasonable suspicion of breach, a buyer must give Luel a signed written account of storage, access and trained models within 15 business days.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data-license",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "within 15 business days you will give it a written account of where the Corpus and Derived Data are stored"
+        }
+      ]
+    },
+    {
+      "id": "luel-c120",
+      "statement": "Buyers must allow a reasonable audit by Luel or an independent auditor bound by confidentiality.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data-license",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You will allow a reasonable audit of that account by Luel or an independent auditor bound by confidentiality"
+        }
+      ]
+    },
+    {
+      "id": "luel-c121",
+      "statement": "When a licence ends for any reason the buyer must delete all copies and derived data within 30 days.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data-license",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "delete all copies of it and of Derived Data (including intermediate artifacts that embed the data) within 30 days"
+        }
+      ]
+    },
+    {
+      "id": "luel-c122",
+      "statement": "If a licence ends because of a breach of the access, use or sanctions clauses, Luel may require deletion of models trained in that breach.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data-license",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Luel may also require you to stop using and delete any Model trained with data obtained, accessed or used in that breach"
+        }
+      ]
+    },
+    {
+      "id": "luel-c123",
+      "statement": "When a speaker withdraws or the law requires removal, the buyer must delete the affected recordings and derived data within 30 days.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data-license",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Within 30 days you will delete them, and any Derived Data that contains or reproduces them, from all your systems"
+        }
+      ]
+    },
+    {
+      "id": "luel-c124",
+      "statement": "Models trained before a withdrawal notice need not be retrained or deleted.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data-license",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Models trained before the notice do not need to be retrained or deleted."
+        }
+      ]
+    },
+    {
+      "id": "luel-c125",
+      "statement": "For withdrawn recordings Luel credits the buyer's balance with the affected minutes at the per-minute rate paid.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data-license",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Luel adds platform credit to your purchasing balance equal to the minutes of affected audio multiplied by the per-minute rate"
+        }
+      ]
+    },
+    {
+      "id": "luel-c126",
+      "statement": "Luel's only warranty to buyers is a knowledge-qualified promise that the recorded people agreed to contributor terms permitting licensing.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data-license",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "to its knowledge, the people whose recordings are in the Corpus agreed to Luel contributor terms that permit Luel to license"
+        }
+      ]
+    },
+    {
+      "id": "luel-c127",
+      "statement": "Luel gives Luel Data buyers no indemnity.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data-license",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Luel gives you no indemnity."
+        }
+      ]
+    },
+    {
+      "id": "luel-c128",
+      "statement": "The buyer defends Luel against third-party claims, including from speakers or regulators, arising from its breach, its models or its processing.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data-license",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "including a speaker or a regulator, and pay the resulting damages, fines, penalties, settlements and reasonable legal costs"
+        }
+      ]
+    },
+    {
+      "id": "luel-c129",
+      "statement": "Luel's liability under the DLA is capped at what the buyer paid for the orders concerned in the prior 12 months.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data-license",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "limited to the amount you paid Luel for the orders the claim relates to in the 12 months before the event"
+        }
+      ]
+    },
+    {
+      "id": "luel-c130",
+      "statement": "The DLA states that the corpus is recordings of real, identifiable people and is not anonymised.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data-license",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The Corpus is recordings of real, identifiable people. It is not anonymized."
+        }
+      ]
+    },
+    {
+      "id": "luel-c131",
+      "statement": "For its own use of the corpus the buyer is an independent controller, not Luel's processor.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data-license",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "For your own use of the Corpus you act as an independent controller, or business, and not as a processor"
+        }
+      ]
+    },
+    {
+      "id": "luel-c132",
+      "statement": "The DLA defines the Corpus as audio and its accompanying files, so it is written for speech and does not describe video or image deliveries.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data-license",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The Corpus means the audio, and any transcripts, labels, metadata and manifests, delivered to you under an order."
+        }
+      ]
+    },
+    {
+      "id": "luel-c133",
+      "statement": "The DLA is governed by Delaware law, replacing the Terms of Service's California law and arbitration for Luel Data disputes.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data-license",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "governed by the laws of the State of Delaware, United States"
+        }
+      ]
+    },
+    {
+      "id": "luel-c134",
+      "statement": "The consent scope shown on a dataset card describes what contributors consented to and is not itself a grant of rights to the buyer.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/docs/data/buying",
+          "publisher": "Luel",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "consentScope on a card describes what contributors consented to. It is not a grant of rights to you"
+        }
+      ]
+    },
+    {
+      "id": "luel-c135",
+      "statement": "Luel's launch post says each catalogue entry ships with consent evidence, chain of title and audit logs.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-02-12",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/blog/launching-luel-yc-w26",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Each entry ships with consent evidence, chain of title, and audit logs."
+        }
+      ]
+    },
+    {
+      "id": "luel-c136",
+      "statement": "Luel says what ships to a buyer includes a manifest, sensor channels, annotations, provenance and consent records.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7",
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-05-08",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/blog/scaling-egocentric-video-data-pipeline",
+          "publisher": "Luel",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "what ships to a buyer is a manifest, sensor channels, annotations, provenance, and consent records"
+        }
+      ]
+    },
+    {
+      "id": "luel-c137",
+      "statement": "A contributor grants Luel a perpetual, irrevocable, worldwide, sublicensable, transferable and non-exclusive licence to their content.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/terms",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "perpetual, irrevocable, worldwide, sublicensable, transferable, and non-exclusive license"
+        }
+      ]
+    },
+    {
+      "id": "luel-c138",
+      "statement": "The contributor licence expressly covers Luel selling, licensing and transferring the content to Enterprises.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/terms",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "including selling, licensing, and transferring your User Content and Contributor Data to Enterprises"
+        }
+      ]
+    },
+    {
+      "id": "luel-c139",
+      "statement": "Contributors are independent contractors of Luel.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/terms",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "your relationship with us is that of an independent contractor"
+        }
+      ]
+    },
+    {
+      "id": "luel-c140",
+      "statement": "The Terms say contributors may receive compensation for content sold or licensed through the Service.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/terms",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Contributors may receive compensation for User Content that is sold or licensed through the Service"
+        }
+      ]
+    },
+    {
+      "id": "luel-c141",
+      "statement": "A contributor's payout is based on the listing rate in effect when Luel marks the submission payable or approves it, not when it is submitted.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/terms",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the payout is based on the listing rate and terms in effect at that payable/approval determination time"
+        }
+      ]
+    },
+    {
+      "id": "luel-c142",
+      "statement": "No contributor payout rate is locked at upload, recording or submission time.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/terms",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "No payout rate is locked at upload, recording, or submission time."
+        }
+      ]
+    },
+    {
+      "id": "luel-c143",
+      "statement": "For conversation recordings, payouts are calculated per participant from duration and the listing rate.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/terms",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "For conversation recordings, payouts are calculated per participant based on duration and listing payout rates."
+        }
+      ]
+    },
+    {
+      "id": "luel-c144",
+      "statement": "Luel may withhold, adjust, reverse or recover any contributor payout, including amounts already marked payable.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/terms",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "withhold, suspend, offset, adjust, reverse, cancel, or recover any payout (including previously marked payable amounts)"
+        }
+      ]
+    },
+    {
+      "id": "luel-c145",
+      "statement": "An open contributor task for three-person American English conversations pays US$12 per hour ($0.20 per minute).",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 12,
+        "unit": "USD per hour of recording",
+        "basis": "Luel pays contributor; posted task rate, one task",
+        "period": "per hour recorded"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/contribute",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "$12/hr ($0.20/min) American English Conversations - Emotive & Spontaneous (3 People)"
+        }
+      ]
+    },
+    {
+      "id": "luel-c146",
+      "statement": "Open contributor tasks for low-resource-language conversations, such as Uyghur, pay US$7.50 per hour ($0.13 per minute).",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 7.5,
+        "unit": "USD per hour of recording",
+        "basis": "Luel pays contributor; posted task rate for partner conversations in Uyghur, Tibetan, Hmong and others",
+        "period": "per hour recorded"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/contribute",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "$7.50/hr ($0.13/min) Uyghur Conversational Audio (Record with Partner)"
+        }
+      ]
+    },
+    {
+      "id": "luel-c147",
+      "statement": "Luel says contributor work is paid against a published rate card, per minute, per task or per scene.",
+      "kind": "offer",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-05-08",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/blog/scaling-egocentric-video-data-pipeline",
+          "publisher": "Luel",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Work is paid against a published rate card. A collection might pay per minute, per task, or per scene"
+        }
+      ]
+    },
+    {
+      "id": "luel-c148",
+      "statement": "Luel says payouts are visible in the app from the moment a clip is accepted.",
+      "kind": "offer",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-05-08",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/blog/scaling-egocentric-video-data-pipeline",
+          "publisher": "Luel",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Payouts settle on a known cadence and are visible in the app from the moment a clip is accepted."
+        }
+      ]
+    },
+    {
+      "id": "luel-c149",
+      "statement": "Once a contributor's content is sold or licensed to a business, the sale or licence is final and irrevocable.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/terms",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "SUCH SALE OR LICENSE IS FINAL AND IRREVOCABLE"
+        }
+      ]
+    },
+    {
+      "id": "luel-c150",
+      "statement": "Luel tells contributors it cannot retrieve copies already delivered to a business.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/terms",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "This Section addresses copies already delivered to a Business, which we cannot retrieve."
+        }
+      ]
+    },
+    {
+      "id": "luel-c151",
+      "statement": "On a verified request, Luel stops offering the content for further licensing.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/terms",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "On a verified request we stop offering the content for further licensing"
+        }
+      ]
+    },
+    {
+      "id": "luel-c152",
+      "statement": "On a verified request, Luel also revokes the entitlements of buyers still holding access and deletes its own copies.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/terms",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "revoke the entitlements of Businesses that still hold access, and delete our own copies"
+        }
+      ]
+    },
+    {
+      "id": "luel-c153",
+      "statement": "The contributor alone warrants having every right, licence, consent and permission needed for content relating to third parties.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/terms",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you have obtained, and are solely responsible for obtaining, all necessary rights, licenses, consents, and permissions"
+        }
+      ]
+    },
+    {
+      "id": "luel-c154",
+      "statement": "Contributors warrant that their content includes no third-party images or audio.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/terms",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "your content does not include any third-party images or audio"
+        }
+      ]
+    },
+    {
+      "id": "luel-c155",
+      "statement": "Digital replicas made from contributor content, and their derivatives, are owned exclusively by Luel.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/terms",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "any derivative works or outputs created therefrom shall be deemed derivative works owned exclusively by Luel"
+        }
+      ]
+    },
+    {
+      "id": "luel-c156",
+      "statement": "Luel obtains contributors' written biometric consent at sign-up and again at each submission.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/biometric-policy",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We obtain your explicit, written consent at sign-up and again at the point of each submission"
+        }
+      ]
+    },
+    {
+      "id": "luel-c157",
+      "statement": "Once content is licensed to a buyer, that buyer becomes an independent controller, and Luel cannot recall biometric identifiers from its systems.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7",
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/biometric-policy",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Once content is licensed and transferred to an AI-company buyer, that buyer becomes an independent controller of the content."
+        }
+      ]
+    },
+    {
+      "id": "luel-c158",
+      "statement": "Luel's Privacy Notice treats the transfer of contributors' sensitive data to business customers as a sale of sensitive personal data under some laws.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-09-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/privacy",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "that transfer is treated as a sale of sensitive personal data under certain privacy laws"
+        }
+      ]
+    },
+    {
+      "id": "luel-c159",
+      "statement": "Luel says its Luel Data speech comes from paid adults who agreed their recordings can train AI.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/data",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Adults who are paid, and who agreed their recordings can train AI."
+        }
+      ]
+    },
+    {
+      "id": "luel-c160",
+      "statement": "The General Egocentric Video listing says contributors signed scene-level consent.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/datasets/egocentric-video",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Paid contributors with signed scene-level consent"
+        }
+      ]
+    },
+    {
+      "id": "luel-c161",
+      "statement": "The General Egocentric Video listing says third-party copyrighted content such as TVs and monitors is masked.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/datasets/egocentric-video",
+          "publisher": "Luel",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "No third-party copyrighted content (TVs / monitors are masked)"
+        }
+      ]
+    },
+    {
+      "id": "luel-c162",
+      "statement": "Luel's legal index says the Marketplace Supplier Terms cover the seller's licence, rights and consent promises, revenue share, payouts and removal on withdrawal.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q2",
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.luel.ai/legal",
+          "publisher": "Luel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The licence a seller gives Luel, the promises a seller makes about rights and consent, the revenue share and payouts"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "matrix.exclusivity_offered",
+      "urls_tried": [
+        "https://www.luel.ai/data-license",
+        "https://www.luel.ai/blog/luel-seed-31m-general-catalyst-lightspeed",
+        "https://www.luel.ai/datasets/egocentric-video",
+        "https://www.luel.ai/datasets/music-library"
+      ],
+      "reason": "not_published",
+      "note": "Self-serve licences are non-exclusive and custom builds are called exclusive; nothing says whether a listed (contact-sales) dataset can be licensed exclusively."
+    },
+    {
+      "field": "matrix.versioning",
+      "urls_tried": [
+        "https://www.luel.ai/docs/data/buying",
+        "https://www.luel.ai/data-license",
+        "https://www.luel.ai/docs/data/api-reference"
+      ],
+      "reason": "not_published",
+      "note": "Licences bind to a datasetVersionId and Luel may withdraw a version, but immutability of a published version and what a past buyer gets on a new version are not stated."
+    },
+    {
+      "field": "other.scoped_vs_custom_badge",
+      "urls_tried": [
+        "https://www.luel.ai/marketplace",
+        "https://www.luel.ai/marketplace/video",
+        "https://www.luel.ai/datasets/egocentric-gemstone-carving"
+      ],
+      "reason": "not_published",
+      "note": "The 'Scoped to order' badge is explained only in a tooltip (aria-label/title attribute). The 'Custom' and 'Enterprise' badges map to a pricing_tier field in the page payload, and neither is explained anywhere. The census lead that every listing is either 'Scoped to order' or 'Custom' is wrong: in the payload of the 30 listings, 3 are scoped_to_order (all enterprise-tier), 19 are custom-tier and 8 are enterprise-tier with no scope flag."
+    },
+    {
+      "field": "other.commissioned_resale_carveout",
+      "urls_tried": [
+        "https://www.luel.ai/terms",
+        "https://www.luel.ai/request",
+        "https://www.luel.ai/legal"
+      ],
+      "reason": "not_published",
+      "note": "No custom-collection agreement is public. Whether a commissioning client gets exclusivity, and when Luel may re-list its collection, cannot be read anywhere."
+    },
+    {
+      "field": "other.contact_sales_licence",
+      "urls_tried": [
+        "https://www.luel.ai/legal",
+        "https://www.luel.ai/data-license"
+      ],
+      "reason": "not_published",
+      "note": "The DLA defines the Corpus as audio; the licence for video, image and sensor listings sold via sales is not published."
+    },
+    {
+      "field": "other.marketplace_production_state",
+      "urls_tried": [
+        "https://www.luel.ai/docs/data/limits",
+        "https://www.luel.ai/docs/data/authentication",
+        "https://www.luel.ai/data/skill.md",
+        "https://app.luel.ai/api/v2/data/datasets"
+      ],
+      "reason": "not_published",
+      "note": "The docs say the data API is off in production (404 for all paths), but the 17 Sep blog post and skill.md describe SKUs on sale in production. An unauthenticated GET to the API returned 401, not 404, which suggests the flag is on; that observation is not quotable."
+    },
+    {
+      "field": "other.independent_press_and_filings",
+      "urls_tried": [
+        "https://efts.sec.gov/LATEST/search-index?q=%22Luel%22",
+        "https://efts.sec.gov/LATEST/search-index?q=%22Luel%20Inc%22&forms=D",
+        "https://www.sec.gov/cgi-bin/browse-edgar?company=luel"
+      ],
+      "reason": "not_found",
+      "note": "No Form D or other EDGAR filing for Luel Inc. Web search was unavailable, so independent press on the seed round, the 850,000-contributor figure or customers could not be looked for; all traction figures are vendor-stated."
+    },
+    {
+      "field": "other.hf_ego_realm_samples",
+      "urls_tried": [
+        "https://huggingface.co/datasets/Luel-ai/Ego-Realm"
+      ],
+      "reason": "gated",
+      "note": "The sample set linked from the Diverse Egocentric listing returned 401."
+    },
+    {
+      "field": "other.contributor_share_of_sales",
+      "urls_tried": [
+        "https://www.luel.ai/terms",
+        "https://www.luel.ai/contribute"
+      ],
+      "reason": "not_published",
+      "note": "No royalty or revenue share for individual contributors is stated; pay is a task rate at approval. Whether any custom-collection revenue reaches contributors is unknown."
+    },
+    {
+      "field": "other.buyer_volumes",
+      "urls_tried": [
+        "https://www.luel.ai/blog/luel-seed-31m-general-catalyst-lightspeed",
+        "https://www.luel.ai/docs/data/buying"
+      ],
+      "reason": "not_published",
+      "note": "No figures on number of buyers, order sizes or revenue."
+    }
+  ],
+  "conflicts": [
+    {
+      "claim_ids": [
+        "luel-c005",
+        "luel-c001"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "Docs (undated, retrieved today) say the marketplace API is off in production; the 17 Sep 2026 blog post and dated skill.md (which prices 'every SKU on sale in production') say it is live. Treat the org as active and the self-serve launch state as uncertain."
+    },
+    {
+      "claim_ids": [
+        "luel-c103",
+        "luel-c102"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "The English Conversational Speech listing advertises transcripts, diarization and emotion labels; the buying docs say no self-serve corpus carries any. They may describe different products (contact-sales listing vs API SKU); not reconcilable from public pages."
+    },
+    {
+      "claim_ids": [
+        "luel-c084",
+        "luel-c085"
+      ],
+      "rule_applied": "live_primary_wins_terms",
+      "resolution": "Buyer Policy states a 20-hour per-dataset cap for the Licensed tier; the agent guide says the tier's order range (5-10 h) binds first, so the effective holding is 10 hours. Both limits exist."
+    },
+    {
+      "claim_ids": [
+        "luel-c150",
+        "luel-c123"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "The contributor Terms say delivered copies cannot be retrieved; the buyer DLA obliges deletion within 30 days on notice. Both are true in their own frame: no technical recall, only a contractual deletion duty."
+    }
+  ],
+  "leads": [
+    {
+      "url": "https://www.luel.ai/docs/data/api-reference",
+      "why": "Full endpoint list including entitlement and version fields; downloaded, not mined in depth."
+    },
+    {
+      "url": "https://www.luel.ai/acceptable-use",
+      "why": "AUP (7 May 2026) incorporated by the DLA; not quoted here."
+    },
+    {
+      "url": "https://www.luel.ai/bounty",
+      "why": "Bounty/referral programme page; may bear on contributor pay."
+    },
+    {
+      "url": "https://www.luel.ai/blog/introducing-luel-lab",
+      "why": "Describes the 'multimodal QA engine'; quality-evidence detail."
+    },
+    {
+      "url": "https://www.luel.ai/lab/papers/speech-data-quality",
+      "why": "Speech data quality and fraud detection instruments behind the integrity pipeline."
+    },
+    {
+      "url": "https://huggingface.co/datasets/Luel-ai/imu-egocentric-250k",
+      "why": "Public egocentric IMU sample set (licence and card not read)."
+    },
+    {
+      "url": "https://www.ycombinator.com/launches",
+      "why": "Original Launch YC post 'Luel: The Marketplace for Multimodal Data' linked from the YC company page."
+    },
+    {
+      "url": "https://www.luel.ai/docs/data/errors",
+      "why": "Error codes incl. not_eligible_for_license (contributor consent / jurisdiction), which shows consent-scope gating per buyer."
+    }
+  ]
+}

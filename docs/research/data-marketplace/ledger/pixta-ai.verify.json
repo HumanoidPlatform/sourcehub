@@ -1,0 +1,419 @@
+{
+  "kind": "verify",
+  "slug": "pixta-ai",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "pixta-ai-c098",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://www.nikkei.com/article/DGXZQOUC246X70U6A920C2000000/", "publisher": "Nikkei (日本経済新聞 電子版)", "source_class": "independent_press", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "ピクスタは画像や動画などのデジタル素材をサイト上で売買できる。"},
+      "corrected_statement": null,
+      "note": "Nikkei article '世話される存在→自立した個人へ　写真でみる過去20年の「シニア像」', dated 2026-09-27 05:00 (members-only; lead paragraphs readable). It reports PIXTA's analysis of 100m+ archive images since 2006, i.e. the 20th-anniversary project. Reached by the link on pixta.co.jp/news/2121; no search used. ITmedia Business Online (2026-09-24) covered the same project."
+    },
+    {
+      "claim_id": "pixta-ai-c099",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://www.nikkei.com/article/DGXZQOCC145RH0U6A910C2000000/", "publisher": "Nikkei (日本経済新聞 電子版)", "source_class": "independent_press", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "「YASUMI WORKS」（名古屋市）は、東京や大阪、名古屋で11店舗を運営している。"},
+      "corrected_statement": null,
+      "note": "The 2026-09-30 corporate news item (pixta.co.jp/news/2124) announces the print-edition Nikkei interview with the CEO of subsidiary YASUMI WORKS; the online version (2026-09-29 17:00) is independent evidence that the group's subsidiary is trading. PIXTA's own TSE filings also show operation: a timely disclosure dated 2026-09-08 (eir-parts.net tdnet/2882746) records the sale of its Audiostock shares for 273m yen on 2026-09-16, and the half-year report was filed 2026-08-13. Note the group now calls PIXTA's stock business structurally declining (see missed claims)."
+    },
+    {
+      "claim_id": "pixta-ai-c086",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {"url": "https://www.itmedia.co.jp/news/articles/2106/28/news122.html", "publisher": "ITmedia NEWS", "source_class": "press_relaying_vendor", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "価格は順に16万5000円、9万9000円（いずれも税込）。"},
+      "corrected_statement": null,
+      "note": "ITmedia, 2021-06-28, relaying PIXTA's launch: 1,000-image sets of Japanese people with and without masks, with annotation 165,000 yen and without 99,000 yen, tax included. The dataset was the 'mask-wearing' (and a matching no-mask) Japanese face set, not a generic Japanese people set. PIXTA's own TSE-lodged release (eir-parts.net tdnet/1994153, 2021-06-28) gives the same prices. Reached via the link on pixta.co.jp/news/1511."
+    },
+    {
+      "claim_id": "pixta-ai-c087",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {"url": "https://www.itmedia.co.jp/news/articles/2106/28/news122.html", "publisher": "ITmedia NEWS", "source_class": "press_relaying_vendor", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "価格は順に16万5000円、9万9000円（いずれも税込）。"},
+      "corrected_statement": null,
+      "note": "ITmedia confirms the 165,000 yen annotated price (annotation as CSV) but does not say what the annotation marks. The 'face bounding box' detail appears only in PIXTA's own release lodged on TDnet (eir-parts.net/doc/3416/tdnet/1994153/00.pdf, 2021-06-28): '既成アノテーションは、顔部分の外接矩形となります'. Scope: the set was the mask-wearing / no-mask Japanese face dataset."
+    },
+    {
+      "claim_id": "pixta-ai-c046",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A footer line on the vendor's own page; no other source can show it. Fetched pixta.ai/datasets/latest on 2026-10-01: footer '2006 - 2026 © PIXTA Inc.'. But the pixta.ai home page footer the same day read '2006 - 2025 © PIXTA Inc.', so the 2026 line is not site-wide. The listing page shows no dates per listing, so 'new listings were visible' cannot be checked from it."
+    },
+    {
+      "claim_id": "pixta-ai-c045",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A live count on the vendor's page. pixta.ai/datasets/latest fetched 2026-10-01 showed 20 per page over 2 pages, 38 in total, consistent with the claim. No independent source exists for a live listing count; no search available."
+    },
+    {
+      "claim_id": "pixta-ai-c011",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause in PIXTA AI's own terms of use (pixta.ai/term). No partner or third party restates it; not searched further (no search available)."
+    },
+    {
+      "claim_id": "pixta-ai-c030",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause in PIXTA AI's own terms. The Application Form and any fee schedule are not public; no partner page found that states the fees (no search available)."
+    },
+    {
+      "claim_id": "pixta-ai-c006",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A definition in PIXTA AI's own terms; exists only on the vendor's site."
+    },
+    {
+      "claim_id": "pixta-ai-c026",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A Partner warranty in PIXTA AI's own terms; exists only on the vendor's site."
+    },
+    {
+      "claim_id": "pixta-ai-c091",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {"url": "https://ssl4.eir-parts.net/doc/3416/tdnet/2496411/00.pdf", "publisher": "PIXTA Inc. (TSE timely disclosure, hosted by eir-parts.net)", "source_class": "filing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "pdf_read", "quote": "自動車・製造業界大手はじめ様々な企業から高い支持を得ています"},
+      "corrected_statement": null,
+      "note": "PIXTA's own release of 2024-08-28 lodged on TDnet, so it repeats the vendor's claim rather than proving it. TECH+ (news.mynavi.jp, 2024-09-24) relays a weaker version: the service is aimed 'at' automotive and manufacturing companies ('自動車業をはじめ、製造業の企業などに向けて展開する'). No customer names found. The TDnet PDF is encrypted; pdftext.py needed the 'cryptography' package, which the tools venv lacks (ran it with the system Python)."
+    },
+    {
+      "claim_id": "pixta-ai-c059",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {"url": "https://ssl4.eir-parts.net/doc/3416/tdnet/2339857/00.pdf", "publisher": "PIXTA Inc. (TSE timely disclosure, hosted by eir-parts.net)", "source_class": "filing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "pdf_read", "quote": "PIXTA日本人画像データセット（ストックフォト1,000点〜）99,000円（税込）〜"},
+      "corrected_statement": null,
+      "note": "PIXTA release of 2023-09-27 lodged on TDnet: the from-99,000-yen price is for the Japanese people IMAGE dataset from stock photos, 1,000 items upward. Video datasets are priced separately (50 videos for 198,000 yen in the 2023-12-18 and 2026 releases), so 'image/video datasets from 99,000 yen' overstates it for video. TECH+ (2024-09-24) relays 99,000 yen for a 1,000-image wheelchair dataset."
+    },
+    {
+      "claim_id": "pixta-ai-c061",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The exact 112.9 million is a live counter on PIXTA's page. Nikkei (2026-09-27) gives only the order of magnitude, 'アーカイブ画像1億点以上', and PIXTA's Q2 2026 IR deck says '素材点数 1億点以上' (June 2026). Consistent, but no independent source prints 112.9m."
+    },
+    {
+      "claim_id": "pixta-ai-c062",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A capacity claim on PIXTA's own service page; no press or filing found that repeats the 4 million figure (no search available; checked PIXTA's TSE-lodged ML releases 2021-2024 and TECH+/ITmedia/Nikkei xTECH articles linked from its media page)."
+    },
+    {
+      "claim_id": "pixta-ai-c065",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No independent source found (no search available). PIXTA's own sources point the other way for at least one set: its 2026-04-27 release (pixta.co.jp/news/2064) says the daily-behaviour video dataset was selected from its existing video stock, with Japanese cast filmed in Japan; the 2023-12-18 overhead video set was also drawn from stock ('670万点以上の動画素材の中から'). Custom shooting for ML exists (TECH+, 2023-09-27). Whether any listed video set was planned and shot by PIXTA itself should be checked against the profile's quote."
+    },
+    {
+      "claim_id": "pixta-ai-c068",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A delivery mechanic stated in PIXTA's own FAQ or service page; no independent source would carry it."
+    },
+    {
+      "claim_id": "pixta-ai-c083",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "PIXTA's own description of its order process. Press relays (ITmedia 2021, TECH+ 2024) mention only an inquiry/sales contact, not the preview-quote-PO sequence."
+    },
+    {
+      "claim_id": "pixta-ai-c079",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Only PIXTA's own pages found: pixta.co.jp/news/2090 (2026-06-24) gives 動画50点 at 198,000円（税込）. The Q2 2026 IR deck (eir-parts.net ir_material_for_fiscal_ym/210501) confirms two care datasets launched, without prices. The release was not lodged on TDnet and no press relay was linked from PIXTA's media page; no search available to find a PR TIMES copy."
+    },
+    {
+      "claim_id": "pixta-ai-c094",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "As for c079: PIXTA's own release (pixta.co.jp/news/2090) gives 画像1,000点 at 99,000円（税込）; no relay or filing found; no search available."
+    },
+    {
+      "claim_id": "pixta-ai-c090",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Only PIXTA's own release found (pixta.co.jp/news/2072, dated 2026-05-18, 作業員画像データセット 1,000点, 99,000円（税込）). Not lodged on TDnet; no media relay listed on PIXTA's media-coverage page; no search available."
+    },
+    {
+      "claim_id": "pixta-ai-c109",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause in PIXTA's own stock licence terms."
+    },
+    {
+      "claim_id": "pixta-ai-c114",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {"url": "https://www.itmedia.co.jp/aiplus/articles/2404/09/news113.html", "publisher": "ITmedia AI+", "source_class": "press_relaying_vendor", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "PIXTA内で現金と交換できる「獲得クレジット」を報酬として付与するという。"},
+      "corrected_statement": null,
+      "note": "ITmedia AI+, 2024-04-09, relays that creators are rewarded in 'earned credits' exchangeable for cash (said of generative-AI training sales). It does not mention a commission rate set by PIXTA; that part rests on the contributor agreement only."
+    },
+    {
+      "claim_id": "pixta-ai-c116",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A credit conversion rule in PIXTA's own contributor terms or help pages."
+    },
+    {
+      "claim_id": "pixta-ai-c117",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A live footer counter. PIXTA's Q2 2026 IR deck (eir-parts.net ir_material_for_fiscal_ym/210501, figures at end-June 2026) gives '投稿クリエイター登録数 約45万人', consistent. Registered creators, not necessarily active ones."
+    },
+    {
+      "claim_id": "pixta-ai-c119",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "PIXTA's own contributor commission table; no search available to look for creator blogs restating it (which would only be relays)."
+    },
+    {
+      "claim_id": "pixta-ai-c127",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "ITmedia AI+ (2024-04-09) independently reports that PIXTA began selling stock as generative-AI training material, with opt-out by 22 April 2024 and rewards in earned credits, but gives no percentage or formula; the 20%-of-net-receipts rule was not found outside PIXTA's own pages. No search available."
+    },
+    {
+      "claim_id": "pixta-ai-c133",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A contributor brief on PIXTA's own site."
+    },
+    {
+      "claim_id": "pixta-ai-c135",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A contributor brief on PIXTA's own site."
+    },
+    {"claim_id": "pixta-ai-c046", "check": "scope", "status": "scope_wrong", "independent_source": null, "corrected_statement": null,
+     "note": "The quote shows only the footer line. 'New listings were visible' is not shown: the Latest Datasets page carries no dates per listing. The pixta.ai home page footer read '2006 - 2025 © PIXTA Inc.' on the same day, so the 2026 line is not site-wide. A copyright year is weak evidence of operation for the profile's status claim; the TSE filings (2026-09-08 disclosure) and Nikkei (2026-09-27, 2026-09-29) are stronger."},
+    {"claim_id": "pixta-ai-c098", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": ""},
+    {"claim_id": "pixta-ai-c099", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null,
+     "note": "The quoted title sits beside the date 2026/09/30 on the list page (the date is a separate element and cannot be in the quote). The item concerns subsidiary YASUMI WORKS, not the PIXTA marketplace."},
+    {"claim_id": "pixta-ai-c011", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": ""},
+    {"claim_id": "pixta-ai-c030", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null,
+     "note": "The quote lists the fees but not who pays them or the Application Form. The words 'Pixta is entitled to charge the Partner the listing fees' would show that Partners are charged."},
+    {"claim_id": "pixta-ai-c065", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null,
+     "note": "The quote shows 'PIXTAが企画・撮影した' under the heading 人物データ販売, but not the Japanese-subject part; the next sentence does: '日本人を中心とした被写体を国内で撮影しています'. Caveat: PIXTA's own 2026-04-27 behaviour-video release says that set was selected from existing stock, so not every person video set was necessarily shot to plan."},
+    {"claim_id": "pixta-ai-c068", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null,
+     "note": "Service-level statement. The senior-caregiver video dataset page (pixta.jp/guide/?p=74272) describes delivery by download within as little as 2 business days, which is consistent with designated storage."},
+    {"claim_id": "pixta-ai-c083", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null,
+     "note": "The quote shows only the quotation and the PIXTA-format purchase order. The inquiry and preview steps are on the same page as numbered steps ('お問い合わせ', 'サンプル動画のご案内', 'お見積り・ご契約', '納品'). The flow is stated for this video dataset; calling it 'PIXTA's dataset purchase flow' generalises from one product page."},
+    {"claim_id": "pixta-ai-c006", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null,
+     "note": "The quote stops at 'including'; the words that follow in the definition (the licence agreements) are needed to show that licences fall inside the 'Agreement between the Members'."},
+    {"claim_id": "pixta-ai-c026", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null,
+     "note": "The quote shows the data subject's agreement but not that it is a Partner warranty, or that it applies where Data contains personal information. The preceding words of the same clause, about the person to whom the personal information pertains, are needed."},
+    {"claim_id": "pixta-ai-c114", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null,
+     "note": "The rate-setting part is not in the quote. The full clause reads '当社が定めるコミッション率に従って獲得クレジット単位で販売報酬を支払います'."},
+    {"claim_id": "pixta-ai-c091", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null,
+     "note": "Boilerplate about the ML data service in the worker-dataset release; '高い支持を得ています' means 'is highly regarded by' rather than a named customer list, and the statement correctly marks it as PIXTA's own claim."},
+    {"claim_id": "pixta-ai-c045", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": ""},
+    {"claim_id": "pixta-ai-c059", "check": "scope", "status": "scope_wrong", "independent_source": null, "corrected_statement": null,
+     "note": "The page says only 'データセットは1,000点 99,000円（税込）から'. The 1,000-item, 99,000-yen entry price matches the image datasets. PIXTA's video datasets are sold as 50-video sets at 198,000 yen (pixta.jp/guide/?p=74272; pixta.co.jp/news/2064 and 2090; the 2023-12-18 TSE-lodged release). So 'image/video datasets from 1,000 items' overstates it for video; say image datasets."},
+    {"claim_id": "pixta-ai-c061", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": ""},
+    {"claim_id": "pixta-ai-c062", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null,
+     "note": "The page introduces the figure with '例えば' (for example); the made-to-order framing comes from the page's context."},
+    {"claim_id": "pixta-ai-c079", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null,
+     "note": "Right page (the senior and caregiver video dataset, dated 2026-06-24), but the quote shows only the price. The words '動画50点' and '※各種アノテーションは有料にて承りますのでご相談ください' would show the size and the separate annotation charge."},
+    {"claim_id": "pixta-ai-c086", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null,
+     "note": "The page (pixta.jp/guide/?p=62476) was published 2021-06-28 and updated 2022-07-13; the profile's as_of uses the update date. The dataset is the mask-wearing / no-mask Japanese face image set; 'Japanese people ML dataset' is a fair shorthand."},
+    {"claim_id": "pixta-ai-c087", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null,
+     "note": "The quote shows the price but not the face bounding-box detail; the page states '既成アノテーションは、顔部分の外接矩形となります'."},
+    {"claim_id": "pixta-ai-c090", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null,
+     "note": "The quote '99,000円（税込）' alone does not show which dataset or its size. Needed: '作業員画像データセット' and '1,000点' from the same release (pixta.co.jp/news/2072, dated 2026-05-18)."},
+    {"claim_id": "pixta-ai-c094", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null,
+     "note": "pixta.co.jp/news/2090 prices two datasets: the image set (画像1,000点, 99,000円) and the video set (動画50点, 198,000円). A bare '99,000円（税込）' does not show which one; the quote needs '画像1,000点' or the image dataset's name."},
+    {"claim_id": "pixta-ai-c109", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null,
+     "note": "The quote shows the per-member cap only. The per-organisation cap is in the continuation of the same sentence: '所属組織を登録している場合、所属組織毎の総計で、100万円を超えないものとします'."},
+    {"claim_id": "pixta-ai-c116", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": ""},
+    {"claim_id": "pixta-ai-c117", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null,
+     "note": "Footer counter shown on pixta.jp/terms. It counts registered creators; the IR deck's 約45万人 is described as 投稿クリエイター登録数 (registered contributor accounts)."},
+    {"claim_id": "pixta-ai-c119", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null,
+     "note": "'22～42%' alone does not show the tier. The row reads '一般 クリエイター | 通常 コミッション率 | 22～42%' under '写真・イラスト素材が購入された場合のコミッション率'. The same range also applies to subscription sales on plans of 10 downloads a month or fewer, so 'single-image' is narrower than the page; exclusive creators get 30-53%."},
+    {"claim_id": "pixta-ai-c127", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": ""},
+    {"claim_id": "pixta-ai-c133", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null,
+     "note": "The reward is correct. 'Collected only for ML datasets' needs the page's words 'PIXTAサイト（https://pixta.jp/）では販売されず、当社による機械学習等向けのデータセットとしての販売になります'. Also, the 6-photo set is front, right-facing and left-facing shots, each with and without a mask, so '6 frontal face photos' is loose (the title says 正面から撮影した顔写真)."},
+    {"claim_id": "pixta-ai-c135", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null,
+     "note": "The page (2025-11-13, now closed) also says PIXTA and its customers may use the set for AI development, including generative models."}
+  ],
+  "missed": [
+    {
+      "id": "pixta-ai-v001",
+      "statement": "PIXTA Inc. told investors in August 2026 that its PIXTA stock business had entered a structural decline in both unit price and volume because of generative AI and tougher competition.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": ["Q1"],
+      "scope": {"product": "PIXTA stock marketplace (pixta.jp), PIXTA segment", "tier": "", "region": "Japan"},
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-08-12",
+      "as_of_basis": "publication",
+      "sources": [
+        {"url": "https://ssl4.eir-parts.net/doc/3416/ir_material_for_fiscal_ym/210501/00.pdf", "publisher": "PIXTA Inc. (Q2 FY2026 results presentation, hosted by eir-parts.net)", "source_class": "vendor_marketing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "pdf_read", "quote": "PIXTA事業は生成AIの普及と競争激化により、単価・数量ともに構造的な減収局面に入ったと認識"}
+      ]
+    },
+    {
+      "id": "pixta-ai-v002",
+      "statement": "In the same August 2026 results, PIXTA Inc. said it would shift resources, including staff, boldly from the PIXTA business to new businesses such as AI anime and inbound tourism, while cutting costs in the stock business.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": ["Q12"],
+      "scope": {"product": "PIXTA Inc. group", "tier": "", "region": ""},
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-08-12",
+      "as_of_basis": "publication",
+      "sources": [
+        {"url": "https://ssl4.eir-parts.net/doc/3416/ir_material_for_fiscal_ym/210501/00.pdf", "publisher": "PIXTA Inc. (Q2 FY2026 results presentation, hosted by eir-parts.net)", "source_class": "vendor_marketing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "pdf_read", "quote": "成長市場での新規事業へリソースを大胆にシフトする"}
+      ]
+    },
+    {
+      "id": "pixta-ai-v003",
+      "statement": "PIXTA Inc.'s consolidated revenue for January-June 2026 was 1,202.6 million yen, down 8.0% year on year, with an operating loss of 20.5 million yen.",
+      "kind": "number",
+      "section": "changes",
+      "question_ids": ["Q1"],
+      "scope": {"product": "PIXTA Inc. group (consolidated)", "tier": "", "region": ""},
+      "value": {"num": 1202587, "unit": "thousand JPY revenue", "basis": "consolidated net sales, Japanese GAAP, H1 FY2026 (Jan-Jun 2026), down 8.0% YoY; operating loss 20,500 thousand JPY vs operating profit 89,547 thousand a year earlier", "period": "half-year"},
+      "origin": "filing",
+      "as_of": "2026-08-12",
+      "as_of_basis": "publication",
+      "sources": [
+        {"url": "https://ssl4.eir-parts.net/doc/3416/tdnet/2871569/00.pdf", "publisher": "PIXTA Inc. (TSE earnings release 決算短信, hosted by eir-parts.net)", "source_class": "filing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "pdf_read", "quote": "売上高は、1,202,587千円（前年同期比8.0%減)、営業損失は、20,500千円"}
+      ]
+    },
+    {
+      "id": "pixta-ai-v004",
+      "statement": "Revenue of the PIXTA segment (stock marketplace and ML data) was 868.4 million yen for January-June 2026, down 15.1% year on year.",
+      "kind": "number",
+      "section": "changes",
+      "question_ids": ["Q1"],
+      "scope": {"product": "PIXTA segment (pixta.jp stock and ML data)", "tier": "", "region": ""},
+      "value": {"num": 868449, "unit": "thousand JPY revenue", "basis": "PIXTA segment net sales to external customers, H1 FY2026, down 15.1% YoY; ML data revenue is not broken out", "period": "half-year"},
+      "origin": "filing",
+      "as_of": "2026-08-12",
+      "as_of_basis": "publication",
+      "sources": [
+        {"url": "https://ssl4.eir-parts.net/doc/3416/tdnet/2871569/00.pdf", "publisher": "PIXTA Inc. (TSE earnings release 決算短信, hosted by eir-parts.net)", "source_class": "filing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "pdf_read", "quote": "当中間連結会計期間における売上高は、868,449千円（前年同期比15.1%減)"}
+      ]
+    },
+    {
+      "id": "pixta-ai-v005",
+      "statement": "PIXTA Inc. had 107 employees on a consolidated basis and 66 at the parent company at the end of June 2026.",
+      "kind": "number",
+      "section": "other",
+      "question_ids": [],
+      "scope": {"product": "PIXTA Inc. group", "tier": "", "region": ""},
+      "value": {"num": 107, "unit": "employees (consolidated)", "basis": "headcount at 30 June 2026; parent company 66", "period": "snapshot"},
+      "origin": "vendor_stated",
+      "as_of": "2026-06-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {"url": "https://ssl4.eir-parts.net/doc/3416/ir_material_for_fiscal_ym/210501/00.pdf", "publisher": "PIXTA Inc. (Q2 FY2026 results presentation, hosted by eir-parts.net)", "source_class": "vendor_marketing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "pdf_read", "quote": "従業員数 連結107名 単体66名（2026年6月末時点）"}
+      ]
+    },
+    {
+      "id": "pixta-ai-v006",
+      "statement": "PIXTA said orders for its machine-learning image and video data were about 3.3 times higher in January-June 2024 than in July-December 2023.",
+      "kind": "number",
+      "section": "demand",
+      "question_ids": ["Q1"],
+      "scope": {"product": "PIXTA ML image/video data service (pixta.jp)", "tier": "", "region": "Japan"},
+      "value": {"num": 3.3, "unit": "times (order value, H1 2024 vs H2 2023)", "basis": "vendor-stated order intake value for ML image/video data; absolute amounts not disclosed", "period": "half-year comparison"},
+      "origin": "vendor_stated",
+      "as_of": "2024-08-28",
+      "as_of_basis": "publication",
+      "sources": [
+        {"url": "https://ssl4.eir-parts.net/doc/3416/tdnet/2496411/00.pdf", "publisher": "PIXTA Inc. (release lodged on TSE TDnet, hosted by eir-parts.net)", "source_class": "filing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "pdf_read", "quote": "機械学習用の画像・動画データの受注額が約3.3倍に増加したことをお知らせいたします"}
+      ]
+    },
+    {
+      "id": "pixta-ai-v007",
+      "statement": "In July 2024 PIXTA disclosed a single large order for image and video materials worth about 360 million yen, to be booked in Q3 2024 and not in its forecast; the filing does not name the buyer or say whether the use was ML training.",
+      "kind": "event",
+      "section": "demand",
+      "question_ids": ["Q1"],
+      "scope": {"product": "PIXTA Inc. (image and video materials)", "tier": "", "region": ""},
+      "value": null,
+      "origin": "filing",
+      "as_of": "2024-07-22",
+      "as_of_basis": "publication",
+      "sources": [
+        {"url": "https://ssl4.eir-parts.net/doc/3416/tdnet/2476607/00.pdf", "publisher": "PIXTA Inc. (TSE timely disclosure 大口受注に関するお知らせ, hosted by eir-parts.net)", "source_class": "filing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "pdf_read", "quote": "受注製品 画像・動画素材 受注金額 約 360 百万円"}
+      ]
+    },
+    {
+      "id": "pixta-ai-v008",
+      "statement": "PIXTA joined the Dataset Providers Alliance, formed on 26 June 2024, as a founding member alongside Datarade, Rightsify, GCX, vAIsual, Ado and Calliope Networks.",
+      "kind": "event",
+      "section": "positioning",
+      "question_ids": ["Q2"],
+      "scope": {"product": "PIXTA Inc. / PIXTA AI", "tier": "", "region": ""},
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2024-07-01",
+      "as_of_basis": "publication",
+      "sources": [
+        {"url": "https://ssl4.eir-parts.net/doc/3416/tdnet/2469230/00.pdf", "publisher": "PIXTA Inc. (release lodged on TSE TDnet, hosted by eir-parts.net)", "source_class": "filing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "pdf_read", "quote": "Dataset Providers Alliance」（以下、DPA）の創設メンバーとして参画したことをお知らせいたします"}
+      ]
+    },
+    {
+      "id": "pixta-ai-v009",
+      "statement": "In September 2026 PIXTA Inc. sold all 280,000 of its shares in Audiostock for 273 million yen, booking a special gain in Q3 2026.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {"product": "PIXTA Inc. group", "tier": "", "region": ""},
+      "value": null,
+      "origin": "filing",
+      "as_of": "2026-09-08",
+      "as_of_basis": "publication",
+      "sources": [
+        {"url": "https://ssl4.eir-parts.net/doc/3416/tdnet/2882746/00.pdf", "publisher": "PIXTA Inc. (TSE timely disclosure, hosted by eir-parts.net)", "source_class": "filing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "pdf_read", "quote": "売却価額 ： 273 百万円（１株につき975 円）"},
+        {"url": "https://ssl4.eir-parts.net/doc/3416/tdnet/2882746/00.pdf", "publisher": "PIXTA Inc. (TSE timely disclosure, hosted by eir-parts.net)", "source_class": "filing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "pdf_read", "quote": "株式会社オーディオストック 普通株式 （２）株式の数 ： 280,000株"}
+      ]
+    }
+  ]
+}

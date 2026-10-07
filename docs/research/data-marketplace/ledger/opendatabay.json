@@ -1,0 +1,5999 @@
+{
+  "kind": "profile",
+  "slug": "opendatabay",
+  "name": "Opendatabay",
+  "aliases": [
+    "Open Data Bay",
+    "OPENDATABAY LTD"
+  ],
+  "segment": "independent_marketplace",
+  "tier": "deep",
+  "status": {
+    "value": "active",
+    "claim_id": "opendatabay-c001"
+  },
+  "names_for": {
+    "catalogue_side": "Data Products on the 'Licensed Data Marketplace' (tiers include 'Premium Data' and the free 'Open Data Repository')",
+    "custom_side": "'Request a Dataset' / 'Request Data'; in the docs, sourcing 'bespoke data requirements'; in the fee schedule, 'bespoke brokerage or enterprise transactions'"
+  },
+  "matrix": {
+    "operator_role": {
+      "value": "agent",
+      "claim_ids": [
+        "opendatabay-c022",
+        "opendatabay-c025",
+        "opendatabay-c111",
+        "opendatabay-c136"
+      ],
+      "note": "Opendatabay is authorised as the provider's (by default non-exclusive) broker and collects payment, but the provider is licensor of record under the provider's licence."
+    },
+    "economics_model": {
+      "value": "commission",
+      "claim_ids": [
+        "opendatabay-c038",
+        "opendatabay-c044",
+        "opendatabay-c037"
+      ],
+      "note": "Sliding per-transaction commission, 30% down to 5%; no listing fee."
+    },
+    "who_pays_fee": {
+      "value": "seller",
+      "claim_ids": [
+        "opendatabay-c048",
+        "opendatabay-c055"
+      ],
+      "note": ""
+    },
+    "supply_models": {
+      "value": [
+        "third_party_providers",
+        "public_or_scraped"
+      ],
+      "claim_ids": [
+        "opendatabay-c056",
+        "opendatabay-c150",
+        "opendatabay-c172",
+        "opendatabay-c174"
+      ],
+      "note": "public_or_scraped = free datasets republished by an account named Opendatabay Labs from public sources; no evidence of the operator's own commissioned or speculative collection."
+    },
+    "custody_model": {
+      "value": "mixed",
+      "claim_ids": [
+        "opendatabay-c105",
+        "opendatabay-c096",
+        "opendatabay-c107",
+        "opendatabay-c155"
+      ],
+      "note": "Instant download on the platform for some listings; provider-delivered (S3, API, cloud credentials, FTP) for others. Where downloads are hosted is not stated."
+    },
+    "transaction_mode": {
+      "value": "both",
+      "claim_ids": [
+        "opendatabay-c167",
+        "opendatabay-c099",
+        "opendatabay-c108",
+        "opendatabay-c049"
+      ],
+      "note": ""
+    },
+    "public_prices": {
+      "value": "some",
+      "claim_ids": [
+        "opendatabay-c151",
+        "opendatabay-c159",
+        "opendatabay-c153"
+      ],
+      "note": "Every listing card viewed showed a price or 'Free', but larger batches and bespoke deals are unpriced."
+    },
+    "licence_model": {
+      "value": "provider_defined",
+      "claim_ids": [
+        "opendatabay-c024",
+        "opendatabay-c027",
+        "opendatabay-c133"
+      ],
+      "note": "Provider picks one of two Opendatabay AI-training templates, a standard open licence or its own custom licence."
+    },
+    "exclusivity_offered": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Exclusivity in the terms is provider-to-broker only; no buyer-side exclusive licence offered or excluded."
+    },
+    "public_listing": {
+      "value": "public_indexable",
+      "claim_ids": [
+        "opendatabay-c062",
+        "opendatabay-c116"
+      ],
+      "note": ""
+    },
+    "buyer_vetting": {
+      "value": "account_only",
+      "claim_ids": [
+        "opendatabay-c090",
+        "opendatabay-c112"
+      ],
+      "note": "What buyer 'onboarding' involves is not published."
+    },
+    "sample_mechanics": {
+      "value": "free_sample_download",
+      "claim_ids": [
+        "opendatabay-c090",
+        "opendatabay-c127",
+        "opendatabay-c168"
+      ],
+      "note": "Samples depend on the provider; the listings viewed had no sample tab."
+    },
+    "versioning": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Listings show only a last-updated date; nothing on revisions or what past buyers receive."
+    },
+    "human_subject_consent_docs": {
+      "value": "asserted_only",
+      "claim_ids": [
+        "opendatabay-c076",
+        "opendatabay-c081",
+        "opendatabay-c078",
+        "opendatabay-c156"
+      ],
+      "note": "Consent is warranted by the provider and records stay with the provider; nothing obliges release evidence to reach the buyer."
+    },
+    "contributor_pay_model": {
+      "value": "not_applicable",
+      "claim_ids": [
+        "opendatabay-c119"
+      ],
+      "note": "Only registered businesses sell; Opendatabay has no individual contributors and says nothing on how providers pay their capturers."
+    },
+    "catalogue_plus_custom": {
+      "value": "both",
+      "claim_ids": [
+        "opendatabay-c097",
+        "opendatabay-c177"
+      ],
+      "note": ""
+    },
+    "erasure_after_sale": {
+      "value": "contractual_deletion",
+      "claim_ids": [
+        "opendatabay-c140",
+        "opendatabay-c073"
+      ],
+      "note": "Deletion duty exists only in Opendatabay's two AI-training licences; CC-licensed or custom-licensed listings carry no such duty."
+    },
+    "quality_evidence": {
+      "value": "provider_asserted",
+      "claim_ids": [
+        "opendatabay-c184",
+        "opendatabay-c091",
+        "opendatabay-c157"
+      ],
+      "note": "A 5/5 'UDTR' trust rating shows on listings, but who assigns it and how is not published."
+    }
+  },
+  "questions": {
+    "Q1": {
+      "state": "partial",
+      "answer": "Opendatabay claims 30k+ users and 23K+ downloads (vendor-stated) and runs a public request board, but its 'who is buying data' article is a placeholder; no buyer units or volumes are published.",
+      "claim_ids": [
+        "opendatabay-c013",
+        "opendatabay-c014",
+        "opendatabay-c179",
+        "opendatabay-c182"
+      ]
+    },
+    "Q2": {
+      "state": "partial",
+      "answer": "Listing costs nothing upfront and the operator pushes listings to search engines and LLMs and markets them; in return the provider cannot deal off-platform with introduced buyers and may grant exclusive brokerage.",
+      "claim_ids": [
+        "opendatabay-c052",
+        "opendatabay-c116",
+        "opendatabay-c117",
+        "opendatabay-c065",
+        "opendatabay-c023"
+      ]
+    },
+    "Q3": {
+      "state": "sourced",
+      "answer": "Inventory comes from verified registered businesses that warrant they created the data or hold all rights; an account named Opendatabay Labs also republishes public data for free. Individuals are barred as sellers, though marketing copy says otherwise.",
+      "claim_ids": [
+        "opendatabay-c056",
+        "opendatabay-c075",
+        "opendatabay-c172",
+        "opendatabay-c119"
+      ]
+    },
+    "Q4": {
+      "state": "unknown",
+      "answer": "Nothing found on carving resale rights out of commissioned work, or on retroactive term changes beyond 'continued use constitutes acceptance'.",
+      "claim_ids": []
+    },
+    "Q5": {
+      "state": "sourced",
+      "answer": "Opendatabay is the provider's broker and 'conduit, not the licensor'; the provider is licensor, warrants rights and lawful collection, and indemnifies Opendatabay. Liability is capped at platform fees.",
+      "claim_ids": [
+        "opendatabay-c022",
+        "opendatabay-c111",
+        "opendatabay-c075",
+        "opendatabay-c068",
+        "opendatabay-c070"
+      ]
+    },
+    "Q6": {
+      "state": "sourced",
+      "answer": "Mixed: instant download for some listings, and the provider delivers others by S3, API, cloud credentials or negotiated means. The docs call Opendatabay 'not a data warehouse'.",
+      "claim_ids": [
+        "opendatabay-c016",
+        "opendatabay-c105",
+        "opendatabay-c096",
+        "opendatabay-c155"
+      ]
+    },
+    "Q7": {
+      "state": "partial",
+      "answer": "The provider warrants lawful, ethical and consented collection and keeps consent records; PII must be anonymised. No clause addresses people depicted, model or property releases, or capturer consent to onward sale.",
+      "claim_ids": [
+        "opendatabay-c078",
+        "opendatabay-c081",
+        "opendatabay-c079",
+        "opendatabay-c144"
+      ]
+    },
+    "Q8": {
+      "state": "sourced",
+      "answer": "Opendatabay's AI licences are non-exclusive and perpetual, ban redistribution and watermark removal, and require deletion on request or termination; audits are limited to once a year. Listing labels (CC0, CC BY) can contradict those restrictions.",
+      "claim_ids": [
+        "opendatabay-c137",
+        "opendatabay-c138",
+        "opendatabay-c139",
+        "opendatabay-c140",
+        "opendatabay-c141"
+      ]
+    },
+    "Q9": {
+      "state": "sourced",
+      "answer": "Self-serve 'Buy Now' checkout at provider-set prices, plus negotiated and bespoke deals. Opendatabay takes a sliding commission of 30% down to 5% out of the seller's proceeds.",
+      "claim_ids": [
+        "opendatabay-c167",
+        "opendatabay-c026",
+        "opendatabay-c038",
+        "opendatabay-c044",
+        "opendatabay-c048"
+      ]
+    },
+    "Q10": {
+      "state": "partial",
+      "answer": "A listing ('data product') has licence, AI-licence, delivery, type and last-updated fields; buyers buy once or subscribe. Delisting does not affect executed sales. No revision or version model is described.",
+      "claim_ids": [
+        "opendatabay-c122",
+        "opendatabay-c126",
+        "opendatabay-c100",
+        "opendatabay-c033"
+      ]
+    },
+    "Q11": {
+      "state": "partial",
+      "answer": "Before paying, buyers see the licence, metadata, a trust rating and a provider badge, and registered users can download provider samples. Providers are KYB-verified, but listing accuracy is the provider's responsibility.",
+      "claim_ids": [
+        "opendatabay-c134",
+        "opendatabay-c090",
+        "opendatabay-c157",
+        "opendatabay-c057",
+        "opendatabay-c184"
+      ]
+    },
+    "Q12": {
+      "state": "sourced",
+      "answer": "The catalogue of 'data products' sits alongside 'Request a Dataset', where Opendatabay says its provider network helps find or create data, and the fee schedule allows separate terms for bespoke brokerage.",
+      "claim_ids": [
+        "opendatabay-c177",
+        "opendatabay-c178",
+        "opendatabay-c097",
+        "opendatabay-c049"
+      ]
+    }
+  },
+  "sections": {
+    "positioning": "A UK company (incorporated May 2024, one director) running a 'Licensed Data Marketplace for AI Training' [c010, c007, c008]. It calls itself 'a marketplace and commercial brokerage platform, not a data warehouse' [c016]. Claimed scale is modest: 586 products and 91 providers [c011, c012]. Its company was briefly gazetted for strike-off in April 2026 before the action was discontinued, after late accounts [c004, c005, c006].",
+    "supply": "Supply is third-party businesses only: KYC/KYB checks, and individuals barred [c056, c057, c119], although the about page and resources hub still address individuals [c019, c181]. Providers warrant they are the creator or hold all rights [c075]. An 'Opendatabay Labs' account republishes public data for free [c172, c174]. Image and video supply includes a 220K-hour egocentric video set [c150].",
+    "object_model": "The unit is a 'data product' with fields for licence, a separate AI-training licence, delivery method, dataset type and last-updated date [c122, c123, c124, c125, c126]. Pages show listed and updated dates and view counts [c162]. No revision model is described.",
+    "listing": "Profiles and listings are public [c062]. Providers must disclose limitations and biases and are told to write 'Unknown' rather than omit [c030, c129]. Opendatabay may suggest listing changes [c031].",
+    "discovery": "Opendatabay says listings are auto-indexed by search engines and exposed to LLMs, and it offers AI search with a match score [c116, c117, c118]. It may use provider names and banners in marketing [c071].",
+    "trust": "Listings show a 5/5 'Universal Data Trust Rating' and a 'Licensed LLM Data Provider' badge, but how the rating is set is unpublished [c157, c158, c161]. The terms disclaim accuracy and put it on providers [c091, c184].",
+    "transaction": "Paid listings have 'Buy Now'; purchase types are one-time, subscription, pay-per-use and managed access [c167, c099, c100, c101]. Payments go through third-party processors [c088]. Off-platform dealing with introduced buyers is banned [c065].",
+    "pricing": "Providers set prices [c026]. Commission is per transaction, 30% at GBP 1-100 sliding to 5% above GBP 250,000, deducted from seller proceeds [c038, c044, c048]. There is no listing fee, and a GBP 100 payout minimum [c052, c053]. Listed prices reach GBP 371,000 for 50,000 hours of egocentric video [c151, c152].",
+    "licence": "The provider is licensor and picks the licence: Opendatabay's General or Commercial AI-training licence, a standard licence, or its own [c024, c027, c135]. The Commercial licence is non-exclusive and perpetual and bans redistribution [c137, c138]. Listing labels can contradict this: a CC0 label beside a no-redistribution clause [c166, c183].",
+    "custody": "Custody is mixed. The docs describe provider delivery to the customer environment [c096], instant download [c160], S3 or custom delivery [c155] and cloud credentials [c107]. Providers own security and availability [c032].",
+    "vetting": "Providers pass KYB in 1-2 business days, including 'data product suitability' [c057, c120, c121]. Opendatabay may demand proof of ownership, audit sources and quality, and remove products [c082, c067, c083, c084]. Buyers face only registration [c090].",
+    "contributor_pay": "Not applicable: sellers are registered businesses and individuals cannot list [c119]. Payouts go to verified business accounts [c061].",
+    "post_sale": "Delisting does not affect executed sales, and pending sales must still be delivered [c033, c034]. The AI licences require deletion on termination or the licensor's request [c140]. Refunds are excluded once access is granted [c087]. In disputes, Opendatabay is a 'neutral intermediary' [c113].",
+    "catalogue_custom": "'Request a Dataset' sits beside the catalogue: Opendatabay says its provider network helps 'find or create' data [c177, c178], and it can set separate terms for bespoke brokerage [c049].",
+    "changes": "Terms dated 2026: Brokerage & Listing, Provider and Right to List (27 February), Terms of Service (26 July) and the fee schedule (24 August) [c086, c002]. Every document may change at any time on continued use [c051].",
+    "demand": "Only vendor figures exist: 30k+ users and 23K+ downloads [c013, c014]. A public request board lists requests from researchers, developers and businesses [c179].",
+    "regulation": "English law. The Terms of Service send disputes to arbitration, while the Listing Terms name the London courts [c094, c186]. The Commercial licence has the licensor represent GDPR compliance [c143]."
+  },
+  "buyer_journey": [
+    {
+      "step": "Lands on the homepage ('Licensed Data Marketplace for AI Training and LLM Fine-Tuning') showing 586 products and 91 providers.",
+      "claim_ids": [
+        "opendatabay-c010",
+        "opendatabay-c011"
+      ]
+    },
+    {
+      "step": "Browses categories (AI training, robotics/egocentric, premium, government, synthetic) or searches in natural language with match scores; listings are public and indexed.",
+      "claim_ids": [
+        "opendatabay-c149",
+        "opendatabay-c118",
+        "opendatabay-c062"
+      ]
+    },
+    {
+      "step": "Opens a listing and sees the provider's 'Licensed LLM Data Provider' badge, the trust rating, price, licence, AI-training rights, delivery method, format and updated date.",
+      "claim_ids": [
+        "opendatabay-c158",
+        "opendatabay-c161",
+        "opendatabay-c159",
+        "opendatabay-c163",
+        "opendatabay-c162"
+      ]
+    },
+    {
+      "step": "Reads the licence before buying; to download a sample, the buyer must register and complete onboarding.",
+      "claim_ids": [
+        "opendatabay-c134",
+        "opendatabay-c090"
+      ]
+    },
+    {
+      "step": "Clicks 'Buy Now' (or 'Download' for free items), accepts the provider's licence at checkout and pays through a third-party processor; no refunds once access is granted.",
+      "claim_ids": [
+        "opendatabay-c167",
+        "opendatabay-c135",
+        "opendatabay-c088",
+        "opendatabay-c087"
+      ]
+    },
+    {
+      "step": "Receives the data by instant download, or the provider delivers it by S3, API, cloud credentials or a negotiated method.",
+      "claim_ids": [
+        "opendatabay-c160",
+        "opendatabay-c155",
+        "opendatabay-c107",
+        "opendatabay-c096"
+      ]
+    },
+    {
+      "step": "Holds a licence from the provider, not Opendatabay. Under the AI licences the buyer must not redistribute and must delete the data on request or termination.",
+      "claim_ids": [
+        "opendatabay-c111",
+        "opendatabay-c138",
+        "opendatabay-c140"
+      ]
+    },
+    {
+      "step": "If nothing fits: submits 'Request a Dataset' with a timeline, and Opendatabay's provider network sources or creates the data.",
+      "claim_ids": [
+        "opendatabay-c177",
+        "opendatabay-c097"
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "matrix.exclusivity_offered",
+      "urls_tried": [
+        "https://www.opendatabay.com/legal/listing",
+        "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license.md",
+        "https://www.opendatabay.com/resources/selling-data/how-to-price-a-data-product"
+      ],
+      "reason": "not_published",
+      "note": "Exclusivity appears only as provider-to-broker exclusive brokerage; the pricing article is a placeholder."
+    },
+    {
+      "field": "matrix.versioning",
+      "urls_tried": [
+        "https://docs.opendatabay.com/for-data-providers/listing-data-product.md",
+        "https://www.opendatabay.com/legal/listing",
+        "https://www.opendatabay.com/data/premium/c273a3ea-1c0a-4bde-8e36-2e2fdd9060b4"
+      ],
+      "reason": "not_published",
+      "note": "Only a last-updated date; nothing on versions, or on what one-off buyers get after an update or withdrawal."
+    },
+    {
+      "field": "questions.Q4",
+      "urls_tried": [
+        "https://www.opendatabay.com/legal/seller",
+        "https://www.opendatabay.com/legal/right",
+        "https://www.opendatabay.com/legal/listing",
+        "https://www.opendatabay.com/legal/terms"
+      ],
+      "reason": "not_published",
+      "note": "No commissioned-work carve-out; the only change mechanism is unilateral update on continued use. No history of term changes reachable (Wayback blocked, no search)."
+    },
+    {
+      "field": "other.udtr_method",
+      "urls_tried": [
+        "https://www.opendatabay.com/",
+        "https://docs.opendatabay.com/llms.txt",
+        "https://www.opendatabay.com/resources",
+        "https://docs.opendatabay.com/readme.md"
+      ],
+      "reason": "not_published",
+      "note": "Who assigns the 'Universal Data Trust Rating' and how is not documented in the docs index or resources hub."
+    },
+    {
+      "field": "other.consent_of_people_depicted",
+      "urls_tried": [
+        "https://www.opendatabay.com/legal/right",
+        "https://www.opendatabay.com/legal/seller",
+        "https://www.opendatabay.com/data/ai-ml/b265aff0-f1c6-4bb8-b0c3-a256fda10cca",
+        "https://www.opendatabay.com/data/ai-ml/292edf15-04fc-4fca-9935-998f07e3dc36",
+        "https://www.opendatabay.com/resources/creative-ai-data/sell-my-images-to-ai"
+      ],
+      "reason": "not_published",
+      "note": "No model-release, property-release or depicted-person clause; the egocentric video and portrait listings are silent; the creator guide is a placeholder."
+    },
+    {
+      "field": "other.buyer_demand_and_volumes",
+      "urls_tried": [
+        "https://www.opendatabay.com/resources/selling-data/who-is-buying-data",
+        "https://www.opendatabay.com/about"
+      ],
+      "reason": "not_published",
+      "note": "Buyer article is a placeholder; no sales figures. No independent press could be found without web search."
+    },
+    {
+      "field": "other.independent_press_and_financials",
+      "urls_tried": [
+        "https://www.opendatabay.com/about",
+        "https://find-and-update.company-information.service.gov.uk/company/15711573/filing-history"
+      ],
+      "reason": "not_found",
+      "note": "No web search this run; no press page on the site. The accounts PDF to 31 May 2025 (total exemption) was not opened."
+    },
+    {
+      "field": "other.subscription_access_after_cancel",
+      "urls_tried": [
+        "https://docs.opendatabay.com/for-data-buyers/purchase-types.md",
+        "https://www.opendatabay.com/legal/terms"
+      ],
+      "reason": "not_published",
+      "note": "Whether subscribers keep delivered data after cancelling is not addressed."
+    },
+    {
+      "field": "other.where_downloads_are_hosted",
+      "urls_tried": [
+        "https://www.opendatabay.com/legal/seller",
+        "https://docs.opendatabay.com/for-data-buyers/data-delivery-methods.md"
+      ],
+      "reason": "not_published",
+      "note": "'Instant download' listings do not say whether files sit on Opendatabay storage or the provider's."
+    },
+    {
+      "field": "other.progressive_band_method",
+      "urls_tried": [
+        "https://www.opendatabay.com/legal/fees",
+        "https://docs.opendatabay.com/calculator.md",
+        "https://docs.opendatabay.com/for-data-providers/platform-fees-and-pricing.md"
+      ],
+      "reason": "js_empty",
+      "note": "Fee schedule says the rate is determined progressively within a band; the calculator is script-driven and fetched text shows no method, so marginal vs interpolated is unknown."
+    }
+  ],
+  "conflicts": [
+    {
+      "claim_ids": [
+        "opendatabay-c019",
+        "opendatabay-c119"
+      ],
+      "rule_applied": "live_primary_wins_terms",
+      "resolution": "Onboarding docs, provider agreement and ToS all restrict selling to registered businesses; the about-page line is marketing."
+    },
+    {
+      "claim_ids": [
+        "opendatabay-c181",
+        "opendatabay-c119"
+      ],
+      "rule_applied": "live_primary_wins_terms",
+      "resolution": "Same as above: the terms bar individual sellers."
+    },
+    {
+      "claim_ids": [
+        "opendatabay-c166",
+        "opendatabay-c183"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "The same listing shows a CC0 label and an AI-training-rights text banning redistribution; which governs is not stated."
+    },
+    {
+      "claim_ids": [
+        "opendatabay-c094",
+        "opendatabay-c186"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "ToS names arbitration; the Brokerage & Listing Terms name the London courts. Different documents and parties, so both may apply."
+    }
+  ],
+  "leads": [
+    {
+      "url": "https://find-and-update.company-information.service.gov.uk/company/15711573/filing-history",
+      "why": "Total exemption accounts to 31 May 2025 (PDF) would give balance-sheet scale; not opened."
+    },
+    {
+      "url": "https://www.opendatabay.com/legal/privacy",
+      "why": "Platform privacy policy; not read."
+    },
+    {
+      "url": "https://www.opendatabay.com/resources/robotics-data/egocentric-data-for-robotics",
+      "why": "Egocentric-data article under the robotics hub; hub page itself showed only titles."
+    },
+    {
+      "url": "https://www.opendatabay.com/partners",
+      "why": "Partner list; not fetched."
+    }
+  ],
+  "claims": [
+    {
+      "id": "opendatabay-c001",
+      "statement": "Opendatabay is active: its Platform Fees & Commission Schedule was last updated on 24 August 2026.",
+      "kind": "status",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Last Updated: August 24, 2026"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c002",
+      "statement": "Opendatabay's Platform Fees & Commission Schedule took effect on 24 August 2026, the newest dated change found to its terms.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "This policy is effective as of August 24, 2026"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c003",
+      "statement": "Companies House records a confirmation statement for OPENDATABAY LTD made on 16 May 2026.",
+      "kind": "status",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "filing",
+      "as_of": "2026-05-16",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://find-and-update.company-information.service.gov.uk/company/15711573/filing-history",
+          "publisher": "Companies House",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Confirmation statement made on 16 May 2026 with no updates"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c004",
+      "statement": "A First Gazette notice for compulsory strike-off of OPENDATABAY LTD was filed on 14 April 2026.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "filing",
+      "as_of": "2026-04-14",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://find-and-update.company-information.service.gov.uk/company/15711573/filing-history",
+          "publisher": "Companies House",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "First Gazette notice for compulsory strike-off"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c005",
+      "statement": "The compulsory strike-off action against OPENDATABAY LTD was discontinued on 15 April 2026.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "filing",
+      "as_of": "2026-04-15",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://find-and-update.company-information.service.gov.uk/company/15711573/filing-history",
+          "publisher": "Companies House",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Compulsory strike-off action has been discontinued"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c006",
+      "statement": "OPENDATABAY LTD filed total exemption full accounts made up to 31 May 2025 on 10 April 2026.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "filing",
+      "as_of": "2026-04-10",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://find-and-update.company-information.service.gov.uk/company/15711573/filing-history",
+          "publisher": "Companies House",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Total exemption full accounts made up to 31 May 2025"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c007",
+      "statement": "OPENDATABAY LTD (company number 15711573) is a private limited company incorporated in England and Wales on 10 May 2024.",
+      "kind": "status",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "filing",
+      "as_of": "2024-05-10",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://find-and-update.company-information.service.gov.uk/company/15711573",
+          "publisher": "Companies House",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "10 May 2024"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c008",
+      "statement": "Companies House lists one officer of OPENDATABAY LTD, director Justinas Kairys.",
+      "kind": "status",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "filing",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://find-and-update.company-information.service.gov.uk/company/15711573/officers",
+          "publisher": "Companies House",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "KAIRYS, Justinas"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c009",
+      "statement": "The operator of the marketplace is registered in England and Wales under number 15711573 with an office at 7 Hungate, Beccles.",
+      "kind": "terms",
+      "section": "positioning",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/terms",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "7 Hungate, Beccles, NR349TT, United Kingdom"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c010",
+      "statement": "Opendatabay describes itself as a licensed data marketplace for AI training and LLM fine-tuning.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/",
+          "publisher": "Opendatabay",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensed Data Marketplace for AI Training and LLM Fine-Tuning"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c011",
+      "statement": "Opendatabay says its marketplace lists 586 data products.",
+      "kind": "number",
+      "section": "positioning",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 586,
+        "unit": "data products listed",
+        "basis": "vendor homepage counter, all listings free and paid",
+        "period": "point in time"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/",
+          "publisher": "Opendatabay",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All Data Products (586)"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c012",
+      "statement": "Opendatabay says it has 91 licensed data providers.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 91,
+        "unit": "data providers",
+        "basis": "vendor homepage counter",
+        "period": "point in time"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/",
+          "publisher": "Opendatabay",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensed Data Providers (91)"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c013",
+      "statement": "Opendatabay says it has more than 30,000 professionals or data users.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/about",
+          "publisher": "Opendatabay",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "30k+ Professionals / Data Users"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c014",
+      "statement": "Opendatabay says its datasets have been downloaded more than 23,000 times.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/about",
+          "publisher": "Opendatabay",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "23K+ Downloads"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c015",
+      "statement": "Opendatabay says it is an IBM Silver Partner and is supported by Microsoft for Startups and Google for AI Startups.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/",
+          "publisher": "Opendatabay",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "an IBM Silver Partner and APPG AI member, supported by Microsoft for Startups, Google for AI Startups"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c016",
+      "statement": "Opendatabay's documentation calls it a marketplace and commercial brokerage platform, not a data warehouse.",
+      "kind": "architecture",
+      "section": "positioning",
+      "question_ids": [
+        "Q5",
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/marketplace/how-opendatabay-works.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Opendatabay is a marketplace and commercial brokerage platform, not a data warehouse."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c017",
+      "statement": "Opendatabay describes itself as infrastructure connecting AI demand with verified data supply.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/marketplace/how-opendatabay-works.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "connecting AI demand with verified data supply"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c018",
+      "statement": "The homepage invites visitors to buy, sell or exchange AI-ready data.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/",
+          "publisher": "Opendatabay",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Buy, sell, or exchange AI-ready data in 3 simple steps"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c019",
+      "statement": "Opendatabay's about page says individuals, researchers and enterprises can buy and sell data on it.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/about",
+          "publisher": "Opendatabay",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "where individuals, researchers, and enterprises can buy and sell data easily"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c020",
+      "statement": "Opendatabay's docs claim its datasets reduce time spent on preprocessing by 20-40%.",
+      "kind": "outcome",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/readme.md",
+          "publisher": "Opendatabay",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Reducing time spent on preprocessing by 20"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c021",
+      "statement": "Opendatabay's docs claim every dataset comes with verifiable provenance and metadata.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/readme.md",
+          "publisher": "Opendatabay",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Every dataset comes with verifiable provenance and metadata"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c022",
+      "statement": "By default a Data Provider authorises Opendatabay to act as a non-exclusive broker for each listed data product.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/listing",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "By default, the Data Provider authorizes Opendatabay to act as a non-exclusive broker"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c023",
+      "statement": "A Data Provider may elect exclusive brokerage by Opendatabay for a data product, specifying channels, geographies, buyer segments and duration.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q2",
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/listing",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "may elect exclusive brokerage for a data product by providing written confirmation, specifying the scope"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c024",
+      "statement": "Opendatabay's listing terms say it only facilitates listing and brokering and the licence terms are set by the Data Provider.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/listing",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Opendatabay only facilitates listing and brokering; the license terms are set by the Data Provider."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c025",
+      "statement": "The Data Provider, not Opendatabay, grants Data Consumers the rights in the licence selected for a listing.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/listing",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The Data Provider grants Data Consumers the rights specified in the license selected"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c026",
+      "statement": "The Data Provider sets the price or pricing model for each data product.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/listing",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The Data Provider sets the price or pricing model for each data product."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c027",
+      "statement": "Data Providers choose a listing's licence from Opendatabay's commercial or general AI training licences, other standard licences, or a custom licence.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/listing",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Commercial or general Opendatabay AI and LLM Training License"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c028",
+      "statement": "A Data Provider whose case fits no platform licence may supply a URL or description of its own custom licence.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/listing",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Custom License: If none of the above apply, provide a URL or description of your own custom license"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c029",
+      "statement": "Listing terms require all data products to be accurate, complete, lawful and clearly described.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/listing",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All data products must be accurate, complete, lawful, and clearly described."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c030",
+      "statement": "Listing terms require providers to disclose any known limitations or biases of a data product.",
+      "kind": "terms",
+      "section": "listing",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/listing",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Any known limitations or biases must be disclosed."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c031",
+      "statement": "Opendatabay may review or suggest modifications to listings for market alignment and competitiveness.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/listing",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Opendatabay may review or suggest modifications to ensure market alignment and competitiveness"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c032",
+      "statement": "The Data Provider is responsible for the security, availability and integrity of its data.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/listing",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The Data Provider is responsible for the security, availability, and integrity of the data."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c033",
+      "statement": "A provider may revoke brokerage by delisting, but revocation does not affect sales already executed.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/listing",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "revocation does not affect already executed sales or obligations"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c034",
+      "statement": "When brokerage for a product ends, the provider must still deliver any pending sales.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/listing",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the provider must ensure delivery of any pending sales"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c035",
+      "statement": "Listing metadata, including publicly visible samples but excluding the actual data asset, may be used for marketing without further consent.",
+      "kind": "terms",
+      "section": "listing",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/listing",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "including publicly visible samples (excluding the actual data asset) may be used for marketing without additional consent"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c036",
+      "statement": "The listing terms say the fee schedule also covers payout schedules, minimum payout thresholds and responsibility for refunds or chargebacks.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/listing",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "explains payment terms, payout schedules, minimum payout thresholds, and responsibility for refunds or chargebacks"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c037",
+      "statement": "Opendatabay charges its commission on dataset sales, API calls and data access fees.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "commission structure on dataset sales, API calls, and data access fees"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c038",
+      "statement": "Opendatabay's commission is 30% on a sale priced GBP 1 to 100, leaving the seller 70%.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 30,
+        "unit": "percent",
+        "basis": "platform fee deducted from the seller's proceeds, percent of sale price, transactions of GBP 1-100",
+        "period": "per transaction"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "£1 - £100 30% 70%"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c039",
+      "statement": "Opendatabay's commission falls from 30% to 25% across sales priced GBP 101 to 1,000.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 25,
+        "unit": "percent",
+        "basis": "platform fee deducted from seller proceeds; 30% at the bottom of the GBP 101-1,000 band falling to 25% at the top, applied progressively",
+        "period": "per transaction"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "£101 - £1,000 30% → 25% 70% → 75%"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c040",
+      "statement": "Opendatabay's commission falls from 25% to 20% across sales priced GBP 1,001 to 10,000.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 20,
+        "unit": "percent",
+        "basis": "platform fee deducted from seller proceeds; 25% falling to 20% across the GBP 1,001-10,000 band, applied progressively",
+        "period": "per transaction"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "£1,001 - £10,000 25% → 20% 75% → 80%"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c041",
+      "statement": "Opendatabay's commission falls from 20% to 15% across sales priced GBP 10,001 to 25,000.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 15,
+        "unit": "percent",
+        "basis": "platform fee deducted from seller proceeds; 20% falling to 15% across the GBP 10,001-25,000 band, applied progressively",
+        "period": "per transaction"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "£10,001 - £25,000 20% → 15% 80% → 85%"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c042",
+      "statement": "Opendatabay's commission falls from 15% to 10% across sales priced GBP 25,001 to 50,000.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 10,
+        "unit": "percent",
+        "basis": "platform fee deducted from seller proceeds; 15% falling to 10% across the GBP 25,001-50,000 band, applied progressively",
+        "period": "per transaction"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "£25,001 - £50,000 15% → 10% 85% → 90%"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c043",
+      "statement": "Opendatabay's commission falls from 10% to 5% across sales priced GBP 50,001 to 250,000.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 5,
+        "unit": "percent",
+        "basis": "platform fee deducted from seller proceeds; 10% falling to 5% across the GBP 50,001-250,000 band, applied progressively",
+        "period": "per transaction"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "£50,001 - £250,000 10% → 5% 90% → 95%"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c044",
+      "statement": "Opendatabay's commission is 5% on a sale priced GBP 250,001 or more, leaving the seller 95%.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 5,
+        "unit": "percent",
+        "basis": "platform fee deducted from seller proceeds, percent of sale price, transactions of GBP 250,001 and above",
+        "period": "per transaction"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "£250,001 and above 5% 95%"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c045",
+      "statement": "The commission rate depends on the value of each individual transaction, not on the provider's monthly or cumulative sales.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "calculated based on the individual transaction value, not on monthly or cumulative sales"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c046",
+      "statement": "Within each price band the commission percentage is determined progressively.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the applicable percentage is determined progressively within that range"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c047",
+      "statement": "The exact fee and resulting seller payout are shown to a provider when it sets or updates a product price.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The exact fee and resulting seller payout are displayed when a Data Provider sets or updates a product price."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c048",
+      "statement": "The seller bears Opendatabay's fee: the platform deducts it and pays the remaining balance to the Data Provider.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "After deducting the applicable platform fee, the remaining balance is paid to the Data Provider."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c049",
+      "statement": "Opendatabay may agree different commercial terms for bespoke brokerage or enterprise transactions in a separate written agreement.",
+      "kind": "terms",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q9",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "may also agree different commercial terms for bespoke brokerage or enterprise transactions"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c050",
+      "statement": "The fee schedule is incorporated by reference into the Brokerage & Listing Terms.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "This Schedule is incorporated by reference into the Opendatabay Brokerage & Listing Terms"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c051",
+      "statement": "Opendatabay may change its fee schedule at any time, with continued use counting as acceptance.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/fees",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Opendatabay reserves the right to update these terms at any time; continued use constitutes acceptance."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c052",
+      "statement": "Opendatabay charges providers no upfront listing fee; fees apply only when a transaction completes.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q2",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-providers/platform-fees-and-pricing.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Opendatabay does not charge upfront listing fees."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c053",
+      "statement": "Opendatabay pays providers only once their total earnings reach at least GBP 100.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 100,
+        "unit": "GBP",
+        "basis": "minimum accumulated seller earnings before a payout is processed",
+        "period": "per payout"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-providers/platform-fees-and-pricing.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Payments are processed only when total earnings reach a minimum of £100."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c054",
+      "statement": "Opendatabay makes payments in GBP or USD.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-providers/platform-fees-and-pricing.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All payments are made in GBP (£) or USD ($)"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c055",
+      "statement": "Providers receive payment after completed transactions, less Opendatabay's platform fee.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/marketplace/how-opendatabay-works.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Providers receive payment after completed transactions, less the applicable Opendatabay platform fee"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c056",
+      "statement": "Only registered businesses, organisations or legal entities may supply data to Opendatabay.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Only registered businesses, organizations, or legal entities may supply data."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c057",
+      "statement": "Opendatabay carries out KYC/KYB due diligence before approving a data provider.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q3",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Opendatabay conducts due diligence (KYC/KYB) before approval."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c058",
+      "statement": "A provider must own the rights to the data it lists or have permission to sell it.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You must own the rights to the data or have permission to sell it."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c059",
+      "statement": "The provider agreement prohibits uploading illegal, stolen, scraped or unconsented data, without saying whose consent is required.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Uploading illegal, stolen, scraped, or unconsented data is strictly prohibited."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c060",
+      "statement": "Opendatabay's fees are non-refundable to the provider.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Fees are non-refundable."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c061",
+      "statement": "Opendatabay pays sale proceeds only to verified business accounts.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Payouts are made only to verified business accounts."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c062",
+      "statement": "Provider profiles and dataset listings on Opendatabay are public.",
+      "kind": "terms",
+      "section": "listing",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Your provider profile and dataset listings are public."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c063",
+      "statement": "Raw datasets uploaded by providers are never exposed unless explicitly made public.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Raw datasets are never exposed unless explicitly public."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c064",
+      "statement": "Providers may deliver datasets to buyers via download, API, email or other agreed methods.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Providers may deliver datasets via download, API, email, or other agreed methods."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c065",
+      "statement": "Providers may not transact directly, outside the platform, with Data Consumers introduced through Opendatabay.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q2",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "not to engage or transact directly with Data Consumers introduced through the Platform"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c066",
+      "statement": "Circumventing the platform may incur fees and legal consequences for the provider.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Violations may incur fees and legal consequences"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c067",
+      "statement": "Opendatabay may audit a provider's data sources or request documentation, and providers must cooperate.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Opendatabay may audit data sources or request documentation. Providers must cooperate with investigations."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c068",
+      "statement": "The Data Provider indemnifies Opendatabay against third-party claims arising from its listing.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "agrees to indemnify and hold harmless Opendatabay against any third-party claims"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c069",
+      "statement": "Opendatabay indemnifies the Data Provider against certain third-party claims.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Opendatabay agrees to indemnify and hold harmless the Data Provider against third-party claims"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c070",
+      "statement": "Each party's aggregate liability under the provider agreement is capped at the platform fees paid.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "each party's total aggregate liability under this Agreement shall not exceed the total platform fees"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c071",
+      "statement": "Opendatabay may use a provider's name, banners and public product information for marketing, listings and social media.",
+      "kind": "terms",
+      "section": "discovery",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Opendatabay may use your name, banners, and public product info for marketing, listings, and social media."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c072",
+      "statement": "Listing metadata such as provider names, product titles and descriptions may be visible to AI models and crawlers.",
+      "kind": "terms",
+      "section": "discovery",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Metadata including provider names, product titles, and descriptions may be visible to AI models, crawlers"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c073",
+      "statement": "Datasets a provider deletes are permanently removed from Opendatabay's systems; the clause says nothing about copies buyers hold.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Deleted datasets are permanently removed from our systems"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c074",
+      "statement": "Provider user-account data is deleted within 48 hours of a verified deletion request.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "User account data is deleted within 48 hours of a verified deletion request"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c075",
+      "statement": "By listing, a provider warrants it is the original creator of the data or holds all rights and permissions to sell it.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/right",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You are the original creator or have obtained all necessary rights and permissions to sell the data"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c076",
+      "statement": "By listing, a provider warrants the data was collected through legal and ethical means.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/right",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The data was collected through legal and ethical means"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c077",
+      "statement": "By listing, a provider warrants it has authority to grant the licences specified in its listing.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/right",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You have the authority to grant the licenses specified in your listing"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c078",
+      "statement": "Opendatabay prohibits listing first-party data collected without explicit consent.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/right",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "First-party data collected without explicit consent"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c079",
+      "statement": "Opendatabay prohibits listing personally identifiable information without proper anonymisation.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/right",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Personally Identifiable Information (PII) without proper anonymization"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c080",
+      "statement": "Opendatabay prohibits listing data scraped from websites in violation of their terms of service.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/right",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Data scraped from websites in violation of their terms of service"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c081",
+      "statement": "Providers must keep records of consent where applicable; the terms do not require passing them to buyers.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/right",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Maintain records of consent where applicable"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c082",
+      "statement": "Providers must supply proof of data ownership on request.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/right",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Provide proof of data ownership upon request"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c083",
+      "statement": "Opendatabay reserves the right to conduct data quality audits.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/right",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Conduct data quality audits"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c084",
+      "statement": "Opendatabay reserves the right to remove non-compliant data products.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/right",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Remove non-compliant data products"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c085",
+      "statement": "Data Providers indemnify Opendatabay against claims, damages or losses arising from their listings.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/right",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Data Providers agree to indemnify and hold harmless Opendatabay from any claims, damages, or losses"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c086",
+      "statement": "Opendatabay's Terms of Service were last updated on 26 July 2026.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/terms",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Last Updated: July 26, 2026"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c087",
+      "statement": "Refunds are not available for one-off purchases of digital products once access has been granted.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/terms",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Refunds are not available for one-off purchases of digital products or services once access has been granted."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c088",
+      "statement": "Payments for data products are processed through third-party payment processors.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/terms",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Payments for data products or services are processed through secure payment processors."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c089",
+      "statement": "Users must comply with the licensing or usage restrictions attached to paid data products.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/terms",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Users must comply with any licensing or usage restrictions associated with paid data products"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c090",
+      "statement": "Users must be registered and have completed onboarding to download a data sample.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/terms",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "To download a data sample, users must be registered and have completed the onboarding process."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c091",
+      "statement": "Opendatabay's terms tell users data products may come from third-party sources and it does not guarantee accuracy.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/terms",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Users acknowledge that data products may come from third-party sources, and Opendatabay does not guarantee accuracy."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c092",
+      "statement": "Content, data products and services on Opendatabay are provided 'as is'.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/terms",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "are provided 'as is'"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c093",
+      "statement": "Opendatabay reserves the right to remove unauthorised or infringing content.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/terms",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Opendatabay reserves the right to remove unauthorized or infringing content."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c094",
+      "statement": "Under the Terms of Service, disputes unresolved within 30 days go to binding arbitration.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/terms",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "disputes unresolved in 30 days will be submitted to binding arbitration"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c095",
+      "statement": "The Terms of Service limit registration as a data provider to registered businesses, legal entities or institutions.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/terms",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Only registered businesses, legal entities, or institutions may register as data providers"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c096",
+      "statement": "When a transaction takes place, the Data Provider can deliver the dataset directly to the approved customer environment.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/marketplace/how-opendatabay-works.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the Data Provider can deliver the dataset directly to the approved customer environment"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c097",
+      "statement": "When a required dataset is not on the marketplace, Opendatabay says it helps source bespoke data requirements.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/marketplace/how-opendatabay-works.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "When a required dataset is not currently available, we help source bespoke data requirements."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c098",
+      "statement": "Buyers can search the marketplace or submit a specific data requirement.",
+      "kind": "offer",
+      "section": "discovery",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/marketplace/how-opendatabay-works.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Search the marketplace or submit a specific data requirement."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c099",
+      "statement": "Opendatabay offers one-time purchases that give access to a specific dataset for a single payment.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-buyers/purchase-types.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Pay once to access a specific dataset"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c100",
+      "statement": "Opendatabay offers subscriptions with a monthly or annual recurring fee for continuous access to datasets.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-buyers/purchase-types.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Pay a recurring fee (monthly or annually) for continuous access to datasets"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c101",
+      "statement": "Opendatabay offers pay-per-use pricing based on the amount of data accessed or the number of API calls.",
+      "kind": "offer",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-buyers/purchase-types.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Pay based on the amount of data accessed or the number of API calls made"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c102",
+      "statement": "Opendatabay lists customised data reports priced per report as a purchase type.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-buyers/purchase-types.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Customised data reports tailored to specific requirements, where pricing is determined per report"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c103",
+      "statement": "Managed access gives continuous access to datasets stored on cloud platforms such as AWS, Azure and Snowflake.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-buyers/purchase-types.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Continuous access to datasets stored on cloud platforms such as AWS, Azure, and Snowflake"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c104",
+      "statement": "Some data providers offer unique purchasing options specified in the dataset description.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-buyers/purchase-types.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Some data providers may offer unique purchasing options specified in the dataset description"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c105",
+      "statement": "The download delivery method gives the buyer a direct file download after purchase completion.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-buyers/data-delivery-methods.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Direct file download after purchase completion"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c106",
+      "statement": "The API delivery method gives real-time data access through API endpoints.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-buyers/data-delivery-methods.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Real-time data access via API endpoints"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c107",
+      "statement": "For cloud or managed access, the provider grants the buyer access credentials to cloud storage.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-buyers/data-delivery-methods.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Provider grants access credentials"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c108",
+      "statement": "Custom delivery is negotiated between buyer and seller and may use FTP, direct database access or physical media.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-buyers/data-delivery-methods.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Negotiated delivery method between buyer and seller"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c109",
+      "statement": "Some listings use a provider-specified delivery method set out in the dataset description.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-buyers/data-delivery-methods.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Unique delivery method outlined in dataset description"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c110",
+      "statement": "Opendatabay's buyer docs say data licences are granted directly by data providers, not by Opendatabay.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-buyers/compliance-and-legal.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Data licenses are granted directly by data providers, not by Opendatabay"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c111",
+      "statement": "Opendatabay's buyer docs describe it as the conduit, not the licensor.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-buyers/compliance-and-legal.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We act as the conduit, not the licensor."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c112",
+      "statement": "Opendatabay's buyer compliance page describes basic verification of data provider accounts and no equivalent check on buyers.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-buyers/compliance-and-legal.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Basic verification of data provider accounts"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c113",
+      "statement": "In a dispute between a buyer and a provider, Opendatabay acts as a neutral intermediary.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-buyers/compliance-and-legal.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Opendatabay acts as a neutral intermediary"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c114",
+      "statement": "Opendatabay's buyer docs say refunds may be considered based on the terms of service.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-buyers/compliance-and-legal.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Refunds may be considered based on terms of service"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c115",
+      "statement": "Opendatabay says every dataset purchase includes specific licensing terms.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-buyers/compliance-and-legal.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Each dataset purchase includes specific licensing terms that govern"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c116",
+      "statement": "Opendatabay says all listed datasets are automatically indexed by major search engines.",
+      "kind": "offer",
+      "section": "discovery",
+      "question_ids": [
+        "Q2",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-buyers/finding-datasets.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All listed datasets on Opendatabay are automatically indexed"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c117",
+      "statement": "Opendatabay says its datasets are automatically exposed to all major large language models.",
+      "kind": "offer",
+      "section": "discovery",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-buyers/finding-datasets.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Opendatabay datasets are automatically exposed to all major Large Language Models"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c118",
+      "statement": "Opendatabay's platform search accepts natural-language queries and scores each result for accuracy of match.",
+      "kind": "offer",
+      "section": "discovery",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-buyers/finding-datasets.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Each search result includes an accuracy score"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c119",
+      "statement": "Opendatabay accepts only registered businesses as sellers; individual and self-employed sellers cannot list data products.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-providers/data-provider-onboarding.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Individual sellers and self-employed providers cannot list data products."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c120",
+      "statement": "Provider verification at onboarding takes 1-2 business days.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-providers/data-provider-onboarding.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Timeline: 1-2 business days"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c121",
+      "statement": "Opendatabay's onboarding verification includes checking data product suitability.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-providers/data-provider-onboarding.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Data product suitability"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c122",
+      "statement": "A listing has a licence field in which the provider specifies the dataset's licence.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-providers/listing-data-product.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Specify the dataset's license (e.g., CC BY-SA 4.0)"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c123",
+      "statement": "A listing has a separate AI training licence field.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-providers/listing-data-product.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Select the appropriate AI training license for your data product"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c124",
+      "statement": "A listing has a delivery method field such as one-off download, API access or subscription.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q6",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-providers/listing-data-product.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Select the delivery method for your data product"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c125",
+      "statement": "A listing declares its dataset type, such as text, images or videos.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-providers/listing-data-product.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Specify the dataset's type (e.g., Textual, Images, Videos)"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c126",
+      "statement": "A listing records only the date of its last update, with no version field described.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-providers/listing-data-product.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Date of last update"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c127",
+      "statement": "Opendatabay's seller guide asks providers to supply sample data or a preview.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-providers/creating-high-quality-data-products.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Sample data or preview"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c128",
+      "statement": "Opendatabay's seller guide says quality, collection methods and licensing matter more than volume.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-providers/creating-high-quality-data-products.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Quality, collection methods, and licensing are more important than raw volume or variety."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c129",
+      "statement": "Opendatabay's seller guide tells providers to state 'Unknown' rather than omit information.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-providers/creating-high-quality-data-products.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If information is unknown, explicitly state 'Unknown' rather than omitting it."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c130",
+      "statement": "Opendatabay's seller checklist asks providers to confirm data was collected with proper consent.",
+      "kind": "offer",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/for-data-providers/creating-high-quality-data-products.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Collected with proper consent"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c131",
+      "statement": "Opendatabay provides two specialised AI training licences.",
+      "kind": "offer",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/ai-licensing-overview.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Opendatabay provides two specialised AI training licenses"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c132",
+      "statement": "Opendatabay's General AI training licence is for non-commercial use only; the Commercial one gives full commercial rights for models and outputs.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/ai-licensing-overview.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Full commercial rights for models and outputs"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c133",
+      "statement": "Opendatabay lets sellers define and apply custom licences to their datasets.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/standard-data-licenses/custom.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "empowers data sellers to define and apply custom licenses to their datasets"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c134",
+      "statement": "Buyers can view a dataset's licence before deciding to purchase.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/standard-data-licenses/custom.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Buyers can view the associated license for each dataset before making a purchase decision."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c135",
+      "statement": "Buyers must accept a custom licence's terms during the purchasing process.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q8",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/standard-data-licenses/custom.md",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Buyers must acknowledge and accept the terms of the custom license during the purchasing process."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c136",
+      "statement": "In Opendatabay's Commercial AI training licence the Licensor is the party that collected, prepared and owns the Data Product.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license.md",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The individual or entity that collected, prepared, and owns the Data Product and is granting this License"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c137",
+      "statement": "The Commercial AI training licence grants a non-exclusive, worldwide, perpetual right, subject to termination.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license.md",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "non-exclusive, worldwide, perpetual (subject to termination rights in Section 10) right to use this Data Product"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c138",
+      "statement": "The Commercial AI training licence forbids reselling, redistributing or sublicensing the Data Product itself.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license.md",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Resell, redistribute, or sublicense the Data Product itself"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c139",
+      "statement": "The Commercial licence forbids intentionally removing or altering watermarks, cryptographic signatures or provenance metadata.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license.md",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Intentionally remove, obscure, or alter any digital watermarks, cryptographic signatures, or provenance metadata"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c140",
+      "statement": "On termination or on the licensor's written request, the licensee must promptly delete or irreversibly anonymise all copies.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license.md",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensee must promptly delete or irreversibly anonymise all copies of the Data Product"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c141",
+      "statement": "Licensor compliance checks under the Commercial licence are limited to once a year with 60 days' written notice.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license.md",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "no more than once per year, with sixty (60) days' advance written notice"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c142",
+      "statement": "Opendatabay is a third-party beneficiary of the Commercial licence solely to enforce the ban on off-platform transactions.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license.md",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Opendatabay is a third-party beneficiary of this License solely for the purposes of enforcing the prohibition on off-platform"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c143",
+      "statement": "The Commercial licence has the licensor represent that the data was collected in compliance with data protection law including GDPR.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license.md",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The Data Product was collected and provided in compliance with applicable data protection and related laws"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c144",
+      "statement": "The licensor represents only that it used best practices and reasonable technical measures to filter out personal data.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license.md",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "used commercial best practices and reasonable technical measures to filter and exclude personal data/PII"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c145",
+      "statement": "Use of the Commercial licence outside the Opendatabay platform or without its authorisation is prohibited.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q2",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license.md",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Its use outside the Opendatabay platform, or without Opendatabay's knowledge and authorisation, is strictly prohibited."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c146",
+      "statement": "The General AI training licence permits use only for internal research, evaluation and educational purposes.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/general-ai-training-and-fine-tuning-data-license.md",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "solely for internal research, evaluation, and educational purposes"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c147",
+      "statement": "The General AI training licence forbids commercial deployment, production API use and any monetisation.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/general-ai-training-and-fine-tuning-data-license.md",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Commercial deployment, use in production API services, or any form of monetisation is NOT permitted."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c148",
+      "statement": "The General licence warranty covers only the right to license and that the data was not obtained in violation of law.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/general-ai-training-and-fine-tuning-data-license.md",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensor warrants that it has the right to license the Data Product under this License"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c149",
+      "statement": "Opendatabay's robotics category covers egocentric and first-person data, teleoperation and robot perception.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/data/robotics",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "including egocentric and first-person data, IMU and proprioception, teleoperation"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c150",
+      "statement": "Infobay.Ai lists a 220K+ hours narrated egocentric video dataset on Opendatabay.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q1",
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/data/ai-ml/b265aff0-f1c6-4bb8-b0c3-a256fda10cca",
+          "publisher": "Opendatabay (listing by Infobay.Ai)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "220K+ Hours Narrated Egocentric Video Dataset"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c151",
+      "statement": "The egocentric video listing is priced at GBP 371,000.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 371000,
+        "unit": "GBP",
+        "basis": "buyer price for the initial batch of 50,000 hours of narrated egocentric video; list price set by the provider",
+        "period": "one-off"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/data/ai-ml/b265aff0-f1c6-4bb8-b0c3-a256fda10cca",
+          "publisher": "Opendatabay (listing by Infobay.Ai)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "£371,000"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c152",
+      "statement": "The egocentric listing's price covers only an initial batch of 50,000 hours of video.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/data/ai-ml/b265aff0-f1c6-4bb8-b0c3-a256fda10cca",
+          "publisher": "Opendatabay (listing by Infobay.Ai)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The listed price applies to the specified initial batch of 50,000 hours of narrated egocentric video."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c153",
+      "statement": "Pricing for larger batches or the complete egocentric library varies and is not published on the listing.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/data/ai-ml/b265aff0-f1c6-4bb8-b0c3-a256fda10cca",
+          "publisher": "Opendatabay (listing by Infobay.Ai)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Pricing for larger batches or the complete dataset library varies depending on total video duration"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c154",
+      "statement": "The GBP 371,000 egocentric video listing is labelled with a CC BY 4.0 licence.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/data/ai-ml/b265aff0-f1c6-4bb8-b0c3-a256fda10cca",
+          "publisher": "Opendatabay (listing by Infobay.Ai)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "CC BY 4.0 (Creative Commons Attribution 4.0 International)"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c155",
+      "statement": "The egocentric listing is delivered by custom delivery or S3 rather than instant download.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/data/ai-ml/b265aff0-f1c6-4bb8-b0c3-a256fda10cca",
+          "publisher": "Opendatabay (listing by Infobay.Ai)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "CUSTOM, S3"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c156",
+      "statement": "The egocentric video provider asserts its own ownership verification, licensing documentation and provenance records.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/data/ai-ml/b265aff0-f1c6-4bb8-b0c3-a256fda10cca",
+          "publisher": "Opendatabay (listing by Infobay.Ai)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "ensures that all datasets are sourced, curated, and managed with proper ownership verification"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c157",
+      "statement": "Listings carry a 'Universal Data Trust Rating' (UDTR) label.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/data/ai-ml/b265aff0-f1c6-4bb8-b0c3-a256fda10cca",
+          "publisher": "Opendatabay (listing by Infobay.Ai)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Universal Data Trust Rating"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c158",
+      "statement": "Providers on listings carry a 'Licensed LLM Data Provider' badge.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/data/ai-ml/b265aff0-f1c6-4bb8-b0c3-a256fda10cca",
+          "publisher": "Opendatabay (listing by Infobay.Ai)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensed LLM Data Provider"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c159",
+      "statement": "The Industrial Bearing Thermography image dataset is priced at GBP 850.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 850,
+        "unit": "GBP",
+        "basis": "buyer list price for the whole dataset (1,326 records), set by the provider",
+        "period": "one-off"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/data/premium/c273a3ea-1c0a-4bde-8e36-2e2fdd9060b4",
+          "publisher": "Opendatabay (listing by Dira Reliability S.L.)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "£850"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c160",
+      "statement": "The thermography listing is sold by instant download.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/data/premium/c273a3ea-1c0a-4bde-8e36-2e2fdd9060b4",
+          "publisher": "Opendatabay (listing by Dira Reliability S.L.)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "INSTANT DOWNLOAD"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c161",
+      "statement": "The thermography listing shows a trust rating of 5 out of 5.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/data/premium/c273a3ea-1c0a-4bde-8e36-2e2fdd9060b4",
+          "publisher": "Opendatabay (listing by Dira Reliability S.L.)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "TRUST 5 / 5"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c162",
+      "statement": "The thermography listing shows view count, listing date and last-updated date.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/data/premium/c273a3ea-1c0a-4bde-8e36-2e2fdd9060b4",
+          "publisher": "Opendatabay (listing by Dira Reliability S.L.)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "UPDATED 24/03/2026"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c163",
+      "statement": "The thermography listing's licence is shown as Proprietary.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/data/premium/c273a3ea-1c0a-4bde-8e36-2e2fdd9060b4",
+          "publisher": "Opendatabay (listing by Dira Reliability S.L.)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "License: Proprietary"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c164",
+      "statement": "The thermography listing's AI training rights grant a non-exclusive, worldwide, perpetual right to train and evaluate models.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/data/premium/c273a3ea-1c0a-4bde-8e36-2e2fdd9060b4",
+          "publisher": "Opendatabay (listing by Dira Reliability S.L.)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensee is granted a non-exclusive, worldwide, and perpetual right to"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c165",
+      "statement": "The Multilingual Speech & Audio listing is priced at GBP 500,000.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 500000,
+        "unit": "GBP",
+        "basis": "buyer list price shown on the listing, set by the provider",
+        "period": "one-off"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/data/premium/e6386607-7899-457b-bb85-5f31ae6c11fb",
+          "publisher": "Opendatabay (listing by S CHAND AND COMPANY LIMITED)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "£500,000"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c166",
+      "statement": "The GBP 500,000 speech listing is labelled CC0, no rights reserved.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/data/premium/e6386607-7899-457b-bb85-5f31ae6c11fb",
+          "publisher": "Opendatabay (listing by S CHAND AND COMPANY LIMITED)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "CC0 — No Rights Reserved"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c167",
+      "statement": "Paid listings show a 'Buy Now' button.",
+      "kind": "architecture",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/data/premium/e6386607-7899-457b-bb85-5f31ae6c11fb",
+          "publisher": "Opendatabay (listing by S CHAND AND COMPANY LIMITED)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Buy Now"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c168",
+      "statement": "FixThePhoto lists a free portrait-retouching image dataset as a demonstration sample.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/data/ai-ml/292edf15-04fc-4fca-9935-998f07e3dc36",
+          "publisher": "Opendatabay (listing by DGPH Outsourcing OU / FixThePhoto)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "This dataset is provided as a demonstration sample."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c169",
+      "statement": "The free portrait dataset forbids redistribution, resale or sublicensing of the image files unless authorised.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/data/ai-ml/292edf15-04fc-4fca-9935-998f07e3dc36",
+          "publisher": "Opendatabay (listing by DGPH Outsourcing OU / FixThePhoto)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Redistribution, resale, or sublicensing of the source or target image files is not permitted unless explicitly authorized."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c170",
+      "statement": "The free portrait dataset includes a RIGHTS_AND_PROVENANCE file with provenance and licensing information.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/data/ai-ml/292edf15-04fc-4fca-9935-998f07e3dc36",
+          "publisher": "Opendatabay (listing by DGPH Outsourcing OU / FixThePhoto)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "provenance and licensing information"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c171",
+      "statement": "A provider account named Opendatabay Labs publishes free datasets such as an Indian agriculture production dataset.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/data/government",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Agriculture Production and Yield in India since 1997"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c172",
+      "statement": "The Opendatabay Labs agriculture dataset is derived from an Indian government statistics database.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/data/government/cb9cdf12-ada1-4f69-9eb2-99a51f91c43b",
+          "publisher": "Opendatabay (listing by Opendatabay Labs)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The dataset is derived from the Indian government's Area Production Statistics (APS) database"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c173",
+      "statement": "The Opendatabay Labs agriculture dataset is free under CC0 public domain.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/data/government/cb9cdf12-ada1-4f69-9eb2-99a51f91c43b",
+          "publisher": "Opendatabay (listing by Opendatabay Labs)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "CC0: Public Domain"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c174",
+      "statement": "The Opendatabay Labs Nobel laureates dataset draws on the Nobel Foundation's data archives.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/data/government/151d5220-7864-4b76-b38e-f3021bcc2151",
+          "publisher": "Opendatabay (listing by Opendatabay Labs)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The primary source for this data is the Nobel Foundation's data archives."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c175",
+      "statement": "Opendatabay's premium category advertises curated, labelled datasets for advanced AI training.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/data/premium",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Top-tier, gold-standard, perfectly labeled, curated, and structured datasets for advanced AI training"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c176",
+      "statement": "Opendatabay's open data repository offers free or open data products.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/open-data-repository",
+          "publisher": "Opendatabay",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Free or Open Data Products"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c177",
+      "statement": "Opendatabay's Request a Dataset page invites buyers who cannot find data to ask Opendatabay to help find it.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/request-data",
+          "publisher": "Opendatabay",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Request data from Opendatabay and we will help you find it"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c178",
+      "statement": "Opendatabay says its network of data providers and data enthusiasts helps find or create requested data.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/request-data",
+          "publisher": "Opendatabay",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Our network of data providers and data enthusiasts are here to help you find or create the data"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c179",
+      "statement": "The Request a Dataset page shows a public list of recent dataset requests.",
+      "kind": "offer",
+      "section": "demand",
+      "question_ids": [
+        "Q1",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/request-data",
+          "publisher": "Opendatabay",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Discover the latest dataset requests submitted by researchers, developers, and businesses"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c180",
+      "statement": "The data provider landing page pitches providers to monetise data by listing and selling it.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/data-providers",
+          "publisher": "Opendatabay",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Monetise Your Data Today - List It, Sell It, and Earn Revenue as a Trusted Data Provider"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c181",
+      "statement": "Opendatabay's resources hub pitches selling to individuals and companies holding rare data.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/resources/selling-data",
+          "publisher": "Opendatabay",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "A guide for individuals and companies sitting on rare data who want to turn it into revenue"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c182",
+      "statement": "Opendatabay's article on who buys data is placeholder content, dated 31 August 2026.",
+      "kind": "offer",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-08-31",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/resources/selling-data/who-is-buying-data",
+          "publisher": "Opendatabay",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Placeholder content. This article will profile the buyer landscape for niche data"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c183",
+      "statement": "The CC0-labelled speech listing's AI training rights forbid redistributing or sharing the data product outside licensed usage.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/data/premium/e6386607-7899-457b-bb85-5f31ae6c11fb",
+          "publisher": "Opendatabay (listing by S CHAND AND COMPANY LIMITED)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The data product itself may not be redistributed or shared outside licensed usage."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c184",
+      "statement": "Providers are responsible for the accuracy of the information displayed on their listings.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You are responsible for the accuracy of displayed information."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c185",
+      "statement": "Providers must ensure their datasets are complete, safe and accurately described.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/seller",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Ensure datasets are complete, safe, and accurately described."
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-c186",
+      "statement": "Disputes under the Brokerage & Listing Terms go exclusively to the courts of London.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/listing",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "shall be resolved exclusively in the courts of London"
+        }
+      ]
+    }
+  ]
+}

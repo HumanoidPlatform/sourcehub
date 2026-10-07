@@ -1,0 +1,2379 @@
+{
+  "kind": "profile",
+  "slug": "elra-elda-catalogue",
+  "name": "ELRA / ELDA Catalogue",
+  "aliases": [
+    "ELRA",
+    "ELDA",
+    "European Language Resources Association",
+    "Evaluations and Language resources Distribution Agency",
+    "ELRA Catalogue"
+  ],
+  "segment": "priced_catalogue",
+  "tier": "light",
+  "status": {
+    "value": "active",
+    "claim_id": "elra-elda-catalogue-c001"
+  },
+  "names_for": {
+    "catalogue_side": "ELRA Catalogue (Distribution of Language Resources)",
+    "custom_side": "production services (Production)"
+  },
+  "matrix": {
+    "operator_role": {
+      "value": "reseller_licensor",
+      "claim_ids": [
+        "elra-elda-catalogue-c028",
+        "elra-elda-catalogue-c029",
+        "elra-elda-catalogue-c008"
+      ],
+      "note": "ELDA signs the user licence in its own name as DISTRIBUTOR under a distribution licence from the owner; the owner is not a party."
+    },
+    "economics_model": {
+      "value": "mixed",
+      "claim_ids": [
+        "elra-elda-catalogue-c009",
+        "elra-elda-catalogue-c018",
+        "elra-elda-catalogue-c012"
+      ],
+      "note": "Third-party providers receive 'payment, royalties or other compensation' (split not published); ELRA also sells resources it produced."
+    },
+    "who_pays_fee": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Buyer pays a list price; how ELRA's share is taken from provider proceeds is not published."
+    },
+    "supply_models": {
+      "value": [
+        "third_party_providers",
+        "own_collection"
+      ],
+      "claim_ids": [
+        "elra-elda-catalogue-c008",
+        "elra-elda-catalogue-c016",
+        "elra-elda-catalogue-c018"
+      ],
+      "note": "Whether ELDA production-service outputs are relisted (commissioned_nonexclusive) is not published."
+    },
+    "custody_model": {
+      "value": "copy_to_buyer",
+      "claim_ids": [
+        "elra-elda-catalogue-c044",
+        "elra-elda-catalogue-c046",
+        "elra-elda-catalogue-c009"
+      ],
+      "note": "Provider supplies the resource to ELRA; ELDA delivers a copy by download to the buyer's named site."
+    },
+    "transaction_mode": {
+      "value": "both",
+      "claim_ids": [
+        "elra-elda-catalogue-c047",
+        "elra-elda-catalogue-c039",
+        "elra-elda-catalogue-c041",
+        "elra-elda-catalogue-c065"
+      ],
+      "note": "Fixed list prices with a cart/order form, but every sale closes with an emailed licence signed by hand and an invoice; buyers are also invited to email ELDA."
+    },
+    "public_prices": {
+      "value": "some",
+      "claim_ids": [
+        "elra-elda-catalogue-c048",
+        "elra-elda-catalogue-c050",
+        "elra-elda-catalogue-c052"
+      ],
+      "note": "All three listings opened showed full price grids; not checked across the whole catalogue."
+    },
+    "licence_model": {
+      "value": "tiered_standard",
+      "claim_ids": [
+        "elra-elda-catalogue-c020",
+        "elra-elda-catalogue-c022",
+        "elra-elda-catalogue-c021",
+        "elra-elda-catalogue-c023",
+        "elra-elda-catalogue-c024"
+      ],
+      "note": ""
+    },
+    "exclusivity_offered": {
+      "value": "no",
+      "claim_ids": [
+        "elra-elda-catalogue-c027",
+        "elra-elda-catalogue-c037"
+      ],
+      "note": "ELRA's user contracts grant non-exclusive rights; no exclusive option was found on any page read."
+    },
+    "public_listing": {
+      "value": "public_indexable",
+      "claim_ids": [
+        "elra-elda-catalogue-c006",
+        "elra-elda-catalogue-c052",
+        "elra-elda-catalogue-c059"
+      ],
+      "note": "Anonymous visitor sees full descriptions and price grids."
+    },
+    "buyer_vetting": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Order form collects institution, VAT number and membership; research licence requires bona fide research; no check procedure published."
+    },
+    "sample_mechanics": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Providers send ELRA a sample; the three listings opened showed no buyer sample. Not checked catalogue-wide."
+    },
+    "versioning": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Listings show 'Version: 1.0' and suffixed IDs (S0490_01), but no policy on new versions for past buyers."
+    },
+    "human_subject_consent_docs": {
+      "value": "not_addressed",
+      "claim_ids": [
+        "elra-elda-catalogue-c036",
+        "elra-elda-catalogue-c015",
+        "elra-elda-catalogue-c060"
+      ],
+      "note": "Neither licence template nor provider forms nor the listing of a corpus of recorded patients mention consent."
+    },
+    "contributor_pay_model": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "ELRA pays providers (organisations); how recorded speakers or creators were paid is not stated."
+    },
+    "catalogue_plus_custom": {
+      "value": "both",
+      "claim_ids": [
+        "elra-elda-catalogue-c006",
+        "elra-elda-catalogue-c063"
+      ],
+      "note": ""
+    },
+    "erasure_after_sale": {
+      "value": "not_addressed",
+      "claim_ids": [
+        "elra-elda-catalogue-c036",
+        "elra-elda-catalogue-c031"
+      ],
+      "note": "Licence is perpetual with no termination, deletion or takedown clause."
+    },
+    "quality_evidence": {
+      "value": "both",
+      "claim_ids": [
+        "elra-elda-catalogue-c019",
+        "elra-elda-catalogue-c013",
+        "elra-elda-catalogue-c017"
+      ],
+      "note": "ELRA states resources are validated before distribution; providers also self-report validation. Licences disclaim quality."
+    }
+  },
+  "questions": {
+    "Q1": {
+      "state": "partial",
+      "answer": "Buyers are academic and commercial HLT organisations (members in telecoms, marketing, multilingual business) licensing whole corpora per site; ELRA's catalogue includes audiovisual corpora. No volume data by buyer type was citable.",
+      "claim_ids": [
+        "elra-elda-catalogue-c064",
+        "elra-elda-catalogue-c024",
+        "elra-elda-catalogue-c059"
+      ]
+    },
+    "Q2": {
+      "state": "partial",
+      "answer": "ELRA pitches wider distribution and a non-profit clearing house with standard licences and IPR clearance; no provider-side outcome data found.",
+      "claim_ids": [
+        "elra-elda-catalogue-c010",
+        "elra-elda-catalogue-c005",
+        "elra-elda-catalogue-c017"
+      ]
+    },
+    "Q3": {
+      "state": "sourced",
+      "answer": "Third-party providers (e.g. 67 Datatang speech resources) grant ELRA a distribution licence for payment, royalties or other compensation; ELRA also lists resources it produced.",
+      "claim_ids": [
+        "elra-elda-catalogue-c008",
+        "elra-elda-catalogue-c009",
+        "elra-elda-catalogue-c016",
+        "elra-elda-catalogue-c018",
+        "elra-elda-catalogue-c012"
+      ]
+    },
+    "Q4": {
+      "state": "unknown",
+      "answer": "",
+      "claim_ids": []
+    },
+    "Q5": {
+      "state": "sourced",
+      "answer": "ELDA is licensor of record as DISTRIBUTOR under distribution rights from the rightful holder; ELDA and owners disclaim all warranties and neither side indemnifies.",
+      "claim_ids": [
+        "elra-elda-catalogue-c028",
+        "elra-elda-catalogue-c029",
+        "elra-elda-catalogue-c034",
+        "elra-elda-catalogue-c036"
+      ]
+    },
+    "Q6": {
+      "state": "sourced",
+      "answer": "The provider supplies the data to ELRA and ELDA delivers a copy, preferably by download, after the signed licence is received.",
+      "claim_ids": [
+        "elra-elda-catalogue-c009",
+        "elra-elda-catalogue-c044",
+        "elra-elda-catalogue-c046"
+      ]
+    },
+    "Q7": {
+      "state": "partial",
+      "answer": "Consent is not addressed: licence templates, provider forms and a listing of recorded patients are silent on consent of people recorded.",
+      "claim_ids": [
+        "elra-elda-catalogue-c036",
+        "elra-elda-catalogue-c015",
+        "elra-elda-catalogue-c060"
+      ]
+    },
+    "Q8": {
+      "state": "sourced",
+      "answer": "Tiered standard licences (research End-User, Evaluation, commercial VAR), non-exclusive, perpetual, site-bound, with bans on sharing language models; no audit or deletion clauses.",
+      "claim_ids": [
+        "elra-elda-catalogue-c020",
+        "elra-elda-catalogue-c027",
+        "elra-elda-catalogue-c031",
+        "elra-elda-catalogue-c033",
+        "elra-elda-catalogue-c032",
+        "elra-elda-catalogue-c038",
+        "elra-elda-catalogue-c037",
+        "elra-elda-catalogue-c036"
+      ]
+    },
+    "Q9": {
+      "state": "sourced",
+      "answer": "Fixed public prices by member status, user nature and licence; order form or cart, then a hand-signed licence and invoice paid by wire, cheque or card. Providers get royalties or other compensation.",
+      "claim_ids": [
+        "elra-elda-catalogue-c039",
+        "elra-elda-catalogue-c041",
+        "elra-elda-catalogue-c043",
+        "elra-elda-catalogue-c025",
+        "elra-elda-catalogue-c026",
+        "elra-elda-catalogue-c048",
+        "elra-elda-catalogue-c053",
+        "elra-elda-catalogue-c009"
+      ]
+    },
+    "Q10": {
+      "state": "partial",
+      "answer": "A listing is a resource with ELRA ID, ISLRN, version and availability date; the licence names it in Exhibit A and is perpetual. No stated policy for new versions or withdrawals.",
+      "claim_ids": [
+        "elra-elda-catalogue-c061",
+        "elra-elda-catalogue-c062",
+        "elra-elda-catalogue-c031"
+      ]
+    },
+    "Q11": {
+      "state": "partial",
+      "answer": "ELRA says resources are validated before distribution and providers submit samples and validation info; listings opened showed no buyer samples, and the licence disclaims quality.",
+      "claim_ids": [
+        "elra-elda-catalogue-c019",
+        "elra-elda-catalogue-c013",
+        "elra-elda-catalogue-c014",
+        "elra-elda-catalogue-c035"
+      ]
+    },
+    "Q12": {
+      "state": "sourced",
+      "answer": "The off-the-shelf side is the ELRA Catalogue (Distribution); the bespoke side is ELRA/ELDA 'production services'.",
+      "claim_ids": [
+        "elra-elda-catalogue-c006",
+        "elra-elda-catalogue-c063"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "elra-elda-catalogue-c001",
+      "statement": "ELRA's catalogue listed the THERADIA WoZ Corpus with a creation date of 17 September 2026, showing the catalogue is still being extended.",
+      "kind": "status",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-17",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://catalogue.elra.info/en-us/repository/browse/ELRA-S0499/",
+          "publisher": "ELRA",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Created: 09/17/2026"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c002",
+      "statement": "ELRA held LREC 2026, its 15th Language Resources and Evaluation Conference, in Palma de Mallorca on 11-16 May 2026.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-05-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.elra.info/en/",
+          "publisher": "ELRA",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Palma de Mallorca (Spain), on 11-16 May 2026"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c003",
+      "statement": "ELRA's newest dated language-resource announcement heading is December 2025, covering Chinese Mandarin speech databases recorded from 1000 speakers.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-12",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.elra.info/catalogues/language-resources-announcements/",
+          "publisher": "ELRA",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "This database contains the recordings of 1000 Chinese Mandarin speakers from Southern China"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c004",
+      "statement": "ELRA announced the SANACS Slovak child speech corpus under its 'Jun 24' announcements heading, i.e. in 2024, not at LREC 2026.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2024-06",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.elra.info/catalogues/language-resources-announcements/",
+          "publisher": "ELRA",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Slovak Autistic and Non-Autistic Child Speech Corpus (SANACS)"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c005",
+      "statement": "ELRA describes itself as a non-profit organisation whose main mission is to make language resources available to the community.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.elra.info/en/",
+          "publisher": "ELRA",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "a non-profit organisation whose main mission is to make Language Resources (LRs)"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c006",
+      "statement": "ELRA says its catalogue offers 1,598 language resources.",
+      "kind": "number",
+      "section": "positioning",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 1598,
+        "unit": "language resources",
+        "basis": "catalogue size stated on catalogue home page",
+        "period": "point in time"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalogue.elra.info/en-us/",
+          "publisher": "ELRA",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "1,598 language resources at your disposal"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c007",
+      "statement": "ELRA's 2022 annual report says 1597 language resources were available in the ELRA catalogue at the end of 2022.",
+      "kind": "number",
+      "section": "positioning",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 1597,
+        "unit": "language resources",
+        "basis": "catalogue size at end of 2022, per ELRA annual report",
+        "period": "point in time"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2022-12",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2023/05/17/annual_report2022.pdf",
+          "publisher": "ELRA",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "As of end 2022, 1597 Language Resources are available in the ELRA catalogue"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c008",
+      "statement": "ELRA's distribution contracts with language-resource providers grant ELRA a distribution licence from the provider.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.elra.info/catalogues/services/distribution/licensing/",
+          "publisher": "ELRA",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Contracts between ELRA and LR provider grant distribution licenses by the provider to ELRA"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c009",
+      "statement": "Under ELRA's licensing model the provider supplies the resources and receives payment, royalties or other compensation in return.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q9"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.elra.info/catalogues/services/distribution/licensing/",
+          "publisher": "ELRA",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "to receive, payment, royalties or other compensation in return"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c010",
+      "statement": "ELRA invites resource owners to have their resources distributed through ELRA to reach a larger scale.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.elra.info/catalogues/services/distribution/",
+          "publisher": "ELRA",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "ELRA offers you the opportunity to distribute your resources on a larger scale"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c011",
+      "statement": "ELRA's catalogue offers resource providers pre-formatted description forms to describe what they propose to ELRA.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalogue.elra.info/en-us/promote-resources-info/",
+          "publisher": "ELRA",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Different pre-formatted documents may help the LR providers describe what they propose to ELRA"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c012",
+      "statement": "ELRA's provider description form asks the provider to state prices in euro for members and non-members, for research, commercial and commercial-research use.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q3",
+        "Q9"
+      ],
+      "scope": {
+        "product": "ELRA provider description form (General)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2014-10-01",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://catalogue.elra.info/static/from_media/procedure/general_v1.2.pdf",
+          "publisher": "ELRA",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "PRICES (IN EURO ) Note: The price may vary according to current exchange rates"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c013",
+      "statement": "ELRA's provider description form asks whether the resource has been validated and whether a validation report is available.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "ELRA provider description form (General)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2014-10-01",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://catalogue.elra.info/static/from_media/procedure/general_v1.2.pdf",
+          "publisher": "ELRA",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Validation report available"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c014",
+      "statement": "ELRA's provider description form asks the provider to send a sample of the resource with the form.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "ELRA provider description form (General)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2014-10-01",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://catalogue.elra.info/static/from_media/procedure/general_v1.2.pdf",
+          "publisher": "ELRA",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Accompanying this description form, a sample of the resource on"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c015",
+      "statement": "ELRA's multimodal provider form collects the number, sex, age and origin of recorded humans but has no field on their consent or releases.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "ELRA provider description form (Multimodal)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2014-10-01",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://catalogue.elra.info/static/from_media/procedure/multi_v1.6.pdf",
+          "publisher": "ELRA",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "RECORDING INFORMATION – HUMANS"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c016",
+      "statement": "ELRA's 2022 annual report says 67 Datatang speech resources were added to the catalogue for distribution by ELRA.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 67,
+        "unit": "speech resources",
+        "basis": "third-party (Datatang) resources added in 2022, per ELRA annual report",
+        "period": "one-off"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2022",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2023/05/17/annual_report2022.pdf",
+          "publisher": "ELRA",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "the 67 Speech Datatang resources distributed by ELRA"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c017",
+      "statement": "ELRA says enriching its catalogue includes clearing all IPR issues before making resources available.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2022",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2023/05/17/annual_report2022.pdf",
+          "publisher": "ELRA",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "clearing all IPR issues before making resources available"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c018",
+      "statement": "ELRA's 2022 annual report says member price discounts apply to resources including those produced by ELRA itself.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2022",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2023/05/17/annual_report2022.pdf",
+          "publisher": "ELRA",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "including the resources produced by ELRA"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c019",
+      "statement": "ELRA's validation page states that a language resource must be subject to quality control and validation before distribution can proceed.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.elra.info/catalogues/services/validation-2/",
+          "publisher": "ELRA",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Before distribution can proceed the LR must be subject to quality control and validation"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c020",
+      "statement": "ELRA has drafted three generic user contracts, chosen according to the restrictions of use.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalogue.elra.info/en-us/pricing-info/",
+          "publisher": "ELRA",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "ELRA has drafted 3 generic contracts"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c021",
+      "statement": "ELRA's VAR (Value-Added-Reseller) agreement is its generic contract for commercial use.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalogue.elra.info/en-us/pricing-info/",
+          "publisher": "ELRA",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Value-Added-Reseller agreement (VAR) for commercial use"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c022",
+      "statement": "ELRA's End-User agreement is its generic contract for research or non-commercial use.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalogue.elra.info/en-us/pricing-info/",
+          "publisher": "ELRA",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "End-User agreement for research/non-commercial use"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c023",
+      "statement": "ELRA's FAQ says evaluation-use licences cover a 3-month period.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.elra.info/faq/",
+          "publisher": "ELRA",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Evaluation use (3 month period)"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c024",
+      "statement": "ELRA prices resources by user nature, including a separate code for research use by a commercial organisation.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q8",
+        "Q9"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.elra.info/catalogues/elra-catalogue/purchase-from-elra-catalogue/",
+          "publisher": "ELRA",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "RC - For research use by a commercial organisation"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c025",
+      "statement": "Institutional members of ELRA get a discount on the public price of catalogue resources.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalogue.elra.info/en-us/pricing-info/",
+          "publisher": "ELRA",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Institutional members of ELRA are entitled to a discount on public price"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c026",
+      "statement": "Non-members of ELRA pay the public price for catalogue resources.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalogue.elra.info/en-us/pricing-info/",
+          "publisher": "ELRA",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Non-members are applied public prices"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c027",
+      "statement": "ELRA's contract with users grants them a non-exclusive, non-transferable right to use the resources.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.elra.info/catalogues/services/distribution/licensing/",
+          "publisher": "ELRA",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "grants the latter a non-exclusive, non transferable right"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c028",
+      "statement": "Under the ELRA End-User agreement the licensing party is ELDA S.A.S., the distribution agency commissioned by ELRA, named as DISTRIBUTOR.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "ELRA End-User agreement",
+        "tier": "research",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/enduser_220121.pdf",
+          "publisher": "ELDA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "ELDA S.A.S., (hereinafter called DISTRIBUTOR), the distribution agency commissioned by ELRA"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c029",
+      "statement": "Under the ELRA End-User agreement, ELDA licenses resources for which it obtained distribution rights from the rightful holder, who is not a party.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "ELRA End-User agreement",
+        "tier": "research",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/enduser_220121.pdf",
+          "publisher": "ELDA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "for which DISTRIBUTOR obtained distribution rights from the rightful holder"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c030",
+      "statement": "The ELRA End-User agreement requires the licensee to be engaged in bona fide language engineering research activities.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA End-User agreement",
+        "tier": "research",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/enduser_220121.pdf",
+          "publisher": "ELDA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "END-USER is engaged in bona fide language engineering research activities"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c031",
+      "statement": "Rights under the ELRA End-User agreement are perpetual, royalty free and worldwide.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "ELRA End-User agreement",
+        "tier": "research",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/enduser_220121.pdf",
+          "publisher": "ELDA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "All rights granted hereunder are perpetual, royalty free and worldwide"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c032",
+      "statement": "The ELRA End-User agreement bars the licensee from distributing or marketing any part of language models or products derived from them.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA End-User agreement",
+        "tier": "research",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/enduser_220121.pdf",
+          "publisher": "ELDA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "not permitted to distribute and market all or any part of Language Models"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c033",
+      "statement": "Under the ELRA End-User agreement the resources may not be transferred to or accessed from any site other than the named site of use.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA End-User agreement",
+        "tier": "research",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/enduser_220121.pdf",
+          "publisher": "ELDA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "The Language Resources shall not be transferred to or accessed from any other site"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c034",
+      "statement": "Under the ELRA End-User agreement, ELDA and the owners disclaim warranties and provide the resources 'as is with all defects'.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q11"
+      ],
+      "scope": {
+        "product": "ELRA End-User agreement",
+        "tier": "research",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/enduser_220121.pdf",
+          "publisher": "ELDA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Language Resources are provided on an \"as is with all defects\" basis"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c035",
+      "statement": "Under the ELRA End-User agreement, ELDA does not guarantee the quality or suitability of the data for the intended use.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "ELRA End-User agreement",
+        "tier": "research",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/enduser_220121.pdf",
+          "publisher": "ELDA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "DISTRIBUTOR does not guarantee the quality or the adequate nature for the intended use"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c036",
+      "statement": "The ELRA End-User agreement consists only of 20 articles and Exhibits A-C, none of which covers consent of recorded people, deletion of copies, audit or indemnity.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA End-User agreement",
+        "tier": "research",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/enduser_220121.pdf",
+          "publisher": "ELDA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "The entire AGREEMENT is composed of the 20 articles herein together with Exhibits A, B, and C"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c037",
+      "statement": "The ELRA VAR agreement grants the licensee a non-exclusive right to distribute and market derivative products or services.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA VAR agreement",
+        "tier": "commercial",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "DISTRIBUTOR grants VAR the non-exclusive right to distribute and market any derivative product or service"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c038",
+      "statement": "The ELRA VAR agreement bars the commercial licensee from making language models based on the resources available to third parties.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA VAR agreement",
+        "tier": "commercial",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "VAR is not permitted to make available to third parties Language Models based on all or any part"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c039",
+      "statement": "ELRA's catalogue asks buyers to place an order by returning the order form by email.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalogue.elra.info/en-us/purchase-procedure-info/",
+          "publisher": "ELRA",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "To place your order, please return by email the order form"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c040",
+      "statement": "ELRA's order-procedure page on elra.info still tells buyers to return the order form by fax.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.elra.info/catalogues/elra-catalogue/order-procedure/",
+          "publisher": "ELRA",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "To place your order, please return by fax the order form available on-line"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c041",
+      "statement": "After an order, ELRA emails the matching licence agreement to the buyer for signature.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalogue.elra.info/en-us/purchase-procedure-info/",
+          "publisher": "ELRA",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the corresponding licence agreement will be emailed to you for signature"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c042",
+      "statement": "ELDA's order form says the licence must be returned signed by the buyer's legally authorised person in two copies.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.elra.info/wp-content/uploads/2024/05/ordforme.pdf",
+          "publisher": "ELDA",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "should be returned to ELDA duly signed by the legal ly authorised person in twofold"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c043",
+      "statement": "ELRA accepts wire transfer, cheque or credit card payment for catalogue orders.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalogue.elra.info/en-us/purchase-procedure-info/",
+          "publisher": "ELRA",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Wire transfer, cheque or credit card payments are accepted"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c044",
+      "statement": "ELRA delivers catalogue resources preferably by download, depending on data size.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalogue.elra.info/en-us/purchase-procedure-info/",
+          "publisher": "ELRA",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Delivery is made preferably via a downloading procedure (depending on the size of data)"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c045",
+      "statement": "ELRA catalogue prices exclude VAT and shipment fees.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalogue.elra.info/en-us/purchase-procedure-info/",
+          "publisher": "ELRA",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Prices in the catalogue are VAT and shipment fee excluded"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c046",
+      "statement": "ELRA's order procedure says databases and the invoice are sent on receipt of the signed agreements.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q6",
+        "Q9"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.elra.info/catalogues/elra-catalogue/order-procedure/",
+          "publisher": "ELRA",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Databases and invoice will be sent to you on receipt of the signed agreements"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c047",
+      "statement": "The ELRA catalogue website has a shopping cart for resources, alongside register and login links.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalogue.elra.info/en-us/",
+          "publisher": "ELRA",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "View cart"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c048",
+      "statement": "ELRA lists AUDIO Human Voice Pronunciations - Arabic (ELRA-S0490-01) at 811.90 euro for members under the ELRA VAR commercial licence.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "ELRA-S0490-01",
+        "tier": "VAR, member",
+        "region": ""
+      },
+      "value": {
+        "num": 811.9,
+        "unit": "EUR per resource licence",
+        "basis": "buyer pays; ELRA member price, ELRA VAR commercial-use licence; VAT and shipment excluded",
+        "period": "one-off"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalogue.elra.info/en-us/repository/browse/ELRA-S0490_01/",
+          "publisher": "ELRA",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "811.90 €"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c049",
+      "statement": "ELRA lists AUDIO Human Voice Pronunciations - Arabic (ELRA-S0490-01) at 852.50 euro for non-members under the ELRA VAR commercial licence.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "ELRA-S0490-01",
+        "tier": "VAR, non-member",
+        "region": ""
+      },
+      "value": {
+        "num": 852.5,
+        "unit": "EUR per resource licence",
+        "basis": "buyer pays; non-member price, ELRA VAR commercial-use licence; VAT and shipment excluded",
+        "period": "one-off"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalogue.elra.info/en-us/repository/browse/ELRA-S0490_01/",
+          "publisher": "ELRA",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "852.50 €"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c050",
+      "statement": "ELRA lists the THERADIA WoZ Corpus (ELRA-S0499) at 0.00 euro for academic users under the ELRA END USER non-commercial licence.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "ELRA-S0499",
+        "tier": "END USER, academic",
+        "region": ""
+      },
+      "value": {
+        "num": 0.0,
+        "unit": "EUR per resource licence",
+        "basis": "buyer pays; academic user, member and non-member, ELRA END USER non-commercial licence",
+        "period": "one-off"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalogue.elra.info/en-us/repository/browse/ELRA-S0499/",
+          "publisher": "ELRA",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "0.00 €"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c051",
+      "statement": "ELRA lists the THERADIA WoZ Corpus (ELRA-S0499) at 5000.00 euro for members under the ELRA VAR commercial licence.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "ELRA-S0499",
+        "tier": "VAR, member",
+        "region": ""
+      },
+      "value": {
+        "num": 5000.0,
+        "unit": "EUR per resource licence",
+        "basis": "buyer pays; ELRA member price, ELRA VAR commercial licence, academic or commercial user",
+        "period": "one-off"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalogue.elra.info/en-us/repository/browse/ELRA-S0499/",
+          "publisher": "ELRA",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "5000.00 €"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c052",
+      "statement": "ELRA lists DiaLEX - Lebanese Arabic (ELRA-L0211) at 11700.00 euro for member academic users under the ELRA END USER licence.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "ELRA-L0211",
+        "tier": "END USER, member academic",
+        "region": ""
+      },
+      "value": {
+        "num": 11700.0,
+        "unit": "EUR per resource licence",
+        "basis": "buyer pays; member, academic user, ELRA END USER non-commercial licence",
+        "period": "one-off"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalogue.elra.info/en-us/repository/browse/ELRA-L0211/",
+          "publisher": "ELRA",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "11700.00 €"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c053",
+      "statement": "ELRA lists DiaLEX - Lebanese Arabic (ELRA-L0211) at 48750.00 euro for non-member commercial users under the ELRA VAR licence.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "ELRA-L0211",
+        "tier": "VAR, non-member commercial",
+        "region": ""
+      },
+      "value": {
+        "num": 48750.0,
+        "unit": "EUR per resource licence",
+        "basis": "buyer pays; non-member, commercial user, ELRA VAR commercial licence",
+        "period": "one-off"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalogue.elra.info/en-us/repository/browse/ELRA-L0211/",
+          "publisher": "ELRA",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "48750.00 €"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c054",
+      "statement": "ELRA's FAQ says over 200 language resources are priced at 500 euro or below.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 200,
+        "unit": "language resources (lower bound)",
+        "basis": "count of resources priced at or below 500 EUR; licence tier not stated",
+        "period": "point in time"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.elra.info/faq/",
+          "publisher": "ELRA",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "over 200 Language Resources are provided at 500 EURO and below"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c055",
+      "statement": "ELRA's 2022 annual report says members get price discounts on resources of up to 70% on some items.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 70,
+        "unit": "percent (maximum)",
+        "basis": "discount off public price for ELRA members on some resources",
+        "period": "not stated"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2022",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2023/05/17/annual_report2022.pdf",
+          "publisher": "ELRA",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Price discounts on the resources, up to 70%"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c056",
+      "statement": "ELRA's institutional membership fee for profit-making organisations with 50 or more employees is 1500 euro per year.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "ELRA institutional membership",
+        "tier": "profit-making >= 50 employees",
+        "region": ""
+      },
+      "value": {
+        "num": 1500,
+        "unit": "EUR per institutional membership",
+        "basis": "member organisation pays; profit making organisations >= 50 employees",
+        "period": "per year"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.elra.info/join-elra/membership-fees/",
+          "publisher": "ELRA",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "1500 €"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c057",
+      "statement": "ELRA's institutional membership fee for non-profit organisations is 750 euro per year.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "ELRA institutional membership",
+        "tier": "non-profit",
+        "region": ""
+      },
+      "value": {
+        "num": 750,
+        "unit": "EUR per institutional membership",
+        "basis": "member organisation pays; non-profit making organisation",
+        "period": "per year"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.elra.info/join-elra/membership-fees/",
+          "publisher": "ELRA",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "750 €"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c058",
+      "statement": "ELRA's FAQ says some catalogue resources are available free except for shipment.",
+      "kind": "offer",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.elra.info/faq/",
+          "publisher": "ELRA",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "some of them are available for free except shipment"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c059",
+      "statement": "ELRA's THERADIA WoZ Corpus listing describes audiovisual recordings for affective-state detection in the healthcare domain.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q1",
+        "Q7"
+      ],
+      "scope": {
+        "product": "ELRA-S0499",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalogue.elra.info/en-us/repository/browse/ELRA-S0499/",
+          "publisher": "ELRA",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "specifically designed for the audiovisual detection of affective states in the healthcare domain"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c060",
+      "statement": "ELRA's THERADIA listing describes recordings of 61 older adults including participants with Mild Cognitive Impairment, with no consent documentation shown on the listing.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "ELRA-S0499",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalogue.elra.info/en-us/repository/browse/ELRA-S0499/",
+          "publisher": "ELRA",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "61 older adults (52 neurotypical seniors and 9 participants with Mild Cognitive Impairment (MCI))"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c061",
+      "statement": "An ELRA catalogue listing shows a version number and an availability start date for the resource.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "ELRA-L0211",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalogue.elra.info/en-us/repository/browse/ELRA-L0211/",
+          "publisher": "ELRA",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Version: 1.0"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c062",
+      "statement": "The ELRA End-User agreement requires citing the resource with its ELRA catalogue URL, ISLRN and ELRA ID.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "ELRA End-User agreement",
+        "tier": "research",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/enduser_220121.pdf",
+          "publisher": "ELDA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "ELRA catalogue (http://catalog.elra.info), ISLRN: XXX-XXX-XXX-XXX-X, ELRA ID: ELRA-XXXXX"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c063",
+      "statement": "ELRA and ELDA offer production services, i.e. producing new language resources, to anyone in human language technologies.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.elra.info/catalogues/services/production/",
+          "publisher": "ELRA",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "ELRA and ELDA offer production services available to everyone interested in Human Language Technologies"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c064",
+      "statement": "ELRA's 2022 annual report says its member institutions and companies come from sectors like telecommunication, marketing and multilingual business.",
+      "kind": "offer",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2022",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2023/05/17/annual_report2022.pdf",
+          "publisher": "ELRA",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "belong to sectors like telecommunication, marketing, multilingual"
+        }
+      ]
+    },
+    {
+      "id": "elra-elda-catalogue-c065",
+      "statement": "ELRA's order procedure invites prospective buyers to contact ELDA staff by email to purchase resources.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "ELRA Catalogue",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.elra.info/catalogues/elra-catalogue/order-procedure/",
+          "publisher": "ELRA",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "if you wish to purchase our resources"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "matrix.who_pays_fee",
+      "urls_tried": [
+        "https://www.elra.info/catalogues/services/distribution/licensing/",
+        "https://www.elra.info/catalogues/services/distribution/",
+        "https://catalogue.elra.info/en-us/promote-resources-info/",
+        "https://catalogue.elra.info/en-us/pricing-info/"
+      ],
+      "reason": "not_published",
+      "note": "Only 'payment, royalties or other compensation' is stated; no split or fee."
+    },
+    {
+      "field": "matrix.buyer_vetting",
+      "urls_tried": [
+        "https://catalogue.elra.info/en-us/purchase-procedure-info/",
+        "https://www.elra.info/catalogues/elra-catalogue/order-procedure/",
+        "https://www.elra.info/wp-content/uploads/2024/05/ordforme.pdf",
+        "http://www.elra.info/media/filer_public/2022/01/21/enduser_220121.pdf"
+      ],
+      "reason": "not_published",
+      "note": "Order form asks institution, VAT, membership; licence signed by authorised person; no published check."
+    },
+    {
+      "field": "matrix.sample_mechanics",
+      "urls_tried": [
+        "https://catalogue.elra.info/en-us/repository/browse/ELRA-S0490_01/",
+        "https://catalogue.elra.info/en-us/repository/browse/ELRA-S0499/",
+        "https://catalogue.elra.info/en-us/repository/browse/ELRA-L0211/",
+        "https://www.elra.info/faq/"
+      ],
+      "reason": "not_published",
+      "note": "Three listings opened had no sample link; catalogue-wide search hit HTTP 429."
+    },
+    {
+      "field": "matrix.versioning",
+      "urls_tried": [
+        "https://catalogue.elra.info/en-us/repository/browse/ELRA-L0211/",
+        "http://www.elra.info/media/filer_public/2022/01/21/enduser_220121.pdf",
+        "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+        "https://www.elra.info/faq/"
+      ],
+      "reason": "not_published",
+      "note": "Version field shown on listings; no policy text found."
+    },
+    {
+      "field": "matrix.contributor_pay_model",
+      "urls_tried": [
+        "https://www.elra.info/catalogues/services/distribution/licensing/",
+        "https://catalogue.elra.info/static/from_media/procedure/multi_v1.6.pdf",
+        "https://catalogue.elra.info/static/from_media/procedure/general_v1.2.pdf",
+        "https://catalogue.elra.info/en-us/repository/browse/ELRA-S0499/"
+      ],
+      "reason": "not_published",
+      "note": "Nothing on how speakers/participants were paid."
+    },
+    {
+      "field": "questions.Q4",
+      "urls_tried": [
+        "https://www.elra.info/catalogues/services/production/",
+        "https://www.elra.info/catalogues/services/distribution/licensing/",
+        "http://www.elra.info/media/filer_public/2023/05/17/annual_report2022.pdf"
+      ],
+      "reason": "not_published",
+      "note": "No statement on relisting data produced for commissioning clients."
+    },
+    {
+      "field": "other.royalty_rate",
+      "urls_tried": [
+        "https://www.elra.info/catalogues/services/distribution/licensing/",
+        "https://www.elra.info/catalogues/services/distribution/",
+        "https://catalogue.elra.info/en-us/promote-resources-info/",
+        "https://www.elra.info/faq/"
+      ],
+      "reason": "not_published",
+      "note": "Provider royalty percentage not published."
+    },
+    {
+      "field": "other.provider_distribution_agreement_text",
+      "urls_tried": [
+        "https://www.elra.info/catalogues/services/distribution/licensing/",
+        "https://catalogue.elra.info/en-us/promote-resources-info/",
+        "https://www.elra.info/catalogues/services/distribution/"
+      ],
+      "reason": "not_published",
+      "note": "The provider-side distribution agreement template is not linked from any page read."
+    },
+    {
+      "field": "other.independent_sources",
+      "urls_tried": [],
+      "reason": "blocked",
+      "note": "Web search was unavailable in this run; no independent press or academic source on ELRA's business was located by navigation."
+    },
+    {
+      "field": "other.recent_annual_reports",
+      "urls_tried": [
+        "https://www.elra.info/dissemination/elra-activity-reports/"
+      ],
+      "reason": "not_found",
+      "note": "The activity-reports page lists reports only up to 2022; no 2023-2025 figures found."
+    }
+  ],
+  "conflicts": [
+    {
+      "claim_ids": [
+        "elra-elda-catalogue-c039",
+        "elra-elda-catalogue-c040"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "Both pages are live: the catalogue says return the order form by email, elra.info (and its FAQ) says by fax. The catalogue page is likely the current practice."
+    }
+  ],
+  "leads": [
+    {
+      "url": "https://www.elra.info/catalogues/free-resources/",
+      "why": "Free-resources listing; would settle free_download share of catalogue."
+    },
+    {
+      "url": "https://catalogue.elra.info/en-us/repository/search/",
+      "why": "Catalogue search returned HTTP 429; use to count video/image corpora and Datatang/Nexdata listings."
+    },
+    {
+      "url": "http://www.elra.info/media/filer_public/2015/04/13/evaluation_150325.pdf",
+      "why": "Evaluation licence template, not read in this run."
+    },
+    {
+      "url": "https://www.elra.info/dissemination/legal-issues-papers/",
+      "why": "ELRA legal-issues papers may address consent and GDPR for recorded speakers."
+    },
+    {
+      "url": "https://www.elra.info/catalogues/services/distribution/licensing/",
+      "why": "Mentions a separate agreement for paid services built on LRs; worth reading in full."
+    }
+  ]
+}

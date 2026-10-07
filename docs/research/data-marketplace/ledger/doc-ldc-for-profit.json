@@ -1,0 +1,1096 @@
+{
+  "kind": "document",
+  "slug": "doc-ldc-for-profit",
+  "platform_slug": "ldc",
+  "title": "For-Profit Membership Agreement",
+  "doc_type": "buyer_licence",
+  "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+  "publisher": "Linguistic Data Consortium",
+  "version_or_date": "No version or date printed; blank template (effective 'January 1, ____'); PDF generated on request 2026-09-30",
+  "retrieved_at": "2026-10-01",
+  "parties": {
+    "licensor": "Linguistic Data Consortium (LDC), passing through only the rights it has obtained from its data providers and corpus authors",
+    "licensee": "Member: a for-profit corporation, for the organisational unit and sites named in Exhibit B",
+    "operator_role": "reseller_licensor"
+  },
+  "terms": {
+    "permitted_use": {
+      "value": "Use of received LDC Databases for linguistic and language-based research and technology development; portions may go into the Member's own commercial work products, subject to law and any user agreement.",
+      "claim_ids": [
+        "doc-ldc-for-profit-c001",
+        "doc-ldc-for-profit-c004",
+        "doc-ldc-for-profit-c005",
+        "doc-ldc-for-profit-c029"
+      ]
+    },
+    "ai_training_rights": {
+      "value": "Not named. Training/fine-tuning/evaluation is covered only implicitly by 'language-based research and technology development' at listed sites; embedding 'portions' in commercial products allowed; redistributing the data is barred; model outputs not addressed.",
+      "claim_ids": [
+        "doc-ldc-for-profit-c001",
+        "doc-ldc-for-profit-c004",
+        "doc-ldc-for-profit-c006"
+      ]
+    },
+    "field_of_use": {
+      "value": "Linguistic and language-based research and technology development only; anything not explicitly permitted is excluded.",
+      "claim_ids": [
+        "doc-ldc-for-profit-c001",
+        "doc-ldc-for-profit-c006"
+      ]
+    },
+    "territory": {
+      "value": "Site-locked: use solely at the geographical sites (and organisational unit) listed in Exhibit B.",
+      "claim_ids": [
+        "doc-ldc-for-profit-c002",
+        "doc-ldc-for-profit-c003"
+      ]
+    },
+    "term_duration": {
+      "value": "Membership runs by calendar-year membership year, renewing each January 1 unless the Member gives 60 days' notice; the document does not say whether rights in data already received end on non-renewal.",
+      "claim_ids": [
+        "doc-ldc-for-profit-c023",
+        "doc-ldc-for-profit-c022",
+        "doc-ldc-for-profit-c031"
+      ]
+    },
+    "sublicensing": {
+      "value": "No sublicensing or redistribution; for user-agreement databases access is limited to employees/consultants who signed in advance, with the Member liable for consultants.",
+      "claim_ids": [
+        "doc-ldc-for-profit-c006",
+        "doc-ldc-for-profit-c009",
+        "doc-ldc-for-profit-c014"
+      ]
+    },
+    "derivatives_and_model_outputs": {
+      "value": "Member may incorporate portions of the databases into its own work products, including commercially, to the extent the law and any user agreement allow; model outputs not separately addressed.",
+      "claim_ids": [
+        "doc-ldc-for-profit-c004",
+        "doc-ldc-for-profit-c005"
+      ]
+    },
+    "attribution": {
+      "value": "Member must give appropriate reference to LDC resources in scholarly publications that mention the data.",
+      "claim_ids": [
+        "doc-ldc-for-profit-c008"
+      ]
+    },
+    "audit_rights": {
+      "value": "LDC may inspect the Member's file of signed user agreements on request; no broader audit right.",
+      "claim_ids": [
+        "doc-ldc-for-profit-c012"
+      ]
+    },
+    "warranties_by_provider": {
+      "value": "None: data is as-is; LDC, data providers and corpus authors disclaim all warranties, including conformity with documentation.",
+      "claim_ids": [
+        "doc-ldc-for-profit-c017",
+        "doc-ldc-for-profit-c018"
+      ]
+    },
+    "indemnity": {
+      "value": "One-way: Member defends and indemnifies LDC and its people for any use violating the agreement, a user agreement or law (incl. copyright); no cap; LDC gives no indemnity.",
+      "claim_ids": [
+        "doc-ldc-for-profit-c015",
+        "doc-ldc-for-profit-c016"
+      ]
+    },
+    "liability_cap": {
+      "value": "LDC, its host institution, data providers and corpus authors exclude all liability, including direct damages; no cap stated on the Member's side.",
+      "claim_ids": [
+        "doc-ldc-for-profit-c019",
+        "doc-ldc-for-profit-c016"
+      ]
+    },
+    "payment_and_revenue_share": {
+      "value": "Annual non-refundable membership fee: Standard USD 34,000 (up to 16 databases from the year), Subscription USD 40,000 (all databases released that year); extras at non-member price; some databases need separate licences and fees.",
+      "claim_ids": [
+        "doc-ldc-for-profit-c020",
+        "doc-ldc-for-profit-c025",
+        "doc-ldc-for-profit-c026",
+        "doc-ldc-for-profit-c027",
+        "doc-ldc-for-profit-c028",
+        "doc-ldc-for-profit-c024"
+      ]
+    },
+    "change_of_terms": {
+      "value": "LDC may amend the fee schedule and Exhibit A licensing terms at the start of a new membership year; user agreements supersede the membership agreement for their databases.",
+      "claim_ids": [
+        "doc-ldc-for-profit-c021",
+        "doc-ldc-for-profit-c010"
+      ]
+    },
+    "prohibited_uses": {
+      "value": "No copying, redistribution, transmission, publication or any use beyond the explicit grant.",
+      "claim_ids": [
+        "doc-ldc-for-profit-c006"
+      ]
+    },
+    "deletion_on_termination": {
+      "value": "Only for user-agreement databases: Member must end access for individuals no longer meeting the user agreement's conditions; no general deletion duty on non-renewal.",
+      "claim_ids": [
+        "doc-ldc-for-profit-c013"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "doc-ldc-for-profit-c001",
+      "statement": "The LDC For-Profit Membership Agreement licenses the Member to use the LDC Databases it receives for linguistic and language-based research and technology development.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "LDC For-Profit Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "for the purposes of linguistic and language-based research and technology development"
+        }
+      ]
+    },
+    {
+      "id": "doc-ldc-for-profit-c002",
+      "statement": "The LDC for-profit licence is limited to use solely at the geographical sites the Member lists in Exhibit B.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "LDC For-Profit Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "solely at the geographical sites listed in Exhibit B"
+        }
+      ]
+    },
+    {
+      "id": "doc-ldc-for-profit-c003",
+      "statement": "Exhibit B of the LDC for-profit agreement asks the Member to name the organisational unit the membership applies to and the locations where LDC materials will be used.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "LDC For-Profit Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "indicate the name of the organizational unit to which this LDC Membership applies, and specify the location(s)"
+        }
+      ]
+    },
+    {
+      "id": "doc-ldc-for-profit-c004",
+      "statement": "Under the LDC for-profit agreement the Member may incorporate portions of LDC Databases into its own work products, including for commercial purposes.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "LDC For-Profit Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Member may incorporate portions of the LDC Databases into its own work products, including for commercial purposes"
+        }
+      ]
+    },
+    {
+      "id": "doc-ldc-for-profit-c005",
+      "statement": "The LDC for-profit agreement makes the right to incorporate portions into work products subject to law, including copyright law, and to any applicable user agreements.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "LDC For-Profit Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "to the extent permitted by law, including federal and state copyright laws, and, if applicable, by any necessary user"
+        }
+      ]
+    },
+    {
+      "id": "doc-ldc-for-profit-c006",
+      "statement": "The LDC for-profit agreement gives the Member no right to copy, redistribute, transmit, publish or otherwise use LDC Databases for any purpose not explicitly permitted.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "LDC For-Profit Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Member shall have no right to copy, redistribute, transmit, publish or otherwise use the LDC Databases for any other purpose"
+        }
+      ]
+    },
+    {
+      "id": "doc-ldc-for-profit-c007",
+      "statement": "The LDC for-profit agreement says LDC grants the Member the same rights LDC has obtained in each LDC Database, i.e. a pass-through of upstream rights.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q3"
+      ],
+      "scope": {
+        "product": "LDC For-Profit Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "LDC shall grant to Member the same rights LDC has obtained in all LDC Databases"
+        }
+      ]
+    },
+    {
+      "id": "doc-ldc-for-profit-c008",
+      "statement": "The LDC for-profit agreement requires the Member to give appropriate reference to LDC resources in scholarly publications that mention the data.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "LDC For-Profit Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Member shall give appropriate reference to these resources in scholarly publications whenever data resources are mentioned"
+        }
+      ]
+    },
+    {
+      "id": "doc-ldc-for-profit-c009",
+      "statement": "For certain LDC Databases the Member must restrict use to employees or consultants within its control who have first signed separate user agreements.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "LDC For-Profit Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "restrict use of these Databases to only those of its employees or consultants within its control who, in advance"
+        }
+      ]
+    },
+    {
+      "id": "doc-ldc-for-profit-c010",
+      "statement": "Where LDC requires a separate user agreement for a database, that user agreement's terms supersede the For-Profit Membership Agreement.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "LDC For-Profit Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "the terms and provisions of any such User Agreements supersede the terms of the Membership Agreement"
+        }
+      ]
+    },
+    {
+      "id": "doc-ldc-for-profit-c011",
+      "statement": "A for-profit Member may elect not to receive LDC Databases that require separate user agreements.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "LDC For-Profit Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Member may elect not to receive LDC Databases for which separate user agreements are required"
+        }
+      ]
+    },
+    {
+      "id": "doc-ldc-for-profit-c012",
+      "statement": "The Member must keep all signed user agreements on file for inspection by LDC on request.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "LDC For-Profit Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Member shall maintain all signed user agreements on file for inspection by LDC upon its request"
+        }
+      ]
+    },
+    {
+      "id": "doc-ldc-for-profit-c013",
+      "statement": "The Member must cut off an individual's access to user-agreement databases once the user agreement's conditions no longer apply to that person.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "LDC For-Profit Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "terminate access to the specified LDC Databases to individuals for whom the conditions contained in the user agreement"
+        }
+      ]
+    },
+    {
+      "id": "doc-ldc-for-profit-c014",
+      "statement": "The Member is liable for its consultants' acts and omissions with LDC Databases as though they were the Member's own.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "LDC For-Profit Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "responsible and liable for the actions and omissions of those consultants as though they were the actions of Member"
+        }
+      ]
+    },
+    {
+      "id": "doc-ldc-for-profit-c015",
+      "statement": "Under the LDC for-profit agreement the Member defends, indemnifies and holds harmless LDC and its employees, trustees, officers and agents.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "LDC For-Profit Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Member shall defend, indemnify and hold harmless LDC, its employees, trustees, officers, and agents"
+        }
+      ]
+    },
+    {
+      "id": "doc-ldc-for-profit-c016",
+      "statement": "The Member's indemnity covers any use of LDC Databases by the Member or its people that violates the agreement, a user agreement or any law, including copyright law; no cap is stated.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "LDC For-Profit Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "any use of the LDC Databases by Member, its employees, directors, officers or agents which violates this Agreement"
+        }
+      ]
+    },
+    {
+      "id": "doc-ldc-for-profit-c017",
+      "statement": "LDC Databases are provided as-is: LDC, its data providers and corpus authors make no representations or warranties of any kind.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "LDC For-Profit Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "LDC, AND ITS DATA PROVIDERS AND CORPUS AUTHORS MAKE NO REPRESENTATIONS OR WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED"
+        }
+      ]
+    },
+    {
+      "id": "doc-ldc-for-profit-c018",
+      "statement": "The LDC disclaimer extends to any warranty that the data conforms with the documentation provided.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "LDC For-Profit Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "OR CONFORMITY WITH WHATEVER DOCUMENTATION IS PROVIDED"
+        }
+      ]
+    },
+    {
+      "id": "doc-ldc-for-profit-c019",
+      "statement": "LDC, its host institution, data providers and corpus authors exclude liability for all damages, including direct damages, arising from furnishing or use of LDC Databases.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "LDC For-Profit Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "IN NO EVENT SHALL LDC, ITS HOST INSTITUTION, ITS DATA PROVIDERS OR CORPUS AUTHORS BE LIABLE FOR SPECIAL, DIRECT, INDIRECT"
+        }
+      ]
+    },
+    {
+      "id": "doc-ldc-for-profit-c020",
+      "statement": "The LDC for-profit Member pays an annual membership fee set by the fee schedule in Exhibit A.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "LDC For-Profit Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Member agrees to pay to LDC an annual membership fee, determined in accordance with the membership fee schedule"
+        }
+      ]
+    },
+    {
+      "id": "doc-ldc-for-profit-c021",
+      "statement": "LDC may amend the fee schedule and Exhibit A licensing terms at the beginning of a new membership year.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "LDC For-Profit Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "as it may be amended from time to time at the beginning of a new membership year"
+        }
+      ]
+    },
+    {
+      "id": "doc-ldc-for-profit-c022",
+      "statement": "LDC for-profit membership fees fall due each January 1 unless the Member gives sixty days' prior written notice that it will not renew.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "LDC For-Profit Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "unless Member provides sixty days' prior written notice that it does not intend to renew its membership"
+        }
+      ]
+    },
+    {
+      "id": "doc-ldc-for-profit-c023",
+      "statement": "The LDC for-profit agreement defines each membership year as commencing January 1 (the printed text says it ends December 31 'of the following calendar year').",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "LDC For-Profit Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Each membership year shall commence on January 1 and end December 31 of the following calendar year"
+        }
+      ]
+    },
+    {
+      "id": "doc-ldc-for-profit-c024",
+      "statement": "LDC for-profit membership fees are non-refundable.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "LDC For-Profit Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Membership fees are non-refundable."
+        }
+      ]
+    },
+    {
+      "id": "doc-ldc-for-profit-c025",
+      "statement": "LDC Standard for-profit membership costs USD 34,000 per calendar year and entitles the Member to up to 16 LDC Databases from the membership year.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9",
+        "Q10"
+      ],
+      "scope": {
+        "product": "LDC For-Profit Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 34000,
+        "unit": "USD per membership year",
+        "basis": "annual fee paid by a for-profit Member for Standard Membership; up to 16 databases from that year",
+        "period": "per year"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "$34,000 per calendar year. Standard Member is entitled to receive up to 16 LDC Databases from the Membership Year"
+        }
+      ]
+    },
+    {
+      "id": "doc-ldc-for-profit-c026",
+      "statement": "LDC Subscription for-profit membership costs USD 40,000 per calendar year and entitles the Member to copies of all LDC Databases released in that year.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9",
+        "Q10"
+      ],
+      "scope": {
+        "product": "LDC For-Profit Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 40000,
+        "unit": "USD per membership year",
+        "basis": "annual fee paid by a for-profit Member for Subscription Membership; all databases released that year",
+        "period": "per year"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "$40,000 per calendar year. Subscription Member is entitled to automatically receive copies of all LDC Databases released"
+        }
+      ]
+    },
+    {
+      "id": "doc-ldc-for-profit-c027",
+      "statement": "A Standard Member may license further databases from the membership year at LDC's regular non-member licensing fee.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "LDC For-Profit Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Additional LDC Databases from the Membership Year may be licensed at the regular, non-member licensing fee"
+        }
+      ]
+    },
+    {
+      "id": "doc-ldc-for-profit-c028",
+      "statement": "LDC reserves the right to release databases that require separate licence agreements and additional fees beyond membership.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q9"
+      ],
+      "scope": {
+        "product": "LDC For-Profit Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "LDC reserves the right to release Databases that require separate license agreements and additional fees"
+        }
+      ]
+    },
+    {
+      "id": "doc-ldc-for-profit-c029",
+      "statement": "The Section 1(b) licensing terms apply to both Standard and Subscription for-profit memberships.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "LDC For-Profit Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "All other licensing terms described in Section 1 (b) apply to both Membership types"
+        }
+      ]
+    },
+    {
+      "id": "doc-ldc-for-profit-c030",
+      "statement": "The signatory Member represents that it is a for-profit corporation.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "LDC For-Profit Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Member represents that it is a for-profit corporation"
+        }
+      ]
+    },
+    {
+      "id": "doc-ldc-for-profit-c031",
+      "statement": "A for-profit Member's renewal payments stop if LDC notifies it that LDC has dissolved or no longer offers for-profit memberships generally.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "LDC For-Profit Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "LDC notifies Member that LDC has been dissolved or is no longer offering for-profit memberships generally"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "other.consent_and_release_warranty",
+      "urls_tried": [
+        "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.takedown_and_erasure",
+      "urls_tried": [
+        "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.exclusivity",
+      "urls_tried": [
+        "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.governing_law",
+      "urls_tried": [
+        "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.rights_after_membership_ends",
+      "urls_tried": [
+        "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.explicit_ai_training_or_model_output_terms",
+      "urls_tried": [
+        "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf"
+      ],
+      "reason": "not_published"
+    }
+  ]
+}

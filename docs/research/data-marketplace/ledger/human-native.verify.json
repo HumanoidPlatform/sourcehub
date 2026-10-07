@@ -1,0 +1,265 @@
+{
+  "kind": "verify",
+  "slug": "human-native",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "human-native-c001",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A fact about the vendor's own website. Fetched https://www.humannative.ai/ on 2026-10-01: only the 'Human Native is joining Cloudflare' letter signed by James and Jack; its sitemap.xml lists a single URL (index.html, lastmod 2026-01-15) and /about returns 404. No independent source describes the site's state; no search available."
+    },
+    {
+      "claim_id": "human-native-c006",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://find-and-update.company-information.service.gov.uk/company/15609120/filing-history", "publisher": "Companies House", "source_class": "filing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "Solvency Statement dated 28/07/26"},
+      "corrected_statement": null,
+      "note": "Same URL as the profile's source: the register is the only public record of this filing, and the CAP-SS, RESOLUTIONS and SH19 PDFs are scanned images with no extractable text, so no second document could be read. Four filings share the newest date, 29 Jul 2026: CAP-SS solvency statement dated 28/07/26; RESOLUTIONS ('RES13 - Share premium account cancelled', which also disapplies article 35 for a dividend paid from distributable reserves, dated 28/07/2026); SH19 statement of capital on 29 July 2026 (GBP 22.10065); SH20 statement by directors."
+    },
+    {
+      "claim_id": "human-native-c002",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://find-and-update.company-information.service.gov.uk/company/15609120/filing-history", "publisher": "Companies House", "source_class": "filing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "Notification of Cloudflare, Inc. as a person with significant control on 6 January 2026"},
+      "corrected_statement": null,
+      "note": "The acquisition itself is independently confirmed by the register (control from 6 January 2026). The announcement date, the 'UK-based AI data marketplace' wording and the absence of a price rest on Cloudflare's post https://blog.cloudflare.com/human-native-joins-cloudflare/ (January 15, 2026, reached via blog.cloudflare.com/tag/acquisitions/), which is the profile's own source and is co-authored by Will Allen and Human Native's CEO James Smith, so it is not counted as independent. On price: Cloudflare's Q1 2026 10-Q (Note 13, Business Combinations) gives prices for Replicate and Kivera but does not name Human Native, and EDGAR full-text search for \"Human Native\" within Cloudflare's CIK returns zero hits."
+    },
+    {
+      "claim_id": "human-native-c003",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://find-and-update.company-information.service.gov.uk/company/15609120/persons-with-significant-control", "publisher": "Companies House", "source_class": "filing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "Notified on 6 January 2026"},
+      "corrected_statement": null,
+      "note": "Register's PSC page (the profile cited the filing-history page of the same register). Cloudflare, Inc. is the active PSC, notified 6 January 2026; founders Jack David Galilee and James William Smith ceased as PSCs on 6 January 2026. The PSC02 notification was filed on 16 Jan 2026."
+    },
+    {
+      "claim_id": "human-native-c016",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://find-and-update.company-information.service.gov.uk/company/15609120/persons-with-significant-control", "publisher": "Companies House", "source_class": "filing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "Ownership of shares – 75% or more"},
+      "corrected_statement": null,
+      "note": "Same URL as the profile's source; the PSC02 PDF is a scanned image. A separate document, the 1 April 2026 confirmation statement (CS01), independently shows Cloudflare, Inc. holding every issued share, i.e. 100% (missed v001). The statement is true but partial: the register also lists ownership of voting rights 75% or more and the right to appoint or remove directors."
+    },
+    {
+      "claim_id": "human-native-c015",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {"url": "https://techcrunch.com/2024/06/08/deal-dive-human-native-ai-is-building-the-marketplace-for-ai-training-licensing-deals/", "publisher": "TechCrunch", "source_class": "press_relaying_vendor", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "Human Native AI announced a £2.8 million seed round led by LocalGlobe and Mercuri"},
+      "corrected_statement": null,
+      "note": "Found via techcrunch.com's own search; it is the profile's own source, relaying the company's announcement, so not counted as independent. Independent corroboration from Companies House: the SH01 for allotments 22-28 May 2024 shows 341,331 seed preferred + 5,741 seed ordinary shares at GBP 7.8325 paid each (about GBP 2.72m, slightly under 2.8m), and the 1 April 2026 CS01 shows the largest seed holders were Phoenix Court Fund Management (LocalGlobe's manager, 225,023 seed preferred) and Mercuri GP LLP (112,480), consistent with the named leads. A further ~GBP 5.0m of seed preferred shares appears in a January 2026 return (missed v002)."
+    },
+    {
+      "claim_id": "human-native-c010",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {"url": "https://blog.cloudflare.com/human-native-joins-cloudflare/", "publisher": "Cloudflare", "source_class": "vendor_marketing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "a prominent UK video AI company, threw away their existing training data"},
+      "corrected_statement": null,
+      "note": "This is the profile's own source. Cloudflare does say this, but the post is co-authored by Human Native's CEO James Smith, the customer is unnamed and no figures are given, so the outcome itself is unverified. No independent account of this customer could be found; no search available."
+    },
+    {
+      "claim_id": "human-native-c013",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {"url": "https://techcrunch.com/2024/06/08/deal-dive-human-native-ai-is-building-the-marketplace-for-ai-training-licensing-deals/", "publisher": "TechCrunch", "source_class": "press_relaying_vendor", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "Human Native AI takes a cut of each deal and charges AI companies for its transaction and monitoring services"},
+      "corrected_statement": null,
+      "note": "TechCrunch says it, describing the company's own model; it is the profile's own source, so not counted as independent. No rate and no other description of the fee was found; no search available."
+    },
+    {
+      "claim_id": "human-native-c012",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {"url": "https://techcrunch.com/2024/06/08/deal-dive-human-native-ai-is-building-the-marketplace-for-ai-training-licensing-deals/", "publisher": "TechCrunch", "source_class": "press_relaying_vendor", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "Rights holders upload their content for no charge and connect with AI companies to land revenue share or subscription deals"},
+      "corrected_statement": null,
+      "note": "TechCrunch says it, relaying the company's description; it is the profile's own source. No other independent description reachable without search."
+    },
+    {
+      "claim_id": "human-native-c019",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "During the blind step UKTN could not be reached: https://www.uktn.com/?s=Human+Native and https://uktn.com/?s=Human+Native both failed with 'certificate has expired' (the publication's live domain turned out to be uktech.news, which only the profile revealed). TechCrunch (June 2024) mentions revenue share and subscription deals but not per-use payments. After opening the profile, its own UKTN URL does carry the sentence (see scope verdict); that is the profile's source, not independent. No search available."
+    },
+    {
+      "claim_id": "human-native-c017",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {"url": "https://techcrunch.com/2024/06/08/deal-dive-human-native-ai-is-building-the-marketplace-for-ai-training-licensing-deals/", "publisher": "TechCrunch", "source_class": "press_relaying_vendor", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "help AI companies find data to train their models on while ensuring the rights holders opt in and are compensated"},
+      "corrected_statement": null,
+      "note": "TechCrunch states the company's goal as relayed from the company; it is the profile's own source. Speaks to rights-holder opt-in only, nothing about consent of people depicted."
+    },
+    {
+      "claim_id": "human-native-c008",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {"url": "https://blog.cloudflare.com/human-native-joins-cloudflare/", "publisher": "Cloudflare", "source_class": "vendor_marketing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "fair control, compensation and credit for creators"},
+      "corrected_statement": null,
+      "note": "A self-described aim, restated in the acquirer's post, which Human Native's CEO co-authored, so it is not independent of the vendor. Nothing independent about whether creators were actually paid or credited."
+    },
+    {
+      "claim_id": "human-native-c001",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote is the page heading and the absence of anything else cannot be quoted (LEDGER rule 13), so this is acceptable. Two cautions: in the raw HTML the heading renders as 'Human Native is joining Cloud f l are' (the word is split into spans), so a naive string match of the quote may fail; and the profile's status 'acquired' rests on this vendor_stated claim, when c002/c003 (Cloudflare's post and the register) are the stronger status evidence."
+    },
+    {
+      "claim_id": "human-native-c006",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote shows only the solvency statement, not the second half of the statement. The words 'RES13 - Share premium account cancelled' in the 29 Jul 2026 RESOLUTIONS row of the same page would show it. 'Newest' is shared with the SH19 and SH20 filed the same day."
+    },
+    {
+      "claim_id": "human-native-c002",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the post and supports the statement. Note for the profile: the post is by Will Allen and James Smith (Human Native's CEO), so it is a joint announcement by both parties, and its source_class eng_blog is generous for an acquisition announcement."
+    },
+    {
+      "claim_id": "human-native-c003",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote 'Notification of Cloudflare, Inc. as a person with significant' stops before the date, which is the operative fact. The full row reads 'Notification of Cloudflare, Inc. as a person with significant control on 6 January 2026' (88 characters, within the limit)."
+    },
+    {
+      "claim_id": "human-native-c015",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the article text exactly. The source is labelled independent_press while the claim's origin is press_relayed; the relay label is the accurate one. The value basis 'seed equity round' is consistent with the May 2024 SH01 (about GBP 2.72m of seed shares allotted for cash)."
+    },
+    {
+      "claim_id": "human-native-c010",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote supports the statement and the claim is correctly attributed ('Cloudflare says') and tagged vendor_stated. The post is co-authored by Human Native's CEO, which makes it effectively the vendor's own outcome claim; it should not carry weight as quality evidence in Q11."
+    },
+    {
+      "claim_id": "human-native-c013",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches and supports the statement. For the matrix: the source describes two charges, a cut of each deal plus transaction and monitoring fees charged to AI companies (buyers), so economics_model 'commission' captures only the first. 'mixed' or a note that buyer-side fees also exist would be more exact."
+    },
+    {
+      "claim_id": "human-native-c012",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches and supports the statement. Its use for custody_model is rightly left at unknown: 'upload' says where rights holders put content, not how buyers received it."
+    },
+    {
+      "claim_id": "human-native-c019",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "https://www.uktech.news/ai/human-native-ai-funding-20240604 (June 4, 2024) does carry the words, in the sentence 'The marketplace offers several options for licensing data, including revenue-sharing agreements, subscriptions and per-use payments.' The quoted fragment alone does not show that these are the marketplace's licensing options; 'offers several options for licensing data, including revenue-sharing agreements, subscriptions and per-use payments' (115 characters) would. Q9's wording 'Deals were revenue-share, subscription or per-use' overstates the source, which lists offered options, not concluded deals."
+    },
+    {
+      "claim_id": "human-native-c017",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the article and supports the statement; correctly kept from settling human_subject_consent_docs."
+    },
+    {
+      "claim_id": "human-native-c008",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the homepage text ('help creators get the 3 C's: control, compensation and credit for their work being used by AI'). It is a stated aim, not a pay mechanism; contributor_pay_model correctly stays unknown."
+    },
+    {
+      "claim_id": "human-native-c016",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the PSC page. The statement omits the other two natures of control (voting rights 75% or more; right to appoint or remove directors) and the CS01 shows 100% ownership, but nothing stated is wrong."
+    }
+  ],
+  "missed": [
+    {
+      "id": "human-native-v001",
+      "statement": "Human Native Ltd's confirmation statement dated 1 April 2026 lists Cloudflare, Inc. as the holder of all its issued shares, every earlier shareholder (including the founders, Phoenix Court Fund Management and Mercuri GP LLP) having transferred their holdings on 6 January 2026.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {"product": "", "tier": "", "region": ""},
+      "value": null,
+      "origin": "filing",
+      "as_of": "2026-04-01",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://find-and-update.company-information.service.gov.uk/company/15609120/filing-history/MzUxNjUyOTQ3NGFkaXF6a2N4/document?format=pdf&download=0",
+          "publisher": "Companies House",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Shareholding 18: 1142349 SEED PREFERRED shares held as at the date of this confirmation statement Name: CLOUDFLARE, INC."
+        },
+        {
+          "url": "https://find-and-update.company-information.service.gov.uk/company/15609120/filing-history/MzUxNjUyOTQ3NGFkaXF6a2N4/document?format=pdf&download=0",
+          "publisher": "Companies House",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Shareholding 16: 1061975 ORDINARY shares held as at the date of this confirmation statement Name: CLOUDFLARE, INC."
+        },
+        {
+          "url": "https://find-and-update.company-information.service.gov.uk/company/15609120/filing-history/MzUxNjUyOTQ3NGFkaXF6a2N4/document?format=pdf&download=0",
+          "publisher": "Companies House",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Shareholding 13: 112480 transferred on 2026-01-06"
+        }
+      ]
+    },
+    {
+      "id": "human-native-v002",
+      "statement": "A share-allotment return for Human Native Ltd filed on 19 January 2026 records 797,955 seed preferred shares allotted for cash at GBP 6.266 paid per share (about GBP 5.0 million in total); the form dates the allotment 06/01/2025, and it was filed three days after the register was notified of Cloudflare's control.",
+      "kind": "number",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {"product": "", "tier": "", "region": ""},
+      "value": {"num": 6.266, "unit": "GBP per seed preferred share", "basis": "amount paid per share on 797,955 seed preferred shares allotted for cash; total about GBP 5.0 million by multiplication; purpose of the allotment not stated", "period": "one-off"},
+      "origin": "filing",
+      "as_of": "2026-01-19",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://find-and-update.company-information.service.gov.uk/company/15609120/filing-history/MzUwMDExNDYyMGFkaXF6a2N4/document?format=pdf&download=0",
+          "publisher": "Companies House",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Number allotted 797955 Nominal value of each share 0.00001 Amount paid: 6.266"
+        }
+      ]
+    }
+  ]
+}

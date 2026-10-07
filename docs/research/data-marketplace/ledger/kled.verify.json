@@ -1,0 +1,627 @@
+{
+  "kind": "verify",
+  "slug": "kled",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "kled-c001",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://apps.apple.com/app/kled/id6752585718",
+        "publisher": "Apple App Store",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Introducing Kled V3: • New task discovery feed: Find paid tasks directly on your"
+      },
+      "corrected_statement": null,
+      "note": "Operating status confirmed on Apple's App Store listing (seller 'Nitrility Inc.'), where version 3.0.1 was shown as released '3h ago' on 2026-10-01. The privacy-policy date itself is vendor_only; the live policy does read 'Last Updated: September 14, 2026'. Oddity: kled.ai/sitemap.xml lists a version page /privacy-policy/2026-11-14, a date in the future. The Google Play listing linked from Kled's Android post (play.google.com/store/apps/details?id=ai.kled.app) returned 404 on 2026-10-01. WebSearch not available in this run."
+    },
+    {
+      "claim_id": "kled-c002",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://apps.apple.com/app/kled/id6752585718",
+        "publisher": "Apple App Store",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Join more than 500,000 contributors helping train the next generation of AI."
+      },
+      "corrected_statement": null,
+      "note": "Only relays: the developer-written App Store description repeats the figure (as 'contributors', not 'users'). The DATA Foundation homepage (datafdn.org, Kled's partner and investor) shows a live contributor counter of '372.5K', lower than 500,000, so the 500K figure appears to count users/sign-ups rather than contributors with receipts. On 'newest dated event': datafdn.org dates its Kled partnership post 25 Jun 2026 and a board decision extending the $DATA token lockup 4 Aug 2026; nothing newer about Kled itself was found by navigation. No search available."
+    },
+    {
+      "claim_id": "kled-c004",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The buyer is unnamed, so no counterparty site could be checked. SEC EDGAR company and full-text search return nothing for Nitrility; CourtListener returns only unrelated fuzzy matches. Kled's blog post links to no press. No search available."
+    },
+    {
+      "claim_id": "kled-c005",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Requester unnamed; Kled's post links to no press or counterparty. No search available."
+    },
+    {
+      "claim_id": "kled-c006",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A contributor pay offer stated only in Kled's own blog post ('Expected pay is up to $50-$150 per form'); the App Store description gives no rates."
+    },
+    {
+      "claim_id": "kled-c008",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No Form D or other filing for Nitrility on SEC EDGAR (company search: 'No matching companies'; full-text search: 0 hits). Investor sites tried: aglaeventures.com/companies (Kled not listed), parable.vc (parked domain), coxexponential.com (connection refused), street.global (Street FDN, named on the tokenomics page as partner: domain does not resolve). No search available."
+    },
+    {
+      "claim_id": "kled-c009",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": {
+        "url": "https://www.esma.europa.eu/sites/default/files/2024-12/OTHER.csv",
+        "publisher": "European Securities and Markets Authority (interim MiCA register)",
+        "source_class": "regulator_guidance",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Central Bank of Ireland (CBI),IE,Nitrility Inc.,,US,,,,,,www.kled.com/whitepaper,,22/12/2025"
+      },
+      "corrected_statement": null,
+      "note": "ESMA's interim MiCA register (other crypto-asset white papers, CSV, downloaded 2026-10-01) confirms a white paper by Nitrility Inc. notified via the Central Bank of Ireland, but its date field reads 22/12/2025, not 2025-12-28, and its registered link www.kled.com/whitepaper returns 404 (the paper lives on kled.ai). The financial statements (profitable, no debt, about USD 3M via SAFEs) exist only in the issuer's own paper, and no independent source for them was found. Kled's own blog separately announces a $5.5M seed bringing 'total financing to $10 million' (its displayed date is a CMS re-date). No search available."
+    },
+    {
+      "claim_id": "kled-c016",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No studio is named, so there was no counterparty to check. A $310M figure is extraordinary next to the white paper's roughly USD 3M raised and the $35M pipeline claim, and it deserves independent confirmation that could not be reached. No search available."
+    },
+    {
+      "claim_id": "kled-c017",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Counterparty unnamed. No search available."
+    },
+    {
+      "claim_id": "kled-c018",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "superpower.com (linked from Kled's post) does not mention Kled or any data licensing. Its homepage says of member health data 'We never sell it', which concerns Superpower's own member data and does not contradict an LOI to buy data. Superpower has no press section in its footer. No search available."
+    },
+    {
+      "claim_id": "kled-c019",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The lab is unnamed. No search available."
+    },
+    {
+      "claim_id": "kled-c020",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://datafdn.org/blog/were-becoming-the-data-foundation",
+        "publisher": "The DATA Foundation",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Over 1.1 billion images, videos, and files have been uploaded by real people on their app."
+      },
+      "corrected_statement": null,
+      "note": "The DATA Foundation's 25 Jun 2026 post relays a consistent upload count (1.1B), and its homepage now says '1.5B+ records uploaded by real people'. The Foundation is Kled's partner and investor, and Kled's founder became its Chief Data Officer, so this is not independent."
+    },
+    {
+      "claim_id": "kled-c021",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Kled's tokenomics page links a Solscan wallet, but on-chain balances cannot confirm off-chain user wallet balances as stated. No search available."
+    },
+    {
+      "claim_id": "kled-c022",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No independent source for payout totals. No search available."
+    },
+    {
+      "claim_id": "kled-c024",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No independent source. No search available."
+    },
+    {
+      "claim_id": "kled-c026",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://datafdn.org/blog/were-becoming-the-data-foundation",
+        "publisher": "The DATA Foundation",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Over 5 million uploads per day and growing."
+      },
+      "corrected_statement": null,
+      "note": "Partner (and investor) relays the 5M uploads/day figure in June 2026; its homepage shows '5M+ new uploads every day' and a live counter of '372.5K' contributors. The '170+ countries' figure was not found anywhere off Kled's site."
+    },
+    {
+      "claim_id": "kled-c027",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No independent source. No search available."
+    },
+    {
+      "claim_id": "kled-c048",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The only source is Kled's own audit portal, hosted on the DATA Foundation's Trace network (trace.datafdn.org/audit/kled, linked from Kled's footer). The profile presumably cites this same URL, so it does not count as independent. Re-fetched live on 2026-10-01, it shows the same split: Southeast Asia 71.7%, Sub-Saharan Africa 25.4%, North America 2.2%, EU 0.4%."
+    },
+    {
+      "claim_id": "kled-c063",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The labs are unnamed. No search available."
+    },
+    {
+      "claim_id": "kled-c068",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://apps.apple.com/app/kled/id6752585718",
+        "publisher": "Apple App Store",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Minimum $25 balance to cash out"
+      },
+      "corrected_statement": null,
+      "note": "The App Store listing (a developer-written description on Apple's store, seller Nitrility Inc.) also says 'Cash out to Venmo, PayPal, or Solana Wallet (Crypto)'. It restates the vendor's own text, so it is relayed rather than independent."
+    },
+    {
+      "claim_id": "kled-c071",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "An advertised task rate exists only in Kled's own posts and app."
+    },
+    {
+      "claim_id": "kled-c073",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A claim about what unnamed foundation-model buyers pay; no counterparty is named. No search available."
+    },
+    {
+      "claim_id": "kled-c074",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The Guardian article should confirm this, but WebFetch cannot fetch theguardian.com and content.guardianapis.com is also refused. Kled's post (dated 21 Mar 2026 in its body) links only to the Guardian's South Africa section, not to the article, and guessing the article URL is not allowed. No search available."
+    },
+    {
+      "claim_id": "kled-c087",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Same Kled audit portal on trace.datafdn.org, not independent. Live check on 2026-10-01: 'v2026-05-01 (current): 208,245,259 receipts (100%)'. The portal's total receipts are 254,161,064, so the 100% is a share of receipts that record a ToS version (about 208M), not of all receipts."
+    },
+    {
+      "claim_id": "kled-c115",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause in Kled's own Terms."
+    },
+    {
+      "claim_id": "kled-c095",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause in Kled's own Terms. The App Store description says only 'Your accepted contributions are licensed for AI training with your consent.'"
+    },
+    {
+      "claim_id": "kled-c075",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A statement about Kled's own economics, made on its own sites (blog / ufdp.ai)."
+    },
+    {
+      "claim_id": "kled-c012",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The counterparty's own channels show nothing. MPT's 2025 press-room listing (mpt.org/about/pressroom/pressroom-2025/) shows no release about Kled or AI licensing. MPT's Annual Report 2025 (Nov 2025) and Strategic Plan 2026-2029 PDFs contain no 'Kled'; the plan mentions AI only for internal tools. Silence is not a refutation. A state-agency deal of this kind should leave a record (commission minutes, procurement), but none was reachable. No search available."
+    },
+    {
+      "claim_id": "kled-c045",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A description of Kled's own delivery pipeline; no buyer is named."
+    },
+    {
+      "claim_id": "kled-c038",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A button on Kled's own catalogue."
+    },
+    {
+      "claim_id": "kled-c111",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause in Kled's own Terms."
+    },
+    {
+      "claim_id": "kled-c113",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause in Kled's own Terms."
+    },
+    {
+      "claim_id": "kled-c001",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote shows the Last Updated date on the named privacy policy."
+    },
+    {
+      "claim_id": "kled-c002",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote supports the milestone. The 18 July 2026 date comes from the blog index (07.18.26), not from the quote. Each post page also carries a site-wide CMS stamp 'Sep 14, 2026, 8:20 PM UTC' that is not the publication date."
+    },
+    {
+      "claim_id": "kled-c004",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "kled-c005",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote shows the $8M request but not the document types; the page's words 'Credit card reports, tax returns, w9 forms and other personal financial documents' would."
+    },
+    {
+      "claim_id": "kled-c006",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "kled-c008",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The tokenomics page carries the body date 04.23.26, which supports the April 2026 as_of."
+    },
+    {
+      "claim_id": "kled-c009",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The white paper states notification and publication date 2025-12-28, but ESMA's register records 22/12/2025 for the same Nitrility Inc. entry (see the blind note). source_class 'filing' is generous for an issuer-hosted copy on kled.ai."
+    },
+    {
+      "claim_id": "kled-c012",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote says 'exclusive AI licensing agreement with its first government organization, Maryland Public Television'; the body date 10.22.25 matches."
+    },
+    {
+      "claim_id": "kled-c016",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The 'since October 28' element is not in the quote; the page reads 'Since October 28th, Kled has signed another $310,000,000 worth of enterprise data from international film studios.' The quote's 'another' also implies earlier signings. The figure is the value of supply signed, not revenue, as the value basis says."
+    },
+    {
+      "claim_id": "kled-c017",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "kled-c018",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote shows only the LOI. The licensing element needs the page's words 'That data is then licensed to companies like Superpower Health'. The body date is 10.02.25; the page also shows the CMS stamp Sep 14, 2026."
+    },
+    {
+      "claim_id": "kled-c019",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "'Image-generation AI lab' is not in the quote; the page says 'first major KPI from one of the top image generation AI labs valued over $10B'."
+    },
+    {
+      "claim_id": "kled-c020",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "kled-c021",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "kled-c022",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The page (body date 12.17.25) also says 'It's been 3 days since V2 launched', which supports the timing."
+    },
+    {
+      "claim_id": "kled-c024",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote covers only the top earner. The upload rate needs 'Our users are now uploading anywhere from 3 - 4.5 million files per day.' The body date 03.10.26 matches."
+    },
+    {
+      "claim_id": "kled-c026",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote covers contributors and countries but not uploads; the page also says 'over 5 million uploads per day'."
+    },
+    {
+      "claim_id": "kled-c027",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The page's full phrase is '$35M+ data purchase pipeline and enterprise relationships across the world's leading AI labs'. It is a pipeline, not bookings, as the value basis says."
+    },
+    {
+      "claim_id": "kled-c038",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The live catalogue also has a 'Request Dataset' button, which goes to the same mailto:team@kled.ai. No prices are shown, so the substance holds. Stating an absence from a button quote is acceptable under rule 13."
+    },
+    {
+      "claim_id": "kled-c045",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The UFDP post (body date 04.23.26) says validated captcha data 'is sent directly to the leading foundation models and robotics companies'."
+    },
+    {
+      "claim_id": "kled-c048",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote lacks the North America figure; the portal also lists North America 2.2%. The figures matched the live portal on 2026-10-01."
+    },
+    {
+      "claim_id": "kled-c063",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Body date 01.26.26; the page adds 'In the last seven days'."
+    },
+    {
+      "claim_id": "kled-c068",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Help-centre quote supports it, and the App Store listing says the same."
+    },
+    {
+      "claim_id": "kled-c071",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The page limits it to 'qualified, KYC'd users' in the U.S.; the value basis reflects that."
+    },
+    {
+      "claim_id": "kled-c073",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The source is named only in words the quote leaves out: 'We have begun working with the major foundation models and are actively receiving tasks paying $1,000+ per single completion'."
+    },
+    {
+      "claim_id": "kled-c074",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote does not show Cape Town or 'Urban Navigation'. The page's words are 'The video was for an \"Urban Navigation\" task Louw found on Kled AI' and 'a 27-year-old based in Cape Town'."
+    },
+    {
+      "claim_id": "kled-c075",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "kled-c087",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote embeds a live counter, '208,231,888'; on 2026-10-01 the portal showed 208,245,259, so the quote will fail string-matching as the count moves. The portal's total receipts are 254,161,064, so '100%' is of receipts recording a ToS version. The profile already records the conflict with the 21 July 2026 Terms."
+    },
+    {
+      "claim_id": "kled-c095",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The live page reads 'We may distribution and commercialize your Submitted Content' (sic)."
+    },
+    {
+      "claim_id": "kled-c111",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "kled-c113",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "kled-c115",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The clause reads 'SHALL NOT EXCEED THE GREATER OF ONE HUNDRED DOLLARS ($100.00).' and gives no second amount, so the cap is effectively $100. The value basis's 'or other sum stated' is inaccurate: no other sum is stated."
+    }
+  ],
+  "missed": [
+    {
+      "id": "kled-v001",
+      "statement": "ESMA's interim MiCA register lists a crypto-asset white paper from Nitrility Inc. (home member state Ireland, competent authority Central Bank of Ireland) with date 22/12/2025, linking to www.kled.com/whitepaper, a URL that returned 404 on 2026-10-01.",
+      "kind": "event",
+      "section": "regulation",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "KLED token white paper",
+        "tier": "",
+        "region": "EU"
+      },
+      "value": null,
+      "origin": "government",
+      "as_of": "2025-12-22",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.esma.europa.eu/sites/default/files/2024-12/OTHER.csv",
+          "publisher": "European Securities and Markets Authority (interim MiCA register)",
+          "source_class": "regulator_guidance",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Central Bank of Ireland (CBI),IE,Nitrility Inc.,,US,,,,,,www.kled.com/whitepaper,,22/12/2025"
+        }
+      ]
+    },
+    {
+      "id": "kled-v002",
+      "statement": "On 25 June 2026 The DATA Foundation, whose Trace network hosts Kled's audit portal, said Kled's founder and CEO Avi Patel was joining the Foundation as Chief Data Officer, so the audit host is not independent of Kled.",
+      "kind": "event",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Kled audit portal on Trace",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-06-25",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datafdn.org/blog/were-becoming-the-data-foundation",
+          "publisher": "The DATA Foundation",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Avi Patel, Kled's founder and CEO, is joining the Foundation as Chief Data Officer."
+        }
+      ]
+    }
+  ]
+}

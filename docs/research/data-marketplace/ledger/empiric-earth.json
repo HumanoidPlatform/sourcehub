@@ -1,0 +1,2370 @@
+{
+  "kind": "profile",
+  "slug": "empiric-earth",
+  "name": "Empiric Earth",
+  "aliases": [
+    "Nexar",
+    "Nexar Inc.",
+    "Nauto"
+  ],
+  "segment": "crowd_capture",
+  "tier": "light",
+  "status": {
+    "value": "active",
+    "claim_id": "empiric-earth-c001"
+  },
+  "names_for": {
+    "catalogue_side": "Atlas (\"a search engine for the real world\")",
+    "custom_side": "Targeted collection (legacy Nexar: \"Collection On-Demand\")"
+  },
+  "matrix": {
+    "operator_role": {
+      "value": "reseller_licensor",
+      "claim_ids": [
+        "empiric-earth-c012",
+        "empiric-earth-c013",
+        "empiric-earth-c020",
+        "empiric-earth-c040"
+      ],
+      "note": "Empiric Earth/Nexar holds sub-licensable, royalty-free rights over contributor footage and shares anonymized video with AV companies itself; the data-licence contracts themselves are not published."
+    },
+    "economics_model": {
+      "value": "principal_margin",
+      "claim_ids": [
+        "empiric-earth-c013",
+        "empiric-earth-c014",
+        "empiric-earth-c020"
+      ],
+      "note": "Operator acquires footage rights royalty-free and licenses its own record; no marketplace fee exists. No data prices are published."
+    },
+    "who_pays_fee": {
+      "value": "not_applicable",
+      "claim_ids": [],
+      "note": "No marketplace fee: the operator sells its own data rather than intermediating third-party sales."
+    },
+    "supply_models": {
+      "value": [
+        "contributor_uploads",
+        "commissioned_nonexclusive"
+      ],
+      "claim_ids": [
+        "empiric-earth-c012",
+        "empiric-earth-c013",
+        "empiric-earth-c023",
+        "empiric-earth-c061",
+        "empiric-earth-c042",
+        "empiric-earth-c043",
+        "empiric-earth-c044"
+      ],
+      "note": "Consumer dashcam users contribute anonymized road footage; Nauto fleet customers' data (collected for the paying fleet) may be anonymized, when the customer permits, for Nauto's own use. Targeted collection runs on the same network. No third-party providers seen."
+    },
+    "custody_model": {
+      "value": "platform_hosted",
+      "claim_ids": [
+        "empiric-earth-c030",
+        "empiric-earth-c031"
+      ],
+      "note": "Scoped to Atlas: web access, API coming soon, CSV export. How licensed training-data sets are physically delivered is not published."
+    },
+    "transaction_mode": {
+      "value": "contact_sales",
+      "claim_ids": [
+        "empiric-earth-c033",
+        "empiric-earth-c057"
+      ],
+      "note": ""
+    },
+    "public_prices": {
+      "value": "none",
+      "claim_ids": [
+        "empiric-earth-c033",
+        "empiric-earth-c057"
+      ],
+      "note": "No dataset or data-access price published; only device and subscription prices (Nauto VEDR, Nexar dashcams, LTE plan) appear."
+    },
+    "licence_model": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Commercial data-licence agreements are separate, unpublished contracts (c040); the free open dataset uses the Nexar Open Data License."
+    },
+    "exclusivity_offered": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": ""
+    },
+    "public_listing": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "No public listing of commercial datasets or Atlas records found; anonymous visitors see product pages only. The free Hugging Face dataset is gated behind accepted conditions."
+    },
+    "buyer_vetting": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": ""
+    },
+    "sample_mechanics": {
+      "value": "sample_on_request",
+      "claim_ids": [
+        "empiric-earth-c034"
+      ],
+      "note": "A demo in which the company runs a real scenario from the prospect's project; no downloadable commercial sample seen."
+    },
+    "versioning": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": ""
+    },
+    "human_subject_consent_docs": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Public evidence shows the model substitutes on-device de-identification (c021, c061) for consent of people depicted; what a buyer receives or is warranted is not published."
+    },
+    "contributor_pay_model": {
+      "value": "none",
+      "claim_ids": [
+        "empiric-earth-c014",
+        "empiric-earth-c063"
+      ],
+      "note": "Consumer terms grant rights without payment; contributors buy their own dashcam."
+    },
+    "catalogue_plus_custom": {
+      "value": "both",
+      "claim_ids": [
+        "empiric-earth-c027",
+        "empiric-earth-c032",
+        "empiric-earth-c038",
+        "empiric-earth-c055"
+      ],
+      "note": ""
+    },
+    "erasure_after_sale": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Consumer content licence ends on deletion, but the licence over fully anonymized content is perpetual and irrevocable; data subjects can request takedown of anonymized content by location. Obligations on buyers' copies are not published."
+    },
+    "quality_evidence": {
+      "value": "operator_verified",
+      "claim_ids": [
+        "empiric-earth-c027",
+        "empiric-earth-c029"
+      ],
+      "note": "The operator is also the supplier; curation and risk ranking are its own processes (curated, filtered footage ranked by its BADAS model)."
+    }
+  },
+  "questions": {
+    "Q1": {
+      "state": "partial",
+      "answer": "Buyers are AV and robotics developers, automakers, insurers, cities and researchers who want real long-tail events rather than generated ones; the unit is curated driving videos/events, with Waymo named as a recipient. Volumes sold and prices are not published.",
+      "claim_ids": [
+        "empiric-earth-c009",
+        "empiric-earth-c035",
+        "empiric-earth-c039",
+        "empiric-earth-c050",
+        "empiric-earth-c020"
+      ]
+    },
+    "Q2": {
+      "state": "partial",
+      "answer": "Commercial data is sold only direct; Nexar used Hugging Face solely for a free 1,500-video research dataset gated behind accepted conditions and contact sharing.",
+      "claim_ids": [
+        "empiric-earth-c051",
+        "empiric-earth-c054"
+      ]
+    },
+    "Q3": {
+      "state": "sourced",
+      "answer": "Inventory comes from consumer dashcam users under a sub-licensable, royalty-free licence plus a perpetual licence over fully anonymized content, and from Nauto fleet customers' data anonymized only where the customer permits (under 1%).",
+      "claim_ids": [
+        "empiric-earth-c012",
+        "empiric-earth-c013",
+        "empiric-earth-c014",
+        "empiric-earth-c020",
+        "empiric-earth-c023",
+        "empiric-earth-c042",
+        "empiric-earth-c043",
+        "empiric-earth-c044"
+      ]
+    },
+    "Q4": {
+      "state": "partial",
+      "answer": "For fleet (commissioned) data Nauto acts as processor and may anonymize a small fraction only when the customer permits, then use anonymized information for any purpose. No record of after-the-fact term changes was found.",
+      "claim_ids": [
+        "empiric-earth-c041",
+        "empiric-earth-c042",
+        "empiric-earth-c043",
+        "empiric-earth-c044"
+      ]
+    },
+    "Q5": {
+      "state": "partial",
+      "answer": "The operator is licensor of record through sub-licensable grants and requires consumer contributors to indemnify it; buyer-side warranties and indemnities sit in unpublished data-licence contracts.",
+      "claim_ids": [
+        "empiric-earth-c012",
+        "empiric-earth-c013",
+        "empiric-earth-c017",
+        "empiric-earth-c040"
+      ]
+    },
+    "Q6": {
+      "state": "partial",
+      "answer": "Detection runs on the device and only the detection plus surrounding clip is uploaded; Atlas is web-hosted search with CSV export, API coming soon. Bulk delivery of licensed sets is not described.",
+      "claim_ids": [
+        "empiric-earth-c030",
+        "empiric-earth-c031",
+        "empiric-earth-c036"
+      ]
+    },
+    "Q7": {
+      "state": "sourced",
+      "answer": "Capturers opt in or out in app settings depending on location; people and plates depicted are not asked but are blurred on-device before upload; any data subject may request takedown of anonymized content by location; property owners are not addressed.",
+      "claim_ids": [
+        "empiric-earth-c021",
+        "empiric-earth-c022",
+        "empiric-earth-c023",
+        "empiric-earth-c061",
+        "empiric-earth-c062",
+        "empiric-earth-c025"
+      ]
+    },
+    "Q8": {
+      "state": "partial",
+      "answer": "Commercial data-licence terms are unpublished; the free open dataset licence bars resale and re-identification of people or vehicles. No fingerprinting or audit terms seen.",
+      "claim_ids": [
+        "empiric-earth-c040",
+        "empiric-earth-c052",
+        "empiric-earth-c053"
+      ]
+    },
+    "Q9": {
+      "state": "partial",
+      "answer": "Deals close through sales (talk to sales, schedule a call); the operator licenses its own data rather than taking a commission.",
+      "claim_ids": [
+        "empiric-earth-c033",
+        "empiric-earth-c057",
+        "empiric-earth-c013"
+      ]
+    },
+    "Q10": {
+      "state": "partial",
+      "answer": "Atlas exposes curated driving videos as search results that can be organised in folders and exported to CSV; Nexar's Enricher packages annotated datasets. Revisions, orders and entitlements are not described.",
+      "claim_ids": [
+        "empiric-earth-c027",
+        "empiric-earth-c031",
+        "empiric-earth-c056"
+      ]
+    },
+    "Q11": {
+      "state": "partial",
+      "answer": "Pre-purchase evidence is a demo on the prospect's scenario, natural-language search ranked by risk, a free open research dataset, and published privacy commitments.",
+      "claim_ids": [
+        "empiric-earth-c034",
+        "empiric-earth-c029",
+        "empiric-earth-c051",
+        "empiric-earth-c060"
+      ]
+    },
+    "Q12": {
+      "state": "sourced",
+      "answer": "Atlas, 'a search engine for the real world', is the ready-made side; 'targeted collection' (Nexar: 'Collection On-Demand') points the live network at conditions missing from the archive.",
+      "claim_ids": [
+        "empiric-earth-c028",
+        "empiric-earth-c032",
+        "empiric-earth-c038",
+        "empiric-earth-c055"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "statement": "Empiric Earth announced on 2026-09-15 that Nexar and Nauto now operate as Empiric Earth.",
+      "kind": "status",
+      "section": "changes",
+      "question_ids": [],
+      "origin": "vendor_stated",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/press-releases/empiric-earth-launches",
+          "publisher": "Empiric Earth",
+          "source_class": "vendor_marketing",
+          "quote": "Nexar and Nauto are now Empiric Earth.",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        },
+        {
+          "url": "https://www.prnewswire.com/news-releases/nexar-and-nauto-are-now-empiric-earth-302878910.html",
+          "publisher": "PR Newswire",
+          "source_class": "press_relaying_vendor",
+          "quote": "have combined and now operate under a single name as of today",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c001",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Nexar and Nauto announced on 2026-07-01 a definitive agreement to merge.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "origin": "vendor_stated",
+      "as_of": "2026-07-01",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/nexar-and-nauto-to-merge",
+          "publisher": "Empiric Earth",
+          "source_class": "vendor_marketing",
+          "quote": "Nexar and Nauto today announced they have entered into a definitive agreement to merge.",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c002",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Nexar's CEO Zach Greenberger was named CEO of the combined company.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "origin": "vendor_stated",
+      "as_of": "2026-07-01",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/nexar-and-nauto-to-merge",
+          "publisher": "Empiric Earth",
+          "source_class": "vendor_marketing",
+          "quote": "Zach Greenberger, Nexar's CEO, will be CEO of the combined company",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c003",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Empiric Earth says its record covers more than 10 billion miles of observed driving and 60 million edge cases.",
+      "kind": "number",
+      "section": "positioning",
+      "question_ids": [
+        "Q1"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/press-releases/empiric-earth-launches",
+          "publisher": "Empiric Earth",
+          "source_class": "vendor_marketing",
+          "quote": "more than 10 billion miles of observed driving and 60 million edge cases across 98% of US roads",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "value": {
+        "num": 10000000000,
+        "unit": "miles of observed driving (cumulative)",
+        "basis": "vendor-stated total record size, combined Nexar and Nauto",
+        "period": "cumulative"
+      },
+      "id": "empiric-earth-c004",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      }
+    },
+    {
+      "statement": "Empiric Earth says more than 350,000 connected sensors add over 300 million new miles every month.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/press-releases/empiric-earth-launches",
+          "publisher": "Empiric Earth",
+          "source_class": "vendor_marketing",
+          "quote": "More than 350,000 connected sensors add over 300 million new miles every month",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "value": {
+        "num": 300000000,
+        "unit": "miles of new driving captured",
+        "basis": "vendor-stated, combined network of connected sensors",
+        "period": "per month"
+      },
+      "id": "empiric-earth-c005",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      }
+    },
+    {
+      "statement": "Nexar said before the merger that it captured more than 100 million miles of driving every month across 94% of US roads.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2026-07-01",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/nexar-and-nauto-to-merge",
+          "publisher": "Empiric Earth",
+          "source_class": "vendor_marketing",
+          "quote": "capturing more than 100 million miles of real-world driving every month across 94% of US roads",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "value": {
+        "num": 100000000,
+        "unit": "miles of driving captured",
+        "basis": "vendor-stated, Nexar network only, pre-merger",
+        "period": "per month"
+      },
+      "id": "empiric-earth-c006",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      }
+    },
+    {
+      "statement": "Nauto's business was described as built on more than six billion miles of commercial driving data.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2026-07-01",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/nexar-and-nauto-to-merge",
+          "publisher": "Empiric Earth",
+          "source_class": "vendor_marketing",
+          "quote": "built on more than six billion miles of commercial driving data",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "value": {
+        "num": 6000000000,
+        "unit": "miles of commercial fleet driving data",
+        "basis": "vendor-stated, Nauto fleet data, cumulative",
+        "period": "cumulative"
+      },
+      "id": "empiric-earth-c007",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      }
+    },
+    {
+      "statement": "Nauto says more than 1,000 fleets worldwide use it to prevent risks.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2026-07-01",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/nexar-and-nauto-to-merge",
+          "publisher": "Empiric Earth",
+          "source_class": "vendor_marketing",
+          "quote": "More than 1,000 fleets worldwide depend on Nauto to prevent risks",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c008",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Empiric Earth names developers, automakers, fleets, insurers and public agencies as users of its driving record.",
+      "kind": "offer",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/press-releases/empiric-earth-launches",
+          "publisher": "Empiric Earth",
+          "source_class": "vendor_marketing",
+          "quote": "Developers, automakers, fleets, insurers and public agencies use the record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c009",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Empiric Earth says its safety models have produced a 50 to 80% reduction in collision loss across enterprise fleets.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [],
+      "origin": "vendor_stated",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/press-releases/empiric-earth-launches",
+          "publisher": "Empiric Earth",
+          "source_class": "vendor_marketing",
+          "quote": "50 to 80% reduction in collision loss across enterprise fleets",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c010",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Empiric Earth describes its driving record as de-identified and owned by no manufacturer.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q7"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/press-releases/empiric-earth-launches",
+          "publisher": "Empiric Earth",
+          "source_class": "vendor_marketing",
+          "quote": "de-identified record, owned by no manufacturer and competing with none of the systems it measures",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c011",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Nexar's consumer terms grant Nexar a non-exclusive, worldwide, transferable, sub-licensable, royalty-free licence to process users' content.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "origin": "legal_text",
+      "as_of": "2026-02-12",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.getnexar.com/terms/",
+          "publisher": "Nexar",
+          "source_class": "legal_terms",
+          "quote": "a non-exclusive, worldwide, transferrable, sub-licensable, royalty-free permanent license to process your User Content",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c012",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Nexar's consumer terms grant Nexar a perpetual, irrevocable, sub-licensable licence to use fully anonymized user content in any way.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "origin": "legal_text",
+      "as_of": "2026-02-12",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.getnexar.com/terms/",
+          "publisher": "Nexar",
+          "source_class": "legal_terms",
+          "quote": "royalty-free license to use, in any way, your fully anonymized User Content",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c013",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Nexar's consumer terms state that its use of user content does not require payment to the user.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "origin": "legal_text",
+      "as_of": "2026-02-12",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.getnexar.com/terms/",
+          "publisher": "Nexar",
+          "source_class": "legal_terms",
+          "quote": "without the requirement of payment to you or any other person or entity",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c014",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Nexar's consumer terms say the content licence ends when the user deletes the content or account.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8"
+      ],
+      "origin": "legal_text",
+      "as_of": "2026-02-12",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.getnexar.com/terms/",
+          "publisher": "Nexar",
+          "source_class": "legal_terms",
+          "quote": "This license ends when you delete your content or your account",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c015",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Nexar's consumer terms describe processing user content by de-linking, de-identifying, anonymizing and aggregating it.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "origin": "legal_text",
+      "as_of": "2026-02-12",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.getnexar.com/terms/",
+          "publisher": "Nexar",
+          "source_class": "legal_terms",
+          "quote": "de-linking, de-identifying, anonymizing, and aggregating it",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c016",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Nexar's consumer terms require users to defend, indemnify and hold Nexar harmless from claims.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "origin": "legal_text",
+      "as_of": "2026-02-12",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.getnexar.com/terms/",
+          "publisher": "Nexar",
+          "source_class": "legal_terms",
+          "quote": "you will defend, indemnify and hold Nexar, its officers, employees, agents or suppliers harmless from any and all claims",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c017",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Nexar's consumer terms are governed by New York law.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "origin": "legal_text",
+      "as_of": "2026-02-12",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.getnexar.com/terms/",
+          "publisher": "Nexar",
+          "source_class": "legal_terms",
+          "quote": "governed and construed in accordance with the laws of the State of New York",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c018",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Nexar's consumer terms say user content may be shared among users and integrated into CityStream products.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "origin": "legal_text",
+      "as_of": "2026-02-12",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.getnexar.com/terms/",
+          "publisher": "Nexar",
+          "source_class": "legal_terms",
+          "quote": "shared among Users and integrated into CityStream products to enhance road safety",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c019",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Nexar's privacy policy says it shares anonymized videos with advanced driving companies to improve their models.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q7",
+        "Q1"
+      ],
+      "origin": "legal_text",
+      "as_of": "2025-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.getnexar.com/privacy/",
+          "publisher": "Nexar",
+          "source_class": "legal_terms",
+          "quote": "we share anonymized videos with advanced driving companies to improve the accuracy",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c020",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Nexar's privacy policy says anonymization is performed on the user's device before the information is sent to Nexar.",
+      "kind": "architecture",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "origin": "legal_text",
+      "as_of": "2025-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.getnexar.com/privacy/",
+          "publisher": "Nexar",
+          "source_class": "legal_terms",
+          "quote": "The anonymization is performed directly on the User's device, even before the information is sent to Nexar",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c021",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Nexar's privacy policy acknowledges raw camera images may capture individuals and licence plates and says identifiable elements are anonymized.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "origin": "legal_text",
+      "as_of": "2025-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.getnexar.com/privacy/",
+          "publisher": "Nexar",
+          "source_class": "legal_terms",
+          "quote": "we make sure that all identifiable elements are anonymized",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c022",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Nexar's privacy policy lets users choose whether to contribute anonymized content via app settings, as opt-in or opt-out depending on location.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q7"
+      ],
+      "origin": "legal_text",
+      "as_of": "2025-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.getnexar.com/privacy/",
+          "publisher": "Nexar",
+          "source_class": "legal_terms",
+          "quote": "You can choose whether you wish to contribute anonymized content for the purposes described above via the App's settings menu",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c023",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Nexar's privacy policy says it shares anonymized camera-generated content with business partners for mapmaking.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "origin": "legal_text",
+      "as_of": "2025-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.getnexar.com/privacy/",
+          "publisher": "Nexar",
+          "source_class": "legal_terms",
+          "quote": "We share anonymized Camera-Generated Content of our Users with our business partners",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c024",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Nexar's privacy policy lets any data subject submit a takedown request for anonymized content about a specific location.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "origin": "legal_text",
+      "as_of": "2025-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.getnexar.com/privacy/",
+          "publisher": "Nexar",
+          "source_class": "legal_terms",
+          "quote": "may submit a Takedown Request for anonymized content related to a specific location",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c025",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Nexar's privacy policy defines training data as portions of content captured by both in-cabin and road-facing cameras.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "origin": "legal_text",
+      "as_of": "2025-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.getnexar.com/privacy/",
+          "publisher": "Nexar",
+          "source_class": "legal_terms",
+          "quote": "Training data is made of certain portions of Camera-Generated Content captured by both in-cabin and road-facing Cameras",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c026",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Empiric Earth says Atlas contains more than 6 million curated driving videos.",
+      "kind": "number",
+      "section": "object_model",
+      "question_ids": [
+        "Q10",
+        "Q1"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/products/atlas",
+          "publisher": "Empiric Earth",
+          "source_class": "vendor_marketing",
+          "quote": "6M+ curated driving videos, filtered to usable road footage",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "value": {
+        "num": 6000000,
+        "unit": "curated driving videos",
+        "basis": "vendor-stated Atlas corpus size",
+        "period": "cumulative"
+      },
+      "scope": {
+        "product": "Atlas",
+        "tier": "",
+        "region": ""
+      },
+      "id": "empiric-earth-c027"
+    },
+    {
+      "statement": "Empiric Earth describes Atlas as a search engine for the real world.",
+      "kind": "offer",
+      "section": "discovery",
+      "question_ids": [
+        "Q12",
+        "Q11"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/products/atlas",
+          "publisher": "Empiric Earth",
+          "source_class": "vendor_marketing",
+          "quote": "Atlas is a search engine for the real world",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "scope": {
+        "product": "Atlas",
+        "tier": "",
+        "region": ""
+      },
+      "id": "empiric-earth-c028",
+      "value": null
+    },
+    {
+      "statement": "Atlas lets a user describe a situation and returns matching real events ranked by how dangerous they got.",
+      "kind": "offer",
+      "section": "discovery",
+      "question_ids": [
+        "Q11"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/products/atlas",
+          "publisher": "Empiric Earth",
+          "source_class": "vendor_marketing",
+          "quote": "Describe a situation and it returns the real events that match, ranked by how dangerous they actually got",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "scope": {
+        "product": "Atlas",
+        "tier": "",
+        "region": ""
+      },
+      "id": "empiric-earth-c029",
+      "value": null
+    },
+    {
+      "statement": "Atlas is accessed through the web, with an API listed as coming soon.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/products/atlas",
+          "publisher": "Empiric Earth",
+          "source_class": "vendor_marketing",
+          "quote": "Access: Web, and API",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "scope": {
+        "product": "Atlas",
+        "tier": "",
+        "region": ""
+      },
+      "id": "empiric-earth-c030",
+      "value": null
+    },
+    {
+      "statement": "Atlas offers folders, threaded comments and CSV export at any size.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6",
+        "Q10"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/products/atlas",
+          "publisher": "Empiric Earth",
+          "source_class": "vendor_marketing",
+          "quote": "Folders, threaded comments, CSV export at any size",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "scope": {
+        "product": "Atlas",
+        "tier": "",
+        "region": ""
+      },
+      "id": "empiric-earth-c031",
+      "value": null
+    },
+    {
+      "statement": "Atlas offers targeted collection that points the live network at a condition the customer asks for.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/products/atlas",
+          "publisher": "Empiric Earth",
+          "source_class": "vendor_marketing",
+          "quote": "Targeted collection points the live network at the condition you asked for",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "scope": {
+        "product": "Atlas",
+        "tier": "",
+        "region": ""
+      },
+      "id": "empiric-earth-c032",
+      "value": null
+    },
+    {
+      "statement": "The Atlas page directs buyers to talk to sales; no self-serve checkout is shown.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/products/atlas",
+          "publisher": "Empiric Earth",
+          "source_class": "vendor_marketing",
+          "quote": "Talk to sales",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "scope": {
+        "product": "Atlas",
+        "tier": "",
+        "region": ""
+      },
+      "id": "empiric-earth-c033",
+      "value": null
+    },
+    {
+      "statement": "The Atlas page offers a demo in which the company runs a real scenario from the prospect's project.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/products/atlas",
+          "publisher": "Empiric Earth",
+          "source_class": "vendor_marketing",
+          "quote": "Ask for a demo where we will run a real scenario from your project",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "scope": {
+        "product": "Atlas",
+        "tier": "",
+        "region": ""
+      },
+      "id": "empiric-earth-c034",
+      "value": null
+    },
+    {
+      "statement": "The Atlas page lists validation leads, AV and robotics, insurers, cities and DOTs, and researchers as users.",
+      "kind": "offer",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/products/atlas",
+          "publisher": "Empiric Earth",
+          "source_class": "vendor_marketing",
+          "quote": "Validation leads, AV & Robotics, Insurers, Cities & DOTs, Researchers",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "scope": {
+        "product": "Atlas",
+        "tier": "",
+        "region": ""
+      },
+      "id": "empiric-earth-c035",
+      "value": null
+    },
+    {
+      "statement": "Empiric Earth's methodology page says sensors run detection models on the device and what leaves the vehicle is the detection plus the clip around it.",
+      "kind": "architecture",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q6"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/methodology",
+          "publisher": "Empiric Earth",
+          "source_class": "docs",
+          "quote": "what leaves is the detection plus the clip around it",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c036",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Empiric Earth says its data comes from sensors on vehicles making journeys their drivers were making anyway.",
+      "kind": "architecture",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/methodology",
+          "publisher": "Empiric Earth",
+          "source_class": "docs",
+          "quote": "350,000 active sensors on vehicles making journeys their drivers were making anyway",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c037",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Empiric Earth's AV and robotics page offers commissioning targeted collection when a needed condition is not yet in the archive.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/industries/av-robotics",
+          "publisher": "Empiric Earth",
+          "source_class": "vendor_marketing",
+          "quote": "Commissioning targeted collection when a condition you need is not in the archive yet",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c038",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Empiric Earth pitches filling long-tail gaps in AV training or validation sets with real events rather than generated ones.",
+      "kind": "offer",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/industries/av-robotics",
+          "publisher": "Empiric Earth",
+          "source_class": "vendor_marketing",
+          "quote": "Filling long-tail gaps in a training or validation set with real events rather than generated ones",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c039",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Empiric Earth's website terms state that data-licence agreements are separate contracts not covered by the website terms.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q5"
+      ],
+      "origin": "legal_text",
+      "as_of": "2026-09-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/legal/terms",
+          "publisher": "Empiric Earth",
+          "source_class": "legal_terms",
+          "quote": "Product, device and data-licence agreements are separate contracts and are not replaced by them",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c040",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Nauto's solution privacy policy says Nauto is a processor of personal information it processes on behalf of its fleet customers.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "origin": "legal_text",
+      "as_of": "2026-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/legal/products-and-services",
+          "publisher": "Empiric Earth",
+          "source_class": "legal_terms",
+          "quote": "Nauto is a processor of any personal information it processes on behalf of Nauto's customers",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "scope": {
+        "product": "Nauto fleet solution",
+        "tier": "",
+        "region": ""
+      },
+      "id": "empiric-earth-c041",
+      "value": null
+    },
+    {
+      "statement": "Nauto's solution privacy policy says that, when permitted by its customers, it may anonymize or pseudonymize a small fraction of fleet customer data.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q4"
+      ],
+      "origin": "legal_text",
+      "as_of": "2026-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/legal/products-and-services",
+          "publisher": "Empiric Earth",
+          "source_class": "legal_terms",
+          "quote": "When permitted by our customers, we may anonymize or pseudonymize a small fraction of Customer Data",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "scope": {
+        "product": "Nauto fleet solution",
+        "tier": "",
+        "region": ""
+      },
+      "id": "empiric-earth-c042",
+      "value": null
+    },
+    {
+      "statement": "Nauto's solution privacy policy caps that anonymized or pseudonymized fraction at less than 1% of data collected from Nauto customers.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q4"
+      ],
+      "origin": "legal_text",
+      "as_of": "2026-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/legal/products-and-services",
+          "publisher": "Empiric Earth",
+          "source_class": "legal_terms",
+          "quote": "less than 1% of data collected and processed by the Services based on Nauto customer data",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "value": {
+        "num": 1,
+        "unit": "percent of fleet customer data collected (upper bound)",
+        "basis": "share of Nauto fleet customer data that may be anonymized or pseudonymized for Nauto's own use, when customer permits",
+        "period": "not stated"
+      },
+      "scope": {
+        "product": "Nauto fleet solution",
+        "tier": "",
+        "region": ""
+      },
+      "id": "empiric-earth-c043"
+    },
+    {
+      "statement": "Nauto's solution privacy policy says Nauto may disclose or use anonymized information for any purpose.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q4"
+      ],
+      "origin": "legal_text",
+      "as_of": "2026-07-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/legal/products-and-services",
+          "publisher": "Empiric Earth",
+          "source_class": "legal_terms",
+          "quote": "Nauto may disclose or use anonymized information for any purpose",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "scope": {
+        "product": "Nauto fleet solution",
+        "tier": "",
+        "region": ""
+      },
+      "id": "empiric-earth-c044",
+      "value": null
+    },
+    {
+      "statement": "Nauto's solution terms define De-Identified Data as customer data de-identified including by reasonable efforts to blur identifying images.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/legal/solution-terms",
+          "publisher": "Empiric Earth",
+          "source_class": "legal_terms",
+          "quote": "Customer Data that has been de-identified, including by using reasonable efforts to blur identifying images",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "scope": {
+        "product": "Nauto fleet solution",
+        "tier": "",
+        "region": ""
+      },
+      "id": "empiric-earth-c045",
+      "value": null
+    },
+    {
+      "statement": "Nauto VEDR, a fleet video event recorder product, is listed at $25 per unit per month (a device subscription, not a dataset price).",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [],
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/products/vedr-pricing",
+          "publisher": "Empiric Earth",
+          "source_class": "pricing_page",
+          "quote": "$25 per unit per month",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "value": {
+        "num": 25,
+        "unit": "USD per vehicle unit",
+        "basis": "fleet customer pays; Nauto VEDR self-install plan subscription; not a data price",
+        "period": "per month"
+      },
+      "scope": {
+        "product": "Nauto VEDR",
+        "tier": "self-install",
+        "region": ""
+      },
+      "id": "empiric-earth-c046"
+    },
+    {
+      "statement": "Nauto VEDR carries a $375 one-time upfront fee per unit.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [],
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/products/vedr-pricing",
+          "publisher": "Empiric Earth",
+          "source_class": "pricing_page",
+          "quote": "$375 upfront fee, one time per unit",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "value": {
+        "num": 375,
+        "unit": "USD per vehicle unit",
+        "basis": "fleet customer pays; Nauto VEDR self-install plan; not a data price",
+        "period": "one-off"
+      },
+      "scope": {
+        "product": "Nauto VEDR",
+        "tier": "self-install",
+        "region": ""
+      },
+      "id": "empiric-earth-c047"
+    },
+    {
+      "statement": "Nexar reported that an S3 bucket exposed in an August 2025 incident held non-identifiable dashcam video recordings without user PII.",
+      "kind": "event",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2025-09-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/insights/report-on-a-recent-data-incident",
+          "publisher": "Empiric Earth",
+          "source_class": "eng_blog",
+          "quote": "non-identifiable video recordings. The bucket does not contain personally identifiable information",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c048",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Nexar reported that a compromised service account exported a Confluence page listing names and email addresses of CityStream users.",
+      "kind": "event",
+      "section": "trust",
+      "question_ids": [],
+      "origin": "vendor_stated",
+      "as_of": "2025-09-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/insights/report-on-a-recent-data-incident",
+          "publisher": "Empiric Earth",
+          "source_class": "eng_blog",
+          "quote": "The account was used to export a Confluence page containing a list of names and email addresses",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c049",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Nexar says it provided Waymo with what it called the largest known anonymized naturalistic driving dataset of its kind in the US.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2024-11-11",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/insights/paving-the-way-for-safer-roads-how-waymo-and-nexar-are-enhancing-autonomous-vehicle-safety",
+          "publisher": "Empiric Earth",
+          "source_class": "vendor_marketing",
+          "quote": "providing the largest known anonymized naturalistic driving dataset of its kind in the US",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c050",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Nexar's public collision prediction dataset on Hugging Face contains 1,500 videos.",
+      "kind": "number",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q11",
+        "Q12"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2025-03-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/insights/nexars-open-dataset-and-crash-prediction-challenge-pushing-the-boundaries-of-ai-driven-road-safety",
+          "publisher": "Empiric Earth",
+          "source_class": "eng_blog",
+          "quote": "1,500 real-world driving videos, including actual collisions, near-collisions, and normal driving videos",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "value": {
+        "num": 1500,
+        "unit": "driving videos",
+        "basis": "free open dataset for a research challenge; no price",
+        "period": "one-off"
+      },
+      "scope": {
+        "product": "nexar_collision_prediction open dataset",
+        "tier": "",
+        "region": ""
+      },
+      "id": "empiric-earth-c051"
+    },
+    {
+      "statement": "The Hugging Face card says the Nexar Open Data License permits free use with attribution and prohibits resale and reidentification of people or vehicles.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/nexar-ai/nexar_collision_prediction",
+          "publisher": "Nexar",
+          "source_class": "docs",
+          "quote": "prohibits resale, reidentification of people or vehicles",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "scope": {
+        "product": "nexar_collision_prediction open dataset",
+        "tier": "",
+        "region": ""
+      },
+      "id": "empiric-earth-c052",
+      "value": null
+    },
+    {
+      "statement": "The Nexar Open Data License bars selling, sublicensing or redistributing the dataset for profit without Nexar's written consent.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/nexar-ai/nexar_collision_prediction/blob/main/LICENSE",
+          "publisher": "Nexar",
+          "source_class": "legal_terms",
+          "quote": "The Dataset may not be sold, sublicensed, or otherwise redistributed for profit without prior written consent",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "scope": {
+        "product": "nexar_collision_prediction open dataset",
+        "tier": "",
+        "region": ""
+      },
+      "id": "empiric-earth-c053",
+      "value": null
+    },
+    {
+      "statement": "The Hugging Face dataset requires users to accept conditions and share contact information before accessing files.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/nexar-ai/nexar_collision_prediction",
+          "publisher": "Nexar",
+          "source_class": "docs",
+          "quote": "accept the conditions to access its files and content",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "scope": {
+        "product": "nexar_collision_prediction open dataset",
+        "tier": "",
+        "region": ""
+      },
+      "id": "empiric-earth-c054",
+      "value": null
+    },
+    {
+      "statement": "Nexar's legacy site offers collection on demand, in which the customer defines edge cases and Nexar targets and delivers the data.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexar-ai.com/",
+          "publisher": "Nexar",
+          "source_class": "vendor_marketing",
+          "quote": "Define the exact edge cases and we proactively target and deliver the data you need",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c055",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Nexar's legacy site says its Enricher turns raw footage into annotated, AI-ready datasets.",
+      "kind": "offer",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexar-ai.com/",
+          "publisher": "Nexar",
+          "source_class": "vendor_marketing",
+          "quote": "Our Enricher transforms raw footage into context-rich, annotated, AI-ready datasets",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c056",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Nexar's legacy data site routes buyers to schedule a call rather than a checkout.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexar-ai.com/",
+          "publisher": "Nexar",
+          "source_class": "vendor_marketing",
+          "quote": "Schedule a call",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c057",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Nexar's legacy site says buyers can access over 1.2 billion visualized miles annually.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q1"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.nexar-ai.com/",
+          "publisher": "Nexar",
+          "source_class": "vendor_marketing",
+          "quote": "Access over 1.2 billion visualized miles annually",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "value": {
+        "num": 1200000000,
+        "unit": "visualized miles",
+        "basis": "vendor-stated annual volume accessible to data customers",
+        "period": "per year"
+      },
+      "id": "empiric-earth-c058",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      }
+    },
+    {
+      "statement": "Empiric Earth's privacy hub states its position as measuring roads, not people.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/privacy",
+          "publisher": "Empiric Earth",
+          "source_class": "vendor_marketing",
+          "quote": "We measure roads. Not people.",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c059",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Empiric Earth's privacy hub advertises ten binding commitments on road data privacy.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://empiricearth.com/privacy",
+          "publisher": "Empiric Earth",
+          "source_class": "vendor_marketing",
+          "quote": "Ten binding commitments on road data privacy",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "id": "empiric-earth-c060",
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null
+    },
+    {
+      "statement": "Nexar's consumer site says faces, licence plates and pedestrians are blurred on-device before any road data leaves the camera.",
+      "kind": "architecture",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.getnexar.com/",
+          "publisher": "Nexar",
+          "source_class": "vendor_marketing",
+          "quote": "Before any road data leaves your camera, faces, license plates, and pedestrians are blurred on-device",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "scope": {
+        "product": "Nexar consumer dashcams",
+        "tier": "",
+        "region": ""
+      },
+      "id": "empiric-earth-c061",
+      "value": null
+    },
+    {
+      "statement": "Nexar's consumer site says users can opt out of the Road Safety contribution at any time in the app's privacy settings.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q7"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.getnexar.com/",
+          "publisher": "Nexar",
+          "source_class": "vendor_marketing",
+          "quote": "Opt out anytime in Settings",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "scope": {
+        "product": "Nexar consumer dashcams",
+        "tier": "",
+        "region": ""
+      },
+      "id": "empiric-earth-c062",
+      "value": null
+    },
+    {
+      "statement": "Nexar's consumer site presents footage contribution as helping road safety and shows no payment or reward for contributing footage.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.getnexar.com/",
+          "publisher": "Nexar",
+          "source_class": "vendor_marketing",
+          "quote": "Your dashcam contributes to a safer road network",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "scope": {
+        "product": "Nexar consumer dashcams",
+        "tier": "",
+        "region": ""
+      },
+      "id": "empiric-earth-c063",
+      "value": null
+    },
+    {
+      "statement": "Nexar sells the Nexar Beam GPS consumer dashcam at $129.95, so contributors pay for their capture device.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [],
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.getnexar.com/",
+          "publisher": "Nexar",
+          "source_class": "pricing_page",
+          "quote": "$129.95",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "value": {
+        "num": 129.95,
+        "unit": "USD per dashcam",
+        "basis": "consumer pays Nexar; hardware retail price, not a data price",
+        "period": "one-off"
+      },
+      "scope": {
+        "product": "Nexar Beam GPS",
+        "tier": "",
+        "region": "US"
+      },
+      "id": "empiric-earth-c064"
+    },
+    {
+      "statement": "Nexar's consumer LTE Protection Plan is priced at $9.99 per month.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [],
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.getnexar.com/",
+          "publisher": "Nexar",
+          "source_class": "pricing_page",
+          "quote": "$9.99",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch"
+        }
+      ],
+      "value": {
+        "num": 9.99,
+        "unit": "USD per subscriber",
+        "basis": "consumer pays Nexar; dashcam connectivity subscription, not a data price",
+        "period": "per month"
+      },
+      "scope": {
+        "product": "Nexar LTE Protection Plan",
+        "tier": "",
+        "region": "US"
+      },
+      "id": "empiric-earth-c065"
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "matrix.licence_model",
+      "urls_tried": [
+        "https://empiricearth.com/legal",
+        "https://empiricearth.com/legal/terms",
+        "https://empiricearth.com/legal/solution-terms",
+        "https://www.getnexar.com/terms/",
+        "https://empiricearth.com/products/atlas"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.exclusivity_offered",
+      "urls_tried": [
+        "https://empiricearth.com/legal",
+        "https://empiricearth.com/legal/terms",
+        "https://empiricearth.com/legal/solution-terms",
+        "https://www.getnexar.com/terms/",
+        "https://empiricearth.com/products/atlas"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.public_listing",
+      "urls_tried": [
+        "https://empiricearth.com/products/atlas",
+        "https://empiricearth.com/world-intelligence",
+        "https://empiricearth.com/sitemap.xml"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.buyer_vetting",
+      "urls_tried": [
+        "https://empiricearth.com/products/atlas",
+        "https://empiricearth.com/contact",
+        "https://empiricearth.com/legal"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.versioning",
+      "urls_tried": [
+        "https://empiricearth.com/products/atlas",
+        "https://empiricearth.com/insights/empiric-earth-training-data-explainer"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.human_subject_consent_docs",
+      "urls_tried": [
+        "https://empiricearth.com/privacy/commitments",
+        "https://empiricearth.com/privacy/de-identification",
+        "https://empiricearth.com/legal/terms"
+      ],
+      "reason": "js_empty"
+    },
+    {
+      "field": "matrix.erasure_after_sale",
+      "urls_tried": [
+        "https://www.getnexar.com/privacy/",
+        "https://empiricearth.com/legal/solution-terms",
+        "https://empiricearth.com/privacy/commitments"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.data_prices",
+      "urls_tried": [
+        "https://empiricearth.com/products/atlas",
+        "https://empiricearth.com/world-intelligence",
+        "https://www.nexar-ai.com/",
+        "https://empiricearth.com/products/vedr-pricing"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.privacy_commitments_text",
+      "urls_tried": [
+        "https://empiricearth.com/privacy/commitments",
+        "https://empiricearth.com/privacy/de-identification",
+        "https://empiricearth.com/privacy/drivers",
+        "https://empiricearth.com/press-releases/ten-privacy-commitments"
+      ],
+      "reason": "js_empty"
+    },
+    {
+      "field": "other.contact_form_options",
+      "urls_tried": [
+        "https://empiricearth.com/contact"
+      ],
+      "reason": "js_empty"
+    },
+    {
+      "field": "other.solution_terms_data_rights",
+      "urls_tried": [
+        "https://empiricearth.com/legal/solution-terms"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "other.independent_press_2025_2026",
+      "urls_tried": [
+        "https://techcrunch.com/tag/nexar/",
+        "https://www.courtlistener.com/api/rest/v4/search/?q=%22Nexar%20Inc%22",
+        "https://www.courtlistener.com/?q=%22Nexar%22+dashcam"
+      ],
+      "reason": "not_found"
+    }
+  ],
+  "conflicts": [],
+  "leads": [
+    {
+      "url": "https://arxiv.org/abs/2503.03848",
+      "why": "Nexar paper on its collision dataset; may describe collection and anonymization."
+    },
+    {
+      "url": "https://techcrunch.com/2021/11/17/nexar-is-building-a-digital-twin-of-cities-using-crowdsourced-dashcam-data/",
+      "why": "Independent 2021 coverage of Nexar's crowdsourced dashcam data business (Series D); no dataset-sale terms."
+    },
+    {
+      "url": "https://www.prnewswire.com/news-releases/nexar-teams-with-nvidia-to-advance-autonomous-vehicle-innovation-302403360.html",
+      "why": "Nexar-NVIDIA data partnership release; not fetched."
+    },
+    {
+      "url": "https://empiricearth.com/privacy/commitments",
+      "why": "Ten privacy commitments; page body did not render for WebFetch (JS)."
+    },
+    {
+      "url": "https://empiricearth.com/insights/nexar-acquires-veniam",
+      "why": "Earlier M&A event; not fetched."
+    },
+    {
+      "url": "https://empiricearth.com/insights/stellantis-ventures-announces-strategic-investment-in-nauto",
+      "why": "Nauto investor event; not fetched."
+    },
+    {
+      "url": "https://www.kaggle.com/competitions/nexar-collision-prediction/",
+      "why": "Kaggle competition using the open dataset; competition rules may carry data-use terms."
+    }
+  ]
+}

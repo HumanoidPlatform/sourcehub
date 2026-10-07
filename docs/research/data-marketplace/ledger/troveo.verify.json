@@ -1,0 +1,759 @@
+{
+  "kind": "verify",
+  "slug": "troveo",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "troveo-c001",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Homepage fetched 2026-10-01 is live with the headline 'The world's largest network of real-world data for AI'; a site's own tagline exists only on the site. Independent signs of recent operation: Techstrong.ai 2026-05-01 feature and two N.D. Cal. complaints filed 2026-08-17 and 2026-08-31 (Round Hill v. Suno; Gerencia 360 v. Suno) naming Troveo among companies that license and pay for training data."
+    },
+    {
+      "claim_id": "troveo-c067",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://techstrong.ai/features/troveo-expands-types-of-licensed-content-available-for-training-ai-models/",
+        "publisher": "Techstrong.ai (Mike Vizard, 2026-05-01)",
+        "source_class": "press_relaying_vendor",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "audio, text, agentic workflows, gameplay data and data collected from robots"
+      },
+      "corrected_statement": null,
+      "note": "The article itself (found via techstrong.ai/post-sitemap3.xml, dated May 1, 2026, by Mike Vizard) says Troveo 'now offers' these types in addition to video; it relays a Troveo announcement. Part 2 showed this is the profile's own source URL, so it is not counted as independent. Audio expansion is independently corroborated by the Round Hill v. Suno complaint (2026-08-17), which lists Troveo among companies that 'license and pay for use of copyrighted music'."
+    },
+    {
+      "claim_id": "troveo-c086",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The contractual structure (Troveo licenses onward under its own agreements) exists only in Troveo's own descriptions. Partial corroboration of the role, not of the contract: a Nov 2025 amicus brief (3d Cir.) calls Troveo AI an aggregator 'which create portfolios of audiovisual content for licensing by AI companies', and Techstrong.ai says Troveo 'works with content providers to clean data sets before they are made available to builders of AI models'."
+    },
+    {
+      "claim_id": "troveo-c118",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Self-description. Independent sources call Troveo a content aggregator (amicus brief, 3d Cir. 2025) or 'a clearinghouse' (Techstrong.ai 2026-05-01); none states a revenue-share model. TechHQ (2025-01-15) wrote 'Troveo's turnover and the percentage it takes are unknown.' Hollywood Reporter launch story was paywalled (HTTP 402)."
+    },
+    {
+      "claim_id": "troveo-c116",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://techstrong.ai/features/troveo-expands-types-of-licensed-content-available-for-training-ai-models/",
+        "publisher": "Techstrong.ai (Mike Vizard, 2026-05-01)",
+        "source_class": "press_relaying_vendor",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "paid out more than $20 million to thousands of content owners after building a library of eight million hours of licensed video"
+      },
+      "corrected_statement": null,
+      "note": "Techstrong relays Troveo's figures (8M hours of licensed video; payments to thousands of content owners) in May 2026; 'opted in' and audio are not in the article. No independent count exists; WebSearch not available in this run (no search available);"
+    },
+    {
+      "claim_id": "troveo-c111",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Help-centre process statement; exists only on Troveo's support site. Techstrong.ai (2026-05-01) independently relays that Troveo cleans data sets before they are made available, which is consistent."
+    },
+    {
+      "claim_id": "troveo-c012",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Listing UI. Fetched https://www.troveo.ai/datasets/everyday-tasks-pov on 2026-10-01: CTA 'Request full dataset', no price, no playable sample, no licence terms, no consent statement; page shows 'Hours12.4K+'."
+    },
+    {
+      "claim_id": "troveo-c112",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Troveo's own description of its deal process; no independent source would carry it."
+    },
+    {
+      "claim_id": "troveo-c007",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Homepage fetched 2026-10-01 says 'Every hour of content was verified for full compliance with Illinois BIPA and Texas CUBI biometric privacy laws.' This is an assertion; no audit, regulator or third party confirming it was found. WebSearch not available in this run (no search available); Illinois/Texas AG sites not searchable for it."
+    },
+    {
+      "claim_id": "troveo-c013",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Content-owners page fetched 2026-10-01 says 'Every use earns you a royalty.' Own pay term; no independent source. TechHQ 2025 says the percentage Troveo takes is unknown."
+    },
+    {
+      "claim_id": "troveo-c074",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Term of Troveo's own business data licence agreement; WebSearch not available in this run (no search available); no partner or licensor restating it was reachable."
+    },
+    {
+      "claim_id": "troveo-c017",
+      "check": "blind",
+      "status": "disputed",
+      "independent_source": {
+        "url": "https://techstrong.ai/features/troveo-expands-types-of-licensed-content-available-for-training-ai-models/",
+        "publisher": "Techstrong.ai (Mike Vizard, 2026-05-01)",
+        "source_class": "press_relaying_vendor",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "paid out more than $20 million to thousands of content owners"
+      },
+      "corrected_statement": null,
+      "note": "The content-owners page (fetched 2026-10-01) does say '$50M+ paid to creators globally', so the statement of what the page says is accurate, but the only non-Troveo source (Techstrong, May 2026, relaying Troveo) gives more than $20 million, and Troveo's own other statements (per claims c044, c120) say more than $20 million as late as September 2026. $50M+ has no independent support and conflicts with the vendor's own figures; it should be flagged, not relied on."
+    },
+    {
+      "claim_id": "troveo-c120",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://techstrong.ai/features/troveo-expands-types-of-licensed-content-available-for-training-ai-models/",
+        "publisher": "Techstrong.ai (Mike Vizard, 2026-05-01)",
+        "source_class": "press_relaying_vendor",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "paid out more than $20 million to thousands of content owners"
+      },
+      "corrected_statement": null,
+      "note": "Only a relayed version (May 2026) of the same >$20M figure was found; the September 2026 statement itself and the breakdown across video, audio, gaming, robotics and business data were not independently found. WebSearch not available in this run (no search available); "
+    },
+    {
+      "claim_id": "troveo-c044",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://techstrong.ai/features/troveo-expands-types-of-licensed-content-available-for-training-ai-models/",
+        "publisher": "Techstrong.ai (Mike Vizard, 2026-05-01)",
+        "source_class": "press_relaying_vendor",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "paid out more than $20 million to thousands of content owners"
+      },
+      "corrected_statement": null,
+      "note": "Same figure relayed by Techstrong in May 2026; the July 2026 statement itself not independently found. WebSearch not available in this run (no search available); "
+    },
+    {
+      "claim_id": "troveo-c068",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://techstrong.ai/features/troveo-expands-types-of-licensed-content-available-for-training-ai-models/",
+        "publisher": "Techstrong.ai (Mike Vizard, 2026-05-01)",
+        "source_class": "press_relaying_vendor",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "paid out more than $20 million to thousands of content owners"
+      },
+      "corrected_statement": null,
+      "note": "Article dated May 1, 2026 confirms the report; the figure itself is Troveo's, relayed. Part 2 showed this is the profile's own source URL, so not counted as independent."
+    },
+    {
+      "claim_id": "troveo-c002",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Exclusivity share is a vendor traction figure; no independent source found. WebSearch not available in this run (no search available); Hollywood Reporter (402) and WSJ/NY Post (fetch refused) could not be read."
+    },
+    {
+      "claim_id": "troveo-c045",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Techstrong (May 2026) relays 'thousands of content owners', consistent with but not confirming 7,000; nothing independent on the 95 percent exclusive share. WebSearch not available in this run (no search available); "
+    },
+    {
+      "claim_id": "troveo-c003",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Techstrong (May 2026) relays 'thousands of content owners', consistent with but not confirming 7,000+. WebSearch not available in this run (no search available); "
+    },
+    {
+      "claim_id": "troveo-c004",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://techstrong.ai/features/troveo-expands-types-of-licensed-content-available-for-training-ai-models/",
+        "publisher": "Techstrong.ai (Mike Vizard, 2026-05-01)",
+        "source_class": "press_relaying_vendor",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "library of eight million hours of licensed video"
+      },
+      "corrected_statement": null,
+      "note": "Relayed vendor figure (May 2026); no independent count exists."
+    },
+    {
+      "claim_id": "troveo-c006",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Catalogue count of company datasets on Troveo's own pages; no independent source. WebSearch not available in this run (no search available); "
+    },
+    {
+      "claim_id": "troveo-c021",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Content-owners page (fetched 2026-10-01) says '7M+ hours video content licensed'. Techstrong (May 2026) relays 'eight million hours of licensed video', a different figure from the same vendor; no independent count. WebSearch not available in this run (no search available); "
+    },
+    {
+      "claim_id": "troveo-c027",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Troveo's own process timeline; no independent source would carry it."
+    },
+    {
+      "claim_id": "troveo-c055",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Sales-per-dataset is a vendor traction figure; no independent source found. WebSearch not available in this run (no search available); "
+    },
+    {
+      "claim_id": "troveo-c059",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Buyer count is a vendor traction figure; no independent source found. WebSearch not available in this run (no search available); "
+    },
+    {
+      "claim_id": "troveo-c080",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Payment term in Troveo's own agreement."
+    },
+    {
+      "claim_id": "troveo-c081",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Payout threshold in Troveo's own terms."
+    },
+    {
+      "claim_id": "troveo-c097",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Inventory size on Troveo's own listing; no independent source. WebSearch not available in this run (no search available); "
+    },
+    {
+      "claim_id": "troveo-c100",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Inventory size on Troveo's own page; no independent source. WebSearch not available in this run (no search available); "
+    },
+    {
+      "claim_id": "troveo-c054",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Causal outcome claim by Troveo; the >$20M total is relayed by Techstrong (May 2026) but nothing independent attributes it to re-licensing. WebSearch not available in this run (no search available); "
+    },
+    {
+      "claim_id": "troveo-c107",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Anonymised 'Mag 7' case study; client unnamed, so no route to a partner or customer source. WebSearch not available in this run (no search available); "
+    },
+    {
+      "claim_id": "troveo-c108",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Anonymised 'Mag 7' case study; client unnamed. WebSearch not available in this run (no search available); "
+    },
+    {
+      "claim_id": "troveo-c109",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Anonymised enterprise video platform case study; client unnamed. WebSearch not available in this run (no search available); "
+    },
+    {
+      "claim_id": "troveo-c001",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Tagline quote plus a live fetch on 2026-10-01; resources dated up to 2026-09-29 show the site is maintained."
+    },
+    {
+      "claim_id": "troveo-c067",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the article (Techstrong.ai, Mike Vizard, 2026-05-01). The blind step found only this same URL, so it is not independent; the article relays a Troveo announcement."
+    },
+    {
+      "claim_id": "troveo-c086",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote is the article's sentence (Troveo resource dated 2026-09-04) and is scoped to the business data agreement. Note the profile's own conflict with the 'on your behalf' wording (c058)."
+    },
+    {
+      "claim_id": "troveo-c118",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote says Troveo is a data licensing marketplace 'which is the revenue-share model above'; page dated 2026-09-29."
+    },
+    {
+      "claim_id": "troveo-c116",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote shows the contributors but not the volume; the page (dated 2026-08-05) also says 'over 8 million hours of real-world video and audio'. Note this counts video AND audio together, whereas the homepage gives 8M+ hours video and 4M+ hours audio separately (c004, c005)."
+    },
+    {
+      "claim_id": "troveo-c111",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches. The help article is addressed to content owners; 'prepares and delivers' does not say where the bytes land, so it supports provider/operator delivery but not a specific custody mode on its own."
+    },
+    {
+      "claim_id": "troveo-c012",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The CTA quote is right; the absences cannot be quoted and were confirmed by a fetch on 2026-10-01 (page shows 'Hours12.4K+', static thumbnails only)."
+    },
+    {
+      "claim_id": "troveo-c112",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Page says Troveo and the buyer 'discuss terms such as usage rights, license scope, deliverables, and timelines'; 'negotiate per deal' is a fair reading. Owner-facing help article."
+    },
+    {
+      "claim_id": "troveo-c007",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the homepage. It is an assertion only; no evidence of the verification is offered."
+    },
+    {
+      "claim_id": "troveo-c013",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the content-owners page, which addresses video creators; no royalty rate is stated."
+    },
+    {
+      "claim_id": "troveo-c074",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote stops at 'counted before any'; the words that show 'before costs' are 'the fees are counted before any costs are taken out'. Also, the claim's value.basis says 'Troveo retains the remaining 40 percent', which the page does not say (the page states only the owner's 60 percent)."
+    },
+    {
+      "claim_id": "troveo-c017",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The page does say '$50M+ paid to creators globally' (the '$0M+' in the quote is counter-animation text). The figure conflicts with Troveo's own $20M+ statements dated 2026-07-25, 2026-09-10 and 2026-09-29 and with Techstrong's relayed $20M+ (May 2026); the profile records the conflict, correctly as unresolved."
+    },
+    {
+      "claim_id": "troveo-c120",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the 2026-09-29 article, including the modality list."
+    },
+    {
+      "claim_id": "troveo-c044",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the article dated July 25, 2026."
+    },
+    {
+      "claim_id": "troveo-c068",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the 2026-05-01 article; press relaying a vendor figure."
+    },
+    {
+      "claim_id": "troveo-c002",
+      "check": "scope",
+      "status": "scope_wrong",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The homepage quote '95% Exclusive to Troveo licensed direct from the source' gives no denominator. Troveo's own pages that do give one say 95 percent of LICENSORS signed exclusively (c045, c046: 'More than 7,000 licensors globally, 95 percent signed exclusively'). The statement's '95% of its content' claims a denominator the source does not support."
+    },
+    {
+      "claim_id": "troveo-c045",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Page dated July 25, 2026: 'More than 7,000 licensors globally, 95 percent signed exclusively, over $20 million paid out'."
+    },
+    {
+      "claim_id": "troveo-c003",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "troveo-c004",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Homepage stat '8M+ hours Videos'. Techstrong (May 2026) relays 'eight million hours of licensed video'; Troveo's 2026-08-05 article says 'over 8 million hours of real-world video and audio', so the 8M figure is used for both video-only and video-plus-audio."
+    },
+    {
+      "claim_id": "troveo-c006",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "troveo-c021",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches (with counter text '0M+'). The value.basis rightly flags that 'licensed' is ambiguous; 7M+ also differs from the 8M+ used elsewhere."
+    },
+    {
+      "claim_id": "troveo-c027",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Help-centre article addressed to content owners; the 4-5 months is 'not uncommon', an upper range rather than a norm."
+    },
+    {
+      "claim_id": "troveo-c055",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Business-data page; scope is correctly business data."
+    },
+    {
+      "claim_id": "troveo-c059",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Business-data page; the value.basis correctly flags that it is unclear whether 40+ buyers covers business data only or the whole marketplace."
+    },
+    {
+      "claim_id": "troveo-c080",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Business data agreement article dated 2026-09-04."
+    },
+    {
+      "claim_id": "troveo-c081",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Right for US; the same sentence continues 'and 2,500 dollars outside the US', which the profile omits (added as missed troveo-v003)."
+    },
+    {
+      "claim_id": "troveo-c097",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote '449K+' alone does not show the unit or the listing; the page (title 'Talking Head') reads 'Hours449K+'."
+    },
+    {
+      "claim_id": "troveo-c100",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote '500K+ hours' does not show what the hours are; the page continues 'hours native action-aligned gameplay'."
+    },
+    {
+      "claim_id": "troveo-c054",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote is cut at 'more than 20'; the sentence (page dated 2026-09-10) continues 'million dollars across video, audio, gaming, robotics, and now business data'. Quote the words 'is what has paid our rights holders more than 20 million dollars'."
+    },
+    {
+      "claim_id": "troveo-c107",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote shows the 1M+ hours but not the client; the case-study label 'Mag 7 Global Enterprise' is outside the quoted words."
+    },
+    {
+      "claim_id": "troveo-c108",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote shows neither the 500K+ clips nor the client; the block reads 'Mag 7 AI Company' and '500K+ video clips delivered'."
+    },
+    {
+      "claim_id": "troveo-c109",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote shows neither the 100K clips nor the emotion labels; the block reads '100K clips of targeted content' and '...delivering clip-based packages with precise emotion labeling', client label 'Enterprise Video Platform'."
+    }
+  ],
+  "missed": [
+    {
+      "id": "troveo-v001",
+      "statement": "A copyright complaint filed on 2026-08-17 in N.D. Cal. (Round Hill Music v. Suno) names Troveo among companies that seek permission from and pay rights holders to create AI training datasets.",
+      "kind": "event",
+      "section": "regulation",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2026-08-17",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.476359/gov.uscourts.cand.476359.1.0.pdf",
+          "publisher": "Complaint, Round Hill Music LP v. Suno, Inc., N.D. Cal. No. 5:26-cv-08507, via CourtListener RECAP",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Such companies include ElevenLabs, Musical AI, Symphonic, Soundverse, GEMA (through PLAI), GCX/Rightsify, and Troveo"
+        }
+      ]
+    },
+    {
+      "id": "troveo-v002",
+      "statement": "An amicus brief filed in the Third Circuit on 2025-11-21 (Thomson Reuters v. Ross) describes Troveo AI as a content aggregator that creates portfolios of audiovisual content for licensing by AI companies.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "court",
+      "as_of": "2025-11-21",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.ca3.125346/gov.uscourts.ca3.125346.90.0.pdf",
+          "publisher": "Phoenix Center amicus brief, 3d Cir. No. 25-2153, Doc. 90, via CourtListener RECAP",
+          "source_class": "court_record",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Calliope Networks and Troveo AI, which create portfolios of audiovisual content for licensing by AI companies"
+        }
+      ]
+    },
+    {
+      "id": "troveo-v003",
+      "statement": "Troveo says the minimum payout threshold under its business data agreement is 2,500 dollars for licensors outside the US.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "business data licence agreement (owner side), as described by Troveo",
+        "tier": "",
+        "region": "outside US"
+      },
+      "value": {
+        "num": 2500,
+        "unit": "USD minimum payout",
+        "basis": "threshold before a non-US licensor is paid",
+        "period": "per payout"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-09-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.troveo.ai/resources/business-data-license-agreement",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "500 dollars for US licensors and 2,500 dollars outside the US"
+        }
+      ]
+    },
+    {
+      "id": "troveo-v004",
+      "statement": "Troveo says AI buyers rarely require exclusivity.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-10",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.troveo.ai/resources/exclusive-vs-non-exclusive-data-license",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Do AI buyers require exclusivity? Rarely."
+        }
+      ]
+    },
+    {
+      "id": "troveo-v005",
+      "statement": "Troveo's homepage, citing The Hollywood Reporter, says Troveo launched with 4.5 million dollars in seed funding.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.troveo.ai/",
+          "publisher": "Troveo",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Troveo launches with $4.5 million in seed funding"
+        }
+      ]
+    },
+    {
+      "id": "troveo-v006",
+      "statement": "TechHQ reported in January 2025 that Troveo had distributed over 5 million dollars in licensing fees.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 5000000,
+        "unit": "USD licensing fees distributed",
+        "basis": "cumulative payouts to content owners, lower bound; gross or net not stated",
+        "period": "cumulative to 2025-01"
+      },
+      "origin": "press_relayed",
+      "as_of": "2025-01-15",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://techhq.com/2025/01/content-creators-strike-gold-in-ai-content-licensing-boom/",
+          "publisher": "TechHQ (Dashveenjit Kaur)",
+          "source_class": "press_relaying_vendor",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Troveo AI alone distributing over $5 million in licensing fees"
+        }
+      ]
+    }
+  ]
+}

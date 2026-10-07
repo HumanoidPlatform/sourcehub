@@ -1,0 +1,311 @@
+{
+  "kind": "verify",
+  "slug": "dataseeds-ai",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "dataseeds-ai-c001",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://www.sec.gov/Archives/edgar/data/1667313/000121390026104861/ea0306984-8ka1_zedge.htm", "publisher": "Zedge, Inc. (Form 8-K/A, SEC EDGAR)", "source_class": "filing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "On September 25, 2026, the Company completed the private placement contemplated by the Purchase Agreement."},
+      "corrected_statement": null,
+      "note": "Closing date (25 Sep 2026) and gross proceeds of $7,675,000 come from the body of the 8-K/A filed 30 Sep 2026. The use-of-proceeds wording is in that filing's EX-99.1 press release, which is the profile's own source. The 8-K/A body is a different document in the same SEC accession: it is Zedge's own statement under SEC disclosure rules, not third-party reporting. The status is supported, but the newest leadership event matters: the 31 Aug 2026 8-K (EX-99.1) named Morris Berger Zedge CEO from 1 Oct 2026, with Jonathan Reich moving to President and COO (the profile has this as c002). WebSearch was unavailable and no independent press was reached."
+    },
+    {
+      "claim_id": "dataseeds-ai-c003",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The words are there. Re-read at the profile's own source (SEC EX-99.1, 30 Sep 2026): 'build DataSeeds into a core business by expanding its team, capabilities and reach across the AI data value chain'. The blind step found only the profile's own URL, so this is not counted as independent; a stated goal exists only in Zedge's own release. The statement drops 'capabilities and reach'. No search available."
+    },
+    {
+      "claim_id": "dataseeds-ai-c004",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Zedge does say this. Re-read at the profile's own two sources, the SEC EX-99.1 exhibits of 31 Aug 2026 and 11 Jun 2026; the blind step found only those URLs, so it is not counted as independent. The 11 Jun release places the order in Q3 FY2026, Feb-Apr 2026 ('we fulfilled our first six-figure order this quarter'). No customer name or amount beyond 'six-figure' is given. No independent source (customer, press) was reachable: no search available."
+    },
+    {
+      "claim_id": "dataseeds-ai-c049",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Zedge does say this. Re-read at the profile's own source (SEC EX-99.1, 12 Dec 2025, headed 'Zedge Reports First Quarter Fiscal 2026 Results'): 'with an increased dollar size of roughly 25X from the customer's first order', customer 'a leader in the AI space'. The blind step found only the profile's own URL. Neither order's dollar amount is disclosed, and the same release says the number of closed deals is 'still small'. No independent source reachable: no search available."
+    },
+    {
+      "claim_id": "dataseeds-ai-c008",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The fact is what Zedge's own 10-K says, so only that filing can carry it. Re-read at the profile's own URL (FY2025 10-K, filed 28 Oct 2025); it says 'a business-to-business marketplace offering access to our rapidly growing catalog of over 30 million ... fully rights-cleared images'. Not counted as independent. Zedge's own size figures diverge: the June 2025 arXiv DSD paper gives a '100 million-plus image catalog' and the website 150M+. By Jun-Aug 2026 Zedge's filings describe DataSeeds as managed data creation rather than a marketplace (profile c007)."
+    },
+    {
+      "claim_id": "dataseeds-ai-c009",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A figure that exists only on the vendor's own website. It is not corroborated by Zedge's filings: the FY2025 10-K says 'over 30 million high-quality, fully rights-cleared images', and the June 2025 arXiv DSD paper says 'DataSeeds.AI's 100 million-plus image catalog'. The 150M+ figure evidently counts photos not yet rights-cleared, so it should not be read as 150M licensable images."
+    },
+    {
+      "claim_id": "dataseeds-ai-c020",
+      "check": "blind",
+      "status": "corrected",
+      "independent_source": {"url": "https://arxiv.org/html/2506.05673v3", "publisher": "arXiv (Abdoli, Lewin, Vasiliauskas, Schonholz, 'Peer-Ranked Precision', v3 11 Jun 2025)", "source_class": "academic", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "AWS Rekognition label detection API against DSD's human-curated annotations."},
+      "corrected_statement": "In the DSD paper (arXiv 2506.05673, co-authored by a Zedge employee), AWS Rekognition's label detection recovered only 18.96% of the DSD's human labels; the paper did not benchmark the models it fine-tuned on the DSD against Rekognition.",
+      "note": "The paper compares Rekognition labels with the DSD's human annotations: 'Of the 7,926 unique human labels, only 1,503 (18.96%) were recovered through machine inference'. Separately, it reports fine-tuning gains for LLaVA-NeXT and BLIP2 over their base models. No table or figure compares the fine-tuned models' outputs with Rekognition's, and the words 'chalkboard' and 'handwritten' do not appear in the paper. The evidence therefore supports 'human annotations capture what Rekognition misses', not 'fine-tuned models capture what Rekognition misses'. The paper is not independent: co-author Gediminas Vasiliauskas is affiliated with Zedge, and it is an arXiv preprint, not peer reviewed."
+    },
+    {
+      "claim_id": "dataseeds-ai-c038",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://arxiv.org/html/2506.05673v3", "publisher": "arXiv (Abdoli, Lewin, Vasiliauskas, Schonholz, 'Peer-Ranked Precision', v3 11 Jun 2025)", "source_class": "academic", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "The remaining 7,772 images are available for AI training at https://huggingface.co/"},
+      "corrected_statement": null,
+      "note": "The paper explains the number. The DSD was 'approximately 10,610' images, and 'we removed 2,838 images that contained subjects of a sensitive nature, including people's faces', leaving 7,772 public (missed v003). The source is on a different domain and of a different class from the profile's Hugging Face card, but one co-author is affiliated with Zedge, so it is only partly independent."
+    },
+    {
+      "claim_id": "dataseeds-ai-c024",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The seller name on a vendor-run storefront exists only there. One check on the platform operator's own site: Datarade's product search for 'dataseeds' (datarade.ai/search/products?keywords=dataseeds) lists the provider as 'DataSeeds.AI' with 49 datasets and returns no 'GuruShots' match. That page is JS-rendered, so it could not be quoted, and the provider profile URL was not found (the guessed /data-providers/dataseeds-ai/profile returned 404). On Datarade's main marketplace, at least, the seller appears as DataSeeds.AI."
+    },
+    {
+      "claim_id": "dataseeds-ai-c012",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The fact is what Zedge's own 10-K says, so only that filing can carry it. Re-read at the profile's own URL: 'we have secured rights to license a portion of this library for various applications, including AI training', continuing 'and we continue to expand the licensable catalog by securing rights to additional photographs'. The filing says 'a portion', not 'only a portion'; the meaning is the same. Not counted as independent."
+    },
+    {
+      "claim_id": "dataseeds-ai-c011",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The fact is what Zedge's own 10-K says. Re-read at the profile's own URL: 'we have begun to utilize the extensive library of photographs generated by GuruShots players through submissions to GuruShots' competitions as a dataset for our emerging DataSeeds offering'. Not counted as independent. The arXiv DSD paper agrees on the origin ('The DSD is derived from GuruShots, a popular online photography game')."
+    },
+    {
+      "claim_id": "dataseeds-ai-c031",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Delivery options on the vendor's own storefront listings. One check: the Datarade marketplace search page is JS-rendered and showed no listing detail."
+    },
+    {
+      "claim_id": "dataseeds-ai-c025",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "How prices are shown on the vendor's own storefront. None of the Zedge filings and releases fetched publishes a DataSeeds price, which fits 'on request': the FY2025 10-K, the earnings releases of Dec 2025 and Jun 2026, the Jun 2026 investor presentation, and the Aug and Sep 2026 releases."
+    },
+    {
+      "claim_id": "dataseeds-ai-c041",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A contact instruction on the vendor's own Hugging Face dataset card; no other source would carry it."
+    },
+    {
+      "claim_id": "dataseeds-ai-c027",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A consent statement on the vendor's own listing. Related context from other sources: the DSD paper says faces were removed before the public release ('we removed 2,838 images that contained subjects of a sensitive nature, including people's faces'), and the FY2025 10-K says nothing about releases from people depicted. Nothing found shows consent documents being given to buyers."
+    },
+    {
+      "claim_id": "dataseeds-ai-c054",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Zedge's own description of its apps. Re-read at the profile's own URL (SEC EX-99.1, 31 Aug 2026): 'integrating onboarding, documentation and consent, contributor engagement and payments into the workflow'. The blind step found only that URL, so it is not counted as independent. It describes how the apps are designed, not evidence that they work. The release ties the apps to 'individual customer briefs', meaning custom collection, not the catalogue."
+    },
+    {
+      "claim_id": "dataseeds-ai-c001",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote shows only the use of proceeds. It does not show that a private placement was completed, or when. The release headline 'Zedge Completes $7.7 Million Private Placement Led by Vice Chairman Howard Jonas' would show it, as would the 8-K/A sentence 'On September 25, 2026, the Company completed the private placement'."
+    },
+    {
+      "claim_id": "dataseeds-ai-c003",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote supports the statement. The full goal also names 'capabilities and reach across the AI data value chain'."
+    },
+    {
+      "claim_id": "dataseeds-ai-c004",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Both quotes support it. as_of 2026-08-31 is the release date; the order itself fell in Q3 FY2026 (Feb-Apr 2026), per the 11 Jun 2026 release ('this quarter')."
+    },
+    {
+      "claim_id": "dataseeds-ai-c049",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote shows the 25X multiple but not that the order came from an AI customer, or that it fell in Q1 FY2026. Words that would show it: 'received our second order from an existing customer' with 'a leader in the AI space', in the release headed 'Zedge Reports First Quarter Fiscal 2026 Results'."
+    },
+    {
+      "claim_id": "dataseeds-ai-c008",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote shows the 30 million figure but not the 'business-to-business marketplace' description that the statement also asserts. The words 'a business-to-business marketplace offering access to our rapidly growing catalog' would show it."
+    },
+    {
+      "claim_id": "dataseeds-ai-c009",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Correctly framed as what the website says. It conflicts with the 10-K's 30M rights-cleared figure and the June 2025 100M+ figure (profile c008, c010, c044); the profile's conflicts list should carry this."
+    },
+    {
+      "claim_id": "dataseeds-ai-c020",
+      "check": "scope",
+      "status": "scope_wrong",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The vendor sentence does say this: 'After training on DSD data, both models began to reliably identify small but semantically significant objects... details often ignored by off-the-shelf commercial APIs like AWS Rekognition'. Calling it the vendor's 'benchmark' claims more than the evidence shows. The chalkboard and handwritten-text example does not appear in the paper (a honeybee image caption does), and the paper's only Rekognition measurement compares Rekognition with human labels, not with the fine-tuned models. The quote also omits the subject ('both models'), so on its own it does not show the fine-tuned-model claim."
+    },
+    {
+      "claim_id": "dataseeds-ai-c038",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The Hugging Face card says 7,772. The public sample is what was left of approximately 10,610 images after 2,838 with sensitive content, including faces, were removed (arXiv 2506.05673)."
+    },
+    {
+      "claim_id": "dataseeds-ai-c024",
+      "check": "scope",
+      "status": "scope_wrong",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "On the listing pages, 'GuruShots Storefront' is the storefront's site name and logo (it links to dataseeds.ai, with 'Powered by Datarade' at the foot); no seller or provider entity is named on the listing. The quote is the bare string, so it cannot show a seller role. Datarade's own marketplace search names the provider 'DataSeeds.AI'. The claim should not support an operator_role finding about who the licensor of record is."
+    },
+    {
+      "claim_id": "dataseeds-ai-c012",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote shows that rights to only a portion were secured, but not the second half of the statement, that more are being secured. The words 'we continue to expand the licensable catalog by securing rights to additional photographs' would show it."
+    },
+    {
+      "claim_id": "dataseeds-ai-c011",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote omits the verb, so it does not show that Zedge 'has begun to use' the library. The words 'we have begun to utilize the extensive library of photographs generated by GuruShots players' would show it."
+    },
+    {
+      "claim_id": "dataseeds-ai-c031",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quotes show 'S3 Bucket' and 'UI Export' but no API option. Both listings also name 'REST API', 'SOAP API' and 'Feed API'. These are the Datarade template's standard delivery options, so they are not evidence that DataSeeds actually delivers by each route."
+    },
+    {
+      "claim_id": "dataseeds-ai-c025",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Both listings show 'Pricing available upon request'."
+    },
+    {
+      "claim_id": "dataseeds-ai-c041",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote ends at 'contact:'; the email address (sales@dataseeds.ai) that follows on the card is what shows the contact is by email to sales."
+    },
+    {
+      "claim_id": "dataseeds-ai-c027",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Both phrases sit under the listing's 'Licensing & Compliance' heading. The listing offers only a 'Request Sample Access' button, and no consent documents or release forms appear, which supports 'without offering the documents'. The consent asserted is the contributor's; nothing is said about third parties shown in the videos."
+    },
+    {
+      "claim_id": "dataseeds-ai-c054",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote is the tail of the sentence that begins 'The mission-focused applications guide contributors through specific collection requirements while integrating ...'. It applies to the custom-brief apps, not to the GuruShots catalogue."
+    }
+  ],
+  "missed": [
+    {
+      "id": "dataseeds-ai-v001",
+      "statement": "Zedge's fiscal 2025 10-K says a restructuring implemented in January 2025, which included cost cuts at GuruShots, reduced Zedge's global workforce by 22%.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {"product": "", "tier": "", "region": ""},
+      "value": null,
+      "origin": "filing",
+      "as_of": "2025-10-28",
+      "as_of_basis": "publication",
+      "sources": [
+        {"url": "https://www.sec.gov/Archives/edgar/data/1667313/000121390025103098/ea0262035-10k_zedge.htm", "publisher": "Zedge, Inc.", "source_class": "filing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "In total, our global workforce was reduced by 22%"},
+        {"url": "https://www.sec.gov/Archives/edgar/data/1667313/000121390025103098/ea0262035-10k_zedge.htm", "publisher": "Zedge, Inc.", "source_class": "filing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "We have cut costs at GuruShots, including as part of the restructuring implemented in January 2025"}
+      ]
+    },
+    {
+      "id": "dataseeds-ai-v002",
+      "statement": "Zedge's fiscal 2025 10-K presents earning money from making their content available to third parties as a benefit to GuruShots players, without saying how or how much they are paid.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": ["Q3"],
+      "scope": {"product": "GuruShots", "tier": "", "region": ""},
+      "value": null,
+      "origin": "filing",
+      "as_of": "2025-10-28",
+      "as_of_basis": "publication",
+      "sources": [
+        {"url": "https://www.sec.gov/Archives/edgar/data/1667313/000121390025103098/ea0262035-10k_zedge.htm", "publisher": "Zedge, Inc.", "source_class": "filing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "enables players not only to have fun, but also to earn money while doing so"}
+      ]
+    },
+    {
+      "id": "dataseeds-ai-v003",
+      "statement": "Before releasing the DSD sample publicly, its authors removed 2,838 images that showed subjects of a sensitive nature, including people's faces, leaving 7,772 of about 10,610.",
+      "kind": "number",
+      "section": "vetting",
+      "question_ids": ["Q7", "Q11"],
+      "scope": {"product": "DataSeeds.AI Sample Dataset (DSD)", "tier": "", "region": ""},
+      "value": {"num": 2838, "unit": "images removed", "basis": "removed from the approximately 10,610-image DSD before public release for sensitive content including faces", "period": "one-off"},
+      "origin": "academic",
+      "as_of": "2025-06-11",
+      "as_of_basis": "publication",
+      "sources": [
+        {"url": "https://arxiv.org/html/2506.05673v3", "publisher": "arXiv (Abdoli, Lewin, Vasiliauskas, Schonholz; one co-author affiliated with Zedge)", "source_class": "academic", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "we removed 2,838 images that contained subjects of a sensitive nature, including people's faces."}
+      ]
+    }
+  ]
+}

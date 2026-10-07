@@ -1,0 +1,1873 @@
+{
+  "kind": "document",
+  "slug": "doc-kled-terms",
+  "platform_slug": "kled",
+  "title": "Terms of Service (Nitrility, Inc. - Kled)",
+  "doc_type": "contributor_agreement",
+  "url": "https://www.kled.ai/terms-of-service",
+  "publisher": "Kled (Nitrility, Inc.)",
+  "version_or_date": "Last Revised on July 21, 2026",
+  "retrieved_at": "2026-10-01",
+  "parties": {
+    "licensor": "The contributor (app user uploading Submitted Content), who licenses their IP and publicity rights to Kled",
+    "licensee": "Nitrility, Inc. (Kled), which sublicenses and distributes the content to its Data Customers",
+    "operator_role": "reseller_licensor"
+  },
+  "terms": {
+    "permitted_use": {
+      "value": "Contributor licenses Kled to use, reproduce, adapt, annotate, modify, package, distribute and 'otherwise exploit' Submitted Content for any and all purposes, expressly including making it available to Data Customers, service providers and partners.",
+      "claim_ids": [
+        "doc-kled-terms-c003",
+        "doc-kled-terms-c007",
+        "doc-kled-terms-c008"
+      ]
+    },
+    "ai_training_rights": {
+      "value": "Kled gets an exclusive licence for AI/ML development (developing, training, testing, improving and deploying third-party models and systems) and passes rights on to Data Customers, e.g. to train or fine-tune; the contributor may not license anyone else for AI use. Evaluation is covered only as 'testing'; what Data Customers may redistribute or do with model outputs is not set here. App users themselves may not train AI on Services content without Kled's agreement.",
+      "claim_ids": [
+        "doc-kled-terms-c004",
+        "doc-kled-terms-c010",
+        "doc-kled-terms-c011",
+        "doc-kled-terms-c012",
+        "doc-kled-terms-c031"
+      ]
+    },
+    "field_of_use": {
+      "value": "No field restriction on Kled ('any and all purposes'); the exclusive part of the licence is limited to the AI/ML development field, and outside it the contributor keeps non-exclusive freedom.",
+      "claim_ids": [
+        "doc-kled-terms-c007",
+        "doc-kled-terms-c010",
+        "doc-kled-terms-c011"
+      ]
+    },
+    "territory": {
+      "value": "Worldwide licence; the Services are operated from the US, and non-US contributors use them on their own initiative and must comply with local law.",
+      "claim_ids": [
+        "doc-kled-terms-c009",
+        "doc-kled-terms-c053"
+      ]
+    },
+    "term_duration": {
+      "value": "Perpetual and irrevocable; the licence survives account deletion or termination, and Kled need not delete content when an account closes.",
+      "claim_ids": [
+        "doc-kled-terms-c009",
+        "doc-kled-terms-c044",
+        "doc-kled-terms-c045"
+      ]
+    },
+    "exclusivity": {
+      "value": "Contributor to Kled: exclusive within the AI/ML field (the 'Exclusive Use'), and the contributor may not authorise anyone else for that use. Exclusivity runs to Kled, not to any single Data Customer; the Terms say nothing about exclusivity for buyers.",
+      "claim_ids": [
+        "doc-kled-terms-c010",
+        "doc-kled-terms-c011",
+        "doc-kled-terms-c012"
+      ]
+    },
+    "sublicensing": {
+      "value": "Kled may transfer and sublicense through multiple tiers, and may assign the Terms and licences; the contributor may not assign.",
+      "claim_ids": [
+        "doc-kled-terms-c009",
+        "doc-kled-terms-c008",
+        "doc-kled-terms-c046"
+      ]
+    },
+    "derivatives_and_model_outputs": {
+      "value": "Kled may adapt, modify, annotate and package Submitted Content, and the AI exclusivity covers 'uses or modifications'. The contributor warrants the content contains no AI-generated output. Nothing on who owns models or outputs a Data Customer builds.",
+      "claim_ids": [
+        "doc-kled-terms-c007",
+        "doc-kled-terms-c010",
+        "doc-kled-terms-c022"
+      ]
+    },
+    "warranties_by_provider": {
+      "value": "Contributor warrants they hold all rights, licences and consents needed, that submission breaches no law or third-party right, that no further consents or payments are owed to anyone by Kled or downstream parties, that there is no malware and no AI output; Kled itself disclaims all warranties, including non-infringement.",
+      "claim_ids": [
+        "doc-kled-terms-c017",
+        "doc-kled-terms-c018",
+        "doc-kled-terms-c019",
+        "doc-kled-terms-c022",
+        "doc-kled-terms-c033"
+      ]
+    },
+    "consent_and_release_warranty": {
+      "value": "Consent is pushed entirely onto the uploader: they license their own publicity rights, warrant all consents and permissions, warrant no personal data of under-18s, and warrant that required notices and consents were obtained from any other individual whose personal data appears. No release form, consent record or proof of consent is required, and Kled gives no consent warranty of its own.",
+      "claim_ids": [
+        "doc-kled-terms-c006",
+        "doc-kled-terms-c017",
+        "doc-kled-terms-c019",
+        "doc-kled-terms-c020",
+        "doc-kled-terms-c021",
+        "doc-kled-terms-c030"
+      ]
+    },
+    "indemnity": {
+      "value": "One-way and uncapped: the contributor defends and indemnifies Kled and Kled's current or prospective customers and partners (so Data Customers) against claims arising from any Submitted Content, breach, third-party rights or negligence; Kled controls the defence and settlement.",
+      "claim_ids": [
+        "doc-kled-terms-c038",
+        "doc-kled-terms-c039",
+        "doc-kled-terms-c040"
+      ]
+    },
+    "liability_cap": {
+      "value": "Liability of Kled and of its current and prospective customers and partners to the contributor is capped at USD 100 in total, and indirect and consequential damages are excluded; Kled takes no responsibility for user content.",
+      "claim_ids": [
+        "doc-kled-terms-c037",
+        "doc-kled-terms-c036",
+        "doc-kled-terms-c035"
+      ]
+    },
+    "payment_and_revenue_share": {
+      "value": "No rate or revenue share is set. Rewards for accepted content come as SOL tokens, fiat or other rewards at Kled's sole discretion. Kled may withhold them or rule content ineligible, gives no assurance on token value, and can claw back all compensation if the contributor's consents or rights fail.",
+      "claim_ids": [
+        "doc-kled-terms-c023",
+        "doc-kled-terms-c016",
+        "doc-kled-terms-c025",
+        "doc-kled-terms-c024",
+        "doc-kled-terms-c014"
+      ]
+    },
+    "takedown_and_erasure": {
+      "value": "No withdrawal right: the licence is irrevocable, and if consents or rights are revoked the contributor must refund what they were paid rather than getting content pulled. Kled may delete content at its own discretion, and a DMCA notice-and-takedown process covers copies on the Services. Nothing obliges Data Customers to delete copies they already hold, and partners may use disclosed personal information for their own purposes.",
+      "claim_ids": [
+        "doc-kled-terms-c009",
+        "doc-kled-terms-c013",
+        "doc-kled-terms-c014",
+        "doc-kled-terms-c015",
+        "doc-kled-terms-c041",
+        "doc-kled-terms-c042",
+        "doc-kled-terms-c029"
+      ]
+    },
+    "deletion_on_termination": {
+      "value": "When an account is deleted, Kled may, but need not, delete Submitted Content and is not responsible for deleting or failing to delete it; licences that should survive by their nature continue.",
+      "claim_ids": [
+        "doc-kled-terms-c044",
+        "doc-kled-terms-c034",
+        "doc-kled-terms-c045",
+        "doc-kled-terms-c043"
+      ]
+    },
+    "governing_law": {
+      "value": "Delaware law; binding individual AAA consumer arbitration seated in Dover, Delaware, with a class-action waiver, a 30-day opt-out window and a one-year limitation period; Wilmington courts where arbitration does not apply.",
+      "claim_ids": [
+        "doc-kled-terms-c049",
+        "doc-kled-terms-c050",
+        "doc-kled-terms-c051",
+        "doc-kled-terms-c052"
+      ]
+    },
+    "change_of_terms": {
+      "value": "Kled may change the Terms on its own; for material changes it makes only reasonable efforts to notify, and continued use counts as acceptance. The licence already granted is irrevocable either way.",
+      "claim_ids": [
+        "doc-kled-terms-c047",
+        "doc-kled-terms-c048",
+        "doc-kled-terms-c001"
+      ]
+    },
+    "prohibited_uses": {
+      "value": "Users may not submit unlawful, pornographic or privacy- or publicity-invasive content, personal data of under-18s or AI-generated output; they may not train AI on the Services, or resell or relicense information from them, without Kled's permission.",
+      "claim_ids": [
+        "doc-kled-terms-c030",
+        "doc-kled-terms-c020",
+        "doc-kled-terms-c022",
+        "doc-kled-terms-c031",
+        "doc-kled-terms-c032"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "doc-kled-terms-c001",
+      "statement": "Kled's Terms of Service are issued by Nitrility, Inc. and state they were last revised on July 21, 2026.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Nitrility, Inc. – Terms of Service Last Revised on July 21, 2026"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c002",
+      "statement": "The Terms cover the Kled website, its data collection platform and the related mobile app, operated by or on behalf of Nitrility, Inc.",
+      "kind": "terms",
+      "section": "positioning",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "our data collection platform and the related mobile application"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c003",
+      "statement": "By using Kled, the contributor agrees that Kled may distribute and commercialise their Submitted Content to Kled's business customers ('Data Customers').",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "commercialize your Submitted Content to our business customers that seek to acquire rights in the Submitted Content"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c004",
+      "statement": "The Terms name training or fine-tuning AI models as an example of the business purposes for which Data Customers acquire rights in Submitted Content.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q1",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "for their own business purposes, such as to train or fine-tune their AI models"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c005",
+      "statement": "Kled does not claim ownership of Submitted Content as between Kled and the contributor; it takes a licence instead.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the Company does not claim any ownership in your Submitted Content"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c006",
+      "statement": "The contributor's licence to Kled covers any intellectual property or publicity rights the contributor has in the Submitted Content.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "under any rights you may have in your Submitted Content (including any intellectual property or publicity rights)"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c007",
+      "statement": "The contributor licenses Kled to annotate, modify, package and otherwise exploit Submitted Content for any and all purposes.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "annotate, modify, package and otherwise exploit your Submitted Content for any and all purposes"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c008",
+      "statement": "The licence expressly lets Kled distribute and make Submitted Content available to Data Customers and to Kled's service providers and partners.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "to distribute and make your Submitted Content available to Data Customers and our service providers and partners"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c009",
+      "statement": "The contributor's licence to Kled is transferable, fully sub-licensable through multiple tiers, worldwide, perpetual and irrevocable.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "rights and licenses are transferable, fully sub-licensable (through multiple tiers), worldwide, perpetual and irrevocable"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c010",
+      "statement": "The licence is exclusive to Kled for any uses or modifications of Submitted Content related to AI and machine-learning development (the 'Exclusive Use').",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "such license will be exclusive to us in connection with any uses or modifications of your Submitted Content"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c011",
+      "statement": "The Exclusive Use is defined as developing, training, testing, improving and deploying third-party AI and machine-learning models (and related systems and technologies).",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "developing, training, testing, improving and deploying third-party AI and machine learning models"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c012",
+      "statement": "The contributor must not allow or authorise anyone else to use their Submitted Content for the Exclusive Use (AI/ML development).",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you will not allow or authorize any other person or entity to use your Submitted Content for the Exclusive Use"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c013",
+      "statement": "The clawback clause is triggered if the consents, releases or rights the contributor granted to Kled are held unenforceable or are revoked or withdrawn.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "releases and/or rights granted by you to Company are deemed legally unenforceable or otherwise revoked"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c014",
+      "statement": "If the contributor's consents or rights for a piece of Submitted Content are revoked or invalidated, the contributor must immediately refund to Kled any compensation received for it.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q7",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you are required to immediately refund to Company any compensation you previously received"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c015",
+      "statement": "Kled reserves the right to screen, edit, delete, restrict, remove or reject any Submitted Content at any time.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We reserve the right to screen, edit, delete, restrict, remove or reject any Submitted Content at any time"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c016",
+      "statement": "Kled may, in its sole discretion, determine that Submitted Content is not eligible to earn payments or rewards, for example as poor quality or unsuitable.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "determine that Submitted Content are not eligible to accrue payments or rewards, in our sole discretion"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c017",
+      "statement": "The contributor warrants they have or have obtained all rights, licences, consents and permissions needed to submit the content and let Kled use it under the Terms.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you have, or have obtained, all rights, licenses, consents, permissions, power and/or authority necessary to submit and use"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c018",
+      "statement": "The contributor warrants that the submission will not violate any law or any third party's rights or terms attached to the Submitted Content.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "will not violate any law or any third party’s rights, terms and conditions associated with such Submitted Content"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c019",
+      "statement": "The contributor warrants that no further licences, consents or payments to any other person are needed for Kled's use of the Submitted Content.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "no other licenses, permissions, consents or authorizations must be obtained from or payments made to any other person"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c020",
+      "statement": "The contributor warrants that Submitted Content contains no Personal Data relating to individuals under 18.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "does not include Personal Data (as defined in our Privacy Policy) that (a) relates to individuals under the age of 18"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c021",
+      "statement": "For personal data of any other individuals in Submitted Content, the contributor warrants that they have given or obtained all required notices and consents.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "unless you have provided and/or obtained all required notices and/or consents to provide such Personal Data"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c022",
+      "statement": "The contributor warrants that Submitted Content contains no output from AI models or machine-learning systems.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the Submitted Content does not contain any output from artificial intelligence models or machine learning systems"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c023",
+      "statement": "Contributors may earn third-party blockchain tokens such as SOL, fiat currency or other rewards, as Kled determines in its sole discretion, for accepted Submitted Content.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "fiat currency or other rewards (as determined by us in our sole discretion) for your accepted Submitted Content"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c024",
+      "statement": "Kled makes no promises about the availability, functionality, utility or value of the tokens paid as rewards.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We make no promises or guarantees regarding the availability, functionality, utility or value of the Tokens"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c025",
+      "statement": "Kled may withhold, restrict or limit distribution of Rewards for abuse, fraud, misrepresentation or any violation of the Terms.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "withhold, restrict or limit the distribution of any Rewards"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c026",
+      "statement": "The Terms state that providing Submitted Content creates no agency, partnership, joint venture or employment relationship with Kled.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "no agency, partnership, joint venture or employment relationship is created"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c027",
+      "statement": "Users must be 18 or over; minors of at least 16 may use Kled only if a parent or guardian accepts the Terms for them beforehand.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Minors that are at least 16 years of age are only permitted to use the Services if the minor’s parent or guardian accepts"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c028",
+      "statement": "By submitting content, the contributor agrees that personal information in or associated with it may be disclosed to Kled's service providers (and, per the same clause, partners).",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "personal information contained within or associated with your Submitted Content may be disclosed to our service providers"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c029",
+      "statement": "Kled's partners may use personal information disclosed with Submitted Content for their own purposes under their own terms and policies.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Our partners may use such information for their own purposes, in accordance with their own terms and policies"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c030",
+      "statement": "Users may not submit content that is unlawful, obscene, pornographic or invasive of privacy or publicity rights.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "content that is unlawful, defamatory, obscene, excessively violent, pornographic, invasive of privacy or publicity rights"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c031",
+      "statement": "Users may not use the Services to develop software, including training a machine-learning or AI system, unless otherwise agreed with Kled.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "including, but not limited to, training a machine learning or AI system, unless otherwise agreed to with the Company"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c032",
+      "statement": "Users may not download, copy, distribute, license or offer for sale any information obtained from or through the Services without Kled's written permission.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "license, create derivative works from, or offer for sale any information contained on, or obtained from or through"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c033",
+      "statement": "Kled disclaims all express and implied warranties, including merchantability, fitness for purpose and non-infringement.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "WHETHER EXPRESS OR IMPLIED, OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE OR NON-INFRINGEMENT"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c034",
+      "statement": "Kled disclaims responsibility for the deletion of, or failure to store or transmit, any Submitted Content.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the deletion of, or the failure to store or transmit, any Submitted Content"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c035",
+      "statement": "Kled takes no responsibility and assumes no liability for any content that users or third parties upload to the Services.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "TAKE NO RESPONSIBILITY AND ASSUME NO LIABILITY FOR ANY CONTENT THAT YOU, ANOTHER USER, OR A THIRD PARTY CREATES"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c036",
+      "statement": "The exclusion of indirect and consequential damages protects not only Kled but also its current and prospective customers and partners.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "THE COMPANY ENTITIES OR THE COMPANY’S CURRENT AND PROSPECTIVE CUSTOMERS OR PARTNERS BE LIABLE FOR ANY INDIRECT"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c037",
+      "statement": "The total liability of Kled and of its current and prospective customers and partners to a user is capped at one hundred US dollars.",
+      "kind": "number",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 100,
+        "unit": "USD",
+        "basis": "cap on total liability of Kled and its current and prospective customers and partners to the user, for damages finally awarded",
+        "period": "aggregate"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "SHALL NOT EXCEED THE GREATER OF ONE HUNDRED DOLLARS ($100.00)"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c038",
+      "statement": "The contributor must defend, indemnify and hold harmless Kled and Kled's current or prospective customers or partners.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "defend, indemnify and hold the Company Entities and the Company’s current or prospective customers or partners"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c039",
+      "statement": "The contributor's indemnity covers claims arising from any Submitted Content, as well as breach of the Terms, third-party rights violations and negligence.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "(d) any Submitted Content, or (e) your negligence or willful misconduct"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c040",
+      "statement": "Where the contributor must indemnify, Kled may control the defence and decide whether and on what terms to settle.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "will have the right, in its sole discretion, to control any action or proceeding"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c041",
+      "statement": "Anyone may send a DMCA copyright notice to Kled's copyright agent to have allegedly infringing material on the Services removed.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you may submit a notification to our copyright agent in accordance with 17 USC 512(c)"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c042",
+      "statement": "After a DMCA counter-notification, Kled may reinstate the removed material at its sole discretion.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "When we receive a counter-notification, we may reinstate the posts or material in question, in our sole discretion"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c043",
+      "statement": "Kled may suspend, disable or delete a user's account with or without notice, for any or no reason.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "with or without notice, for any or no reason"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c044",
+      "statement": "When an account is deleted for any reason, Kled may, but is not obliged to, delete the user's Submitted Content.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the Company may, but is not obligated to, delete any Submitted Content"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c045",
+      "statement": "Provisions that by their nature should survive termination of the Terms continue in force after termination by either party.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All sections which by their nature should survive the termination of these Terms shall continue in full force"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c046",
+      "statement": "Kled may assign the Terms and the licences granted under them; the user may not assign without Kled's written consent.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "These Terms and the licenses granted hereunder may be assigned by the Company but may not be assigned by you"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c047",
+      "statement": "Kled may change the Terms at any time, and continued use after the changes take effect counts as acceptance.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "continued access or use of the Services after the modifications have become effective will be deemed your acceptance"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c048",
+      "statement": "For material changes, Kled commits only to reasonable efforts to notify users, for example by email or a notice on the website.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If we make changes that are material, we will use reasonable efforts to attempt to notify you"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c049",
+      "statement": "The Terms are governed by Delaware law, with courts in Wilmington, Delaware as venue where arbitration does not apply.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "These Terms are governed by the laws of the State of Delaware"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c050",
+      "statement": "Disputes go to binding individual AAA consumer arbitration seated in Dover, Delaware.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The seat of any arbitration shall be Dover, Delaware"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c051",
+      "statement": "Users may opt out of arbitration by written notice within 30 days of first registering or agreeing to the Terms.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The notice must be sent to the Company within thirty (30) days of your first registering"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c052",
+      "statement": "Any claim against Kled must be brought within one year of the user becoming aware of the facts giving rise to it.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "any Claim against the Company must be brought within one (1) year"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c053",
+      "statement": "Kled says the Services are operated in the United States, and users outside the US use them on their own initiative and are responsible for local law compliance.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Those who choose to access the Services from locations outside the United States do so at their own initiative"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c054",
+      "statement": "The Terms page shows a 'Kled Raises $10M in Funding' banner, a Kled statement relayed on its own site.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Kled Raises $10M in Funding"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c055",
+      "statement": "Kled describes itself in the Terms page footer as 'The Leading Data Marketplace' and as a Nitrility Inc. company.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "Kled",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The Leading Data Marketplace"
+        }
+      ]
+    },
+    {
+      "id": "doc-kled-terms-c056",
+      "statement": "The Terms state that consent to disclosing personal information in Submitted Content to service providers and partners is completely voluntary.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Kled contributor app / data platform",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-07-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kled.ai/terms-of-service",
+          "publisher": "Kled (Nitrility, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "your consent to such disclosure is completely voluntary"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "terms.takedown_and_erasure",
+      "urls_tried": [
+        "https://www.kled.ai/terms-of-service"
+      ],
+      "reason": "not_published",
+      "note": "Silent on what happens to copies already delivered to Data Customers after a contributor withdraws consent, a depicted person objects, or content is removed; no deletion obligation on buyers and no data-subject erasure route in the Terms (Privacy Policy not read here)."
+    },
+    {
+      "field": "other.data_customer_licence",
+      "urls_tried": [
+        "https://www.kled.ai/terms-of-service"
+      ],
+      "reason": "not_published",
+      "note": "The terms Data Customers get (training vs redistribution, model outputs, exclusivity per buyer, audit, deletion) are not in this contributor-side document."
+    },
+    {
+      "field": "other.depicted_person_release",
+      "urls_tried": [
+        "https://www.kled.ai/terms-of-service"
+      ],
+      "reason": "not_published",
+      "note": "No model/property release mechanism or consent-evidence requirement for bystanders or people depicted; only the uploader's warranty."
+    },
+    {
+      "field": "other.contributor_pay_rate",
+      "urls_tried": [
+        "https://www.kled.ai/terms-of-service"
+      ],
+      "reason": "not_published",
+      "note": "Reward amounts and any revenue share are said to be documented elsewhere on the Services; no rate in the Terms."
+    },
+    {
+      "field": "terms.audit_rights",
+      "urls_tried": [
+        "https://www.kled.ai/terms-of-service"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "terms.attribution",
+      "urls_tried": [
+        "https://www.kled.ai/terms-of-service"
+      ],
+      "reason": "not_published"
+    }
+  ]
+}

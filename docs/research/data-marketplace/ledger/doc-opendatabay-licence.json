@@ -1,0 +1,1938 @@
+{
+  "kind": "document",
+  "slug": "doc-opendatabay-licence",
+  "platform_slug": "opendatabay",
+  "title": "Commercial AI Training and Fine-Tuning Data License, Version 1.0 (with the General Use variant and the Right to List and Sell Data terms)",
+  "doc_type": "licence_template",
+  "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+  "publisher": "Opendatabay",
+  "version_or_date": "Version 1.0 (docs page undated: 'Last updated 7 months ago'); Right to List and Sell Data effective February 27, 2026",
+  "retrieved_at": "2026-10-01",
+  "parties": {
+    "licensor": "The Data Provider (the entity that collected, prepared and owns the Data Product); not Opendatabay",
+    "licensee": "The buyer (individual or entity receiving rights under the Order)",
+    "operator_role": "agent"
+  },
+  "terms": {
+    "permitted_use": {
+      "value": "Commercial licence: use solely to train, fine-tune, evaluate and develop AI/ML/LLM/agentic systems, with commercial use of the resulting models and outputs; General licence: internal research, evaluation and education only.",
+      "claim_ids": [
+        "doc-opendatabay-licence-c003",
+        "doc-opendatabay-licence-c005",
+        "doc-opendatabay-licence-c006"
+      ]
+    },
+    "ai_training_rights": {
+      "value": "Commercial: training, fine-tuning and evaluation granted; models, weights, embeddings and outputs may be used and sublicensed commercially (including as APIs) if the data is not exposed or reconstructable; benchmarks publishable without disclosing data; raw data may not be redistributed. General: same activities for internal/non-commercial use only; no production APIs or monetisation.",
+      "claim_ids": [
+        "doc-opendatabay-licence-c003",
+        "doc-opendatabay-licence-c005",
+        "doc-opendatabay-licence-c006",
+        "doc-opendatabay-licence-c007",
+        "doc-opendatabay-licence-c008",
+        "doc-opendatabay-licence-c012",
+        "doc-opendatabay-licence-c017",
+        "doc-opendatabay-licence-c041"
+      ]
+    },
+    "field_of_use": {
+      "value": "AI training/development only; non-AI uses (analytics, market research, database compilation, direct data distribution) need a separate licence from the licensor.",
+      "claim_ids": [
+        "doc-opendatabay-licence-c003",
+        "doc-opendatabay-licence-c009"
+      ]
+    },
+    "territory": {
+      "value": "Worldwide.",
+      "claim_ids": [
+        "doc-opendatabay-licence-c004"
+      ]
+    },
+    "term_duration": {
+      "value": "Perpetual from the Effective Date, subject to termination for uncured material breach (30 days) or immediate licensor termination where law requires or the use creates substantial legal, security or compliance risk.",
+      "claim_ids": [
+        "doc-opendatabay-licence-c004",
+        "doc-opendatabay-licence-c035",
+        "doc-opendatabay-licence-c036"
+      ]
+    },
+    "exclusivity": {
+      "value": "Non-exclusive; the template offers no exclusive option to the buyer (exclusivity in the platform terms is only exclusive brokerage granted by the provider to Opendatabay).",
+      "claim_ids": [
+        "doc-opendatabay-licence-c004",
+        "doc-opendatabay-licence-c044"
+      ]
+    },
+    "sublicensing": {
+      "value": "No sublicensing of the Data Product itself; Commercial licensee may sublicense Models and Derivative Works if the data is not made available or reasonably reconstructable and downstream recipients are told they get no data rights; General licensee may share models only internally or for non-commercial collaboration.",
+      "claim_ids": [
+        "doc-opendatabay-licence-c008",
+        "doc-opendatabay-licence-c012",
+        "doc-opendatabay-licence-c013",
+        "doc-opendatabay-licence-c017"
+      ]
+    },
+    "derivatives_and_model_outputs": {
+      "value": "Licensee owns the models and derivatives it creates (not the data), keeps them indefinitely and after termination if the data cannot be reconstructed; safe harbour for inadvertent memorised reproduction; licensor not liable for open-weight misuse.",
+      "claim_ids": [
+        "doc-opendatabay-licence-c014",
+        "doc-opendatabay-licence-c015",
+        "doc-opendatabay-licence-c016",
+        "doc-opendatabay-licence-c020",
+        "doc-opendatabay-licence-c021"
+      ]
+    },
+    "attribution": {
+      "value": "No attribution required; neither party may publicly name the other or the relationship without written consent; optional credit must not imply endorsement.",
+      "claim_ids": [
+        "doc-opendatabay-licence-c024"
+      ]
+    },
+    "audit_rights": {
+      "value": "Licensor may request compliance evidence only on reasonable suspicion of material breach, at most once a year on 60 days' notice; limited to deletion/retention records and policies; on-site only if mutually agreed, at licensor's cost unless breach found.",
+      "claim_ids": [
+        "doc-opendatabay-licence-c022",
+        "doc-opendatabay-licence-c023",
+        "doc-opendatabay-licence-c058"
+      ]
+    },
+    "deletion_on_termination": {
+      "value": "On termination, or on the licensor's written request at any time, the licensee must promptly delete or irreversibly anonymise all copies of the data (auto-expiring backups excepted), but may keep models and derivatives.",
+      "claim_ids": [
+        "doc-opendatabay-licence-c018",
+        "doc-opendatabay-licence-c019",
+        "doc-opendatabay-licence-c020",
+        "doc-opendatabay-licence-c021"
+      ]
+    },
+    "warranties_by_provider": {
+      "value": "Licensor (the Data Provider) warrants right to license, collection in compliance with data protection law, best-practice PII filtering, no known malware or deliberate poisoning, reasonable care; disclaims freedom from third-party claims and lawfulness of the buyer's use.",
+      "claim_ids": [
+        "doc-opendatabay-licence-c025",
+        "doc-opendatabay-licence-c026",
+        "doc-opendatabay-licence-c027",
+        "doc-opendatabay-licence-c028",
+        "doc-opendatabay-licence-c029"
+      ]
+    },
+    "consent_and_release_warranty": {
+      "value": "No express warranty to the buyer that people depicted consented or signed releases; the licensor warrants only data-protection-law compliance and best-effort PII filtering; separately the provider declares to Opendatabay that data was legally and ethically collected and must keep consent records 'where applicable'.",
+      "claim_ids": [
+        "doc-opendatabay-licence-c025",
+        "doc-opendatabay-licence-c026",
+        "doc-opendatabay-licence-c046",
+        "doc-opendatabay-licence-c047",
+        "doc-opendatabay-licence-c049"
+      ]
+    },
+    "indemnity": {
+      "value": "Licensor (provider) indemnifies buyer only for breach of the Section 8.1 warranties (right to license, not unlawfully or IP-infringingly obtained, reasonable care), excluding modification, combination and out-of-scope use; buyer indemnifies licensor for misuse, legal violations and model infringement; provider also indemnifies Opendatabay under the platform terms. Indemnities sit outside the cap.",
+      "claim_ids": [
+        "doc-opendatabay-licence-c030",
+        "doc-opendatabay-licence-c031",
+        "doc-opendatabay-licence-c032",
+        "doc-opendatabay-licence-c034",
+        "doc-opendatabay-licence-c051"
+      ]
+    },
+    "liability_cap": {
+      "value": "Each party capped at the greater of the price paid for the Data Product or a fixed cap in the Order; indirect damages excluded; payment obligations and indemnities are uncapped.",
+      "claim_ids": [
+        "doc-opendatabay-licence-c033",
+        "doc-opendatabay-licence-c034"
+      ]
+    },
+    "payment_and_revenue_share": {
+      "value": "Licence defers price to the Order and makes Opendatabay a third-party beneficiary to stop off-platform deals; platform fee schedule deducts a sliding commission from the seller, 30% on sales up to £100 falling to 5% above £250,000.",
+      "claim_ids": [
+        "doc-opendatabay-licence-c039",
+        "doc-opendatabay-licence-c055",
+        "doc-opendatabay-licence-c056"
+      ]
+    },
+    "takedown_and_erasure": {
+      "value": "Licensor can demand deletion of all buyer copies by written request, but models trained on the data may be retained if the data is not reconstructable; Opendatabay may remove non-compliant listings, and delisting does not affect executed sales; no specific data-subject erasure mechanism.",
+      "claim_ids": [
+        "doc-opendatabay-licence-c019",
+        "doc-opendatabay-licence-c020",
+        "doc-opendatabay-licence-c050",
+        "doc-opendatabay-licence-c054"
+      ]
+    },
+    "governing_law": {
+      "value": "England and Wales; exclusive jurisdiction of the courts of London.",
+      "claim_ids": [
+        "doc-opendatabay-licence-c037"
+      ]
+    },
+    "change_of_terms": {
+      "value": "The licence itself can only be amended in writing signed by both parties; Opendatabay's platform-level listing terms can be changed at any time with continued use as acceptance.",
+      "claim_ids": [
+        "doc-opendatabay-licence-c038",
+        "doc-opendatabay-licence-c052"
+      ]
+    },
+    "prohibited_uses": {
+      "value": "No resale, redistribution or sublicensing of the raw data; no non-AI uses; no removal of watermarks or provenance metadata; no unlawful use including discrimination or unlawful surveillance; General licence also bars any commercial use and production high-risk AI.",
+      "claim_ids": [
+        "doc-opendatabay-licence-c007",
+        "doc-opendatabay-licence-c008",
+        "doc-opendatabay-licence-c009",
+        "doc-opendatabay-licence-c010",
+        "doc-opendatabay-licence-c011"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "doc-opendatabay-licence-c001",
+      "statement": "In Opendatabay's AI training licence templates the licensor is the Data Provider that collected, prepared and owns the Data Product, not Opendatabay.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The individual or entity that collected, prepared, and owns the Data Product and is granting this License"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c002",
+      "statement": "The Commercial AI training licence is issued by Opendatabay and may not be used outside the Opendatabay platform or without its authorisation.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Its use outside the Opendatabay platform, or without Opendatabay's knowledge and authorisation, is strictly prohibited."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c003",
+      "statement": "The Commercial licence grants a non-exclusive, worldwide, perpetual right to use the Data Product solely for training, fine-tuning, evaluating and developing AI systems.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "solely for training, fine-tuning, evaluating, and developing AI, ML, LLMs, and agentic AI systems"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c004",
+      "statement": "The Commercial licence grant is non-exclusive, worldwide and perpetual, subject to the termination rights in Section 10.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "grants the Licensee a non-exclusive, worldwide, perpetual (subject to termination rights in Section 10) right"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c005",
+      "statement": "Under the Commercial licence the licensee may use the resulting models, systems, applications and outputs commercially.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Use resulting models, systems, applications and outputs commercially."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c006",
+      "statement": "The General Use licence limits the grant to internal research, evaluation and educational purposes.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/general-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "right to use this Data Product solely for internal research, evaluation, and educational purposes"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c007",
+      "statement": "The General Use licence forbids commercial deployment, use in production API services and any monetisation.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/general-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Commercial deployment, use in production API services, or any form of monetisation is NOT permitted."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c008",
+      "statement": "The Commercial licence forbids the licensee to resell, redistribute or sublicense the Data Product itself.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Resell, redistribute, or sublicense the Data Product itself (see Section 4 for sublicensing of Models and Derivative Works)."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c009",
+      "statement": "The Commercial licence forbids using the Data Product for non-AI purposes such as business analytics, market research or database compilation.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Use the Data Product for non-AI purposes such as business analytics, market research, direct data distribution"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c010",
+      "statement": "The Commercial licence forbids intentionally removing or altering watermarks, cryptographic signatures or provenance metadata embedded in the Data Product.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Intentionally remove, obscure, or alter any digital watermarks, cryptographic signatures, or provenance metadata"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c011",
+      "statement": "The Commercial licence forbids uses that violate law, including discrimination and unlawful surveillance.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Use the Data Product in ways that violate applicable laws or regulations, including discrimination, unlawful surveillance"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c012",
+      "statement": "The Commercial licence lets the licensee sublicense Models and Derivative Works only if the underlying Data Product is not made available or reasonably reconstructable.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "provided that: The underlying Data Product is not made available, exposed, or reasonably reconstructable."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c013",
+      "statement": "Under the Commercial licence all downstream recipients of models must be told they receive no rights in the Data Product.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All downstream recipients are informed that they receive no rights to the Data Product beyond those expressly granted"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c014",
+      "statement": "Both AI licences contain a safe harbour: inadvertent, non-systematic reproduction of insignificant portions of the data by a model is not a breach unless the model was engineered to act as a database.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The inadvertent, non-systematic reproduction of insignificant portions of the Data Product by a Model"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c015",
+      "statement": "Under the Commercial licence the licensee owns the Models and Derivative Works it lawfully creates, but not the Data Product.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensee owns Models and Derivative Works it lawfully creates using the Data Product"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c016",
+      "statement": "The Commercial licence states that the licensor is not liable for downstream misuse of open-weight models derived from the Data Product.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensor is not liable for downstream misuse of open-weight models derived from the Data Product."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c017",
+      "statement": "The General Use licence allows models and derivatives to be shared only within the licensee's organisation, with non-commercial external sharing allowed only if the data is not exposed.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/general-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensee may share Models and Derivative Works only within the Licensee's organisation for research or educational purposes."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c018",
+      "statement": "The Commercial licence lets the licensee keep copies of the Data Product only as long as needed for training, evaluation or model development.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensee may keep copies of the Data Product only as long as needed for training, evaluation, or development of Models"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c019",
+      "statement": "On termination or on the licensor's written request, the licensee must promptly delete or irreversibly anonymise all copies of the Data Product, except backups scheduled for automatic deletion.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "or written request from the Licensor, Licensee must promptly delete or irreversibly anonymise all copies of the Data Product"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c020",
+      "statement": "The licensee may retain Models, Derivative Works, logs and metadata indefinitely provided the Data Product cannot be reconstructed from them.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "retain Models, Derivative Works, logs, and metadata indefinitely, provided the Data Product itself cannot be reconstructed"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c021",
+      "statement": "Outside termination for non-payment, the licensee may continue to use Models and Derivative Works created before termination.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensee may continue to use Models and Derivative Works created before termination under the terms of this License."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c022",
+      "statement": "The licensor may request evidence of compliance only on reasonable suspicion of material breach, no more than once a year and with 60 days' written notice.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "reasonable suspicion of material breach of this License, Licensor may request reasonable evidence of compliance"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c023",
+      "statement": "Commercial-licence audits are limited to deletion and retention records and compliance policies; on-site audits need mutual agreement and are at the licensor's cost unless a material breach is found.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Audits are limited to deletion/retention records and compliance policies."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c024",
+      "statement": "Neither party may publicly reference the other or disclose the licensing relationship without written consent; crediting the licensor is optional.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Neither party may publicly reference the other party or disclose the other party's use of the Data Product"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c025",
+      "statement": "The licensor represents that the Data Product was collected and provided in compliance with applicable data protection laws, including GDPR and the EU AI Act where applicable.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The Data Product was collected and provided in compliance with applicable data protection and related laws"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c026",
+      "statement": "The licensor represents only that it used commercial best practices and reasonable technical measures to filter out personal data, not that the data contains none.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "used commercial best practices and reasonable technical measures to filter and exclude personal data/PII"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c027",
+      "statement": "The licensor represents, to the best of its knowledge, that the data was not intentionally altered with poisoned samples or adversarial inputs.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "has not been intentionally altered to include 'poisoned' samples, trigger phrases, or adversarial inputs"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c028",
+      "statement": "The Section 8.1 warranty covers only the right to license, that the data was not obtained in violation of law or third-party IP, and reasonable care in preparation.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The Data Product was not obtained in violation of applicable law or third-party intellectual property rights."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c029",
+      "statement": "The licensor does not warrant that the Data Product is free from all third-party claims or that the licensee's use will be lawful everywhere.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensor does not warrant that the Data Product is free from all third-party claims"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c030",
+      "statement": "The licensor indemnifies the licensee against third-party claims arising from breach of the Section 8.1 warranties, subject to prompt notice and licensor control of the defence.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensor agrees to indemnify, defend, and hold harmless Licensee from and against any third-party claims"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c031",
+      "statement": "The licensor's indemnity does not apply to claims from the licensee's modification of the data, combination with other materials or use outside the Permitted Uses.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "does not apply to claims arising from Licensee's modification of the Data Product, combination with other materials"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c032",
+      "statement": "The licensee indemnifies the licensor against claims from misuse, violation of law, and model infringement except to the extent caused by the Data Product.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Claims that Models or Derivative Works created by Licensee infringe third-party rights, except to the extent caused by"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c033",
+      "statement": "Each party's aggregate liability is capped at the greater of the amounts the licensee paid for the Data Product or any fixed cap in the Order.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "will not exceed the greater of: (a) the total amounts paid by Licensee for the Data Product under this License"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c034",
+      "statement": "The liability cap and damages exclusion do not apply to the licensee's payment obligations or to either party's indemnification obligations.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The limitations and exclusions in Sections 8.4 and 8.5 do not apply to: (a) Licensee's payment obligations"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c035",
+      "statement": "Either party may terminate the Commercial licence for material breach not cured within 30 days of written notice.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Either party may terminate for material breach if the breaching party fails to cure the breach within thirty (30) days"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c036",
+      "statement": "The licensor may terminate immediately if required by law or court order, or if the licensee's use creates substantial legal, security or compliance risks.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensor may terminate immediately if required by applicable law or court order"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c037",
+      "statement": "The licence is governed by the law of England and Wales with exclusive jurisdiction in the courts of London.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "This License is governed by the laws of England and Wales, without regard to conflict of law principles."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c038",
+      "statement": "The licence may only be amended by a written document signed by both parties.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "This License may only be amended by a written document signed by both parties."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c039",
+      "statement": "Opendatabay is a third-party beneficiary of the licence solely to enforce the ban on off-platform transactions and circumvention of platform fees.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q5",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Opendatabay is a third-party beneficiary of this License solely for the purposes of enforcing the prohibition on off-platform"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c040",
+      "statement": "The licensee acknowledges responsibility for publishing EU AI Act Article 53 training-data summaries, with the licensor giving reasonable cooperation.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensee acknowledges responsibility for publishing training data summaries using the official EU Commission template"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c041",
+      "statement": "Opendatabay offers two AI training licences: a General licence for non-commercial research and a Commercial licence for production use.",
+      "kind": "offer",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/ai-licensing-overview",
+          "publisher": "Opendatabay",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Opendatabay provides two specialised AI training licenses designed to meet different needs"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c042",
+      "statement": "On Opendatabay the Data Provider selects each data product's licence, choosing the Commercial or General AI licence, another standard licence, or a custom licence.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Commercial or general Opendatabay AI and LLM Training License"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c043",
+      "statement": "Opendatabay's brokerage terms state that it only facilitates listing and brokering and that licence terms are set by the Data Provider.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Opendatabay only facilitates listing and brokering; the license terms are set by the Data Provider."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c044",
+      "statement": "By default the Data Provider authorises Opendatabay to act as a non-exclusive broker for each listed data product.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the Data Provider authorizes Opendatabay to act as a non-exclusive broker for the specific data product"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c045",
+      "statement": "By listing, a Data Provider warrants to Opendatabay that it created the data or holds all rights and permissions needed to sell it.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/right",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You are the original creator or have obtained all necessary rights and permissions to sell the data"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c046",
+      "statement": "By listing, a Data Provider warrants that the data was collected through legal and ethical means.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/right",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The data was collected through legal and ethical means"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c047",
+      "statement": "Opendatabay prohibits listing first-party data collected without explicit consent.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/right",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "First-party data collected without explicit consent"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c048",
+      "statement": "Opendatabay prohibits listing personally identifiable information without proper anonymisation.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/right",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Personally Identifiable Information (PII) without proper anonymization"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c049",
+      "statement": "Data Providers must maintain records of consent where applicable and provide proof of data ownership on request.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/right",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Maintain records of consent where applicable"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c050",
+      "statement": "Opendatabay reserves the right to request proof of the right to sell, audit data quality and remove non-compliant data products.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q5",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/right",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Remove non-compliant data products"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c051",
+      "statement": "Data Providers indemnify Opendatabay against claims arising from inaccurate ownership claims, third-party IP claims and privacy law violations.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/right",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Data Providers agree to indemnify and hold harmless Opendatabay from any claims, damages, or losses arising from"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c052",
+      "statement": "Opendatabay may update the Right to List and Sell Data terms at any time, with continued use constituting acceptance.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/right",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Opendatabay reserves the right to update these terms at any time; continued use constitutes acceptance."
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c053",
+      "statement": "In provider-buyer disputes Opendatabay acts as a neutral intermediary and assumes no liability.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-02-27",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal/right",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Opendatabay will act as a neutral intermediary to facilitate resolution"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c054",
+      "statement": "A provider's revocation of brokerage by delisting does not affect already executed sales.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "revocation does not affect already executed sales or obligations"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c055",
+      "statement": "Opendatabay's commission on a dataset sale is 30% of the sale price for transactions of £1 to £100, deducted before the provider is paid.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 30,
+        "unit": "percent of sale price",
+        "basis": "platform fee deducted from the seller's proceeds, per individual transaction of £1-£100",
+        "period": "per transaction"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "£1 - £100 30% 70%"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c056",
+      "statement": "Opendatabay's commission falls to 5% for transactions of £250,001 and above.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 5,
+        "unit": "percent of sale price",
+        "basis": "platform fee deducted from the seller's proceeds, per individual transaction of £250,001 and above",
+        "period": "per transaction"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.opendatabay.com/legal",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "£250,001 and above 5% 95%"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c057",
+      "statement": "The General Use licence warranty covers only the right to license and that the data was not obtained in violation of applicable law.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/general-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "it has the right to license the Data Product under this License and that the Data Product was not obtained in violation"
+        }
+      ]
+    },
+    {
+      "id": "doc-opendatabay-licence-c058",
+      "statement": "Licensor compliance requests under the Commercial licence are limited to once per year with 60 days' advance written notice.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+          "publisher": "Opendatabay",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "no more than once per year, with sixty (60) days' advance written notice"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "other.consent_and_release_warranty",
+      "urls_tried": [
+        "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+        "https://docs.opendatabay.com/ai-training-and-model-development-licenses/general-ai-training-and-fine-tuning-data-license",
+        "https://www.opendatabay.com/legal/right"
+      ],
+      "reason": "not_published",
+      "note": "Neither AI licence nor the Right to List terms requires or warrants model releases from people depicted in images/video, property releases, or capturer (contributor) consent to onward sale; consent evidence is not passed to the buyer."
+    },
+    {
+      "field": "other.takedown_and_erasure",
+      "urls_tried": [
+        "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+        "https://www.opendatabay.com/legal/right",
+        "https://www.opendatabay.com/legal"
+      ],
+      "reason": "not_published",
+      "note": "No mechanism for propagating a data subject's erasure request to buyers or to models already trained; the licensor's written-request deletion right is the only lever."
+    },
+    {
+      "field": "other.exclusivity",
+      "urls_tried": [
+        "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+        "https://www.opendatabay.com/legal"
+      ],
+      "reason": "not_published",
+      "note": "No buyer-side exclusive licence option or pricing in the templates; exclusivity exists only as provider-to-Opendatabay exclusive brokerage."
+    },
+    {
+      "field": "other.contributor_pay",
+      "urls_tried": [
+        "https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license",
+        "https://www.opendatabay.com/legal/right"
+      ],
+      "reason": "not_published",
+      "note": "The licences say nothing about how individual capturers behind a provider's dataset are paid or consent to resale."
+    }
+  ],
+  "leads": [
+    {
+      "url": "https://www.opendatabay.com/legal/right",
+      "why": "The URL originally assigned; it is the provider-side 'Right to List and Sell Data' declaration (effective 27 Feb 2026), not the licence template. Its clauses are cited here as supplementary claims."
+    },
+    {
+      "url": "https://docs.opendatabay.com/standard-data-licenses/custom",
+      "why": "Custom licence option for providers; not read."
+    },
+    {
+      "url": "https://www.opendatabay.com/legal",
+      "why": "Full platform terms, brokerage & listing terms and fee schedule (effective dates 26 Jul, 27 Feb and 24 Aug 2026); deserve their own marketplace_terms / provider_agreement records."
+    }
+  ]
+}

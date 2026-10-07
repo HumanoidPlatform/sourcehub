@@ -1,0 +1,1727 @@
+{
+ "kind": "profile",
+ "slug": "karya",
+ "name": "Karya",
+ "aliases": [
+  "DAIA Tech Pvt. Ltd.",
+  "Karya Inc."
+ ],
+ "segment": "crowd_capture",
+ "tier": "light",
+ "status": {
+  "value": "active",
+  "claim_id": "karya-c001"
+ },
+ "names_for": {
+  "catalogue_side": "Data Catalogue; 'off-the-shelf AI data infrastructure' (Project Apollo); 'Foundational datasets'; 'Karya marketplace' (older case study)",
+  "custom_side": "Custom data solutions (Data Collection / data generation services)"
+ },
+ "matrix": {
+  "operator_role": {
+   "value": "reseller_licensor",
+   "claim_ids": [
+    "karya-c020",
+    "karya-c022",
+    "karya-c006"
+   ],
+   "note": "Datasets are 'purchased from us' (DAIA Tech Pvt. Ltd.) and are Karya's own collections; no dataset licence is published, so licensor of record is inferred from the refund policy."
+  },
+  "economics_model": {
+   "value": "principal_margin",
+   "claim_ids": [
+    "karya-c006",
+    "karya-c031",
+    "karya-c020"
+   ],
+   "note": "Karya funds or commissions collection and sells its own datasets; no third-party sellers or commission seen."
+  },
+  "who_pays_fee": {
+   "value": "not_applicable",
+   "claim_ids": [],
+   "note": "No third-party sellers are listed; Karya sells its own inventory, so there is no marketplace fee."
+  },
+  "supply_models": {
+   "value": [
+    "own_collection",
+    "commissioned_nonexclusive"
+   ],
+   "claim_ids": [
+    "karya-c006",
+    "karya-c007",
+    "karya-c031",
+    "karya-c034"
+   ],
+   "note": "Own collection: Project Apollo. Commissioned then resold: KHPT tuberculosis speech data. No third-party provider listings seen."
+  },
+  "custody_model": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": "Samples sit in a Karya Google Cloud Storage bucket; how full datasets are delivered is not published."
+  },
+  "transaction_mode": {
+   "value": "contact_sales",
+   "claim_ids": [
+    "karya-c038",
+    "karya-c015"
+   ],
+   "note": "The catalogue has no price or cart; egocentric data is by email to sales. (Platform by Karya tooling has 'Buy Now' plans, but that is not dataset sales.)"
+  },
+  "public_prices": {
+   "value": "none",
+   "claim_ids": [
+    "karya-c018",
+    "karya-c019"
+   ],
+   "note": "No dataset price appears in the catalogue data or on any page read. Only the Platform by Karya tooling has published prices."
+  },
+  "licence_model": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": "No dataset licence is published; the website T&C cover site use only. No 'Karya Public License' page found."
+  },
+  "exclusivity_offered": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": ""
+  },
+  "public_listing": {
+   "value": "public_indexable",
+   "claim_ids": [
+    "karya-c018",
+    "karya-c017"
+   ],
+   "note": "An anonymous visitor sees every catalogue entry with its specifications and sample links; the entries are rendered client-side from a public JS file."
+  },
+  "buyer_vetting": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": ""
+  },
+  "sample_mechanics": {
+   "value": "free_sample_download",
+   "claim_ids": [
+    "karya-c017",
+    "karya-c034",
+    "karya-c043"
+   ],
+   "note": "Speech samples download without login from a public GCS bucket (confirmed 200 on 2026-10-01); the egocentric sample is a Google Drive folder that asks for a Google sign-in."
+  },
+  "versioning": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": ""
+  },
+  "human_subject_consent_docs": {
+   "value": "unknown",
+   "claim_ids": [
+    "karya-c037"
+   ],
+   "note": "Karya says consent is built into its worker platform, but nothing says what, if anything, a buyer receives."
+  },
+  "contributor_pay_model": {
+   "value": "mixed",
+   "claim_ids": [
+    "karya-c032",
+    "karya-c024",
+    "karya-c002",
+    "karya-c025"
+   ],
+   "note": "Workers are paid wages per task (vendor says about 20x minimum wage) and, at least for the KHPT dataset, are promised royalties on re-sales; royalty rate and mechanism unpublished."
+  },
+  "catalogue_plus_custom": {
+   "value": "both",
+   "claim_ids": [
+    "karya-c011",
+    "karya-c012",
+    "karya-c006"
+   ],
+   "note": ""
+  },
+  "erasure_after_sale": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": ""
+  },
+  "quality_evidence": {
+   "value": "unknown",
+   "claim_ids": [
+    "karya-c027"
+   ],
+   "note": "Listings show only hours, speakers and gender ratio. A >95% SLA is claimed for datasets Karya creates, on the services page, not on listings."
+  }
+ },
+ "questions": {
+  "Q1": {
+   "state": "partial",
+   "answer": "Buyers named are AI labs, big tech, foundations and government (Anthropic, Microsoft, Google, Gates, Maharashtra), mostly for custom work; catalogue units are hours of speech and on-request egocentric video. Why buyers choose catalogue over custom is not stated.",
+   "claim_ids": [
+    "karya-c039",
+    "karya-c040",
+    "karya-c014",
+    "karya-c016",
+    "karya-c019"
+   ]
+  },
+  "Q2": {
+   "state": "partial",
+   "answer": "Karya sells through its own catalogue (earlier called the 'Karya marketplace'); no evidence of listing on third-party marketplaces.",
+   "claim_ids": [
+    "karya-c031",
+    "karya-c018"
+   ]
+  },
+  "Q3": {
+   "state": "sourced",
+   "answer": "Inventory comes from Karya's own crowd workforce: self-funded collections (Project Apollo) and data first collected for clients and then resold (KHPT TB speech). Rights terms for either are not published.",
+   "claim_ids": [
+    "karya-c006",
+    "karya-c008",
+    "karya-c030",
+    "karya-c031",
+    "karya-c034",
+    "karya-c003"
+   ]
+  },
+  "Q4": {
+   "state": "partial",
+   "answer": "For the KHPT/USAID project Karya stated up front that the dataset would be resold after KHPT's use, and a matching TB dataset is now in the catalogue. The contract carve-out itself is not public, and no dispute was found.",
+   "claim_ids": [
+    "karya-c031",
+    "karya-c034",
+    "karya-c030"
+   ]
+  },
+  "Q5": {
+   "state": "partial",
+   "answer": "Datasets are bought from Karya (DAIA Tech Pvt. Ltd.), which appears to be licensor of record; no warranty, consent or indemnity terms for datasets are published.",
+   "claim_ids": [
+    "karya-c020",
+    "karya-c022",
+    "karya-c023"
+   ]
+  },
+  "Q6": {
+   "state": "partial",
+   "answer": "Samples are hosted by Karya in a public Google Cloud Storage bucket; delivery of full datasets is not described.",
+   "claim_ids": [
+    "karya-c017"
+   ]
+  },
+  "Q7": {
+   "state": "partial",
+   "answer": "Karya says worker consent is built into its platform and promises capturing workers royalties on re-sales; nothing covers consent from depicted persons or property owners in egocentric video.",
+   "claim_ids": [
+    "karya-c037",
+    "karya-c032",
+    "karya-c024"
+   ]
+  },
+  "Q8": {
+   "state": "partial",
+   "answer": "No dataset licence is published. The only public terms are the website T&C and a no-refund-after-delivery policy; Apollo is described as 'publicly available' without a named licence.",
+   "claim_ids": [
+    "karya-c023",
+    "karya-c007",
+    "karya-c020"
+   ]
+  },
+  "Q9": {
+   "state": "partial",
+   "answer": "Deals close through sales contact (catalogue 'Connect with us', egocentric by email to sales); Karya owns the inventory, so there is no commission. Delivered datasets cannot be refunded.",
+   "claim_ids": [
+    "karya-c038",
+    "karya-c015",
+    "karya-c020",
+    "karya-c021"
+   ]
+  },
+  "Q10": {
+   "state": "partial",
+   "answer": "A catalogue entry is a dataset record (language, type, hours, speakers, gender ratio, domain, sample link); orders are final once delivered. Revisions and entitlements are not described.",
+   "claim_ids": [
+    "karya-c018",
+    "karya-c020"
+   ]
+  },
+  "Q11": {
+   "state": "partial",
+   "answer": "Buyers see summary stats and can download free samples; Karya claims a >95% SLA on datasets it creates.",
+   "claim_ids": [
+    "karya-c017",
+    "karya-c018",
+    "karya-c027"
+   ]
+  },
+  "Q12": {
+   "state": "sourced",
+   "answer": "Karya runs custom data solutions and a Data Catalogue of foundational or off-the-shelf datasets; client-commissioned collections feed the catalogue, and Project Apollo is its largest self-funded off-the-shelf build.",
+   "claim_ids": [
+    "karya-c011",
+    "karya-c012",
+    "karya-c006",
+    "karya-c031",
+    "karya-c029"
+   ]
+  }
+ },
+ "claims": [
+  {
+   "id": "karya-c001",
+   "statement": "Karya's impact page, live on 2026-10-01, reports its platform figures as of July 2026, showing the organisation still operating.",
+   "kind": "status",
+   "section": "positioning",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-07",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.karya.in/impact",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Data is as of July 2026, per internal platform data."
+    }
+   ]
+  },
+  {
+   "id": "karya-c002",
+   "statement": "Karya says it has distributed USD 4.42M in wages directly to its workers, cumulatively, as of July 2026.",
+   "kind": "number",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 4420000,
+    "unit": "USD",
+    "basis": "cumulative wages paid by Karya directly to workers; vendor-stated, internal platform data",
+    "period": "cumulative to July 2026"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-07",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.karya.in/impact",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "$4.42M wages directly distributed to Karya workers"
+    }
+   ]
+  },
+  {
+   "id": "karya-c003",
+   "statement": "Karya says it has onboarded more than 200,000 workers on the Karya Platform, as of July 2026.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 200000,
+    "unit": "workers onboarded (lower bound)",
+    "basis": "vendor-stated cumulative onboarding count",
+    "period": "cumulative to July 2026"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-07",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.karya.in/impact",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "200k+ workers onboarded on the Karya Platform"
+    }
+   ]
+  },
+  {
+   "id": "karya-c004",
+   "statement": "Karya says workers' average annual income rose 25.8% in FY2025-26 because of Karya, a figure it bases on self-reported baselines.",
+   "kind": "outcome",
+   "section": "contributor_pay",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-07",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.karya.in/impact",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "25.8% average increase in worker annual income enabled by Karya (FY2025–26)"
+    }
+   ]
+  },
+  {
+   "id": "karya-c005",
+   "statement": "Karya says wages it distributed to workers grew 6.8 times year on year from 2024 to 2025.",
+   "kind": "number",
+   "section": "contributor_pay",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 6.8,
+    "unit": "multiple of prior-year wages distributed",
+    "basis": "vendor-stated, total worker wages 2025 vs 2024",
+    "period": "per year"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-07",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.karya.in/impact",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "6.8x YoY increase in wages distributed to workers, 2024 to 2025"
+    }
+   ]
+  },
+  {
+   "id": "karya-c006",
+   "statement": "In Q1 2026 Karya launched Project Apollo, which it calls its largest investment in off-the-shelf AI data infrastructure to date.",
+   "kind": "event",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://karya.in/case-studies/project-apollo/",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Karya launched Project Apollo, its largest investment in off-the-shelf AI data infrastructure to date."
+    }
+   ]
+  },
+  {
+   "id": "karya-c007",
+   "statement": "Karya describes Project Apollo as building one of India's largest publicly available multilingual conversational speech corpora; the page states no licence or access terms.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://karya.in/case-studies/project-apollo/",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "building one of India's largest publicly available multilingual conversational speech corpora for AI research"
+    }
+   ]
+  },
+  {
+   "id": "karya-c008",
+   "statement": "Karya says Project Apollo created 100,000 hours of transcribed conversational speech across India's 22 Scheduled Languages.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 100000,
+    "unit": "hours of transcribed conversational speech",
+    "basis": "corpus size stated by the vendor; the same page says 15 languages are already in production, so the total may be a target",
+    "period": "project total"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://karya.in/case-studies/project-apollo/",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "100,000 hours of transcribed conversational speech across India's 22 Scheduled Languages"
+    }
+   ]
+  },
+  {
+   "id": "karya-c009",
+   "statement": "Karya says Project Apollo engages 60,000 workers with a target of USD 2.5 million in direct worker wages.",
+   "kind": "number",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 2500000,
+    "unit": "USD",
+    "basis": "target direct wages to workers for the whole project, paid by Karya; vendor-stated",
+    "period": "project total"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://karya.in/case-studies/project-apollo/",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Project Apollo engages with 60,000 workers across India, with a target of USD 2.5 million in direct worker wages."
+    }
+   ]
+  },
+  {
+   "id": "karya-c010",
+   "statement": "Karya says USD 2M has been disbursed to date through Project Apollo.",
+   "kind": "number",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 2000000,
+    "unit": "USD",
+    "basis": "disbursed to date through the project (recipients not stated on the page); vendor-stated",
+    "period": "cumulative to retrieval"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://karya.in/case-studies/project-apollo/",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "$2M disbursed to date through Project Apollo"
+    }
+   ]
+  },
+  {
+   "id": "karya-c011",
+   "statement": "Karya offers custom data solutions including domain-specific transcription, localised translation and multimodal dataset creation.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.karya.in/",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Custom data solutions for the frontier of AI, including domain-specific transcription, localised translation, and multimodal"
+    }
+   ]
+  },
+  {
+   "id": "karya-c012",
+   "statement": "Karya offers foundational datasets and evaluation benchmarks designed for India alongside its custom work.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.karya.in/",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Foundational datasets and evaluation benchmarks designed for India's linguistic, cultural, and operational complexity"
+    }
+   ]
+  },
+  {
+   "id": "karya-c013",
+   "statement": "Karya's homepage advertises large-scale conversational datasets across 22 official Indian languages.",
+   "kind": "offer",
+   "section": "listing",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.karya.in/",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Large-scale conversational datasets across 22 official Indian languages"
+    }
+   ]
+  },
+  {
+   "id": "karya-c014",
+   "statement": "Karya advertises egocentric work and life datasets for physical-world and embodied AI.",
+   "kind": "offer",
+   "section": "listing",
+   "question_ids": [
+    "Q1",
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.karya.in/",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Egocentric work and life datasets for physical-world and embodied AI systems."
+    }
+   ]
+  },
+  {
+   "id": "karya-c015",
+   "statement": "The homepage's 'Explore Egocentric Datasets' link is a mailto link to sales@karya.in with the subject 'Egocentric datasets inquiry', not a listing or checkout.",
+   "kind": "offer",
+   "section": "transaction",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.karya.in/",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Explore Egocentric Datasets"
+    }
+   ]
+  },
+  {
+   "id": "karya-c016",
+   "statement": "The catalogue's egocentric video entry gives its size as 'On Request' and lists capture devices GoPro, smartphone, head-mounted and neck-mounted.",
+   "kind": "offer",
+   "section": "listing",
+   "question_ids": [
+    "Q1",
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://karya.in/_next/static/chunks/4648-1bbb200c1c8ebd90.js",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "hours:\"On Request\",domain:\"On-Demand (GoPro; SmartPhone; HeadMounted; NeckMounted)\""
+    }
+   ]
+  },
+  {
+   "id": "karya-c017",
+   "statement": "Catalogue entries carry a public sample download link hosted in a Karya Google Cloud Storage bucket named karyadata-catalogue-samples.",
+   "kind": "offer",
+   "section": "trust",
+   "question_ids": [
+    "Q11",
+    "Q6"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://karya.in/_next/static/chunks/4648-1bbb200c1c8ebd90.js",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "storage.googleapis.com/karyadata-catalogue-samples/telugu_agent_guided_conversations/Telugu_Conversational_Sample.zip"
+    }
+   ]
+  },
+  {
+   "id": "karya-c018",
+   "statement": "A catalogue entry shows language, type, hours, speaker count, gender ratio and domain, and has no price field.",
+   "kind": "architecture",
+   "section": "object_model",
+   "question_ids": [
+    "Q10",
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://karya.in/_next/static/chunks/4648-1bbb200c1c8ebd90.js",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "language:\"Telugu\",type:\"Conversational\",hours:\"219\",speakerCount:\"566\",genderRatio:{male:.28,female:.71,other:.01}"
+    }
+   ]
+  },
+  {
+   "id": "karya-c019",
+   "statement": "The catalogue lists a Hindi general dual-channel conversational dataset of 2,000 hours from 1,900+ speakers.",
+   "kind": "number",
+   "section": "listing",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 2000,
+    "unit": "hours of conversational speech",
+    "basis": "size of one catalogue dataset; no price given",
+    "period": "one-off"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://karya.in/_next/static/chunks/4648-1bbb200c1c8ebd90.js",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "language:\"Hindi\",type:\"Conversational\",hours:\"2000\",speakerCount:\"1900+\",domain:\"General Dual Channel Conversations\""
+    }
+   ]
+  },
+  {
+   "id": "karya-c020",
+   "statement": "Karya's refund policy says services or datasets, once delivered, cannot be refunded or cancelled.",
+   "kind": "terms",
+   "section": "post_sale",
+   "question_ids": [
+    "Q9",
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2023-05-01",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://karya.in/legal/refund-and-cancellation/",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Once our services or datasets are delivered to you, they cannot be refunded or cancelled."
+    }
+   ]
+  },
+  {
+   "id": "karya-c021",
+   "statement": "Karya's refund policy lets a buyer cancel a purchased service or dataset only if it has not yet been delivered.",
+   "kind": "terms",
+   "section": "post_sale",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2023-05-01",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://karya.in/legal/refund-and-cancellation/",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "You may cancel any service or dataset you purchased from us if they have already not been delivered."
+    }
+   ]
+  },
+  {
+   "id": "karya-c022",
+   "statement": "The karya.in website is operated by DAIA Tech Pvt. Ltd., which with its licensors owns the IP in the site's material.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q5"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://karya.in/legal/terms-and-conditions/",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "DAIA Tech Pvt. Ltd. and/or its licensors own the intellectual property rights for all material on"
+    }
+   ]
+  },
+  {
+   "id": "karya-c023",
+   "statement": "Karya's published terms and conditions license only personal use of the website's material; no dataset licence is published.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://karya.in/legal/terms-and-conditions/",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "for your own personal use subjected to restrictions set in these terms and conditions"
+    }
+   ]
+  },
+  {
+   "id": "karya-c024",
+   "statement": "A UC Berkeley Haas case abstract (October 2025) states that Karya provides workers above-market wages and royalties, without describing the royalty mechanism.",
+   "kind": "offer",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3",
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "academic",
+   "as_of": "2025-10-01",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://cases.haas.berkeley.edu/2025/10/karya/",
+     "publisher": "UC Berkeley Haas School of Business (case abstract)",
+     "source_class": "academic",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "It provides above-market wages and royalties, supporting both professional growth and higher-skilled data work."
+    }
+   ]
+  },
+  {
+   "id": "karya-c025",
+   "statement": "Karya's end-of-year report says it pays workers nearly 20 times the Indian minimum wage.",
+   "kind": "offer",
+   "section": "contributor_pay",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://reports.karya.in/2023",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "By paying our workers nearly 20 times the Indian minimum wage"
+    }
+   ]
+  },
+  {
+   "id": "karya-c026",
+   "statement": "Karya's end-of-year report says it redirects the majority of client revenue to its workers.",
+   "kind": "offer",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://reports.karya.in/2023",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "redirecting the majority of client revenue to our workers"
+    }
+   ]
+  },
+  {
+   "id": "karya-c027",
+   "statement": "Karya says it guarantees a greater than 95% SLA on all datasets it creates.",
+   "kind": "offer",
+   "section": "vetting",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://karya.in/data-services/generation/",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Karya guarantees > 95% SLA on all datasets that we create assuring error-free data."
+    }
+   ]
+  },
+  {
+   "id": "karya-c028",
+   "statement": "Karya's data generation service supports speech, text, image and video data tasks.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://karya.in/data-services/generation/",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Our platform is capable of supporting a variety of data tasks including speech, text, image and video data."
+    }
+   ]
+  },
+  {
+   "id": "karya-c029",
+   "statement": "Karya's custom data generation designs collection strategies tailored to each client's goals.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://karya.in/data-services/generation/",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Our experts design data generation strategies tailored to your specific goals and industry requirements."
+    }
+   ]
+  },
+  {
+   "id": "karya-c030",
+   "statement": "Karya's tuberculosis case study describes collecting speech data with KHPT and USAID to build a voice-based TB knowledge app for KHPT.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q4"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://karya.in/case-studies/first-tuberculosis-chatbot/",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Karya is working with the Karnataka Health Promotion Trust (KHPT) and USAID to create a voice-based tuberculosis knowledge app"
+    }
+   ]
+  },
+  {
+   "id": "karya-c031",
+   "statement": "Karya says that once the KHPT speech dataset has been collected, validated and used for KHPT's app, the same dataset will be sold on the Karya marketplace.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q4",
+    "Q2"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://karya.in/case-studies/first-tuberculosis-chatbot/",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "once collected, validated, and used for the KHPT app, the same dataset will be available for sale on the Karya marketplace"
+    }
+   ]
+  },
+  {
+   "id": "karya-c032",
+   "statement": "Karya says workers who collected the KHPT tuberculosis speech data will receive royalties on any future re-sales of that dataset.",
+   "kind": "terms",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q7",
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://karya.in/case-studies/first-tuberculosis-chatbot/",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "with workers receiving royalties on any future data re-sales"
+    }
+   ]
+  },
+  {
+   "id": "karya-c033",
+   "statement": "For the KHPT project Karya planned to employ 100 people (50 men, 50 women) in each of 10 Karnataka districts to record speech with the Karya app.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 100,
+    "unit": "workers per district, in 10 districts",
+    "basis": "planned workforce for one commissioned project; vendor-stated",
+    "period": "project total"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://karya.in/case-studies/first-tuberculosis-chatbot/",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "employing 100 individuals (50 men and 50 women) each in 10 districts across Karnataka to collect speech data using the Karya app"
+    }
+   ]
+  },
+  {
+   "id": "karya-c034",
+   "statement": "The public catalogue lists a Kannada read-speech dataset on questions related to tuberculosis: 629.61 hours from 604 speakers, with a sample download.",
+   "kind": "number",
+   "section": "listing",
+   "question_ids": [
+    "Q4",
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 629.61,
+    "unit": "hours of read speech",
+    "basis": "size of one catalogue dataset; no price given",
+    "period": "one-off"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://karya.in/_next/static/chunks/4648-1bbb200c1c8ebd90.js",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "language:\"Kannada\",type:\"Read Speech\",hours:\"629.61\",speakerCount:\"604\",domain:\"Questions related to Tuberculosis\""
+    }
+   ]
+  },
+  {
+   "id": "karya-c035",
+   "statement": "Karya's 2025 end-of-year report says cumulative wages distributed to workers passed USD 3.2 million by the end of 2025.",
+   "kind": "number",
+   "section": "contributor_pay",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 3200000,
+    "unit": "USD",
+    "basis": "cumulative wages distributed to workers; vendor-stated",
+    "period": "cumulative to end 2025"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2025",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://reports.karya.in/2025/",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "bringing cumulative wages distributed to over USD 3.2 million"
+    }
+   ]
+  },
+  {
+   "id": "karya-c036",
+   "statement": "Karya's 2025 report lists egocentric data collection among its growing lines of work, alongside conversational speech, transcription and evaluations.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [
+    "Q1",
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2025",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://reports.karya.in/2025/",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "conversational speech data, transcription, evaluations, and egocentric data collection"
+    }
+   ]
+  },
+  {
+   "id": "karya-c037",
+   "statement": "Karya's 2025 report says its platform architecture includes safeguards covering worker consent, wages and grievance handling; it does not say whether buyers receive consent records.",
+   "kind": "offer",
+   "section": "trust",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2025",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://reports.karya.in/2025/",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "safeguards covering consent, wages, and grievance handling"
+    }
+   ]
+  },
+  {
+   "id": "karya-c038",
+   "statement": "The Data Catalogue page's only call to action is 'Connect with us', linking to the contact page; there is no cart or checkout.",
+   "kind": "offer",
+   "section": "transaction",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://karya.in/data-catalogue/",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Let's build better AI, together. Connect with us"
+    }
+   ]
+  },
+  {
+   "id": "karya-c039",
+   "statement": "Karya's case studies list Anthropic as a client, for evaluating AI across agriculture and law using community and expert input.",
+   "kind": "offer",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://karya.in/case-studies/",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Evaluating AI Across Agriculture and Law Using Community and Expert Input Text Anthropic"
+    }
+   ]
+  },
+  {
+   "id": "karya-c040",
+   "statement": "Karya lists Project Vaani, mapping India's linguistic diversity, as speech work for Google.",
+   "kind": "offer",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://karya.in/case-studies/",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Mapping India's Linguistic Diversity with Project Vaani Speech Google"
+    }
+   ]
+  },
+  {
+   "id": "karya-c041",
+   "statement": "Platform by Karya, its self-serve data-task tooling, lists a Basic plan at INR 4.99 per month with a Buy Now button; this is a tooling price, not a dataset price.",
+   "kind": "number",
+   "section": "pricing",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 4.99,
+    "unit": "INR",
+    "basis": "Platform by Karya Basic plan, paid by the platform customer; figure looks nominal and may be placeholder",
+    "period": "per month"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://platform.karya.in/plans-pricing",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "pricing_page",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "4.99₹ Every month To get the first impression of our capabilities"
+    }
+   ]
+  },
+  {
+   "id": "karya-c042",
+   "statement": "Karya's 2024 end-of-year report states workers were paid 20 times the Indian minimum wage.",
+   "kind": "number",
+   "section": "contributor_pay",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 20,
+    "unit": "multiple of Indian minimum wage",
+    "basis": "worker pay relative to statutory minimum wage; vendor-stated, method not given",
+    "period": "not stated"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2024",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://reports.karya.in/2024",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "20x Indian minimum wage paid"
+    }
+   ]
+  },
+  {
+   "id": "karya-c043",
+   "statement": "The catalogue's egocentric video entry links its sample to a Google Drive folder rather than to Karya's public sample bucket.",
+   "kind": "offer",
+   "section": "trust",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://karya.in/_next/static/chunks/4648-1bbb200c1c8ebd90.js",
+     "publisher": "Karya (DAIA Tech Pvt. Ltd.)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "downloadLink:\"https://drive.google.com/drive/folders/1-WsQ6eoJ3SAcRmQmoNOv4Qd_IUzuGNGl?usp=sharing\""
+    }
+   ]
+  }
+ ],
+ "unknowns": [
+  {
+   "field": "matrix.licence_model",
+   "urls_tried": [
+    "https://karya.in/legal/terms-and-conditions/",
+    "https://karya.in/karya-public-license/",
+    "https://karya.in/marketplace/",
+    "https://karya.in/legal/",
+    "https://karya.in/case-studies/project-apollo/",
+    "https://karya.in/data-catalogue/",
+    "https://karya.in/_next/static/chunks/4648-1bbb200c1c8ebd90.js"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "other.karya_public_license",
+   "urls_tried": [
+    "https://karya.in/karya-public-license/",
+    "https://karya.in/legal/",
+    "https://www.karya.in/impact",
+    "https://reports.karya.in/2023",
+    "https://reports.karya.in/2024",
+    "https://reports.karya.in/2025/"
+   ],
+   "reason": "not_found"
+  },
+  {
+   "field": "matrix.custody_model",
+   "urls_tried": [
+    "https://karya.in/data-services/generation/",
+    "https://karya.in/data-catalogue/",
+    "https://platform.karya.in/faq"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "matrix.exclusivity_offered",
+   "urls_tried": [
+    "https://karya.in/legal/terms-and-conditions/",
+    "https://karya.in/data-catalogue/"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "matrix.buyer_vetting",
+   "urls_tried": [
+    "https://karya.in/contact/",
+    "https://karya.in/data-catalogue/"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "matrix.versioning",
+   "urls_tried": [
+    "https://karya.in/data-catalogue/",
+    "https://karya.in/_next/static/chunks/4648-1bbb200c1c8ebd90.js"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "matrix.human_subject_consent_docs",
+   "urls_tried": [
+    "https://karya.in/legal/privacy-policy/",
+    "https://reports.karya.in/2025/",
+    "https://drive.google.com/drive/folders/1-WsQ6eoJ3SAcRmQmoNOv4Qd_IUzuGNGl?usp=sharing"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "matrix.erasure_after_sale",
+   "urls_tried": [
+    "https://karya.in/legal/privacy-policy/",
+    "https://karya.in/legal/refund-and-cancellation/"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "matrix.quality_evidence",
+   "urls_tried": [
+    "https://karya.in/data-catalogue/",
+    "https://karya.in/_next/static/chunks/4648-1bbb200c1c8ebd90.js",
+    "https://karya.in/data-services/generation/"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "other.egocentric_sample_contents",
+   "urls_tried": [
+    "https://drive.google.com/drive/folders/1-WsQ6eoJ3SAcRmQmoNOv4Qd_IUzuGNGl?usp=sharing"
+   ],
+   "reason": "gated"
+  },
+  {
+   "field": "other.royalty_rate_and_mechanism",
+   "urls_tried": [
+    "https://karya.in/case-studies/first-tuberculosis-chatbot/",
+    "https://cases.haas.berkeley.edu/2025/10/karya/",
+    "https://reports.karya.in/2025/"
+   ],
+   "reason": "paywalled"
+  },
+  {
+   "field": "other.independent_press",
+   "urls_tried": [
+    "https://time.com/6297289/karya-ai-workers-india/"
+   ],
+   "reason": "not_found"
+  },
+  {
+   "field": "other.sitemap",
+   "urls_tried": [
+    "https://www.karya.in/sitemap.xml",
+    "https://karya.in/robots.txt"
+   ],
+   "reason": "not_found"
+  },
+  {
+   "field": "other.revenue_and_funding",
+   "urls_tried": [
+    "https://reports.karya.in/2024",
+    "https://reports.karya.in/2025/",
+    "https://www.karya.in/impact"
+   ],
+   "reason": "not_published"
+  }
+ ],
+ "conflicts": [],
+ "leads": [
+  {
+   "url": "https://cases.haas.berkeley.edu/2025/10/karya/",
+   "why": "Full 9-page Haas case (paid) likely describes the royalty mechanism; only the abstract is public."
+  },
+  {
+   "url": "https://time.com/",
+   "why": "Karya's 2023 report says it was on the cover of TIME in 2023; that article is the likely independent source for the resale-royalty model. Could not be located without search."
+  },
+  {
+   "url": "https://www.linkedin.com/pulse/bringing-16-low-resource-languages-online-karya-inc-zxinc/",
+   "why": "Karya Inc. post linked from the impact page; not fetched (LinkedIn)."
+  },
+  {
+   "url": "https://www.ethicaldatapledge.com/",
+   "why": "Ethical Data Pledge linked from Karya's 2023 report; did not respond."
+  },
+  {
+   "url": "https://reports.karya.in/2025/",
+   "why": "Report lists grants and a CHI 2026 paper; may help a deep profile on funding."
+  }
+ ]
+}

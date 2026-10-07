@@ -1,0 +1,2395 @@
+{
+ "kind": "profile",
+ "slug": "dataseeds-ai",
+ "name": "DataSeeds.AI",
+ "aliases": [
+  "DataSeeds",
+  "Dataseeds"
+ ],
+ "segment": "crowd_capture",
+ "tier": "light",
+ "status": {
+  "value": "active",
+  "claim_id": "dataseeds-ai-c001"
+ },
+ "names_for": {
+  "catalogue_side": "Off-the-Shelf Collection (off-the-shelf datasets; 'Sample Datasets' storefront at data.dataseeds.ai; Premium Partner Catalog for partner assets)",
+  "custom_side": "Custom Production / DataSeeds Production Cloud (on-demand datasets for bespoke content requests)"
+ },
+ "matrix": {
+  "operator_role": {
+   "value": "reseller_licensor",
+   "claim_ids": [
+    "dataseeds-ai-c012",
+    "dataseeds-ai-c016",
+    "dataseeds-ai-c007",
+    "dataseeds-ai-c024"
+   ],
+   "note": "DataSeeds (Zedge/GuruShots) licenses content it has secured rights to; the storefront seller is 'GuruShots Storefront'. The buyer licence itself is not published, and how Premium Partner Catalog assets are contracted is not stated."
+  },
+  "economics_model": {
+   "value": "principal_margin",
+   "claim_ids": [
+    "dataseeds-ai-c012",
+    "dataseeds-ai-c025",
+    "dataseeds-ai-c007"
+   ],
+   "note": "DataSeeds sells content it holds rights to, and custom data it produces, at prices quoted on request. Terms for Premium Partner Catalog and production-partner content are not published."
+  },
+  "who_pays_fee": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": "Operator sells its own licensed inventory; whether any fee applies to partner-catalogue content, or what Datarade charges for the storefront, is not published."
+  },
+  "supply_models": {
+   "value": [
+    "contributor_uploads",
+    "partner_licensed"
+   ],
+   "claim_ids": [
+    "dataseeds-ai-c011",
+    "dataseeds-ai-c040",
+    "dataseeds-ai-c032",
+    "dataseeds-ai-c015",
+    "dataseeds-ai-c056",
+    "dataseeds-ai-c055"
+   ],
+   "note": "GuruShots competition submissions and Zedge creator communities (contributor_uploads, including custom collection to brief via challenges and mission apps); Premium Partner Catalog and production partners (partner_licensed). Whether data made for one client is resold is not published."
+  },
+  "custody_model": {
+   "value": "copy_to_buyer",
+   "claim_ids": [
+    "dataseeds-ai-c031"
+   ],
+   "note": "Storefront listings name S3 bucket, UI export and API delivery; no share-in-place option is shown. Delivery practice for custom orders is not documented. The free sample is hosted on Hugging Face."
+  },
+  "transaction_mode": {
+   "value": "contact_sales",
+   "claim_ids": [
+    "dataseeds-ai-c025",
+    "dataseeds-ai-c041",
+    "dataseeds-ai-c046"
+   ],
+   "note": "Every listing opened shows 'Pricing available upon request'; the contact form qualifies budget over USD 5k. Only the Apache-2.0 sample is a free download."
+  },
+  "public_prices": {
+   "value": "none",
+   "claim_ids": [
+    "dataseeds-ai-c025",
+    "dataseeds-ai-c026"
+   ],
+   "note": "No price on any storefront or off-the-shelf page opened; filings report a six-figure order and a 25x repeat order but no unit prices."
+  },
+  "licence_model": {
+   "value": "negotiated",
+   "claim_ids": [
+    "dataseeds-ai-c041",
+    "dataseeds-ai-c026",
+    "dataseeds-ai-c035",
+    "dataseeds-ai-c022",
+    "dataseeds-ai-c037"
+   ],
+   "note": "No standard buyer licence is published; licensing is arranged through sales, with one-off, monthly, yearly and usage-based forms named on listings. The free sample alone is Apache 2.0. Inferred from the absence of a published licence plus sales-led licensing."
+  },
+  "exclusivity_offered": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": ""
+  },
+  "public_listing": {
+   "value": "public_indexable",
+   "claim_ids": [
+    "dataseeds-ai-c023",
+    "dataseeds-ai-c047"
+   ],
+   "note": "Storefront and off-the-shelf dataset pages are visible without login and listed in the site's sitemap."
+  },
+  "buyer_vetting": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": "The contact form asks whether budget exceeds USD 5k (c_budget); no vetting policy is published."
+  },
+  "sample_mechanics": {
+   "value": "free_sample_download",
+   "claim_ids": [
+    "dataseeds-ai-c037",
+    "dataseeds-ai-c038",
+    "dataseeds-ai-c030",
+    "dataseeds-ai-c047"
+   ],
+   "note": "A 7,772-image sample (DSD) is a free Apache-2.0 download on Hugging Face; individual catalogue listings offer samples only on request."
+  },
+  "versioning": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": ""
+  },
+  "human_subject_consent_docs": {
+   "value": "asserted_only",
+   "claim_ids": [
+    "dataseeds-ai-c027",
+    "dataseeds-ai-c036",
+    "dataseeds-ai-c039"
+   ],
+   "note": "Listings assert explicit contributor consent and documented rights; no listing or page says releases are handed to the buyer."
+  },
+  "contributor_pay_model": {
+   "value": "unknown",
+   "claim_ids": [
+    "dataseeds-ai-c054",
+    "dataseeds-ai-c061",
+    "dataseeds-ai-c059"
+   ],
+   "note": "Zedge says mission apps integrate contributor payments, and GuruShots gives in-game Coins per challenge entry, but no source reached by WebFetch says how photographers are paid when their photos are licensed as data."
+  },
+  "catalogue_plus_custom": {
+   "value": "both",
+   "claim_ids": [
+    "dataseeds-ai-c014",
+    "dataseeds-ai-c063",
+    "dataseeds-ai-c050",
+    "dataseeds-ai-c018"
+   ],
+   "note": ""
+  },
+  "erasure_after_sale": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": ""
+  },
+  "quality_evidence": {
+   "value": "operator_verified",
+   "claim_ids": [
+    "dataseeds-ai-c058",
+    "dataseeds-ai-c019",
+    "dataseeds-ai-c043",
+    "dataseeds-ai-c062"
+   ],
+   "note": "Quality rests on GuruShots community peer-voting plus DataSeeds' own human review and annotation; benchmark results are DataSeeds' own."
+  }
+ },
+ "questions": {
+  "Q1": {
+   "state": "partial",
+   "answer": "Zedge names AI developers and enterprises (tech companies, stock sites, e-commerce) as buyers; the first six-figure order came from a repeat big-tech customer whose second order was ~25x the first. Revenue is lumpy with few deals; units and why buyers pick catalogue over custom are not published.",
+   "claim_ids": [
+    "dataseeds-ai-c013",
+    "dataseeds-ai-c004",
+    "dataseeds-ai-c049",
+    "dataseeds-ai-c051",
+    "dataseeds-ai-c052",
+    "dataseeds-ai-c005",
+    "dataseeds-ai-c006"
+   ]
+  },
+  "Q2": {
+   "state": "partial",
+   "answer": "DataSeeds runs its own site and also lists its catalogue through a white-label Datarade storefront (data.dataseeds.ai, 49 products); what the Datarade channel brings it is not stated.",
+   "claim_ids": [
+    "dataseeds-ai-c023",
+    "dataseeds-ai-c024"
+   ]
+  },
+  "Q3": {
+   "state": "partial",
+   "answer": "Inventory comes from GuruShots competition submissions and Zedge creator communities (company says rights secured for only part of the library), custom collection via challenges, mission apps and a Production Cloud network, plus a Premium Partner Catalog and production partners. Catalogue size is stated as 30M rights-cleared (10-K) vs 100M+/150M+ (marketing).",
+   "claim_ids": [
+    "dataseeds-ai-c011",
+    "dataseeds-ai-c012",
+    "dataseeds-ai-c008",
+    "dataseeds-ai-c009",
+    "dataseeds-ai-c010",
+    "dataseeds-ai-c044",
+    "dataseeds-ai-c055",
+    "dataseeds-ai-c056",
+    "dataseeds-ai-c015",
+    "dataseeds-ai-c059"
+   ]
+  },
+  "Q4": {
+   "state": "unknown",
+   "answer": "No published terms on resale of commissioned data. GuruShots changed its terms in January 2025 to add an AI-training licence, but that text was only reachable in a JS bundle (see unknowns).",
+   "claim_ids": []
+  },
+  "Q5": {
+   "state": "partial",
+   "answer": "DataSeeds/GuruShots licenses content it holds rights to (storefront seller: GuruShots Storefront) and claims provenance and rights ownership for produced assets; buyer licence, warranties and indemnities are not published.",
+   "claim_ids": [
+    "dataseeds-ai-c012",
+    "dataseeds-ai-c016",
+    "dataseeds-ai-c024"
+   ]
+  },
+  "Q6": {
+   "state": "partial",
+   "answer": "Listings offer S3 bucket, UI export and API delivery to the buyer; the free sample sits on Hugging Face. Custom-order delivery is not documented.",
+   "claim_ids": [
+    "dataseeds-ai-c031",
+    "dataseeds-ai-c037"
+   ]
+  },
+  "Q7": {
+   "state": "partial",
+   "answer": "DataSeeds asserts creator opt-in, explicit consent for face video, and documented rights; Zedge says mission apps embed documentation and consent, and warns contributors may decline licensing. No release documents are shown to buyers.",
+   "claim_ids": [
+    "dataseeds-ai-c039",
+    "dataseeds-ai-c027",
+    "dataseeds-ai-c036",
+    "dataseeds-ai-c054",
+    "dataseeds-ai-c053"
+   ]
+  },
+  "Q8": {
+   "state": "partial",
+   "answer": "Only the sample has a published licence (Apache 2.0); paid data is sold under unpublished 'commercial-grade' terms with one-off, monthly, yearly or usage-based forms. Nothing on exclusivity, audit or fingerprinting was found.",
+   "claim_ids": [
+    "dataseeds-ai-c037",
+    "dataseeds-ai-c022",
+    "dataseeds-ai-c026",
+    "dataseeds-ai-c035",
+    "dataseeds-ai-c028"
+   ]
+  },
+  "Q9": {
+   "state": "sourced",
+   "answer": "Contact-sales only: listings say 'Pricing available upon request', the contact form qualifies budget over USD 5k, and the dataset card routes licensing to sales email; the operator sells its own rights-held inventory.",
+   "claim_ids": [
+    "dataseeds-ai-c025",
+    "dataseeds-ai-c046",
+    "dataseeds-ai-c041",
+    "dataseeds-ai-c012"
+   ]
+  },
+  "Q10": {
+   "state": "partial",
+   "answer": "A listing is a Datarade product page (volume, delivery methods, pricing models, sample request) or a dataset page on dataseeds.ai; orders, entitlements and versioning are not documented.",
+   "claim_ids": [
+    "dataseeds-ai-c023",
+    "dataseeds-ai-c047",
+    "dataseeds-ai-c026",
+    "dataseeds-ai-c031"
+   ]
+  },
+  "Q11": {
+   "state": "sourced",
+   "answer": "Before purchase: a free 7,772-image Apache-2.0 sample, samples on request per listing, per-image popularity scores from GuruShots competitions, blind peer voting, expert review, and a DataSeeds-authored arXiv benchmark claiming gains over commercial tagging APIs such as AWS Rekognition (vendor's own evidence).",
+   "claim_ids": [
+    "dataseeds-ai-c038",
+    "dataseeds-ai-c037",
+    "dataseeds-ai-c030",
+    "dataseeds-ai-c033",
+    "dataseeds-ai-c060",
+    "dataseeds-ai-c043",
+    "dataseeds-ai-c020",
+    "dataseeds-ai-c021",
+    "dataseeds-ai-c042",
+    "dataseeds-ai-c058"
+   ]
+  },
+  "Q12": {
+   "state": "sourced",
+   "answer": "DataSeeds says its focus is custom production (DataSeeds Production Cloud, on-demand challenges, 72-hour custom sourcing) and it keeps an Off-the-Shelf Collection plus a Premium Partner Catalog; the same GuruShots/Zedge contributor base feeds both.",
+   "claim_ids": [
+    "dataseeds-ai-c014",
+    "dataseeds-ai-c063",
+    "dataseeds-ai-c050",
+    "dataseeds-ai-c018",
+    "dataseeds-ai-c034",
+    "dataseeds-ai-c015",
+    "dataseeds-ai-c045"
+   ]
+  }
+ },
+ "claims": [
+  {
+   "id": "dataseeds-ai-c001",
+   "statement": "Zedge completed a private placement in September 2026 and said the proceeds would accelerate the growth of DataSeeds.AI, which it was still operating.",
+   "kind": "status",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-09-30",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1667313/000121390026104861/ea030698401ex99-1.htm",
+     "publisher": "Zedge, Inc.",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "accelerate the growth of DataSeeds.AI and broaden its capabilities"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c002",
+   "statement": "On 31 August 2026 Zedge announced a USD 7.5 million insider investment to accelerate its DataSeeds.AI strategy and a new Zedge CEO, Morris Berger.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-08-31",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1667313/000121390026095319/ea030397901ex99-1.htm",
+     "publisher": "Zedge, Inc.",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Zedge Accelerates DataSeeds.AI Strategy with $7.5 Million Insider Investment and Appointment of Morris Berger as CEO"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c003",
+   "statement": "Zedge's 30 September 2026 release said its goal is to build DataSeeds into a core business by expanding its team.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-09-30",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1667313/000121390026104861/ea030698401ex99-1.htm",
+     "publisher": "Zedge, Inc.",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Zedge's goal is to build DataSeeds into a core business by expanding its team,"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c004",
+   "statement": "Zedge says DataSeeds fulfilled its first six-figure order in fiscal 2026, for an existing customer described as a leading global technology company.",
+   "kind": "outcome",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-08-31",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1667313/000121390026095319/ea030397901ex99-1.htm",
+     "publisher": "Zedge, Inc.",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "In fiscal 2026, DataSeeds fulfilled its first six-figure order for an existing customer, a leading global technology"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1667313/000121390026067834/ea029448101ex99-1.htm",
+     "publisher": "Zedge, Inc.",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "DataSeeds.AI fulfilled first six-figure order, demonstrating enterprise-scale execution capability"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c005",
+   "statement": "Zedge describes DataSeeds revenue as lumpy at this stage (third quarter of fiscal 2026, ended 30 April 2026).",
+   "kind": "outcome",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-06-11",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1667313/000121390026067834/ea029448101ex99-1.htm",
+     "publisher": "Zedge, Inc.",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "While revenue remains lumpy at this stage"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c006",
+   "statement": "Zedge says DataSeeds was beginning to see interest from new prospects in the third quarter of fiscal 2026.",
+   "kind": "outcome",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-06-11",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1667313/000121390026067834/ea029448101ex99-1.htm",
+     "publisher": "Zedge, Inc.",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "we are beginning to see interest from new prospects, which strengthens our confidence in this offering"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c007",
+   "statement": "Zedge describes DataSeeds.AI as its B2B business delivering managed, multimodal datasets that are ethically sourced and rights-cleared.",
+   "kind": "offer",
+   "section": "positioning",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-06-11",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1667313/000121390026067834/ea029448101ex99-1.htm",
+     "publisher": "Zedge, Inc.",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "DataSeeds.AI is our B2B business, delivering managed, multimodal datasets that are ethically sourced, rights-cleared"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c008",
+   "statement": "Zedge's fiscal 2025 10-K describes DataSeeds.AI as a business-to-business marketplace with a catalogue of over 30 million fully rights-cleared images.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 30000000,
+    "unit": "images",
+    "basis": "rights-cleared images in the DataSeeds catalogue per the FY2025 10-K",
+    "period": "point in time"
+   },
+   "origin": "filing",
+   "as_of": "2025-10-28",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1667313/000121390025103098/ea0262035-10k_zedge.htm",
+     "publisher": "Zedge, Inc.",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "catalog of over 30 million high-quality, fully rights-cleared images"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c009",
+   "statement": "DataSeeds.AI's website says its catalogue holds 150M+ photographs, human-ranked via a proprietary voting system.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 150000000,
+    "unit": "photographs",
+    "basis": "catalogue size as stated on the vendor homepage; rights status not stated",
+    "period": "point in time"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.dataseeds.ai/",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "A catalog of 150M+ high-quality photographs, human-ranked via a proprietary voting system"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c010",
+   "statement": "At launch in June 2025 Zedge said the GuruShots catalogue behind DataSeeds.AI held over 100 million images.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 100000000,
+    "unit": "images",
+    "basis": "GuruShots historical catalogue size stated by Zedge at launch",
+    "period": "point in time"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2025-06-11",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://blog.zedge.net/zedge-announces-dataseeds-ai/",
+     "publisher": "Zedge, Inc.",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "over 100 million images"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c011",
+   "statement": "Zedge's 10-K says it has begun to use the library of photographs GuruShots players submitted to GuruShots competitions as a dataset for DataSeeds.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2025-10-28",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1667313/000121390025103098/ea0262035-10k_zedge.htm",
+     "publisher": "Zedge, Inc.",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "the extensive library of photographs generated by GuruShots players through submissions to GuruShots' competitions as a dataset"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c012",
+   "statement": "Zedge's 10-K says it has secured rights to license only a portion of the GuruShots library, including for AI training, and is securing rights to more.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q3",
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2025-10-28",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1667313/000121390025103098/ea0262035-10k_zedge.htm",
+     "publisher": "Zedge, Inc.",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "we have secured rights to license a portion of this library for various applications, including AI training"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c013",
+   "statement": "Zedge's 10-K names technology companies, stock photo sites and ecommerce vendors as target DataSeeds customers.",
+   "kind": "offer",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2025-10-28",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1667313/000121390025103098/ea0262035-10k_zedge.htm",
+     "publisher": "Zedge, Inc.",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "technology companies, stock photo sites, ecommerce vendors"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c014",
+   "statement": "DataSeeds.AI says its focus is custom production and that it also maintains an Off-the-Shelf Collection.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.dataseeds.ai/",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "While our focus is custom production, we maintain an Off-the-Shelf Collection"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c015",
+   "statement": "DataSeeds.AI invites buyers seeking premium pre-existing assets or collaborative datasets to ask about a Premium Partner Catalog.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.dataseeds.ai/",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "please ask us about our Premium Partner Catalog"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c016",
+   "statement": "DataSeeds.AI says every asset produced through its production cloud comes with full provenance tracking and complete rights ownership.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q5",
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.dataseeds.ai/",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Every asset produced through our cloud comes with full provenance tracking and complete rights ownership"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c017",
+   "statement": "DataSeeds.AI says it draws on Zedge's community of 25 million monthly users and a network of vetted specialists.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 25000000,
+    "unit": "monthly users",
+    "basis": "Zedge app community size as stated by DataSeeds; not a count of data contributors",
+    "period": "per month"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.dataseeds.ai/",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "We leverage Zedge's community of 25 million monthly users and a worldwide network of vetted specialists"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c018",
+   "statement": "Zedge said at launch that for on-demand requests DataSeeds.AI launches curated challenges to its contributor network and delivers targeted datasets.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q3",
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2025-06-11",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://blog.zedge.net/zedge-announces-dataseeds-ai/",
+     "publisher": "Zedge, Inc.",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "launch curated challenges to its global network of contributors and deliver targeted datasets"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c019",
+   "statement": "Zedge says DataSeeds.AI data combines photographic peer-ranking with structured human-in-the-loop annotation.",
+   "kind": "offer",
+   "section": "trust",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2025-06-11",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://blog.zedge.net/zedge-announces-dataseeds-ai/",
+     "publisher": "Zedge, Inc.",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "photographic peer-ranking, structured human-in-the-loop annotation"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c020",
+   "statement": "DataSeeds says models fine-tuned on its sample dataset capture details often ignored by commercial APIs like AWS Rekognition (vendor's own benchmark).",
+   "kind": "outcome",
+   "section": "trust",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.dataseeds.ai/research",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "details often ignored by off-the-shelf commercial APIs like AWS Rekognition"
+    },
+    {
+     "url": "https://blog.zedge.net/zedge-announces-dataseeds-ai/",
+     "publisher": "Zedge, Inc.",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "details often ignored by off-the-shelf commercial APIs like AWS Rekognition"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c021",
+   "statement": "DataSeeds says models trained on its sample dataset outperform commonly used datasets and traditional tagging APIs in precision tasks.",
+   "kind": "outcome",
+   "section": "trust",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.dataseeds.ai/research",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "outperforms commonly used datasets and traditional tagging APIs in precision tasks"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c022",
+   "statement": "Zedge said at launch that DataSeeds.AI datasets come with commercial-grade licensing terms, without publishing those terms.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2025-06-11",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://blog.zedge.net/zedge-announces-dataseeds-ai/",
+     "publisher": "Zedge, Inc.",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "with commercial-grade licensing terms"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c023",
+   "statement": "DataSeeds.AI's public data-products storefront at data.dataseeds.ai is powered by Datarade and listed 49 data products when retrieved.",
+   "kind": "architecture",
+   "section": "listing",
+   "question_ids": [
+    "Q2",
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://data.dataseeds.ai/",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Powered by Datarade"
+    },
+    {
+     "url": "https://data.dataseeds.ai/",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Showing 1-10 of 49 results"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c024",
+   "statement": "On the Datarade-powered storefront the seller of the DataSeeds listings is named GuruShots Storefront.",
+   "kind": "architecture",
+   "section": "listing",
+   "question_ids": [
+    "Q5",
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://data.dataseeds.ai/products/1-5m-flower-images-ai-training-data-annotated-imagery-da-data-seeds",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "GuruShots Storefront"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c025",
+   "statement": "DataSeeds storefront listings (for example the face ID video and flower image datasets) show no price, only 'Pricing available upon request'.",
+   "kind": "terms",
+   "section": "pricing",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://data.dataseeds.ai/products/2k-hours-of-face-id-video-data-ai-training-data-annotate-data-seeds",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Pricing available upon request"
+    },
+    {
+     "url": "https://data.dataseeds.ai/products/1-5m-flower-images-ai-training-data-annotated-imagery-da-data-seeds",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Pricing available upon request"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c026",
+   "statement": "The DataSeeds flower-image listing offers one-off purchase, monthly licence, yearly licence and usage-based pricing models, without prices.",
+   "kind": "terms",
+   "section": "pricing",
+   "question_ids": [
+    "Q8",
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://data.dataseeds.ai/products/1-5m-flower-images-ai-training-data-annotated-imagery-da-data-seeds",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Yearly License"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c027",
+   "statement": "The DataSeeds face ID video listing states explicit contributor consent for face ID video usage and documented rights, without offering the documents.",
+   "kind": "terms",
+   "section": "vetting",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://data.dataseeds.ai/products/2k-hours-of-face-id-video-data-ai-training-data-annotate-data-seeds",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Explicit contributor consent for face ID video usage"
+    },
+    {
+     "url": "https://data.dataseeds.ai/products/2k-hours-of-face-id-video-data-ai-training-data-annotate-data-seeds",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Documented rights and usage permissions"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c028",
+   "statement": "The DataSeeds face ID video listing says the data is vetted for commercial and research use.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://data.dataseeds.ai/products/2k-hours-of-face-id-video-data-ai-training-data-annotate-data-seeds",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Vetted for commercial and research use"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c029",
+   "statement": "DataSeeds says its face ID videos are collected through controlled contribution pipelines.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://data.dataseeds.ai/products/2k-hours-of-face-id-video-data-ai-training-data-annotate-data-seeds",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Videos are collected through controlled contribution pipelines"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c030",
+   "statement": "DataSeeds storefront listings offer a 'Request Sample Access' button rather than a downloadable sample.",
+   "kind": "offer",
+   "section": "trust",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://data.dataseeds.ai/products/2k-hours-of-face-id-video-data-ai-training-data-annotate-data-seeds",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Request Sample Access"
+    },
+    {
+     "url": "https://data.dataseeds.ai/products/1-5m-flower-images-ai-training-data-annotated-imagery-da-data-seeds",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Request Sample Access"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c031",
+   "statement": "DataSeeds storefront listings name S3 bucket, UI export and API delivery as delivery methods for the data.",
+   "kind": "offer",
+   "section": "custody",
+   "question_ids": [
+    "Q6"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://data.dataseeds.ai/products/2k-hours-of-face-id-video-data-ai-training-data-annotate-data-seeds",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "S3 Bucket"
+    },
+    {
+     "url": "https://data.dataseeds.ai/products/1-5m-flower-images-ai-training-data-annotated-imagery-da-data-seeds",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "UI Export"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c032",
+   "statement": "DataSeeds says the images in its flower dataset were collected through a proprietary gamified platform for photographers.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://data.dataseeds.ai/products/1-5m-flower-images-ai-training-data-annotated-imagery-da-data-seeds",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "the images are collected through a proprietary gamified platform for photographers"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c033",
+   "statement": "Each image in the DataSeeds flower dataset carries a popularity score based on its performance in GuruShots competitions.",
+   "kind": "offer",
+   "section": "trust",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://data.dataseeds.ai/products/1-5m-flower-images-ai-training-data-annotated-imagery-da-data-seeds",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Each image is assigned a popularity score based on its performance in GuruShots competitions."
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c034",
+   "statement": "The DataSeeds flower-image listing says custom datasets can be sourced on demand within 72 hours.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://data.dataseeds.ai/products/1-5m-flower-images-ai-training-data-annotated-imagery-da-data-seeds",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Custom datasets can be sourced on-demand within 72 hours"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c035",
+   "statement": "The DataSeeds flower-image listing claims transparent licensing for both commercial and academic use, without linking a licence.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://data.dataseeds.ai/products/1-5m-flower-images-ai-training-data-annotated-imagery-da-data-seeds",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "offers transparent licensing for both commercial and academic use"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c036",
+   "statement": "The DataSeeds annotated-image listing says all images are sourced through authorized channels with documented usage rights.",
+   "kind": "terms",
+   "section": "vetting",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://data.dataseeds.ai/products/annotated-image-data-for-ai-training-dataseeds-ai-dataseeds-ai",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "All images are sourced through authorized channels. Usage rights and permissions are documented."
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c037",
+   "statement": "DataSeeds publishes a free sample dataset (DSD) on Hugging Face under the Apache 2.0 licence.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8",
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/datasets/Dataseeds/DataSeeds.AI-Sample-Dataset-DSD/raw/main/README.md",
+     "publisher": "DataSeeds.AI",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "license: apache-2.0"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c038",
+   "statement": "The DataSeeds sample dataset on Hugging Face contains 7,772 peer-ranked, fully annotated photographic images.",
+   "kind": "number",
+   "section": "trust",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 7772,
+    "unit": "images",
+    "basis": "free public sample dataset size on Hugging Face",
+    "period": "point in time"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/datasets/Dataseeds/DataSeeds.AI-Sample-Dataset-DSD/raw/main/README.md",
+     "publisher": "DataSeeds.AI",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "7,772 peer-ranked, fully annotated photographic images"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c039",
+   "statement": "DataSeeds' dataset card says its data is backed by structured consent frameworks and traceable rights, with active opt-in from creators.",
+   "kind": "terms",
+   "section": "vetting",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/datasets/Dataseeds/DataSeeds.AI-Sample-Dataset-DSD/raw/main/README.md",
+     "publisher": "DataSeeds.AI",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Backed by structured consent frameworks and traceable rights, with active opt-in from creators"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c040",
+   "statement": "The DataSeeds sample dataset was contributed by the GuruShots photography platform.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/datasets/Dataseeds/DataSeeds.AI-Sample-Dataset-DSD/raw/main/README.md",
+     "publisher": "DataSeeds.AI",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Generously contributed to the community by the GuruShots photography platform"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c041",
+   "statement": "The DataSeeds dataset card directs buyers wanting licensing or customised dataset sourcing to contact sales by email.",
+   "kind": "offer",
+   "section": "transaction",
+   "question_ids": [
+    "Q9",
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/datasets/Dataseeds/DataSeeds.AI-Sample-Dataset-DSD/raw/main/README.md",
+     "publisher": "DataSeeds.AI",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "To inquire about licensing or customized dataset sourcing, contact:"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c042",
+   "statement": "A June 2025 arXiv paper by DataSeeds-affiliated authors describes the sample dataset as a small fraction of a 100 million-plus image catalogue.",
+   "kind": "offer",
+   "section": "trust",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2025-06-11",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://arxiv.org/abs/2506.05673",
+     "publisher": "arXiv",
+     "source_class": "academic",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Representing a small fraction of DataSeeds.AI's 100 million-plus image catalog"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c043",
+   "statement": "DataSeeds says each sample-dataset image was ranked by GuruShots players and then annotated by expert reviewers.",
+   "kind": "offer",
+   "section": "trust",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2025-06-11",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.dataseeds.ai/post/zedge-s-dataseeds-ai-releases-foundational-dataset-for-computer-vision-and-generative-ai-in-collabor",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Each image was ranked by players of the game, and subsequently, each image was annotated by expert reviewers"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c044",
+   "statement": "In June 2025 DataSeeds described GuruShots' catalogue as 30M+ rights-cleared images.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 30000000,
+    "unit": "images",
+    "basis": "rights-cleared GuruShots images as stated by DataSeeds, June 2025",
+    "period": "point in time"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2025-06-11",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.dataseeds.ai/post/zedge-s-dataseeds-ai-releases-foundational-dataset-for-computer-vision-and-generative-ai-in-collabor",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "30M+ and growing, rights-cleared images enriched with EXIF metadata, tags and geolocation diversity"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c045",
+   "statement": "DataSeeds says it collected 2,027 high-resolution shopping-bag photos within 48 hours for a prospective client (vendor case study).",
+   "kind": "outcome",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q1",
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2025-05-27",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://www.dataseeds.ai/post/solving-data-centric-ai-s-data-bottleneck-with-on-demand-data-a-data-seeds-case-study",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "We collected 2,027 high-resolution photos within 48 hours"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c046",
+   "statement": "DataSeeds' contact form asks prospective buyers whether their budget is over USD 5,000.",
+   "kind": "number",
+   "section": "transaction",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 5000,
+    "unit": "USD",
+    "basis": "buyer budget threshold asked in the contact form; not a price",
+    "period": "per project"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.dataseeds.ai/contact",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Is your budget over $5k?"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c047",
+   "statement": "DataSeeds' off-the-shelf Global Faces Dataset page lists 100,000+ images and videos and offers 'Get a sample' with no price or licence shown.",
+   "kind": "offer",
+   "section": "listing",
+   "question_ids": [
+    "Q10",
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.dataseeds.ai/off-the-shelf-datasets-1/global-faces-dataset",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "A large-scale faces dataset containing 100,000+ images and videos"
+    },
+    {
+     "url": "https://www.dataseeds.ai/off-the-shelf-datasets-1/global-faces-dataset",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Get a sample"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c048",
+   "statement": "DataSeeds' off-the-shelf Text-Rich Image Dataset page offers a sample on request via a 'Get a sample' button.",
+   "kind": "offer",
+   "section": "trust",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.dataseeds.ai/off-the-shelf-datasets-1/text-rich-image-dataset",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Get a sample"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c049",
+   "statement": "Zedge said DataSeeds' second order from an existing AI customer in Q1 fiscal 2026 was roughly 25 times the dollar size of the first.",
+   "kind": "number",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 25,
+    "unit": "multiple of first order value",
+    "basis": "second order vs first order from the same customer, company-reported; absolute value not stated",
+    "period": "one-off"
+   },
+   "origin": "filing",
+   "as_of": "2025-12-12",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1667313/000121390025120916/ea026930001ex99-1_zedge.htm",
+     "publisher": "Zedge, Inc.",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "an increased dollar size of roughly 25X from the customer's first order"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c050",
+   "statement": "Zedge calls the DataSeeds Production Cloud its network of creative experts built to fulfil bespoke content requests.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2025-12-12",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1667313/000121390025120916/ea026930001ex99-1_zedge.htm",
+     "publisher": "Zedge, Inc.",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "DataSeeds Production Cloud, our network of creative experts built to fulfill bespoke content requests"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c051",
+   "statement": "Zedge said in March 2026 that DataSeeds had repeat customers placing larger orders.",
+   "kind": "outcome",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-03-12",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1667313/000121390026026946/ea028138401ex99-1.htm",
+     "publisher": "Zedge, Inc.",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "repeat customers placing larger orders"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c052",
+   "statement": "Zedge said in March 2026 that DataSeeds revenue was early-stage and lumpy given the limited number of deals.",
+   "kind": "outcome",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-03-12",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1667313/000121390026026946/ea028138401ex99-1.htm",
+     "publisher": "Zedge, Inc.",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "revenue remains early-stage and lumpy given the limited number of deals"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c053",
+   "statement": "Zedge's 10-K warns that contributors may choose not to provide their content for licensing, which could limit the licensing business.",
+   "kind": "terms",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q7",
+    "Q4"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2025-10-28",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1667313/000121390025103098/ea0262035-10k_zedge.htm",
+     "publisher": "Zedge, Inc.",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Contributors may choose not to provide their content for licensing purposes"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c054",
+   "statement": "Zedge says DataSeeds' mission-focused apps build onboarding, documentation and consent, and contributor payments into the collection workflow.",
+   "kind": "architecture",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q7",
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-08-31",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1667313/000121390026095319/ea030397901ex99-1.htm",
+     "publisher": "Zedge, Inc.",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "onboarding, documentation and consent, contributor engagement and payments into the workflow."
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c055",
+   "statement": "Zedge says DataSeeds sources content through Zedge's creator communities, mission-focused apps and sites built per customer brief, and its Production Cloud.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-08-31",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1667313/000121390026095319/ea030397901ex99-1.htm",
+     "publisher": "Zedge, Inc.",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "mission-focused mobile applications and websites built around individual customer briefs"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c056",
+   "statement": "Zedge says DataSeeds also draws on broader crowdsourcing and a network of production partners to deliver data built to customer specifications.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-09-30",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1667313/000121390026104861/ea030698401ex99-1.htm",
+     "publisher": "Zedge, Inc.",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "GuruShots photography community, as well as broader crowdsourcing and a network of"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c057",
+   "statement": "Zedge said in August 2026 that DataSeeds had signed its first deal for model evaluations.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-08-31",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1667313/000121390026095319/ea030397901ex99-1.htm",
+     "publisher": "Zedge, Inc.",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "DataSeeds recently signed its first deal for model evaluations"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c058",
+   "statement": "DataSeeds says every asset in a custom production run is vetted by its network of human reviewers against the buyer's specifications.",
+   "kind": "offer",
+   "section": "trust",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.dataseeds.ai/",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Every asset in a custom production run is vetted by our network of human reviewers"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c059",
+   "statement": "GuruShots' help centre says photographers keep full ownership and copyright of the photos they submit.",
+   "kind": "terms",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3",
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2022-07-19",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://support.gurushots.com/support/solutions/articles/5000640104-are-my-photos-protected-do-i-maintain-ownership-",
+     "publisher": "GuruShots",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "You maintain full ownership and copyright of all photos you submit."
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c060",
+   "statement": "GuruShots' help centre says challenge voting is blind, so voters do not know whose photo they are voting for.",
+   "kind": "architecture",
+   "section": "trust",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://support.gurushots.com/support/solutions/articles/5000640118-how-does-the-voting-system-work-",
+     "publisher": "GuruShots",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "The voting system is 'blind' so you don't know who you are voting for"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c061",
+   "statement": "GuruShots rewards every non-Flash challenge entry with 10 in-game Coins, a game prize rather than a data-licensing payment.",
+   "kind": "number",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 10,
+    "unit": "GuruShots Coins (virtual currency)",
+    "basis": "paid by GuruShots to the photographer per challenge entry; not tied to dataset sales",
+    "period": "per challenge entry"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2024-10-14",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://support.gurushots.com/support/solutions/articles/13000106424-what-types-of-prizes-are-there-",
+     "publisher": "GuruShots",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Every participation in a challenge (except Flash) rewards 10 Coins."
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c062",
+   "statement": "DataSeeds calls the GuruShots Quality Engine a source of data peer-ranked by a proprietary voting system.",
+   "kind": "offer",
+   "section": "trust",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.dataseeds.ai/",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "The GuruShots Quality Engine, where data is peer-ranked via a proprietary voting system"
+    }
+   ]
+  },
+  {
+   "id": "dataseeds-ai-c063",
+   "statement": "DataSeeds.AI's About page says it offers both on-demand and off-the-shelf image, video and audio datasets.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://www.dataseeds.ai/about",
+     "publisher": "DataSeeds.AI",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "both on-demand and off-the-shelf image, video and audio datasets"
+    }
+   ]
+  }
+ ],
+ "unknowns": [
+  {
+   "field": "matrix.who_pays_fee",
+   "urls_tried": [
+    "https://data.dataseeds.ai/",
+    "https://data.dataseeds.ai/products/1-5m-flower-images-ai-training-data-annotated-imagery-da-data-seeds",
+    "https://www.dataseeds.ai/contact",
+    "https://www.dataseeds.ai/"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "matrix.exclusivity_offered",
+   "urls_tried": [
+    "https://www.dataseeds.ai/",
+    "https://data.dataseeds.ai/products/2k-hours-of-face-id-video-data-ai-training-data-annotate-data-seeds",
+    "https://data.dataseeds.ai/products/1-5m-flower-images-ai-training-data-annotated-imagery-da-data-seeds",
+    "https://data.dataseeds.ai/products/annotated-image-data-for-ai-training-dataseeds-ai-dataseeds-ai",
+    "https://www.dataseeds.ai/off-the-shelf-datasets-1/global-faces-dataset",
+    "https://huggingface.co/datasets/Dataseeds/DataSeeds.AI-Sample-Dataset-DSD/raw/main/README.md",
+    "https://www.sec.gov/Archives/edgar/data/1667313/000121390025103098/ea0262035-10k_zedge.htm"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "matrix.buyer_vetting",
+   "urls_tried": [
+    "https://www.dataseeds.ai/contact",
+    "https://data.dataseeds.ai/",
+    "https://data.dataseeds.ai/products/2k-hours-of-face-id-video-data-ai-training-data-annotate-data-seeds"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "matrix.versioning",
+   "urls_tried": [
+    "https://data.dataseeds.ai/",
+    "https://data.dataseeds.ai/products/1-5m-flower-images-ai-training-data-annotated-imagery-da-data-seeds",
+    "https://huggingface.co/datasets/Dataseeds/DataSeeds.AI-Sample-Dataset-DSD/raw/main/README.md",
+    "https://www.dataseeds.ai/off-the-shelf-datasets-1/global-faces-dataset"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "matrix.contributor_pay_model",
+   "urls_tried": [
+    "https://gurushots.com/terms",
+    "https://support.gurushots.com/support/solutions/articles/13000106424-what-types-of-prizes-are-there-",
+    "https://support.gurushots.com/support/solutions/articles/5000640104-are-my-photos-protected-do-i-maintain-ownership-",
+    "https://www.sec.gov/Archives/edgar/data/1667313/000121390025103098/ea0262035-10k_zedge.htm",
+    "https://www.sec.gov/Archives/edgar/data/1667313/000121390026095319/ea030397901ex99-1.htm"
+   ],
+   "reason": "js_empty"
+  },
+  {
+   "field": "matrix.erasure_after_sale",
+   "urls_tried": [
+    "https://www.dataseeds.ai/",
+    "https://gurushots.com/terms",
+    "https://gurushots.com/privacy",
+    "https://huggingface.co/datasets/Dataseeds/DataSeeds.AI-Sample-Dataset-DSD/raw/main/README.md"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "questions.Q4",
+   "urls_tried": [
+    "https://gurushots.com/terms",
+    "https://www.dataseeds.ai/",
+    "https://www.sec.gov/Archives/edgar/data/1667313/000121390025103098/ea0262035-10k_zedge.htm"
+   ],
+   "reason": "js_empty"
+  },
+  {
+   "field": "other.buyer_licence_text",
+   "urls_tried": [
+    "https://www.dataseeds.ai/",
+    "https://www.dataseeds.ai/contact",
+    "https://data.dataseeds.ai/products/1-5m-flower-images-ai-training-data-annotated-imagery-da-data-seeds",
+    "https://data.dataseeds.ai/products/2k-hours-of-face-id-video-data-ai-training-data-annotate-data-seeds",
+    "https://data.dataseeds.ai/products/annotated-image-data-for-ai-training-dataseeds-ai-dataseeds-ai",
+    "https://www.dataseeds.ai#consent"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "other.gurushots_terms_ai_licence",
+   "urls_tried": [
+    "https://gurushots.com/terms"
+   ],
+   "reason": "js_empty"
+  },
+  {
+   "field": "other.independent_press",
+   "urls_tried": [
+    "https://blog.zedge.net/"
+   ],
+   "reason": "not_found"
+  }
+ ],
+ "conflicts": [
+  {
+   "claim_ids": [
+    "dataseeds-ai-c008",
+    "dataseeds-ai-c044",
+    "dataseeds-ai-c010",
+    "dataseeds-ai-c009",
+    "dataseeds-ai-c042"
+   ],
+   "rule_applied": "unresolved",
+   "resolution": "The 10-K and the June 2025 DataSeeds post give 30M+ rights-cleared images; Zedge's launch blog and the arXiv paper give 100M+ and the live homepage 150M+ without saying they are rights-cleared. Likely total GuruShots library vs licensable subset, but no source reconciles them."
+  }
+ ],
+ "leads": [
+  {
+   "url": "https://gurushots.com/terms",
+   "why": "Angular page, empty to WebFetch. A shell fetch of the site's JS bundle showed Terms 'Effective Date: January 01, 2025' with a clause 'Licensing, Use, and Processing of Submissions in Connection with Artificial Intelligence Training; Opt-Out Right': a fully paid-up, royalty-free, irrevocable, sub-licensable licence to use Submissions for AI training and make them available to third parties; a 30-day opt-out; existing users brought in via an 'I ACCEPT' pop-up offering an in-app reward; and warranties that photographers hold written releases of identifiable people. Not cited because no allowed fetch method returns the text; a verifier with a JS-rendering fetch should capture it (Q4, Q5, Q7, contributor_pay_model)."
+  },
+  {
+   "url": "https://support.gurushots.com/support/solutions",
+   "why": "GuruShots Freshdesk help centre; no AI-licensing article found in the FAQ list, but folders not fully browsed."
+  },
+  {
+   "url": "https://www.dataseeds.ai/dynamic-off-the-shelf-datasets-1_p_fa8fc6c8_58f8_4f33_8dce_b16987c33ea6_0_5000-sitemap.xml",
+   "why": "Sitemap listing 14 off-the-shelf dataset pages (faces, selfies, driving DMS, fashion try-on, etc.); only two opened."
+  },
+  {
+   "url": "https://www.sec.gov/Archives/edgar/data/1667313/000121390026068278/ea0293880-10q_zedge.htm",
+   "why": "Q3 FY2026 10-Q; WebFetch reported no DataSeeds revenue breakout. Worth a full read for risk factors on AI licensing."
+  },
+  {
+   "url": "https://www.dataseeds.ai/post/the-role-of-large-scale-image-data-in-training-multimodal-ai-models",
+   "why": "Vendor blog post not opened."
+  }
+ ]
+}

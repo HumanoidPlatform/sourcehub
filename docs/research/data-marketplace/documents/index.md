@@ -1,0 +1,2140 @@
+# Primary documents
+
+Rendered from the ledger; do not edit.
+
+## Adobe Stock Contributor Agreement — Additional Terms to Adobe General Terms of Use — Adobe
+
+`doc-adobe-stock-contributor` · contributor_agreement · Effective as of February 16, 2024. Replaces all prior versions. · <https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Adobe_Stock_Contributor_Agreement_Addl_Terms_en_US_20240216.pdf> · retrieved 2026-10-01
+
+Licensor: The contributor (or the copyright owner on whose behalf the contributor submits) grants the licence to Adobe. · licensee: Adobe Inc. for contributors resident in the US; Adobe Canada Services Corporation for contributors resident elsewhere (including India). Adobe sublicenses to users (buyers) under its own User Agreements. · operator's role: reseller_licensor
+
+- **permitted_use** — Contributor licenses Adobe to use, reproduce, display, perform, distribute, index, translate and modify the Work to run the site, license it to users, develop new features and services, archive and protect it, and (for discretionary pay) to market Adobe; users/partners may share on social media and via an API partner programme.
+  - “You grant us a non-exclusive, worldwide, perpetual, fully-paid, and royalty-free license to use, reproduce” · quote check: exact
+  - “licensing the Work to users; developing new features and services; archiving the Work; and protecting the Work” · quote check: exact
+  - “we may compensate you at our discretion as described in section 5 (Payment) below” · quote check: exact
+  - “post or share the Work onto social media sites or other third-party websites, subject to any restrictions” · quote check: exact
+  - “program that allows our partners to showcase and to facilitate sales of the Work” · quote check: exact
+- **ai_training_rights** — Not addressed expressly: no mention of AI, machine learning, training, fine-tuning, evaluation, dataset redistribution or model outputs; the only possible hook is Adobe's own perpetual, royalty-free licence for 'developing new features and services', with no AI-specific payment; what users may do with Works for AI is left to Adobe's User Agreements, not in this document.
+  - “for the purposes of operating the Website; presenting, distributing, marketing, promoting, and licensing the Work to users” · quote check: exact
+  - “licensing the Work to users; developing new features and services; archiving the Work; and protecting the Work” · quote check: exact
+  - “You grant us a non-exclusive, worldwide, perpetual, fully-paid, and royalty-free license to use, reproduce” · quote check: exact
+  - “We may sublicense Works pursuant to a written or electronic agreement between us and a user” · quote check: exact
+- **field_of_use** — Any media or embodiment and any subject matter, except pornographic or illegal uses (contributor waives objection); Adobe may treat Work as editorial-use-only, which can be accepted without releases.
+  - “on a non-exclusive, worldwide, and perpetual basis in any media or embodiment” · quote check: exact
+  - “Work may be modified and used in connection with any subject matter (except pornographic or illegal)” · quote check: exact
+  - “we may accept it without a model or property release, at our sole discretion” · quote check: exact
+  - “You agree that we may apply the designation of a Work as “editorial use only” where deemed appropriate by us.” · quote check: exact
+- **territory** — Worldwide, both for Adobe's licence and for sublicences to users.
+  - “You grant us a non-exclusive, worldwide, perpetual, fully-paid, and royalty-free license to use, reproduce” · quote check: exact
+  - “on a non-exclusive, worldwide, and perpetual basis in any media or embodiment” · quote check: exact
+- **term_duration** — Perpetual licences; contributor may end the Additional Terms on 90 days' written notice, Adobe without notice; licences already granted survive.
+  - “You grant us a non-exclusive, worldwide, perpetual, fully-paid, and royalty-free license to use, reproduce” · quote check: exact
+  - “on a non-exclusive, worldwide, and perpetual basis in any media or embodiment” · quote check: exact
+  - “You may terminate these Additional Terms at any time with at least 90 days' prior written notice to us” · quote check: exact
+  - “We may terminate these Additional Terms, remove any Work, or suspend your account, without prior notice.” · quote check: exact
+  - “prior to the removal of that Work from the Website or the date of termination of these Additional Terms will survive” · quote check: exact
+- **exclusivity** — Non-exclusive in both directions: contributor to Adobe, and Adobe's sublicences to users; the document offers no exclusive licence route.
+  - “You grant us a non-exclusive, worldwide, perpetual, fully-paid, and royalty-free license to use, reproduce” · quote check: exact
+  - “on a non-exclusive, worldwide, and perpetual basis in any media or embodiment” · quote check: exact
+- **sublicensing** — Adobe may sublicense use, reproduction, display, distribution and modification to users under its own User Agreements, and let users and authorised third parties share Works; API partners facilitate sales.
+  - “You grant us a license to further sublicense our right to use, reproduce, publicly display, distribute, modify” · quote check: exact
+  - “We may sublicense Works pursuant to a written or electronic agreement between us and a user” · quote check: exact
+  - “post or share the Work onto social media sites or other third-party websites, subject to any restrictions” · quote check: exact
+  - “program that allows our partners to showcase and to facilitate sales of the Work” · quote check: exact
+- **derivatives_and_model_outputs** — User licences may include modifying and creating derivative works and selling merchandise incorporating the Work; modified Work limited to the uses allowed for the original; silent on model outputs.
+  - “The license to users may include the right to modify and create derivative works based upon the Work” · quote check: exact
+  - “the right to sell or distribute for sale the Work or any reproductions thereof if incorporated” · quote check: exact
+  - “use of the modified Work is limited solely to the same uses permitted with respect to the original Work” · quote check: exact
+- **attribution** — No attribution duty: Adobe and users may but need not credit the creator, users are not obliged to credit in commercial use, metadata may be changed; Adobe may use the contributor's name and marks in marketing.
+  - “Both we and our users who use a Work have the right, but not the obligation, to identify you as the creator” · quote check: exact
+  - “users will not be obligated to credit creators” · quote check: exact
+  - “metadata may be altered, removed, or added, without any liability to us, our distributors, or users” · quote check: exact
+  - “the right, but not the obligation, to use your display name, trademarks, and trade names” · quote check: exact
+- **deletion_on_termination** — No deletion duty on Adobe: after termination it may keep the Work for internal archival and reference use; licences already granted to users and Adobe survive.
+  - “we may continue to use the Work solely for internal archival and reference purposes” · quote check: exact
+  - “prior to the removal of that Work from the Website or the date of termination of these Additional Terms will survive” · quote check: exact
+- **warranties_by_provider** — Contributor warrants ownership of or rights to the Work (including privacy, publicity and moral rights), non-infringement, no misleading/illegal/defamatory content, authority when submitting for other owners, and truthfulness for editorial Work; warranties survive termination.
+  - “You represent and warrant that you own all rights, title, and interest in and to the Work” · quote check: exact
+  - “rights of privacy, rights of publicity, moral rights, and other proprietary rights” · quote check: exact
+  - “You further represent and warrant that the Work will not infringe the IP Rights of others” · quote check: exact
+  - “If you submit Work on behalf of the applicable copyright owner(s), you represent and warrant that you have the authority to” · quote check: exact
+  - “the Work truthfully depicts the subject” · quote check: exact
+  - “7 (Indemnification Obligations), 8 (Termination and Survival), and 9.1 (Relationship) will survive” · quote check: exact
+- **consent_and_release_warranty** — Contributor warrants it holds valid model/property releases similar to Adobe's standard forms for every identifiable person, logo or protected property, and must hand copies to Adobe on request; editorial-only Work may be accepted without releases; nothing requires releases to reach buyers.
+  - “If the Work contains an image or likeness of an identifiable person, trademark or logo, or certain distinctive property” · quote check: exact
+  - “obtained all necessary and valid releases or agreements substantially similar to our standard model and property releases” · quote check: exact
+  - “you will promptly provide copies of such releases or agreements to us upon our request” · quote check: exact
+  - “we may accept it without a model or property release, at our sole discretion” · quote check: exact
+- **indemnity** — Contributor indemnifies Adobe, its affiliates, partners, licensees and licensors including users against claims from submitted Works, site use or breach; no cap stated; Adobe controls the defence and may offset against royalties; survives termination.
+  - “partners, licensees, and licensors (including users) from any claim, demand, loss, or damages” · quote check: exact
+  - “arising out of or related to Works or other content that you submit to us, your use of the Website” · quote check: exact
+  - “Without limiting your obligations in the General Terms, you will indemnify us” · quote check: exact
+  - “We have the right to control the defense of any claim, action, or matter subject to indemnification by you” · quote check: exact
+  - “may be offset and reduced by any amount owed by you pursuant to your indemnity obligations hereunder” · quote check: exact
+  - “7 (Indemnification Obligations), 8 (Termination and Survival), and 9.1 (Relationship) will survive” · quote check: exact
+- **liability_cap** — No cap stated here; Adobe excludes liability to contributors for users' breach of User Agreements or third-party misuse, for metadata changes and for representatives' advice, and gives no revenue warranty; any general cap is in the General Terms.
+  - “We are not liable for non- compliance with the terms of a User Agreement or for misuse by any third party.” · quote check: exact
+  - “metadata may be altered, removed, or added, without any liability to us, our distributors, or users” · quote check: exact
+  - “We expressly disclaim any liability for information, feedback, materials, or answers to questions provided” · quote check: exact
+  - “we make no representation or warranty that you or any other party may or will achieve any level of payments or revenue” · quote check: exact
+  - “These Additional Terms are incorporated by reference into the Adobe General Terms of Use” · quote check: exact
+- **payment_and_revenue_share** — Adobe pays per licence sale, net of cancellations/returns/refunds, at rates on a separate help page it can change unilaterally; nothing for free content, promotions, trials or watermarked versions, discretionary for marketing use, none if terminated for cause; tax withheld; indemnity amounts offset; post-termination licence fees still paid.
+  - “We will pay you solely to the extent expressly described in the pricing and payment details at” · quote check: exact
+  - “for any sales of licenses to Work, less any cancellations, returns, and refunds” · quote check: exact
+  - “We may modify the Pricing and Payment Details from time to time” · quote check: exact
+  - “You may designate Work as free content, in which case we may distribute such Work without liability or payment to you.” · quote check: exact
+  - “If we or our partners offer a promotion, trial, test, or watermarked version of your Work, we are not subject to the payment” · quote check: exact
+  - “we may compensate you at our discretion as described in section 5 (Payment) below” · quote check: exact
+  - “We will have no payment obligation to you if we terminate these Additional Terms for cause.” · quote check: exact
+  - “we will deduct such tax from the fee payable to you” · quote check: exact
+  - “may be offset and reduced by any amount owed by you pursuant to your indemnity obligations hereunder” · quote check: exact
+  - “for any license fee that we receive as related to the Work after termination of these Additional Terms” · quote check: exact
+  - “If you are not the copyright owner of a Work, you are solely responsible for compensating such copyright owner(s)” · quote check: exact
+- **takedown_and_erasure** — Contributor may remove Work any time (bulk removals over 100 items/10% in 90 days need 90 days' notice); affiliates' copies removed within 60 days on reasonable efforts, with new licences possible until then; licences already sold survive, so buyers keep their copies, and comp holders may still convert.
+  - “you do not remove more than 100 items of Work or 10% of the Work, whichever is greater, in any 90-day period” · quote check: exact
+  - “removed from the websites of any of our affiliates (including co-branded websites) within 60 days” · quote check: exact
+  - “our users may continue to obtain new licenses to the Work” · quote check: exact
+  - “prior to the removal of that Work from the Website or the date of termination of these Additional Terms will survive” · quote check: exact
+  - “may further convert that license to a usage license” · quote check: exact
+  - “We may remove Work or terminate your account at our sole discretion without prior notice.” · quote check: exact
+- **change_of_terms** — Terms replace all prior versions and apply to Works uploaded under earlier versions; Adobe may change Pricing and Payment Details unilaterally, accepted by continuing to upload or not removing Works; Guidelines incorporated by reference.
+  - “Effective as of February 16, 2024. Replaces all prior versions.” · quote check: exact
+  - “that you submit to us or upload to a Website under these Additional Terms or any other prior version thereof” · quote check: exact
+  - “We may modify the Pricing and Payment Details from time to time” · quote check: exact
+  - “By continuing to submit or upload Works or by not removing Works, you are agreeing to any new Pricing and Payment Details” · quote check: exact
+  - “which are hereby incorporated by reference into the Terms” · quote check: exact
+- **prohibited_uses** — User Agreements bar pornographic or illegal use of Works; contributors may not download content to inflate download counts or trigger payments.
+  - “User Agreements do not permit use of Works for pornographic or illegal purposes” · quote check: exact
+  - “Work may be modified and used in connection with any subject matter (except pornographic or illegal)” · quote check: exact
+  - “you may not download Adobe Stock content for the primary purpose of artificially inflating the number of downloads” · quote check: exact
+- _unknown_: `terms.governing_law` — not_published
+- _unknown_: `terms.audit_rights` — not_published
+- _unknown_: `other.ai_training_express_terms` — not_published
+- _unknown_: `other.royalty_rates` — not_published
+- _unknown_: `other.user_agreement_terms` — not_published
+- _unknown_: `other.release_evidence_to_buyers` — not_published
+- _unknown_: `other.erasure_of_personal_data_in_sold_copies` — not_published
+- _unknown_: `terms.liability_cap_amount` — not_published
+
+## Data Subscription Agreement for AWS Marketplace — Amazon Web Services
+
+`doc-aws-dsa` · buyer_licence · 2022-07-14 (date in the published file name; the document text itself is undated) · <https://aws-mp-standard-contracts.s3.amazonaws.com/Data-Subscription-Agreement-for-AWS-Marketplace-2022-07-14.pdf> · retrieved 2026-10-01
+
+Licensor: Provider (the data provider that lists the Data under a DSA Offer on AWS Marketplace) · licensee: Subscriber, extended to its Affiliates and their Users, including contractors · operator's role: venue
+
+- **permitted_use** — Provider licenses Subscriber, its Affiliates and their Users (incl. contractors) to receive, retain, use and modify the Data and create Derived Data, subject to the DSA Offer; all other rights reserved; Third Party Data may carry narrower rights.
+  - “a nonexclusive, worldwide, nontransferable license to receive, retain, use, and modify the Data and to create Derived Data” · quote check: exact
+  - “Provider hereby grants to Subscriber, its Affiliates, and each of their Users” · quote check: exact
+  - “Provider retains all rights not expressly granted to Subscriber under this Agreement” · quote check: exact
+  - “the rights and licenses granted to Subscriber with regard to Third Party Data may be more limited than the rights” · quote check: exact
+  - “Additional restrictions may be included in the DSA Offer or otherwise within the Third Party Terms” · quote check: exact
+- **ai_training_rights** — Not named: no clause on training, fine-tuning, evaluation or model outputs; building models is permitted only implicitly as Derived Data ('models', 'algorithms'), owned by Subscriber; redistributing the Data itself is barred; any AI limits must come from the DSA Offer.
+  - “to create Derived Data using the Data, in each case subject to and in accordance with the terms hereof and the DSA Offer” · quote check: exact
+  - “presentations, discussions and/or models, calculations, algorithms or statistical methods, but excluding any unmodified Data” · quote check: exact
+  - “Subscriber represents and warrants to Provider that it owns all right, title and interest in and to the Derived Data” · quote check: exact
+  - “publish, disseminate, distribute or provide access of any kind to the Data, or any material subset thereof” · quote check: exact
+- **field_of_use** — No field-of-use limit in the DSA beyond its listed restrictions (no service-bureau use); each DSA Offer or Third Party Terms may add restrictions.
+  - “Additional restrictions may be included in the DSA Offer or otherwise within the Third Party Terms” · quote check: exact
+  - “use the Data or any material subset thereof to act as a consultant, service bureau, or application service provider” · quote check: exact
+- **territory** — Worldwide, subject to US export-control and embargo restrictions.
+  - “a nonexclusive, worldwide, nontransferable license to receive, retain, use, and modify the Data and to create Derived Data” · quote check: exact
+  - “Neither Party will export, re export, ship, or otherwise transfer the Data, to any country subject to an embargo” · quote check: exact
+- **term_duration** — Runs until the Subscription concludes; Subscriber may cancel any time (refund per Offer); either party for uncured material breach (30 days); Provider may suspend/terminate without refund for law, non-cooperation with investigation, or security incidents.
+  - “This Agreement will continue in full force and effect until conclusion of the Subscription” · quote check: exact
+  - “Subscriber may terminate the Subscription or this Agreement without cause at any time” · quote check: exact
+  - “Either Party may terminate the Subscription or this Agreement if the other Party materially breaches this Agreement” · quote check: exact
+  - “Provider may suspend or terminate Subscriber’s Subscription or this Agreement without refund of fees for any unused portion” · quote check: exact
+  - “if required to comply with any applicable Law or requests of governmental entities” · quote check: exact
+- **exclusivity** — Nonexclusive licence; the DSA offers no exclusivity.
+  - “a nonexclusive, worldwide, nontransferable license to receive, retain, use, and modify the Data and to create Derived Data” · quote check: exact
+- **sublicensing** — No sale, sublicence, lending or third-party access; use only by Subscriber's Affiliates and Users, for whom Subscriber is liable; licence nontransferable, agreement assignable without consent only to Affiliates or an acquirer.
+  - “sell, sublicense, loan, lease, assign, authorize others to access, use, or disclose, or attempt to grant any rights to” · quote check: exact
+  - “Provider hereby grants to Subscriber, its Affiliates, and each of their Users” · quote check: exact
+  - “Subscriber agrees to be directly liable for any and all acts and omissions by such Affiliate or User” · quote check: exact
+  - “either Party may assign this Agreement, in whole or part, and delegate its obligations to its Affiliates or to any entity” · quote check: exact
+- **derivatives_and_model_outputs** — Subscriber owns Derived Data (analytics, tools, models, algorithms) except any Data embedded in it; Derived Data excludes unmodified Data; Provider gets no rights in it; distributing a material subset of the Data inside it is still barred.
+  - “Subscriber represents and warrants to Provider that it owns all right, title and interest in and to the Derived Data” · quote check: exact
+  - “presentations, discussions and/or models, calculations, algorithms or statistical methods, but excluding any unmodified Data” · quote check: exact
+  - “publish, disseminate, distribute or provide access of any kind to the Data, or any material subset thereof” · quote check: exact
+- **attribution** — No attribution duty; Subscriber must keep Provider's and its licensors' trademark and copyright notices intact; no publicity naming the other party without consent.
+  - “will not remove, delete or alter any trademarks, copyright notices, or other Proprietary Rights notices of Provider” · quote check: exact
+  - “Neither Party will issue any publicity materials or press releases that refer to the other Party” · quote check: exact
+- **audit_rights** — No audit right; Provider may suspend/terminate without refund if Subscriber does not cooperate with a reasonable breach investigation, and Subscriber must report unauthorised use or disclosure.
+  - “if Subscriber does not cooperate with any reasonable investigation by Subscriber of a suspected breach of this Agreement” · quote check: exact
+  - “promptly notify Provider if it becomes aware of any unauthorized use or disclosure of the Confidential Information” · quote check: exact
+- **deletion_on_termination** — On termination/expiry use rights end; within 90 days Subscriber removes the Data from its AWS account and other systems, and destroys other copies only if Provider instructs; Derived Data is not named in the deletion duty; confidentiality survives.
+  - “Subscriber’s authorization to use the Data under such Subscription” · quote check: exact
+  - “within ninety (90) calendar days following such termination or expiration, Subscriber will remove the Data” · quote check: exact
+  - “any other computer systems operated by or for Subscriber, and if instructed by Provider, destroy all other copies of the” · quote check: exact
+  - “Sections 3 (Proprietary Rights), 5 (Confidentiality), 6 (Limitations of Liability), 7 (Indemnification), 8.5 (Effect of” · quote check: exact
+  - “Subscriber represents and warrants to Provider that it owns all right, title and interest in and to the Derived Data” · quote check: exact
+- **warranties_by_provider** — Provider warrants any personal data is already lawfully public and not sensitive, malware scanning, and no copyleft-type terms; remedy is correction, then termination with prorated refund in 30 days; no warranty of accuracy, completeness or fitness.
+  - “has already lawfully been made available to the general public, such as via governmental records, widely distributed media” · quote check: exact
+  - “does not include Sensitive Personal Data about an individual or shall not otherwise be deemed to be Sensitive Personal Data” · quote check: exact
+  - “Provider will use industry standard practices designed to detect and protect the Data against any viruses” · quote check: exact
+  - “source code form, be provided to others for the purpose of, or with authorization for making, derivative works, or be” · quote check: exact
+  - “not to exceed thirty (30) calendar days, as Subscriber’s sole remedy and Provider’s exclusive liability” · quote check: exact
+  - “that the Data will be accurate, complete, or up-to-date” · quote check: exact
+- **consent_and_release_warranty** — Provider bears consent risk: warrants any identifying data is already lawfully public and contains no sensitive data (incl. biometric, precise geolocation), and indemnifies for missing consents/rights and privacy or publicity claims; no release documents go to the buyer.
+  - “has already lawfully been made available to the general public, such as via governmental records, widely distributed media” · quote check: exact
+  - “does not include Sensitive Personal Data about an individual or shall not otherwise be deemed to be Sensitive Personal Data” · quote check: exact
+  - “genetic data; ( 3) biometric data; ( 4) data concerning health” · quote check: exact
+  - “would permit access to a data subject’s account; and ( 10) precise geolocation” · quote check: exact
+  - “any actual or alleged failure by Provider to obtain and hold sufficient legal right and any consents, authorizations” · quote check: exact
+  - “violation of any Proprietary Rights, right of publicity, or privacy or other rights of a third party by the Data” · quote check: exact
+  - “without the need for Subscriber to clear or obtain additional rights to access and use the Data as authorized hereunder” · quote check: exact
+- **indemnity** — One-way: Provider indemnifies Subscriber and Affiliates for personal-data warranty breaches, missing rights/consents, IP/publicity/privacy infringement, unlawful Data and missing disclosures; uncapped; excludes Subscriber modifications or misuse; backed by USD 5M insurance.
+  - “Provider will, at its expense, indemnify, defend and hold harmless Subscriber and each of Subscriber’s Affiliates” · quote check: exact
+  - “any actual or alleged breach of Provider’s representations and warranties in Section 4.1 (Restrictions on Personal” · quote check: exact
+  - “any actual or alleged failure by Provider to obtain and hold sufficient legal right and any consents, authorizations” · quote check: exact
+  - “violation of any Proprietary Rights, right of publicity, or privacy or other rights of a third party by the Data” · quote check: exact
+  - “any Data that actually or allegedly is libelous, defamatory, obscene, or unlawful” · quote check: exact
+  - “attributable to any modifications to the Data by Subscriber or its Personnel or use of the Data by Subscriber in breach” · quote check: exact
+  - “with respect to Subscriber Indemnified Parties and Provider Indemnified” · quote check: exact
+  - “NOT APPLY TO: (A) A PARTY’S DEFENSE AND INDEMNIFICATION OBLIGATIONS HEREUNDER; OR (B) A PARTY’S BREACH OF THE” · quote check: exact
+  - “not less than $5,000,000 per occurrence and $5,000,000 aggregate limit, and Professional Liability insurance” · quote check: exact
+- **liability_cap** — Mutual cap at the greater of 3x Subscriber Spend (trailing 12 months) or USD 1M; no indirect/consequential damages; uncapped for indemnity, confidentiality breach, gross negligence, wilful misconduct, fraud, violation of law; breach-notice costs deemed direct; AWS bears no liability.
+  - “SHALL EXCEED THE GREATER OF THREE TIMES THE SUBSCRIBER SPEND IN THE TWELVE (12) MONTHS PRECEDING THE” · quote check: exact
+  - “EVENT GIVI NG RISE TO THE DAMAGES OR $1 MILLION” · quote check: exact
+  - “IN NO EVENT WILL EITHER PARTY BE LIABLE TO THE OTHER PARTY FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL, OR” · quote check: exact
+  - “ARISING FROM A PARTY’S GROSS NEGLIGENCE, WILLFUL MISCONDUCT, FRAUD, OR VIOLATION OF LAW” · quote check: exact
+  - “NOT APPLY TO: (A) A PARTY’S DEFENSE AND INDEMNIFICATION OBLIGATIONS HEREUNDER; OR (B) A PARTY’S BREACH OF THE” · quote check: exact
+  - “SUBSCRIBER’S COSTS OF INVESTIGATION, NOTIFICATION, REMEDIATION, AND MITIGATION RESULTING FROM A SUBSCRIBER’S” · quote check: exact
+  - “Neither Amazon Web Services, Inc. nor any of its Affiliates are a party to this Agreement and none of them” · quote check: exact
+- **payment_and_revenue_share** — Fees, rates and refund policy are set in each DSA Offer; the DSA fixes refunds only for warranty failure (prorated) and infringement; no revenue share or AWS fee is stated.
+  - “as well as fees or rates for the Subscription, shall be as set forth in the applicable DSA Offer” · quote check: exact
+  - “any applicable refund will be provided according to the refund policy set forth in the respective DSA Offer” · quote check: exact
+  - “not to exceed thirty (30) calendar days, as Subscriber’s sole remedy and Provider’s exclusive liability” · quote check: exact
+  - “either Party may terminate the Subscription and this Agreement and Provider will refund to Subscriber all prepaid” · quote check: exact
+- **takedown_and_erasure** — No takedown or data-subject erasure mechanism; for infringing Data Provider modifies/replaces it or either party terminates with refund; Provider may suspend if law requires; buyer deletes only on termination (90 days), otherwise keeps downloaded copies.
+  - “modify or replace the affected Data so that the modified or replacement Data are reasonably comparable and do not infringe” · quote check: exact
+  - “either Party may terminate the Subscription and this Agreement and Provider will refund to Subscriber all prepaid” · quote check: exact
+  - “if required to comply with any applicable Law or requests of governmental entities” · quote check: exact
+  - “within ninety (90) calendar days following such termination or expiration, Subscriber will remove the Data” · quote check: exact
+  - “any other computer systems operated by or for Subscriber, and if instructed by Provider, destroy all other copies of the” · quote check: exact
+- **governing_law** — New York law; exclusive forum in state and federal courts in Manhattan; CISG excluded.
+  - “This Agreement will be governed and interpreted under the laws of the State of New York” · quote check: exact
+  - “the exclusive forum for any action or proceeding will be in the Borough of Manhattan, New York” · quote check: exact
+- **change_of_terms** — No unilateral changes: amendments only in a writing signed by both parties; precedence amendment > DSA > DSA Offer; Subscriber's AWS Customer Agreement and Service Terms prevail over all.
+  - “will not be changed, amended, modified, or waived unless such change, amendment, modification, or waiver is in writing” · quote check: exact
+  - “(1) any amendment agreed upon by t he Parties; (2) this Agreement; and (3) the DSA Offer” · quote check: exact
+  - “such terms shall prevail to the extent that they conflict with any of the foregoing components of the Subscription” · quote check: exact
+- **prohibited_uses** — No redistribution or third-party access, sale or sublicence, reverse engineering, consultant/service-bureau use, re-identification of de-identified data, or export to embargoed countries.
+  - “publish, disseminate, distribute or provide access of any kind to the Data, or any material subset thereof” · quote check: exact
+  - “sell, sublicense, loan, lease, assign, authorize others to access, use, or disclose, or attempt to grant any rights to” · quote check: exact
+  - “decompile, reverse engineer, or otherwise attempt to derive source code from the Data” · quote check: exact
+  - “use the Data or any material subset thereof to act as a consultant, service bureau, or application service provider” · quote check: exact
+  - “use the Data to create, generate, or infer any information relating to the identity of an individual” · quote check: exact
+  - “Neither Party will export, re export, ship, or otherwise transfer the Data, to any country subject to an embargo” · quote check: exact
+- _unknown_: `terms.ai_training_rights` — not_published
+- _unknown_: `terms.takedown_and_erasure` — not_published
+- _unknown_: `terms.consent_and_release_warranty` — not_published
+- _unknown_: `other.subscriber_indemnity` — not_published
+- _unknown_: `terms.payment_and_revenue_share` — not_published
+- _unknown_: `other.derived_data_after_termination` — not_published
+
+## Bee Terms of Service — Bee Maps (Hivemapper, Inc.)
+
+`doc-bee-maps-tos` · contributor_agreement · Last Updated: Q4 2025 · <https://beemaps.com/tos> · retrieved 2026-10-01
+
+Licensor: Bee device owner or operator: a Beekeeper fleet user grants an exclusive licence; for non-Beekeeper devices Bee Maps owns the data it collects outright · licensee: Hivemapper, Inc. (dba Bee Maps), which may sublicense, distribute or sell the data to third parties · operator's role: reseller_licensor
+
+- **permitted_use** — Bee Maps (not the device owner) holds the rights: it owns Beekeeper data under an exclusive licence and may use it to improve products, build features, train ML models and for any other lawful business purpose; for non-Beekeeper devices it owns the data outright with the right to use, license, distribute or sell it.
+  - “Hivemapper, Inc. (dba Bee Maps) owns all data generated through your use of Beekeeper” · quote check: exact
+  - “Hivemapper, Inc. (dba Bee Maps) holds an exclusive license to this data” · quote check: exact
+  - “develop new features, train machine learning models, and for any other lawful business purpose” · quote check: exact
+  - “owns the data it collects from the Bee in this capacity, including the right to use, license, distribute, or sell that data” · quote check: exact
+- **ai_training_rights** — Beekeeper data: Bee Maps itself may train machine-learning models; onward sublicensing, distribution or sale to third parties is stated only for aggregated or anonymized data. Non-Beekeeper data: owned outright with rights to use, license, distribute or sell (ML not named). Fine-tuning, evaluation and model-output rights are not mentioned; the device owner gets no training rights.
+  - “develop new features, train machine learning models, and for any other lawful business purpose” · quote check: exact
+  - “including the right to sublicense, distribute, or sell aggregated or anonymized data to third parties” · quote check: exact
+  - “owns the data it collects from the Bee in this capacity, including the right to use, license, distribute, or sell that data” · quote check: exact
+- **field_of_use** — Unrestricted for Bee Maps: 'any other lawful business purpose' for Beekeeper data.
+  - “develop new features, train machine learning models, and for any other lawful business purpose” · quote check: exact
+- **term_duration** — The Beekeeper exclusive licence runs for the user's time on the platform 'and thereafter', so it does not end when the user leaves; non-Beekeeper data is owned outright with no end date.
+  - “you grant Hivemapper, Inc. this exclusive license for the duration of your use of the platform and thereafter” · quote check: exact
+  - “owns the data it collects from the Bee in this capacity, including the right to use, license, distribute, or sell that data” · quote check: exact
+- **exclusivity** — Exclusive to Bee Maps: device owner grants an exclusive licence (Beekeeper) or Bee Maps owns the data (default); the owner keeps no stated right to license it elsewhere. Nothing on exclusivity offered to Bee Maps' own data buyers.
+  - “Hivemapper, Inc. (dba Bee Maps) owns all data generated through your use of Beekeeper” · quote check: exact
+  - “Hivemapper, Inc. (dba Bee Maps) holds an exclusive license to this data” · quote check: exact
+  - “you grant Hivemapper, Inc. this exclusive license for the duration of your use of the platform and thereafter” · quote check: exact
+  - “owns the data it collects from the Bee in this capacity, including the right to use, license, distribute, or sell that data” · quote check: exact
+- **sublicensing** — Bee Maps may sublicense, distribute or sell Beekeeper data to third parties when aggregated or anonymized; for non-Beekeeper data it may license, distribute or sell without that qualifier.
+  - “including the right to sublicense, distribute, or sell aggregated or anonymized data to third parties” · quote check: exact
+  - “owns the data it collects from the Bee in this capacity, including the right to use, license, distribute, or sell that data” · quote check: exact
+- **derivatives_and_model_outputs** — Bee Maps owns any derivative data products created from Beekeeper data and related metadata; model outputs are not mentioned.
+  - “any derivative data products created from the foregoing; and any related metadata” · quote check: exact
+- **deletion_on_termination** — No deletion on exit: the Beekeeper licence continues after use ends ('and thereafter'); no clause lets the device owner recall or delete collected data.
+  - “you grant Hivemapper, Inc. this exclusive license for the duration of your use of the platform and thereafter” · quote check: exact
+- **warranties_by_provider** — The device owner/user is solely responsible for content it makes available and must not upload content it has no right to upload or that infringes; it also warrants export-control compliance. Bee Maps warrants only the hardware (one-year manufacturing defects) and otherwise provides it as is.
+  - “You are solely responsible for all code, video, images, information, data” · quote check: exact
+  - “(ii) you do not have a right to upload under any law or under contractual or fiduciary relationships” · quote check: exact
+  - “you will not use the Goods or Services for any prohibited end use” · quote check: exact
+  - “Our Goods are guaranteed against manufacturing defects one (1) year from the original date of purchase.” · quote check: exact
+  - “THE GOODS ARE EXPRESSLY PROVIDED TO YOU "AS IS"” · quote check: exact
+- **consent_and_release_warranty** — No consent or release warranty from anyone: the user is only barred from uploading content that poses a privacy risk to any person; Bee Maps says default-mode imagery is privacy-blurred, while Beekeeper data is expressly not anonymized as to drivers, and no driver or bystander consent is required or warranted.
+  - “(iv) poses or creates a privacy or security risk to any person” · quote check: exact
+  - “collects data from it, including privacy-blurred imagery, video, GPS data, and related sensor data” · quote check: exact
+  - “data generated through your use of Beekeeper will not be anonymized with respect to your drivers” · quote check: exact
+- **indemnity** — One-way, uncapped: the user indemnifies Bee Maps for misuse of the Goods and injury, death or property damage from the user's negligence or wrongful act; Bee Maps gives no indemnity (none for data or IP claims).
+  - “You will defend, indemnify and hold harmless Bee Maps and its officers, directors, employees” · quote check: exact
+  - “related to misuse of the Goods or resulting from injury and/ or death of any person or damage to or loss of any property” · quote check: exact
+- **liability_cap** — Bee Maps' aggregate liability is capped at the cost of the goods and services ordered that relate to the damages; consequential damages, lost profits and lost-data damages excluded.
+  - “WILL IN NO CIRCUMSTANCES EXCEED THE COST OF THE GOODS AND SERVICES YOU ORDERED THAT IS RELATED TO YOUR DAMAGES” · quote check: exact
+  - “IN NO EVENT WILL COMPANY BE LIABLE FOR SPECIAL, INCIDENTAL, INDIRECT, OR CONSEQUENTIAL DAMAGES, LOST PROFITS” · quote check: exact
+- **payment_and_revenue_share** — No payment or revenue share for data in this document; any rewards for operating a Bee are governed by the separate Hivemapper Mapping Network Terms (tokens or USDC are not mentioned here).
+  - “any rewards you may receive for participating, is also governed by the Hivemapper Mapping Network Terms of Service” · quote check: exact
+- **takedown_and_erasure** — Bee Maps may remove offending content from the Service and terminate accounts; nothing on user or data-subject erasure requests or on copies already licensed or sold to third parties.
+  - “including removing the offending content from the Service, suspending or terminating the account of such violators” · quote check: exact
+- **governing_law** — Inconsistent: Miscellaneous names California law and San Francisco courts; the entity-user section names New York law with confidential AAA arbitration in New York; individuals go to AAA consumer arbitration with a class-action waiver.
+  - “These Terms will be governed by the laws of the State of California without regard to its conflict of law provisions.” · quote check: exact
+  - “construed and enforced in accordance with the laws of the State of New York” · quote check: exact
+  - “confidential binding arbitration in New York, New York before one arbitrator” · quote check: exact
+  - “will be resolved exclusively through final and binding arbitration, rather than a court” · quote check: exact
+- **change_of_terms** — Terms apply 'as amended from time to time' with no notice mechanism stated; only changes to the individual arbitration agreement can be rejected within 30 days; firmware may add or remove features.
+  - “subject to the terms and conditions contained in these Terms (as amended from time to time” · quote check: exact
+  - “you may reject any such change by sending Bee Maps written notice within thirty (30) calendar days of the change” · quote check: exact
+  - “including updates that may add, modify, or remove features or functionality as Bee Maps deems necessary or appropriate” · quote check: exact
+- **prohibited_uses** — User may not upload infringing, unauthorised or privacy-risk content, may not scrape or data-mine the Service, may not resell the Goods, and may not use Goods or Services for prohibited export-control end uses.
+  - “(ii) you do not have a right to upload under any law or under contractual or fiduciary relationships” · quote check: exact
+  - “(iv) poses or creates a privacy or security risk to any person” · quote check: exact
+  - “engage in or use any data mining, robots, scraping, or similar data gathering or extraction methods” · quote check: exact
+  - “Goods sold through the website are not authorized for resale, export, or re-export.” · quote check: exact
+  - “you will not use the Goods or Services for any prohibited end use” · quote check: exact
+- _unknown_: `terms.consent_and_release_warranty` — not_published
+- _unknown_: `terms.takedown_and_erasure` — not_published
+- _unknown_: `terms.ai_training_rights` — js_empty
+- _unknown_: `terms.payment_and_revenue_share` — not_published
+- _unknown_: `terms.exclusivity` — not_published
+
+## Community Data License Agreement – Permissive, Version 2.0 — The Linux Foundation (CDLA)
+
+`doc-cdla-permissive-2` · licence_template · Version 2.0 (licence text undated; site footer reads Copyright © 2017 The Linux Foundation) · <https://cdla.dev/permissive-2-0/> · retrieved 2026-10-01
+
+Licensor: Data Provider(s): any person who is the source of the Data provided under the agreement; the Linux Foundation publishes the template and is not named as a party · licensee: Data Recipient(s): any person who receives the Data directly or indirectly from a Data Provider and agrees to the terms · operator's role: not_applicable (template licence between providers and recipients; no marketplace or intermediary role is defined)
+
+- **permitted_use** — Any recipient may use, modify and share the Data, subject only to the agreement's terms; public-domain portions, and uses allowed by other legal exceptions, are not restricted at all.
+  - “A Data Recipient may use, modify, and share the Data made available by Data Provider(s) under this agreement” · quote check: exact
+  - “portions of the Data that are in the public domain or that may be used, modified, or shared under any other legal exception” · quote check: exact
+- **ai_training_rights** — Training is not named, but the grant covers any use and modification, and 'Results' (any outcome of computational analysis, expressly including machine learning models and models' insights) carry no restriction or obligation. Training, fine-tuning, evaluation, model redistribution and output use are therefore all unrestricted; redistributing the Data itself only requires the licence text to go with it.
+  - “A Data Recipient may use, modify, and share the Data made available by Data Provider(s) under this agreement” · quote check: exact
+  - “does not impose any restriction or obligations with respect to the use, modification, or sharing of Results” · quote check: exact
+  - “any outcome obtained by computational analysis of Data, including for example machine learning models and models’ insights” · quote check: exact
+  - “may share Data, with or without modifications, so long as the Data Recipient makes available the text of this agreement” · quote check: exact
+- **field_of_use** — No field-of-use limit: the grant is general (use, modify, share), with no commercial/non-commercial or sector restriction stated.
+  - “A Data Recipient may use, modify, and share the Data made available by Data Provider(s) under this agreement” · quote check: exact
+- **sublicensing** — No sublicence mechanism. Recipients may share the Data (modified or not) onward if they include the agreement text, and anyone receiving it 'directly or indirectly' from a provider becomes a Data Recipient on the same terms.
+  - “may share Data, with or without modifications, so long as the Data Recipient makes available the text of this agreement” · quote check: exact
+  - ““Data Recipient” means any person who receives Data directly or indirectly from a Data Provider and agrees to the terms” · quote check: exact
+- **derivatives_and_model_outputs** — Modification is allowed and modified Data can be shared on the same condition (agreement text included). Results, including ML models and their insights, are free of any restriction or obligation, so they need no attribution or licence text and are not copyleft.
+  - “A Data Recipient may use, modify, and share the Data made available by Data Provider(s) under this agreement” · quote check: exact
+  - “may share Data, with or without modifications, so long as the Data Recipient makes available the text of this agreement” · quote check: exact
+  - “does not impose any restriction or obligations with respect to the use, modification, or sharing of Results” · quote check: exact
+  - “any outcome obtained by computational analysis of Data, including for example machine learning models and models’ insights” · quote check: exact
+- **attribution** — The only condition on sharing Data is to make the text of the agreement available with it. There is no separate attribution or notice-retention duty, and none at all for Results.
+  - “may share Data, with or without modifications, so long as the Data Recipient makes available the text of this agreement” · quote check: exact
+  - “does not impose any restriction or obligations with respect to the use, modification, or sharing of Results” · quote check: exact
+- **warranties_by_provider** — None. The Data is provided 'as is', and warranties of title, non-infringement, merchantability and fitness for purpose are expressly disclaimed.
+  - “THE DATA IS PROVIDED ON AN “AS IS” BASIS, WITHOUT REPRESENTATIONS, WARRANTIES OR CONDITIONS OF ANY KIND” · quote check: exact
+  - “ANY WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE” · quote check: exact
+- **liability_cap** — Providers have no liability at all (a cap of zero) for direct, indirect, incidental, special, exemplary or consequential damages, including lost profits, arising from the Data or the Results, on any theory. Recipient liability is not addressed.
+  - “NO DATA PROVIDER SHALL HAVE ANY LIABILITY FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES” · quote check: exact
+  - “ARISING IN ANY WAY OUT OF THE DATA OR RESULTS, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES” · quote check: exact
+- _unknown_: `terms.consent_and_release_warranty` — not_published
+- _unknown_: `terms.takedown_and_erasure` — not_published
+- _unknown_: `terms.exclusivity` — not_published
+- _unknown_: `terms.indemnity` — not_published
+- _unknown_: `terms.term_duration` — not_published
+- _unknown_: `terms.deletion_on_termination` — not_published
+- _unknown_: `terms.governing_law` — not_published
+- _unknown_: `terms.territory` — not_published
+- _unknown_: `terms.prohibited_uses` — not_published
+- _unknown_: `terms.payment_and_revenue_share` — not_published
+- _unknown_: `terms.audit_rights` — not_published
+- _unknown_: `terms.change_of_terms` — not_published
+
+## Terms of Service — Datarade (Monda Labs GmbH)
+
+`doc-datarade-tos` · marketplace_terms · Last updated on January 9, 2026 · <https://datarade.ai/company/terms-of-service> · retrieved 2026-10-01
+
+Licensor: None under these ToS for data: Monda Labs GmbH (Platform Operator) licenses only access to the Datarade platform; each data Product is licensed by its Seller under a separate Customer-Seller agreement · licensee: Customer: a registered business or public entity (buyer or, under a separate Seller Agreement, Seller) · operator's role: venue (the operator is not a party to any contract between Customers and does not sell or buy Products; it acts solely as an intermediary, not as an agent)
+
+- **permitted_use** — The ToS license only use of the Datarade platform, for business purposes only (browsing listings, contacting Sellers, reviews); what a buyer may do with a data Product is left entirely to the separate Customer-Seller agreement, and copying anything off-platform needs a Seller's agreement.
+  - “Customers interested in purchasing one or more Products can browse the Products available on Datarade, interact with Sellers” · quote check: exact
+  - “grants Customer a non-exclusive and non-transferable right to use Datarade and Customer Account for the Purpose” · quote check: exact
+  - “Any use of Datarade for private or other non-business purposes is prohibited.” · quote check: exact
+  - “unless such download or copy is agreed upon with a Seller in accordance with the limitations of the Purpose” · quote check: exact
+  - “obligation to pay for Products in accordance with the respective agreements between Customer and a Seller remains unaffected” · quote check: exact
+- **field_of_use** — Business use only: any private or non-business use of Datarade is prohibited and the operator may demand evidence of business capacity; no field-of-use terms for data Products.
+  - “Any use of Datarade for private or other non-business purposes is prohibited.” · quote check: exact
+  - “request additional information and evidence at any time during the Term to satisfy itself of Customer’s business capacity” · quote check: exact
+- **term_duration** — Open-ended platform agreement from registration; the Customer may terminate at any time, the operator for cause with reasons given 30 days ahead (shorter for serious or repeated breach); the content-hosting licence lasts for the agreement, the Reviews licence is perpetual and irrevocable.
+  - “Customer may terminate the Agreement at their convenience by closing their Customer Account” · quote check: exact
+  - “provide Customer with a reason for this decision on a durable medium at least 30 days before the termination takes effect” · quote check: exact
+  - “Customer grants Platform Operator the right to store and access the files, data, information and other content” · quote check: exact
+  - “Customer grants Platform Operator the perpetual, irrevocable, and worldwide right to make such Reviews available” · quote check: exact
+- **exclusivity** — Only the platform-access right is addressed, and it is non-exclusive and non-transferable; the ToS say nothing about exclusive rights in data Products.
+  - “grants Customer a non-exclusive and non-transferable right to use Datarade and Customer Account for the Purpose” · quote check: exact
+- **sublicensing** — The Customer may not license, sublicense, sell or share its Customer Account, even with affiliates; the operator may let Sellers copy Reviews for display elsewhere. Sublicensing of data Products is not addressed.
+  - “license, sublicense, sell, transfer, assign, distribute or otherwise commercially exploit or make available the Customer” · quote check: exact
+  - “Customer grants Platform Operator the perpetual, irrevocable, and worldwide right to make such Reviews available” · quote check: exact
+- **derivatives_and_model_outputs** — Covers the platform only: the Customer may not modify Datarade or create derivative works of it; derivatives of data Products and model outputs are not addressed.
+  - “modify Datarade or create derivative works thereof” · quote check: exact
+- **deletion_on_termination** — The operator deletes Customer Content 30 days after termination (the Customer must download it first), unless it is legally bound to retain it. Separately, each party must destroy or return the other's Confidential Information (which is defined to include the Products offered on Datarade) and certify this in writing, subject to legal and backup exceptions.
+  - “it is Customer’s sole responsibility to download and securely store a copy of all relevant Content” · quote check: exact
+  - “will delete or destroy the Content in its possession or under its control after the expiry of these thirty (30) days” · quote check: exact
+  - “includes, but is not limited to, the technology underlying Datarade, the Products offered on Datarade” · quote check: exact
+  - “destroy or (at the option of the Disclosing Party) return to the Disclosing Party all Confidential Information” · quote check: exact
+  - “certify in writing (signed by an authorized Representative of the Receiving Party) to the Disclosing Party” · quote check: exact
+- **warranties_by_provider** — No warranty about data Products from anyone: the operator warrants only that the platform works substantially as described, both parties give corporate reps (authority, anti-bribery, sanctions), and Sellers promise compliance with law and Publishing Policies to the operator under a separate Seller Agreement, not to buyers in these ToS.
+  - “the functionality of Datarade will be substantially in accordance with the Service Descriptions” · quote check: exact
+  - “Each Party represents and warrants that” · quote check: exact
+  - “any Seller Agreement must include Seller’s commitment to comply with Applicable Laws” · quote check: exact
+  - “Essential Seller Commitments will include, but are not limited to, the Publishing Policies” · quote check: exact
+- **indemnity** — One-way and uncapped: every Customer (buyer or Seller) indemnifies Monda Labs and its affiliates, directors and employees against alleged third-party IP infringement from Content it posted, alleged breaches of law (notably data protection and export control) and breaches of account and use restrictions; the Customer controls defence and settlement. The operator indemnifies no one.
+  - “Customer shall indemnify and hold Platform Operator and its affiliated companies, directors and/or employees harmless” · quote check: exact
+  - “alleged infringement of a third party’s intellectual property rights due to Content made available by Customer on Datarade” · quote check: exact
+  - “the alleged violation of Applicable Laws, in particular Data Protection Laws and export control laws” · quote check: exact
+  - “give Customer sole control of the defense and settlement of the claim” · quote check: exact
+- **liability_cap** — No monetary cap: the operator is liable in negligence only for breach of essential obligations, limited to foreseeable contract-typical damage; all other liability excluded; claims time-barred after 12 months; no liability for suspensions. German-law carve-outs: injury to life, limb or health, wilful misconduct or gross negligence, guarantees and mandatory law. The Customer's liability is not limited.
+  - “injury to life, limb or health; (b) in the event of willful misconduct or gross negligence” · quote check: exact
+  - “the liability of Datarade is limited to the damages that are foreseeable according to the type of the business in question” · quote check: exact
+  - “All other liability on the part of Platform Operator shall be excluded regardless of its legal and factual foundation.” · quote check: exact
+  - “All liability claims shall become statute-barred within twelve (12) months.” · quote check: exact
+  - “CUSTOMER AGREES THAT PLATFORM OPERATOR SHALL NOT BE LIABLE FOR ANY SUSPENSION” · quote check: exact
+- **payment_and_revenue_share** — Customers (buyers) pay Datarade nothing; they pay Sellers for Products under their own agreements with them. The operator takes no commission in these ToS; Sellers need an active subscription to maintain provider pages, with Seller fees left to the Seller Agreement.
+  - “Customer owes no remuneration for Platform Operator’s Services and the granting of rights of use to the Customer Account” · quote check: exact
+  - “obligation to pay for Products in accordance with the respective agreements between Customer and a Seller remains unaffected” · quote check: exact
+  - “provided that the respective Seller holds an active subscription” · quote check: exact
+  - “Platform Operator does not sell or buy any Products; it solely acts as an intermediary service provider” · quote check: exact
+- **takedown_and_erasure** — DSA notice-and-action: anyone can report unlawful content electronically, and the operator decides promptly and may demote, disable or remove it or suspend the account (including for Seller breach of Publishing Policies). Nothing covers data-subject erasure or copies a buyer already holds, which fall under the Customer-Seller agreement.
+  - “Platform Operator offers a procedure on Datarade for the purely electronic reporting” · quote check: exact
+  - “decide on the reported information promptly, carefully, free of arbitrariness and objectively” · quote check: exact
+  - “such as demotion, demonetization, disabling of access to, or removal thereof” · quote check: exact
+  - “IF SELLER IS FOUND IN BREACH OF THE SELLER COMMITMENTS AND/OR THE PUBLISHING POLICIES” · quote check: exact
+  - “Art. 18 of Regulation (EU) 2022/2065 (Digital Services Act)” · quote check: exact
+- **governing_law** — German law, CISG excluded; courts of Berlin (Landgericht Berlin) have exclusive jurisdiction after a mandatory 60-day attempt at amicable settlement.
+  - “governed by the laws of the Federal Republic of Germany” · quote check: exact
+  - “exclusive jurisdiction of the courts located in Berlin, Germany” · quote check: exact
+  - “attempt to find an amicable settlement at least for a period of sixty (60) days” · quote check: exact
+- **change_of_terms** — The operator may amend the ToS only on important grounds, with written notice at least six weeks ahead, never in a way that unreasonably disadvantages the Customer, and the Customer gets a special termination right; platform features can change at the operator's sole discretion with notice.
+  - “no later than six (6) weeks before the changes shall come into force” · quote check: exact
+  - “shall not include changes that would unreasonably disadvantage Customer by significantly disturbing the contractual balance” · quote check: exact
+  - “Customer shall have a special right of termination” · quote check: exact
+  - “reserves the right, in its sole discretion, to make changes to Datarade and the Service Descriptions” · quote check: exact
+- **prohibited_uses** — No private or non-business use; no sharing or sublicensing of accounts; no modifying or copying the platform off-site without a Seller's agreement; no infringing or unlawful material; no malware or disruption; no use that breaks the law, including data protection law; competitors' employees are barred as Users.
+  - “Any use of Datarade for private or other non-business purposes is prohibited.” · quote check: exact
+  - “license, sublicense, sell, transfer, assign, distribute or otherwise commercially exploit or make available the Customer” · quote check: exact
+  - “unless such download or copy is agreed upon with a Seller in accordance with the limitations of the Purpose” · quote check: exact
+  - “send to or store on Datarade any infringing, obscene, threatening, defamatory, or otherwise unlawful or unauthorized material” · quote check: exact
+  - “use Datarade in violation of Applicable Laws, including but not limited to Data Protection Laws” · quote check: exact
+  - “Employees of Platform Operator’s competitors are not eligible as Users” · quote check: exact
+- _unknown_: `other.ai_training_rights` — not_published
+- _unknown_: `other.consent_and_release_warranty` — not_published
+- _unknown_: `other.buyer_copies_after_takedown` — not_published
+- _unknown_: `other.product_exclusivity` — not_published
+- _unknown_: `other.buyer_licence_terms` — not_published
+- _unknown_: `other.audit_rights` — not_published
+- _unknown_: `other.seller_fees` — not_published
+
+## Data License Agreement — Defined.ai (DefinedCrowd Corporation)
+
+`doc-defined-ai-dla` · buyer_licence · effective as of November 30th, 2022 · <https://defined.ai/data-license-agreement> · retrieved 2026-10-01
+
+Licensor: DefinedCrowd Corporation (Defined.ai), Seattle WA, asserting ownership of all Data · licensee: all clients covered by this license (the buyer) · operator's role: reseller_licensor
+
+- **permitted_use** — Internal business use only, for the Licensee's own benefit; commercialising the Data itself (free or paid) is excluded; anything not expressly authorised is prohibited.
+  - “Use is solely for the benefit of Licensee in the ordinary course of its internal business operations” · quote check: exact
+  - “excludes commercialization of the Data itself, whether free of charge or paid” · quote check: exact
+  - “Any purpose or use not specifically authorized herein is prohibited unless otherwise agreed to in writing by Licensor” · quote check: exact
+- **ai_training_rights** — Training, testing and benchmarking models is allowed and the resulting models may be commercialised, only while the Data itself is not made available and the model does not output recognisable Contributor content (e.g. recognisable TTS voices, avatars); no redistribution of the Data; fine-tuning is not named separately.
+  - “commercial exploitation of models based that have used the Data for training, testing or bench-marking purposes” · quote check: exact
+  - “as long as the Data itself is not made available or it does not output recognizable content from Contributors to the Assets” · quote check: exact
+  - “recognizable Text-to-Speech voices, avatars and similar” · quote check: exact
+  - “Digital assets for training and/or testing of speech, NLP, computer vision, and other models” · quote check: exact
+- **field_of_use** — Data is described as assets for training/testing speech, NLP, computer vision and other models; usage capped at Exhibit A limits, extra use needs written agreement and extra fees.
+  - “Digital assets for training and/or testing of speech, NLP, computer vision, and other models” · quote check: exact
+  - “subject to any appropriate additional fees determined by the Licensor” · quote check: exact
+- **territory** — No territorial limit on the grant; US export-control compliance and approvals required before making the Data available outside the US.
+  - “prior to exporting, re-exporting, releasing, or otherwise making the Data available outside the US” · quote check: exact
+- **term_duration** — Runs from the Effective Date until terminated; either side (including Defined.ai) may end it on 60 days' notice without cause, or at once for uncured breach (30 days); not perpetual.
+  - “will continue in effect until terminated pursuant to Section 8(b)” · quote check: exact
+  - “Either Party may terminate this Agreement, effective on written notice to the other Party, given 60 (sixty) days” · quote check: exact
+  - “fails to cure that breach within 30 (thirty) days after written notice of that breach” · quote check: exact
+  - “Licensor may terminate this Agreement without advance notice to Licensee or an opportunity for Licensee to cure” · quote check: exact
+- **exclusivity** — Non-exclusive only.
+  - “grants Licensee a non-exclusive, non-sublicensable, and non-transferable (except in compliance with Section 8(f)) license” · quote check: exact
+- **sublicensing** — Non-sublicensable and non-transferable; no disclosure, sale, sublicence, publication or other making available to third parties without Defined.ai's written authorisation; no assignment without consent.
+  - “grants Licensee a non-exclusive, non-sublicensable, and non-transferable (except in compliance with Section 8(f)) license” · quote check: exact
+  - “shall not disclose, release, distribute, or deliver the Data Assets, or any portion thereof, to any third party” · quote check: exact
+  - “(ii) rent, lease, lend, sell, sublicense, assign, distribute, publish, transfer, or otherwise make available the Data” · quote check: exact
+  - “Licensee may not assign or transfer any of its rights or delegate any of its obligations hereunder” · quote check: exact
+- **derivatives_and_model_outputs** — Trained models may be commercialised but must not output recognisable Contributor content; the published text bars copying or modifying the Data and publishing any compilation or directory derived from it.
+  - “as long as the Data itself is not made available or it does not output recognizable content from Contributors to the Assets” · quote check: exact
+  - “recognizable Text-to-Speech voices, avatars and similar” · quote check: exact
+  - “(i) copy, modify, or, in whole or in part” · quote check: exact
+  - “(v) publish, enhance, or display any compilation or directory based upon information derived from the Data” · quote check: exact
+- **attribution** — No credit requirement; Licensee must not remove proprietary notices included in the Data.
+  - “(iv) remove any proprietary notices included within the Data” · quote check: exact
+- **audit_rights** — Defined.ai may audit the Licensee's records at its own expense on reasonable notice; Licensee keeps records during the Term plus two years.
+  - “Licensor may, at its own expense, on reasonable prior notice, periodically inspect and audit Licensee's records” · quote check: exact
+  - “for a period of two years after the termination or expiration of this Agreement” · quote check: exact
+- **deletion_on_termination** — On termination the buyer must stop using and delete, destroy or return all copies and certify deletion in writing (clause cross-refers to 'Section 7b', a drafting slip for 8b); no refund.
+  - “Licensee shall cease using and delete, destroy, or return all copies of the Data and certify in writing” · quote check: exact
+  - “Upon termination as stated in Section 7b, the license granted hereunder will also terminate” · quote check: exact
+  - “or entitle Licensee to any refund” · quote check: exact
+- **warranties_by_provider** — None: Data is provided as is; Defined.ai disclaims all warranties including title, non-infringement, accuracy and completeness.
+  - “THE DATA IS PROVIDED "AS IS" AND LICENSOR HEREBY DISCLAIMS ALL WARRANTIES” · quote check: exact
+  - “FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT” · quote check: exact
+  - “BE SECURE, ACCURATE, COMPLETE, FREE OF HARMFUL CODE, OR ERROR FREE” · quote check: exact
+- **indemnity** — Defined.ai indemnifies the buyer against third-party claims that Permitted Use infringes US IP or data-protection rights (conditional on notice and Defined.ai controlling defence; excludes combination with non-Defined.ai data and breach of use restrictions; sole IP remedy); buyer indemnifies Defined.ai for negligence, wilful misconduct and unauthorised use. Defined.ai's side is subject to the overall fees-paid cap.
+  - “infringes or misappropriates such third party's US intellectual property rights, and data protection rights” · quote check: exact
+  - “allows Licensor sole authority to control the defense and settlement of such claim” · quote check: exact
+  - “use of the Data in combination with data, software, hardware, equipment, or technology not provided by Licensor” · quote check: exact
+  - “THIS SECTION 6 SETS FORTH LICENSEE'S SOLE REMEDIES AND LICENSOR'S SOLE LIABILITY” · quote check: exact
+  - “(i) negligence or willful misconduct; or (ii) use of the Data in a manner not authorized by this Agreement” · quote check: exact
+  - “EXCEED THE TOTAL AMOUNTS PAID TO LICENSOR UNDER THIS AGREEMENT, LIMITED TO PROVEN DIRECT DAMAGES CAUSED BY THE LICENSOR” · quote check: exact
+- **liability_cap** — Defined.ai's aggregate liability capped at total amounts paid to it, limited to proven direct damages, notwithstanding any other provision; consequential damages excluded for Defined.ai only; no cap on the buyer.
+  - “EXCEED THE TOTAL AMOUNTS PAID TO LICENSOR UNDER THIS AGREEMENT, LIMITED TO PROVEN DIRECT DAMAGES CAUSED BY THE LICENSOR” · quote check: exact
+  - “IN NO EVENT WILL LICENSOR BE LIABLE UNDER OR IN CONNECTION WITH THIS AGREEMENT” · quote check: exact
+- **payment_and_revenue_share** — Buyer pays fees to Defined.ai; usage beyond Exhibit A limits carries extra fees set by Defined.ai; delivery may be suspended after 15 days' unpaid undisputed amounts; no refund on termination. No revenue share or contributor payment terms in this document.
+  - “subject to any appropriate additional fees determined by the Licensor” · quote check: exact
+  - “such failure continues for 15 (fifteen) days” · quote check: exact
+  - “or entitle Licensee to any refund” · quote check: exact
+- **takedown_and_erasure** — No data-subject erasure pass-through; on an infringement or data-protection claim Defined.ai may modify/replace the material, obtain rights, or terminate for the affected part immediately, after which the buyer must delete its copies; parties cooperate on data-protection obligations.
+  - “(A) modify or replace any such infringing material to make it non-infringing, or (B) obtain rights to continue use” · quote check: exact
+  - “in its entirety or with respect to the affected part or feature of the Data, effective immediately on written notice” · quote check: exact
+  - “Licensee shall cease using and delete, destroy, or return all copies of the Data and certify in writing” · quote check: exact
+  - “the Parties agree to support each other in complying with the obligations under applicable data protection laws” · quote check: exact
+  - “Each Party is individually responsible within its scope of responsibility for compliance with applicable data protection laws” · quote check: exact
+- **governing_law** — Washington State law; exclusive jurisdiction of federal or state courts in Seattle / King County.
+  - “governed by and interpreted in accordance with the laws of the state of Washington” · quote check: exact
+  - “located in the city of Seattle and King County” · quote check: exact
+- **change_of_terms** — No unilateral change: amendments only in writing signed by both parties.
+  - “is effective unless it is in writing and signed by an authorized representative of each Party” · quote check: exact
+- **prohibited_uses** — No resale, sublicensing or redistribution; no reverse engineering or deriving compilation methods; no removing notices; no derived compilations/directories; no unlawful use under privacy law; no infringing use; no recognisable Contributor output from models.
+  - “(ii) rent, lease, lend, sell, sublicense, assign, distribute, publish, transfer, or otherwise make available the Data” · quote check: exact
+  - “otherwise attempt to derive or gain access to the source of the Data or methods used to compile the Data” · quote check: exact
+  - “(iv) remove any proprietary notices included within the Data” · quote check: exact
+  - “(v) publish, enhance, or display any compilation or directory based upon information derived from the Data” · quote check: exact
+  - “(vi) use the Data unlawfully according to the applicable privacy and data protection laws” · quote check: exact
+  - “infringes, misappropriates, or otherwise violates any intellectual property right or other right of any person” · quote check: exact
+  - “as long as the Data itself is not made available or it does not output recognizable content from Contributors to the Assets” · quote check: exact
+- _unknown_: `terms.consent_and_release_warranty` — not_published
+- _unknown_: `other.partner_data_provenance` — not_published
+- _unknown_: `other.models_after_termination` — not_published
+- _unknown_: `other.exhibit_a_usage_limits` — not_published
+- _unknown_: `other.fees` — not_published
+
+## Supplier Program - General Terms & Conditions — Defined.ai
+
+`doc-defined-ai-supplier` · provider_agreement · undated (no version or date printed; page footer (c) 2026 DefinedCrowd) · <https://defined.ai/supplier-program> · retrieved 2026-10-01
+
+Licensor: The Applicant Company (the data supplier) licenses its data samples to Defined.ai · licensee: Defined.ai (DefinedCrowd), which may then share samples with its own customers · operator's role: reseller_licensor
+
+- **permitted_use** — Supplier grants Defined.ai a free licence to share submitted data samples with Defined.ai's customers only to gauge interest and seek business; the full dataset licence is left to a separate Data License Agreement.
+  - “a worldwide, free, non-exclusive and unencumbered license to share the data samples with Defined.ai’s customers” · quote check: exact
+  - “This stage entails both the execution of Defined.ai’s Data License Agreement & Provision of Services” · quote check: exact
+- **territory** — Worldwide (sample showcase licence).
+  - “a worldwide, free, non-exclusive and unencumbered license to share the data samples with Defined.ai’s customers” · quote check: exact
+- **term_duration** — Starts when the supplier submits the application form (or signs, if earlier) and runs until terminated: 60 days' notice for convenience, or immediately for material breach uncured within 30 days; commitments survive termination.
+  - “as of the moment the Applicant Company either submits an application form” · quote check: exact
+  - “continue in effect until terminated pursuant to Section 5.5.1” · quote check: exact
+  - “terminate this the GT&C by convenience, effective on written notice to the other Party, given 60 (sixty) days’ prior notice” · quote check: exact
+  - “fails to cure that breach within 30 (thirty) days after written notice of that breach” · quote check: exact
+  - “The commitments made by each Party pursuant to the GT&C shall survive any termination” · quote check: exact
+- **exclusivity** — Non-exclusive both ways with no minimum commitment, but the supplier may not go around Defined.ai to deal directly with a customer Defined.ai named to it, for 12 months after the GT&C end.
+  - “GT&C are non-exclusive, and nothing in the GT&C prevents either Party from entering into the same or similar relationship” · quote check: exact
+  - “nothing herein will be construed as creating a minimum commitment for business on either Party” · quote check: exact
+  - “directly or indirectly do business dealings regarding such business opportunity except as directly through Defined.ai” · quote check: exact
+  - “During and for a period of 12 (twelve) months after the term of this Agreement” · quote check: exact
+  - “Defined.ai shall immediately be entitled to any and all fees arising from the breach of the non-circumvention obligation” · quote check: exact
+- **audit_rights** — Defined.ai may audit the supplier for Supplier Program compliance at most once a calendar year (more often if material breach is suspected), on 15 business days' written notice, in business hours.
+  - “Defined.ai reserves the right to audit the Applicant Company to assess compliance with the Supplier Program” · quote check: exact
+  - “no more than once per calendar year, unless a material breach is suspected” · quote check: exact
+  - “at least fifteen (15) business days’ prior written notice before initiating any audit” · quote check: exact
+- **deletion_on_termination** — Only Confidential Information must be returned, with all copies, within 10 calendar days of the relationship ending or on request; nothing says what happens to data samples already shared with customers.
+  - “promptly returned by the receiving party, accompanied by all copies of such documentation, within ten (10) calendar days” · quote check: exact
+- **warranties_by_provider** — Supplier warrants that samples infringe no Defined.ai or third-party IP, privacy, publicity or contractual rights, that it holds the right to make them available, that they are lawful and malware-free, and that they are representative of its datasets; it is solely accountable for their legal and technical conformity.
+  - “any third-party rights, including any intellectual property rights, privacy rights, publicity rights, or contractual rights” · quote check: exact
+  - “it does not hold, in accordance with applicable legislation, the right to make it available to third-parties” · quote check: exact
+  - “any unlawful, defamatory, harassing, abusive, fraudulent, obscene, or otherwise objectionable content” · quote check: exact
+  - “sole and exclusive accountable Party vis-à-vis legal and technical conformity of the data samples” · quote check: exact
+  - “that the samples submitted are representative of Applicant Company’s datasets at large” · quote check: exact
+- **consent_and_release_warranty** — No express consent or model-release warranty; the only coverage of people depicted is the supplier's warranty that SAMPLES do not infringe third-party privacy or publicity rights. Consent evidence is sought through Defined.ai's dataset-level ethical questionnaires, not a warranty.
+  - “any third-party rights, including any intellectual property rights, privacy rights, publicity rights, or contractual rights” · quote check: exact
+  - “full completion of Defined.ai’s Dataset-level Ethical Questionnaire Forms, each one linked to the category of data samples” · quote check: exact
+- **indemnity** — One-way: the supplier defends and indemnifies Defined.ai, its affiliates, licensors, service providers and their personnel against third-party claims from the supplier's breach of the GT&C; any Defined.ai obligations are deferred to the Data License Agreement.
+  - “agrees to defend, indemnify and hold harmless Defined.ai and its affiliates, licensors and service providers” · quote check: exact
+  - “from and against any third-party claims arising out of or relating to Applicant Company’s breach of the GT&C” · quote check: exact
+  - “reciprocal obligations of Defined.ai towards the Applicant and/or Third Parties shall be addressed separately” · quote check: exact
+- **liability_cap** — Supplier's indemnity liability capped at 2x the total value of business done between the parties under the GT&C; Defined.ai disclaims all liability for content the supplier provides.
+  - “limited to an amount not exceeding two (2) times the total value of business conducted between the parties under the GT&C” · quote check: exact
+  - “assumes no liability for any action or inaction regarding transmissions, communications or content provided by Applicant” · quote check: exact
+- **payment_and_revenue_share** — No price, commission or revenue share is set; no minimum business on either side; if the supplier circumvents Defined.ai, Defined.ai is entitled on demand to all fees arising from the breach.
+  - “nothing herein will be construed as creating a minimum commitment for business on either Party” · quote check: exact
+  - “Defined.ai shall immediately be entitled to any and all fees arising from the breach of the non-circumvention obligation” · quote check: exact
+- **governing_law** — Laws of the State of Washington (USA); after a 30-day management negotiation, exclusive jurisdiction of federal or state courts in King County, Washington; prevailing party recovers attorneys' fees.
+  - “governed, construed, and interpreted in accordance with the laws of the State of Washington” · quote check: exact
+  - “brought exclusively in the federal or state courts located in King County, Washington” · quote check: exact
+- **change_of_terms** — Amendment only with both parties' written consent, though Defined.ai reserves a right to revalidate the NDA terms when the Data License Agreement is signed.
+  - “Any term of the GT&C may only be amended with the written consent of the Parties” · quote check: exact
+  - “reserves the right to revalidate NDA terms upon execution of Defined.ai’s Data License Agreement & Provision of Services” · quote check: exact
+- **prohibited_uses** — Supplier must not submit malware or damaging code, content infringing third-party IP or trade secrets, or unlawful, defamatory, harassing, fraudulent or obscene content; each party may use the other's confidential information only for the relationship.
+  - “it does not hold, in accordance with applicable legislation, the right to make it available to third-parties” · quote check: exact
+  - “any unlawful, defamatory, harassing, abusive, fraudulent, obscene, or otherwise objectionable content” · quote check: exact
+  - “for any purpose other than to carry out discussions concerning the undertaking and maintenance of the Relationship” · quote check: exact
+  - “for a period of 3 (three) years following its termination” · quote check: exact
+- _unknown_: `terms.consent_and_release_warranty` — not_published
+- _unknown_: `terms.ai_training_rights` — not_published
+- _unknown_: `terms.derivatives_and_model_outputs` — not_published
+- _unknown_: `terms.sublicensing` — not_published
+- _unknown_: `terms.takedown_and_erasure` — not_published
+- _unknown_: `terms.payment_and_revenue_share` — not_published
+- _unknown_: `terms.field_of_use` — not_published
+
+## Language Resources Value-Added-Reseller Agreement (VAR) — ELDA / ELRA
+
+`doc-elra-var` · licence_template · Date: 21/01/2022 (Agreement Ref. No. LC/ELDA/VAR/2022/000/NAME) · <http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf> · retrieved 2026-10-01
+
+Licensor: ELDA S.A.S. as DISTRIBUTOR (distribution agency commissioned by ELRA), under distribution rights obtained from the rightful holder, who is not a party · licensee: The VAR (Value Added Reseller), a named organisation using the data at one named site · operator's role: reseller_licensor
+
+- **permitted_use** — Reproduce/adapt as needed for agreed use; rework and build upon the resources for the VAR's own internal R&D and technology development at its named site; commercially distribute derivative products or services, but never the data itself.
+  - “DISTRIBUTOR grants VAR the right to reproduce the Language Resources temporarily or permanently, to translate, adapt, arrange” · quote check: exact
+  - “for the purposes of their own internal language engineering research activities or their own internal technology development” · quote check: exact
+  - “DISTRIBUTOR grants VAR the non-exclusive right to distribute and market any derivative product or service” · quote check: exact
+- **ai_training_rights** — Training implied, not named: VAR may rework/build upon the data internally (so may train models in-house), but may not make available to third parties any Language Model based on any part of the data, even when mixed into a larger dataset, nor products that let third parties extract such models; fine-tuning, evaluation and model-output rights are not addressed separately.
+  - ““Language Models” are understood by both parties as all or any substantial part of the output of a modelling approach” · quote check: exact
+  - “for the purposes of their own internal language engineering research activities or their own internal technology development” · quote check: exact
+  - “VAR is not permitted to make available to third parties Language Models based on all or any part of the Language Resources.” · quote check: exact
+  - “Language Models created by incorporation of the Language Resources in a larger dataset” · quote check: exact
+  - “products and services that allow any third parties to extract all or any part of the Language Models based on” · quote check: exact
+- **field_of_use** — Internal language-engineering research and technology development, plus commercial derivative products/services (VAR's own commercialisation policy); no sector limits.
+  - “for the purposes of their own internal language engineering research activities or their own internal technology development” · quote check: exact
+  - “DISTRIBUTOR grants VAR the non-exclusive right to distribute and market any derivative product or service” · quote check: exact
+- **territory** — Rights are worldwide, but use and access are tied to the single site named in Exhibit B (relocation allowed with notice to ELDA within 30 days).
+  - “All rights granted hereunder are perpetual, royalty free and worldwide.” · quote check: exact
+  - “The Language Resources shall not be transferred to or accessed from any other site.” · quote check: exact
+  - “the Language Resources will be transferable to its new location and ELDA will be notified within 30 days of such transfer” · quote check: exact
+- **term_duration** — Perpetual; the template contains no termination clause.
+  - “All rights granted hereunder are perpetual, royalty free and worldwide.” · quote check: exact
+  - “The entire AGREEMENT is composed of the 21 articles herein together with Exhibits A, B, and C thereafter.” · quote check: exact
+- **exclusivity** — Non-exclusive right to distribute derivative products; no exclusivity offered.
+  - “DISTRIBUTOR grants VAR the non-exclusive right to distribute and market any derivative product or service” · quote check: exact
+- **sublicensing** — No sublicensing or transfer of the data; rights non-transferable except to a successor on acquisition/merger; VAR cannot bind ELDA.
+  - “non -transferable to any other entity, except in case VAR is acquired, merges or consolidates with another legal entity” · quote check: exact
+  - “VAR is not permitted to make available to the public all or any substantial part of the contents of the Language Resources” · quote check: exact
+  - “VAR has no right or authority to incur, assume or create, in writing or otherwise, any warranty, liability” · quote check: exact
+- **derivatives_and_model_outputs** — Derivative products/services may be sold non-exclusively, provided they do not expose a substantial part of the data, do not allow reconstruction of it, and do not hand third parties models trained on it; VAR gains no ownership in the data.
+  - “DISTRIBUTOR grants VAR the non-exclusive right to distribute and market any derivative product or service” · quote check: exact
+  - “make products or services available to third partie s in any form that allows to reconstruct the original Language Resources” · quote check: exact
+  - “VAR is not permitted to make available to third parties Language Models based on all or any part of the Language Resources.” · quote check: exact
+  - “products and services that allow any third parties to extract all or any part of the Language Models based on” · quote check: exact
+  - “VAR acquires no ownership, rights or title in all or any parts of the Language Resources.” · quote check: exact
+- **attribution** — Mandatory citation of ELDA and the resource (name, ELRA catalogue URL, ISLRN, ELRA ID) in scholarly literature; no use of ELDA's name implying endorsement.
+  - “VAR shall give appropriate references to Distributor, as well as to the name and refe rence of the Language Resources” · quote check: exact
+  - “LANGUAGE RESOURCE NAME, ELRA catalogue (http://catalog.elra.info), ISLRN: XXX-XXX-XXX-XXX-X, ELRA ID: ELRA-XXXXX” · quote check: exact
+  - “VAR shall not use the name of Distributor in any publication in any manner that would imply an endorsement of VAR” · quote check: exact
+- **warranties_by_provider** — None: ELDA and the owners give no accuracy, completeness, merchantability or fitness warranty; data is 'as is with all defects'.
+  - “DISTRIBUTOR and OWNERS accept no responsibility for the accuracy or completeness of the data or for the consequences” · quote check: exact
+  - “DISTRIBUTOR and OWNERS give no warranty for merchantability and/or fitness for a particular purpose” · quote check: exact
+  - “Language Resources are provided on an "as is with all defects" basis.” · quote check: exact
+- **liability_cap** — Mutual exclusion of all liability for direct, consequential or indirect loss (effectively zero cap for both sides); owners also disclaim responsibility for consequences of use.
+  - “Both parties exclude all liability of whatsoever nature for direct, consequential or indirect loss or damage” · quote check: exact
+  - “Neither party shall be responsible for damages caused by the other party's non-fulfillment of provisions of this AGREEMENT.” · quote check: exact
+  - “DISTRIBUTOR and OWNERS accept no responsibility for the accuracy or completeness of the data or for the consequences” · quote check: exact
+- **payment_and_revenue_share** — VAR pays ELDA a one-off 'compensation' set in Exhibit C (amount not in the template); rights otherwise royalty-free, so no revenue share on derivative products.
+  - “VAR agrees to pay DISTRIBUTOR a compensation. The mode of payment and schedule of payments are incorporated in Exhibit C” · quote check: exact
+  - “All rights granted hereunder are perpetual, royalty free and worldwide.” · quote check: exact
+- **governing_law** — French law; exclusive jurisdiction of the Tribunal de commerce de Paris after attempted amicable settlement.
+  - “This AGREEMENT is subject to, construed and interpreted in accordance with the Law of France.” · quote check: exact
+  - “The "Tribunal de commerce de Paris" shall be the only competent court.” · quote check: exact
+- **prohibited_uses** — No public release of all or a substantial part of the data (including free/open-source), no products allowing reconstruction, no sharing of models trained on it, no access from another site, no implied endorsement.
+  - “VAR is not permitted to make available to the public all or any substantial part of the contents of the Language Resources” · quote check: exact
+  - “by renting, leasing or any other form of distribution, including free or open-source ones” · quote check: exact
+  - “make products or services available to third partie s in any form that allows to reconstruct the original Language Resources” · quote check: exact
+  - “VAR is not permitted to make available to third parties Language Models based on all or any part of the Language Resources.” · quote check: exact
+  - “The Language Resources shall not be transferred to or accessed from any other site.” · quote check: exact
+  - “VAR shall not use the name of Distributor in any publication in any manner that would imply an endorsement of VAR” · quote check: exact
+- _unknown_: `terms.consent_and_release_warranty` — not_published
+- _unknown_: `terms.indemnity` — not_published
+- _unknown_: `terms.takedown_and_erasure` — not_published
+- _unknown_: `terms.deletion_on_termination` — not_published
+- _unknown_: `terms.audit_rights` — not_published
+- _unknown_: `terms.change_of_terms` — not_published
+- _unknown_: `other.compensation_amount` — not_published
+
+## Data Usage & Licensing Policy (published as 'AI Data License Agreement') — FutureBeeAI
+
+`doc-futurebeeai-licence` · buyer_licence · Last Updated: Feb 2025 · <https://www.futurebeeai.com/policies/ai-data-license-agreement> · retrieved 2026-10-01
+
+Licensor: FutureBeeAI, which asserts that all datasets remain its sole property and retains all IP · licensee: the Buyer/Licensee: anyone purchasing or using a FutureBeeAI dataset · operator's role: reseller_licensor
+
+- **permitted_use** — Only the listed approved uses: AI/ML training and testing, academic research without public redistribution, product development, internal analytics, internal annotation/enrichment; anything else needs FutureBeeAI's written approval; a signed agreement overrides the policy.
+  - “a non-exclusive, non-transferable, non-sublicensable license to use the purchased dataset solely for the approved use cases” · quote check: exact
+  - “The dataset may be used for internal research, AI/ML training, and product development.” · quote check: exact
+  - “Training, validating, and testing AI models in compliance with applicable laws.” · quote check: exact
+  - “Conducting research that does not involve public redistribution of the dataset.” · quote check: exact
+  - “Incorporating insights from the dataset into proprietary software, models, or applications.” · quote check: exact
+  - “Using datasets for internal analytics, market research, or innovation.” · quote check: exact
+  - “Using the dataset for internal annotation, processing, or other value additions.” · quote check: exact
+  - “they must obtain explicit written approval from FutureBeeAI” · quote check: exact
+  - “any specific agreement signed between the Buyer and FutureBeeAI shall supersede these clauses in case of any conflicts” · quote check: exact
+- **ai_training_rights** — Training, validating and testing AI models is expressly permitted (standard licence names AI/ML training); fine-tuning and benchmarking are not named separately; resulting models belong to the Buyer only so long as the original dataset is not exposed, distributed or shared; no redistribution of the data in any form; samples are evaluation-only before purchase; model outputs are not addressed.
+  - “Training, validating, and testing AI models in compliance with applicable laws.” · quote check: exact
+  - “The dataset may be used for internal research, AI/ML training, and product development.” · quote check: exact
+  - “Incorporating insights from the dataset into proprietary software, models, or applications.” · quote check: exact
+  - “Any insights, models, or products derived from the dataset belong to the Buyer” · quote check: exact
+  - “provided they do not expose, distribute, or share the original dataset” · quote check: exact
+  - “Datasets cannot be resold, shared, sublicensed, or publicly distributed, including open-source platforms.” · quote check: exact
+  - “may only be used for evaluation before purchasing” · quote check: exact
+- **field_of_use** — Any lawful field within the approved use cases, excluding discriminatory AI, illegal surveillance and 'unethical' applications; no sector restriction otherwise.
+  - “a non-exclusive, non-transferable, non-sublicensable license to use the purchased dataset solely for the approved use cases” · quote check: exact
+  - “No use in discriminatory AI models, illegal surveillance, or unethical applications.” · quote check: exact
+  - “No use that violates GDPR, CCPA, or other applicable data protection laws.” · quote check: exact
+- **exclusivity** — Standard licence is non-exclusive and FutureBeeAI may sell the same dataset to others; an Exclusive License (no other party gets the dataset) is available by separate agreement and pricing; custom-collected data can be exclusive or non-exclusive per contract.
+  - “a non-exclusive, non-transferable, non-sublicensable license to use the purchased dataset solely for the approved use cases” · quote check: exact
+  - “FutureBeeAI may sell the same dataset to other buyers.” · quote check: exact
+  - “The dataset is sold exclusively to the Buyer, and no other party will have access to the same dataset.” · quote check: exact
+  - “Subject to a separate agreement, pricing, and licensing terms.” · quote check: exact
+  - “If a dataset is specifically collected or processed for a Buyer, usage rights will be defined in the contract.” · quote check: exact
+  - “Can be exclusive or non-exclusive depending on the agreement.” · quote check: exact
+- **sublicensing** — Not permitted: the licence is non-transferable and non-sublicensable, and resale, sharing or sublicensing of the dataset is prohibited.
+  - “a non-exclusive, non-transferable, non-sublicensable license to use the purchased dataset solely for the approved use cases” · quote check: exact
+  - “Datasets cannot be resold, shared, sublicensed, or publicly distributed, including open-source platforms.” · quote check: exact
+  - “Redistribution or reselling is strictly prohibited.” · quote check: exact
+- **derivatives_and_model_outputs** — Insights, models and products derived from the dataset belong to the Buyer, conditional on not exposing or sharing the original data; internal annotation/enrichment allowed; an altered dataset may not be resold as a derivative dataset; FutureBeeAI keeps ownership of the dataset itself.
+  - “Any insights, models, or products derived from the dataset belong to the Buyer” · quote check: exact
+  - “provided they do not expose, distribute, or share the original dataset” · quote check: exact
+  - “Using the dataset for internal annotation, processing, or other value additions.” · quote check: exact
+  - “Buyers cannot alter the dataset and resell it as a derivative dataset.” · quote check: exact
+  - “All datasets remain the sole property of FutureBeeAI unless an exclusive license is granted in writing.” · quote check: exact
+  - “Buyers do not acquire any ownership rights, copyrights, trademarks, or proprietary rights related to the dataset.” · quote check: exact
+- **deletion_on_termination** — FutureBeeAI may terminate immediately for violation; the Buyer must then delete all copies of the dataset; silent on whether models trained before termination survive.
+  - “FutureBeeAI may terminate the license immediately.” · quote check: exact
+  - “The Buyer must delete all copies of the dataset upon termination of the license.” · quote check: exact
+- **warranties_by_provider** — FutureBeeAI gives no warranty of any kind in the policy; the only quality remedy is that a Buyer whose dataset misses agreed specifications may request a resolution, with no guaranteed refund.
+  - “If a dataset does not meet agreed-upon specifications, Buyers may request a resolution, but refunds are not guaranteed.” · quote check: exact
+- **payment_and_revenue_share** — No prices in the policy; no refund once a dataset is accessed or downloaded; refund before download at FutureBeeAI's discretion; exclusive licences priced by separate agreement.
+  - “refunds are not provided once a dataset has been accessed or downloaded.” · quote check: exact
+  - “If a Buyer cancels before accessing the dataset, FutureBeeAI may offer a refund at its discretion.” · quote check: exact
+  - “If a dataset does not meet agreed-upon specifications, Buyers may request a resolution, but refunds are not guaranteed.” · quote check: exact
+  - “Subject to a separate agreement, pricing, and licensing terms.” · quote check: exact
+- **governing_law** — Laws of India; arbitration seated in Ahmedabad, Gujarat, unless otherwise agreed.
+  - “This Policy is governed by the laws of India” · quote check: exact
+  - “disputes will be resolved through arbitration in Ahmedabad, Gujarat unless otherwise agreed upon” · quote check: exact
+- **change_of_terms** — FutureBeeAI may change the policy unilaterally at any time; material changes notified by email or website; continued use of the dataset is acceptance; a signed agreement overrides the policy.
+  - “FutureBeeAI may update this Policy at any time.” · quote check: exact
+  - “Material changes will be communicated via email or website updates.” · quote check: exact
+  - “Continued use of the dataset after updates constitutes acceptance of the revised terms.” · quote check: exact
+  - “In case of any discrepancies, the terms outlined in the final signed agreement will take precedence over this Policy.” · quote check: exact
+  - “any specific agreement signed between the Buyer and FutureBeeAI shall supersede these clauses in case of any conflicts” · quote check: exact
+- **prohibited_uses** — No resale, sharing, sublicensing or public/open-source distribution; no discriminatory AI, illegal surveillance or unethical use; no resale of altered derivative datasets; no use violating GDPR/CCPA etc.; no ownership claims; breach allows immediate termination, damages action and blacklisting.
+  - “Datasets cannot be resold, shared, sublicensed, or publicly distributed, including open-source platforms.” · quote check: exact
+  - “No use in discriminatory AI models, illegal surveillance, or unethical applications.” · quote check: exact
+  - “Buyers cannot alter the dataset and resell it as a derivative dataset.” · quote check: exact
+  - “No use that violates GDPR, CCPA, or other applicable data protection laws.” · quote check: exact
+  - “Buyers cannot claim FutureBeeAI’s dataset as their own intellectual property.” · quote check: exact
+  - “FutureBeeAI may terminate the license immediately.” · quote check: exact
+  - “FutureBeeAI reserves the right to pursue legal action for damages.” · quote check: exact
+  - “FutureBeeAI may also blacklist Buyers who engage in unauthorized use of datasets.” · quote check: exact
+- _unknown_: `terms.consent_and_release_warranty` — not_published
+- _unknown_: `terms.indemnity` — not_published
+- _unknown_: `terms.liability_cap` — not_published
+- _unknown_: `terms.takedown_and_erasure` — not_published
+- _unknown_: `terms.term_duration` — not_published
+- _unknown_: `terms.territory` — not_published
+- _unknown_: `terms.audit_rights` — not_published
+- _unknown_: `terms.attribution` — not_published
+- _unknown_: `other.third_party_provenance` — not_published
+- _unknown_: `other.models_after_termination` — not_published
+
+## Content License Agreement — Getty Images
+
+`doc-getty-eula` · buyer_licence · Last Updated: April 2026 · <https://www.gettyimages.in/eula> · retrieved 2026-10-01
+
+Licensor: Getty Images licensing entity determined by the customer's billing address (content owned by Getty Images or its content suppliers) · licensee: The customer ('you'), and its employer or client when purchasing on their behalf · operator's role: reseller_licensor
+
+- **permitted_use** — RF: unlimited use in any media, perpetual, worldwide, by the purchaser (and its employer/client if bought on their behalf); RM/RR limited to the selected use; 30-day free comp use.
+  - “Unlimited, meaning content can be used an unlimited number of times” · quote check: fetch_failed
+  - “Any and all media, meaning content can be used in print, in digital or in any other medium or format” · quote check: fetch_failed
+  - “If you are purchasing on behalf of your employer or client, then your employer or client can use the content.” · quote check: fetch_failed
+  - “on a complimentary basis for test or sample (composite or comp) use only, for up to 30 days following download” · quote check: fetch_failed
+- **ai_training_rights** — None granted. No ML/AI use of content or metadata; 'Training' (develop, fine-tune, evaluate, incl. indirectly via a third-party AI tool) is excluded; only internal AI archiving/search/indexing and permitted editing of creative content allowed; no face-recognition use; training needs go to a sales rep.
+  - “metadata associated with content) for any machine learning and/or artificial intelligence purposes” · quote check: fetch_failed
+  - “or for any technologies designed or intended for the identification of natural persons” · quote check: fetch_failed
+  - “you may use artificial intelligence technology in connection with creative (non-editorial) content solely for:” · quote check: fetch_failed
+  - “internal use in connection with archiving, searching, indexing, or sorting creative content” · quote check: fetch_failed
+  - “(ii) any permitted editing of licensed creative content” · quote check: fetch_failed
+  - “do not allow for use in connection with any training, fine-tuning or other data ingestion of any machine learning” · quote check: fetch_failed
+  - “artificial intelligence models, including, for example, any generative training technology” · quote check: fetch_failed
+  - “directly or indirectly (for example, by uploading to a third-party AI tool that acquires rights)” · quote check: fetch_failed
+  - “to develop, build, improve, fine-tune, optimise, evaluate or otherwise create or enhance any machine learning” · quote check: fetch_failed
+  - “If you have any content training needs, please reach out to your Getty Images' representative.” · quote check: fetch_failed
+- **field_of_use** — Editorial content limited to descriptive/news use and barred from commercial, advertising and merchandising; RM/RR limited to the specific use, medium, period, print run and territory selected.
+  - “Limited to the specific use, medium, period of time, print run, placement, size of content and territory selected” · quote check: fetch_failed
+  - “primarily intended to be used for editorial purposes, meaning descriptive purposes such as news reporting” · quote check: fetch_failed
+  - “you may not use content marked "editorial" or "intended for editorial" for any commercial, promotional, advertorial” · quote check: fetch_failed
+- **territory** — RF worldwide; RM/RR limited to the territory selected.
+  - “Worldwide, meaning content can be used in any geographic territory.” · quote check: fetch_failed
+  - “Limited to the specific use, medium, period of time, print run, placement, size of content and territory selected” · quote check: fetch_failed
+- **term_duration** — RF perpetual; RM/RR limited to the period selected; ends on termination for breach.
+  - “Perpetual, meaning there is no expiry or end date on your rights to use the content.” · quote check: fetch_failed
+  - “Limited to the specific use, medium, period of time, print run, placement, size of content and territory selected” · quote check: fetch_failed
+  - “Getty Images may terminate this agreement at any time if you breach any of the terms of this or any other agreement” · quote check: fetch_failed
+- **exclusivity** — Non-exclusive: Getty Images can license the same content to other customers.
+  - “you do not have exclusive rights to use the content. Getty Images can license the same content to other customers” · quote check: fetch_failed
+- **sublicensing** — Non-transferable and non-sublicensable; employer/client of purchaser may use; RF limited to 10 users in one legal entity (UltraPack lifts this); raw file only within the entity and its subcontractors, who must be bound by the agreement.
+  - “The rights granted to you are non-transferable and non-sublicensable” · quote check: fetch_failed
+  - “If you are purchasing on behalf of your employer or client, then your employer or client can use the content.” · quote check: fetch_failed
+  - “Up to 10 individuals (total, not at any given time) may use an item of content” · quote check: fetch_failed
+  - “The raw file of content may not be provided to anyone outside of your legal entity” · quote check: fetch_failed
+  - “These subcontractors and distributors must agree to be bound by the terms of this agreement” · quote check: fetch_failed
+  - “If you purchase an UltraPack, sharing and storage restrictions do not apply” · quote check: fetch_failed
+- **derivatives_and_model_outputs** — Editing permitted (editorial only for technical quality) but warranties and indemnity exclude licensee modifications; no model derivatives since training is barred; outputs of Getty's own AI Generator are covered by the Section 10(b) indemnity unless the user's prompts/inputs include real people, marks or art.
+  - “edited for technical quality, provided that the editorial integrity of the content is not compromised” · quote check: fetch_failed
+  - “(ii) any permitted editing of licensed creative content” · quote check: fetch_failed
+  - “excluding any modifications, overlays or re-focussing done by you” · quote check: fetch_failed
+  - “arise out of or are a result of modifications made by you to the content or the context in which the content is used by you” · quote check: fetch_failed
+  - “the indemnity set forth in Section 10(b) (and any limitations thereto) will apply to all content generated with the AI” · quote check: fetch_failed
+  - “do not apply to the extent the claim is a result of prompts or inputs (e.g., a reference image uploaded by you)” · quote check: fetch_failed
+- **attribution** — Credit required for editorial use (adjacent or in production credits); not required for commercial use.
+  - “if you are using content for editorial purposes, you must include a credit adjacent to the content or in production credits” · quote check: fetch_failed
+  - “You do not need to include a photo credit for commercial use” · quote check: fetch_failed
+- **audit_rights** — Getty Images may demand sample end uses (incl. paywall access), audit the licensee's records itself or via a third party, and recover audit costs if underpayment is 5% or more; it also monitors downloads.
+  - “you agree to provide to Getty Images sample copies of projects or end uses that contain licensed content” · quote check: fetch_failed
+  - “Getty Images may, at its discretion, either through its own employees or through a third party, audit your records” · quote check: fetch_failed
+  - “If any audit reveals an underpayment by you to Getty Images of five percent (5%) or more” · quote check: fetch_failed
+  - “Getty Images reserves the right to monitor downloads and user activity to ensure compliance” · quote check: fetch_failed
+- **deletion_on_termination** — On termination for breach the licensee must stop use, delete or destroy all copies and confirm in writing on request.
+  - “Getty Images may terminate this agreement at any time if you breach any of the terms of this or any other agreement” · quote check: fetch_failed
+  - “you must immediately: cease using the content; delete or destroy any copies” · quote check: fetch_failed
+- **warranties_by_provider** — Getty Images (not the supplier) warrants no copyright/moral-rights infringement for use as delivered, excluding 'access only'/'handout' content and licensee modifications; otherwise 'as is'; no warranty on captions or metadata.
+  - “For all licensed content (excluding content marked "access only" or "handout"), Getty Images warrants” · quote check: fetch_failed
+  - “will not infringe on any copyrights or moral rights of the content owner/creator” · quote check: fetch_failed
+  - “excluding any modifications, overlays or re-focussing done by you” · quote check: fetch_failed
+  - “the content is provided "as is" without representation, warranty or condition of any kind” · quote check: fetch_failed
+  - “Getty Images does not warrant the accuracy of such information, or of any metadata provided with the content” · quote check: fetch_failed
+- **consent_and_release_warranty** — Getty Images warrants no privacy/publicity violation for non-editorial RF content, and for RM/RR only where it notifies that a model/property release exists; no releases for editorial content; no warranty on depicted people otherwise; licensee indemnifies for failing to obtain a required release; release documents are not provided under the text.
+  - “For licensed royalty-free content (excluding content marked "editorial" or "intended for editorial"), Getty Images” · quote check: fetch_failed
+  - “and will not violate any right of privacy or right of publicity” · quote check: fetch_failed
+  - “where Getty Images specifically notifies you that a model and/or property release has been obtained” · quote check: fetch_failed
+  - “Getty Images does not grant any right or make any warranty with regard to the use of names, people, trademarks” · quote check: fetch_failed
+  - “no releases are generally obtained for content identified as "editorial" or "intended for editorial"” · quote check: fetch_failed
+  - “your use of any content outside the scope of this agreement” · quote check: fetch_failed
+  - “your failure to obtain any required release for your use of content” · quote check: fetch_failed
+  - “(1) that the content is being used for illustrative purposes only, and (2) any person depicted in the content is a model” · quote check: fetch_failed
+- **indemnity** — Mutual: licensee indemnifies Getty for out-of-scope use, breach and missing releases; Getty indemnifies licensee for breach of its Section 9 warranties, excluding licensee modifications, context of use and continued use after notice of a claim; also extends to Getty AI Generator output.
+  - “your use of any content outside the scope of this agreement” · quote check: fetch_failed
+  - “your failure to obtain any required release for your use of content” · quote check: fetch_failed
+  - “any breach or alleged breach by Getty Images of its warranties in Section 9 above” · quote check: fetch_failed
+  - “arise out of or are a result of modifications made by you to the content or the context in which the content is used by you” · quote check: fetch_failed
+  - “This indemnification also does not apply to your continued use of content following notice from Getty Images” · quote check: fetch_failed
+  - “The indemnifying party (the one covering the costs) has the right to assume the handling, settlement, or defence” · quote check: fetch_failed
+  - “the indemnity set forth in Section 10(b) (and any limitations thereto) will apply to all content generated with the AI” · quote check: fetch_failed
+  - “do not apply to the extent the claim is a result of prompts or inputs (e.g., a reference image uploaded by you)” · quote check: fetch_failed
+- **liability_cap** — Excludes lost profits and indirect/consequential damages; no monetary cap on liability or indemnity was found in the text as read.
+  - “WILL NOT BE LIABLE TO YOU OR ANY OTHER PERSON OR ENTITY FOR ANY LOST PROFITS, PUNITIVE, SPECIAL, INDIRECT, CONSEQUENTIAL” · quote check: fetch_failed
+- **payment_and_revenue_share** — Licensee pays fees plus all taxes; 1.5%/month late charge; no refunds after 30 days or for subscriptions; auto-renewing subscriptions; no revenue share in this buyer-side document.
+  - “Getty Images may add a service charge of 1.5% per month, or such lesser amount as is allowed by law, on any unpaid balance” · quote check: fetch_failed
+  - “You agree to pay and be responsible for any and all sales taxes, use taxes, value-added taxes, withholding taxes and duties” · quote check: fetch_failed
+  - “No credits or refunds are available for cancellation requests received more than 30 days from your receipt of content” · quote check: fetch_failed
+  - “if your subscription is set to AUTOMATICALLY RENEW, you authorise Getty Images to charge” · quote check: fetch_failed
+- **takedown_and_erasure** — Getty may stop licensing any item at will; on a possible infringement claim it may require the licensee, its clients, distributors and employer to stop use and delete all copies at their own cost, with free replacement content and no stated refund.
+  - “Getty Images may discontinue licensing any item of content at any time in its sole discretion.” · quote check: fetch_failed
+  - “Getty Images may require you to immediately, and at your own expense: cease using the content, delete or destroy any copies” · quote check: fetch_failed
+  - “and ensure that your clients, distributors and/or employer do likewise” · quote check: fetch_failed
+  - “replacement content (determined by Getty Images in its reasonable commercial judgment) free of charge” · quote check: fetch_failed
+- **governing_law** — New York law; confidential arbitration (ICDR or JAMS outside North America) at the nearest listed seat (nearest to India: Singapore); Getty may go to court for IP injunctions.
+  - “governed by the laws of the State of New York, USA, without reference to its laws relating to conflicts of law” · quote check: fetch_failed
+  - “if you are outside of North America: the International Centre for Dispute Resolution ("ICDR") or JAMS” · quote check: fetch_failed
+  - “Milan, Italy; Sydney, Australia; Tokyo, Japan; or Singapore” · quote check: fetch_failed
+  - “Getty Images shall have the right to commence and prosecute any legal or equitable action or proceeding before any court” · quote check: fetch_failed
+- **change_of_terms** — Changes only by mutual written acceptance or electronically issued by Getty and accepted by the licensee; agreement overrides purchase orders; Getty may assign freely.
+  - “unless made in writing and accepted in writing by both parties, or issued electronically by Getty Images and accepted by you” · quote check: fetch_failed
+  - “the terms contained on any purchase order sent by you, the terms of this agreement will apply” · quote check: fetch_failed
+  - “Getty Images may assign this agreement, without notice or consent, to any corporate affiliate” · quote check: fetch_failed
+- **prohibited_uses** — No AI/ML or face-identification use, standalone redistribution, trademark/logo use, resale templates, on-demand products, NFTs (editorial and RR video), unlawful/pornographic/defamatory use; sensitive-subject uses must be labelled illustrative with a model.
+  - “metadata associated with content) for any machine learning and/or artificial intelligence purposes” · quote check: fetch_failed
+  - “or for any technologies designed or intended for the identification of natural persons” · quote check: fetch_failed
+  - “You may not use content in any way that allows others to download, extract or redistribute content as a standalone file” · quote check: fetch_failed
+  - “may not use content (in whole or in part) as the distinctive or distinguishing feature of a trademark” · quote check: fetch_failed
+  - “any rights-ready video content in connection with an immutable digital asset intended for sale or other distribution” · quote check: fetch_failed
+  - “you may not use content in electronic or digital templates intended for resale or other distribution” · quote check: fetch_failed
+  - “You may not use content in a pornographic, defamatory or other unlawful manner” · quote check: fetch_failed
+  - “(1) that the content is being used for illustrative purposes only, and (2) any person depicted in the content is a model” · quote check: fetch_failed
+  - “you may not use content marked "editorial" or "intended for editorial" for any commercial, promotional, advertorial” · quote check: fetch_failed
+- _unknown_: `other.liability_cap_amount` — not_published
+- _unknown_: `other.end_uses_published_before_takedown` — not_published
+- _unknown_: `other.release_documents_to_buyer` — not_published
+- _unknown_: `other.data_subject_erasure` — not_published
+- _unknown_: `other.exclusive_licence_option` — not_published
+- _unknown_: `other.ai_training_licence_terms` — not_published
+
+## Terms of Service (Nitrility, Inc. - Kled) — Kled (Nitrility, Inc.)
+
+`doc-kled-terms` · contributor_agreement · Last Revised on July 21, 2026 · <https://www.kled.ai/terms-of-service> · retrieved 2026-10-01
+
+Licensor: The contributor (app user uploading Submitted Content), who licenses their IP and publicity rights to Kled · licensee: Nitrility, Inc. (Kled), which sublicenses and distributes the content to its Data Customers · operator's role: reseller_licensor
+
+- **permitted_use** — Contributor licenses Kled to use, reproduce, adapt, annotate, modify, package, distribute and 'otherwise exploit' Submitted Content for any and all purposes, expressly including making it available to Data Customers, service providers and partners.
+  - “commercialize your Submitted Content to our business customers that seek to acquire rights in the Submitted Content” · quote check: exact
+  - “annotate, modify, package and otherwise exploit your Submitted Content for any and all purposes” · quote check: exact
+  - “to distribute and make your Submitted Content available to Data Customers and our service providers and partners” · quote check: exact
+- **ai_training_rights** — Kled gets an exclusive licence for AI/ML development (developing, training, testing, improving and deploying third-party models and systems) and passes rights on to Data Customers, e.g. to train or fine-tune; the contributor may not license anyone else for AI use. Evaluation is covered only as 'testing'; what Data Customers may redistribute or do with model outputs is not set here. App users themselves may not train AI on Services content without Kled's agreement.
+  - “for their own business purposes, such as to train or fine-tune their AI models” · quote check: exact
+  - “such license will be exclusive to us in connection with any uses or modifications of your Submitted Content” · quote check: exact
+  - “developing, training, testing, improving and deploying third-party AI and machine learning models” · quote check: exact
+  - “you will not allow or authorize any other person or entity to use your Submitted Content for the Exclusive Use” · quote check: exact
+  - “including, but not limited to, training a machine learning or AI system, unless otherwise agreed to with the Company” · quote check: exact
+- **field_of_use** — No field restriction on Kled ('any and all purposes'); the exclusive part of the licence is limited to the AI/ML development field, and outside it the contributor keeps non-exclusive freedom.
+  - “annotate, modify, package and otherwise exploit your Submitted Content for any and all purposes” · quote check: exact
+  - “such license will be exclusive to us in connection with any uses or modifications of your Submitted Content” · quote check: exact
+  - “developing, training, testing, improving and deploying third-party AI and machine learning models” · quote check: exact
+- **territory** — Worldwide licence; the Services are operated from the US, and non-US contributors use them on their own initiative and must comply with local law.
+  - “rights and licenses are transferable, fully sub-licensable (through multiple tiers), worldwide, perpetual and irrevocable” · quote check: exact
+  - “Those who choose to access the Services from locations outside the United States do so at their own initiative” · quote check: exact
+- **term_duration** — Perpetual and irrevocable; the licence survives account deletion or termination, and Kled need not delete content when an account closes.
+  - “rights and licenses are transferable, fully sub-licensable (through multiple tiers), worldwide, perpetual and irrevocable” · quote check: exact
+  - “the Company may, but is not obligated to, delete any Submitted Content” · quote check: exact
+  - “All sections which by their nature should survive the termination of these Terms shall continue in full force” · quote check: exact
+- **exclusivity** — Contributor to Kled: exclusive within the AI/ML field (the 'Exclusive Use'), and the contributor may not authorise anyone else for that use. Exclusivity runs to Kled, not to any single Data Customer; the Terms say nothing about exclusivity for buyers.
+  - “such license will be exclusive to us in connection with any uses or modifications of your Submitted Content” · quote check: exact
+  - “developing, training, testing, improving and deploying third-party AI and machine learning models” · quote check: exact
+  - “you will not allow or authorize any other person or entity to use your Submitted Content for the Exclusive Use” · quote check: exact
+- **sublicensing** — Kled may transfer and sublicense through multiple tiers, and may assign the Terms and licences; the contributor may not assign.
+  - “rights and licenses are transferable, fully sub-licensable (through multiple tiers), worldwide, perpetual and irrevocable” · quote check: exact
+  - “to distribute and make your Submitted Content available to Data Customers and our service providers and partners” · quote check: exact
+  - “These Terms and the licenses granted hereunder may be assigned by the Company but may not be assigned by you” · quote check: exact
+- **derivatives_and_model_outputs** — Kled may adapt, modify, annotate and package Submitted Content, and the AI exclusivity covers 'uses or modifications'. The contributor warrants the content contains no AI-generated output. Nothing on who owns models or outputs a Data Customer builds.
+  - “annotate, modify, package and otherwise exploit your Submitted Content for any and all purposes” · quote check: exact
+  - “such license will be exclusive to us in connection with any uses or modifications of your Submitted Content” · quote check: exact
+  - “the Submitted Content does not contain any output from artificial intelligence models or machine learning systems” · quote check: exact
+- **deletion_on_termination** — When an account is deleted, Kled may, but need not, delete Submitted Content and is not responsible for deleting or failing to delete it; licences that should survive by their nature continue.
+  - “the Company may, but is not obligated to, delete any Submitted Content” · quote check: exact
+  - “the deletion of, or the failure to store or transmit, any Submitted Content” · quote check: exact
+  - “All sections which by their nature should survive the termination of these Terms shall continue in full force” · quote check: exact
+  - “with or without notice, for any or no reason” · quote check: exact
+- **warranties_by_provider** — Contributor warrants they hold all rights, licences and consents needed, that submission breaches no law or third-party right, that no further consents or payments are owed to anyone by Kled or downstream parties, that there is no malware and no AI output; Kled itself disclaims all warranties, including non-infringement.
+  - “you have, or have obtained, all rights, licenses, consents, permissions, power and/or authority necessary to submit and use” · quote check: exact
+  - “will not violate any law or any third party’s rights, terms and conditions associated with such Submitted Content” · quote check: exact
+  - “no other licenses, permissions, consents or authorizations must be obtained from or payments made to any other person” · quote check: exact
+  - “the Submitted Content does not contain any output from artificial intelligence models or machine learning systems” · quote check: exact
+  - “WHETHER EXPRESS OR IMPLIED, OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE OR NON-INFRINGEMENT” · quote check: exact
+- **consent_and_release_warranty** — Consent is pushed entirely onto the uploader: they license their own publicity rights, warrant all consents and permissions, warrant no personal data of under-18s, and warrant that required notices and consents were obtained from any other individual whose personal data appears. No release form, consent record or proof of consent is required, and Kled gives no consent warranty of its own.
+  - “under any rights you may have in your Submitted Content (including any intellectual property or publicity rights)” · quote check: exact
+  - “you have, or have obtained, all rights, licenses, consents, permissions, power and/or authority necessary to submit and use” · quote check: exact
+  - “no other licenses, permissions, consents or authorizations must be obtained from or payments made to any other person” · quote check: exact
+  - “does not include Personal Data (as defined in our Privacy Policy) that (a) relates to individuals under the age of 18” · quote check: exact
+  - “unless you have provided and/or obtained all required notices and/or consents to provide such Personal Data” · quote check: exact
+  - “content that is unlawful, defamatory, obscene, excessively violent, pornographic, invasive of privacy or publicity rights” · quote check: exact
+- **indemnity** — One-way and uncapped: the contributor defends and indemnifies Kled and Kled's current or prospective customers and partners (so Data Customers) against claims arising from any Submitted Content, breach, third-party rights or negligence; Kled controls the defence and settlement.
+  - “defend, indemnify and hold the Company Entities and the Company’s current or prospective customers or partners” · quote check: exact
+  - “(d) any Submitted Content, or (e) your negligence or willful misconduct” · quote check: exact
+  - “will have the right, in its sole discretion, to control any action or proceeding” · quote check: exact
+- **liability_cap** — Liability of Kled and of its current and prospective customers and partners to the contributor is capped at USD 100 in total, and indirect and consequential damages are excluded; Kled takes no responsibility for user content.
+  - “SHALL NOT EXCEED THE GREATER OF ONE HUNDRED DOLLARS ($100.00)” · quote check: exact
+  - “THE COMPANY ENTITIES OR THE COMPANY’S CURRENT AND PROSPECTIVE CUSTOMERS OR PARTNERS BE LIABLE FOR ANY INDIRECT” · quote check: exact
+  - “TAKE NO RESPONSIBILITY AND ASSUME NO LIABILITY FOR ANY CONTENT THAT YOU, ANOTHER USER, OR A THIRD PARTY CREATES” · quote check: exact
+- **payment_and_revenue_share** — No rate or revenue share is set. Rewards for accepted content come as SOL tokens, fiat or other rewards at Kled's sole discretion. Kled may withhold them or rule content ineligible, gives no assurance on token value, and can claw back all compensation if the contributor's consents or rights fail.
+  - “fiat currency or other rewards (as determined by us in our sole discretion) for your accepted Submitted Content” · quote check: exact
+  - “determine that Submitted Content are not eligible to accrue payments or rewards, in our sole discretion” · quote check: exact
+  - “withhold, restrict or limit the distribution of any Rewards” · quote check: exact
+  - “We make no promises or guarantees regarding the availability, functionality, utility or value of the Tokens” · quote check: exact
+  - “you are required to immediately refund to Company any compensation you previously received” · quote check: exact
+- **takedown_and_erasure** — No withdrawal right: the licence is irrevocable, and if consents or rights are revoked the contributor must refund what they were paid rather than getting content pulled. Kled may delete content at its own discretion, and a DMCA notice-and-takedown process covers copies on the Services. Nothing obliges Data Customers to delete copies they already hold, and partners may use disclosed personal information for their own purposes.
+  - “rights and licenses are transferable, fully sub-licensable (through multiple tiers), worldwide, perpetual and irrevocable” · quote check: exact
+  - “releases and/or rights granted by you to Company are deemed legally unenforceable or otherwise revoked” · quote check: exact
+  - “you are required to immediately refund to Company any compensation you previously received” · quote check: exact
+  - “We reserve the right to screen, edit, delete, restrict, remove or reject any Submitted Content at any time” · quote check: exact
+  - “you may submit a notification to our copyright agent in accordance with 17 USC 512(c)” · quote check: exact
+  - “When we receive a counter-notification, we may reinstate the posts or material in question, in our sole discretion” · quote check: exact
+  - “Our partners may use such information for their own purposes, in accordance with their own terms and policies” · quote check: exact
+- **governing_law** — Delaware law; binding individual AAA consumer arbitration seated in Dover, Delaware, with a class-action waiver, a 30-day opt-out window and a one-year limitation period; Wilmington courts where arbitration does not apply.
+  - “These Terms are governed by the laws of the State of Delaware” · quote check: exact
+  - “The seat of any arbitration shall be Dover, Delaware” · quote check: exact
+  - “The notice must be sent to the Company within thirty (30) days of your first registering” · quote check: exact
+  - “any Claim against the Company must be brought within one (1) year” · quote check: exact
+- **change_of_terms** — Kled may change the Terms on its own; for material changes it makes only reasonable efforts to notify, and continued use counts as acceptance. The licence already granted is irrevocable either way.
+  - “continued access or use of the Services after the modifications have become effective will be deemed your acceptance” · quote check: exact
+  - “If we make changes that are material, we will use reasonable efforts to attempt to notify you” · quote check: exact
+  - “Nitrility, Inc. – Terms of Service Last Revised on July 21, 2026” · quote check: exact
+- **prohibited_uses** — Users may not submit unlawful, pornographic or privacy- or publicity-invasive content, personal data of under-18s or AI-generated output; they may not train AI on the Services, or resell or relicense information from them, without Kled's permission.
+  - “content that is unlawful, defamatory, obscene, excessively violent, pornographic, invasive of privacy or publicity rights” · quote check: exact
+  - “does not include Personal Data (as defined in our Privacy Policy) that (a) relates to individuals under the age of 18” · quote check: exact
+  - “the Submitted Content does not contain any output from artificial intelligence models or machine learning systems” · quote check: exact
+  - “including, but not limited to, training a machine learning or AI system, unless otherwise agreed to with the Company” · quote check: exact
+  - “license, create derivative works from, or offer for sale any information contained on, or obtained from or through” · quote check: exact
+- _unknown_: `terms.takedown_and_erasure` — not_published
+- _unknown_: `other.data_customer_licence` — not_published
+- _unknown_: `other.depicted_person_release` — not_published
+- _unknown_: `other.contributor_pay_rate` — not_published
+- _unknown_: `terms.audit_rights` — not_published
+- _unknown_: `terms.attribution` — not_published
+
+## For-Profit Membership Agreement — Linguistic Data Consortium
+
+`doc-ldc-for-profit` · buyer_licence · No version or date printed; blank template (effective 'January 1, ____'); PDF generated on request 2026-09-30 · <https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf> · retrieved 2026-10-01
+
+Licensor: Linguistic Data Consortium (LDC), passing through only the rights it has obtained from its data providers and corpus authors · licensee: Member: a for-profit corporation, for the organisational unit and sites named in Exhibit B · operator's role: reseller_licensor
+
+- **permitted_use** — Use of received LDC Databases for linguistic and language-based research and technology development; portions may go into the Member's own commercial work products, subject to law and any user agreement.
+  - “for the purposes of linguistic and language-based research and technology development” · quote check: exact
+  - “Member may incorporate portions of the LDC Databases into its own work products, including for commercial purposes” · quote check: exact
+  - “to the extent permitted by law, including federal and state copyright laws, and, if applicable, by any necessary user” · quote check: exact
+  - “All other licensing terms described in Section 1 (b) apply to both Membership types” · quote check: exact
+- **ai_training_rights** — Not named. Training/fine-tuning/evaluation is covered only implicitly by 'language-based research and technology development' at listed sites; embedding 'portions' in commercial products allowed; redistributing the data is barred; model outputs not addressed.
+  - “for the purposes of linguistic and language-based research and technology development” · quote check: exact
+  - “Member may incorporate portions of the LDC Databases into its own work products, including for commercial purposes” · quote check: exact
+  - “Member shall have no right to copy, redistribute, transmit, publish or otherwise use the LDC Databases for any other purpose” · quote check: exact
+- **field_of_use** — Linguistic and language-based research and technology development only; anything not explicitly permitted is excluded.
+  - “for the purposes of linguistic and language-based research and technology development” · quote check: exact
+  - “Member shall have no right to copy, redistribute, transmit, publish or otherwise use the LDC Databases for any other purpose” · quote check: exact
+- **territory** — Site-locked: use solely at the geographical sites (and organisational unit) listed in Exhibit B.
+  - “solely at the geographical sites listed in Exhibit B” · quote check: exact
+  - “indicate the name of the organizational unit to which this LDC Membership applies, and specify the location(s)” · quote check: exact
+- **term_duration** — Membership runs by calendar-year membership year, renewing each January 1 unless the Member gives 60 days' notice; the document does not say whether rights in data already received end on non-renewal.
+  - “Each membership year shall commence on January 1 and end December 31 of the following calendar year” · quote check: exact
+  - “unless Member provides sixty days' prior written notice that it does not intend to renew its membership” · quote check: exact
+  - “LDC notifies Member that LDC has been dissolved or is no longer offering for-profit memberships generally” · quote check: exact
+- **sublicensing** — No sublicensing or redistribution; for user-agreement databases access is limited to employees/consultants who signed in advance, with the Member liable for consultants.
+  - “Member shall have no right to copy, redistribute, transmit, publish or otherwise use the LDC Databases for any other purpose” · quote check: exact
+  - “restrict use of these Databases to only those of its employees or consultants within its control who, in advance” · quote check: exact
+  - “responsible and liable for the actions and omissions of those consultants as though they were the actions of Member” · quote check: exact
+- **derivatives_and_model_outputs** — Member may incorporate portions of the databases into its own work products, including commercially, to the extent the law and any user agreement allow; model outputs not separately addressed.
+  - “Member may incorporate portions of the LDC Databases into its own work products, including for commercial purposes” · quote check: exact
+  - “to the extent permitted by law, including federal and state copyright laws, and, if applicable, by any necessary user” · quote check: exact
+- **attribution** — Member must give appropriate reference to LDC resources in scholarly publications that mention the data.
+  - “Member shall give appropriate reference to these resources in scholarly publications whenever data resources are mentioned” · quote check: exact
+- **audit_rights** — LDC may inspect the Member's file of signed user agreements on request; no broader audit right.
+  - “Member shall maintain all signed user agreements on file for inspection by LDC upon its request” · quote check: exact
+- **deletion_on_termination** — Only for user-agreement databases: Member must end access for individuals no longer meeting the user agreement's conditions; no general deletion duty on non-renewal.
+  - “terminate access to the specified LDC Databases to individuals for whom the conditions contained in the user agreement” · quote check: exact
+- **warranties_by_provider** — None: data is as-is; LDC, data providers and corpus authors disclaim all warranties, including conformity with documentation.
+  - “LDC, AND ITS DATA PROVIDERS AND CORPUS AUTHORS MAKE NO REPRESENTATIONS OR WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED” · quote check: exact
+  - “OR CONFORMITY WITH WHATEVER DOCUMENTATION IS PROVIDED” · quote check: exact
+- **indemnity** — One-way: Member defends and indemnifies LDC and its people for any use violating the agreement, a user agreement or law (incl. copyright); no cap; LDC gives no indemnity.
+  - “Member shall defend, indemnify and hold harmless LDC, its employees, trustees, officers, and agents” · quote check: exact
+  - “any use of the LDC Databases by Member, its employees, directors, officers or agents which violates this Agreement” · quote check: exact
+- **liability_cap** — LDC, its host institution, data providers and corpus authors exclude all liability, including direct damages; no cap stated on the Member's side.
+  - “IN NO EVENT SHALL LDC, ITS HOST INSTITUTION, ITS DATA PROVIDERS OR CORPUS AUTHORS BE LIABLE FOR SPECIAL, DIRECT, INDIRECT” · quote check: exact
+  - “any use of the LDC Databases by Member, its employees, directors, officers or agents which violates this Agreement” · quote check: exact
+- **payment_and_revenue_share** — Annual non-refundable membership fee: Standard USD 34,000 (up to 16 databases from the year), Subscription USD 40,000 (all databases released that year); extras at non-member price; some databases need separate licences and fees.
+  - “Member agrees to pay to LDC an annual membership fee, determined in accordance with the membership fee schedule” · quote check: exact
+  - “$34,000 per calendar year. Standard Member is entitled to receive up to 16 LDC Databases from the Membership Year” · quote check: exact
+  - “$40,000 per calendar year. Subscription Member is entitled to automatically receive copies of all LDC Databases released” · quote check: exact
+  - “Additional LDC Databases from the Membership Year may be licensed at the regular, non-member licensing fee” · quote check: exact
+  - “LDC reserves the right to release Databases that require separate license agreements and additional fees” · quote check: exact
+  - “Membership fees are non-refundable.” · quote check: exact
+- **change_of_terms** — LDC may amend the fee schedule and Exhibit A licensing terms at the start of a new membership year; user agreements supersede the membership agreement for their databases.
+  - “as it may be amended from time to time at the beginning of a new membership year” · quote check: exact
+  - “the terms and provisions of any such User Agreements supersede the terms of the Membership Agreement” · quote check: exact
+- **prohibited_uses** — No copying, redistribution, transmission, publication or any use beyond the explicit grant.
+  - “Member shall have no right to copy, redistribute, transmit, publish or otherwise use the LDC Databases for any other purpose” · quote check: exact
+- _unknown_: `other.consent_and_release_warranty` — not_published
+- _unknown_: `other.takedown_and_erasure` — not_published
+- _unknown_: `other.exclusivity` — not_published
+- _unknown_: `other.governing_law` — not_published
+- _unknown_: `other.rights_after_membership_ends` — not_published
+- _unknown_: `other.explicit_ai_training_or_model_output_terms` — not_published
+
+## Terms of Service (Luel Inc.) — Luel Inc.
+
+`doc-luel-terms` · marketplace_terms · Last Modified: September 17, 2026 · <https://luel.ai/terms> · retrieved 2026-10-01
+
+Licensor: The Contributor (individual uploading video, audio and voice), who grants Luel a perpetual, irrevocable, worldwide, sublicensable, non-exclusive licence including the right to sell and license to Enterprises; the Contributor also grants each User a direct non-exclusive licence to content made available to them. · licensee: Enterprises (AI companies, research institutions, individual developers and researchers), who buy a limited, non-exclusive, non-sublicensable, revocable internal licence; Luel is the intermediate licensee. · operator's role: reseller_licensor
+
+- **permitted_use** — Enterprises get a limited, non-exclusive, non-transferable, non-sublicensable, revocable licence for internal purposes only: training/developing/testing/improving their own models, making embeddings, weights and synthetic data for those models, and commercially deploying and keeping the models. Contributors in turn give Luel a licence to operate the Service, including selling and licensing their content to Enterprises, and to improve Luel's products and for its other business purposes.
+  - “receive a limited, non-exclusive, non-transferable, non-sublicensable, revocable license to use such content solely” · quote check: exact
+  - “subject to the restrictions below, for the following internal purposes” · quote check: exact
+  - “training, developing, testing, and improving their own artificial intelligence and machine learning models” · quote check: exact
+  - “creating derivative works, including embeddings, model weights, and synthetic data, for use in such models” · quote check: exact
+  - “commercially deploying and retaining the models so trained” · quote check: exact
+  - “including selling, licensing, and transferring your User Content and Contributor Data to Enterprises” · quote check: exact
+  - “to improve our products and the Service and for our other business purposes” · quote check: exact
+- **ai_training_rights** — Buyer may train, develop, test (evaluation) and improve its own AI/ML models, and commercially deploy and retain the resulting models; fine-tuning is not named separately. Redistribution of the data, or of any dataset, embedding set or synthetic set that substitutes for it, is barred, including uploading to public model or dataset hubs. The Terms place no limit on buyers' model outputs. Luel itself may train and exploit 'Digital Replicas' of contributors' voice and likeness, and owns them outright. Separately, Luel promises not to train on materials submitted to its processing features or their Output.
+  - “training, developing, testing, and improving their own artificial intelligence and machine learning models” · quote check: exact
+  - “commercially deploying and retaining the models so trained” · quote check: exact
+  - “resell, redistribute, publish, sublicense, torrent, upload (including to any public model hub or dataset host)” · quote check: exact
+  - “distributing the data, or a derivative that functions as a substitute for the data, is not” · quote check: exact
+  - “the rights granted herein include the creation, training, and use of synthetic, digital, or simulated representations” · quote check: exact
+  - “any derivative works or outputs created therefrom shall be deemed derivative works owned exclusively by Luel” · quote check: exact
+  - “We do not use the materials you submit to the Service for processing, or the Output the Service returns to you, to train” · quote check: exact
+- **field_of_use** — Buyers may use the content internally for AI/ML development only. Biometric identification, surveillance and law-enforcement uses are barred unless Luel authorises them in a separate written agreement.
+  - “subject to the restrictions below, for the following internal purposes” · quote check: exact
+  - “purchased User Content for biometric identification, surveillance, or law enforcement purposes unless expressly authorized” · quote check: exact
+- **territory** — The contributor-to-Luel licence is worldwide. The buyer licence names no territory. All users must comply with US export-control and sanctions law.
+  - “you hereby grant to Luel a perpetual, irrevocable, worldwide, sublicensable, transferable, and non-exclusive license” · quote check: exact
+  - “comply with all applicable import and export and re-export control and trade and economic sanctions laws” · quote check: exact
+- **term_duration** — The contributor licence to Luel is perpetual and irrevocable, and a completed sale is final. The buyer licence is revocable, with no stated term, but the buyer may keep models already trained. Luel may terminate any account for any reason.
+  - “you hereby grant to Luel a perpetual, irrevocable, worldwide, sublicensable, transferable, and non-exclusive license” · quote check: exact
+  - “YOUR USER CONTENT HAS BEEN SOLD OR LICENSED TO A BUSINESS THROUGH THE SERVICE, SUCH SALE OR LICENSE IS FINAL AND IRREVOCABLE” · quote check: exact
+  - “receive a limited, non-exclusive, non-transferable, non-sublicensable, revocable license to use such content solely” · quote check: exact
+  - “commercially deploying and retaining the models so trained” · quote check: exact
+  - “suspend your access to your User Account and/or the Service without liability and for any or no reason” · quote check: exact
+- **exclusivity** — Non-exclusive on both sides. Contributors grant Luel a non-exclusive licence, and Enterprises receive a non-exclusive licence. The Terms offer buyers no route to exclusivity.
+  - “you hereby grant to Luel a perpetual, irrevocable, worldwide, sublicensable, transferable, and non-exclusive license” · quote check: exact
+  - “receive a limited, non-exclusive, non-transferable, non-sublicensable, revocable license to use such content solely” · quote check: exact
+- **sublicensing** — Luel's licence from contributors is sublicensable and transferable, which lets Luel license the content onward to Enterprises. The Enterprise licence cannot be sublicensed or transferred, and its restrictions bind affiliates, contractors and downstream recipients.
+  - “you hereby grant to Luel a perpetual, irrevocable, worldwide, sublicensable, transferable, and non-exclusive license” · quote check: exact
+  - “receive a limited, non-exclusive, non-transferable, non-sublicensable, revocable license to use such content solely” · quote check: exact
+  - “Enterprises will not, and will not permit or enable any person, affiliate, contractor, or downstream recipient to” · quote check: exact
+- **derivatives_and_model_outputs** — Buyers may create embeddings, model weights and synthetic data for use in their own models, and may deploy and keep those models. They may not distribute derivatives that reproduce, reconstitute or substitute for the data. Digital Replicas made from contributor content, and anything derived from them, belong exclusively to Luel. Output from Luel's processing features belongs to the user.
+  - “creating derivative works, including embeddings, model weights, and synthetic data, for use in such models” · quote check: exact
+  - “commercially deploying and retaining the models so trained” · quote check: exact
+  - “distributing the data, or a derivative that functions as a substitute for the data, is not” · quote check: exact
+  - “any derivative works or outputs created therefrom shall be deemed derivative works owned exclusively by Luel” · quote check: exact
+  - “you own the Output the Service returns to you from the materials you submit” · quote check: exact
+- **audit_rights** — The Terms give no buyer-audit clause. Luel may use technological and other lawful measures to verify compliance, and buyers must not remove or defeat watermarks, canaries, provenance signals or licence notices.
+  - “we may use these and other lawful measures to verify your compliance with these Terms and to enforce our rights” · quote check: exact
+  - “remove, alter, obscure, degrade, circumvent, or reverse-engineer any watermark, canary, provenance signal, or license notice” · quote check: exact
+- **warranties_by_provider** — The contributor gives the warranties: rights and consents obtained, no infringement of IP, privacy or confidentiality rights, no children's data, no one's personal data without consent, and no third-party images or audio. Luel gives buyers none: the Service and content are 'as is', and Luel disclaims non-infringement and all responsibility for User Content.
+  - “you have obtained, and are solely responsible for obtaining, all necessary rights, licenses, consents, and permissions” · quote check: exact
+  - “infringe any rights of any third party, including, but not limited to, any intellectual property rights, privacy rights” · quote check: exact
+  - “any personal information of children under 13 or the applicable age of digital consent” · quote check: exact
+  - “any person's personal information without such person's consent” · quote check: exact
+  - “your content does not include any third-party images or audio” · quote check: exact
+  - “implied warranties of merchantability, fitness for a particular purpose, and/or non-infringement” · quote check: exact
+  - “WE TAKE NO RESPONSIBILITY AND ASSUME NO LIABILITY FOR ANY USER CONTENT” · quote check: exact
+- **consent_and_release_warranty** — The contributor alone warrants and is solely responsible for having every consent and permission for content relating to third parties. The contributor also warrants the content holds no one's personal data without consent and no third-party images or audio, and licenses their own voice, likeness and biometrics to Luel. No release form or consent evidence is delivered to buyers, and Luel gives buyers no consent warranty.
+  - “you have obtained, and are solely responsible for obtaining, all necessary rights, licenses, consents, and permissions” · quote check: exact
+  - “any person's personal information without such person's consent” · quote check: exact
+  - “your content does not include any third-party images or audio” · quote check: exact
+  - “including any and all personal information, biometric data (including voice characteristics), voice, likeness, image” · quote check: exact
+  - “you were represented by such counsel or by a labor union or guild with authority to represent your interests” · quote check: exact
+  - “WE TAKE NO RESPONSIBILITY AND ASSUME NO LIABILITY FOR ANY USER CONTENT” · quote check: exact
+- **indemnity** — One-way and uncapped: every user, contributor or Enterprise, indemnifies Luel and its affiliates, agents, suppliers and licensors, including for User Content and third-party privacy or IP claims. Luel indemnifies no one. Users also release Luel from claims over disputes with other users.
+  - “You will defend, indemnify, and hold us and our subsidiaries and affiliates” · quote check: exact
+  - “your violation of any third-party right, including, without limitation, any privacy right or intellectual property right” · quote check: exact
+  - “arising out of a dispute between you and a third party (including any other User) in connection with the Service” · quote check: exact
+- **liability_cap** — Luel's liability is capped at the greater of the amount the user paid Luel or US$100, and indirect, consequential and punitive damages are excluded. The user's indemnity to Luel has no cap.
+  - “in an amount exceeding the amount you paid to us hereunder or one hundred U.S. Dollars ($100.00), whichever is greater” · quote check: exact
+  - “any Luel Indemnitee be liable for any indirect, punitive, incidental, special, consequential, or exemplary damages” · quote check: exact
+- **payment_and_revenue_share** — Enterprises pay Luel's Fees as displayed at purchase, by card or invoice. Sales are final, with no cash refunds and remedies given only as platform credit; a Luel Data order is reversed only if Luel fails to deliver. Contributors 'may' be paid per listing rate (per participant and duration for conversations). No rate is fixed until Luel marks a submission payable, and Luel may claw back payouts. No revenue-share percentage is stated.
+  - “Enterprises will pay all applicable Fees for content purchased or licensed through the Service” · quote check: exact
+  - “Payments may be made by credit card, invoice, or other methods made available through the Service.” · quote check: exact
+  - “All sales of User Content to Enterprises are final: we do not issue cash refunds” · quote check: exact
+  - “Where a remedy is due, it is platform credit added to your balance, which can be spent only on the Service, has no cash value” · quote check: exact
+  - “an order is reversed only when Luel fails to deliver it, returning that amount to the same balance” · quote check: exact
+  - “Contributors may receive compensation for User Content that is sold or licensed through the Service” · quote check: exact
+  - “For conversation recordings, payouts are calculated per participant based on duration and listing payout rates.” · quote check: exact
+  - “No payout rate is locked at upload, recording, or submission time.” · quote check: exact
+  - “withhold, suspend, offset, adjust, reverse, cancel, or recover any payout (including previously marked payable amounts)” · quote check: exact
+  - “Listing rates, submission caps, eligibility requirements, and payout terms may change at any time.” · quote check: exact
+  - “You will be responsible for paying all Taxes associated with your purchases in connection with the Service.” · quote check: exact
+- **takedown_and_erasure** — A completed sale is final. Contributors cannot demand deletion from a buyer's systems or trained models, and Luel says it cannot retrieve delivered copies. On a verified request, Luel stops further licensing, revokes the entitlements of buyers still holding access, and deletes its own copies. Buyers are not obliged to delete copies they already downloaded. A DMCA procedure applies, and Luel may remove content at its discretion.
+  - “YOUR USER CONTENT HAS BEEN SOLD OR LICENSED TO A BUSINESS THROUGH THE SERVICE, SUCH SALE OR LICENSE IS FINAL AND IRREVOCABLE” · quote check: exact
+  - “REQUEST DELETION OF YOUR USER CONTENT FROM A BUSINESS'S SYSTEMS OR TRAINED MODELS” · quote check: exact
+  - “MAY BE INCORPORATED INTO AI MODELS IN A MANNER THAT CANNOT BE REVERSED OR EXTRACTED” · quote check: exact
+  - “This Section addresses copies already delivered to a Business, which we cannot retrieve.” · quote check: exact
+  - “to withdraw consent as to future licensing of your User Content, to opt out of further sales” · quote check: exact
+  - “On a verified request we stop offering the content for further licensing” · quote check: exact
+  - “revoke the entitlements of Businesses that still hold access, and delete our own copies” · quote check: exact
+  - “it is our policy to respond to alleged infringement notices that comply with the Digital Millennium Copyright Act” · quote check: exact
+  - “in our sole discretion to remove any of your User Content that is shared via the Service” · quote check: exact
+- **governing_law** — California law. Disputes go to mandatory individual JAMS arbitration after 60 days of informal resolution, with a 30-day opt-out for new users, a class-action and jury waiver, and the FAA governing the arbitration clause.
+  - “These Terms will be governed by the laws of the State of California, without respect to its conflict of laws principles.” · quote check: exact
+  - “resolve such Claim exclusively through binding arbitration by JAMS before a single arbitrator” · quote check: exact
+  - “you can reject and opt out of this Arbitration Agreement within thirty (30) days of accepting these Terms” · quote check: exact
+  - “WAIVING THE RIGHT TO A TRIAL BY JURY OR TO BRING, JOIN, OR PARTICIPATE IN ANY PURPORTED CLASS ACTION” · quote check: exact
+- **change_of_terms** — Luel may change the Terms at any time, and continued use counts as acceptance. The Terms govern a user's use from the start of their access, even access that began before publication. Payout rates and terms can also change at any time, and a product-specific agreement (such as the Luel Data licence) overrides these Terms where they conflict.
+  - “Your continued use of the Service after any change to these Terms constitutes your acceptance of the new Terms of Service.” · quote check: exact
+  - “effective as of the start of your access to the Service, even if such access began before publication of these Terms” · quote check: exact
+  - “Listing rates, submission caps, eligibility requirements, and payout terms may change at any time.” · quote check: exact
+  - “a separate, product-specific agreement with us that governs a particular Luel product, that agreement governs” · quote check: exact
+- **prohibited_uses** — Buyers may not resell, redistribute, publish, sublicense or upload the data or data-substituting derivatives. They may not re-identify or contact the people in it, strip watermarks, canaries or provenance signals, or use it for biometric identification, surveillance or law enforcement without written authorisation. These bars reach downstream recipients, and an Acceptable Use Policy also applies.
+  - “Enterprises will not, and will not permit or enable any person, affiliate, contractor, or downstream recipient to” · quote check: exact
+  - “resell, redistribute, publish, sublicense, torrent, upload (including to any public model hub or dataset host)” · quote check: exact
+  - “distributing the data, or a derivative that functions as a substitute for the data, is not” · quote check: exact
+  - “re-identify, reverse-engineer the identity of, or contact any individual whose voice, likeness, or personal information” · quote check: exact
+  - “remove, alter, obscure, degrade, circumvent, or reverse-engineer any watermark, canary, provenance signal, or license notice” · quote check: exact
+  - “purchased User Content for biometric identification, surveillance, or law enforcement purposes unless expressly authorized” · quote check: exact
+  - “Your use of the Service shall comply with our Acceptable Use Policy” · quote check: exact
+- _unknown_: `terms.deletion_on_termination` — not_published
+- _unknown_: `terms.attribution` — not_published
+- _unknown_: `other.depicted_person_release` — not_published
+- _unknown_: `other.luel_data_license_agreement` — not_published
+- _unknown_: `other.acceptable_use_policy` — not_published
+- _unknown_: `other.revenue_share_percentage` — not_published
+- _unknown_: `other.third_party_provider_supply` — not_published
+
+## Data Licensing Agreement (template) — Nexdata (NEXDATA TECHNOLOGY INC.)
+
+`doc-nexdata-licence` · buyer_licence · undated template; no version or date printed · <https://www.nexdata.ai/nexdata/static/file/PDF/Data%20Licensing%20Agreement.pdf> · retrieved 2026-10-01
+
+Licensor: NEXDATA TECHNOLOGY INC. (Party A), Monrovia, California, which reserves all rights in the Data · licensee: a college/university/scientific research institution or a partner designated by Nexdata (Party B) · operator's role: reseller_licensor
+
+- **permitted_use** — Free, non-commercial scientific research only, by a university/research institution or a partner Nexdata designates; store and use during the term within the agreed scope.
+  - “Party A licenses Party B to use the for free within the scope agreed upon hereunder” · quote check: exact
+  - “Party B shall be a college/university/scientific research institution or a partner designated by Party A.” · quote check: exact
+  - “right to use the for non-commercial purposes, without derivatives” · quote check: exact
+  - “Party B may be entitled to store and use the Data for the purpose of scientific research within the scope agreed” · quote check: exact
+- **ai_training_rights** — No express training grant: research use is allowed, but the licence is 'without derivatives' and models derived from the data may not be used commercially; training, fine-tuning, evaluation and model outputs are not named separately; no redistribution; commercial use converts into paying full market value.
+  - “right to use the for non-commercial purposes, without derivatives” · quote check: exact
+  - “The Data or the derivatives (including but not limited to models) from the Data shall not be used for any commercial purpose.” · quote check: exact
+  - “shall not utilize the Date for any commercial purpose or to develop or produce any commercial product” · quote check: exact
+  - “using any derivative from the Data for any commercial purpose” · quote check: exact
+  - “Party B shall pay all the market value of the Data of Party A” · quote check: exact
+- **field_of_use** — Scientific research only; no commercial purpose and no development or production of commercial products.
+  - “Party B may be entitled to store and use the Data for the purpose of scientific research within the scope agreed” · quote check: exact
+  - “shall not utilize the Date for any commercial purpose or to develop or produce any commercial product” · quote check: exact
+- **term_duration** — One year from signing; Nexdata may rescind at any time.
+  - “The term of the Data Licensing Agreement shall be one year, and the contract will take effect from the date of signing” · quote check: exact
+  - “Party A may rescind the Agreement at any time” · quote check: exact
+- **exclusivity** — Limited and non-exclusive; Nexdata reserves all rights including to sell, lease and transfer the data.
+  - “Party A hereby licenses Party B to have a limited, non-exclusive” · quote check: exact
+  - “reserve all the rights and intellectual property rights over the Data, including those of selling, trading, leasing” · quote check: exact
+- **sublicensing** — None: no publication or disclosure of any part of the data to third parties (by sale, transmission or otherwise) without Nexdata's prior consent; duplicates count as the original.
+  - “Party B shall not publish any content of the Data or disclose all or part of the Data to any third party” · quote check: exact
+  - “Any format or duplicate of the Data shall be deemed as the original Data.” · quote check: exact
+- **derivatives_and_model_outputs** — Licence granted 'without derivatives'; derivatives including models may not be used for any commercial purpose, and commercial use of a derivative triggers the market-value payment.
+  - “right to use the for non-commercial purposes, without derivatives” · quote check: exact
+  - “The Data or the derivatives (including but not limited to models) from the Data shall not be used for any commercial purpose.” · quote check: exact
+  - “using any derivative from the Data for any commercial purpose” · quote check: exact
+- **attribution** — Licensee must credit the Nexdata dataset in every published result and notify Nexdata within five days; licensee must also let Nexdata use its name and logo for promotion.
+  - “it shall clearly indicate in such achievements its usage of Nexdata Chinese Mandarin Speech Datasets” · quote check: exact
+  - “shall notify Party A in writing within five (5) days upon its acquisition or publication or public showing” · quote check: exact
+  - “Party B shall allow Party A to use Party B’s name and logo during Party A’s popularization of open source data” · quote check: exact
+- **audit_rights** — No audit or inspection right; Nexdata relies on five-day notice of publications and a signed destruction statement at the end.
+  - “shall notify Party A in writing within five (5) days upon its acquisition or publication or public showing” · quote check: exact
+  - “Party B shall provide Party A with a written statement signed by the legal representative of Party B” · quote check: exact
+- **deletion_on_termination** — Destroy all data and duplicates within five days of expiry or rescission, with a statement signed by the licensee's legal representative; retaining copies means paying the original market value.
+  - “Within five (5) days upon the expiration or rescission of the Agreement, Party B shall destroy the Data” · quote check: exact
+  - “Party B shall provide Party A with a written statement signed by the legal representative of Party B” · quote check: exact
+  - “still keeps all or part of the Data (including any duplicate of the Data), it shall compensate for Party A” · quote check: exact
+- **indemnity** — One-way, licensee to Nexdata: licensee bears all third-party loss and legal violation from its use and compensates Nexdata's losses on breach or leakage; Nexdata gives no indemnity.
+  - “it is not Party A but Party B which shall independently assume the corresponding responsibility” · quote check: exact
+  - “shall not only pay the whole market value of the Data, namely USD , to Party A but also compensate for the resulting losses” · quote check: exact
+- **liability_cap** — No cap on the licensee: pre-set per-unit or fixed damages (blank in the template) give way to actual losses where higher; Nexdata's own liability is not addressed.
+  - “the amount to be paid by Party B shall be computed as per the actual losses” · quote check: exact
+  - “shall not only pay the whole market value of the Data, namely USD , to Party A but also compensate for the resulting losses” · quote check: exact
+- **payment_and_revenue_share** — Free of charge for research; full market value (per Article II table, blank in the template) becomes payable on business use, with 3-day notice and payment within 20 days.
+  - “scientific research institutions, and key partners with a right to use the in a free-of-charge way” · quote check: exact
+  - “Party B shall pay all the market value of the Data of Party A” · quote check: exact
+  - “send a written notice to Party A within three (3) days upon such decision and then make the corresponding payment” · quote check: exact
+  - “Dataset ID Description Market Value(USD)” · quote check: exact
+- **takedown_and_erasure** — No takedown or data-subject clause, but Nexdata can rescind at any time and the licensee must then destroy every copy within five days.
+  - “Party A may rescind the Agreement at any time” · quote check: exact
+  - “Within five (5) days upon the expiration or rescission of the Agreement, Party B shall destroy the Data” · quote check: exact
+- **governing_law** — No governing law named; disputes to negotiation/mediation, then a lawsuit in the 'people's court' where Nexdata lies, although Nexdata's stated domicile is Monrovia, California.
+  - “To file a lawsuit at the people’s court with the competent jurisdiction in the place where Party A lies.” · quote check: exact
+  - “MONROVIA, CA 91016” · quote check: exact
+- **prohibited_uses** — Any commercial use or commercial product, disclosure to third parties, illegal use or harm to the public interest.
+  - “shall not utilize the Date for any commercial purpose or to develop or produce any commercial product” · quote check: exact
+  - “Party B shall not publish any content of the Data or disclose all or part of the Data to any third party” · quote check: exact
+  - “ensure that the Data will not be utilized for any illegal purpose or to damage any public interest” · quote check: exact
+- _unknown_: `terms.consent_and_release_warranty` — not_published
+- _unknown_: `terms.warranties_by_provider` — not_published
+- _unknown_: `other.data_subject_erasure` — not_published
+- _unknown_: `other.commercial_buyer_licence` — not_published
+- _unknown_: `terms.territory` — not_published
+- _unknown_: `terms.change_of_terms` — not_published
+
+## Platform Fees & Commission Schedule — Opendatabay
+
+`doc-opendatabay-fees` · marketplace_terms · Last Updated: August 24, 2026 (effective August 24, 2026) · <https://www.opendatabay.com/legal/fees> · retrieved 2026-10-01
+
+Licensor: Not stated in this schedule; the Data Provider is the 'Seller' who receives the sale proceeds net of Opendatabay's fee · licensee: Not addressed; buyers are not a party to this schedule, which binds the Data Provider and Opendatabay Ltd · operator's role: agent (inferred: the parent Brokerage & Listing Terms appoint Opendatabay a non-exclusive broker, and this schedule charges a commission on the provider's sale; it never names a licensor of record)
+
+- **payment_and_revenue_share** — Seller-paid commission on each transaction (dataset sale, API call or data access fee), deducted before payout: 30% up to GBP 100, sliding 'progressively' to 25% at GBP 1,000, 20% at 10,000, 15% at 25,000, 10% at 50,000 and 5% at 250,000 and above (seller keeps 70% to 95%). Rate depends on the single transaction's value, not cumulative volume; the method within a band is unstated. Bespoke brokerage or enterprise deals may carry different terms agreed in writing. No buyer fee, payout timing, threshold, processing cost, tax or refund/chargeback rule is published despite the parent terms saying the schedule covers them.
+  - “Opendatabay applies a tiered commission structure on dataset sales, API calls, and data access fees.” · quote check: exact
+  - “calculated based on the individual transaction value, not on monthly or cumulative sales” · quote check: exact
+  - “£1 - £100 30% 70%” · quote check: exact
+  - “£101 - £1,000 30% → 25% 70% → 75%” · quote check: exact
+  - “£1,001 - £10,000 25% → 20% 75% → 80%” · quote check: exact
+  - “£10,001 - £25,000 20% → 15% 80% → 85%” · quote check: exact
+  - “£25,001 - £50,000 15% → 10% 85% → 90%” · quote check: exact
+  - “£50,001 - £250,000 10% → 5% 90% → 95%” · quote check: exact
+  - “£250,001 and above 5% 95%” · quote check: exact
+  - “For transaction values within a range, the applicable percentage is determined progressively within that range.” · quote check: exact
+  - “The exact fee and resulting seller payout are displayed when a Data Provider sets or updates a product price.” · quote check: exact
+  - “After deducting the applicable platform fee, the remaining balance is paid to the Data Provider.” · quote check: exact
+  - “may also agree different commercial terms for bespoke brokerage or enterprise transactions where agreed separately in writing” · quote check: exact
+  - “The Data Provider sets the price or pricing model for each data product.” · quote check: exact
+  - “also explains payment terms, payout schedules, minimum payout thresholds, and responsibility for refunds or chargebacks” · quote check: exact
+- **governing_law** — Laws of England and Wales; disputes exclusively in the courts of London (the platform Terms of Service instead send business disputes to LCIA arbitration).
+  - “This Agreement is governed by the laws of England and Wales, without regard to conflict of law principles.” · quote check: exact
+  - “shall be resolved exclusively in the courts of London, England.” · quote check: exact
+  - “disputes unresolved in 30 days will be submitted to binding arbitration under the London Court of International Arbitration” · quote check: exact
+- **change_of_terms** — Opendatabay may update the schedule at any time with no notice period; continued use is acceptance.
+  - “Opendatabay reserves the right to update these terms at any time; continued use constitutes acceptance.” · quote check: exact
+  - “Last Updated: August 24, 2026” · quote check: exact
+  - “This policy is effective as of August 24, 2026” · quote check: exact
+- _unknown_: `other.consent_and_release_warranty` — not_published
+- _unknown_: `other.takedown_and_erasure` — not_published
+- _unknown_: `other.ai_training_rights` — not_published
+- _unknown_: `other.exclusivity` — not_published
+- _unknown_: `other.payout_timing_and_thresholds` — not_published
+- _unknown_: `other.refunds_and_chargebacks` — not_published
+- _unknown_: `other.payment_processing_costs_and_tax` — not_published
+- _unknown_: `other.progressive_calculation_method` — not_published
+- _unknown_: `other.non_gbp_transactions` — not_published
+
+## Commercial AI Training and Fine-Tuning Data License, Version 1.0 (with the General Use variant and the Right to List and Sell Data terms) — Opendatabay
+
+`doc-opendatabay-licence` · licence_template · Version 1.0 (docs page undated: 'Last updated 7 months ago'); Right to List and Sell Data effective February 27, 2026 · <https://docs.opendatabay.com/ai-training-and-model-development-licenses/commercial-ai-training-and-fine-tuning-data-license> · retrieved 2026-10-01
+
+Licensor: The Data Provider (the entity that collected, prepared and owns the Data Product); not Opendatabay · licensee: The buyer (individual or entity receiving rights under the Order) · operator's role: agent
+
+- **permitted_use** — Commercial licence: use solely to train, fine-tune, evaluate and develop AI/ML/LLM/agentic systems, with commercial use of the resulting models and outputs; General licence: internal research, evaluation and education only.
+  - “solely for training, fine-tuning, evaluating, and developing AI, ML, LLMs, and agentic AI systems” · quote check: exact
+  - “Use resulting models, systems, applications and outputs commercially.” · quote check: exact
+  - “right to use this Data Product solely for internal research, evaluation, and educational purposes” · quote check: exact
+- **ai_training_rights** — Commercial: training, fine-tuning and evaluation granted; models, weights, embeddings and outputs may be used and sublicensed commercially (including as APIs) if the data is not exposed or reconstructable; benchmarks publishable without disclosing data; raw data may not be redistributed. General: same activities for internal/non-commercial use only; no production APIs or monetisation.
+  - “solely for training, fine-tuning, evaluating, and developing AI, ML, LLMs, and agentic AI systems” · quote check: exact
+  - “Use resulting models, systems, applications and outputs commercially.” · quote check: exact
+  - “right to use this Data Product solely for internal research, evaluation, and educational purposes” · quote check: exact
+  - “Commercial deployment, use in production API services, or any form of monetisation is NOT permitted.” · quote check: exact
+  - “Resell, redistribute, or sublicense the Data Product itself (see Section 4 for sublicensing of Models and Derivative Works).” · quote check: exact
+  - “provided that: The underlying Data Product is not made available, exposed, or reasonably reconstructable.” · quote check: exact
+  - “Licensee may share Models and Derivative Works only within the Licensee's organisation for research or educational purposes.” · quote check: exact
+  - “Opendatabay provides two specialised AI training licenses designed to meet different needs” · quote check: exact
+- **field_of_use** — AI training/development only; non-AI uses (analytics, market research, database compilation, direct data distribution) need a separate licence from the licensor.
+  - “solely for training, fine-tuning, evaluating, and developing AI, ML, LLMs, and agentic AI systems” · quote check: exact
+  - “Use the Data Product for non-AI purposes such as business analytics, market research, direct data distribution” · quote check: exact
+- **territory** — Worldwide.
+  - “grants the Licensee a non-exclusive, worldwide, perpetual (subject to termination rights in Section 10) right” · quote check: exact
+- **term_duration** — Perpetual from the Effective Date, subject to termination for uncured material breach (30 days) or immediate licensor termination where law requires or the use creates substantial legal, security or compliance risk.
+  - “grants the Licensee a non-exclusive, worldwide, perpetual (subject to termination rights in Section 10) right” · quote check: exact
+  - “Either party may terminate for material breach if the breaching party fails to cure the breach within thirty (30) days” · quote check: exact
+  - “Licensor may terminate immediately if required by applicable law or court order” · quote check: exact
+- **exclusivity** — Non-exclusive; the template offers no exclusive option to the buyer (exclusivity in the platform terms is only exclusive brokerage granted by the provider to Opendatabay).
+  - “grants the Licensee a non-exclusive, worldwide, perpetual (subject to termination rights in Section 10) right” · quote check: exact
+  - “the Data Provider authorizes Opendatabay to act as a non-exclusive broker for the specific data product” · quote check: exact
+- **sublicensing** — No sublicensing of the Data Product itself; Commercial licensee may sublicense Models and Derivative Works if the data is not made available or reasonably reconstructable and downstream recipients are told they get no data rights; General licensee may share models only internally or for non-commercial collaboration.
+  - “Resell, redistribute, or sublicense the Data Product itself (see Section 4 for sublicensing of Models and Derivative Works).” · quote check: exact
+  - “provided that: The underlying Data Product is not made available, exposed, or reasonably reconstructable.” · quote check: exact
+  - “All downstream recipients are informed that they receive no rights to the Data Product beyond those expressly granted” · quote check: exact
+  - “Licensee may share Models and Derivative Works only within the Licensee's organisation for research or educational purposes.” · quote check: exact
+- **derivatives_and_model_outputs** — Licensee owns the models and derivatives it creates (not the data), keeps them indefinitely and after termination if the data cannot be reconstructed; safe harbour for inadvertent memorised reproduction; licensor not liable for open-weight misuse.
+  - “The inadvertent, non-systematic reproduction of insignificant portions of the Data Product by a Model” · quote check: exact
+  - “Licensee owns Models and Derivative Works it lawfully creates using the Data Product” · quote check: exact
+  - “Licensor is not liable for downstream misuse of open-weight models derived from the Data Product.” · quote check: exact
+  - “retain Models, Derivative Works, logs, and metadata indefinitely, provided the Data Product itself cannot be reconstructed” · quote check: exact
+  - “Licensee may continue to use Models and Derivative Works created before termination under the terms of this License.” · quote check: exact
+- **attribution** — No attribution required; neither party may publicly name the other or the relationship without written consent; optional credit must not imply endorsement.
+  - “Neither party may publicly reference the other party or disclose the other party's use of the Data Product” · quote check: exact
+- **audit_rights** — Licensor may request compliance evidence only on reasonable suspicion of material breach, at most once a year on 60 days' notice; limited to deletion/retention records and policies; on-site only if mutually agreed, at licensor's cost unless breach found.
+  - “reasonable suspicion of material breach of this License, Licensor may request reasonable evidence of compliance” · quote check: exact
+  - “Audits are limited to deletion/retention records and compliance policies.” · quote check: exact
+  - “no more than once per year, with sixty (60) days' advance written notice” · quote check: exact
+- **deletion_on_termination** — On termination, or on the licensor's written request at any time, the licensee must promptly delete or irreversibly anonymise all copies of the data (auto-expiring backups excepted), but may keep models and derivatives.
+  - “Licensee may keep copies of the Data Product only as long as needed for training, evaluation, or development of Models” · quote check: exact
+  - “or written request from the Licensor, Licensee must promptly delete or irreversibly anonymise all copies of the Data Product” · quote check: exact
+  - “retain Models, Derivative Works, logs, and metadata indefinitely, provided the Data Product itself cannot be reconstructed” · quote check: exact
+  - “Licensee may continue to use Models and Derivative Works created before termination under the terms of this License.” · quote check: exact
+- **warranties_by_provider** — Licensor (the Data Provider) warrants right to license, collection in compliance with data protection law, best-practice PII filtering, no known malware or deliberate poisoning, reasonable care; disclaims freedom from third-party claims and lawfulness of the buyer's use.
+  - “The Data Product was collected and provided in compliance with applicable data protection and related laws” · quote check: exact
+  - “used commercial best practices and reasonable technical measures to filter and exclude personal data/PII” · quote check: exact
+  - “has not been intentionally altered to include 'poisoned' samples, trigger phrases, or adversarial inputs” · quote check: exact
+  - “The Data Product was not obtained in violation of applicable law or third-party intellectual property rights.” · quote check: exact
+  - “Licensor does not warrant that the Data Product is free from all third-party claims” · quote check: exact
+- **consent_and_release_warranty** — No express warranty to the buyer that people depicted consented or signed releases; the licensor warrants only data-protection-law compliance and best-effort PII filtering; separately the provider declares to Opendatabay that data was legally and ethically collected and must keep consent records 'where applicable'.
+  - “The Data Product was collected and provided in compliance with applicable data protection and related laws” · quote check: exact
+  - “used commercial best practices and reasonable technical measures to filter and exclude personal data/PII” · quote check: exact
+  - “The data was collected through legal and ethical means” · quote check: exact
+  - “First-party data collected without explicit consent” · quote check: exact
+  - “Maintain records of consent where applicable” · quote check: exact
+- **indemnity** — Licensor (provider) indemnifies buyer only for breach of the Section 8.1 warranties (right to license, not unlawfully or IP-infringingly obtained, reasonable care), excluding modification, combination and out-of-scope use; buyer indemnifies licensor for misuse, legal violations and model infringement; provider also indemnifies Opendatabay under the platform terms. Indemnities sit outside the cap.
+  - “Licensor agrees to indemnify, defend, and hold harmless Licensee from and against any third-party claims” · quote check: exact
+  - “does not apply to claims arising from Licensee's modification of the Data Product, combination with other materials” · quote check: exact
+  - “Claims that Models or Derivative Works created by Licensee infringe third-party rights, except to the extent caused by” · quote check: exact
+  - “The limitations and exclusions in Sections 8.4 and 8.5 do not apply to: (a) Licensee's payment obligations” · quote check: exact
+  - “Data Providers agree to indemnify and hold harmless Opendatabay from any claims, damages, or losses arising from” · quote check: exact
+- **liability_cap** — Each party capped at the greater of the price paid for the Data Product or a fixed cap in the Order; indirect damages excluded; payment obligations and indemnities are uncapped.
+  - “will not exceed the greater of: (a) the total amounts paid by Licensee for the Data Product under this License” · quote check: exact
+  - “The limitations and exclusions in Sections 8.4 and 8.5 do not apply to: (a) Licensee's payment obligations” · quote check: exact
+- **payment_and_revenue_share** — Licence defers price to the Order and makes Opendatabay a third-party beneficiary to stop off-platform deals; platform fee schedule deducts a sliding commission from the seller, 30% on sales up to £100 falling to 5% above £250,000.
+  - “Opendatabay is a third-party beneficiary of this License solely for the purposes of enforcing the prohibition on off-platform” · quote check: exact
+  - “£1 - £100 30% 70%” · quote check: exact
+  - “£250,001 and above 5% 95%” · quote check: exact
+- **takedown_and_erasure** — Licensor can demand deletion of all buyer copies by written request, but models trained on the data may be retained if the data is not reconstructable; Opendatabay may remove non-compliant listings, and delisting does not affect executed sales; no specific data-subject erasure mechanism.
+  - “or written request from the Licensor, Licensee must promptly delete or irreversibly anonymise all copies of the Data Product” · quote check: exact
+  - “retain Models, Derivative Works, logs, and metadata indefinitely, provided the Data Product itself cannot be reconstructed” · quote check: exact
+  - “Remove non-compliant data products” · quote check: exact
+  - “revocation does not affect already executed sales or obligations” · quote check: exact
+- **governing_law** — England and Wales; exclusive jurisdiction of the courts of London.
+  - “This License is governed by the laws of England and Wales, without regard to conflict of law principles.” · quote check: exact
+- **change_of_terms** — The licence itself can only be amended in writing signed by both parties; Opendatabay's platform-level listing terms can be changed at any time with continued use as acceptance.
+  - “This License may only be amended by a written document signed by both parties.” · quote check: exact
+  - “Opendatabay reserves the right to update these terms at any time; continued use constitutes acceptance.” · quote check: exact
+- **prohibited_uses** — No resale, redistribution or sublicensing of the raw data; no non-AI uses; no removal of watermarks or provenance metadata; no unlawful use including discrimination or unlawful surveillance; General licence also bars any commercial use and production high-risk AI.
+  - “Commercial deployment, use in production API services, or any form of monetisation is NOT permitted.” · quote check: exact
+  - “Resell, redistribute, or sublicense the Data Product itself (see Section 4 for sublicensing of Models and Derivative Works).” · quote check: exact
+  - “Use the Data Product for non-AI purposes such as business analytics, market research, direct data distribution” · quote check: exact
+  - “Intentionally remove, obscure, or alter any digital watermarks, cryptographic signatures, or provenance metadata” · quote check: exact
+  - “Use the Data Product in ways that violate applicable laws or regulations, including discrimination, unlawful surveillance” · quote check: exact
+- _unknown_: `other.consent_and_release_warranty` — not_published
+- _unknown_: `other.takedown_and_erasure` — not_published
+- _unknown_: `other.exclusivity` — not_published
+- _unknown_: `other.contributor_pay` — not_published
+
+## Data Provider (Seller) Agreement — Opendatabay
+
+`doc-opendatabay-seller` · provider_agreement · Last Updated: February 27, 2026 (effective February 27, 2026) · <https://www.opendatabay.com/legal/seller> · retrieved 2026-10-01
+
+Licensor: Data Provider ('Seller', a registered business) - inferred; the document grants no buyer licence · licensee: Data Consumers (buyers) introduced through the platform; not otherwise defined · operator's role: venue (inferred: provider is Seller and may deliver; Opendatabay processes payment and pays out; no broker/agent clause)
+
+- **term_duration** — Open-ended while the provider is registered; Opendatabay may suspend or terminate access on breach or harmful behaviour. No provider termination or notice clause.
+  - “Opendatabay may suspend or terminate your access if you violate this Agreement or engage in harmful behavior.” · quote check: exact
+- **audit_rights** — Opendatabay may audit the provider's data sources and request documentation; the provider must cooperate with investigations. No buyer audit right.
+  - “Opendatabay may audit data sources or request documentation. Providers must cooperate with investigations.” · quote check: exact
+- **warranties_by_provider** — Provider must own or have permission to sell the data, have collected it lawfully (GDPR, CCPA), not upload infringing or harmful content, and keep datasets complete, safe and accurately described; it bears full responsibility for uploads. Opendatabay gives only a mutual authority warranty.
+  - “You must own the rights to the data or have permission to sell it.” · quote check: exact
+  - “All data must be collected lawfully and in compliance with GDPR, CCPA, and other applicable laws.” · quote check: exact
+  - “You are fully responsible for all uploaded content. Illegal or infringing data exposes you to legal liability.” · quote check: exact
+  - “Providers must not upload illegal, malicious, unlicensed, infringing, or harmful content.” · quote check: exact
+  - “Ensure datasets are complete, safe, and accurately described.” · quote check: exact
+  - “Each party warrants that it has the legal right and authority to enter into and perform under this Agreement.” · quote check: exact
+- **consent_and_release_warranty** — Provider-side prohibition only: 'unconsented' data may not be uploaded and data must be lawfully collected under GDPR/CCPA. No mention of people depicted, model or property releases, or passing consent evidence to buyers; the provider may be asked to confirm its rights (separate page) and may be audited.
+  - “All data must be collected lawfully and in compliance with GDPR, CCPA, and other applicable laws.” · quote check: exact
+  - “Uploading illegal, stolen, scraped, or unconsented data is strictly prohibited.” · quote check: exact
+  - “you may be asked to confirm your rights to list and sell the data, as explained in the Right to List and Sell Data page” · quote check: exact
+  - “Opendatabay may audit data sources or request documentation. Providers must cooperate with investigations.” · quote check: exact
+- **indemnity** — Provider indemnifies Opendatabay against third-party claims from its listing (IP infringement, unlawful content, lack of rights). Opendatabay indemnifies the provider only for its own material misrepresentation, payment errors or security failures in its systems. No indemnity to buyers in this document.
+  - “Data Provider agrees to indemnify and hold harmless Opendatabay against any third-party claims arising from profile listing” · quote check: exact
+  - “including intellectual property infringement, unlawful content, or lack of proper rights” · quote check: exact
+  - “arising from Opendatabay’s material misrepresentation, payment processing errors, or security failures” · quote check: exact
+- **liability_cap** — Mutual cap: each party's aggregate liability limited to platform fees or commissions the provider paid Opendatabay in the prior 12 months; uncapped for fraud, wilful misconduct, personal injury and anything not legally limitable. The cap applies to Opendatabay too, so its own indemnity is capped at fees received.
+  - “shall not exceed the total platform fees or commissions paid by the Data Provider to Opendatabay in the twelve (12) months” · quote check: exact
+  - “Except for liability that cannot be legally limited (including fraud, wilful misconduct, or personal injury)” · quote check: exact
+- **payment_and_revenue_share** — Opendatabay processes payment and pays providers out, only to verified business accounts; fee or commission rate is not in this agreement (points to a separate Fees page); fees are non-refundable; off-platform deals with introduced buyers are banned and may incur fees.
+  - “you acknowledge the fee structure and payment processing outlined in the Fees page . Fees are non-refundable.” · quote check: exact
+  - “Payouts are made only to verified business accounts.” · quote check: exact
+  - “not to engage or transact directly with Data Consumers introduced through the Platform outside of the Platform” · quote check: exact
+  - “Violations may incur fees and legal consequences.” · quote check: exact
+- **takedown_and_erasure** — Opendatabay may remove content or suppliers for violations; deleted datasets are permanently removed from Opendatabay's systems (minimal metadata up to 100 days). Silent on copies buyers already hold: no buyer deletion or recall obligation.
+  - “Opendatabay may reject or remove suppliers that fail verification or provide misleading information” · quote check: exact
+  - “Any violation may result in removal and reporting to authorities.” · quote check: exact
+  - “Deleted datasets are permanently removed from our systems; only minimal metadata may persist for up to 100 days.” · quote check: exact
+  - “User account data is deleted within 48 hours of a verified deletion request, but may be retained for up to 100 days” · quote check: exact
+- **governing_law** — Laws of England and Wales; exclusive jurisdiction of the courts of London.
+  - “This Agreement is governed by the laws of England and Wales” · quote check: exact
+  - “shall be resolved exclusively in the courts of London, England.” · quote check: exact
+- **change_of_terms** — Unilateral: Opendatabay may update at any time, and continued use is acceptance. No notice period.
+  - “Opendatabay reserves the right to update these terms at any time; continued use constitutes acceptance.” · quote check: exact
+- **prohibited_uses** — Provider may not upload illegal, stolen, scraped, unconsented, malicious, unlicensed or infringing content; may not bypass the platform (external links, direct deals with introduced buyers), exploit bugs, reverse engineer APIs or scrape. Buyer use restrictions are not in this document.
+  - “Uploading illegal, stolen, scraped, or unconsented data is strictly prohibited.” · quote check: exact
+  - “External links or contact info that bypass Opendatabay are prohibited.” · quote check: exact
+  - “Providers must not upload illegal, malicious, unlicensed, infringing, or harmful content.” · quote check: exact
+  - “Providers must not exploit platform bugs, reverse engineer APIs, or scrape data beyond intended use.” · quote check: exact
+  - “not to engage or transact directly with Data Consumers introduced through the Platform outside of the Platform” · quote check: exact
+- _unknown_: `other.ai_training_rights` — not_published
+- _unknown_: `other.permitted_use_and_buyer_licence` — not_published
+- _unknown_: `other.licensor_of_record` — not_published
+- _unknown_: `other.licence_grant_to_operator` — not_published
+- _unknown_: `other.exclusivity` — not_published
+- _unknown_: `other.consent_of_people_depicted` — not_published
+- _unknown_: `other.buyer_copies_after_takedown` — not_published
+- _unknown_: `other.commission_rate` — not_published
+
+## PIXTA AI Terms of Use — PIXTA Inc.
+
+`doc-pixta-ai-terms` · marketplace_terms · We have updated our Terms of Use on March 3rd, 2025 (footer: As of March 3rd, 2025) · <https://www.pixta.ai/term> · retrieved 2026-10-01
+
+Licensor: Partner (registered member listing Data to sell or license it); licenses the Data to the buyer under a separate Agreement between the Members · licensee: Registered User (registered member who wishes to procure the Data); receives only an evaluation right in Samples under these Terms · operator's role: venue
+
+- **permitted_use** — The Terms license buyers nothing in the Data: Registered Users may only use free Samples to judge suitability as training/validation/testing data; use of the Data itself is set by the Partner in a separate, unpublished Agreement between the Members.
+  - “The Samples may only be used by the Registered User for the purpose of evaluating whether the Data can be used” · quote check: exact
+  - “may not be used for any other purpose (including the use of the Samples as the Training Data etc.)” · quote check: exact
+  - “entered into between the Registered User and the Partner including, but not limited to, license agreements” · quote check: exact
+  - “Pixta is not involved in the part or the whole of the process of offering products and services” · quote check: exact
+  - “as well as the negotiation, conclusion, and execution of the Agreement between the Members” · quote check: exact
+- **ai_training_rights** — Data is defined as material for ML training, validation and testing, but the Terms grant no training, fine-tuning, evaluation, redistribution or model-output right in the Data (left to the Partner's licence). Samples: evaluation of suitability only; training/validation/testing use expressly excluded.
+  - “suitable for use as machine learning Training Data, Validation Data, and Testing Data” · quote check: exact
+  - “The Samples may only be used by the Registered User for the purpose of evaluating whether the Data can be used” · quote check: exact
+  - “may not be used for any other purpose (including the use of the Samples as the Training Data etc.)” · quote check: exact
+  - “entered into between the Registered User and the Partner including, but not limited to, license agreements” · quote check: exact
+- **attribution** — No attribution duty to buyers; the Partner waives (and must procure waiver of) authors' moral rights against Pixta for its Posted Information, which Pixta may modify and use for promotion unpaid.
+  - “The Partner agrees not to exercise, and not to have any third party exercise, moral right of an author” · quote check: exact
+  - “Pixta may freely use and modify the Posted Information that the Partner has made public” · quote check: exact
+  - “Pixta is entitled to use the Partner’s Posted Information for promotional/marketing purposes” · quote check: exact
+  - “Pixta is not required to pay any remuneration, royalties, price for the non-exercise of the moral rights, or any other prices” · quote check: exact
+- **audit_rights** — Pixta (not the buyer) may require the Partner to submit consent contracts and acquisition documents on request; no buyer audit right and no general audit clause.
+  - “If requested by Pixta, the Partner shall submit the contracts or documents and related necessary information to Pixta” · quote check: exact
+  - “obtains and stores all contracts and other documents, including, but not limited to, written consent from the Person” · quote check: exact
+- **deletion_on_termination** — What happens to licensed Data after exit is left to the Agreement between the Members; Pixta deletes a cancelling Partner's Samples/listing within 30 days but may retain Data and Samples it holds for a period it chooses; a Registered User expelled for breach-type grounds must destroy all Samples.
+  - “shall be subject to the Agreement between the Members, and Pixta shall not be involved in such treatment” · quote check: exact
+  - “Pixta will delete the Samples and the Posted Information from the Service within thirty (30) days” · quote check: exact
+  - “the Data, the Samples, and other information that the User has provided to Pixta for a period designated by Pixta” · quote check: exact
+  - “the Registered User shall cease the use of, and destroy, all the Samples (including its copies)” · quote check: exact
+- **warranties_by_provider** — Partner warrants to Pixta (not to the buyer): lawful acquisition and production; right to deliver and license the Data under the members' agreement; no infringement or illegality in Pixta's or Users' exercise of rights; malware-free. Pixta itself gives nothing: Data is 'as is' with no accuracy or completeness warranty.
+  - “the Data, the Samples, and the Posted Information have been obtained and acquired in a lawful and appropriate manner” · quote check: exact
+  - “in respect of the Data to be licensed under the Agreement between the Members, the Partner has the lawful right to deliver” · quote check: exact
+  - “Pixta and the User’s exercise of the rights and licenses granted under the Terms of Use does not infringe” · quote check: exact
+  - “free from any virus, “Trojan horse”, ransomware, or other malicious or harmful code” · quote check: exact
+  - “ANY AND ALL THE DATA, THE SAMPLES AND THE POSTED INFORMATION SHALL BE PROVIDED “AS IS.”” · quote check: exact
+  - “PIXTA MAKES NO WARRANTY OF CORRECTNESS, COMPLETENESS, OR LATESTNESS REGARDING THE DATA” · quote check: exact
+- **consent_and_release_warranty** — Partner warrants to Pixta that Data has no personal information or that each person agreed to the provision and use set out in the members' agreement and Terms, including cross-border transfer; Partner must hold written consents and hand them to Pixta on request. No model/property release language, and nothing passes consent evidence to the buyer.
+  - “agrees how the Data and the Samples are provided and to what extent used, as set forth in the Agreement between the Members” · quote check: exact
+  - “may be transferred to, stored, accessed, or used in a country or countries with different data protection or privacy laws” · quote check: exact
+  - “obtains and stores all contracts and other documents, including, but not limited to, written consent from the Person” · quote check: exact
+  - “If requested by Pixta, the Partner shall submit the contracts or documents and related necessary information to Pixta” · quote check: exact
+  - “To conduct any act which would infringe intellectual proprietary rights such as copyright, portrait right, right of privacy” · quote check: exact
+- **indemnity** — One-way to Pixta: any User in breach (Partner or buyer) holds Pixta harmless and indemnifies it for damage and expenses including attorney's fees; the Partner must settle all User and third-party complaints about its Data at its own cost. Pixta indemnifies nobody; buyer-Partner indemnities are left to their own agreement.
+  - “shall warrant and agree to keep and hold Pixta harmless from and against any and all damage related thereto” · quote check: exact
+  - “the breaching User shall indemnify Pixta for and against any and all damage and expenses related thereto incurred by Pixta” · quote check: exact
+  - “The Partner shall resolve at its own cost and expense any complaint or claim made by the User or any other third parties” · quote check: exact
+  - “Pixta shall not be liable for the negotiation and content of the Agreement between the Members as well as for the Data.” · quote check: exact
+- **liability_cap** — Pixta excludes all liability to Users; failing that, only direct ordinary damages (no lost profits) capped at fees paid between Pixta and the User in the prior 3 months, per member or per corporation. Under Japan's Consumer Contract Act the exclusion falls and the cap covers only ordinary negligence. No cap on Users' liability to Pixta.
+  - “IN NO EVENT SHALL PIXTA BE LIABLE FOR ANY DAMAGE INCURRED BY THE USER ARISING OUT OF OR IN RELATION TO THE SERVICE.” · quote check: exact
+  - “PIXTA SHALL BE LIABLE FOR ONLY ACTUAL DIRECT AND ORDINARY DAMAGES (EXCEPT LOST PROFITS)” · quote check: exact
+  - “FEES THAT HAS BEEN PAID BETWEEN PIXTA AND THE USER FOR A TERM OF THREE (3) MONTHS PRIOR TO THE DATE WHEN THE DAMAGE ARISED” · quote check: exact
+  - “IN CASES WHERE THE CONSUMER CONTRACT ACT OF JAPAN APPLIES TO USE OF THE SERVICE, THE PROVISION OF THE ABOVE ITEM (i)” · quote check: exact
+  - “SHALL APPLY ONLY TO THE CASES WHERE PIXTA CAUSES DAMAGE TO THE USER DUE TO PIXTA’S NEGLIGENCE (EXCEPT GROSS NEGLIGENCE)” · quote check: exact
+- **payment_and_revenue_share** — Pixta earns from Partners, not buyers: listing fees, referral fees and performance rewards on transactions after its referrals, at rates in a separate unpublished Application Form; Partner pays transfer charges; no refunds. The Data price is paid directly between buyer and Partner; Pixta pays Partners nothing for sample or promotional use.
+  - “Pixta is entitled to charge the Partner the listing fees, referral fees, and other fees” · quote check: exact
+  - “(including the performance rewards for transactions after the Pixta’s referrals) set forth in the separate Application Form” · quote check: exact
+  - “The transfer charge required for the payment shall be borne by the Partner.” · quote check: exact
+  - “Pixta shall have no liability to refund money collected by Pixta related to the Member” · quote check: exact
+  - “The process of selling and buying the Data and all related communications shall be carried out directly” · quote check: exact
+  - “Pixta is not required to pay any remuneration, royalties, price for the non-exercise of the moral rights, or any other prices” · quote check: exact
+- **takedown_and_erasure** — Pixta can delete or change listings and Samples without notice, act at its discretion on reports about Samples, and order a breaching User to stop using the Data and Samples. There is no data-subject erasure mechanism and no obligation on buyers to delete Data already delivered; that is governed by the members' agreement; Pixta may itself retain Data after exit.
+  - “Pixta may delete or change the Posted Information and/or the Samples without prior notice to the Partner” · quote check: exact
+  - “If Pixta receives a report about a breach of the Terms of Use with respect to any of the Samples” · quote check: exact
+  - “ceasing and desisting use of the Data and the Samples, suspending use of all or a part of the Service” · quote check: exact
+  - “shall be subject to the Agreement between the Members, and Pixta shall not be involved in such treatment” · quote check: exact
+  - “the Data, the Samples, and other information that the User has provided to Pixta for a period designated by Pixta” · quote check: exact
+- **governing_law** — Japanese law (CISG excluded); exclusive first-instance jurisdiction of the Tokyo District Court, after good-faith consultation.
+  - “Any legal problems relating to the Service shall be governed by the laws of Japan” · quote check: exact
+  - “exclusive jurisdiction of the Tokyo District Court of Japan in the first instance” · quote check: exact
+- **change_of_terms** — Pixta may amend the Terms when it reasonably considers it necessary, with advance notice of effective date and details; it may change, suspend or end the Service without liability. Current version dated 3 March 2025.
+  - “Pixta may revise, amend, change or update the Terms of Use according to its necessity” · quote check: exact
+  - “Pixta shall notify the User of effective dates and details of amendments in advance” · quote check: exact
+  - “Pixta may change, suspend or discontinue all or part of the Service without any liability to the User” · quote check: exact
+  - “We have updated our Terms of Use on March 3rd, 2025” · quote check: exact
+- **prohibited_uses** — Users may not infringe copyright, portrait, privacy or other rights (including unauthorised use of Data), post false information, disrupt or reverse-engineer the Service, harass, or do anything Pixta deems inappropriate; Samples may not be used as training data.
+  - “To conduct any act which would infringe intellectual proprietary rights such as copyright, portrait right, right of privacy” · quote check: exact
+  - “To conduct any other act which Pixta deems inappropriate” · quote check: exact
+  - “may not be used for any other purpose (including the use of the Samples as the Training Data etc.)” · quote check: exact
+- _unknown_: `terms.exclusivity` — not_published
+- _unknown_: `terms.derivatives_and_model_outputs` — not_published
+- _unknown_: `terms.sublicensing` — not_published
+- _unknown_: `terms.field_of_use` — not_published
+- _unknown_: `terms.term_duration` — not_published
+- _unknown_: `other.fee_amounts` — not_published
+- _unknown_: `other.buyer_licence_template` — not_published
+- _unknown_: `other.data_subject_erasure_downstream` — not_published
+
+## Terms of Service — Poseidon AI, Inc.
+
+`doc-poseidon-terms` · contributor_agreement · Last updated August 26, 2026 (previous version August 18, 2025) · <https://www.psdn.ai/terms> · retrieved 2026-10-01
+
+Licensor: The contributor (app user, 18+) licenses each User Contribution to Poseidon, and assigns it outright if Poseidon exercises its purchase option · licensee: Poseidon AI, Inc., with rights to sublicense through multiple tiers to its service providers and partners · operator's role: reseller_licensor
+
+- **permitted_use** — Contributor licenses Poseidon to use, host, reproduce, adapt, annotate, package, distribute and otherwise exploit contributions for any and all purposes, including making them available to service providers and partners.
+  - “exploit your User Contribution for any and all purposes, including to provide, improve and promote the Services” · quote check: exact
+  - “adapt, publish, distribute, annotate, modify, package and otherwise exploit your User Contribution” · quote check: exact
+  - “to make your User Contributions available to our service providers and partners” · quote check: exact
+- **ai_training_rights** — Poseidon gets the exclusive right to use contributions for developing, training, testing, fine-tuning, grounding, improving and deploying (third-party) AI/ML models and systems, sublicensable to partners; the contributor may not license anyone else for these uses. Evaluation is covered by 'testing'; redistribution by the any-purpose licence.
+  - “such license will be exclusive to us in connection with any uses or modifications of your User Contributions” · quote check: exact
+  - “related to developing, training, testing, improving, fine-tuning, grounding” · quote check: exact
+  - “deploying third-party AI and machine learning models, systems and related technologies” · quote check: exact
+  - “you will not allow or authorize any other person or entity to use your User Contributions for the Exclusive Use” · quote check: exact
+  - “royalty free, transferable, fully sub-licensable (through multiple tiers), worldwide, perpetual and irrevocable” · quote check: exact
+  - “to make your User Contributions available to our service providers and partners” · quote check: exact
+- **field_of_use** — No field restriction on Poseidon (any and all purposes); the AI/ML field is carved out as exclusive to Poseidon, while the contributor keeps non-AI uses of their own material.
+  - “exploit your User Contribution for any and all purposes, including to provide, improve and promote the Services” · quote check: exact
+  - “such license will be exclusive to us in connection with any uses or modifications of your User Contributions” · quote check: exact
+  - “you will not allow or authorize any other person or entity to use your User Contributions for the Exclusive Use” · quote check: exact
+- **territory** — Worldwide.
+  - “royalty free, transferable, fully sub-licensable (through multiple tiers), worldwide, perpetual and irrevocable” · quote check: exact
+- **term_duration** — Perpetual and irrevocable; survives account termination, and rejection of a buy-out offer does not affect it.
+  - “royalty free, transferable, fully sub-licensable (through multiple tiers), worldwide, perpetual and irrevocable” · quote check: exact
+  - “your rejection shall not affect any license rights previously granted under Section 1.1(b)” · quote check: exact
+  - “All sections which by their nature should survive the termination of these Terms shall continue in full force” · quote check: exact
+- **exclusivity** — Exclusive to Poseidon for AI/ML development and deployment uses (the 'Exclusive Use'); non-exclusive otherwise. Poseidon also holds a unilateral option to buy full ownership at a price it sets, deemed accepted unless rejected within 15 days.
+  - “such license will be exclusive to us in connection with any uses or modifications of your User Contributions” · quote check: exact
+  - “you will not allow or authorize any other person or entity to use your User Contributions for the Exclusive Use” · quote check: exact
+  - “option, at any time and in its sole discretion, to purchase from you all right, title and interest” · quote check: exact
+  - “purchase price shall be determined by the Company in its reasonable discretion” · quote check: exact
+  - “deemed to have accepted such offer unless you notify the Company of your rejection within fifteen (15) days” · quote check: exact
+  - “irrevocably assign and transfer to the Company all right, title and interest in and to the applicable User Contribution” · quote check: exact
+- **sublicensing** — Poseidon may sublicense through multiple tiers and transfer the licence, and may assign the Terms; contributors may not assign.
+  - “royalty free, transferable, fully sub-licensable (through multiple tiers), worldwide, perpetual and irrevocable” · quote check: exact
+  - “to make your User Contributions available to our service providers and partners” · quote check: exact
+  - “These Terms and the licenses granted hereunder may be assigned by the Company but may not be assigned by you” · quote check: exact
+- **derivatives_and_model_outputs** — Poseidon may adapt, annotate, modify and package contributions and the exclusive AI field covers 'modifications'; nothing is said about ownership of trained models or model outputs, and the contributor gets no share in either.
+  - “adapt, publish, distribute, annotate, modify, package and otherwise exploit your User Contribution” · quote check: exact
+  - “such license will be exclusive to us in connection with any uses or modifications of your User Contributions” · quote check: exact
+- **deletion_on_termination** — On account deletion Poseidon may, but is not obliged to, delete contributions; purchased contributions remain Poseidon's property and the licence survives.
+  - “the Company may, but is not obligated to, delete any User Contribution” · quote check: exact
+  - “prior to termination shall remain the sole and exclusive property of the Company” · quote check: exact
+  - “All sections which by their nature should survive the termination of these Terms shall continue in full force” · quote check: exact
+- **warranties_by_provider** — Contributor warrants it holds all rights, licences, consents and permissions to submit and let Poseidon use or buy each contribution, that submission breaches no law or third-party right, and that no other consents or payments are owed to anyone by Poseidon or its downstream licensees. Poseidon gives no warranties and disclaims non-infringement.
+  - “have obtained, all rights, licenses, consents, permissions, power and/or authority necessary to submit and use” · quote check: exact
+  - “will not violate any law or any third party’s rights” · quote check: exact
+  - “no other licenses, permissions, consents or authorizations must be obtained from or payments made to any other person” · quote check: exact
+  - “DISCLAIM ALL WARRANTIES AND CONDITIONS, WHETHER EXPRESS OR IMPLIED” · quote check: exact
+- **consent_and_release_warranty** — Consent of people depicted is covered only by the contributor's general warranty that it has all needed consents and that no further consents are needed from any person, plus a ban on content invasive of privacy or publicity rights; no model-release form or bystander-consent procedure is set out. Personal data in contributions may go to partners who use it for their own purposes.
+  - “have obtained, all rights, licenses, consents, permissions, power and/or authority necessary to submit and use” · quote check: exact
+  - “no other licenses, permissions, consents or authorizations must be obtained from or payments made to any other person” · quote check: exact
+  - “any content that is unlawful, defamatory, obscene, excessively violent, pornographic, invasive of privacy or publicity rights” · quote check: exact
+  - “personal information contained within or associated with your User Contribution may be disclosed to our service providers” · quote check: exact
+  - “Our partners may use such information for their own purposes, in accordance with their own terms and policies” · quote check: exact
+- **indemnity** — One-way and uncapped as written: the contributor defends and indemnifies Poseidon, its affiliates, officers, partners and licensors for breach, third-party rights violations, any User Contribution, and negligence; Poseidon controls defence and settlement.
+  - “defend, indemnify and hold the Company Entities harmless from and against any and all claims” · quote check: exact
+  - “(d) any User Contribution, or (e) your negligence or wilful misconduct” · quote check: exact
+  - “the right, in its sole discretion, to control any action or proceeding and to determine whether Company wishes to settle” · quote check: exact
+- **liability_cap** — Poseidon's total liability to the contributor is capped at USD 100 and indirect/consequential damages are excluded; no cap is stated on the contributor's indemnity.
+  - “TOTAL LIABILITY TO YOU FOR ANY DAMAGES FINALLY AWARDED SHALL NOT EXCEED THE GREATER OF ONE HUNDRED DOLLARS ($100.00)” · quote check: exact
+  - “BE LIABLE FOR ANY INDIRECT SPECIAL, EXEMPLARY, INCIDENTAL, CONSEQUENTIAL OR PUNITIVE DAMAGES” · quote check: exact
+  - “TAKE NO RESPONSIBILITY AND ASSUME NO LIABILITY FOR ANY CONTENT THAT YOU, ANOTHER USER, OR A THIRD PARTY CREATES” · quote check: exact
+- **payment_and_revenue_share** — Per-accepted-submission pay in USD (Confirmed Balance), tokens or points, with amounts shown in-app before each task and set by Poseidon; fiat paid quarterly above a USD 25 threshold, only where the payment provider operates; quality gate and forfeiture at Poseidon's sole discretion; no royalty or revenue share on dataset sales; buy-out price set by Poseidon, payable in cash or tokens.
+  - “one or more of the following forms of compensation, as determined by us in our sole discretion” · quote check: exact
+  - “amount of any compensation offered will be communicated to you through the Services before you begin a task” · quote check: exact
+  - “may vary by task type, geography, demand, and applicable law” · quote check: exact
+  - “once your Confirmed Balance reaches the minimum payout threshold of USD25” · quote check: exact
+  - “the accumulated USD value of a Contributor's submissions that have successfully passed quality review” · quote check: exact
+  - “Payouts are processed on a quarterly basis, subject to change” · quote check: exact
+  - “If our payment provider is not available in your country, we will not be able to process a Fiat Payout to you” · quote check: exact
+  - “Quality standards are determined by us in our sole discretion” · quote check: exact
+  - “If a submission does not meet quality standards, it will not be added to your Confirmed Balance” · quote check: exact
+  - “We may withhold, adjust, or forfeit any or all of your Points, Token eligibility, or Confirmed Balance” · quote check: exact
+  - “We do not guarantee any minimum level of earnings or that tasks will be continuously available” · quote check: exact
+  - “purchase price shall be determined by the Company in its reasonable discretion” · quote check: exact
+  - “which may be paid, at the Company’s election, in cash, Tokens or other consideration” · quote check: exact
+- **takedown_and_erasure** — No contributor takedown or withdrawal right: the licence is irrevocable, Poseidon may but need not delete contributions when an account is deleted and disclaims responsibility either way, purchased contributions stay Poseidon's, and nothing addresses copies already given to partners or buyers.
+  - “royalty free, transferable, fully sub-licensable (through multiple tiers), worldwide, perpetual and irrevocable” · quote check: exact
+  - “the Company may, but is not obligated to, delete any User Contribution” · quote check: exact
+  - “The Company shall not be responsible for the failure to delete or deletion any User Contribution” · quote check: exact
+  - “prior to termination shall remain the sole and exclusive property of the Company” · quote check: exact
+  - “the deletion of, or the failure to store or transmit, any User Contribution” · quote check: exact
+- **governing_law** — California law; binding individual JAMS arbitration seated in San Francisco with class-action waiver and 30-day opt-out; IP disputes, small claims and injunctive relief go to court.
+  - “These Terms are governed by the laws of the State of California, without regard to conflict of laws rules” · quote check: exact
+  - “administered by JAMS under its Comprehensive Arbitration Rules and Procedures” · quote check: exact
+  - “The seat of any arbitration shall be San Francisco, California.” · quote check: exact
+  - “class arbitrations and class actions are not permitted” · quote check: exact
+  - “The notice must be sent to the Company within thirty (30) days of your first registering to use the Services” · quote check: exact
+  - “(c) intellectual property disputes” · quote check: exact
+- **change_of_terms** — Poseidon may change the Terms unilaterally, effective on posting, with only reasonable efforts to notify of material changes; continued use is acceptance. It may also change the payout programme on reasonable notice.
+  - “The updated Terms will be effective as of the time of posting” · quote check: exact
+  - “If we make changes that are material, we will use reasonable efforts to attempt to notify you” · quote check: exact
+  - “Your continued access or use of the Services after the modifications have become effective will be deemed your acceptance” · quote check: exact
+  - “modify, suspend, or discontinue any aspect of the Points, Token, or Fiat Payout program at any time upon reasonable notice” · quote check: exact
+- **prohibited_uses** — Contributors may not submit unlawful, privacy- or publicity-invasive, pornographic or violent content, and may not redistribute, license or sell information obtained through the Services; they may not license their contributions to others for AI/ML use.
+  - “any content that is unlawful, defamatory, obscene, excessively violent, pornographic, invasive of privacy or publicity rights” · quote check: exact
+  - “create derivative works from, or offer for sale any information contained on, or obtained from or through, the Services” · quote check: exact
+  - “you will not allow or authorize any other person or entity to use your User Contributions for the Exclusive Use” · quote check: exact
+- _unknown_: `terms.attribution` — not_published
+- _unknown_: `terms.audit_rights` — not_published
+- _unknown_: `other.downstream_copies_on_takedown` — not_published
+- _unknown_: `other.bystander_and_depicted_person_consent` — not_published
+- _unknown_: `other.model_output_ownership` — not_published
+- _unknown_: `other.per_task_rates` — not_published
+- _unknown_: `other.buyer_licence` — not_published
+
+## Terms of Service — Protege Health Inc.
+
+`doc-protege-tos` · marketplace_terms · Undated: no version or last-updated date printed on the Terms (site footer reads © 2025 Protege Health, Inc.) · <https://withprotege.ai/terms-of-service> · retrieved 2026-10-01
+
+Licensor: Protege Health Inc. (Delaware), licensing Datasets it makes available; upstream data licensors stand behind it and are unnamed (their names are Protege Confidential Information) · licensee: Customer: the entity or person accessing the Service (model builders), limited to its Authorized Users · operator's role: reseller_licensor
+
+- **permitted_use** — Customer may view Datasets on the Platform (after an Access Fee) to decide on purchases, and use licensed Datasets only for the specific use cases in the Agreement / Statement of Work; every other use is prohibited.
+  - “Upon payment of an Access Fee” · quote check: exact
+  - “Customers may perform these actions to inform their purchase decision for Datasets from Protege” · quote check: exact
+  - “Customers may only use the Platform for the specific use cases outlined in the Agreement” · quote check: exact
+  - “Use of the Platform, Datasets, or data from the Platform for any other purpose is prohibited” · quote check: exact
+  - “Protege grants Customer a non-exclusive, non-transferable, non-sublicensable, and limited license to access and use” · quote check: exact
+  - “solely for the authorized purposes set forth in the Statement of Work” · quote check: exact
+- **ai_training_rights** — Grants training of ML/AI models the Customer owns or licenses, solely for SOW-authorised purposes; fine-tuning, evaluation and model outputs are not mentioned; synthetic data generation is barred; redistribution, sublicensing and commercialising the Datasets or derivative works to third parties are barred (read literally this could reach trained models).
+  - “use the Datasets to train machine-learning or artificial intelligence models owned by or licensed by Customer” · quote check: exact
+  - “solely for the authorized purposes set forth in the Statement of Work” · quote check: exact
+  - “Creating any synthetic datasets, data assets, or other artifacts from the Datasets” · quote check: exact
+  - “grant any rights to, the Datasets or any derivative works created from the Datasets, to any third party” · quote check: exact
+  - “Publishing, disseminating, distributing, or providing access of any kind to the Datasets, or any material subset thereof” · quote check: exact
+  - “sublicense, resell, rent, or lease access to the Platform or the Datasets” · quote check: exact
+- **field_of_use** — Narrow field of use set per deal: only the use cases/authorised purposes in the signed Statement of Work; no building of a competing service.
+  - “Customers may only use the Platform for the specific use cases outlined in the Agreement” · quote check: exact
+  - “Use of the Platform, Datasets, or data from the Platform for any other purpose is prohibited” · quote check: exact
+  - “solely for the authorized purposes set forth in the Statement of Work” · quote check: exact
+  - “or any information gleaned therefrom, to create a service intended to compete with the Services” · quote check: exact
+- **term_duration** — No fixed term stated (set by SOW); either party may terminate for uncured material breach (30 days) or on 30 days' notice for insolvency; Protege may suspend or terminate access on a reasonable belief of breach or security risk.
+  - “Protege may suspend or terminate Customer’s access to the Platform or Dataset(s) if Protege reasonably believes” · quote check: exact
+  - “Either party may terminate the Agreement if the other party materially breaches the Agreement and fails to cure such breach” · quote check: exact
+  - “either party may terminate on thirty (30) days’ written notice if the other party: (i) becomes insolvent” · quote check: exact
+- **exclusivity** — Licence is non-exclusive under the standard Terms (a SOW could override).
+  - “Protege grants Customer a non-exclusive, non-transferable, non-sublicensable, and limited license to access and use” · quote check: exact
+  - “the Statement of Work supersedes and controls with respect to that provision” · quote check: exact
+- **sublicensing** — Non-transferable and non-sublicensable; no resale, rental, lease or third-party access to Datasets; assignment by Customer needs Protege's consent.
+  - “Protege grants Customer a non-exclusive, non-transferable, non-sublicensable, and limited license to access and use” · quote check: exact
+  - “sublicense, resell, rent, or lease access to the Platform or the Datasets” · quote check: exact
+  - “grant any rights to, the Datasets or any derivative works created from the Datasets, to any third party” · quote check: exact
+  - “Publishing, disseminating, distributing, or providing access of any kind to the Datasets, or any material subset thereof” · quote check: exact
+  - “Protege may assign the Agreement, in whole or part, and delegate its obligations to its Affiliates or to any entity acquiring” · quote check: exact
+- **derivatives_and_model_outputs** — No derivative works using Dataset data without a signed SOW; no synthetic datasets or artifacts; derivative works may not be commercialised to third parties; ownership of trained models or outputs is not addressed beyond 'models owned or licensed by Customer'.
+  - “Using data from the Datasets in any derivative works without a Statement of Work signed with Protege” · quote check: exact
+  - “Creating any synthetic datasets, data assets, or other artifacts from the Datasets” · quote check: exact
+  - “grant any rights to, the Datasets or any derivative works created from the Datasets, to any third party” · quote check: exact
+  - “use the Datasets to train machine-learning or artificial intelligence models owned by or licensed by Customer” · quote check: exact
+- **audit_rights** — Protege and its licensors may audit the Customer on prior written notice (records, systems, interviews) to check use and deletion; Customer remedies and may bear audit costs.
+  - “Protege and its licensors reserve the right to audit Customer, with prior written notice, to verify compliance” · quote check: exact
+  - “the Dataset(s) are used in accordance with the Agreement and fully deleted or returned upon termination or expiration” · quote check: exact
+  - “Customer shall promptly remedy the non-compliance and may be responsible for the costs of the audit” · quote check: exact
+- **deletion_on_termination** — Customer must fully delete or return the Datasets on termination or expiration (stated inside the audit clause), verifiable by audit.
+  - “the Dataset(s) are used in accordance with the Agreement and fully deleted or returned upon termination or expiration” · quote check: exact
+  - “Protege and its licensors reserve the right to audit Customer, with prior written notice, to verify compliance” · quote check: exact
+- **warranties_by_provider** — Protege (licensor) warrants only its authority to contract; it disclaims all other warranties including non-infringement, and supplies Datasets as is, with no accuracy guarantee.
+  - “Each Party represents and warrants that it has the legal right and authority to enter into the Agreement” · quote check: exact
+  - “Protege makes no other warranties, express, implied, or statutory, regarding the Datasets and Services” · quote check: exact
+  - “including any implied warranties of merchantability, non-infringement, and fitness for a particular purpose” · quote check: exact
+  - “the Datasets and Services are provided “as is” and “as available” with no guarantee of accuracy, timeliness, or availability” · quote check: exact
+- **indemnity** — One-way: Customer indemnifies Protege and its licensors for third-party claims from Customer's unlawful use or breach, uncapped; Protege gives no indemnity to the Customer.
+  - “Customer shall indemnify Protege and its licensors for any third-party claims, losses, damages, judgments, fines” · quote check: exact
+  - “arising out of or relating to Customer’s unlawful use of the Platform or Datasets or breach of Customer’s obligations” · quote check: exact
+  - “To the extent allowed by applicable law, Customer shall indemnify Protege and its licensors” · quote check: exact
+  - “EXCEPT FOR CUSTOMER’S INDEMNIFICATION OBLIGATIONS, EACH PARTY’S TOTAL AGGREGATE LIABILITY” · quote check: exact
+- **liability_cap** — Each party's aggregate liability capped at fees Customer paid in the 12 months before the event; indirect/consequential damages excluded; Customer's indemnity is carved out of both.
+  - “EACH PARTY’S TOTAL AGGREGATE LIABILITY UNDER THE AGREEMENT SHALL NOT EXCEED THE AMOUNTS PAID BY CUSTOMER UNDER THE AGREEMENT” · quote check: exact
+  - “DURING THE TWELVE (12) MONTH PERIOD PRECEDING THE EVENT GIVING RISE TO SUCH LIABILITY” · quote check: exact
+  - “IN NO EVENT SHALL EITHER PARTY BE LIABLE TO THE OTHER PARTY FOR ANY INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES” · quote check: exact
+  - “EXCEPT FOR CUSTOMER’S INDEMNIFICATION OBLIGATIONS, EACH PARTY’S TOTAL AGGREGATE LIABILITY” · quote check: exact
+- **payment_and_revenue_share** — Customer pays an Access Fee to use the Platform to browse Datasets; dataset prices and any provider revenue share are not stated in the Terms.
+  - “Upon payment of an Access Fee” · quote check: exact
+  - “Customers may perform these actions to inform their purchase decision for Datasets from Protege” · quote check: exact
+- **governing_law** — Delaware and US federal law, CISG excluded; exclusive venue in state and federal courts of New Castle County, Delaware.
+  - “governed by the laws of the State of Delaware and the United States without regard to conflicts of law provisions” · quote check: exact
+  - “the state and federal courts located in New Castle County, Delaware” · quote check: exact
+- **prohibited_uses** — No illegal or fraudulent use, no re-identification, no synthetic data, no sale/sublicence/distribution or third-party access, no derivative works without SOW, no competing service, no reverse engineering.
+  - “Use of data about or from the Datasets for any illegal or fraudulent purpose” · quote check: exact
+  - “Attempting to re-identify data or records in the Datasets” · quote check: exact
+  - “Creating any synthetic datasets, data assets, or other artifacts from the Datasets” · quote check: exact
+  - “grant any rights to, the Datasets or any derivative works created from the Datasets, to any third party” · quote check: exact
+  - “Publishing, disseminating, distributing, or providing access of any kind to the Datasets, or any material subset thereof” · quote check: exact
+  - “Using data from the Datasets in any derivative works without a Statement of Work signed with Protege” · quote check: exact
+  - “sublicense, resell, rent, or lease access to the Platform or the Datasets” · quote check: exact
+  - “or any information gleaned therefrom, to create a service intended to compete with the Services” · quote check: exact
+- _unknown_: `terms.consent_and_release_warranty` — not_published
+- _unknown_: `terms.takedown_and_erasure` — not_published
+- _unknown_: `terms.change_of_terms` — not_published
+- _unknown_: `terms.territory` — not_published
+- _unknown_: `terms.attribution` — not_published
+- _unknown_: `other.likeness_ban` — not_published
+- _unknown_: `other.statement_of_work` — not_published
+
+## Snowflake Provider and Consumer Terms — Snowflake
+
+`doc-snowflake-marketplace-terms` · marketplace_terms · Last Updated: March 31, 2026 · <https://www.snowflake.com/en/legal/optional-offerings/offering-specific-terms/snowflake-marketplace/provider-and-consumer-terms/> · retrieved 2026-10-01
+
+Licensor: The Provider (a Snowflake customer listing its Product) under its own Listing Terms; Snowflake only for Products it lists itself · licensee: The Consumer (a Snowflake customer), under the Provider's Listing Terms · operator's role: venue
+
+- **permitted_use** — Set per listing by the Provider's own Listing Terms; absent contrary Listing Terms the Consumer gets use inside Snowflake only, with no modification, derivative works, resale, sublicensing, export outside the Service or copying.
+  - “except where Snowflake is the applicable Provider, Snowflake (a) is not a party to any such Listing Terms” · quote check: exact
+  - “license rights, pricing terms (including the Product Cost), and other terms between a Provider and a Consumer” · quote check: exact
+  - “Except to the extent a Product is provided to Customer under Listing Terms that expressly state otherwise, Customer will not” · quote check: exact
+  - “Customer will not (a) modify, alter, tamper with, repair, or otherwise create derivative works of any Product” · quote check: exact
+  - “(c) resell or sublicense the Product, (d) transfer the Product outside the Service without specific authorization to do so” · quote check: exact
+  - “tamper with or circumvent any controls or make unauthorized copies of the Product” · quote check: exact
+- **territory** — Marketplace available worldwide except U.S.-embargoed countries; the Provider warrants it holds the rights to make its Products available to Consumers in all those countries (no territory restriction offered in these Terms).
+  - “available in countries around the world (excluding countries, or parts thereof, that are subject to a complete U.S.” · quote check: exact
+  - “Customer has all rights needed for Customer and Snowflake to make Customer's Listing Information and Products available” · quote check: exact
+- **term_duration** — Terms run until terminated: Customer on 10 days' notice, Snowflake on 90 days' notice or for cause; a Provider stays bound until any Listing Retirement Period ends. Licence duration for a Product itself is left to Listing Terms.
+  - “Snowflake may terminate these Terms for convenience upon 90 days’ prior notice to Customer” · quote check: exact
+  - “Customer may terminate these Terms for convenience at any time upon ten (10) days’ prior notice to Snowflake” · quote check: exact
+  - “these Terms will continue in full force and effect until the end of any applicable Retirement Period(s)” · quote check: exact
+  - “Customer will allow Consumers who are accessing or using Customer’s Product(s) to continue to access and use such Product(s)” · quote check: exact
+- **sublicensing** — Consumer may not resell or sublicense a Product unless the Provider's Listing Terms expressly allow it; Snowflake's own licence (listing metadata only) is non-sublicensable.
+  - “(c) resell or sublicense the Product, (d) transfer the Product outside the Service without specific authorization to do so” · quote check: exact
+  - “Except to the extent a Product is provided to Customer under Listing Terms that expressly state otherwise, Customer will not” · quote check: exact
+  - “a non-exclusive, worldwide, royalty-free, non-sublicensable, non-transferable” · quote check: exact
+  - “license to reproduce, distribute, display, and translate its Listing Information and Provider Profile” · quote check: exact
+- **derivatives_and_model_outputs** — Default bar on modifying or creating derivative works of any Product unless Listing Terms expressly state otherwise; the Terms say nothing about model outputs or trained models.
+  - “Customer will not (a) modify, alter, tamper with, repair, or otherwise create derivative works of any Product” · quote check: exact
+  - “Except to the extent a Product is provided to Customer under Listing Terms that expressly state otherwise, Customer will not” · quote check: exact
+- **audit_rights** — No audit right is granted. Snowflake has no duty to monitor Consumer use, and the Provider's only recourse for misuse is against the Consumer (under its Listing Terms).
+  - “Snowflake is under no obligation to monitor or otherwise limit Consumers’ use of any Provider Materials” · quote check: exact
+  - “misuse of Provider Materials by a Consumer shall be solely recoverable against the applicable Consumer” · quote check: exact
+- **warranties_by_provider** — Provider warrants it has all rights and permissions to license and sell its materials to Snowflake and Consumers, including in every Marketplace country; it is solely responsible for their accuracy, content and legality. Snowflake gives no warranty on Provider Materials.
+  - “has all necessary rights and permissions to license and, if applicable, sell its Provider Materials to Snowflake” · quote check: exact
+  - “solely responsible for its Provider Materials (including the accuracy, content, and legality of such Provider Materials)” · quote check: exact
+  - “Snowflake bears no responsibility or liability for Customer’s Provider Materials” · quote check: exact
+  - “available in countries around the world (excluding countries, or parts thereof, that are subject to a complete U.S.” · quote check: exact
+  - “Customer has all rights needed for Customer and Snowflake to make Customer's Listing Information and Products available” · quote check: exact
+  - “makes no representations as to the Provider Materials’ completeness, accuracy, reliability, validity, availability, security” · quote check: exact
+  - “Snowflake warrants that the Marketplace will work in substantial conformity with the Documentation” · quote check: exact
+  - “Snowflake cannot and does not represent or warrant that any Provider Materials are free of harmful content or materials” · quote check: exact
+- **consent_and_release_warranty** — Only a general personal-data warranty by the Provider: lawful collection 'e.g., obtaining any required consents', data subject requests handled by the Provider, no Sensitive Personal Data (incl. face-geometry biometrics, under-16s) in public listings. The Consumer separately warrants it obtains the consents its own use needs. No model or property release, and no consent evidence goes to the buyer.
+  - “If any Personal Data is included within the Provider Materials, Customer represents and warrants” · quote check: exact
+  - “maintains the Personal Data in accordance with such laws (e.g., obtaining any required consents)” · quote check: exact
+  - “enters into any legally required terms with Consumers prior to a Transaction” · quote check: exact
+  - “satisfies any applicable data subject request or notification required by applicable law” · quote check: exact
+  - “not disclose or reveal Sensitive Personal Data to Consumers in any Provider Materials offered publicly” · quote check: exact
+  - “Customer shall not disclose any Personal Data in any Listing Information or Provider Profile” · quote check: exact
+  - “biometric data, such as a retina or iris scan, fingerprint, voiceprint, or scan of hand or face geometry” · quote check: exact
+  - “Personal Data of children under 16 years of age” · quote check: exact
+  - “by obtaining all necessary consents, permissions, and licenses with respect to its access, use, and, if applicable, purchase” · quote check: exact
+- **indemnity** — Provider defends and indemnifies Snowflake (not the Consumer) for third-party claims over its materials; Consumer indemnifies Snowflake for claims arising from its use; Snowflake indemnifies only for IP infringement by the Marketplace itself, excluding Provider Materials. Any Provider-to-Consumer indemnity is left to Listing Terms. Indemnities sit outside the cap.
+  - “defend Snowflake against any claim by a third party arising from or relating to any of Customer’s Provider Materials” · quote check: exact
+  - “any modification of the relevant Provider Materials by Snowflake (other than in accordance with Provider’s instructions)” · quote check: exact
+  - “defend Snowflake against any claims by a third party arising from or relating to Customer’s use of Provider Materials” · quote check: exact
+  - “Snowflake will defend Customer against any claim by a third party alleging that the Marketplace” · quote check: exact
+  - “infringement of intellectual property by any materials not provided by Snowflake (including any Provider Materials” · quote check: exact
+  - “the Provider, not Snowflake, is responsible for addressing any claims relating to the Provider Materials” · quote check: exact
+  - “(iv) obligations required under applicable data protection laws” · quote check: exact
+  - “a party’s payment obligations under these Terms; (b) a party’s express obligations under Section 8 (Indemnification)” · quote check: exact
+- **liability_cap** — Each party's aggregate liability to the other under these Terms is capped at USD 50,000, with consequential and lost-data damages excluded; payment obligations, indemnities and non-limitable liability are uncapped. Provider-Consumer caps are left to Listing Terms.
+  - “for all claims in the aggregate (for damages or liability of any type) in connection with these Terms exceed $50,000 (USD)” · quote check: exact
+  - “a party’s payment obligations under these Terms; (b) a party’s express obligations under Section 8 (Indemnification)” · quote check: exact
+  - “liable to the other party or its Affiliates for any loss of use, lost or inaccurate data, interruption of business” · quote check: exact
+- **payment_and_revenue_share** — Provider sets the price. Under the optional Monetization Offering, Snowflake invoices on the Provider's behalf via Stripe and pays the Provider the price minus Snowflake's fees (rate in a separate fee schedule), taxes and expenses. The seller pays the fee, can be offset, and handles refunds with the buyer. Otherwise the Provider invoices directly.
+  - “Customer is responsible for setting and configuring the Product Cost as part of the Listing Information” · quote check: exact
+  - “Customer, at its option, may use the on-platform monetization offering that Snowflake makes available” · quote check: exact
+  - “(ii) Snowflake, on behalf of the Provider, if the Provider is leveraging the Monetization Offering” · quote check: exact
+  - “Snowflake will issue the Product Invoice to each Consumer on Customer’s behalf” · quote check: exact
+  - “the third-party payment processor, Stripe Inc.” · quote check: exact
+  - “Solely with respect to such payment to Snowflake from the Consumer, Customer appoints Snowflake as its agent” · quote check: exact
+  - “Customer is responsible for the Snowflake fees set forth in the relevant Monetization Offering Fee Schedule” · quote check: exact
+  - “Snowflake will calculate the amount owed to Customer, which shall equal the Product Cost minus: (i) the Fees” · quote check: exact
+  - “the schedule of fees made available in Snowsight (the Web interface of the Service) or as described in the Documentation” · quote check: exact
+  - “paid by Consumers to Payment Processor are non-cancelable and non-refundable” · quote check: exact
+  - “any adjustment to the Net Payment must be agreed upon directly between Customer and the Consumer” · quote check: exact
+  - “any settlements of such disputes must be agreed upon directly between Customer and the Provider” · quote check: exact
+  - “Snowflake may offset any amounts that are or were: (i) based on Provider Materials that were not delivered to the Consumer” · quote check: exact
+  - “will accrue late charges at a rate of 1.5% per month” · quote check: exact
+  - “responsible for calculating, invoicing, and paying all Taxes associated with (i) the Product Cost and (ii) the Fees” · quote check: exact
+- **takedown_and_erasure** — Provider handles takedown and data-subject requests; Snowflake may remove listings or suspend the Provider, including ongoing Transactions, on a credible notice. A retiring Provider must keep serving existing Consumers for the Retirement Period. Nothing requires Consumers to delete data they already hold; by default they cannot copy it out of Snowflake.
+  - “Customer will promptly handle any takedown requests, and other notices of alleged infringement or illegality” · quote check: exact
+  - “limit, suspend, or terminate Customer’s access to or use of the Marketplace, including with respect to ongoing Transactions” · quote check: exact
+  - “or a credible take-down notice from a third-party” · quote check: exact
+  - “enters into any legally required terms with Consumers prior to a Transaction” · quote check: exact
+  - “satisfies any applicable data subject request or notification required by applicable law” · quote check: exact
+  - “Customer will allow Consumers who are accessing or using Customer’s Product(s) to continue to access and use such Product(s)” · quote check: exact
+  - “Providers may at any time stop offering their Provider Materials via the Marketplace” · quote check: exact
+  - “(c) resell or sublicense the Product, (d) transfer the Product outside the Service without specific authorization to do so” · quote check: exact
+- **governing_law** — Delaware and U.S. federal law; exclusive venue in state and federal courts of New Castle County, Delaware (these Terms only; Listing Terms may choose their own).
+  - “These Terms will be governed by the laws of the State of Delaware and the United States” · quote check: exact
+  - “the state and federal courts located in New Castle County, Delaware” · quote check: exact
+- **change_of_terms** — Snowflake may change the Terms unilaterally by posting them, effective 30 days after posting, or immediately for new functionality or legal requirements; a notification subscription is offered.
+  - “Changes to these Terms will become effective 30 days after they are posted” · quote check: exact
+  - “except to the extent that the changes apply to new functionality, or are required by applicable law” · quote check: exact
+- **prohibited_uses** — Default Consumer bans: modification, reverse engineering, resale, sublicensing, transfer outside the Service and unauthorised copies. Providers may not put personal data in listings, Sensitive Personal Data in public listings, or ITAR-controlled information anywhere. AI technology in Products is declared unfit for sensitive or hazardous uses.
+  - “Customer will not (a) modify, alter, tamper with, repair, or otherwise create derivative works of any Product” · quote check: exact
+  - “(c) resell or sublicense the Product, (d) transfer the Product outside the Service without specific authorization to do so” · quote check: exact
+  - “tamper with or circumvent any controls or make unauthorized copies of the Product” · quote check: exact
+  - “not disclose or reveal Sensitive Personal Data to Consumers in any Provider Materials offered publicly” · quote check: exact
+  - “Customer shall not disclose any Personal Data in any Listing Information or Provider Profile” · quote check: exact
+  - “will not offer or share any information that is controlled under the U.S. International Traffic in Arms Regulations” · quote check: exact
+  - “the AI Technology is not designed for use with any sensitive, critical, vulnerable, or hazardous systems or environments” · quote check: exact
+- _unknown_: `other.ai_training_rights` — not_published
+- _unknown_: `other.exclusivity` — not_published
+- _unknown_: `other.deletion_on_termination` — not_published
+- _unknown_: `other.consent_and_release_warranty` — not_published
+- _unknown_: `other.monetization_fee_rate` — not_published
+- _unknown_: `other.retirement_period_length` — not_published
+- _unknown_: `other.provider_and_consumer_policies` — not_published
+
+## Collector Services Agreement — truelabel
+
+`doc-truelabel-collector` · contributor_agreement · Effective June 19, 2026 · <https://truelabel.ai/legal/collector-agreement> · retrieved 2026-10-01
+
+Licensor: Collector (independent-contractor data collector); Work Product is work made for hire owned by truelabel, or assigned to it, plus a licence of any other submitted data · licensee: truelabel (the entity in the Collector's account record; Dubai courts over truelabel FZCO) with its affiliates, successors and designees; buyers, end clients and their service providers as downstream recipients and third-party beneficiaries · operator's role: reseller_licensor
+
+- **permitted_use** — Collector's Work Product is owned by truelabel (work for hire / assignment); truelabel, affiliates, successors and designees may host, reproduce, modify, distribute and use it for any lawful purpose permitted by the job, transaction terms, platform terms or buyer requirements, including supplying datasets to buyers, end clients and their service providers.
+  - “are works made for hire owned by truelabel” · quote check: exact
+  - “you irrevocably assign to truelabel, effective upon creation, all worldwide right, title, and interest” · quote check: exact
+  - “a perpetual, irrevocable, worldwide, royalty-free, fully paid-up, transferable, and sublicensable license” · quote check: exact
+  - “for any lawful purpose permitted by the accepted job, transaction terms, platform terms, or buyer requirements” · quote check: exact
+  - “including providing data and datasets to buyers, end clients, and their service providers” · quote check: exact
+- **ai_training_rights** — Granted downstream to buyers, end clients and service providers for 'project-permitted' AI/ML training, evaluation, validation, dataset development, model development, model improvement and commercial use; fine-tuning and model outputs are not named separately; redistribution runs through a sublicensable licence and releases that reach further-tier/downstream sublicensees; the Collector must also obtain the depicted person's written consent to AI/ML training.
+  - “for project-permitted AI/ML training, evaluation, validation, dataset development, model development, model improvement” · quote check: exact
+  - “for any lawful purpose permitted by the accepted job, transaction terms, platform terms, or buyer requirements” · quote check: exact
+  - “a perpetual, irrevocable, worldwide, royalty-free, fully paid-up, transferable, and sublicensable license” · quote check: exact
+  - “any further-tier or downstream licensee or sublicensee to whom truelabel or a buyer may permit the recording to flow” · quote check: exact
+  - “authorizes use of the recording for artificial-intelligence and machine-learning training” · quote check: exact
+- **field_of_use** — No fixed field; bounded only by what the accepted job, transaction terms, platform terms or buyer requirements permit ('project-permitted' uses).
+  - “for any lawful purpose permitted by the accepted job, transaction terms, platform terms, or buyer requirements” · quote check: exact
+  - “for project-permitted AI/ML training, evaluation, validation, dataset development, model development, model improvement” · quote check: exact
+- **territory** — Worldwide (assignment of worldwide rights; worldwide licence).
+  - “you irrevocably assign to truelabel, effective upon creation, all worldwide right, title, and interest” · quote check: exact
+  - “a perpetual, irrevocable, worldwide, royalty-free, fully paid-up, transferable, and sublicensable license” · quote check: exact
+- **term_duration** — Rights to truelabel are perpetual and irrevocable and survive termination; the Agreement itself runs while the Collector keeps an account, terminable by either side on 30 days' notice without cause.
+  - “a perpetual, irrevocable, worldwide, royalty-free, fully paid-up, transferable, and sublicensable license” · quote check: exact
+  - “This Agreement applies for as long as you maintain a Collector account.” · quote check: exact
+  - “either party may terminate without cause on thirty (30) days’ notice” · quote check: exact
+  - “including 3, 5, 6, 7, 8, 9, 11, 12, and 14 — survive termination” · quote check: exact
+- **exclusivity** — Collector side is total: truelabel owns the Work Product outright as work for hire or by assignment, so the Collector keeps no right to reuse or resell it; the Agreement says nothing about whether buyers get exclusive rights.
+  - “are works made for hire owned by truelabel” · quote check: exact
+  - “you irrevocably assign to truelabel, effective upon creation, all worldwide right, title, and interest” · quote check: exact
+- **sublicensing** — truelabel's licence is transferable and sublicensable to affiliates, successors and designees; the people-release must cover buyers, end clients, service providers and any further-tier or downstream sublicensee a buyer permits.
+  - “a perpetual, irrevocable, worldwide, royalty-free, fully paid-up, transferable, and sublicensable license” · quote check: exact
+  - “any further-tier or downstream licensee or sublicensee to whom truelabel or a buyer may permit the recording to flow” · quote check: exact
+- **derivatives_and_model_outputs** — Derivative works are part of the Work Product owned by truelabel, and truelabel may create further derivatives; downstream model development and improvement are licensed; ownership of trained models or model outputs is not addressed.
+  - “are works made for hire owned by truelabel” · quote check: exact
+  - “a perpetual, irrevocable, worldwide, royalty-free, fully paid-up, transferable, and sublicensable license” · quote check: exact
+  - “for project-permitted AI/ML training, evaluation, validation, dataset development, model development, model improvement” · quote check: exact
+- **attribution** — Collector waives moral rights and any right of attribution; uses need no notice or attribution to the Collector.
+  - “you waive any moral rights and any right of attribution” · quote check: exact
+  - “without any further compensation, notice, or attribution to you” · quote check: exact
+- **audit_rights** — truelabel may audit a Collector's job records for 2 years after the job; consent/release records must be kept 6 years (extendable by notice up to 10 years for an active buyer engagement) and copied to truelabel on request; buyers and end clients may directly enforce the Collector's confidentiality, data and IP obligations.
+  - “We may audit records relating to your jobs for up to two (2) years after a job completes” · quote check: exact
+  - “including the consents, releases, and provenance information relating to your submissions” · quote check: exact
+  - “You will retain each such consent, permission, and release for six (6) years after the job completes” · quote check: exact
+  - “not exceeding ten (10) years in total) as we notify you in writing is required to support an active buyer engagement” · quote check: exact
+  - “at our request you will promptly provide a copy” · quote check: exact
+  - “Buyers and end clients are intended third-party beneficiaries” · quote check: exact
+- **deletion_on_termination** — No deletion-on-termination clause for Work Product (truelabel's rights survive); the Collector may not copy or retain data outside the platform except as a job requires, and disposes of consent records only when the retention period expires, per data-protection law.
+  - “including 3, 5, 6, 7, 8, 9, 11, 12, and 14 — survive termination” · quote check: exact
+  - “will not copy, retain, or extract any data outside the platform except as a job requires” · quote check: exact
+  - “On expiry of that period you will retain or securely dispose of the records in accordance with applicable data-protection law” · quote check: exact
+- **warranties_by_provider** — Collector warrants originality, spec conformance, no encumbering open-source or third-party material, and non-infringement of IP, privacy and publicity rights; truelabel gives the Collector the platform 'as is' and disclaims all warranties.
+  - “it is your original work and conforms to the job specifications” · quote check: exact
+  - “contains no open-source or third-party material that would impose obligations on truelabel or any buyer” · quote check: exact
+  - “it does not infringe or misappropriate any third party’s intellectual property, privacy, publicity, or other rights” · quote check: exact
+  - “furnished "as is," and we disclaim all warranties to the fullest extent permitted by law” · quote check: exact
+- **consent_and_release_warranty** — Collector warrants flatly that, before capture, it got valid, informed, written, documented consent and release from every identifiable individual and from owners of non-incidental private locations, running to truelabel, buyers, end clients, service providers and downstream sublicensees, authorising AI/ML training and commercial use; it must report withdrawals and keep the records 6 years (up to 10).
+  - “a valid, informed, written, and documented consent, permission, and release” · quote check: exact
+  - “appears only incidentally and is in public view and whose owner is not reasonably identifiable” · quote check: exact
+  - “any further-tier or downstream licensee or sublicensee to whom truelabel or a buyer may permit the recording to flow” · quote check: exact
+  - “authorizes use of the recording for artificial-intelligence and machine-learning training” · quote check: exact
+  - “You warrant flatly that, when captured and when submitted, each such consent, permission, and release is valid” · quote check: exact
+  - “you will promptly notify us if any such consent is withdrawn or challenged” · quote check: exact
+  - “You will retain each such consent, permission, and release for six (6) years after the job completes” · quote check: exact
+  - “not exceeding ten (10) years in total) as we notify you in writing is required to support an active buyer engagement” · quote check: exact
+- **indemnity** — Collector defends and indemnifies truelabel, affiliates, personnel, buyers and end clients for breach, unlawful or infringing submissions, failure to obtain consents or releases, negligence, confidentiality breaches and tax failures; no cap on the Collector's indemnity is stated; truelabel gives no indemnity to the Collector.
+  - “hold harmless truelabel, its affiliates, and their respective personnel, buyers, and end clients” · quote check: exact
+  - “your failure to obtain required consents or releases” · quote check: exact
+  - “You will indemnify us for any liability, penalty, or cost we incur because of your failure to satisfy a tax” · quote check: exact
+- **liability_cap** — truelabel's liability to a Collector is capped at the fees actually paid for that specific job, with indirect and consequential damages and lost profits excluded; no cap on the Collector's liability is stated.
+  - “liability for any claim relating to a job will not exceed the fees we actually paid you for that specific job” · quote check: exact
+  - “truelabel will not be liable for any indirect, incidental, special, consequential, exemplary, or punitive damages” · quote check: exact
+- **payment_and_revenue_share** — One-off fixed fee per job as shown at acceptance, paid only for accepted submissions; no royalty or revenue share on resale to buyers ('without any further compensation'); rejected work unpaid; nothing further owed after termination for material breach.
+  - “The fee for a job is fixed at the amount displayed when you accept it” · quote check: exact
+  - “We pay only for submissions that we accept.” · quote check: exact
+  - “Submissions that fail automated or human quality review may be rejected without payment” · quote check: exact
+  - “without any further compensation, notice, or attribution to you” · quote check: exact
+  - “Upon termination for your material breach, no further amounts are owed to you.” · quote check: exact
+- **takedown_and_erasure** — Only that a depicted person may withdraw data-protection consent by law and the Collector must notify truelabel of any withdrawal or challenge; no mechanism to pull affected media from datasets, and nothing on copies already delivered to buyers.
+  - “data-protection consent may be withdrawn by the individual as a matter of law” · quote check: exact
+  - “you will promptly notify us if any such consent is withdrawn or challenged” · quote check: exact
+- **governing_law** — Laws of the Emirate of Dubai and applicable UAE federal law; exclusive jurisdiction of Dubai courts over truelabel FZCO, unless applicable law provides otherwise.
+  - “governed by the laws of the Emirate of Dubai and the federal laws of the United Arab Emirates” · quote check: exact
+  - “exclusive jurisdiction of the courts of the Emirate of Dubai having jurisdiction over truelabel FZCO” · quote check: exact
+- **change_of_terms** — truelabel may amend unilaterally by posting a revised version with a new effective date; continued platform use is acceptance; truelabel may also assign the Agreement freely.
+  - “your continued use of the platform after the revised version is posted constitutes acceptance” · quote check: exact
+  - “Effective June 19, 2026” · quote check: exact
+  - “We may assign this Agreement freely, including in connection with a merger or sale” · quote check: exact
+- **prohibited_uses** — Collector may not disclose confidential information or use it for competing collection or labeling methods, identify or solicit buyers or end clients, copy or retain data outside the platform, publicise the engagement, subcontract without consent, or use forced or child labour.
+  - “will not use Confidential Information to build or advise others on competing collection or labeling methodologies” · quote check: exact
+  - “You will not attempt to identify, contact, or solicit any buyer or end client” · quote check: exact
+  - “will not copy, retain, or extract any data outside the platform except as a job requires” · quote check: exact
+  - “You will not use truelabel’s or any buyer’s name, marks, or the existence of this engagement in any publicity” · quote check: exact
+  - “you may not subcontract or delegate a job without our prior written consent” · quote check: exact
+  - “you use no forced, bonded, trafficked, or child labor and permit none in any person you allow to assist you” · quote check: exact
+- _unknown_: `other.erasure_of_sold_copies` — not_published
+- _unknown_: `other.buyer_side_terms` — not_published
+- _unknown_: `other.consent_form_template` — not_published
+- _unknown_: `other.contracting_entity` — not_published
+
+## Terms of Service — truelabel
+
+`doc-truelabel-terms` · marketplace_terms · Last updated: 2026-06-19 · <https://truelabel.ai/legal/terms> · retrieved 2026-10-01
+
+Licensor: The supplier (the user who uploads, lists, collects or delivers dataset materials); suppliers retain ownership and buyers receive only the licence stated in the transaction terms · licensee: The buyer, with end clients and their service providers able to use materials under the transaction terms; truelabel itself takes a sublicensable operating licence · operator's role: venue (truelabel says it is not a party to the buyer-supplier contract unless a separate written agreement says otherwise; but data licences are also said to be governed by a truelabel MSA and Order, so truelabel may be contracting party on managed deals)
+
+- **permitted_use** — Set per transaction: buyers may use materials only within the licence, restrictions and permitted-use language of the accepted request, listing, order or SOW; they get only that licence and a purchase transfers nothing broader by default.
+  - “Buyers may use dataset materials only within the license, restrictions, confidentiality terms, and permitted-use language” · quote check: exact
+  - “the applicable request, listing, bid, order, or written statement of work becomes part of the transaction terms” · quote check: exact
+  - “Buyers receive only the license stated in the applicable request, listing, order, or written agreement.” · quote check: exact
+  - “A purchase or payout does not transfer broader rights by default.” · quote check: exact
+  - “acceptance criteria, license scope, usage restrictions, privacy requirements, security requirements, and compensation” · quote check: exact
+  - “will control only where they directly conflict with these Terms” · quote check: exact
+- **ai_training_rights** — Buyers, end clients and their service providers may train, evaluate, validate, build, improve or commercialise AI/ML models and datasets only to the extent the transaction terms allow (no default grant); fine-tuning is named only as a buyer purpose. truelabel itself does not train foundation or unrelated commercial models on private materials unless an order, agreement or product setting authorises it, but may use aggregated/de-identified/operational derived data to improve its own service.
+  - “may train, evaluate, validate, build, improve, or commercialize AI/ML models, datasets, and related systems” · quote check: exact
+  - “only to the extent allowed by the applicable transaction terms” · quote check: exact
+  - “we do not use private buyer or supplier dataset materials to train foundation models or unrelated commercial AI models” · quote check: exact
+  - “Unless an applicable order, written agreement, or product setting expressly authorizes it” · quote check: exact
+  - “We may use aggregated, de-identified, or operational data derived from marketplace activity to improve search, matching, QA” · quote check: exact
+  - “support project-permitted AI/ML training, evaluation, validation, dataset development, model development, and commercial uses” · quote check: exact
+  - “Buyers are responsible for confirming that purchased or downloaded materials are appropriate for their intended training” · quote check: exact
+- **field_of_use** — Defined per transaction through the request's licence scope and usage restrictions; restricted data categories need express order permission.
+  - “acceptance criteria, license scope, usage restrictions, privacy requirements, security requirements, and compensation” · quote check: exact
+  - “Buyers may use dataset materials only within the license, restrictions, confidentiality terms, and permitted-use language” · quote check: exact
+  - “unless the applicable order expressly permits it and you have documented authority to provide it” · quote check: exact
+- **exclusivity** — Only the supplier-to-truelabel platform licence is stated (non-exclusive); buyer exclusivity is neither offered nor excluded and would sit in the transaction terms.
+  - “You grant truelabel a non-exclusive, worldwide, sublicensable license to host, copy, process, preview, analyze, QA, transform” · quote check: exact
+  - “acceptance criteria, license scope, usage restrictions, privacy requirements, security requirements, and compensation” · quote check: exact
+- **sublicensing** — Suppliers grant truelabel a sublicensable, non-exclusive, worldwide licence used to pass content to buyers, end clients and service providers; buyers may not resell raw materials by default, while end clients and service providers may use them under the transaction terms.
+  - “You grant truelabel a non-exclusive, worldwide, sublicensable license to host, copy, process, preview, analyze, QA, transform” · quote check: exact
+  - “make submitted content available to buyers, end clients, and service providers under the applicable transaction terms” · quote check: exact
+  - “resell raw dataset materials, combine materials in a way that violates consent or privacy restrictions” · quote check: exact
+  - “may train, evaluate, validate, build, improve, or commercialize AI/ML models, datasets, and related systems” · quote check: exact
+- **derivatives_and_model_outputs** — No clause on ownership of trained models or model outputs; buyers may 'commercialize' models only as transaction terms allow, and by default must not deploy trained models in safety-critical physical systems without validation and human oversight.
+  - “may train, evaluate, validate, build, improve, or commercialize AI/ML models, datasets, and related systems” · quote check: exact
+  - “use materials for unlawful surveillance, or deploy models trained on the materials in safety-critical physical systems” · quote check: exact
+  - “Unless the transaction terms expressly permit it, buyers may not re-identify individuals” · quote check: exact
+- **deletion_on_termination** — No deletion obligation on buyers: termination preserves licence restrictions and confidentiality but also 'rights already granted under completed transactions'.
+  - “Termination does not cancel obligations that should reasonably survive, including payment obligations, license restrictions” · quote check: exact
+  - “rights already granted under completed transactions” · quote check: exact
+- **warranties_by_provider** — Suppliers/contributors represent they own or control all needed rights, must accurately describe provenance, collection conditions, consent status and limitations, and keep supporting records for buyer due diligence; truelabel gives no dataset warranty (as-is, no title/non-infringement) and says its review does not validate rights.
+  - “you represent that you own or control all rights needed to do so” · quote check: exact
+  - “You must accurately describe dataset provenance, collection conditions, consent status, geographic scope” · quote check: exact
+  - “You must maintain reasonable records supporting those claims and provide them when required by a request, buyer due diligence” · quote check: exact
+  - “truelabel disclaims implied warranties of merchantability, fitness for a particular purpose, title, non-infringement” · quote check: exact
+  - “free of personal information, or legally sufficient for your use case” · quote check: exact
+  - “Review does not make us responsible for user content or for validating every right, consent, release” · quote check: exact
+  - “misrepresent dataset provenance, bypass quality or eligibility controls” · quote check: exact
+- **consent_and_release_warranty** — The supplier (whoever uploads, collects or delivers) represents it holds all consents and releases for the advertised uses, expressly including AI/ML training by truelabel, buyers and end clients and covering likenesses, voices, biometrics and location; individual contributors may be asked to attest. Truelabel does not verify, and restricted categories (children, biometrics, health) are barred unless the order permits. Consent evidence goes to buyers only 'when required' by due diligence.
+  - “obtained all permissions, notices, consents, releases, licenses, and approvals required for the advertised and accepted uses” · quote check: exact
+  - “including any project-permitted AI/ML training, evaluation, validation, dataset development, model development” · quote check: exact
+  - “motion data, likenesses, voices, locations, personal information, biometric information, copyrighted works” · quote check: exact
+  - “Contributors may be asked to attest to the rights, notices, consents, and releases required for those project-specific uses.” · quote check: exact
+  - “You must maintain reasonable records supporting those claims and provide them when required by a request, buyer due diligence” · quote check: exact
+  - “Review does not make us responsible for user content or for validating every right, consent, release” · quote check: exact
+  - “Do not submit regulated health information, children's data, sensitive personal information, biometric identifiers” · quote check: exact
+  - “unless the applicable order expressly permits it and you have documented authority to provide it” · quote check: exact
+  - “you are responsible for ensuring that collection, upload, sharing, licensing, and downstream use are lawful and consistent” · quote check: exact
+- **indemnity** — One-way and uncapped in the text: every user (buyer or supplier) indemnifies truelabel for its use, its dataset materials, infringement, failure to obtain consents or releases, and downstream use; truelabel gives no indemnity and no buyer-supplier indemnity is stated.
+  - “You will defend, indemnify, and hold harmless truelabel and its personnel from claims, damages, losses, liabilities, costs” · quote check: exact
+  - “your failure to obtain required consents or releases, or your downstream use of marketplace materials” · quote check: exact
+- **liability_cap** — truelabel's service liability is capped at the greater of fees paid for the specific transaction in the prior three months or USD 100, with consequential and model-performance losses excluded; for licensed data the (unpublished) truelabel MSA and Order govern warranties and liability instead.
+  - “the greater of the amount you paid to truelabel for the specific transaction giving rise to the claim during the three months” · quote check: exact
+  - “during the three months before the event or USD $100” · quote check: exact
+  - “truelabel will not be liable for indirect, incidental, special, consequential, exemplary, punitive, or lost-profit damages” · quote check: exact
+  - “the truelabel Master Services Agreement and the applicable Order govern the representations, warranties, disclaimers” · quote check: exact
+  - “Their liability terms — not this Section 16 — apply to those data-license claims” · quote check: exact
+- **payment_and_revenue_share** — No rates published in the Terms: fees, commissions, payout timing and refund rules are disclosed in-product or in transaction terms; payments run through third-party processors and truelabel disclaims being an escrow agent or fiduciary.
+  - “Fees, commissions, payout timing, refund rules, currency handling, chargeback handling, and applicable taxes are disclosed” · quote check: exact
+  - “Deposits, charges, payouts, refunds, invoices, tax forms, and payment-method storage may be handled by third-party” · quote check: exact
+  - “truelabel is not a bank, money transmitter, escrow agent, trustee, or fiduciary” · quote check: exact
+- **takedown_and_erasure** — truelabel may suspend or remove files and listings for a rights concern or legal risk, but nothing requires buyers to delete copies already delivered; rights granted under completed transactions survive termination, so buyers keep what they hold.
+  - “We may limit, suspend, or terminate access to accounts, files, listings, requests, payouts, or features” · quote check: exact
+  - “legal risk, security risk, fraud risk, rights concern” · quote check: exact
+  - “rights already granted under completed transactions” · quote check: exact
+- **governing_law** — Laws of the Emirate of Dubai and applicable UAE federal law; exclusive jurisdiction of Dubai courts over truelabel FZCO, unless a separate written agreement says otherwise.
+  - “governed by the laws of the Emirate of Dubai and the federal laws of the United Arab Emirates applicable therein” · quote check: exact
+  - “the courts of the Emirate of Dubai having jurisdiction over truelabel FZCO have exclusive jurisdiction” · quote check: exact
+- **change_of_terms** — truelabel may update the Terms; material changes are posted on the page and, where appropriate, notified in-product or by email, with no notice period; continued use is acceptance.
+  - “Material changes will be posted on this page and, where appropriate, communicated in-product or by email.” · quote check: exact
+  - “Continued use after changes take effect means you accept the updated Terms.” · quote check: exact
+  - “Last updated: 2026-06-19.” · quote check: exact
+- **prohibited_uses** — Default buyer bans (overridable by transaction terms): re-identifying individuals, extracting biometric identifiers, removing provenance or licence notices, reselling raw materials, combining against consent or privacy restrictions, unlawful surveillance, and deploying trained models in safety-critical systems without validation and oversight.
+  - “Unless the transaction terms expressly permit it, buyers may not re-identify individuals” · quote check: exact
+  - “buyers may not re-identify individuals, extract biometric identifiers, remove provenance or license notices” · quote check: exact
+  - “resell raw dataset materials, combine materials in a way that violates consent or privacy restrictions” · quote check: exact
+  - “use materials for unlawful surveillance, or deploy models trained on the materials in safety-critical physical systems” · quote check: exact
+- _unknown_: `other.msa_data_licence_terms` — not_found
+- _unknown_: `other.exclusivity` — not_published
+- _unknown_: `other.takedown_and_erasure` — not_published
+- _unknown_: `other.consent_evidence_to_buyer` — not_published
+- _unknown_: `other.commissioned_data_resale` — not_published
+- _unknown_: `other.delivery_custody` — not_published
+- _unknown_: `other.fee_rates` — not_published
+- _unknown_: `other.audit_rights` — not_published
+
+## Terms of Service (creators, including the Dataset Deals Program) — Wirestock
+
+`doc-wirestock-terms` · contributor_agreement · Effective as of January 20, 2026 · <https://wirestock.io/docs/terms-of-use> · retrieved 2026-10-01
+
+Licensor: The contributor (creator/uploader) grants the licence to Wirestock, Inc. · licensee: Wirestock, Inc., which sublicenses to Dataset Partners, stock content marketplaces and Ultimate Consumers (Wirestock Marketplace buyers) · operator's role: reseller_licensor
+
+- **permitted_use** — Contributor licenses Wirestock to use, modify, distribute, sell and otherwise exploit the content for any purpose not expressly prohibited, sublicensable through multiple tiers, and to place it in stock marketplaces, the Wirestock Marketplace, portfolios and Dataset Deals.
+  - “grant Wirestock a worldwide, non-exclusive, transferable, sublicensable (with the right to sublicense through multiple tiers” · quote check: exact
+  - “each element or part of the Content for any purpose, not expressly prohibited by these Terms” · quote check: exact
+  - “for Wirestock to offer your Marketplace Content for licensing to any person” · quote check: exact
+  - “such as (but not limited to) Shutterstock, Adobe Stock, Alamy, Dreamstime, Depositphotos, and Pond5” · quote check: exact
+- **ai_training_rights** — Broad grant: content may be used and sublicensed (via Dataset Deals, bundled with others' content) to develop, build, train, test, validate and improve any products or AI (generative and non-generative); no carve-out excludes training, fine-tuning, evaluation or redistribution in datasets; contributors get no rights in resulting models; training rights and continued retraining survive termination.
+  - “purpose of developing, building, training, testing, validating, and improving any products, services, tools, technology” · quote check: exact
+  - “or otherwise modified or improved by or on behalf of Wirestock’s sublicensees or any of their affiliates using the Content” · quote check: exact
+  - “including generative and non-generative AI, statistical-learning models, neural networks” · quote check: exact
+  - “license sets of Content (typically images) belonging to you, usually along with images provided by other Wirestock users” · quote check: exact
+  - “you have no right, title, or interest in any such products, services, tools, technology, software, or Developed Technology” · quote check: exact
+  - “continue to have the right to support, maintain, update, improve, retrain, tune, validate, revalidate” · quote check: exact
+- **field_of_use** — No field restriction: any purpose not expressly prohibited by the Terms, expressly including AI development.
+  - “each element or part of the Content for any purpose, not expressly prohibited by these Terms” · quote check: exact
+  - “purpose of developing, building, training, testing, validating, and improving any products, services, tools, technology” · quote check: exact
+- **territory** — Worldwide.
+  - “grant Wirestock a worldwide, non-exclusive, transferable, sublicensable (with the right to sublicense through multiple tiers” · quote check: exact
+- **term_duration** — Grant runs until the contributor terminates (Wirestock has up to 120 days to close the account and 90 days to one year to pull content from marketplaces); licences to customers and sublicensees are perpetual and the grant survives termination for content already submitted.
+  - “it will terminate your account no later than 120 days following our receipt of a written request from you” · quote check: exact
+  - “For each additional 100 items of Content, Wirestock shall have an additional 30 days to remove your Content” · quote check: exact
+  - “you agree that Wirestock shall have up to one year to remove your Content” · quote check: exact
+  - “the license you granted to Wirestock or its business partners (e.g., Dataset Partners, content marketplaces) shall survive” · quote check: exact
+  - “for use in perpetuity in accordance with license agreements entered into by Wirestock or the content marketplaces” · quote check: exact
+- **exclusivity** — Contributor grant to Wirestock is non-exclusive; the Terms say nothing about exclusivity offered to buyers or Dataset Partners.
+  - “grant Wirestock a worldwide, non-exclusive, transferable, sublicensable (with the right to sublicense through multiple tiers” · quote check: exact
+  - “The Terms is a legally binding, non-exclusive agreement between you and Wirestock.” · quote check: exact
+- **sublicensing** — Wirestock may sublicense through multiple tiers (affiliates, contractors, end users, distributors, developers, partners), to Dataset Partners it picks, stock marketplaces and Ultimate Consumers, at prices and scope it alone sets.
+  - “grant Wirestock a worldwide, non-exclusive, transferable, sublicensable (with the right to sublicense through multiple tiers” · quote check: exact
+  - “Wirestock will select the Dataset Partners in its sole discretion.” · quote check: exact
+  - “license your Content, as well as all associated Metadata, to Wirestock’s Dataset Partners for the price and in the form” · quote check: exact
+  - “grant Wirestock the ability to grant a license to your Portfolio Content for the price and in the form, extent, and scope” · quote check: exact
+- **derivatives_and_model_outputs** — Wirestock and sublicensees may create derivative works; all resulting products and Developed Technology (models, datasets, new Metadata) belong to others, and Wirestock owns all Metadata anyone creates; Wirestock AI Services output may be used by Wirestock for any purpose.
+  - “adapt, create or prepare derivative works from or incorporating” · quote check: exact
+  - “you have no right, title, or interest in any such products, services, tools, technology, software, or Developed Technology” · quote check: exact
+  - “Wirestock owns all right, title, and interest in and to any Metadata created or developed, in part or in whole, by Wirestock” · quote check: exact
+  - “may use the AI Content for any purpose, including to develop and improve the AI Services” · quote check: exact
+- **attribution** — Contributors waive moral rights (or covenant not to enforce them); Wirestock will not require buyers of Paid Content to credit the contributor; Wirestock may use contributor name and content in marketing without pay.
+  - “you expressly and irrevocably waive any and all “moral rights” and “droit moral” that you may have” · quote check: exact
+  - “you covenant not to enforce any moral rights in Content against Wirestock, the content marketplaces” · quote check: exact
+  - “for Paid Content, Wirestock will not require attribution by the licensee” · quote check: exact
+  - “without the payment of any compensation to you” · quote check: exact
+- **deletion_on_termination** — No deletion duty: on termination the licence and sublicences survive, Wirestock may retain copies, and neither Wirestock nor its licensees/sublicensees must remove content from servers, datasets or models.
+  - “the license you granted to Wirestock or its business partners (e.g., Dataset Partners, content marketplaces) shall survive” · quote check: exact
+  - “neither Wirestock nor its respective licensees, sublicensees, and transferees will be obligated to remove the Content” · quote check: exact
+  - “retain copies of your Content that you licensed to Wirestock prior to the effective date of the termination” · quote check: exact
+  - “continue to have the right to support, maintain, update, improve, retrain, tune, validate, revalidate” · quote check: exact
+- **warranties_by_provider** — Contributor warrants sole, unencumbered ownership, originality, that no party's use infringes any third-party right (incl. publicity and privacy) so Wirestock needs no further permission, AI-generated content is clear, and they are 18+; Wirestock gives contributors no warranties.
+  - “the Content and all parts thereof and rights therein are solely owned or controlled by you, unencumbered” · quote check: exact
+  - “the Content does not, and any party’s use of the Content will not, infringe any rights of any third parties” · quote check: exact
+  - “rights of publicity or privacy, and Wirestock will not need to obtain any permission or license from any third party” · quote check: exact
+  - “any AI-Generated Content will not, and use thereof will not, infringe any rights of any third parties” · quote check: exact
+  - “you are at least 18 years of age” · quote check: exact
+  - “we do not guarantee that you will earn any money from using Wirestock’s Services” · quote check: exact
+- **consent_and_release_warranty** — Contributor (the capturer) must supply valid model releases where Wirestock judges a person identifiable (face, figure, voice, likeness) and property releases where Wirestock requires them, keeps original release records, and warrants no publicity/privacy infringement; a defective release is a material breach; releases may be shown to customers. Nothing ties release scope to AI-training use.
+  - “provide Wirestock a valid and accurate model release for any and all Content you contribute” · quote check: exact
+  - “identifiable face or identifiable human figure or other identifiable attribute including, without limitation, voice” · quote check: exact
+  - “provide valid and accurate property releases to Wirestock for all Content that requires such releases” · quote check: exact
+  - “you are solely responsible for retaining all original releases and maintaining complete and accurate release records” · quote check: exact
+  - “The submission of any falsified, inaccurate, or otherwise defective release is a material breach of the Terms.” · quote check: exact
+  - “Wirestock, Dataset Partners, or the content marketplaces, may furnish copies of releases to customers” · quote check: exact
+  - “rights of publicity or privacy, and Wirestock will not need to obtain any permission or license from any third party” · quote check: exact
+- **indemnity** — One-way and uncapped as written: contributor defends and indemnifies Wirestock, its licensees, sublicensees, Dataset Partners, content marketplaces and Ultimate Consumers against claims from the contributor's content, conduct or breach; Wirestock may withhold royalties pending a claim.
+  - “hold harmless Wirestock, its partners, affiliates, licensors, licensees, sublicensees, transferees, Dataset Partners” · quote check: exact
+  - “arising out of or relating to your use of the Services, your conduct in relation to the Services, your Content” · quote check: exact
+  - “Wirestock may withhold from royalties or other compensation due to you hereunder, such sums as are reasonably related” · quote check: exact
+- **liability_cap** — Wirestock's aggregate liability to the contributor and all third parties capped at USD 500; indirect and consequential damages excluded; claims barred after one year. No cap on the contributor's indemnity.
+  - “shall be limited to general money damages not to exceed five hundred dollars ($500.00 USD)” · quote check: exact
+  - “won’t be liable for any indirect, special, incidental, punitive, exemplary, or consequential damages” · quote check: exact
+  - “must be commenced within one year after the cause of action accrues” · quote check: exact
+- **payment_and_revenue_share** — Dataset Deals: Wirestock picks Method 1 (contributor gets item-count share of 50% of the partner payment; Wirestock keeps 50%) or Method 2 (bundled deals, discretionary pay pre-agreed as fair). Stock royalties and Instant Pay 85/15, prints 70/30, Marketplace pay per an amendable FAQ; monthly payouts over USD 30/50 minimum.
+  - “you agree to be compensated in either of the two following methods, as determined by Wirestock in its sole discretion” · quote check: exact
+  - “Fractional Participation multiplied by 50 percent of the total payment Wirestock receives from the Dataset Partner” · quote check: exact
+  - “You agree that Wirestock shall retain the remaining 50 percent of the total payment.” · quote check: exact
+  - “total number of items of your Content participating in the Dataset Program divided by the total number of items of Content” · quote check: exact
+  - “your compensation will vary and will be determined by Wirestock in its sole discretion” · quote check: exact
+  - “agree that your compensation in any bundled deals is fair and reasonable consideration” · quote check: exact
+  - “Wirestock will pay you 85% of the Royalty, but will keep 15% of the Royalty” · quote check: exact
+  - “Wirestock will pay you 85% of the Advanced Rate Payout, but will keep 15% of the Advanced Rate Payout” · quote check: exact
+  - “Wirestock will pay you an amount equal to 70% of the total amount Wirestock receives from the purchaser” · quote check: exact
+  - “Wirestock may amend the Marketplace Compensation FAQ from time to time.” · quote check: exact
+  - “Royalty payments to you will be issued monthly for the previous month’s downloads.” · quote check: exact
+  - “thirty U.S. Dollars (USD $30.00) for PayPal and fifty U.S. Dollars (USD $50.00) for Payoneer” · quote check: exact
+- **takedown_and_erasure** — Wirestock may remove or suspend content at will or on complaint and runs a DMCA process; on termination it pulls content from marketplaces within 90 days to one year, but licences already issued stay in force in perpetuity, buyers and Ultimate Users keep their copies, and Dataset Partners/sublicensees need not remove content from datasets or trained models.
+  - “Wirestock has the right to remove your Content from its Website, or direct its content marketplaces to remove the Content” · quote check: exact
+  - “In the event Wirestock receives a complaint about your Content, Wirestock may suspend access to such Content” · quote check: exact
+  - “Wirestock has designated an agent for purposes of takedown notices under the Digital Millennium Copyright Act” · quote check: exact
+  - “For each additional 100 items of Content, Wirestock shall have an additional 30 days to remove your Content” · quote check: exact
+  - “if later removed from Wirestock, will remain in full force and effect, in perpetuity” · quote check: exact
+  - “Wirestock has no feasible way to retrieve such content from Ultimate Users” · quote check: exact
+  - “neither Wirestock nor its respective licensees, sublicensees, and transferees will be obligated to remove the Content” · quote check: exact
+  - “continue to have the right to support, maintain, update, improve, retrain, tune, validate, revalidate” · quote check: exact
+- **governing_law** — California law; AAA arbitration by a single arbitrator with class-action waiver; Los Angeles federal courts for non-arbitrable matters.
+  - “governed by and construed in accordance with the internal laws of the California, USA” · quote check: exact
+  - “through final and binding arbitration by a single arbitrator” · quote check: exact
+  - “not as a plaintiff or class member in any purported class or representative action” · quote check: exact
+  - “will be brought in the federal courts of Los Angeles, California” · quote check: exact
+- **change_of_terms** — Wirestock may change the Terms unilaterally; changes can take effect within three days of an email; continued use is acceptance. The January 2026 version made Dataset Deals enrolment automatic with no opt-out, grandfathering only earlier opt-outs.
+  - “Wirestock reserves the right to modify these Terms at any time in its sole discretion.” · quote check: exact
+  - “no later than three (3) days after Wirestock has sent an email” · quote check: exact
+  - “By continuing to use or access the Services after the updates come into effect, you agree to be bound by the revised Terms.” · quote check: exact
+  - “Wirestock will respect your request but only as to that Previously Opted-Out Content” · quote check: exact
+  - “You understand and agree that there is no option to opt out of the Dataset Deals Program.” · quote check: exact
+  - “Effective as of January 20, 2026.” · quote check: exact
+- **prohibited_uses** — Contributors may not upload unlawful pornographic, extremely violent or terrorist content, duplicate content across accounts, or misuse AI Services; Wirestock may delete AI-generated content at will. No use restrictions on buyers or Dataset Partners are stated in this document.
+  - “upload content that is unlawfully pornographic or indecent, or that contain extreme acts of violence or terrorist activity” · quote check: exact
+  - “You may not submit identical or substantially similar Content to more than one account without the prior written consent” · quote check: exact
+  - “Wirestock can block, delete, or otherwise remove any AI-Generated Content for any reason whatsoever” · quote check: exact
+- _unknown_: `other.buyer_exclusivity` — not_published
+- _unknown_: `other.dataset_partner_licence_terms` — not_published
+- _unknown_: `other.data_subject_erasure` — not_published
+- _unknown_: `other.release_scope_for_ai_training` — not_published
+- _unknown_: `other.contributor_audit_or_statement` — not_published

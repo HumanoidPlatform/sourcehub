@@ -1,0 +1,502 @@
+{
+  "kind": "verify",
+  "slug": "opendatabay",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "opendatabay-c001",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://find-and-update.company-information.service.gov.uk/company/15711573",
+        "publisher": "Companies House (UK government company register)",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Company status Active"
+      },
+      "corrected_statement": null,
+      "note": "Companies House lists OPENDATABAY LTD (15711573) as Active, last confirmation statement dated 16 May 2026. The specific 24 August 2026 fee-schedule date is vendor-only. Note the register also shows a First Gazette compulsory strike-off notice on 14 Apr 2026, discontinued 15 Apr 2026 after accounts were filed (see missed)."
+    },
+    {
+      "claim_id": "opendatabay-c002",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "WebSearch unavailable in this run (no search available); the effective date of the vendor's own fee schedule exists only on opendatabay.com/legal/fees. Newest independently dated events found: Companies House CS01 of 16 May 2026 and the strike-off notice of 14 Apr 2026 (discontinued 15 Apr 2026); neither is a terms change, so 'newest dated change to its terms' stands unchallenged."
+    },
+    {
+      "claim_id": "opendatabay-c011",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "WebSearch unavailable in this run (no search available); a live catalogue listing count (586) is shown only on the vendor's homepage; no partner or press page reachable by navigation (IBM Partner Plus directory entry, partners page links) restates it."
+    },
+    {
+      "claim_id": "opendatabay-c012",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "WebSearch unavailable in this run (no search available); a live catalogue licensed provider count (91) is shown only on the vendor's homepage; no partner or press page reachable by navigation (IBM Partner Plus directory entry, partners page links) restates it."
+    },
+    {
+      "claim_id": "opendatabay-c013",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "WebSearch unavailable in this run (no search available); no independent audience measure reachable. IBM Partner Plus directory entry (ibm.com/partnerplus/directory/company/10041) carries no user figures. Context: the company's filed accounts to 31 May 2025 report an average of 1 employee (including directors) and GBP 1,087 cash, which neither confirms nor contradicts a registered-user count."
+    },
+    {
+      "claim_id": "opendatabay-c014",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "WebSearch unavailable in this run (no search available); no independent download statistic reachable; the IBM partner directory entry and the partners page carry none. The figure appears only on opendatabay.com/about."
+    },
+    {
+      "claim_id": "opendatabay-c020",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "WebSearch unavailable in this run (no search available); an outcome claim of this kind would need a customer case study or independent evaluation; none linked from the vendor's pages and none reachable by navigation."
+    },
+    {
+      "claim_id": "opendatabay-c038",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "WebSearch unavailable in this run (no search available); the vendor's own commission schedule; no partner or third-party page restating it was reachable by navigation. Read on opendatabay.com/legal/fees for context only (not independent)."
+    },
+    {
+      "claim_id": "opendatabay-c039",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "WebSearch unavailable in this run (no search available); the vendor's own commission schedule; no partner or third-party page restating it was reachable by navigation. Read on opendatabay.com/legal/fees for context only (not independent)."
+    },
+    {
+      "claim_id": "opendatabay-c040",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "WebSearch unavailable in this run (no search available); the vendor's own commission schedule; no partner or third-party page restating it was reachable by navigation. Read on opendatabay.com/legal/fees for context only (not independent)."
+    },
+    {
+      "claim_id": "opendatabay-c041",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "WebSearch unavailable in this run (no search available); the vendor's own commission schedule; no partner or third-party page restating it was reachable by navigation. Read on opendatabay.com/legal/fees for context only (not independent)."
+    },
+    {
+      "claim_id": "opendatabay-c042",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "WebSearch unavailable in this run (no search available); the vendor's own commission schedule; no partner or third-party page restating it was reachable by navigation. Read on opendatabay.com/legal/fees for context only (not independent)."
+    },
+    {
+      "claim_id": "opendatabay-c043",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "WebSearch unavailable in this run (no search available); the vendor's own commission schedule; no partner or third-party page restating it was reachable by navigation. Read on opendatabay.com/legal/fees for context only (not independent)."
+    },
+    {
+      "claim_id": "opendatabay-c044",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "WebSearch unavailable in this run (no search available); the vendor's own commission schedule; no partner or third-party page restating it was reachable by navigation. Read on opendatabay.com/legal/fees for context only (not independent)."
+    },
+    {
+      "claim_id": "opendatabay-c053",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "WebSearch unavailable in this run (no search available); a payout threshold in the vendor's own provider terms/docs; not restated by any third party reachable by navigation."
+    },
+    {
+      "claim_id": "opendatabay-c151",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "WebSearch unavailable in this run (no search available); a listing price exists only on the marketplace listing. Could not locate the egocentric listing blind: /data/robotics rendered empty placeholders and /data/premium did not show it."
+    },
+    {
+      "claim_id": "opendatabay-c159",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "WebSearch unavailable in this run (no search available); listing price on the marketplace only. Checked the provider's own site (dira.digital, Dira Reliability S.L.): it does not mention a thermography dataset for sale, Opendatabay or a price."
+    },
+    {
+      "claim_id": "opendatabay-c165",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "WebSearch unavailable in this run (no search available); listing price on the marketplace only. Checked the provider S Chand and Company Ltd's FY2025-26 Annual Report (schandgroup.com): it reports AI-dataset content licensing revenue but never names Opendatabay or this listing's price."
+    },
+    {
+      "claim_id": "opendatabay-c022",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "WebSearch unavailable in this run (no search available); a clause, button or delivery mechanic in the vendor's own terms or UI; exists only on opendatabay.com by nature."
+    },
+    {
+      "claim_id": "opendatabay-c037",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "WebSearch unavailable in this run (no search available); a clause, button or delivery mechanic in the vendor's own terms or UI; exists only on opendatabay.com by nature."
+    },
+    {
+      "claim_id": "opendatabay-c056",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "WebSearch unavailable in this run (no search available); a clause, button or delivery mechanic in the vendor's own terms or UI; exists only on opendatabay.com by nature."
+    },
+    {
+      "claim_id": "opendatabay-c105",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "WebSearch unavailable in this run (no search available); a clause, button or delivery mechanic in the vendor's own terms or UI; exists only on opendatabay.com by nature."
+    },
+    {
+      "claim_id": "opendatabay-c167",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "WebSearch unavailable in this run (no search available); a clause, button or delivery mechanic in the vendor's own terms or UI; exists only on opendatabay.com by nature."
+    },
+    {
+      "claim_id": "opendatabay-c024",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "WebSearch unavailable in this run (no search available); a clause, button or delivery mechanic in the vendor's own terms or UI; exists only on opendatabay.com by nature."
+    },
+    {
+      "claim_id": "opendatabay-c076",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "WebSearch unavailable in this run (no search available); a clause, button or delivery mechanic in the vendor's own terms or UI; exists only on opendatabay.com by nature."
+    },
+    {
+      "claim_id": "opendatabay-c119",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "WebSearch unavailable in this run (no search available); a clause, button or delivery mechanic in the vendor's own terms or UI; exists only on opendatabay.com by nature."
+    },
+    {
+      "claim_id": "opendatabay-c001",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote 'Last Updated: August 24, 2026' is on /legal/fees. A vendor page date is weak status evidence; the Companies House 'Active' entry (blind verdict) is the stronger support and could be added as a second source."
+    },
+    {
+      "claim_id": "opendatabay-c002",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "'This policy is effective as of August 24, 2026' is on /legal/fees; newer than the ToS update of 26 July 2026 and the 27 Feb 2026 legal pages."
+    },
+    {
+      "claim_id": "opendatabay-c011",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "opendatabay-c012",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "opendatabay-c013",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Correctly framed as vendor-stated; quote is on /about."
+    },
+    {
+      "claim_id": "opendatabay-c014",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Correctly framed as vendor-stated; quote is on /about."
+    },
+    {
+      "claim_id": "opendatabay-c020",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote stops at 'by 20' and does not show the 40% upper bound. The page reads 'reducing time spent on preprocessing by 20–40%' (en dash), under 'What We Offer', as a claim about its pre-curated datasets."
+    },
+    {
+      "claim_id": "opendatabay-c038",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Matches the /legal/fees table row; the docs fee page repeats the same bands."
+    },
+    {
+      "claim_id": "opendatabay-c044",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Matches the /legal/fees table row; the docs fee page repeats the same bands."
+    },
+    {
+      "claim_id": "opendatabay-c039",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Row matches /legal/fees. value.num records only the rate at the top of the band; the page says the rate is 'determined progressively within that range' without saying whether that is marginal or linear, which the profile lists as unknown."
+    },
+    {
+      "claim_id": "opendatabay-c040",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Row matches /legal/fees. value.num records only the rate at the top of the band; the page says the rate is 'determined progressively within that range' without saying whether that is marginal or linear, which the profile lists as unknown."
+    },
+    {
+      "claim_id": "opendatabay-c041",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Row matches /legal/fees. value.num records only the rate at the top of the band; the page says the rate is 'determined progressively within that range' without saying whether that is marginal or linear, which the profile lists as unknown."
+    },
+    {
+      "claim_id": "opendatabay-c042",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Row matches /legal/fees. value.num records only the rate at the top of the band; the page says the rate is 'determined progressively within that range' without saying whether that is marginal or linear, which the profile lists as unknown."
+    },
+    {
+      "claim_id": "opendatabay-c043",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Row matches /legal/fees. value.num records only the rate at the top of the band; the page says the rate is 'determined progressively within that range' without saying whether that is marginal or linear, which the profile lists as unknown."
+    },
+    {
+      "claim_id": "opendatabay-c053",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Docs page is undated; the /legal/fees schedule does not state the threshold."
+    },
+    {
+      "claim_id": "opendatabay-c151",
+      "check": "scope",
+      "status": "scope_wrong",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The GBP 371,000 is not the listing's whole price. The listing ('220K+ Hours Narrated Egocentric Video Dataset', provider Infobay.Ai) prices 'the specified initial batch of 50,000 hours'; larger quantities are priced separately. The value.basis says so but the statement and the bare '£371,000' quote do not. Should read: Infobay.Ai's 220K+-hour egocentric video listing prices an initial 50,000-hour batch at GBP 371,000."
+    },
+    {
+      "claim_id": "opendatabay-c159",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Listing by Dira Reliability S.L.; price confirmed on the live listing."
+    },
+    {
+      "claim_id": "opendatabay-c165",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Listing by S CHAND AND COMPANY LIMITED; price confirmed. The same listing's licence field reads CC0, which the profile records as a conflict."
+    },
+    {
+      "claim_id": "opendatabay-c022",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote is on /legal/listing (Last Updated 27 Feb 2026); 'By default' is right, because the same page lets a provider elect exclusive brokerage (c023)."
+    },
+    {
+      "claim_id": "opendatabay-c037",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "opendatabay-c056",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "On the Data Provider (Seller) Agreement, Last Updated 27 Feb 2026."
+    },
+    {
+      "claim_id": "opendatabay-c105",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Docs describe the 'Downloadable Package' method this way; the page does not say where the files are hosted, as the matrix note admits."
+    },
+    {
+      "claim_id": "opendatabay-c167",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "One-listing quote generalised to all paid listings; I saw 'Buy Now' on four paid listings (GBP 850, 371,000, 500,000 and 40,670,625). Nothing shows whether the button opens a card checkout or an enquiry at the larger prices."
+    },
+    {
+      "claim_id": "opendatabay-c024",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "opendatabay-c076",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Introduced on /legal/right by 'By listing data on Opendatabay, you explicitly declare and warrant that:'. A warranty only, which supports asserted_only."
+    },
+    {
+      "claim_id": "opendatabay-c119",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote is exact. It supports 'the platform pays no individual sellers', but not how providers pay their own capturers, as the matrix note says."
+    }
+  ],
+  "missed": [
+    {
+      "id": "opendatabay-v001",
+      "statement": "OPENDATABAY LTD's filed accounts for the period to 31 May 2025 report an average of 1 person employed, including directors.",
+      "kind": "number",
+      "section": "positioning",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": "UK"
+      },
+      "value": {
+        "num": 1,
+        "unit": "average monthly persons employed",
+        "basis": "including directors, first accounting period to 31 May 2025",
+        "period": "accounting period"
+      },
+      "origin": "filing",
+      "as_of": "2025-05-31",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://find-and-update.company-information.service.gov.uk/company/15711573/filing-history/MzUxNTM4NDY4M2FkaXF6a2N4/document?format=pdf&download=0",
+          "publisher": "Companies House (filed by OPENDATABAY LTD)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "The average monthly number of persons (including directors) employed by the company during the period was"
+        }
+      ]
+    },
+    {
+      "id": "opendatabay-v002",
+      "statement": "OPENDATABAY LTD's balance sheet at 31 May 2025 shows negative total equity of GBP 19,166, with GBP 1,087 cash against GBP 20,253 of short-term creditors.",
+      "kind": "number",
+      "section": "positioning",
+      "question_ids": [
+        "Q2",
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": "UK"
+      },
+      "value": {
+        "num": -19166,
+        "unit": "GBP",
+        "basis": "total equity (net current liabilities) per filed small-company balance sheet; no profit and loss account filed",
+        "period": "as at 31 May 2025"
+      },
+      "origin": "filing",
+      "as_of": "2025-05-31",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://find-and-update.company-information.service.gov.uk/company/15711573/filing-history/MzUxNTM4NDY4M2FkaXF6a2N4/document?format=pdf&download=0",
+          "publisher": "Companies House (filed by OPENDATABAY LTD)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Total equity (19,166)"
+        }
+      ]
+    }
+  ]
+}

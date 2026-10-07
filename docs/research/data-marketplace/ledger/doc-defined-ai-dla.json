@@ -1,0 +1,1851 @@
+{
+  "kind": "document",
+  "slug": "doc-defined-ai-dla",
+  "platform_slug": "defined-ai",
+  "title": "Data License Agreement",
+  "doc_type": "buyer_licence",
+  "url": "https://defined.ai/data-license-agreement",
+  "publisher": "Defined.ai (DefinedCrowd Corporation)",
+  "version_or_date": "effective as of November 30th, 2022",
+  "retrieved_at": "2026-10-01",
+  "parties": {
+    "licensor": "DefinedCrowd Corporation (Defined.ai), Seattle WA, asserting ownership of all Data",
+    "licensee": "all clients covered by this license (the buyer)",
+    "operator_role": "reseller_licensor"
+  },
+  "terms": {
+    "permitted_use": {
+      "value": "Internal business use only, for the Licensee's own benefit; commercialising the Data itself (free or paid) is excluded; anything not expressly authorised is prohibited.",
+      "claim_ids": [
+        "doc-defined-ai-dla-c009",
+        "doc-defined-ai-dla-c010",
+        "doc-defined-ai-dla-c016"
+      ]
+    },
+    "ai_training_rights": {
+      "value": "Training, testing and benchmarking models is allowed and the resulting models may be commercialised, only while the Data itself is not made available and the model does not output recognisable Contributor content (e.g. recognisable TTS voices, avatars); no redistribution of the Data; fine-tuning is not named separately.",
+      "claim_ids": [
+        "doc-defined-ai-dla-c011",
+        "doc-defined-ai-dla-c012",
+        "doc-defined-ai-dla-c013",
+        "doc-defined-ai-dla-c014"
+      ]
+    },
+    "field_of_use": {
+      "value": "Data is described as assets for training/testing speech, NLP, computer vision and other models; usage capped at Exhibit A limits, extra use needs written agreement and extra fees.",
+      "claim_ids": [
+        "doc-defined-ai-dla-c014",
+        "doc-defined-ai-dla-c008"
+      ]
+    },
+    "territory": {
+      "value": "No territorial limit on the grant; US export-control compliance and approvals required before making the Data available outside the US.",
+      "claim_ids": [
+        "doc-defined-ai-dla-c052"
+      ]
+    },
+    "term_duration": {
+      "value": "Runs from the Effective Date until terminated; either side (including Defined.ai) may end it on 60 days' notice without cause, or at once for uncured breach (30 days); not perpetual.",
+      "claim_ids": [
+        "doc-defined-ai-dla-c040",
+        "doc-defined-ai-dla-c041",
+        "doc-defined-ai-dla-c042",
+        "doc-defined-ai-dla-c006"
+      ]
+    },
+    "exclusivity": {
+      "value": "Non-exclusive only.",
+      "claim_ids": [
+        "doc-defined-ai-dla-c007"
+      ]
+    },
+    "sublicensing": {
+      "value": "Non-sublicensable and non-transferable; no disclosure, sale, sublicence, publication or other making available to third parties without Defined.ai's written authorisation; no assignment without consent.",
+      "claim_ids": [
+        "doc-defined-ai-dla-c007",
+        "doc-defined-ai-dla-c015",
+        "doc-defined-ai-dla-c018",
+        "doc-defined-ai-dla-c051"
+      ]
+    },
+    "derivatives_and_model_outputs": {
+      "value": "Trained models may be commercialised but must not output recognisable Contributor content; the published text bars copying or modifying the Data and publishing any compilation or directory derived from it.",
+      "claim_ids": [
+        "doc-defined-ai-dla-c012",
+        "doc-defined-ai-dla-c013",
+        "doc-defined-ai-dla-c017",
+        "doc-defined-ai-dla-c021"
+      ]
+    },
+    "attribution": {
+      "value": "No credit requirement; Licensee must not remove proprietary notices included in the Data.",
+      "claim_ids": [
+        "doc-defined-ai-dla-c020"
+      ]
+    },
+    "audit_rights": {
+      "value": "Defined.ai may audit the Licensee's records at its own expense on reasonable notice; Licensee keeps records during the Term plus two years.",
+      "claim_ids": [
+        "doc-defined-ai-dla-c054",
+        "doc-defined-ai-dla-c055"
+      ]
+    },
+    "deletion_on_termination": {
+      "value": "On termination the buyer must stop using and delete, destroy or return all copies and certify deletion in writing (clause cross-refers to 'Section 7b', a drafting slip for 8b); no refund.",
+      "claim_ids": [
+        "doc-defined-ai-dla-c044",
+        "doc-defined-ai-dla-c045",
+        "doc-defined-ai-dla-c046"
+      ]
+    },
+    "warranties_by_provider": {
+      "value": "None: Data is provided as is; Defined.ai disclaims all warranties including title, non-infringement, accuracy and completeness.",
+      "claim_ids": [
+        "doc-defined-ai-dla-c028",
+        "doc-defined-ai-dla-c029",
+        "doc-defined-ai-dla-c030"
+      ]
+    },
+    "indemnity": {
+      "value": "Defined.ai indemnifies the buyer against third-party claims that Permitted Use infringes US IP or data-protection rights (conditional on notice and Defined.ai controlling defence; excludes combination with non-Defined.ai data and breach of use restrictions; sole IP remedy); buyer indemnifies Defined.ai for negligence, wilful misconduct and unauthorised use. Defined.ai's side is subject to the overall fees-paid cap.",
+      "claim_ids": [
+        "doc-defined-ai-dla-c031",
+        "doc-defined-ai-dla-c032",
+        "doc-defined-ai-dla-c035",
+        "doc-defined-ai-dla-c037",
+        "doc-defined-ai-dla-c036",
+        "doc-defined-ai-dla-c039"
+      ]
+    },
+    "liability_cap": {
+      "value": "Defined.ai's aggregate liability capped at total amounts paid to it, limited to proven direct damages, notwithstanding any other provision; consequential damages excluded for Defined.ai only; no cap on the buyer.",
+      "claim_ids": [
+        "doc-defined-ai-dla-c039",
+        "doc-defined-ai-dla-c038"
+      ]
+    },
+    "payment_and_revenue_share": {
+      "value": "Buyer pays fees to Defined.ai; usage beyond Exhibit A limits carries extra fees set by Defined.ai; delivery may be suspended after 15 days' unpaid undisputed amounts; no refund on termination. No revenue share or contributor payment terms in this document.",
+      "claim_ids": [
+        "doc-defined-ai-dla-c008",
+        "doc-defined-ai-dla-c043",
+        "doc-defined-ai-dla-c046"
+      ]
+    },
+    "takedown_and_erasure": {
+      "value": "No data-subject erasure pass-through; on an infringement or data-protection claim Defined.ai may modify/replace the material, obtain rights, or terminate for the affected part immediately, after which the buyer must delete its copies; parties cooperate on data-protection obligations.",
+      "claim_ids": [
+        "doc-defined-ai-dla-c033",
+        "doc-defined-ai-dla-c034",
+        "doc-defined-ai-dla-c044",
+        "doc-defined-ai-dla-c027",
+        "doc-defined-ai-dla-c026"
+      ]
+    },
+    "governing_law": {
+      "value": "Washington State law; exclusive jurisdiction of federal or state courts in Seattle / King County.",
+      "claim_ids": [
+        "doc-defined-ai-dla-c049",
+        "doc-defined-ai-dla-c050"
+      ]
+    },
+    "change_of_terms": {
+      "value": "No unilateral change: amendments only in writing signed by both parties.",
+      "claim_ids": [
+        "doc-defined-ai-dla-c048"
+      ]
+    },
+    "prohibited_uses": {
+      "value": "No resale, sublicensing or redistribution; no reverse engineering or deriving compilation methods; no removing notices; no derived compilations/directories; no unlawful use under privacy law; no infringing use; no recognisable Contributor output from models.",
+      "claim_ids": [
+        "doc-defined-ai-dla-c018",
+        "doc-defined-ai-dla-c019",
+        "doc-defined-ai-dla-c020",
+        "doc-defined-ai-dla-c021",
+        "doc-defined-ai-dla-c022",
+        "doc-defined-ai-dla-c023",
+        "doc-defined-ai-dla-c012"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "doc-defined-ai-dla-c001",
+      "statement": "The Defined.ai Data License Agreement is between DefinedCrowd Corporation as Licensor and all clients covered by the licence as Licensee.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "made by and between all clients covered by this license ( \"Licensee\" ) and DefinedCrowd Corporation ( \"Licensor\" )"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c002",
+      "statement": "The Data License Agreement states it is effective as of 30 November 2022.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "is effective as of November 30th, 2022"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c003",
+      "statement": "Under the DLA the Licensee acknowledges that the Licensor (DefinedCrowd) owns all rights, title and interest, including IP, in the Data; the agreement makes no distinction for partner- or third-party-supplied datasets.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensor owns all rights, title, and interest, including all intellectual property rights, in and to the Data"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c004",
+      "statement": "The DLA recites that the Licensor compiled the data into a proprietary database, and the published text still carries the unfilled placeholder '[database/data feed]'.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensor has compiled data into the proprietary [database/data feed] described in Exhibit A"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c005",
+      "statement": "The Licensee must acknowledge that the Data is an original compilation protected by US copyright law and constitutes the Licensor's trade secrets.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the Data is an original compilation protected by United States copyright laws"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c006",
+      "statement": "The Licensor may terminate the DLA without notice or cure period if the Licensee contests the Licensor's title to the Data.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensor may terminate this Agreement without advance notice to Licensee or an opportunity for Licensee to cure"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c007",
+      "statement": "The DLA grants a non-exclusive, non-sublicensable and non-transferable licence to use the Data during the Term solely for the Permitted Use.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "grants Licensee a non-exclusive, non-sublicensable, and non-transferable (except in compliance with Section 8(f)) license"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c008",
+      "statement": "Licensee usage may not exceed the limits in Exhibit A unless agreed in writing, subject to additional fees set by the Licensor.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q8",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "subject to any appropriate additional fees determined by the Licensor"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c009",
+      "statement": "Permitted Use under the DLA is solely for the Licensee's benefit in the ordinary course of its internal business operations.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Use is solely for the benefit of Licensee in the ordinary course of its internal business operations"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c010",
+      "statement": "The DLA's Permitted Use excludes commercialising the Data itself, whether for free or for payment.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "excludes commercialization of the Data itself, whether free of charge or paid"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c011",
+      "statement": "The DLA permits commercial exploitation of models that used the Data for training, testing or benchmarking.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "commercial exploitation of models based that have used the Data for training, testing or bench-marking purposes"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c012",
+      "statement": "The model-commercialisation permission holds only so long as the Data itself is not made available and the model does not output recognisable content from Contributors.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "as long as the Data itself is not made available or it does not output recognizable content from Contributors to the Assets"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c013",
+      "statement": "The DLA gives recognisable text-to-speech voices and avatars as examples of prohibited recognisable Contributor output.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "recognizable Text-to-Speech voices, avatars and similar"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c014",
+      "statement": "Exhibit A of the DLA describes the Data as digital assets for training and/or testing speech, NLP, computer vision and other models.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Digital assets for training and/or testing of speech, NLP, computer vision, and other models"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c015",
+      "statement": "The Licensee may not disclose, release, distribute or deliver the Data to any third party without the Licensor's prior written authorisation.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "shall not disclose, release, distribute, or deliver the Data Assets, or any portion thereof, to any third party"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c016",
+      "statement": "Any purpose or use not specifically authorised in the DLA is prohibited unless the Licensor agrees in writing.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Any purpose or use not specifically authorized herein is prohibited unless otherwise agreed to in writing by Licensor"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c017",
+      "statement": "The DLA's use restrictions, as published, bar the Licensee from copying or modifying the Data (the clause text is garbled: 'copy, modify, or, in whole or in part').",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "(i) copy, modify, or, in whole or in part"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c018",
+      "statement": "The Licensee may not rent, lease, lend, sell, sublicense, assign, distribute, publish or otherwise make the Data available.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "(ii) rent, lease, lend, sell, sublicense, assign, distribute, publish, transfer, or otherwise make available the Data"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c019",
+      "statement": "The Licensee may not reverse engineer or attempt to derive the methods used to compile the Data.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "otherwise attempt to derive or gain access to the source of the Data or methods used to compile the Data"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c020",
+      "statement": "The Licensee may not remove proprietary notices included within the Data; the DLA sets no other attribution requirement.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "(iv) remove any proprietary notices included within the Data"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c021",
+      "statement": "The Licensee may not publish, enhance or display any compilation or directory based on information derived from the Data.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "(v) publish, enhance, or display any compilation or directory based upon information derived from the Data"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c022",
+      "statement": "The Licensee may not use the Data unlawfully under applicable privacy and data protection laws.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "(vi) use the Data unlawfully according to the applicable privacy and data protection laws"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c023",
+      "statement": "The Licensee may not use the Data in any way that infringes or violates any intellectual property or other right of any person.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "infringes, misappropriates, or otherwise violates any intellectual property right or other right of any person"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c024",
+      "statement": "Under the DLA the Licensor delivers the Data electronically, on tangible media or by other means, i.e. a copy is delivered to the buyer.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensor shall deliver the Data electronically, on tangible media, or by other means"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c025",
+      "statement": "The Licensee must apply reasonable legal, organisational, physical, administrative and technical security measures to protect the Data.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensee shall use all reasonable legal, organizational, physical, administrative, and technical measures"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c026",
+      "statement": "Each party is individually responsible, within its scope, for compliance with applicable data protection laws.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Each Party is individually responsible within its scope of responsibility for compliance with applicable data protection laws"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c027",
+      "statement": "The parties agree to support each other in complying with obligations under applicable data protection laws.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the Parties agree to support each other in complying with the obligations under applicable data protection laws"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c028",
+      "statement": "The Data is provided 'as is' and the Licensor disclaims all warranties, express or implied.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "THE DATA IS PROVIDED \"AS IS\" AND LICENSOR HEREBY DISCLAIMS ALL WARRANTIES"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c029",
+      "statement": "The Licensor specifically disclaims implied warranties including title and non-infringement.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c030",
+      "statement": "The Licensor gives no warranty that the Data is accurate, complete or error-free.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "BE SECURE, ACCURATE, COMPLETE, FREE OF HARMFUL CODE, OR ERROR FREE"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c031",
+      "statement": "The Licensor indemnifies the Licensee against third-party claims that the Licensee's Permitted Use infringes the third party's US IP rights or data protection rights.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "infringes or misappropriates such third party's US intellectual property rights, and data protection rights"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c032",
+      "statement": "The Licensor's indemnity is conditional on prompt written notice, cooperation, and the Licensor having sole control of defence and settlement.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "allows Licensor sole authority to control the defense and settlement of such claim"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c033",
+      "statement": "If a claim is made or appears possible, the Licensor may modify or replace the infringing material or obtain rights to continue use.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q5",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "(A) modify or replace any such infringing material to make it non-infringing, or (B) obtain rights to continue use"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c034",
+      "statement": "If neither remedy is reasonably available the Licensor may terminate the DLA in whole or only for the affected part of the Data, immediately on written notice.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "in its entirety or with respect to the affected part or feature of the Data, effective immediately on written notice"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c035",
+      "statement": "The Licensor's indemnity does not apply where the claim arises from combining the Data with non-Licensor data or technology, or from breach of the use restrictions.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "use of the Data in combination with data, software, hardware, equipment, or technology not provided by Licensor"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c036",
+      "statement": "The Licensee indemnifies the Licensor against third-party claims based on the Licensee's negligence, wilful misconduct or unauthorised use of the Data.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "(i) negligence or willful misconduct; or (ii) use of the Data in a manner not authorized by this Agreement"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c037",
+      "statement": "Section 6 is the Licensee's sole remedy for claims that the Data infringes third-party intellectual property rights.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "THIS SECTION 6 SETS FORTH LICENSEE'S SOLE REMEDIES AND LICENSOR'S SOLE LIABILITY"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c038",
+      "statement": "The Licensor excludes liability for consequential, incidental, indirect, special or punitive damages; the exclusion is written for the Licensor only.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "IN NO EVENT WILL LICENSOR BE LIABLE UNDER OR IN CONNECTION WITH THIS AGREEMENT"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c039",
+      "statement": "The Licensor's aggregate liability, notwithstanding any other provision, is capped at the total amounts paid to it under the DLA and limited to proven direct damages; no cap is stated for the Licensee.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "EXCEED THE TOTAL AMOUNTS PAID TO LICENSOR UNDER THIS AGREEMENT, LIMITED TO PROVEN DIRECT DAMAGES CAUSED BY THE LICENSOR"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c040",
+      "statement": "The DLA licence runs from the Effective Date until terminated; it has no fixed end date and is not stated to be perpetual.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "will continue in effect until terminated pursuant to Section 8(b)"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c041",
+      "statement": "Either party, including the Licensor, may terminate the DLA on 60 days' written notice without cause.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Either Party may terminate this Agreement, effective on written notice to the other Party, given 60 (sixty) days"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c042",
+      "statement": "Either party may terminate immediately for a material breach not cured within 30 days of written notice.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "fails to cure that breach within 30 (thirty) days after written notice of that breach"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c043",
+      "statement": "The Licensor may suspend delivery if the Licensee fails to pay undisputed amounts and the failure continues 15 days after notice.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "such failure continues for 15 (fifteen) days"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c044",
+      "statement": "On termination the Licensee must stop using and delete, destroy or return all copies of the Data and certify deletion in writing.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensee shall cease using and delete, destroy, or return all copies of the Data and certify in writing"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c045",
+      "statement": "The deletion obligation is triggered 'upon termination as stated in Section 7b', a cross-reference that points to the liability cap rather than to the termination clause (8b).",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Upon termination as stated in Section 7b, the license granted hereunder will also terminate"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c046",
+      "statement": "Termination does not entitle the Licensee to any refund and does not affect fees already due.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "or entitle Licensee to any refund"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c047",
+      "statement": "The DLA says the rights and obligations in Section 8 and Section 1 survive termination.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "including the rights and obligations set forth in this Section 8 and Section 1"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c048",
+      "statement": "No amendment or modification of the DLA is effective unless in writing and signed by an authorised representative of each party.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "is effective unless it is in writing and signed by an authorized representative of each Party"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c049",
+      "statement": "The DLA is governed by Washington State law.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "governed by and interpreted in accordance with the laws of the state of Washington"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c050",
+      "statement": "Disputes under the DLA go exclusively to federal or Washington State courts in Seattle and King County.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "located in the city of Seattle and King County"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c051",
+      "statement": "The Licensee may not assign or transfer its rights under the DLA without the Licensor's prior written consent.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensee may not assign or transfer any of its rights or delegate any of its obligations hereunder"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c052",
+      "statement": "The Licensee must comply with US export controls and obtain any required approvals before making the Data available outside the US.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "prior to exporting, re-exporting, releasing, or otherwise making the Data available outside the US"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c053",
+      "statement": "The Licensor may obtain injunctive relief without posting bond for a Licensee breach of the use restrictions in Section 1(b).",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "without any requirement to post a bond or other security"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c054",
+      "statement": "The Licensor may, at its own expense and on reasonable notice, periodically inspect and audit the Licensee's records on matters covered by the DLA.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensor may, at its own expense, on reasonable prior notice, periodically inspect and audit Licensee's records"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c055",
+      "statement": "The Licensee must keep records for amounts due during the Term and for two years after termination.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "for a period of two years after the termination or expiration of this Agreement"
+        }
+      ]
+    },
+    {
+      "id": "doc-defined-ai-dla-c056",
+      "statement": "Confidentiality obligations under the DLA last during the agreement and for three years after termination.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Defined.ai marketplace datasets (standard DLA)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-11-30",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://defined.ai/data-license-agreement",
+          "publisher": "Defined.ai (DefinedCrowd Corporation)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "for a period of 3 (three) years following its termination"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "terms.consent_and_release_warranty",
+      "urls_tried": [
+        "https://defined.ai/data-license-agreement"
+      ],
+      "reason": "not_published",
+      "note": "No warranty that contributors or people depicted consented or signed releases; all warranties are disclaimed, and the only protection is the licensor indemnity for third-party data-protection claims."
+    },
+    {
+      "field": "other.partner_data_provenance",
+      "urls_tried": [
+        "https://defined.ai/data-license-agreement"
+      ],
+      "reason": "not_published",
+      "note": "The DLA does not distinguish Defined.ai-collected from partner-supplied datasets; Defined.ai asserts ownership of all Data and there is no pass-through of provider terms."
+    },
+    {
+      "field": "other.models_after_termination",
+      "urls_tried": [
+        "https://defined.ai/data-license-agreement"
+      ],
+      "reason": "not_published",
+      "note": "Silent on whether models trained before termination may continue to be used or sold once the Data must be deleted."
+    },
+    {
+      "field": "other.exhibit_a_usage_limits",
+      "urls_tried": [
+        "https://defined.ai/data-license-agreement"
+      ],
+      "reason": "not_published",
+      "note": "The published Exhibit A gives only a generic description and security clause; the per-dataset usage limits the grant refers to are not published."
+    },
+    {
+      "field": "other.fees",
+      "urls_tried": [
+        "https://defined.ai/data-license-agreement"
+      ],
+      "reason": "not_published",
+      "note": "No price or fee amounts in the DLA; fees are referenced but set elsewhere."
+    }
+  ],
+  "notes": "Published text has drafting defects: placeholder '[database/data feed]' unfilled, two sections numbered 4 and none numbered 5, undefined term 'Data Assets', garbled restriction '(i) copy, modify, or, in whole or in part', and the deletion clause cross-refers to 'Section 7b'."
+}

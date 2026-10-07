@@ -1,0 +1,1728 @@
+{
+  "kind": "profile",
+  "slug": "datacluster-labs",
+  "name": "DataCluster Labs",
+  "aliases": [
+    "DataCluster Labs Pvt Ltd",
+    "DC Labs",
+    "Dailydata"
+  ],
+  "segment": "ai_data_catalogue",
+  "tier": "light",
+  "status": {
+    "value": "active",
+    "claim_id": "datacluster-labs-c001"
+  },
+  "names_for": {
+    "catalogue_side": "Datasets: 'Off-the-shelf, ready on Kaggle' (products page); free sample datasets vs full datasets for commercial licensing",
+    "custom_side": "Data Collection via its 'managed crowd-sourcing platform - Dailydata'; 'Need a custom dataset? Let's talk.'"
+  },
+  "matrix": {
+    "operator_role": {
+      "value": "reseller_licensor",
+      "claim_ids": [
+        "datacluster-labs-c013",
+        "datacluster-labs-c034",
+        "datacluster-labs-c035"
+      ],
+      "note": "DataCluster Labs owns the images and is itself the licensor; no third-party sellers were found."
+    },
+    "economics_model": {
+      "value": "principal_margin",
+      "claim_ids": [
+        "datacluster-labs-c013",
+        "datacluster-labs-c011",
+        "datacluster-labs-c034"
+      ],
+      "note": "Owns crowd-captured inventory and licenses it at its own (unpublished) price."
+    },
+    "who_pays_fee": {
+      "value": "not_applicable",
+      "claim_ids": [],
+      "note": "Single-vendor catalogue; there is no marketplace fee between buyer and a separate seller."
+    },
+    "supply_models": {
+      "value": [
+        "own_collection"
+      ],
+      "claim_ids": [
+        "datacluster-labs-c011",
+        "datacluster-labs-c013",
+        "datacluster-labs-c014",
+        "datacluster-labs-c015"
+      ],
+      "note": "Crowd captures through its own Dailydata platform, exclusively owned. No evidence of third-party or commissioned-then-resold inventory."
+    },
+    "custody_model": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Samples are hosted on Hugging Face/Kaggle; how full datasets are delivered is not published."
+    },
+    "transaction_mode": {
+      "value": "contact_sales",
+      "claim_ids": [
+        "datacluster-labs-c033",
+        "datacluster-labs-c024",
+        "datacluster-labs-c034"
+      ],
+      "note": ""
+    },
+    "public_prices": {
+      "value": "none",
+      "claim_ids": [
+        "datacluster-labs-c033",
+        "datacluster-labs-c034"
+      ],
+      "note": "No price found on the website, brochure, one-pager or any dataset card fetched."
+    },
+    "licence_model": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Samples carry mixed licences (own restricted licence, CC BY-NC-ND, CC BY, CC0 on Kaggle); the terms of the full-dataset commercial licence are not published."
+    },
+    "exclusivity_offered": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": ""
+    },
+    "public_listing": {
+      "value": "public_indexable",
+      "claim_ids": [
+        "datacluster-labs-c025",
+        "datacluster-labs-c007",
+        "datacluster-labs-c026"
+      ],
+      "note": ""
+    },
+    "buyer_vetting": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": ""
+    },
+    "sample_mechanics": {
+      "value": "free_sample_download",
+      "claim_ids": [
+        "datacluster-labs-c025",
+        "datacluster-labs-c026"
+      ],
+      "note": ""
+    },
+    "versioning": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "The Number Plates card promises 'Ongoing' updates for full-dataset licensees [c027] but nothing on revisions or what a past buyer keeps."
+    },
+    "human_subject_consent_docs": {
+      "value": "not_addressed",
+      "claim_ids": [
+        "datacluster-labs-c043"
+      ],
+      "note": "No public page or dataset card fetched mentions consent or releases; the full-dataset licence is not public."
+    },
+    "contributor_pay_model": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "The Dailydata contributor app listing is gone (Play Store 404); no pay terms found."
+    },
+    "catalogue_plus_custom": {
+      "value": "both",
+      "claim_ids": [
+        "datacluster-labs-c020",
+        "datacluster-labs-c021",
+        "datacluster-labs-c022",
+        "datacluster-labs-c023"
+      ],
+      "note": ""
+    },
+    "erasure_after_sale": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": ""
+    },
+    "quality_evidence": {
+      "value": "operator_verified",
+      "claim_ids": [
+        "datacluster-labs-c030",
+        "datacluster-labs-c031"
+      ],
+      "note": "Operator is also the producer; quality statements are its own, with no independent check found."
+    }
+  },
+  "questions": {
+    "Q1": {
+      "state": "partial",
+      "answer": "Only vendor signals: a client-logo section ('Trusted by leaders, universities & startups') and Kaggle sample downloads it puts at 89,000+ (brochure) or 40,000 (one-pager); units are datasets of thousands of images. No buyer volumes or reasons published.",
+      "claim_ids": [
+        "datacluster-labs-c010",
+        "datacluster-labs-c008",
+        "datacluster-labs-c009"
+      ]
+    },
+    "Q2": {
+      "state": "partial",
+      "answer": "It does not sell through a marketplace: it posts free samples on Kaggle, Hugging Face and Roboflow for discovery and routes every full-dataset or custom request to its own sales email.",
+      "claim_ids": [
+        "datacluster-labs-c007",
+        "datacluster-labs-c025",
+        "datacluster-labs-c024",
+        "datacluster-labs-c023"
+      ]
+    },
+    "Q3": {
+      "state": "sourced",
+      "answer": "Inventory is its own crowd captures via its Dailydata platform (100,000+ contributors claimed), stated as exclusively owned and not scraped; some catalogue datasets date from 2020-2022 captures.",
+      "claim_ids": [
+        "datacluster-labs-c011",
+        "datacluster-labs-c005",
+        "datacluster-labs-c013",
+        "datacluster-labs-c014",
+        "datacluster-labs-c015",
+        "datacluster-labs-c017",
+        "datacluster-labs-c019"
+      ]
+    },
+    "Q4": {
+      "state": "unknown",
+      "answer": "",
+      "claim_ids": []
+    },
+    "Q5": {
+      "state": "partial",
+      "answer": "DataCluster Labs owns the images and licenses them itself; no warranty, consent or indemnity terms are public.",
+      "claim_ids": [
+        "datacluster-labs-c013",
+        "datacluster-labs-c034"
+      ]
+    },
+    "Q6": {
+      "state": "unknown",
+      "answer": "",
+      "claim_ids": []
+    },
+    "Q7": {
+      "state": "partial",
+      "answer": "Public cards say nothing on consent from capturers, people shown or property owners; the company sells PII scrubbing as a cleaning service.",
+      "claim_ids": [
+        "datacluster-labs-c043",
+        "datacluster-labs-c032"
+      ]
+    },
+    "Q8": {
+      "state": "partial",
+      "answer": "Samples carry restrictive licences (no redistribution, no commercial training) but the same sample is CC BY-NC-ND on Hugging Face and CC0 on Kaggle; full-dataset terms are unpublished beyond 'commercial-friendly'.",
+      "claim_ids": [
+        "datacluster-labs-c036",
+        "datacluster-labs-c037",
+        "datacluster-labs-c038",
+        "datacluster-labs-c039",
+        "datacluster-labs-c040",
+        "datacluster-labs-c042",
+        "datacluster-labs-c041"
+      ]
+    },
+    "Q9": {
+      "state": "partial",
+      "answer": "Contact-sales only: buyers email sales for a commercial licence; no prices or checkout found. Commercial model is selling owned inventory.",
+      "claim_ids": [
+        "datacluster-labs-c033",
+        "datacluster-labs-c034",
+        "datacluster-labs-c035"
+      ]
+    },
+    "Q10": {
+      "state": "partial",
+      "answer": "A listing is a free sample subset (about 200 images) of a larger full dataset offered in several annotation formats; full licensees are promised ongoing updates. No order or entitlement model is public.",
+      "claim_ids": [
+        "datacluster-labs-c026",
+        "datacluster-labs-c028",
+        "datacluster-labs-c027"
+      ]
+    },
+    "Q11": {
+      "state": "sourced",
+      "answer": "Free downloadable samples on Hugging Face and Kaggle plus sample requests, with the vendor's own claims of manual review and inter-annotator agreement.",
+      "claim_ids": [
+        "datacluster-labs-c025",
+        "datacluster-labs-c026",
+        "datacluster-labs-c029",
+        "datacluster-labs-c030",
+        "datacluster-labs-c031"
+      ]
+    },
+    "Q12": {
+      "state": "sourced",
+      "answer": "The off-the-shelf side ('Off-the-shelf, ready on Kaggle', datasets) sits beside custom collection fielded to spec through Dailydata; the same sales email handles both.",
+      "claim_ids": [
+        "datacluster-labs-c020",
+        "datacluster-labs-c021",
+        "datacluster-labs-c022",
+        "datacluster-labs-c012",
+        "datacluster-labs-c024"
+      ]
+    }
+  },
+  "sections": {},
+  "buyer_journey": [],
+  "claims": [
+    {
+      "id": "datacluster-labs-c001",
+      "statement": "DataCluster Labs' website was live on 2026-10-01, offering real-world image datasets and data services.",
+      "kind": "status",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.datacluster.ai/",
+          "publisher": "DataCluster Labs",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Power up your AI with real-world data"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c002",
+      "statement": "DataCluster Labs' Hugging Face CAD design sample dataset was last modified on 2026-09-22, the newest dated activity found; no funding, acquisition or layoff event was found.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-22",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://huggingface.co/api/datasets/Dataclusterlabspvtltd/cad_design_dataset",
+          "publisher": "DataCluster Labs",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "2026-09-22T17:11:54.000Z"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c003",
+      "statement": "DataCluster Labs' own LinkedIn page gives its company size as 2-10 employees.",
+      "kind": "number",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 10,
+        "unit": "employees (upper bound of LinkedIn size band)",
+        "basis": "vendor-selected LinkedIn size band 2-10",
+        "period": "as of retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://in.linkedin.com/company/datacluster-labs",
+          "publisher": "DataCluster Labs",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "2-10 employees"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c004",
+      "statement": "DataCluster Labs' own LinkedIn page says it was founded in 2020.",
+      "kind": "event",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2020",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://in.linkedin.com/company/datacluster-labs",
+          "publisher": "DataCluster Labs",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Founded 2020"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c005",
+      "statement": "DataCluster Labs says it crowdsources data from a network of 100,000+ contributors.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 100000,
+        "unit": "contributors",
+        "basis": "vendor-stated lower bound of its contributor network",
+        "period": "cumulative"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.datacluster.ai/",
+          "publisher": "DataCluster Labs",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "crowdsourcing and curating high-quality real-world data from a network of 100,000+ contributors"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c006",
+      "statement": "DataCluster Labs says its flagship dataset holds 200,000+ images across 250+ classes.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 200000,
+        "unit": "images",
+        "basis": "vendor-stated lower bound, flagship human-captured image dataset",
+        "period": "cumulative"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.datacluster.ai/brochure.html",
+          "publisher": "DataCluster Labs",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "200,000+ images, 250+ classes"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c007",
+      "statement": "DataCluster Labs says it has 65+ ready-to-use datasets published on Kaggle, Hugging Face and Roboflow.",
+      "kind": "number",
+      "section": "discovery",
+      "question_ids": [
+        "Q2",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 65,
+        "unit": "datasets",
+        "basis": "vendor-stated count of sample datasets on third-party hubs",
+        "period": "cumulative"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.datacluster.ai/",
+          "publisher": "DataCluster Labs",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "65+ ready-to-use, real-world datasets on Kaggle, Hugging Face and Roboflow"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c008",
+      "statement": "DataCluster Labs' brochure says its Kaggle sample datasets have 400,000+ views and 89,000+ downloads.",
+      "kind": "number",
+      "section": "demand",
+      "question_ids": [
+        "Q1",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 89000,
+        "unit": "Kaggle downloads",
+        "basis": "vendor-stated lower bound, free sample datasets, all time",
+        "period": "cumulative"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.datacluster.ai/brochure.html",
+          "publisher": "DataCluster Labs",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "with 400,000+ views and 89,000+ downloads"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c009",
+      "statement": "DataCluster Labs' undated one-page PDF gives its Kaggle sample datasets 400,000 views and 40,000 downloads.",
+      "kind": "number",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 40000,
+        "unit": "Kaggle downloads",
+        "basis": "vendor-stated, free sample datasets, all time, undated document",
+        "period": "cumulative"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.datacluster.ai/assets/DataCluster-Labs-one-pager.pdf",
+          "publisher": "DataCluster Labs",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "with over 400,000 views and 40,000 downloads"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c010",
+      "statement": "DataCluster Labs' brochure has a clients and partners section headed 'Trusted by leaders, universities & startups'.",
+      "kind": "offer",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.datacluster.ai/brochure.html",
+          "publisher": "DataCluster Labs",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Trusted by leaders, universities & startups"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c011",
+      "statement": "DataCluster Labs collects data through its own managed crowd-sourcing platform called Dailydata.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/Dataclusterlabspvtltd",
+          "publisher": "DataCluster Labs",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "managed crowd-sourced data collection and annotation through our Dailydata platform"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c012",
+      "statement": "DataCluster Labs describes Dailydata contributors as capturing real-world images to a client's spec.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q3",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.datacluster.ai/brochure.html",
+          "publisher": "DataCluster Labs",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "100,000+ contributors capturing real-world images to your spec"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c013",
+      "statement": "DataCluster Labs states that the images in its Mobile Phone dataset are exclusively owned by DataCluster Labs.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "Mobile Phone Dataset",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/Dataclusterlabspvtltd/Mobile_Phone_Dataset_Smartphone_and_Feature_Phone",
+          "publisher": "DataCluster Labs",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The images are exclusively owned by DataCluster Labs."
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c014",
+      "statement": "DataCluster Labs says the Mobile Phone dataset is crowdsourced original photography, not downloaded from the internet.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Mobile Phone Dataset",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/Dataclusterlabspvtltd/Mobile_Phone_Dataset_Smartphone_and_Feature_Phone",
+          "publisher": "DataCluster Labs",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Crowdsourced original photography — not downloaded from the internet"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c015",
+      "statement": "DataCluster Labs says its Indian Number Plates dataset was crowdsourced from 4,000+ contributors using mobile phones.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Indian Number Plates Dataset",
+        "tier": "",
+        "region": "India"
+      },
+      "value": {
+        "num": 4000,
+        "unit": "contributors",
+        "basis": "vendor-stated lower bound, contributors to one dataset",
+        "period": "2020-2022 capture"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/Dataclusterlabspvtltd/indian-number-plates-dataset",
+          "publisher": "DataCluster Labs",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Real-world mobile phone captures, crowdsourced from 4,000+ contributors"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c016",
+      "statement": "DataCluster Labs says the full Indian Number Plates dataset covers 700+ cities and villages across India.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Indian Number Plates Dataset",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/Dataclusterlabspvtltd/indian-number-plates-dataset",
+          "publisher": "DataCluster Labs",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "700+ cities and villages across urban and rural India"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c017",
+      "statement": "The Indian Number Plates dataset card gives a capture period of 2020 to 2022 for the images.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Indian Number Plates Dataset",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/Dataclusterlabspvtltd/indian-number-plates-dataset",
+          "publisher": "DataCluster Labs",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Capture period: 2020–2022"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c018",
+      "statement": "A DataCluster Labs GitHub dataset README says its images are contributed by the large contributor base on its platform.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://github.com/datacluster-labs/Cracked-Screen-Image-Dataset",
+          "publisher": "DataCluster Labs",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "contributed by the large contributor base on our platform"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c019",
+      "statement": "DataCluster Labs says its PowerPoint presentation sample was collected through its data collection network, extending beyond photos.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/Dataclusterlabspvtltd/multi-domain-powerpoint-presentation-dataset",
+          "publisher": "DataCluster Labs",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "collected through Datacluster Labs' data collection network"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c020",
+      "statement": "DataCluster Labs' products page heads its catalogue section 'Off-the-shelf, ready on Kaggle'.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.datacluster.ai/products.html",
+          "publisher": "DataCluster Labs",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Off-the-shelf, ready on Kaggle"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c021",
+      "statement": "DataCluster Labs' products page closes with a call to action for custom datasets.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.datacluster.ai/products.html",
+          "publisher": "DataCluster Labs",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Need a custom dataset? Let's talk."
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c022",
+      "statement": "DataCluster Labs offers to field collection to a buyer's specification, including rare classes, devices, weather or time of day.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.datacluster.ai/",
+          "publisher": "DataCluster Labs",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Define the spec — we field it. From rare classes to specific devices, weather or times of day."
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c023",
+      "statement": "DataCluster Labs' Hugging Face page offers to build a dataset that does not yet exist.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12",
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/Dataclusterlabspvtltd",
+          "publisher": "DataCluster Labs",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Looking for a dataset that doesn't exist yet? We can build it for you."
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c024",
+      "statement": "DataCluster Labs' Kaggle listing asks visitors to email sales both for the full dataset and for new data collection requests.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q2",
+        "Q12",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Indian Number Plates Dataset",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.kaggle.com/api/v1/datasets/view/dataclusterlabs/indian-number-plates-dataset",
+          "publisher": "DataCluster Labs",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "To download the full dataset or to submit a request for your new data collection needs"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c025",
+      "statement": "DataCluster Labs publishes free sample datasets on Hugging Face so buyers can evaluate quality.",
+      "kind": "offer",
+      "section": "discovery",
+      "question_ids": [
+        "Q11",
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/Dataclusterlabspvtltd",
+          "publisher": "DataCluster Labs",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Browse our free sample datasets on this page to evaluate our quality."
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c026",
+      "statement": "The Indian Number Plates sample on Hugging Face is a free evaluation subset of about 200 images, against 15,000+ in the full dataset.",
+      "kind": "number",
+      "section": "listing",
+      "question_ids": [
+        "Q11",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Indian Number Plates Dataset",
+        "tier": "",
+        "region": "India"
+      },
+      "value": {
+        "num": 15000,
+        "unit": "images in full dataset",
+        "basis": "vendor-stated lower bound; free sample is about 200 images",
+        "period": "one-off"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/Dataclusterlabspvtltd/indian-number-plates-dataset",
+          "publisher": "DataCluster Labs",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The full dataset (15,000+ annotated images, multiple formats) is available for commercial licensing."
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c027",
+      "statement": "The Indian Number Plates card says the free sample is a one-time release while the licensed full dataset receives ongoing updates.",
+      "kind": "offer",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Indian Number Plates Dataset",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/Dataclusterlabspvtltd/indian-number-plates-dataset",
+          "publisher": "DataCluster Labs",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Updates | One-time | Ongoing"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c028",
+      "statement": "DataCluster Labs offers full datasets in COCO, YOLO, Pascal VOC and TF-Record annotation formats.",
+      "kind": "offer",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Indian Number Plates Dataset",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/Dataclusterlabspvtltd/indian-number-plates-dataset",
+          "publisher": "DataCluster Labs",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "COCO, YOLO, Pascal VOC, TF-Record"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c029",
+      "statement": "DataCluster Labs' website offers buyers a 'Request samples' button alongside the public sample datasets.",
+      "kind": "offer",
+      "section": "discovery",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.datacluster.ai/",
+          "publisher": "DataCluster Labs",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Request samples"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c030",
+      "statement": "DataCluster Labs says each Indian Number Plates image is manually reviewed and verified by its own computer vision staff.",
+      "kind": "offer",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Indian Number Plates Dataset",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/Dataclusterlabspvtltd/indian-number-plates-dataset",
+          "publisher": "DataCluster Labs",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "each image is manually reviewed and verified by computer vision professionals at DC Labs"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c031",
+      "statement": "DataCluster Labs says every batch passes multi-stage human review with measurable inter-annotator agreement.",
+      "kind": "offer",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.datacluster.ai/",
+          "publisher": "DataCluster Labs",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Every batch passes multi-stage human review with measurable inter-annotator agreement."
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c032",
+      "statement": "DataCluster Labs lists PII scrubbing as part of its data cleaning service before labelling.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.datacluster.ai/products.html",
+          "publisher": "DataCluster Labs",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "De-duplication, blur and exposure filtering, PII scrubbing and format normalization"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c033",
+      "statement": "The Indian Number Plates card directs buyers to contact DataCluster Labs' sales email to licence the full dataset.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Indian Number Plates Dataset",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/Dataclusterlabspvtltd/indian-number-plates-dataset",
+          "publisher": "DataCluster Labs",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "For commercial licensing of the full dataset, contact"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c034",
+      "statement": "DataCluster Labs states that its full datasets are available for commercial licensing.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/Dataclusterlabspvtltd",
+          "publisher": "DataCluster Labs",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Full datasets are available for commercial licensing."
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c035",
+      "statement": "The Mobile Phone card says a licence to the full dataset must be purchased for research as well as commercial use.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Mobile Phone Dataset",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/Dataclusterlabspvtltd/Mobile_Phone_Dataset_Smartphone_and_Feature_Phone",
+          "publisher": "DataCluster Labs",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "To access the full dataset for research or commercial purposes, a license can be purchased"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c036",
+      "statement": "DataCluster Labs' Fire and Smoke sample is released under its own restricted commercial-sample licence.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Fire and Smoke Dataset",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/Dataclusterlabspvtltd/Fire-and-Smoke-Dataset",
+          "publisher": "DataCluster Labs",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "restricted commercial-sample license"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c037",
+      "statement": "The Fire and Smoke sample licence summary prohibits redistribution or re-upload.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Fire and Smoke Dataset",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/Dataclusterlabspvtltd/Fire-and-Smoke-Dataset",
+          "publisher": "DataCluster Labs",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "No redistribution or re-upload"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c038",
+      "statement": "The Fire and Smoke sample licence summary prohibits use of the sample in training commercial ML models.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Fire and Smoke Dataset",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/Dataclusterlabspvtltd/Fire-and-Smoke-Dataset",
+          "publisher": "DataCluster Labs",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "No use in training commercial ML models"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c039",
+      "statement": "DataCluster Labs' Hugging Face card releases the Indian Number Plates sample under CC BY-NC-ND 4.0.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Indian Number Plates Dataset",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/Dataclusterlabspvtltd/indian-number-plates-dataset",
+          "publisher": "DataCluster Labs",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c040",
+      "statement": "Kaggle's metadata for DataCluster Labs' Indian Number Plates dataset lists its licence as CC0: Public Domain.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Indian Number Plates Dataset",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2024-02-23",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.kaggle.com/api/v1/datasets/view/dataclusterlabs/indian-number-plates-dataset",
+          "publisher": "DataCluster Labs",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "CC0: Public Domain"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c041",
+      "statement": "The Mobile Phone repository's file list shows only folders, .gitattributes and README.md, without the LICENSE file its card points to.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Mobile Phone Dataset",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/Dataclusterlabspvtltd/Mobile_Phone_Dataset_Smartphone_and_Feature_Phone/tree/main",
+          "publisher": "DataCluster Labs",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Upload 200 files"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c042",
+      "statement": "DataCluster Labs' brochure labels the licence of its flagship dataset as 'Commercial-friendly', without further terms.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.datacluster.ai/brochure.html",
+          "publisher": "DataCluster Labs",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Commercial-friendly"
+        }
+      ]
+    },
+    {
+      "id": "datacluster-labs-c043",
+      "statement": "The Indian Number Plates card's Data Collection section describes source, locations, period and ownership but says nothing on consent from contributors, people or vehicle owners shown.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Indian Number Plates Dataset",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/Dataclusterlabspvtltd/indian-number-plates-dataset",
+          "publisher": "DataCluster Labs",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All images are exclusively owned by DataCluster Labs (not scraped from the internet)"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "matrix.custody_model",
+      "urls_tried": [
+        "https://www.datacluster.ai/products.html",
+        "https://www.datacluster.ai/contact.html",
+        "https://huggingface.co/datasets/Dataclusterlabspvtltd/indian-number-plates-dataset"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.licence_model",
+      "urls_tried": [
+        "https://huggingface.co/datasets/Dataclusterlabspvtltd/Mobile_Phone_Dataset_Smartphone_and_Feature_Phone/raw/main/LICENSE",
+        "https://huggingface.co/datasets/Dataclusterlabspvtltd/Mobile_Phone_Dataset_Smartphone_and_Feature_Phone/tree/main",
+        "https://www.datacluster.ai/brochure.html",
+        "https://www.datacluster.ai/terms.html"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.exclusivity_offered",
+      "urls_tried": [
+        "https://www.datacluster.ai/",
+        "https://www.datacluster.ai/products.html",
+        "https://www.datacluster.ai/brochure.html",
+        "https://huggingface.co/Dataclusterlabspvtltd"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.buyer_vetting",
+      "urls_tried": [
+        "https://www.datacluster.ai/contact.html",
+        "https://huggingface.co/Dataclusterlabspvtltd"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.versioning",
+      "urls_tried": [
+        "https://huggingface.co/datasets/Dataclusterlabspvtltd/indian-number-plates-dataset",
+        "https://huggingface.co/datasets/Dataclusterlabspvtltd/Mobile_Phone_Dataset_Smartphone_and_Feature_Phone/tree/main"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.contributor_pay_model",
+      "urls_tried": [
+        "https://play.google.com/store/apps/details?id=com.daily.data",
+        "https://github.com/datacluster-labs/Domestic-Fire-and-Smoke-Dataset",
+        "https://www.datacluster.ai/",
+        "https://www.datacluster.in/"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "matrix.erasure_after_sale",
+      "urls_tried": [
+        "https://www.datacluster.ai/",
+        "https://www.datacluster.ai/privacy.html",
+        "https://www.datacluster.ai/terms.html"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "questions.Q4",
+      "urls_tried": [
+        "https://www.datacluster.ai/",
+        "https://www.datacluster.ai/products.html",
+        "https://www.datacluster.ai/brochure.html"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "questions.Q6",
+      "urls_tried": [
+        "https://www.datacluster.ai/products.html",
+        "https://www.datacluster.ai/contact.html"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.terms_privacy",
+      "urls_tried": [
+        "https://www.datacluster.ai/terms.html",
+        "https://www.datacluster.ai/privacy.html",
+        "https://www.datacluster.ai/sitemap.xml",
+        "https://www.datacluster.ai/robots.txt"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "other.roboflow_listing",
+      "urls_tried": [
+        "https://universe.roboflow.com/datacluster-labs-agryi"
+      ],
+      "reason": "blocked"
+    },
+    {
+      "field": "other.kaggle_listing_page",
+      "urls_tried": [
+        "https://www.kaggle.com/dataclusterlabs"
+      ],
+      "reason": "js_empty"
+    },
+    {
+      "field": "other.old_site",
+      "urls_tried": [
+        "https://www.datacluster.in/"
+      ],
+      "reason": "blocked"
+    },
+    {
+      "field": "other.independent_sources",
+      "urls_tried": [
+        "http://export.arxiv.org/api/query?search_query=all:%22DataCluster%20Labs%22",
+        "http://export.arxiv.org/api/query?search_query=abs:datacluster"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "other.funding_and_registration",
+      "urls_tried": [
+        "https://in.linkedin.com/company/datacluster-labs"
+      ],
+      "reason": "not_found"
+    }
+  ],
+  "conflicts": [
+    {
+      "claim_ids": [
+        "datacluster-labs-c008",
+        "datacluster-labs-c009"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "Brochure says 89,000+ Kaggle downloads, undated one-pager says 40,000; the one-pager is probably older but neither is dated. Both vendor-stated."
+    },
+    {
+      "claim_ids": [
+        "datacluster-labs-c039",
+        "datacluster-labs-c040"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "The same Indian Number Plates sample is CC BY-NC-ND 4.0 on Hugging Face (2026) and CC0 on Kaggle (updated 2024-02-23); the Hugging Face card is newer but the Kaggle CC0 grant remains live."
+    }
+  ],
+  "leads": [
+    {
+      "url": "https://play.google.com/store/apps/details?id=com.daily.data",
+      "why": "Dailydata contributor app linked from GitHub READMEs; returns 404 now. Contributor pay and consent terms would be here if it moves."
+    },
+    {
+      "url": "https://universe.roboflow.com/datacluster-labs-agryi",
+      "why": "Roboflow Universe workspace returned 403 to WebFetch; licence labels there could add to the licence conflict."
+    },
+    {
+      "url": "https://www.datacluster.in/",
+      "why": "Older company domain named on GitHub; returned HTTP 530. May have held terms or a Dailydata page."
+    },
+    {
+      "url": "https://calendar.app.google/frgiBFeAkemKsK7XA",
+      "why": "Sales booking link from the brochure; not fetched (no contacting)."
+    },
+    {
+      "url": "https://www.kaggle.com/api/v1/datasets/list?user=dataclusterlabs",
+      "why": "Kaggle API list shows 20+ datasets with mixed licences (CC0, CC BY-NC-ND 4.0, 'Data files © Original Authors') and last updates from 2022 to 2025-07-20."
+    }
+  ]
+}

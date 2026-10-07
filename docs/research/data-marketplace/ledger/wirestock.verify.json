@@ -1,0 +1,686 @@
+{
+  "kind": "verify",
+  "slug": "wirestock",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "wirestock-c001",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The 13 July 2026 post ('Getting Paid on Wirestock: Your Two Options') exists only on wirestock.io, and the blog index lists later posts up to 2 Sep 2026. Independent evidence of operation is older: TechCrunch 2026-05-14 reported the Series A and 60 staff; Nava Ventures and Formula VC list Wirestock in their live portfolios (undated). No independent source dated after May 2026 was reachable; no search available. Note the same blog's 'What's New in Wirestock' post (dated Apr 9, 2026) says the Portfolio and Marketplace are being retired and stock-marketplace distribution stopped."
+    },
+    {
+      "claim_id": "wirestock-c003",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://techcrunch.com/2026/05/14/wirestock-raises-23m-to-supply-multi-modal-data-to-ai-labs/",
+        "publisher": "TechCrunch (Ivan Mehta, 2026-05-14)",
+        "source_class": "press_relaying_vendor",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "raised $23 million in Series A funding to build out the new data supply business. The round was led by Nava Ventures"
+      },
+      "corrected_statement": null,
+      "note": "TechCrunch is a different domain, but every figure in the article is attributed to the company or its CEO, so it relays the vendor's statement rather than establishing it; it is also the profile's own source. Nava Ventures' own portfolio page (nava.vc/portfolio) lists Wirestock ('Premium multimodal data from a global network of creative professionals'), which corroborates the investor relationship but not the amount or lead role. SEC EDGAR full-text search for 'Wirestock' returned 0 hits (no Form D). No search available (WebSearch not offered in this run); no second outlet could be reached by navigation. This TechCrunch URL is the profile's own source (checked after the blind pass), so it is not counted as independent."
+    },
+    {
+      "claim_id": "wirestock-c007",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://techcrunch.com/2026/05/14/wirestock-raises-23m-to-supply-multi-modal-data-to-ai-labs/",
+        "publisher": "TechCrunch (Ivan Mehta, 2026-05-14)",
+        "source_class": "press_relaying_vendor",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "company currently has an annual run-rate revenue of $40 million"
+      },
+      "corrected_statement": null,
+      "note": "TechCrunch is a different domain, but every figure in the article is attributed to the company or its CEO, so it relays the vendor's statement rather than establishing it; it is also the profile's own source. No filing exists (EDGAR 0 hits). No search available (WebSearch not offered in this run); no second outlet could be reached by navigation. "
+    },
+    {
+      "claim_id": "wirestock-c008",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://techcrunch.com/2026/05/14/wirestock-raises-23m-to-supply-multi-modal-data-to-ai-labs/",
+        "publisher": "TechCrunch (Ivan Mehta, 2026-05-14)",
+        "source_class": "press_relaying_vendor",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "provides multimodal data to six of the largest foundation model makers, but he wouldn't name them"
+      },
+      "corrected_statement": null,
+      "note": "TechCrunch is a different domain, but every figure in the article is attributed to the company or its CEO, so it relays the vendor's statement rather than establishing it; it is also the profile's own source. No search available (WebSearch not offered in this run); no second outlet could be reached by navigation. "
+    },
+    {
+      "claim_id": "wirestock-c009",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://techcrunch.com/2026/05/14/wirestock-raises-23m-to-supply-multi-modal-data-to-ai-labs/",
+        "publisher": "TechCrunch (Ivan Mehta, 2026-05-14)",
+        "source_class": "press_relaying_vendor",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "has so far paid out $15 million to its contributors"
+      },
+      "corrected_statement": null,
+      "note": "TechCrunch is a different domain, but every figure in the article is attributed to the company or its CEO, so it relays the vendor's statement rather than establishing it; it is also the profile's own source. The vendor's own pages give three different cumulative payout figures on 2026-10-01: About page $6M+, sell-your-content page $10M+, creators page $20M+. No search available (WebSearch not offered in this run); no second outlet could be reached by navigation. "
+    },
+    {
+      "claim_id": "wirestock-c010",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://techcrunch.com/2026/05/14/wirestock-raises-23m-to-supply-multi-modal-data-to-ai-labs/",
+        "publisher": "TechCrunch (Ivan Mehta, 2026-05-14)",
+        "source_class": "press_relaying_vendor",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Wirestock currently employs 60 people"
+      },
+      "corrected_statement": null,
+      "note": "TechCrunch is a different domain, but every figure in the article is attributed to the company or its CEO, so it relays the vendor's statement rather than establishing it; it is also the profile's own source. Headcount after May 2026 (any cut or growth) could not be checked: no search available and no registry or filing found (EDGAR 0 hits)."
+    },
+    {
+      "claim_id": "wirestock-c011",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://techcrunch.com/2026/05/14/wirestock-raises-23m-to-supply-multi-modal-data-to-ai-labs/",
+        "publisher": "TechCrunch (Ivan Mehta, 2026-05-14)",
+        "source_class": "press_relaying_vendor",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "platform has signed up more than 700,000 artists and designers who complete different tasks for data collection"
+      },
+      "corrected_statement": null,
+      "note": "TechCrunch is a different domain, but every figure in the article is attributed to the company or its CEO, so it relays the vendor's statement rather than establishing it; it is also the profile's own source. The vendor's homepage and AI Labs page show the same '700K+'. TechCrunch 2022-07-01 (Haje Jan Kamps) gave 'the 100,000 or so contributors' at the time of the Getty partnership, so the figure grew about sevenfold. No search available (WebSearch not offered in this run); no second outlet could be reached by navigation. "
+    },
+    {
+      "claim_id": "wirestock-c012",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The About page (wirestock.io/about-us) still shows '$6M+' Paid to Creators on 2026-10-01. It is stale against TechCrunch 2026-05-14, which relays the company's figure of $15 million paid out, and against the vendor's own creators page ($20M+) and sell-your-content page ($10M+). No independent source for $6M."
+    },
+    {
+      "claim_id": "wirestock-c013",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Creators page shows '$20M+' Paid to Creators on 2026-10-01. TechCrunch 2026-05-14 relayed $15 million paid out; $20M+ four and a half months later is possible at a $40M run rate but unverified. The vendor's three payout figures ($6M+, $10M+, $20M+) conflict with one another. No search available."
+    },
+    {
+      "claim_id": "wirestock-c014",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "About page shows '10M+' Assets Licensed for AI; the creators page labels the same '10M+' as 'Paid Content Licenses', which is not necessarily the same measure. TechCrunch 2026-05-14 gives no licensed-asset count. No search available."
+    },
+    {
+      "claim_id": "wirestock-c015",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "AI Labs page shows '1M+ New Content Sourced Monthly' and the homepage '1M+' Sourced Monthly. No third-party source gives a monthly sourcing volume; no search available."
+    },
+    {
+      "claim_id": "wirestock-c032",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause in Wirestock's own Terms (effective January 20, 2026), confirmed live on 2026-10-01. No partner or third-party document restates it."
+    },
+    {
+      "claim_id": "wirestock-c033",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Follows from the same Terms formula (50 percent of the Dataset Partner payment is the pool); live on 2026-10-01. Vendor's own clause."
+    },
+    {
+      "claim_id": "wirestock-c038",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Worked example in Wirestock's own Terms, live on 2026-10-01."
+    },
+    {
+      "claim_id": "wirestock-c039",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The 85%/15% clause is still in the Terms (effective January 20, 2026) on 2026-10-01, but Wirestock's own blog post 'What's New in Wirestock' (dated Apr 9, 2026) says 'Wirestock would stop distributing content to third-party stock marketplaces', so the clause likely no longer operates. TechCrunch 2022-07-01 on the Getty partnership gives no split. No independent notice of the distribution ending could be found; no search available."
+    },
+    {
+      "claim_id": "wirestock-c040",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Clause live in the Terms on 2026-10-01. The same April 2026 post says the Portfolio and Marketplace are being retired; it does not mention prints, so whether print sales still run is unknown. Vendor's own clause."
+    },
+    {
+      "claim_id": "wirestock-c058",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Liability cap clause in Wirestock's own Terms, live on 2026-10-01."
+    },
+    {
+      "claim_id": "wirestock-c066",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Payout thresholds in Wirestock's own Terms, live on 2026-10-01."
+    },
+    {
+      "claim_id": "wirestock-c088",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Stated in Wirestock's blog post of 13 July 2026 ('You earn 50% commission each time someone licenses one of your assets'). No independent source; the sell-your-content page calls the plan commission-based without a percentage."
+    },
+    {
+      "claim_id": "wirestock-c104",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Listing text on wirestock.io/datasets/virtual-try-on, live 2026-10-01. Wirestock's Hugging Face org shows 'None public yet', so no second host carries the listing."
+    },
+    {
+      "claim_id": "wirestock-c110",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Listing text on wirestock.io/datasets/high-bit-video, live 2026-10-01 ('5,000 clips from professional cinema cameras at 12- and 16-bit depth')."
+    },
+    {
+      "claim_id": "wirestock-c126",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Sell-your-content page shows '$10M+' Creator Payouts on 2026-10-01; conflicts with the About page ($6M+), the creators page ($20M+) and TechCrunch's relayed $15 million (May 2026)."
+    },
+    {
+      "claim_id": "wirestock-c016",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Wirestock's own Series A post (wirestock.io/blog/wirestock-raises-23m-series-a) says 'Millions of assets have been licensed for AI training'. TechCrunch 2026-05-14 does not repeat a licensed-asset count. No search available."
+    },
+    {
+      "claim_id": "wirestock-c019",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://techcrunch.com/2026/05/14/wirestock-raises-23m-to-supply-multi-modal-data-to-ai-labs/",
+        "publisher": "TechCrunch (Ivan Mehta, 2026-05-14)",
+        "source_class": "press_relaying_vendor",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Initially, a lot of our deals were just selling what we had off the shelf, like our existing library"
+      },
+      "corrected_statement": null,
+      "note": "The CEO's own words as printed by TechCrunch; TechCrunch is the only record and is the profile's own source, so it is not counted as independent. No search available (WebSearch not offered in this run); no second outlet could be reached by navigation. "
+    },
+    {
+      "claim_id": "wirestock-c020",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://techcrunch.com/2026/05/14/wirestock-raises-23m-to-supply-multi-modal-data-to-ai-labs/",
+        "publisher": "TechCrunch (Ivan Mehta, 2026-05-14)",
+        "source_class": "press_relaying_vendor",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "But then it turned into a lot of custom requests for content and data, and that created new opportunities"
+      },
+      "corrected_statement": null,
+      "note": "The CEO's own words as printed by TechCrunch; the profile's own source, so not counted as independent. No search available (WebSearch not offered in this run); no second outlet could be reached by navigation. "
+    },
+    {
+      "claim_id": "wirestock-c129",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://formula.vc/",
+        "publisher": "Formula VC",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Wirestock is a content infrastructure platform that connects MAG7 and AI Labs with high-quality, scalable visual datasets."
+      },
+      "corrected_statement": null,
+      "note": "An investor's portfolio blurb (Formula VC) restating the company's positioning, so relayed, not independent. TechCrunch 2026-05-14 relays the CEO's claim of 'six of the largest foundation model makers' without names. No buyer has been named anywhere reachable."
+    },
+    {
+      "claim_id": "wirestock-c042",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Licence grant in Wirestock's own Terms (effective January 20, 2026), live 2026-10-01."
+    },
+    {
+      "claim_id": "wirestock-c025",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Automatic-inclusion clause in Wirestock's own Terms, live 2026-10-01. No independent reporting of the opt-in change was reachable; no search available."
+    },
+    {
+      "claim_id": "wirestock-c107",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Checked the Virtual Try-On and High-Bit Videos listings on 2026-10-01: the buttons are 'Request Dataset', 'View sample files' and \"Let's talk\"; no price shown. 'Request Dataset' is the only purchase action, with 'Let's talk' as a second contact route."
+    },
+    {
+      "claim_id": "wirestock-c031",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Sole-discretion clause in Wirestock's own Terms, live 2026-10-01."
+    },
+    {
+      "claim_id": "wirestock-c053",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Release-furnishing clause in Wirestock's own Terms, live 2026-10-01."
+    },
+    {
+      "claim_id": "wirestock-c090",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Stated in Wirestock's 13 July 2026 blog post; no third-party source describes the Fixed Payments flow."
+    },
+    {
+      "claim_id": "wirestock-c001",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote and date (13 July 2026) match the post. For status, a fresher vendor source exists: the blog lists posts to 2 Sep 2026, and the 'What's New' guide shows 'Published Sep 30, 2026'."
+    },
+    {
+      "claim_id": "wirestock-c003",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the article and the statement is correctly framed as 'TechCrunch reported'. The source is tagged source_class independent_press while origin is press_relayed; since the figure is attributed to the company, press_relaying_vendor is the better class."
+    },
+    {
+      "claim_id": "wirestock-c007",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the article and the statement is correctly framed as 'TechCrunch reported'. The source is tagged source_class independent_press while origin is press_relayed; since the figure is attributed to the company, press_relaying_vendor is the better class."
+    },
+    {
+      "claim_id": "wirestock-c008",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the article and the statement is correctly framed as 'TechCrunch reported'. The source is tagged source_class independent_press while origin is press_relayed; since the figure is attributed to the company, press_relaying_vendor is the better class."
+    },
+    {
+      "claim_id": "wirestock-c009",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the article and the statement is correctly framed as 'TechCrunch reported'. The source is tagged source_class independent_press while origin is press_relayed; since the figure is attributed to the company, press_relaying_vendor is the better class."
+    },
+    {
+      "claim_id": "wirestock-c010",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the article and the statement is correctly framed as 'TechCrunch reported'. The source is tagged source_class independent_press while origin is press_relayed; since the figure is attributed to the company, press_relaying_vendor is the better class."
+    },
+    {
+      "claim_id": "wirestock-c011",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the article and the statement is correctly framed as 'TechCrunch reported'. The source is tagged source_class independent_press while origin is press_relayed; since the figure is attributed to the company, press_relaying_vendor is the better class."
+    },
+    {
+      "claim_id": "wirestock-c012",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the About page on 2026-10-01; stated as vendor-said, and the payout conflict is recorded."
+    },
+    {
+      "claim_id": "wirestock-c013",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the creators page on 2026-10-01."
+    },
+    {
+      "claim_id": "wirestock-c014",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the About page. The creators page shows the same '10M+' labelled 'Paid Content Licenses', so the count may measure licences rather than distinct assets."
+    },
+    {
+      "claim_id": "wirestock-c015",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the AI Labs page; the homepage repeats '1M+' Sourced Monthly."
+    },
+    {
+      "claim_id": "wirestock-c032",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the live Terms (effective January 20, 2026), Method 1 only."
+    },
+    {
+      "claim_id": "wirestock-c033",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "wirestock-c038",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The profile's value basis correctly marks it as an illustrative example."
+    },
+    {
+      "claim_id": "wirestock-c039",
+      "check": "scope",
+      "status": "scope_wrong",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote is live in the Terms, but the statement is in the present tense for a service Wirestock says it has ended: its April 2026 guide says it 'would stop distributing content to third-party stock marketplaces' (the profile's own c006). The statement should be scoped as the legacy stock-distribution clause that is still printed in the January 2026 Terms. The profile's conflict entry pairs c039 with c088, but they cover different channels (third-party marketplace royalties versus Commission Based project licences), so they do not conflict; the real conflict is c039 against c006."
+    },
+    {
+      "claim_id": "wirestock-c040",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the live Terms. Whether print sales still run after the Portfolio and Marketplace were retired (c094) is not stated anywhere; the statement should ideally carry that caveat."
+    },
+    {
+      "claim_id": "wirestock-c058",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "wirestock-c066",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches. The value's period 'per month' was not checked against the Terms' definition of accounting period; the statement's 'per accounting period' is the safer wording."
+    },
+    {
+      "claim_id": "wirestock-c088",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the 13 July 2026 post. The source is a blog post rather than contract text; the profile already records that the Terms do not mention Commission Based projects."
+    },
+    {
+      "claim_id": "wirestock-c104",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote shows the 10,000 pairs but not the JSON metadata. The page also says 'JSON metadata included per pair'."
+    },
+    {
+      "claim_id": "wirestock-c110",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote appears verbatim on the page (the full sentence goes on to name the Blackmagic and RED cameras); a second line on the page reads '5,000 clips from professional cinema cameras at 12- and 16-bit depth'."
+    },
+    {
+      "claim_id": "wirestock-c126",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "wirestock-c016",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "wirestock-c019",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the article and the statement is correctly framed as 'TechCrunch reported'. The source is tagged source_class independent_press while origin is press_relayed; since the figure is attributed to the company, press_relaying_vendor is the better class."
+    },
+    {
+      "claim_id": "wirestock-c020",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the article and the statement is correctly framed as 'TechCrunch reported'. The source is tagged source_class independent_press while origin is press_relayed; since the figure is attributed to the company, press_relaying_vendor is the better class."
+    },
+    {
+      "claim_id": "wirestock-c129",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Stated as vendor-said; the only other source is an investor blurb (Formula VC) and TechCrunch relaying the CEO."
+    },
+    {
+      "claim_id": "wirestock-c042",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "wirestock-c025",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote stops at 'after', so it does not show the scoping that matters. The Terms continue: 'the effective date of these Terms'."
+    },
+    {
+      "claim_id": "wirestock-c107",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Checked Virtual Try-On and High-Bit Videos: 'Request Dataset', 'View sample files' and \"Let's talk\", no price. The absence of a price cannot be quoted (rule 13). 'Let's talk' is a second contact route, not a checkout."
+    },
+    {
+      "claim_id": "wirestock-c031",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The statement says 'content and metadata' but the quote does not show metadata. The Terms read 'your Content, as well as all associated Metadata, to Wirestock's Dataset Partners'."
+    },
+    {
+      "claim_id": "wirestock-c053",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote omits the parties named in the statement. The Terms read 'Wirestock, Dataset Partners, or the content marketplaces, may furnish copies of releases to customers, as necessary'."
+    },
+    {
+      "claim_id": "wirestock-c090",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote omits the creator-pool step. The post reads 'you apply to join a creator pool, complete a test task'."
+    }
+  ],
+  "missed": [
+    {
+      "id": "wirestock-v001",
+      "statement": "TechCrunch reported on 1 July 2022 that Wirestock had signed a distribution partnership covering Getty Images and its sister site iStock.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q2",
+        "Q3"
+      ],
+      "scope": {
+        "product": "stock distribution (legacy)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "press_relayed",
+      "as_of": "2022-07-01",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://techcrunch.com/2022/07/01/wirestock-getty/",
+          "publisher": "TechCrunch (Haje Jan Kamps, 2022-07-01)",
+          "source_class": "press_relaying_vendor",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The deal includes both Getty Images and its sister site iStock."
+        }
+      ]
+    },
+    {
+      "id": "wirestock-v002",
+      "statement": "TechCrunch reported in July 2022 that Wirestock had about 100,000 contributors and 3 million pieces of content, against 700,000+ creators reported in May 2026.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 100000,
+        "unit": "contributors",
+        "basis": "registered contributors, company figure relayed by TechCrunch; 3 million content items",
+        "period": "as of July 2022"
+      },
+      "origin": "press_relayed",
+      "as_of": "2022-07-01",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://techcrunch.com/2022/07/01/wirestock-getty/",
+          "publisher": "TechCrunch (Haje Jan Kamps, 2022-07-01)",
+          "source_class": "press_relaying_vendor",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "gives the 100,000 or so contributors on the Wirestock platform, and their 3 million pieces of content"
+        }
+      ]
+    },
+    {
+      "id": "wirestock-v003",
+      "statement": "Investor Formula VC describes Wirestock as connecting MAG7 and AI labs with licensable visual datasets, naming big-tech firms as a buyer group alongside AI labs.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "press_relayed",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://formula.vc/",
+          "publisher": "Formula VC",
+          "source_class": "third_party_docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Wirestock is a content infrastructure platform that connects MAG7 and AI Labs with high-quality, scalable visual datasets."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,706 @@
+{
+  "kind": "verify",
+  "slug": "nexdata",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "nexdata-c001",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://interspeech2026.org/en-AU/pages/sponsorship/sponsors-and-exhibitors",
+        "publisher": "Interspeech 2026 (ISCA conference, ICMS Australasia)",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "\"sponsor_name\":\"NextData\",\"sponsor_website\":\"https://www.nexdata.ai/\""
+      },
+      "corrected_statement": null,
+      "note": "Confirms the operating part only: the Interspeech 2026 sponsors-and-exhibitors page (conference 27 Sep-1 Oct 2026, Sydney) lists Nexdata (spelled 'NextData', linking to nexdata.ai) as a sponsor, and its satellite-events page lists the 2nd MLC-SLM Challenge and Workshop on Friday 2 October 2026 with its button pointing to nexdata.ai/competition/mlc-slm. The quoted string sits in the page's embedded Next.js data, not in visible text, so the quote checker may not match it. That the homepage lists a 2026-09-17 news item is by nature vendor-only. No corporate event (funding, layoffs, acquisition, restructuring) could be looked for: no search available; EDGAR full-text search for 'Nexdata' returns 0 hits; the parent Datatang's NEEQ (831428) and cninfo disclosure pages could not be reached (404 / empty API results)."
+    },
+    {
+      "claim_id": "nexdata-c019",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://datarade.ai/data-products/nexdata-high-quality-video-data-30-million-nexdata",
+        "publisher": "Datarade",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Data size 30 million video"
+      },
+      "corrected_statement": null,
+      "note": "Datarade's listing of the same product ('Nexdata | High-quality Video Data | 30 Million') repeats the size ('Data size 30 million video'), but the listing text is written by Nexdata, so it only shows the vendor says the same thing in a second place. No independent count exists (no search available)."
+    },
+    {
+      "claim_id": "nexdata-c021",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://datarade.ai/data-products/nexdata-high-quality-video-data-30-million-nexdata",
+        "publisher": "Datarade",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Data content genuine image works released by the author"
+      },
+      "corrected_statement": null,
+      "note": "The Datarade listing of the 30M video product carries the same specification line and likewise names no author, source platform or payment arrangement; it adds only 'All materials have been legally obtained through authorized channels'. A related Datarade listing ('High-quality Image & Video Data | 250 Million') describes the material as '20 million high-quality videos captured by photographers, with legitimate copyright', which is still vendor text. Nothing independent says where the videos came from."
+    },
+    {
+      "claim_id": "nexdata-c078",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://datarade.ai/data-products/nexdata-multiple-styles-video-data-41605-people-nexdata",
+        "publisher": "Datarade",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "One-off purchase $20,000 / purchase Monthly License Not available Yearly License Not available"
+      },
+      "corrected_statement": null,
+      "note": "Re-fetched on datarade.ai: one-off purchase $20,000; Monthly License, Yearly License and Usage-based each 'Not available'. The data.nexdata.ai storefront is the same Datarade-hosted listing under a Nexdata subdomain. The price is set by Nexdata, so this confirms what the listing shows, not what buyers actually pay."
+    },
+    {
+      "claim_id": "nexdata-c079",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://datarade.ai/data-products/nexdata-multiple-scenes-ego-centric-data-egocentric-data-nexdata",
+        "publisher": "Datarade",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "One-off purchase $100,000 / purchase Monthly License Not available"
+      },
+      "corrected_statement": null,
+      "note": "Re-fetched on datarade.ai: one-off purchase $100,000; monthly, yearly and usage-based licences 'Not available'. Same Datarade-hosted listing as the data.nexdata.ai storefront; the price is Nexdata's own."
+    },
+    {
+      "claim_id": "nexdata-c080",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://datarade.ai/data-products/nexdata-face-anti-spoofing-data-200-000-id-image-video-nexdata",
+        "publisher": "Datarade",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "One-off purchase $10,000 / purchase Monthly License Not available"
+      },
+      "corrected_statement": null,
+      "note": "Re-fetched on datarade.ai (found through Datarade's own product search): one-off purchase $10,000; monthly, yearly and usage-based 'Not available'. The listing title also calls it an 'iBeta Dataset'. The price is set by Nexdata."
+    },
+    {
+      "claim_id": "nexdata-c082",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://datarade.ai/data-products/high-quality-image-video-data-250-million-llm-data-mu-nexdata",
+        "publisher": "Datarade",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Nexdata owns 150,000 hours of TV videos data, 20 Million high-quality video data and 250 Million high-quality imagery data"
+      },
+      "corrected_statement": null,
+      "note": "The sentence appears on the 'High-quality Image & Video Data | 250 Million' listing; it is Nexdata's own text on Datarade and so is not independent evidence of ownership. Other Nexdata listings on Datarade give a different boilerplate for what it owns, e.g. the ego-centric listing: '3 million hours of Multilingual Language Data, 800TB of Computer Vision Data and Embodied Data', and the anti-spoofing listing: '3 million hours of Audio Data and 800TB of Imagery Data'. The claim should be scoped to the listing that carries it."
+    },
+    {
+      "claim_id": "nexdata-c046",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://opencorporates.com/companies/us_ca/3801794",
+        "publisher": "OpenCorporates (California Secretary of State register data)",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "710 S MYRTLE AVE, #666, MONROVIA, CA 91016"
+      },
+      "corrected_statement": null,
+      "note": "Confirms the licensor entity and its domicile: NEXDATA TECHNOLOGY INC., California stock corporation no. 3801794, status Active, address in Monrovia, CA (agent Judy Lin). That the licence template names this entity as Party A is by nature only in the vendor's own template and was not re-checked blind. The Monrovia address is a numbered suite (#666) on a street address, which suggests a mailbox or registered office rather than an operating site; the parent Datatang is in Beijing (datatang.com footer)."
+    },
+    {
+      "claim_id": "nexdata-c002",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The vendor's announcement (nexdata.ai/company/news/1453, dated 09/17/2026) names no awarding body, links to none, and its page source carries no organiser name either, so there is no route by navigation to the organiser's winners list; no search available to identify which 'Global Generative AI Awards' programme this is. An award whose organiser the winner does not name should be treated as weak evidence."
+    },
+    {
+      "claim_id": "nexdata-c003",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No independent source reachable (no search available; no press, government or partner page found by navigation). The parent company's own Chinese site gives a smaller figure a week later: datatang.com/news/1239 (shown 2026-09-24) says '公司自建8000 平方米数据工厂' (a self-built 8,000 m2 data factory), and datatang.com/news/1241 (IROS 2026, with partner QuanVi/诠视科技) also says 8,000 m2. Datatang is the same group, so this is a vendor-internal inconsistency, not an independent correction; see also c096 (8,000+ m2 in July 2026)."
+    },
+    {
+      "claim_id": "nexdata-c004",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No independent source reachable (no search available). The parent Datatang's own page datatang.com/news/1241 attributes 50,000+ hours per month to Ego-Centric and UMI data combined, and datatang.com/news/1239 says '月产能可达 5 万小时' for all production modes (teleoperation, Ego-Centric and UMI) together, so the vendor group's own wording does not support 50,000 hours/month for UMI alone. Same-group sources, so not an independent correction."
+    },
+    {
+      "claim_id": "nexdata-c005",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Vendor-stated inventory size; no independent count reachable (no search available; 0 EDGAR hits; 0 arXiv API hits for Nexdata or Datatang). Nexdata's Hugging Face organisation 'Nexdata-AI' hosts only samples (e.g. '10000-Hour-Egocentric-Video-Dataset'), which are vendor-authored and do not establish the total."
+    },
+    {
+      "claim_id": "nexdata-c008",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Customer count stated only by the vendor. The parent Datatang's securities filings would be the independent route if it is still quoted (unconfirmed lead: NEEQ code 831428, from memory), but the NEEQ company page returned 404 and cninfo's disclosure search returned no records for 数据堂 or 831428, so no annual report could be reached; no search available. Datatang's own homepage claims '5000+' global customers (rendered as a placeholder), a group-level figure that differs from Nexdata's 1,000+."
+    },
+    {
+      "claim_id": "nexdata-c009",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Catalogue size exists only in vendor statements; no independent count reachable. The vendor's own figures vary: 1,000+ on the homepage, 1,500+ in July 2026 (c095). Nexdata's Datarade storefront shows 159 products, a subset. 'Delivered in seconds' is a vendor promise with no buyer-side evidence reachable."
+    },
+    {
+      "claim_id": "nexdata-c010",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No independent source for annotator headcount or factory locations (no search available; the parent Datatang's NEEQ/cninfo filings, which would show employee numbers, could not be reached). The parent's crowd platform Shujiajia exists (shujiajia.com), but its page states no worker numbers."
+    },
+    {
+      "claim_id": "nexdata-c032",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://datarade.ai/data-products/nexdata-multi-pose-faces-data-3-919-people-nexdata",
+        "publisher": "Datarade",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "the accuracy of labels of face pose, head pose, nationality, gender, collection environment and age are more than 97%"
+      },
+      "corrected_statement": null,
+      "note": "Datarade's listing of the same 3,919-person product repeats the accuracy figure; it is provider-written text, and Datarade does not audit it. The attribute list includes head pose as well as face pose. No independent quality measurement exists."
+    },
+    {
+      "claim_id": "nexdata-c035",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://datarade.ai/data-products/nexdata-multi-race-and-multi-pose-face-images-data-10109-nexdata",
+        "publisher": "Datarade",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "strictly adhere to global data protection regulations, including GDPR, CCPA, and PIPL"
+      },
+      "corrected_statement": null,
+      "note": "The Datarade listing of the 10,109-person product carries the same compliance assertion in Nexdata's words; no consent or release documentation is described. No regulator, audit or court source addresses it (no search available)."
+    },
+    {
+      "claim_id": "nexdata-c105",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A self-description; shujiajia.com's title reads '数加加-数据堂旗下众包平台：海量的数据采集和标注任务', and the site is a JavaScript app whose served HTML (about 1 KB) holds nothing on pay. Datatang's own homepage links to it as its crowdsourcing platform (same group). App-store listings, which might name the developer and describe earnings, could not be reached without search."
+    },
+    {
+      "claim_id": "nexdata-c011",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A statement in the vendor's own FAQ about its own licensing; no other party would publish it. Not re-checked."
+    },
+    {
+      "claim_id": "nexdata-c026",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A button label on the vendor's own site. Caution for the matrix: the same products are priced publicly on Nexdata's Datarade storefront (e.g. 'Starts at $10,000 / purchase' on the 3,919-person and 10,109-person face listings, $20,000 on the 30M video listing), so 'shows no price' holds only for nexdata.ai, and public_prices should not be read as 'none'."
+    },
+    {
+      "claim_id": "nexdata-c055",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause in the vendor's own licence template; exists only there."
+    },
+    {
+      "claim_id": "nexdata-c062",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A limit in the vendor's own sponsored-datasets programme rules; exists only there."
+    },
+    {
+      "claim_id": "nexdata-c066",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "An internal QA sampling rate described only by the vendor; no audit, certification body or customer document reachable (no search available). The claim is correctly framed as 'Nexdata says'."
+    },
+    {
+      "claim_id": "nexdata-c067",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "As c066: an internal inspection rate described only by the vendor; nothing independent reachable."
+    },
+    {
+      "claim_id": "nexdata-c072",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No independent inventory figure reachable. The vendor's own speech-hour figures conflict widely across its pages: 200,000 hours (this partner page), '3 million hours of Multilingual Language Data' / '3 million hours of Audio Data' (its Datarade listings, retrieved 2026-10-01), 'PB-level LLM & GenAI data, 3M hours of speech data and 800TB' (Datarade provider profile), and 10 million+ hours (July 2026, c095). The 800 TB computer-vision figure is consistent across all of them. The partner page may simply be older than the others; it is undated."
+    },
+    {
+      "claim_id": "nexdata-c091",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The client is not named, so no customer-side source can be looked for; no search available. The off-the-shelf 100,000-hour ego-centric dataset itself is listed on Datarade ('Multiple Scenes Ego-Centric Data', one-off $100,000), which shows the product exists but not the sale."
+    },
+    {
+      "claim_id": "nexdata-c093",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Unnamed-client project figure; no independent source possible by navigation. Consistent in scale with the group's own monthly-capacity claim (50,000 hours per month, datatang.com/news/1239), which is not independent."
+    },
+    {
+      "claim_id": "nexdata-c095",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No independent source (no search available; no wire copy or press article reachable by navigation; Nexdata's news index shows items only back to 18 Aug 2026). The figures conflict with the vendor's other statements: 1,000+ datasets on the homepage (c009); 3 million hours of speech on its Datarade listings and provider profile; 200,000 hours on its partner page (c072). The 10 million+ hours figure is the outlier."
+    },
+    {
+      "claim_id": "nexdata-c096",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No independent source reachable (no search available). The group's own Chinese page datatang.com/news/1239 describes the same site as '8000 平方米数据工厂，部署 300 多套灵巧手及多形态机器人本体', i.e. 300+ sets of dexterous hands and robot bodies of several forms, not 300+ humanoid robots; and Nexdata's 17 Sep 2026 award page says 10,000+ m2 (c003). Same-group sources, so the wording difference is a flag rather than an independent correction."
+    },
+    {
+      "claim_id": "nexdata-c001",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote is the headline on the live homepage; supports the dated news item. Operating status is independently corroborated by the Interspeech 2026 sponsor listing (blind verdict)."
+    },
+    {
+      "claim_id": "nexdata-c002",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the announcement. The article names no awarding body."
+    },
+    {
+      "claim_id": "nexdata-c003",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote is on the award page (og:description; body text reads '10,000+ m² Physical AI data factory for data collection in simulated and practical scenarios'). But the profile's conflict resolution for c096/c003 ('rose from 8,000 to 10,000 m²; newer wins') is undermined: datatang.com/news/1239, dated 2026-09-24 and so newer than 17 Sep, still says '公司自建 8000 平方米数据工厂'. The pair should be 'unresolved', not growth."
+    },
+    {
+      "claim_id": "nexdata-c004",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote reads 'Bespoke UMI data collection with a capacity of** 50,000+ hours per month' on the award page (the '**' is markdown residue, ignored by the checker). The group's Chinese pages attribute the same 50,000 hours/month to all production modes together (datatang.com/news/1239) or to Ego-Centric plus UMI (news/1241), so the per-UMI figure is the vendor's English wording only."
+    },
+    {
+      "claim_id": "nexdata-c005",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Fact is on the page, but '135,000+ hours' alone does not show what the hours are. Use '135,000+ hours of Single-, Dual-, and Multi-Camera Ego-Centric Datasets'."
+    },
+    {
+      "claim_id": "nexdata-c008",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The 'over a decade' part is not in the quote. Use 'Over a decade, we've empowered 1000+ companies worldwide'."
+    },
+    {
+      "claim_id": "nexdata-c009",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote supports the statement."
+    },
+    {
+      "claim_id": "nexdata-c010",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote supports the statement."
+    },
+    {
+      "claim_id": "nexdata-c011",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote is in the FAQ block on the homepage; the page continues 'and project requirements'."
+    },
+    {
+      "claim_id": "nexdata-c019",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Listing 1803 shows 'Data size 30 million video' and its summary says '30 million high-resolution video clips', so 'clips' is supported."
+    },
+    {
+      "claim_id": "nexdata-c021",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Listing 1803's 'Data content' line reads 'genuine image works released by the author'; no author, platform or payment is named anywhere on the page (its summary says only 'sourced from authorized and legally compliant channels')."
+    },
+    {
+      "claim_id": "nexdata-c026",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Listing 1803 shows 'Get Data Samples' and 'Ask for a Quote' and no price. Holds for nexdata.ai listings only; the same products carry 'Starts at' prices on Datarade, which the profile records under public_prices."
+    },
+    {
+      "claim_id": "nexdata-c032",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote is the listing's Accuracy line for listing 1199 (3,919 people)."
+    },
+    {
+      "claim_id": "nexdata-c035",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote is on listing 1402 ('Face Recognition Dataset - 10,109 People'). The same listing states the race mix '3,504 black people, 3,559 Indian people and 3,046 Asian people' with no consent documentation, consistent with asserted_only."
+    },
+    {
+      "claim_id": "nexdata-c046",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote shows the licensor name but not the Monrovia domicile; the PDF's next line is 'Domicile ： 710 S MYRTLE AVE, #666 MONROVIA, CA 91016'. Scope caution: the template is the free, non-commercial research licence for universities, research institutions and key partners (it refers to 'Nexdata Chinese Mandarin Speech Datasets'), so it shows who is licensor for free research grants, not for commercial sales; the profile's matrix note says so, and operator_role for commercial sales should lean on other claims."
+    },
+    {
+      "claim_id": "nexdata-c055",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote shows the five-day destruction duty but not the certification; add 'written statement signed by the legal representative of Party B'. As the profile's note says, this is the free research licence (one-year term, rescindable by Nexdata at any time), not commercial terms; it is weak evidence for custody_model and erasure_after_sale for paid sales."
+    },
+    {
+      "claim_id": "nexdata-c062",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote is verbatim on the sponsored-datasets page."
+    },
+    {
+      "claim_id": "nexdata-c066",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The 70% figure is not in the quote. The page says 'the ratio of initial inspection of data with high requirements is at least 70%'."
+    },
+    {
+      "claim_id": "nexdata-c067",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "On the data-security page the quote sits in the final-inspection paragraph ('Nexdata's independent final inspection center conducts final inspection'), so it applies to final inspection."
+    },
+    {
+      "claim_id": "nexdata-c072",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The 2 billion NLP figure is not in the quote. The page continues 'about 2 billion pieces of natural language processing(NLP) data and 5TB unlabeled text data(LLM)'."
+    },
+    {
+      "claim_id": "nexdata-c078",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "'Starts at $20K' shows the floor price but not that monthly, yearly and usage-based licences are 'Not available'. The storefront reads 'One-off purchase $20K Monthly License Not available Yearly License Not available Usage-based Not available'."
+    },
+    {
+      "claim_id": "nexdata-c079",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The storefront page shows 'Starts at $100K' and 'One-off purchase $100K'; datarade.ai shows the same as $100,000."
+    },
+    {
+      "claim_id": "nexdata-c080",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Storefront floor price; datarade.ai shows 'One-off purchase $10,000 / purchase'."
+    },
+    {
+      "claim_id": "nexdata-c082",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote is verbatim on the 'High-quality Image & Video Data | 250 Million' listing. It is that listing's boilerplate only: other Nexdata listings on Datarade describe its holdings differently (3 million hours of speech/audio and 800TB of imagery). As evidence for economics_model (principal_margin) it is a vendor claim of ownership."
+    },
+    {
+      "claim_id": "nexdata-c091",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote is cut off before it names the dataset or the custom work. Use 'the client initially purchased part of Nexdata’s off-the-shelf “100,000-hour multi-scenario Ego-Centric dataset”'; the home-environment custom collection needs a second quote ('with indoor home environments as one of the key priorities')."
+    },
+    {
+      "claim_id": "nexdata-c093",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote is verbatim in news/1417 (06/18/2026)."
+    },
+    {
+      "claim_id": "nexdata-c095",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote shows only the dataset count; the page reads 'including over 10 million hours of speech data across 200+ languages , as well as more than 800 TB of computer vision datasets'."
+    },
+    {
+      "claim_id": "nexdata-c096",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote shows only the floor area; the robots are in the next words, 'equipped with 300+ humanoid robots , 200+ robotic arms and dexterous hands'. The group's Chinese page of 2026-09-24 describes the equipment as '300 多套灵巧手及多形态机器人本体' (dexterous hands and multi-form robot bodies), which does not say humanoid."
+    },
+    {
+      "claim_id": "nexdata-c105",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote is the site's title text; the served HTML contains nothing else."
+    }
+  ],
+  "missed": [
+    {
+      "id": "nexdata-v001",
+      "statement": "Nexdata is listed as a sponsor of Interspeech 2026 (Sydney, 27 September to 1 October 2026), the conference that hosts its 2nd MLC-SLM Challenge and Workshop on 2 October 2026.",
+      "kind": "status",
+      "section": "other",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "independent",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://interspeech2026.org/en-AU/pages/sponsorship/sponsors-and-exhibitors",
+          "publisher": "Interspeech 2026 (ISCA conference, ICMS Australasia)",
+          "source_class": "third_party_docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "\"sponsor_name\":\"NextData\",\"sponsor_website\":\"https://www.nexdata.ai/\""
+        }
+      ]
+    },
+    {
+      "id": "nexdata-v002",
+      "statement": "NEXDATA TECHNOLOGY INC., the licensor named on Nexdata's licence template, is an active California stock corporation (no. 3801794) whose registered address is suite #666 at 710 S Myrtle Ave, Monrovia.",
+      "kind": "status",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": "US"
+      },
+      "value": null,
+      "origin": "filing",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://opencorporates.com/companies/us_ca/3801794",
+          "publisher": "OpenCorporates (California Secretary of State register data)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "710 S MYRTLE AVE, #666, MONROVIA, CA 91016"
+        }
+      ]
+    },
+    {
+      "id": "nexdata-v003",
+      "statement": "On 24 September 2026 Datatang, Nexdata's Chinese parent brand, said the group's self-built data factory is 8,000 square metres with 300+ sets of dexterous hands and multi-form robot bodies, a week after Nexdata's award page gave 10,000+ square metres.",
+      "kind": "number",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": "CN"
+      },
+      "value": {
+        "num": 8000,
+        "unit": "square metres of data-factory floor space",
+        "basis": "vendor-stated (Datatang) facility size",
+        "period": "as of 2026-09-24"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-09-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.datatang.com/news/1239",
+          "publisher": "Datatang (数据堂)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "公司自建 8000 平方米数据工厂，部署 300 多套灵巧手及多形态机器人本体"
+        }
+      ]
+    },
+    {
+      "id": "nexdata-v004",
+      "statement": "Nexdata's Datarade listing for face anti-spoofing data says Nexdata owns 3 million hours of audio data and 800TB of imagery data, a speech figure that differs from its partner page (200,000 hours) and its July 2026 article (10 million+ hours).",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Face Anti-spoofing Data, 200,000 ID (Datarade)",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 3000000,
+        "unit": "hours of audio data owned",
+        "basis": "vendor-stated inventory in Datarade listing boilerplate",
+        "period": "as of retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datarade.ai/data-products/nexdata-face-anti-spoofing-data-200-000-id-image-video-nexdata",
+          "publisher": "Datarade",
+          "source_class": "third_party_docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Nexdata owns off-the-shelf PB-level Large Language Model(LLM) Data, 3 million hours of Audio Data and 800TB of Imagery Data"
+        }
+      ]
+    },
+    {
+      "id": "nexdata-v005",
+      "statement": "Datatang says its embodied-AI dexterous-hand dataset was among the first 56 registrations in China's national data property registration system, registered through the Beijing International Big Data Exchange.",
+      "kind": "event",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Embodied AI dexterous-hand data (具身智能灵巧手数据)",
+        "tier": "",
+        "region": "CN"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.datatang.com/news/1239",
+          "publisher": "Datatang (数据堂)",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "由北京国际大数据交易所登记，也是具身智能领域较早完成国家数据产权登记的数据集"
+        }
+      ]
+    }
+  ]
+}

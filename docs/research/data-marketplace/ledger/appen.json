@@ -1,0 +1,2020 @@
+{
+  "kind": "profile",
+  "slug": "appen",
+  "name": "Appen",
+  "aliases": [
+    "Appen Limited"
+  ],
+  "segment": "ai_data_catalogue",
+  "tier": "light",
+  "status": {
+    "value": "active",
+    "claim_id": "appen-c040"
+  },
+  "names_for": {
+    "catalogue_side": "Off-the-shelf datasets (OTS datasets); AI training data catalog; earlier 'pre-labeled datasets'",
+    "custom_side": "custom data services; custom data collection"
+  },
+  "matrix": {
+    "operator_role": {
+      "value": "reseller_licensor",
+      "claim_ids": [
+        "appen-c023",
+        "appen-c022",
+        "appen-c001",
+        "appen-c005"
+      ],
+      "note": "Appen presents itself as the party licensing all catalogue data, including 'Third Party Vendor' sets; no buyer contract is public, so who is licensor of record for third-party sets is not confirmed."
+    },
+    "economics_model": {
+      "value": "principal_margin",
+      "claim_ids": [
+        "appen-c038",
+        "appen-c010",
+        "appen-c007"
+      ],
+      "note": "Appen collects or acquires the data and sells at its own (unpublished) price; its ASX filing calls prebuilt datasets high-margin. Terms with 'Third Party Vendor' suppliers are not public."
+    },
+    "who_pays_fee": {
+      "value": "not_applicable",
+      "claim_ids": [],
+      "note": "No marketplace fee: Appen sells its own catalogue, not a venue charging buyers or sellers a fee."
+    },
+    "supply_models": {
+      "value": [
+        "own_collection",
+        "third_party_providers",
+        "public_or_scraped"
+      ],
+      "claim_ids": [
+        "appen-c010",
+        "appen-c015",
+        "appen-c054",
+        "appen-c019",
+        "appen-c021",
+        "appen-c013",
+        "appen-c014"
+      ],
+      "note": "Own collection = 'Appen Global'/'Appen China' participant capture; third parties = 'Third Party Vendor', Nuance, GlobalPhone (KIT) and company data estates; public = 'Sourced from public websites' and KITTI/Cityscapes derivatives. No evidence found of client-commissioned data being relisted."
+    },
+    "custody_model": {
+      "value": "copy_to_buyer",
+      "claim_ids": [
+        "appen-c033"
+      ],
+      "note": "Only evidence is the 2021 statement that an OTS dataset is 'delivered'; current delivery mechanics are not published."
+    },
+    "transaction_mode": {
+      "value": "contact_sales",
+      "claim_ids": [
+        "appen-c027",
+        "appen-c017",
+        "appen-c020"
+      ],
+      "note": "No checkout or price; engagement via 'Talk to an expert', a quote-request cart, or booking a meeting."
+    },
+    "public_prices": {
+      "value": "none",
+      "claim_ids": [
+        "appen-c017",
+        "appen-c018"
+      ],
+      "note": "Listings mention tiered and package pricing but publish no figures."
+    },
+    "licence_model": {
+      "value": "standard_licence",
+      "claim_ids": [
+        "appen-c023",
+        "appen-c016"
+      ],
+      "note": "One stated grant: perpetual, non-exclusive commercial training rights. The licence text itself is not published."
+    },
+    "exclusivity_offered": {
+      "value": "unknown",
+      "claim_ids": [
+        "appen-c023",
+        "appen-c016"
+      ],
+      "note": "Standard grant is non-exclusive; nothing says whether exclusivity can be bought."
+    },
+    "public_listing": {
+      "value": "public_indexable",
+      "claim_ids": [
+        "appen-c049",
+        "appen-c010"
+      ],
+      "note": ""
+    },
+    "buyer_vetting": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": ""
+    },
+    "sample_mechanics": {
+      "value": "sample_on_request",
+      "claim_ids": [
+        "appen-c035",
+        "appen-c020"
+      ],
+      "note": "Samples offered on request (2021 press release; 2026 Quadrant listing); no downloadable sample on listings."
+    },
+    "versioning": {
+      "value": "unknown",
+      "claim_ids": [
+        "appen-c047"
+      ],
+      "note": "Some dataset IDs carry '_v1' and specs list a 'refresh cadence', but what past buyers get on a refresh is not published."
+    },
+    "human_subject_consent_docs": {
+      "value": "unknown",
+      "claim_ids": [
+        "appen-c022",
+        "appen-c002",
+        "appen-c012"
+      ],
+      "note": "Appen asserts contributor consent and promises 'full provenance documentation' for legal review, but whether consent forms or releases reach the buyer is not stated; public face/selfie listings show no consent information."
+    },
+    "contributor_pay_model": {
+      "value": "unknown",
+      "claim_ids": [
+        "appen-c053",
+        "appen-c051",
+        "appen-c050"
+      ],
+      "note": "Evidence covers pay for work (hourly, local-market rates) and mentions no royalty on resale, but no source says how participants in the photo/video collections were paid."
+    },
+    "catalogue_plus_custom": {
+      "value": "both",
+      "claim_ids": [
+        "appen-c009",
+        "appen-c030",
+        "appen-c041"
+      ],
+      "note": ""
+    },
+    "erasure_after_sale": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": ""
+    },
+    "quality_evidence": {
+      "value": "operator_verified",
+      "claim_ids": [
+        "appen-c025",
+        "appen-c024"
+      ],
+      "note": "Appen states inter-annotator agreement metrics and documentation for catalogue sets; for Appen-collected sets operator and producer are the same company. Not independently checked."
+    }
+  },
+  "questions": {
+    "Q1": {
+      "state": "partial",
+      "answer": "Appen pitches OTS data for tight timelines, common categories and budget limits, and as a supplement to custom data; its only public buyer case is a lexicon purchase, and its ASX filing credits prebuilt datasets with lifting Appen China margins. Unit volumes and buyer mix are not published.",
+      "claim_ids": [
+        "appen-c028",
+        "appen-c029",
+        "appen-c008",
+        "appen-c036",
+        "appen-c038",
+        "appen-c033"
+      ]
+    },
+    "Q2": {
+      "state": "not_applicable",
+      "answer": "Appen sells its own catalogue on its own site; it is not a provider choosing between listing elsewhere and building.",
+      "claim_ids": []
+    },
+    "Q3": {
+      "state": "partial",
+      "answer": "Inventory mixes Appen's own participant collections (Appen Global, Appen China), third-party vendor sets (textbooks, Nuance, GlobalPhone), company data estates and some web-sourced or derived images; the rights basis per source is not published beyond a blanket consent claim.",
+      "claim_ids": [
+        "appen-c010",
+        "appen-c015",
+        "appen-c054",
+        "appen-c019",
+        "appen-c021",
+        "appen-c013",
+        "appen-c014",
+        "appen-c007",
+        "appen-c044"
+      ]
+    },
+    "Q4": {
+      "state": "unknown",
+      "answer": "",
+      "claim_ids": []
+    },
+    "Q5": {
+      "state": "partial",
+      "answer": "Appen presents itself as licensor ('pre-licensed', 'documented licensing'); no buyer licence, warranty or indemnity text is public.",
+      "claim_ids": [
+        "appen-c001",
+        "appen-c022",
+        "appen-c023"
+      ]
+    },
+    "Q6": {
+      "state": "partial",
+      "answer": "A 2021 release says OTS datasets are 'delivered', typically in a week; current delivery mechanics are not published.",
+      "claim_ids": [
+        "appen-c033"
+      ]
+    },
+    "Q7": {
+      "state": "partial",
+      "answer": "Appen asserts contributor consent and an opt-in methodology for all datasets, but public listings of faces and bodies carry no consent text, and some image sets are web-sourced.",
+      "claim_ids": [
+        "appen-c003",
+        "appen-c022",
+        "appen-c034",
+        "appen-c012",
+        "appen-c046",
+        "appen-c048",
+        "appen-c013"
+      ]
+    },
+    "Q8": {
+      "state": "partial",
+      "answer": "The stated grant is perpetual, non-exclusive commercial training rights; nothing public on audit, leakage or fingerprinting.",
+      "claim_ids": [
+        "appen-c023",
+        "appen-c016"
+      ]
+    },
+    "Q9": {
+      "state": "sourced",
+      "answer": "Deals close through sales ('Talk to an expert', quote cart, meetings); Appen owns the inventory and sells at unpublished, sometimes tiered, prices.",
+      "claim_ids": [
+        "appen-c027",
+        "appen-c017",
+        "appen-c018",
+        "appen-c020",
+        "appen-c038"
+      ]
+    },
+    "Q10": {
+      "state": "partial",
+      "answer": "A listing is a spec record with a dataset ID (some suffixed _v1) and a refresh cadence; 'in development' listings stay published after their stated ready dates. Orders, entitlements and what a past buyer gets on a new version are not public.",
+      "claim_ids": [
+        "appen-c006",
+        "appen-c047",
+        "appen-c016"
+      ]
+    },
+    "Q11": {
+      "state": "partial",
+      "answer": "Public spec sheets (source, annotation, volume, format, year), stated agreement metrics, security certifications and samples on request; no public price or preview.",
+      "claim_ids": [
+        "appen-c006",
+        "appen-c024",
+        "appen-c025",
+        "appen-c026",
+        "appen-c035",
+        "appen-c049"
+      ]
+    },
+    "Q12": {
+      "state": "sourced",
+      "answer": "The ready-made side is 'off-the-shelf datasets' / the 'data catalog'; the bespoke side is 'custom data services'. Appen offers custom collection when the catalogue lacks the data and sells OTS as a supplement to it.",
+      "claim_ids": [
+        "appen-c001",
+        "appen-c009",
+        "appen-c029",
+        "appen-c030",
+        "appen-c041",
+        "appen-c043"
+      ]
+    }
+  },
+  "sections": {},
+  "buyer_journey": [],
+  "claims": [
+    {
+      "id": "appen-c001",
+      "statement": "Appen markets off-the-shelf datasets as pre-licensed training data across speech, image, video, text and multimodal formats.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/ots-datasets",
+          "publisher": "Appen",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "pre-licensed training data across speech, image, video, text, and multimodal formats"
+        }
+      ]
+    },
+    {
+      "id": "appen-c002",
+      "statement": "Appen says its off-the-shelf datasets come with full provenance documentation intended for the buyer's legal and compliance teams.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/ots-datasets",
+          "publisher": "Appen",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "full provenance documentation, so your legal and compliance teams can approve use without ambiguity"
+        }
+      ]
+    },
+    {
+      "id": "appen-c003",
+      "statement": "Appen asserts that all its off-the-shelf datasets are collected under clear consent and licensing terms.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/ots-datasets",
+          "publisher": "Appen",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All datasets are collected under clear consent and licensing terms"
+        }
+      ]
+    },
+    {
+      "id": "appen-c004",
+      "statement": "Appen's off-the-shelf Image & Video category covers everyday objects, documents, signage, gestures and faces captured in real-world conditions.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q1",
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/ots-datasets",
+          "publisher": "Appen",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Everyday objects, documents, signage, gestures and faces, captured in real-world lighting and conditions"
+        }
+      ]
+    },
+    {
+      "id": "appen-c005",
+      "statement": "Appen describes its data catalog as an index of licensed datasets for model training, evaluation and research.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/data-catalog",
+          "publisher": "Appen",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "An AI training data catalog is an index of licensed datasets for model training, evaluation, and research."
+        }
+      ]
+    },
+    {
+      "id": "appen-c006",
+      "statement": "Appen says each catalog dataset includes a spec sheet covering source, annotation, limitations, licence and refresh cadence.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q10",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/data-catalog",
+          "publisher": "Appen",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Each includes a spec sheet covering source, annotation, limitations, license, and refresh cadence."
+        }
+      ]
+    },
+    {
+      "id": "appen-c007",
+      "statement": "Appen says its catalog includes 596 datasets across RL tasks, code, text, speech and audio, enterprise data, image and video, and specialty datasets.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 596,
+        "unit": "datasets listed in catalog",
+        "basis": "vendor-stated count of catalog listings, all categories",
+        "period": "as of retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/data-catalog",
+          "publisher": "Appen",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Appen's catalog includes 596 datasets across RL tasks, code, text, speech and audio, enterprise data"
+        }
+      ]
+    },
+    {
+      "id": "appen-c008",
+      "statement": "Appen says teams use the catalog for ready-to-license data when timelines are tight or more volume and diversity are needed.",
+      "kind": "offer",
+      "section": "demand",
+      "question_ids": [
+        "Q1",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/data-catalog",
+          "publisher": "Appen",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Teams use the catalog for ready-to-license data when timelines are tight or more volume and diversity are needed."
+        }
+      ]
+    },
+    {
+      "id": "appen-c009",
+      "statement": "Appen's catalog page offers to build data across 500+ locales when the right catalog dataset is not available.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/data-catalog",
+          "publisher": "Appen",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If the right data is not available, Appen can build it across 500+ locales."
+        }
+      ]
+    },
+    {
+      "id": "appen-c010",
+      "statement": "Appen's 'Selfie image and video collection' listing (IMG_VID_SELFIE_US) is sourced from 'Appen Global' and consists of participant self-recorded photos and videos following a prompt.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "scope": {
+        "product": "IMG_VID_SELFIE_US",
+        "tier": "",
+        "region": "US"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/data-catalog/image-video-sets/img-vid-selfie-us",
+          "publisher": "Appen",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Participant self-recorded photos/videos following a prompt"
+        }
+      ]
+    },
+    {
+      "id": "appen-c011",
+      "statement": "The Selfie listing states 1,403 images and 1,535 videos across 1,566 recording sessions by 70 unique participants.",
+      "kind": "number",
+      "section": "listing",
+      "question_ids": [
+        "Q1",
+        "Q10"
+      ],
+      "scope": {
+        "product": "IMG_VID_SELFIE_US",
+        "tier": "",
+        "region": "US"
+      },
+      "value": {
+        "num": 70,
+        "unit": "unique participants",
+        "basis": "vendor-stated dataset composition on listing",
+        "period": "one-off"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/data-catalog/image-video-sets/img-vid-selfie-us",
+          "publisher": "Appen",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "There are 1403 images and 1535 videos across 1566 recording sessions, by 70 unique participants."
+        }
+      ]
+    },
+    {
+      "id": "appen-c012",
+      "statement": "The public Selfie listing page, which depicts people's faces, shows no consent, release, licence or price text.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "IMG_VID_SELFIE_US",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/data-catalog/image-video-sets/img-vid-selfie-us",
+          "publisher": "Appen",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Participants took a short video and picture of themselves following a prompt making various facial expressions"
+        }
+      ]
+    },
+    {
+      "id": "appen-c013",
+      "statement": "Appen's 'Baking Pictures' image listing (IMG_BAKE_CN, from Appen China) is sourced from public websites.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "IMG_BAKE_CN",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/data-catalog/image-video-sets/img-bake-cn",
+          "publisher": "Appen",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "(Data source: website) This dataset includes pictures of baked goods"
+        }
+      ]
+    },
+    {
+      "id": "appen-c014",
+      "statement": "Appen's 'European License Plate Detection Annotations' listing is derived from the public KITTI and Cityscapes autonomous-driving datasets, annotated by Appen's in-house workforce.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q8"
+      ],
+      "scope": {
+        "product": "LICENSE_ANNO",
+        "tier": "",
+        "region": "EU"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/data-catalog/image-video-sets/license-anno",
+          "publisher": "Appen",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Derived from existing public autonomous-driving datasets (KITTI, Cityscapes)"
+        }
+      ]
+    },
+    {
+      "id": "appen-c015",
+      "statement": "Appen lists academic textbook and journal corpora whose source is labelled 'Third Party Vendor'.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "TEXTBOOK_PLASMA_001_v1",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/data-catalog/book-corpora/textbook-plasma-001-v1",
+          "publisher": "Appen",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Third Party Vendor"
+        }
+      ]
+    },
+    {
+      "id": "appen-c016",
+      "statement": "Appen's task-verifier listings state the licence type as 'Perpetual — Non-Exclusive'.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "TASK_GDPVAL_001 and other tasks-verifiers listings",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/data-catalog/tasks-verifiers/task-gdpval-001",
+          "publisher": "Appen",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Perpetual — Non-Exclusive"
+        }
+      ]
+    },
+    {
+      "id": "appen-c017",
+      "statement": "The GDPVal Tasks listing says pricing is tiered by task complexity (step count), with a volume discount, but publishes no price.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "TASK_GDPVAL_001",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/data-catalog/tasks-verifiers/task-gdpval-001",
+          "publisher": "Appen",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Pricing tiered by task complexity (step count) — see Volume Discount for tier breakdown"
+        }
+      ]
+    },
+    {
+      "id": "appen-c018",
+      "statement": "Appen's GlobalPhone speech listings say tiered package prices are available when buying multiple languages or the full corpus.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "BUL_ASR002 (GlobalPhone)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/data-catalog/audio-catalogue/bul-asr002",
+          "publisher": "Appen",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "tiered package prices available with purchase of multiple Global Phone languages or the full corpus"
+        }
+      ]
+    },
+    {
+      "id": "appen-c019",
+      "statement": "The GlobalPhone speech corpus listed by Appen was developed in collaboration with the Karlsruhe Institute of Technology.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "GlobalPhone",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/data-catalog/audio-catalogue/bul-asr002",
+          "publisher": "Appen",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Developed in collaboration with the Karlsruhe Institute of Technology (KIT)"
+        }
+      ]
+    },
+    {
+      "id": "appen-c020",
+      "statement": "Appen's catalog lists mobile GPS location data from Quadrant, described as an Appen company, with samples obtained by booking a meeting.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q11"
+      ],
+      "scope": {
+        "product": "LOCATION_MOBILE_US",
+        "tier": "",
+        "region": "US"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/data-catalog/other-sets/location-mobile-us",
+          "publisher": "Appen",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Please book a meeting to discuss your requirements and obtain a sample dataset to evaluate for your unique use case."
+        }
+      ]
+    },
+    {
+      "id": "appen-c021",
+      "statement": "Appen's catalog sells internal operating data (email, drive, code) of companies that operated for a limited period, such as a gold-loan fintech active 2021–2024.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "FinTech-60 (enterprise company data)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/data-catalog/enterprise-company-data/fintech-60",
+          "publisher": "Appen",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Application servers & databases; enterprise Gmail; Google Drive; Git repositories"
+        }
+      ]
+    },
+    {
+      "id": "appen-c022",
+      "statement": "Appen's catalog page states its datasets carry contributor consent and documented licensing.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7",
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/data-catalog",
+          "publisher": "Appen",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Contributor consent and documented licensing."
+        }
+      ]
+    },
+    {
+      "id": "appen-c023",
+      "statement": "Appen's catalog page states the rights granted are perpetual, non-exclusive commercial training rights.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/data-catalog",
+          "publisher": "Appen",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Perpetual, non-exclusive commercial training rights."
+        }
+      ]
+    },
+    {
+      "id": "appen-c024",
+      "statement": "Appen's catalog page says provenance documentation covers source, annotation method, collection year, coverage period and limitations.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/data-catalog",
+          "publisher": "Appen",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Source, annotation method, collection year, coverage period, and limitations documented."
+        }
+      ]
+    },
+    {
+      "id": "appen-c025",
+      "statement": "Appen's catalog page says annotation quality is measured with Cohen's kappa or Krippendorff's alpha, with thresholds and adjudication protocols.",
+      "kind": "offer",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/data-catalog",
+          "publisher": "Appen",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Cohen’s kappa or Krippendorff’s alpha, with thresholds and adjudication protocols."
+        }
+      ]
+    },
+    {
+      "id": "appen-c026",
+      "statement": "Appen's catalog page cites SOC 2 Type II, ISO 27001, GDPR/CCPA handling and EU AI Act documentation under governance.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/data-catalog",
+          "publisher": "Appen",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "SOC 2 Type II, ISO 27001, GDPR/CCPA handling, EU AI Act documentation."
+        }
+      ]
+    },
+    {
+      "id": "appen-c027",
+      "statement": "Appen's off-the-shelf page offers 'Talk to an expert' as the route to engage, with no checkout or cart on the page text.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/ots-datasets",
+          "publisher": "Appen",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Talk to an expert"
+        }
+      ]
+    },
+    {
+      "id": "appen-c028",
+      "statement": "Appen positions off-the-shelf data for broad common categories, timelines that do not permit custom collection, or budgets that make bespoke data impractical.",
+      "kind": "offer",
+      "section": "demand",
+      "question_ids": [
+        "Q1",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/ots-datasets",
+          "publisher": "Appen",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "when development timelines do not permit a custom collection cycle"
+        }
+      ]
+    },
+    {
+      "id": "appen-c029",
+      "statement": "Appen says off-the-shelf datasets are commonly used to supplement custom data with additional volume or class diversity.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q1",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/ots-datasets",
+          "publisher": "Appen",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "commonly used to supplement custom data with additional volume or class diversity"
+        }
+      ]
+    },
+    {
+      "id": "appen-c030",
+      "statement": "For proprietary demographics, specific environments or controlled protocols, Appen points buyers to its 'custom data services' instead of the catalogue.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/ots-datasets",
+          "publisher": "Appen",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Appen's custom data services across"
+        }
+      ]
+    },
+    {
+      "id": "appen-c031",
+      "statement": "Appen describes its code-repository datasets as real production codebases with full commit and review history, anonymised for training use.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/ots-datasets",
+          "publisher": "Appen",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Real production codebases with their full commit and review history, anonymised for training use."
+        }
+      ]
+    },
+    {
+      "id": "appen-c032",
+      "statement": "In February 2021 Appen said its OTS offering exceeded 250 datasets, with over 11,000 hours of audio, 25,000 images and 8.7 million words across 80 languages.",
+      "kind": "number",
+      "section": "changes",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 250,
+        "unit": "datasets in OTS offering",
+        "basis": "vendor-stated count, all modalities",
+        "period": "as of 2021-02-25"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2021-02-25",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.appen.com/press-release/new-pre-labeled-datasets-from-appen",
+          "publisher": "Appen",
+          "source_class": "press_relaying_vendor",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Appen’s total OTS offering includes over 250 datasets, comprising of over 11,000 hours of audio, over 25,000 images"
+        }
+      ]
+    },
+    {
+      "id": "appen-c033",
+      "statement": "In February 2021 Appen said an OTS dataset is often delivered in one week, compared with eight to twelve weeks for a new collection and annotation project.",
+      "kind": "number",
+      "section": "custody",
+      "question_ids": [
+        "Q1",
+        "Q6",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 1,
+        "unit": "weeks to deliver an OTS dataset (typical)",
+        "basis": "vendor-stated typical delivery time vs 8-12 weeks for new collection",
+        "period": "per order"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2021-02-25",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.appen.com/press-release/new-pre-labeled-datasets-from-appen",
+          "publisher": "Appen",
+          "source_class": "press_relaying_vendor",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "An OTS dataset is often delivered in one week, for example, compared to the eight to twelve weeks for a new dataset collection"
+        }
+      ]
+    },
+    {
+      "id": "appen-c034",
+      "statement": "In February 2021 Appen said all its datasets are developed using a fully transparent, opt-in methodology.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2021-02-25",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.appen.com/press-release/new-pre-labeled-datasets-from-appen",
+          "publisher": "Appen",
+          "source_class": "press_relaying_vendor",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All Appen datasets are developed using a fully transparent, opt-in methodology"
+        }
+      ]
+    },
+    {
+      "id": "appen-c035",
+      "statement": "In February 2021 Appen invited buyers to request an OTS dataset sample.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2021-02-25",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.appen.com/press-release/new-pre-labeled-datasets-from-appen",
+          "publisher": "Appen",
+          "source_class": "press_relaying_vendor",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "to request an Appen OTS dataset sample"
+        }
+      ]
+    },
+    {
+      "id": "appen-c036",
+      "statement": "Appen's case study says buyer MediaInterface, a healthcare speech-recognition company, used Appen's pre-labeled French lexicon datasets when expanding into France.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/case-studies/mediainterface-expands-to-france-with-pre-labeled-datasets",
+          "publisher": "Appen",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Appen helped us out with French lexicon data."
+        }
+      ]
+    },
+    {
+      "id": "appen-c037",
+      "statement": "Appen's H1 FY26 ASX announcement reports group revenue of US$119.9 million for the six months to 30 June 2026, up 17% on the prior period.",
+      "kind": "number",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 119.9,
+        "unit": "USD million revenue",
+        "basis": "group revenue, all business lines, H1 FY26 (six months to 30 June 2026)",
+        "period": "half-year"
+      },
+      "origin": "filing",
+      "as_of": "2026-08-27",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://cdn-api.markitdigital.com/apiman-gateway/ASX/asx-research/1.0/file/2924-03126948-2A1692509?access_token=83ff96335c2d45a094df02a206a39ff4",
+          "publisher": "Appen Limited (ASX: APX)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Revenue of $119.9 million, +17% vs prior corresponding period (pcp)"
+        }
+      ]
+    },
+    {
+      "id": "appen-c038",
+      "statement": "Appen's H1 FY26 ASX announcement attributes part of Appen China's EBITDA margin improvement to increased revenue from high-margin prebuilt datasets.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "filing",
+      "as_of": "2026-08-27",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://cdn-api.markitdigital.com/apiman-gateway/ASX/asx-research/1.0/file/2924-03126948-2A1692509?access_token=83ff96335c2d45a094df02a206a39ff4",
+          "publisher": "Appen Limited (ASX: APX)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "increased revenue from high-margin prebuilt datasets"
+        }
+      ]
+    },
+    {
+      "id": "appen-c039",
+      "statement": "Appen's H1 FY26 ASX announcement says ~US$12 million of annualised operational efficiencies were identified in Appen Global, ~70% to be executed by end FY26.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "filing",
+      "as_of": "2026-08-27",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://cdn-api.markitdigital.com/apiman-gateway/ASX/asx-research/1.0/file/2924-03126948-2A1692509?access_token=83ff96335c2d45a094df02a206a39ff4",
+          "publisher": "Appen Limited (ASX: APX)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "This focus has identified an incremental ~$12 million in operational efficiencies"
+        }
+      ]
+    },
+    {
+      "id": "appen-c040",
+      "statement": "Appen, listed on the ASX as APX, published its half-year results for the six months to 30 June 2026 on 27 August 2026, showing it is actively trading.",
+      "kind": "status",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "filing",
+      "as_of": "2026-08-27",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://cdn-api.markitdigital.com/apiman-gateway/ASX/asx-research/1.0/file/2924-03126948-2A1692509?access_token=83ff96335c2d45a094df02a206a39ff4",
+          "publisher": "Appen Limited (ASX: APX)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "is pleased to provide its half-year results for the six months ended 30 June 2026 (H1 FY26)"
+        }
+      ]
+    },
+    {
+      "id": "appen-c041",
+      "statement": "Appen's H1 FY26 investor presentation lists 'Off-the-shelf datasets' as a service line: pre-built dialect, minor language, image editing, company data and coding repository sets.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "filing",
+      "as_of": "2026-08-27",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://cdn-api.markitdigital.com/apiman-gateway/ASX/asx-research/1.0/file/2924-03126949-2A1692513?access_token=83ff96335c2d45a094df02a206a39ff4",
+          "publisher": "Appen Limited (ASX: APX)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Pre-built dialect, minor language, image editing, company data and coding repository sets"
+        }
+      ]
+    },
+    {
+      "id": "appen-c042",
+      "statement": "Appen's H1 FY26 investor presentation says its audio catalog holds ~200k raw hours across 58 language/domain lines.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 200000,
+        "unit": "raw audio hours in catalog",
+        "basis": "vendor-stated catalog scale, audio only, approximate",
+        "period": "as of 2026-08"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-08-27",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://cdn-api.markitdigital.com/apiman-gateway/ASX/asx-research/1.0/file/2924-03126949-2A1692513?access_token=83ff96335c2d45a094df02a206a39ff4",
+          "publisher": "Appen Limited (ASX: APX)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "~200k raw hours across 58 language/domain lines"
+        }
+      ]
+    },
+    {
+      "id": "appen-c043",
+      "statement": "Appen's physical AI page offers licensed off-the-shelf data 'available now or coming soon' alongside custom collection.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/physical-ai",
+          "publisher": "Appen",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Licensed off-the-shelf data available now or coming soon"
+        }
+      ]
+    },
+    {
+      "id": "appen-c044",
+      "statement": "Appen's physical AI page says custom task demonstrations are sourced from its global contributor network of 1M+ people across 170+ countries.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/physical-ai",
+          "publisher": "Appen",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "sourced from Appen's global contributor network of 1M+ people across 170+ countries"
+        }
+      ]
+    },
+    {
+      "id": "appen-c045",
+      "statement": "For custom physical-AI collection Appen cites participant consent, on-site data handling and privacy controls aligned to GDPR.",
+      "kind": "offer",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/physical-ai",
+          "publisher": "Appen",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "participant consent, on-site data handling, and privacy controls aligned to GDPR"
+        }
+      ]
+    },
+    {
+      "id": "appen-c046",
+      "statement": "Appen's 'Hand gesture videos' listing says videos may include the participant's face.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "HUMAN_BODY_VID003",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/data-catalog/image-video-sets/human-body-vid003",
+          "publisher": "Appen",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Videos may include the participants face or only their hand."
+        }
+      ]
+    },
+    {
+      "id": "appen-c047",
+      "statement": "Appen's 'Garments' image and video listing is marked 'in development', still says it was expected ready Q3 2025, and can be prioritised on request.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "IMG_VID_GARMENTS_US",
+        "tier": "",
+        "region": "US"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/data-catalog/image-video-sets/img-vid-garments-us",
+          "publisher": "Appen",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Data collected, QA is underway, expected to be ready Q3 2025. Can be prioritized upon request."
+        }
+      ]
+    },
+    {
+      "id": "appen-c048",
+      "statement": "The Garments listing includes participant demographics and body-measurement metadata alongside videos of participants wearing the garment.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "IMG_VID_GARMENTS_US",
+        "tier": "",
+        "region": "US"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/data-catalog/image-video-sets/img-vid-garments-us",
+          "publisher": "Appen",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Metadata includes demographics, body measurements, labels for garment category"
+        }
+      ]
+    },
+    {
+      "id": "appen-c049",
+      "statement": "Appen's dataset listing pages are listed in its public sitemap and render their specification without login.",
+      "kind": "architecture",
+      "section": "discovery",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/sitemap.xml",
+          "publisher": "Appen",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "https://www.appen.com/data-catalog/image-video-sets/img-vid-selfie-us"
+        }
+      ]
+    },
+    {
+      "id": "appen-c050",
+      "statement": "Appen runs a contributor platform, CrowdGen, through which its crowd contributors take on work.",
+      "kind": "offer",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://crowdgen.com/",
+          "publisher": "Appen",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "CrowdGen is the contributor platform of Appen, a publicly traded data company"
+        }
+      ]
+    },
+    {
+      "id": "appen-c051",
+      "statement": "Appen said in 2022 that crowd contributor pay is based on the contributor's local marketplace.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2022-06",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.appen.com/blog/ai-ethics-how-fair-pay-benefits-our-crowd-contributors",
+          "publisher": "Appen",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "contributor pay is based on their local marketplace"
+        }
+      ]
+    },
+    {
+      "id": "appen-c052",
+      "statement": "Appen's Contributor Portal Terms of Service describe Appen and the contributor as independent parties, not employer and employee.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/ac-terms-of-service",
+          "publisher": "Appen",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The parties hereto are independent parties, not agents, employees or employers of the other or joint venturers"
+        }
+      ]
+    },
+    {
+      "id": "appen-c053",
+      "statement": "CrowdGen tells contributors their earnings accrue from hours worked at rates stated before they begin; it mentions no royalty or resale share.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://crowdgen.com/",
+          "publisher": "Appen",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Track the hours you work and see how they add up to your earnings."
+        }
+      ]
+    },
+    {
+      "id": "appen-c054",
+      "statement": "Appen's catalog lists speech datasets whose source is labelled 'Nuance', such as UK English TTS voice recordings.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "TC-STAR baseline voice (audio catalogue)",
+        "tier": "",
+        "region": "UK"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.appen.com/data-catalog/audio-catalogue/tc-star-male-baseline-voice-ian",
+          "publisher": "Appen",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Nuance"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "matrix.buyer_vetting",
+      "urls_tried": [
+        "https://www.appen.com/ots-datasets",
+        "https://www.appen.com/data-catalog",
+        "https://www.appen.com/legal-policies"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.erasure_after_sale",
+      "urls_tried": [
+        "https://www.appen.com/ots-datasets",
+        "https://www.appen.com/data-catalog",
+        "https://www.appen.com/legal-policies",
+        "https://www.appen.com/legal-policies/privacy-statement"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.exclusivity_offered",
+      "urls_tried": [
+        "https://www.appen.com/data-catalog",
+        "https://www.appen.com/data-catalog/tasks-verifiers/task-gdpval-001"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.versioning",
+      "urls_tried": [
+        "https://www.appen.com/data-catalog",
+        "https://www.appen.com/data-catalog/book-corpora/textbook-plasma-001-v1"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.human_subject_consent_docs",
+      "urls_tried": [
+        "https://www.appen.com/ots-datasets",
+        "https://www.appen.com/data-catalog",
+        "https://www.appen.com/data-catalog/image-video-sets/img-vid-selfie-us",
+        "https://www.appen.com/data-catalog/image-video-sets/human-body-vid003"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.contributor_pay_model",
+      "urls_tried": [
+        "https://crowdgen.com/",
+        "https://crowdgen.com/terms-of-service",
+        "https://help.crowdgen.com/s/topic/0TOTR0000005UK14AM/payments",
+        "https://www.appen.com/ac-terms-of-service",
+        "https://www.appen.com/blog/ai-ethics-how-fair-pay-benefits-our-crowd-contributors"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "questions.Q4",
+      "urls_tried": [
+        "https://www.appen.com/ots-datasets",
+        "https://www.appen.com/data-catalog",
+        "https://www.appen.com/legal-policies"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.buyer_licence_text",
+      "urls_tried": [
+        "https://www.appen.com/legal-policies",
+        "https://www.appen.com/ots-datasets",
+        "https://www.appen.com/data-catalog",
+        "https://www.appen.com/sitemap.xml"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.current_delivery_mechanics",
+      "urls_tried": [
+        "https://www.appen.com/ots-datasets",
+        "https://www.appen.com/data-catalog"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.crowdgen_payments_help",
+      "urls_tried": [
+        "https://help.crowdgen.com/s/topic/0TOTR0000005UK14AM/payments"
+      ],
+      "reason": "js_empty"
+    },
+    {
+      "field": "other.independent_press",
+      "urls_tried": [],
+      "reason": "not_found"
+    }
+  ],
+  "conflicts": [],
+  "leads": [
+    {
+      "url": "https://cdn.jsdelivr.net/gh/webtenn/datasets-index@main/datasets-index.json",
+      "why": "Machine-readable index behind Appen's catalog (596 items with source, licenceType, volume fields); useful for counts by source, but hosted in a web agency's repo, so not cited."
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/webtenn/datasets-index@main/quote-cart.js",
+      "why": "Client-side 'Request a Quote cart' on catalog pages; confirms quote-based buying but is script, not page text."
+    },
+    {
+      "url": "https://www.appen.com/data-catalog/other-sets/location-mobile-us",
+      "why": "Quadrant (an Appen company) mobile GPS location data sold via the same catalogue; relevant to non-media supply and consent questions."
+    },
+    {
+      "url": "https://www.appen.com/blog/payments-update",
+      "why": "Not fetched; may describe contributor payment mechanics."
+    },
+    {
+      "url": "https://www.appen.com/press-release/appen-announces-crowd-code-of-ethics-to-build-better-ai",
+      "why": "Not fetched; crowd code of ethics may speak to consent and pay."
+    },
+    {
+      "url": "https://www.appen.com/investors/annual-reports",
+      "why": "FY25 annual report not read; may quantify dataset revenue."
+    }
+  ]
+}

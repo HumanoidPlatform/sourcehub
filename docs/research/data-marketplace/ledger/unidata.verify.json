@@ -1,0 +1,540 @@
+{
+  "kind": "verify",
+  "slug": "unidata",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "unidata-c001",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "That a blog post is dated 28 Sep 2026 exists only on unidata.pro (blog index re-fetched 2026-10-01: newest post 'What Is the Open X-Embodiment Dataset?' dated 28.09.2026). Other-domain signals of operation are owner-authored: the Hugging Face API lists 98 UniDataPro datasets, newest lastModified 2026-09-15; Datarade shows a live Unidata provider profile with priced listings. No independent corporate event (funding, layoffs, acquisition) could be looked for: no search available; EDGAR full-text search for 'unidata.pro' and 'Unidata L.L.C' returns 0 hits; the Meydan Free Zone register (Unidata L.L.C-FZ, Dubai) was not reachable by navigation; LinkedIn needs login."
+    },
+    {
+      "claim_id": "unidata-c046",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No independent figure for total egocentric hours captured could be reached (no search available; press coverage of the Dubai egocentric launch not findable by navigation). The only other-domain figures are owner-authored and describe the listed product, not the running total: Datarade's 'Egocentric Video Dataset' listing and the Hugging Face card UniDataPro/egocentric-video both say 4,050 hours ($30,000 one-off on Datarade). The Datarade URL slug still reads '239-3-hours', so the listed size has grown over time. These do not contradict 10,255 hours captured to date, but nothing outside Unidata supports it."
+    },
+    {
+      "claim_id": "unidata-c036",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://gts.ai/dataset-download/latex-mask-attack-11100-videos/",
+        "publisher": "GTS.ai (Globose Technology Solutions Pvt Ltd)",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "This dataset is sourced from Kaggle"
+      },
+      "corrected_statement": null,
+      "note": "Found through gts.ai/dataset-download-sitemap.xml. The GTS page links the source as kaggle.com/datasets/unidatapro/latex-mask-attack, names no licence, and describes '11,100+ video recordings' (the full dataset's size, though what Kaggle carries is Unidata's sample). GTS relists other Unidata attack datasets the same way (silicone masks, 2D masks with eyeholes, printed 3D masks)."
+    },
+    {
+      "claim_id": "unidata-c002",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://datarade.ai/data-providers/unidata/profile",
+        "publisher": "Datarade",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "70+ ready-to-use datasets"
+      },
+      "corrected_statement": null,
+      "note": "Datarade's provider profile (text written by Unidata) and the UniDataPro Hugging Face organisation page ('provide 70+ datasets and custom data collection services across 19+ industries') repeat the vendor's figure. For comparison, the Hugging Face API lists 98 public UniDataPro sample datasets, and Datarade shows only 6 priced Unidata products. No independent count of the sellable catalogue exists."
+    },
+    {
+      "claim_id": "unidata-c008",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://datarade.ai/data-products/anti-spoofing-real-videos-dataset-87-340-files-for-facial-r-unidata",
+        "publisher": "Datarade",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "43,700 people"
+      },
+      "corrected_statement": null,
+      "note": "Unidata's own Datarade listing gives a rounded 43,700 people, with 87,340 videos and selfies from 170 countries, '2 files in a set' (87,340 / 2 = 43,670, consistent with the claim), priced at a $15,000 one-off purchase. The text is vendor-authored; no independent count exists. A GTS.ai relisting of an 'Anti-Spoofing Real' dataset gives older, different figures (44,832 files, 37,980 individuals), which shows the dataset keeps growing and a count is only true as of a date. The unidata.pro page for this product is titled '98,000 Images & Videos', which does not fit 43,670 people at 2 files each; see unidata-c034."
+    },
+    {
+      "claim_id": "unidata-c034",
+      "check": "blind",
+      "status": "disputed",
+      "independent_source": {
+        "url": "https://datarade.ai/data-products/anti-spoofing-real-videos-dataset-87-340-files-for-facial-r-unidata",
+        "publisher": "Datarade",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "The dataset contains 87,340 videos and selfies of faces from 170 countries"
+      },
+      "corrected_statement": null,
+      "note": "The same product is described differently on different pages. The Hugging Face card face-anti-spoofing and the unidata.pro page for it (H1 'Anti-Spoofing Real Videos Dataset', whose title reads '98,000 Images & Videos') say 98,000. Unidata's own Datarade listing of that product says 87,340 videos and selfies, 43,700 people and '2 files in a set'. The unidata.pro page's own 'People 43,670' figure also implies 87,340 files at two per person, not 98,000. The Hugging Face card also gives 179 countries lower down. All of these are vendor-authored, so nothing independent settles the number, but 98,000 is not consistent with the vendor's own people count. No search available."
+    },
+    {
+      "claim_id": "unidata-c028",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No relisting of the Kids and Teens Selfie dataset was found: it is not among Unidata's Datarade products (Datarade product search for it returns none), and the GTS.ai dataset sitemap has no kids or teens selfie page. The only source is Unidata's own Hugging Face card (UniDataPro/kids-and-teens-selfie-dataset, CC BY-NC-ND 4.0, last modified 2026-08-20), which is the claim's own source class. No search available."
+    },
+    {
+      "claim_id": "unidata-c019",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "An internal delivery-performance statistic that only Unidata could publish; it is also on the vendor's datasets page ('87% of datasets delivered in 3-10 days'). Unidata's Datarade listing for Selfie with ID does not repeat it and states no delivery time. Datarade buyer reviews speak of delivery only qualitatively (Fermatix AI: 'Everything was delivered as agreed and fully within scope'). Untested outcome claim."
+    },
+    {
+      "claim_id": "unidata-c021",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Marketing comparison with no stated basis; exists only on unidata.pro/datasets ('Up to 70% cheaper than in-house'). Neither Unidata's Datarade profile nor Prolific's Unidata case study repeats it. One Datarade buyer review (IdentifAI Labs) says the opposite in tone: 'Although the investment was significant'. Untested."
+    },
+    {
+      "claim_id": "unidata-c022",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://huggingface.co/datasets/UniDataPro/egocentric-video",
+        "publisher": "Unidata (on Hugging Face)",
+        "source_class": "docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "This is a limited preview of the data. To access the full dataset, please contact us"
+      },
+      "corrected_statement": null,
+      "note": "Same model restated by Unidata on another domain: Hugging Face cards are free previews, and the full data is sold separately. On Datarade, Unidata's listings offer only 'One-off purchase' (e.g. $15,000 for Anti-Spoofing Real Videos; monthly, yearly and usage-based licences 'Not available'), with the profile saying datasets run 'from $1,000 / purchase to $30,000 / purchase'. That the FAQ calls it 'dual licensing' is vendor wording only."
+    },
+    {
+      "claim_id": "unidata-c011",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://datarade.ai/data-products/selfie-with-id-dataset-69-435-images-for-re-identification-unidata",
+        "publisher": "Datarade",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "crowdsourcing platforms using a wide range of consumer smartphones"
+      },
+      "corrected_statement": null,
+      "note": "Unidata's Datarade listing for the same product (69,435 images of 4,629 people from 85 countries; $10,000 one-off) repeats the crowdsourcing statement. It is vendor-authored. Independent support that Unidata collects through a crowdsourcing platform in general (not this dataset specifically) comes from Prolific's case study; see unidata-c013. The Datarade profile words it as 'in-house production and managed crowdsourcing'."
+    },
+    {
+      "claim_id": "unidata-c013",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://www.prolific.com/resources/how-unidata-made-human-data-collection-for-ai-easy-fast-and-global",
+        "publisher": "Prolific",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Unidata chose Prolific after carefully evaluating partners"
+      },
+      "corrected_statement": null,
+      "note": "Found through prolific.com/sitemap.xml. Prolific's customer story (George Denison, 16 Dec 2025) quotes Alexander Voytovich, account executive manager at Unidata: 'Prolific has become our main tool for international data collection projects'. It describes the work as 'audio and images to video and text' and does not name any dataset, so it confirms that Unidata collects on Prolific, not that a given catalogue dataset came from there. It is a partner's marketing piece, so not a neutral audit."
+    },
+    {
+      "claim_id": "unidata-c017",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A delivery term in Unidata's own FAQ. Unidata's Datarade listings give no delivery time, only the delivery method 'S3 Bucket' and frequency 'on-demand' (egocentric listing)."
+    },
+    {
+      "claim_id": "unidata-c016",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The vendor's own description of its purchase flow. Nothing independent describes it beyond a Datarade buyer review (IdentifAI Labs) calling the procurement process 'seamless thanks to their customer service'. Datarade itself routes Unidata listings through its request flow, with 'One-off purchase' prices shown."
+    },
+    {
+      "claim_id": "unidata-c023",
+      "check": "blind",
+      "status": "corrected",
+      "independent_source": {
+        "url": "https://huggingface.co/datasets/UniDataPro/egocentric-video",
+        "publisher": "Unidata (on Hugging Face)",
+        "source_class": "docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "cc-by-nd-4.0"
+      },
+      "corrected_statement": "Unidata publishes most of its Hugging Face samples (93 of 98 on 2026-10-01) under CC BY-NC-ND 4.0, but five, including the egocentric-video sample, are under CC BY-ND 4.0, which does not forbid commercial use.",
+      "note": "Counted from the Hugging Face API (huggingface.co/api/datasets?author=UniDataPro&full=true, fetched 2026-10-01): 93 datasets tagged license:cc-by-nc-nd-4.0 and 5 tagged license:cc-by-nd-4.0 (medical-masks-image-dataset, men-hair-loss-dataset, poland-license-plate-dataset, age-difference-dataset, egocentric-video). This is the owner's own licence metadata on a host platform, not an independent source class, and the orchestrator should read it as such. It is also the same domain as the likely original source. The face datasets named in this ledger (Selfie-with-ID, face-anti-spoofing, latex-mask-attack, kids-and-teens-selfie-dataset) are all CC BY-NC-ND 4.0."
+    },
+    {
+      "claim_id": "unidata-c025",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The vendor's assertion about its own consent process. No release form or participant-facing text could be reached. The only other-domain wording is Unidata's own Datarade egocentric listing, which says less: 'All recordings were collected under informed consent from participants. The dataset complies with GDPR'. It mentions no commercial-use release. The Hugging Face egocentric card says nothing about consent. Prolific's Unidata case study does not mention consent or releases."
+    },
+    {
+      "claim_id": "unidata-c001",
+      "check": "scope",
+      "status": "scope_wrong",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The fact is right but the cited quote is not. The quote 'Robot Training Data: A Practical Guide to Collection, Annotation, and Pipelines' does not appear anywhere in unidata.pro/blog/ as fetched and downloaded on 2026-10-01. The post dated 28.09.2026 (time datetime 2026-09-28) is 'What Is the Open X-Embodiment Dataset?' (/blog/open-x-embodiment-dataset-guide/). Even if that title had been on the page, it carries no date, so it could not show a 28 September post. A working quote would be the post title plus '28.09.2026'."
+    },
+    {
+      "claim_id": "unidata-c046",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The post shows '24 July, 2026'. The figure '38,457 scenarios, 10,255 hours captured to date' sits in Unidata's own 'Notable Scale' row of a comparison table of egocentric providers that Unidata wrote. It is the running capture total, not the 4,050-hour catalogue product (c009)."
+    },
+    {
+      "claim_id": "unidata-c036",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote 'This dataset is sourced from Kaggle' shows the Kaggle credit but not that the dataset is Unidata's. That link is only in the page's source link, kaggle.com/datasets/unidatapro/latex-mask-attack, not in the visible text. The GTS page also describes '11,100+ video recordings', the full dataset's size, while what Kaggle carries is Unidata's sample; 'relists the sample' is an inference."
+    },
+    {
+      "claim_id": "unidata-c002",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "'70+ Datasets' sits in the ready-made datasets block ('Finance, IT, E-commerce, Retail, Healthcare and 14+ Industries'), so it refers to the catalogue. Note that the Hugging Face organisation lists 98 sample datasets."
+    },
+    {
+      "claim_id": "unidata-c008",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The page is the right product: unidata.pro/datasets/face-anti-spoofing/ has the H1 'Anti-Spoofing Real Videos Dataset'. But the bare quote '43,670' does not show what is counted; the page reads 'People 43,670'. The same page's title says '98,000 Images & Videos', which is inconsistent with it (see c034)."
+    },
+    {
+      "claim_id": "unidata-c034",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The card does say 'The dataset consists of 98,000 videos and selfies from 170 countries' and calls itself 'a limited preview of the data', so 98,000 refers to the full dataset. The number is disputed on the evidence (see the blind verdict), and the card elsewhere gives 179 countries."
+    },
+    {
+      "claim_id": "unidata-c028",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote matches the card: 'The dataset consists of 6,000 high-quality facial images from 300 people (children and teenagers)'. The card calls itself a limited preview, so this is the full dataset. The card makes no parental or guardian consent statement."
+    },
+    {
+      "claim_id": "unidata-c019",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The statement correctly says the listing claims this about 'datasets' in general. The phrase sits in a site-wide 'Why Companies Trust Unidata's Datasets' strip that is also on /datasets/. It is not a Selfie with ID delivery term, and should not be read as one."
+    },
+    {
+      "claim_id": "unidata-c021",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The context is 'Custom Dataset Solutions: No manual collection needed from your side; we handle everything. Up to 70% cheaper than in-house', so it is about custom collection, as stated."
+    },
+    {
+      "claim_id": "unidata-c022",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The FAQ on the Anti-Spoofing Real Videos page begins 'Unidata datasets follow a dual licensing model', so it is a general statement, not specific to one listing."
+    },
+    {
+      "claim_id": "unidata-c011",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote is under 'Technical Characteristics' of the Selfie with ID listing: 'Source and collection methodology: Data was collected via crowdsourcing platforms.'"
+    },
+    {
+      "claim_id": "unidata-c013",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote is under the /datasets/ heading 'Trusted Data Collection' and goes on '...allows customizations by gender, age, location, or professional background, while ensuring participant consent ... aligns precisely with client requirements'. It is a general statement about how Unidata collects, leaning to client projects; it is not tied to any one catalogue dataset. It supports own_collection via a crowd platform and says nothing more specific."
+    },
+    {
+      "claim_id": "unidata-c017",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The FAQ on the Anti-Spoofing Real Videos page reads 'After signing and payment, the dataset will be delivered within 3-10 days'. It is quoted from one listing's FAQ; the statement's generic wording ('the dataset') fits that FAQ."
+    },
+    {
+      "claim_id": "unidata-c016",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote matches the FAQ: 'Once you submit a request, we will reach out to review the details and complete the necessary documents.'"
+    },
+    {
+      "claim_id": "unidata-c023",
+      "check": "scope",
+      "status": "scope_wrong",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The claim's scope names one card (face-anti-spoofing), which is CC BY-NC-ND 4.0, but the statement generalises to all of Unidata's Hugging Face samples. On 2026-10-01 the Hugging Face API showed 93 of 98 UniDataPro datasets tagged cc-by-nc-nd-4.0 and 5 tagged cc-by-nd-4.0, including egocentric-video, which does not bar commercial use. The matrix note for licence_model ('Free samples under CC BY-NC-ND 4.0') inherits the overgeneralisation."
+    },
+    {
+      "claim_id": "unidata-c025",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote is in the FAQ of the egocentric collection page: 'Every participant signs a commercial-use release before recording. Faces, voices, and home interiors are cleared for use'. It is a vendor assertion with nothing about giving releases to buyers, which fits human_subject_consent_docs = asserted_only. Unidata's own Datarade egocentric listing says only 'informed consent'."
+    }
+  ],
+  "missed": [
+    {
+      "id": "unidata-v001",
+      "statement": "Unidata lists its datasets on Datarade, a third-party data marketplace, where the profile states a price range of $1,000 to $30,000 per one-off purchase.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q2",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Unidata provider profile on Datarade",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 30000,
+        "unit": "USD per dataset purchase (upper end; lower end 1,000)",
+        "basis": "buyer pays; one-off licence purchase; listing prices set by Unidata",
+        "period": "one-off"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datarade.ai/data-providers/unidata/profile",
+          "publisher": "Datarade",
+          "source_class": "third_party_docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Unidata's APIs and datasets range in cost from $1,000 / purchase to $30,000 / purchase"
+        }
+      ]
+    },
+    {
+      "id": "unidata-v002",
+      "statement": "On Datarade, Unidata's Anti-Spoofing Real Videos Dataset is priced at $15,000 as a one-off purchase, with monthly and yearly licences not available.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Anti-Spoofing Real Videos Dataset (Datarade listing)",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 15000,
+        "unit": "USD",
+        "basis": "buyer pays; one-off purchase of the full dataset; price set by Unidata",
+        "period": "one-off"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datarade.ai/data-products/anti-spoofing-real-videos-dataset-87-340-files-for-facial-r-unidata",
+          "publisher": "Datarade",
+          "source_class": "third_party_docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "One-off purchase $15,000 / purchase"
+        }
+      ]
+    },
+    {
+      "id": "unidata-v003",
+      "statement": "On Datarade, Unidata's Egocentric Video Dataset (4,050 hours) is priced at $30,000 as a one-off purchase and delivered by S3 bucket.",
+      "kind": "number",
+      "section": "custody",
+      "question_ids": [
+        "Q6",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Egocentric Video Dataset (Datarade listing)",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 30000,
+        "unit": "USD",
+        "basis": "buyer pays; one-off purchase; price set by Unidata",
+        "period": "one-off"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datarade.ai/data-products/egocentric-video-dataset-239-3-hours-for-egocentric-action-unidata",
+          "publisher": "Datarade",
+          "source_class": "third_party_docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "$30,000 / purchase"
+        },
+        {
+          "url": "https://datarade.ai/data-products/egocentric-video-dataset-239-3-hours-for-egocentric-action-unidata",
+          "publisher": "Datarade",
+          "source_class": "third_party_docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "S3 Bucket"
+        }
+      ]
+    },
+    {
+      "id": "unidata-v004",
+      "statement": "Datarade's review section for Unidata carries a review from a DFRobot buyer who says it purchased a dataset of 50,000 licence plates.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Datarade buyer reviews",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "independent",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datarade.ai/data-providers/unidata/profile",
+          "publisher": "Datarade",
+          "source_class": "third_party_docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We purchased a dataset of 50,000 license plates from around the world"
+        }
+      ]
+    },
+    {
+      "id": "unidata-v005",
+      "statement": "Datarade's review section for Unidata lists a reviewer from Shaip, itself an AI training-data vendor, so at least one of Unidata's buyers is a competing data supplier.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "Datarade buyer reviews",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "independent",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datarade.ai/data-providers/unidata/profile",
+          "publisher": "Datarade",
+          "source_class": "third_party_docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "A. N. Shaip"
+        },
+        {
+          "url": "https://www.shaip.com/",
+          "publisher": "Shaip",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Collect, annotate, license, and evaluate multimodal data"
+        }
+      ]
+    },
+    {
+      "id": "unidata-v006",
+      "statement": "Prolific's customer story on Unidata (16 December 2025) quotes a Unidata manager saying Prolific has become Unidata's main tool for international data collection.",
+      "kind": "outcome",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "independent",
+      "as_of": "2025-12-16",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.prolific.com/resources/how-unidata-made-human-data-collection-for-ai-easy-fast-and-global",
+          "publisher": "Prolific",
+          "source_class": "third_party_docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Prolific has become our main tool for international data collection projects"
+        }
+      ]
+    }
+  ]
+}

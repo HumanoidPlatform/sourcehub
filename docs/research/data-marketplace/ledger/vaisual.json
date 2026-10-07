@@ -1,0 +1,2469 @@
+{
+  "kind": "profile",
+  "slug": "vaisual",
+  "name": "vAIsual",
+  "aliases": [
+    "Dataset Shop",
+    "DataSet Shop",
+    "vAIsual, Inc."
+  ],
+  "segment": "priced_catalogue",
+  "tier": "light",
+  "status": {
+    "value": "active",
+    "claim_id": "vaisual-c001"
+  },
+  "names_for": {
+    "catalogue_side": "Ready Made Datasets (vaisual.com); pre-made dataset products in the Dataset Shop",
+    "custom_side": "custom datasets you create (Create Dataset in the shop); customization work and custom shoots via Request A Quote (vaisual.com)"
+  },
+  "matrix": {
+    "operator_role": {
+      "value": "reseller_licensor",
+      "claim_ids": [
+        "vaisual-c007",
+        "vaisual-c004",
+        "vaisual-c021",
+        "vaisual-c022"
+      ],
+      "note": "vAIsual, Inc. grants the licence itself, including for collections licensed in from third parties such as Panther Media."
+    },
+    "economics_model": {
+      "value": "mixed",
+      "claim_ids": [
+        "vaisual-c021",
+        "vaisual-c026",
+        "vaisual-c023"
+      ],
+      "note": "Principal margin on its own shoots; licensed-in third-party collections are paid by a royalty share on sales (percentage not published)."
+    },
+    "who_pays_fee": {
+      "value": "not_applicable",
+      "claim_ids": [],
+      "note": "No marketplace fee: vAIsual sells as licensor at its own list prices."
+    },
+    "supply_models": {
+      "value": [
+        "own_collection",
+        "partner_licensed"
+      ],
+      "claim_ids": [
+        "vaisual-c021",
+        "vaisual-c033",
+        "vaisual-c022",
+        "vaisual-c023",
+        "vaisual-c025",
+        "vaisual-c026"
+      ],
+      "note": "Own biometric shoots plus collections licensed in from stock agencies and content owners (Panther Media, Wirestock.io)."
+    },
+    "custody_model": {
+      "value": "copy_to_buyer",
+      "claim_ids": [
+        "vaisual-c054",
+        "vaisual-c055"
+      ],
+      "note": "Buyer downloads the dataset: within 30 days of a one-time purchase, up to three downloads a month."
+    },
+    "transaction_mode": {
+      "value": "both",
+      "claim_ids": [
+        "vaisual-c051",
+        "vaisual-c052",
+        "vaisual-c050",
+        "vaisual-c068"
+      ],
+      "note": "Listed resolutions are bought through a Purchase flow; full resolution and custom work go through contact / quote."
+    },
+    "public_prices": {
+      "value": "some",
+      "claim_ids": [
+        "vaisual-c042",
+        "vaisual-c044",
+        "vaisual-c047",
+        "vaisual-c049",
+        "vaisual-c050"
+      ],
+      "note": "Per-image grid and per-listing prices are public; some tiers (full resolution on some listings) are contact-only."
+    },
+    "licence_model": {
+      "value": "tiered_standard",
+      "claim_ids": [
+        "vaisual-c016",
+        "vaisual-c015",
+        "vaisual-c043",
+        "vaisual-c057",
+        "vaisual-c056"
+      ],
+      "note": "Standard vs Extended (generative visual synthetic media), each as one-time purchase or annual subscription, plus a RAIL for models."
+    },
+    "exclusivity_offered": {
+      "value": "unknown",
+      "claim_ids": [
+        "vaisual-c007",
+        "vaisual-c066"
+      ],
+      "note": "Listed datasets are licensed non-exclusively under the published EULA; exclusive material is mentioned only for custom shoots. Whether a listed dataset can be bought exclusively is not published."
+    },
+    "public_listing": {
+      "value": "public_indexable",
+      "claim_ids": [
+        "vaisual-c047",
+        "vaisual-c049",
+        "vaisual-c035"
+      ],
+      "note": "Listings with prices, licence options, sample thumbnails and model release PDFs were readable without login."
+    },
+    "buyer_vetting": {
+      "value": "account_only",
+      "claim_ids": [
+        "vaisual-c020",
+        "vaisual-c019"
+      ],
+      "note": "Account required and approved at vAIsual's discretion; UK entities and Russia treated as restricted by FAQ."
+    },
+    "sample_mechanics": {
+      "value": "free_sample_download",
+      "claim_ids": [
+        "vaisual-c060",
+        "vaisual-c061"
+      ],
+      "note": "About 10 sample images per dataset; whether download needs a login was not tested (no sign-ups)."
+    },
+    "versioning": {
+      "value": "mutable_latest",
+      "claim_ids": [
+        "vaisual-c056",
+        "vaisual-c057"
+      ],
+      "note": "A listing is a growing dataset: subscribers receive monthly additions, one-time buyers keep the snapshot; no version numbers seen."
+    },
+    "human_subject_consent_docs": {
+      "value": "provided_to_buyer",
+      "claim_ids": [
+        "vaisual-c034",
+        "vaisual-c035",
+        "vaisual-c033",
+        "vaisual-c040"
+      ],
+      "note": "The blank release template (adult and minor, V7) is downloadable from the listing; individual signed releases are not shown to buyers."
+    },
+    "contributor_pay_model": {
+      "value": "mixed",
+      "claim_ids": [
+        "vaisual-c037",
+        "vaisual-c038",
+        "vaisual-c026"
+      ],
+      "note": "Depicted models are paid a fee at the shoot and waive further payment; content owners who supply collections get a royalty share per sale."
+    },
+    "catalogue_plus_custom": {
+      "value": "both",
+      "claim_ids": [
+        "vaisual-c067",
+        "vaisual-c064",
+        "vaisual-c065",
+        "vaisual-c058"
+      ],
+      "note": ""
+    },
+    "erasure_after_sale": {
+      "value": "contractual_deletion",
+      "claim_ids": [
+        "vaisual-c012",
+        "vaisual-c039"
+      ],
+      "note": "Buyers must delete on EULA termination; no clause found obliging buyers to delete images when a model withdraws consent (the release obliges only vAIsual)."
+    },
+    "quality_evidence": {
+      "value": "operator_verified",
+      "claim_ids": [
+        "vaisual-c029",
+        "vaisual-c062"
+      ],
+      "note": "vAIsual reviews supplied files before inclusion and writes the listing itself, including a metadata tolerance caveat; no third-party quality evidence."
+    }
+  },
+  "questions": {
+    "Q1": {
+      "state": "partial",
+      "answer": "The shop targets ML developers, data scientists and AI researchers and charges per dataset, priced per image by resolution and use; it treats UK entities as a risk. No buyer counts, volumes or reasons for buying off-the-shelf were found.",
+      "claim_ids": [
+        "vaisual-c063",
+        "vaisual-c053",
+        "vaisual-c041",
+        "vaisual-c019"
+      ]
+    },
+    "Q2": {
+      "state": "partial",
+      "answer": "Content owners and agencies hand collections to vAIsual, which reviews, packages and sells them for a royalty share; Wirestock framed it as a new way for its contributors to monetise. No provider-side comparison with building its own store was found.",
+      "claim_ids": [
+        "vaisual-c025",
+        "vaisual-c026",
+        "vaisual-c029",
+        "vaisual-c024"
+      ]
+    },
+    "Q3": {
+      "state": "sourced",
+      "answer": "Inventory is vAIsual's own consented biometric shoots plus collections licensed in from stock agencies and content owners (Panther Media, Wirestock), who must hold releases and rights.",
+      "claim_ids": [
+        "vaisual-c021",
+        "vaisual-c033",
+        "vaisual-c022",
+        "vaisual-c023",
+        "vaisual-c026",
+        "vaisual-c030"
+      ]
+    },
+    "Q4": {
+      "state": "partial",
+      "answer": "The supplier guide warns that work shot for a commercial client may belong to the client and so cannot be licensed. No case of relisting commissioned custom work or of retroactive term changes was found.",
+      "claim_ids": [
+        "vaisual-c031"
+      ]
+    },
+    "Q5": {
+      "state": "sourced",
+      "answer": "vAIsual, Inc. is licensor of record under a Delaware-law EULA, indemnifies buyers against IP infringement claims and caps liability at fees paid; the EULA itself contains no consent warranty.",
+      "claim_ids": [
+        "vaisual-c004",
+        "vaisual-c007",
+        "vaisual-c008",
+        "vaisual-c009"
+      ]
+    },
+    "Q6": {
+      "state": "sourced",
+      "answer": "Buyers download a copy: within 30 days of a one-time purchase and up to three downloads a month.",
+      "claim_ids": [
+        "vaisual-c054",
+        "vaisual-c055"
+      ]
+    },
+    "Q7": {
+      "state": "partial",
+      "answer": "Depicted people sign a biometric release licensable to third parties, can withdraw (repaying fees within 2 years) and withdrawal means deletion by vAIsual; suppliers must hold releases and agencies are told to get contributor opt-in. Property and landmark clearance is only flagged.",
+      "claim_ids": [
+        "vaisual-c033",
+        "vaisual-c036",
+        "vaisual-c038",
+        "vaisual-c039",
+        "vaisual-c030",
+        "vaisual-c032"
+      ]
+    },
+    "Q8": {
+      "state": "sourced",
+      "answer": "Non-exclusive, non-transferable licence with no publication, audit on 10 days' notice, and deletion plus a signed Data Deletion Acknowledgement on termination; generative use needs the Extended licence. No fingerprinting or watermarking was found.",
+      "claim_ids": [
+        "vaisual-c007",
+        "vaisual-c018",
+        "vaisual-c013",
+        "vaisual-c012",
+        "vaisual-c011",
+        "vaisual-c015"
+      ]
+    },
+    "Q9": {
+      "state": "sourced",
+      "answer": "Self-serve purchase via Stripe (card or bank transfer) at published prices, with contact for full resolution and a quote for custom work; vAIsual owns or licenses in the inventory and pays suppliers a royalty share.",
+      "claim_ids": [
+        "vaisual-c051",
+        "vaisual-c052",
+        "vaisual-c042",
+        "vaisual-c050",
+        "vaisual-c068",
+        "vaisual-c026"
+      ]
+    },
+    "Q10": {
+      "state": "partial",
+      "answer": "A listing is a dataset sold per resolution under one-time (snapshot, perpetual) or subscription (monthly additions) terms; custom compiled datasets have no subscription. No revision numbers or withdrawal policy for past buyers were found.",
+      "claim_ids": [
+        "vaisual-c057",
+        "vaisual-c056",
+        "vaisual-c014",
+        "vaisual-c058",
+        "vaisual-c045"
+      ]
+    },
+    "Q11": {
+      "state": "sourced",
+      "answer": "Buyers see free 10-image samples, thumbnails, demographic breakdowns and the model release template, and the listing states metadata tolerance; vAIsual reviews supplier files before inclusion.",
+      "claim_ids": [
+        "vaisual-c060",
+        "vaisual-c061",
+        "vaisual-c035",
+        "vaisual-c062",
+        "vaisual-c029"
+      ]
+    },
+    "Q12": {
+      "state": "sourced",
+      "answer": "The off-the-shelf side is 'Ready Made Datasets' / pre-made products in the Dataset Shop, where buyers can also compile custom datasets; bespoke shoots and customization go through a quote, with exclusivity priced in.",
+      "claim_ids": [
+        "vaisual-c067",
+        "vaisual-c059",
+        "vaisual-c058",
+        "vaisual-c064",
+        "vaisual-c065",
+        "vaisual-c066"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "vaisual-c001",
+      "statement": "The DataSet Shop site (datasetshop.com) was live on 2026-10-01 and inviting visitors to register an account to compile their own dataset.",
+      "kind": "status",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "DataSet Shop",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/create",
+          "publisher": "vAIsual",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "It's fast to create an account so you can compile your own dataset. No credit card needed at this point."
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c002",
+      "statement": "The newest dated item in the DataSet Shop news index is 20 March 2024, announcing that vAIsual was selected for the Google for Startups Cloud Program.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2024-03-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/news",
+          "publisher": "vAIsual",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "vAIsual Selected for Google for Startups Cloud Program"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c003",
+      "statement": "vAIsual's 20 March 2024 announcement says it was accepted into the Google for Startups Cloud Program.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2024-03-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/read/vaisual-selected-for-google-for-startups-cloud-program",
+          "publisher": "vAIsual",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "vAIsual is delighted to announce its acceptance into the Google for Startups Cloud Program."
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c004",
+      "statement": "The DataSet Shop terms of service name vAIsual, Inc. and its affiliates vAIsual Ltd. and vAIsual kft. as the operator.",
+      "kind": "terms",
+      "section": "positioning",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "DataSet Shop terms of service",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2023-09-05",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/terms",
+          "publisher": "vAIsual",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "vAIsual, Inc. and its affiliates, including vAIsual Ltd. and vAIsual kft."
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c005",
+      "statement": "The DataSet Shop terms of service were last updated on 5 September 2023.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "DataSet Shop terms of service",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2023-09-05",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/terms",
+          "publisher": "vAIsual",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "These Terms of Service were last updated on September 5, 2023"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c006",
+      "statement": "The vaisual.com terms and conditions were last updated on 3 November 2023.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "vaisual.com terms and conditions",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2023-11-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://vaisual.com/terms-conditions/",
+          "publisher": "vAIsual",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The Terms and Conditions were last updated on November 3, 2023"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c007",
+      "statement": "vAIsual's standard dataset EULA has vAIsual, Inc. itself grant the end user a non-exclusive, non-sublicensable, non-transferable, revocable licence to the dataset.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Dataset Standard License (One-Time Purchase)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/standard-license-one-time-purchase",
+          "publisher": "vAIsual",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "non-exclusive, non-sublicenseable and non-transferable, limited, revocable license to use the Dataset"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c008",
+      "statement": "vAIsual's standard dataset EULA commits vAIsual to defend and indemnify the end user against third-party claims that the dataset infringes.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Dataset Standard License (One-Time Purchase)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/standard-license-one-time-purchase",
+          "publisher": "vAIsual",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "vAIsual will defend and indemnify End User for a claim by an unaffiliated third party that the Dataset infringes"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c009",
+      "statement": "vAIsual's standard dataset EULA caps vAIsual's liability at the fees the end user paid for the products at issue.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Dataset Standard License (One-Time Purchase)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/standard-license-one-time-purchase",
+          "publisher": "vAIsual",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "MAXIMUM LIABILITY FOR ANY CLAIM ARISING IN CONNECTION WITH THIS EULA WILL NOT EXCEED THE FEES YOU HAVE PAID"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c010",
+      "statement": "vAIsual's standard dataset EULA says AI models trained on the datasets remain the sole property of the end user.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Dataset Standard License (One-Time Purchase)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/standard-license-one-time-purchase",
+          "publisher": "vAIsual",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All generated and trained AI models resulting of the use of Datasets remain the sole property of the End User"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c011",
+      "statement": "vAIsual's standard dataset EULA excludes use of the dataset to create synthetic media.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Dataset Standard License (One-Time Purchase)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/standard-license-one-time-purchase",
+          "publisher": "vAIsual",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "such use shall not extend to the creation of Synthetic Media"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c012",
+      "statement": "vAIsual's standard dataset EULA requires the end user, on termination, to irrecoverably delete the dataset and sign a Data Deletion Acknowledgement.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Dataset Standard License (One-Time Purchase)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/standard-license-one-time-purchase",
+          "publisher": "vAIsual",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "End User will irrecoverably delete the Dataset and End User will be required to execute a Data Deletion Acknowledgement"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c013",
+      "statement": "vAIsual's standard dataset EULA lets vAIsual audit the end user on at least 10 days' notice.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Dataset Standard License (One-Time Purchase)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/standard-license-one-time-purchase",
+          "publisher": "vAIsual",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "vAIsual may perform such Audits upon provision of at least 10 days advance notice to End User"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c014",
+      "statement": "vAIsual's one-time-purchase standard EULA lets the end user use the dataset without time limitation once paid.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Dataset Standard License (One-Time Purchase)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/standard-license-one-time-purchase",
+          "publisher": "vAIsual",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "End User may use the Dataset upon completion of the payment process without time limitation."
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c015",
+      "statement": "The DataSet Shop licence page offers a Dataset Extended License for using datasets to train generative AI models for visual synthetic media.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Dataset Extended License",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/license",
+          "publisher": "vAIsual",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Purchasing for the use of the datasets for generative AI models for visual synthetic media."
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c016",
+      "statement": "On the Complete People Dataset listing, the Standard License covers all AI training except generative AI models for visual synthetic media.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Complete People Dataset",
+        "tier": "Standard License",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/datasets/fullpeoplebiometricset",
+          "publisher": "vAIsual",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All AI training except generative AI models for visual synthetic media"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c017",
+      "statement": "The DataSet Shop licence page also lists a Models and Checkpoints Commercial RAIL licence for AI models and checkpoints.",
+      "kind": "offer",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Models and Checkpoints Commercial RAIL",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/license",
+          "publisher": "vAIsual",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Responsible AI License (RAIL) for AI models and checkpoints for rights managed generative purposes."
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c018",
+      "statement": "The DataSet Shop FAQ says publishing a purchased dataset or transferring it to a third party is not allowed.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/faq",
+          "publisher": "vAIsual",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Any publishing of the dataset or any transfer to a third party is not allowed."
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c019",
+      "statement": "The DataSet Shop FAQ says it treats selling datasets to UK entities as a risk because of UK data-scraping laws, and observes trade embargoes on Russia.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": "UK; Russia"
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/faq",
+          "publisher": "vAIsual",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the sweeping laws allowing data scraping in the UK presents a risk in selling datasets to UK entities"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c020",
+      "statement": "The DataSet Shop terms of service say approval of an account request is at vAIsual's sole discretion.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [],
+      "scope": {
+        "product": "DataSet Shop terms of service",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2023-09-05",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/terms",
+          "publisher": "vAIsual",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Approval of any request to establish an account will be at our sole discretion."
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c021",
+      "statement": "The DataSet Shop FAQ says its datasets are either fully owned by vAIsual Inc or licensed from third-party providers.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "DataSet Shop",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/faq",
+          "publisher": "vAIsual",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "either fully-owned by vAIsual Inc, or have been acquired under a legal license from third party providers"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c022",
+      "statement": "The DataSet Shop lists a Panther Media Collection whose images it says are legally obtained and licensed.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Panther Media Collection",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/datasets/panthermedia-collection-dataset",
+          "publisher": "vAIsual",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All images within the Panther Media Collection are legally obtained and licensed"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c023",
+      "statement": "vAIsual announced on 2 August 2023 that Wirestock.io would license images, illustrations and videos to companies training machine learning algorithms through the partnership.",
+      "kind": "event",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Wirestock.io partnership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2023-08-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/read/vaisual-and-wirestock-io-partner-to-offer-9-million-commercial-stock-images-and-video-for-ai-training",
+          "publisher": "vAIsual",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "will be licensing images, illustrations and videos to companies training machine learning algorithms"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c024",
+      "statement": "The Wirestock.io announcement quotes Wirestock as saying the partnership gives its contributors a new way to monetize their content.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "Wirestock.io partnership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2023-08-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/read/vaisual-and-wirestock-io-partner-to-offer-9-million-commercial-stock-images-and-video-for-ai-training",
+          "publisher": "vAIsual",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Partnering with vAIsual not only provides a fresh and promising way for our contributors to monetize their content"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c025",
+      "statement": "The vaisual.com FAQ says vAIsual partners with many contributors to ingest their data and license it to AI training customers.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q2",
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://vaisual.com/faq/",
+          "publisher": "vAIsual",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "we are partnering with many contributors to injest their data and license it to customers seeking AI training data."
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c026",
+      "statement": "vAIsual's content-owner guide says suppliers receive a royalty share of payments according to the quantity of their media in each dataset sold.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q2",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Content-owner guide (DataSet Shop docs)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2023-03-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/doc/top-10-steps-to-prepare-your-image-collection-into-machine-learning-datasets",
+          "publisher": "vAIsual",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you will receive a royalty share from payments according to the quantity of media included in the dataset."
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c027",
+      "statement": "vAIsual's content-owner guide says suppliers are paid automatically at the end of each month.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Content-owner guide (DataSet Shop docs)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2023-03-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/doc/top-10-steps-to-prepare-your-image-collection-into-machine-learning-datasets",
+          "publisher": "vAIsual",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You will receive automatic payments at the end of each month to the account provided."
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c028",
+      "statement": "vAIsual's content-owner guide sets a minimum of 1,000 images for a supplied collection.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Content-owner guide (DataSet Shop docs)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2023-03-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/doc/top-10-steps-to-prepare-your-image-collection-into-machine-learning-datasets",
+          "publisher": "vAIsual",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Our minimum requirement is 1000 images."
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c029",
+      "statement": "vAIsual's content-owner guide says uploaded files go through a review and the supplier receives a final selection with reasons for exclusions.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Content-owner guide (DataSet Shop docs)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2023-03-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/doc/top-10-steps-to-prepare-your-image-collection-into-machine-learning-datasets",
+          "publisher": "vAIsual",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "There is a review process once you upload your files, and we will provide you with a final selection"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c030",
+      "statement": "vAIsual's content-owner guide requires a signed biometric model release for personally identifiable people in supplied images or videos.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Content-owner guide (DataSet Shop docs)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2023-03-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/doc/top-10-steps-to-prepare-your-image-collection-into-machine-learning-datasets",
+          "publisher": "vAIsual",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "people in them who can be identified personally, then you need to have a biometric model release signed"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c031",
+      "statement": "vAIsual's content-owner guide warns that a creator may lack the rights to license work done on a commercial shoot where the client owns the rights.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "Content-owner guide (DataSet Shop docs)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2023-03-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/doc/top-10-steps-to-prepare-your-image-collection-into-machine-learning-datasets",
+          "publisher": "vAIsual",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "unless you were undertaking the work for a commercial shoot and the client owns the rights."
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c032",
+      "statement": "vAIsual's content-owner guide recommends that agencies get opt-in permission from their contributors to sell their content for AI training.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Content-owner guide (DataSet Shop docs)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2023-03-14",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/doc/top-10-steps-to-prepare-your-image-collection-into-machine-learning-datasets",
+          "publisher": "vAIsual",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "we recommend getting opt-in permission from your contributors to sell their content for AI training."
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c033",
+      "statement": "The DataSet Shop FAQ says all of vAIsual's real-life models must sign GDPR-compliant model releases.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/faq",
+          "publisher": "vAIsual",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All of our real-life models are required to sign GDPR compliant model releases."
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c034",
+      "statement": "The DataSet Shop FAQ says the relevant model release can be found on each dataset product page.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/faq",
+          "publisher": "vAIsual",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Please find the relevant model release on the dataset product page."
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c035",
+      "statement": "The Complete People Dataset listing offers two model release PDFs for download, an adult release and a minor release, both version 7.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Complete People Dataset",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/datasets/fullpeoplebiometricset",
+          "publisher": "vAIsual",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "VaisualRelease_Adult_V7.pdf"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c036",
+      "statement": "vAIsual's adult biometric model release grants rights to license the content and its derivatives to third parties for machine learning.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "vAIsual biometric model release (adult, V7)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/attachments/fullpeoplebiometricset/b598a3f9e53342e09989e3d26614be6d",
+          "publisher": "vAIsual",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "license the content and its derivatives to Third parties to do the same"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c037",
+      "statement": "In vAIsual's adult biometric model release the model waives any additional money or consideration for any use of the content.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "vAIsual biometric model release (adult, V7)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/attachments/fullpeoplebiometricset/b598a3f9e53342e09989e3d26614be6d",
+          "publisher": "vAIsual",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "any additional money or consideration for any use of the content"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c038",
+      "statement": "vAIsual's adult biometric model release requires a model who withdraws consent within 2 years of the shoot to repay all fees received.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "vAIsual biometric model release (adult, V7)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/attachments/fullpeoplebiometricset/b598a3f9e53342e09989e3d26614be6d",
+          "publisher": "vAIsual",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "within 2 years from the day of creation of the Content I agree to repay all fees that I received from the Photographer"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c039",
+      "statement": "vAIsual's adult biometric model release treats a withdrawal of consent as a request for deletion of the model's data.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "vAIsual biometric model release (adult, V7)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/attachments/fullpeoplebiometricset/b598a3f9e53342e09989e3d26614be6d",
+          "publisher": "vAIsual",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "withdrawal shall be also interpreted as a request for deletion"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c040",
+      "statement": "The vaisual.com FAQ says vAIsual can provide comprehensive reporting on the licensing, data collection and privacy compliance of its datasets.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://vaisual.com/faq/",
+          "publisher": "vAIsual",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "we are able to provide comprensive reporting on the licensing, data collection and privacy compliance of our datasets."
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c041",
+      "statement": "The DataSet Shop publishes a per-image price grid by resolution for AI training other than generative models for visual synthetic media.",
+      "kind": "offer",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/pricing",
+          "publisher": "vAIsual",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "per image price for any AI training exercise (excluding generative AI models for visual synthetic media)"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c042",
+      "statement": "The DataSet Shop standard price table's single-image row reads USD 0.005, 0.02, 0.03, 0.04, 0.05 and 0.075 for 128px to 4K, and 1.000 at full resolution.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Standard pricing table",
+        "tier": "Standard (non-generative) use",
+        "region": ""
+      },
+      "value": {
+        "num": 0.04,
+        "unit": "USD per image",
+        "basis": "list price paid by buyer at 1024px long edge, standard (non-generative) use; linear in quantity",
+        "period": "one-off"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/pricing",
+          "publisher": "vAIsual",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "1 | 0.005 | 0.02 | 0.03 | 0.04 | 0.05 | 0.075 | 1.000"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c043",
+      "statement": "The DataSet Shop applies a separate synthetic media price table when datasets are used to train models for visual synthetic media generation.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q8",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Synthetic Media Pricing Table",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/pricing",
+          "publisher": "vAIsual",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If you plan to use the datasets to train models for visual synthetic media generation."
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c044",
+      "statement": "The DataSet Shop synthetic media price table's single-image row reads USD 0.3, 0.4, 0.5, 0.75, 1, 1.25 and 1.5 for 128px to full resolution.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q8",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Synthetic Media Pricing Table",
+        "tier": "Extended (generative) use",
+        "region": ""
+      },
+      "value": {
+        "num": 0.75,
+        "unit": "USD per image",
+        "basis": "list price paid by buyer at 1024px for generative visual synthetic media use",
+        "period": "one-off"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/pricing",
+          "publisher": "vAIsual",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "1 | 0.3 | 0.4 | 0.5 | 0.75 | 1 | 1.25 | 1.5"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c045",
+      "statement": "The DataSet Shop annual subscription costs 50% of the initial one-time price.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Annual subscription",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 50,
+        "unit": "percent of one-time price",
+        "basis": "paid by buyer per year, as a share of the dataset's one-time list price",
+        "period": "per year"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/pricing",
+          "publisher": "vAIsual",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The cost of the annual subscription is 50% of the initial one-time price."
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c046",
+      "statement": "The DataSet Shop offers the first subscription year at 30% of the initial one-time price.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Annual subscription",
+        "tier": "First year",
+        "region": ""
+      },
+      "value": {
+        "num": 30,
+        "unit": "percent of one-time price",
+        "basis": "paid by buyer for the first subscription year, as a share of the one-time list price",
+        "period": "per year"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/pricing",
+          "publisher": "vAIsual",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The first year is offered at a discounted rate of 30% of the initial one-time price."
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c047",
+      "statement": "The Complete People Dataset listing prices the 128px version at USD 1,999.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Complete People Dataset",
+        "tier": "128px",
+        "region": ""
+      },
+      "value": {
+        "num": 1999,
+        "unit": "USD per dataset",
+        "basis": "list price paid by buyer for the whole dataset at 128px; licence and subscription option shown separately",
+        "period": "one-off"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/datasets/fullpeoplebiometricset",
+          "publisher": "vAIsual",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "128px $1,999"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c048",
+      "statement": "The Complete People Dataset listing prices the 4K version at USD 29,000.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Complete People Dataset",
+        "tier": "4K",
+        "region": ""
+      },
+      "value": {
+        "num": 29000,
+        "unit": "USD per dataset",
+        "basis": "list price paid by buyer for the whole dataset at 4K; licence and subscription option shown separately",
+        "period": "one-off"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/datasets/fullpeoplebiometricset",
+          "publisher": "vAIsual",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "4K $29,000"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c049",
+      "statement": "The Panther Media Collection listing prices the 1920px version at USD 10,000.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Panther Media Collection",
+        "tier": "1920px",
+        "region": ""
+      },
+      "value": {
+        "num": 10000,
+        "unit": "USD per dataset",
+        "basis": "list price paid by buyer for the whole collection at 1920px, standard licence",
+        "period": "one-off"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/datasets/panthermedia-collection-dataset",
+          "publisher": "vAIsual",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "1920px $10,000"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c050",
+      "statement": "The Panther Media Collection listing shows no price for full resolution and asks the buyer to make contact instead.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Panther Media Collection",
+        "tier": "Full resolution",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/datasets/panthermedia-collection-dataset",
+          "publisher": "vAIsual",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Full Resolution Contact"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c051",
+      "statement": "DataSet Shop buyers can pay by credit card or bank transfer.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/pricing",
+          "publisher": "vAIsual",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You can choose to pay via credit card or bank transfer."
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c052",
+      "statement": "The DataSet Shop terms of service name Stripe, Inc. as the payment processor.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "DataSet Shop terms of service",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2023-09-05",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/terms",
+          "publisher": "vAIsual",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "we currently use Stripe, Inc. (\"Stripe\") as our Payment Processor"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c053",
+      "statement": "The DataSet Shop FAQ says charges are per dataset, not per seat.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q1",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/faq",
+          "publisher": "vAIsual",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Charges are by dataset, not per seat."
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c054",
+      "statement": "A one-time DataSet Shop purchase may be used indefinitely but must be downloaded within 30 days.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q6",
+        "Q10"
+      ],
+      "scope": {
+        "product": "One-time purchase",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/pricing",
+          "publisher": "vAIsual",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you can use the datasets indefinitely, however, you need to download the dataset within 30 days"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c055",
+      "statement": "The DataSet Shop FAQ allows up to three downloads per month.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/faq",
+          "publisher": "vAIsual",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You can download up to three times per month."
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c056",
+      "statement": "The DataSet Shop FAQ says subscribers get monthly updates that add new material to their dataset.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Annual subscription",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/faq",
+          "publisher": "vAIsual",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you will get monthly updates where we add new material to your dataset."
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c057",
+      "statement": "The DataSet Shop licence page describes the one-time purchase as access to the existing dataset excluding updates during the year.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "One-time purchase",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/license",
+          "publisher": "vAIsual",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Securing access to the existing dataset and excluding any updates throughout the year."
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c058",
+      "statement": "The DataSet Shop offers no subscription packages for custom datasets that a buyer creates.",
+      "kind": "terms",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q10",
+        "Q12"
+      ],
+      "scope": {
+        "product": "Custom datasets",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/pricing",
+          "publisher": "vAIsual",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Please note, there are no subscription packages for the custom datasets you create."
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c059",
+      "statement": "The DataSet Shop FAQ says subscriptions are only available for pre-made dataset products.",
+      "kind": "terms",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q10",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/faq",
+          "publisher": "vAIsual",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You can currently only subscribe to our pre-made dataset products."
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c060",
+      "statement": "The vaisual.com FAQ says each dataset has a free sample download with text-to-image pairs.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://vaisual.com/faq/",
+          "publisher": "vAIsual",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Each one of the datasets has a free sample download to view the product with text to image pairs."
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c061",
+      "statement": "The DataSet Shop free-samples page lists samples of 10 images per dataset.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/free-samples",
+          "publisher": "vAIsual",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Total samples: 10"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c062",
+      "statement": "The Panther Media Collection listing warns of a tolerance margin of up to 10% of images whose associated metadata may not match.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Panther Media Collection",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/datasets/panthermedia-collection-dataset",
+          "publisher": "vAIsual",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "This dataset contains a tolerance margin of up to 10% of associated images which might not"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c063",
+      "statement": "The DataSet Shop documentation says the shop provides legally clean datasets to machine-learning developers, data scientists and AI researchers.",
+      "kind": "offer",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://datasetshop.com/doc",
+          "publisher": "vAIsual",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "machine-learning developers, data scientists and AI researchers"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c064",
+      "statement": "The vaisual.com site says vAIsual regularly undertakes customization work for customers who need very specific materials.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://vaisual.com/",
+          "publisher": "vAIsual",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We regularly undertake customization work for customers who need very specific materials."
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c065",
+      "statement": "The vaisual.com site says vAIsual works with a contributor network around the world to produce custom materials.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q3",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://vaisual.com/",
+          "publisher": "vAIsual",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We have a contributor network around the world who we work with to produce custom materials."
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c066",
+      "statement": "The vaisual.com FAQ says custom-shoot pricing depends on whether the client requires exclusive material, the shot list and the model casting.",
+      "kind": "terms",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q8",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://vaisual.com/faq/",
+          "publisher": "vAIsual",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Pricing will be impacted on whether you require exclusive material, the shot list, the model casting and a few other aspects."
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c067",
+      "statement": "The vaisual.com site calls its off-the-shelf offer Ready Made Datasets.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://vaisual.com/",
+          "publisher": "vAIsual",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Ready Made Datasets"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c068",
+      "statement": "The vaisual.com services page routes custom data sourcing, preparation and model training through a Request A Quote call to action.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://vaisual.com/services/",
+          "publisher": "vAIsual",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Request A Quote"
+        }
+      ]
+    },
+    {
+      "id": "vaisual-c069",
+      "statement": "vAIsual says on its home page that it has 400M+ dataset files.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://vaisual.com/",
+          "publisher": "vAIsual",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "400M+ Dataset files"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "matrix.exclusivity_offered",
+      "urls_tried": [
+        "https://datasetshop.com/license",
+        "https://datasetshop.com/standard-license-one-time-purchase",
+        "https://datasetshop.com/faq",
+        "https://vaisual.com/faq/"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.recent_activity",
+      "urls_tried": [
+        "https://datasetshop.com/news",
+        "https://vaisual.com/category/news/"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "other.independent_coverage",
+      "urls_tried": [],
+      "reason": "not_found"
+    },
+    {
+      "field": "other.royalty_percentage",
+      "urls_tried": [
+        "https://datasetshop.com/doc/top-10-steps-to-prepare-your-image-collection-into-machine-learning-datasets",
+        "https://datasetshop.com/read/vaisual-and-wirestock-io-partner-to-offer-9-million-commercial-stock-images-and-video-for-ai-training",
+        "https://vaisual.com/faq/"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.supplier_agreement",
+      "urls_tried": [
+        "https://datasetshop.com/doc/top-10-steps-to-prepare-your-image-collection-into-machine-learning-datasets",
+        "https://vaisual.com/faq/"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.photographer_pay",
+      "urls_tried": [
+        "https://vaisual.com/",
+        "https://vaisual.com/services/",
+        "https://vaisual.com/faq/"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.buyer_volume_and_customers",
+      "urls_tried": [
+        "https://vaisual.com/",
+        "https://datasetshop.com/news",
+        "https://datasetshop.com/read/vaisual-selected-for-google-for-startups-cloud-program"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.delivery_format_and_sample_login",
+      "urls_tried": [
+        "https://datasetshop.com/doc/how-to-use-the-datasetshopcom",
+        "https://datasetshop.com/free-samples",
+        "https://datasetshop.com/create"
+      ],
+      "reason": "gated"
+    }
+  ],
+  "conflicts": [
+    {
+      "claim_ids": [
+        "vaisual-c042",
+        "vaisual-c050"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "The pricing grid prices full resolution per image, while the Panther Media listing shows full resolution as contact-only; both recorded, the listing may carry partner-specific terms."
+    }
+  ],
+  "leads": [
+    {
+      "url": "https://vaisual.com/category/news/page/2/",
+      "why": "Older vAIsual news (pre-2023 partner deals); not fetched."
+    },
+    {
+      "url": "https://vaisual.com/vaisual-and-dragonimages-partner-to-offer-asian-images-for-ai-training/",
+      "why": "Another licensed-in stock partner (Dragonimages); not fetched."
+    },
+    {
+      "url": "https://vaisual.com/vaisual-inks-landmark-content-deal-with-middle-eastern-stock-image-agency/",
+      "why": "Earlier licensed-in content deal; not fetched."
+    },
+    {
+      "url": "https://datasetshop.com/doc/gdpr-bipa-compliance",
+      "why": "vAIsual's own GDPR/BIPA position on biometric training data; not fetched."
+    },
+    {
+      "url": "https://datasetshop.com/extended-license-annual-subscription",
+      "why": "Extended licence text; only the standard one-time EULA was read."
+    },
+    {
+      "url": "https://datasetshop.com/eula/commercial-rail",
+      "why": "RAIL licence for LoRA models/checkpoints; not read."
+    },
+    {
+      "url": "https://www.linkedin.com/company/vaisual/",
+      "why": "Possible signal of current staffing/activity; not fetched (login wall)."
+    }
+  ]
+}

@@ -1,0 +1,183 @@
+{
+  "kind": "verify",
+  "slug": "hugging-face-hub",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "hugging-face-hub-c047",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A live dataset counter exists only on huggingface.co; no search available to find a dated third-party snapshot. That the platform was operating in September 2026 is independently supported by NVIDIA's 8-K of 2026-09-03 ('Hugging Face operates a platform and community for ... datasets'). Note the counter (about 1.07M) is double the 'half a million' TechCrunch printed on 2026-09-03 (c053) and the 'over 500k' in HF's docs (c055)."
+    },
+    {
+      "claim_id": "hugging-face-hub-c048",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000078/nvda-20260902.htm", "publisher": "NVIDIA Corporation (SEC Form 8-K)", "source_class": "filing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "On September 2, 2026, NVIDIA Corporation (\"NVIDIA\") entered into a definitive agreement"},
+      "corrected_statement": null,
+      "note": "Found via EDGAR full-text search (efts.sec.gov), form 8-K, Item 8.01, filed 2026-09-03. Next words: 'to acquire Hugging Face, Inc.'. The filing also says closing is expected in the first half of 2027, subject to regulatory approvals, so the acquisition was pending, not completed, on 2026-10-01."
+    },
+    {
+      "claim_id": "hugging-face-hub-c049",
+      "check": "blind",
+      "status": "corrected",
+      "independent_source": {"url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000078/nvda-20260902.htm", "publisher": "NVIDIA Corporation (SEC Form 8-K)", "source_class": "filing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "The transaction includes an approximately $11.9 billion purchase price payable to"},
+      "corrected_statement": "NVIDIA's 8-K states an approximately $11.9 billion purchase price payable to Hugging Face stockholders, subject to certain adjustments, plus an equity-based retention program of up to approximately $1.0 billion for Hugging Face employees joining NVIDIA; the filing does not say the price is paid in cash.",
+      "note": "The word 'cash' does not appear in the 8-K. The $1.0B retention program is the likely reconciliation with TechCrunch's '$12.93 billion' figure."
+    },
+    {
+      "claim_id": "hugging-face-hub-c053",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {"url": "https://techcrunch.com/2026/09/03/nvidia-confirms-it-will-buy-hugging-face-for-12-9-billion/", "publisher": "TechCrunch", "source_class": "press_relaying_vendor", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "used by over 18 million developers, and half a million datasets"},
+      "corrected_statement": null,
+      "note": "Reached from techcrunch.com/tag/hugging-face/ (no search available). This is probably the profile's own source, so it only confirms that TechCrunch printed the figures, not that they are right. Full sentence: 'Hugging Face's platform hosts three million models, one million applications used by over 18 million developers, and half a million datasets.' The 18 million is attached to 'applications used by', not to the platform as a whole. The dataset figure is stale against the live counter of about 1.07M (c047). The same article says Nvidia 'has acquired' Hugging Face for $12.93 billion, which overstates the 8-K (agreement only, closing expected H1 2027)."
+    },
+    {
+      "claim_id": "hugging-face-hub-c054",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {"url": "https://techcrunch.com/2026/09/03/nvidia-confirms-it-will-buy-hugging-face-for-12-9-billion/", "publisher": "TechCrunch", "source_class": "press_relaying_vendor", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "the chip company has released more than 500 models and 250 open datasets on Hugging Face"},
+      "corrected_statement": null,
+      "note": "Probably the profile's own source; it relays Jensen Huang's statement and shows he said it, not that the count is right. No search available to find an independent count of NVIDIA's datasets on the Hub."
+    },
+    {
+      "claim_id": "hugging-face-hub-c055",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The claim is about what HF's own documentation says. Independent figures disagree: TechCrunch (2026-09-03) says 'half a million datasets' and the live counter shows about 1.07M (c047), so 'over 500k' is a stale floor. 'More than 8k languages' has no independent source reachable without search."
+    },
+    {
+      "claim_id": "hugging-face-hub-c037",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "HF's own storage price; no search available to find a partner or reseller restating it, and none was linked from pages fetched."
+    },
+    {
+      "claim_id": "hugging-face-hub-c043",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "HF's own plan price; no search available."
+    },
+    {
+      "claim_id": "hugging-face-hub-c014",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause of HF's own Terms of Service. NVIDIA's 8-K adds only a commitment to keep the platform open and let users upload and download datasets of their choosing; it says nothing on ownership or sale of content."
+    },
+    {
+      "claim_id": "hugging-face-hub-c034",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "HF's own pricing terms; no search available."
+    },
+    {
+      "claim_id": "hugging-face-hub-c077",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": {"url": "https://arxiv.org/abs/2406.17557", "publisher": "arXiv (Penedo et al., The FineWeb Datasets)", "source_class": "academic", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "a 15-trillion token dataset derived from 96 Common Crawl snapshots"},
+      "corrected_statement": null,
+      "note": "The FineWeb paper (v2, 2024-10-31; authors are HF staff) confirms English-only web text from Common Crawl ('keep only English text', arxiv.org/html/2406.17557v2) and that it is HF's own release, but gives 15T tokens from 96 snapshots. The 18.5T figure presumably reflects snapshots added later and appears only on the dataset card; no independent dated source for it was reachable without search. Not refuted: the paper is older than the card."
+    },
+    {
+      "claim_id": "hugging-face-hub-c060",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Storage architecture described only in HF's own docs and blog; no search available. 'All' is a strong word and is checked under scope."
+    },
+    {
+      "claim_id": "hugging-face-hub-c003",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A default setting of HF's gating feature; exists only in HF's own docs."
+    },
+    {
+      "claim_id": "hugging-face-hub-c063",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "One attempt: Yang, Liang and Zou (ICLR 2024, arxiv.org/abs/2401.13822) describe the card's 'Licensing Information' section as 'The license and link to the license webpage if available', a free-text section; the paper does not cover the YAML licence field or its identifier list. The metadata mechanics exist only in HF's docs."
+    },
+    {
+      "claim_id": "hugging-face-hub-c073",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {"url": "https://arxiv.org/pdf/2401.13822v1", "publisher": "arXiv (Yang, Liang and Zou, ICLR 2024)", "source_class": "academic", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "pdf_read", "quote": "Statement of whether the dataset contains other data that might be considered sensitive"},
+      "corrected_statement": null,
+      "note": "Table 1 ('Community-Endorsed Dataset Card Structure') lists a 'Personal and Sensitive Information' section with this description (the PDF text runs words together). Confirms the personal or sensitive information prompt only; the anonymisation part of the claim is not in this source. The paper also found only 30.9% of HF dataset repositories (7,433 of 24,065, at the time of study) had non-empty cards, so the template is a prompt, not a requirement."
+    },
+    {
+      "claim_id": "hugging-face-hub-c015",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause of HF's own Terms of Service; no search available."
+    },
+    {"claim_id": "hugging-face-hub-c047", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "The quote is a bare number from the live /datasets directory; it fits the statement. The profile already records the conflict with the 500k and 1.5M figures."},
+    {"claim_id": "hugging-face-hub-c048", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "Fact correct. But the profile's quote leaves out the parenthetical: the filing reads 'NVIDIA Corporation (\"NVIDIA\") entered into a definitive agreement'. The quote string as written ('NVIDIA Corporation entered into ...') is not verbatim and may fail quotecheck."},
+    {"claim_id": "hugging-face-hub-c049", "check": "scope", "status": "scope_wrong", "independent_source": null, "corrected_statement": null, "note": "The statement says 'cash purchase price'. Neither the quote nor the 8-K says cash; the word does not appear in the filing. The amount and payee are right. Drop 'cash' (see the blind corrected_statement)."},
+    {"claim_id": "hugging-face-hub-c053", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "The quote supports the dataset figure. Minor: TechCrunch attaches the 18 million to 'one million applications used by over 18 million developers', not to the platform as a whole, so 'has over 18 million developers' is a slight reframing. The value (500000 datasets) is correctly marked press-relayed and stale against the live counter."},
+    {"claim_id": "hugging-face-hub-c055", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "The quote matches the statement, which correctly attributes it to HF's docs. The figure is a stale floor (live counter is about 1.07M)."},
+    {"claim_id": "hugging-face-hub-c054", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": ""},
+    {"claim_id": "hugging-face-hub-c037", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "Re-read storage-limits: pay-as-you-go applies above the included 1TB (PRO) or 1TB per seat (Team, Enterprise) of private storage at $18/TB/mo, falling to $16, $14 and $12 at 50TB+, 200TB+ and 500TB+. The value basis says this."},
+    {"claim_id": "hugging-face-hub-c043", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null, "note": "Fact correct (pricing page: Team $20/month per user; PRO $9/month; Enterprise $50/month per user), but the quote '$20 /month per user' does not name the Team plan. The page's words 'Instant setup for growing teams' sit directly before the price and would show which plan it is."},
+    {"claim_id": "hugging-face-hub-c014", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "ToS effective date 15 September 2022, matching as_of."},
+    {"claim_id": "hugging-face-hub-c034", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null, "note": "The quote covers only the private-storage half. The public half is in the page's first sentence: 'significant volumes of free storage space for public repositories'. Free public storage is not unlimited: it is 'Best-effort' for free accounts, capped per plan (PRO up to 10TB; Team 12TB base + 1TB per seat), and extended by a paid Public Storage add-on (c038). The economics_model note should not read it as unlimited."},
+    {"claim_id": "hugging-face-hub-c077", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "The quote states the 18.5T, English and CommonCrawl facts for the live card. The 2024 paper gives 15T from 96 snapshots, so the figure is version-dependent."},
+    {"claim_id": "hugging-face-hub-c060", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "The quote is the docs' own wording ('Since all datasets on the Hub are Xet-backed Git repositories'). 'All' is HF's claim: the profile's own custody note says some third-party datasets are links-only, and cloning a gated or private dataset needs authentication, which the statement leaves out."},
+    {"claim_id": "hugging-face-hub-c003", "check": "scope", "status": "scope_ok", "independent_source": null, "corrected_statement": null, "note": "The page also says 'By default, the dataset is not gated'; automatic approval is the default only once an author enables access requests, which is what the statement says. Users must be logged in and share username and email."},
+    {"claim_id": "hugging-face-hub-c063", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null, "note": "The quote shows only where the licence goes, not that it is chosen from a list. The page's words 'A full list of the available licenses is available here' and the 'License identifier (to use in repo card)' column would show that. 'Is set' also overstates it: the page says an author 'is able to add' a licence, so it is optional. The list includes 'other' (custom text in a LICENSE file, named in license_name) and 'unknown'."},
+    {"claim_id": "hugging-face-hub-c073", "check": "scope", "status": "quote_incomplete", "independent_source": null, "corrected_statement": null, "note": "The quote covers personal or sensitive data only. The anonymisation half is in the template's next sentence: 'If efforts were made to anonymize the data, describe the anonymization process.' Note that template sections are optional and default to '[More Information Needed]'."},
+    {"claim_id": "hugging-face-hub-c015", "check": "scope", "status": "scope_wrong", "independent_source": null, "corrected_statement": null, "note": "'Only to provide the Services' is not in the ToS. The grant reads 'license to use, display, publish, reproduce, distribute, and make derivative works of such Content to provide Services and as otherwise permitted under these Terms and our Privacy Policy'. The purpose is wider than the statement says, and the grant includes derivative works."}
+  ],
+  "missed": [
+    {
+      "id": "hugging-face-hub-v001",
+      "statement": "In its 8-K on the Hugging Face acquisition, NVIDIA says it has committed to keep Hugging Face's platform open after the acquisition.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": ["Q2", "Q6"],
+      "scope": {"product": "Hugging Face, Inc. (company)", "tier": "", "region": ""},
+      "value": null,
+      "origin": "filing",
+      "as_of": "2026-09-03",
+      "as_of_basis": "publication",
+      "sources": [
+        {"url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000078/nvda-20260902.htm", "publisher": "NVIDIA Corporation (SEC Form 8-K)", "source_class": "filing", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "webfetch", "quote": "NVIDIA has committed to, among other things, keep Hugging Face's platform open"}
+      ]
+    },
+    {
+      "id": "hugging-face-hub-v002",
+      "statement": "An ICLR 2024 study of all Hugging Face dataset cards found that only 7.9% of cards for datasets with no downloads completed all community-suggested sections, against 86.0% of the top 100 downloaded.",
+      "kind": "outcome",
+      "section": "trust",
+      "question_ids": ["Q11"],
+      "scope": {"product": "Hugging Face Hub datasets", "tier": "", "region": ""},
+      "value": null,
+      "origin": "academic",
+      "as_of": "2024-01",
+      "as_of_basis": "publication",
+      "sources": [
+        {"url": "https://arxiv.org/pdf/2401.13822v1", "publisher": "arXiv (Yang, Liang and Zou, ICLR 2024)", "source_class": "academic", "retrieved_at": "2026-10-01", "fetch_status": "ok", "fetched_via": "pdf_read", "quote": "only 7.9% of dataset cards with no downloads complete all these sections"}
+      ]
+    }
+  ]
+}

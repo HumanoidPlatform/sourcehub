@@ -1,0 +1,315 @@
+{
+  "kind": "verify",
+  "slug": "ldc",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "ldc-c063",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://list.elra.info/mailman3/hyperkitty/list/corpora@list.elra.info/message/PHZXXA6TJGEZ5TJIQPS3DEY6UKSH24AX/",
+        "publisher": "Corpora mailing list archive (ELRA), message posted by Penn LDC",
+        "source_class": "press_relaying_vendor",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "New publications: CALLHOME Mandarin Chinese Second Edition"
+      },
+      "corrected_statement": null,
+      "note": "The September 2026 LDC newsletter, as sent by Penn LDC (ldc@ldc.upenn.edu) to the ELRA-hosted Corpora list on 15 Sep 2026, lists CALLHOME Mandarin Chinese Second Edition linked to catalog.ldc.upenn.edu/LDC2026S11, plus CALLHOME Mandarin Chinese Lexicon Second Edition (LDC2026L06) and MATERIAL Lithuanian-English Language Pack (LDC2026S12). Same text as LDC's own newsletter, so relayed, not independent. No web search available in this run (WebSearch not used by instruction)."
+    },
+    {
+      "claim_id": "ldc-c064",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://list.elra.info/mailman3/hyperkitty/list/corpora@list.elra.info/message/PHZXXA6TJGEZ5TJIQPS3DEY6UKSH24AX/",
+        "publisher": "Corpora mailing list archive (ELRA), message posted by Penn LDC",
+        "source_class": "press_relaying_vendor",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "an LDC membership is a pre-requisite for obtaining a commercial license to almost all LDC databases"
+      },
+      "corrected_statement": null,
+      "note": "Same September 2026 newsletter as relayed to the Corpora list by LDC itself (15 Sep 2026). The November 2025 newsletter on the same list adds 'Current-year for-profit members may use most data for commercial applications.' No independent source found. No web search available in this run (WebSearch not used by instruction)."
+    },
+    {
+      "claim_id": "ldc-c026",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "LDC's own price list. Live join page (www.ldc.upenn.edu/members/join-ldc, fetched 2026-10-01) shows For-Profit Standard $34,000 and 'free access to 16 corpora published in the membership year'; it states the fee per membership year, and the page's own wording is 'corpora', not 'databases'. Corpora-list archive search for '34,000' returned 0 messages; no university, procurement or press source reachable. No web search available in this run (WebSearch not used by instruction)."
+    },
+    {
+      "claim_id": "ldc-c027",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "LDC's own price list. Join page shows For-Profit Subscription $40,000 with 'copies of each LDC dataset published in the membership year'. No independent source reachable (Corpora-list search, university library pages at U of T, Berkeley, MIT, Michigan and Stanford Linguistics tried; none states fees). No web search available in this run (WebSearch not used by instruction)."
+    },
+    {
+      "claim_id": "ldc-c031",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Claim is about what LDC's own join page lists; fetched it 2026-10-01 and it shows For-Profit Standard $34,000. Nothing independent needed or found."
+    },
+    {
+      "claim_id": "ldc-c032",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Join page fetched 2026-10-01 shows For-Profit Subscription $40,000."
+    },
+    {
+      "claim_id": "ldc-c033",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Join page fetched 2026-10-01 shows Not-for-Profit & US Government Standard $2,400. No university library page reachable that restates the fee (U of T page only says U of T 'is a subscriber'; its detail sits on a gated SharePoint site). No web search available in this run (WebSearch not used by instruction)."
+    },
+    {
+      "claim_id": "ldc-c034",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Join page fetched 2026-10-01 shows Not-for-Profit & US Government Subscription $3,850. No independent restatement reachable. No web search available in this run (WebSearch not used by instruction)."
+    },
+    {
+      "claim_id": "ldc-c036",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The 'up to 50%' figure could not be found anywhere but LDC's site. LDC's own newsletters relayed on the Corpora list (Nov 2022-Nov 2025) say only that members license older data 'at reduced fees' with no percentage (e.g. Nov 2025: 'Current LDC members enjoy the benefit of licensing at reduced fees older data from our Catalog'), and separately offer a 10% early-renewal discount off the membership fee, which is a different discount. On LDC's own site the figure is on the membership-benefits page ('license older data sets at significant discounts (up to 50%)'), not the join page. No web search available in this run (WebSearch not used by instruction)."
+    },
+    {
+      "claim_id": "ldc-c013",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A requirement in LDC's own licensing process. Partial third-party echo only: the Hugging Face card for ptb_text_only (huggingface.co/datasets/ptb-text-only/ptb_text_only) names 'license_details: LDC User Agreement for Non-Members', which shows the agreement governs non-member use of Penn Treebank but not that every non-member must sign it. LDC's accessing-data page says users must have 'digitally signed any applicable license agreements' before checkout."
+    },
+    {
+      "claim_id": "ldc-c028",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause of LDC's own membership terms; no third party states it. No web search available in this run (WebSearch not used by instruction)."
+    },
+    {
+      "claim_id": "ldc-c060",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A self-description of LDC's publishing record; an independent check (e.g. a DARPA/IARPA programme page or an academic audit of programme data releases) ought to exist but none was reachable. IARPA's MATERIAL programme page (iarpa.gov/research-programs/material) does not mention LDC although LDC is publishing MATERIAL language packs (LDC2026S12 in the September 2026 newsletter). arXiv abstract search found NIST SRE papers using LDC-collected corpora, which show individual cases, not 'virtually all'. No web search available in this run (WebSearch not used by instruction)."
+    },
+    {
+      "claim_id": "ldc-c042",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "LDC's own fulfilment mechanics. LDC's accessing-data page says data is 'ready for download' after checkout and a notification that it has been 'shipped'. No third party describes fulfilment."
+    },
+    {
+      "claim_id": "ldc-c059",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "LDC's own process text; www.ldc.upenn.edu/accessing-ldc-data (fetched 2026-10-01) states: select corpus, place it in cart, digitally sign applicable licence agreements, check out, receive 'shipped' notification, then download. It matches the claim; no independent source needed."
+    },
+    {
+      "claim_id": "ldc-c009",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause of LDC's own licences. Third-party echo is weaker than the claim: the Hugging Face ptb_text_only card says only 'Dataset provided for research purposes only'. Note that LDC's accessing-data page words its standard terms more broadly: 'use for language-related education, research and technology development'. The Part 2 scope check should confirm the narrower 'noncommercial linguistic research and education' wording against the non-member agreement."
+    },
+    {
+      "claim_id": "ldc-c050",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "LDC's own requirements for data providers (submission guidance); no third party restates them. No web search available in this run (WebSearch not used by instruction)."
+    },
+    {
+      "claim_id": "ldc-c063",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The fact is right (LDC's newsletter page and the Corpora-list copy both link the title to catalog.ldc.upenn.edu/LDC2026S11), but the quote 'CALLHOME Mandarin Chinese Second Edition' does not show the catalog ID or that it is a new release; the words 'New publications: CALLHOME Mandarin Chinese Second Edition' would."
+    },
+    {
+      "claim_id": "ldc-c064",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the statement word for word. Minor: this is a licensing term restated in a newsletter, so kind 'terms' fits better than 'event'."
+    },
+    {
+      "claim_id": "ldc-c026",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Exhibit A of the For-Profit Membership Agreement PDF (re-extracted 2026-10-01) reads '$34,000 per calendar year. Standard Member is entitled to receive up to 16 LDC Databases from the Membership Year'. Tier and org type match. The PDF is an undated template ('effective January 1, ____'), and Section 1 says fees 'may be amended from time to time at the beginning of a new membership year'."
+    },
+    {
+      "claim_id": "ldc-c027",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Matches Exhibit A ('$40,000 per calendar year ... copies of all LDC Databases released in the Membership Year'). The same exhibit adds 'LDC reserves the right to release Databases that require separate license agreements and additional fees', so 'all' has that exception; the profile records it separately as c029."
+    },
+    {
+      "claim_id": "ldc-c031",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The join page lists two 'Standard membership:' and two 'Subscription membership:' lines, under the headings 'Not-for-profit organizations and US Government entities' and 'For-Profit organizations'; the quote alone does not show which category it belongs to. The fee itself matches the live page (re-fetched 2026-10-01). Here the heading 'For-Profit organizations' is what would show the tier. The value's period 'per year' is not on the join page; it comes from the agreement PDF (c026)."
+    },
+    {
+      "claim_id": "ldc-c032",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The join page lists two 'Standard membership:' and two 'Subscription membership:' lines, under the headings 'Not-for-profit organizations and US Government entities' and 'For-Profit organizations'; the quote alone does not show which category it belongs to. The fee itself matches the live page (re-fetched 2026-10-01). Here the heading 'For-Profit organizations' is what would show the tier. The value's period 'per year' is not on the join page; it comes from the agreement PDF (c027)."
+    },
+    {
+      "claim_id": "ldc-c033",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The join page lists two 'Standard membership:' and two 'Subscription membership:' lines, under the headings 'Not-for-profit organizations and US Government entities' and 'For-Profit organizations'; the quote alone does not show which category it belongs to. The fee itself matches the live page (re-fetched 2026-10-01). Here the heading 'Not-for-profit organizations and US Government entities' is what would show the tier. The value's period 'per year' is not stated on the join page, and no cited source states it for not-for-profit members."
+    },
+    {
+      "claim_id": "ldc-c034",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The join page lists two 'Standard membership:' and two 'Subscription membership:' lines, under the headings 'Not-for-profit organizations and US Government entities' and 'For-Profit organizations'; the quote alone does not show which category it belongs to. The fee itself matches the live page (re-fetched 2026-10-01). Here the heading 'Not-for-profit organizations and US Government entities' is what would show the tier. The value's period 'per year' is not stated on the join page, and no cited source states it for not-for-profit members."
+    },
+    {
+      "claim_id": "ldc-c036",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Membership-benefits page reads 'license older data sets at significant discounts (up to 50%)'. The statement correctly says 'LDC says'. The basis 'off the non-member fee' in value is the profiler's inference; the page does not state what the discount is off."
+    },
+    {
+      "claim_id": "ldc-c013",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Licensing page sentence quoted in full; matches."
+    },
+    {
+      "claim_id": "ldc-c028",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Exhibit A: 'Additional LDC Databases from the Membership Year may be licensed at the regular, non-member licensing fee', placed under Standard Membership; matches."
+    },
+    {
+      "claim_id": "ldc-c060",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote is the full sentence and the statement is correctly framed as 'LDC says'."
+    },
+    {
+      "claim_id": "ldc-c042",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote states exactly this."
+    },
+    {
+      "claim_id": "ldc-c059",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote stops at 'checked out' and does not include the download step; the page's own sentence begins 'Your data is ready for download once you have selected your corpus' and ends with receiving notification that the data has been 'shipped'."
+    },
+    {
+      "claim_id": "ldc-c009",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote is cut before the words that carry the restriction. The page's full sentence ends 'may use LDC data for noncommercial linguistic research and education only.' Those final words ('and education only') support 'only' and 'education'. The fact is right."
+    },
+    {
+      "claim_id": "ldc-c050",
+      "check": "scope",
+      "status": "scope_wrong",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The page requires providers of human-subjects data to 'indicate whether the collection was approved by an Institutional Review Board, Ethics Board, or similar body', which means saying whether it was approved, not stating an approval. The statement 'state IRB or ethics approval' reads as if approval were required. The quote also covers only the consent-elements half. Suggested wording: 'LDC requires providers of human-subjects data to indicate whether an IRB or ethics board approved the collection and to list the consent elements, including consent to sharing in a corpus.'"
+    }
+  ],
+  "missed": [
+    {
+      "id": "ldc-v001",
+      "statement": "LDC's November 2025 newsletter offered a 10% discount off the membership fee to any organisation joining or renewing before 2 March 2026.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Membership",
+        "tier": "all membership types",
+        "region": ""
+      },
+      "value": {
+        "num": 10,
+        "unit": "percent discount",
+        "basis": "off the annual membership fee, for organisations joining or renewing before 2 March 2026; paid by the member",
+        "period": "membership year 2026"
+      },
+      "origin": "press_relayed",
+      "as_of": "2025-11-17",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://list.elra.info/mailman3/hyperkitty/list/corpora@list.elra.info/message/AKIQJ4ZRWE4JJVP22PSBG3OBVEYQBTAE/",
+          "publisher": "Corpora mailing list archive (ELRA), message posted by Penn LDC",
+          "source_class": "press_relaying_vendor",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "will receive a 10% discount off the membership fee"
+        }
+      ]
+    }
+  ]
+}

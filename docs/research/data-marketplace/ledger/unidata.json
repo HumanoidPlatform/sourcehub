@@ -1,0 +1,1893 @@
+{
+  "kind": "profile",
+  "slug": "unidata",
+  "name": "Unidata",
+  "aliases": [
+    "Unidata L.L.C-FZ",
+    "UniDataPro",
+    "unidata.pro"
+  ],
+  "segment": "ai_data_catalogue",
+  "tier": "light",
+  "status": {
+    "value": "active",
+    "claim_id": "unidata-c001"
+  },
+  "names_for": {
+    "catalogue_side": "Datasets / ready-made datasets (\"70+ Datasets\")",
+    "custom_side": "Data Collection Services / custom data collection"
+  },
+  "matrix": {
+    "operator_role": {
+      "value": "reseller_licensor",
+      "claim_ids": [
+        "unidata-c022",
+        "unidata-c016",
+        "unidata-c003"
+      ],
+      "note": "Unidata sells its own datasets as licensor; no third-party providers are listed."
+    },
+    "economics_model": {
+      "value": "principal_margin",
+      "claim_ids": [
+        "unidata-c022",
+        "unidata-c011",
+        "unidata-c013"
+      ],
+      "note": "Unidata collects the data itself (crowdsourcing platforms, Prolific) and sells it at its own, unpublished price."
+    },
+    "who_pays_fee": {
+      "value": "not_applicable",
+      "claim_ids": [],
+      "note": "No marketplace fee: Unidata sells only its own inventory."
+    },
+    "supply_models": {
+      "value": [
+        "own_collection"
+      ],
+      "claim_ids": [
+        "unidata-c011",
+        "unidata-c012",
+        "unidata-c013",
+        "unidata-c014",
+        "unidata-c049"
+      ],
+      "note": "Only own collection is evidenced; whether bespoke client collections are relisted is not stated."
+    },
+    "custody_model": {
+      "value": "copy_to_buyer",
+      "claim_ids": [
+        "unidata-c017",
+        "unidata-c030"
+      ],
+      "note": "Datasets are held on Unidata's AWS storage and 'delivered' to the buyer after signing; delivery channel not named."
+    },
+    "transaction_mode": {
+      "value": "contact_sales",
+      "claim_ids": [
+        "unidata-c016",
+        "unidata-c017",
+        "unidata-c018"
+      ],
+      "note": ""
+    },
+    "public_prices": {
+      "value": "none",
+      "claim_ids": [
+        "unidata-c010",
+        "unidata-c018"
+      ],
+      "note": "No dataset prices on catalogue or listings; blog cost figures are generic market estimates."
+    },
+    "licence_model": {
+      "value": "mixed",
+      "claim_ids": [
+        "unidata-c022",
+        "unidata-c023",
+        "unidata-c024"
+      ],
+      "note": "Free samples under CC BY-NC-ND 4.0; full datasets under a commercial licence signed per deal whose text is not published."
+    },
+    "exclusivity_offered": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": ""
+    },
+    "public_listing": {
+      "value": "public_indexable",
+      "claim_ids": [
+        "unidata-c008",
+        "unidata-c009",
+        "unidata-c010"
+      ],
+      "note": ""
+    },
+    "buyer_vetting": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": ""
+    },
+    "sample_mechanics": {
+      "value": "free_sample_download",
+      "claim_ids": [
+        "unidata-c032",
+        "unidata-c033",
+        "unidata-c022"
+      ],
+      "note": ""
+    },
+    "versioning": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": ""
+    },
+    "human_subject_consent_docs": {
+      "value": "asserted_only",
+      "claim_ids": [
+        "unidata-c025",
+        "unidata-c026",
+        "unidata-c027"
+      ],
+      "note": "Releases and GDPR compliance are asserted on public pages; no evidence buyers receive release documents. Purchase contract not seen."
+    },
+    "contributor_pay_model": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Contributors come via crowdsourcing platforms and Prolific; how they are paid is not published."
+    },
+    "catalogue_plus_custom": {
+      "value": "both",
+      "claim_ids": [
+        "unidata-c035",
+        "unidata-c039",
+        "unidata-c002"
+      ],
+      "note": ""
+    },
+    "erasure_after_sale": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Buyer licence not published; privacy policy covers only Unidata's own retention."
+    },
+    "quality_evidence": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Unidata is both operator and supplier; no independent or operator-verification statement on listings."
+    }
+  },
+  "questions": {
+    "Q1": {
+      "state": "partial",
+      "answer": "Unidata sells mainly biometric/anti-spoofing and robotics data to corporate clients (it claims 200+); its blog pitches buying for speed. Units and volumes bought are not published.",
+      "claim_ids": [
+        "unidata-c006",
+        "unidata-c007",
+        "unidata-c044",
+        "unidata-c045"
+      ]
+    },
+    "Q2": {
+      "state": "partial",
+      "answer": "Unidata builds its own catalogue and also pushes free samples to Hugging Face; it runs no listing programme for other providers.",
+      "claim_ids": [
+        "unidata-c035",
+        "unidata-c015",
+        "unidata-c033"
+      ]
+    },
+    "Q3": {
+      "state": "partial",
+      "answer": "Inventory is Unidata's own collection via crowdsourcing platforms, Prolific and paid capture teams; rights come from participant releases per Unidata.",
+      "claim_ids": [
+        "unidata-c011",
+        "unidata-c012",
+        "unidata-c013",
+        "unidata-c014",
+        "unidata-c025"
+      ]
+    },
+    "Q4": {
+      "state": "unknown",
+      "answer": "Unidata does not say whether client-commissioned collections are later sold from the catalogue.",
+      "claim_ids": []
+    },
+    "Q5": {
+      "state": "partial",
+      "answer": "Unidata L.L.C-FZ (Dubai) sells its own datasets under signed documents; who warrants consent and indemnifies in the contract is not published.",
+      "claim_ids": [
+        "unidata-c003",
+        "unidata-c016",
+        "unidata-c022"
+      ]
+    },
+    "Q6": {
+      "state": "partial",
+      "answer": "Datasets sit on Unidata's AWS storage and are delivered to the buyer within 3-10 days after signing and payment.",
+      "claim_ids": [
+        "unidata-c030",
+        "unidata-c017",
+        "unidata-c031"
+      ]
+    },
+    "Q7": {
+      "state": "partial",
+      "answer": "For egocentric video Unidata says every participant signs a commercial-use release; elsewhere it asserts GDPR compliance. A children's selfie set exists with no consent statement on its card.",
+      "claim_ids": [
+        "unidata-c025",
+        "unidata-c026",
+        "unidata-c027",
+        "unidata-c028",
+        "unidata-c029"
+      ]
+    },
+    "Q8": {
+      "state": "partial",
+      "answer": "Samples are CC BY-NC-ND 4.0 and have been relisted by GTS.ai; full-dataset licence terms (exclusivity, audit, deletion) are not published.",
+      "claim_ids": [
+        "unidata-c023",
+        "unidata-c022",
+        "unidata-c036",
+        "unidata-c048"
+      ]
+    },
+    "Q9": {
+      "state": "sourced",
+      "answer": "Contact-sales only: request, document signing, payment, delivery; Unidata owns the inventory and sets unpublished prices.",
+      "claim_ids": [
+        "unidata-c016",
+        "unidata-c017",
+        "unidata-c018",
+        "unidata-c010"
+      ]
+    },
+    "Q10": {
+      "state": "partial",
+      "answer": "A listing is a dataset page with headline stats, format and FAQ; revisions, orders and entitlements are not described.",
+      "claim_ids": [
+        "unidata-c008",
+        "unidata-c009",
+        "unidata-c034"
+      ]
+    },
+    "Q11": {
+      "state": "partial",
+      "answer": "Buyers see listing statistics and can download a free sample (Google Drive, Hugging Face preview); trust rests on Unidata's own GDPR and ISO statements.",
+      "claim_ids": [
+        "unidata-c032",
+        "unidata-c033",
+        "unidata-c027",
+        "unidata-c038"
+      ]
+    },
+    "Q12": {
+      "state": "sourced",
+      "answer": "Unidata sells both ready-made 'Datasets' and custom 'Data Collection' services and cross-promotes them on the same pages.",
+      "claim_ids": [
+        "unidata-c035",
+        "unidata-c039",
+        "unidata-c040",
+        "unidata-c042"
+      ]
+    }
+  },
+  "sections": {},
+  "buyer_journey": [],
+  "claims": [
+    {
+      "id": "unidata-c001",
+      "statement": "Unidata's blog published a new post dated 28 September 2026, showing the organisation still operating.",
+      "kind": "status",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-28",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://unidata.pro/blog/",
+          "publisher": "Unidata",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Robot Training Data: A Practical Guide to Collection, Annotation, and Pipelines"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c002",
+      "statement": "Unidata says its dataset catalogue holds more than 70 datasets.",
+      "kind": "number",
+      "section": "positioning",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 70,
+        "unit": "datasets (lower bound, '70+')",
+        "basis": "vendor-stated count of catalogue datasets",
+        "period": "as of retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/datasets/",
+          "publisher": "Unidata",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "70+ Datasets"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c003",
+      "statement": "Unidata's privacy policy names the operating entity as Unidata L.L.C-FZ, based in Dubai.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://unidata.pro/privacy-policy/",
+          "publisher": "Unidata",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Unidata L.L.C-FZ"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c004",
+      "statement": "Unidata says it was founded in 2016.",
+      "kind": "event",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2016",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/about-us/",
+          "publisher": "Unidata",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Founded in 2016"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c005",
+      "statement": "Unidata says it has more than 1,100 labelers and AI experts.",
+      "kind": "number",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 1100,
+        "unit": "labelers and AI experts (lower bound)",
+        "basis": "vendor-stated headcount",
+        "period": "as of retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/about-us/",
+          "publisher": "Unidata",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "1,100+ Labelers & AI Experts"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c006",
+      "statement": "Unidata says it has more than 200 corporate clients.",
+      "kind": "number",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 200,
+        "unit": "corporate clients (lower bound)",
+        "basis": "vendor-stated client count, all services not only datasets",
+        "period": "as of retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/about-us/",
+          "publisher": "Unidata",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "200+ Corporate Clients"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c007",
+      "statement": "Unidata's iBeta dataset category positions its catalogue around iBeta certification, anti-spoofing and facial recognition.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/datasets/dataset-type/ibeta/",
+          "publisher": "Unidata",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "High-quality ML datasets for iBeta certification, anti-spoofing, and facial recognition."
+        }
+      ]
+    },
+    {
+      "id": "unidata-c008",
+      "statement": "Unidata's Anti-Spoofing Real Videos listing states the dataset covers 43,670 people.",
+      "kind": "number",
+      "section": "listing",
+      "question_ids": [
+        "Q10",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Anti-Spoofing Real Videos Dataset",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 43670,
+        "unit": "people depicted",
+        "basis": "vendor-stated listing statistic for the full dataset",
+        "period": "as of retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/datasets/face-anti-spoofing/",
+          "publisher": "Unidata",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "43,670"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c009",
+      "statement": "Unidata's Egocentric Video Dataset listing states 4,050 hours of video.",
+      "kind": "number",
+      "section": "listing",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Egocentric Video Dataset",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 4050,
+        "unit": "hours of egocentric video",
+        "basis": "vendor-stated size of the ready-made dataset",
+        "period": "as of retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/datasets/egocentric-video/",
+          "publisher": "Unidata",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "4,050 hours"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c010",
+      "statement": "Unidata's dataset listings carry a 'Commercial' label and no price; the catalogue page displays no prices.",
+      "kind": "offer",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/datasets/face-anti-spoofing/",
+          "publisher": "Unidata",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Commercial"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c011",
+      "statement": "Unidata's Selfie with ID listing says the data was collected via crowdsourcing platforms.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Selfie with ID Dataset",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/datasets/selfie-with-id/",
+          "publisher": "Unidata",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Data was collected via crowdsourcing platforms."
+        }
+      ]
+    },
+    {
+      "id": "unidata-c012",
+      "statement": "Unidata's Hugging Face card for its face anti-spoofing sample says the underlying collection was produced through crowdsourcing platforms.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/UniDataPro/face-anti-spoofing",
+          "publisher": "Unidata (UniDataPro on Hugging Face)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The underlying collection was produced through crowdsourcing platforms."
+        }
+      ]
+    },
+    {
+      "id": "unidata-c013",
+      "statement": "Unidata's datasets page says data is collected on the Prolific platform.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/datasets/",
+          "publisher": "Unidata",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Data is collected on the Prolific platform, which offers a diverse pool of participants"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c014",
+      "statement": "Unidata's egocentric collection page says its egocentric recordings come from hundreds of contributors.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/data-collection/egocentric-video-data/",
+          "publisher": "Unidata",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Mixed age and gender across hundreds of contributors."
+        }
+      ]
+    },
+    {
+      "id": "unidata-c015",
+      "statement": "Unidata's 'become a partner' page invites partners to distribute Unidata's solutions and does not describe any programme for third parties to list datasets.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q2",
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/become-a-partner/",
+          "publisher": "Unidata",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Grow your business by distributing our cutting-edge solutions"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c016",
+      "statement": "Unidata's listing FAQ says a purchase starts with a request, after which Unidata reviews details and completes documents with the buyer.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/datasets/face-anti-spoofing/",
+          "publisher": "Unidata",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Once you submit a request, we will reach out to review the details and complete the necessary documents"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c017",
+      "statement": "Unidata's listing FAQ says the dataset is delivered within 3 to 10 days after signing and payment.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q6",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/datasets/face-anti-spoofing/",
+          "publisher": "Unidata",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "After signing and payment, the dataset will be delivered within 3-10 days"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c018",
+      "statement": "Unidata's Hugging Face samples direct readers to contact Unidata to discuss requirements and pricing for the full dataset.",
+      "kind": "offer",
+      "section": "pricing",
+      "question_ids": [
+        "Q9",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/UniDataPro/face-anti-spoofing",
+          "publisher": "Unidata (UniDataPro on Hugging Face)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "To access the full dataset, please contact us at https://unidata.pro to discuss your requirements and pricing options."
+        }
+      ]
+    },
+    {
+      "id": "unidata-c019",
+      "statement": "Unidata's Selfie with ID listing says 87% of datasets are delivered in 3 to 10 days.",
+      "kind": "number",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 87,
+        "unit": "percent of datasets delivered within 3-10 days",
+        "basis": "vendor-stated delivery performance",
+        "period": "not stated"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/datasets/selfie-with-id/",
+          "publisher": "Unidata",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "87% of datasets delivered in 3–10 days"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c020",
+      "statement": "Unidata's become-a-partner page offers startups a 15% discount on all projects.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "startup partners",
+        "region": ""
+      },
+      "value": {
+        "num": 15,
+        "unit": "percent discount",
+        "basis": "discount off Unidata's price for startups in its partner programme; list price not stated",
+        "period": "not stated"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/become-a-partner/",
+          "publisher": "Unidata",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "15% discount on all projects"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c021",
+      "statement": "Unidata's datasets page claims its custom collection is up to 70% cheaper than doing it in-house.",
+      "kind": "number",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 70,
+        "unit": "percent cheaper (upper bound)",
+        "basis": "vendor claim comparing its custom collection with in-house cost; no base price stated",
+        "period": "not stated"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/datasets/",
+          "publisher": "Unidata",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Up to 70% cheaper than in-house"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c022",
+      "statement": "Unidata's listing FAQ describes a dual licensing model: free evaluation samples, and the full dataset only by purchase.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/datasets/face-anti-spoofing/",
+          "publisher": "Unidata",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "evaluation samples are provided for free, while the full dataset is accessible only by purchase"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c023",
+      "statement": "Unidata publishes its Hugging Face dataset samples under the CC BY-NC-ND 4.0 licence.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Hugging Face sample (face-anti-spoofing)",
+        "tier": "free sample",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/UniDataPro/face-anti-spoofing",
+          "publisher": "Unidata (UniDataPro on Hugging Face)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "cc-by-nc-nd-4.0"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c024",
+      "statement": "Unidata's egocentric collection page says its base egocentric dataset is available under a commercial license.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/data-collection/egocentric-video-data/",
+          "publisher": "Unidata",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The base dataset is available under a commercial license"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c025",
+      "statement": "Unidata says every participant in its egocentric recordings signs a commercial-use release before recording.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "egocentric video",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/data-collection/egocentric-video-data/",
+          "publisher": "Unidata",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Every participant signs a commercial-use release before recording."
+        }
+      ]
+    },
+    {
+      "id": "unidata-c026",
+      "statement": "Unidata says every egocentric recording is consented and licensed for commercial use.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/data-collection/egocentric-video-data/",
+          "publisher": "Unidata",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Every recording is consented and licensed for commercial use."
+        }
+      ]
+    },
+    {
+      "id": "unidata-c027",
+      "statement": "Unidata's listing FAQ asserts that each dataset follows GDPR guidelines and applicable data-protection laws.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/datasets/face-anti-spoofing/",
+          "publisher": "Unidata",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Each dataset follows GDPR guidelines and complies with applicable data protection laws."
+        }
+      ]
+    },
+    {
+      "id": "unidata-c028",
+      "statement": "Unidata's Hugging Face sample card describes a dataset of 6,000 facial images of 300 children and teenagers.",
+      "kind": "number",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Kids and Teens Selfie Dataset",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 300,
+        "unit": "people depicted (children and teenagers)",
+        "basis": "vendor-stated size of the full Kids and Teens Selfie dataset",
+        "period": "as of retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/UniDataPro/kids-and-teens-selfie-dataset",
+          "publisher": "Unidata (UniDataPro on Hugging Face)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "6,000 high-quality facial images from 300 people (children and teenagers)"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c029",
+      "statement": "The same Kids and Teens Selfie sample card gives the subjects' age range as 5 to 15 years old.",
+      "kind": "offer",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Kids and Teens Selfie Dataset",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/UniDataPro/kids-and-teens-selfie-dataset",
+          "publisher": "Unidata (UniDataPro on Hugging Face)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "from 5 to 15 years old"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c030",
+      "statement": "Unidata says it stores all datasets on AWS's cloud platform.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/datasets/face-anti-spoofing/",
+          "publisher": "Unidata",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Unidata secures all datasets within AWS's cloud platform"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c031",
+      "statement": "Unidata's standard delivery for egocentric collection includes .mp4 video, .rrd files, .json metadata and pose keypoint files.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/data-collection/egocentric-video-data/",
+          "publisher": "Unidata",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Standard delivery includes .mp4 video, .rrd (Rerun) for visualization, .json metadata and annotation files"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c032",
+      "statement": "Unidata's dataset listings offer a 'Download sample' button linking to a free sample.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/datasets/selfie-with-id/",
+          "publisher": "Unidata",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Download sample"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c033",
+      "statement": "Unidata's Hugging Face sample cards describe themselves as a limited preview of the full dataset.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/UniDataPro/face-anti-spoofing",
+          "publisher": "Unidata (UniDataPro on Hugging Face)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "This is a limited preview of the data."
+        }
+      ]
+    },
+    {
+      "id": "unidata-c034",
+      "statement": "Unidata's Hugging Face card states the full face anti-spoofing dataset has 98,000 videos and selfies from 170 countries.",
+      "kind": "number",
+      "section": "listing",
+      "question_ids": [
+        "Q10",
+        "Q11"
+      ],
+      "scope": {
+        "product": "face-anti-spoofing (Hugging Face card)",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 98000,
+        "unit": "videos and selfies",
+        "basis": "vendor-stated full-dataset size on the Hugging Face sample card",
+        "period": "as of retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/UniDataPro/face-anti-spoofing",
+          "publisher": "Unidata (UniDataPro on Hugging Face)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The dataset consists of 98,000 videos and selfies from 170 countries"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c035",
+      "statement": "Unidata's Hugging Face organisation says it provides 70+ datasets and custom data collection services.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q2",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/UniDataPro",
+          "publisher": "Unidata (UniDataPro on Hugging Face)",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We provide 70+ datasets and custom data collection services across 19+ industries."
+        }
+      ]
+    },
+    {
+      "id": "unidata-c036",
+      "statement": "GTS.ai relists Unidata's Latex Mask Attack sample on its own site and credits Kaggle as the source.",
+      "kind": "outcome",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "independent",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://gts.ai/dataset-download/latex-mask-attack-11100-videos/",
+          "publisher": "GTS.ai",
+          "source_class": "third_party_docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "This dataset is sourced from Kaggle"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c037",
+      "statement": "Unidata's quality control department says it validates the previous or current day's data every day.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/quality-control-department/",
+          "publisher": "Unidata",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "validate the data from the previous or current day every day"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c038",
+      "statement": "Unidata advertises AWS ISO 27001/27701 certification.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/about-us/",
+          "publisher": "Unidata",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AWS ISO 27001/27701"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c039",
+      "statement": "Unidata's catalogue page pitches custom dataset collection in which Unidata handles all collection.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/datasets/",
+          "publisher": "Unidata",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "No manual collection needed from your side; we handle everything"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c040",
+      "statement": "Unidata's robotics page offers custom collection of training data from the client's own equipment.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/robotics-training-data/",
+          "publisher": "Unidata",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We collect training data from your equipment"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c041",
+      "statement": "Unidata's egocentric collection page says most custom projects start delivering within two weeks.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/data-collection/egocentric-video-data/",
+          "publisher": "Unidata",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Most projects start delivering within two weeks."
+        }
+      ]
+    },
+    {
+      "id": "unidata-c042",
+      "statement": "Unidata describes a custom egocentric collection project for an unnamed humanoid robot developer.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12",
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/cases/egocentric-data-collection-for-humanoid-robot-training/",
+          "publisher": "Unidata",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The client, a humanoid robot developer, needed training data that captures real first-person human"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c043",
+      "statement": "Unidata describes a tailored iBeta Level 1 dataset built for a client with 50 actors.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/cases/ethnic-coverage-expansion-for-ibeta-level-1-certification/",
+          "publisher": "Unidata",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "A tailored Level 1 dataset with 50 actors across a wide ethnic range"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c044",
+      "statement": "Unidata's blog argues that buying a dataset lets teams start training in days instead of months.",
+      "kind": "offer",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-06-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://unidata.pro/blog/build-or-buy-ml-dataset/",
+          "publisher": "Unidata",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Buying lets teams start training in days instead of months"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c045",
+      "statement": "Unidata's blog estimates, as a general market figure and not a Unidata price, that buying a dataset costs $50k to $400k.",
+      "kind": "number",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 50000,
+        "unit": "USD per dataset (low end of a 50,000-400,000 range)",
+        "basis": "Unidata blog's generic estimate of what buyers pay to license a dataset; not a Unidata list price",
+        "period": "one-off"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-06-03",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://unidata.pro/blog/build-or-buy-ml-dataset/",
+          "publisher": "Unidata",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "$50k–$400k depending on volume, industry and licensing"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c046",
+      "statement": "In a post dated 24 July 2026 Unidata says it has captured 10,255 hours of egocentric data to date.",
+      "kind": "number",
+      "section": "changes",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 10255,
+        "unit": "hours of egocentric video captured",
+        "basis": "vendor-stated cumulative capture, catalogue and custom combined",
+        "period": "cumulative to 2026-07-24"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-07-24",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://unidata.pro/blog/best-egocentric-data-providers-for-robotics/",
+          "publisher": "Unidata",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "38,457 scenarios, 10,255 hours captured to date"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c047",
+      "statement": "Unidata's privacy policy covers personal information contained in files and data that customers or service providers give Unidata.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://unidata.pro/privacy-policy/",
+          "publisher": "Unidata",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "personal information contained in the digital files, data, and machine learning models"
+        }
+      ]
+    },
+    {
+      "id": "unidata-c048",
+      "statement": "Unidata's privacy policy says personal information is deleted after the applicable retention periods; it does not address copies already delivered to buyers.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-01-20",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://unidata.pro/privacy-policy/",
+          "publisher": "Unidata",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "After expiry of the applicable retention periods, your personal information will be deleted."
+        }
+      ]
+    },
+    {
+      "id": "unidata-c049",
+      "statement": "Unidata's case study on a child and teen facial dataset says it used established crowd platforms and tested new sources.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://unidata.pro/cases/child-teen-facial-dataset-for-recognition-systems/",
+          "publisher": "Unidata",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Leveraged established crowd platforms and tested new sources to expand geographic coverage"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "matrix.exclusivity_offered",
+      "urls_tried": [
+        "https://unidata.pro/datasets/face-anti-spoofing/",
+        "https://unidata.pro/datasets/egocentric-video/",
+        "https://unidata.pro/data-collection/egocentric-video-data/",
+        "https://unidata.pro/data-collection/",
+        "https://unidata.pro/terms/"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.buyer_vetting",
+      "urls_tried": [
+        "https://unidata.pro/datasets/face-anti-spoofing/",
+        "https://unidata.pro/datasets/selfie-with-id/",
+        "https://unidata.pro/terms/"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.versioning",
+      "urls_tried": [
+        "https://unidata.pro/datasets/face-anti-spoofing/",
+        "https://unidata.pro/datasets/egocentric-video/",
+        "https://huggingface.co/datasets/UniDataPro/face-anti-spoofing"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.contributor_pay_model",
+      "urls_tried": [
+        "https://unidata.pro/data-collection/",
+        "https://unidata.pro/data-collection/egocentric-video-data/",
+        "https://unidata.pro/cases/child-teen-facial-dataset-for-recognition-systems/",
+        "https://unidata.pro/datasets/"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.erasure_after_sale",
+      "urls_tried": [
+        "https://unidata.pro/privacy-policy/",
+        "https://unidata.pro/terms/"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.quality_evidence",
+      "urls_tried": [
+        "https://unidata.pro/quality-control-department/",
+        "https://unidata.pro/datasets/face-anti-spoofing/",
+        "https://unidata.pro/datasets/dataset-type/ibeta/"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "questions.Q4",
+      "urls_tried": [
+        "https://unidata.pro/data-collection/",
+        "https://unidata.pro/cases/egocentric-data-collection-for-humanoid-robot-training/",
+        "https://unidata.pro/cases/ethnic-coverage-expansion-for-ibeta-level-1-certification/",
+        "https://unidata.pro/cases/child-teen-facial-dataset-for-recognition-systems/"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.buyer_licence_text",
+      "urls_tried": [
+        "https://unidata.pro/terms/",
+        "https://unidata.pro/privacy-policy/",
+        "https://unidata.pro/datasets/face-anti-spoofing/"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.egocentric_launch_2026_07_03",
+      "urls_tried": [
+        "https://unidata.pro/blog/",
+        "https://unidata.pro/blog/page/2/",
+        "https://unidata.pro/data-collection/egocentric-video-data/",
+        "https://unidata.pro/robotics-training-data/",
+        "https://unidata.pro/cases/egocentric-data-collection-for-humanoid-robot-training/",
+        "https://unidata.pro/post-sitemap.xml",
+        "https://unidata.pro/cases-sitemap.xml"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "other.kaggle_samples",
+      "urls_tried": [
+        "https://www.kaggle.com/organizations/unidatapro",
+        "https://www.kaggle.com/datasets/unidatapro/latex-mask-attack"
+      ],
+      "reason": "not_found"
+    }
+  ],
+  "conflicts": [
+    {
+      "claim_ids": [
+        "unidata-c008",
+        "unidata-c034"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "The unidata.pro face anti-spoofing listing (43,670 people, 87,340 files, 179 countries) and the Hugging Face card (98,000 videos and selfies, 170 countries) give different sizes; they may describe different versions of the dataset."
+    }
+  ],
+  "leads": [
+    {
+      "url": "https://www.linkedin.com/company/unidatapro/",
+      "why": "Likely carries the 2026-07-03 Dubai egocentric capture launch announcement; not fetchable without login."
+    },
+    {
+      "url": "https://gts.ai/dataset-download/printed-3d-mask-attack-3500-videos/",
+      "why": "Other GTS relistings that appear to be Unidata samples; not checked individually."
+    },
+    {
+      "url": "https://unidata.pro/cases/fabric-mask-dataset-for-biometric-testing/",
+      "why": "A client fabric-mask case exists alongside a 'fabric-masks-dataset' sample on Hugging Face; could show commissioned work being relisted (Q4), but neither page says so. Fetched; not cited."
+    },
+    {
+      "url": "https://unidata.pro/cases/real-world-data-for-a-synthetic-trained-pad-model/",
+      "why": "Client got a 32,000+ video iBeta Level 2 dataset; the page does not say whether it came from the catalogue. Fetched; not cited."
+    }
+  ]
+}

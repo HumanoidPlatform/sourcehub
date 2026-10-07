@@ -1,0 +1,5024 @@
+{
+  "kind": "profile",
+  "slug": "futurebeeai",
+  "name": "FutureBeeAI",
+  "aliases": [
+    "FBAI",
+    "FutureBee AI"
+  ],
+  "segment": "ai_data_catalogue",
+  "tier": "deep",
+  "status": {
+    "value": "active",
+    "claim_id": "futurebeeai-c130"
+  },
+  "names_for": {
+    "catalogue_side": "OTS Datasets / 'Off-the-shelf' datasets, sold from the 'FBAI Datastore' (listing CTA: 'Get this AI Dataset')",
+    "custom_side": "Custom AI Data Collection (listing CTA: 'Request Custom Collection'); subsets and mixes of catalogue data are a 'custom package'"
+  },
+  "matrix": {
+    "operator_role": {
+      "value": "reseller_licensor",
+      "claim_ids": [
+        "futurebeeai-c005",
+        "futurebeeai-c006",
+        "futurebeeai-c020",
+        "futurebeeai-c056",
+        "futurebeeai-c065"
+      ],
+      "note": "FutureBeeAI grants the licence in its own name and retains IP; own-collected datasets are 'developed and owned by FutureBeeAI'. How bought-in third-party datasets are licensed is not published."
+    },
+    "economics_model": {
+      "value": "principal_margin",
+      "claim_ids": [
+        "futurebeeai-c020",
+        "futurebeeai-c065",
+        "futurebeeai-c056",
+        "futurebeeai-c040",
+        "futurebeeai-c039"
+      ],
+      "note": "Own-collected data is owned and sold at FutureBeeAI's price. For third-party datasets the seller page says only that pricing is discussed after approval and payment is processed; whether that is an outright purchase or a share is not published."
+    },
+    "who_pays_fee": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "No fee, commission or split is published for buyers or sellers; see unknowns."
+    },
+    "supply_models": {
+      "value": [
+        "own_collection",
+        "third_party_providers"
+      ],
+      "claim_ids": [
+        "futurebeeai-c131",
+        "futurebeeai-c048",
+        "futurebeeai-c056",
+        "futurebeeai-c065",
+        "futurebeeai-c098",
+        "futurebeeai-c113",
+        "futurebeeai-c033",
+        "futurebeeai-c034",
+        "futurebeeai-c041",
+        "futurebeeai-c079",
+        "futurebeeai-c080"
+      ],
+      "note": "Own crowd collection through the Yugo app is evidenced on listings; a 'Monetize Your Dataset' programme buys or licenses datasets from companies, individuals and institutions (no listing seen that is marked third-party). Freelancer/vendor providers and third-party communities are used for custom collection. No evidence found that client-commissioned data is relisted."
+    },
+    "custody_model": {
+      "value": "copy_to_buyer",
+      "claim_ids": [
+        "futurebeeai-c091",
+        "futurebeeai-c021",
+        "futurebeeai-c087",
+        "futurebeeai-c120"
+      ],
+      "note": "Datasets sit in FutureBeeAI's AWS S3/OneDrive storage; after payment the buyer gets a custom link to the store and downloads the dataset."
+    },
+    "transaction_mode": {
+      "value": "contact_sales",
+      "claim_ids": [
+        "futurebeeai-c050",
+        "futurebeeai-c052",
+        "futurebeeai-c076",
+        "futurebeeai-c089",
+        "futurebeeai-c090",
+        "futurebeeai-c096"
+      ],
+      "note": "No cart or card payment; 'Get this AI Dataset'/'Contact Us' leads to a data manager, payment by bank/wire/PayPal/Payoneer."
+    },
+    "public_prices": {
+      "value": "none",
+      "claim_ids": [
+        "futurebeeai-c061",
+        "futurebeeai-c010",
+        "futurebeeai-c045"
+      ],
+      "note": "No price found on the catalogue, the four listings opened, the FAQ, the licence or pricing articles."
+    },
+    "licence_model": {
+      "value": "mixed",
+      "claim_ids": [
+        "futurebeeai-c005",
+        "futurebeeai-c007",
+        "futurebeeai-c009",
+        "futurebeeai-c010",
+        "futurebeeai-c011",
+        "futurebeeai-c002"
+      ],
+      "note": "A standard non-exclusive licence for catalogue data, with exclusive and custom licences negotiated by separate agreement; any signed agreement overrides the standard policy."
+    },
+    "exclusivity_offered": {
+      "value": "yes",
+      "claim_ids": [
+        "futurebeeai-c009",
+        "futurebeeai-c010",
+        "futurebeeai-c139"
+      ],
+      "note": "Exclusive licence available 'upon agreement' at separate pricing."
+    },
+    "public_listing": {
+      "value": "public_indexable",
+      "claim_ids": [
+        "futurebeeai-c051",
+        "futurebeeai-c067",
+        "futurebeeai-c134",
+        "futurebeeai-c047"
+      ],
+      "note": "Catalogue and listing pages load without login and are in the sitemap."
+    },
+    "buyer_vetting": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "No pre-sale buyer check is published; the licence only allows blacklisting after misuse [c025]."
+    },
+    "sample_mechanics": {
+      "value": "sample_on_request",
+      "claim_ids": [
+        "futurebeeai-c058",
+        "futurebeeai-c074",
+        "futurebeeai-c133",
+        "futurebeeai-c028"
+      ],
+      "note": "Image and video listings say samples are 'available soon' and ask the buyer to contact FutureBeeAI; speech listings show a 'Download Sample Dataset' block (not tested, as it may need a form). The FAQ claims a free sample for every dataset."
+    },
+    "versioning": {
+      "value": "mutable_latest",
+      "claim_ids": [
+        "futurebeeai-c059",
+        "futurebeeai-c070",
+        "futurebeeai-c032",
+        "futurebeeai-c051",
+        "futurebeeai-c067"
+      ],
+      "note": "Listings show a 'Last updated' month and say datasets are regularly expanded; FutureBeeAI may modify or remove content at any time. What a past buyer gets on an update is not published."
+    },
+    "human_subject_consent_docs": {
+      "value": "asserted_only",
+      "claim_ids": [
+        "futurebeeai-c055",
+        "futurebeeai-c063",
+        "futurebeeai-c068",
+        "futurebeeai-c081",
+        "futurebeeai-c135"
+      ],
+      "note": "Listings assert written consent; consent records are said to be auditable in Yugo, but no page says consent forms or records are delivered to the buyer."
+    },
+    "contributor_pay_model": {
+      "value": "one_off",
+      "claim_ids": [
+        "futurebeeai-c107",
+        "futurebeeai-c106",
+        "futurebeeai-c115",
+        "futurebeeai-c084"
+      ],
+      "note": "Crowd contributors are paid per completed task after quality review; no royalty or share of dataset sales is mentioned."
+    },
+    "catalogue_plus_custom": {
+      "value": "both",
+      "claim_ids": [
+        "futurebeeai-c052",
+        "futurebeeai-c053",
+        "futurebeeai-c073",
+        "futurebeeai-c119",
+        "futurebeeai-c003"
+      ],
+      "note": ""
+    },
+    "erasure_after_sale": {
+      "value": "contractual_deletion",
+      "claim_ids": [
+        "futurebeeai-c024",
+        "futurebeeai-c144",
+        "futurebeeai-c143"
+      ],
+      "note": "The buyer must delete all copies only on licence termination. For a contributor's consent withdrawal FutureBeeAI deletes its own copy within 7-15 working days, and says only that data already used in models is 'addressed responsibly'; no clause makes past buyers delete withdrawn data."
+    },
+    "quality_evidence": {
+      "value": "operator_verified",
+      "claim_ids": [
+        "futurebeeai-c101",
+        "futurebeeai-c102",
+        "futurebeeai-c128",
+        "futurebeeai-c038"
+      ],
+      "note": "Quality statements come from FutureBeeAI as producer (in-app QA review, claimed multi-layer QA) and it reviews third-party submissions; no independent audit or certification of its own (see [c121])."
+    }
+  },
+  "questions": {
+    "Q1": {
+      "state": "partial",
+      "answer": "FutureBeeAI positions off-the-shelf facial data for baseline KYC and proof-of-concept work and tells buyers to start with OTS to save cost, custom when needs are specific; images are said to cost less than video. It names no buyers, volumes or sales figures.",
+      "claim_ids": [
+        "futurebeeai-c140",
+        "futurebeeai-c138",
+        "futurebeeai-c136",
+        "futurebeeai-c047",
+        "futurebeeai-c118",
+        "futurebeeai-c054"
+      ]
+    },
+    "Q2": {
+      "state": "partial",
+      "answer": "FutureBeeAI built its own store and runs a seller programme; a seller gets compliance review, negotiated pricing and 'customizable licensing', with no published payment basis. No listing of FutureBeeAI data on a third-party marketplace was found.",
+      "claim_ids": [
+        "futurebeeai-c033",
+        "futurebeeai-c038",
+        "futurebeeai-c039",
+        "futurebeeai-c044",
+        "futurebeeai-c045",
+        "futurebeeai-c129"
+      ]
+    },
+    "Q3": {
+      "state": "sourced",
+      "answer": "Most inventory is FutureBeeAI's own crowd collection through the Yugo app, owned by FutureBeeAI. Crowd workers are paid per task. A 'Monetize Your Dataset' programme takes datasets from companies, individuals and institutions that must own or hold rights to them. Freelancer/vendor providers and synthetic data also feed collection.",
+      "claim_ids": [
+        "futurebeeai-c131",
+        "futurebeeai-c056",
+        "futurebeeai-c065",
+        "futurebeeai-c107",
+        "futurebeeai-c113",
+        "futurebeeai-c033",
+        "futurebeeai-c034",
+        "futurebeeai-c041",
+        "futurebeeai-c043",
+        "futurebeeai-c079",
+        "futurebeeai-c095"
+      ]
+    },
+    "Q4": {
+      "state": "partial",
+      "answer": "Custom datasets get usage rights set per contract, 'exclusive or non-exclusive depending on the agreement'; the FAQ offers data 'only for you' with no redistribution. Standard licences let FutureBeeAI resell the same data. No case of relisting commissioned data or of a disputed terms change was found.",
+      "claim_ids": [
+        "futurebeeai-c011",
+        "futurebeeai-c012",
+        "futurebeeai-c077",
+        "futurebeeai-c008",
+        "futurebeeai-c026"
+      ]
+    },
+    "Q5": {
+      "state": "sourced",
+      "answer": "FutureBeeAI is the licensor of record: it grants the licence and retains all IP. The buyer carries data-protection compliance for its own use, and sellers must own the rights they sell. The policy has no consent warranty or indemnity clause; Indian law governs, with arbitration in Ahmedabad.",
+      "claim_ids": [
+        "futurebeeai-c005",
+        "futurebeeai-c006",
+        "futurebeeai-c020",
+        "futurebeeai-c016",
+        "futurebeeai-c041",
+        "futurebeeai-c027"
+      ]
+    },
+    "Q6": {
+      "state": "sourced",
+      "answer": "Datasets are held in FutureBeeAI's AWS S3/OneDrive storage. After payment the buyer gets a custom link to download a copy. Third-party sellers transfer their data to FutureBeeAI.",
+      "claim_ids": [
+        "futurebeeai-c120",
+        "futurebeeai-c099",
+        "futurebeeai-c091",
+        "futurebeeai-c087",
+        "futurebeeai-c021",
+        "futurebeeai-c040"
+      ]
+    },
+    "Q7": {
+      "state": "partial",
+      "answer": "Contributors consent in the app and sign project consent letters, can withdraw in Yugo, and are ID-checked. Listings assert written (or guardian) consent from people shown, but no page says consent records go to buyers. Property owners are not addressed. FutureBeeAI's own pages conflict on minors and on biometric data.",
+      "claim_ids": [
+        "futurebeeai-c082",
+        "futurebeeai-c142",
+        "futurebeeai-c145",
+        "futurebeeai-c055",
+        "futurebeeai-c063",
+        "futurebeeai-c068",
+        "futurebeeai-c135",
+        "futurebeeai-c147",
+        "futurebeeai-c123"
+      ]
+    },
+    "Q8": {
+      "state": "sourced",
+      "answer": "Licences are non-exclusive, non-transferable and non-sublicensable by default. Exclusive licences are available by agreement. Redistribution and derivative datasets are banned, access is limited to authorised staff, and buyers must delete on termination. Enforcement is contractual (termination, legal action, blacklisting); no audit right, watermarking or fingerprinting was found.",
+      "claim_ids": [
+        "futurebeeai-c005",
+        "futurebeeai-c009",
+        "futurebeeai-c013",
+        "futurebeeai-c014",
+        "futurebeeai-c017",
+        "futurebeeai-c018",
+        "futurebeeai-c024",
+        "futurebeeai-c025"
+      ]
+    },
+    "Q9": {
+      "state": "sourced",
+      "answer": "Deals close through sales: a 'Get this AI Dataset'/Contact Us inquiry, a data manager confirming the contents, then payment by bank/wire/PayPal/Payoneer, with access about 2-3 business days after payment clears. No prices are published. FutureBeeAI sells data it owns and discounts bulk or continuing contracts.",
+      "claim_ids": [
+        "futurebeeai-c052",
+        "futurebeeai-c076",
+        "futurebeeai-c089",
+        "futurebeeai-c090",
+        "futurebeeai-c087",
+        "futurebeeai-c088",
+        "futurebeeai-c061",
+        "futurebeeai-c093",
+        "futurebeeai-c020"
+      ]
+    },
+    "Q10": {
+      "state": "partial",
+      "answer": "A listing is an 'OTS Dataset' page with volume, participants and a last-updated month. Buyers can buy the whole dataset or a 'custom package' subset or mix. Datasets are updated in place and may be changed or removed. What a past buyer receives on an update or a withdrawal is not published.",
+      "claim_ids": [
+        "futurebeeai-c051",
+        "futurebeeai-c053",
+        "futurebeeai-c085",
+        "futurebeeai-c086",
+        "futurebeeai-c059",
+        "futurebeeai-c032",
+        "futurebeeai-c031"
+      ]
+    },
+    "Q11": {
+      "state": "sourced",
+      "answer": "Samples may be used only for evaluation; image/video listings give samples on request and speech listings show a download block. A data manager confirms contents before purchase. Trust rests on FutureBeeAI's own QA and consent assertions; it holds no certifications itself, and samples are not guaranteed to match.",
+      "claim_ids": [
+        "futurebeeai-c028",
+        "futurebeeai-c029",
+        "futurebeeai-c058",
+        "futurebeeai-c074",
+        "futurebeeai-c133",
+        "futurebeeai-c076",
+        "futurebeeai-c128",
+        "futurebeeai-c121",
+        "futurebeeai-c030"
+      ]
+    },
+    "Q12": {
+      "state": "sourced",
+      "answer": "Every 'OTS Dataset' listing pairs 'Get this AI Dataset' with 'Request Custom Collection' and lists customisation options. The licence covers both catalogue and custom-collected data. FutureBeeAI presents OTS as fast and fixed and custom as precise, and sells subsets as 'custom packages'.",
+      "claim_ids": [
+        "futurebeeai-c052",
+        "futurebeeai-c053",
+        "futurebeeai-c073",
+        "futurebeeai-c059",
+        "futurebeeai-c072",
+        "futurebeeai-c003",
+        "futurebeeai-c011",
+        "futurebeeai-c140",
+        "futurebeeai-c141",
+        "futurebeeai-c085"
+      ]
+    }
+  },
+  "sections": {
+    "positioning": "An Ahmedabad-based AI training-data vendor [c126] led by founder-CEO Jesal Thakkar [c127]. It sells custom collection, annotation and crowd services [c119] alongside a catalogue it says has 2,000+ datasets [c046]; the index showed 2,321 [c047]. Speech and OCR/text dominate. Image and video are mainly facial-biometric and visual-speech sets [c054][c067].",
+    "supply": "Most listings are FutureBeeAI's own crowd collections: 'developed and owned by FutureBeeAI' [c065], captured through its Yugo app [c131][c098]. The crowd is 20,000+ contributors by the join page [c113] and 10k+ by the home page [c117]. A 'Monetize Your Dataset' programme invites companies, individuals, institutions and consortia to sell datasets [c033][c034][c035][c036]. Sellers must hold the rights [c041] and pass a compliance review [c038]. Freelancer/vendor providers and third-party communities serve custom work [c079][c080], and synthetic sets are listed [c095]. No listing was seen marked as third-party supplied.",
+    "object_model": "The unit is an 'OTS Dataset' listing [c053] with volume, participants and a last-updated month [c051][c134]. Buyers can buy it whole or as a 'custom package', a subset by attributes or a mix of datasets [c085][c086]. Datasets are 'regularly updated' [c059][c070], FutureBeeAI may change or remove content [c032], and the delivered set may differ from the listing [c031]. Revision and entitlement rules are not published.",
+    "listing": "The listings opened (selfie/ID images, children's faces, US-English visual speech video, Egyptian Arabic call-centre speech) show a spec header [c051][c067][c134]. Below it come long descriptive sections on content, diversity, capture conditions, metadata, consent and customisation, then a licence line [c056][c065] and links to the licence terms [c060]. No price is shown [c061]. One video listing's licence line names a different product [c071].",
+    "discovery": "The public catalogue index filters by industry, use case, language, data type and synthetic/non-synthetic form [c049]. The count showed 2,321 results [c047]. Listings link to 'similar' datasets. The primary call to action is Contact Us [c050].",
+    "trust": "Trust is asserted rather than evidenced. Listings claim written or guardian consent [c055][c063][c068] and 'no PII' even for face videos [c069]. Samples are evaluation-only [c028][c029] and on request for image/video [c058], though the FAQ promises free samples [c074]. FutureBeeAI holds no security certifications of its own [c121]. It says consent records are auditable but does not say it hands them over [c135][c148].",
+    "transaction": "Sales-led. 'Get this AI Dataset' or Contact Us [c052][c050] leads to a data manager who confirms contents [c076]. Payment is by bank, wire, PayPal or Payoneer; no card gateway yet [c089][c090]. Access follows cleared payment [c087], generally in 2-3 business days [c088]. Raw data is priced by quote [c096].",
+    "pricing": "No prices are published [c061]. Exclusive licences are priced separately [c010] and cost more [c139]. Images are said to cost less than video [c136], and price rises with demographic targets, customisation and QC [c137]. Bulk and continuing contracts get discounts [c093]; academic and non-profit buyers are invited to ask [c092]. Seller pay is 'fair compensation' with no basis stated [c045][c039].",
+    "licence": "One published Data Usage & Licensing Policy (Feb 2025) [c001] sets Standard (non-exclusive), Exclusive and Custom licences [c007][c009][c011]. The grant is non-transferable and non-sublicensable [c005], with no redistribution or derivative datasets [c013][c014]. Models built with the data belong to the buyer [c019], and FutureBeeAI keeps IP [c006][c020]. A signed agreement overrides the policy [c002]. FutureBeeAI can change the policy unilaterally [c026]. Indian law and Ahmedabad arbitration apply [c027].",
+    "custody": "Data is stored in AWS S3 and Microsoft OneDrive [c120][c099] and processed on FutureBeeAI's own platform [c057]. The buyer receives a custom store link and downloads a copy [c091][c021]. Sellers transfer their datasets to FutureBeeAI [c040].",
+    "vetting": "Seller datasets go through a form, compliance review and approval [c037][c038], with ownership and acquisition questions [c043]. Contributors are ID-checked [c145] and bound by the Crowd Code [c112]. Yugo has in-app QA review and separate QA accounts [c101][c102]. No buyer vetting is published.",
+    "contributor_pay": "Crowd workers are paid per completed task after quality review [c107], at rates set per project [c084][c106]. The join page claims ₹70 million paid to the community [c114]. No royalty or revenue share on later dataset sales is mentioned. Repeat code violations suspend payment [c111].",
+    "post_sale": "No refund after download [c021]. The FAQ says there are no refunds at all [c094], while the licence allows discretionary refunds before access [c022]. Buyers must delete all copies on termination [c024]. A contributor who withdraws consent has data deleted within 7-15 working days [c143]. Already-used data is only 'addressed responsibly' [c144].",
+    "catalogue_custom": "Catalogue and custom share each listing: 'Get this AI Dataset' sits beside 'Request Custom Collection' [c052], and listings list custom variants [c059][c072]. The licence covers custom-collected data [c003]. Custom licences may be exclusive or not [c012], and the FAQ promises exclusive rights for data collected 'only for you' [c077].",
+    "changes": "Policies were last updated in February 2025 [c001]. The blog posted as recently as 28 September 2026 [c130]. No funding, acquisition, layoff or pricing event was found.",
+    "demand": "FutureBeeAI frames OTS data for baseline KYC and proof-of-concept work [c140] and claims 100+ completed projects [c118]. No buyer names or volumes are published.",
+    "regulation": "Indian law governs [c027], and data is mainly stored and processed in India [c124]. The buyer carries GDPR/CCPA compliance for its use [c016]. The website privacy policy says FutureBeeAI does not process biometric data [c123], yet it sells facial-biometric datasets [c054]. Third-party PII needs a Data Sharing Agreement [c122]."
+  },
+  "buyer_journey": [
+    {
+      "step": "Lands on futurebeeai.com or the /dataset catalogue ('2,000+ ready-to-use datasets') and filters by industry, use case, language, type and synthetic/non-synthetic.",
+      "claim_ids": [
+        "futurebeeai-c046",
+        "futurebeeai-c047",
+        "futurebeeai-c049"
+      ]
+    },
+    {
+      "step": "Opens an 'OTS Dataset' listing: header with category, volume, last-updated month and participants; long description of content, metadata, consent and customisation; a licence line; no price.",
+      "claim_ids": [
+        "futurebeeai-c051",
+        "futurebeeai-c053",
+        "futurebeeai-c056",
+        "futurebeeai-c061"
+      ]
+    },
+    {
+      "step": "Looks for a sample: image/video listings say samples are coming and to contact FutureBeeAI; speech listings show a sample download block. Samples are evaluation-only under the Terms of Use.",
+      "claim_ids": [
+        "futurebeeai-c058",
+        "futurebeeai-c133",
+        "futurebeeai-c028",
+        "futurebeeai-c029"
+      ]
+    },
+    {
+      "step": "Can read the public Data Usage & Licensing Policy linked from the listing.",
+      "claim_ids": [
+        "futurebeeai-c060",
+        "futurebeeai-c001",
+        "futurebeeai-c005"
+      ]
+    },
+    {
+      "step": "Clicks 'Get this AI Dataset' (or 'Request Custom Collection') / Contact Us and fills in an inquiry form.",
+      "claim_ids": [
+        "futurebeeai-c052",
+        "futurebeeai-c050"
+      ]
+    },
+    {
+      "step": "A data manager confirms contents and metadata, and may cut a 'custom package' subset. Price, licence type (standard, exclusive or custom) and discounts are settled by negotiation.",
+      "claim_ids": [
+        "futurebeeai-c076",
+        "futurebeeai-c085",
+        "futurebeeai-c086",
+        "futurebeeai-c010",
+        "futurebeeai-c093"
+      ]
+    },
+    {
+      "step": "Pays by bank transfer, wire, PayPal or Payoneer; no card checkout.",
+      "claim_ids": [
+        "futurebeeai-c089",
+        "futurebeeai-c090"
+      ]
+    },
+    {
+      "step": "Once payment clears (generally 2-3 business days), receives a custom link to FutureBeeAI's store and downloads the dataset with metadata under the licence. No refund after download.",
+      "claim_ids": [
+        "futurebeeai-c087",
+        "futurebeeai-c088",
+        "futurebeeai-c091",
+        "futurebeeai-c021"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "id": "futurebeeai-c001",
+      "statement": "FutureBeeAI's Data Usage & Licensing Policy (the 'AI Data License Agreement' page) governs the use and licensing of every dataset bought from FutureBeeAI.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "governs the usage and licensing of datasets purchased from FutureBeeAI"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c002",
+      "statement": "The standard licence policy yields to any specific agreement signed between the buyer and FutureBeeAI where the two conflict.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "any specific agreement signed between the Buyer and FutureBeeAI shall supersede these clauses in case of any conflicts"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c003",
+      "statement": "The licence policy expressly covers custom-collected datasets gathered at a buyer's request as well as catalogue datasets.",
+      "kind": "terms",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Custom-collected datasets (specially collected as per Buyer’s request)."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c004",
+      "statement": "Dataset samples, metadata and descriptions are outside the licence policy and are governed by the website Terms of Use for pre-purchase evaluation only.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "This Policy does not cover dataset samples, metadata, attribute details, or descriptions"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c005",
+      "statement": "FutureBeeAI grants buyers a non-exclusive, non-transferable, non-sublicensable licence to use a purchased dataset for the approved use cases.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "grants the Buyer a non-exclusive, non-transferable, non-sublicensable license to use the purchased dataset"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c006",
+      "statement": "FutureBeeAI retains all intellectual property in datasets it licenses unless a signed agreement says otherwise, making it the licensor of record.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "FutureBeeAI retains all intellectual property rights over the dataset unless explicitly stated otherwise"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c007",
+      "statement": "Under the Standard (non-exclusive) licence a dataset may be used for internal research, AI/ML training and product development.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The dataset may be used for internal research, AI/ML training, and product development."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c008",
+      "statement": "Under the Standard licence FutureBeeAI may sell the same dataset to other buyers.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q4"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "FutureBeeAI may sell the same dataset to other buyers."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c009",
+      "statement": "FutureBeeAI offers an Exclusive licence, upon agreement, under which no other party gets access to the same dataset.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The dataset is sold exclusively to the Buyer, and no other party will have access to the same dataset."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c010",
+      "statement": "An Exclusive licence is subject to a separate agreement with its own pricing and licensing terms.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q8",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Subject to a separate agreement, pricing, and licensing terms."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c011",
+      "statement": "For a Custom Dataset License (data collected or processed specifically for a buyer) the usage rights are set in the contract.",
+      "kind": "terms",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q4",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If a dataset is specifically collected or processed for a Buyer, usage rights will be defined in the contract."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c012",
+      "statement": "A custom dataset licence can be exclusive or non-exclusive depending on the agreement, so commissioned data is not automatically exclusive to the client.",
+      "kind": "terms",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Can be exclusive or non-exclusive depending on the agreement."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c013",
+      "statement": "Buyers may not resell, share, sublicense or publicly distribute a dataset, including on open-source platforms.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Datasets cannot be resold, shared, sublicensed, or publicly distributed, including open-source platforms."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c014",
+      "statement": "Buyers may not alter a dataset and resell it as a derivative dataset.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Buyers cannot alter the dataset and resell it as a derivative dataset."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c015",
+      "statement": "The licence bars use in discriminatory AI models, illegal surveillance or unethical applications.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "No use in discriminatory AI models, illegal surveillance, or unethical applications."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c016",
+      "statement": "The buyer is responsible for ensuring its use of a dataset complies with GDPR, CCPA and other applicable data protection law.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The Buyer is responsible for ensuring their use of the dataset complies with GDPR, CCPA, or any other applicable regulations."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c017",
+      "statement": "Buyers must limit dataset access to authorised personnel within their organisation.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Access to the dataset should be limited to authorized personnel within the Buyer’s organization."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c018",
+      "statement": "Buyers must notify FutureBeeAI immediately of any unauthorised access or misuse of a dataset.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If unauthorized access or misuse occurs, the Buyer must notify FutureBeeAI immediately."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c019",
+      "statement": "Insights, models and products derived from a dataset belong to the buyer provided they do not expose or distribute the original dataset.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Any insights, models, or products derived from the dataset belong to the Buyer"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c020",
+      "statement": "Datasets remain FutureBeeAI's sole property unless an exclusive licence is granted in writing.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All datasets remain the sole property of FutureBeeAI unless an exclusive license is granted in writing."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c021",
+      "statement": "FutureBeeAI gives no refunds once a dataset has been accessed or downloaded.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q9",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "refunds are not provided once a dataset has been accessed or downloaded"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c022",
+      "statement": "If a buyer cancels before accessing a dataset, FutureBeeAI may refund at its discretion.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If a Buyer cancels before accessing the dataset, FutureBeeAI may offer a refund at its discretion."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c023",
+      "statement": "If a dataset misses agreed specifications the buyer may request a resolution, but refunds are not guaranteed.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If a dataset does not meet agreed-upon specifications, Buyers may request a resolution, but refunds are not guaranteed."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c024",
+      "statement": "On termination of the licence the buyer must delete all copies of the dataset.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The Buyer must delete all copies of the dataset upon termination of the license."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c025",
+      "statement": "FutureBeeAI may blacklist buyers who make unauthorised use of datasets.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "FutureBeeAI may also blacklist Buyers who engage in unauthorized use of datasets."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c026",
+      "statement": "FutureBeeAI may change the licence policy at any time, and continued use of the dataset after an update counts as acceptance.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Continued use of the dataset after updates constitutes acceptance of the revised terms."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c027",
+      "statement": "The licence policy is governed by Indian law with arbitration in Ahmedabad, Gujarat.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "governed by the laws of India, and disputes will be resolved through arbitration in Ahmedabad, Gujarat"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c028",
+      "statement": "Under the Terms of Use, downloaded samples, descriptions and metadata may be used only to evaluate a dataset before purchase.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/terms-of-use",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You may only download and use the Content for evaluation purposes"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c029",
+      "statement": "The Terms of Use forbid using samples or other site content for research, AI training, model development or commercial applications.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/terms-of-use",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Use any Content for research, AI training, model development, or commercial applications."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c030",
+      "statement": "FutureBeeAI does not guarantee that dataset descriptions, samples or metadata will fully match the purchased dataset.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/terms-of-use",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "FutureBeeAI does not guarantee that dataset descriptions, samples, or metadata will fully match final purchased datasets."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c031",
+      "statement": "The Terms of Use say the final delivered dataset may differ from the listing based on the buyer's requirements.",
+      "kind": "terms",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/terms-of-use",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Final dataset may have changes based on your requirement or preferences."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c032",
+      "statement": "FutureBeeAI reserves the right to modify, update or remove any listed content at any time.",
+      "kind": "terms",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/terms-of-use",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Modify, update, or remove any Content at any time."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c033",
+      "statement": "FutureBeeAI runs a 'Monetize Your Dataset' programme inviting outside parties to sell AI training datasets through it.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/sell-ai-assets",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Have a dataset? Monetize it with FutureBeeAI!"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c034",
+      "statement": "FutureBeeAI's seller page names companies that have legally acquired proprietary datasets as eligible sellers.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/sell-ai-assets",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Businesses that have legally acquired proprietary datasets and wish to monetize them."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c035",
+      "statement": "Individuals such as researchers and data professionals who have collected structured data are also eligible to sell datasets to FutureBeeAI.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/sell-ai-assets",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Researchers, data professionals, AI enthusiasts who have collected structured data."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c036",
+      "statement": "Universities, research institutions, industry groups and multi-institution consortia are also invited to sell datasets.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/sell-ai-assets",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Universities, research institutions, and industry groups with high-quality datasets."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c037",
+      "statement": "The first step for a dataset seller is to submit dataset details through a web form.",
+      "kind": "offer",
+      "section": "vetting",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/sell-ai-assets",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Submit your dataset details via our form."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c038",
+      "statement": "FutureBeeAI's team reviews and verifies a submitted dataset's compliance before it is accepted.",
+      "kind": "offer",
+      "section": "vetting",
+      "question_ids": [
+        "Q3",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/sell-ai-assets",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Our team reviews and verifies dataset compliance."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c039",
+      "statement": "Pricing and licensing terms for a third-party dataset are discussed with the seller only after approval, so seller terms are negotiated per dataset.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9",
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/sell-ai-assets",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If approved, we will discuss pricing and licensing terms."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c040",
+      "statement": "The final seller step is secure data transfer and payment processing, meaning the seller's data is transferred to FutureBeeAI.",
+      "kind": "offer",
+      "section": "custody",
+      "question_ids": [
+        "Q6",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/sell-ai-assets",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Secure data transfer & payment processing."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c041",
+      "statement": "Sellers must own or have the rights to sell the data they submit.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q5",
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/sell-ai-assets",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You must own or have rights to sell the data."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c042",
+      "statement": "Seller datasets may contain personal information only with proper consent.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/sell-ai-assets",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "No personal information unless with proper consent."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c043",
+      "statement": "The seller intake form asks whether the seller has exclusive ownership of the dataset and how it was collected or acquired.",
+      "kind": "offer",
+      "section": "vetting",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/sell-ai-assets",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Do you have exclusive ownership of the dataset?"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c044",
+      "statement": "FutureBeeAI tells sellers they can choose how their data is used through customisable licensing agreements.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q2",
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/sell-ai-assets",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Choose how your data is used with customizable licensing agreements."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c045",
+      "statement": "FutureBeeAI promises sellers 'fair compensation' but publishes no payment basis, split or rate for purchased datasets.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/sell-ai-assets",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We help you monetize your AI training datasets while ensuring compliance and fair compensation."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c046",
+      "statement": "FutureBeeAI says its catalogue holds 2,000+ ready-to-use datasets across audio, video, image and text.",
+      "kind": "number",
+      "section": "positioning",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 2000,
+        "unit": "datasets (lower bound)",
+        "basis": "vendor-stated catalogue size across all modalities",
+        "period": "as of retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/dataset",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Unlock 2,000+ ready-to-use diverse datasets across mutiple modalities like audio, video, image, and text"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c047",
+      "statement": "The catalogue index page showed a filter result count of 2,321 datasets when retrieved.",
+      "kind": "number",
+      "section": "discovery",
+      "question_ids": [
+        "Q1",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 2321,
+        "unit": "datasets listed",
+        "basis": "count shown beside the catalogue filter, all categories",
+        "period": "as of retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/dataset",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Filter ( 2321 )"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c048",
+      "statement": "FutureBeeAI says its off-the-shelf datasets are built by a global community.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/dataset",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "built by a global community for high-performance AI training, evaluation, and testing."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c049",
+      "statement": "The catalogue can be filtered by industry, use case, language, data type (audio, text, image, video) and data form (synthetic or non-synthetic).",
+      "kind": "architecture",
+      "section": "discovery",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/dataset",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Type Audio Text Image Video Data Form Synthetic Non-Synthetic"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c050",
+      "statement": "The catalogue index offers a 'Contact Us' call to action rather than a cart or checkout.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/dataset",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "built by a global community for high-performance AI training, evaluation, and testing. Contact Us"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c051",
+      "statement": "A catalogue listing (South Asian Selfie & ID Card Image Dataset) shows category, total volume, last-updated month and number of participants at the top.",
+      "kind": "architecture",
+      "section": "listing",
+      "question_ids": [
+        "Q10",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/dataset/image-dataset/facial-images-selfie-id-south-asian",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Total volume 56K+ images Last Updated July 2025 Number of participants 8K+ people"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c052",
+      "statement": "Each listing carries two calls to action: 'Get this AI Dataset' and 'Request Custom Collection'.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/dataset/image-dataset/facial-images-selfie-id-south-asian",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Get this AI Dataset Request Custom Collection"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c053",
+      "statement": "FutureBeeAI calls a catalogue listing an 'OTS Dataset' (off-the-shelf).",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/dataset/image-dataset/facial-images-selfie-id-south-asian",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "About This OTS Dataset"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c054",
+      "statement": "The South Asian Selfie & ID Card dataset pairs five selfies with two face images extracted from government-issued ID cards per person.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q1",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/dataset/image-dataset/facial-images-selfie-id-south-asian",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "2 clear facial images extracted from different government-issued ID cards"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c055",
+      "statement": "The South Asian Selfie & ID Card listing states every participant gave written consent aware of the intended uses; no consent document is offered to the buyer on the page.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/dataset/image-dataset/facial-images-selfie-id-south-asian",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Every participant provided written consent, with full awareness of the intended uses of the data"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c056",
+      "statement": "The South Asian Selfie & ID Card listing states the dataset was developed by FutureBeeAI and is available for commercial use.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/dataset/image-dataset/facial-images-selfie-id-south-asian",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "This dataset is developed by FutureBeeAI and is available for commercial use."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c057",
+      "statement": "The listing's images were stored and processed on FutureBeeAI's own platform.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/dataset/image-dataset/facial-images-selfie-id-south-asian",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All images were securely stored and processed on FutureBeeAI’s proprietary platform"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c058",
+      "statement": "Instead of a downloadable sample, the listing says samples will be available soon and asks the buyer to contact FutureBeeAI for samples.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/dataset/image-dataset/facial-images-selfie-id-south-asian",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Contact us to get the samples immediately for this dataset."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c059",
+      "statement": "The listing says the dataset is regularly updated and can be customised (environment, lighting, resolution, annotation, device).",
+      "kind": "offer",
+      "section": "object_model",
+      "question_ids": [
+        "Q10",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/dataset/image-dataset/facial-images-selfie-id-south-asian",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "this dataset is regularly updated and can be customized"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c060",
+      "statement": "The listing links to the licence terms and FAQs from its details panel.",
+      "kind": "architecture",
+      "section": "listing",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/dataset/image-dataset/facial-images-selfie-id-south-asian",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Read the License Terms Browse FAQs"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c061",
+      "statement": "No price appears on the South Asian Selfie & ID Card listing; the details panel lists demographic, volume, format, device and resolution only.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/dataset/image-dataset/facial-images-selfie-id-south-asian",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Minimum Resolution 480p Annotation NA"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c062",
+      "statement": "FutureBeeAI lists an off-the-shelf facial image dataset of children under 18 from South Asian countries.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q1",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/dataset/image-dataset/facial-images-minor-south-asian",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "This dataset features high-quality facial images of children under 18 from across South Asian countries."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c063",
+      "statement": "For the children's facial dataset, the listing states each participant's guardian gave informed written consent outlining the use cases.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/dataset/image-dataset/facial-images-minor-south-asian",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Every participant’s guardian provided informed, written consent, clearly outlining the dataset’s use cases."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c064",
+      "statement": "The children's dataset listing states personally identifiable information is not shared and only anonymised metadata is included.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/dataset/image-dataset/facial-images-minor-south-asian",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Personally identifiable information is not shared. Only anonymized metadata is included."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c065",
+      "statement": "The children's dataset listing states the data is developed and owned by FutureBeeAI and available for commercial licensing.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/dataset/image-dataset/facial-images-minor-south-asian",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "This dataset is developed and owned by FutureBeeAI and is available for commercial licensing."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c066",
+      "statement": "Listings say custom licensing agreements are available for enterprise, academic or research use.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/dataset/image-dataset/facial-images-minor-south-asian",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Custom licensing agreements are available for enterprise, academic, or research use."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c067",
+      "statement": "The American English Visual Speech Dataset lists 1,000+ videos from 200+ participants, last updated August 2024.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q1",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/dataset/multi-modal-dataset/american-english-visual-speech-dataset",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Total Volume 1,000+ Videos Last updated Aug 2024 Number of participants 200+"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c068",
+      "statement": "The visual speech video listing states written signed consent was obtained from all participants.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/dataset/multi-modal-dataset/american-english-visual-speech-dataset",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "obtaining written signed consent of all participants"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c069",
+      "statement": "The visual speech video listing asserts the dataset contains no personally identifiable information about any participant.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/dataset/multi-modal-dataset/american-english-visual-speech-dataset",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The dataset does not include any personally identifiable information about any participant, making it safe to use."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c070",
+      "statement": "The visual speech listing says the dataset is regularly updated with new videos.",
+      "kind": "offer",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/dataset/multi-modal-dataset/american-english-visual-speech-dataset",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "our dataset is regularly updated with new videos in various real-world conditions."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c071",
+      "statement": "The visual speech listing's licence paragraph names a different product ('Image Captioning Dataset'), a template error in the listing text.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/dataset/multi-modal-dataset/american-english-visual-speech-dataset",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "This US English Language Image Captioning Dataset, created by FutureBeeAI, is available for commercial use."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c072",
+      "statement": "The visual speech listing offers custom collection of similar data in any language or on specific devices.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/dataset/multi-modal-dataset/american-english-visual-speech-dataset",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Similar dataset can be prepared in any specific language."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c073",
+      "statement": "FutureBeeAI's FAQ calls its catalogue the 'FBAI Datastore' and says listed datasets are available for all kinds of commercial use.",
+      "kind": "terms",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/faqs-and-guides",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "datasets listed on the FBAI Datastore is available for all kind of commercial use"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c074",
+      "statement": "The FAQ says a free sample is always available for every datastore dataset, via a 'download sample' button or on request.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/faqs-and-guides",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You can always get a free sample of all datasets listed on the datastore."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c075",
+      "statement": "The FAQ says the sample dataset is an identical part of the full dataset.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/faqs-and-guides",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The sample dataset is an identical part of the entire dataset."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c076",
+      "statement": "A FutureBeeAI data manager confirms the data, metadata and contents with the buyer before purchase.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/faqs-and-guides",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Our data manager will confirm everything before your purchase about the data you will receive"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c077",
+      "statement": "For custom collection a client can ask for data collected only for it, with all rights and no redistribution.",
+      "kind": "terms",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q4",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/faqs-and-guides",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You will get all the rights of the data and no redistribution of data will be done."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c078",
+      "statement": "FutureBeeAI says it can facilitate custom collection through a global network of data providers when a requirement is unusual.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/faqs-and-guides",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We can also facilitate the custom collection through our global network of data providers"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c079",
+      "statement": "FutureBeeAI says it keeps a database of freelancer and vendor data providers it onboards for custom projects.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/faqs-and-guides",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We have a huge network of freelancer and vendor data providers with their specific details in our database."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c080",
+      "statement": "FutureBeeAI also draws on third-party communities for collection.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/faqs-and-guides",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We have access to many third-party communities as well"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c081",
+      "statement": "FutureBeeAI says it takes written consent from each data provider before collecting any data.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/faqs-and-guides",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We take proper written consent from each data provider prior to collecting any kind of data."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c082",
+      "statement": "FutureBeeAI says it has a platform for getting project-specific NDAs and consent letters signed by data providers.",
+      "kind": "architecture",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/faqs-and-guides",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "we have a platform to get the NDA and consent letter signed for that particular type of data"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c083",
+      "statement": "Data providers can delete their account at any time and ask for their information to be removed.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/faqs-and-guides",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "user can delete their respective account at any time and also ask for removing the information"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c084",
+      "statement": "Pay rates for data providers depend on data type, complexity and client requirements; no rate card is published.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/faqs-and-guides",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Pay rate totally depends on the type of data, the complexity of data, client requirements and many other factors."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c085",
+      "statement": "Buyers can buy a 'custom package': part of a large dataset or a mix of several datasets.",
+      "kind": "offer",
+      "section": "object_model",
+      "question_ids": [
+        "Q10",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/faqs-and-guides",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You can ask for a small part of the big dataset or maybe a mix of the various dataset"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c086",
+      "statement": "Buyers can have a custom package cut from a catalogue dataset by attributes such as age, gender, country or accent.",
+      "kind": "offer",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/faqs-and-guides",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "choose the custom package according to any available attributes like age, gender etc."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c087",
+      "statement": "For an already-available dataset, the buyer gets access once payment has cleared.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/faqs-and-guides",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you will get the access to dataset once the fund is cleared"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c088",
+      "statement": "FutureBeeAI says access to a purchased dataset generally takes 2-3 business days after payment.",
+      "kind": "number",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 3,
+        "unit": "business days from payment to dataset access (upper end of stated 2-3)",
+        "basis": "vendor FAQ; off-the-shelf datasets in the already-available format",
+        "period": "per order"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/faqs-and-guides",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "It generally takes 2-3 business days."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c089",
+      "statement": "FutureBeeAI accepts payment by bank transfer, wire transfer, PayPal and Payoneer.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/faqs-and-guides",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "bank transfer, wire transfer, PayPal, and Payoneer"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c090",
+      "statement": "The FAQ says a card payment gateway is not yet integrated.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/faqs-and-guides",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We are will integrate a payment gateway soon so then you can pay through your card also."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c091",
+      "statement": "After payment the buyer receives a custom link to FutureBeeAI's store to get the dataset and metadata.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/faqs-and-guides",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you will get the custom link to our store where you will receive the final dataset"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c092",
+      "statement": "FutureBeeAI invites academic, research and non-profit users to ask for special terms.",
+      "kind": "offer",
+      "section": "pricing",
+      "question_ids": [
+        "Q9",
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/faqs-and-guides",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We are always here to support academic, research and non-profit use."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c093",
+      "statement": "FutureBeeAI offers discounts on large batch purchases and continuous contracts.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/faqs-and-guides",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If you want to purchased huge batch data we always have discounts for you."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c094",
+      "statement": "The FAQ states that refunds are not an option.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/faqs-and-guides",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Refund is not an option with us."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c095",
+      "statement": "FutureBeeAI says synthetic datasets are listed in its store and it builds custom synthetic data.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/faqs-and-guides",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We have already listed various synthetic datasets on the store"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c096",
+      "statement": "Raw data without annotation is priced by quote.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/faqs-and-guides",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We will share the respective quote for that and make the package for you."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c097",
+      "statement": "Holders of image, speech, text or video training data are directed to a 'sell your data' option.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/faqs-and-guides",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you can always reach out to us via the 'sell your data' option"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c098",
+      "statement": "FutureBeeAI describes Yugo as its own mobile application for data collection.",
+      "kind": "architecture",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/faqs-and-guides",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We have Yugo which is a mobile application for all kinds of data collection needs."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c099",
+      "statement": "The FAQ says FutureBeeAI's data infrastructure is built on AWS S3.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/faqs-and-guides",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "FutureBeeAI data infrastructure is built on the AWS S3 cloud"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c100",
+      "statement": "Yugo is presented as FutureBeeAI's platform for custom speech data collection.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/ai-data-platform/yugo",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Meet Yugo - the streamlined platform built to simplify and scale custom speech data collection."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c101",
+      "statement": "Yugo has an in-app review workflow for reviewing, validating and approving recordings.",
+      "kind": "architecture",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/ai-data-platform/yugo",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Review, validate, and approve recordings within the app to maintain high data quality standards at every step."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c102",
+      "statement": "Yugo's admin console issues separate credentials to recorders and quality-assurance (QA) users per project.",
+      "kind": "architecture",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/ai-data-platform/yugo",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "generating unique account credentials for recorders and quality assurance (QA) users"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c103",
+      "statement": "Yugo exports metadata including user details, device information, data links, QA details and final status.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/ai-data-platform/yugo",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Visualize user details, device information, speech data links, QA details, and final status."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c104",
+      "statement": "A contributor testimonial published on the Yugo page refers to the app's built-in consent feature.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/ai-data-platform/yugo",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Yugo's inbuilt consent feature is like a pro."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c105",
+      "statement": "The Yugo page offers downloadable sample speech datasets with metadata.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/ai-data-platform/yugo",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Download sample speech datasets including scripted prompt recordings, two-person conversational recordings"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c106",
+      "statement": "FutureBeeAI's Crowd Code of Ethics says contributor payment rates are communicated upfront with no hidden conditions.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/crowd-code-of-ethics",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Payment rates are clearly communicated upfront, with no hidden conditions."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c107",
+      "statement": "Crowd contributors are paid on completion of tasks after quality review, not per later sale of the data.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/crowd-code-of-ethics",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Payments are processed on time based on quality review and task completion."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c108",
+      "statement": "Contributors collecting data must obtain informed consent from participants.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/crowd-code-of-ethics",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Participants must give informed consent."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c109",
+      "statement": "The Crowd Code of Ethics prohibits recording individuals without consent.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/crowd-code-of-ethics",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Recording individuals without consent is strictly prohibited."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c110",
+      "statement": "Contributors must not share or sell collected data to third parties.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/crowd-code-of-ethics",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "No sharing or selling collected data to third parties."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c111",
+      "statement": "Repeated violations of the Crowd Code lead to removal from projects and suspension of payment.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/crowd-code-of-ethics",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Repeated Violations: Project removal and payment suspension."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c112",
+      "statement": "Contributors must acknowledge and comply with the Crowd Code before joining any project.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/crowd-code-of-ethics",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All contributors must acknowledge and comply before participating in any project."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c113",
+      "statement": "FutureBeeAI says its crowd community has 20,000+ contributors in 50+ countries.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 20000,
+        "unit": "crowd contributors (lower bound)",
+        "basis": "vendor-stated community size on the join page",
+        "period": "cumulative, as of retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/join-ai-community",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "20,000+ Contributors 50+ Countries"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c114",
+      "statement": "FutureBeeAI says its community has earned 70 million rupees in total.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 70000000,
+        "unit": "INR paid to crowd contributors",
+        "basis": "vendor-stated cumulative community earnings; gross, all task types",
+        "period": "cumulative to retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/join-ai-community",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "₹70 Millions Earned by Our Community"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c115",
+      "statement": "The join page promises fair compensation for every task a contributor completes.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/join-ai-community",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We ensure fair compensation for every task you complete-no hidden conditions."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c116",
+      "statement": "Contributors are matched to projects in data collection, annotation and transcription after creating a profile.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/join-ai-community",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We connect you with cutting-edge AI tasks in data collection, annotation, transcription, and beyond."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c117",
+      "statement": "The home page states a global crowd of 10k+.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 10000,
+        "unit": "crowd members (lower bound)",
+        "basis": "vendor-stated on home page",
+        "period": "as of retrieval"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Global crowd of 10k+"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c118",
+      "statement": "The home page states 100+ designed and completed projects.",
+      "kind": "number",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 100,
+        "unit": "completed projects (lower bound)",
+        "basis": "vendor-stated on home page",
+        "period": "cumulative"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "100+ Designed and completed projects"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c119",
+      "statement": "FutureBeeAI leads with custom AI data collection among its services, alongside annotation, transcription, evaluation and crowd-as-a-service.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Collecting real-world speech, text, image, video, and multimodal data tailored to your AI needs-globally and at scale."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c120",
+      "statement": "FutureBeeAI's data security policy says all datasets are stored in AWS S3 and Microsoft OneDrive.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/data-security-and-compliance",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All datasets are securely stored in AWS S3 and Microsoft OneDrive"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c121",
+      "statement": "FutureBeeAI does not itself hold GDPR/SOC 2/ISO 27001-type certifications, relying on its cloud providers' certifications.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/data-security-and-compliance",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "While we are not certifying these standards directly as a data host"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c122",
+      "statement": "FutureBeeAI says it does not process third-party PII unless a formal Data Sharing Agreement is executed.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/data-security-and-compliance",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We do not collect or process third-party Personally Identifiable Information (PII) unless a formal Data Sharing Agreement"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c123",
+      "statement": "FutureBeeAI's website privacy policy lists biometric data (including facial recognition data) among the sensitive data it says it does not collect or process.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/privacy-policy",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Biometric Data (fingerprints, facial recognition, voiceprints)"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c124",
+      "statement": "FutureBeeAI's privacy policy says it primarily stores and processes data in India and may transfer it internationally.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/privacy-policy",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "FutureBeeAI primarily stores and processes data in India but may transfer data internationally"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c125",
+      "statement": "Under the privacy policy, users can request deletion of their data at any time via privacy@futurebeeai.com.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/policies/privacy-policy",
+          "publisher": "FutureBeeAI",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Users can request data deletion at any time by contacting privacy@futurebeeai.com"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c126",
+      "statement": "FutureBeeAI is based in Ahmedabad, Gujarat, India.",
+      "kind": "status",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/about-futurebeeai",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "A-501, The Capital, Science City Road, Sola 380060,"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c127",
+      "statement": "FutureBeeAI's founder and CEO is Jesal Thakkar.",
+      "kind": "status",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/about-futurebeeai",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Jesal Thakkar Founder & CEO"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c128",
+      "statement": "FutureBeeAI claims a multi-layer '100%' quality assurance process for every dataset.",
+      "kind": "offer",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/about-futurebeeai",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "our multi-layer 100% quality assurance process guarantee the highest accuracy and reliability in every dataset"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c129",
+      "statement": "The contact page invites dataset holders to partner and earn by selling data, alongside the buyer inquiry form.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/contact-us",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Partner with us and earn by selling your data for AI advancements."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c130",
+      "statement": "FutureBeeAI is operating: its blog index shows a post dated 28 September 2026.",
+      "kind": "status",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-28",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/blog",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Read full blog 28 September 2026"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c131",
+      "statement": "A speech listing states all its data was collected using Yugo, FutureBeeAI's proprietary platform, tying the catalogue to FutureBeeAI's own crowd collection.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/dataset/speech-dataset/bfsi-call-center-conversation-arabic-egypt",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All data was collected using “Yugo,” FutureBeeAI’s proprietary platform"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c132",
+      "statement": "The speech listing asserts the dataset complies with global data privacy guidelines and is copyright-free.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/dataset/speech-dataset/bfsi-call-center-conversation-arabic-egypt",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The Dataset complies with global data privacy guidelines and is copyright-free."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c133",
+      "statement": "Speech listings carry a 'Download Sample Dataset' block offering a free sample, alongside a contact option.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/dataset/speech-dataset/bfsi-call-center-conversation-arabic-egypt",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Download a free sample of this dataset to get more clarity about this set!"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c134",
+      "statement": "The speech listing header shows volume in speech hours, the last-updated month and participant count.",
+      "kind": "architecture",
+      "section": "listing",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/dataset/speech-dataset/bfsi-call-center-conversation-arabic-egypt",
+          "publisher": "FutureBeeAI",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Total Volume 40 Speech Hours Last updated June 2025"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c135",
+      "statement": "FutureBeeAI says its Yugo system captures contributor consent evidence and keeps consent records auditable; the article does not say the records are given to buyers.",
+      "kind": "architecture",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-11-29",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/knowledge-hub/contributor-consent-evidence-buyers",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "consent records remain auditable throughout the data lifecycle"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c136",
+      "statement": "FutureBeeAI's pricing article says static image datasets generally cost less than video datasets.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q1",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-12-08",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/knowledge-hub/dataset-pricing-factors",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Static image datasets are generally less expensive than video datasets"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c137",
+      "statement": "FutureBeeAI's pricing article says demographic diversity targets, customisation, QC/compliance and volume drive dataset price.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-12-08",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/knowledge-hub/dataset-pricing-factors",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Dataset pricing increases when projects require specific or underrepresented demographics."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c138",
+      "statement": "FutureBeeAI advises buyers to start with off-the-shelf datasets where feasible to manage cost.",
+      "kind": "terms",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q1",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-12-08",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/knowledge-hub/dataset-pricing-factors",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Start with off-the-shelf datasets where feasible, limit customization to what your model truly needs"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c139",
+      "statement": "FutureBeeAI's licensing article says exclusive licences typically cost more than non-exclusive ones.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q8",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-12-06",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/knowledge-hub/facial-recognition-licensing-models",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Exclusive licenses typically involve higher costs but offer greater control and strategic freedom."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c140",
+      "statement": "FutureBeeAI positions OTS facial datasets for general-purpose use such as baseline KYC or proof-of-concept, and custom datasets for specialised needs.",
+      "kind": "terms",
+      "section": "demand",
+      "question_ids": [
+        "Q1",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-12-07",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/knowledge-hub/ots-vs-custom-facial-dataset",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Best suited for general-purpose applications such as baseline KYC or proof-of-concept facial recognition."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c141",
+      "statement": "FutureBeeAI describes OTS datasets as fixed in size and scope.",
+      "kind": "terms",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-12-07",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/knowledge-hub/ots-vs-custom-facial-dataset",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Fixed in size and scope. Scaling beyond what is available may not be possible."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c142",
+      "statement": "Contributors can withdraw consent through a consent-management section in their Yugo account.",
+      "kind": "architecture",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-12-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/knowledge-hub/withdraw-consent-data-collection",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Log into your Yugo account and locate the consent management section."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c143",
+      "statement": "After a contributor withdraws consent, FutureBeeAI says it deletes or anonymises the data within 7 to 15 working days.",
+      "kind": "number",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 15,
+        "unit": "working days (upper bound of stated 7-15) to delete or anonymise withdrawn contributor data",
+        "basis": "vendor-stated handling of a contributor's consent withdrawal; FutureBeeAI-held copies only",
+        "period": "per request"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2025-12-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/knowledge-hub/withdraw-consent-data-collection",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "FutureBeeAI deletes or anonymizes the data within 7 to 15 working days"
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c144",
+      "statement": "On withdrawal, FutureBeeAI says only that data already used in models is 'addressed responsibly'; no obligation on past buyers to delete is described.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-12-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/knowledge-hub/withdraw-consent-data-collection",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "FutureBeeAI ensures that data already used in models is addressed responsibly."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c145",
+      "statement": "FutureBeeAI says contributors submit government-issued ID at onboarding, validated to prevent impersonation.",
+      "kind": "architecture",
+      "section": "vetting",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-12-25",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/knowledge-hub/futurebeeai-contributor-identity-consent",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Contributors submit government-issued identification, which is securely validated to prevent impersonation and misuse."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c146",
+      "statement": "FutureBeeAI says each consent record is linked to the contributor's unique ID.",
+      "kind": "architecture",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-12-25",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/knowledge-hub/futurebeeai-contributor-identity-consent",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Each consent record is linked to the contributor’s unique ID for accountability."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c147",
+      "statement": "FutureBeeAI's contributor-verification article says participation of minors is prohibited, particularly for sensitive or regulated projects.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-12-25",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/knowledge-hub/futurebeeai-contributor-identity-consent",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Participation of minors is prohibited, particularly for sensitive or regulated data projects."
+        }
+      ]
+    },
+    {
+      "id": "futurebeeai-c148",
+      "statement": "FutureBeeAI says it maintains transparency through auditability and provenance documentation.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-10-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.futurebeeai.com/knowledge-hub/ai-data-provider-pricing-comparison",
+          "publisher": "FutureBeeAI",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "FutureBeeAI maintains transparency through auditability and provenance documentation"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "matrix.who_pays_fee",
+      "urls_tried": [
+        "https://www.futurebeeai.com/sell-ai-assets",
+        "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+        "https://www.futurebeeai.com/faqs-and-guides"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.buyer_vetting",
+      "urls_tried": [
+        "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+        "https://www.futurebeeai.com/policies/terms-of-use",
+        "https://www.futurebeeai.com/contact-us"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.third_party_seller_terms",
+      "urls_tried": [
+        "https://www.futurebeeai.com/sell-ai-assets",
+        "https://www.futurebeeai.com/contact-us"
+      ],
+      "reason": "gated"
+    },
+    {
+      "field": "other.third_party_listings_identified",
+      "urls_tried": [
+        "https://www.futurebeeai.com/dataset",
+        "https://www.futurebeeai.com/sitemap.xml"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.commissioned_data_relisted",
+      "urls_tried": [
+        "https://www.futurebeeai.com/case-studies/visual-speech-data-collection-for-emotion-recognition",
+        "https://www.futurebeeai.com/case-studies/facial-image-data-collection"
+      ],
+      "reason": "js_empty"
+    },
+    {
+      "field": "other.yugo_faq_answers_storage",
+      "urls_tried": [
+        "https://www.futurebeeai.com/ai-data-platform/yugo"
+      ],
+      "reason": "js_empty"
+    },
+    {
+      "field": "other.consent_records_delivered_to_buyer",
+      "urls_tried": [
+        "https://www.futurebeeai.com/knowledge-hub/contributor-consent-evidence-buyers",
+        "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+        "https://www.futurebeeai.com/dataset/image-dataset/facial-images-selfie-id-south-asian"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.licence_warranty_indemnity",
+      "urls_tried": [
+        "https://www.futurebeeai.com/policies/ai-data-license-agreement"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.past_buyer_rights_on_update",
+      "urls_tried": [
+        "https://www.futurebeeai.com/policies/ai-data-license-agreement",
+        "https://www.futurebeeai.com/policies/terms-of-use",
+        "https://www.futurebeeai.com/faqs-and-guides"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.property_owner_releases",
+      "urls_tried": [
+        "https://www.futurebeeai.com/policies/crowd-code-of-ethics",
+        "https://www.futurebeeai.com/dataset/multi-modal-dataset/american-english-visual-speech-dataset"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.company_counters",
+      "urls_tried": [
+        "https://www.futurebeeai.com/",
+        "https://www.futurebeeai.com/about-futurebeeai"
+      ],
+      "reason": "js_empty"
+    },
+    {
+      "field": "other.corporate_events_and_independent_press",
+      "urls_tried": [
+        "https://www.futurebeeai.com/blog",
+        "https://www.futurebeeai.com/sitemap.xml",
+        "https://huggingface.co/api/datasets?search=futurebee"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "other.third_party_marketplace_presence",
+      "urls_tried": [
+        "https://huggingface.co/FutureBeeAI",
+        "https://huggingface.co/api/datasets?search=futurebee"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "other.speech_sample_download_gate",
+      "urls_tried": [
+        "https://www.futurebeeai.com/dataset/speech-dataset/bfsi-call-center-conversation-arabic-egypt"
+      ],
+      "reason": "gated"
+    }
+  ],
+  "conflicts": [
+    {
+      "claim_ids": [
+        "futurebeeai-c094",
+        "futurebeeai-c022"
+      ],
+      "rule_applied": "live_primary_wins_terms",
+      "resolution": "The FAQ says refunds are never an option; the Feb 2025 licence policy (legal text) allows a discretionary refund before the dataset is accessed. The licence governs."
+    },
+    {
+      "claim_ids": [
+        "futurebeeai-c074",
+        "futurebeeai-c058"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "The FAQ promises a free sample for every dataset, but the image and video listings opened offer samples only on request ('available soon'); speech listings do show a sample download block."
+    },
+    {
+      "claim_ids": [
+        "futurebeeai-c147",
+        "futurebeeai-c062",
+        "futurebeeai-c063"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "A Dec 2025 article says minors may not participate, particularly in sensitive projects, yet the catalogue sells a children's facial dataset collected with guardian consent."
+    },
+    {
+      "claim_ids": [
+        "futurebeeai-c123",
+        "futurebeeai-c054"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "The website privacy policy says FutureBeeAI does not collect or process biometric data; the catalogue sells facial-biometric datasets. The policy may be scoped to website visitors only; it does not say so explicitly."
+    },
+    {
+      "claim_ids": [
+        "futurebeeai-c113",
+        "futurebeeai-c117"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "Crowd size is given as 20,000+ on the join page and 10k+ on the home page; neither is dated."
+    },
+    {
+      "claim_ids": [
+        "futurebeeai-c069",
+        "futurebeeai-c067"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "The visual speech video listing says the dataset has no personally identifiable information, although it consists of face videos of identifiable participants."
+    }
+  ],
+  "leads": [
+    {
+      "url": "https://www.futurebeeai.com/case-studies",
+      "why": "Case study bodies are client-rendered and did not load; they may show whether commissioned collections later became OTS listings."
+    },
+    {
+      "url": "https://www.futurebeeai.com/policies/ai-ethics-and-responsible-ai-policy",
+      "why": "Listed on the policies index as 'AI Ethics & Responsible AI Policy'; its link did not appear among the index page hrefs, so it was not fetched."
+    },
+    {
+      "url": "https://www.linkedin.com/company/futurebeeai/",
+      "why": "Company page linked from the site footer; may carry headcount or company events. Not fetched (login wall)."
+    },
+    {
+      "url": "https://www.mca.gov.in/",
+      "why": "Indian company registry filings would give incorporation date and financials; needs a CIN and captcha, not reachable without search."
+    },
+    {
+      "url": "https://www.futurebeeai.com/knowledge-hub/facial-data-consent-form",
+      "why": "Describes what FutureBeeAI thinks a facial consent form should contain; could inform DataMind360's release form design."
+    }
+  ]
+}

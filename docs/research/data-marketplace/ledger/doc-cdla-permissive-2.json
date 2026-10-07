@@ -1,0 +1,342 @@
+{
+  "kind": "document",
+  "slug": "doc-cdla-permissive-2",
+  "platform_slug": null,
+  "title": "Community Data License Agreement – Permissive, Version 2.0",
+  "doc_type": "licence_template",
+  "url": "https://cdla.dev/permissive-2-0/",
+  "publisher": "The Linux Foundation (CDLA)",
+  "version_or_date": "Version 2.0 (licence text undated; site footer reads Copyright © 2017 The Linux Foundation)",
+  "retrieved_at": "2026-10-01",
+  "parties": {
+    "licensor": "Data Provider(s): any person who is the source of the Data provided under the agreement; the Linux Foundation publishes the template and is not named as a party",
+    "licensee": "Data Recipient(s): any person who receives the Data directly or indirectly from a Data Provider and agrees to the terms",
+    "operator_role": "not_applicable (template licence between providers and recipients; no marketplace or intermediary role is defined)"
+  },
+  "terms": {
+    "permitted_use": {
+      "value": "Any recipient may use, modify and share the Data, subject only to the agreement's terms; public-domain portions, and uses allowed by other legal exceptions, are not restricted at all.",
+      "claim_ids": ["doc-cdla-permissive-2-c002", "doc-cdla-permissive-2-c003"]
+    },
+    "ai_training_rights": {
+      "value": "Training is not named, but the grant covers any use and modification, and 'Results' (any outcome of computational analysis, expressly including machine learning models and models' insights) carry no restriction or obligation. Training, fine-tuning, evaluation, model redistribution and output use are therefore all unrestricted; redistributing the Data itself only requires the licence text to go with it.",
+      "claim_ids": ["doc-cdla-permissive-2-c002", "doc-cdla-permissive-2-c005", "doc-cdla-permissive-2-c006", "doc-cdla-permissive-2-c004"]
+    },
+    "field_of_use": {
+      "value": "No field-of-use limit: the grant is general (use, modify, share), with no commercial/non-commercial or sector restriction stated.",
+      "claim_ids": ["doc-cdla-permissive-2-c002"]
+    },
+    "sublicensing": {
+      "value": "No sublicence mechanism. Recipients may share the Data (modified or not) onward if they include the agreement text, and anyone receiving it 'directly or indirectly' from a provider becomes a Data Recipient on the same terms.",
+      "claim_ids": ["doc-cdla-permissive-2-c004", "doc-cdla-permissive-2-c011"]
+    },
+    "derivatives_and_model_outputs": {
+      "value": "Modification is allowed and modified Data can be shared on the same condition (agreement text included). Results, including ML models and their insights, are free of any restriction or obligation, so they need no attribution or licence text and are not copyleft.",
+      "claim_ids": ["doc-cdla-permissive-2-c002", "doc-cdla-permissive-2-c004", "doc-cdla-permissive-2-c005", "doc-cdla-permissive-2-c006"]
+    },
+    "attribution": {
+      "value": "The only condition on sharing Data is to make the text of the agreement available with it. There is no separate attribution or notice-retention duty, and none at all for Results.",
+      "claim_ids": ["doc-cdla-permissive-2-c004", "doc-cdla-permissive-2-c005"]
+    },
+    "warranties_by_provider": {
+      "value": "None. The Data is provided 'as is', and warranties of title, non-infringement, merchantability and fitness for purpose are expressly disclaimed.",
+      "claim_ids": ["doc-cdla-permissive-2-c007", "doc-cdla-permissive-2-c008"]
+    },
+    "liability_cap": {
+      "value": "Providers have no liability at all (a cap of zero) for direct, indirect, incidental, special, exemplary or consequential damages, including lost profits, arising from the Data or the Results, on any theory. Recipient liability is not addressed.",
+      "claim_ids": ["doc-cdla-permissive-2-c009", "doc-cdla-permissive-2-c010"]
+    }
+  },
+  "claims": [
+    {
+      "id": "doc-cdla-permissive-2-c001",
+      "statement": "The document is the Community Data License Agreement – Permissive, Version 2.0, and states that it is an agreement between Data Provider(s) and Data Recipient(s).",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": ["Q5"],
+      "scope": {"product": "CDLA-Permissive-2.0", "tier": "", "region": ""},
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://cdla.dev/permissive-2-0/",
+          "publisher": "The Linux Foundation (CDLA)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Permissive, Version 2.0 (the “agreement”). Data Provider(s) and Data Recipient(s) agree as follows"
+        }
+      ]
+    },
+    {
+      "id": "doc-cdla-permissive-2-c002",
+      "statement": "Under CDLA-Permissive-2.0, a Data Recipient may use, modify and share the Data made available by Data Provider(s), if it follows the agreement's terms.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": ["Q8"],
+      "scope": {"product": "CDLA-Permissive-2.0", "tier": "", "region": ""},
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://cdla.dev/permissive-2-0/",
+          "publisher": "The Linux Foundation (CDLA)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "A Data Recipient may use, modify, and share the Data made available by Data Provider(s) under this agreement"
+        }
+      ]
+    },
+    {
+      "id": "doc-cdla-permissive-2-c003",
+      "statement": "CDLA-Permissive-2.0 imposes no restriction on portions of the Data that are in the public domain, or that may be used under another legal exception or limitation.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": ["Q8"],
+      "scope": {"product": "CDLA-Permissive-2.0", "tier": "", "region": ""},
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://cdla.dev/permissive-2-0/",
+          "publisher": "The Linux Foundation (CDLA)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "portions of the Data that are in the public domain or that may be used, modified, or shared under any other legal exception"
+        }
+      ]
+    },
+    {
+      "id": "doc-cdla-permissive-2-c004",
+      "statement": "Under CDLA-Permissive-2.0, the only condition for a Data Recipient to share Data, modified or not, is that it makes the text of the agreement available with the shared Data.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": ["Q8"],
+      "scope": {"product": "CDLA-Permissive-2.0", "tier": "", "region": ""},
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://cdla.dev/permissive-2-0/",
+          "publisher": "The Linux Foundation (CDLA)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "may share Data, with or without modifications, so long as the Data Recipient makes available the text of this agreement"
+        }
+      ]
+    },
+    {
+      "id": "doc-cdla-permissive-2-c005",
+      "statement": "CDLA-Permissive-2.0 imposes no restriction or obligation on the use, modification or sharing of Results.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": ["Q8"],
+      "scope": {"product": "CDLA-Permissive-2.0", "tier": "", "region": ""},
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://cdla.dev/permissive-2-0/",
+          "publisher": "The Linux Foundation (CDLA)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "does not impose any restriction or obligations with respect to the use, modification, or sharing of Results"
+        }
+      ]
+    },
+    {
+      "id": "doc-cdla-permissive-2-c006",
+      "statement": "CDLA-Permissive-2.0 defines Results as any outcome obtained by computational analysis of Data, expressly including machine learning models and models' insights.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": ["Q8"],
+      "scope": {"product": "CDLA-Permissive-2.0", "tier": "", "region": ""},
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://cdla.dev/permissive-2-0/",
+          "publisher": "The Linux Foundation (CDLA)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "any outcome obtained by computational analysis of Data, including for example machine learning models and models’ insights"
+        }
+      ]
+    },
+    {
+      "id": "doc-cdla-permissive-2-c007",
+      "statement": "Under CDLA-Permissive-2.0, all Data Recipients receive the Data on an 'as is' basis, without representations, warranties or conditions of any kind.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": ["Q5", "Q7"],
+      "scope": {"product": "CDLA-Permissive-2.0", "tier": "", "region": ""},
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://cdla.dev/permissive-2-0/",
+          "publisher": "The Linux Foundation (CDLA)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "THE DATA IS PROVIDED ON AN “AS IS” BASIS, WITHOUT REPRESENTATIONS, WARRANTIES OR CONDITIONS OF ANY KIND"
+        }
+      ]
+    },
+    {
+      "id": "doc-cdla-permissive-2-c008",
+      "statement": "CDLA-Permissive-2.0 expressly disclaims any warranties or conditions of title, non-infringement, merchantability or fitness for a particular purpose.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": ["Q5"],
+      "scope": {"product": "CDLA-Permissive-2.0", "tier": "", "region": ""},
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://cdla.dev/permissive-2-0/",
+          "publisher": "The Linux Foundation (CDLA)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "ANY WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE"
+        }
+      ]
+    },
+    {
+      "id": "doc-cdla-permissive-2-c009",
+      "statement": "Under CDLA-Permissive-2.0, no Data Provider has any liability for direct, indirect, incidental, special, exemplary or consequential damages.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": ["Q5"],
+      "scope": {"product": "CDLA-Permissive-2.0", "tier": "", "region": ""},
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://cdla.dev/permissive-2-0/",
+          "publisher": "The Linux Foundation (CDLA)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "NO DATA PROVIDER SHALL HAVE ANY LIABILITY FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES"
+        }
+      ]
+    },
+    {
+      "id": "doc-cdla-permissive-2-c010",
+      "statement": "The CDLA-Permissive-2.0 liability exclusion covers damages arising in any way out of the Data or the Results, even if the provider was advised of the possibility of such damages.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": ["Q5"],
+      "scope": {"product": "CDLA-Permissive-2.0", "tier": "", "region": ""},
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://cdla.dev/permissive-2-0/",
+          "publisher": "The Linux Foundation (CDLA)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "ARISING IN ANY WAY OUT OF THE DATA OR RESULTS, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES"
+        }
+      ]
+    },
+    {
+      "id": "doc-cdla-permissive-2-c011",
+      "statement": "CDLA-Permissive-2.0 defines a Data Recipient as any person who receives Data directly or indirectly from a Data Provider and agrees to the terms, so downstream recipients are bound on the same terms.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": ["Q5", "Q8"],
+      "scope": {"product": "CDLA-Permissive-2.0", "tier": "", "region": ""},
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://cdla.dev/permissive-2-0/",
+          "publisher": "The Linux Foundation (CDLA)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "“Data Recipient” means any person who receives Data directly or indirectly from a Data Provider and agrees to the terms"
+        }
+      ]
+    },
+    {
+      "id": "doc-cdla-permissive-2-c012",
+      "statement": "CDLA-Permissive-2.0 defines a Data Provider as any person who is the source of Data provided under the agreement, in reliance on a Data Recipient's agreement to its terms.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": ["Q5"],
+      "scope": {"product": "CDLA-Permissive-2.0", "tier": "", "region": ""},
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://cdla.dev/permissive-2-0/",
+          "publisher": "The Linux Foundation (CDLA)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "“Data Provider” means any person who is the source of Data provided under this agreement and in reliance on a Data Recipient’s"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {"field": "terms.consent_and_release_warranty", "urls_tried": ["https://cdla.dev/permissive-2-0/"], "reason": "not_published", "note": "No party warrants the consent or releases of people depicted in the Data. The general 'as is' disclaimer (c007) leaves that risk with the recipient."},
+    {"field": "terms.takedown_and_erasure", "urls_tried": ["https://cdla.dev/permissive-2-0/"], "reason": "not_published", "note": "No mechanism to withdraw Data, act on a data subject's erasure request, or require deletion of copies or Results a recipient already holds."},
+    {"field": "terms.exclusivity", "urls_tried": ["https://cdla.dev/permissive-2-0/"], "reason": "not_published", "note": "The grant is not labelled exclusive or non-exclusive. Because any recipient may re-share (c004), no exclusivity can in practice be given under this licence alone."},
+    {"field": "terms.indemnity", "urls_tried": ["https://cdla.dev/permissive-2-0/"], "reason": "not_published", "note": "Neither party indemnifies the other."},
+    {"field": "terms.term_duration", "urls_tried": ["https://cdla.dev/permissive-2-0/"], "reason": "not_published", "note": "No duration, termination or revocation clause."},
+    {"field": "terms.deletion_on_termination", "urls_tried": ["https://cdla.dev/permissive-2-0/"], "reason": "not_published", "note": "No termination clause, so no duty to delete on termination."},
+    {"field": "terms.governing_law", "urls_tried": ["https://cdla.dev/permissive-2-0/"], "reason": "not_published", "note": "No governing-law or venue clause."},
+    {"field": "terms.territory", "urls_tried": ["https://cdla.dev/permissive-2-0/"], "reason": "not_published", "note": "No territorial limit stated."},
+    {"field": "terms.prohibited_uses", "urls_tried": ["https://cdla.dev/permissive-2-0/"], "reason": "not_published", "note": "No prohibited or restricted uses are listed (for example, nothing on re-identification or biometric use)."},
+    {"field": "terms.payment_and_revenue_share", "urls_tried": ["https://cdla.dev/permissive-2-0/"], "reason": "not_published", "note": "No fee, royalty or payment terms."},
+    {"field": "terms.audit_rights", "urls_tried": ["https://cdla.dev/permissive-2-0/"], "reason": "not_published", "note": "No audit or reporting rights."},
+    {"field": "terms.change_of_terms", "urls_tried": ["https://cdla.dev/permissive-2-0/"], "reason": "not_published", "note": "No clause on later versions or on amending the terms."}
+  ]
+}

@@ -1,0 +1,1217 @@
+{
+  "kind": "profile",
+  "slug": "human-native",
+  "name": "Human Native",
+  "aliases": [
+    "Human Native AI",
+    "Human Native Ltd"
+  ],
+  "segment": "licensing_marketplace",
+  "tier": "light",
+  "status": {
+    "value": "acquired",
+    "claim_id": "human-native-c001"
+  },
+  "names_for": {
+    "catalogue_side": "",
+    "custom_side": ""
+  },
+  "matrix": {
+    "operator_role": {
+      "value": "unknown",
+      "claim_ids": [
+        "human-native-c012",
+        "human-native-c013"
+      ],
+      "note": "Press describes Human Native connecting rights holders with AI companies and taking a cut, which reads like a broker, but no licence or terms naming the licensor of record survive; the old site now carries only the acquisition notice."
+    },
+    "economics_model": {
+      "value": "commission",
+      "claim_ids": [
+        "human-native-c013",
+        "human-native-c012"
+      ],
+      "note": "Takes a cut of each deal (percentage not published) and also charges AI companies transaction and monitoring fees, per June 2024 press."
+    },
+    "who_pays_fee": {
+      "value": "unknown",
+      "claim_ids": [
+        "human-native-c013"
+      ],
+      "note": "AI companies pay transaction and monitoring fees; whose proceeds the 'cut of each deal' comes from is not stated."
+    },
+    "supply_models": {
+      "value": [
+        "third_party_providers"
+      ],
+      "claim_ids": [
+        "human-native-c012",
+        "human-native-c017"
+      ],
+      "note": "Rights holders (publishers, creators) upload their own content for no charge. No evidence of own or commissioned collections."
+    },
+    "custody_model": {
+      "value": "unknown",
+      "claim_ids": [
+        "human-native-c012"
+      ],
+      "note": "Rights holders 'upload' to the platform, but how buyers received data (copy, access, delivery) is not published anywhere reachable."
+    },
+    "transaction_mode": {
+      "value": "unknown",
+      "claim_ids": [
+        "human-native-c012",
+        "human-native-c019"
+      ],
+      "note": "Deals were revenue-share, subscription or per-use; whether any closed self-serve is not shown."
+    },
+    "public_prices": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "No price page or published deal price found; the marketplace site is gone."
+    },
+    "licence_model": {
+      "value": "unknown",
+      "claim_ids": [
+        "human-native-c019"
+      ],
+      "note": "Payment structures are reported, not the licence terms."
+    },
+    "exclusivity_offered": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": ""
+    },
+    "public_listing": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "The marketplace app domain no longer resolves; what an anonymous visitor saw cannot be checked."
+    },
+    "buyer_vetting": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": ""
+    },
+    "sample_mechanics": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": ""
+    },
+    "versioning": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": ""
+    },
+    "human_subject_consent_docs": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Only rights-holder opt-in is reported; nothing on consent of people depicted in the media."
+    },
+    "contributor_pay_model": {
+      "value": "unknown",
+      "claim_ids": [
+        "human-native-c012",
+        "human-native-c008"
+      ],
+      "note": "Rights holders are paid through revenue-share or subscription deals, but nothing shows how individual creators behind a rights holder's catalogue were paid."
+    },
+    "catalogue_plus_custom": {
+      "value": "unknown",
+      "claim_ids": [
+        "human-native-c012"
+      ],
+      "note": "Evidence shows licensing of existing content; no evidence either way on collection to order."
+    },
+    "erasure_after_sale": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": ""
+    },
+    "quality_evidence": {
+      "value": "unknown",
+      "claim_ids": [
+        "human-native-c014",
+        "human-native-c010"
+      ],
+      "note": "Human Native helped prepare content and Cloudflare cites a customer's better results, but no listing-level quality evidence is visible."
+    }
+  },
+  "questions": {
+    "Q1": {
+      "state": "partial",
+      "answer": "Buyers were AI developers seeking licensed training data; Cloudflare says a UK video AI company replaced its training data with Human Native-sourced data. Units and volumes are unpublished.",
+      "claim_ids": [
+        "human-native-c010",
+        "human-native-c017"
+      ]
+    },
+    "Q2": {
+      "state": "partial",
+      "answer": "The founders' pitch was that bilateral case-by-case licensing does not scale; rights holders listed free and Human Native helped prepare and price content. The exit into Cloudflare suggests the standalone broker lacked distribution.",
+      "claim_ids": [
+        "human-native-c020",
+        "human-native-c012",
+        "human-native-c014",
+        "human-native-c002"
+      ]
+    },
+    "Q3": {
+      "state": "partial",
+      "answer": "Inventory came from third-party rights holders who uploaded and opted in; the rights basis of each listing is not published.",
+      "claim_ids": [
+        "human-native-c012",
+        "human-native-c017"
+      ]
+    },
+    "Q4": {
+      "state": "unknown",
+      "answer": "",
+      "claim_ids": []
+    },
+    "Q5": {
+      "state": "unknown",
+      "answer": "Press describes a broker taking a cut; no terms naming the licensor of record, warrantor or indemnitor survive.",
+      "claim_ids": []
+    },
+    "Q6": {
+      "state": "unknown",
+      "answer": "Rights holders uploaded content, but how buyers received it is not published.",
+      "claim_ids": []
+    },
+    "Q7": {
+      "state": "partial",
+      "answer": "Rights holders opt in; nothing reachable covers the consent of people depicted or property owners.",
+      "claim_ids": [
+        "human-native-c017",
+        "human-native-c008"
+      ]
+    },
+    "Q8": {
+      "state": "partial",
+      "answer": "Human Native said it monitored for copyright infringement; licence terms, audit and fingerprinting are unpublished.",
+      "claim_ids": [
+        "human-native-c014"
+      ]
+    },
+    "Q9": {
+      "state": "partial",
+      "answer": "Deals were revenue-share, subscription or per-use; Human Native took a cut of each deal and charged AI companies transaction and monitoring fees.",
+      "claim_ids": [
+        "human-native-c013",
+        "human-native-c019",
+        "human-native-c012"
+      ]
+    },
+    "Q10": {
+      "state": "unknown",
+      "answer": "",
+      "claim_ids": []
+    },
+    "Q11": {
+      "state": "partial",
+      "answer": "The only quality evidence found is Cloudflare's vendor-stated customer outcome; what buyers saw before purchase is unknown.",
+      "claim_ids": [
+        "human-native-c010",
+        "human-native-c014"
+      ]
+    },
+    "Q12": {
+      "state": "unknown",
+      "answer": "No named catalogue or custom side was found; after the acquisition Cloudflare frames the work as structured content feeds for AI rather than a dataset catalogue.",
+      "claim_ids": [
+        "human-native-c011",
+        "human-native-c021"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "human-native-c001",
+      "statement": "Human Native's own website now consists only of an announcement that Human Native is joining Cloudflare; the standalone marketplace site is no longer published there.",
+      "kind": "status",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.humannative.ai/",
+          "publisher": "Human Native",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Human Native is joining Cloudflare"
+        }
+      ]
+    },
+    {
+      "id": "human-native-c002",
+      "statement": "Cloudflare announced on 15 January 2026 that it has acquired Human Native, a UK-based AI data marketplace; no price was stated.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-01-15",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://blog.cloudflare.com/human-native-joins-cloudflare/",
+          "publisher": "Cloudflare",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Today, we're excited to share that Cloudflare has acquired Human Native, a UK-based AI data marketplace"
+        }
+      ]
+    },
+    {
+      "id": "human-native-c003",
+      "statement": "The UK company register records Cloudflare, Inc. as a person with significant control of Human Native Ltd (company 15609120), notified on 6 January 2026.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "government",
+      "as_of": "2026-01-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://find-and-update.company-information.service.gov.uk/company/15609120/filing-history",
+          "publisher": "Companies House",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Notification of Cloudflare, Inc. as a person with significant"
+        }
+      ]
+    },
+    {
+      "id": "human-native-c004",
+      "statement": "On the UK register, original shareholder Jack David Galilee's appointment as a director of Human Native Ltd was terminated in filings made in January 2026, the month Cloudflare took control.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "government",
+      "as_of": "2026-01-16",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://find-and-update.company-information.service.gov.uk/company/15609120/filing-history",
+          "publisher": "Companies House",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Termination of appointment of Jack David Galilee as a"
+        }
+      ]
+    },
+    {
+      "id": "human-native-c005",
+      "statement": "Human Native Ltd remains an active company on the UK register and filed full accounts made up to 31 December 2025.",
+      "kind": "status",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "government",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://find-and-update.company-information.service.gov.uk/company/15609120/filing-history",
+          "publisher": "Companies House",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Total exemption full accounts made up to 31 December 2025"
+        }
+      ]
+    },
+    {
+      "id": "human-native-c006",
+      "statement": "The newest dated filing for Human Native Ltd is a solvency statement dated 28 July 2026, filed with a resolution cancelling its share premium account (a capital reduction).",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "government",
+      "as_of": "2026-07-29",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://find-and-update.company-information.service.gov.uk/company/15609120/filing-history",
+          "publisher": "Companies House",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Solvency Statement dated 28/07/26"
+        }
+      ]
+    },
+    {
+      "id": "human-native-c007",
+      "statement": "Human Native Ltd (UK company 15609120) was incorporated on 2 April 2024.",
+      "kind": "event",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "government",
+      "as_of": "2024-04-02",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://find-and-update.company-information.service.gov.uk/company/15609120",
+          "publisher": "Companies House",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "2 April 2024"
+        }
+      ]
+    },
+    {
+      "id": "human-native-c008",
+      "statement": "Human Native describes its aim as getting creators control, compensation and credit for their work being used by AI.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.humannative.ai/",
+          "publisher": "Human Native",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "3 C's: control, compensation and credit for their work being used by AI"
+        }
+      ]
+    },
+    {
+      "id": "human-native-c009",
+      "statement": "Cloudflare describes Human Native's technology as turning unstructured content into something that can be understood and licensed.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-01-15",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://blog.cloudflare.com/human-native-joins-cloudflare/",
+          "publisher": "Cloudflare",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "turn messy, unstructured content into something that can be understood, licensed and ultimately valued"
+        }
+      ]
+    },
+    {
+      "id": "human-native-c010",
+      "statement": "Cloudflare says a prominent UK video AI company discarded its existing training data after getting better results with data from Human Native.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-01-15",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://blog.cloudflare.com/human-native-joins-cloudflare/",
+          "publisher": "Cloudflare",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "a prominent UK video AI company, threw away their existing training data after achieving superior results"
+        }
+      ]
+    },
+    {
+      "id": "human-native-c011",
+      "statement": "Cloudflare says that after the acquisition participating websites will publish structured updates that developers subscribe to in real time.",
+      "kind": "offer",
+      "section": "changes",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-01-15",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://blog.cloudflare.com/human-native-joins-cloudflare/",
+          "publisher": "Cloudflare",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "participating websites will expose structured updates whenever their content changes"
+        }
+      ]
+    },
+    {
+      "id": "human-native-c012",
+      "statement": "TechCrunch reported in June 2024 that rights holders upload content to Human Native at no charge and connect with AI companies for revenue-share or subscription deals.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q3",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "press_relayed",
+      "as_of": "2024-06-08",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://techcrunch.com/2024/06/08/deal-dive-human-native-ai-is-building-the-marketplace-for-ai-training-licensing-deals/",
+          "publisher": "TechCrunch",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Rights holders upload their content for no charge and connect with AI companies to land revenue share or subscription deals."
+        }
+      ]
+    },
+    {
+      "id": "human-native-c013",
+      "statement": "TechCrunch reported in June 2024 that Human Native takes a cut of each deal and charges AI companies for transaction and monitoring services.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "press_relayed",
+      "as_of": "2024-06-08",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://techcrunch.com/2024/06/08/deal-dive-human-native-ai-is-building-the-marketplace-for-ai-training-licensing-deals/",
+          "publisher": "TechCrunch",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Human Native AI takes a cut of each deal and charges AI companies for its transaction and monitoring services."
+        }
+      ]
+    },
+    {
+      "id": "human-native-c014",
+      "statement": "TechCrunch reported in June 2024 that Human Native helps rights holders prepare and price their content and monitors for copyright infringement.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q8",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "press_relayed",
+      "as_of": "2024-06-08",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://techcrunch.com/2024/06/08/deal-dive-human-native-ai-is-building-the-marketplace-for-ai-training-licensing-deals/",
+          "publisher": "TechCrunch",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Human Native AI also helps rights holders prepare and price their content and monitors for any copyright infringements."
+        }
+      ]
+    },
+    {
+      "id": "human-native-c015",
+      "statement": "TechCrunch reported in June 2024 that Human Native announced a GBP 2.8 million seed round led by LocalGlobe and Mercuri.",
+      "kind": "number",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 2.8,
+        "unit": "GBP million",
+        "basis": "seed equity round raised by Human Native, as announced by the company",
+        "period": "one-off"
+      },
+      "origin": "press_relayed",
+      "as_of": "2024-06-08",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://techcrunch.com/2024/06/08/deal-dive-human-native-ai-is-building-the-marketplace-for-ai-training-licensing-deals/",
+          "publisher": "TechCrunch",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Human Native AI announced a £2.8 million seed round led by LocalGlobe and Mercuri, two British micro VCs, this week."
+        }
+      ]
+    },
+    {
+      "id": "human-native-c016",
+      "statement": "The UK register lists Cloudflare, Inc.'s nature of control over Human Native Ltd as ownership of 75% or more of the shares.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "government",
+      "as_of": "2026-01-06",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://find-and-update.company-information.service.gov.uk/company/15609120/persons-with-significant-control",
+          "publisher": "Companies House",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Ownership of shares – 75% or more"
+        }
+      ]
+    },
+    {
+      "id": "human-native-c017",
+      "statement": "TechCrunch reported in June 2024 that Human Native's goal was to help AI companies find training data while rights holders opt in and are compensated.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "press_relayed",
+      "as_of": "2024-06-08",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://techcrunch.com/2024/06/08/deal-dive-human-native-ai-is-building-the-marketplace-for-ai-training-licensing-deals/",
+          "publisher": "TechCrunch",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "help AI companies find data to train their models on while ensuring the rights holders opt in and are compensated"
+        }
+      ]
+    },
+    {
+      "id": "human-native-c018",
+      "statement": "TechCrunch reported in June 2024 that Human Native had launched in April 2024 and was operating in beta.",
+      "kind": "status",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "press_relayed",
+      "as_of": "2024-06-08",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://techcrunch.com/2024/06/08/deal-dive-human-native-ai-is-building-the-marketplace-for-ai-training-licensing-deals/",
+          "publisher": "TechCrunch",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The company launched in April and is currently operating in beta."
+        }
+      ]
+    },
+    {
+      "id": "human-native-c019",
+      "statement": "UKTN reported in June 2024 that Human Native's marketplace offered revenue-sharing agreements, subscriptions and per-use payments as licensing options.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "press_relayed",
+      "as_of": "2024-06-04",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.uktech.news/ai/human-native-ai-funding-20240604",
+          "publisher": "UKTN",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "revenue-sharing agreements, subscriptions and per-use payments"
+        }
+      ]
+    },
+    {
+      "id": "human-native-c020",
+      "statement": "UKTN reported the founders' argument that individual, case-by-case licensing agreements are not practical.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "press_relayed",
+      "as_of": "2024-06-04",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.uktech.news/ai/human-native-ai-funding-20240604",
+          "publisher": "UKTN",
+          "source_class": "independent_press",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Individual, case-by-case licensing agreements are not practical"
+        }
+      ]
+    },
+    {
+      "id": "human-native-c021",
+      "statement": "Cloudflare says that with the Human Native team it is accelerating work on helping customers make their content easy for AI bots and agents to access.",
+      "kind": "offer",
+      "section": "changes",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-01-15",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://blog.cloudflare.com/human-native-joins-cloudflare/",
+          "publisher": "Cloudflare",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "we are accelerating our work in helping customers transform their content to be easily accessed and understood by AI bots"
+        }
+      ]
+    },
+    {
+      "id": "human-native-c022",
+      "statement": "Human Native is listed among attendees of a UK ministerial-led roundtable of the Copyright and AI technical working group held on 23 July 2025.",
+      "kind": "event",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "government",
+      "as_of": "2025-12-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gov.uk/government/publications/copyright-and-ai-technical-working-group-terms-of-reference/copyright-and-ai-technical-working-group-roundtables",
+          "publisher": "UK Government (DSIT / IPO)",
+          "source_class": "regulator_guidance",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Human Native"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "matrix.operator_role",
+      "urls_tried": [
+        "https://www.humannative.ai/",
+        "https://www.humannative.ai/sitemap.xml",
+        "https://www.humannative.ai/terms",
+        "https://www.humannative.ai/blog",
+        "https://app.humannative.ai/",
+        "https://docs.humannative.ai/",
+        "https://techcrunch.com/2024/06/08/deal-dive-human-native-ai-is-building-the-marketplace-for-ai-training-licensing-deals/",
+        "https://blog.cloudflare.com/human-native-joins-cloudflare/"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "matrix.who_pays_fee",
+      "urls_tried": [
+        "https://www.humannative.ai/",
+        "https://www.humannative.ai/sitemap.xml",
+        "https://www.humannative.ai/terms",
+        "https://www.humannative.ai/blog",
+        "https://app.humannative.ai/",
+        "https://docs.humannative.ai/",
+        "https://techcrunch.com/2024/06/08/deal-dive-human-native-ai-is-building-the-marketplace-for-ai-training-licensing-deals/"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "matrix.custody_model",
+      "urls_tried": [
+        "https://www.humannative.ai/",
+        "https://www.humannative.ai/sitemap.xml",
+        "https://www.humannative.ai/terms",
+        "https://www.humannative.ai/blog",
+        "https://app.humannative.ai/",
+        "https://docs.humannative.ai/",
+        "https://techcrunch.com/2024/06/08/deal-dive-human-native-ai-is-building-the-marketplace-for-ai-training-licensing-deals/",
+        "https://www.uktech.news/ai/human-native-ai-funding-20240604",
+        "https://blog.cloudflare.com/human-native-joins-cloudflare/"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "matrix.transaction_mode",
+      "urls_tried": [
+        "https://www.humannative.ai/",
+        "https://www.humannative.ai/sitemap.xml",
+        "https://www.humannative.ai/terms",
+        "https://www.humannative.ai/blog",
+        "https://app.humannative.ai/",
+        "https://docs.humannative.ai/",
+        "https://techcrunch.com/2024/06/08/deal-dive-human-native-ai-is-building-the-marketplace-for-ai-training-licensing-deals/",
+        "https://www.uktech.news/ai/human-native-ai-funding-20240604"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "matrix.public_prices",
+      "urls_tried": [
+        "https://www.humannative.ai/",
+        "https://www.humannative.ai/sitemap.xml",
+        "https://www.humannative.ai/terms",
+        "https://www.humannative.ai/blog",
+        "https://app.humannative.ai/",
+        "https://docs.humannative.ai/",
+        "https://techcrunch.com/2024/06/08/deal-dive-human-native-ai-is-building-the-marketplace-for-ai-training-licensing-deals/",
+        "https://www.uktech.news/ai/human-native-ai-funding-20240604"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "matrix.licence_model",
+      "urls_tried": [
+        "https://www.humannative.ai/",
+        "https://www.humannative.ai/sitemap.xml",
+        "https://www.humannative.ai/terms",
+        "https://www.humannative.ai/blog",
+        "https://app.humannative.ai/",
+        "https://docs.humannative.ai/",
+        "https://techcrunch.com/2024/06/08/deal-dive-human-native-ai-is-building-the-marketplace-for-ai-training-licensing-deals/",
+        "https://www.uktech.news/ai/human-native-ai-funding-20240604"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "matrix.exclusivity_offered",
+      "urls_tried": [
+        "https://www.humannative.ai/",
+        "https://www.humannative.ai/sitemap.xml",
+        "https://www.humannative.ai/terms",
+        "https://www.humannative.ai/blog",
+        "https://app.humannative.ai/",
+        "https://docs.humannative.ai/",
+        "https://techcrunch.com/2024/06/08/deal-dive-human-native-ai-is-building-the-marketplace-for-ai-training-licensing-deals/"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "matrix.public_listing",
+      "urls_tried": [
+        "https://www.humannative.ai/",
+        "https://www.humannative.ai/sitemap.xml",
+        "https://www.humannative.ai/terms",
+        "https://www.humannative.ai/blog",
+        "https://app.humannative.ai/",
+        "https://docs.humannative.ai/"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "matrix.buyer_vetting",
+      "urls_tried": [
+        "https://www.humannative.ai/",
+        "https://www.humannative.ai/sitemap.xml",
+        "https://www.humannative.ai/terms",
+        "https://www.humannative.ai/blog",
+        "https://app.humannative.ai/",
+        "https://docs.humannative.ai/",
+        "https://techcrunch.com/2024/06/08/deal-dive-human-native-ai-is-building-the-marketplace-for-ai-training-licensing-deals/"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "matrix.sample_mechanics",
+      "urls_tried": [
+        "https://www.humannative.ai/",
+        "https://www.humannative.ai/sitemap.xml",
+        "https://www.humannative.ai/terms",
+        "https://www.humannative.ai/blog",
+        "https://app.humannative.ai/",
+        "https://docs.humannative.ai/"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "matrix.versioning",
+      "urls_tried": [
+        "https://www.humannative.ai/",
+        "https://www.humannative.ai/sitemap.xml",
+        "https://www.humannative.ai/terms",
+        "https://www.humannative.ai/blog",
+        "https://app.humannative.ai/",
+        "https://docs.humannative.ai/"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "matrix.human_subject_consent_docs",
+      "urls_tried": [
+        "https://www.humannative.ai/",
+        "https://www.humannative.ai/sitemap.xml",
+        "https://www.humannative.ai/terms",
+        "https://www.humannative.ai/blog",
+        "https://app.humannative.ai/",
+        "https://docs.humannative.ai/",
+        "https://techcrunch.com/2024/06/08/deal-dive-human-native-ai-is-building-the-marketplace-for-ai-training-licensing-deals/"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "matrix.contributor_pay_model",
+      "urls_tried": [
+        "https://www.humannative.ai/",
+        "https://www.humannative.ai/sitemap.xml",
+        "https://www.humannative.ai/terms",
+        "https://www.humannative.ai/blog",
+        "https://app.humannative.ai/",
+        "https://docs.humannative.ai/",
+        "https://techcrunch.com/2024/06/08/deal-dive-human-native-ai-is-building-the-marketplace-for-ai-training-licensing-deals/",
+        "https://www.uktech.news/ai/human-native-ai-funding-20240604"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "matrix.catalogue_plus_custom",
+      "urls_tried": [
+        "https://www.humannative.ai/",
+        "https://www.humannative.ai/sitemap.xml",
+        "https://www.humannative.ai/terms",
+        "https://www.humannative.ai/blog",
+        "https://app.humannative.ai/",
+        "https://docs.humannative.ai/",
+        "https://techcrunch.com/2024/06/08/deal-dive-human-native-ai-is-building-the-marketplace-for-ai-training-licensing-deals/",
+        "https://www.uktech.news/ai/human-native-ai-funding-20240604",
+        "https://blog.cloudflare.com/human-native-joins-cloudflare/"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "matrix.erasure_after_sale",
+      "urls_tried": [
+        "https://www.humannative.ai/",
+        "https://www.humannative.ai/sitemap.xml",
+        "https://www.humannative.ai/terms",
+        "https://www.humannative.ai/blog",
+        "https://app.humannative.ai/",
+        "https://docs.humannative.ai/"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "matrix.quality_evidence",
+      "urls_tried": [
+        "https://www.humannative.ai/",
+        "https://www.humannative.ai/sitemap.xml",
+        "https://www.humannative.ai/terms",
+        "https://www.humannative.ai/blog",
+        "https://app.humannative.ai/",
+        "https://docs.humannative.ai/",
+        "https://blog.cloudflare.com/human-native-joins-cloudflare/"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "questions.Q4",
+      "urls_tried": [
+        "https://www.humannative.ai/",
+        "https://www.humannative.ai/sitemap.xml",
+        "https://www.humannative.ai/terms",
+        "https://www.humannative.ai/blog",
+        "https://app.humannative.ai/",
+        "https://docs.humannative.ai/"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "questions.Q5",
+      "urls_tried": [
+        "https://www.humannative.ai/",
+        "https://www.humannative.ai/sitemap.xml",
+        "https://www.humannative.ai/terms",
+        "https://www.humannative.ai/blog",
+        "https://app.humannative.ai/",
+        "https://docs.humannative.ai/",
+        "https://techcrunch.com/2024/06/08/deal-dive-human-native-ai-is-building-the-marketplace-for-ai-training-licensing-deals/"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "questions.Q6",
+      "urls_tried": [
+        "https://www.humannative.ai/",
+        "https://www.humannative.ai/sitemap.xml",
+        "https://www.humannative.ai/terms",
+        "https://www.humannative.ai/blog",
+        "https://app.humannative.ai/",
+        "https://docs.humannative.ai/",
+        "https://techcrunch.com/2024/06/08/deal-dive-human-native-ai-is-building-the-marketplace-for-ai-training-licensing-deals/"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "questions.Q10",
+      "urls_tried": [
+        "https://www.humannative.ai/",
+        "https://www.humannative.ai/sitemap.xml",
+        "https://www.humannative.ai/terms",
+        "https://www.humannative.ai/blog",
+        "https://app.humannative.ai/",
+        "https://docs.humannative.ai/"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "questions.Q12",
+      "urls_tried": [
+        "https://www.humannative.ai/",
+        "https://www.humannative.ai/sitemap.xml",
+        "https://www.humannative.ai/terms",
+        "https://www.humannative.ai/blog",
+        "https://app.humannative.ai/",
+        "https://docs.humannative.ai/",
+        "https://blog.cloudflare.com/human-native-joins-cloudflare/"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "other.names_for",
+      "urls_tried": [
+        "https://www.humannative.ai/",
+        "https://www.humannative.ai/sitemap.xml",
+        "https://www.humannative.ai/terms",
+        "https://www.humannative.ai/blog",
+        "https://app.humannative.ai/",
+        "https://docs.humannative.ai/",
+        "https://blog.cloudflare.com/human-native-joins-cloudflare/",
+        "https://techcrunch.com/2024/06/08/deal-dive-human-native-ai-is-building-the-marketplace-for-ai-training-licensing-deals/"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "other.deal_value",
+      "urls_tried": [
+        "https://blog.cloudflare.com/human-native-joins-cloudflare/",
+        "https://www.cloudflare.com/press-releases/",
+        "https://www.cloudflare.com/press-releases/2026/cloudflare-acquires-human-native/",
+        "https://efts.sec.gov/LATEST/search-index?q=%22Human%20Native%22&dateRange=custom&startdt=2025-10-01&enddt=2026-10-01"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.accounts_figures",
+      "urls_tried": [
+        "https://find-and-update.company-information.service.gov.uk/company/15609120/filing-history",
+        "https://find-and-update.company-information.service.gov.uk/company/15609120/filing-history/MzUyNzMwMjk1NWFkaXF6a2N4/document?format=pdf&download=0"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.post_acquisition_fate_of_marketplace",
+      "urls_tried": [
+        "https://www.humannative.ai/",
+        "https://www.humannative.ai/sitemap.xml",
+        "https://www.humannative.ai/terms",
+        "https://www.humannative.ai/blog",
+        "https://app.humannative.ai/",
+        "https://docs.humannative.ai/",
+        "https://blog.cloudflare.com/human-native-joins-cloudflare/",
+        "https://blog.cloudflare.com/an-ai-index-for-all-our-customers/",
+        "https://www.cloudflare.com/press/press-releases/2026/cloudflare-helps-end-the-search-or-ai-training-tradeoff/"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.independent_press_on_acquisition",
+      "urls_tried": [
+        "https://techcrunch.com/?s=%22human+native%22",
+        "https://techcrunch.com/?s=cloudflare+acquires",
+        "https://www.uktech.news/?s=human+native",
+        "https://www.uktech.news/?s=cloudflare",
+        "https://sifted.eu/?s=human+native",
+        "https://tech.eu/?s=human+native",
+        "https://pressgazette.co.uk/?s=human+native",
+        "https://www.computerweekly.com/search/query?q=%22human+native%22",
+        "https://musically.com/?s=human+native"
+      ],
+      "reason": "not_found"
+    }
+  ],
+  "conflicts": [],
+  "leads": [
+    {
+      "url": "https://find-and-update.company-information.service.gov.uk/company/15609120/filing-history/MzUwMDExNDYyMGFkaXF6a2N4/document?format=pdf&download=0",
+      "why": "SH01 filed 19 Jan 2026 records 797,955 seed preferred shares allotted at GBP 6.266 paid per share (form dates the allotment 06/01/2025, likely 2026); could indicate a pre-closing funding or restructuring. Not cited because its meaning is unclear."
+    },
+    {
+      "url": "https://find-and-update.company-information.service.gov.uk/company/15609120/filing-history/MzUyNzMwMjk1NWFkaXF6a2N4/document?format=pdf&download=0",
+      "why": "Accounts to 31 Dec 2025 are a scanned image PDF; the text extractor returns nothing. Could give headcount and balance sheet if OCR'd."
+    },
+    {
+      "url": "https://committees.parliament.uk/publications?SearchTerm=Human+Native",
+      "why": "Returned 403; UK Parliament written evidence from Human Native on AI and copyright may describe its model in its own words."
+    },
+    {
+      "url": "https://blog.cloudflare.com/pay-per-use",
+      "why": "Cloudflare Pay Per Use (30 Sep 2026) pays publishers when AI companies use their content; it does not name Human Native, so any link to the acquired team is unproven."
+    },
+    {
+      "url": "https://sifted.eu/?s=human+native",
+      "why": "Search results render client-side; Sifted likely covered the seed and the exit."
+    }
+  ]
+}

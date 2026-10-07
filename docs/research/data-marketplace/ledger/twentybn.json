@@ -1,0 +1,1880 @@
+{
+ "kind": "profile",
+ "slug": "twentybn",
+ "name": "TwentyBN (Twenty Billion Neurons GmbH)",
+ "aliases": [
+  "Twenty Billion Neurons",
+  "20BN",
+  "Twentyone bc GmbH i.L."
+ ],
+ "segment": "failure",
+ "tier": "light",
+ "status": {
+  "value": "acquired",
+  "claim_id": "twentybn-c001"
+ },
+ "names_for": {
+  "catalogue_side": "\"Datasets\" (20bn.com/products/datasets, linked from TwentyBN's SDK README); under Qualcomm, the developer portal's \"AI Datasets\" section",
+  "custom_side": "none found"
+ },
+ "matrix": {
+  "operator_role": {
+   "value": "reseller_licensor",
+   "claim_ids": [
+    "twentybn-c022",
+    "twentybn-c039",
+    "twentybn-c038"
+   ],
+   "note": "First-party owner, not a marketplace. Licensor of record today is Qualcomm (licence 'defined by QualComm'); TwentyBN-era licence text unreachable."
+  },
+  "economics_model": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": "No price or fee for any dataset found; whether TwentyBN charged for commercial dataset licences is not reachable (20bn.com gone, no Wayback)."
+  },
+  "who_pays_fee": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": ""
+  },
+  "supply_models": {
+   "value": [
+    "own_collection"
+   ],
+   "claim_ids": [
+    "twentybn-c009",
+    "twentybn-c018",
+    "twentybn-c034"
+   ],
+   "note": "All inventory captured to spec by paid crowd workers on TwentyBN's own platform; no third-party supply found."
+  },
+  "custody_model": {
+   "value": "copy_to_buyer",
+   "claim_ids": [
+    "twentybn-c026",
+    "twentybn-c039",
+    "twentybn-c040"
+   ],
+   "note": "Files downloaded from the owner's site (20bn.com, then Qualcomm developer portal)."
+  },
+  "transaction_mode": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": "Qualcomm-era downloads look free under a research licence but no page reachable here states the price or access steps; TwentyBN-era commercial route unknown."
+  },
+  "public_prices": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": ""
+  },
+  "licence_model": {
+   "value": "unknown",
+   "claim_ids": [
+    "twentybn-c023",
+    "twentybn-c038"
+   ],
+   "note": "Qualcomm-era: a research-use data licence agreement / 'proprietary research license'. Whether a commercial tier exists, then or now, is not reachable."
+  },
+  "exclusivity_offered": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": ""
+  },
+  "public_listing": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": "Qualcomm dataset pages exist publicly (sitemap) but render only with JavaScript; access gate not visible."
+  },
+  "buyer_vetting": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": ""
+  },
+  "sample_mechanics": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": ""
+  },
+  "versioning": {
+   "value": "unknown",
+   "claim_ids": [
+    "twentybn-c010",
+    "twentybn-c027"
+   ],
+   "note": "Something-Something grew from 108,499 clips (v1) to 220,847 (v2); what v1 holders got, and whether v1 is still offered, not found."
+  },
+  "human_subject_consent_docs": {
+   "value": "not_addressed",
+   "claim_ids": [
+    "twentybn-c028"
+   ],
+   "note": "For the TwentyBN-era datasets nothing on consent is published; the Qualcomm-era AirLetters datasheet asserts a signed consent form [asserted_only] (twentybn-c036)."
+  },
+  "contributor_pay_model": {
+   "value": "one_off",
+   "claim_ids": [
+    "twentybn-c012",
+    "twentybn-c019",
+    "twentybn-c043"
+   ],
+   "note": "Per accepted task via Amazon Mechanical Turk; no royalty or resale share found."
+  },
+  "catalogue_plus_custom": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": "No evidence found of collection to order for clients."
+  },
+  "erasure_after_sale": {
+   "value": "unknown",
+   "claim_ids": [
+    "twentybn-c037"
+   ],
+   "note": "AirLetters lets participants email to revoke consent; what that means for copies already downloaded is not stated."
+  },
+  "quality_evidence": {
+   "value": "operator_verified",
+   "claim_ids": [
+    "twentybn-c013",
+    "twentybn-c020"
+   ],
+   "note": "The data owner reviewed every submission (automatic checks plus human operators)."
+  }
+ },
+ "questions": {
+  "Q1": {
+   "state": "unknown",
+   "answer": "No evidence reached on who licensed TwentyBN datasets, in what unit or volume.",
+   "claim_ids": []
+  },
+  "Q2": {
+   "state": "not_applicable",
+   "answer": "TwentyBN published only its own datasets from its own site; it neither listed elsewhere nor ran a marketplace.",
+   "claim_ids": []
+  },
+  "Q3": {
+   "state": "sourced",
+   "answer": "All inventory was captured to spec by crowd workers recruited via Amazon Mechanical Turk onto TwentyBN's own platform; later Qualcomm-era sets state direct agreements permitting research and commercial use.",
+   "claim_ids": [
+    "twentybn-c009",
+    "twentybn-c012",
+    "twentybn-c019",
+    "twentybn-c035",
+    "twentybn-c042"
+   ]
+  },
+  "Q4": {
+   "state": "unknown",
+   "answer": "No commissioned client work or resale carve-outs found.",
+   "claim_ids": []
+  },
+  "Q5": {
+   "state": "partial",
+   "answer": "Licensor of record moved with the asset sale: Something-Something v2 now carries a licence 'defined by QualComm' and Qualcomm hosts the successor datasets; who warranted consent is not published.",
+   "claim_ids": [
+    "twentybn-c002",
+    "twentybn-c022",
+    "twentybn-c039",
+    "twentybn-c006"
+   ]
+  },
+  "Q6": {
+   "state": "sourced",
+   "answer": "Buyers download copies from the owner's site: first 20bn.com, now Qualcomm's developer portal (manual download of 19 files for Something-Something v2).",
+   "claim_ids": [
+    "twentybn-c021",
+    "twentybn-c026",
+    "twentybn-c040"
+   ]
+  },
+  "Q7": {
+   "state": "partial",
+   "answer": "Capturers were the people depicted, filming themselves at home; TwentyBN-era papers and cards say nothing about consent, while Qualcomm-era AirLetters/QEVD assert signed consent and research-plus-commercial agreements.",
+   "claim_ids": [
+    "twentybn-c018",
+    "twentybn-c028",
+    "twentybn-c036",
+    "twentybn-c035",
+    "twentybn-c042",
+    "twentybn-c045"
+   ]
+  },
+  "Q8": {
+   "state": "partial",
+   "answer": "Qualcomm-era sets are under a research-use / proprietary research licence; audit, leakage or fingerprinting terms not reachable.",
+   "claim_ids": [
+    "twentybn-c023",
+    "twentybn-c038",
+    "twentybn-c037"
+   ]
+  },
+  "Q9": {
+   "state": "unknown",
+   "answer": "No price, checkout or sales route for TwentyBN datasets found; the only TwentyBN gate found is account-plus-evaluation-licence for SDK weights.",
+   "claim_ids": [
+    "twentybn-c031"
+   ]
+  },
+  "Q10": {
+   "state": "partial",
+   "answer": "Something-Something grew from v1 (108,499 clips) to v2 (220,847) and moved to Qualcomm's portal; old 20bn.com dataset links are dead. What prior licensees kept is not published.",
+   "claim_ids": [
+    "twentybn-c010",
+    "twentybn-c027",
+    "twentybn-c024",
+    "twentybn-c021",
+    "twentybn-c001"
+   ]
+  },
+  "Q11": {
+   "state": "partial",
+   "answer": "Quality evidence was the owner's own review (automatic checks plus human operators) and published benchmark papers; no pre-purchase sample mechanics found.",
+   "claim_ids": [
+    "twentybn-c013",
+    "twentybn-c020",
+    "twentybn-c045"
+   ]
+  },
+  "Q12": {
+   "state": "partial",
+   "answer": "TwentyBN sold AI models/SDKs and published datasets; no custom collection for clients found. Former TwentyBN staff continue dataset work under Qualcomm.",
+   "claim_ids": [
+    "twentybn-c008",
+    "twentybn-c014",
+    "twentybn-c032",
+    "twentybn-c046"
+   ]
+  }
+ },
+ "claims": [
+  {
+   "id": "twentybn-c001",
+   "statement": "As of 2026-10-01 the TwentyBN website is only a notice saying the company's assets were acquired by Qualcomm, Inc. in July 2021.",
+   "kind": "status",
+   "section": "changes",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://twentybn.com/",
+     "publisher": "Twenty Billion Neurons GmbH",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "The company's assets were ultimately acquired by NASDAQ-listed Qualcomm, Inc. in July 2021."
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c002",
+   "statement": "Twenty Billion Neurons GmbH's assets were acquired by Qualcomm, Inc. in July 2021 (the newest dated event found).",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [
+    "Q10",
+    "Q5"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2021-07",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://twentyonebc.com",
+     "publisher": "Twentyone bc GmbH i.L.",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "The company's assets were ultimately acquired by NASDAQ-listed Qualcomm, Inc. in July 2021."
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c003",
+   "statement": "After the 2021 asset sale the residual TwentyBN legal entity was renamed Twentyone bc GmbH and moved to Hamburg for liquidation proceedings.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://twentybn.com/",
+     "publisher": "Twenty Billion Neurons GmbH",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "the remaining legal entity was renamed Twentyone bc GmbH and relocated to Hamburg for liquidation proceedings"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c004",
+   "statement": "The liquidating entity's own site says Twentyone bc GmbH i.L. was the remaining legal entity after the 2021 asset sale and was subsequently dissolved (no date given).",
+   "kind": "status",
+   "section": "changes",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://twentyonebc.com",
+     "publisher": "Twentyone bc GmbH i.L.",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "assets in 2021 and was subsequently dissolved"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c005",
+   "statement": "The liquidating entity Twentyone bc GmbH i.L. is registered at the Berlin-Charlottenburg local court under HRB 166984.",
+   "kind": "status",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://twentyonebc.com",
+     "publisher": "Twentyone bc GmbH i.L.",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "AG Berlin Charlottenburg HRB 166984"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c006",
+   "statement": "TwentyBN's notice page sends enquiries about TwentyBN's technology to a Qualcomm corporate-communications address.",
+   "kind": "status",
+   "section": "changes",
+   "question_ids": [
+    "Q5",
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://twentybn.com/",
+     "publisher": "Twenty Billion Neurons GmbH",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "For inquiries about TwentyBN's technology, please contact: corpcomm@qualcomm.com"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c007",
+   "statement": "TwentyBN was an AI start-up founded in Berlin in 2015 with a subsidiary in Toronto, Canada.",
+   "kind": "event",
+   "section": "positioning",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2015",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://twentybn.com/",
+     "publisher": "Twenty Billion Neurons GmbH",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "TwentyBN was an AI start-up founded in Berlin, Germany in 2015 with a subsidiary in Toronto, Canada."
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c008",
+   "statement": "TwentyBN describes itself as having specialised in interactive visual AI systems for smart home, fitness and automotive.",
+   "kind": "offer",
+   "section": "positioning",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://twentybn.com/",
+     "publisher": "Twenty Billion Neurons GmbH",
+     "source_class": "vendor_marketing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "The company specialized in interactive, visual AI systems for smart home, fitness and automotive."
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c009",
+   "statement": "For Something-Something, TwentyBN asked crowd workers to record videos acting out given labels, instead of labelling videos found online.",
+   "kind": "architecture",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q7"
+   ],
+   "scope": {
+    "product": "Something-Something v1",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "academic",
+   "as_of": "2017-06-15",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://arxiv.org/pdf/1706.04261v2",
+     "publisher": "arXiv (Goyal et al., TwentyBN)",
+     "source_class": "academic",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "ask crowd-workers to provide videos given labels instead of the other way around"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c010",
+   "statement": "The first Something-Something release contained 108,499 videos across 174 labels.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q10"
+   ],
+   "scope": {
+    "product": "Something-Something v1",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 108499,
+    "unit": "video clips",
+    "basis": "total clips in the version described in the 2017 paper (v1)",
+    "period": "one-off"
+   },
+   "origin": "academic",
+   "as_of": "2017-06-15",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://arxiv.org/pdf/1706.04261v2",
+     "publisher": "arXiv (Goyal et al., TwentyBN)",
+     "source_class": "academic",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "It currently contains 108, 499 videos across 174"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c011",
+   "statement": "The first Something-Something release was generated by 1,133 crowd workers.",
+   "kind": "number",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3",
+    "Q7"
+   ],
+   "scope": {
+    "product": "Something-Something v1",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 1133,
+    "unit": "crowd workers",
+    "basis": "distinct contributors to v1 as stated by the dataset authors",
+    "period": "one-off"
+   },
+   "origin": "academic",
+   "as_of": "2017-06-15",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://arxiv.org/pdf/1706.04261v2",
+     "publisher": "arXiv (Goyal et al., TwentyBN)",
+     "source_class": "academic",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "the dataset was generated by 1133 crowd workers"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c012",
+   "statement": "TwentyBN's collection platform reported accept/reject results back to Amazon Mechanical Turk so that accepted Something-Something tasks were paid.",
+   "kind": "architecture",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3",
+    "Q7"
+   ],
+   "scope": {
+    "product": "Something-Something v1",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "academic",
+   "as_of": "2017-06-15",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://arxiv.org/pdf/1706.04261v2",
+     "publisher": "arXiv (Goyal et al., TwentyBN)",
+     "source_class": "academic",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "allow for payments for the accepted tasks"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c013",
+   "statement": "A Something-Something submission was accepted automatically only if it passed quality-control checks such as video length and uniqueness.",
+   "kind": "architecture",
+   "section": "vetting",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "Something-Something v1",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "academic",
+   "as_of": "2017-06-15",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://arxiv.org/pdf/1706.04261v2",
+     "publisher": "arXiv (Goyal et al., TwentyBN)",
+     "source_class": "academic",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "A submission is accepted automatically, if it passes a number of quality control checks"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c014",
+   "statement": "The 2017 Something-Something paper said TwentyBN planned to make 'a version' of the dataset available on twentybn.com.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12",
+    "Q10"
+   ],
+   "scope": {
+    "product": "Something-Something v1",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "academic",
+   "as_of": "2017-06-15",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://arxiv.org/pdf/1706.04261v2",
+     "publisher": "arXiv (Goyal et al., TwentyBN)",
+     "source_class": "academic",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "We plan to make a version of the dataset available at"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c015",
+   "statement": "The Something-Something paper describes the challenges of crowd-sourcing this video data at scale.",
+   "kind": "architecture",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "Something-Something",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "academic",
+   "as_of": "2017-06-15",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://arxiv.org/abs/1706.04261",
+     "publisher": "arXiv (Goyal et al., TwentyBN)",
+     "source_class": "academic",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "We also describe the challenges in crowd-sourcing this data at scale."
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c016",
+   "statement": "The Jester gesture dataset contains 148,092 short video clips.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "Jester v1",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 148092,
+    "unit": "video clips",
+    "basis": "total clips in Jester v1 as stated by the dataset authors",
+    "period": "one-off"
+   },
+   "origin": "academic",
+   "as_of": "2019",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://openaccess.thecvf.com/content_ICCVW_2019/papers/HANDS/Materzynska_The_Jester_Dataset_A_Large-Scale_Video_Dataset_of_Human_Gestures_ICCVW_2019_paper.pdf",
+     "publisher": "CVF Open Access (Materzynska et al., TwentyBN)",
+     "source_class": "academic",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "Total number of videos 148,092"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c017",
+   "statement": "Jester was recorded by 1,376 crowd workers acting as actors.",
+   "kind": "number",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3",
+    "Q7"
+   ],
+   "scope": {
+    "product": "Jester v1",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 1376,
+    "unit": "crowd workers (actors)",
+    "basis": "distinct contributors as stated by the dataset authors",
+    "period": "one-off"
+   },
+   "origin": "academic",
+   "as_of": "2019",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://openaccess.thecvf.com/content_ICCVW_2019/papers/HANDS/Materzynska_The_Jester_Dataset_A_Large-Scale_Video_Dataset_of_Human_Gestures_ICCVW_2019_paper.pdf",
+     "publisher": "CVF Open Access (Materzynska et al., TwentyBN)",
+     "source_class": "academic",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "Number of actors 1376"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c018",
+   "statement": "Jester clips show the crowd workers themselves performing gestures, recorded in their own homes.",
+   "kind": "architecture",
+   "section": "supply",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "Jester v1",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "academic",
+   "as_of": "2019",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://openaccess.thecvf.com/content_ICCVW_2019/papers/HANDS/Materzynska_The_Jester_Dataset_A_Large-Scale_Video_Dataset_of_Human_Gestures_ICCVW_2019_paper.pdf",
+     "publisher": "CVF Open Access (Materzynska et al., TwentyBN)",
+     "source_class": "academic",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "individuals performing the gesture in the convenience of their homes"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c019",
+   "statement": "On TwentyBN's platform a successful Jester task resulted in a payment, and an unsuccessful one could be re-done rather than rejected outright.",
+   "kind": "architecture",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "Jester v1",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "academic",
+   "as_of": "2019",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://openaccess.thecvf.com/content_ICCVW_2019/papers/HANDS/Materzynska_The_Jester_Dataset_A_Large-Scale_Video_Dataset_of_Human_Gestures_ICCVW_2019_paper.pdf",
+     "publisher": "CVF Open Access (Materzynska et al., TwentyBN)",
+     "source_class": "academic",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "The outcome is either successful and results in a pay"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c020",
+   "statement": "Jester submissions were reviewed by a human operator to ensure the recordings were correct.",
+   "kind": "architecture",
+   "section": "vetting",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "Jester v1",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "academic",
+   "as_of": "2019",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://openaccess.thecvf.com/content_ICCVW_2019/papers/HANDS/Materzynska_The_Jester_Dataset_A_Large-Scale_Video_Dataset_of_Human_Gestures_ICCVW_2019_paper.pdf",
+     "publisher": "CVF Open Access (Materzynska et al., TwentyBN)",
+     "source_class": "academic",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "reviewed by a human operator"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c021",
+   "statement": "The Jester paper directed users to download the videos from the Jester dataset website on 20bn.com.",
+   "kind": "architecture",
+   "section": "custody",
+   "question_ids": [
+    "Q6",
+    "Q10"
+   ],
+   "scope": {
+    "product": "Jester v1",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "academic",
+   "as_of": "2019",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://openaccess.thecvf.com/content_ICCVW_2019/papers/HANDS/Materzynska_The_Jester_Dataset_A_Large-Scale_Video_Dataset_of_Human_Gestures_ICCVW_2019_paper.pdf",
+     "publisher": "CVF Open Access (Materzynska et al., TwentyBN)",
+     "source_class": "academic",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "The videos can be downloaded at the jester-dataset website"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c022",
+   "statement": "A community Hugging Face card for Something-Something v2 says its licence is a one-page document defined by Qualcomm.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q5",
+    "Q8"
+   ],
+   "scope": {
+    "product": "Something-Something v2",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "independent",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/datasets/HuggingFaceM4/something_something_v2",
+     "publisher": "Hugging Face (HuggingFaceM4 community card)",
+     "source_class": "third_party_docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "License is a one-page document as defined by QualComm"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c023",
+   "statement": "The licence the card links for Something-Something v2 is a Qualcomm developer page titled as a data licence agreement for research use.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8",
+    "Q9"
+   ],
+   "scope": {
+    "product": "Something-Something v2",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "independent",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/datasets/HuggingFaceM4/something_something_v2/raw/main/README.md",
+     "publisher": "Hugging Face (HuggingFaceM4 community card)",
+     "source_class": "third_party_docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "developer.qualcomm.com/downloads/data-license-agreement-research-use"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c024",
+   "statement": "The card gives Qualcomm's developer site as the homepage of Something-Something v2.",
+   "kind": "offer",
+   "section": "changes",
+   "question_ids": [
+    "Q10",
+    "Q5"
+   ],
+   "scope": {
+    "product": "Something-Something v2",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "independent",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/datasets/HuggingFaceM4/something_something_v2/raw/main/README.md",
+     "publisher": "Hugging Face (HuggingFaceM4 community card)",
+     "source_class": "third_party_docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Homepage:** https://developer.qualcomm.com/software/ai-datasets/something-something"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c025",
+   "statement": "The card names a Qualcomm research-datasets email address as point of contact for Something-Something v2.",
+   "kind": "offer",
+   "section": "changes",
+   "question_ids": [
+    "Q5"
+   ],
+   "scope": {
+    "product": "Something-Something v2",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "independent",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/datasets/HuggingFaceM4/something_something_v2/raw/main/README.md",
+     "publisher": "Hugging Face (HuggingFaceM4 community card)",
+     "source_class": "third_party_docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "research.datasets@qti.qualcomm.com"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c026",
+   "statement": "The Hugging Face loader cannot fetch Something-Something v2 itself: users must manually download 19 data files and a labels file from Qualcomm's developer site.",
+   "kind": "architecture",
+   "section": "custody",
+   "question_ids": [
+    "Q6"
+   ],
+   "scope": {
+    "product": "Something-Something v2",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "independent",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/datasets/HuggingFaceM4/something_something_v2/raw/main/something_something_v2.py",
+     "publisher": "Hugging Face (HuggingFaceM4 loader script)",
+     "source_class": "third_party_docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "please download the 19 data files and the labels file"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c027",
+   "statement": "Something-Something v2 has 220,847 labelled clips of humans performing pre-defined actions with everyday objects.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q10",
+    "Q3"
+   ],
+   "scope": {
+    "product": "Something-Something v2",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 220847,
+    "unit": "video clips",
+    "basis": "total clips in v2 across train, validation and test, per the community card",
+    "period": "one-off"
+   },
+   "origin": "independent",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/datasets/HuggingFaceM4/something_something_v2",
+     "publisher": "Hugging Face (HuggingFaceM4 community card)",
+     "source_class": "third_party_docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "a collection of 220,847 labeled video clips of humans performing pre-defined, basic actions"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c028",
+   "statement": "Under 'Personal and Sensitive Information' the Something-Something v2 card says nothing on it was specifically discussed in the paper.",
+   "kind": "terms",
+   "section": "vetting",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "Something-Something v2",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "independent",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://huggingface.co/datasets/HuggingFaceM4/something_something_v2",
+     "publisher": "Hugging Face (HuggingFaceM4 community card)",
+     "source_class": "third_party_docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Nothing specifically discussed in the paper"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c029",
+   "statement": "TwentyBN's real-time video SDK code, now in Qualcomm's quic GitHub organisation, is MIT-licensed and copyright 2020 Twenty Billion Neurons GmbH.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "Sense SDK",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://github.com/quic/sense",
+     "publisher": "Qualcomm Innovation Center GitHub (quic/sense)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "The code is copyright (c) 2020 Twenty Billion Neurons GmbH under an MIT Licence"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c030",
+   "statement": "The SDK README says pretrained weights carry a separate licence hosted on a 20bn.com licensing page.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8",
+    "Q10"
+   ],
+   "scope": {
+    "product": "SenseKit weights",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://github.com/quic/sense",
+     "publisher": "Qualcomm Innovation Center GitHub (quic/sense)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Pretrained weights come with a separate license available"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c031",
+   "statement": "To get the SenseKit weights, users had to create an account and agree to an evaluation licence before downloading.",
+   "kind": "terms",
+   "section": "transaction",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "SenseKit weights",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://github.com/quic/sense",
+     "publisher": "Qualcomm Innovation Center GitHub (quic/sense)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "create an account, agree to evaluation license and download the weights"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c032",
+   "statement": "The AirLetters datasheet (2024) says the dataset was created on behalf of Qualcomm Technologies Inc. and TwentyBN GmbH.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [
+    "Q5",
+    "Q12"
+   ],
+   "scope": {
+    "product": "AirLetters",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "academic",
+   "as_of": "2024-10-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://arxiv.org/html/2410.02921",
+     "publisher": "arXiv (Dagli et al., Qualcomm / TwentyBN)",
+     "source_class": "academic",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "on behalf of Qualcomm Technologies Inc. and TwentyBN GmbH"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c033",
+   "statement": "AirLetters was recorded by 1,781 crowd workers.",
+   "kind": "number",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "AirLetters",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 1781,
+    "unit": "crowd workers",
+    "basis": "distinct contributors as stated by the dataset authors",
+    "period": "one-off"
+   },
+   "origin": "academic",
+   "as_of": "2024-10-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://arxiv.org/html/2410.02921",
+     "publisher": "arXiv (Dagli et al., Qualcomm / TwentyBN)",
+     "source_class": "academic",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "with 1781 crowd workers contributing"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c034",
+   "statement": "AirLetters was collected on a custom platform integrated with crowd-sourcing providers.",
+   "kind": "architecture",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "AirLetters",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "academic",
+   "as_of": "2024-10-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://arxiv.org/html/2410.02921",
+     "publisher": "arXiv (Dagli et al., Qualcomm / TwentyBN)",
+     "source_class": "academic",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "we used a custom platform integrated with crowd-sourcing providers"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c035",
+   "statement": "AirLetters videos show participants' faces and were collected under a direct agreement with the crowd workers permitting research and commercial use.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q7"
+   ],
+   "scope": {
+    "product": "AirLetters",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "academic",
+   "as_of": "2024-10-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://arxiv.org/html/2410.02921",
+     "publisher": "arXiv (Dagli et al., Qualcomm / TwentyBN)",
+     "source_class": "academic",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "the videos were collected under a direct agreement with the crowd workers, permitting research and commercial use"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c036",
+   "statement": "The AirLetters datasheet states that crowd workers signed a consent form; the form itself is not reproduced.",
+   "kind": "terms",
+   "section": "vetting",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "AirLetters",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "academic",
+   "as_of": "2024-10-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://arxiv.org/html/2410.02921",
+     "publisher": "arXiv (Dagli et al., Qualcomm / TwentyBN)",
+     "source_class": "academic",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Yes, crowdworkers signed a consent form"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c037",
+   "statement": "AirLetters participants may seek to revoke consent by emailing the dataset owners.",
+   "kind": "terms",
+   "section": "post_sale",
+   "question_ids": [
+    "Q7",
+    "Q8"
+   ],
+   "scope": {
+    "product": "AirLetters",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "academic",
+   "as_of": "2024-10-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://arxiv.org/html/2410.02921",
+     "publisher": "arXiv (Dagli et al., Qualcomm / TwentyBN)",
+     "source_class": "academic",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Yes, the participants may reach out to us via email"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c038",
+   "statement": "The AirLetters datasheet says the dataset would be released under a proprietary research licence.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "AirLetters",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "academic",
+   "as_of": "2024-10-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://arxiv.org/html/2410.02921",
+     "publisher": "arXiv (Dagli et al., Qualcomm / TwentyBN)",
+     "source_class": "academic",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "we plan to release the dataset under a proprietary research license"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c039",
+   "statement": "AirLetters is hosted and maintained by Qualcomm Technologies Inc.",
+   "kind": "architecture",
+   "section": "custody",
+   "question_ids": [
+    "Q5",
+    "Q6"
+   ],
+   "scope": {
+    "product": "AirLetters",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "academic",
+   "as_of": "2024-10-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://arxiv.org/html/2410.02921",
+     "publisher": "arXiv (Dagli et al., Qualcomm / TwentyBN)",
+     "source_class": "academic",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "The dataset is hosted and maintained by Qualcomm Technologies Inc"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c040",
+   "statement": "AirLetters was to be publicly downloadable through a website.",
+   "kind": "architecture",
+   "section": "custody",
+   "question_ids": [
+    "Q6",
+    "Q9"
+   ],
+   "scope": {
+    "product": "AirLetters",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "academic",
+   "as_of": "2024-10-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://arxiv.org/html/2410.02921",
+     "publisher": "arXiv (Dagli et al., Qualcomm / TwentyBN)",
+     "source_class": "academic",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "The dataset will be publicly downloadable through a website"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c041",
+   "statement": "The AirLetters datasheet says any dataset updates should be communicated through the dataset web page.",
+   "kind": "terms",
+   "section": "post_sale",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "AirLetters",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "academic",
+   "as_of": "2024-10-03",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://arxiv.org/html/2410.02921",
+     "publisher": "arXiv (Dagli et al., Qualcomm / TwentyBN)",
+     "source_class": "academic",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "changes should be communicated through the dataset web page"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c042",
+   "statement": "Qualcomm's QEVD fitness videos were collected under a direct agreement with crowd workers permitting research and commercial use.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q7"
+   ],
+   "scope": {
+    "product": "QEVD",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "academic",
+   "as_of": "2026-04-14",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://arxiv.org/html/2407.08101",
+     "publisher": "arXiv (Panchal et al., Qualcomm AI Research)",
+     "source_class": "academic",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "The data was collected under a direct agreement with the crowd workers, permitting research and commercial use"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c043",
+   "statement": "QEVD participants received compensation the authors describe as appropriate and fair for their region.",
+   "kind": "terms",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "QEVD",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "academic",
+   "as_of": "2026-04-14",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://arxiv.org/html/2407.08101",
+     "publisher": "arXiv (Panchal et al., Qualcomm AI Research)",
+     "source_class": "academic",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Participants received appropriate and fair compensation for the regions where they were located"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c044",
+   "statement": "QEVD-Fit-300K's short labelled videos were crowd-sourced from over 1,900 participants.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "QEVD-Fit-300K",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 1900,
+    "unit": "participants",
+    "basis": "lower bound ('over 1,900 unique participants') as stated by the authors",
+    "period": "one-off"
+   },
+   "origin": "academic",
+   "as_of": "2026-04-14",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://arxiv.org/html/2407.08101",
+     "publisher": "arXiv (Panchal et al., Qualcomm AI Research)",
+     "source_class": "academic",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "crowd-sourced from over 1,900"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c045",
+   "statement": "QEVD videos were screened with a detector for problems such as people in the background, and flagged videos were inspected and removed.",
+   "kind": "architecture",
+   "section": "vetting",
+   "question_ids": [
+    "Q7",
+    "Q11"
+   ],
+   "scope": {
+    "product": "QEVD",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "academic",
+   "as_of": "2026-04-14",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://arxiv.org/html/2407.08101",
+     "publisher": "arXiv (Panchal et al., Qualcomm AI Research)",
+     "source_class": "academic",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "a detector was used on all videos to detect any issues, such as individuals in the background"
+    }
+   ]
+  },
+  {
+   "id": "twentybn-c046",
+   "statement": "Two QEVD co-authors are footnoted as having done the work at TwentyBN GmbH.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "QEVD",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "academic",
+   "as_of": "2026-04-14",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://arxiv.org/html/2407.08101",
+     "publisher": "arXiv (Panchal et al., Qualcomm AI Research)",
+     "source_class": "academic",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Work performed at TwentyBN GmbH"
+    }
+   ]
+  }
+ ],
+ "unknowns": [
+  {
+   "field": "matrix.economics_model",
+   "urls_tried": [
+    "https://20bn.com/datasets/something-something",
+    "https://20bn.com/products/datasets",
+    "https://20bn.com/licensing/sdk/evaluation",
+    "https://twentybn.com/",
+    "https://www.qualcomm.com/developer/artificial-intelligence/datasets",
+    "https://www.qualcomm.com/developer/software/something-something-v-2-dataset",
+    "https://www.qualcomm.com/developer/software/jester-dataset"
+   ],
+   "reason": "not_found"
+  },
+  {
+   "field": "matrix.who_pays_fee",
+   "urls_tried": [
+    "https://20bn.com/datasets/something-something",
+    "https://20bn.com/products/datasets",
+    "https://20bn.com/licensing/sdk/evaluation",
+    "https://twentybn.com/",
+    "https://www.qualcomm.com/developer/artificial-intelligence/datasets",
+    "https://www.qualcomm.com/developer/software/something-something-v-2-dataset",
+    "https://www.qualcomm.com/developer/software/jester-dataset"
+   ],
+   "reason": "not_found"
+  },
+  {
+   "field": "matrix.transaction_mode",
+   "urls_tried": [
+    "https://www.qualcomm.com/developer/artificial-intelligence/datasets",
+    "https://www.qualcomm.com/developer/software/something-something-v-2-dataset",
+    "https://www.qualcomm.com/developer/software/jester-dataset",
+    "https://developer.qualcomm.com/downloads/data-license-agreement-research-use?referrer=node/68935"
+   ],
+   "reason": "js_empty"
+  },
+  {
+   "field": "matrix.public_prices",
+   "urls_tried": [
+    "https://20bn.com/datasets/something-something",
+    "https://20bn.com/products/datasets",
+    "https://20bn.com/licensing/sdk/evaluation",
+    "https://twentybn.com/",
+    "https://www.qualcomm.com/developer/artificial-intelligence/datasets",
+    "https://www.qualcomm.com/developer/software/something-something-v-2-dataset",
+    "https://www.qualcomm.com/developer/software/jester-dataset"
+   ],
+   "reason": "not_found"
+  },
+  {
+   "field": "matrix.licence_model",
+   "urls_tried": [
+    "https://developer.qualcomm.com/downloads/data-license-agreement-research-use?referrer=node/68935",
+    "https://www.qualcomm.com/developer/artificial-intelligence/datasets",
+    "https://www.qualcomm.com/developer/software/something-something-v-2-dataset",
+    "https://www.qualcomm.com/developer/software/jester-dataset"
+   ],
+   "reason": "not_found"
+  },
+  {
+   "field": "matrix.exclusivity_offered",
+   "urls_tried": [
+    "https://20bn.com/datasets/something-something",
+    "https://20bn.com/products/datasets",
+    "https://20bn.com/licensing/sdk/evaluation",
+    "https://twentybn.com/",
+    "https://developer.qualcomm.com/downloads/data-license-agreement-research-use?referrer=node/68935"
+   ],
+   "reason": "not_found"
+  },
+  {
+   "field": "matrix.public_listing",
+   "urls_tried": [
+    "https://www.qualcomm.com/developer/artificial-intelligence/datasets",
+    "https://www.qualcomm.com/developer/software/something-something-v-2-dataset",
+    "https://www.qualcomm.com/developer/software/jester-dataset"
+   ],
+   "reason": "js_empty"
+  },
+  {
+   "field": "matrix.buyer_vetting",
+   "urls_tried": [
+    "https://www.qualcomm.com/developer/artificial-intelligence/datasets",
+    "https://www.qualcomm.com/developer/software/something-something-v-2-dataset",
+    "https://www.qualcomm.com/developer/software/jester-dataset",
+    "https://developer.qualcomm.com/downloads/data-license-agreement-research-use?referrer=node/68935"
+   ],
+   "reason": "js_empty"
+  },
+  {
+   "field": "matrix.sample_mechanics",
+   "urls_tried": [
+    "https://www.qualcomm.com/developer/artificial-intelligence/datasets",
+    "https://www.qualcomm.com/developer/software/something-something-v-2-dataset",
+    "https://www.qualcomm.com/developer/software/jester-dataset",
+    "https://20bn.com/datasets/something-something",
+    "https://20bn.com/products/datasets",
+    "https://20bn.com/licensing/sdk/evaluation",
+    "https://twentybn.com/"
+   ],
+   "reason": "js_empty"
+  },
+  {
+   "field": "matrix.versioning",
+   "urls_tried": [
+    "https://www.qualcomm.com/developer/artificial-intelligence/datasets",
+    "https://www.qualcomm.com/developer/software/something-something-v-2-dataset",
+    "https://www.qualcomm.com/developer/software/jester-dataset",
+    "https://huggingface.co/datasets/HuggingFaceM4/something_something_v2"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "matrix.catalogue_plus_custom",
+   "urls_tried": [
+    "https://twentybn.com/",
+    "https://github.com/quic/sense",
+    "https://20bn.com/datasets/something-something",
+    "https://20bn.com/products/datasets",
+    "https://20bn.com/licensing/sdk/evaluation",
+    "https://twentybn.com/"
+   ],
+   "reason": "not_found"
+  },
+  {
+   "field": "matrix.erasure_after_sale",
+   "urls_tried": [
+    "https://arxiv.org/html/2410.02921",
+    "https://developer.qualcomm.com/downloads/data-license-agreement-research-use?referrer=node/68935"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "questions.Q1",
+   "urls_tried": [
+    "https://20bn.com/datasets/something-something",
+    "https://20bn.com/products/datasets",
+    "https://20bn.com/licensing/sdk/evaluation",
+    "https://twentybn.com/",
+    "https://medium.com/twentybn"
+   ],
+   "reason": "not_found"
+  },
+  {
+   "field": "questions.Q4",
+   "urls_tried": [
+    "https://twentybn.com/",
+    "https://20bn.com/datasets/something-something",
+    "https://20bn.com/products/datasets",
+    "https://20bn.com/licensing/sdk/evaluation",
+    "https://twentybn.com/"
+   ],
+   "reason": "not_found"
+  },
+  {
+   "field": "questions.Q9",
+   "urls_tried": [
+    "https://www.qualcomm.com/developer/artificial-intelligence/datasets",
+    "https://www.qualcomm.com/developer/software/something-something-v-2-dataset",
+    "https://www.qualcomm.com/developer/software/jester-dataset",
+    "https://developer.qualcomm.com/downloads/data-license-agreement-research-use?referrer=node/68935",
+    "https://20bn.com/datasets/something-something",
+    "https://20bn.com/products/datasets",
+    "https://20bn.com/licensing/sdk/evaluation",
+    "https://twentybn.com/"
+   ],
+   "reason": "js_empty"
+  },
+  {
+   "field": "other.twentybn_era_dataset_licence",
+   "urls_tried": [
+    "https://20bn.com/datasets/something-something",
+    "https://20bn.com/products/datasets"
+   ],
+   "reason": "not_found"
+  },
+  {
+   "field": "other.qualcomm_research_licence_text",
+   "urls_tried": [
+    "https://developer.qualcomm.com/downloads/data-license-agreement-research-use?referrer=node/68935"
+   ],
+   "reason": "not_found"
+  },
+  {
+   "field": "other.acquisition_terms_and_press",
+   "urls_tried": [
+    "https://efts.sec.gov/LATEST/search-index?q=%22Twenty%20Billion%20Neurons%22",
+    "https://efts.sec.gov/LATEST/search-index?q=%22TwentyBN%22",
+    "https://www.qualcomm.com/sitemap.xml"
+   ],
+   "reason": "not_found"
+  },
+  {
+   "field": "other.twentybn_blog",
+   "urls_tried": [
+    "https://medium.com/twentybn"
+   ],
+   "reason": "blocked"
+  },
+  {
+   "field": "other.qualcomm_memisevic_interview",
+   "urls_tried": [
+    "https://www.qualcomm.com/news/onq/2021/09/qa-ai-researcher-roland-memisevic-discusses-secret-dataset-generation-data"
+   ],
+   "reason": "js_empty"
+  }
+ ],
+ "conflicts": [
+  {
+   "claim_ids": [
+    "twentybn-c003",
+    "twentybn-c004"
+   ],
+   "rule_applied": "newer_wins_status",
+   "resolution": "twentybn.com says the residual entity was relocated to Hamburg for liquidation proceedings; twentyonebc.com says it was subsequently dissolved. Both undated; dissolution is the later stage, so the entity is treated as dissolved."
+  }
+ ],
+ "leads": [
+  {
+   "url": "https://www.qualcomm.com/news/onq/2021/09/qa-ai-researcher-roland-memisevic-discusses-secret-dataset-generation-data",
+   "why": "Qualcomm OnQ interview (Sept 2021) with TwentyBN co-founder on dataset generation; JS-rendered, body not readable here."
+  },
+  {
+   "url": "https://www.qualcomm.com/developer/software/something-something-v-2-dataset/downloads",
+   "why": "Qualcomm download page for Something-Something v2 (from sitemap); JS-rendered. Would show current licence and access gate."
+  },
+  {
+   "url": "https://www.qualcomm.com/developer/software/jester-dataset/downloads",
+   "why": "Qualcomm download page for Jester (from sitemap); JS-rendered."
+  },
+  {
+   "url": "https://www.qualcomm.com/developer/blog/2025/01/qualcomm-ai-research-publishes-datasets-for-research-use",
+   "why": "Qualcomm blog (Jan 2025) on publishing datasets for research use; JS-rendered."
+  },
+  {
+   "url": "https://medium.com/twentybn",
+   "why": "TwentyBN's own blog (403 to fetcher); likely held dataset licensing announcements."
+  },
+  {
+   "url": "https://www.qualcomm.com/developer/software/qevd-dataset/downloads",
+   "why": "QEVD fitness dataset, likely built on TwentyBN fitness captures; JS-rendered."
+  }
+ ]
+}

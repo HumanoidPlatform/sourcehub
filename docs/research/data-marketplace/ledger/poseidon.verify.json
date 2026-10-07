@@ -1,0 +1,431 @@
+{
+  "kind": "verify",
+  "slug": "poseidon",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "poseidon-c001",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://apps.apple.com/app/id6783542556",
+        "publisher": "Apple App Store (listing for Numo by Poseidon AI, Inc.)",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Stability and usability improvements Minor bug fixes 1.15 Sep 16"
+      },
+      "corrected_statement": null,
+      "note": "Operation in September 2026 is independently shown by the App Store version history (1.15, Sep 16, no year shown because it is the current year) and the Google Play page, which read 'Updated on Sep 15, 2026' when fetched with PowerShell (WebFetch returned only truncated content for Play). The blog post dated 08 Sept 2026 (SONAR open-sourcing) exists only on psdn.ai/blog and was seen there; that part is vendor-only. WebSearch not available in this run."
+    },
+    {
+      "claim_id": "poseidon-c002",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The 'last updated' dates of Poseidon's own Terms exist only on psdn.ai. The earlier version cannot be reached independently: the Wayback Machine is blocked and no search available to find third-party copies."
+    },
+    {
+      "claim_id": "poseidon-c005",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A comparison with the superseded 18 August 2025 Terms needs a copy of that version. The Wayback Machine is blocked and no search available; no independent copy was found by navigation. Whether the profile's own reading of the old version holds is checked in the scope step only. Added after Part 2: the profile cites the old version on Poseidon's own site (psdn.ai/terms/2025-08-18, linked under 'Previous versions'); no copy off Poseidon's domain was found, so in practice this is vendor-only."
+    },
+    {
+      "claim_id": "poseidon-c006",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://a16zcrypto.com/posts/article/investing-in-poseidon",
+        "publisher": "a16z crypto (Chris Dixon, Carra Wu and Connor; dated 07.22.25)",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "leading a $15M seed round in Poseidon"
+      },
+      "corrected_statement": null,
+      "note": "The lead investor's own announcement, dated 07.22.25, found through a16zcrypto.com/post-sitemap.xml. It also says 'Poseidon was incubated by Story, which we've also invested in'. The investor is an interested party, not a disinterested reporter. No Form D was found: EDGAR full-text search for \"Poseidon AI, Inc\" and the EDGAR company search for 'poseidon ai' both returned no results."
+    },
+    {
+      "claim_id": "poseidon-c104",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A payout threshold in Poseidon's own Terms. Neither the App Store listing nor the Data Foundation's Numo launch post (2026-04-29) states a threshold; the latter says only that users 'receive rewards for eligible contributions'."
+    },
+    {
+      "claim_id": "poseidon-c116",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A liability cap in Poseidon's own Terms; exists only there."
+    },
+    {
+      "claim_id": "poseidon-c074",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A retention period in Poseidon's own privacy terms. Context, not verification: three years after the individual's last interaction is the outer limit set by the Illinois Biometric Information Privacy Act (740 ILCS 14/15(a)), so the figure looks like BIPA compliance language; not fetched in this run."
+    },
+    {
+      "claim_id": "poseidon-c026",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No customer is named anywhere reachable. The a16z crypto post (2025-07-22) and the Data Foundation Numo post (2026-04-29) name no buyer. No search available to look for customer-side mentions."
+    },
+    {
+      "claim_id": "poseidon-c134",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://www.datafdn.org/blog/introducing-numo-a-new-way-to-contribute-to-ai",
+        "publisher": "The DATA Foundation (formerly Story Foundation), 29 Apr 2026",
+        "source_class": "press_relaying_vendor",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "33,000+ hours of rights-cleared audio collected in three weeks across 17 languages"
+      },
+      "corrected_statement": null,
+      "note": "The only other source is Poseidon's incubator (a16z: 'Poseidon was incubated by Story'), which repeats the figure. It does not mention 'thousands of contributors'. The Data Foundation says 'rights-cleared audio' where Poseidon says 'prompted speech'. No independent measure exists; no search available."
+    },
+    {
+      "claim_id": "poseidon-c139",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "World's own pages were tried: world.org/blog lists no post on Poseidon, Numo or app rankings, and world.org/ecosystem does not list Poseidon and shows no trending ranking. A ranking history for the World app store could not be reached; no search available."
+    },
+    {
+      "claim_id": "poseidon-c141",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "sahabat-ai.com returned an empty (JS-rendered) page and www.sahabat-ai.com does not resolve; the GoToCompany Hugging Face organisation (Sahabat-AI's publisher) lists five text LLMs, no speech models and no public datasets, and never mentions Poseidon. No search available. Nothing independent shows Sahabat-AI as a Poseidon customer."
+    },
+    {
+      "claim_id": "poseidon-c149",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://www.datafdn.org/blog/introducing-numo-a-new-way-to-contribute-to-ai",
+        "publisher": "The DATA Foundation (formerly Story Foundation), 29 Apr 2026",
+        "source_class": "press_relaying_vendor",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "33,000+ hours of rights-cleared audio collected in three weeks across 17 languages"
+      },
+      "corrected_statement": null,
+      "note": "The relay itself is confirmed on the Data Foundation's own blog (reached from story.foundation/blog, which 308-redirects to datafdn.org/blog; the rename was announced 25 Jun 2026). The Data Foundation is Poseidon's incubator, a related party, so the figure is relayed, not independently checked."
+    },
+    {
+      "claim_id": "poseidon-c150",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://apps.apple.com/app/id6783542556",
+        "publisher": "Apple App Store (listing for Numo by Poseidon AI, Inc.)",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "4 Ratings"
+      },
+      "corrected_statement": null,
+      "note": "App Store showed 3.0 out of 5 from 4 Ratings on 2026-10-01; the rating count is computed by Apple. For contrast, the Google Play listing (read with PowerShell, WebFetch returned truncated content) showed '50K+ Downloads', so the four iOS ratings understate Android reach. The listing's phrase is 'Get rewarded for contributing high-quality data.'"
+    },
+    {
+      "claim_id": "poseidon-c086",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The grant clause of Poseidon's own Terms; exists only there."
+    },
+    {
+      "claim_id": "poseidon-c053",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://www.datafdn.org/blog/introducing-numo-a-new-way-to-contribute-to-ai",
+        "publisher": "The DATA Foundation (formerly Story Foundation), 29 Apr 2026",
+        "source_class": "press_relaying_vendor",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "complete tasks, and receive rewards for eligible contributions"
+      },
+      "corrected_statement": null,
+      "note": "Only the incubator restates the pay-per-eligible-contribution model; it says nothing about hardware Poseidon provides. The App Store listing (developer-written text) says 'Get rewarded for contributing high-quality data.' The hardware part is unconfirmed outside Poseidon's own pages."
+    },
+    {
+      "claim_id": "poseidon-c015",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://www.datafdn.org/blog/introducing-numo-a-new-way-to-contribute-to-ai",
+        "publisher": "The DATA Foundation (formerly Story Foundation), 29 Apr 2026",
+        "source_class": "press_relaying_vendor",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Today, Poseidon is launching Numo in early access, a consumer app built to help solve that problem."
+      },
+      "corrected_statement": null,
+      "note": "The incubator's launch post and the App Store listing (seller Poseidon AI, Inc.) show Numo is Poseidon's contributor app. The post also says top contributors 'from Poseidon's first app' get multipliers in Numo, so Numo succeeded an earlier Poseidon app (the 33,000-hour voice data came from that earlier app, not Numo). Neither source says Numo supplies all of Poseidon's datasets."
+    },
+    {
+      "claim_id": "poseidon-c049",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Access mechanics for full-resolution audio are set out only by Poseidon (its own dataset card and data-use agreement)."
+    },
+    {
+      "claim_id": "poseidon-c036",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Button labels on Poseidon's own listings. psdn.ai home page seen 2026-10-01 links sample sets on huggingface.co/datasets/psdn-ai/... and a /contact 'request dataset' route; no price seen."
+    },
+    {
+      "claim_id": "poseidon-c032",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Licence label on Poseidon's own listings; exists only there."
+    },
+    {
+      "claim_id": "poseidon-c028",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Poseidon's own description of its catalogue. The Data Foundation post relays a similar assertion ('rights-cleared audio'; data 'registered and licensed on Story from the start'), which is not independent evidence of consent."
+    },
+    {
+      "claim_id": "poseidon-c105",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A defined term in Poseidon's own Terms; exists only there."
+    },
+    {
+      "claim_id": "poseidon-c001",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The blog quote is the post title and does not show its date; the words '08 Sept 2026' next to the title on psdn.ai/blog would. 'Explore the datasets' shows datasets but not custom collection; 'Scope a custom data collection' on psdn.ai/numo would."
+    },
+    {
+      "claim_id": "poseidon-c002",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote shows 'Last updated August 26, 2026' but not the replaced version; the 'Previous versions' link 'August 18, 2025' at the foot of psdn.ai/terms (to /terms/2025-08-18) would."
+    },
+    {
+      "claim_id": "poseidon-c005",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Checked psdn.ai/terms/2025-08-18 (headed 'Last updated August 18, 2025'): rewards are Points ('no monetary value') and third-party Tokens; no purchase option and no 'Confirmed Balance' were found. The live Terms contain both. The absence cannot be quoted directly, so the quote on Points is the right kind of evidence (rule 13)."
+    },
+    {
+      "claim_id": "poseidon-c006",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Worded as Poseidon's own statement; the lead investor's post (a16zcrypto.com, 07.22.25) says the same."
+    },
+    {
+      "claim_id": "poseidon-c104",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The full sentence reads 'You become eligible for a Fiat Payout once your Confirmed Balance reaches the minimum payout threshold of USD25', so 'fiat' is supported."
+    },
+    {
+      "claim_id": "poseidon-c116",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Right, with a drafting defect worth recording: the clause reads 'SHALL NOT EXCEED THE GREATER OF ONE HUNDRED DOLLARS ($100.00).' and names no second amount, so 'greater of' has only one limb. The cap is effectively USD 100 as written."
+    },
+    {
+      "claim_id": "poseidon-c074",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Privacy Notice (last updated August 26, 2026): 'no longer than 3 years following your last interaction with the Services, after which it will be permanently and securely destroyed'."
+    },
+    {
+      "claim_id": "poseidon-c026",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "poseidon-c134",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Matches the 28 Jan 2026 post. The Data Foundation's 29 Apr 2026 post says these hours came from 'Poseidon's first beta app experiment', i.e. the Sept 2025 Poseidon app, not Numo."
+    },
+    {
+      "claim_id": "poseidon-c139",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "poseidon-c141",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The statement repeats the vendor's words, but the sentence is positioning ('Poseidon enables open crowdsourcing ... serving both sovereign AI programs like Sahabat-AI and international foundation model companies') in an essay on sovereign AI; it does not say Sahabat-AI bought data. Do not use it as evidence of a named customer for Q1."
+    },
+    {
+      "claim_id": "poseidon-c149",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The fact is right, but the quote as written does not appear on the page: it joins two sentences. The page has '33,000+ hours collected in three weeks.' and, separately, '33,000+ hours of rights-cleared audio collected in three weeks across 17 languages'; use the second."
+    },
+    {
+      "claim_id": "poseidon-c150",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Both quotes appear on the App Store listing (3.0 out of 5, 4 Ratings; version 1.15, Sep 16)."
+    },
+    {
+      "claim_id": "poseidon-c086",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "poseidon-c053",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote shows payment per qualifying clip but not the phone-or-provided-hardware part; the words 'on your phone or on hardware we provide, and get paid for every clip that qualifies' on psdn.ai/numo would."
+    },
+    {
+      "claim_id": "poseidon-c015",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Verbatim vendor sentence. It describes the present set-up: the 33,000-hour voice dataset came from Poseidon's earlier app (Sept 2025), which Numo succeeded in April 2026 (Data Foundation post), so it does not hold for every dataset in the catalogue."
+    },
+    {
+      "claim_id": "poseidon-c049",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The dataset card reads 'their full-resolution audio requires R2 credentials issued under the data-use agreement'; the checker ignores case, so the quote matches."
+    },
+    {
+      "claim_id": "poseidon-c036",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Confirmed on the egocentric listing, where 'View samples Request access' sit together and no price appears. 'Each listing' is generalised from the listings seen, which is acceptable for a listing template."
+    },
+    {
+      "claim_id": "poseidon-c032",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Confirmed on the egocentric listing: 'Specifications License Non-exclusive license'."
+    },
+    {
+      "claim_id": "poseidon-c028",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "psdn.ai/datasets reads 'Collected with consent, licensed for commercial use.' It is an assertion on the catalogue page; no consent documents are offered there."
+    },
+    {
+      "claim_id": "poseidon-c105",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    }
+  ],
+  "missed": [
+    {
+      "id": "poseidon-v001",
+      "statement": "The Data Foundation says the 33,000+ hours were collected by Poseidon's first beta app, not by Numo, which it presents as building on those learnings.",
+      "kind": "event",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q12"
+      ],
+      "scope": {
+        "product": "Poseidon first app (2025) and Numo (2026)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "press_relayed",
+      "as_of": "2026-04-29",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.datafdn.org/blog/introducing-numo-a-new-way-to-contribute-to-ai",
+          "publisher": "The DATA Foundation (formerly Story Foundation)",
+          "source_class": "press_relaying_vendor",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Poseidon's first beta app experiment already showed what distributed data collection can look like at scale"
+        }
+      ]
+    }
+  ]
+}

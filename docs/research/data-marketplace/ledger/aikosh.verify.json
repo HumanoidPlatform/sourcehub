@@ -1,0 +1,483 @@
+{
+  "kind": "verify",
+  "slug": "aikosh",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "aikosh-c001",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://sansad.in/getFile/lsapps/loksabhaquestions/annex/188/AU1688_VkztvS.pdf?source=lsapps",
+        "publisher": "Lok Sabha Secretariat (Unstarred Q 1688 answered by MeitY, 29.07.2026)",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "pdf_read",
+        "quote": "AIKosh, IndiaAI's datasets platform, hosts more than 13,445 datasets across 22 sectors from over 578 organisations"
+      },
+      "corrected_statement": null,
+      "note": "Operation confirmed on the parliamentary record as of 29 Jul 2026, within six months. The 'last deployed' footer itself exists only on the vendor's site (re-fetched 2026-10-01: 'Last Deployed: 30th Sept, 26'). Caveat on independence: Lok Sabha answers are given by MeitY, the ministry under which IndiaAI (the AIKosh operator) sits, so they are the operator's government on the parliamentary record, not a third party. WebSearch not available in this run (search budget spent); independent press could not be reached by navigation. "
+    },
+    {
+      "claim_id": "aikosh-c028",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "WebSearch not available in this run (search budget spent); independent press could not be reached by navigation. An addendum to an IndiaAI EOI should have independent echoes (procurement portal notice, press, parliamentary answer); none found. Lok Sabha MeitY answers from Mar 2025 to Aug 2026 were scanned (titles filtered for AI/data/Kosh, 25 answers read) and none mentions an EOI addendum or model/use-case contributions by private entities. Lok Sabha Unstarred Q 505 (23.07.2025) says only that private sector entities are encouraged to share AI-ready datasets."
+    },
+    {
+      "claim_id": "aikosh-c002",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Home-page counter re-fetched 2026-10-01 reads '15999+'. The nearest independent figure is lower and older: MeitY told the Lok Sabha on 29.07.2026 (Unstarred Q 1688) that AIKosh hosts 'more than 13,445 datasets ... from over 578 organisations'. Not a contradiction (two months apart, both self-reported), but the 15,999 figure has no independent support; see missed claim aikosh-v001."
+    },
+    {
+      "claim_id": "aikosh-c003",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Home-page counter re-fetched 2026-10-01 reads 'Organizations: 671'. MeitY's 29.07.2026 Lok Sabha answer gives 'over 578 organisations'. Same caveat as c002: the 671 figure is vendor-only; the July figure is the operator's ministry restating its own count."
+    },
+    {
+      "claim_id": "aikosh-c042",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Re-fetched home page 2026-10-01 lists CPU ONLY (free, 3.2 cores, 7GB RAM) and Basic GPU (free, 4 hours, 5GB A100 profile); Advance GPU requires approval. Parliamentary answers discuss the separate IndiaAI Compute Portal (subsidised up to 40%), not AIKosh notebooks."
+    },
+    {
+      "claim_id": "aikosh-c063",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://sansad.in/getFile/lsapps/loksabhaquestions/annex/187/AU4311_SVy5u3.pdf?source=lsapps",
+        "publisher": "Lok Sabha Secretariat (Unstarred Q 4311 answered by MeitY, 18.03.2026)",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "pdf_read",
+        "quote": "10,000+ datasets, 285 AI models and 28 development toolkits specific to India are available on the platform"
+      },
+      "corrected_statement": null,
+      "note": "Quote: '10,000+ datasets, 285 AI models and 28 development toolkits specific to India are available on the platform' (the bullet says 'the platform', within a list of IndiaAI Mission achievements; AIKosh is the only datasets platform in it). Confirms that the 10,000+ figure was the government's stated count in March 2026, which helps date the undated call for proposals; it is the operator's own count restated, so relayed, not independent. Caveat on independence: Lok Sabha answers are given by MeitY, the ministry under which IndiaAI (the AIKosh operator) sits, so they are the operator's government on the parliamentary record, not a third party. "
+    },
+    {
+      "claim_id": "aikosh-c064",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "WebSearch not available in this run (search budget spent); independent press could not be reached by navigation. No parliamentary answer scanned gives a count of contributing entities near 55; the 29.07.2026 answer gives 'over 578 organisations' (a later date and possibly a different measure: organisations on the platform vs entities that contributed). The two figures are hard to reconcile if the call for proposals is from early 2026 (10,000+ datasets); worth checking in scope step."
+    },
+    {
+      "claim_id": "aikosh-c065",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "WebSearch not available in this run (search budget spent); independent press could not be reached by navigation. The only independent registration figure found is older: Lok Sabha Starred Q 42 (23.07.2025) says the platform attracted 'over 265,000 visits, 6,000 registered users, and 13,000+ resource downloads'. No source for 25,000 registrations was reachable. Disclosure: while working, this verifier inadvertently saw a profiler scratch file in a shared scratchpad folder quoting '17 lakh visits and 25,000 registrations'; that is the profile's own source, not counted here."
+    },
+    {
+      "claim_id": "aikosh-c008",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause in AIKosh's own Terms of Use. Re-fetched terms contain: 'Nothing in these Terms limits your rights under, or grants you rights that supersede, the terms and conditions of any applicable license.' Whether a separate clause says the contributor's licence is 'not replaced or overridden' is for the scope check."
+    },
+    {
+      "claim_id": "aikosh-c072",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Access mechanics and absence of fees are stated only in AIKosh's manual and terms; re-fetched terms show no fee, charge or payment language. Lok Sabha Unstarred Q 486 (03.12.2025) says Tamil datasets are 'publicly accessible through the BHASHINI and AIKosh platforms', consistent but not specific."
+    },
+    {
+      "claim_id": "aikosh-c022",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Eligibility rule of IndiaAI's own expression of interest. Parliamentary answers describe AIKosh as 'integrating datasets from government and non-government sources' and say 'Private sector entities are also encouraged to share their AI ready datasets' (Unstarred Q 505, 23.07.2025): consistent with institution-only contribution, silent on individuals."
+    },
+    {
+      "claim_id": "aikosh-c056",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Contribution route described only in AIKosh's own manual. Note a possible tension: Lok Sabha Unstarred Q 505 (23.07.2025) says 'BharatX platform aims to serve as the data repository for AIKosh Platform', i.e. a central repository; this does not contradict an API route that leaves data with the contributor."
+    },
+    {
+      "claim_id": "aikosh-c012",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "AIKosh's own Terms of Use; re-fetched 2026-10-01: 'its download and use will only be possible with the explicit consent of the Contributor'."
+    },
+    {
+      "claim_id": "aikosh-c007",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "AIKosh's own Terms of Use; re-fetched 2026-10-01: 'AIKosh provides Contributors with a dropdown of commonly used licenses to define the terms of end use for their Artifacts'."
+    },
+    {
+      "claim_id": "aikosh-c020",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://sansad.in/getFile/lsapps/loksabhaquestions/annex/184/AU2177_6X6vys.pdf?source=lsapps",
+        "publisher": "Lok Sabha Secretariat (Unstarred Q 2177 answered by MeitY, 12.03.2025)",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "pdf_read",
+        "quote": "improving access to non -personal and anonymized datasets, AI Models and"
+      },
+      "corrected_statement": null,
+      "note": "The terms wording itself is vendor-only; MeitY gave Parliament the same characterisation of the datasets pillar at launch. This shows the operator describes the corpus consistently as non-personal and anonymised; it is not evidence that listed datasets are in fact anonymised. Caveat on independence: Lok Sabha answers are given by MeitY, the ministry under which IndiaAI (the AIKosh operator) sits, so they are the operator's government on the parliamentary record, not a third party. "
+    },
+    {
+      "claim_id": "aikosh-c006",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause in AIKosh's own terms, so vendor_only. BUT the re-fetched clause grants a 'worldwide, royalty-free and non-exclusive license to use, display, publish, reproduce, distribute, and make derivative works of such Content'. The claim's 'only ... use, display, publish and reproduce' omits distribution and derivative works, so it understates the grant; see scope verdict."
+    },
+    {
+      "claim_id": "aikosh-c001",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote 'Last Deployed : 30th Sept, 26' supports the deploy date; 'live and maintained' is a fair inference for a page fetched the same day. Blind step found the operation independently confirmed on the parliamentary record (29.07.2026)."
+    },
+    {
+      "claim_id": "aikosh-c028",
+      "check": "scope",
+      "status": "scope_wrong",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The statement is right but the scope label is wrong and the quote is cut short. (1) As the profile's 'newest dated event' it is stale: the addendum is dated '29-06-2S' (29 June 2025, OCR-garbled), and later dated events exist, e.g. MeitY told the Lok Sabha (Unstarred Q 5334, 25.03.2026; Q 1688, 29.07.2026) that sovereign models launched at the India-AI Impact Summit 2026 'have since been made available on the AIKosh platform' (see missed aikosh-v005). (2) The quote stops at 'are now being'; the operative words are 'in addition to datasets, contributions in the form of AI artefacts ... are now being invited from private contributors'. (3) source_class regulator_guidance is doubtful: IndiaAI is the operator, so its EOI is the operator's own call, not a regulator's guidance."
+    },
+    {
+      "claim_id": "aikosh-c002",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Fact correct (re-fetched: '15999+'), but the bare quote '15999+' does not show that the counter is datasets; the label 'Datasets' next to it would."
+    },
+    {
+      "claim_id": "aikosh-c003",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Fact correct (re-fetched: 'Organizations' 671), but the bare quote '671' does not show what is counted and could match anything; the label 'Organizations' is needed."
+    },
+    {
+      "claim_id": "aikosh-c042",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Fact correct. The quote 'Basic GPU - Free' covers only the Basic GPU tier and is a joined string: on the page 'Basic GPU' and 'Free' are separated by 'Ideal for moderate AI/ML experiments and training', so it may fail a verbatim match. The CPU ONLY card ('CPU ONLY ... Free ... Anytime CPU Access') is not quoted. The value basis that Advance GPU is also free is supported by the card text 'Free Requires Approval'."
+    },
+    {
+      "claim_id": "aikosh-c063",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the call for proposals. Dating: the document is undated but its figures (over 10,000 datasets, approximately 300 models) sit between MeitY's Lok Sabha figures of 18.03.2026 (10,000+ datasets, 285 models) and 29.07.2026 (13,445 datasets, 329 models), so it is roughly spring 2026; the profile's as_of 2026-10-01 (retrieved_only) should not be read as a current count (the home page now says 15999+)."
+    },
+    {
+      "claim_id": "aikosh-c064",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote 'from more than 55 entities across 20 sectors' matches the call for proposals. Flag: MeitY told the Lok Sabha on 29.07.2026 that AIKosh hosts datasets 'from over 578 organisations' and the home page now says 671 organisations; 55 is either an older figure or a narrower measure. The profile should not use 55 as a current contributor count."
+    },
+    {
+      "claim_id": "aikosh-c065",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote 'the platform has recorded over 17 lakh visits and 25,000 registrations' matches the call for proposals (spring 2026, see c063). 'over' grammatically attaches to visits; reading it as 'over 25,000 registrations' in the statement and value basis is a slight stretch. Note the home page now shows 3,47,45,610 visitors, so the registration figure is dated."
+    },
+    {
+      "claim_id": "aikosh-c008",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Fact correct, but the quote does not show that 'the license terms' are the contributor's; the preceding words 'subject to specific license terms, as chosen by the Contributor' do. The same sentence also says 'the limitations of liabilities, disclaimers, and this provision apply to any such item as well', a carve-out the statement omits."
+    },
+    {
+      "claim_id": "aikosh-c072",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Manual quote is under the Explorer rights section and matches; the no-fee half is an absence, consistent with re-fetched terms. Note the manual's filter text says restricted datasets are 'accessible to only those who are registered and member of the Organization', which differs from the terms' contributor-consent model."
+    },
+    {
+      "claim_id": "aikosh-c022",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the EOI dated 25-Mar-2025. The June 2025 addendum widened artefact types but still invites 'Private entities including ... startups, enterprises, academic institutions, and research organizations', so the institution-only rule stands. source_class regulator_guidance is doubtful (see c028)."
+    },
+    {
+      "claim_id": "aikosh-c056",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote is from manual section 11.1 'Contributors exposing AIKosh recommended APIs'. Precision: the manual also has Pull API and Push API upload routes (8.4.2, 8.4.3) that are upload mechanisms; the 'data stays with the contributor' rule is stated only for the 11.1 route, so 'the API contribution route' should say which one."
+    },
+    {
+      "claim_id": "aikosh-c012",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Fact correct, but the quote shows only the consent half; the discoverability half needs 'If the Artefact is made available under restricted access, it will be discoverable by any User'."
+    },
+    {
+      "claim_id": "aikosh-c007",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the live terms."
+    },
+    {
+      "claim_id": "aikosh-c020",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote matches the terms' definition. For matrix.human_subject_consent_docs it shows only a platform policy assertion, not evidence about any listing."
+    },
+    {
+      "claim_id": "aikosh-c006",
+      "check": "scope",
+      "status": "scope_wrong",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote is truncated at 'reproduce'; the live clause continues 'distribute, and make derivative works of such Content'. The statement's 'only ... use, display, publish and reproduce' therefore understates the grant: contributors also license AIKosh to distribute and make derivative works."
+    }
+  ],
+  "missed": [
+    {
+      "id": "aikosh-v001",
+      "statement": "MeitY told the Lok Sabha on 29 July 2026 that AIKosh hosts more than 13,445 datasets across 22 sectors.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": {
+        "num": 13445,
+        "unit": "datasets hosted",
+        "basis": "MeitY written answer to Parliament; lower bound ('more than'); the operator's own count",
+        "period": "cumulative as of 2026-07-29"
+      },
+      "origin": "government",
+      "as_of": "2026-07-29",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://sansad.in/getFile/lsapps/loksabhaquestions/annex/188/AU1688_VkztvS.pdf?source=lsapps",
+          "publisher": "Lok Sabha Secretariat (Unstarred Q 1688 answered by MeitY, 29.07.2026)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "AIKosh, IndiaAI's datasets platform, hosts more than 13,445 datasets across 22 sectors from over 578 organisations"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-v002",
+      "statement": "MeitY told the Lok Sabha on 29 July 2026 that AIKosh's datasets come from over 578 organisations.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": {
+        "num": 578,
+        "unit": "organisations",
+        "basis": "MeitY written answer to Parliament; lower bound ('over'); not stated whether all have contributed",
+        "period": "cumulative as of 2026-07-29"
+      },
+      "origin": "government",
+      "as_of": "2026-07-29",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://sansad.in/getFile/lsapps/loksabhaquestions/annex/188/AU1688_VkztvS.pdf?source=lsapps",
+          "publisher": "Lok Sabha Secretariat (Unstarred Q 1688 answered by MeitY, 29.07.2026)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "AIKosh, IndiaAI's datasets platform, hosts more than 13,445 datasets across 22 sectors from over 578 organisations"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-v003",
+      "statement": "MeitY told the Lok Sabha in July 2025 that AIKosh had recorded 13,000+ resource downloads (with 6,000 registered users) since its March 2025 beta launch.",
+      "kind": "number",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": {
+        "num": 13000,
+        "unit": "resource downloads",
+        "basis": "MeitY written answer to Parliament; lower bound ('13,000+'); all artefact types, not datasets only",
+        "period": "cumulative as of 2025-07-23"
+      },
+      "origin": "government",
+      "as_of": "2025-07-23",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://sansad.in/getFile/lsapps/loksabhaquestions/annex/185/AS42_UcKpjr.pdf?source=lsapps",
+          "publisher": "Lok Sabha Secretariat (Starred Q 42 answered by MeitY, 23.07.2025)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "The platform has attracted over 265,000 visits, 6,000 registered users, and 13,000+ resource downloads"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-v004",
+      "statement": "The IndiaAI Datasets Platform (AIKosh) pillar is allocated Rs 199.55 crore of the IndiaAI Mission's Rs 10,371.92 crore five-year outlay.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": {
+        "num": 199.55,
+        "unit": "INR crore",
+        "basis": "Government budget allocation to the datasets pillar, out of a Rs 10,371.92 crore mission outlay",
+        "period": "five years from March 2024"
+      },
+      "origin": "government",
+      "as_of": "2026-07-29",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://sansad.in/getFile/lsapps/loksabhaquestions/annex/188/AU1717_Yzq3qz.pdf?source=lsapps",
+          "publisher": "Lok Sabha Secretariat (Unstarred Q 1717 answered by MeitY, 29.07.2026)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "IndiaAI Datasets Platform 199.55"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-v005",
+      "statement": "Sovereign foundation models launched at the India-AI Impact Summit in February 2026 were subsequently made available on AIKosh, a later dated event than the June 2025 EOI addendum.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "government",
+      "as_of": "2026-07-29",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://sansad.in/getFile/lsapps/loksabhaquestions/annex/188/AU1688_VkztvS.pdf?source=lsapps",
+          "publisher": "Lok Sabha Secretariat (Unstarred Q 1688 answered by MeitY, 29.07.2026)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "These models were launched during the India-AI Impact Summit 2026 and have since been made available on the AIKosh platform"
+        }
+      ]
+    },
+    {
+      "id": "aikosh-v006",
+      "statement": "MeitY told the Lok Sabha in July 2025 that the BharatX government data exchange is intended to serve as the data repository for AIKosh.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "AIKosh",
+        "tier": "",
+        "region": "India"
+      },
+      "value": null,
+      "origin": "government",
+      "as_of": "2025-07-23",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://sansad.in/getFile/lsapps/loksabhaquestions/annex/185/AU505_EVOOZs.pdf?source=lsapps",
+          "publisher": "Lok Sabha Secretariat (Unstarred Q 505 answered by MeitY, 23.07.2025)",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "BharatX platform aims to serve as the data repository for AIKosh Platform"
+        }
+      ]
+    }
+  ]
+}

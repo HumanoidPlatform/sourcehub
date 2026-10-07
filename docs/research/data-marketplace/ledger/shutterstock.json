@@ -1,0 +1,4406 @@
+{
+ "kind": "profile",
+ "slug": "shutterstock",
+ "name": "Shutterstock",
+ "aliases": [
+  "Shutterstock, Inc.",
+  "SSTK"
+ ],
+ "segment": "stock_media",
+ "tier": "deep",
+ "status": {
+  "value": "active",
+  "claim_id": "shutterstock-c001"
+ },
+ "names_for": {
+  "catalogue_side": "'data licensing' / 'datasets' (filings: 'data offering', 'data deals'); contributors see a 'Data Catalog'",
+  "custom_side": "'custom datasets' within its 'AI services' for model builders; 'tailored services' to curate datasets; Shutterstock Studios for custom content production"
+ },
+ "matrix": {
+  "operator_role": {
+   "value": "reseller_licensor",
+   "claim_ids": [
+    "shutterstock-c080",
+    "shutterstock-c078",
+    "shutterstock-c042",
+    "shutterstock-c098"
+   ],
+   "note": "Contributors grant Shutterstock a sublicensable non-exclusive licence; Shutterstock itself licenses datasets to buyers (and is the 'Provider' on its AWS listing)."
+  },
+  "economics_model": {
+   "value": "revenue_share",
+   "claim_ids": [
+    "shutterstock-c027",
+    "shutterstock-c124",
+    "shutterstock-c029"
+   ],
+   "note": "Shutterstock keeps the revenue from data deals and pays about 20% on average into a pooled Contributor Fund."
+  },
+  "who_pays_fee": {
+   "value": "seller",
+   "claim_ids": [
+    "shutterstock-c027",
+    "shutterstock-c124"
+   ],
+   "note": "No buyer-side fee is published; Shutterstock's share comes out of the deal value, since contributors get a share (about 20% on average) of the contract value."
+  },
+  "supply_models": {
+   "value": [
+    "contributor_uploads"
+   ],
+   "claim_ids": [
+    "shutterstock-c042",
+    "shutterstock-c064",
+    "shutterstock-c067",
+    "shutterstock-c069",
+    "shutterstock-c066"
+   ],
+   "note": "Contributor uploads, both creative-marketplace content and data-only 'Data Catalog' content. No evidence found of own speculative collections or third-party dataset providers being listed; custom datasets from production hubs are made to order."
+  },
+  "custody_model": {
+   "value": "copy_to_buyer",
+   "claim_ids": [
+    "shutterstock-c053",
+    "shutterstock-c016",
+    "shutterstock-c103",
+    "shutterstock-c023"
+   ],
+   "note": "Large metadata sets are delivered to customers (revenue is recognised on delivery); the AWS sample is exported to the buyer's S3."
+  },
+  "transaction_mode": {
+   "value": "contact_sales",
+   "claim_ids": [
+    "shutterstock-c092",
+    "shutterstock-c111",
+    "shutterstock-c050"
+   ],
+   "note": "Only the 1,000-image sample is self-serve (free on AWS). Full-library data goes through sales."
+  },
+  "public_prices": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": "No dataset price was found in filings, press or the AWS listing (only the free sample, $0). shutterstock.com returned 403, so its data-licensing page could not be checked."
+  },
+  "licence_model": {
+   "value": "mixed",
+   "claim_ids": [
+    "shutterstock-c106",
+    "shutterstock-c051",
+    "shutterstock-c129",
+    "shutterstock-c026"
+   ],
+   "note": "A research licence and a commercial licence are offered, but deals are individual contracts, some multi-year and some cancellable. Use is limited to ML/CV training."
+  },
+  "exclusivity_offered": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": "Not published. Contributor content is non-exclusive, which suggests but does not prove that no exclusivity is sold."
+  },
+  "public_listing": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": "shutterstock.com returned 403. The only public dataset listing seen is the free AWS Data Exchange sample."
+  },
+  "buyer_vetting": {
+   "value": "unknown",
+   "claim_ids": [],
+   "note": "Not published."
+  },
+  "sample_mechanics": {
+   "value": "free_sample_download",
+   "claim_ids": [
+    "shutterstock-c090",
+    "shutterstock-c091",
+    "shutterstock-c103"
+   ],
+   "note": "Free 1,000-image sample with metadata on AWS Data Exchange."
+  },
+  "versioning": {
+   "value": "unknown",
+   "claim_ids": [
+    "shutterstock-c097"
+   ],
+   "note": "The AWS sample gives access to all historical and future revisions, but nothing is published about versioning of negotiated data deliveries."
+  },
+  "human_subject_consent_docs": {
+   "value": "asserted_only",
+   "claim_ids": [
+    "shutterstock-c059",
+    "shutterstock-c061",
+    "shutterstock-c094",
+    "shutterstock-c095",
+    "shutterstock-c076"
+   ],
+   "note": "Releases are collected and reviewed but not given to customers; buyers get a has_model_release flag and a model_release_id."
+  },
+  "contributor_pay_model": {
+   "value": "royalty_or_revenue_share",
+   "claim_ids": [
+    "shutterstock-c027",
+    "shutterstock-c029",
+    "shutterstock-c028",
+    "shutterstock-c068"
+   ],
+   "note": "A pooled Contributor Fund (about 20% of data-licence revenue on average), paid pro rata to the volume of each contributor's content in the datasets sold, every six months."
+  },
+  "catalogue_plus_custom": {
+   "value": "both",
+   "claim_ids": [
+    "shutterstock-c093",
+    "shutterstock-c113",
+    "shutterstock-c112",
+    "shutterstock-c118"
+   ],
+   "note": ""
+  },
+  "erasure_after_sale": {
+   "value": "takedown_only",
+   "claim_ids": [
+    "shutterstock-c122",
+    "shutterstock-c081",
+    "shutterstock-c044"
+   ],
+   "note": "Opt-out affects only future datasets, and licences for removed content stay in force in perpetuity. The AWS standard DSA on the free sample does require deletion when the licence ends [c100]."
+  },
+  "quality_evidence": {
+   "value": "operator_verified",
+   "claim_ids": [
+    "shutterstock-c045",
+    "shutterstock-c046",
+    "shutterstock-c070",
+    "shutterstock-c072"
+   ],
+   "note": "Every submission is reviewed by Shutterstock. Data Catalog content can be content rejected for creative quality, but it still passes legal and IP review."
+  }
+ },
+ "questions": {
+  "Q1": {
+   "state": "sourced",
+   "answer": "AI and ML model builders, from large tech and media companies to start-ups (OpenAI, Meta, NVIDIA, Runway and others by the vendor's account), license images, video, music and 3D with metadata under large multi-year contracts. Data revenue is lumpy and fell 26% in H1 2026.",
+   "claim_ids": [
+    "shutterstock-c018",
+    "shutterstock-c019",
+    "shutterstock-c127",
+    "shutterstock-c129",
+    "shutterstock-c115",
+    "shutterstock-c014",
+    "shutterstock-c015",
+    "shutterstock-c047",
+    "shutterstock-c119"
+   ]
+  },
+  "Q2": {
+   "state": "partial",
+   "answer": "Shutterstock sells direct but lists a free 1,000-image sample on AWS Data Exchange as a funnel to its sales team. The AWS listing brings discovery and S3 delivery, and the sale itself stays off-platform.",
+   "claim_ids": [
+    "shutterstock-c090",
+    "shutterstock-c092",
+    "shutterstock-c104",
+    "shutterstock-c103"
+   ]
+  },
+  "Q3": {
+   "state": "sourced",
+   "answer": "Inventory is contributor uploads licensed non-exclusively to Shutterstock, including data-only content rejected from the creative library. Contributors can opt out by media type (from 2023/2024) and are paid from a pooled fund.",
+   "claim_ids": [
+    "shutterstock-c042",
+    "shutterstock-c078",
+    "shutterstock-c080",
+    "shutterstock-c064",
+    "shutterstock-c031",
+    "shutterstock-c032",
+    "shutterstock-c066",
+    "shutterstock-c033",
+    "shutterstock-c027",
+    "shutterstock-c039"
+   ]
+  },
+  "Q4": {
+   "state": "partial",
+   "answer": "Datasets launched in July 2021, but the opt-out came only in January 2023 and applies only to future datasets. The terms can be changed at any time, and the press questioned contributor consent. No evidence was found on commissioned-work carve-outs.",
+   "claim_ids": [
+    "shutterstock-c123",
+    "shutterstock-c031",
+    "shutterstock-c122",
+    "shutterstock-c085",
+    "shutterstock-c128",
+    "shutterstock-c126"
+   ]
+  },
+  "Q5": {
+   "state": "partial",
+   "answer": "Shutterstock is licensor of record under a sublicensable contributor licence. Contributors warrant releases and indemnify Shutterstock. On AWS, Shutterstock as Provider indemnifies subscribers. The buyer-side data deal terms are not published.",
+   "claim_ids": [
+    "shutterstock-c080",
+    "shutterstock-c082",
+    "shutterstock-c083",
+    "shutterstock-c101",
+    "shutterstock-c079"
+   ]
+  },
+  "Q6": {
+   "state": "sourced",
+   "answer": "Copied to the buyer: large metadata sets are delivered, with revenue recognised on delivery, and the AWS sample is exported to S3.",
+   "claim_ids": [
+    "shutterstock-c053",
+    "shutterstock-c016",
+    "shutterstock-c103",
+    "shutterstock-c023",
+    "shutterstock-c100"
+   ]
+  },
+  "Q7": {
+   "state": "partial",
+   "answer": "Capturers: per-media opt-out toggles for future datasets. Depicted people: a release is required for every identifiable person and reviewed, but it is not shared with buyers, who get only a flag and ID. Property: releases are checked in review.",
+   "claim_ids": [
+    "shutterstock-c031",
+    "shutterstock-c032",
+    "shutterstock-c122",
+    "shutterstock-c076",
+    "shutterstock-c045",
+    "shutterstock-c059",
+    "shutterstock-c061",
+    "shutterstock-c094",
+    "shutterstock-c074"
+   ]
+  },
+  "Q8": {
+   "state": "partial",
+   "answer": "Use is limited to ML/CV training, with research or commercial licences. On the AWS sample, the standard DSA bars redistribution and requires deletion on termination. No audit, fingerprinting or leakage terms were found.",
+   "claim_ids": [
+    "shutterstock-c026",
+    "shutterstock-c106",
+    "shutterstock-c102",
+    "shutterstock-c100",
+    "shutterstock-c051"
+   ]
+  },
+  "Q9": {
+   "state": "sourced",
+   "answer": "Contact sales ('start the conversation', or email the sales team). Shutterstock owns the licence and pays contributors about 20% of revenue on average. Contracts are multi-year, some with cancellation rights.",
+   "claim_ids": [
+    "shutterstock-c092",
+    "shutterstock-c111",
+    "shutterstock-c027",
+    "shutterstock-c124",
+    "shutterstock-c050",
+    "shutterstock-c051"
+   ]
+  },
+  "Q10": {
+   "state": "partial",
+   "answer": "A dataset is a set of assets plus metadata, tracked in an internal database of every asset used in every dataset. Deliveries are timed in contracts. Only the AWS sample documents revisions; nothing is published on withdrawals.",
+   "claim_ids": [
+    "shutterstock-c030",
+    "shutterstock-c036",
+    "shutterstock-c095",
+    "shutterstock-c105",
+    "shutterstock-c097",
+    "shutterstock-c016",
+    "shutterstock-c050"
+   ]
+  },
+  "Q11": {
+   "state": "sourced",
+   "answer": "A free 1,000-image sample with a metadata schema (release flags, demographics). Buyers otherwise rely on Shutterstock's review process and its 'ethically sourced', provenance claims.",
+   "claim_ids": [
+    "shutterstock-c090",
+    "shutterstock-c091",
+    "shutterstock-c095",
+    "shutterstock-c045",
+    "shutterstock-c020",
+    "shutterstock-c110",
+    "shutterstock-c066"
+   ]
+  },
+  "Q12": {
+   "state": "sourced",
+   "answer": "Off-the-shelf 'data licensing'/'datasets' sit alongside 'custom datasets' made through its 'AI services', using production hubs and the contributor network. Submissions qualify for Creative Licensing, Data Licensing or both.",
+   "claim_ids": [
+    "shutterstock-c093",
+    "shutterstock-c113",
+    "shutterstock-c112",
+    "shutterstock-c118",
+    "shutterstock-c021",
+    "shutterstock-c070"
+   ]
+  }
+ },
+ "sections": {
+  "positioning": "Shutterstock is a public stock-media company whose 'data offering' licenses metadata tied to its images, footage, music and 3D models for AI training [c017][c054]. It markets this data to investors as 'ethically sourced' [c020]. The data offering is reported inside Data, Distribution, and Services, alongside Giphy and Studios [c021].",
+  "supply": "All inventory comes from contributor uploads licensed non-exclusively [c078][c080]. Accepted content is also made available to data partners [c042]. From June 2023 submissions are routed to creative, data or both [c071][c070], and content rejected on quality can go to a data-only Data Catalog [c066][c033]. From 2024 this includes video [c073]. Opt-out toggles exist since 2023 and are split by media type since 2024 [c031][c032]. AI-generated uploads are barred [c039].",
+  "object_model": "Datasets combine assets with metadata: images, video, 3D and music [c036]. The metadata includes release flags, a model_release_id and model age, gender and ethnicity [c094][c095], plus titles and keywords [c105]. An internal database records every asset used in every dataset, for paying contributors [c030].",
+  "listing": "No public dataset catalogue was reachable (shutterstock.com returned 403). The one public listing found is a free 1,000-image sample on AWS Data Exchange [c090].",
+  "trust": "A release is required for every identifiable person [c076], and since 2023 releases must include a date of birth [c074]. Releases are not shared with customers [c059][c061]. Shutterstock markets its data as having clear provenance [c110]. The press has questioned contributor consent [c128].",
+  "transaction": "Deals go through sales: buyers email the team or 'start the conversation' [c092][c111]. Contracts can run for years [c050][c129], and some carry cancellation rights [c051][c052].",
+  "pricing": "No dataset prices were found. The only priced item is the free sample [c091]. The February 2024 deck implies about $10 million a year per anchor data customer [c119].",
+  "licence": "Buyers may use datasets only to train ML and computer-vision models [c026]. There is a research licence and a commercial licence [c106]. The AWS sample uses AWS's standard DSA [c098][c099][c102].",
+  "custody": "Data is delivered to the buyer, and revenue follows delivery timing [c016][c053]. The AWS sample is exported to S3 [c103].",
+  "vetting": "Each submission is reviewed by technology and human reviewers [c046], including for releases and third-party IP [c045][c072]. Shutterstock may refuse any content [c087].",
+  "contributor_pay": "Data revenue is pooled in a Contributor Fund [c028], which pays about 20% of data-licence revenue on average [c027]. Each share is pro rata to the volume of the contributor's content in the datasets sold [c029], drawn from the whole contract value [c124]. Payouts come every six months [c068] in a separate 'Contributor Fund' column [c038]. Contributors see which files were accepted in the Data Catalog [c034], but not the dataset buyers [c125]. Creative licences pay per-download tiered royalties [c043].",
+  "post_sale": "Opt-out affects future datasets only [c122], and licences for removed content survive in perpetuity [c081]. The AWS DSA requires deletion when the licence ends [c100].",
+  "catalogue_custom": "Alongside the catalogue, Shutterstock offers tailored dataset curation [c093] and AI services launched in October 2025 [c112]. These include custom datasets from 10 production hubs and more than 2 million creators [c113], plus annotation [c114]. The plan to use contributors for 'bespoke data training sets' dates to 2024 [c118].",
+  "changes": "The Getty merger ended on 7 July 2026 [c002]. A $173.7 million goodwill impairment followed [c006], then a CEO exit [c004] and a dividend suspension [c005]. The company had already cut more than $70 million of run-rate costs and is targeting $60 million more [c007][c008]. New directors were appointed on 8 September 2026 [c001].",
+  "demand": "Data revenue grew 15% in 2024 [c049]. The segment containing it grew 16% in 2025 on metadata sales [c047][c048]. In 2026 data revenue fell 11% in Q2 and 26% in H1 [c014][c015]. The buyers named are OpenAI and other AI labs [c127][c108][c115].",
+  "regulation": "The 10-K flags the EU Data Act and AI Act as possible limits on data use [c058]."
+ },
+ "buyer_journey": [
+  {
+   "step": "A prospective buyer reads a Shutterstock announcement and is directed to shutterstock.com/data-licensing to 'start the conversation'. That page returned 403 to our fetcher, so what it shows is unknown.",
+   "claim_ids": [
+    "shutterstock-c111"
+   ]
+  },
+  {
+   "step": "Alternatively, the buyer finds Shutterstock's free 1,000-image sample on AWS Data Exchange. It is drawn from a library of more than 550 million images.",
+   "claim_ids": [
+    "shutterstock-c090"
+   ]
+  },
+  {
+   "step": "The buyer subscribes to the sample at no charge and accepts the vendor EULA, which is AWS's standard Data Subscription Agreement.",
+   "claim_ids": [
+    "shutterstock-c091",
+    "shutterstock-c096",
+    "shutterstock-c098"
+   ]
+  },
+  {
+   "step": "The buyer exports the sample to S3 and inspects the images and CSV metadata, including has_model_release flags and model age, gender and ethnicity fields. The release documents themselves are not included.",
+   "claim_ids": [
+    "shutterstock-c103",
+    "shutterstock-c094",
+    "shutterstock-c095",
+    "shutterstock-c059"
+   ]
+  },
+  {
+   "step": "For full-library data, the buyer emails Shutterstock's sales team, which offers tailored curation or custom collection.",
+   "claim_ids": [
+    "shutterstock-c092",
+    "shutterstock-c093",
+    "shutterstock-c113"
+   ]
+  },
+  {
+   "step": "The buyer negotiates a contract. It may start with a research licence and move to a commercial one; deals can be multi-year and some carry cancellation rights.",
+   "claim_ids": [
+    "shutterstock-c106",
+    "shutterstock-c129",
+    "shutterstock-c050",
+    "shutterstock-c051"
+   ]
+  },
+  {
+   "step": "Shutterstock delivers the content and metadata sets on a contracted schedule, and use is restricted to ML and computer-vision training.",
+   "claim_ids": [
+    "shutterstock-c016",
+    "shutterstock-c053",
+    "shutterstock-c026"
+   ]
+  }
+ ],
+ "claims": [
+  {
+   "id": "shutterstock-c001",
+   "statement": "Shutterstock was operating and appointing new board directors on 8 September 2026.",
+   "kind": "status",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-09-08",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1549346/000114036126035918/ef20081694_ex99-1.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "today announced the appointment of Timothy Adams, Matthew Salzberg, and Michael Thompson to its Board of Directors"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c002",
+   "statement": "Shutterstock's merger agreement with Getty Images (signed 6 January 2025) was terminated on 7 July 2026.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-07-09",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/0001549346/000114036126028035/ef20077612_8k.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "On July 7, 2026, the Merger Agreement was terminated."
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c003",
+   "statement": "The UK Competition and Markets Authority conditioned clearance of the Getty Images merger on a sale of Shutterstock's editorial business.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-07-09",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/0001549346/000114036126028035/ef20077612_8k.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "upon a sale of the Company's editorial business"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c004",
+   "statement": "Shutterstock CEO Paul Hennessy stepped down on 13 July 2026 and CFO Rik Powell became interim CEO.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-07-13",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1549346/000114036126028338/ef20077918_ex99-1.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Paul Hennessy to Step Down as Chief Executive Officer and Board Member; Rik Powell Appointed as Interim CEO"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c005",
+   "statement": "Shutterstock's board resolved on 20 July 2026 to suspend the quarterly cash dividend.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-07-22",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1549346/000114036126029293/ef20078341_ex99-1.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "resolved to suspend the Company's future quarterly cash dividend"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c006",
+   "statement": "Shutterstock recorded a goodwill impairment charge of $173.7 million in Q2 2026, triggered by Getty Images' termination of the merger.",
+   "kind": "number",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 173.7,
+    "unit": "USD million",
+    "basis": "goodwill impairment charge, GAAP, three months ended 30 June 2026",
+    "period": "one-off"
+   },
+   "origin": "filing",
+   "as_of": "2026-08-07",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/0001549346/000154934626000029/sstk-20260630.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "The analysis resulted in a goodwill impairment charge of $173.7 million."
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c007",
+   "statement": "Shutterstock said on 4 August 2026 that cost actions over the prior 18 months equate to over $70 million of annualised run-rate operating expense reductions.",
+   "kind": "number",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 70,
+    "unit": "USD million",
+    "basis": "annualised run-rate operating expense reductions already taken (company statement, lower bound 'over')",
+    "period": "per year"
+   },
+   "origin": "filing",
+   "as_of": "2026-08-04",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1549346/000114036126031306/ef20079466_ex99-1.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "cost actions over the past 18 months that equate to over $70 million of annualized run-rate operating expense reductions"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c008",
+   "statement": "Shutterstock said on 4 August 2026 it is targeting a further $60 million of annualised run-rate operating expense reductions by the end of 2026.",
+   "kind": "number",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 60,
+    "unit": "USD million",
+    "basis": "additional annualised run-rate operating expense reductions targeted by year-end 2026",
+    "period": "per year"
+   },
+   "origin": "filing",
+   "as_of": "2026-08-04",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1549346/000114036126031306/ef20079466_ex99-1.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "targeting an additional $ 60 million in annualized run-rate operating expense reductions by the end of the year"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c009",
+   "statement": "Shutterstock cancelled its Q2 2026 earnings call and stopped issuing 2026 guidance pending a strategic update.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-08-04",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1549346/000114036126031306/ef20079466_ex99-1.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "the Company will no longer be hosting the conference call originally scheduled for August 6, 2026 or issuing guidance"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c010",
+   "statement": "Shutterstock's Q2 2026 results included $3.0 million of workforce optimisation expenses.",
+   "kind": "number",
+   "section": "changes",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 3.0,
+    "unit": "USD million",
+    "basis": "workforce optimisation expense in net loss, Q2 2026",
+    "period": "per quarter"
+   },
+   "origin": "filing",
+   "as_of": "2026-08-04",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1549346/000114036126031306/ef20079466_ex99-1.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "$3.0 million of workforce optimizations expenses"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c011",
+   "statement": "Shutterstock's total revenue fell 17% to $221.8 million in the quarter ended 30 June 2026.",
+   "kind": "number",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 221.8,
+    "unit": "USD million",
+    "basis": "total GAAP revenue, all offerings",
+    "period": "per quarter"
+   },
+   "origin": "filing",
+   "as_of": "2026-08-07",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/0001549346/000154934626000029/sstk-20260630.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Revenue decreased by $45.2 million, or 17%, to $221.8 million for the three months ended June 30, 2026"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c012",
+   "statement": "Shutterstock's Data, Distribution, and Services revenue fell 16% to $56.1 million in Q2 2026.",
+   "kind": "number",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 56.1,
+    "unit": "USD million",
+    "basis": "GAAP revenue of the Data, Distribution, and Services offering (data licensing plus Giphy and Studios; data not broken out)",
+    "period": "per quarter"
+   },
+   "origin": "filing",
+   "as_of": "2026-08-07",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/0001549346/000154934626000029/sstk-20260630.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Our Data, Distribution, and Services revenues decreased by 16%, to $56.1 million in the three months ended June 30, 2026"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c013",
+   "statement": "Data, Distribution, and Services was 25% of Shutterstock's Q2 2026 revenue.",
+   "kind": "number",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 25,
+    "unit": "percent of total revenue",
+    "basis": "Data, Distribution, and Services share of total GAAP revenue, Q2 2026",
+    "period": "per quarter"
+   },
+   "origin": "filing",
+   "as_of": "2026-08-04",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1549346/000114036126031306/ef20079466_ex99-1.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "and represented 25% of second quarter revenue in 2026"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c014",
+   "statement": "Shutterstock's data offering revenue decreased 11% year on year in Q2 2026 (dollar amount not disclosed).",
+   "kind": "number",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": -11,
+    "unit": "percent change year on year",
+    "basis": "data offering revenue, Q2 2026 vs Q2 2025",
+    "period": "per quarter"
+   },
+   "origin": "filing",
+   "as_of": "2026-08-07",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/0001549346/000154934626000029/sstk-20260630.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "primarily driven by a decline in our data offering, which decreased by 11% in the three months ended June 30, 2026"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c015",
+   "statement": "Shutterstock's data offering revenue decreased 26% year on year in the first half of 2026.",
+   "kind": "number",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": -26,
+    "unit": "percent change year on year",
+    "basis": "data offering revenue, H1 2026 vs H1 2025",
+    "period": "per half-year"
+   },
+   "origin": "filing",
+   "as_of": "2026-08-07",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/0001549346/000154934626000029/sstk-20260630.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "a decline in our data offering, which decreased by 26% in the six months ended June 30, 2026"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c016",
+   "statement": "Shutterstock says data offering revenue varies quarter to quarter with the delivery timing of metadata licences.",
+   "kind": "architecture",
+   "section": "transaction",
+   "question_ids": [
+    "Q9",
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-08-07",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/0001549346/000154934626000029/sstk-20260630.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Revenue recognition in our data offering may vary from quarter-to-quarter based on the delivery timing of metadata licenses."
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c017",
+   "statement": "Shutterstock's filings describe the data offering as licences to metadata associated with its images, footage, music tracks and 3D models.",
+   "kind": "offer",
+   "section": "positioning",
+   "question_ids": [
+    "Q3",
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-08-07",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/0001549346/000154934626000029/sstk-20260630.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "licenses to metadata associated with our images, footage, music tracks and 3D models through our data offering"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c018",
+   "statement": "Shutterstock reports increased demand for its metadata for machine learning and generative AI model training.",
+   "kind": "offer",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-08-07",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/0001549346/000154934626000029/sstk-20260630.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "increased demand for access to our metadata for machine learning and generative artificial intelligence model training"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c019",
+   "statement": "Shutterstock says its metadata customers range from large technology and media companies to start-ups.",
+   "kind": "offer",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-08-07",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/0001549346/000154934626000029/sstk-20260630.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Our metadata customer base ranges from large technology and media companies to smaller start-up organizations."
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c020",
+   "statement": "Shutterstock markets its training metadata to investors as ethically sourced and licensable at industry-leading scale and quality.",
+   "kind": "offer",
+   "section": "positioning",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-08-07",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/0001549346/000154934626000029/sstk-20260630.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "We offer ethically sourced and licenseable metadata at industry leading scales and quality."
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c021",
+   "statement": "Shutterstock's Data, Distribution, and Services offering includes customised Shutterstock Studios offerings alongside metadata licensing.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-08-07",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/0001549346/000154934626000029/sstk-20260630.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "the use of our metadata, leveraging our Giphy, Inc. platform, and customized Shutterstock Studios offerings"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c022",
+   "statement": "Shutterstock contributors upload content in exchange for royalty payments based on customer download activity.",
+   "kind": "terms",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-08-07",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/0001549346/000154934626000029/sstk-20260630.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Contributors upload their content to our web properties in exchange for royalty payments based on customer download activity."
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c023",
+   "statement": "Shutterstock's paid-download metric excludes metadata delivered through its data deal offering.",
+   "kind": "architecture",
+   "section": "custody",
+   "question_ids": [
+    "Q6",
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-08-04",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1549346/000114036126031306/ef20079466_ex99-1.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "metadata delivered through our data deal offering"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c024",
+   "statement": "Shutterstock's cost of revenue, which includes contributor royalties, fell by $12.2 million to $93.8 million in Q2 2026.",
+   "kind": "number",
+   "section": "contributor_pay",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 93.8,
+    "unit": "USD million",
+    "basis": "GAAP cost of revenue (includes contributor royalties), Q2 2026",
+    "period": "per quarter"
+   },
+   "origin": "filing",
+   "as_of": "2026-08-07",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/0001549346/000154934626000029/sstk-20260630.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Cost of revenue decreased by $12.2 million to $93.8 million in the three months ended June 30, 2026"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c025",
+   "statement": "Shutterstock describes data licensing to contributors as a way to earn more from their existing creative assets.",
+   "kind": "offer",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594694-shutterstock-data-licensing-and-the-contributor-fund",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Data licensing is an exciting opportunity to maximize the revenue-generating potential of creative assets"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c026",
+   "statement": "Buyers of Shutterstock datasets (content and metadata) may only use them to train machine learning and computer vision models, per the contributor help centre.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8",
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594694-shutterstock-data-licensing-and-the-contributor-fund",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "may only use them to train machine learning and computer vision models"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c027",
+   "statement": "Shutterstock says contributors earn a 20% average corporate royalty rate of the revenue it receives for data licences.",
+   "kind": "number",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3",
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 20,
+    "unit": "percent of revenue",
+    "basis": "average royalty rate paid to contributors, of revenue Shutterstock receives for data licences; pooled, not per asset",
+    "period": "per data deal"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594694-shutterstock-data-licensing-and-the-contributor-fund",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "20% average corporate royalty rate of revenue received by Shutterstock"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c028",
+   "statement": "Shutterstock pools dataset earnings in a collective fund that is distributed periodically as it accumulates.",
+   "kind": "terms",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594694-shutterstock-data-licensing-and-the-contributor-fund",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Earnings from datasets are pooled in a collective fund and will be distributed periodically as the fund accumulates"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c029",
+   "statement": "Each contributor's Contributor Fund share is proportionate to the volume of their content and metadata included in purchased datasets.",
+   "kind": "terms",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594694-shutterstock-data-licensing-and-the-contributor-fund",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "proportionate to the volume of their content and metadata that is included in the purchased datasets"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c030",
+   "statement": "Shutterstock keeps an internal database of every asset used in every dataset since the product launched, to compensate contributors.",
+   "kind": "architecture",
+   "section": "object_model",
+   "question_ids": [
+    "Q10",
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594694-shutterstock-data-licensing-and-the-contributor-fund",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Shutterstock maintains an internal database of all assets used in all datasets"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c031",
+   "statement": "Since January 2023 Shutterstock contributors can opt out of data licensing in their account settings.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2023-01",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594694-shutterstock-data-licensing-and-the-contributor-fund",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "In January 2023 we have added an option in the contributor account settings that allows you to opt out"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c032",
+   "statement": "From August 2024 Shutterstock contributors have separate opt-out toggles for image and video data licensing.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2024-08",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594694-shutterstock-data-licensing-and-the-contributor-fund",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "allow contributors to have separate toggles for image and video data licensing"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c033",
+   "statement": "In June 2023 Shutterstock introduced a Data Catalog in the contributor account and broadened what can be submitted specifically for datasets.",
+   "kind": "architecture",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2023-06",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594694-shutterstock-data-licensing-and-the-contributor-fund",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "introduced the Data Catalog in the contributor account"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c034",
+   "statement": "The Data Catalog shows a contributor which of their files were accepted specifically for data licensing.",
+   "kind": "architecture",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3",
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594694-shutterstock-data-licensing-and-the-contributor-fund",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "The Data Catalog provides an easy way to view what content has been accepted specifically for data licensing"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c035",
+   "statement": "Shutterstock retains review results for content rejected from the creative library so it can be published for data licensing if the contributor later opts in.",
+   "kind": "terms",
+   "section": "vetting",
+   "question_ids": [
+    "Q3",
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594694-shutterstock-data-licensing-and-the-contributor-fund",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "this content can be published for data licensing in the event that the contributor elects to opt in to future data deals"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c036",
+   "statement": "Shutterstock datasets consist of images (photos, illustrations, vectors), videos, 3D models and music.",
+   "kind": "offer",
+   "section": "object_model",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594694-shutterstock-data-licensing-and-the-contributor-fund",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "including images (photos, illustrations, vectors), videos, 3D models, and music"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c037",
+   "statement": "Some editorial content may be included in Shutterstock datasets, but premier editorial content is excluded.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594694-shutterstock-data-licensing-and-the-contributor-fund",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "(premier editorial content is excluded)"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c038",
+   "statement": "Contributor Fund payouts appear in a separate 'Contributor Fund' column of the contributor's Earnings Summary.",
+   "kind": "architecture",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594694-shutterstock-data-licensing-and-the-contributor-fund",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "posted in your Earnings Summary, in the 'Contributor Fund' column"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c039",
+   "statement": "Shutterstock does not accept AI-generated content from contributors for licensing.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2024-04-18",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594676-ai-generated-content-on-shutterstock-contributor-faq",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Shutterstock will not allow AI-generated content to be submitted by contributors for licensing on our platform."
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c040",
+   "statement": "Shutterstock says the Contributor Fund directly compensates contributors whose IP was used (in AI model training).",
+   "kind": "terms",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2024-04-18",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594676-ai-generated-content-on-shutterstock-contributor-faq",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "which will directly compensate Shutterstock contributors if their IP was used"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c041",
+   "statement": "Shutterstock says it will continue to compensate contributors for future licensing of content made with its AI generation tool.",
+   "kind": "terms",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2024-04-18",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594676-ai-generated-content-on-shutterstock-contributor-faq",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "compensate contributors for the future licensing of AI-generated content through the Shutterstock AI content generation tool"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c042",
+   "statement": "Content accepted into Shutterstock's collection is also made available for delivery to its data offering partners for machine learning.",
+   "kind": "architecture",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q6"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-02-17",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934626000008/sstk-20251231.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Content accepted is also made available for delivery to our data offering partners for machine learning purposes."
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c043",
+   "statement": "Shutterstock contributors earn per-licence royalties on a tiered earnings schedule tied to annual licensing volume.",
+   "kind": "terms",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-02-17",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934626000008/sstk-20251231.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Contributors earn royalties based on a tiered earnings rate schedule that is tied to annual licensing volume."
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c044",
+   "statement": "Shutterstock contributors may remove their content from the collection, subject to the contributor terms of service.",
+   "kind": "terms",
+   "section": "post_sale",
+   "question_ids": [
+    "Q7",
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-02-17",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934626000008/sstk-20251231.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Contributors may choose to remove their content from our collection, subject to the terms of service"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c045",
+   "statement": "Shutterstock reviews submissions against technical and legal criteria, including whether applicable releases have been obtained.",
+   "kind": "architecture",
+   "section": "vetting",
+   "question_ids": [
+    "Q7",
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-02-17",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934626000008/sstk-20251231.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "including whether applicable releases have been obtained, whether third-party intellectual property is excluded"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c046",
+   "statement": "Shutterstock's collection is vetted by proprietary technology and a specialised team of reviewers.",
+   "kind": "architecture",
+   "section": "vetting",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-02-17",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934626000008/sstk-20251231.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "is vetted through our proprietary technology and by a specialized team of reviewers"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c047",
+   "statement": "Shutterstock's Data, Distribution, and Services revenue rose 16% to $203.3 million in 2025, driven by metadata sales and delivery plus Distribution and Services growth.",
+   "kind": "number",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 203.3,
+    "unit": "USD million",
+    "basis": "GAAP revenue, Data, Distribution, and Services offering (data licensing not broken out)",
+    "period": "per year"
+   },
+   "origin": "filing",
+   "as_of": "2026-02-17",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934626000008/sstk-20251231.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Services revenues increased by 16%, to $203.3 million in 2025"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c048",
+   "statement": "Shutterstock attributes its 2025 Data, Distribution, and Services growth mainly to sale and delivery of metadata to new and existing customers.",
+   "kind": "outcome",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-02-17",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934626000008/sstk-20251231.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "increased primarily from the sale and delivery of metadata to new and existing customers"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c049",
+   "statement": "Shutterstock's data offering revenue grew 15% in 2024.",
+   "kind": "number",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 15,
+    "unit": "percent change year on year",
+    "basis": "data offering revenue, FY2024 vs FY2023",
+    "period": "per year"
+   },
+   "origin": "filing",
+   "as_of": "2026-02-17",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934626000008/sstk-20251231.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "primarily driven by growth in our data offering, which grew 15% in the twelve months ended December 31, 2024"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c050",
+   "statement": "At 31 December 2025 Shutterstock had about $35.3 million of contracted but unsatisfied obligations, mainly data offerings, to be recognised over five years.",
+   "kind": "number",
+   "section": "transaction",
+   "question_ids": [
+    "Q9",
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 35.3,
+    "unit": "USD million",
+    "basis": "remaining contracted performance obligations, primarily data deals, outside deferred revenue; recognised over a five-year period",
+    "period": "as at 2025-12-31"
+   },
+   "origin": "filing",
+   "as_of": "2026-02-17",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934626000008/sstk-20251231.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "contracted but unsatisfied performance obligations relating primarily to our data offerings"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c051",
+   "statement": "Some of Shutterstock's data deal contracts give the customer a right to cancel.",
+   "kind": "terms",
+   "section": "transaction",
+   "question_ids": [
+    "Q9",
+    "Q8"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-02-17",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934626000008/sstk-20251231.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "In certain of the Company's data deal contracts, the Company has provided customers with the right to cancel."
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c052",
+   "statement": "Shutterstock held a $13.0 million refund reserve for data deal contracts with customer cancellation rights at 31 December 2024.",
+   "kind": "number",
+   "section": "transaction",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 13.0,
+    "unit": "USD million",
+    "basis": "refund reserve liability for data deal contracts with customer cancellation rights, at 31 Dec 2024",
+    "period": "as at 2024-12-31"
+   },
+   "origin": "filing",
+   "as_of": "2026-02-17",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934626000008/sstk-20251231.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "As of December 31, 2024, the total refund reserve related to these contracts was $ 13.0 million"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c053",
+   "statement": "Shutterstock says Data, Distribution, and Services results fluctuate with the timing of delivery of large metadata sets.",
+   "kind": "architecture",
+   "section": "custody",
+   "question_ids": [
+    "Q6",
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-02-17",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934626000008/sstk-20251231.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "fluctuate from quarter to quarter based on the timing of delivery of large metadata sets in our Data business"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c054",
+   "statement": "Shutterstock's 10-K describes its data offering as providing metadata associated with its content collection, used to train AI models.",
+   "kind": "offer",
+   "section": "positioning",
+   "question_ids": [
+    "Q1",
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-02-17",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934626000008/sstk-20251231.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "our data offering which provides metadata associated with our content collection, used to train AI models"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c055",
+   "statement": "Shutterstock Studios provides custom content production at scale for brands and agencies, reported within Data, Distribution, and Services.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-02-17",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934626000008/sstk-20251231.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "high-quality production and custom content at scale provided by Shutterstock Studios"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c056",
+   "statement": "Shutterstock says over 3.5 million customers in more than 150 countries licensed content in 2025.",
+   "kind": "number",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 3.5,
+    "unit": "million customers",
+    "basis": "customers licensing revenue-generating content, all offerings, FY2025 (lower bound 'over')",
+    "period": "per year"
+   },
+   "origin": "filing",
+   "as_of": "2026-02-17",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934626000008/sstk-20251231.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "over 3.5 million customers in more than 150 countries licensed revenue-generating content"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c057",
+   "statement": "Shutterstock distributes content under the brands Shutterstock, Pond5, TurboSquid, PicMonkey, PremiumBeat, Splash News, Bigstock and Envato.",
+   "kind": "offer",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-02-17",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934626000008/sstk-20251231.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Shutterstock; Pond5; TurboSquid; PicMonkey; PremiumBeat; Splash News; Bigstock; and Envato"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c058",
+   "statement": "Shutterstock's 10-K flags the EU Data Act and EU AI Act as laws that may restrict the use of data in its products.",
+   "kind": "terms",
+   "section": "regulation",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-02-17",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934626000008/sstk-20251231.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "may impose additional rules and restrictions on the use of the data in our products"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c059",
+   "statement": "Shutterstock generally does not share complete model releases with customers.",
+   "kind": "terms",
+   "section": "trust",
+   "question_ids": [
+    "Q7",
+    "Q5"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594591-is-a-model-s-personal-information-shared-with-customers",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Shutterstock generally does not share complete model releases with customers"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c060",
+   "statement": "Shutterstock may give a customer non-identifying model information, such as age, where local law requires it.",
+   "kind": "terms",
+   "section": "trust",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594591-is-a-model-s-personal-information-shared-with-customers",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "may provide non-identifying information (such as the age of the model) if this is required by the customer under local laws"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c061",
+   "statement": "Personal information on a model release, including name and address, is never disclosed to Shutterstock customers.",
+   "kind": "terms",
+   "section": "trust",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594592-what-content-information-is-visible-to-shutterstock-customers",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Any personal information, including the name and address provided on a model release, is never disclosed."
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c062",
+   "statement": "Contributors may add ethnicity, age and gender information to model-released images as metadata.",
+   "kind": "architecture",
+   "section": "object_model",
+   "question_ids": [
+    "Q10",
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594592-what-content-information-is-visible-to-shutterstock-customers",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "contributors have the option to include ethnicity, age, and gender information for model-released images"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c063",
+   "statement": "Shutterstock encourages contributors to record where a photo or clip was taken.",
+   "kind": "architecture",
+   "section": "object_model",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594592-what-content-information-is-visible-to-shutterstock-customers",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Contributors are encouraged to provide the geographic location where the photo or video clip was taken."
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c064",
+   "statement": "Shutterstock's data licensing setting lets it include a contributor's content in datasets licensed to train computer vision and machine learning systems.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594687-can-i-control-how-my-content-is-licensed",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "include your content in datasets that are licensed by customers seeking visual content and its metadata to train"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c065",
+   "statement": "Shutterstock offers contributors separate data licensing toggles for images and for video.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594687-can-i-control-how-my-content-is-licensed",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "We have separate toggles to give you control over data licensing for images and video."
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c066",
+   "statement": "Images rejected from Shutterstock's main catalogue on quality grounds can be approved for data licensing and placed in the Data Catalog.",
+   "kind": "terms",
+   "section": "vetting",
+   "question_ids": [
+    "Q3",
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/12133814-why-are-my-approved-images-missing-from-my-portfolio",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Images approved for data licensing were not accepted for the main catalogue due to quality grounds"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c067",
+   "statement": "Work in the Data Catalog may be used in datasets for AI training.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/12133814-why-are-my-approved-images-missing-from-my-portfolio",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Work in the Data Catalog may be used in datasets for AI training."
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c068",
+   "statement": "Shutterstock pays contributors for data licensing usage every six months.",
+   "kind": "terms",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/12133814-why-are-my-approved-images-missing-from-my-portfolio",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Payments for data licensing usage are made every 6 months."
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c069",
+   "statement": "Content fully approved for Shutterstock's creative marketplace may also be used in data licensing.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/12133814-why-are-my-approved-images-missing-from-my-portfolio",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Content that has been fully approved for the marketplace may also be used in data licensing."
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c070",
+   "statement": "Shutterstock reviews each submission to qualify it for Creative Licensing, Data Licensing, or both.",
+   "kind": "architecture",
+   "section": "vetting",
+   "question_ids": [
+    "Q11",
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/12277318-what-are-the-photo-and-video-quality-requirements-on-shutterstock",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "to qualify for either Creative Licensing, Data Licensing, or both"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c071",
+   "statement": "Shutterstock began routing submissions into data licensing as well as the creative marketplace from 26 June 2023.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2023-06-26",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594681-content-publishing-standards-and-policy-updates",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "starting on June 26, 2023 we are expanding our approach to submissions to widen the reach of our content library"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c072",
+   "statement": "Data-licensing submissions are still reviewed for legal, intellectual property and technical requirements.",
+   "kind": "terms",
+   "section": "vetting",
+   "question_ids": [
+    "Q7",
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2023-06-26",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594681-content-publishing-standards-and-policy-updates",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "content submissions will continue to be reviewed for Legal, Intellectual Property and technical requirements"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c073",
+   "statement": "From mid-2024 Shutterstock accepts video submitted only for data licensing, including video otherwise rejected for technical quality.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2024-08",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594681-content-publishing-standards-and-policy-updates",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "video submissions that would have been otherwise rejected for technical quality can be used for data deals"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c074",
+   "statement": "Since April 2023 every Shutterstock model release must include the model's date of birth.",
+   "kind": "terms",
+   "section": "trust",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2023-04",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594681-content-publishing-standards-and-policy-updates",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "All Model Release forms must include the model's date of birth."
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c075",
+   "statement": "Since April 2023 Shutterstock no longer requires witness information on model or property releases.",
+   "kind": "terms",
+   "section": "trust",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2023-04",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594681-content-publishing-standards-and-policy-updates",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Witness information for Model or Property releases will no longer be required."
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c076",
+   "statement": "Shutterstock requires a release for every identifiable person in an image.",
+   "kind": "terms",
+   "section": "trust",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/12135904-what-are-the-requirements-for-model-releases",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "A release is needed for every identifiable person in the image."
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c077",
+   "statement": "Contributors upload model releases as JPEG files during submission via the Content Editor.",
+   "kind": "architecture",
+   "section": "trust",
+   "question_ids": [
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/12135904-what-are-the-requirements-for-model-releases",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Upload your release during submission by attaching a JPEG file (max 20 MB)"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c078",
+   "statement": "Contributors license content to Shutterstock on a non-exclusive, royalty-free basis and keep copyright.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q3",
+    "Q5"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/12136338-what-is-shutterstock-s-content-exclusivity-policy",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Your content is licensed to Shutterstock on a non-exclusive, royalty-free basis."
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c079",
+   "statement": "Contributors retain full copyright in content submitted to Shutterstock.",
+   "kind": "terms",
+   "section": "supply",
+   "question_ids": [
+    "Q5"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/12136338-what-is-shutterstock-s-content-exclusivity-policy",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "When you submit content to Shutterstock, you retain full copyright."
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c080",
+   "statement": "Under the contributor terms effective 5 September 2023 the contributor grants Shutterstock a sublicensable, non-exclusive licence including to analyse and prepare derivative works.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q3",
+    "Q5"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2023-09-05",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "http://submit.shutterstock.com/help/en/articles/10594630-contributor-terms-of-service-2023-update",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "sublicensable, non-exclusive right and license to index, analyze, categorize, archive reproduce, prepare derivative works"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c081",
+   "statement": "Under the 2023 contributor terms, licences Shutterstock issued for content later removed remain in force in perpetuity.",
+   "kind": "terms",
+   "section": "post_sale",
+   "question_ids": [
+    "Q8",
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2023-09-05",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "http://submit.shutterstock.com/help/en/articles/10594630-contributor-terms-of-service-2023-update",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "later removed from the Shutterstock Websites will remain in full force and effect in perpetuity"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c082",
+   "statement": "The 2023 contributor terms require valid model releases for all content containing an identifiable face.",
+   "kind": "terms",
+   "section": "trust",
+   "question_ids": [
+    "Q5",
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2023-09-05",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "http://submit.shutterstock.com/help/en/articles/10594630-contributor-terms-of-service-2023-update",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "provide valid and accurate model releases for all Content you contribute to Shutterstock that contains an identifiable face"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c083",
+   "statement": "The 2023 contributor terms make the contributor indemnify Shutterstock for breaches of the contributor's representations.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q5"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2023-09-05",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "http://submit.shutterstock.com/help/en/articles/10594630-contributor-terms-of-service-2023-update",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "You agree to indemnify and hold Shutterstock harmless from any claims arising out of breach of your representations"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c084",
+   "statement": "The 2023 contributor terms pay a royalty for each unique download of content for which Shutterstock receives payment.",
+   "kind": "terms",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2023-09-05",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "http://submit.shutterstock.com/help/en/articles/10594630-contributor-terms-of-service-2023-update",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Shutterstock shall pay you a royalty for each unique download of Content for which Shutterstock receives payment"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c085",
+   "statement": "Shutterstock reserves the right to modify its contributor terms at any time in its sole discretion.",
+   "kind": "terms",
+   "section": "changes",
+   "question_ids": [
+    "Q4"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2023-09-05",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "http://submit.shutterstock.com/help/en/articles/10594630-contributor-terms-of-service-2023-update",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Shutterstock reserves the right to modify these terms at any time in its sole discretion"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c086",
+   "statement": "Shutterstock's updated contributor terms took effect on 5 September 2023.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [
+    "Q4"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2023-09-05",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "http://submit.shutterstock.com/help/en/articles/10594630-contributor-terms-of-service-2023-update",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Updated contributor TOS will become effective on September 5, 2023"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c087",
+   "statement": "Shutterstock may refuse or remove contributor content for any reason under the 2023 terms.",
+   "kind": "terms",
+   "section": "vetting",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2023-09-05",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "http://submit.shutterstock.com/help/en/articles/10594630-contributor-terms-of-service-2023-update",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Shutterstock has the right to refuse to accept or to remove Content from the Shutterstock Websites for any reason"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c088",
+   "statement": "Contributors are paid for self-serve API licences as they would be for a regular Shutterstock subscription licence.",
+   "kind": "terms",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "http://submit.shutterstock.com/help/en/articles/10594553-how-do-shutterstock-api-deals-impact-contributors",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "you'll be paid out just like you would for any regular Shutterstock subscription"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c089",
+   "statement": "Shutterstock says it has paid over $1 billion to contributors since 2003.",
+   "kind": "number",
+   "section": "contributor_pay",
+   "question_ids": [],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 1,
+    "unit": "USD billion",
+    "basis": "cumulative contributor payouts since 2003, all licence types (vendor-stated, lower bound 'over')",
+    "period": "cumulative"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "http://submit.shutterstock.com/help/en/articles/10594553-how-do-shutterstock-api-deals-impact-contributors",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Over $1 billion paid to contributors since 2003"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c090",
+   "statement": "Shutterstock lists a free sample of 1,000 images with metadata on AWS Data Exchange, drawn from its library of over 550 million images.",
+   "kind": "offer",
+   "section": "listing",
+   "question_ids": [
+    "Q11",
+    "Q2"
+   ],
+   "scope": {
+    "product": "AWS Data Exchange free sample",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://aws.amazon.com/marketplace/pp/prodview-w6cuvuwu6qrlo",
+     "publisher": "Shutterstock (AWS Marketplace listing)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Free sample dataset of 1000 images and accompanying metadata sourced from our +550 million image library."
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c091",
+   "statement": "Shutterstock's AWS Data Exchange sample is free, with no end date to the subscription.",
+   "kind": "number",
+   "section": "pricing",
+   "question_ids": [
+    "Q11",
+    "Q9"
+   ],
+   "scope": {
+    "product": "AWS Data Exchange free sample",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 0,
+    "unit": "USD",
+    "basis": "price to subscriber of the 1,000-image sample dataset on AWS Data Exchange",
+    "period": "one-off"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://aws.amazon.com/marketplace/pp/prodview-w6cuvuwu6qrlo",
+     "publisher": "Shutterstock (AWS Marketplace listing)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "This product is available free of charge. Free subscriptions have no end date and may be canceled any time."
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c092",
+   "statement": "Buyers wanting data from Shutterstock's full library are told to contact its sales team by email rather than buy on AWS.",
+   "kind": "offer",
+   "section": "transaction",
+   "question_ids": [
+    "Q9",
+    "Q12"
+   ],
+   "scope": {
+    "product": "AWS Data Exchange free sample",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://aws.amazon.com/marketplace/pp/prodview-w6cuvuwu6qrlo",
+     "publisher": "Shutterstock (AWS Marketplace listing)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "please reach out directly to our team at SalesADX@shutterstock.com"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c093",
+   "statement": "Shutterstock offers tailored services to ideate, curate and customise datasets for a buyer's needs.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "AWS Data Exchange free sample",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://aws.amazon.com/marketplace/pp/prodview-w6cuvuwu6qrlo",
+     "publisher": "Shutterstock (AWS Marketplace listing)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "to start using our tailored services to help ideate, curate and customize datasets for your unique business needs"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c094",
+   "statement": "Shutterstock's sample dataset metadata includes a has_model_release flag per asset.",
+   "kind": "architecture",
+   "section": "object_model",
+   "question_ids": [
+    "Q7",
+    "Q10"
+   ],
+   "scope": {
+    "product": "AWS Data Exchange free sample",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://aws.amazon.com/marketplace/pp/prodview-w6cuvuwu6qrlo",
+     "publisher": "Shutterstock (AWS Marketplace listing)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "has_model_release"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c095",
+   "statement": "Shutterstock's sample dataset includes a model metadata file with model_release_id, age range, age, gender and ethnicity, but not the releases themselves.",
+   "kind": "architecture",
+   "section": "object_model",
+   "question_ids": [
+    "Q7",
+    "Q10",
+    "Q11"
+   ],
+   "scope": {
+    "product": "AWS Data Exchange free sample",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://aws.amazon.com/marketplace/pp/prodview-w6cuvuwu6qrlo",
+     "publisher": "Shutterstock (AWS Marketplace listing)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "model_release_id"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c096",
+   "statement": "Subscribers to Shutterstock's AWS sample must accept the vendor's End User License Agreement.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "AWS Data Exchange free sample",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://aws.amazon.com/marketplace/pp/prodview-w6cuvuwu6qrlo",
+     "publisher": "Shutterstock (AWS Marketplace listing)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "you must acknowledge and agree to the terms and conditions outlined in the vendor's End User License Agreement (EULA)"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c097",
+   "statement": "Subscribers to Shutterstock's AWS sample get access to all historical and all future revisions of the data set.",
+   "kind": "architecture",
+   "section": "object_model",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "AWS Data Exchange free sample",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://aws.amazon.com/marketplace/pp/prodview-w6cuvuwu6qrlo",
+     "publisher": "Shutterstock (AWS Marketplace listing)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "All future revisions"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c098",
+   "statement": "The EULA linked from Shutterstock's AWS sample is AWS's standard Data Subscription Agreement for AWS Marketplace.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q5",
+    "Q8"
+   ],
+   "scope": {
+    "product": "AWS Data Exchange free sample",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://d7umqicpi7263.cloudfront.net/eula/slK904JkkKlPCY4pY7CfGXLQMFrKBnDJAgNQKt_yXMI",
+     "publisher": "Amazon Web Services (standard Data Subscription Agreement, linked as Shutterstock's listing EULA)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "DATA SUBSCRIPTION AGREEMENT FOR AWS MARKETPLACE"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c099",
+   "statement": "That agreement grants the subscriber a nonexclusive, worldwide, nontransferable licence to use and modify the data and create derived data.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "AWS Data Exchange free sample",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://d7umqicpi7263.cloudfront.net/eula/slK904JkkKlPCY4pY7CfGXLQMFrKBnDJAgNQKt_yXMI",
+     "publisher": "Amazon Web Services (standard Data Subscription Agreement, linked as Shutterstock's listing EULA)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "a nonexclusive, worldwide, nontransferable license to receive, retain, use, and modify the Data"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c100",
+   "statement": "On termination of the AWS Data Subscription Agreement, the subscriber must remove the data within 90 days and destroy other copies if the provider instructs.",
+   "kind": "terms",
+   "section": "post_sale",
+   "question_ids": [
+    "Q8",
+    "Q10"
+   ],
+   "scope": {
+    "product": "AWS Data Exchange free sample",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://d7umqicpi7263.cloudfront.net/eula/slK904JkkKlPCY4pY7CfGXLQMFrKBnDJAgNQKt_yXMI",
+     "publisher": "Amazon Web Services (standard Data Subscription Agreement, linked as Shutterstock's listing EULA)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "Subscriber will remove the Data from the AWS Services infrastructure used by Subscriber"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c101",
+   "statement": "Under the AWS Data Subscription Agreement the provider (here Shutterstock) indemnifies the subscriber against third-party claims tied to its warranties.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q5"
+   ],
+   "scope": {
+    "product": "AWS Data Exchange free sample",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://d7umqicpi7263.cloudfront.net/eula/slK904JkkKlPCY4pY7CfGXLQMFrKBnDJAgNQKt_yXMI",
+     "publisher": "Amazon Web Services (standard Data Subscription Agreement, linked as Shutterstock's listing EULA)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "Provider will, at its expense, indemnify, defend and hold harmless Subscriber"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c102",
+   "statement": "The AWS Data Subscription Agreement bars the subscriber from distributing or sublicensing the data to third parties.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8"
+   ],
+   "scope": {
+    "product": "AWS Data Exchange free sample",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "legal_text",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://d7umqicpi7263.cloudfront.net/eula/slK904JkkKlPCY4pY7CfGXLQMFrKBnDJAgNQKt_yXMI",
+     "publisher": "Amazon Web Services (standard Data Subscription Agreement, linked as Shutterstock's listing EULA)",
+     "source_class": "legal_terms",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "pdf_read",
+     "quote": "sell, sublicense, loan, lease, assign, authorize others to access, use, or disclose"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c103",
+   "statement": "An AWS blog post (June 2021) says Shutterstock's image datasets on AWS Data Exchange are exported to Amazon S3 and sit in US East (Ohio).",
+   "kind": "architecture",
+   "section": "custody",
+   "question_ids": [
+    "Q6"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "independent",
+   "as_of": "2021-06-28",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://aws.amazon.com/blogs/awsmarketplace/using-shutterstocks-image-datasets-to-train-your-computer-vision-models/",
+     "publisher": "Amazon Web Services (AWS Marketplace blog)",
+     "source_class": "third_party_docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "The Shutterstock Image Datasets exist in US East (Ohio)"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c104",
+   "statement": "The June 2021 AWS blog post directs buyers wanting custom datasets from Shutterstock's library to contact Shutterstock directly.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12",
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "independent",
+   "as_of": "2021-06-28",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://aws.amazon.com/blogs/awsmarketplace/using-shutterstocks-image-datasets-to-train-your-computer-vision-models/",
+     "publisher": "Amazon Web Services (AWS Marketplace blog)",
+     "source_class": "third_party_docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "creating custom datasets using the Shutterstock 370+ million image library, contact the Shutterstock team directly"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c105",
+   "statement": "Per the AWS blog, each Shutterstock dataset image carries a descriptive title of up to 200 characters and 7-50 keywords.",
+   "kind": "architecture",
+   "section": "object_model",
+   "question_ids": [
+    "Q10",
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "independent",
+   "as_of": "2021-06-28",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://aws.amazon.com/blogs/awsmarketplace/using-shutterstocks-image-datasets-to-train-your-computer-vision-models/",
+     "publisher": "Amazon Web Services (AWS Marketplace blog)",
+     "source_class": "third_party_docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Each image includes a descriptive title with up to 200 characters and an optimal 7-50 keywords."
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c106",
+   "statement": "Shutterstock offers AI buyers a research licence to explore and validate models before moving to a commercial licence for scaled deployment.",
+   "kind": "terms",
+   "section": "licence",
+   "question_ids": [
+    "Q8",
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-03-19",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.prnewswire.com/news-releases/shutterstock-announces-major-expansion-of-licensed-training-datasets-to-power-the-next-generation-of-generative-ai-302718050.html",
+     "publisher": "PR Newswire (Shutterstock press release)",
+     "source_class": "press_relaying_vendor",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "begin with a research license to explore, experiment, and validate models before transitioning to a commercial license"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c107",
+   "statement": "In March 2026 Shutterstock added templates, fonts, long-form video, premium metadata, podcast and science imagery to its training data catalogue.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [
+    "Q3",
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-03-19",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.prnewswire.com/news-releases/shutterstock-announces-major-expansion-of-licensed-training-datasets-to-power-the-next-generation-of-generative-ai-302718050.html",
+     "publisher": "PR Newswire (Shutterstock press release)",
+     "source_class": "press_relaying_vendor",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "templates, fonts, long-form video, premium metadata, and specialized podcast and science imagery"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c108",
+   "statement": "Shutterstock says its training data powers systems built by large technology companies including OpenAI.",
+   "kind": "outcome",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-03-19",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.prnewswire.com/news-releases/shutterstock-announces-major-expansion-of-licensed-training-datasets-to-power-the-next-generation-of-generative-ai-302718050.html",
+     "publisher": "PR Newswire (Shutterstock press release)",
+     "source_class": "press_relaying_vendor",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "powering systems built by some of the world's largest technology companies, including OpenAI"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c109",
+   "statement": "Shutterstock names Black Forest Labs, Runway and ElevenLabs among the AI companies it supplies.",
+   "kind": "outcome",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-03-19",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.prnewswire.com/news-releases/shutterstock-announces-major-expansion-of-licensed-training-datasets-to-power-the-next-generation-of-generative-ai-302718050.html",
+     "publisher": "PR Newswire (Shutterstock press release)",
+     "source_class": "press_relaying_vendor",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Shutterstock also supports global brands and startups like Black Forest Labs and Runway"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c110",
+   "statement": "Shutterstock markets its training content as labelled, continuously updated and with clear data provenance for AI compliance.",
+   "kind": "offer",
+   "section": "trust",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-03-19",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.prnewswire.com/news-releases/shutterstock-announces-major-expansion-of-licensed-training-datasets-to-power-the-next-generation-of-generative-ai-302718050.html",
+     "publisher": "PR Newswire (Shutterstock press release)",
+     "source_class": "press_relaying_vendor",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "high-quality labeled and continuously updated multimodal content with clear data provenance to support AI compliance"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c111",
+   "statement": "Shutterstock's March 2026 release sends prospective data buyers to 'start the conversation' on its data-licensing page rather than to a checkout.",
+   "kind": "offer",
+   "section": "transaction",
+   "question_ids": [
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-03-19",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.prnewswire.com/news-releases/shutterstock-announces-major-expansion-of-licensed-training-datasets-to-power-the-next-generation-of-generative-ai-302718050.html",
+     "publisher": "PR Newswire (Shutterstock press release)",
+     "source_class": "press_relaying_vendor",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "start the conversation at shutterstock.com/data-licensing"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c112",
+   "statement": "In October 2025 Shutterstock launched AI services for model builders providing training datasets and evaluation tools.",
+   "kind": "event",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2025-10-07",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.prnewswire.com/news-releases/shutterstock-builds-on-data-licensing-strength-with-new-ai-services-for-model-training-and-evaluation-302576366.html",
+     "publisher": "PR Newswire (Shutterstock press release)",
+     "source_class": "press_relaying_vendor",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "AI services for model builders, providing specialized training datasets and evaluation tools"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c113",
+   "statement": "Shutterstock says it delivers custom datasets at scale using 10 production hubs and more than 2 million creators in 150+ countries.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12",
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2025-10-07",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.prnewswire.com/news-releases/shutterstock-builds-on-data-licensing-strength-with-new-ai-services-for-model-training-and-evaluation-302576366.html",
+     "publisher": "PR Newswire (Shutterstock press release)",
+     "source_class": "press_relaying_vendor",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "With 10 production hubs and 2M+ creators across 150+ countries, Shutterstock delivers custom datasets at scale"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c114",
+   "statement": "Shutterstock's AI services include machine-learning and human-reviewer scoring, clustering and annotation.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q11"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2025-10-07",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.prnewswire.com/news-releases/shutterstock-builds-on-data-licensing-strength-with-new-ai-services-for-model-training-and-evaluation-302576366.html",
+     "publisher": "PR Newswire (Shutterstock press release)",
+     "source_class": "press_relaying_vendor",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Advanced machine learning tools and human reviewers deliver trait-specific scoring, clustering, and annotations"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c115",
+   "statement": "Shutterstock describes itself as a strategic partner to NVIDIA, Meta, OpenAI and Runway.",
+   "kind": "outcome",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2025-10-07",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.prnewswire.com/news-releases/shutterstock-builds-on-data-licensing-strength-with-new-ai-services-for-model-training-and-evaluation-302576366.html",
+     "publisher": "PR Newswire (Shutterstock press release)",
+     "source_class": "press_relaying_vendor",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Strategic partner to industry leaders like NVIDIA, Meta, OpenAI, Runway and others"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c116",
+   "statement": "Shutterstock's Data, Distribution, and Services revenue rose 256% to $137.3 million in 2023, mainly from its data offering and Giphy.",
+   "kind": "number",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 137.3,
+    "unit": "USD million",
+    "basis": "GAAP revenue, Data, Distribution, and Services offering, FY2023 (data not broken out)",
+    "period": "per year"
+   },
+   "origin": "filing",
+   "as_of": "2024-02-21",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934624000004/a2023-q4_exx991xpressrelea.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Data, Distribution, and Services product offering increased 256% as compared to 2022, to $137.3 million"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c117",
+   "statement": "Shutterstock attributed part of its 2025 adjusted EBITDA growth to data deal revenue.",
+   "kind": "outcome",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "filing",
+   "as_of": "2026-02-17",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934626000007/a2025-q4_exx991xpressrelea.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "primarily due to the contribution from Envato and data deal revenue"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c118",
+   "statement": "Shutterstock's February 2024 long-range plan set out to use its contributor community to deliver bespoke data training sets.",
+   "kind": "offer",
+   "section": "catalogue_custom",
+   "question_ids": [
+    "Q12",
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2024-02-21",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934624000004/shutterstock2027_long-ra.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Leverage contributor community to deliver bespoke data training sets"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c119",
+   "statement": "The February 2024 investor deck's opportunity-sizing slide lists, first in its Data column, 10 anchor customers at $10 million annual revenue per customer.",
+   "kind": "number",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 10,
+    "unit": "USD million per customer per year",
+    "basis": "annual revenue per anchor data customer as laid out on the deck slide (10 anchor customers); layout-dependent reading, vendor-stated",
+    "period": "per year"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2024-02-21",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934624000004/shutterstock2027_long-ra.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Opportunity Sizing Data Distribution Services Today Anchor Customers 10 Annual Revenue per Customer $10 million"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c120",
+   "statement": "Shutterstock's February 2024 investor deck cites 771 million images, 54 million videos and 3.2 million contributors.",
+   "kind": "number",
+   "section": "supply",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": {
+    "num": 771,
+    "unit": "million images",
+    "basis": "images in the collection per investor deck (vendor-stated)",
+    "period": "as at early 2024"
+   },
+   "origin": "vendor_stated",
+   "as_of": "2024-02-21",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934624000004/shutterstock2027_long-ra.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "771 million Images 54 million Videos 4+ million Music Tracks & SFX 1.3 million 3D Models 3.2 million Contributors"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c121",
+   "statement": "The February 2024 deck lists data licensing for customers' AI/ML model training and analytics as one of three growth businesses.",
+   "kind": "offer",
+   "section": "positioning",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2024-02-21",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934624000004/shutterstock2027_long-ra.htm",
+     "publisher": "U.S. SEC (Shutterstock filing)",
+     "source_class": "filing",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Data licensing for customers' AI/ML model training and analytics needs"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c122",
+   "statement": "Shutterstock's data-licensing opt-out removes a contributor's content from future datasets only; the page does not say datasets already sold are recalled.",
+   "kind": "terms",
+   "section": "post_sale",
+   "question_ids": [
+    "Q7",
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594694-shutterstock-data-licensing-and-the-contributor-fund",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "allows you to opt out of having your content included in future datasets"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c123",
+   "statement": "Shutterstock launched Shutterstock.AI and its computer vision 'datasets' products in July 2021.",
+   "kind": "event",
+   "section": "changes",
+   "question_ids": [
+    "Q3"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2021-07",
+   "as_of_basis": "page_dated",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594694-shutterstock-data-licensing-and-the-contributor-fund",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Shutterstock announced the launch of Shutterstock.AI and computer vision products, also known as 'datasets,' in July 2021."
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c124",
+   "statement": "Contributors receive a share of the entire contract value customers pay for dataset licences.",
+   "kind": "terms",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q3",
+    "Q9"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594694-shutterstock-data-licensing-and-the-contributor-fund",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Contributors will receive a share of the entire contract value paid by customers licensing datasets."
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c125",
+   "statement": "Dataset inclusion does not appear in a contributor's download history.",
+   "kind": "architecture",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594694-shutterstock-data-licensing-and-the-contributor-fund",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "not reflected in your contributor account download history"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c126",
+   "statement": "Content sold in data licensing deals before June 2023 is not shown in the Data Catalog.",
+   "kind": "architecture",
+   "section": "contributor_pay",
+   "question_ids": [
+    "Q10",
+    "Q4"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "vendor_stated",
+   "as_of": "2026-10-01",
+   "as_of_basis": "retrieved_only",
+   "sources": [
+    {
+     "url": "https://submit.shutterstock.com/help/en/articles/10594694-shutterstock-data-licensing-and-the-contributor-fund",
+     "publisher": "Shutterstock (contributor help centre)",
+     "source_class": "docs",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Any content included in data licensing sales prior to June 2023 will not be reflected there"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c127",
+   "statement": "OpenAI's CEO said in October 2022 that data licensed from Shutterstock was critical to training DALL-E.",
+   "kind": "outcome",
+   "section": "demand",
+   "question_ids": [
+    "Q1"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "press_relayed",
+   "as_of": "2022-10-25",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://techcrunch.com/2022/10/25/shutterstock-openai-dall-e-2/",
+     "publisher": "TechCrunch",
+     "source_class": "independent_press",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "The data we licensed from Shutterstock was critical to the training of DALL-E"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c128",
+   "statement": "TechCrunch questioned in 2022 where contributors' consent was to their work becoming AI training data.",
+   "kind": "outcome",
+   "section": "trust",
+   "question_ids": [
+    "Q4",
+    "Q7"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "independent",
+   "as_of": "2022-10-25",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://techcrunch.com/2022/10/25/shutterstock-openai-dall-e-2/",
+     "publisher": "TechCrunch",
+     "source_class": "independent_press",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "where was the consent from artists to becoming contributors to these AI systems in the first place?"
+    }
+   ]
+  },
+  {
+   "id": "shutterstock-c129",
+   "statement": "TechCrunch reported in July 2023 that OpenAI would license Shutterstock images, videos, music and metadata over six years.",
+   "kind": "event",
+   "section": "demand",
+   "question_ids": [
+    "Q1",
+    "Q10"
+   ],
+   "scope": {
+    "product": "",
+    "tier": "",
+    "region": ""
+   },
+   "value": null,
+   "origin": "press_relayed",
+   "as_of": "2023-07-11",
+   "as_of_basis": "publication",
+   "sources": [
+    {
+     "url": "https://techcrunch.com/2023/07/11/shutterstock-expands-deal-with-openai-to-build-generative-ai-tools/",
+     "publisher": "TechCrunch",
+     "source_class": "independent_press",
+     "retrieved_at": "2026-10-01",
+     "fetch_status": "ok",
+     "fetched_via": "webfetch",
+     "quote": "Over the next six years, OpenAI will license data from Shutterstock, including images, videos and music"
+    }
+   ]
+  }
+ ],
+ "unknowns": [
+  {
+   "field": "matrix.public_prices",
+   "urls_tried": [
+    "https://www.shutterstock.com/data-licensing",
+    "https://www.shutterstock.com/license",
+    "https://aws.amazon.com/marketplace/pp/prodview-w6cuvuwu6qrlo"
+   ],
+   "reason": "blocked"
+  },
+  {
+   "field": "matrix.exclusivity_offered",
+   "urls_tried": [
+    "https://www.shutterstock.com/data-licensing",
+    "https://www.sec.gov/Archives/edgar/data/1549346/000154934626000008/sstk-20251231.htm"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "matrix.public_listing",
+   "urls_tried": [
+    "https://www.shutterstock.com/data-licensing",
+    "https://www.shutterstock.com/developers/",
+    "https://huggingface.co/shutterstock"
+   ],
+   "reason": "blocked"
+  },
+  {
+   "field": "matrix.buyer_vetting",
+   "urls_tried": [
+    "https://www.shutterstock.com/data-licensing",
+    "https://www.shutterstock.com/help/en"
+   ],
+   "reason": "blocked"
+  },
+  {
+   "field": "matrix.versioning",
+   "urls_tried": [
+    "https://www.shutterstock.com/data-licensing",
+    "https://aws.amazon.com/marketplace/pp/prodview-w6cuvuwu6qrlo"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "other.buyer_data_licence_text",
+   "urls_tried": [
+    "https://www.shutterstock.com/data-licensing",
+    "https://www.shutterstock.com/license",
+    "https://www.shutterstock.com/help/en"
+   ],
+   "reason": "blocked"
+  },
+  {
+   "field": "other.contributor_terms_current_text",
+   "urls_tried": [
+    "https://submit.shutterstock.com/legal/terms"
+   ],
+   "reason": "js_empty"
+  },
+  {
+   "field": "other.data_revenue_dollars",
+   "urls_tried": [
+    "https://www.sec.gov/Archives/edgar/data/0001549346/000154934626000029/sstk-20260630.htm",
+    "https://www.sec.gov/Archives/edgar/data/1549346/000154934626000008/sstk-20251231.htm"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "other.contributor_fund_total_paid",
+   "urls_tried": [
+    "https://submit.shutterstock.com/help/en/articles/10594694-shutterstock-data-licensing-and-the-contributor-fund"
+   ],
+   "reason": "not_published"
+  },
+  {
+   "field": "other.investor_site_and_independent_press",
+   "urls_tried": [
+    "https://investor.shutterstock.com",
+    "https://investor.shutterstock.com/news-releases"
+   ],
+   "reason": "blocked"
+  },
+  {
+   "field": "questions.Q4",
+   "urls_tried": [
+    "https://submit.shutterstock.com/help/en/articles/10594630-contributor-terms-of-service-2023-update",
+    "https://www.sec.gov/Archives/edgar/data/1549346/000154934626000008/sstk-20251231.htm"
+   ],
+   "reason": "not_published"
+  }
+ ],
+ "conflicts": [
+  {
+   "claim_ids": [
+    "shutterstock-c017",
+    "shutterstock-c026"
+   ],
+   "rule_applied": "unresolved",
+   "resolution": "Filings describe the data offering as licensing 'metadata' tied to assets, while the contributor help centre says datasets include content and metadata. They are probably the same product described narrowly and broadly; the buyer contract would settle it but was not reachable."
+  },
+  {
+   "claim_ids": [
+    "shutterstock-c104",
+    "shutterstock-c090",
+    "shutterstock-c120"
+   ],
+   "rule_applied": "newer_wins_status",
+   "resolution": "Library size is cited as 370M+ (AWS blog, 2021), 550M+ (AWS listing, undated) and 771M images (investor deck, February 2024). These are different dates rather than a contradiction; the newest filing-dated figure is 771M."
+  }
+ ],
+ "leads": [
+  {
+   "url": "https://www.shutterstock.com/data-licensing",
+   "why": "Shutterstock's own data-licensing page (named in its March 2026 release); returned 403 to WebFetch."
+  },
+  {
+   "url": "https://submit.shutterstock.com/legal/terms",
+   "why": "Current contributor terms; renders client-side only, so the 2023 help-centre copy was used instead."
+  },
+  {
+   "url": "https://www.prnewswire.com/news-releases/shutterstock-brings-high-quality-images-videos-music-and-sound-effects-to-anthropics-claude-302849012.html",
+   "why": "12 Aug 2026 content-distribution deal; not fetched, not a data-licensing deal on its face."
+  },
+  {
+   "url": "https://www.courtlistener.com/docket/69216944/elmatad-v-shutterstock-inc/",
+   "why": "S.D.N.Y. 2024 case against Shutterstock and Meta surfaced by a CourtListener search on AI terms; nature of suit is labour (FLSA), relevance unverified."
+  },
+  {
+   "url": "https://techcrunch.com/2025/01/07/getty-images-and-shutterstock-will-merge-to-form-37-billion-stock-photo-giant/",
+   "why": "Independent coverage of the merger announcement; not fetched."
+  }
+ ]
+}

@@ -1,0 +1,870 @@
+{
+  "kind": "verify",
+  "slug": "shutterstock",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "shutterstock-c001",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1549346/000114036126035918/ef20081694_8k.htm",
+        "publisher": "Shutterstock, Inc. Form 8-K (Item 5.02) filed with the SEC 2026-09-08",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "effective as of September 8, 2026. Mr. Adams and Mr. Salzberg were appointed as Class II directors of the Company"
+      },
+      "corrected_statement": null,
+      "note": "SEC EDGAR filing by Shutterstock itself (different domain; filing source class), a regulatory record rather than vendor marketing but not a third party's assessment. 8-K Item 5.02 body (the profile cites the Exhibit 99.1 release in the same filing): the board appointed Timothy Adams, Matthew Salzberg and Michael Thompson on 4 September 2026, effective 8 September 2026; the new directors filed Forms 3 on 10 and 14 September 2026. Context the status line should carry (the profile has it in c002-c005): merger terminated 7 July 2026, CEO left 13 July 2026, dividend suspended 20-22 July 2026."
+    },
+    {
+      "claim_id": "shutterstock-c006",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1549346/000114036126031306/ef20079466_ex99-1.htm",
+        "publisher": "Shutterstock, Inc. Form 8-K Exhibit 99.1 (Q2 2026 results release dated 2026-08-04), SEC",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "goodwill impairment charge of $173.7 million resulting from the decline in the Company’s fair value after the announcement"
+      },
+      "corrected_statement": null,
+      "note": "SEC EDGAR filing by Shutterstock itself (different domain; filing source class), a regulatory record rather than vendor marketing but not a third party's assessment. Q2 2026 results release (the profile cites the 10-Q). The release continues 'of the terminated merger agreement'; the 10-Q says the triggering event was Getty's 30 June 2026 announcement that it would terminate (termination took effect 7 July 2026). The charge is $173.7M pre-tax; the release gives $163.4M after tax."
+    },
+    {
+      "claim_id": "shutterstock-c007",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1549346/000114036126031306/ef20079466_ex99-1.htm",
+        "publisher": "Shutterstock, Inc. Form 8-K Exhibit 99.1 (Q2 2026 results release dated 2026-08-04), SEC",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "cost actions over the past 18 months that equate to over $70 million of annualized run-rate operating expense reductions"
+      },
+      "corrected_statement": null,
+      "note": "Only the profile's own source URL (an SEC filing) states this; I re-found and re-read it blind and it matches, but that is not a second source, so it is not counted as independent. By its nature this company-level detail is published only in Shutterstock's own filings; no search available (WebSearch not offered in this run) to look for press restating it. The words are Interim CEO Rik Powell's in the release datelined 'New York, NY - August 4, 2026'; the Q2 10-Q does not repeat them."
+    },
+    {
+      "claim_id": "shutterstock-c008",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1549346/000114036126031306/ef20079466_ex99-1.htm",
+        "publisher": "Shutterstock, Inc. Form 8-K Exhibit 99.1 (Q2 2026 results release dated 2026-08-04), SEC",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "targeting an additional $ 60 million in annualized run-rate operating expense reductions by the end of the year"
+      },
+      "corrected_statement": null,
+      "note": "Only the profile's own source URL (an SEC filing) states this; I re-found and re-read it blind and it matches, but that is not a second source, so it is not counted as independent. By its nature this company-level detail is published only in Shutterstock's own filings; no search available (WebSearch not offered in this run) to look for press restating it. Same release, dated 4 August 2026."
+    },
+    {
+      "claim_id": "shutterstock-c011",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1549346/000114036126031306/ef20079466_ex99-1.htm",
+        "publisher": "Shutterstock, Inc. Form 8-K Exhibit 99.1 (Q2 2026 results release dated 2026-08-04), SEC",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Revenues were $221.8 million compared to $267.0 million"
+      },
+      "corrected_statement": null,
+      "note": "SEC EDGAR filing by Shutterstock itself (different domain; filing source class), a regulatory record rather than vendor marketing but not a third party's assessment. Q2 2026 results release (the profile cites the 10-Q, which gives the 17% decline); $221.8M against $267.0M is a 16.9% fall."
+    },
+    {
+      "claim_id": "shutterstock-c012",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1549346/000114036126031306/ef20079466_ex99-1.htm",
+        "publisher": "Shutterstock, Inc. Form 8-K Exhibit 99.1 (Q2 2026 results release dated 2026-08-04), SEC",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "or 16% , as compared to the second quarter of 2025 , to $56.1 million"
+      },
+      "corrected_statement": null,
+      "note": "SEC EDGAR filing by Shutterstock itself (different domain; filing source class), a regulatory record rather than vendor marketing but not a third party's assessment. Q2 2026 results release (the profile cites the 10-Q). DDS was 25% of Q2 revenue; the constant-currency decline was 19% (10-Q)."
+    },
+    {
+      "claim_id": "shutterstock-c014",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934626000029/sstk-20260630.htm",
+        "publisher": "Shutterstock, Inc. Form 10-Q for Q2 2026, filed with the SEC 2026-08-07",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "a decline in our data offering, which decreased by 11% in the three months ended June 30, 2026"
+      },
+      "corrected_statement": null,
+      "note": "Only the profile's own source URL (an SEC filing) states this; I re-found and re-read it blind and it matches, but that is not a second source, so it is not counted as independent. By its nature this company-level detail is published only in Shutterstock's own filings; no search available (WebSearch not offered in this run) to look for press restating it. The Q2 results release does not give the data offering's own change; no dollar figure is disclosed."
+    },
+    {
+      "claim_id": "shutterstock-c015",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934626000029/sstk-20260630.htm",
+        "publisher": "Shutterstock, Inc. Form 10-Q for Q2 2026, filed with the SEC 2026-08-07",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "a decline in our data offering, which decreased by 26% in the six months ended June 30, 2026"
+      },
+      "corrected_statement": null,
+      "note": "Only the profile's own source URL (an SEC filing) states this; I re-found and re-read it blind and it matches, but that is not a second source, so it is not counted as independent. By its nature this company-level detail is published only in Shutterstock's own filings; no search available (WebSearch not offered in this run) to look for press restating it. Six-month DDS revenue fell 28% to $77.2M; Q1 2026 DDS alone fell 47% to $21.0M (see missed)."
+    },
+    {
+      "claim_id": "shutterstock-c042",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934625000011/sstk-20241231.htm",
+        "publisher": "Shutterstock, Inc. Form 10-K for 2024, filed with the SEC 2025-02-25",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Content accepted is also made available for delivery to our data offering partners for machine learning purposes"
+      },
+      "corrected_statement": null,
+      "note": "SEC EDGAR filing by Shutterstock itself (different domain; filing source class), a regulatory record rather than vendor marketing but not a third party's assessment. Found in the 2024 10-K (the profile cites the 2025 10-K, which repeats it word for word), so the statement has stood for two annual reports."
+    },
+    {
+      "claim_id": "shutterstock-c047",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934626000007/a2025-q4_exx991xpressrelea.htm",
+        "publisher": "Shutterstock, Inc. Form 8-K Exhibit 99.1 (Q4 and FY2025 results), SEC 2026-02-17",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Data, Distribution, and Services product offering increased 16% as compared to 2024, to $203.3 million"
+      },
+      "corrected_statement": null,
+      "note": "SEC EDGAR filing by Shutterstock itself (different domain; filing source class), a regulatory record rather than vendor marketing but not a third party's assessment. Q4/FY2025 results release (the profile cites the 10-K). The release adds that DDS was 21% of 2025 revenue and gives the same drivers."
+    },
+    {
+      "claim_id": "shutterstock-c048",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934626000007/a2025-q4_exx991xpressrelea.htm",
+        "publisher": "Shutterstock, Inc. Form 8-K Exhibit 99.1 (Q4 and FY2025 results), SEC 2026-02-17",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "increased primarily from the sale and delivery of metadata to new and existing customers"
+      },
+      "corrected_statement": null,
+      "note": "SEC EDGAR filing by Shutterstock itself (different domain; filing source class), a regulatory record rather than vendor marketing but not a third party's assessment. Q4/FY2025 results release (the profile cites the 10-K); same wording in both."
+    },
+    {
+      "claim_id": "shutterstock-c049",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934625000011/sstk-20241231.htm",
+        "publisher": "Shutterstock, Inc. Form 10-K for 2024, filed with the SEC 2025-02-25",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "growth in our data offering, which grew 15% in the twelve months ended December 31, 2024"
+      },
+      "corrected_statement": null,
+      "note": "SEC EDGAR filing by Shutterstock itself (different domain; filing source class), a regulatory record rather than vendor marketing but not a third party's assessment. 2024 10-K (the profile cites the 2025 10-K's prior-year comparison). DDS rose 28% to $175.3M in 2024."
+    },
+    {
+      "claim_id": "shutterstock-c050",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934626000008/sstk-20251231.htm",
+        "publisher": "Shutterstock, Inc. Form 10-K for 2025, filed with the SEC 2026-02-17",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "contracted but unsatisfied performance obligations relating primarily to our data offerings"
+      },
+      "corrected_statement": null,
+      "note": "Only the profile's own source URL (an SEC filing) states this; I re-found and re-read it blind and it matches, but that is not a second source, so it is not counted as independent. By its nature this company-level detail is published only in Shutterstock's own filings; no search available (WebSearch not offered in this run) to look for press restating it. The sentence reads 'as of December 31, 2025, the Company has approximately $ 35.3 million of' (split by a page break) and ends 'expects to recognize over a five year period'."
+    },
+    {
+      "claim_id": "shutterstock-c052",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934625000011/sstk-20241231.htm",
+        "publisher": "Shutterstock, Inc. Form 10-K for 2024, filed with the SEC 2025-02-25",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "the total refund reserve related to these contracts is $ 7.3 million and $ 5.7 million"
+      },
+      "corrected_statement": null,
+      "note": "SEC EDGAR filing by Shutterstock itself (different domain; filing source class), a regulatory record rather than vendor marketing but not a third party's assessment. 2024 10-K (the profile cites the 2025 10-K): current $7.3M plus non-current $5.7M = $13.0M at 31 December 2024. The 2025 10-K adds that there was no refund reserve at 31 December 2025 and $5.0M of reserve was reversed into 2025 revenue (see missed)."
+    },
+    {
+      "claim_id": "shutterstock-c053",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934625000011/sstk-20241231.htm",
+        "publisher": "Shutterstock, Inc. Form 10-K for 2024, filed with the SEC 2025-02-25",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "results will fluctuate from quarter to quarter based on the timing of delivery of large metadata sets in our Data business"
+      },
+      "corrected_statement": null,
+      "note": "SEC EDGAR filing by Shutterstock itself (different domain; filing source class), a regulatory record rather than vendor marketing but not a third party's assessment. 2024 10-K (the profile cites the 2025 10-K, same words). The Q2 2026 10-Q says data offering revenue 'may vary from quarter-to-quarter based on the delivery timing of metadata licenses'."
+    },
+    {
+      "claim_id": "shutterstock-c116",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934624000007/sstk-20231231.htm",
+        "publisher": "Shutterstock, Inc. Form 10-K for 2023, filed with the SEC 2024-02-26",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Data, Distribution, and Services revenues increased by 256%, to $137.3 million in 2023"
+      },
+      "corrected_statement": null,
+      "note": "SEC EDGAR filing by Shutterstock itself (different domain; filing source class), a regulatory record rather than vendor marketing but not a third party's assessment. 2023 10-K (the profile cites the Q4 2023 results release). Drivers: the data offering 'accounted for $84.9 million of the growth from 2022 to 2023' plus $10.5M of Giphy revenue."
+    },
+    {
+      "claim_id": "shutterstock-c117",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934626000007/a2025-q4_exx991xpressrelea.htm",
+        "publisher": "Shutterstock, Inc. Form 8-K Exhibit 99.1 (Q4 and FY2025 results), SEC 2026-02-17",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "primarily due to the contribution from Envato and data deal revenue"
+      },
+      "corrected_statement": null,
+      "note": "Only the profile's own source URL (an SEC filing) states this; I re-found and re-read it blind and it matches, but that is not a second source, so it is not counted as independent. By its nature this company-level detail is published only in Shutterstock's own filings; no search available (WebSearch not offered in this run) to look for press restating it. Context: 'Adjusted EBITDA of $271.8 million for 2025 increased $24.7 million or 10%'. The 2025 10-K does not make this attribution."
+    },
+    {
+      "claim_id": "shutterstock-c119",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934624000004/shutterstock2027_long-ra.htm",
+        "publisher": "Shutterstock, Inc. Form 8-K Exhibit 99.2 'Shutterstock 2027: Long-range Financial Targets', SEC 2024-02-21",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Opportunity Sizing Data Distribution Services Today Anchor Customers 10 Annual Revenue per Customer $10 million"
+      },
+      "corrected_statement": null,
+      "note": "Only the profile's own source URL (an SEC filing) states this; I re-found and re-read it blind and it matches, but that is not a second source, so it is not counted as independent. By its nature this company-level detail is published only in Shutterstock's own filings; no search available (WebSearch not offered in this run) to look for press restating it. Deck Exhibit 99.2 dated 21 February 2024; slide source 'Management estimates'. The row is labelled 'Today' and the next Data row ('Growth Path') is 'Customers 150+ Annual Revenue per Customer $1 million'."
+    },
+    {
+      "claim_id": "shutterstock-c120",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": {
+        "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934624000004/shutterstock2027_long-ra.htm",
+        "publisher": "Shutterstock, Inc. Form 8-K Exhibit 99.2 'Shutterstock 2027: Long-range Financial Targets', SEC 2024-02-21",
+        "source_class": "filing",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "771 million Images 54 million Videos 4+ million Music Tracks & SFX 1.3 million 3D Models 3.2 million Contributors"
+      },
+      "corrected_statement": null,
+      "note": "Only the profile's own source URL (an SEC filing) states this; I re-found and re-read it blind and it matches, but that is not a second source, so it is not counted as independent. By its nature this company-level detail is published only in Shutterstock's own filings; no search available (WebSearch not offered in this run) to look for press restating it. The deck says 'All figures as of December 31, 2023, unless otherwise noted'."
+    },
+    {
+      "claim_id": "shutterstock-c127",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://techcrunch.com/2022/10/25/shutterstock-openai-dall-e-2/",
+        "publisher": "TechCrunch (Natasha Lomas, 2022-10-25)",
+        "source_class": "press_relaying_vendor",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "The data we licensed from Shutterstock was critical to the training of DALL-E"
+      },
+      "corrected_statement": null,
+      "note": "Same URL as the profile's own source, so not a second source. TechCrunch attributes the words to Sam Altman 'in another supporting statement' within Shutterstock's 25 October 2022 announcement, so the article relays a statement issued through the vendor's release. OpenAI's own site could not be reached by navigation; no search available (WebSearch not offered in this run)."
+    },
+    {
+      "claim_id": "shutterstock-c128",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://techcrunch.com/2022/10/25/shutterstock-openai-dall-e-2/",
+        "publisher": "TechCrunch (Natasha Lomas, 2022-10-25)",
+        "source_class": "independent_press",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "where was the consent from artists to becoming contributors to these AI systems in the first place?"
+      },
+      "corrected_statement": null,
+      "note": "Same URL as the profile's own source. The claim is about what TechCrunch wrote, so the article itself is the only possible source; it is the reporter's own commentary on the announcement (not a relayed vendor statement), dated 25 October 2022."
+    },
+    {
+      "claim_id": "shutterstock-c108",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://techcrunch.com/2023/07/11/shutterstock-expands-deal-with-openai-to-build-generative-ai-tools/",
+        "publisher": "TechCrunch (Kyle Wiggers, 2023-07-11)",
+        "source_class": "press_relaying_vendor",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Over the next six years, OpenAI will license data from Shutterstock, including images, videos and music"
+      },
+      "corrected_statement": null,
+      "note": "TechCrunch reports the six-year OpenAI licence from Shutterstock's 11 July 2023 announcement. The 2025 10-K says 'Our metadata customer base ranges from large technology and media companies to smaller start-up organizations' but names no customer. OpenAI's own site was not reachable by navigation; no search available. That OpenAI's current systems still use the data is not independently shown."
+    },
+    {
+      "claim_id": "shutterstock-c115",
+      "check": "blind",
+      "status": "confirmed_relayed",
+      "independent_source": {
+        "url": "https://techcrunch.com/2023/07/11/shutterstock-expands-deal-with-openai-to-build-generative-ai-tools/",
+        "publisher": "TechCrunch (Kyle Wiggers, 2023-07-11)",
+        "source_class": "press_relaying_vendor",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "Shutterstock has established licensing agreements with Nvidia, Meta, LG and others"
+      },
+      "corrected_statement": null,
+      "note": "Relays Shutterstock's own 2023 account; covers NVIDIA, Meta and (same article) OpenAI, but not Runway. runway.com/news does not mention Shutterstock; the NVIDIA newsroom's own search returned no items for 'shutterstock'. No search available for a Runway-side source."
+    },
+    {
+      "claim_id": "shutterstock-c109",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No independent source naming Black Forest Labs, Runway or ElevenLabs as Shutterstock data customers was reachable. The 2025 10-K, the Q1 and Q2 2026 filings and results releases name no AI customer; runway.com/news does not mention Shutterstock. No search available (WebSearch not offered in this run), so partner-side announcements could not be looked for."
+    },
+    {
+      "claim_id": "shutterstock-c089",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A self-reported cumulative payout. Not stated in the 2025 10-K (royalties appear only inside cost of revenue) or in the January 2025 merger announcement exhibit; no search available to find a third-party figure."
+    },
+    {
+      "claim_id": "shutterstock-c027",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The contributor royalty rate for data licences is Shutterstock's own programme term. The 2025 10-K describes contributor royalties only as a 'tiered earnings rate schedule that is tied to annual licensing volume' and gives no data-licence rate; no search available."
+    },
+    {
+      "claim_id": "shutterstock-c124",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause of Shutterstock's own contributor programme. TechCrunch (2023-07-11) mentions a 'contributor fund' that pays artists for training use but says nothing about the basis (contract value) of the share; no search available."
+    },
+    {
+      "claim_id": "shutterstock-c080",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause in Shutterstock's own contributor terms; nothing independent restates it."
+    },
+    {
+      "claim_id": "shutterstock-c059",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A policy of Shutterstock's own help centre about release disclosure; by its nature only on the vendor's site."
+    },
+    {
+      "claim_id": "shutterstock-c106",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "An offer term on Shutterstock's own AI-licensing announcements. The 2025 10-K and 2026 filings do not describe a research-versus-commercial licence tier; no search available."
+    },
+    {
+      "claim_id": "shutterstock-c092",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The text is the provider's own listing copy on AWS Marketplace. During the blind pass the AWS Marketplace search page was rendered by script and returned no listings, so the listing could not be reached by navigation; no search available."
+    },
+    {
+      "claim_id": "shutterstock-c091",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A term of Shutterstock's own AWS Data Exchange listing. The listing could not be reached by navigation during the blind pass because AWS Marketplace search is script-rendered; no search available. (Scope check: the 'no end date' sentence is AWS's standard wording for free subscriptions.)"
+    },
+    {
+      "claim_id": "shutterstock-c001",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Release dated 8 September 2026 announces the appointments; the 8-K makes them effective that day."
+    },
+    {
+      "claim_id": "shutterstock-c080",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The licence words are right, but the quote does not show the effective date. The page header that does: 'Updated contributor TOS will become effective on September 5, 2023'. The grant is also 'worldwide'. The page is marked updated April 21, 2025; whether a later contributor TOS supersedes it is unknown (the profile lists the current terms as js_empty)."
+    },
+    {
+      "claim_id": "shutterstock-c124",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Quote is on the Contributor Fund article and matches; the page speaks in the future tense ('will receive') and adds that earnings are pooled and paid periodically."
+    },
+    {
+      "claim_id": "shutterstock-c042",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "shutterstock-c053",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "shutterstock-c092",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote gives only the email; the words that carry 'full library' are: 'If you'd like to start licensing data from our full library please reach out directly to our team at SalesADX@shutterstock.com'. The same listing describes the sample as drawn from a '+550 million image library', older than the 771M figure in the 2024 deck."
+    },
+    {
+      "claim_id": "shutterstock-c106",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Matches the 19 March 2026 release ('Researchers and startups can begin with a research license ... before transitioning to a commercial license for scaled deployment'); note it is addressed to researchers and startups, not to all AI buyers."
+    },
+    {
+      "claim_id": "shutterstock-c059",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Matches the cited help article. For dataset buyers the Contributor Fund article is stronger: 'full model releases are never shared' with computer vision partners (see missed)."
+    },
+    {
+      "claim_id": "shutterstock-c027",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The Contributor Fund article says 'Contributors will earn a 20% average corporate royalty rate of revenue received by Shutterstock for data licenses'."
+    },
+    {
+      "claim_id": "shutterstock-c006",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Amount and quarter are right, but the quote does not show the trigger. The 10-Q words: 'Getty Image's June 30, 2026 announcement to terminate the Merger Agreement resulted in a triggering event'. Strictly the trigger was the announcement; termination took effect 7 July 2026."
+    },
+    {
+      "claim_id": "shutterstock-c007",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "shutterstock-c008",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "shutterstock-c011",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "shutterstock-c012",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "shutterstock-c014",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "shutterstock-c015",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "shutterstock-c047",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote shows 16% and $203.3M but not the drivers the statement adds; the 10-K's next sentence does: 'increased primarily from the sale and delivery of metadata to new and existing customers as well as growth in our Distribution and Services offerings'."
+    },
+    {
+      "claim_id": "shutterstock-c048",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "shutterstock-c049",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "shutterstock-c050",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote lacks the amount and the period; the same sentence has 'approximately $ 35.3 million of' (before a page break) and 'expects to recognize over a five year period'."
+    },
+    {
+      "claim_id": "shutterstock-c052",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Right for 31 December 2024; the same note says the reserve was nil at 31 December 2025, which the profile does not record (see missed)."
+    },
+    {
+      "claim_id": "shutterstock-c089",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The line is a site-wide sidebar or footer on the contributor help centre (it also appears on the Contributor Fund article, whose footer reads '© 2003-2025'), not part of the article's text; vendor-stated, as the statement says."
+    },
+    {
+      "claim_id": "shutterstock-c091",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Matches the listing's pricing section for 'Free Sample Dataset - 1000 High Resolution Images & Metadata'. 'Free subscriptions have no end date and may be canceled any time' is AWS Marketplace's standard wording for free products, not a Shutterstock-specific term."
+    },
+    {
+      "claim_id": "shutterstock-c108",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The 19 March 2026 release says 'powering systems built by some of the world's largest technology companies, including OpenAI'."
+    },
+    {
+      "claim_id": "shutterstock-c109",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote names only Black Forest Labs and Runway. ElevenLabs is in the next clause: 'as well as AI research and product companies, like ElevenLabs'. The release says Shutterstock 'supports' them, which is looser than 'supplies'."
+    },
+    {
+      "claim_id": "shutterstock-c115",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Matches the 7 October 2025 release; vendor self-description."
+    },
+    {
+      "claim_id": "shutterstock-c116",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote shows 256% and $137.3M but not the drivers; the 2023 10-K does: the data offering 'accounted for $84.9 million of the growth from 2022 to 2023' plus '$10.5 million of revenue generated from Giphy'."
+    },
+    {
+      "claim_id": "shutterstock-c117",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    },
+    {
+      "claim_id": "shutterstock-c119",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The statement is careful about layout. The row label is 'Today', so the deck presents 10 anchor customers at about $10M each as the current state in February 2024, with 150+ customers at $1M as the growth path; source 'Management estimates'."
+    },
+    {
+      "claim_id": "shutterstock-c120",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The deck dates its figures 'as of December 31, 2023'; the value's period 'as at early 2024' should be 31 December 2023."
+    },
+    {
+      "claim_id": "shutterstock-c127",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote supports the statement, but the profile's source_class 'independent_press' is too strong: TechCrunch quotes Altman's 'supporting statement' from Shutterstock's release, so 'press_relaying_vendor' fits (the claim's origin press_relayed is right)."
+    },
+    {
+      "claim_id": "shutterstock-c128",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": ""
+    }
+  ],
+  "missed": [
+    {
+      "id": "shutterstock-v001",
+      "statement": "Shutterstock's Data, Distribution, and Services revenue fell 47% to $21.0 million in Q1 2026.",
+      "kind": "number",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 21.0,
+        "unit": "USD million",
+        "basis": "GAAP revenue of the Data, Distribution, and Services offering, Q1 2026 (data not broken out)",
+        "period": "per quarter"
+      },
+      "origin": "filing",
+      "as_of": "2026-04-28",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934626000021/a2026-q1_exx991xpressrelea.htm",
+          "publisher": "Shutterstock, Inc. Form 8-K Exhibit 99.1 (Q1 2026 results), SEC 2026-04-28",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "decreased by $18.7 million, or 47%, as compared to the first quarter of 2025, to $21.0 million"
+        }
+      ]
+    },
+    {
+      "id": "shutterstock-v002",
+      "statement": "Shutterstock had no refund reserve liability for data deal contracts with customer cancellation rights at 31 December 2025.",
+      "kind": "number",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 0,
+        "unit": "USD million",
+        "basis": "refund reserve liability for data deal contracts with cancellation rights, at 31 Dec 2025",
+        "period": "as at 2025-12-31"
+      },
+      "origin": "filing",
+      "as_of": "2026-02-17",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934626000008/sstk-20251231.htm",
+          "publisher": "Shutterstock, Inc. Form 10-K for 2025, filed with the SEC 2026-02-17",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "As of December 31, 2025, the Company does not have a refund reserve liability."
+        }
+      ]
+    },
+    {
+      "id": "shutterstock-v003",
+      "statement": "Shutterstock recognised $5.0 million of 2025 revenue from reversing refund reserves held against data deal cancellation rights.",
+      "kind": "number",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 5.0,
+        "unit": "USD million",
+        "basis": "revenue recognised in FY2025 from reversal of data deal refund reserves",
+        "period": "per year"
+      },
+      "origin": "filing",
+      "as_of": "2026-02-17",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934626000008/sstk-20251231.htm",
+          "publisher": "Shutterstock, Inc. Form 10-K for 2025, filed with the SEC 2026-02-17",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the Company recognized $ 5.0 million of revenue from the reversal of refund reserves"
+        }
+      ]
+    },
+    {
+      "id": "shutterstock-v004",
+      "statement": "Shutterstock's data offering accounted for $84.9 million of the growth in its Data, Distribution, and Services revenue from 2022 to 2023.",
+      "kind": "number",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 84.9,
+        "unit": "USD million",
+        "basis": "year-on-year increase in data offering revenue, FY2023 vs FY2022 (the only dollar figure for the data offering found)",
+        "period": "per year"
+      },
+      "origin": "filing",
+      "as_of": "2024-02-26",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/1549346/000154934624000007/sstk-20231231.htm",
+          "publisher": "Shutterstock, Inc. Form 10-K for 2023, filed with the SEC 2024-02-26",
+          "source_class": "filing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "growth in our data offering, which accounted for $84.9 million of the growth from 2022 to 2023"
+        }
+      ]
+    },
+    {
+      "id": "shutterstock-v005",
+      "statement": "Shutterstock tells contributors that full model releases, and the identity of models and contributors, are never shared with its computer vision dataset partners.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://submit.shutterstock.com/help/en/articles/10594694-shutterstock-data-licensing-and-the-contributor-fund",
+          "publisher": "Shutterstock Contributor help centre",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "full model releases are never shared, and the identity of models and contributors is never shared with computer vision"
+        }
+      ]
+    }
+  ]
+}

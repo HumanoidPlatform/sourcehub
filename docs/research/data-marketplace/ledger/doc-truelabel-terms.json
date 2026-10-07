@@ -1,0 +1,2125 @@
+{
+  "kind": "document",
+  "slug": "doc-truelabel-terms",
+  "platform_slug": "truelabel",
+  "title": "Terms of Service",
+  "doc_type": "marketplace_terms",
+  "url": "https://truelabel.ai/legal/terms",
+  "publisher": "truelabel",
+  "version_or_date": "Last updated: 2026-06-19",
+  "retrieved_at": "2026-10-01",
+  "parties": {
+    "licensor": "The supplier (the user who uploads, lists, collects or delivers dataset materials); suppliers retain ownership and buyers receive only the licence stated in the transaction terms",
+    "licensee": "The buyer, with end clients and their service providers able to use materials under the transaction terms; truelabel itself takes a sublicensable operating licence",
+    "operator_role": "venue (truelabel says it is not a party to the buyer-supplier contract unless a separate written agreement says otherwise; but data licences are also said to be governed by a truelabel MSA and Order, so truelabel may be contracting party on managed deals)"
+  },
+  "terms": {
+    "permitted_use": {
+      "value": "Set per transaction: buyers may use materials only within the licence, restrictions and permitted-use language of the accepted request, listing, order or SOW; they get only that licence and a purchase transfers nothing broader by default.",
+      "claim_ids": [
+        "doc-truelabel-terms-c018",
+        "doc-truelabel-terms-c009",
+        "doc-truelabel-terms-c025",
+        "doc-truelabel-terms-c026",
+        "doc-truelabel-terms-c008",
+        "doc-truelabel-terms-c004"
+      ]
+    },
+    "ai_training_rights": {
+      "value": "Buyers, end clients and their service providers may train, evaluate, validate, build, improve or commercialise AI/ML models and datasets only to the extent the transaction terms allow (no default grant); fine-tuning is named only as a buyer purpose. truelabel itself does not train foundation or unrelated commercial models on private materials unless an order, agreement or product setting authorises it, but may use aggregated/de-identified/operational derived data to improve its own service.",
+      "claim_ids": [
+        "doc-truelabel-terms-c034",
+        "doc-truelabel-terms-c035",
+        "doc-truelabel-terms-c031",
+        "doc-truelabel-terms-c032",
+        "doc-truelabel-terms-c033",
+        "doc-truelabel-terms-c029",
+        "doc-truelabel-terms-c019"
+      ]
+    },
+    "derivatives_and_model_outputs": {
+      "value": "No clause on ownership of trained models or model outputs; buyers may 'commercialize' models only as transaction terms allow, and by default must not deploy trained models in safety-critical physical systems without validation and human oversight.",
+      "claim_ids": [
+        "doc-truelabel-terms-c034",
+        "doc-truelabel-terms-c023",
+        "doc-truelabel-terms-c020"
+      ]
+    },
+    "sublicensing": {
+      "value": "Suppliers grant truelabel a sublicensable, non-exclusive, worldwide licence used to pass content to buyers, end clients and service providers; buyers may not resell raw materials by default, while end clients and service providers may use them under the transaction terms.",
+      "claim_ids": [
+        "doc-truelabel-terms-c027",
+        "doc-truelabel-terms-c028",
+        "doc-truelabel-terms-c022",
+        "doc-truelabel-terms-c034"
+      ]
+    },
+    "exclusivity": {
+      "value": "Only the supplier-to-truelabel platform licence is stated (non-exclusive); buyer exclusivity is neither offered nor excluded and would sit in the transaction terms.",
+      "claim_ids": [
+        "doc-truelabel-terms-c027",
+        "doc-truelabel-terms-c008"
+      ]
+    },
+    "warranties_by_provider": {
+      "value": "Suppliers/contributors represent they own or control all needed rights, must accurately describe provenance, collection conditions, consent status and limitations, and keep supporting records for buyer due diligence; truelabel gives no dataset warranty (as-is, no title/non-infringement) and says its review does not validate rights.",
+      "claim_ids": [
+        "doc-truelabel-terms-c010",
+        "doc-truelabel-terms-c014",
+        "doc-truelabel-terms-c015",
+        "doc-truelabel-terms-c052",
+        "doc-truelabel-terms-c053",
+        "doc-truelabel-terms-c007",
+        "doc-truelabel-terms-c045"
+      ]
+    },
+    "consent_and_release_warranty": {
+      "value": "The supplier (whoever uploads, collects or delivers) represents it holds all consents and releases for the advertised uses, expressly including AI/ML training by truelabel, buyers and end clients and covering likenesses, voices, biometrics and location; individual contributors may be asked to attest. Truelabel does not verify, and restricted categories (children, biometrics, health) are barred unless the order permits. Consent evidence goes to buyers only 'when required' by due diligence.",
+      "claim_ids": [
+        "doc-truelabel-terms-c011",
+        "doc-truelabel-terms-c012",
+        "doc-truelabel-terms-c013",
+        "doc-truelabel-terms-c036",
+        "doc-truelabel-terms-c015",
+        "doc-truelabel-terms-c007",
+        "doc-truelabel-terms-c016",
+        "doc-truelabel-terms-c017",
+        "doc-truelabel-terms-c044"
+      ]
+    },
+    "indemnity": {
+      "value": "One-way and uncapped in the text: every user (buyer or supplier) indemnifies truelabel for its use, its dataset materials, infringement, failure to obtain consents or releases, and downstream use; truelabel gives no indemnity and no buyer-supplier indemnity is stated.",
+      "claim_ids": [
+        "doc-truelabel-terms-c059",
+        "doc-truelabel-terms-c060"
+      ]
+    },
+    "liability_cap": {
+      "value": "truelabel's service liability is capped at the greater of fees paid for the specific transaction in the prior three months or USD 100, with consequential and model-performance losses excluded; for licensed data the (unpublished) truelabel MSA and Order govern warranties and liability instead.",
+      "claim_ids": [
+        "doc-truelabel-terms-c055",
+        "doc-truelabel-terms-c056",
+        "doc-truelabel-terms-c054",
+        "doc-truelabel-terms-c057",
+        "doc-truelabel-terms-c058"
+      ]
+    },
+    "payment_and_revenue_share": {
+      "value": "No rates published in the Terms: fees, commissions, payout timing and refund rules are disclosed in-product or in transaction terms; payments run through third-party processors and truelabel disclaims being an escrow agent or fiduciary.",
+      "claim_ids": [
+        "doc-truelabel-terms-c041",
+        "doc-truelabel-terms-c039",
+        "doc-truelabel-terms-c040"
+      ]
+    },
+    "deletion_on_termination": {
+      "value": "No deletion obligation on buyers: termination preserves licence restrictions and confidentiality but also 'rights already granted under completed transactions'.",
+      "claim_ids": [
+        "doc-truelabel-terms-c050",
+        "doc-truelabel-terms-c051"
+      ]
+    },
+    "takedown_and_erasure": {
+      "value": "truelabel may suspend or remove files and listings for a rights concern or legal risk, but nothing requires buyers to delete copies already delivered; rights granted under completed transactions survive termination, so buyers keep what they hold.",
+      "claim_ids": [
+        "doc-truelabel-terms-c048",
+        "doc-truelabel-terms-c049",
+        "doc-truelabel-terms-c051"
+      ]
+    },
+    "prohibited_uses": {
+      "value": "Default buyer bans (overridable by transaction terms): re-identifying individuals, extracting biometric identifiers, removing provenance or licence notices, reselling raw materials, combining against consent or privacy restrictions, unlawful surveillance, and deploying trained models in safety-critical systems without validation and oversight.",
+      "claim_ids": [
+        "doc-truelabel-terms-c020",
+        "doc-truelabel-terms-c021",
+        "doc-truelabel-terms-c022",
+        "doc-truelabel-terms-c023"
+      ]
+    },
+    "field_of_use": {
+      "value": "Defined per transaction through the request's licence scope and usage restrictions; restricted data categories need express order permission.",
+      "claim_ids": [
+        "doc-truelabel-terms-c008",
+        "doc-truelabel-terms-c018",
+        "doc-truelabel-terms-c017"
+      ]
+    },
+    "governing_law": {
+      "value": "Laws of the Emirate of Dubai and applicable UAE federal law; exclusive jurisdiction of Dubai courts over truelabel FZCO, unless a separate written agreement says otherwise.",
+      "claim_ids": [
+        "doc-truelabel-terms-c063",
+        "doc-truelabel-terms-c064"
+      ]
+    },
+    "change_of_terms": {
+      "value": "truelabel may update the Terms; material changes are posted on the page and, where appropriate, notified in-product or by email, with no notice period; continued use is acceptance.",
+      "claim_ids": [
+        "doc-truelabel-terms-c061",
+        "doc-truelabel-terms-c062",
+        "doc-truelabel-terms-c001"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "doc-truelabel-terms-c001",
+      "statement": "The truelabel Terms of Service read on 2026-10-01 are dated 'Last updated: 2026-06-19'.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Last updated: 2026-06-19."
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c002",
+      "statement": "truelabel describes itself in its Terms as a marketplace for sourcing, evaluating, licensing and delivering physical AI training data.",
+      "kind": "terms",
+      "section": "positioning",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "a marketplace for sourcing, evaluating, licensing, and delivering physical AI training data"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c003",
+      "statement": "The Terms define 'truelabel' as whichever truelabel operator entity is named in the account record, order form, invoice or written agreement.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the truelabel operator identified in the applicable account record, order form, invoice, or written agreement"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c004",
+      "statement": "Signed order forms, MSAs, DPAs, request specifications or SOWs override the Terms only where they directly conflict with them.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "will control only where they directly conflict with these Terms"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c005",
+      "statement": "truelabel may require identity, organisation, sanctions, tax, payment or rights verification before enabling certain marketplace actions.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We may require identity, organization, sanctions, tax, payment, or rights verification before enabling certain marketplace"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c006",
+      "statement": "Unless a separate written agreement says otherwise, truelabel is not a party to the buyer-supplier contract and does not employ suppliers or contributors.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "we are not a party to the underlying buyer-supplier contract, we do not employ suppliers or contributors"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c007",
+      "statement": "truelabel may review listings and files, but says review does not make it responsible for validating rights, consents, releases or provenance claims.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q5",
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Review does not make us responsible for user content or for validating every right, consent, release"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c008",
+      "statement": "A buyer's request or order may specify licence scope, usage restrictions, privacy and security requirements, acceptance criteria and compensation.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q8",
+        "Q9",
+        "Q12"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "acceptance criteria, license scope, usage restrictions, privacy requirements, security requirements, and compensation"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c009",
+      "statement": "Once accepted through the service, the request, listing, bid, order or statement of work becomes part of the transaction terms between the parties.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the applicable request, listing, bid, order, or written statement of work becomes part of the transaction terms"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c010",
+      "statement": "Anyone who uploads, lists, collects or delivers dataset materials represents that they own or control all rights needed to do so.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you represent that you own or control all rights needed to do so"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c011",
+      "statement": "Suppliers and contributors represent they obtained all permissions, notices, consents, releases and licences required for the advertised and accepted uses.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "obtained all permissions, notices, consents, releases, licenses, and approvals required for the advertised and accepted uses"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c012",
+      "statement": "The supplier's consent representation extends to project-permitted AI/ML training, evaluation, model development and commercial use by truelabel, buyers and end clients.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "including any project-permitted AI/ML training, evaluation, validation, dataset development, model development"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c013",
+      "statement": "The supplier's rights representation expressly covers likenesses, voices, locations, personal and biometric information and third-party equipment in the materials.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "motion data, likenesses, voices, locations, personal information, biometric information, copyrighted works"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c014",
+      "statement": "Suppliers must accurately describe dataset provenance, collection conditions, consent status and geographic scope.",
+      "kind": "terms",
+      "section": "listing",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You must accurately describe dataset provenance, collection conditions, consent status, geographic scope"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c015",
+      "statement": "Suppliers must keep records supporting their provenance and consent claims and provide them when a request, buyer due diligence or compliance review requires.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You must maintain reasonable records supporting those claims and provide them when required by a request, buyer due diligence"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c016",
+      "statement": "Suppliers may not submit health data, children's data, sensitive personal information, biometric identifiers or precise location data by default.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Do not submit regulated health information, children's data, sensitive personal information, biometric identifiers"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c017",
+      "statement": "Restricted categories may be submitted only where the applicable order expressly permits it and the supplier has documented authority.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "unless the applicable order expressly permits it and you have documented authority to provide it"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c018",
+      "statement": "Buyers may use dataset materials only within the licence, restrictions, confidentiality terms and permitted-use language of the applicable transaction.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Buyers may use dataset materials only within the license, restrictions, confidentiality terms, and permitted-use language"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c019",
+      "statement": "Buyers are responsible for confirming that materials are appropriate for their intended training, evaluation, fine-tuning, research or commercial use.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Buyers are responsible for confirming that purchased or downloaded materials are appropriate for their intended training"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c020",
+      "statement": "The buyer restrictions in section 6 apply as defaults 'unless the transaction terms expressly permit it'.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Unless the transaction terms expressly permit it, buyers may not re-identify individuals"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c021",
+      "statement": "By default buyers may not re-identify individuals, extract biometric identifiers, or remove provenance or licence notices.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "buyers may not re-identify individuals, extract biometric identifiers, remove provenance or license notices"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c022",
+      "statement": "By default buyers may not resell raw dataset materials or combine materials in a way that violates consent or privacy restrictions.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q4",
+        "Q8"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "resell raw dataset materials, combine materials in a way that violates consent or privacy restrictions"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c023",
+      "statement": "By default buyers may not use materials for unlawful surveillance or deploy trained models in safety-critical physical systems without validation and oversight.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "use materials for unlawful surveillance, or deploy models trained on the materials in safety-critical physical systems"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c024",
+      "statement": "As between users and truelabel, suppliers retain ownership of the dataset materials they provide, subject to rights granted to buyers and truelabel.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "suppliers retain ownership of dataset materials they provide, subject to the rights they grant to buyers and to truelabel"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c025",
+      "statement": "Buyers receive only the licence stated in the applicable request, listing, order or written agreement.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Buyers receive only the license stated in the applicable request, listing, order, or written agreement."
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c026",
+      "statement": "A purchase or payout does not transfer broader rights by default.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q4",
+        "Q8"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "A purchase or payout does not transfer broader rights by default."
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c027",
+      "statement": "Users grant truelabel a non-exclusive, worldwide, sublicensable licence to host, copy, process, preview, transform and store submitted content.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q6"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You grant truelabel a non-exclusive, worldwide, sublicensable license to host, copy, process, preview, analyze, QA, transform"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c028",
+      "statement": "The platform licence lets truelabel make submitted content available to buyers, end clients and service providers under the transaction terms.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q6"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "make submitted content available to buyers, end clients, and service providers under the applicable transaction terms"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c029",
+      "statement": "The platform licence also covers supporting project-permitted AI/ML training, evaluation, model development and commercial uses.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "support project-permitted AI/ML training, evaluation, validation, dataset development, model development, and commercial uses"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c030",
+      "statement": "Public listing metadata, sample previews, supplier and organisation names may be visible to other users.",
+      "kind": "terms",
+      "section": "discovery",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Public listing metadata, sample previews, supplier names, organization names, and marketplace activity may be visible"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c031",
+      "statement": "truelabel states it does not use private buyer or supplier dataset materials to train foundation models or unrelated commercial AI models.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "we do not use private buyer or supplier dataset materials to train foundation models or unrelated commercial AI models"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c032",
+      "statement": "truelabel's no-own-training commitment yields where an order, written agreement or product setting expressly authorises such use.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Unless an applicable order, written agreement, or product setting expressly authorizes it"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c033",
+      "statement": "truelabel may use aggregated, de-identified or operational data derived from marketplace activity to improve search, matching, QA and pricing guidance.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We may use aggregated, de-identified, or operational data derived from marketplace activity to improve search, matching, QA"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c034",
+      "statement": "Buyers, end clients and their service providers may train, evaluate, build or commercialise AI/ML models using licensed materials.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "may train, evaluate, validate, build, improve, or commercialize AI/ML models, datasets, and related systems"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c035",
+      "statement": "The buyer's AI/ML rights extend only as far as the applicable transaction terms allow.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "only to the extent allowed by the applicable transaction terms"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c036",
+      "statement": "Contributors may be asked to attest to the rights, notices, consents and releases required for project-specific uses.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Contributors may be asked to attest to the rights, notices, consents, and releases required for those project-specific uses."
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c037",
+      "statement": "Deliveries may be rejected, remediated, partially accepted or escalated if incomplete, mislabelled, duplicated, unauthorised or fraudulent.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "A delivery may be rejected, remediated, partially accepted, or escalated if it appears incomplete, mislabeled, duplicated"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c038",
+      "statement": "truelabel may help administer disputes but is not an arbitrator and gives no legal advice on ownership, consent, privacy or model-use rights.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "we are not an arbitrator and do not provide legal advice about dataset ownership, consent, privacy, or model-use rights"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c039",
+      "statement": "Deposits, charges, payouts, refunds and invoices may be handled by third-party payment processors.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Deposits, charges, payouts, refunds, invoices, tax forms, and payment-method storage may be handled by third-party"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c040",
+      "statement": "truelabel says it is not a bank, money transmitter, escrow agent, trustee or fiduciary unless a separate written agreement says so.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q5",
+        "Q9"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "truelabel is not a bank, money transmitter, escrow agent, trustee, or fiduciary"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c041",
+      "statement": "The Terms do not state fee or commission rates; fees, commissions, payout timing and refund rules are disclosed in-product or in transaction terms.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Fees, commissions, payout timing, refund rules, currency handling, chargeback handling, and applicable taxes are disclosed"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c042",
+      "statement": "Private dataset materials, pricing and specifications exchanged through the service must be treated as confidential.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "business information exchanged through the service must be treated as confidential"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c043",
+      "statement": "Confidential information may be used only to evaluate, perform or administer the relevant marketplace transaction.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You may use confidential information only to evaluate, perform, or administer the relevant marketplace transaction."
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c044",
+      "statement": "A user who submits materials containing personal information is responsible for ensuring collection, licensing and downstream use are lawful.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you are responsible for ensuring that collection, upload, sharing, licensing, and downstream use are lawful and consistent"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c045",
+      "statement": "Users may not misrepresent dataset provenance or bypass quality or eligibility controls.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "misrepresent dataset provenance, bypass quality or eligibility controls"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c046",
+      "statement": "truelabel disclaims responsibility for third-party storage, hosting or repository tools users connect, export to or download through.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We are not responsible for third-party products or for your decision to connect, export, download, or process data"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c047",
+      "statement": "The service may integrate with hosting, storage, dataset hosting and repository tools.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The service may integrate with hosting, storage, authentication, analytics, email, payment, compliance, labeling, annotation"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c048",
+      "statement": "truelabel may limit, suspend or terminate access to accounts, files, listings, requests or payouts, including for a rights concern.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We may limit, suspend, or terminate access to accounts, files, listings, requests, payouts, or features"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c049",
+      "statement": "Grounds for suspension or removal include legal risk, fraud risk and a 'rights concern'.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "legal risk, security risk, fraud risk, rights concern"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c050",
+      "statement": "On termination, licence restrictions, confidentiality, privacy obligations and indemnity survive.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Termination does not cancel obligations that should reasonably survive, including payment obligations, license restrictions"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c051",
+      "statement": "Termination does not cancel rights already granted under completed transactions.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "rights already granted under completed transactions"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c052",
+      "statement": "The service and marketplace content are provided 'as is' and 'as available', with implied warranties including title and non-infringement disclaimed.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "truelabel disclaims implied warranties of merchantability, fitness for a particular purpose, title, non-infringement"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c053",
+      "statement": "truelabel does not warrant that datasets are complete, unbiased, safe for deployment, free of personal information or legally sufficient.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q11"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "free of personal information, or legally sufficient for your use case"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c054",
+      "statement": "truelabel excludes liability for indirect, consequential, lost-profit damages and for loss of data or model performance.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "truelabel will not be liable for indirect, incidental, special, consequential, exemplary, punitive, or lost-profit damages"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c055",
+      "statement": "Absent a separate agreement, truelabel's total liability is capped at the greater of fees paid for the specific transaction in the prior three months or USD 100.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the greater of the amount you paid to truelabel for the specific transaction giving rise to the claim during the three months"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c056",
+      "statement": "The floor of truelabel's service liability cap is USD 100.",
+      "kind": "number",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 100,
+        "unit": "USD",
+        "basis": "floor of truelabel's total liability for service claims; alternative is amount paid to truelabel for the specific transaction in the prior three months, whichever is greater",
+        "period": "per claim"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "during the three months before the event or USD $100"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c057",
+      "statement": "For data licensed through the marketplace, the truelabel Master Services Agreement and the Order govern representations, warranties and liability.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the truelabel Master Services Agreement and the applicable Order govern the representations, warranties, disclaimers"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c058",
+      "statement": "The MSA's liability terms, not the Terms' section 16 cap, apply to data-licence claims.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Their liability terms — not this Section 16 — apply to those data-license claims"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c059",
+      "statement": "Every user must defend, indemnify and hold harmless truelabel and its personnel; the indemnity carries no stated cap.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You will defend, indemnify, and hold harmless truelabel and its personnel from claims, damages, losses, liabilities, costs"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c060",
+      "statement": "The user indemnity covers failure to obtain required consents or releases and the user's downstream use of marketplace materials.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "your failure to obtain required consents or releases, or your downstream use of marketplace materials"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c061",
+      "statement": "Material changes to the Terms are posted on the page and, where appropriate, communicated in-product or by email.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Material changes will be posted on this page and, where appropriate, communicated in-product or by email."
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c062",
+      "statement": "Continued use after changes take effect is acceptance of the updated Terms.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Continued use after changes take effect means you accept the updated Terms."
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c063",
+      "statement": "Unless a separate agreement says otherwise, the Terms are governed by the laws of the Emirate of Dubai and applicable UAE federal law.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "governed by the laws of the Emirate of Dubai and the federal laws of the United Arab Emirates applicable therein"
+        }
+      ]
+    },
+    {
+      "id": "doc-truelabel-terms-c064",
+      "statement": "Dubai courts with jurisdiction over truelabel FZCO have exclusive jurisdiction, naming truelabel FZCO as the operating entity.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "truelabel marketplace (buyers, suppliers, contributors)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-06-19",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://truelabel.ai/legal/terms",
+          "publisher": "truelabel",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the courts of the Emirate of Dubai having jurisdiction over truelabel FZCO have exclusive jurisdiction"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "other.msa_data_licence_terms",
+      "urls_tried": [
+        "https://truelabel.ai/legal/terms",
+        "https://truelabel.ai/legal",
+        "https://truelabel.ai/legal/msa",
+        "https://truelabel.ai/legal/master-services-agreement"
+      ],
+      "reason": "not_found",
+      "note": "Section 16 hands warranties, disclaimers and liability for licensed data to a 'truelabel Master Services Agreement' and Order; no public copy was found at guessed URLs and none is linked from the Terms or footer."
+    },
+    {
+      "field": "other.exclusivity",
+      "urls_tried": [
+        "https://truelabel.ai/legal/terms"
+      ],
+      "reason": "not_published",
+      "note": "No clause on whether a buyer can obtain exclusive rights to a listed or commissioned dataset."
+    },
+    {
+      "field": "other.takedown_and_erasure",
+      "urls_tried": [
+        "https://truelabel.ai/legal/terms"
+      ],
+      "reason": "not_published",
+      "note": "No mechanism to pass a data subject's erasure request or a takedown to buyers who already hold copies, nor to models already trained."
+    },
+    {
+      "field": "other.consent_evidence_to_buyer",
+      "urls_tried": [
+        "https://truelabel.ai/legal/terms"
+      ],
+      "reason": "not_published",
+      "note": "Suppliers keep consent records and produce them on buyer due diligence; the Terms do not say consent or release documents are delivered with the data."
+    },
+    {
+      "field": "other.commissioned_data_resale",
+      "urls_tried": [
+        "https://truelabel.ai/legal/terms"
+      ],
+      "reason": "not_published",
+      "note": "Silent on whether data collected against a buyer's request may later be listed and sold to others (channel conflict)."
+    },
+    {
+      "field": "other.delivery_custody",
+      "urls_tried": [
+        "https://truelabel.ai/legal/terms"
+      ],
+      "reason": "not_published",
+      "note": "The Terms do not describe delivery into the buyer's own storage; they only mention integrations with storage and dataset-hosting tools and disclaim third-party services."
+    },
+    {
+      "field": "other.fee_rates",
+      "urls_tried": [
+        "https://truelabel.ai/legal/terms"
+      ],
+      "reason": "not_published",
+      "note": "Commission and fee rates are 'disclosed in-product or in the applicable transaction terms', not in the Terms."
+    },
+    {
+      "field": "other.audit_rights",
+      "urls_tried": [
+        "https://truelabel.ai/legal/terms"
+      ],
+      "reason": "not_published",
+      "note": "No supplier or truelabel right to audit buyer use of licensed data."
+    }
+  ],
+  "leads": [
+    {
+      "url": "https://truelabel.ai/legal/terms",
+      "why": "Footer links a 'Collector agreement' (contributor terms) that governs how crowd collectors grant rights and consent; not read in this run."
+    },
+    {
+      "url": "https://truelabel.ai/legal/terms",
+      "why": "The Privacy Policy linked from section 1 may describe data-subject erasure handling; not read in this run."
+    }
+  ]
+}

@@ -1,0 +1,2594 @@
+{
+  "kind": "profile",
+  "slug": "ldc",
+  "name": "Linguistic Data Consortium",
+  "aliases": [
+    "LDC"
+  ],
+  "segment": "priced_catalogue",
+  "tier": "light",
+  "status": {
+    "value": "active",
+    "claim_id": "ldc-c063"
+  },
+  "names_for": {
+    "catalogue_side": "LDC Catalog",
+    "custom_side": "sponsored programs"
+  },
+  "matrix": {
+    "operator_role": {
+      "value": "reseller_licensor",
+      "claim_ids": [
+        "ldc-c013",
+        "ldc-c021",
+        "ldc-c049"
+      ],
+      "note": "Buyer contracts with LDC under LDC's own agreements; LDC holds distribution rights from providers and passes through the rights it obtained."
+    },
+    "economics_model": {
+      "value": "mixed",
+      "claim_ids": [
+        "ldc-c031",
+        "ldc-c028",
+        "ldc-c060"
+      ],
+      "note": "Annual membership fees plus per-corpus licence fees, on data LDC creates for sponsored programmes or holds under distribution agreements; any payment to providers is not published."
+    },
+    "who_pays_fee": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "No published operator fee or split on provider sales."
+    },
+    "supply_models": {
+      "value": [
+        "own_collection",
+        "commissioned_nonexclusive",
+        "third_party_providers"
+      ],
+      "claim_ids": [
+        "ldc-c006",
+        "ldc-c057",
+        "ldc-c060",
+        "ldc-c047",
+        "ldc-c049",
+        "ldc-c062"
+      ],
+      "note": "commissioned_nonexclusive: data produced for government-sponsored programmes is published in the catalogue."
+    },
+    "custody_model": {
+      "value": "copy_to_buyer",
+      "claim_ids": [
+        "ldc-c042",
+        "ldc-c044",
+        "ldc-c018"
+      ],
+      "note": "Web download from LDC's portal or a shipped drive."
+    },
+    "transaction_mode": {
+      "value": "self_serve_checkout",
+      "claim_ids": [
+        "ldc-c059",
+        "ldc-c039",
+        "ldc-c041"
+      ],
+      "note": "Online cart with e-signature; quotes and pro forma invoices on request; some corpus-specific agreements go by fax or email."
+    },
+    "public_prices": {
+      "value": "some",
+      "claim_ids": [
+        "ldc-c031",
+        "ldc-c033",
+        "ldc-c055"
+      ],
+      "note": "Membership fees public; per-corpus fees behind login."
+    },
+    "licence_model": {
+      "value": "tiered_standard",
+      "claim_ids": [
+        "ldc-c009",
+        "ldc-c010",
+        "ldc-c012"
+      ],
+      "note": "Fixed menu by user type (non-member and not-for-profit research-only vs for-profit member commercial); corpus-specific licences override for some sets."
+    },
+    "exclusivity_offered": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Not addressed on any page fetched; LDC itself does not generally take exclusive rights from providers."
+    },
+    "public_listing": {
+      "value": "public_summary_gated_detail",
+      "claim_ids": [
+        "ldc-c054",
+        "ldc-c055"
+      ],
+      "note": "Descriptions, samples and licence names public; fee requires login."
+    },
+    "buyer_vetting": {
+      "value": "account_only",
+      "claim_ids": [
+        "ldc-c070",
+        "ldc-c071"
+      ],
+      "note": "A licensing account must be tied to an organisation; no further checks published."
+    },
+    "sample_mechanics": {
+      "value": "free_sample_download",
+      "claim_ids": [
+        "ldc-c054",
+        "ldc-c058"
+      ],
+      "note": ""
+    },
+    "versioning": {
+      "value": "immutable_revisions",
+      "claim_ids": [
+        "ldc-c053",
+        "ldc-c068",
+        "ldc-c038"
+      ],
+      "note": "New editions get new catalog IDs and the old edition stays listed; licences to data received are perpetual. Whether past buyers get a new edition free is not published."
+    },
+    "human_subject_consent_docs": {
+      "value": "unknown",
+      "claim_ids": [
+        "ldc-c050",
+        "ldc-c069",
+        "ldc-c017"
+      ],
+      "note": "Providers must describe consent to LDC, but documentation guidelines do not require consent records for buyers and the licence disclaims all warranties; per-corpus documentation not inspected."
+    },
+    "contributor_pay_model": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "No page fetched says how speakers, scribes or annotators are paid, or whether providers get royalties."
+    },
+    "catalogue_plus_custom": {
+      "value": "both",
+      "claim_ids": [
+        "ldc-c060",
+        "ldc-c061",
+        "ldc-c007"
+      ],
+      "note": "Catalog plus data created for sponsored programmes and listed collection/annotation services."
+    },
+    "erasure_after_sale": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": ""
+    },
+    "quality_evidence": {
+      "value": "operator_verified",
+      "claim_ids": [
+        "ldc-c051"
+      ],
+      "note": "LDC's own QC claim; vendor-stated. The licences disclaim conformity with documentation."
+    }
+  },
+  "questions": {
+    "Q1": {
+      "state": "partial",
+      "answer": "LDC sells to universities, corporations and government labs, in single-corpus licences or annual memberships; its most-distributed corpora are text and speech (OntoNotes, TIMIT), with images a minor share. Why buyers choose catalogue over custom is not published.",
+      "claim_ids": [
+        "ldc-c002",
+        "ldc-c072",
+        "ldc-c031",
+        "ldc-c067",
+        "ldc-c057"
+      ]
+    },
+    "Q2": {
+      "state": "partial",
+      "answer": "Providers give LDC a distribution agreement; LDC does not generally take exclusivity, so they can distribute elsewhere, and LDC adds QC and monthly release. No provider economics published.",
+      "claim_ids": [
+        "ldc-c047",
+        "ldc-c048",
+        "ldc-c049",
+        "ldc-c051"
+      ]
+    },
+    "Q3": {
+      "state": "sourced",
+      "answer": "Inventory is LDC's own creation, data produced for US-government-sponsored programmes, and contributions from researchers and media organisations under a distribution agreement; LDC passes through the rights it obtained, with corpus-specific licences where providers require them.",
+      "claim_ids": [
+        "ldc-c006",
+        "ldc-c060",
+        "ldc-c062",
+        "ldc-c049",
+        "ldc-c021",
+        "ldc-c012"
+      ]
+    },
+    "Q4": {
+      "state": "partial",
+      "answer": "Data made for sponsored programmes is routinely published in the catalogue; how resale rights are carved out of sponsor contracts, and any retroactive term changes, were not found.",
+      "claim_ids": [
+        "ldc-c060",
+        "ldc-c048"
+      ]
+    },
+    "Q5": {
+      "state": "sourced",
+      "answer": "LDC is licensor of record under its own agreements and grants the rights it obtained; data is as-is with no warranty from LDC, providers or authors, and the for-profit member indemnifies LDC.",
+      "claim_ids": [
+        "ldc-c013",
+        "ldc-c021",
+        "ldc-c025",
+        "ldc-c017",
+        "ldc-c024"
+      ]
+    },
+    "Q6": {
+      "state": "sourced",
+      "answer": "Copied to the buyer: web download from LDC's portal, or hard drive/USB for very large corpora.",
+      "claim_ids": [
+        "ldc-c042",
+        "ldc-c044",
+        "ldc-c018"
+      ]
+    },
+    "Q7": {
+      "state": "partial",
+      "answer": "Providers must tell LDC about IRB approval and consent elements, including consent to sharing in a corpus; nothing published shows that evidence passing to the buyer, and the licences disclaim warranties. Property/place owners not addressed.",
+      "claim_ids": [
+        "ldc-c050",
+        "ldc-c069",
+        "ldc-c025"
+      ]
+    },
+    "Q8": {
+      "state": "sourced",
+      "answer": "Research-only for non-members and not-for-profits, commercial use for for-profit members, perpetual, site-limited, no redistribution; some corpora need signed user agreements kept on file for LDC inspection. No fingerprinting published.",
+      "claim_ids": [
+        "ldc-c009",
+        "ldc-c020",
+        "ldc-c016",
+        "ldc-c022",
+        "ldc-c023",
+        "ldc-c038",
+        "ldc-c064"
+      ]
+    },
+    "Q9": {
+      "state": "sourced",
+      "answer": "Self-serve cart with e-signed licences, card/check/wire, or quotes and purchase orders; LDC sets prices (memberships USD 2,400 to 40,000 a year, per-corpus fees behind login).",
+      "claim_ids": [
+        "ldc-c059",
+        "ldc-c039",
+        "ldc-c041",
+        "ldc-c031",
+        "ldc-c032",
+        "ldc-c033",
+        "ldc-c034",
+        "ldc-c055"
+      ]
+    },
+    "Q10": {
+      "state": "partial",
+      "answer": "A corpus is a catalog item with a catalog number and DOI, released monthly; memberships entitle to a membership year's releases; new editions get new IDs and old ones stay listed. What past buyers get on a new edition is not published.",
+      "claim_ids": [
+        "ldc-c056",
+        "ldc-c052",
+        "ldc-c026",
+        "ldc-c053",
+        "ldc-c068",
+        "ldc-c038"
+      ]
+    },
+    "Q11": {
+      "state": "partial",
+      "answer": "Listings show a description, licence name and free sample files; LDC claims its own QC, but the licences disclaim accuracy and conformity with documentation.",
+      "claim_ids": [
+        "ldc-c054",
+        "ldc-c058",
+        "ldc-c046",
+        "ldc-c051",
+        "ldc-c017"
+      ]
+    },
+    "Q12": {
+      "state": "partial",
+      "answer": "The LDC Catalog is the off-the-shelf side; bespoke work is done as sponsored programmes and listed services, and virtually all sponsored-programme data flows into the Catalog.",
+      "claim_ids": [
+        "ldc-c060",
+        "ldc-c061",
+        "ldc-c007",
+        "ldc-c008"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "ldc-c001",
+      "statement": "LDC says it was formed in 1992 to address a data shortage in language technology research and development.",
+      "kind": "event",
+      "section": "positioning",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/about",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "LDC was formed in 1992 to address the critical data shortage then facing language technology research and development."
+        }
+      ]
+    },
+    {
+      "id": "ldc-c002",
+      "statement": "LDC describes itself as an open consortium of universities, libraries, corporations and government research laboratories.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/about",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "is an open consortium of universities, libraries, corporations and government research laboratories"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c003",
+      "statement": "LDC describes itself as a non-profit hosted by the University of Pennsylvania.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/a-closer-look-at-ldc",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "non-profit hosted by the University of Pennsylvania"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c004",
+      "statement": "LDC's catalogue was still releasing new corpora on retrieval: CALLHOME American English Second Edition (LDC2026S08) was released on 15 July 2026.",
+      "kind": "status",
+      "section": "changes",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "LDC2026S08",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-07-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/LDC2026S08",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "July 15, 2026"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c005",
+      "statement": "LDC's catalogue lists 2026 releases including LORELEI, MATERIAL, KAIROS and CALLHOME Second Edition corpora (catalog IDs LDC2026*).",
+      "kind": "status",
+      "section": "changes",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/byyear",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "CALLHOME American English Second Edition"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c006",
+      "statement": "LDC says it creates and distributes a wide array of language resources.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/about",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "LDC has grown into an organization that creates and distributes a wide array of language resources."
+        }
+      ]
+    },
+    {
+      "id": "ldc-c007",
+      "statement": "LDC lists services including data collection, transcription, translation, and image and video labeling.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/a-closer-look-at-ldc",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "data collection, processing and analysis; speech transcription, alignment, labeling and coding"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c008",
+      "statement": "LDC's service list includes image and video labeling.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/a-closer-look-at-ldc",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "image and video labeling"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c009",
+      "statement": "LDC not-for-profit members, government members and nonmember licensees may use LDC data only for noncommercial linguistic research and education.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/data-management/using/licensing",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "LDC Not-For-Profit members, government members and nonmember licensees may use LDC data for noncommercial linguistic research"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c010",
+      "statement": "A for-profit organisation that does not renew LDC membership retains ongoing commercial rights to data from its membership year.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/data-management/using/licensing",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If the organization does not renew its membership for the following year, it still retains ongoing commercial rights to data"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c011",
+      "statement": "A for-profit nonmember that later joins LDC can gain commercial rights to data it had already licensed as a nonmember.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/data-management/using/licensing",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If that organization joins LDC at some future time, it can gain commercial rights to any data already licensed"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c012",
+      "statement": "Certain LDC datasets carry corpus-specific licence agreements that supersede LDC membership agreements and must be signed by all licensees.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/data-management/using/licensing",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Certain LDC data sets are governed by corpus-specific license agreements which supersede the LDC membership agreements"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c013",
+      "statement": "Nonmembers licensing LDC data must sign the LDC User Agreement for Non-Members.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/data-management/using/licensing",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Nonmembers who license data from LDC must sign the LDC User Agreement for Non-Members."
+        }
+      ]
+    },
+    {
+      "id": "ldc-c014",
+      "statement": "The LDC User Agreement for Non-Members limits use of LDC Databases to non-commercial linguistic education, research and technology development.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "non-member",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-non-members-agreement.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "only for non-commercial linguistic education, research and technology development"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c015",
+      "statement": "Under the non-member agreement, a user whose use results in a commercial product must join LDC as a For-Profit Member and pay all fees before releasing it.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "non-member",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-non-members-agreement.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "User must join LDC as a For-Profit Member and pay all applicable fees prior to release of said commercial product"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c016",
+      "statement": "The non-member agreement bars publishing, copying or redistributing the LDC Databases outside the user's research group, save limited excerpts in publications.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "non-member",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-non-members-agreement.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "User shall not otherwise publish, retransmit, disclose, display, copy, reproduce or redistribute the LDC Databases to others"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c017",
+      "statement": "The non-member agreement provides LDC Databases 'as is', with neither LDC, the University of Pennsylvania, its data providers nor corpus authors warranting them.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "non-member",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-non-members-agreement.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "ALL LDC DATABASES ARE PROVIDED “AS IS” AND NEITHER THE LINGUISTIC DATA CONSORTIUM, ITS HOST INSTITUTION"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c018",
+      "statement": "Under the non-member agreement, the user receives the named corpora on media such as hard drive, electronic files or web download.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "non-member",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-non-members-agreement.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "User will receive media (CD-ROM, DVD, hard drive, electronic files, web download or other media as appropriate)"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c019",
+      "statement": "The non-member agreement defines LDC Databases as media containing images, speech, video and/or text data.",
+      "kind": "terms",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "non-member",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-non-members-agreement.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "containing images, speech, video and/or text data (the “LDC Databases”)"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c020",
+      "statement": "The LDC For-Profit Membership Agreement lets the Member incorporate portions of LDC Databases into its own work products, including for commercial purposes.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "for-profit member",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Member may incorporate portions of the LDC Databases into its own work products, including for commercial purposes"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c021",
+      "statement": "The for-profit agreement says LDC grants the Member the same rights LDC has obtained in all LDC Databases.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "for-profit member",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "LDC shall grant to Member the same rights LDC has obtained in all LDC Databases"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c022",
+      "statement": "The for-profit licence is limited to use solely at the geographical sites the Member lists in Exhibit B.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "for-profit member",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "solely at the geographical sites listed in Exhibit B"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c023",
+      "statement": "For certain databases the for-profit Member must restrict access to staff who have signed separate user agreements, and keep those on file for LDC inspection.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "for-profit member",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Member shall maintain all signed user agreements on file for inspection by LDC upon its request"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c024",
+      "statement": "The for-profit Member must defend, indemnify and hold harmless LDC against claims from use that violates the agreement or law; LDC gives no indemnity.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "for-profit member",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Member shall defend, indemnify and hold harmless LDC, its employees, trustees, officers, and agents"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c025",
+      "statement": "The for-profit agreement provides LDC Databases as-is, with LDC and its data providers and corpus authors making no representations or warranties.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "for-profit member",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "LDC, AND ITS DATA PROVIDERS AND CORPUS AUTHORS MAKE NO REPRESENTATIONS OR WARRANTIES OF ANY KIND"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c026",
+      "statement": "LDC's for-profit Standard membership costs USD 34,000 per calendar year and entitles the Member to up to 16 databases from the membership year.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "For-Profit Membership",
+        "tier": "Standard",
+        "region": ""
+      },
+      "value": {
+        "num": 34000,
+        "unit": "USD",
+        "basis": "annual fee paid by a for-profit member; covers up to 16 databases from the membership year",
+        "period": "per year"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "$34,000 per calendar year. Standard Member is entitled to receive up to 16 LDC Databases from the Membership Year"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c027",
+      "statement": "LDC's for-profit Subscription membership costs USD 40,000 per calendar year and entitles the Member to all databases released in the membership year.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "For-Profit Membership",
+        "tier": "Subscription",
+        "region": ""
+      },
+      "value": {
+        "num": 40000,
+        "unit": "USD",
+        "basis": "annual fee paid by a for-profit member; covers all databases released in the membership year",
+        "period": "per year"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "$40,000 per calendar year. Subscription Member is entitled to automatically receive copies of all LDC Databases released"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c028",
+      "statement": "A Standard for-profit Member may license further membership-year databases at the regular non-member licensing fee.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "For-Profit Membership",
+        "tier": "Standard",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Additional LDC Databases from the Membership Year may be licensed at the regular, non-member licensing fee"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c029",
+      "statement": "LDC reserves the right to release databases that require separate licence agreements and additional fees beyond membership.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "LDC reserves the right to release Databases that require separate license agreements and additional fees"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c030",
+      "statement": "LDC for-profit membership fees are non-refundable.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Membership fees are non-refundable."
+        }
+      ]
+    },
+    {
+      "id": "ldc-c031",
+      "statement": "LDC's join page lists the for-profit Standard membership at USD 34,000.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Membership",
+        "tier": "For-profit Standard",
+        "region": ""
+      },
+      "value": {
+        "num": 34000,
+        "unit": "USD",
+        "basis": "membership fee for for-profit organisations, Standard tier, paid by the member",
+        "period": "per year"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/members/join-ldc",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Standard membership: $34,000"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c032",
+      "statement": "LDC's join page lists the for-profit Subscription membership at USD 40,000.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Membership",
+        "tier": "For-profit Subscription",
+        "region": ""
+      },
+      "value": {
+        "num": 40000,
+        "unit": "USD",
+        "basis": "membership fee for for-profit organisations, Subscription tier, paid by the member",
+        "period": "per year"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/members/join-ldc",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Subscription membership: $40,000"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c033",
+      "statement": "LDC's join page lists the not-for-profit and US government Standard membership at USD 2,400.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Membership",
+        "tier": "Not-for-profit / US government Standard",
+        "region": ""
+      },
+      "value": {
+        "num": 2400,
+        "unit": "USD",
+        "basis": "membership fee for not-for-profit organisations and US government, Standard tier, paid by the member",
+        "period": "per year"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/members/join-ldc",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Standard membership: $2,400"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c034",
+      "statement": "LDC's join page lists the not-for-profit and US government Subscription membership at USD 3,850.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Membership",
+        "tier": "Not-for-profit / US government Subscription",
+        "region": ""
+      },
+      "value": {
+        "num": 3850,
+        "unit": "USD",
+        "basis": "membership fee for not-for-profit organisations and US government, Subscription tier, paid by the member",
+        "period": "per year"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/members/join-ldc",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "pricing_page",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Subscription membership: $3,850"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c035",
+      "statement": "To become an LDC member an organisation must sign the appropriate membership agreement and pay a membership fee.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/members/join-ldc",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "To become a member, an organization must sign the appropriate membership agreement and pay a membership fee."
+        }
+      ]
+    },
+    {
+      "id": "ldc-c036",
+      "statement": "LDC says members can license older datasets at discounts of up to 50%.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 50,
+        "unit": "percent discount (maximum)",
+        "basis": "discount for members on data outside the membership year, off the non-member fee; exact basis not stated",
+        "period": "not stated"
+      },
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/members/membership-benefits",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "significant discounts (up to 50%)"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c037",
+      "statement": "LDC says membership allows unlimited use within an organisation, with no cost difference between departmental and organisation-wide membership.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/members/membership-benefits",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Unlimited use within an organization"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c038",
+      "statement": "LDC says members get a perpetual licence for membership-year data and data requested while an active member.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Membership",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/members/membership-benefits",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Perpetual license for membership year data and data requested while an active member"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c039",
+      "statement": "LDC users can sign required membership and user agreements electronically on the checkout Agreement page.",
+      "kind": "architecture",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/members/managing-your-ldc-account/online-transactions",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Users may sign any required agreements (membership agreements, user agreements) electronically from the Agreement page."
+        }
+      ]
+    },
+    {
+      "id": "ldc-c040",
+      "statement": "LDC accepts payment by credit card, check or wire transfer.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/members/managing-your-ldc-account/online-transactions",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Payment can be made in one of three ways: credit card, check and wire transfer."
+        }
+      ]
+    },
+    {
+      "id": "ldc-c041",
+      "statement": "LDC accepts institutional purchase orders in most instances and issues quotes or pro forma invoices on request.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/members/managing-your-ldc-account/online-transactions",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "LDC accepts institutional purchase orders in most instances and issues quotes or pro forma invoices upon request."
+        }
+      ]
+    },
+    {
+      "id": "ldc-c042",
+      "statement": "LDC fulfils orders by shipping data or by providing download instructions.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/members/managing-your-ldc-account/online-transactions",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Orders are fulfilled by shipping data or by providing instructions for downloading data."
+        }
+      ]
+    },
+    {
+      "id": "ldc-c043",
+      "statement": "LDC does not process an order until payment is received.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/members/managing-your-ldc-account/online-transactions",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Your order will not be processed until payment is received."
+        }
+      ]
+    },
+    {
+      "id": "ldc-c044",
+      "statement": "LDC says data is in most cases distributed by download from its member portal, with very large corpora sent on hard drive or USB flash drive.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/data-management/providing-data/publication-process",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "In most cases, data is distributed via download from LDC's member portal."
+        }
+      ]
+    },
+    {
+      "id": "ldc-c045",
+      "statement": "LDC says most corpora are available to nonmember organisations under research-only licences.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/language-resources/data/obtaining",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Most corpora distributed by LDC are available to nonmember organizations under research-only licenses"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c046",
+      "statement": "LDC says each corpus catalogue page links to the required nonmember licence agreement.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q8",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/language-resources/data/obtaining",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Each corpus catalog page contains a link to the required nonmember license agreement"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c047",
+      "statement": "LDC invites contributions from language resource developers for publication in its catalogue.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q2",
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/data-management/providing-data",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "LDC invites contributions from language resource developers to further this mission"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c048",
+      "statement": "LDC says it does not generally acquire exclusive rights to contributed resources, so developers can distribute them by other means too.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q2",
+        "Q3",
+        "Q4"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/data-management/providing-data",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "LDC does not generally acquire exclusive rights to contributed resources"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c049",
+      "statement": "All data providers must sign a distribution agreement giving LDC the right to store and distribute the submitted resource.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/data-management/providing-data/publication-process",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All providers must sign a distribution agreement with LDC that gives the Consortium the right to store and distribute"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c050",
+      "statement": "For human-subjects data, LDC requires providers to state IRB or ethics approval and list the consent elements, including consent to sharing in a corpus.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/data-management/providing-data/publication-process",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "list the elements of consent, including that participants consented to sharing their data in a corpus"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c051",
+      "statement": "LDC says it performs extensive quality control checks so that published data is complete, error free and ready to use.",
+      "kind": "offer",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/data-management/providing-data/publication-process",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "LDC performs extensive quality control checks to ensure that published data is complete, error free and ready to use."
+        }
+      ]
+    },
+    {
+      "id": "ldc-c052",
+      "statement": "LDC says corpora are announced and released around the 15th of each month.",
+      "kind": "offer",
+      "section": "changes",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/data-management/providing-data/publication-process",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Corpora are announced and released around the 15th of each month."
+        }
+      ]
+    },
+    {
+      "id": "ldc-c053",
+      "statement": "LDC re-released CALLHOME American English as a Second Edition with audio converted to FLAC, transcripts revised and the original partitioning removed, under a new catalog ID.",
+      "kind": "offer",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "LDC2026S08",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-07-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/LDC2026S08",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "original training/development/test partitioning was removed"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c054",
+      "statement": "The CALLHOME American English Second Edition listing offers a downloadable audio sample in FLAC.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "LDC2026S08",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/LDC2026S08",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "English Audio Sample (FLAC)"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c055",
+      "statement": "LDC corpus pages do not show the licence fee publicly; an anonymous visitor sees 'Login for the applicable fee'.",
+      "kind": "offer",
+      "section": "pricing",
+      "question_ids": [
+        "Q9",
+        "Q11"
+      ],
+      "scope": {
+        "product": "LDC2026S08",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/LDC2026S08",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Login for the applicable fee"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c056",
+      "statement": "Each LDC corpus carries a catalog number and DOI, e.g. CALLHOME American English Second Edition LDC2026S08 with DOI 10.35111/rzpb-np15.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "LDC2026S08",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/LDC2026S08",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "10.35111/rzpb-np15"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c057",
+      "statement": "LDC's MADCAT Phases 1-3 Composite Evaluation Set consists of handwritten pages produced by scribes LDC instructed, scanned as images.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q1"
+      ],
+      "scope": {
+        "product": "LDC2026T05",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-05-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/LDC2026T05",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Arabic speaking scribes copied documents by hand, following specific instructions as to the writing style"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c058",
+      "statement": "The MADCAT evaluation set listing names the LDC User Agreement for Non-Members as its licence and offers a TIF image sample.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q8",
+        "Q11"
+      ],
+      "scope": {
+        "product": "LDC2026T05",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/LDC2026T05",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "LDC User Agreement for Non-Members"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c059",
+      "statement": "LDC's process is to place a corpus in the cart, digitally sign applicable licence agreements, check out, and then download.",
+      "kind": "architecture",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/accessing-ldc-data",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "place it in your cart, digitally signed any applicable license agreements, checked out"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c060",
+      "statement": "LDC says virtually all data it produces for sponsored programmes is published in the LDC Catalog and broadly available.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q4",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/collaborations",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Virtually all data produced for sponsored programs is published in the LDC Catalog and broadly available to the community."
+        }
+      ]
+    },
+    {
+      "id": "ldc-c061",
+      "statement": "LDC says it partners with US government agencies, including the Departments of Commerce, Defense and Homeland Security, on sponsored work.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q3",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/collaborations",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "LDC partners with US government agencies (including the Departments of Commerce, Defense, Education, Homeland Security"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c062",
+      "statement": "LDC names organisations that create data of interest, such as news organisations and broadcasters, among its data contributors.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/collaborations",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Organizations that create data of interest (news organizations, broadcasters)"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c063",
+      "statement": "LDC's September 2026 newsletter announced new releases including CALLHOME Mandarin Chinese Second Edition (LDC2026S11).",
+      "kind": "status",
+      "section": "changes",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/communications/newsletter/september-2026-newsletter",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "CALLHOME Mandarin Chinese Second Edition"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c064",
+      "statement": "LDC's September 2026 newsletter states that LDC membership is a prerequisite for a commercial licence to almost all LDC databases.",
+      "kind": "event",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/communications/newsletter/september-2026-newsletter",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "an LDC membership is a pre-requisite for obtaining a commercial license to almost all LDC databases"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c065",
+      "statement": "LDC's September 2026 newsletter states that non-member organisations, including for-profits, cannot use LDC data to develop or test commercial products.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/communications/newsletter/september-2026-newsletter",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Non-member organizations, including non-member for-profit organizations, cannot use LDC data to develop or test products"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c066",
+      "statement": "LDC's July 2026 newsletter announced Fall 2026 data scholarship applications open through 15 September 2026.",
+      "kind": "event",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-07-15",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/communications/newsletter/july-2026-newsletter",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Student applications for the Fall 2026 LDC data scholarship program are being accepted now through September 15, 2026."
+        }
+      ]
+    },
+    {
+      "id": "ldc-c067",
+      "statement": "LDC's data scholarship programme gives eligible students no-cost access to LDC data.",
+      "kind": "offer",
+      "section": "pricing",
+      "question_ids": [
+        "Q1",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/language-resources/data/data-scholarships",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The data scholarship program provides eligible students with no-cost access to LDC data."
+        }
+      ]
+    },
+    {
+      "id": "ldc-c068",
+      "statement": "The original CALLHOME American English Speech listing (LDC97S42) remains in the catalogue and links to the Second Edition (LDC2026S08) as a related version.",
+      "kind": "architecture",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "LDC97S42",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/LDC97S42",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "CALLHOME American English Second Edition"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c069",
+      "statement": "LDC's documentation guidelines ask providers of human-subjects data to include demographic information and related metadata; they do not list consent records.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/data-management/providing-data/documentation-guidelines",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "For data collected from human subjects, providers should also include any demographic information and related metadata"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c070",
+      "statement": "LDC guest accounts cannot license data; a guest must register an organisation or affiliate with an existing one first.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/members/managing-your-ldc-account/user-accounts",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Guest users cannot license data."
+        }
+      ]
+    },
+    {
+      "id": "ldc-c071",
+      "statement": "LDC organisation users can join LDC, create quotes and invoices, license data and download datasets their organisation has access to.",
+      "kind": "architecture",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/members/managing-your-ldc-account/user-accounts",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "ability to join LDC, create and view quotes and invoices, license data, view agreements signed by the organization"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c072",
+      "statement": "LDC's list of its ten most-distributed corpora is headed by OntoNotes Release 5.0 and TIMIT, both text and speech resources.",
+      "kind": "offer",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://catalog.ldc.upenn.edu/topten",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "OntoNotes Release 5.0"
+        }
+      ]
+    },
+    {
+      "id": "ldc-c073",
+      "statement": "LDC asks licensees to fax completed corpus-specific user agreements or scan and email them to its Membership Office.",
+      "kind": "terms",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.ldc.upenn.edu/data-management/using-data/user-agreements",
+          "publisher": "Linguistic Data Consortium",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Fax all completed user agreements to +1.215.573.2175 or scan and email them to the Membership Office"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "matrix.who_pays_fee",
+      "urls_tried": [
+        "https://www.ldc.upenn.edu/data-management/providing-data",
+        "https://www.ldc.upenn.edu/data-management/providing-data/publication-process",
+        "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.exclusivity_offered",
+      "urls_tried": [
+        "https://www.ldc.upenn.edu/data-management/using/licensing",
+        "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+        "https://catalog.ldc.upenn.edu/license/ldc-non-members-agreement.pdf",
+        "https://www.ldc.upenn.edu/members/membership-benefits"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.human_subject_consent_docs",
+      "urls_tried": [
+        "https://www.ldc.upenn.edu/data-management/providing-data/publication-process",
+        "https://www.ldc.upenn.edu/data-management/providing-data/documentation-guidelines",
+        "https://catalog.ldc.upenn.edu/LDC2026S08",
+        "https://catalog.ldc.upenn.edu/LDC2026T05"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.contributor_pay_model",
+      "urls_tried": [
+        "https://www.ldc.upenn.edu/data-management/providing-data",
+        "https://www.ldc.upenn.edu/data-management/providing-data/publication-process",
+        "https://www.ldc.upenn.edu/collaborations",
+        "https://submissions.ldc.upenn.edu/"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.erasure_after_sale",
+      "urls_tried": [
+        "https://catalog.ldc.upenn.edu/license/ldc-non-members-agreement.pdf",
+        "https://catalog.ldc.upenn.edu/license/ldc-for-profit-membership.pdf",
+        "https://www.ldc.upenn.edu/data-management/using/licensing",
+        "https://www.ldc.upenn.edu/data-management/using-data/user-agreements"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.per_corpus_nonmember_prices",
+      "urls_tried": [
+        "https://catalog.ldc.upenn.edu/LDC2026S08",
+        "https://catalog.ldc.upenn.edu/LDC2026T05",
+        "https://catalog.ldc.upenn.edu/LDC97S42",
+        "https://www.ldc.upenn.edu/language-resources/data/obtaining"
+      ],
+      "reason": "gated"
+    },
+    {
+      "field": "other.provider_royalties",
+      "urls_tried": [
+        "https://www.ldc.upenn.edu/data-management/providing-data",
+        "https://www.ldc.upenn.edu/data-management/providing-data/publication-process",
+        "https://submissions.ldc.upenn.edu/"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.independent_sources",
+      "urls_tried": [
+        "https://export.arxiv.org/api/query?search_query=all:%22Linguistic%20Data%20Consortium%22%20AND%20all:licensing&max_results=10",
+        "https://arxiv.org/a/cieri_c_1"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "other.submissions_portal",
+      "urls_tried": [
+        "https://submissions.ldc.upenn.edu/"
+      ],
+      "reason": "blocked"
+    },
+    {
+      "field": "questions.Q4",
+      "urls_tried": [
+        "https://www.ldc.upenn.edu/collaborations",
+        "https://www.ldc.upenn.edu/data-management/providing-data"
+      ],
+      "reason": "not_published"
+    }
+  ],
+  "conflicts": [],
+  "leads": [
+    {
+      "url": "http://ldc-upenn.blogspot.com/",
+      "why": "LDC blog; not fetched. May hold history of licence/fee changes."
+    },
+    {
+      "url": "https://www.ldc.upenn.edu/sites/www.ldc.upenn.edu/files/lrec2020-related-works-ldc-catalog.pdf",
+      "why": "LDC's LREC 2020 paper on catalogue related works; may describe versioning."
+    },
+    {
+      "url": "https://catalog.ldc.upenn.edu/license/LDC%20Not-for-Profit%20Membership%20Agreement.pdf",
+      "why": "Not-for-profit membership agreement; not read in this run."
+    },
+    {
+      "url": "https://www.ldc.upenn.edu/data-management/providing-data/technical-guidelines",
+      "why": "Provider technical guidelines; not read."
+    },
+    {
+      "url": "https://www.ldc.upenn.edu/communications/data-sheets",
+      "why": "LDC data sheets; may state traction numbers."
+    }
+  ]
+}

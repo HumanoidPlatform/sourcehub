@@ -1,0 +1,2542 @@
+{
+  "kind": "document",
+  "slug": "doc-getty-eula",
+  "platform_slug": "getty-images",
+  "title": "Content License Agreement",
+  "doc_type": "buyer_licence",
+  "url": "https://www.gettyimages.in/eula",
+  "publisher": "Getty Images",
+  "version_or_date": "Last Updated: April 2026",
+  "retrieved_at": "2026-10-01",
+  "parties": {
+    "licensor": "Getty Images licensing entity determined by the customer's billing address (content owned by Getty Images or its content suppliers)",
+    "licensee": "The customer ('you'), and its employer or client when purchasing on their behalf",
+    "operator_role": "reseller_licensor"
+  },
+  "terms": {
+    "permitted_use": {
+      "value": "RF: unlimited use in any media, perpetual, worldwide, by the purchaser (and its employer/client if bought on their behalf); RM/RR limited to the selected use; 30-day free comp use.",
+      "claim_ids": [
+        "doc-getty-eula-c009",
+        "doc-getty-eula-c010",
+        "doc-getty-eula-c028",
+        "doc-getty-eula-c014"
+      ]
+    },
+    "ai_training_rights": {
+      "value": "None granted. No ML/AI use of content or metadata; 'Training' (develop, fine-tune, evaluate, incl. indirectly via a third-party AI tool) is excluded; only internal AI archiving/search/indexing and permitted editing of creative content allowed; no face-recognition use; training needs go to a sales rep.",
+      "claim_ids": [
+        "doc-getty-eula-c015",
+        "doc-getty-eula-c016",
+        "doc-getty-eula-c017",
+        "doc-getty-eula-c018",
+        "doc-getty-eula-c019",
+        "doc-getty-eula-c020",
+        "doc-getty-eula-c021",
+        "doc-getty-eula-c022",
+        "doc-getty-eula-c023"
+      ]
+    },
+    "field_of_use": {
+      "value": "Editorial content limited to descriptive/news use and barred from commercial, advertising and merchandising; RM/RR limited to the specific use, medium, period, print run and territory selected.",
+      "claim_ids": [
+        "doc-getty-eula-c011",
+        "doc-getty-eula-c012",
+        "doc-getty-eula-c013"
+      ]
+    },
+    "territory": {
+      "value": "RF worldwide; RM/RR limited to the territory selected.",
+      "claim_ids": [
+        "doc-getty-eula-c007",
+        "doc-getty-eula-c011"
+      ]
+    },
+    "term_duration": {
+      "value": "RF perpetual; RM/RR limited to the period selected; ends on termination for breach.",
+      "claim_ids": [
+        "doc-getty-eula-c006",
+        "doc-getty-eula-c011",
+        "doc-getty-eula-c046"
+      ]
+    },
+    "exclusivity": {
+      "value": "Non-exclusive: Getty Images can license the same content to other customers.",
+      "claim_ids": [
+        "doc-getty-eula-c008"
+      ]
+    },
+    "sublicensing": {
+      "value": "Non-transferable and non-sublicensable; employer/client of purchaser may use; RF limited to 10 users in one legal entity (UltraPack lifts this); raw file only within the entity and its subcontractors, who must be bound by the agreement.",
+      "claim_ids": [
+        "doc-getty-eula-c027",
+        "doc-getty-eula-c028",
+        "doc-getty-eula-c029",
+        "doc-getty-eula-c030",
+        "doc-getty-eula-c031",
+        "doc-getty-eula-c032"
+      ]
+    },
+    "derivatives_and_model_outputs": {
+      "value": "Editing permitted (editorial only for technical quality) but warranties and indemnity exclude licensee modifications; no model derivatives since training is barred; outputs of Getty's own AI Generator are covered by the Section 10(b) indemnity unless the user's prompts/inputs include real people, marks or art.",
+      "claim_ids": [
+        "doc-getty-eula-c039",
+        "doc-getty-eula-c019",
+        "doc-getty-eula-c057",
+        "doc-getty-eula-c067",
+        "doc-getty-eula-c024",
+        "doc-getty-eula-c025"
+      ]
+    },
+    "attribution": {
+      "value": "Credit required for editorial use (adjacent or in production credits); not required for commercial use.",
+      "claim_ids": [
+        "doc-getty-eula-c040",
+        "doc-getty-eula-c041"
+      ]
+    },
+    "audit_rights": {
+      "value": "Getty Images may demand sample end uses (incl. paywall access), audit the licensee's records itself or via a third party, and recover audit costs if underpayment is 5% or more; it also monitors downloads.",
+      "claim_ids": [
+        "doc-getty-eula-c042",
+        "doc-getty-eula-c043",
+        "doc-getty-eula-c044",
+        "doc-getty-eula-c045"
+      ]
+    },
+    "deletion_on_termination": {
+      "value": "On termination for breach the licensee must stop use, delete or destroy all copies and confirm in writing on request.",
+      "claim_ids": [
+        "doc-getty-eula-c046",
+        "doc-getty-eula-c047"
+      ]
+    },
+    "warranties_by_provider": {
+      "value": "Getty Images (not the supplier) warrants no copyright/moral-rights infringement for use as delivered, excluding 'access only'/'handout' content and licensee modifications; otherwise 'as is'; no warranty on captions or metadata.",
+      "claim_ids": [
+        "doc-getty-eula-c056",
+        "doc-getty-eula-c057",
+        "doc-getty-eula-c062",
+        "doc-getty-eula-c063"
+      ]
+    },
+    "consent_and_release_warranty": {
+      "value": "Getty Images warrants no privacy/publicity violation for non-editorial RF content, and for RM/RR only where it notifies that a model/property release exists; no releases for editorial content; no warranty on depicted people otherwise; licensee indemnifies for failing to obtain a required release; release documents are not provided under the text.",
+      "claim_ids": [
+        "doc-getty-eula-c058",
+        "doc-getty-eula-c059",
+        "doc-getty-eula-c060",
+        "doc-getty-eula-c061",
+        "doc-getty-eula-c065",
+        "doc-getty-eula-c038"
+      ]
+    },
+    "indemnity": {
+      "value": "Mutual: licensee indemnifies Getty for out-of-scope use, breach and missing releases; Getty indemnifies licensee for breach of its Section 9 warranties, excluding licensee modifications, context of use and continued use after notice of a claim; also extends to Getty AI Generator output.",
+      "claim_ids": [
+        "doc-getty-eula-c065",
+        "doc-getty-eula-c066",
+        "doc-getty-eula-c067",
+        "doc-getty-eula-c068",
+        "doc-getty-eula-c069",
+        "doc-getty-eula-c024",
+        "doc-getty-eula-c025"
+      ]
+    },
+    "liability_cap": {
+      "value": "Excludes lost profits and indirect/consequential damages; no monetary cap on liability or indemnity was found in the text as read.",
+      "claim_ids": [
+        "doc-getty-eula-c070"
+      ]
+    },
+    "payment_and_revenue_share": {
+      "value": "Licensee pays fees plus all taxes; 1.5%/month late charge; no refunds after 30 days or for subscriptions; auto-renewing subscriptions; no revenue share in this buyer-side document.",
+      "claim_ids": [
+        "doc-getty-eula-c052",
+        "doc-getty-eula-c053",
+        "doc-getty-eula-c054",
+        "doc-getty-eula-c055"
+      ]
+    },
+    "takedown_and_erasure": {
+      "value": "Getty may stop licensing any item at will; on a possible infringement claim it may require the licensee, its clients, distributors and employer to stop use and delete all copies at their own cost, with free replacement content and no stated refund.",
+      "claim_ids": [
+        "doc-getty-eula-c048",
+        "doc-getty-eula-c049",
+        "doc-getty-eula-c050",
+        "doc-getty-eula-c051"
+      ]
+    },
+    "governing_law": {
+      "value": "New York law; confidential arbitration (ICDR or JAMS outside North America) at the nearest listed seat (nearest to India: Singapore); Getty may go to court for IP injunctions.",
+      "claim_ids": [
+        "doc-getty-eula-c071",
+        "doc-getty-eula-c072",
+        "doc-getty-eula-c073",
+        "doc-getty-eula-c074"
+      ]
+    },
+    "change_of_terms": {
+      "value": "Changes only by mutual written acceptance or electronically issued by Getty and accepted by the licensee; agreement overrides purchase orders; Getty may assign freely.",
+      "claim_ids": [
+        "doc-getty-eula-c075",
+        "doc-getty-eula-c076",
+        "doc-getty-eula-c077"
+      ]
+    },
+    "prohibited_uses": {
+      "value": "No AI/ML or face-identification use, standalone redistribution, trademark/logo use, resale templates, on-demand products, NFTs (editorial and RR video), unlawful/pornographic/defamatory use; sensitive-subject uses must be labelled illustrative with a model.",
+      "claim_ids": [
+        "doc-getty-eula-c015",
+        "doc-getty-eula-c016",
+        "doc-getty-eula-c033",
+        "doc-getty-eula-c034",
+        "doc-getty-eula-c035",
+        "doc-getty-eula-c036",
+        "doc-getty-eula-c037",
+        "doc-getty-eula-c038",
+        "doc-getty-eula-c013"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "doc-getty-eula-c001",
+      "statement": "The Getty Images Content License Agreement is a licence between the customer ('you') and Getty Images governing use of photos, illustrations, vectors and video.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "This is a licence agreement between you and Getty Images that explains how you can use photos"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c002",
+      "statement": "The Getty Images entity that acts as licensor is determined by the customer's billing address, per a separate licensing-entities chart.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The Getty Images licensing entity under this agreement is determined based on your billing address"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c003",
+      "statement": "The agreement states that all licensed content is owned either by Getty Images or by its content suppliers, yet Getty Images is the licensing party.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All the licensed content is owned by either Getty Images or its content suppliers."
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c004",
+      "statement": "All rights not expressly granted are reserved by Getty Images and the content suppliers.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "All rights not expressly granted in this agreement are reserved by Getty Images and the content suppliers."
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c005",
+      "statement": "Getty Images offers three licence models under the agreement: royalty-free (RF), rights-ready (RR) and rights-managed (RM).",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Getty Images offers three types of licence models: royalty-free (\"RF\"), rights-ready (\"RR\") and rights-managed (\"RM\")."
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c006",
+      "statement": "Royalty-free licences are perpetual, with no expiry or end date on the licensee's rights to use the content.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Perpetual, meaning there is no expiry or end date on your rights to use the content."
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c007",
+      "statement": "Royalty-free licences are worldwide, allowing use in any geographic territory.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Worldwide, meaning content can be used in any geographic territory."
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c008",
+      "statement": "Licences are non-exclusive: the licensee gets no exclusive rights and Getty Images can license the same content to other customers.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you do not have exclusive rights to use the content. Getty Images can license the same content to other customers"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c009",
+      "statement": "Royalty-free content may be used an unlimited number of times.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Unlimited, meaning content can be used an unlimited number of times"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c010",
+      "statement": "Royalty-free content may be used in any and all media, including print and digital.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Any and all media, meaning content can be used in print, in digital or in any other medium or format"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c011",
+      "statement": "Rights-managed and rights-ready licences are limited to the specific use, medium, period, print run, placement, size and territory selected.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Limited to the specific use, medium, period of time, print run, placement, size of content and territory selected"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c012",
+      "statement": "Content marked editorial is intended for descriptive purposes such as news reporting and discussion of current events.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "primarily intended to be used for editorial purposes, meaning descriptive purposes such as news reporting"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c013",
+      "statement": "Content marked editorial may not be used for commercial, promotional, advertorial, endorsement, advertising or merchandising purposes.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you may not use content marked \"editorial\" or \"intended for editorial\" for any commercial, promotional, advertorial"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c014",
+      "statement": "Content may be used free of charge for test or sample (comp) use only, for up to 30 days after download.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "on a complimentary basis for test or sample (composite or comp) use only, for up to 30 days following download"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c015",
+      "statement": "The licensee may not use content, including its captions, keywords or other metadata, for any machine learning or artificial intelligence purposes.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "metadata associated with content) for any machine learning and/or artificial intelligence purposes"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c016",
+      "statement": "The licensee may not use content for any technology designed or intended for identifying natural persons.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "or for any technologies designed or intended for the identification of natural persons"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c017",
+      "statement": "As an exception, AI technology may be used with creative (non-editorial) content only for a closed list of purposes.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you may use artificial intelligence technology in connection with creative (non-editorial) content solely for:"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c018",
+      "statement": "The first permitted AI use is internal archiving, searching, indexing or sorting of creative content.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "internal use in connection with archiving, searching, indexing, or sorting creative content"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c019",
+      "statement": "The second permitted AI use is any otherwise-permitted editing of licensed creative content.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "(ii) any permitted editing of licensed creative content"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c020",
+      "statement": "The permitted AI uses expressly exclude training, fine-tuning or other data ingestion into any ML/AI model, including generative training.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "do not allow for use in connection with any training, fine-tuning or other data ingestion of any machine learning"
+        },
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "artificial intelligence models, including, for example, any generative training technology"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c021",
+      "statement": "'Training' is defined to include indirect use, such as uploading licensed content to a third-party AI tool that acquires rights in it.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "directly or indirectly (for example, by uploading to a third-party AI tool that acquires rights)"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c022",
+      "statement": "'Training' is defined to cover using content to develop, build, improve, fine-tune, optimise, evaluate or enhance any ML/AI technology.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "to develop, build, improve, fine-tune, optimise, evaluate or otherwise create or enhance any machine learning"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c023",
+      "statement": "Customers with training needs are told to contact a Getty Images representative, i.e. training rights sit outside this standard licence.",
+      "kind": "terms",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q8",
+        "Q9",
+        "Q12"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If you have any content training needs, please reach out to your Getty Images' representative."
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c024",
+      "statement": "Getty Images' Section 10(b) indemnity, with its limitations, applies to content generated with Getty's own AI Generator, including from a user's reference image.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the indemnity set forth in Section 10(b) (and any limitations thereto) will apply to all content generated with the AI"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c025",
+      "statement": "The AI Generator indemnity does not apply where the claim results from the user's prompts or inputs containing real people's names or likeness, trademarks, logos or works of art.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "do not apply to the extent the claim is a result of prompts or inputs (e.g., a reference image uploaded by you)"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c026",
+      "statement": "The licensee may not claim revenue from a collecting society, social platform, AI service or other third party for secondary uses of licensed content.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You may not assert any right to revenue from a collecting society, social media website, content sharing platform, AI service"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c027",
+      "statement": "The rights granted are non-transferable and non-sublicensable.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The rights granted to you are non-transferable and non-sublicensable"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c028",
+      "statement": "A licensee purchasing on behalf of an employer or client may let that employer or client use the content, and warrants authority to bind them.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If you are purchasing on behalf of your employer or client, then your employer or client can use the content."
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c029",
+      "statement": "For royalty-free content, up to 10 individuals in total, all from the same legal entity, may use an item of content.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Up to 10 individuals (total, not at any given time) may use an item of content"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c030",
+      "statement": "The raw file may not be given to anyone outside the licensee's legal entity other than its subcontractors.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The raw file of content may not be provided to anyone outside of your legal entity"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c031",
+      "statement": "Subcontractors and distributors used in production or distribution must agree to be bound by the agreement and use content for no other purpose.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "These subcontractors and distributors must agree to be bound by the terms of this agreement"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c032",
+      "statement": "Buying an UltraPack lifts the sharing and storage restrictions for users within the same legal entity.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If you purchase an UltraPack, sharing and storage restrictions do not apply"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c033",
+      "statement": "Content may not be used in a way that lets others download, extract or redistribute it as a standalone file.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You may not use content in any way that allows others to download, extract or redistribute content as a standalone file"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c034",
+      "statement": "Content may not be used as the distinctive feature of a trademark, trade name or logo.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "may not use content (in whole or in part) as the distinctive or distinguishing feature of a trademark"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c035",
+      "statement": "Editorial content and rights-ready video may not be used with immutable digital assets such as NFTs intended for sale or distribution.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "any rights-ready video content in connection with an immutable digital asset intended for sale or other distribution"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c036",
+      "statement": "Content may not be used in electronic or digital templates intended for resale or other distribution.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you may not use content in electronic or digital templates intended for resale or other distribution"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c037",
+      "statement": "Content may not be used in a pornographic, defamatory or other unlawful manner.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You may not use content in a pornographic, defamatory or other unlawful manner"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c038",
+      "statement": "When content with models is used on an unflattering or controversial subject, the licensee must state it is illustrative and the person shown is a model.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "(1) that the content is being used for illustrative purposes only, and (2) any person depicted in the content is a model"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c039",
+      "statement": "Editorial content may be cropped or edited only for technical quality, without compromising its editorial integrity.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "edited for technical quality, provided that the editorial integrity of the content is not compromised"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c040",
+      "statement": "Editorial use requires a credit adjacent to the content or in production credits.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "if you are using content for editorial purposes, you must include a credit adjacent to the content or in production credits"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c041",
+      "statement": "No photo credit is required for commercial use.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You do not need to include a photo credit for commercial use"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c042",
+      "statement": "On reasonable notice the licensee must provide sample copies of end uses containing licensed content, including free access to paywalled sites.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you agree to provide to Getty Images sample copies of projects or end uses that contain licensed content"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c043",
+      "statement": "On reasonable notice Getty Images may audit the licensee's records itself or through a third party to verify compliance.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Getty Images may, at its discretion, either through its own employees or through a third party, audit your records"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c044",
+      "statement": "If an audit finds underpayment of 5% or more, the licensee pays the shortfall and reimburses Getty Images' audit costs.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If any audit reveals an underpayment by you to Getty Images of five percent (5%) or more"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c045",
+      "statement": "Getty Images reserves the right to monitor downloads and user activity to check compliance.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Getty Images reserves the right to monitor downloads and user activity to ensure compliance"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c046",
+      "statement": "Getty Images may terminate the agreement at any time if the licensee breaches it or any other agreement with Getty Images.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Getty Images may terminate this agreement at any time if you breach any of the terms of this or any other agreement"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c047",
+      "statement": "On termination the licensee must immediately stop using the content, delete or destroy all copies, and confirm in writing if asked.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you must immediately: cease using the content; delete or destroy any copies"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c048",
+      "statement": "Getty Images may discontinue licensing any item of content at any time in its sole discretion.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Getty Images may discontinue licensing any item of content at any time in its sole discretion."
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c049",
+      "statement": "If content may be subject to an infringement claim, Getty Images may require the licensee to stop using it and delete all copies, at the licensee's own expense.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Getty Images may require you to immediately, and at your own expense: cease using the content, delete or destroy any copies"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c050",
+      "statement": "The takedown obligation extends to the licensee's clients, distributors and employer, whom the licensee must ensure also stop use and delete.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "and ensure that your clients, distributors and/or employer do likewise"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c051",
+      "statement": "After such a takedown Getty Images provides replacement content of its own choosing free of charge; no refund is stated.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "replacement content (determined by Getty Images in its reasonable commercial judgment) free of charge"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c052",
+      "statement": "Getty Images may add a service charge of 1.5% per month on unpaid invoice balances.",
+      "kind": "number",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": {
+        "num": 1.5,
+        "unit": "percent",
+        "basis": "service charge on the licensee's unpaid invoice balance, or a lower legal maximum",
+        "period": "per month"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Getty Images may add a service charge of 1.5% per month, or such lesser amount as is allowed by law, on any unpaid balance"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c053",
+      "statement": "The licensee bears all sales, use, value-added and withholding taxes and duties.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You agree to pay and be responsible for any and all sales taxes, use taxes, value-added taxes, withholding taxes and duties"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c054",
+      "statement": "No credits or refunds are given for cancellations more than 30 days after receipt of content, and subscription fees are non-refundable.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "No credits or refunds are available for cancellation requests received more than 30 days from your receipt of content"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c055",
+      "statement": "Subscriptions set to auto-renew are charged at the then-applicable rate on expiry.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "if your subscription is set to AUTOMATICALLY RENEW, you authorise Getty Images to charge"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c056",
+      "statement": "Getty Images warrants that use of licensed content as delivered and per the agreement will not infringe copyright or moral rights, except content marked 'access only' or 'handout'.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "For all licensed content (excluding content marked \"access only\" or \"handout\"), Getty Images warrants"
+        },
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "will not infringe on any copyrights or moral rights of the content owner/creator"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c057",
+      "statement": "Getty Images' warranties exclude any modifications, overlays or re-focussing done by the licensee.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "excluding any modifications, overlays or re-focussing done by you"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c058",
+      "statement": "For royalty-free content not marked editorial, Getty Images warrants that use will not violate any right of privacy or publicity or infringe trademarks.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "For licensed royalty-free content (excluding content marked \"editorial\" or \"intended for editorial\"), Getty Images"
+        },
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "and will not violate any right of privacy or right of publicity"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c059",
+      "statement": "For rights-managed and rights-ready content, the privacy/publicity warranty applies only where Getty Images specifically notifies that a model or property release was obtained.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "where Getty Images specifically notifies you that a model and/or property release has been obtained"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c060",
+      "statement": "Beyond those warranties, Getty Images gives no right or warranty regarding names, people, trademarks, logos, art or architecture depicted.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Getty Images does not grant any right or make any warranty with regard to the use of names, people, trademarks"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c061",
+      "statement": "The licensee acknowledges that releases are generally not obtained for content identified as editorial.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "no releases are generally obtained for content identified as \"editorial\" or \"intended for editorial\""
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c062",
+      "statement": "Apart from the stated warranties, content is provided 'as is' without any warranty, including merchantability or fitness for purpose.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the content is provided \"as is\" without representation, warranty or condition of any kind"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c063",
+      "statement": "Getty Images does not warrant the accuracy of captions, keywords or other metadata supplied with content.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Getty Images does not warrant the accuracy of such information, or of any metadata provided with the content"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c064",
+      "statement": "The licensee is solely responsible for any authorisations and fees required to use content depicting culturally important artwork, architecture or landscapes.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You will be solely responsible for obtaining such authorisations and remitting such fees."
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c065",
+      "statement": "The licensee indemnifies Getty Images for use outside the agreement's scope, for breaches, and for failing to obtain any required release.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "your use of any content outside the scope of this agreement"
+        },
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "your failure to obtain any required release for your use of content"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c066",
+      "statement": "Getty Images indemnifies the licensee for any breach or alleged breach of Getty Images' Section 9 warranties.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "any breach or alleged breach by Getty Images of its warranties in Section 9 above"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c067",
+      "statement": "Getty Images' indemnity does not cover losses arising from the licensee's modifications or the context in which the licensee uses content.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "arise out of or are a result of modifications made by you to the content or the context in which the content is used by you"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c068",
+      "statement": "Getty Images' indemnity does not cover continued use after notice, or knowledge, that content is subject to an infringement claim.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "This indemnification also does not apply to your continued use of content following notice from Getty Images"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c069",
+      "statement": "The indemnifying party may take over the handling, settlement or defence of the claim.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The indemnifying party (the one covering the costs) has the right to assume the handling, settlement, or defence"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c070",
+      "statement": "Getty Images and its licensors exclude liability for lost profits and punitive, special, indirect, consequential or incidental damages.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "WILL NOT BE LIABLE TO YOU OR ANY OTHER PERSON OR ENTITY FOR ANY LOST PROFITS, PUNITIVE, SPECIAL, INDIRECT, CONSEQUENTIAL"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c071",
+      "statement": "The agreement is governed by New York law, without regard to conflict-of-laws rules.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "governed by the laws of the State of New York, USA, without reference to its laws relating to conflicts of law"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c072",
+      "statement": "Disputes go to binding confidential arbitration; customers outside North America choose ICDR or JAMS rules.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "if you are outside of North America: the International Centre for Dispute Resolution (\"ICDR\") or JAMS"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c073",
+      "statement": "The arbitration seat is whichever listed city is closest to the customer; the list ends with Sydney, Tokyo and Singapore and does not include any Indian city.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Milan, Italy; Sydney, Australia; Tokyo, Japan; or Singapore"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c074",
+      "statement": "Getty Images keeps the right to go to any competent court for injunctive or other relief to protect its intellectual property.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Getty Images shall have the right to commence and prosecute any legal or equitable action or proceeding before any court"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c075",
+      "statement": "Terms may be added or deleted only in writing accepted by both parties, or when issued electronically by Getty Images and accepted by the licensee.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "unless made in writing and accepted in writing by both parties, or issued electronically by Getty Images and accepted by you"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c076",
+      "statement": "The agreement prevails over any conflicting terms on a licensee's purchase order.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the terms contained on any purchase order sent by you, the terms of this agreement will apply"
+        }
+      ]
+    },
+    {
+      "id": "doc-getty-eula-c077",
+      "statement": "Getty Images may assign the agreement without notice or consent to an affiliate or successor; the licensee needs Getty's written consent.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Getty Images Content License Agreement",
+        "tier": "",
+        "region": "gettyimages.in"
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-04",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.gettyimages.in/eula",
+          "publisher": "Getty Images",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Getty Images may assign this agreement, without notice or consent, to any corporate affiliate"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "other.liability_cap_amount",
+      "urls_tried": [
+        "https://www.gettyimages.in/eula"
+      ],
+      "reason": "not_published",
+      "note": "The AI Generator clause refers to 'any limitations' of the Section 10(b) indemnity, but no monetary cap was found; the page returns HTTP 403 to the text extractor, so this rests on WebFetch reads."
+    },
+    {
+      "field": "other.end_uses_published_before_takedown",
+      "urls_tried": [
+        "https://www.gettyimages.in/eula"
+      ],
+      "reason": "not_published",
+      "note": "The takedown clause requires ceasing use and deleting copies but does not say whether end uses already published or distributed may remain."
+    },
+    {
+      "field": "other.release_documents_to_buyer",
+      "urls_tried": [
+        "https://www.gettyimages.in/eula"
+      ],
+      "reason": "not_published",
+      "note": "Consent of people depicted is covered only by Getty's warranty; the agreement does not provide for model releases to be given to the buyer."
+    },
+    {
+      "field": "other.data_subject_erasure",
+      "urls_tried": [
+        "https://www.gettyimages.in/eula"
+      ],
+      "reason": "not_published",
+      "note": "No clause on personal data, data-protection requests or erasure at the request of a person depicted."
+    },
+    {
+      "field": "other.exclusive_licence_option",
+      "urls_tried": [
+        "https://www.gettyimages.in/eula"
+      ],
+      "reason": "not_published",
+      "note": "The agreement states licences are non-exclusive; it does not say whether exclusivity can be bought separately."
+    },
+    {
+      "field": "other.ai_training_licence_terms",
+      "urls_tried": [
+        "https://www.gettyimages.in/eula"
+      ],
+      "reason": "not_published",
+      "note": "Training rights are referred to a Getty Images representative; their terms are not published in this document."
+    }
+  ]
+}

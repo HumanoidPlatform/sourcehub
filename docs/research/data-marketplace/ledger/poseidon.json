@@ -1,0 +1,5085 @@
+{
+  "kind": "profile",
+  "slug": "poseidon",
+  "name": "Poseidon",
+  "aliases": [
+    "Poseidon AI, Inc.",
+    "psdn.ai",
+    "Numo (its collection app)"
+  ],
+  "segment": "vision_physical_ai",
+  "tier": "deep",
+  "status": {
+    "value": "active",
+    "claim_id": "poseidon-c001"
+  },
+  "names_for": {
+    "catalogue_side": "\"The Datasets\" / \"datasets\" (\"Browse what exists, sample it on Hugging Face\"); on Numo, \"public slices land in the catalog, where anyone can evaluate them\"",
+    "custom_side": "\"custom data campaigns\" / \"Private data collection campaigns built to your specifications\", requested through the \"Custom Dataset Form\" (nav: \"request dataset\"; CTA \"Need something custom?\")"
+  },
+  "matrix": {
+    "operator_role": {
+      "value": "reseller_licensor",
+      "claim_ids": [
+        "poseidon-c086",
+        "poseidon-c085",
+        "poseidon-c087",
+        "poseidon-c071",
+        "poseidon-c032"
+      ],
+      "note": "Contributors grant Poseidon AI, Inc. an exclusive (for AI uses), sublicensable, perpetual licence, and Poseidon licenses data onward to business customers; listings carry a Poseidon 'Non-exclusive license'. No buyer licence text is published, and no third-party provider listings were found."
+    },
+    "economics_model": {
+      "value": "principal_margin",
+      "claim_ids": [
+        "poseidon-c053",
+        "poseidon-c105",
+        "poseidon-c086",
+        "poseidon-c090",
+        "poseidon-c036"
+      ],
+      "note": "Poseidon pays crowd contributors per accepted clip, holds an exclusive licence (with a buy-out option), and sells datasets and custom collections at unpublished prices. Its margin is not published."
+    },
+    "who_pays_fee": {
+      "value": "not_applicable",
+      "claim_ids": [],
+      "note": "No marketplace fee layer: Poseidon sells its own licensed data; there are no third-party sellers paying a commission."
+    },
+    "supply_models": {
+      "value": [
+        "own_collection"
+      ],
+      "claim_ids": [
+        "poseidon-c015",
+        "poseidon-c053",
+        "poseidon-c020",
+        "poseidon-c046",
+        "poseidon-c064"
+      ],
+      "note": "All listed inventory is Poseidon's own collection: Numo crowd tasks, a vetted 'pro corps', workforce partners and factory relationships, and a 'commissioned collection program' for Bangla-10K (who commissioned it is not stated). A studio motion-capture set [c151] is not phone capture and its origin (own shoot or partner) is not stated. The 2025 litepaper pitched third-party (DePIN) supply [c131], but no such listings were seen."
+    },
+    "custody_model": {
+      "value": "platform_hosted",
+      "claim_ids": [
+        "poseidon-c049",
+        "poseidon-c041",
+        "poseidon-c024"
+      ],
+      "note": "Samples sit in Poseidon's gated Hugging Face repos; the Bangla-10K core corpus is read with R2 credentials Poseidon issues under the data-use agreement. Custom deliveries are 'in the format your pipeline expects' and the transfer mechanism is not published."
+    },
+    "transaction_mode": {
+      "value": "contact_sales",
+      "claim_ids": [
+        "poseidon-c036",
+        "poseidon-c069",
+        "poseidon-c052",
+        "poseidon-c136"
+      ],
+      "note": "Listings end in 'Request access' to a contact form; no checkout."
+    },
+    "public_prices": {
+      "value": "none",
+      "claim_ids": [
+        "poseidon-c036",
+        "poseidon-c069"
+      ],
+      "note": "No price appears on listings, the catalogue, the contact form or any page fetched."
+    },
+    "licence_model": {
+      "value": "mixed",
+      "claim_ids": [
+        "poseidon-c032",
+        "poseidon-c040",
+        "poseidon-c047",
+        "poseidon-c048"
+      ],
+      "note": "Listings state 'Non-exclusive license'; Hugging Face samples use a custom 'poseidon-sample-preview' tag; Bangla-10K mixes a CC BY 4.0 preview with a data-use agreement for the core. The text of the paid licence is not public."
+    },
+    "exclusivity_offered": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Listings say non-exclusive; custom collections 'go to the buyer who specified them', but no source says whether that buyer gets exclusive rights."
+    },
+    "public_listing": {
+      "value": "public_summary_gated_detail",
+      "claim_ids": [
+        "poseidon-c032",
+        "poseidon-c035",
+        "poseidon-c041",
+        "poseidon-c036"
+      ],
+      "note": "Listing pages with specs and metadata fields are public; sample files need a Hugging Face login and contact sharing; the full data needs a request."
+    },
+    "buyer_vetting": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "Hugging Face gating collects contact details for samples; nothing is published on checks before a sale."
+    },
+    "sample_mechanics": {
+      "value": "free_sample_download",
+      "claim_ids": [
+        "poseidon-c041",
+        "poseidon-c033",
+        "poseidon-c047",
+        "poseidon-c062"
+      ],
+      "note": "2-3 clip samples downloadable free after the Hugging Face contact gate; Bangla-10K has an 849-hour CC BY preview; custom campaign buyers receive a sample dataset before committing to volume."
+    },
+    "versioning": {
+      "value": "unknown",
+      "claim_ids": [],
+      "note": "No version, revision or entitlement policy found."
+    },
+    "human_subject_consent_docs": {
+      "value": "asserted_only",
+      "claim_ids": [
+        "poseidon-c028",
+        "poseidon-c050",
+        "poseidon-c096",
+        "poseidon-c135"
+      ],
+      "note": "Buyers are told data was 'Collected with consent'; contributors warrant they hold all consents; no consent or release documents are offered to buyers on any page seen."
+    },
+    "contributor_pay_model": {
+      "value": "one_off",
+      "claim_ids": [
+        "poseidon-c053",
+        "poseidon-c105",
+        "poseidon-c109",
+        "poseidon-c086",
+        "poseidon-c094"
+      ],
+      "note": "Paid per clip that passes QC (USD Confirmed Balance, paid quarterly above USD 25), plus a possible one-off buy-out; the licence is royalty-free, so no share of dataset sales."
+    },
+    "catalogue_plus_custom": {
+      "value": "both",
+      "claim_ids": [
+        "poseidon-c014",
+        "poseidon-c065",
+        "poseidon-c017",
+        "poseidon-c030"
+      ],
+      "note": ""
+    },
+    "erasure_after_sale": {
+      "value": "takedown_only",
+      "claim_ids": [
+        "poseidon-c076",
+        "poseidon-c118"
+      ],
+      "note": "Privacy Notice: withdrawal stops future publications but Poseidon 'cannot guarantee removal from datasets already downloaded by third parties'. This is stated for published data; the paid buyer licence's deletion terms are not public. A Feb 2026 blog post claims revocation can block downstream workflows [c140] (see conflicts)."
+    },
+    "quality_evidence": {
+      "value": "operator_verified",
+      "claim_ids": [
+        "poseidon-c021",
+        "poseidon-c057",
+        "poseidon-c059",
+        "poseidon-c051",
+        "poseidon-c137",
+        "poseidon-c023"
+      ],
+      "note": "Poseidon is both operator and sole provider; its QC claims (clip-level QC, rejection, data card, Poseidon Score) are its own and not independently audited."
+    }
+  },
+  "questions": {
+    "Q1": {
+      "state": "partial",
+      "answer": "Poseidon says it serves frontier AI teams, sovereign AI programmes such as Sahabat-AI and foundation model companies, starting with egocentric robotics data; it names no customers, volumes or prices. Its only reason for catalogue versus custom is that 'most engagements blend both'.",
+      "claim_ids": [
+        "poseidon-c026",
+        "poseidon-c141",
+        "poseidon-c010",
+        "poseidon-c014",
+        "poseidon-c134"
+      ]
+    },
+    "Q2": {
+      "state": "partial",
+      "answer": "Poseidon runs its own site and uses Hugging Face only as a gated, free sample window. Its 2025 litepaper pitched an open marketplace for third-party suppliers, but no third-party listings were found. It also runs collection inside partner workforce platforms.",
+      "claim_ids": [
+        "poseidon-c027",
+        "poseidon-c041",
+        "poseidon-c123",
+        "poseidon-c131",
+        "poseidon-c063"
+      ]
+    },
+    "Q3": {
+      "state": "sourced",
+      "answer": "Inventory is Poseidon's own collection through its Numo app (crowd and vetted 'pro corps'), workforce partners and factory relationships. Contributors grant an exclusive-for-AI, perpetual, sublicensable licence and Poseidon holds a buy-out option; Bangla-10K came from a 'commissioned collection program'.",
+      "claim_ids": [
+        "poseidon-c015",
+        "poseidon-c053",
+        "poseidon-c020",
+        "poseidon-c064",
+        "poseidon-c086",
+        "poseidon-c087",
+        "poseidon-c090",
+        "poseidon-c046"
+      ]
+    },
+    "Q4": {
+      "state": "partial",
+      "answer": "Custom collections go to the buyer who specified them; 'public slices' go into the catalogue. How resale rights are split is not published. The Aug 2026 Terms added a buy-out option and USD payouts to a 2025 text that was already exclusive. No dispute was found.",
+      "claim_ids": [
+        "poseidon-c065",
+        "poseidon-c002",
+        "poseidon-c004",
+        "poseidon-c005",
+        "poseidon-c090",
+        "poseidon-c143",
+        "poseidon-c120"
+      ]
+    },
+    "Q5": {
+      "state": "partial",
+      "answer": "Poseidon AI, Inc. is licensee and, by inference, licensor of record: contributors warrant consents, owe no-one else anything, and indemnify Poseidon. Poseidon disclaims warranties and caps liability to users at USD 100. What it warrants to buyers is unpublished.",
+      "claim_ids": [
+        "poseidon-c079",
+        "poseidon-c086",
+        "poseidon-c096",
+        "poseidon-c097",
+        "poseidon-c117",
+        "poseidon-c115",
+        "poseidon-c116",
+        "poseidon-c071"
+      ]
+    },
+    "Q6": {
+      "state": "partial",
+      "answer": "Samples are hosted on gated Hugging Face repos. The Bangla-10K core corpus is read with R2 credentials under a data-use agreement, and custom data is delivered 'in the format your pipeline expects'. The 2025 litepaper envisioned Story IP Vault access for licence holders.",
+      "claim_ids": [
+        "poseidon-c041",
+        "poseidon-c049",
+        "poseidon-c024",
+        "poseidon-c037",
+        "poseidon-c126"
+      ]
+    },
+    "Q7": {
+      "state": "partial",
+      "answer": "Capturer: exclusive licence plus a warranty of all consents. Depicted people: a ban on privacy-invasive content, plus explicit in-app consent for biometric content, which may be licensed to AI firms that extract face geometry and voiceprints. Buyers get only assertions. Property owners are not addressed.",
+      "claim_ids": [
+        "poseidon-c096",
+        "poseidon-c097",
+        "poseidon-c098",
+        "poseidon-c073",
+        "poseidon-c072",
+        "poseidon-c028",
+        "poseidon-c050",
+        "poseidon-c061",
+        "poseidon-c151"
+      ]
+    },
+    "Q8": {
+      "state": "partial",
+      "answer": "Listings are non-exclusive; previews use CC BY or a custom sample tag; core data is under a data-use agreement. Poseidon registers contributions as IP on Story, and its 2025 litepaper proposed fingerprinting. No buyer licence, audit or leakage terms are public.",
+      "claim_ids": [
+        "poseidon-c032",
+        "poseidon-c040",
+        "poseidon-c047",
+        "poseidon-c048",
+        "poseidon-c011",
+        "poseidon-c148",
+        "poseidon-c127",
+        "poseidon-c076"
+      ]
+    },
+    "Q9": {
+      "state": "sourced",
+      "answer": "Every sale goes through contact sales ('Request access' to a form with no price field). Poseidon acts as principal: it pays contributors per clip that passes QC and sells at unpublished prices. The litepaper's vision of bidding on on-chain licences is not live on the site.",
+      "claim_ids": [
+        "poseidon-c036",
+        "poseidon-c069",
+        "poseidon-c136",
+        "poseidon-c053",
+        "poseidon-c104",
+        "poseidon-c124"
+      ]
+    },
+    "Q10": {
+      "state": "partial",
+      "answer": "A listing is a spec sheet plus a 2-3 clip Hugging Face sample. Datasets and contributions are registered as IP assets on Story, and releases bundle media, transcripts, scores and annotations. Orders, entitlements, versions and withdrawals are undocumented.",
+      "claim_ids": [
+        "poseidon-c035",
+        "poseidon-c033",
+        "poseidon-c011",
+        "poseidon-c124",
+        "poseidon-c138",
+        "poseidon-c037"
+      ]
+    },
+    "Q11": {
+      "state": "sourced",
+      "answer": "Before purchase buyers get small free samples (after a contact gate), a CC BY preview for Bangla-10K, and a sample dataset before committing to custom volume. Poseidon also offers per-sample metadata, a data card with rejection criteria, and its own QC and scoring claims.",
+      "claim_ids": [
+        "poseidon-c033",
+        "poseidon-c041",
+        "poseidon-c047",
+        "poseidon-c062",
+        "poseidon-c035",
+        "poseidon-c023",
+        "poseidon-c057",
+        "poseidon-c137"
+      ]
+    },
+    "Q12": {
+      "state": "sourced",
+      "answer": "The ready-made catalogue ('The Datasets') and custom collection ('custom data campaigns') run on the same Numo infrastructure. Most engagements extend a catalogue dataset to spec, custom output goes to its buyer, and 'public slices' feed the catalogue.",
+      "claim_ids": [
+        "poseidon-c014",
+        "poseidon-c017",
+        "poseidon-c065",
+        "poseidon-c030",
+        "poseidon-c033",
+        "poseidon-c018"
+      ]
+    }
+  },
+  "sections": {
+    "positioning": "Poseidon AI, Inc. records skilled people at work and sells the footage as physical-AI datasets [c012][c013]. It says it raised a USD 15M seed round led by a16z crypto and was incubated by Story [c006][c008]. a16z crypto lists it in its portfolio [c007]. Its live team page shows different co-founders from the 2025 announcement [c009]. Its catalogue now leans heavily to speech and also includes Indian-exam Q&A pairs [c029][c031]. It says it serves frontier AI teams and sovereign AI programmes [c026][c141], and all such claims are vendor-stated.",
+    "supply": "Supply is Poseidon's own collection via its Numo app [c015]: open tasks anyone can take, private tasks for recruited groups, and a vetted 'pro corps' [c016][c055][c064]. Contributors capture on phones or on hardware Poseidon ships [c053][c056]. Poseidon also recruits through workforce partners and factory relationships centred on Korea [c020][c067] and runs campaigns inside partner platforms [c063]. Bangla-10K came from a 'commissioned collection program' [c046]. The 2025 litepaper pitched third-party supply from DePIN networks [c131], and none was seen listed.",
+    "object_model": "A listing is a spec sheet (licence, format, frame rate, views) plus metadata fields and a 2-3 clip sample [c034][c035][c033]. Data ships in pipeline formats such as LeRobot [c037]. A voice release bundles audio, transcripts, embeddings, Poseidon Scores and annotations [c138]. Each contribution is registered as an IP asset on Story [c011][c148]. No order, entitlement or version model is published.",
+    "listing": "The public catalogue covers voice, video, 3D and paired text [c029]. Each listing states 'Non-exclusive license' and file specs and ends in 'View samples' and 'Request access' [c032][c036]. Listings name the metadata captured, including a PII-status field [c035].",
+    "discovery": "Buyers browse psdn.ai/datasets or Poseidon's Hugging Face organisation [c044]. Samples there are gated behind contact sharing [c041]. The Privacy Notice says de-identified samples are published on open data platforms [c075].",
+    "trust": "Poseidon asserts consent ('Collected with consent') and rights-clearance at source [c028][c024]. It promises a data card with distribution, hardware and rejection criteria [c023] and distribution tracking [c066]. Consent evidence is not handed to buyers; the contributor warrants all consents instead [c096][c097]. Contributors are proof-of-personhood checked via World [c142].",
+    "transaction": "No checkout exists. Buyers use 'Request access' or the Custom Dataset Form, which asks for organisation, email, modality, volume and what they are training [c036][c069]. Licensing enquiries for Bangla-10K and the voice dataset go to the same contact route [c052][c136]. The litepaper's bid-for-licence marketplace [c124] is not live on the site.",
+    "pricing": "No prices are published anywhere fetched: not on listings, the catalogue, the contact form or the blog [c036][c069]. The only published figures are on the contributor side: the USD 25 payout threshold [c104] and the USD 100 liability cap [c116].",
+    "licence": "Contributors grant Poseidon a royalty-free, sublicensable, perpetual, irrevocable licence that is exclusive for AI uses [c086][c087][c088], and Poseidon holds a buy-out option [c090][c095]. Listings are 'Non-exclusive license' [c032], previews are CC BY 4.0 or 'poseidon-sample-preview' [c047][c040], and core data goes under a data-use agreement [c048]. Poseidon disclaims warranties to users and is indemnified by them [c115][c117].",
+    "custody": "Samples are hosted on Hugging Face [c041]. The Bangla-10K core corpus is read with R2 credentials issued under the data-use agreement [c049]. Custom data is delivered in the buyer's pipeline format [c024]. The 2025 design put data in Story's IP Vault for licence holders [c126].",
+    "vetting": "Every task has acceptance criteria [c054][c081]. QC combines automated checks, human review and anti-fraud screening, and failing clips are rejected [c057][c058][c059]. Poseidon sets quality standards at its sole discretion [c108]. Speech data gets metadata, lexical-diversity and audio checks and a composite Poseidon Score [c051][c137].",
+    "contributor_pay": "Contributors are paid per clip that passes QC [c053][c060]. Pay is accrued as a USD Confirmed Balance [c105] and paid quarterly once it reaches USD 25 [c104][c106], and only where Poseidon's payment provider operates [c107]. Rates are shown in-app per task and vary by geography [c102][c103]. The licence is royalty-free [c086], so there is no share of sales, and a buy-out price is set by Poseidon [c091]. Earnings can be forfeited while the data is kept [c111][c112].",
+    "post_sale": "Deletion is weak. Poseidon need not delete contributions on account closure [c118] and cannot guarantee removal from datasets third parties have already downloaded [c076]. A February 2026 post nonetheless claims revocation can block downstream licensing [c140].",
+    "catalogue_custom": "Poseidon runs one pipeline for both sides. Buyers 'browse what exists' and have Poseidon 'extend it to your spec', and 'most engagements blend both' [c014]. Custom collections go to their buyer, while public slices enter the catalogue [c065]. Listings invite scoping of larger coverage [c033][c038], and custom buyers get a sample dataset before committing to volume [c062].",
+    "changes": "The Terms were revised on 26 August 2026, adding a buy-out option and USD payouts to a 2025 text that already had the exclusive AI licence [c002][c004][c005]. At launch in September 2025 contributors earned only non-transferable points [c143]. Numo launched in early access in April 2026 [c147]. Updated Terms take effect on posting [c120].",
+    "demand": "All demand evidence is vendor-stated: 'frontier AI teams' [c026], sovereign programmes such as Sahabat-AI [c141], and 33,000+ hours of speech collected in about three weeks [c134][c149]. The iOS app shows only 4 ratings [c150].",
+    "regulation": "The Privacy Notice (26 Aug 2026) covers GDPR, CCPA and India's DPDPA [c077]. It requires separate in-app consent for biometric content [c073], which may be licensed to AI firms that extract face geometry and voiceprints [c072], and retains that content for at most 3 years [c074]. Contributors consent to cross-border transfer [c078]. The Terms are governed by California law [c121]."
+  },
+  "buyer_journey": [
+    {
+      "step": "Lands on psdn.ai: 'The Datasets' (browse, sample on Hugging Face, or extend to spec) and a 'request dataset' / 'Need something custom?' route.",
+      "claim_ids": [
+        "poseidon-c014",
+        "poseidon-c001"
+      ]
+    },
+    {
+      "step": "Opens the dataset catalogue: listings across voice, video, 3D and paired text, told they are 'Collected with consent, licensed for commercial use'; no prices.",
+      "claim_ids": [
+        "poseidon-c029",
+        "poseidon-c028"
+      ]
+    },
+    {
+      "step": "Opens a listing: specs (resolution, fps, format), 'Non-exclusive license', the metadata fields, and a note that the sample has 2-3 clips and larger coverage can be scoped.",
+      "claim_ids": [
+        "poseidon-c032",
+        "poseidon-c034",
+        "poseidon-c035",
+        "poseidon-c033"
+      ]
+    },
+    {
+      "step": "Clicks 'View samples': a gated Hugging Face repo under a 'poseidon-sample-preview' licence tag; agrees to share contact details and downloads the clips (for Bangla-10K, a CC BY 4.0 preview).",
+      "claim_ids": [
+        "poseidon-c041",
+        "poseidon-c040",
+        "poseidon-c047"
+      ]
+    },
+    {
+      "step": "Clicks 'Request access' or fills the Custom Dataset Form: organisation, email, modality, volume, what they are training.",
+      "claim_ids": [
+        "poseidon-c036",
+        "poseidon-c069"
+      ]
+    },
+    {
+      "step": "For custom work, shares a spec (tasks, environments, hardware, diversity, acceptance criteria) and gets back a collection plan with QC gates; receives a sample dataset before committing to volume.",
+      "claim_ids": [
+        "poseidon-c018",
+        "poseidon-c019",
+        "poseidon-c062"
+      ]
+    },
+    {
+      "step": "Licence and price are settled off-site. For the Bangla-10K core corpus this means a data-use agreement, and the text of any buyer licence is not published.",
+      "claim_ids": [
+        "poseidon-c048",
+        "poseidon-c136"
+      ]
+    },
+    {
+      "step": "Receives data: QC-passed clips only, in the pipeline's format with a data card; for Bangla-10K, R2 credentials to read full-resolution audio.",
+      "claim_ids": [
+        "poseidon-c022",
+        "poseidon-c024",
+        "poseidon-c023",
+        "poseidon-c049"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "id": "poseidon-c001",
+      "statement": "Poseidon is operating as of September 2026: its research blog published a post dated 8 September 2026 and its site offers datasets and custom collection.",
+      "kind": "status",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-09-08",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/blog",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Open-Sourcing SONAR: Poseidon's Multilingual ASR Evaluation Toolkit"
+        },
+        {
+          "url": "https://www.psdn.ai/",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Explore the datasets"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c002",
+      "statement": "Poseidon's Terms of Service were last updated on 26 August 2026, replacing a version dated 18 August 2025.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Terms of Service Last updated August 26, 2026"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c003",
+      "statement": "The previous Terms of Service, still linked from the live Terms, are dated 18 August 2025.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-08-18",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms/2025-08-18",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Last updated August 18, 2025"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c004",
+      "statement": "The 18 August 2025 Terms already made the contributor licence exclusive to Poseidon for uses related to developing, training and deploying AI models.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-08-18",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms/2025-08-18",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "exclusive to us in connection with any uses or modifications of your User Contributions"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c005",
+      "statement": "The 18 August 2025 Terms contain no option for Poseidon to purchase User Contributions and no USD 'Confirmed Balance' payout; both appear only in the 26 August 2026 version.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025-08-18",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms/2025-08-18",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Points have no monetary value and do not constitute any currency or property of any type"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c006",
+      "statement": "Poseidon says it raised a USD 15M seed round led by a16z crypto, announced 22 July 2025.",
+      "kind": "event",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-07-22",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://psdn.ai/blog/poseidon-raises-15m-seed-round",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Poseidon is proud to announce a $15M seed round led by a16z crypto"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c007",
+      "statement": "a16z crypto lists Poseidon (psdn.ai) among its portfolio companies.",
+      "kind": "status",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "independent",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://a16zcrypto.com/portfolio/",
+          "publisher": "a16z crypto",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Poseidon"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c008",
+      "statement": "At its July 2025 funding announcement Poseidon said it was founded by Sandeep Chinchali and Sarick Shah and incubated by Story.",
+      "kind": "event",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-07-22",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://psdn.ai/blog/poseidon-raises-15m-seed-round",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Founded by Sandeep Chinchali and Sarick Shah, incubated by Story"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c009",
+      "statement": "Poseidon's live team page lists Seung Yoon Lee and David Lee as co-founders and does not list Sandeep Chinchali or Sarick Shah.",
+      "kind": "status",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://psdn.ai/team",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Seung Yoon Lee"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c010",
+      "statement": "In July 2025 Poseidon said its initial focus would be robotics training data, specifically egocentric (point-of-view) data.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-07-22",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://psdn.ai/blog/poseidon-raises-15m-seed-round",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Poseidon's initial focus will be on curating training data for robotics, specifically egocentric, POV data."
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c011",
+      "statement": "In July 2025 Poseidon said every data point entering its network is registered as an IP asset on Story's blockchain.",
+      "kind": "architecture",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-07-22",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://psdn.ai/blog/poseidon-raises-15m-seed-round",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Every data point entering the Poseidon network is registered as an IP asset on Story's blockchain"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c012",
+      "statement": "Poseidon describes its business as recording skilled people at work and refining the recordings into datasets for physical AI.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "records skilled people at work and refines it into"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c013",
+      "statement": "Poseidon's datasets are described as expert demonstrations in egocentric video, manipulation and voice, collected in homes, factories and workplaces.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Expert demonstration datasets across egocentric video, manipulation, and voice, collected in real homes, factories"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c014",
+      "statement": "Poseidon tells buyers they can browse existing datasets, sample them on Hugging Face, or have Poseidon extend them to spec, and that most engagements blend both.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Browse what exists, sample it on Hugging Face, or have us extend it to your spec: most engagements blend both."
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c015",
+      "statement": "Numo is the collection platform behind Poseidon's datasets.",
+      "kind": "architecture",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Numo is the collection platform behind Poseidon's datasets."
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c016",
+      "statement": "Poseidon says anyone can pick up open tasks on Numo, capture real-world work and get paid.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Anyone can pick up open tasks, capture real-world work, and get paid."
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c017",
+      "statement": "The same Numo infrastructure runs private enterprise collection campaigns end to end, including recruiting, device logistics, ingestion and quality control.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "runs private enterprise campaigns end to end: recruiting, device logistics, ingestion, and quality control"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c018",
+      "statement": "A custom engagement starts with the buyer's spec: tasks, environments, hardware and streams, diversity distribution and acceptance criteria.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Share the spec: tasks, environments, hardware and streams, diversity distribution, acceptance criteria."
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c019",
+      "statement": "Poseidon returns a collection plan with QC gates mapped to the buyer's criteria.",
+      "kind": "offer",
+      "section": "vetting",
+      "question_ids": [
+        "Q11",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "return a collection plan with QC gates mapped to your criteria"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c020",
+      "statement": "Poseidon sources demonstrators through its contributor network, workforce partners and factory relationships across Korea, Asia and beyond.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We source demonstrators through our contributor network, workforce partners, and highly skilled factory relationships"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c021",
+      "statement": "Poseidon says demonstrations are cleaned, annotated and quality-controlled clip by clip.",
+      "kind": "offer",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "cleaned, annotated, and quality-controlled clip by clip"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c022",
+      "statement": "Poseidon says non-qualifying data never reaches the buyer.",
+      "kind": "offer",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Non-qualifying data never reaches you."
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c023",
+      "statement": "Custom deliveries come with a data card documenting distribution, hardware and rejection criteria.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11",
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "with a data card documenting distribution, hardware, and rejection criteria"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c024",
+      "statement": "Poseidon says delivered data is qualified only, rights-cleared at the source and delivered in the format the buyer's pipeline expects.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7",
+        "Q5",
+        "Q6"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Qualified data only, rights cleared at the source, in the format your pipeline expects"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c025",
+      "statement": "Poseidon's homepage says it is backed by a16z.",
+      "kind": "status",
+      "section": "positioning",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Backed by a16z"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c026",
+      "statement": "Poseidon says its datasets have been delivered to frontier AI teams, without naming any.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Datasets delivered to frontier AI teams"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c027",
+      "statement": "Poseidon cites open samples on Hugging Face as part of its credibility.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Open samples on Hugging Face"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c028",
+      "statement": "Poseidon's dataset catalogue page describes its data as collected with consent and licensed for commercial use.",
+      "kind": "offer",
+      "section": "licence",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/datasets",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Collected with consent, licensed for commercial use."
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c029",
+      "statement": "The catalogue page spans voice, video, 3D and paired-text datasets, not only physical-AI video.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/datasets",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Real-world training data across voice, video, 3D, and paired text."
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c030",
+      "statement": "The catalogue page invites buyers to name a modality, language or scenario for Poseidon to scope and collect.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/datasets",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Tell us the modality, language, or scenario, and we'll scope it with you and collect it."
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c031",
+      "statement": "The catalogue includes a science Q&A pairs dataset aligned with Indian JEE, NEET and CET-style exams.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/datasets",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "aligned with JEE, NEET, and CET-style exams"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c032",
+      "statement": "Poseidon's dataset listings state the licence as 'Non-exclusive license' (seen on the egocentric cleaning, humanoid manipulation, behavioural and Hindi speech listings).",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "psdn.ai/datasets listings",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/datasets/egocentric-activity-video-samples",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Non-exclusive license"
+        },
+        {
+          "url": "https://www.psdn.ai/datasets/humanoid-robot-manipulation-samples",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Non-exclusive license"
+        },
+        {
+          "url": "https://www.psdn.ai/datasets/behavioral-multimodal-video-samples",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Non-exclusive license"
+        },
+        {
+          "url": "https://www.psdn.ai/datasets/hindi-speech-samples",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Non-exclusive license"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c033",
+      "statement": "The egocentric cleaning, laundry and car-wash listing's sample contains 2 clips; larger coverage is scoped by activity, location, participant profile and capture requirements.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q11",
+        "Q12"
+      ],
+      "scope": {
+        "product": "Egocentric Video: Cleaning, Laundry & Car Wash",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/datasets/egocentric-activity-video-samples",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The sample includes 2 clips. Larger coverage can be scoped by activity, location, participant profile"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c034",
+      "statement": "A listing shows specifications such as 1080p, 60 fps and a super-wide lens for the humanoid manipulation video.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Humanoid Robot Training: Egocentric Manipulation",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/datasets/humanoid-robot-manipulation-samples",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "captured at 1080p and 60 fps through a super-wide lens"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c035",
+      "statement": "Listings document per-sample metadata fields, including a PII status field.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q10",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/psdn-ai/humanoid-robot-manipulation-samples",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "sample identifiers, sample titles, media previews, duration, media type, PII status, tags, feature flags"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c036",
+      "statement": "Each listing's calls to action are 'View samples' (Hugging Face) and 'Request access' (the contact form); no price or checkout appears on the listing.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/datasets/egocentric-activity-video-samples",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Request access"
+        },
+        {
+          "url": "https://www.psdn.ai/datasets/humanoid-robot-manipulation-samples",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "View samples"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c037",
+      "statement": "The behavioural dataset ships in LeRobot format so it drops into existing robot-learning pipelines.",
+      "kind": "offer",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "Behavioral Dataset: Multimodal Video, Depth & Actions",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/datasets/behavioral-multimodal-video-samples",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "shipped in LeRobot format so they drop into existing robot-learning pipelines"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c038",
+      "statement": "The Cultural Interviews listing is third-person public interview video; broader coverage is scoped including by licensing requirements.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q7",
+        "Q12"
+      ],
+      "scope": {
+        "product": "Cultural Interviews: Public Conversations & Perspectives",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/datasets/cultural-interviews-samples",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Broader coverage can be scoped by region, interview setting, topic, format, and licensing requirements."
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c039",
+      "statement": "The Hindi speech listing says the audio was recorded through a moderated contributor app.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Hindi Speech: Contributor Recordings",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/datasets/hindi-speech-samples",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Hindi speech recorded through a moderated contributor app"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c040",
+      "statement": "Poseidon's Hugging Face video samples carry a custom licence tag 'poseidon-sample-preview'.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Hugging Face sample repositories",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/psdn-ai/egocentric-activity-video-samples",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "poseidon-sample-preview"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c041",
+      "statement": "Hugging Face samples are gated: a visitor must agree to share contact information before accessing the files.",
+      "kind": "offer",
+      "section": "discovery",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/psdn-ai/egocentric-activity-video-samples",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You need to agree to share your contact information to access this dataset"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c042",
+      "statement": "Poseidon says its samples let buyers review task structure and capture quality before scoping a larger robotics dataset.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/psdn-ai/humanoid-robot-manipulation-samples",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "capture quality before scoping a larger robotics dataset"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c043",
+      "statement": "Poseidon says sample metadata helps buyers judge whether the collection matches their target environment and annotation needs.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/psdn-ai/humanoid-robot-manipulation-samples",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "helps buyers judge whether the collection matches their target environment and annotation needs"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c044",
+      "statement": "Poseidon's Hugging Face organisation hosts its sample datasets, the Bangla-10K corpus and one model, bangla-asr.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/psdn-ai",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "bangla-asr"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c045",
+      "statement": "Bangla-10K is a 10,816-hour Bengali speech corpus with 624,951 recordings from India and Bangladesh.",
+      "kind": "offer",
+      "section": "listing",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Bangla-10K",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/psdn-ai/bangla-10k",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "is a 10,816-hour Bengali speech corpus with 624,951 recordings from India and Bangladesh"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c046",
+      "statement": "Bangla-10K was recorded on consumer devices through a commissioned collection programme in sixteen delivery batches over four months in 2026.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q4"
+      ],
+      "scope": {
+        "product": "Bangla-10K",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/psdn-ai/bangla-10k",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "through a commissioned collection program in sixteen delivery batches during a four-month collection window in 2026"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c047",
+      "statement": "Bangla-10K's preview configuration (849.4 hours) is released under CC BY 4.0.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Bangla-10K preview config",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/psdn-ai/bangla-10k",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "a 104-hour sample of the core corpus) is released under CC BY 4.0"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c048",
+      "statement": "The full Bangla-10K core corpus is available only under a data-use agreement.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Bangla-10K core corpus",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/psdn-ai/bangla-10k",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The full core corpus is available under a data-use agreement."
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c049",
+      "statement": "Full-resolution Bangla-10K audio is accessed with R2 storage credentials issued under the data-use agreement.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "Bangla-10K core corpus",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/psdn-ai/bangla-10k",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Full-resolution audio requires R2 credentials issued under the data-use agreement."
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c050",
+      "statement": "The Bangla-10K card asserts participants consented and were fairly compensated, without publishing consent forms.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Bangla-10K",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/psdn-ai/bangla-10k",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Participants consented, were fairly compensated, and collection complied with applicable data rights and privacy laws."
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c051",
+      "statement": "Poseidon says every Bangla-10K audio-transcript pair passes automated metadata, lexical-diversity and audio-quality checks.",
+      "kind": "offer",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Bangla-10K",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/psdn-ai/bangla-10k",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "passes automated metadata, lexical-diversity, and audio-quality checks"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c052",
+      "statement": "The Bangla-10K card links to the contact page to request access or licensing.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Bangla-10K",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://huggingface.co/datasets/psdn-ai/bangla-10k",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Request access or licensing"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c053",
+      "statement": "Numo contributors capture tasks on their phone or on hardware Poseidon provides and are paid for every clip that qualifies.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3",
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/numo",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "get paid for every clip that qualifies"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c054",
+      "statement": "Every Numo task starts as a specification of activity, environment, hardware and acceptance criteria.",
+      "kind": "architecture",
+      "section": "supply",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/numo",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Every task starts as a specification: the activity, the environment, the hardware, the acceptance criteria."
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c055",
+      "statement": "Some Numo tasks are private, visible only to a recruited group and never public.",
+      "kind": "architecture",
+      "section": "supply",
+      "question_ids": [
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/numo",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Others are private, visible only to a recruited group, and never public at all."
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c056",
+      "statement": "Poseidon ships capture devices to contributors, from phone mounts to specialised rigs.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/numo",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Devices ship where they are needed, from phone mounts to specialized rigs."
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c057",
+      "statement": "Numo QC runs automated checks and human review against the acceptance criteria.",
+      "kind": "architecture",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/numo",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Automated checks and human review run against the acceptance criteria"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c058",
+      "statement": "Numo anti-fraud systems screen for staged activity, duplicates and gaming.",
+      "kind": "architecture",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/numo",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Anti-fraud systems screen for staged activity, duplicates, and gaming"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c059",
+      "statement": "Clips that fail Numo QC are rejected.",
+      "kind": "architecture",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/numo",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Clips that fail are rejected."
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c060",
+      "statement": "On Numo, payment follows quality control, after which qualified footage flows into Poseidon's processing pipeline.",
+      "kind": "architecture",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/numo",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Payment follows quality control and qualified footage then flows to Poseidon's processing pipeline."
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c061",
+      "statement": "Poseidon tells contributors that consent is built in and they choose what to share.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/numo",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Consent is built in, you choose what to share, and your work is what gets processed"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c062",
+      "statement": "Buyers of private Numo campaigns receive a sample dataset before committing to volume.",
+      "kind": "offer",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q11",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/numo",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "receive a sample dataset before you commit to volume"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c063",
+      "statement": "Numo campaigns can also run inside partner platforms that already operate a workforce.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q2",
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/numo",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Campaigns can also run inside partner platforms where a workforce already operates"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c064",
+      "statement": "Numo has a 'pro corps', a curated, vetted and trained contributor tier for collections needing speed and reliability.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/numo",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "A curated contributor tier, vetted and trained, for collections that need speed and reliability over open crowdsourcing."
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c065",
+      "statement": "Custom collections go to the buyer who specified them, while public slices land in Poseidon's catalogue for anyone to evaluate.",
+      "kind": "terms",
+      "section": "catalogue_custom",
+      "question_ids": [
+        "Q4",
+        "Q12"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/numo",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Custom data collections go to the buyer who specified them; public slices land in the catalog, where anyone can evaluate them"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c066",
+      "statement": "Poseidon tracks a dataset's distribution so its balance is measurable.",
+      "kind": "offer",
+      "section": "trust",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/numo",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "distribution tracking so a dataset's balance is measurable, not assumed"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c067",
+      "statement": "Poseidon says its contributor base is worldwide and anchored in Korea's skilled workforces.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/numo",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "A contributor base across the world, anchored in Korea's skilled workforces."
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c068",
+      "statement": "Qualified Numo footage is annotated for the reasoning behind each action and synchronised stream by stream.",
+      "kind": "offer",
+      "section": "object_model",
+      "question_ids": [
+        "Q10"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/numo",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Qualified footage is annotated for the reasoning behind each action, synchronized stream by stream"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c069",
+      "statement": "The 'Custom Dataset Form' asks for organisation, email, modality, volume and what the buyer is training; it has no budget or price field.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/contact",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Custom Dataset Form"
+        },
+        {
+          "url": "https://www.psdn.ai/contact",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "What are you training?"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c070",
+      "statement": "Poseidon's Privacy Notice was last updated on 26 August 2026, the same day as the Terms.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/privacy",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Last updated August 26, 2026"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c071",
+      "statement": "The Privacy Notice lists business customers and third parties to whom Poseidon licenses submitted content as recipients who may use it for their own purposes.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/privacy",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "our business customers and third parties to whom we license submitted content with your authorization"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c072",
+      "statement": "Poseidon may license content from which biometric data may be derived to third-party AI companies, who may extract facial geometry and voiceprints to train AI.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/privacy",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "extract biometric identifiers including facial geometry and voiceprints"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c073",
+      "statement": "Content collected for biometric purposes requires the contributor's explicit prior consent through a dedicated in-app consent mechanism at task time.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/privacy",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "obtained separately from your general consent to this Privacy Notice through a dedicated in-app consent mechanism"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c074",
+      "statement": "Poseidon retains content collected for biometric purposes for no longer than 3 years after the contributor's last interaction with the Services.",
+      "kind": "number",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 3,
+        "unit": "years",
+        "basis": "maximum retention by Poseidon of content collected for biometric purposes, counted from the contributor's last interaction; copies licensed to third parties not addressed",
+        "period": "maximum retention"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/privacy",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We retain content collected for biometric purposes for no longer than 3 years"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c075",
+      "statement": "Poseidon publishes anonymised or de-identified samples of contributed content on open data platforms and research repositories.",
+      "kind": "terms",
+      "section": "discovery",
+      "question_ids": [
+        "Q11",
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/privacy",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "publishing anonymized or deidentified samples of contributed content publicly on open data platforms"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c076",
+      "statement": "A contributor may withdraw consent for future publications, but Poseidon cannot guarantee removal from datasets already downloaded by third parties.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/privacy",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "we cannot guarantee removal from datasets already downloaded by third parties prior to withdrawal"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c077",
+      "statement": "The Privacy Notice addresses India's Digital Personal Data Protection Act, 2023 among other regimes.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/privacy",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "India's Digital Personal Data Protection Act, 2023"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c078",
+      "statement": "By using the Services, contributors consent to cross-border transfer of their personal information to any country or region.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/privacy",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "which may include the cross-border transfer of your information to any country or region"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c079",
+      "statement": "The Website, data contribution platform and app are operated by or on behalf of Poseidon AI, Inc.",
+      "kind": "terms",
+      "section": "other",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "operated by or on behalf of Poseidon AI, Inc."
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c080",
+      "statement": "Contributors submit content and data in response to prompts that Poseidon makes available through the Service.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "submit information, content, data or other materials in response to prompts"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c081",
+      "statement": "Poseidon's prompts may set specific criteria a contribution must meet to be acceptable.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "prompts for User Contributions may include specific criteria for User Contributions to be acceptable"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c082",
+      "statement": "Poseidon may screen, edit, delete, restrict, remove or reject any User Contribution at any time.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "screen, edit, delete, restrict, remove or reject any User Contribution at any time"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c083",
+      "statement": "Poseidon does not claim ownership of User Contributions unless it exercises its purchase option.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the Company does not claim any ownership in your User Contributions"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c084",
+      "statement": "The contributor licenses Poseidon to exploit each User Contribution for any and all purposes.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "exploit your User Contribution for any and all purposes, including to provide, improve and promote the Services"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c085",
+      "statement": "The contributor licence lets Poseidon make contributions available to its service providers and partners.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "make your User Contributions available to our service providers and partners"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c086",
+      "statement": "The contributor licence to Poseidon is royalty-free, transferable, sublicensable through multiple tiers, worldwide, perpetual and irrevocable.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "royalty free, transferable, fully sub-licensable (through multiple tiers), worldwide, perpetual and irrevocable"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c087",
+      "statement": "The contributor licence is exclusive to Poseidon for uses related to AI and machine learning (the 'Exclusive Use').",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q4",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "such license will be exclusive to us in connection with any uses or modifications of your User Contributions"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c088",
+      "statement": "The Exclusive Use covers developing, training, testing, fine-tuning, grounding and deploying third-party AI models.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "developing, training, testing, improving, fine-tuning, grounding, improving the accuracy of, and deploying third-party AI"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c089",
+      "statement": "Contributors may not allow anyone else to use their contributions for the Exclusive Use.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q4",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you will not allow or authorize any other person or entity to use your User Contributions for the Exclusive Use"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c090",
+      "statement": "Poseidon holds an option, exercisable at any time in its sole discretion, to buy all right, title and interest in any contribution.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q4"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "option, at any time and in its sole discretion, to purchase from you all right, title and interest"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c091",
+      "statement": "The buy-out price is determined by Poseidon in its reasonable discretion.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "purchase price shall be determined by the Company in its reasonable discretion based on"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c092",
+      "statement": "A contributor is deemed to accept a buy-out offer unless they reject it within 15 days.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "deemed to have accepted such offer unless you notify the Company of your rejection within fifteen (15) days"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c093",
+      "statement": "Rejecting a buy-out offer does not affect the licence already granted to Poseidon.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q4",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "your rejection shall not affect any license rights previously granted under Section 1.1(b)"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c094",
+      "statement": "The buy-out price may be paid in cash, tokens or other consideration at Poseidon's election.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "may be paid, at the Company's election, in cash, Tokens or other consideration"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c095",
+      "statement": "On payment the contributor irrevocably assigns all right, title and interest in the contribution to Poseidon.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "irrevocably assign and transfer to the Company all right, title and interest in and to the applicable User Contribution"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c096",
+      "statement": "The contributor warrants holding all rights, licences, consents and permissions needed to submit each contribution and let Poseidon use it.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "all rights, licenses, consents, permissions, power and/or authority necessary to submit and use"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c097",
+      "statement": "The contributor warrants that no consents must be obtained from, or payments made to, any other person for Poseidon's use.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "no other licenses, permissions, consents or authorizations must be obtained from or payments made to any other person"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c098",
+      "statement": "Contributors must not submit content invasive of privacy or publicity rights.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "invasive of privacy or publicity rights"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c099",
+      "statement": "Personal information in a User Contribution may be disclosed to Poseidon's service providers and partners.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "personal information contained within or associated with your User Contribution may be disclosed to our service providers"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c100",
+      "statement": "Poseidon's partners may use such personal information for their own purposes under their own terms.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Our partners may use such information for their own purposes, in accordance with their own terms and policies"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c101",
+      "statement": "Users must be 18 or older.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You must be 18 years of age or older to use the Services"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c102",
+      "statement": "The form and amount of compensation for a task is shown in the app before the contributor begins it.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "amount of any compensation offered will be communicated to you through the Services before you begin a task"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c103",
+      "statement": "Compensation may vary by task type, geography, demand and applicable law.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "may vary by task type, geography, demand, and applicable law"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c104",
+      "statement": "A contributor becomes eligible for a fiat payout once their Confirmed Balance reaches USD 25.",
+      "kind": "number",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 25,
+        "unit": "USD",
+        "basis": "minimum Confirmed Balance (accepted submissions) a contributor must accrue before Poseidon makes a fiat payout",
+        "period": "per payout"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "once your Confirmed Balance reaches the minimum payout threshold of USD25"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c105",
+      "statement": "The Confirmed Balance is the accumulated USD value of a contributor's submissions that passed quality review.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "accumulated USD value of a Contributor's submissions that have successfully passed quality review"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c106",
+      "statement": "Fiat payouts are processed quarterly, subject to change.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Payouts are processed on a quarterly basis, subject to change"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c107",
+      "statement": "Where Poseidon's payment provider does not operate in a contributor's country, no fiat payout can be made.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If our payment provider is not available in your country, we will not be able to process a Fiat Payout to you"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c108",
+      "statement": "Quality standards that gate compensation are set by Poseidon in its sole discretion.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q9",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Quality standards are determined by us in our sole discretion"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c109",
+      "statement": "A submission that fails quality standards is not added to the Confirmed Balance, so it is not paid.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "If a submission does not meet quality standards, it will not be added to your Confirmed Balance"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c110",
+      "statement": "Compensation is framed as an incentive, not pay for services as an employee, contractor or agent.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "do not constitute compensation for services rendered in an employment, contractor, or agency capacity"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c111",
+      "statement": "Poseidon may withhold, adjust or forfeit a contributor's points, token eligibility or Confirmed Balance.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We may withhold, adjust, or forfeit any or all of your Points, Token eligibility, or Confirmed Balance"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c112",
+      "statement": "After forfeiting a contributor's earnings, Poseidon may still use contributions that already passed quality review.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "we may still use any User Contributions that have already passed quality review"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c113",
+      "statement": "Poseidon does not guarantee minimum earnings or continuous availability of tasks.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We do not guarantee any minimum level of earnings or that tasks will be continuously available"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c114",
+      "statement": "The Services may integrate with blockchain protocols such as the Story Protocol.",
+      "kind": "architecture",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "may integrate with one or more blockchain protocols consisting of smart contracts such as the Story Protocol"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c115",
+      "statement": "Poseidon disclaims all express and implied warranties to users.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "DISCLAIM ALL WARRANTIES AND CONDITIONS, WHETHER EXPRESS OR IMPLIED"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c116",
+      "statement": "Poseidon's total liability to a user is capped at USD 100.",
+      "kind": "number",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": {
+        "num": 100,
+        "unit": "USD",
+        "basis": "cap on Poseidon's total liability to a contributor or app user under the Terms",
+        "period": "aggregate"
+      },
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "SHALL NOT EXCEED THE GREATER OF ONE HUNDRED DOLLARS ($100.00)"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c117",
+      "statement": "The contributor must defend and indemnify Poseidon against claims, including claims arising from any User Contribution.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "defend, indemnify and hold the Company Entities harmless from and against any and all claims"
+        },
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "(d) any User Contribution, or (e) your negligence or wilful misconduct"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c118",
+      "statement": "On account deletion Poseidon may, but need not, delete the user's contributions.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "the Company may, but is not obligated to, delete any User Contribution"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c119",
+      "statement": "Contributions Poseidon bought before termination remain its sole and exclusive property.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "prior to termination shall remain the sole and exclusive property of the Company"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c120",
+      "statement": "Updated Terms take effect when posted.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The updated Terms will be effective as of the time of posting"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c121",
+      "statement": "The Terms are governed by California law.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "These Terms are governed by the laws of the State of California"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c122",
+      "statement": "Poseidon may modify, suspend or discontinue the points, token or fiat payout programme on reasonable notice.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon Terms of Service (contributor / app user side)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2026-08-26",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/terms",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "modify, suspend, or discontinue any aspect of the Points, Token, or Fiat Payout program at any time upon reasonable notice"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c123",
+      "statement": "Poseidon's October 2025 litepaper describes subnetworks on Story's L1 that collectively form an open marketplace for AI training data.",
+      "kind": "architecture",
+      "section": "positioning",
+      "question_ids": [
+        "Q2",
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon Litepaper v1.0 (October 2025), design intent",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-10",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://cdn.psdn.ai/Poseidon_Litepaper_v1.0_Oct_2025.pdf",
+          "publisher": "Poseidon AI and Story Foundation",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "collectively forming an open marketplace designed to address the challenges of the supply and demand of AI training data"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c124",
+      "statement": "The litepaper says a finished dataset is registered as an IP asset on Story and can be listed on an open marketplace where AI applications bid for licences.",
+      "kind": "architecture",
+      "section": "transaction",
+      "question_ids": [
+        "Q9",
+        "Q10"
+      ],
+      "scope": {
+        "product": "Poseidon Litepaper v1.0 (October 2025), design intent",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-10",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://cdn.psdn.ai/Poseidon_Litepaper_v1.0_Oct_2025.pdf",
+          "publisher": "Poseidon AI and Story Foundation",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "listed on an open marketplace, allowing AI applications to bid for licenses and gain access to the data"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c125",
+      "statement": "The litepaper says datasets are licensed through Story's Programmable IP License (PIL).",
+      "kind": "architecture",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Poseidon Litepaper v1.0 (October 2025), design intent",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-10",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://cdn.psdn.ai/Poseidon_Litepaper_v1.0_Oct_2025.pdf",
+          "publisher": "Poseidon AI and Story Foundation",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "leveraging Story's Programmable IP License (PIL)"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c126",
+      "statement": "The litepaper describes Story's IP Vault, where the data becomes accessible to the licence holder on acquiring a licence.",
+      "kind": "architecture",
+      "section": "custody",
+      "question_ids": [
+        "Q6"
+      ],
+      "scope": {
+        "product": "Poseidon Litepaper v1.0 (October 2025), design intent",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-10",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://cdn.psdn.ai/Poseidon_Litepaper_v1.0_Oct_2025.pdf",
+          "publisher": "Poseidon AI and Story Foundation",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "the data is automatically accessible by the license holder when acquiring a license to the IP"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c127",
+      "statement": "The litepaper describes a Data Protection module that lets uploaders embed fingerprints in their data to detect leakage.",
+      "kind": "architecture",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Poseidon Litepaper v1.0 (October 2025), design intent",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-10",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://cdn.psdn.ai/Poseidon_Litepaper_v1.0_Oct_2025.pdf",
+          "publisher": "Poseidon AI and Story Foundation",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "enabling data uploaders to embed fingerprints within their data"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c128",
+      "statement": "The litepaper envisions suppliers receiving automatic 'data dividend' micropayments whenever their data is used.",
+      "kind": "architecture",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon Litepaper v1.0 (October 2025), design intent",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-10",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://cdn.psdn.ai/Poseidon_Litepaper_v1.0_Oct_2025.pdf",
+          "publisher": "Poseidon AI and Story Foundation",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "micropayments whenever their data is used"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c129",
+      "statement": "The litepaper describes consensus-based validation ('Trident consensus') by randomly assigned workers.",
+      "kind": "architecture",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Poseidon Litepaper v1.0 (October 2025), design intent",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-10",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://cdn.psdn.ai/Poseidon_Litepaper_v1.0_Oct_2025.pdf",
+          "publisher": "Poseidon AI and Story Foundation",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Poseidon utilizes Trident consensus for validation"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c130",
+      "statement": "The litepaper says validation includes automated deduplication, normalisation and AI-powered PII removal.",
+      "kind": "architecture",
+      "section": "vetting",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Poseidon Litepaper v1.0 (October 2025), design intent",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-10",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://cdn.psdn.ai/Poseidon_Litepaper_v1.0_Oct_2025.pdf",
+          "publisher": "Poseidon AI and Story Foundation",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "automated deduplication, normalization, and filtering with AI-powered PII removal"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c131",
+      "statement": "The litepaper defines supply-side 'users' to include organisations such as DePIN applications and data annotation platforms, not only individuals.",
+      "kind": "architecture",
+      "section": "supply",
+      "question_ids": [
+        "Q2",
+        "Q3"
+      ],
+      "scope": {
+        "product": "Poseidon Litepaper v1.0 (October 2025), design intent",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-10",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://cdn.psdn.ai/Poseidon_Litepaper_v1.0_Oct_2025.pdf",
+          "publisher": "Poseidon AI and Story Foundation",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "decentralized physical infrastructure network (DePIN) applications, data annotation platforms"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c132",
+      "statement": "The litepaper says Poseidon positions itself as both infrastructure and marketplace for the data economy.",
+      "kind": "offer",
+      "section": "positioning",
+      "question_ids": [
+        "Q2"
+      ],
+      "scope": {
+        "product": "Poseidon Litepaper v1.0 (October 2025), design intent",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-10",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://cdn.psdn.ai/Poseidon_Litepaper_v1.0_Oct_2025.pdf",
+          "publisher": "Poseidon AI and Story Foundation",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Poseidon positions itself as both infrastructure and marketplace for the emerging data economy"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c133",
+      "statement": "The litepaper says reward values for data points are set by subnet operators and vary with data characteristics.",
+      "kind": "architecture",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon Litepaper v1.0 (October 2025), design intent",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-10",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://cdn.psdn.ai/Poseidon_Litepaper_v1.0_Oct_2025.pdf",
+          "publisher": "Poseidon AI and Story Foundation",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Data points with varying characteristics may yield different reward values, which will be determined by subnet operators"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c134",
+      "statement": "Poseidon says its voice dataset comprised over 33,000 hours of prompted speech collected in about three weeks from thousands of contributors.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1",
+        "Q3"
+      ],
+      "scope": {
+        "product": "Poseidon Voice AI Dataset",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-01-28",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://psdn.ai/blog/introducing-the-poseidon-voice-ai-dataset",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "over 33,000 hours of prompted speech collected in approximately three weeks from thousands of globally distributed"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c135",
+      "statement": "Poseidon says voice-dataset contributors consented to dataset usage for AI workflows.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Poseidon Voice AI Dataset",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-01-28",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://psdn.ai/blog/introducing-the-poseidon-voice-ai-dataset",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Users consented to dataset usage for AI workflows"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c136",
+      "statement": "Poseidon routes research collaborations, commercial licensing and sample requests for its voice dataset to its team via contact.",
+      "kind": "offer",
+      "section": "transaction",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "Poseidon Voice AI Dataset",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-01-28",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://psdn.ai/blog/introducing-the-poseidon-voice-ai-dataset",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "For research collaborations, commercial licensing, or dataset samples, please contact the Poseidon team"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c137",
+      "statement": "Poseidon scores each utterance with a composite 'Poseidon Score' of character error rate, word error rate and semantic similarity.",
+      "kind": "offer",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "Poseidon Voice AI Dataset",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-01-28",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://psdn.ai/blog/introducing-the-poseidon-voice-ai-dataset",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "we compute a composite Poseidon Score combining character error rate, word error rate, and semantic similarity"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c138",
+      "statement": "The voice dataset release includes audio, transcripts, embeddings, Poseidon Scores and human annotations in one schema.",
+      "kind": "offer",
+      "section": "object_model",
+      "question_ids": [
+        "Q10",
+        "Q11"
+      ],
+      "scope": {
+        "product": "Poseidon Voice AI Dataset",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-01-28",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://psdn.ai/blog/introducing-the-poseidon-voice-ai-dataset",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "The dataset release includes audio files, transcripts, embeddings, Poseidon Scores and human annotations in a unified schema"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c139",
+      "statement": "Poseidon says integration with World, a proof-of-humanity protocol, made it the top trending AI app on the World app store.",
+      "kind": "outcome",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Poseidon Voice AI Dataset",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-01-28",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://psdn.ai/blog/introducing-the-poseidon-voice-ai-dataset",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "eng_blog",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "made Poseidon the top trending AI app on the World app store"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c140",
+      "statement": "A February 2026 Poseidon post says that when a contributor revokes consent, downstream training and licensing workflows can be blocked.",
+      "kind": "architecture",
+      "section": "post_sale",
+      "question_ids": [
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-02-10",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://psdn.ai/blog/sovereign-ai-needs-verifiable-trust",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "When a contributor revokes consent, downstream training and licensing workflows can be blocked"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c141",
+      "statement": "Poseidon says it serves sovereign AI programmes such as Sahabat-AI and international foundation model companies.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-02-10",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://psdn.ai/blog/sovereign-ai-needs-verifiable-trust",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "serving both sovereign AI programs like Sahabat-AI and international foundation model companies"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c142",
+      "statement": "Poseidon says it integrated World's proof of personhood to ensure contributors were real humans.",
+      "kind": "offer",
+      "section": "vetting",
+      "question_ids": [
+        "Q7",
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-02-10",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://psdn.ai/blog/sovereign-ai-needs-verifiable-trust",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Poseidon integrated World's proof of personhood to ensure contributors were real humans"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c143",
+      "statement": "At its September 2025 app launch, contributors earned non-transferable Poseidon points for high-quality uploads, not cash.",
+      "kind": "event",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q9",
+        "Q4"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-09-02",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://psdn.ai/blog/live-now-poseidon-app-v1",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Contributors earning Poseidon points for high-quality uploads"
+        },
+        {
+          "url": "https://psdn.ai/blog/live-now-poseidon-app-v1",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Points are not transferable on or off the platform."
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c144",
+      "statement": "At the app launch, AI-generated, low-effort, duplicate or non-compliant uploads earned no points.",
+      "kind": "terms",
+      "section": "vetting",
+      "question_ids": [
+        "Q11"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-09-02",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://psdn.ai/blog/live-now-poseidon-app-v1",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "AI generated, low-effort, duplicate, or non-compliant uploads will not earn points"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c145",
+      "statement": "Poseidon's app is not available to persons in sanctioned jurisdictions and uses geoblocking and wallet screening.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-09-02",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://psdn.ai/blog/live-now-poseidon-app-v1",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "We use geoblocking and wallet screening as part of our compliance measures"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c146",
+      "statement": "In July 2025 Poseidon said distributed collection ran from smartphone SDKs to specialised DePIN apps.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2025-07-22",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://psdn.ai/blog/poseidon-raises-15m-seed-round",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "vendor_marketing",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "From smartphone SDKs to specialized DePIN apps, Poseidon makes distributed collection easy."
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c147",
+      "statement": "The Data Foundation (formerly Story Foundation) announced on 29 April 2026 that Poseidon was launching Numo in early access.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "press_relayed",
+      "as_of": "2026-04-29",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://datafdn.org/blog/introducing-numo-a-new-way-to-contribute-to-ai",
+          "publisher": "The Data Foundation (formerly Story Foundation)",
+          "source_class": "press_relaying_vendor",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Poseidon is launching Numo in early access"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c148",
+      "statement": "The Data Foundation said every contribution made through Numo is registered and licensed on Story from the start.",
+      "kind": "architecture",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "press_relayed",
+      "as_of": "2026-04-29",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://datafdn.org/blog/introducing-numo-a-new-way-to-contribute-to-ai",
+          "publisher": "The Data Foundation (formerly Story Foundation)",
+          "source_class": "press_relaying_vendor",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "every contribution made through Numo is registered and licensed on Story from the start"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c149",
+      "statement": "The Data Foundation relayed a figure of 33,000+ hours collected in three weeks across 17 languages.",
+      "kind": "outcome",
+      "section": "demand",
+      "question_ids": [
+        "Q1"
+      ],
+      "scope": {
+        "product": "",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "press_relayed",
+      "as_of": "2026-04-29",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://datafdn.org/blog/introducing-numo-a-new-way-to-contribute-to-ai",
+          "publisher": "The Data Foundation (formerly Story Foundation)",
+          "source_class": "press_relaying_vendor",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "33,000+ hours collected in three weeks across 17 languages"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c150",
+      "statement": "Numo's iOS App Store listing ('get rewarded' for contributed content) shows only 4 ratings as of 1 October 2026.",
+      "kind": "outcome",
+      "section": "supply",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Numo iOS app",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "independent",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://apps.apple.com/app/id6783542556",
+          "publisher": "Apple App Store",
+          "source_class": "third_party_docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Contribute content and get rewarded."
+        },
+        {
+          "url": "https://apps.apple.com/app/id6783542556",
+          "publisher": "Apple App Store",
+          "source_class": "third_party_docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "4 Ratings"
+        }
+      ]
+    },
+    {
+      "id": "poseidon-c151",
+      "statement": "The Motion Capture listing describes professional performances recorded on a 24-camera Vicon studio rig, and it carries no performer consent or release statement.",
+      "kind": "offer",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Motion Capture: Actor Performances & 3D Objects",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "vendor_stated",
+      "as_of": "2026-10-01",
+      "as_of_basis": "retrieved_only",
+      "sources": [
+        {
+          "url": "https://www.psdn.ai/datasets/motion-capture-asset-samples",
+          "publisher": "Poseidon AI, Inc.",
+          "source_class": "docs",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "professional performances recorded on a 24-camera Vicon optical rig"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "matrix.exclusivity_offered",
+      "urls_tried": [
+        "https://www.psdn.ai/datasets/egocentric-activity-video-samples",
+        "https://www.psdn.ai/numo",
+        "https://www.psdn.ai/contact",
+        "https://www.psdn.ai/"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.buyer_vetting",
+      "urls_tried": [
+        "https://www.psdn.ai/contact",
+        "https://huggingface.co/datasets/psdn-ai/egocentric-activity-video-samples",
+        "https://www.psdn.ai/terms"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "matrix.versioning",
+      "urls_tried": [
+        "https://huggingface.co/datasets/psdn-ai/bangla-10k",
+        "https://www.psdn.ai/datasets",
+        "https://huggingface.co/datasets/psdn-ai/egocentric-activity-video-samples/tree/main"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.buyer_licence_text",
+      "urls_tried": [
+        "https://www.psdn.ai/terms",
+        "https://www.psdn.ai/privacy",
+        "https://huggingface.co/datasets/psdn-ai/egocentric-activity-video-samples/blob/main/TERMS.md",
+        "https://huggingface.co/datasets/psdn-ai/egocentric-activity-video-samples/raw/main/README.md"
+      ],
+      "reason": "gated"
+    },
+    {
+      "field": "other.dataset_prices",
+      "urls_tried": [
+        "https://www.psdn.ai/datasets",
+        "https://www.psdn.ai/contact",
+        "https://psdn.ai/blog/introducing-the-poseidon-voice-ai-dataset"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.per_clip_rates",
+      "urls_tried": [
+        "https://www.psdn.ai/numo",
+        "https://www.psdn.ai/terms",
+        "https://apps.apple.com/app/id6783542556",
+        "https://play.google.com/store/apps/details?id=ai.psdn.numo"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.bangla10k_commissioning_client",
+      "urls_tried": [
+        "https://huggingface.co/datasets/psdn-ai/bangla-10k"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.sec_form_d",
+      "urls_tried": [
+        "https://efts.sec.gov/LATEST/search-index?q=%22Poseidon%20AI%22&forms=D",
+        "https://efts.sec.gov/LATEST/search-index?q=%22psdn.ai%22",
+        "https://www.sec.gov/cgi-bin/browse-edgar?company=poseidon+ai&owner=include&action=getcompany"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "other.independent_press",
+      "urls_tried": [
+        "https://a16zcrypto.com/portfolio/",
+        "https://www.datafdn.org/blog"
+      ],
+      "reason": "not_found"
+    },
+    {
+      "field": "other.founder_change",
+      "urls_tried": [
+        "https://psdn.ai/team",
+        "https://psdn.ai/blog/poseidon-raises-15m-seed-round"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.property_owner_consent",
+      "urls_tried": [
+        "https://www.psdn.ai/terms",
+        "https://www.psdn.ai/privacy",
+        "https://www.psdn.ai/numo"
+      ],
+      "reason": "not_published"
+    },
+    {
+      "field": "other.google_play_installs",
+      "urls_tried": [
+        "https://play.google.com/store/apps/details?id=ai.psdn.numo"
+      ],
+      "reason": "js_empty"
+    }
+  ],
+  "conflicts": [
+    {
+      "claim_ids": [
+        "poseidon-c140",
+        "poseidon-c086"
+      ],
+      "rule_applied": "live_primary_wins_terms",
+      "resolution": "A Feb 2026 blog post says revoking consent can block downstream licensing; the live Terms (26 Aug 2026) make the licence perpetual and irrevocable, and the Privacy Notice says removal from downloaded datasets cannot be guaranteed [c076]. The Terms govern."
+    },
+    {
+      "claim_ids": [
+        "poseidon-c008",
+        "poseidon-c009"
+      ],
+      "rule_applied": "newer_wins_status",
+      "resolution": "The July 2025 announcement names Chinchali and Shah as founders; the live team page lists Seung Yoon Lee and David Lee as co-founders and omits the other two. When or why this changed was not found (no search); treat the team page as current."
+    },
+    {
+      "claim_ids": [
+        "poseidon-c032",
+        "poseidon-c065"
+      ],
+      "rule_applied": "unresolved",
+      "resolution": "Listings are 'Non-exclusive license', yet custom collections 'go to the buyer who specified them' and 'public slices' enter the catalogue; whether a custom buyer gets exclusivity, and which slices may be resold, is unpublished."
+    }
+  ],
+  "leads": [
+    {
+      "url": "https://play.google.com/store/apps/details?id=ai.psdn.numo",
+      "why": "Google Play install count for Numo would give an independent traction signal; page did not render through WebFetch."
+    },
+    {
+      "url": "https://huggingface.co/datasets/psdn-ai/egocentric-activity-video-samples/blob/main/TERMS.md",
+      "why": "Sample-preview licence text (321 bytes) behind the Hugging Face gate; needs a logged-in, accepted account (not done: no sign-ups)."
+    },
+    {
+      "url": "https://datafdn.org/blog/Any-Company-Can-Become-a-Data-Company",
+      "why": "Data Foundation (Story) post that may describe Poseidon's supply or licensing model; not fetched."
+    },
+    {
+      "url": "https://psdn.ai/careers",
+      "why": "May show operating locations (Korea, India) and hiring for sales or ops."
+    },
+    {
+      "url": "https://huggingface.co/datasets/psdn-ai/CROWS-multilingual",
+      "why": "Recent dataset repo not reviewed; may carry a different licence or collection statement."
+    }
+  ]
+}

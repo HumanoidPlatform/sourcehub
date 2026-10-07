@@ -1,0 +1,473 @@
+{
+  "kind": "verify",
+  "slug": "korea-ai-hub",
+  "search_available": false,
+  "verdicts": [
+    {
+      "claim_id": "korea-ai-hub-c057",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://www.korea.kr/common/download.do?fileId=198520367&tblKey=GMN",
+        "publisher": "Broadcasting Media Communications Commission (방송미디어통신위원회), press release of 2026-08-05 via Korea Policy Briefing",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "pdf_read",
+        "quote": "자막 등 10개 유형으로 총 117만여 건이 제공된다"
+      },
+      "corrected_statement": null,
+      "note": "The commission that owns the data (not NIA) announced on 2026-08-05 with RAPA that it was opening the broadcast-video training data through NIA's 'AI-Hub Safe Zone'; the annex table lists ten datasets with the total '합 계 1,175,800'. Listing page: https://www.korea.kr/briefing/pressReleaseView.do?newsId=156773395. Source class is a government press release by the data-owning partner; recorded as third_party_docs. The release also says the safe zone is free but requires an application and approval in advance. Found by paging korea.kr's dated press-release list; web search was not available."
+    },
+    {
+      "claim_id": "korea-ai-hub-c078",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The only confirmation found is NIA's own press release (NIA operates AI-Hub, so it is the vendor, though on nia.or.kr): https://www.nia.or.kr/site/nia_kor/ex/bbs/View.do?cbIdx=90549&bcIdx=30023&parentSeq=30023, posted 2026-09-30, says NIA and MSIT finished remodelling the K-ICT Big Data Center, renamed it 'AI데이터안심활용센터' and held the opening on 29 September (Tue) at Gyeonggi Startup Campus. It frames the centre around the data safe zone, the data-combination support centre and an 'AI lounge'; it does not mention AI-Hub data in the text (only a related link). No MSIT release on this appears in Korea Policy Briefing's press-release list for 2026-09-29 to 2026-10-01 (paged in full by date). Independent press would normally exist but cannot be reached without web search. NIA's own press list shows one newer item (2026-10-01, pseudonymised-data combination results), so the 29 September opening is the newest AI-Hub-related dated event found."
+    },
+    {
+      "claim_id": "korea-ai-hub-c066",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://www.twigfarm.net/ko/news/twigfarm-korea-ai-ecosystem-projects-2025",
+        "publisher": "Twigfarm (news post of 2025-07-14 restating a Money Today article)",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "webfetch",
+        "quote": "'K-스톡 콘텐츠 데이터 구축' 과제(주관기관)와"
+      },
+      "corrected_statement": null,
+      "note": "The building partner's own site, not NIA's, says Twigfarm won the K-Stock content data project as lead organisation (주관기관). A later Twigfarm post (https://www.twigfarm.net/ko/news/twigfarm-nia-2025-kstock-ai-excellent-rating, 2026-02-13) says the 'Twigfarm consortium' received an 'excellent' final evaluation in NIA's 2025 hyperscale-AI ecosystem programme. Partner-authored, so it is independent of the operator but not of the contractor."
+    },
+    {
+      "claim_id": "korea-ai-hub-c060",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The support amount and cap are terms of NIA's own programme notice. One attempt to find a relay outside AI-Hub: NIA's notice board on nia.or.kr (cbIdx=99835, 12 pages) and the government support portal bizinfo.go.kr (keyword filter ignored); neither showed it. Web search was not available."
+    },
+    {
+      "claim_id": "korea-ai-hub-c001",
+      "check": "blind",
+      "status": "confirmed_independent",
+      "independent_source": {
+        "url": "https://www.korea.kr/common/download.do?fileId=198520367&tblKey=GMN",
+        "publisher": "Broadcasting Media Communications Commission (방송미디어통신위원회), press release of 2026-08-05 via Korea Policy Briefing",
+        "source_class": "third_party_docs",
+        "retrieved_at": "2026-10-01",
+        "fetch_status": "ok",
+        "fetched_via": "pdf_read",
+        "quote": "개방되는 데이터는 인공지능 허브 안심 구역 누리집(https://www.aihub.or.kr/)을 통해 확인 가능하며"
+      },
+      "corrected_statement": null,
+      "note": "Confirms the operating status, not the specific notice. Two government releases dated within two months show AI-Hub in use as a distribution channel: the commission's of 2026-08-05 (quoted) and MSIT's of 2026-08-27 (embargoed to 2026-08-28), which says 29 datasets from the sovereign AI foundation-model project are open on AI-Hub for free download (https://www.korea.kr/briefing/pressReleaseView.do?newsId=156775729; text only in the attached .hwpx/.odt). Separately, NIA's 2026-09-30 release links to AI-Hub. The 2026-09-04 notice inviting universities to offer and register data exists only on AI-Hub: Korea Policy Briefing's releases for 2026-09-01 to 09-12 contain no matching item. Web search was not available."
+    },
+    {
+      "claim_id": "korea-ai-hub-c055",
+      "check": "blind",
+      "status": "unverifiable",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "No independent source reached. Korea Policy Briefing's press-release list for 2026-06-22 to 2026-07-10, scanned for AI-Hub and training-data keywords, has no MSIT or NIA release about opening the 2025 programme's datasets; NIA's own press list has none on or near 30 June either. Context only: the Board of Audit and Inspection report (July 2026) says data built in 2025 had not yet been released when it analysed the programme ('2025년 구축 데이터는 아직 공개되지 않아 제외'), which is consistent with a mid-2026 release but does not confirm the date or the count of 42. Press coverage would normally exist; web search was not available."
+    },
+    {
+      "claim_id": "korea-ai-hub-c051",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A live count on AI-Hub's own catalogue page. Independent context, not confirmation: the Board of Audit and Inspection report (July 2026, https://www.korea.kr/common/download.do?fileId=198544589&tblKey=GMN) says 908 MSIT-built datasets were open on AI-Hub in November 2025 (915 released, 7 suspended for re-verification), before the 2025 programme's and the foundation-model project's datasets were added. A count of 977 in October 2026 is plausible against that. Web search was not available."
+    },
+    {
+      "claim_id": "korea-ai-hub-c052",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A filter result on AI-Hub's own catalogue; no outside source counts video datasets. Web search was not available."
+    },
+    {
+      "claim_id": "korea-ai-hub-c035",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The content of one AI-Hub page. Without the exchanges' names (blind step) there was no partner site to check. Web search was not available."
+    },
+    {
+      "claim_id": "korea-ai-hub-c007",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A clause in AI-Hub's own usage policy. Related independent context: the Board of Audit and Inspection report (July 2026, p.50) says the grant agreement's special conditions (Art. 13) require building organisations to register the raw data, labelled data, model source, authoring tools and manuals on AI-Hub ('구축 산출물'), which fits the list of items in the claim but says nothing about ownership. Web search was not available."
+    },
+    {
+      "claim_id": "korea-ai-hub-c024",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The wording of AI-Hub's own terms. The 'free of charge' element is independently consistent: MSIT's release of 2026-08-27 says anyone can download the 29 new datasets from AI-Hub free (무료로 내려받기), and the commission's release of 2026-08-05 says the safe zone can be used free after application and approval. The liability disclaimer exists only in the vendor's terms."
+    },
+    {
+      "claim_id": "korea-ai-hub-c048",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Licence terms on the vendor's own site. One check outside it: arXiv papers that use AI-Hub data (2110.15023, 2009.03092, 2604.20334) describe AI-Hub as a source but say nothing about its licence. MSIT's 2026-08-27 release says licence-restricted data were excluded from the foundation-model datasets before opening, but does not name AI-Hub's licence. Web search was not available."
+    },
+    {
+      "claim_id": "korea-ai-hub-c049",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "An approval mechanic in AI-Hub's own application flow. Related independent detail: the commission's 2026-08-05 release says safe-zone data needs a prior application and approval, and MSIT's 2026-08-27 release says some foundation-model data need a separate safe-zone application, so not every dataset is auto-approved."
+    },
+    {
+      "claim_id": "korea-ai-hub-c047",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "A feature of the vendor's download tool. No outside documentation of the tool was reached; web search was not available."
+    },
+    {
+      "claim_id": "korea-ai-hub-c071",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "What one AI-Hub dataset page says. Related independent context: the commission's 2026-08-05 release says broadcast video had been hard to use for training 'because of IP, portrait and neighbouring rights', and presents the 2026 opening, through the access-controlled safe zone, as the fix. That concerns the newer broadcast datasets, not the 2020 one."
+    },
+    {
+      "claim_id": "korea-ai-hub-c072",
+      "check": "blind",
+      "status": "vendor_only",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "What one AI-Hub dataset page lists. Without the organisation's name (blind step) there was no partner site to check. The Board of Audit report defines raw data as produced 'through crowdsourcing or professional staff', which confirms the programme used crowdsourcing in general but not for this dataset."
+    },
+    {
+      "claim_id": "korea-ai-hub-c001",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The cited notice is dated 2026-09-04 on the page and its title matches the quote. Precision: it is a demand survey run jointly by MSIT and NIA to find candidate university data for the planned integrated training-data provision system (통합제공시스템) under Art. 15 of the AI Basic Act, with replies due 2026-09-11. It is not an invitation to list on AI-Hub as such. That is fine for a status claim, because the notice shows the site is live."
+    },
+    {
+      "claim_id": "korea-ai-hub-c078",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quoted subtitle shows only the rename. The date and MSIT's part are in the body: '과학기술정보통신부(장관 배경훈, 이하 과기정통부)는' and '9월 29일(화) 경기 스타트업 캠퍼스에서 개소식을 개최했다'. The release itself does not say AI-Hub data can be used there; that clause rests on c070, whose page (dataSetSn=71969) does say so ('본 데이터는 K-ICT 빅데이터센터 에서도 이용하실 수 있습니다'). The release describes the centre as the data safe zone plus data-combination centre, with analysis rooms raised from one to five."
+    },
+    {
+      "claim_id": "korea-ai-hub-c051",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Re-fetched 2026-10-01: the list page shows '데이터셋 (977건)'."
+    },
+    {
+      "claim_id": "korea-ai-hub-c052",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Re-fetched 2026-10-01 with srchOneDataTy=DATA002: '데이터셋 (110건)', and the listed items are video datasets."
+    },
+    {
+      "claim_id": "korea-ai-hub-c055",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The notice is dated 2026-06-30 and the statement is correctly framed as 'AI-Hub says'. The same notice adds that the 2025 safe-zone data and some other data require a separate application and approval."
+    },
+    {
+      "claim_id": "korea-ai-hub-c057",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The AI-Hub notice is dated 2026-08-05 and matches the commission's own release of the same day (total 1,175,800)."
+    },
+    {
+      "claim_id": "korea-ai-hub-c060",
+      "check": "scope",
+      "status": "scope_wrong",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The claim is scoped to product 'AI-Hub', but the notice (nttSn=10552, 2026-08-03) is an MSIT and NIA survey to find candidate data for the planned 'AI training-data integrated provision system' (통합제공시스템) under Art. 15 of the AI Basic Act. The notice is only posted on AI-Hub. The Board of Audit report describes that system as a separate 'National AI Data Cluster' with a pilot due in December 2026. The KRW 60m per dataset (max 100) is quality-consulting and de-identification support for selected data ('품질지원(컨설팅 등), 비식별화 등 기술적·재정적 지원'), not a payment for listing on AI-Hub. It should not feed AI-Hub's economics or supply fields. The parallel university survey (c001's notice) offers only '0.6억원 상당' of technical support."
+    },
+    {
+      "claim_id": "korea-ai-hub-c035",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "Re-fetched: '등록된거래소 4건'. The table summary on the page names the columns as company name, content and link, which supports 'description and outbound link'."
+    },
+    {
+      "claim_id": "korea-ai-hub-c007",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote is from the 'AI 허브 개방 데이터' section and the full sentence lists 'data, AI application models, data-authoring tool source, manuals'. That clause covers only outputs of MSIT/NIA's 「지능정보산업 인프라 조성」 programme. On the same page, rights in the 2020 and 2021 AI competition data belong to NIPA (non-commercial use only), and data not from that programme follows the providing body's own policy. The profile's 'mixed' operator_role already reflects this. The word 'jointly' is the profiler's reading; the clause says the rights 'lie with' both parties."
+    },
+    {
+      "claim_id": "korea-ai-hub-c024",
+      "check": "scope",
+      "status": "quote_incomplete",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The quote stops before the exception. Art. 18 continues 'AI 허브가 고의로 행한 범죄행위를 제외하고 이에 대하여 책임을 부담하지 아니합니다', and those words show the 'except intentional criminal acts' part."
+    },
+    {
+      "claim_id": "korea-ai-hub-c066",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "dataSetSn=71969 shows '구축년도 : 2025' and '수행기관(주관) : 트위그팜'. The page is also tagged '# 크라우드 소싱' and shows '갱신년월 : 2026-06'."
+    },
+    {
+      "claim_id": "korea-ai-hub-c047",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The FAQ answer refers to the AI-Hub download program (web download via Innorix) with [전체 다운로드] and [선택 다운로드] buttons."
+    },
+    {
+      "claim_id": "korea-ai-hub-c049",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The FAQ separates auto-approved data from review and safe-zone data. The same answer adds that accounts without mobile-phone identity verification are excluded from auto-approval, which matters for buyer_vetting."
+    },
+    {
+      "claim_id": "korea-ai-hub-c048",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "FAQ answer on copyright policy, page 2. It continues that redistributing the original or simply edited data, or giving it to third parties, is restricted, and that institution-provided data follows its provider's own terms."
+    },
+    {
+      "claim_id": "korea-ai-hub-c071",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "dataSetSn=71 is a 2020 broadcast-video content dataset ('구축년도 : 2020'; lead Zoom Internet; footage from KDX(MBN), YTN and EBS 'and individuals'). The quoted words are on it. They are an assertion only; no rights documents are offered, so the matrix value asserted_only fits."
+    },
+    {
+      "claim_id": "korea-ai-hub-c072",
+      "check": "scope",
+      "status": "scope_ok",
+      "independent_source": null,
+      "corrected_statement": null,
+      "note": "The same 2020 page lists '데이터 라벨링 (크라우드 소싱 활용)' among a participating organisation's tasks."
+    }
+  ],
+  "missed": [
+    {
+      "id": "korea-ai-hub-v001",
+      "statement": "Korea's Board of Audit and Inspection found that 65 of the 1,270 firms that built AI-Hub datasets in 2021–2024 had closed or could no longer maintain their data, and that they had built or co-built 213 of the 721 datasets examined (29.5%).",
+      "kind": "outcome",
+      "section": "post_sale",
+      "question_ids": ["Q10", "Q11"],
+      "scope": {"product": "AI-Hub", "tier": "", "region": "South Korea"},
+      "value": null,
+      "origin": "government",
+      "as_of": "2026-01",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.korea.kr/common/download.do?fileId=198544589&tblKey=GMN",
+          "publisher": "Board of Audit and Inspection of Korea (감사원), performance audit report 'AI industry promotion III (AI training data)', July 2026, released 2026-08-12",
+          "source_class": "regulator_guidance",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "213종(주관기관 관련 66종, 참여기관 관련 147종)에 달하며, 이는 분석대상 전체(721종) 학습용 데이터의 29.5%에 해당한다"
+        }
+      ]
+    },
+    {
+      "id": "korea-ai-hub-v002",
+      "statement": "The Board of Audit found that NIA closed user complaints about errors in AI-Hub datasets built by since-closed firms without correcting the data, leaving the faulty datasets published as of December 2025, and told NIA to set up third-party maintenance.",
+      "kind": "outcome",
+      "section": "post_sale",
+      "question_ids": ["Q10", "Q11"],
+      "scope": {"product": "AI-Hub", "tier": "", "region": "South Korea"},
+      "value": null,
+      "origin": "government",
+      "as_of": "2025-12",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.korea.kr/common/download.do?fileId=198544589&tblKey=GMN",
+          "publisher": "Board of Audit and Inspection of Korea (감사원), performance audit report, July 2026, released 2026-08-12",
+          "source_class": "regulator_guidance",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "불가능한 것으로 민원을 종결 처리하고 있어 왜곡된 학습용 데이터가 계속해서"
+        }
+      ]
+    },
+    {
+      "id": "korea-ai-hub-v003",
+      "statement": "According to the Board of Audit, the Korean government spent KRW 1.6328 trillion from 2017 to 2024 building 903 AI training datasets for AI-Hub.",
+      "kind": "number",
+      "section": "supply",
+      "question_ids": ["Q3"],
+      "scope": {"product": "AI-Hub", "tier": "", "region": "South Korea"},
+      "value": {"num": 1632800000000, "unit": "KRW", "basis": "government budget for building AI training datasets released through AI-Hub, cumulative", "period": "2017–2024"},
+      "origin": "government",
+      "as_of": "2025-11",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.korea.kr/common/download.do?fileId=198544589&tblKey=GMN",
+          "publisher": "Board of Audit and Inspection of Korea (감사원), performance audit report, July 2026, released 2026-08-12",
+          "source_class": "regulator_guidance",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "총 1조 6,328억 원의 예산을 투입하여 AI 학습용 데이터세트 총 903종을 구축하였으며"
+        }
+      ]
+    },
+    {
+      "id": "korea-ai-hub-v004",
+      "statement": "NIA has the building consortium self-check each dataset's quality and then has an external verifier such as TTA check it against quality indicators before delivery, so quality claims on MSIT-built AI-Hub datasets are operator-verified.",
+      "kind": "architecture",
+      "section": "vetting",
+      "question_ids": ["Q11"],
+      "scope": {"product": "AI-Hub (MSIT/NIA-built datasets)", "tier": "", "region": "South Korea"},
+      "value": null,
+      "origin": "government",
+      "as_of": "2025-12",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.korea.kr/common/download.do?fileId=198544589&tblKey=GMN",
+          "publisher": "Board of Audit and Inspection of Korea (감사원), performance audit report, July 2026, released 2026-08-12",
+          "source_class": "regulator_guidance",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "기술협회 등 외부 품질검증기관을 통한 제3자 품질검증 체계"
+        }
+      ]
+    },
+    {
+      "id": "korea-ai-hub-v005",
+      "statement": "NIA sets a post-management period of one to five years after each build project, during which the building organisations must correct data errors free of charge and answer user complaints.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": ["Q10"],
+      "scope": {"product": "AI-Hub (MSIT/NIA-built datasets)", "tier": "", "region": "South Korea"},
+      "value": null,
+      "origin": "government",
+      "as_of": "2025-12",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.korea.kr/common/download.do?fileId=198544589&tblKey=GMN",
+          "publisher": "Board of Audit and Inspection of Korea (감사원), performance audit report, July 2026, released 2026-08-12",
+          "source_class": "regulator_guidance",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "일정 기간(1~5년)을 학습용 데이터 사후관리 기간으로 설정하여"
+        }
+      ]
+    },
+    {
+      "id": "korea-ai-hub-v006",
+      "statement": "As of November 2025, 7 of the 915 datasets released on AI-Hub had been withdrawn from publication pending re-verification of the data.",
+      "kind": "number",
+      "section": "post_sale",
+      "question_ids": ["Q10"],
+      "scope": {"product": "AI-Hub", "tier": "", "region": "South Korea"},
+      "value": {"num": 7, "unit": "datasets", "basis": "datasets suspended from publication for re-verification, out of 915 released", "period": "as at November 2025"},
+      "origin": "government",
+      "as_of": "2025-11",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.korea.kr/common/download.do?fileId=198544589&tblKey=GMN",
+          "publisher": "Board of Audit and Inspection of Korea (감사원), performance audit report, July 2026, released 2026-08-12",
+          "source_class": "regulator_guidance",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "총 915종을 공개하였으나 그중 7종은 데이터 재검증을 위해 공개를 중단 중이며"
+        }
+      ]
+    },
+    {
+      "id": "korea-ai-hub-v007",
+      "statement": "NIA's September 2025 plan for a national integrated AI training-data provision system, as summarised by the Board of Audit, includes setting up a compensation system and a commerce system for AI training data.",
+      "kind": "offer",
+      "section": "changes",
+      "question_ids": ["Q2", "Q9"],
+      "scope": {"product": "Integrated AI training-data provision system (planned)", "tier": "", "region": "South Korea"},
+      "value": null,
+      "origin": "government",
+      "as_of": "2025-09",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.korea.kr/common/download.do?fileId=198544589&tblKey=GMN",
+          "publisher": "Board of Audit and Inspection of Korea (감사원), performance audit report, July 2026, released 2026-08-12",
+          "source_class": "regulator_guidance",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "AI 학습용 데이터 보상·상거래 체계 정비"
+        }
+      ]
+    },
+    {
+      "id": "korea-ai-hub-v008",
+      "statement": "MSIT plans to start piloting the national integrated AI training-data provision system ('National AI Data Cluster'), which would supply the data itself rather than only pointers to it, in December 2026.",
+      "kind": "event",
+      "section": "changes",
+      "question_ids": ["Q2", "Q6"],
+      "scope": {"product": "Integrated AI training-data provision system (planned)", "tier": "", "region": "South Korea"},
+      "value": null,
+      "origin": "government",
+      "as_of": "2025-12",
+      "as_of_basis": "publication",
+      "sources": [
+        {
+          "url": "https://www.korea.kr/common/download.do?fileId=198544589&tblKey=GMN",
+          "publisher": "Board of Audit and Inspection of Korea (감사원), performance audit report, July 2026, released 2026-08-12",
+          "source_class": "regulator_guidance",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "2026년 12월 중 시범 운영 개시 예정"
+        }
+      ]
+    }
+  ]
+}

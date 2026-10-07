@@ -1,0 +1,1270 @@
+{
+  "kind": "document",
+  "slug": "doc-bee-maps-tos",
+  "platform_slug": "bee-maps",
+  "title": "Bee Terms of Service",
+  "doc_type": "contributor_agreement",
+  "url": "https://beemaps.com/tos",
+  "publisher": "Bee Maps (Hivemapper, Inc.)",
+  "version_or_date": "Last Updated: Q4 2025",
+  "retrieved_at": "2026-10-01",
+  "parties": {
+    "licensor": "Bee device owner or operator: a Beekeeper fleet user grants an exclusive licence; for non-Beekeeper devices Bee Maps owns the data it collects outright",
+    "licensee": "Hivemapper, Inc. (dba Bee Maps), which may sublicense, distribute or sell the data to third parties",
+    "operator_role": "reseller_licensor"
+  },
+  "terms": {
+    "permitted_use": {
+      "value": "Bee Maps (not the device owner) holds the rights: it owns Beekeeper data under an exclusive licence and may use it to improve products, build features, train ML models and for any other lawful business purpose; for non-Beekeeper devices it owns the data outright with the right to use, license, distribute or sell it.",
+      "claim_ids": [
+        "doc-bee-maps-tos-c003",
+        "doc-bee-maps-tos-c006",
+        "doc-bee-maps-tos-c007",
+        "doc-bee-maps-tos-c012"
+      ]
+    },
+    "ai_training_rights": {
+      "value": "Beekeeper data: Bee Maps itself may train machine-learning models; onward sublicensing, distribution or sale to third parties is stated only for aggregated or anonymized data. Non-Beekeeper data: owned outright with rights to use, license, distribute or sell (ML not named). Fine-tuning, evaluation and model-output rights are not mentioned; the device owner gets no training rights.",
+      "claim_ids": [
+        "doc-bee-maps-tos-c007",
+        "doc-bee-maps-tos-c008",
+        "doc-bee-maps-tos-c012"
+      ]
+    },
+    "field_of_use": {
+      "value": "Unrestricted for Bee Maps: 'any other lawful business purpose' for Beekeeper data.",
+      "claim_ids": [
+        "doc-bee-maps-tos-c007"
+      ]
+    },
+    "term_duration": {
+      "value": "The Beekeeper exclusive licence runs for the user's time on the platform 'and thereafter', so it does not end when the user leaves; non-Beekeeper data is owned outright with no end date.",
+      "claim_ids": [
+        "doc-bee-maps-tos-c009",
+        "doc-bee-maps-tos-c012"
+      ]
+    },
+    "exclusivity": {
+      "value": "Exclusive to Bee Maps: device owner grants an exclusive licence (Beekeeper) or Bee Maps owns the data (default); the owner keeps no stated right to license it elsewhere. Nothing on exclusivity offered to Bee Maps' own data buyers.",
+      "claim_ids": [
+        "doc-bee-maps-tos-c003",
+        "doc-bee-maps-tos-c006",
+        "doc-bee-maps-tos-c009",
+        "doc-bee-maps-tos-c012"
+      ]
+    },
+    "sublicensing": {
+      "value": "Bee Maps may sublicense, distribute or sell Beekeeper data to third parties when aggregated or anonymized; for non-Beekeeper data it may license, distribute or sell without that qualifier.",
+      "claim_ids": [
+        "doc-bee-maps-tos-c008",
+        "doc-bee-maps-tos-c012"
+      ]
+    },
+    "derivatives_and_model_outputs": {
+      "value": "Bee Maps owns any derivative data products created from Beekeeper data and related metadata; model outputs are not mentioned.",
+      "claim_ids": [
+        "doc-bee-maps-tos-c005"
+      ]
+    },
+    "deletion_on_termination": {
+      "value": "No deletion on exit: the Beekeeper licence continues after use ends ('and thereafter'); no clause lets the device owner recall or delete collected data.",
+      "claim_ids": [
+        "doc-bee-maps-tos-c009"
+      ]
+    },
+    "warranties_by_provider": {
+      "value": "The device owner/user is solely responsible for content it makes available and must not upload content it has no right to upload or that infringes; it also warrants export-control compliance. Bee Maps warrants only the hardware (one-year manufacturing defects) and otherwise provides it as is.",
+      "claim_ids": [
+        "doc-bee-maps-tos-c015",
+        "doc-bee-maps-tos-c016",
+        "doc-bee-maps-tos-c034",
+        "doc-bee-maps-tos-c025",
+        "doc-bee-maps-tos-c026"
+      ]
+    },
+    "consent_and_release_warranty": {
+      "value": "No consent or release warranty from anyone: the user is only barred from uploading content that poses a privacy risk to any person; Bee Maps says default-mode imagery is privacy-blurred, while Beekeeper data is expressly not anonymized as to drivers, and no driver or bystander consent is required or warranted.",
+      "claim_ids": [
+        "doc-bee-maps-tos-c017",
+        "doc-bee-maps-tos-c011",
+        "doc-bee-maps-tos-c010"
+      ]
+    },
+    "indemnity": {
+      "value": "One-way, uncapped: the user indemnifies Bee Maps for misuse of the Goods and injury, death or property damage from the user's negligence or wrongful act; Bee Maps gives no indemnity (none for data or IP claims).",
+      "claim_ids": [
+        "doc-bee-maps-tos-c021",
+        "doc-bee-maps-tos-c022"
+      ]
+    },
+    "liability_cap": {
+      "value": "Bee Maps' aggregate liability is capped at the cost of the goods and services ordered that relate to the damages; consequential damages, lost profits and lost-data damages excluded.",
+      "claim_ids": [
+        "doc-bee-maps-tos-c023",
+        "doc-bee-maps-tos-c024"
+      ]
+    },
+    "payment_and_revenue_share": {
+      "value": "No payment or revenue share for data in this document; any rewards for operating a Bee are governed by the separate Hivemapper Mapping Network Terms (tokens or USDC are not mentioned here).",
+      "claim_ids": [
+        "doc-bee-maps-tos-c014"
+      ]
+    },
+    "takedown_and_erasure": {
+      "value": "Bee Maps may remove offending content from the Service and terminate accounts; nothing on user or data-subject erasure requests or on copies already licensed or sold to third parties.",
+      "claim_ids": [
+        "doc-bee-maps-tos-c018"
+      ]
+    },
+    "governing_law": {
+      "value": "Inconsistent: Miscellaneous names California law and San Francisco courts; the entity-user section names New York law with confidential AAA arbitration in New York; individuals go to AAA consumer arbitration with a class-action waiver.",
+      "claim_ids": [
+        "doc-bee-maps-tos-c027",
+        "doc-bee-maps-tos-c028",
+        "doc-bee-maps-tos-c029",
+        "doc-bee-maps-tos-c030"
+      ]
+    },
+    "change_of_terms": {
+      "value": "Terms apply 'as amended from time to time' with no notice mechanism stated; only changes to the individual arbitration agreement can be rejected within 30 days; firmware may add or remove features.",
+      "claim_ids": [
+        "doc-bee-maps-tos-c031",
+        "doc-bee-maps-tos-c032",
+        "doc-bee-maps-tos-c033"
+      ]
+    },
+    "prohibited_uses": {
+      "value": "User may not upload infringing, unauthorised or privacy-risk content, may not scrape or data-mine the Service, may not resell the Goods, and may not use Goods or Services for prohibited export-control end uses.",
+      "claim_ids": [
+        "doc-bee-maps-tos-c016",
+        "doc-bee-maps-tos-c017",
+        "doc-bee-maps-tos-c019",
+        "doc-bee-maps-tos-c020",
+        "doc-bee-maps-tos-c034"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "doc-bee-maps-tos-c001",
+      "statement": "The Bee Maps Terms of Service carry the date 'Last Updated: Q4 2025'.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Last Updated: Q4 2025"
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c002",
+      "statement": "The Bee Maps Terms of Service are terms of sale of goods and services by Hivemapper, Inc., trading as Bee Maps, to the device buyer or user.",
+      "kind": "terms",
+      "section": "other",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "apply to all offers and sales by Hivemapper, Inc. (dba Bee Maps)"
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c003",
+      "statement": "A Bee device owner or operator who opts into Beekeeper fleet services agrees that Hivemapper, Inc. (dba Bee Maps) owns all data generated through Beekeeper.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Hivemapper, Inc. (dba Bee Maps) owns all data generated through your use of Beekeeper"
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c004",
+      "statement": "The Beekeeper data Bee Maps owns expressly includes AI Event video clips, imagery or video processed by its AI Event detection, and dashcam imagery and video.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "any imagery or video captured and processed by our AI Event detection systems; dashcam imagery and dashcam video"
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c005",
+      "statement": "Bee Maps' ownership of Beekeeper data extends to any derivative data products created from that data and related metadata.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "any derivative data products created from the foregoing; and any related metadata"
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c006",
+      "statement": "Bee Maps holds an exclusive licence to Beekeeper data.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q8"
+      ],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Hivemapper, Inc. (dba Bee Maps) holds an exclusive license to this data"
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c007",
+      "statement": "Bee Maps may use Beekeeper data to develop new features, train machine learning models and for any other lawful business purpose.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "develop new features, train machine learning models, and for any other lawful business purpose"
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c008",
+      "statement": "Bee Maps' onward right to sublicense, distribute or sell Beekeeper data to third parties is stated for aggregated or anonymized data.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "including the right to sublicense, distribute, or sell aggregated or anonymized data to third parties"
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c009",
+      "statement": "The Beekeeper user grants Bee Maps the exclusive licence for the duration of use of the platform and thereafter, so it survives the user leaving.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you grant Hivemapper, Inc. this exclusive license for the duration of your use of the platform and thereafter"
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c010",
+      "statement": "Beekeeper data is not anonymized with respect to the fleet's drivers.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "data generated through your use of Beekeeper will not be anonymized with respect to your drivers"
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c011",
+      "statement": "For Bee devices not in Beekeeper, Bee Maps collects privacy-blurred imagery, video, GPS and related sensor data from the device.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "collects data from it, including privacy-blurred imagery, video, GPS data, and related sensor data"
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c012",
+      "statement": "For Bee devices not in Beekeeper, Bee Maps owns the data it collects, with the right to use, license, distribute or sell it.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "owns the data it collects from the Bee in this capacity, including the right to use, license, distribute, or sell that data"
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c013",
+      "statement": "For non-Beekeeper devices Bee Maps acts as a developer on the Hivemapper Network that leases access to the owner's Bee sensing device.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Hivemapper, Inc. (dba Bee Maps) — as a developer on the Hivemapper Network — leases access to your Bee sensing device"
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c014",
+      "statement": "Rewards for operating a Bee on the Hivemapper Network are not set in these Terms but in the separate Hivemapper Mapping Network Terms of Service.",
+      "kind": "terms",
+      "section": "contributor_pay",
+      "question_ids": [
+        "Q3"
+      ],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "any rewards you may receive for participating, is also governed by the Hivemapper Mapping Network Terms of Service"
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c015",
+      "statement": "The user is solely responsible for all video, images, data and other content made available to Bee Maps through the Service or Goods.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You are solely responsible for all code, video, images, information, data"
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c016",
+      "statement": "Users must not upload content they have no right to upload under law or under contractual or fiduciary relationships.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q7"
+      ],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "(ii) you do not have a right to upload under any law or under contractual or fiduciary relationships"
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c017",
+      "statement": "Users must not upload content that poses or creates a privacy or security risk to any person.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "(iv) poses or creates a privacy or security risk to any person"
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c018",
+      "statement": "Bee Maps may remove offending content from the Service and suspend or terminate the violator's account.",
+      "kind": "terms",
+      "section": "post_sale",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "including removing the offending content from the Service, suspending or terminating the account of such violators"
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c019",
+      "statement": "Users may not use data mining, robots, scraping or similar extraction methods on the Service.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "engage in or use any data mining, robots, scraping, or similar data gathering or extraction methods"
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c020",
+      "statement": "Goods sold through the website are not authorized for resale, export or re-export.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Goods sold through the website are not authorized for resale, export, or re-export."
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c021",
+      "statement": "The user defends, indemnifies and holds harmless Bee Maps and its officers, directors and employees.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "You will defend, indemnify and hold harmless Bee Maps and its officers, directors, employees"
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c022",
+      "statement": "The user's indemnity covers misuse of the Goods and injury, death or property damage arising from the user's negligence or wrongful act; no cap is stated.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "related to misuse of the Goods or resulting from injury and/ or death of any person or damage to or loss of any property"
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c023",
+      "statement": "Bee Maps' aggregate liability is capped at the cost of the goods and services the user ordered that relate to the damages.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "WILL IN NO CIRCUMSTANCES EXCEED THE COST OF THE GOODS AND SERVICES YOU ORDERED THAT IS RELATED TO YOUR DAMAGES"
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c024",
+      "statement": "Bee Maps excludes liability for special, incidental, indirect or consequential damages and lost profits.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "IN NO EVENT WILL COMPANY BE LIABLE FOR SPECIAL, INCIDENTAL, INDIRECT, OR CONSEQUENTIAL DAMAGES, LOST PROFITS"
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c025",
+      "statement": "Bee Maps' only warranty is a one-year guarantee on the Goods against manufacturing defects.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Our Goods are guaranteed against manufacturing defects one (1) year from the original date of purchase."
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c026",
+      "statement": "Apart from the manufacturing-defect warranty, the Goods are provided as is.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "THE GOODS ARE EXPRESSLY PROVIDED TO YOU \"AS IS\""
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c027",
+      "statement": "The Miscellaneous section says the Terms are governed by California law.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "These Terms will be governed by the laws of the State of California without regard to its conflict of law provisions."
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c028",
+      "statement": "For users entering the Terms on behalf of an entity, the Terms are construed and enforced under New York law.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "construed and enforced in accordance with the laws of the State of New York"
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c029",
+      "statement": "Entity users' disputes go to confidential binding arbitration in New York, New York before one arbitrator.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "confidential binding arbitration in New York, New York before one arbitrator"
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c030",
+      "statement": "Individual users' disputes with Bee Maps go exclusively to final and binding arbitration rather than a court, with small-claims exceptions.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "will be resolved exclusively through final and binding arbitration, rather than a court"
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c031",
+      "statement": "The Terms apply as amended from time to time; no notice mechanism for general changes is stated.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "subject to the terms and conditions contained in these Terms (as amended from time to time"
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c032",
+      "statement": "An individual user may reject a future change to the arbitration agreement by written notice within 30 calendar days.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [
+        "Q4"
+      ],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you may reject any such change by sending Bee Maps written notice within thirty (30) calendar days of the change"
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c033",
+      "statement": "Bee Maps may push firmware updates that add, modify or remove device features as it deems necessary.",
+      "kind": "terms",
+      "section": "changes",
+      "question_ids": [],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "including updates that may add, modify, or remove features or functionality as Bee Maps deems necessary or appropriate"
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c034",
+      "statement": "The user warrants that the Goods or Services will not be used for prohibited end uses under US export controls.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "you will not use the Goods or Services for any prohibited end use"
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c035",
+      "statement": "Beekeeper data collection, processing and use are also governed by the Bee Maps Privacy Policy.",
+      "kind": "terms",
+      "section": "regulation",
+      "question_ids": [
+        "Q7"
+      ],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "Your use of Beekeeper and the collection, processing, and use of your data is also governed by our Privacy Policy"
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c036",
+      "statement": "The Terms create no agency relationship between Bee Maps and the user.",
+      "kind": "terms",
+      "section": "other",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "place the parties hereto in an agency, employment, franchise, joint venture, or partnership relationship"
+        }
+      ]
+    },
+    {
+      "id": "doc-bee-maps-tos-c037",
+      "statement": "The Terms give no rights to third parties.",
+      "kind": "terms",
+      "section": "other",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "Bee Maps Terms of Service (Bee device, Beekeeper)",
+        "tier": "",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2025",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "https://beemaps.com/tos",
+          "publisher": "Bee Maps (Hivemapper, Inc.)",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "webfetch",
+          "quote": "nothing herein contained will give rise or is intended to give rise to any rights of any kind to any third parties"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "terms.consent_and_release_warranty",
+      "urls_tried": [
+        "https://beemaps.com/tos"
+      ],
+      "reason": "not_published",
+      "note": "No warranty by the fleet owner that its drivers consented to Bee Maps owning and licensing their non-anonymized driving and video data, and nothing on bystanders or property owners captured in imagery."
+    },
+    {
+      "field": "terms.takedown_and_erasure",
+      "urls_tried": [
+        "https://beemaps.com/tos"
+      ],
+      "reason": "not_published",
+      "note": "Silent on what happens to data already sublicensed or sold to third parties when content is removed or a person asks for erasure."
+    },
+    {
+      "field": "terms.ai_training_rights",
+      "urls_tried": [
+        "https://beemaps.com/tos",
+        "https://beemaps.com/tos/data-products"
+      ],
+      "reason": "js_empty",
+      "note": "What training, fine-tuning, evaluation or redistribution rights Bee Maps grants to its data buyers sits in the 'Data Products' tab of the same page, which is not in the served text (the /tos/data-products URL returns the Bee Terms)."
+    },
+    {
+      "field": "terms.payment_and_revenue_share",
+      "urls_tried": [
+        "https://beemaps.com/tos"
+      ],
+      "reason": "not_published",
+      "note": "No token (HONEY) or USDC reward terms here; they are in the Hivemapper Mapping Network Terms of Service, a separate document."
+    },
+    {
+      "field": "terms.exclusivity",
+      "urls_tried": [
+        "https://beemaps.com/tos"
+      ],
+      "reason": "not_published",
+      "note": "Whether Bee Maps licenses data to buyers exclusively or non-exclusively is not stated."
+    }
+  ],
+  "leads": [
+    {
+      "url": "https://hivemapper.com/tos/mapping-network",
+      "why": "Hivemapper Mapping Network Terms (Last Updated May 5, 2026) govern contributor rewards and say data is now licensed directly from contributors to commissioning developers; not read for this file."
+    },
+    {
+      "url": "https://beemaps.com/privacy/privacy-policy",
+      "why": "Incorporated by reference; may address drivers' and bystanders' data rights and erasure."
+    }
+  ]
+}

@@ -1,0 +1,1155 @@
+{
+  "kind": "document",
+  "slug": "doc-elra-var",
+  "platform_slug": "elra-elda-catalogue",
+  "title": "Language Resources Value-Added-Reseller Agreement (VAR)",
+  "doc_type": "licence_template",
+  "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+  "publisher": "ELDA / ELRA",
+  "version_or_date": "Date: 21/01/2022 (Agreement Ref. No. LC/ELDA/VAR/2022/000/NAME)",
+  "retrieved_at": "2026-10-01",
+  "parties": {
+    "licensor": "ELDA S.A.S. as DISTRIBUTOR (distribution agency commissioned by ELRA), under distribution rights obtained from the rightful holder, who is not a party",
+    "licensee": "The VAR (Value Added Reseller), a named organisation using the data at one named site",
+    "operator_role": "reseller_licensor"
+  },
+  "terms": {
+    "permitted_use": {
+      "value": "Reproduce/adapt as needed for agreed use; rework and build upon the resources for the VAR's own internal R&D and technology development at its named site; commercially distribute derivative products or services, but never the data itself.",
+      "claim_ids": [
+        "doc-elra-var-c006",
+        "doc-elra-var-c007",
+        "doc-elra-var-c009"
+      ]
+    },
+    "ai_training_rights": {
+      "value": "Training implied, not named: VAR may rework/build upon the data internally (so may train models in-house), but may not make available to third parties any Language Model based on any part of the data, even when mixed into a larger dataset, nor products that let third parties extract such models; fine-tuning, evaluation and model-output rights are not addressed separately.",
+      "claim_ids": [
+        "doc-elra-var-c005",
+        "doc-elra-var-c007",
+        "doc-elra-var-c013",
+        "doc-elra-var-c014",
+        "doc-elra-var-c015"
+      ]
+    },
+    "field_of_use": {
+      "value": "Internal language-engineering research and technology development, plus commercial derivative products/services (VAR's own commercialisation policy); no sector limits.",
+      "claim_ids": [
+        "doc-elra-var-c007",
+        "doc-elra-var-c009"
+      ]
+    },
+    "territory": {
+      "value": "Rights are worldwide, but use and access are tied to the single site named in Exhibit B (relocation allowed with notice to ELDA within 30 days).",
+      "claim_ids": [
+        "doc-elra-var-c008",
+        "doc-elra-var-c018",
+        "doc-elra-var-c019"
+      ]
+    },
+    "term_duration": {
+      "value": "Perpetual; the template contains no termination clause.",
+      "claim_ids": [
+        "doc-elra-var-c008",
+        "doc-elra-var-c033"
+      ]
+    },
+    "exclusivity": {
+      "value": "Non-exclusive right to distribute derivative products; no exclusivity offered.",
+      "claim_ids": [
+        "doc-elra-var-c009"
+      ]
+    },
+    "sublicensing": {
+      "value": "No sublicensing or transfer of the data; rights non-transferable except to a successor on acquisition/merger; VAR cannot bind ELDA.",
+      "claim_ids": [
+        "doc-elra-var-c017",
+        "doc-elra-var-c010",
+        "doc-elra-var-c024"
+      ]
+    },
+    "derivatives_and_model_outputs": {
+      "value": "Derivative products/services may be sold non-exclusively, provided they do not expose a substantial part of the data, do not allow reconstruction of it, and do not hand third parties models trained on it; VAR gains no ownership in the data.",
+      "claim_ids": [
+        "doc-elra-var-c009",
+        "doc-elra-var-c012",
+        "doc-elra-var-c013",
+        "doc-elra-var-c015",
+        "doc-elra-var-c016"
+      ]
+    },
+    "attribution": {
+      "value": "Mandatory citation of ELDA and the resource (name, ELRA catalogue URL, ISLRN, ELRA ID) in scholarly literature; no use of ELDA's name implying endorsement.",
+      "claim_ids": [
+        "doc-elra-var-c027",
+        "doc-elra-var-c028",
+        "doc-elra-var-c029"
+      ]
+    },
+    "warranties_by_provider": {
+      "value": "None: ELDA and the owners give no accuracy, completeness, merchantability or fitness warranty; data is 'as is with all defects'.",
+      "claim_ids": [
+        "doc-elra-var-c020",
+        "doc-elra-var-c021",
+        "doc-elra-var-c022"
+      ]
+    },
+    "liability_cap": {
+      "value": "Mutual exclusion of all liability for direct, consequential or indirect loss (effectively zero cap for both sides); owners also disclaim responsibility for consequences of use.",
+      "claim_ids": [
+        "doc-elra-var-c026",
+        "doc-elra-var-c025",
+        "doc-elra-var-c020"
+      ]
+    },
+    "payment_and_revenue_share": {
+      "value": "VAR pays ELDA a one-off 'compensation' set in Exhibit C (amount not in the template); rights otherwise royalty-free, so no revenue share on derivative products.",
+      "claim_ids": [
+        "doc-elra-var-c030",
+        "doc-elra-var-c008"
+      ]
+    },
+    "governing_law": {
+      "value": "French law; exclusive jurisdiction of the Tribunal de commerce de Paris after attempted amicable settlement.",
+      "claim_ids": [
+        "doc-elra-var-c031",
+        "doc-elra-var-c032"
+      ]
+    },
+    "prohibited_uses": {
+      "value": "No public release of all or a substantial part of the data (including free/open-source), no products allowing reconstruction, no sharing of models trained on it, no access from another site, no implied endorsement.",
+      "claim_ids": [
+        "doc-elra-var-c010",
+        "doc-elra-var-c011",
+        "doc-elra-var-c012",
+        "doc-elra-var-c013",
+        "doc-elra-var-c018",
+        "doc-elra-var-c029"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "doc-elra-var-c001",
+      "statement": "The ELDA VAR agreement template is dated 21/01/2022 and is headed 'Commercial in confidence'.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "ELDA - Commercial in confidence Date: 21/01/2022"
+        }
+      ]
+    },
+    {
+      "id": "doc-elra-var-c002",
+      "statement": "Under the ELRA VAR template, the licensor party is ELDA S.A.S. acting as DISTRIBUTOR, the distribution agency commissioned by ELRA.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "ELDA S.A.S., (hereinafter called DISTRIBUTOR), the distribution agency commissioned by ELRA"
+        }
+      ]
+    },
+    {
+      "id": "doc-elra-var-c003",
+      "statement": "Under the ELRA VAR template, ELDA licenses resources for which it obtained distribution rights from the rightful holder, who is not a party to the agreement.",
+      "kind": "terms",
+      "section": "supply",
+      "question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "for which DISTRIBUTOR obtained distribution rights from the rightful holder, are described in Exhibit A"
+        }
+      ]
+    },
+    {
+      "id": "doc-elra-var-c004",
+      "statement": "Under the ELRA VAR template, the licensee is the Value Added Reseller (VAR), a named commercial organisation.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Within this AGREEMENT VAR means “Value Added Reseller”."
+        }
+      ]
+    },
+    {
+      "id": "doc-elra-var-c005",
+      "statement": "The ELRA VAR template defines Language Models as all or a substantial part of the output of any supervised or unsupervised learning approach usable instead of the data.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "“Language Models” are understood by both parties as all or any substantial part of the output of a modelling approach"
+        }
+      ]
+    },
+    {
+      "id": "doc-elra-var-c006",
+      "statement": "Under the ELRA VAR template, ELDA grants the VAR the right to reproduce, translate, adapt and modify the resources as necessary to make the agreed use.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "DISTRIBUTOR grants VAR the right to reproduce the Language Resources temporarily or permanently, to translate, adapt, arrange"
+        }
+      ]
+    },
+    {
+      "id": "doc-elra-var-c007",
+      "statement": "Under the ELRA VAR template, the VAR may rework and build upon the resources for its own internal language engineering research or internal technology development at its named site.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "for the purposes of their own internal language engineering research activities or their own internal technology development"
+        }
+      ]
+    },
+    {
+      "id": "doc-elra-var-c008",
+      "statement": "Under the ELRA VAR template, all rights granted are perpetual, royalty free and worldwide.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "All rights granted hereunder are perpetual, royalty free and worldwide."
+        }
+      ]
+    },
+    {
+      "id": "doc-elra-var-c009",
+      "statement": "Under the ELRA VAR template, ELDA grants the VAR a non-exclusive right to distribute and market derivative products or services based on the resources.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "DISTRIBUTOR grants VAR the non-exclusive right to distribute and market any derivative product or service"
+        }
+      ]
+    },
+    {
+      "id": "doc-elra-var-c010",
+      "statement": "Under the ELRA VAR template, the VAR may not make all or any substantial part of the resource contents available to the public.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "VAR is not permitted to make available to the public all or any substantial part of the contents of the Language Resources"
+        }
+      ]
+    },
+    {
+      "id": "doc-elra-var-c011",
+      "statement": "The ELRA VAR template's ban on making the resource contents public covers renting, leasing and any other distribution, including free or open-source.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "by renting, leasing or any other form of distribution, including free or open-source ones"
+        }
+      ]
+    },
+    {
+      "id": "doc-elra-var-c012",
+      "statement": "Under the ELRA VAR template, the VAR may not offer third parties products or services in any form that allows the original resources to be reconstructed.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "make products or services available to third partie s in any form that allows to reconstruct the original Language Resources"
+        }
+      ]
+    },
+    {
+      "id": "doc-elra-var-c013",
+      "statement": "Under the ELRA VAR template, the VAR may not make available to third parties Language Models based on all or any part of the resources.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "VAR is not permitted to make available to third parties Language Models based on all or any part of the Language Resources."
+        }
+      ]
+    },
+    {
+      "id": "doc-elra-var-c014",
+      "statement": "The ELRA VAR template's ban on sharing models extends to Language Models created by incorporating the resources in a larger dataset.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Language Models created by incorporation of the Language Resources in a larger dataset"
+        }
+      ]
+    },
+    {
+      "id": "doc-elra-var-c015",
+      "statement": "Under the ELRA VAR template, the VAR may not offer products or services that let third parties extract all or part of Language Models based on the resources.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "products and services that allow any third parties to extract all or any part of the Language Models based on"
+        }
+      ]
+    },
+    {
+      "id": "doc-elra-var-c016",
+      "statement": "Under the ELRA VAR template, the VAR acquires no ownership, rights or title in the resources.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "VAR acquires no ownership, rights or title in all or any parts of the Language Resources."
+        }
+      ]
+    },
+    {
+      "id": "doc-elra-var-c017",
+      "statement": "Under the ELRA VAR template, the rights are non-transferable except where the VAR is acquired, merges or consolidates with another entity.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "non -transferable to any other entity, except in case VAR is acquired, merges or consolidates with another legal entity"
+        }
+      ]
+    },
+    {
+      "id": "doc-elra-var-c018",
+      "statement": "Under the ELRA VAR template, the resources may not be transferred to or accessed from any site other than the one named in Exhibit B.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q6",
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "The Language Resources shall not be transferred to or accessed from any other site."
+        }
+      ]
+    },
+    {
+      "id": "doc-elra-var-c019",
+      "statement": "Under the ELRA VAR template, if the VAR relocates the relevant activities the resources may move with it, with ELDA notified within 30 days.",
+      "kind": "terms",
+      "section": "custody",
+      "question_ids": [
+        "Q6",
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "the Language Resources will be transferable to its new location and ELDA will be notified within 30 days of such transfer"
+        }
+      ]
+    },
+    {
+      "id": "doc-elra-var-c020",
+      "statement": "Under the ELRA VAR template, both ELDA and the resource owners disclaim responsibility for the accuracy or completeness of the data and for the consequences of its use.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q11"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "DISTRIBUTOR and OWNERS accept no responsibility for the accuracy or completeness of the data or for the consequences"
+        }
+      ]
+    },
+    {
+      "id": "doc-elra-var-c021",
+      "statement": "Under the ELRA VAR template, ELDA and the owners give no warranty of merchantability or fitness for a particular purpose.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "DISTRIBUTOR and OWNERS give no warranty for merchantability and/or fitness for a particular purpose"
+        }
+      ]
+    },
+    {
+      "id": "doc-elra-var-c022",
+      "statement": "Under the ELRA VAR template, the resources are provided on an 'as is with all defects' basis.",
+      "kind": "terms",
+      "section": "trust",
+      "question_ids": [
+        "Q5",
+        "Q11"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Language Resources are provided on an \"as is with all defects\" basis."
+        }
+      ]
+    },
+    {
+      "id": "doc-elra-var-c023",
+      "statement": "Under the ELRA VAR template, the VAR and ELDA are independent contractors, not partners or joint venturers.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "VAR and DISTRIBUTOR are independent contractors."
+        }
+      ]
+    },
+    {
+      "id": "doc-elra-var-c024",
+      "statement": "Under the ELRA VAR template, the VAR has no authority to create any warranty, liability or obligation in ELDA's name.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "VAR has no right or authority to incur, assume or create, in writing or otherwise, any warranty, liability"
+        }
+      ]
+    },
+    {
+      "id": "doc-elra-var-c025",
+      "statement": "Under the ELRA VAR template, neither party is responsible for damages caused by the other party's non-fulfilment of the agreement.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Neither party shall be responsible for damages caused by the other party's non-fulfillment of provisions of this AGREEMENT."
+        }
+      ]
+    },
+    {
+      "id": "doc-elra-var-c026",
+      "statement": "Under the ELRA VAR template, both parties exclude all liability for direct, consequential or indirect loss suffered by the other.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "Both parties exclude all liability of whatsoever nature for direct, consequential or indirect loss or damage"
+        }
+      ]
+    },
+    {
+      "id": "doc-elra-var-c027",
+      "statement": "Under the ELRA VAR template, the VAR must cite ELDA and the resource's name and ELRA catalogue reference in scholarly literature that mentions it.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "VAR shall give appropriate references to Distributor, as well as to the name and refe rence of the Language Resources"
+        }
+      ]
+    },
+    {
+      "id": "doc-elra-var-c028",
+      "statement": "The ELRA VAR template prescribes an acknowledgement giving the resource name, ELRA catalogue URL, ISLRN and ELRA ID.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "LANGUAGE RESOURCE NAME, ELRA catalogue (http://catalog.elra.info), ISLRN: XXX-XXX-XXX-XXX-X, ELRA ID: ELRA-XXXXX"
+        }
+      ]
+    },
+    {
+      "id": "doc-elra-var-c029",
+      "statement": "Under the ELRA VAR template, the VAR may not use ELDA's name in a way implying endorsement of the VAR or its products.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "VAR shall not use the name of Distributor in any publication in any manner that would imply an endorsement of VAR"
+        }
+      ]
+    },
+    {
+      "id": "doc-elra-var-c030",
+      "statement": "Under the ELRA VAR template, the VAR pays ELDA a compensation whose amount, mode and schedule are set in Exhibit C, not in the template.",
+      "kind": "terms",
+      "section": "pricing",
+      "question_ids": [
+        "Q9"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "VAR agrees to pay DISTRIBUTOR a compensation. The mode of payment and schedule of payments are incorporated in Exhibit C"
+        }
+      ]
+    },
+    {
+      "id": "doc-elra-var-c031",
+      "statement": "The ELRA VAR template is governed by French law.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "This AGREEMENT is subject to, construed and interpreted in accordance with the Law of France."
+        }
+      ]
+    },
+    {
+      "id": "doc-elra-var-c032",
+      "statement": "Under the ELRA VAR template, the Tribunal de commerce de Paris is the only competent court if disputes cannot be settled amicably.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "The \"Tribunal de commerce de Paris\" shall be the only competent court."
+        }
+      ]
+    },
+    {
+      "id": "doc-elra-var-c033",
+      "statement": "The ELRA VAR template consists only of 21 articles and Exhibits A-C, and none of them provides for termination, deletion of copies, audit, indemnity, consent of people recorded, or takedown.",
+      "kind": "terms",
+      "section": "licence",
+      "question_ids": [
+        "Q5",
+        "Q7",
+        "Q8"
+      ],
+      "scope": {
+        "product": "ELRA/ELDA VAR (Value-Added Reseller) licence",
+        "tier": "commercial VAR",
+        "region": ""
+      },
+      "value": null,
+      "origin": "legal_text",
+      "as_of": "2022-01-21",
+      "as_of_basis": "page_dated",
+      "sources": [
+        {
+          "url": "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf",
+          "publisher": "ELDA / ELRA",
+          "source_class": "legal_terms",
+          "retrieved_at": "2026-10-01",
+          "fetch_status": "ok",
+          "fetched_via": "pdf_read",
+          "quote": "The entire AGREEMENT is composed of the 21 articles herein together with Exhibits A, B, and C thereafter."
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "field": "terms.consent_and_release_warranty",
+      "urls_tried": [
+        "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf"
+      ],
+      "reason": "not_published",
+      "note": "No party warrants consent or releases from speakers/people recorded; the only statements are disclaimers by ELDA and the owners."
+    },
+    {
+      "field": "terms.indemnity",
+      "urls_tried": [
+        "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf"
+      ],
+      "reason": "not_published",
+      "note": "No indemnity in either direction; liability is instead mutually excluded (art. 16-17)."
+    },
+    {
+      "field": "terms.takedown_and_erasure",
+      "urls_tried": [
+        "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf"
+      ],
+      "reason": "not_published",
+      "note": "Nothing on withdrawal of a resource, data-subject erasure, or what happens to copies the VAR already holds."
+    },
+    {
+      "field": "terms.deletion_on_termination",
+      "urls_tried": [
+        "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf"
+      ],
+      "reason": "not_published",
+      "note": "No termination clause at all; the licence is perpetual, so no deletion obligation arises."
+    },
+    {
+      "field": "terms.audit_rights",
+      "urls_tried": [
+        "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf"
+      ],
+      "reason": "not_published",
+      "note": "No audit or inspection right for ELDA or the owner; only a 30-day notice on site relocation."
+    },
+    {
+      "field": "terms.change_of_terms",
+      "urls_tried": [
+        "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf"
+      ],
+      "reason": "not_published",
+      "note": "Signed bilateral agreement of 21 articles plus exhibits; no amendment or unilateral-change clause."
+    },
+    {
+      "field": "other.compensation_amount",
+      "urls_tried": [
+        "http://www.elra.info/media/filer_public/2022/01/21/var_220121.pdf"
+      ],
+      "reason": "not_published",
+      "note": "Price is in Exhibit C, which is blank in the template; per-resource VAR prices sit in the ELRA catalogue."
+    }
+  ]
+}
