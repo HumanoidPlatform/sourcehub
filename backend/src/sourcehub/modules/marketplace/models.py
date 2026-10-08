@@ -31,18 +31,11 @@ class Request(Base):
     title: Mapped[str] = mapped_column(Text)
     category: Mapped[str] = mapped_column(RequestCategory)
     status: Mapped[str] = mapped_column(RequestStatus, server_default=text("'draft'"))
-    geography: Mapped[str | None] = mapped_column(Text)
     compliance_notes: Mapped[str | None] = mapped_column(Text)
-    spec_quality: Mapped[str | None] = mapped_column(Text)
     acceptance: Mapped[str | None] = mapped_column(Text)
-    people_headcount: Mapped[int] = mapped_column(Integer, server_default=text("0"))
-    people_training: Mapped[str | None] = mapped_column(Text)
-    people_experience: Mapped[str | None] = mapped_column(Text)
-    people_certification: Mapped[str | None] = mapped_column(Text)
     currency: Mapped[str] = mapped_column(CHAR(3), server_default=text("'USD'"))
     starts_on: Mapped[dt.date | None] = mapped_column(Date)
     delivery_due_on: Mapped[dt.date | None] = mapped_column(Date)
-    residency_region: Mapped[str | None] = mapped_column(Text)
     storage_target_id: Mapped[uuid.UUID | None] = mapped_column(
         ForeignKey("storage_target.id")
     )
@@ -68,7 +61,6 @@ class Request(Base):
     target_unit: Mapped[str | None] = mapped_column(Text)
     capture_spec: Mapped[dict[str, Any]] = mapped_column(JSONB, server_default=text("'{}'"))
     countries: Mapped[list[str]] = mapped_column(ARRAY(Text), server_default=text("'{}'"))
-    sampling_frame: Mapped[dict[str, Any]] = mapped_column(JSONB, server_default=text("'{}'"))
     quality_thresholds: Mapped[dict[str, Any]] = mapped_column(JSONB, server_default=text("'{}'"))
     rejection_policy: Mapped[dict[str, Any]] = mapped_column(JSONB, server_default=text("'{}'"))
 
@@ -84,11 +76,7 @@ class Request(Base):
 
     budget_disclosed: Mapped[bool] = mapped_column(Boolean, server_default=text("true"))
     pilot_required: Mapped[bool] = mapped_column(Boolean, server_default=text("false"))
-    pilot_quantity: Mapped[int | None] = mapped_column(Integer)
-    pilot_due_on: Mapped[dt.date | None] = mapped_column(Date)
     proposals_close_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
-    contact_user_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("app_user.id"))
-    proposal_requirements: Mapped[list[str]] = mapped_column(ARRAY(Text), server_default=text("'{}'"))
 
     # --- the budget, as one amount on a basis (db/320) -----------------------
     # total: budget_amount is the whole budget. per_unit: budget_amount is the
@@ -100,6 +88,17 @@ class Request(Base):
     pricing_block: Mapped[int | None] = mapped_column(Integer)
     pricing_quantity: Mapped[int | None] = mapped_column(Integer)
     budget_amount: Mapped[Decimal | None] = mapped_column(Numeric(14, 2))
+
+    # --- folded into json (db/340) ---------------------------------------------
+    # people_requirements: the client's optional crew requirements, {training,
+    # experience, certification}, each key only when filled; NULL when none.
+    # pilot: {quantity, due_on} exactly while pilot_required is true, NULL
+    # otherwise (request_pilot_shape). Last, for the pg_attribute-order reason
+    # given above.
+    # none_as_null: None must reach the database as SQL NULL. Plain JSONB writes it
+    # as the JSON value null, which the two shape CHECKs (rightly) refuse.
+    people_requirements: Mapped[dict[str, Any] | None] = mapped_column(JSONB(none_as_null=True))
+    pilot: Mapped[dict[str, Any] | None] = mapped_column(JSONB(none_as_null=True))
 
 
 class Proposal(Base):

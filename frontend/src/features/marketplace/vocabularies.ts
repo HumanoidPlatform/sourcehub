@@ -18,7 +18,6 @@ import type {
   PeopleInFrame,
   PermittedUse,
   PricingBasis,
-  ProposalRequirement,
   TargetUnit,
   UseCase,
 } from "@api/types";
@@ -104,15 +103,6 @@ export const PERMITTED_USES: Choice<PermittedUse>[] = [
   { value: "research", label: "Research" },
   { value: "audit", label: "Audit" },
   { value: "publication", label: "Publication" },
-];
-
-export const PROPOSAL_REQUIREMENTS: Choice<ProposalRequirement>[] = [
-  { value: "method_statement", label: "Method statement" },
-  { value: "team_cv", label: "Team CVs" },
-  { value: "sample_work", label: "Sample of previous work" },
-  { value: "references", label: "References" },
-  { value: "insurance", label: "Proof of insurance" },
-  { value: "dpa_acceptance", label: "Signed data processing agreement" },
 ];
 
 // How the budget is stated and how every bid is priced (db/320). Partners

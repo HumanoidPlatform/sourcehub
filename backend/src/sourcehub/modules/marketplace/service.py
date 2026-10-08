@@ -138,9 +138,8 @@ def _row(
 ) -> dict[str, Any]:
     """The request as the API returns it.
 
-    Grouped rather than 57 flat keys, following the shape `people` already set:
-    a bidder reads `compliance` as one block because that is how they decide
-    whether they can take the work.
+    Grouped rather than flat keys: a bidder reads `compliance` as one block
+    because that is how they decide whether they can take the work.
 
     budget_disclosed hides the amount from everyone except the client that owns
     the request. Nothing in the schema says what "disclosed" covers — no RLS
@@ -166,18 +165,15 @@ def _row(
         "status": effective,
         "stored_status": r.status,
         "proposal_count": proposal_count,
-        "geography": r.geography,
         "compliance_notes": r.compliance_notes,
         "objective": r.objective,
         "use_case": r.use_case,
         "spec": {
-            "quality": r.spec_quality,
             "target_quantity": r.target_quantity,
             "target_unit": r.target_unit,
             "capture": r.capture_spec,
             "countries": r.countries,
             "location_type": r.location_type,
-            "sampling_frame": r.sampling_frame,
         },
         "acceptance": r.acceptance,
         "quality": {
@@ -194,12 +190,8 @@ def _row(
             "partner_reuse_allowed": r.partner_reuse_allowed,
             "biometric_processing": r.biometric_processing,
         },
-        "people": {
-            "headcount": r.people_headcount,
-            "training": r.people_training,
-            "experience": r.people_experience,
-            "certification": r.people_certification,
-        },
+        # db/340: the client's optional crew requirements, None when it gave none
+        "people_requirements": r.people_requirements or None,
         "budget_disclosed": r.budget_disclosed,
         "currency": r.currency,
         # db/320: one amount on a basis. The amount and the estimate it implies
@@ -208,19 +200,18 @@ def _row(
             r.pricing_basis, r.pricing_unit, r.pricing_block, r.pricing_quantity,
             r.budget_amount if show_budget else None, r.currency,
         ),
+        # db/340: the terms live in one json column; the shape returned is unchanged
         "pilot": {
             "required": r.pilot_required,
-            "quantity": r.pilot_quantity,
-            "due_on": r.pilot_due_on,
+            "quantity": (r.pilot or {}).get("quantity"),
+            "due_on": (r.pilot or {}).get("due_on"),
         },
-        "proposal_requirements": r.proposal_requirements,
         "proposals_close_at": r.proposals_close_at,
         # Derived, never stored; the console reads this rather than doing the
         # comparison itself against a clock that may disagree with ours.
         "bidding_open": bidding_is_open(
             r.proposals_close_at, now or dt.datetime.now(dt.timezone.utc)
         ),
-        "contact_user_id": r.contact_user_id,
         "starts_on": r.starts_on,
         "delivery_due_on": r.delivery_due_on,
         "storage_target_id": r.storage_target_id,
@@ -238,11 +229,6 @@ def _row(
 # replacements are structured and a placeholder would have to pass a CHECK, so
 # they are simply left NULL when not given.
 _DEFAULTS = {
-    "spec_quality": "Standard acceptance applies",
-    "people_training": "None specified",
-    "people_experience": "None specified",
-    "people_certification": "None",
-    "geography": "Not specified",
     "acceptance": "Client review on delivery",
     "compliance_notes": "None specified",
 }
@@ -252,13 +238,11 @@ _DEFAULTS = {
 # applied by both create and update so the two cannot drift.
 _REQUIREMENT_FIELDS = (
     "objective", "use_case", "target_quantity", "target_unit", "capture_spec",
-    "countries", "sampling_frame", "quality_thresholds", "rejection_policy",
+    "countries", "quality_thresholds", "rejection_policy",
     "people_in_frame", "minors_policy", "deidentification", "regulations",
     "lawful_basis", "permitted_uses", "partner_reuse_allowed",
     "biometric_processing", "location_type",
-    "budget_disclosed", "pilot_required", "pilot_quantity", "pilot_due_on",
-    "contact_user_id",
-    "proposal_requirements",
+    "budget_disclosed", "pilot_required",
 )
 # proposals_close_at is deliberately NOT in that list: _requirements() drops
 # None, so a draft's deadline could be set and never cleared. It is assigned
@@ -266,6 +250,36 @@ _REQUIREMENT_FIELDS = (
 # outright for the same reason: a draft edited from per-unit back to a total
 # must have its unit, block and quantity cleared, or the CHECK refuses it.
 _PRICING_FIELDS = ("pricing_unit", "pricing_block", "pricing_quantity", "budget_amount")
+
+
+_PEOPLE_KEYS = ("training", "experience", "certification")
+
+
+def _people_requirements(data: dict[str, Any]) -> dict[str, str] | None:
+    """db/340 people_requirements: the filled crew answers, or None.
+
+    Assigned outright on create and on every draft edit, unlike the fields
+    above, so a client who empties the answers clears them.
+    """
+    given = data.get("people_requirements") or {}
+    out = {k: str(given[k]).strip() for k in _PEOPLE_KEYS if given.get(k) and str(given[k]).strip()}
+    return out or None
+
+
+def _pilot_terms(data: dict[str, Any]) -> dict[str, Any] | None:
+    """db/340 pilot: {quantity, due_on} while a pilot is required, else None.
+
+    Assigned outright, so unticking the pilot clears its size and date; the
+    API has already refused a required pilot without a size.
+    """
+    given = data.get("pilot")
+    if not data.get("pilot_required") or not given:
+        return None
+    out: dict[str, Any] = {"quantity": int(given["quantity"])}
+    due = given.get("due_on")
+    if due is not None:
+        out["due_on"] = due.isoformat() if isinstance(due, dt.date) else str(due)
+    return out
 
 
 def _requirements(data: dict[str, Any]) -> dict[str, Any]:
@@ -294,14 +308,14 @@ async def create_request(
         title=data["title"],
         category=data["category"],
         status="published" if publish else "draft",
-        people_headcount=int(data.get("people_headcount") or 0),
         pricing_basis=data.get("pricing_basis") or "total",
         **{k: data.get(k) for k in _PRICING_FIELDS},
         starts_on=data.get("starts_on"),
         delivery_due_on=data.get("delivery_due_on"),
         proposals_close_at=data.get("proposals_close_at"),
-        residency_region=data.get("residency_region"),
         storage_target_id=data.get("storage_target_id"),
+        people_requirements=_people_requirements(data),
+        pilot=_pilot_terms(data),
         published_at=dt.datetime.now(dt.timezone.utc) if publish else None,
         created_by=claims.user_id,
         **fields,
@@ -349,14 +363,14 @@ async def update_request(
         setattr(r, k, v)
     r.title = data["title"]
     r.category = data["category"]
-    r.people_headcount = int(data.get("people_headcount") or 0)
     r.pricing_basis = data.get("pricing_basis") or "total"
     for k in _PRICING_FIELDS:
         setattr(r, k, data.get(k))
     r.starts_on = data.get("starts_on")
     r.delivery_due_on = data.get("delivery_due_on")
     r.proposals_close_at = data.get("proposals_close_at")
-    r.residency_region = data.get("residency_region")
+    r.people_requirements = _people_requirements(data)
+    r.pilot = _pilot_terms(data)
     r.storage_target_id = data.get("storage_target_id")
     for k, v in _requirements(data).items():
         setattr(r, k, v)

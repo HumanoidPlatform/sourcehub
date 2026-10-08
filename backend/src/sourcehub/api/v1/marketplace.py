@@ -34,8 +34,6 @@ LawfulBasis = Literal["consent", "contract", "legitimate_interest", "public_task
                       "legal_obligation", "not_personal_data"]
 Deidentification = Literal["blur_faces", "redact_plates", "strip_gps"]
 PermittedUse = Literal["model_training", "internal_analysis", "research", "audit", "publication"]
-ProposalRequirement = Literal["method_statement", "team_cv", "sample_work",
-                              "insurance", "dpa_acceptance", "references"]
 # db/320: the budget is one amount, stated as a total or per block of a unit
 PricingBasis = Literal["total", "per_unit"]
 
@@ -70,19 +68,22 @@ class CaptureSpec(BaseModel):
     allow_library: bool | None = None
 
 
-class Quota(BaseModel):
-    label: str
+class PeopleRequirements(BaseModel):
+    """The client's optional crew requirements (db/340 people_requirements).
+    Free text, none required; a blank answer is dropped, and a set of blank
+    answers becomes no requirements at all."""
+
+    training: str | None = Field(default=None, max_length=2000)
+    experience: str | None = Field(default=None, max_length=2000)
+    certification: str | None = Field(default=None, max_length=2000)
+
+
+class PilotTerms(BaseModel):
+    """A paid pilot's terms (db/340 pilot), sent only when pilot_required.
+    New pilot terms are added here and land in the same json column."""
+
     quantity: int = Field(gt=0)
-
-
-class SamplingFrame(BaseModel):
-    model_config = {"extra": "allow"}
-
-    subject_type: str | None = None
-    site_count: int | None = Field(default=None, gt=0)
-    quotas: list[Quota] = Field(default_factory=list)
-    conditions: list[str] = Field(default_factory=list)
-    exclusions: list[str] = Field(default_factory=list)
+    due_on: dt.date | None = None
 
 
 class QualityThresholds(BaseModel):
@@ -105,17 +106,12 @@ class RejectionPolicy(BaseModel):
 class RequestIn(BaseModel):
     title: str = Field(min_length=3)
     category: Literal["image", "video", "structured_data", "unstructured_data", "people_deliverable"]
-    geography: str | None = None
     compliance_notes: str | None = None
-    spec_quality: str | None = None
     acceptance: str | None = None
-    people_headcount: int = 0
-    people_training: str | None = None
-    people_experience: str | None = None
-    people_certification: str | None = None
     starts_on: dt.date | None = None
     delivery_due_on: dt.date | None = None
-    residency_region: str | None = None
+    # db/340: optional crew requirements, shown to partners when filled
+    people_requirements: PeopleRequirements | None = None
 
     # --- what is wanted ---
     objective: str | None = None
@@ -124,7 +120,6 @@ class RequestIn(BaseModel):
     target_unit: TargetUnit | None = None
     capture_spec: CaptureSpec | None = None
     countries: list[str] = Field(default_factory=list, max_length=60)
-    sampling_frame: SamplingFrame | None = None
     location_type: LocationType | None = None
 
     # --- the quality bar ---
@@ -153,13 +148,11 @@ class RequestIn(BaseModel):
     budget_amount: Decimal | None = Field(default=None, ge=0, max_digits=14, decimal_places=2)
     budget_disclosed: bool = True
     pilot_required: bool = False
-    pilot_quantity: int | None = Field(default=None, gt=0)
-    pilot_due_on: dt.date | None = None
+    # db/340: the pilot's terms, kept exactly while pilot_required is true
+    pilot: PilotTerms | None = None
     # Aware, or refused: a naive value would be compared with an aware `now`
     # in the service and raise there instead of here.
     proposals_close_at: AwareDatetime | None = None
-    proposal_requirements: list[ProposalRequirement] = Field(default_factory=list)
-    contact_user_id: uuid.UUID | None = None
 
     # Where captured data is delivered. Required before publishing; a draft
     # may be saved without one so the builder can be filled in any order.
@@ -206,9 +199,12 @@ class RequestIn(BaseModel):
         # request_timeline_order
         if self.starts_on and self.delivery_due_on and self.delivery_due_on < self.starts_on:
             raise ValueError("delivery_due_on must be on or after starts_on")
-        # request_pilot_shape
-        if self.pilot_required and self.pilot_quantity is None:
-            raise ValueError("pilot_quantity is required when pilot_required is set")
+        # request_pilot_shape: a required pilot has a size; a pilot that is not
+        # required has no terms, so whatever the form left behind is cleared
+        if self.pilot_required and self.pilot is None:
+            raise ValueError("pilot.quantity is required when pilot_required is set")
+        if not self.pilot_required:
+            self.pilot = None
         # request_close_before_delivery — in UTC, as the CHECK is. Taking the
         # date in the sender's offset let 22:00 in New York on the delivery
         # date pass here and fail there, as a 500.

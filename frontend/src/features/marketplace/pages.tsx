@@ -7,7 +7,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { get, patch, post } from "@api/client";
 import type {
   ClientProfile, Deidentification, LawfulBasis, LocationType, MinorsPolicy, Org,
-  PeopleInFrame, PermittedUse, Pricing, Proposal, Rfp,
+  PeopleInFrame, PeopleRequirements, PermittedUse, Pricing, Proposal, Rfp,
   StorageTarget, TargetUnit, UseCase,
 } from "@api/types";
 import {
@@ -407,7 +407,8 @@ interface Draft {
   deidentification: Deidentification[]; regulations: string[];
   lawful_basis: string; permitted_uses: PermittedUse[];
   partner_reuse_allowed: boolean; biometric_processing: boolean;
-  people_headcount: string;
+  // db/340 people_requirements: optional, sent only as far as filled
+  crew_training: string; crew_experience: string; crew_certification: string;
   // the budget as one amount on a basis (db/320). Per unit, the unit and the
   // quantity are the Scope step's target_unit and target_quantity: one answer,
   // given once; only the block and the amount are asked here.
@@ -436,7 +437,7 @@ const BLANK: Draft = {
   deidentification: [], regulations: [],
   lawful_basis: "", permitted_uses: [],
   partner_reuse_allowed: false, biometric_processing: false,
-  people_headcount: "",
+  crew_training: "", crew_experience: "", crew_certification: "",
   budget_disclosed: true, pricing_basis: "total", pricing_block: "1000", budget_amount: "",
   pilot_required: false, pilot_quantity: "", pilot_due_on: "",
   starts_on: "", delivery_due_on: "",
@@ -470,6 +471,27 @@ function biddingClosed(r: Rfp): boolean {
 const num = (v: string): number | null => (v.trim() === "" ? null : Number(v));
 /** Same for text, and for a select whose blank option means "not answered". */
 const str = (v: string): string | null => (v.trim() === "" ? null : v.trim());
+/** db/340 people_requirements from the form: only the answers given, or null. */
+const crewOf = (d: { crew_training: string; crew_experience: string; crew_certification: string }):
+  PeopleRequirements | null => {
+  const out: PeopleRequirements = {};
+  if (d.crew_training.trim()) out.training = d.crew_training.trim();
+  if (d.crew_experience.trim()) out.experience = d.crew_experience.trim();
+  if (d.crew_certification.trim()) out.certification = d.crew_certification.trim();
+  return Object.keys(out).length ? out : null;
+};
+/** The crew requirements as rows, in a fixed order, only those given. */
+const CREW_LABELS: [keyof PeopleRequirements, string][] = [
+  ["training", "Training"], ["experience", "Experience"], ["certification", "Certification"],
+];
+const crewRows = (pr: PeopleRequirements | null | undefined): [string, string][] =>
+  CREW_LABELS.filter(([k]) => pr?.[k]).map(([k, label]) => [label, pr?.[k] as string]);
+/** "100 records by 15 Oct 2026": the pilot as partners read it. */
+const pilotText = (r: Rfp): string =>
+  `${r.pilot.quantity ?? "?"} ${unitLabel(r.spec.target_unit)}${r.pilot.due_on ? ` by ${fmtDate(r.pilot.due_on)}` : ""}`;
+/** One line for the Review step. */
+const crewText = (pr: PeopleRequirements | null): string =>
+  crewRows(pr).map(([label, v]) => `${label}: ${v}`).join(" · ");
 /** Drops keys the client never filled, so an untouched jsonb block is saved as
  *  {} rather than as an object full of nulls. */
 const compact = <T extends Record<string, unknown>>(o: T): T | null => {
@@ -507,6 +529,7 @@ export function RequestNewPage() {
   // shown, not about the request. A draft reopened later works them out from
   // the values that were actually saved.
   const [showCapture, setShowCapture] = useState(false);
+  const [showCrew, setShowCrew] = useState(false);
   const [showRejection, setShowRejection] = useState(false);
   const targets = useTargets();
   const targetIsVerified = (tid: string) =>
@@ -556,7 +579,9 @@ export function RequestNewPage() {
       lawful_basis: co?.lawful_basis ?? "", permitted_uses: co?.permitted_uses ?? [],
       partner_reuse_allowed: !!co?.partner_reuse_allowed,
       biometric_processing: !!co?.biometric_processing,
-      people_headcount: String(r.people?.headcount ?? ""),
+      crew_training: r.people_requirements?.training ?? "",
+      crew_experience: r.people_requirements?.experience ?? "",
+      crew_certification: r.people_requirements?.certification ?? "",
       budget_disclosed: r.budget_disclosed ?? true,
       pricing_basis: r.pricing?.basis ?? "total",
       pricing_block: String(r.pricing?.block ?? "1000"),
@@ -579,6 +604,8 @@ export function RequestNewPage() {
     setShowCapture(!!(cap.min_megapixels || cap.orientation || cap.max_tilt_deg || cap.require_gps || cap.notes
       || cap.min_duration_s || cap.max_duration_s || cap.min_video_lines || cap.allow_library));
     setShowRejection(Object.values(rp).some((v) => v !== null && v !== undefined && v !== false));
+    const pr = r.people_requirements;
+    setShowCrew(!!(pr && (pr.training || pr.experience || pr.certification)));
     setLoaded(true);
   }
 
@@ -693,7 +720,7 @@ export function RequestNewPage() {
         partner_reuse_allowed: d.partner_reuse_allowed,
         biometric_processing: d.biometric_processing,
 
-        people_headcount: Number(d.people_headcount) || 0,
+        people_requirements: crewOf(d),
 
         budget_disclosed: d.budget_disclosed,
         // one amount on a basis (db/320). The unit and the quantity are the
@@ -704,8 +731,10 @@ export function RequestNewPage() {
         pricing_quantity: perUnit ? num(d.target_quantity) : null,
         budget_amount: d.budget_amount || null,
         pilot_required: d.pilot_required,
-        pilot_quantity: d.pilot_required ? num(d.pilot_quantity) : null,
-        pilot_due_on: d.pilot_due_on || null,
+        // db/340: one json column, present exactly while a pilot is required
+        pilot: d.pilot_required
+          ? { quantity: num(d.pilot_quantity), due_on: d.pilot_due_on || null }
+          : null,
 
         starts_on: d.starts_on || null,
         delivery_due_on: d.delivery_due_on || null,
@@ -984,6 +1013,26 @@ export function RequestNewPage() {
             >
               {(id) => <textarea id={id} className={textareaCls} rows={2} value={d.capture_notes} onChange={set("capture_notes")} placeholder="Android 12+, LiDAR-capable phone, calibrated camera, or other hardware needs." />}
             </Field>
+            <label className="checkline span">
+              <input type="checkbox" checked={showCrew} onChange={(e) => setShowCrew(e.target.checked)} />
+              <span>
+                Add crew requirements
+                <span className="cl-sub">Training, experience or certification the people doing the work should have. Optional; partners see what you fill in.</span>
+              </span>
+            </label>
+            {showCrew && (
+              <>
+                <Field label="Training" span hint="What the crew should have been trained in.">
+                  {(id) => <textarea id={id} className={textareaCls} rows={2} value={d.crew_training} onChange={set("crew_training")} placeholder="A two-hour session on the capture app and the screen-privacy rules." />}
+                </Field>
+                <Field label="Experience" span hint="Work the crew should have done before.">
+                  {(id) => <textarea id={id} className={textareaCls} rows={2} value={d.crew_experience} onChange={set("crew_experience")} placeholder="Comfortable with laptops, spreadsheets and code editors." />}
+                </Field>
+                <Field label="Certification" span hint="Any certificate or clearance required.">
+                  {(id) => <textarea id={id} className={textareaCls} rows={2} value={d.crew_certification} onChange={set("crew_certification")} placeholder="None required." />}
+                </Field>
+              </>
+            )}
             <Field label="Purpose" hint="Shapes what a partner has to agree to downstream.">
               {(id) => (
                 <select id={id} className={selectCls} value={d.use_case} onChange={set("use_case")}>
@@ -1342,6 +1391,7 @@ export function RequestNewPage() {
             ...(d.location_type
               ? [["Location Type", labelOf(LOCATION_TYPES, d.location_type as LocationType)] as Row] : []),
             ...(d.capture_notes ? [["Device Specifications", d.capture_notes] as Row] : []),
+            ...(crewOf(d) ? [["Crew requirements", crewText(crewOf(d))] as Row] : []),
             ["Acceptance", d.acceptance || "Client review on delivery"],
             ...(d.qt_min_pass_rate_pct
               ? [["Pass rate", `${d.qt_min_pass_rate_pct}%`] as Row] : []),
@@ -1939,7 +1989,6 @@ export function RequestDetailPage() {
             ...(guidelineDocs.length
               ? [["Guidelines", <AttachmentList key="gl" items={guidelineDocs} />] as [string, React.ReactNode]]
               : []),
-            ["Quality bar", r.spec.quality ?? "—"],
             ...(r.quality.thresholds.min_pass_rate_pct
               ? [["Pass rate required", `${r.quality.thresholds.min_pass_rate_pct}%`] as [string, React.ReactNode]]
               : []),
@@ -1984,15 +2033,10 @@ export function RequestDetailPage() {
         </Panel>
         <Panel title="People, budget and timeline">
           <Dl rows={[
-            // Only when it was actually asked for. The builder's "People needed"
-            // input was removed in 9417b35 but the field is still posted, so
-            // every RFP raised since reads headcount 0 — and a flat
-            // "People needed: 0" asserts an answer nobody was given the chance
-            // to give. Shown when there is a real number, omitted when there
-            // is not; restoring the input would bring the row straight back.
-            ...(r.people.headcount > 0
-              ? [["People needed", String(r.people.headcount)] as [string, React.ReactNode]]
-              : []),
+            // db/340: the crew requirements the client gave, each only when
+            // filled, and the pilot, which bidders now see so they can price it.
+            ...crewRows(r.people_requirements).map(([k, v]) => [k, v] as [string, React.ReactNode]),
+            ...(r.pilot.required ? [["Pilot", pilotText(r)] as [string, React.ReactNode]] : []),
             // The amount comes back null to a bidder when the client withheld
             // it; the basis never does, so a partner still knows what to quote per.
             ["Budget", describePricing(r.pricing, { disclosed: r.budget_disclosed, withTotal: true })],
@@ -2660,7 +2704,6 @@ function ClientAndRequestDialog({ proposal, onClose }: { proposal: Proposal; onC
             ["Quantity", r.spec.target_quantity
               ? `${r.spec.target_quantity} ${unitLabel(r.spec.target_unit)}`
               : "—"],
-            ["Quality bar", r.spec.quality ?? "—"],
             ["Acceptance", r.acceptance ?? "—"],
             ["Lawful basis", labelOf(LAWFUL_BASES, r.compliance.lawful_basis)],
             ["People in frame", labelOf(PEOPLE_IN_FRAME, r.compliance.people_in_frame)],
@@ -2672,7 +2715,8 @@ function ClientAndRequestDialog({ proposal, onClose }: { proposal: Proposal; onC
             ["Bids close", r.proposals_close_at
               ? `${fmtDateTimeZone(r.proposals_close_at)}${biddingClosed(r) ? " · closed" : ""}`
               : "Open until awarded"],
-            ["Geography", r.geography ?? "—"],
+            ...(r.pilot.required ? [["Pilot", pilotText(r)] as [string, string]] : []),
+            ...crewRows(r.people_requirements),
             ["Compliance", r.compliance_notes ?? "—"],
           ]} />
         )}

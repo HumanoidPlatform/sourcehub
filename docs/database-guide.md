@@ -75,12 +75,12 @@ SELECT relname AS table, n_live_tup AS rows FROM pg_stat_user_tables ORDER BY n_
 |---|---|
 | `onboarding_request` | An application to add a company. Ops adds clients and delivery partners; a delivery partner asks for an aggregator, business or sponsor under itself, and Ops approves. The latest decision is on the row — `status` says which, `decided_at` when, `decided_by` who, `decision_reason` why ([`330_onboarding_decisions.sql`](../db/330_onboarding_decisions.sql); the columns replaced the `onboarding_approval` table) — and a request that went back for changes keeps the return's reason until the next decision; earlier decisions are in `audit_event`. Only Ops may decide, on a submitted request, and an approved or rejected request is final: the `onboarding_request_transition` trigger is the rule that stops a partner approving its own network. |
 
-### C. Marketplace · [`035_storage.sql`](../db/035_storage.sql), [`040_marketplace.sql`](../db/040_marketplace.sql)
+### C. Marketplace · [`035_storage.sql`](../db/035_storage.sql), [`040_marketplace.sql`](../db/040_marketplace.sql), [`340_request_columns.sql`](../db/340_request_columns.sql)
 
 | Table | One row is |
 |---|---|
 | `storage_target` | A client's **own** bucket or container: provider, bucket, prefix, and the credential. It is a separate table — not columns on `request` — because every bidding partner can read a published request, and a credential cannot sit on a row they can read. |
-| `request` | The RFP: what is wanted, how much, by when, the privacy rules, and which `storage_target` the captures go to. The budget is **one amount on a basis** ([`320_partner_invoices.sql`](../db/320_partner_invoices.sql)): `pricing_basis` is `total` or `per_unit`; per unit, `budget_amount` is the amount per `pricing_block` of `pricing_unit` and `pricing_quantity` says how many are wanted in all. `budget_disclosed` hides the amount, never the basis, from bidders. `proposals_close_at` is the bidding deadline, required to publish and changeable by the client until the award ([`240_bidding_deadline.sql`](../db/240_bidding_deadline.sql)); "closed" is never stored but derived from it at read time. `closed_at` and `bidding_reminder_sent_at` are the sweep's stamps for the notices it has sent, cleared when the client moves the deadline later. |
+| `request` | The RFP: what is wanted, how much, by when, the privacy rules, and which `storage_target` the captures go to. The budget is **one amount on a basis** ([`320_partner_invoices.sql`](../db/320_partner_invoices.sql)): `pricing_basis` is `total` or `per_unit`; per unit, `budget_amount` is the amount per `pricing_block` of `pricing_unit` and `pricing_quantity` says how many are wanted in all. `budget_disclosed` hides the amount, never the basis, from bidders. `proposals_close_at` is the bidding deadline, required to publish and changeable by the client until the award ([`240_bidding_deadline.sql`](../db/240_bidding_deadline.sql)); "closed" is never stored but derived from it at read time. `closed_at` and `bidding_reminder_sent_at` are the sweep's stamps for the notices it has sent, cleared when the client moves the deadline later. Two jsonb columns hold what has no fixed shape ([`340_request_columns.sql`](../db/340_request_columns.sql)): `people_requirements` is the client's optional crew requirements (`training`, `experience`, `certification`, each only when filled), shown to partners; `pilot` is `{quantity, due_on}` exactly while `pilot_required` is true, and partners see it too. |
 | `proposal` | One partner's bid on one request: one `price` on the request's basis — the whole price on a total, the price per block on per_unit. |
 | `rfp_thread` | One private conversation per request per delivery partner, between the client and that partner only ([`250_rfp_threads.sql`](../db/250_rfp_threads.sql)). Opened by the partner while the request is published (or, as the winner, during delivery); closed by the client's own actions — `awarded_elsewhere` for the losers at award, `contract_completed` for the winner at approval — and a closed thread never reopens. Blind bidding holds because the policies admit only the two parties (and Ops, read-only): a rival's thread does not exist for a partner. |
 | `rfp_message` | One message in a thread, numbered `seq` 1, 2, 3… under the thread's advisory lock. Append-only at every layer: no UPDATE or DELETE policy, no grant, and rewrite rules that turn either into nothing. `sender_name` is a snapshot because the other organisation cannot read `app_user`. |
@@ -484,6 +484,15 @@ read nowhere, and had no row-level security. Its rows became `qa_review.defects`
 verdict, `{"exposure": 1}` — copied before the table was dropped; the file lifts `qa_review`'s append-only
 rule for the copy and puts it straight back, and refuses the whole transaction if the copy fell short. The
 QA trail in the console now shows the counts, which the table never did.
+
+**[`340_request_columns.sql`](../db/340_request_columns.sql) — columns, not tables.** Seven `request` columns
+held nothing a client typed: `geography` and `spec_quality` carried the same server placeholder on every row
+and were shown to partners as if the client had written it, `sampling_frame` was always empty,
+`people_headcount` always 0, and `residency_region`, `contact_user_id` and `proposal_requirements` were never
+sent by the console. They were dropped. The three people text columns, reduced to placeholders, became the
+optional `people_requirements` object, and `pilot_quantity` / `pilot_due_on` became the `pilot` object, so
+`request` went from 57 columns to 47. The file refuses to run if a dropped column holds anything but its empty
+value or the old placeholder; migration `0037`'s downgrade brings the twelve columns back.
 
 When one of these features is finally built, it gets a new `db/*.sql` file and a fresh design, with row-level
 security from the first line.

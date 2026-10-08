@@ -308,6 +308,16 @@ the sanity checks.
      restore of `onboarding_request` from a dump taken afterwards must first have the owner run
      `ALTER TABLE onboarding_request DISABLE TRIGGER onboarding_request_transition` (and enable it again),
      as for `invoice` and its insert trigger: the trigger refuses rows that arrive already decided.
+   - **Migration 0037 drops seven unused `request` columns and folds the people and pilot columns into
+     two jsonb columns** (`people_requirements`, `pilot`). No flag: it refuses to run, changing nothing,
+     if a column it drops holds anything but its empty value or the old server placeholder, and the
+     downgrade brings the twelve columns back. Not zero-downtime — every request read names its columns —
+     so it runs in the stopped-API window with images built from the same commit, after a readable copy
+     of the twelve columns goes into the rollback folder:
+
+     ```powershell
+     psql "$($env:DATABASE_ADMIN_URL -replace '\+asyncpg','')" -c "\copy (SELECT id, reference_code, geography, spec_quality, sampling_frame, people_headcount, people_training, people_experience, people_certification, residency_region, contact_user_id, proposal_requirements, pilot_quantity, pilot_due_on FROM request) TO 'request-columns-before-0037.csv' CSV HEADER"
+     ```
    - Staging runs PostgreSQL 18 and dev runs 16, so a migration that does more than add things is worth
      a trial run on a `postgres:18` scratch container first.
    - Note the time before you start. Azure can restore the server to any point in its backup retention.

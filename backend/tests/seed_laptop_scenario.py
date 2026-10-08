@@ -149,7 +149,6 @@ today = dt.date.today()
 req = must(client.post("/requests", json={
     "title": f"Laptop operating - desk footage ({today.isoformat()})",
     "category": "video",
-    "geography": "Bengaluru, one desk",
     "target_quantity": 3,
     "target_unit": "videos",
     "capture_spec": {
@@ -169,7 +168,6 @@ req = must(client.post("/requests", json={
     "countries": ["IN"],
     "lawful_basis": "not_personal_data",
     "permitted_uses": ["model_training"],
-    "spec_quality": "Hands and screen both in frame, landscape, steady.",
     "acceptance": "The laptop is being operated and is plainly the subject of the clip.",
     "compliance_notes": "Hands are expected. No faces required or wanted.",
     "pricing_basis": "total", "budget_amount": 900,

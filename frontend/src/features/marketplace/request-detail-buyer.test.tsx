@@ -58,11 +58,11 @@ const RFP = {
   id: "r1", reference_code: "RFP-1011", title: "Storefront photos, Pune",
   category: "image", status: "published", stored_status: "published",
   client_org_id: "o-acme", client_name: "Acme Retail Analytics",
-  proposal_count: 1, geography: "Pune, India", compliance_notes: null,
+  proposal_count: 1, compliance_notes: null,
   objective: "Shelf-level imagery for 400 kirana stores.", use_case: "audit_compliance",
   spec: {
-    quality: null, target_quantity: 4000, target_unit: "photos",
-    capture: {}, countries: ["IN"], location_type: "public_outdoor", sampling_frame: {},
+    target_quantity: 4000, target_unit: "photos",
+    capture: {}, countries: ["IN"], location_type: "public_outdoor",
   },
   acceptance: null,
   quality: { thresholds: {}, rejection_policy: {} },
@@ -71,12 +71,12 @@ const RFP = {
     regulations: [], lawful_basis: "legitimate_interest", permitted_uses: ["audit"],
     partner_reuse_allowed: false, biometric_processing: false,
   },
-  people: { headcount: 0, training: null, experience: null, certification: null },
+  people_requirements: null,
   budget_disclosed: true, currency: "USD",
   pricing: { basis: "total", unit: null, block: null, quantity: null, amount: "1500.00",
     estimated_total: "1500.00", currency: "USD", text: "USD 1,500.00" },
   pilot: { required: false, quantity: null, due_on: null },
-  proposal_requirements: [], proposals_close_at: null, bidding_open: true, contact_user_id: null,
+  proposals_close_at: null, bidding_open: true,
   starts_on: "2026-09-30", delivery_due_on: "2026-10-25", storage_target_id: null,
   created_at: "2026-09-01T00:00:00+00:00",
   attachments: [], proposals: [MY_BID],
@@ -187,6 +187,41 @@ describe("a partner reading an opportunity brief", () => {
     // the columns that carried them are gone, not merely empty
     expect(within(card).queryByText(/^Partner$/i)).toBeNull();
     expect(within(card).queryByText(/Track record/i)).toBeNull();
+  });
+});
+
+describe("a partner reading the crew requirements and the pilot (db/340)", () => {
+  it("sees the pilot and only the crew requirements the client filled", async () => {
+    api.get.mockImplementation((path: string) => {
+      if (path === "/requests/r1")
+        return Promise.resolve({
+          ...RFP,
+          people_requirements: { training: "Capture app course", certification: "Police clearance" },
+          pilot: { required: true, quantity: 100, due_on: "2026-10-15" },
+        });
+      if (path === "/organisations/o-acme") return Promise.resolve(CLIENT);
+      return Promise.resolve(null);
+    });
+    show();
+    const heading = await screen.findByText("People, budget and timeline");
+    const card = heading.closest(".panel") as HTMLElement;
+    await waitFor(() => expect(within(card).getByText("Pilot")).toBeTruthy());
+    expect(within(card).getByText("Pilot").nextElementSibling?.textContent).toMatch(/^100 .* by /);
+    expect(within(card).getByText("Training")).toBeTruthy();
+    expect(within(card).getByText("Capture app course")).toBeTruthy();
+    expect(within(card).getByText("Police clearance")).toBeTruthy();
+    expect(within(card).queryByText("Experience")).toBeNull();
+  });
+
+  it("shows no crew or pilot rows when the client gave none", async () => {
+    show();
+    const heading = await screen.findByText("People, budget and timeline");
+    const card = heading.closest(".panel") as HTMLElement;
+    await waitFor(() => expect(within(card).getByText("Budget")).toBeTruthy());
+    for (const label of ["Pilot", "Training", "Experience", "Certification", "People needed"]) {
+      expect(within(card).queryByText(label)).toBeNull();
+    }
+    expect(screen.queryByText("Quality bar")).toBeNull();
   });
 });
 

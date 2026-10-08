@@ -565,7 +565,6 @@ const words = (s: string | null | undefined) => (s ?? "").replace(/_/g, " ").tri
 /** A first draft of the subject from the client's own brief. Deterministic:
  *  it saves the partner typing, it never decides anything. */
 function draftSubject(r: Rfp): SubjectSpec {
-  const subject = words(r.spec.sampling_frame?.subject_type);
   const place = words(r.spec.location_type);
   // On a visual request the category IS the medium — "image", "video" — and
   // seeding the subject with it is why every pilot clip raised the retake
@@ -573,8 +572,8 @@ function draftSubject(r: Rfp): SubjectSpec {
   // which is better than a check that fails on every capture.
   const fromCategory = words(r.category);
   return {
-    domain: subject || (looksLikeMediaWord(fromCategory) ? "" : fromCategory),
-    must_show: [subject, place].filter(Boolean),
+    domain: looksLikeMediaWord(fromCategory) ? "" : fromCategory,
+    must_show: [place].filter(Boolean),
     must_not_show: ["person", "selfie", "screenshot"],
   };
 }
@@ -836,7 +835,6 @@ function TaskDetailDialog({
             ["Capture requirements", captureRequirementText(captureSpec)],
             ...subjectRows(captureSpec.subject),
             ...(t.instructions ? ([["Task instructions", t.instructions]] as [string, React.ReactNode][]) : []),
-            ...(request?.spec.quality ? ([["Quality bar", request.spec.quality]] as [string, React.ReactNode][]) : []),
             ...(request?.acceptance ? ([["Acceptance criteria", request.acceptance]] as [string, React.ReactNode][]) : []),
             ...complianceRows(request, !!requestLoading),
             ...((t.attachments ?? []).length

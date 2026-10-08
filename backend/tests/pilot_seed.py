@@ -97,7 +97,6 @@ ok(f"destination {dest['label']} verified")
 req = client.post("/requests", json={
     "title": "Pilot: shelf imagery, aisle 1",
     "category": "image",
-    "geography": "Bengaluru, one store",
     "target_quantity": 5,
     "target_unit": "photos",
     "capture_spec": {"media": ["photo"], "notes": "JPEG from the capture app"},
@@ -107,7 +106,6 @@ req = client.post("/requests", json={
     "people_in_frame": "none",
     "lawful_basis": "not_personal_data",
     "permitted_uses": ["model_training"],
-    "spec_quality": "Full shelf in frame, no glare",
     "acceptance": "Every photo shows the whole shelf; no shoppers in frame.",
     "compliance_notes": "No faces.",
     "pricing_basis": "total", "budget_amount": 900,

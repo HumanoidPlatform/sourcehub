@@ -39,11 +39,11 @@ const RFP = {
   id: "r1", reference_code: "RFP-1011", title: "Storefront photos, Pune",
   category: "image", status: "published", stored_status: "published",
   client_org_id: "o-acme", client_name: "Acme Retail Analytics",
-  proposal_count: 0, geography: "Pune, India", compliance_notes: null,
+  proposal_count: 0, compliance_notes: null,
   objective: "Shelf-level imagery.", use_case: "audit_compliance",
   spec: {
-    quality: null, target_quantity: 4000, target_unit: "photos",
-    capture: {}, countries: ["IN"], location_type: "public_outdoor", sampling_frame: {},
+    target_quantity: 4000, target_unit: "photos",
+    capture: {}, countries: ["IN"], location_type: "public_outdoor",
   },
   acceptance: null,
   quality: { thresholds: {}, rejection_policy: {} },
@@ -52,13 +52,12 @@ const RFP = {
     regulations: [], lawful_basis: "legitimate_interest", permitted_uses: ["audit"],
     partner_reuse_allowed: false, biometric_processing: false,
   },
-  people: { headcount: 0, training: null, experience: null, certification: null },
+  people_requirements: null,
   budget_disclosed: true, currency: "USD",
   pricing: { basis: "total", unit: null, block: null, quantity: null, amount: "1500.00",
     estimated_total: "1500.00", currency: "USD", text: "USD 1,500.00" },
   pilot: { required: false, quantity: null, due_on: null },
-  proposal_requirements: [], proposals_close_at: "2030-11-10T10:00:00Z", bidding_open: true,
-  contact_user_id: null, starts_on: "2030-09-30", delivery_due_on: "2030-11-15", storage_target_id: null,
+  proposals_close_at: "2030-11-10T10:00:00Z", bidding_open: true, starts_on: "2030-09-30", delivery_due_on: "2030-11-15", storage_target_id: null,
   created_at: "2026-09-01T00:00:00+00:00", attachments: [], proposals: [],
 };
 
@@ -136,6 +135,47 @@ describe("the builder", () => {
     const body = api.patch.mock.calls[0]![1] as { proposals_close_at: string };
     expect(body.proposals_close_at).toBe(new Date("2030-11-10T10:00").toISOString());
     expect(body.proposals_close_at).toMatch(/Z$/);
+  });
+
+  // db/340: crew requirements and the pilot each travel as one object
+  const CREW_DRAFT = {
+    ...RFP, status: "draft", stored_status: "draft",
+    people_requirements: { training: "Capture app course" },
+    pilot: { required: true, quantity: 4, due_on: "2030-11-01" },
+  };
+
+  it("reopens the crew requirements and sends crew and pilot as one object each", async () => {
+    api.get.mockImplementation((path: string) => Promise.resolve(path === "/requests/r1" ? CREW_DRAFT : []));
+    show("/requests/r1/edit");
+    await screen.findByRole("heading", { name: /Edit RFP-1011/ });
+    expect((screen.getByLabelText(/^Training/) as HTMLTextAreaElement).value).toBe("Capture app course");
+    click("Continue");
+    click("Continue");
+    await screen.findByLabelText(/Bids close on/);
+    click("Continue");
+    expect(await screen.findByText("Crew requirements")).toBeTruthy();
+    click("Save as draft");
+    await waitFor(() => expect(api.patch).toHaveBeenCalled());
+    const body = api.patch.mock.calls[0]![1] as Record<string, unknown>;
+    expect(body.people_requirements).toEqual({ training: "Capture app course" });
+    expect(body.pilot_required).toBe(true);
+    expect(body.pilot).toEqual({ quantity: 4, due_on: "2030-11-01" });
+    for (const gone of ["people_headcount", "pilot_quantity", "pilot_due_on"]) {
+      expect(body).not.toHaveProperty(gone);
+    }
+  });
+
+  it("sends no pilot terms once the pilot is unticked", async () => {
+    api.get.mockImplementation((path: string) => Promise.resolve(path === "/requests/r1" ? CREW_DRAFT : []));
+    await openStep2();
+    fireEvent.click(screen.getByLabelText(/Start with a paid pilot/));
+    click("Continue");
+    await screen.findByText("Bids close");
+    click("Save as draft");
+    await waitFor(() => expect(api.patch).toHaveBeenCalled());
+    const body = api.patch.mock.calls[0]![1] as Record<string, unknown>;
+    expect(body.pilot_required).toBe(false);
+    expect(body.pilot).toBeNull();
   });
 
   it("loads a saved deadline back into the field", async () => {

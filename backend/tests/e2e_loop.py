@@ -89,7 +89,6 @@ ok("client names a destination", f"{dest['label']} -> {dest['bucket']}/{dest['ke
 r = client.post("/requests", json={
     "title": "Retail shelf imagery across 12 metro markets",
     "category": "image",
-    "geography": "United States - 12 metro areas",
     "target_quantity": 25000,
     "target_unit": "photos",
     "capture_spec": {"media": ["photo"], "min_megapixels": 12, "require_gps": True},
@@ -100,10 +99,8 @@ r = client.post("/requests", json={
     "people_in_frame": "none",
     "lawful_basis": "not_personal_data",
     "permitted_uses": ["model_training"],
-    "spec_quality": "Sharp, no glare, full shelf in frame",
     "acceptance": "95% or better pass on the blur check; 5% manual audit",
     "compliance_notes": "No shoppers or faces in frame.",
-    "people_headcount": 180,
     # db/320: the budget is one amount on a basis. Per 1,000 photos, 25,000
     # wanted: USD 3,000 a block, USD 75,000 in all.
     "pricing_basis": "per_unit", "pricing_unit": "photos", "pricing_block": 1000,

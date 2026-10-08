@@ -133,18 +133,15 @@ export interface Rfp {
   category: string;
   status: string;
   proposal_count: number;
-  geography: string | null;
   compliance_notes: string | null;
   objective: string | null;
   use_case: UseCase | null;
   spec: {
-    quality: string | null;
     target_quantity: number | null;
     target_unit: TargetUnit | null;
     capture: CaptureSpec;
     countries: string[];
     location_type: LocationType | null;
-    sampling_frame: SamplingFrame;
   };
   acceptance: string | null;
   quality: { thresholds: QualityThresholds; rejection_policy: RejectionPolicy };
@@ -158,20 +155,18 @@ export interface Rfp {
     partner_reuse_allowed: boolean;
     biometric_processing: boolean;
   };
-  people: {
-    headcount: number;
-    training: string | null;
-    experience: string | null;
-    certification: string | null;
-  };
+  /** db/340: the client's optional crew requirements; null when none were
+   *  given, and each key present only when filled. Shown to partners. */
+  people_requirements: PeopleRequirements | null;
   budget_disclosed: boolean;
   currency: string;
   /** The budget as one amount on a basis (db/320). amount and estimated_total
    *  come back null when budget_disclosed is false and you are not the client
    *  that raised it — the server withholds the figure, never the basis. */
   pricing: Pricing;
+  /** db/340 folds the size and date into one json column; the shape returned
+   *  is unchanged. quantity is in the request's target unit. */
   pilot: { required: boolean; quantity: number | null; due_on: string | null };
-  proposal_requirements: ProposalRequirement[];
   proposals_close_at: string | null;
   /** Derived by the server from proposals_close_at and its clock, never
    *  stored: false once the window has shut. No deadline means open. */
@@ -179,7 +174,6 @@ export interface Rfp {
   /** The row's own status, before proposals_received is derived from the
    *  bid count. The deadline can be changed only while this is published. */
   stored_status: string;
-  contact_user_id: string | null;
   starts_on: string | null;
   delivery_due_on: string | null;
   storage_target_id: string | null;
@@ -208,9 +202,6 @@ export type LawfulBasis =
 export type Deidentification = "blur_faces" | "redact_plates" | "strip_gps";
 export type PermittedUse =
   | "model_training" | "internal_analysis" | "research" | "audit" | "publication";
-export type ProposalRequirement =
-  | "method_statement" | "team_cv" | "sample_work"
-  | "insurance" | "dpa_acceptance" | "references";
 export type PricingBasis = "total" | "per_unit";
 
 /** How a request, a bid or a contract is priced (db/320): a whole amount, or an
@@ -263,13 +254,10 @@ export interface SubjectSpec {
   /** an explicit ML Kit vocabulary; usually empty */
   labels?: string[];
 }
-export interface Quota { label: string; quantity: number }
-export interface SamplingFrame {
-  subject_type?: string | null;
-  site_count?: number | null;
-  quotas?: Quota[];
-  conditions?: string[];
-  exclusions?: string[];
+export interface PeopleRequirements {
+  training?: string;
+  experience?: string;
+  certification?: string;
 }
 export interface QualityThresholds {
   min_pass_rate_pct?: number | null;
