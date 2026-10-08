@@ -25,7 +25,14 @@ const OPERATOR = {
   retention: "90 days",
 };
 const LAST_UPDATED = "19 September 2026";
-const isDraft = Object.values(OPERATOR).some((v) => /^\[.*\]$/.test(v));
+// The dataset catalogue (db/350) resells captures from requests that were not
+// exclusive. What follows says only what the platform does; THE WORDING IS A
+// DRAFT for the organisation and its counsel to replace, and while it carries
+// the [DRAFT] marker the page shows its draft banner. The phone's notice says
+// the same (mobile/src/consent.ts RESALE_NOTICE); change them together.
+const RESALE =
+  "[DRAFT — wording to be approved] When the client who ordered the work did not ask for it to be exclusive, the delivery partner may also license accepted captures to other organisations through our dataset catalogue — for example to train AI models. Only captures taken after the worker accepted a notice saying so are included. Each sale is a licence on the seller's own terms; the platform reviews every listing before it is offered.";
+const isDraft = Object.values(OPERATOR).some((v) => /^\[.*\]$/.test(v)) || RESALE.startsWith("[DRAFT");
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -50,8 +57,8 @@ export function PrivacyPage() {
           {isDraft && (
             <div style={{ marginTop: 16 }}>
               <Callout tone="critical" title="Draft — not yet approved">
-                The operator's name, address, contact and retention period have not been filled in. This page must not be
-                relied on until they are.
+                Part of this page is still a draft awaiting approval (marked [DRAFT] below, or an operator detail not yet
+                filled in). It must not be relied on until it is approved.
               </Callout>
             </div>
           )}
@@ -90,14 +97,19 @@ export function PrivacyPage() {
             <p style={{ margin: 0 }}>
               A capture goes to the organisation that assigned the work, to the delivery partner it works for, and to the
               client who ordered it — and is stored in the storage location that client has chosen. Each organisation sees
-              only the work that belongs to it. We do not sell personal data, and we do not use it for advertising.
+              only the work that belongs to it. We do not use personal data for advertising.
             </p>
+          </Section>
+
+          <Section title="Resale in the dataset catalogue">
+            <p style={{ margin: 0 }}>{RESALE}</p>
           </Section>
 
           <Section title="Why we use it">
             <p style={{ margin: 0 }}>
               To fulfil the client's order, to check the quality of captures, to pay for accepted work, to keep accounts
-              secure, and to resolve disputes about what was delivered.
+              secure, to resolve disputes about what was delivered, and — where the order was not exclusive — to offer
+              accepted captures in the dataset catalogue as described above.
             </p>
           </Section>
 
@@ -115,8 +127,9 @@ export function PrivacyPage() {
               You can ask what we hold about you, ask us to correct it, or ask us to delete it, by writing to{" "}
               {OPERATOR.contactEmail}. A person will handle your request and tell you the outcome. Some records — for
               example of payments already made — may have to be kept, and we will tell you if that applies. You can stop
-              using the app at any time; captures you have already submitted stay with the order they were made for
-              unless you ask otherwise.
+              using the app at any time. Captures you have already submitted stay with the order they were made for and,
+              if the order was not exclusive, in the dataset catalogue, unless you ask otherwise; a buyer who already
+              holds a licence is told when a capture is withdrawn.
             </p>
           </Section>
 

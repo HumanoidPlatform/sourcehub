@@ -17,12 +17,37 @@
 import Constants from "expo-constants";
 import { useEffect, useState } from "react";
 import { Platform } from "react-native";
+import { post } from "@/api/client";
 import { type ConsentRecord, consentKey, isCurrent, makeRecord, parseConsent } from "@/consent";
 import { getKv, setKv } from "@/db/kv";
 
 const cache = new Map<string, ConsentRecord | null>();
 const listeners = new Set<() => void>();
 const notify = () => listeners.forEach((l) => l());
+
+// Who has had their current record sent to the server this session.
+const uploaded = new Set<string>();
+
+/** Send the record to the server's user_consent (db/350), which is what lets a
+ *  capture be relisted in the dataset catalogue. Best effort and repeatable:
+ *  the server ignores a second copy, and a phone with no signal tries again the
+ *  next time the record is read. Never blocks the worker. */
+export async function uploadConsent(userId: string, rec: ConsentRecord): Promise<boolean> {
+  if (uploaded.has(`${userId}:${rec.version}`)) return true;
+  try {
+    await post("/me/consents", {
+      document: rec.document,
+      version: Number(rec.version),
+      accepted_at: rec.accepted_at,
+      app_version: rec.app_version,
+      platform: rec.platform,
+    });
+    uploaded.add(`${userId}:${rec.version}`);
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 /** What storage holds for this user. Anything unreadable is "not accepted". */
 export async function loadConsent(userId: string): Promise<ConsentRecord | null> {
@@ -35,7 +60,10 @@ export async function loadConsent(userId: string): Promise<ConsentRecord | null>
   // an accept that landed while this read was in flight wins
   if (!cache.has(userId)) cache.set(userId, rec);
   notify();
-  return cache.get(userId) ?? null;
+  const current = cache.get(userId) ?? null;
+  // accepted earlier, perhaps offline: make sure the server has it
+  if (current && isCurrent(current)) void uploadConsent(userId, current);
+  return current;
 }
 
 export async function acceptConsent(userId: string): Promise<ConsentRecord> {
@@ -43,6 +71,7 @@ export async function acceptConsent(userId: string): Promise<ConsentRecord> {
   await setKv(consentKey(userId), JSON.stringify(rec)); // throws → caller says so, nothing is cached
   cache.set(userId, rec);
   notify();
+  void uploadConsent(userId, rec);
   return rec;
 }
 
@@ -74,4 +103,5 @@ export function useConsent(userId: string | undefined): ConsentState {
 /** Tests only. */
 export function _resetConsentCache(): void {
   cache.clear();
+  uploaded.clear();
 }

@@ -9,6 +9,12 @@ import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { DesignSystemRoute } from "@ds/DesignSystemRoute";
 import { AccountDetailPage } from "@features/admin/account-detail";
 import { AccountsPage, ActivityPage } from "@features/admin/pages";
+import {
+  CataloguePage, DatasetPage, DealPage, DealsPage, LicencesPage,
+} from "@features/catalogue/buyer";
+import { CatalogueReviewPage } from "@features/catalogue/ops";
+import { PublicCataloguePage, PublicDatasetPage } from "@features/catalogue/public";
+import { DatasetEditorPage, DatasetNewPage, MyDatasetsPage } from "@features/catalogue/seller";
 import { ContractsPage, ContractDetailPage, TasksPage } from "@features/delivery/pages";
 import {
   AcceptInvitationPage, ForcedPasswordChange, LoginPage, ResetPasswordPage, TaskOfferPage,
@@ -54,6 +60,19 @@ export function AppRouter() {
       <Route path="/privacy" element={<PrivacyPage />} />
     </>
   );
+
+  // The public dataset catalogue: its own chrome, signed in or not. A signed-in
+  // visitor gets the same page (a link someone shared should look the same to
+  // everyone), with a way into the console instead of the quote form.
+  const publicCatalogue = (
+    <>
+      <Route path="/datasets" element={<PublicCataloguePage />} />
+      <Route path="/datasets/:slug" element={<PublicDatasetPage />} />
+    </>
+  );
+  if (location.pathname === "/datasets" || location.pathname.startsWith("/datasets/")) {
+    return <Routes>{publicCatalogue}</Routes>;
+  }
 
   // anonymous surface
   if (!session) {
@@ -126,6 +145,17 @@ export function AppRouter() {
 
         {/* invoices */}
         <Route path="/billing" element={<BillingPage />} />
+
+        {/* dataset catalogue — static paths rank above /catalogue/:slug */}
+        <Route path="/catalogue" element={<CataloguePage />} />
+        <Route path="/catalogue/deals" element={<DealsPage />} />
+        <Route path="/catalogue/deals/:id" element={<DealPage />} />
+        <Route path="/catalogue/licences" element={<LicencesPage />} />
+        <Route path="/catalogue/mine" element={<MyDatasetsPage />} />
+        <Route path="/catalogue/mine/new" element={<DatasetNewPage />} />
+        <Route path="/catalogue/mine/:id" element={<DatasetEditorPage />} />
+        <Route path="/catalogue/:slug" element={<DatasetPage />} />
+        <Route path="/ops/catalogue" element={<CatalogueReviewPage />} />
 
         {/* platform ops */}
         <Route path="/onboarding" element={<OnboardingQueuePage />} />

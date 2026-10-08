@@ -772,8 +772,8 @@ function complianceRows(request: Rfp | undefined, loading: boolean): [string, Re
   if (!request) return [["Compliance and exclusivity", "No RFP terms available"]];
   return [
     ["Permitted uses", labelsOf(PERMITTED_USES, request.compliance.permitted_uses)],
-    ["Reuse / exclusivity", request.compliance.partner_reuse_allowed
-      ? "Partner reuse is allowed under the RFP terms"
+    ["Exclusivity", request.compliance.partner_reuse_allowed
+      ? "Non-exclusive: on delivery, the partner may also list the captures in the dataset catalogue"
       : "Exclusive to the client; partner reuse is not allowed"],
     ["Lawful basis", labelOf(LAWFUL_BASES, request.compliance.lawful_basis)],
     ["De-identification", labelsOf(DEIDENTIFICATION, request.compliance.deidentification)],

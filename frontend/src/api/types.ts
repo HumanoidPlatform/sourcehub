@@ -999,3 +999,191 @@ export interface Overview {
   captures: { accepted: number; days: number; series: { day: string; count: number }[] };
   attention: OverviewAttention[];
 }
+
+/* --- dataset catalogue (db/350, api/v1/catalogue.py) ----------------------- */
+
+export type DatasetStatus = "draft" | "in_review" | "published" | "rejected" | "withdrawn";
+export type DealStatus = "requested" | "quoted" | "accepted" | "declined" | "withdrawn";
+export type LicenceStatus = "awaiting_payment" | "active" | "revoked";
+
+export interface DatasetVersion {
+  id: string;
+  number: number;
+  status: "open" | "final";
+  item_count: number;
+  total_bytes: number;
+  /** what relisting left out, and why */
+  notes: string | null;
+  finalized_at: string | null;
+}
+
+export interface DatasetItem {
+  id: string;
+  version_id: string;
+  filename: string;
+  mime_type: string | null;
+  size_bytes: number | null;
+  sha256: string | null;
+  is_sample: boolean;
+  captured_at: string | null;
+  withdrawn_at: string | null;
+  withdrawn_reason: string | null;
+  /** owner and operations only */
+  copy_status?: "pending" | "copied" | "failed";
+  copy_error?: string | null;
+}
+
+export interface DatasetEvidence {
+  source: "upload" | "contract";
+  captured_from: string | null;
+  captured_to: string | null;
+  with_device_checks: number;
+  passed_review: boolean;
+  capturer_resale_consent: boolean;
+  /** never recorded today, so always null */
+  people_in_frame_consent: boolean | null;
+}
+
+export interface Dataset {
+  id: string;
+  slug: string;
+  title: string;
+  summary: string | null;
+  description: string | null;
+  category: string | null;
+  use_cases: string[];
+  regions: string[];
+  languages: string[];
+  permitted_uses: PermittedUse[];
+  licence_terms: string | null;
+  indicative_price_text: string | null;
+  source: "upload" | "contract";
+  status: DatasetStatus;
+  owner_org_id: string;
+  owner_name: string;
+  published_at: string | null;
+  withdrawn_at: string | null;
+  withdrawn_reason: string | null;
+  is_owner: boolean;
+  // owner and operations only
+  contract_id?: string | null;
+  submitted_at?: string | null;
+  review_note?: string | null;
+  reviewed_at?: string | null;
+  created_at?: string;
+  updated_at?: string;
+  // list views
+  version_number?: number;
+  item_count?: number;
+  total_bytes?: number;
+  sample_count?: number;
+  pending_copies?: number;
+  open_requests?: number;
+  // detail view
+  versions?: DatasetVersion[];
+  items?: DatasetItem[];
+  evidence?: DatasetEvidence | null;
+  my_deal?: { id: string; status: DealStatus } | null;
+}
+
+export interface DatasetDeal {
+  id: string;
+  dataset_id: string;
+  dataset_title: string;
+  dataset_slug: string;
+  version_id: string;
+  version_number: number;
+  buyer_org_id: string;
+  buyer_name: string | null;
+  seller_org_id: string;
+  seller_name: string | null;
+  intended_use: string;
+  requested_uses: PermittedUse[];
+  message: string | null;
+  status: DealStatus;
+  quote_amount: string | null;
+  currency: string | null;
+  quote_terms: string | null;
+  quote_uses: PermittedUse[];
+  quoted_at: string | null;
+  decided_at: string | null;
+  decision_note: string | null;
+  created_at: string;
+  licence_id: string | null;
+  licence_status: LicenceStatus | null;
+  my_side: "buyer" | "seller" | "operations";
+}
+
+export interface DatasetLicence {
+  id: string;
+  deal_id: string;
+  dataset_id: string;
+  dataset_title: string;
+  dataset_slug: string;
+  dataset_status: DatasetStatus;
+  version_id: string;
+  version_number: number;
+  item_count: number;
+  total_bytes: number;
+  withdrawn_count: number;
+  buyer_org_id: string;
+  buyer_name: string | null;
+  seller_org_id: string;
+  seller_name: string | null;
+  permitted_uses: PermittedUse[];
+  terms_snapshot: string | null;
+  amount: string;
+  currency: string;
+  status: LicenceStatus;
+  invoice_number: string | null;
+  paid_at: string | null;
+  revoked_at: string | null;
+  revoked_reason: string | null;
+  issued_at: string;
+  my_side: "buyer" | "seller" | "operations";
+  withdrawn_items?: { filename: string; withdrawn_at: string; withdrawn_reason: string }[];
+}
+
+export interface CatalogueLead {
+  id: string;
+  dataset_id: string;
+  dataset_title: string;
+  dataset_slug: string;
+  name: string;
+  email: string;
+  company: string;
+  intended_use: string;
+  message: string | null;
+  status: "new" | "contacted" | "closed";
+  created_at: string;
+}
+
+/** What the public catalogue returns: no ids, no storage, no internals. */
+export interface PublicDataset {
+  slug: string;
+  title: string;
+  summary: string | null;
+  description?: string | null;
+  category: string | null;
+  use_cases: string[];
+  regions: string[];
+  languages: string[];
+  permitted_uses: PermittedUse[];
+  licence_terms?: string | null;
+  indicative_price_text: string | null;
+  seller_name: string;
+  source?: "upload" | "contract";
+  version_number: number;
+  item_count: number;
+  total_bytes: number;
+  sample_count?: number;
+  published_at: string | null;
+  samples?: { id: string; filename: string; mime_type: string | null; size_bytes: number | null; url: string }[];
+}
+
+export interface UploadSlot {
+  filename: string;
+  key: string;
+  url: string;
+  headers: Record<string, string>;
+}

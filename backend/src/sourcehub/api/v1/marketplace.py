@@ -138,7 +138,10 @@ class RequestIn(BaseModel):
     regulations: list[str] = Field(default_factory=list, max_length=20)
     lawful_basis: LawfulBasis | None = None
     permitted_uses: list[PermittedUse] = Field(default_factory=list)
-    partner_reuse_allowed: bool = False
+    # False: exclusive to the client. True (the default since db/350): the
+    # delivery partner may also list the delivered captures in the dataset
+    # catalogue, subject to each worker's resale consent.
+    partner_reuse_allowed: bool = True
     biometric_processing: bool = False
 
     # --- commercials and process ---

@@ -78,7 +78,7 @@ class Request(Base):
     regulations: Mapped[list[str]] = mapped_column(ARRAY(Text), server_default=text("'{}'"))
     lawful_basis: Mapped[str | None] = mapped_column(Text)
     permitted_uses: Mapped[list[str]] = mapped_column(ARRAY(Text), server_default=text("'{}'"))
-    partner_reuse_allowed: Mapped[bool] = mapped_column(Boolean, server_default=text("false"))
+    partner_reuse_allowed: Mapped[bool] = mapped_column(Boolean, server_default=text("true"))
     biometric_processing: Mapped[bool] = mapped_column(Boolean, server_default=text("false"))
     location_type: Mapped[str | None] = mapped_column(Text)
 

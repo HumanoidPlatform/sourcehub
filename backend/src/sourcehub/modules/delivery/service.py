@@ -28,6 +28,7 @@ from sourcehub.api.security import AccessClaims, hash_token, new_opaque_token
 from sourcehub.config import CAPTURE_APP, PRODUCT, settings
 from sourcehub.db.session import anonymous_session, org_session
 from sourcehub.modules.audit import service as audit
+from sourcehub.modules.catalogue import service as catalogue
 from sourcehub.modules.delivery.models import (
     Contract, Submission, Task, TaskAssignment, TaskOffer, TaskOfferRecipient,
 )
@@ -1363,6 +1364,10 @@ async def deliver_contract(
         f"{c.reference_code} has been delivered and is ready for your approval.",
         "deliveries", {"id": str(c.id)},
     )
+    # A request that was not exclusive lets the partner sell the captures in
+    # the dataset catalogue too: open (or top up) its draft listing. Copies
+    # are made later by the catalogue sweep; nothing is published from here.
+    await catalogue.relist_on_delivery(session, claims, c.id)
     await audit.log(
         session, "contract.delivered",
         f"Delivered {c.reference_code} to the client",

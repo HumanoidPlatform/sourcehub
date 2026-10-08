@@ -63,6 +63,13 @@ export function notificationHref(n: NotificationRow): string | null {
       if (!request) return null;
       return id ? `/requests/${request}?thread=${id}` : `/requests/${request}`;
     }
+    // The dataset catalogue (db/350). A listing goes to its owner's editor; a
+    // quote to the deal room both sides share; a licence to the buyer's list;
+    // a submission or a public quote request to Ops' review page.
+    case "catalogue_listing": return id ? `/catalogue/mine/${id}` : "/catalogue/mine";
+    case "catalogue_deal": return id ? `/catalogue/deals/${id}` : "/catalogue/deals";
+    case "catalogue_licences": return "/catalogue/licences";
+    case "catalogue_review": return "/ops/catalogue";
     default: return null;
   }
 }

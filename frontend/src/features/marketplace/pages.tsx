@@ -435,7 +435,8 @@ const BLANK: Draft = {
   people_in_frame: "", minors_policy: "",
   deidentification: [], regulations: [],
   lawful_basis: "", permitted_uses: [],
-  partner_reuse_allowed: false, biometric_processing: false,
+  // non-exclusive unless the client says otherwise (db/350)
+  partner_reuse_allowed: true, biometric_processing: false,
   people_headcount: "",
   budget_disclosed: true, pricing_basis: "total", pricing_block: "1000", budget_amount: "",
   pilot_required: false, pilot_quantity: "", pilot_due_on: "",
@@ -1180,13 +1181,33 @@ export function RequestNewPage() {
               </>
             )}
 
-            <label className="checkline span">
-              <input type="checkbox" checked={d.partner_reuse_allowed} onChange={(e) => setD((x) => ({ ...x, partner_reuse_allowed: e.target.checked }))} />
-              <span>
-                The partner may reuse this data
-                <span className="cl-sub">Off means they collect it for you and keep no rights to it.</span>
-              </span>
-            </label>
+            {/* Exclusivity, as a choice that has to be seen rather than a box
+                that is easy to miss: a request not marked exclusive lets the
+                delivery partner also sell the captures in the dataset catalogue
+                (db/350). Non-exclusive is the default for a new request; a
+                draft keeps whatever it was saved with. */}
+            <fieldset className="span" style={{ border: 0, padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 6 }}>
+              <legend className="small" style={{ fontWeight: 600, marginBottom: 6 }}>Exclusivity</legend>
+              <label className="checkline">
+                <input type="radio" name="exclusivity" checked={d.partner_reuse_allowed}
+                  onChange={() => setD((x) => ({ ...x, partner_reuse_allowed: true }))} />
+                <span>
+                  Non-exclusive
+                  <span className="cl-sub">
+                    You get the data. The delivery partner may also offer the accepted captures to others in the dataset
+                    catalogue — only those whose capturing worker agreed to resale.
+                  </span>
+                </span>
+              </label>
+              <label className="checkline">
+                <input type="radio" name="exclusivity" checked={!d.partner_reuse_allowed}
+                  onChange={() => setD((x) => ({ ...x, partner_reuse_allowed: false }))} />
+                <span>
+                  Exclusive to us
+                  <span className="cl-sub">The partner collects it for you and keeps no rights to it. Partners may price this higher.</span>
+                </span>
+              </label>
+            </fieldset>
 
             <label className="checkline span">
               <input type="checkbox" checked={showRejection} onChange={(e) => setShowRejection(e.target.checked)} />
@@ -1355,7 +1376,7 @@ export function RequestNewPage() {
               ...(d.regulations.length ? [["Regulations", d.regulations.join(", ")] as Row] : []),
               ...(d.biometric_processing ? [["Biometric processing", "Yes"] as Row] : []),
             ] : []),
-            ["Partner may reuse the data", d.partner_reuse_allowed ? "Yes" : "No"],
+            ["Exclusivity", d.partner_reuse_allowed ? "Non-exclusive: the partner may also list it in the dataset catalogue" : "Exclusive to you"],
             ["Budget", `${budgetText}${d.budget_disclosed ? "" : " · withheld from bidders"}`],
             ["Timeline", `${fmtDate(d.starts_on || null)} → ${fmtDate(d.delivery_due_on || null)}`],
             ["Bids close", d.proposals_close_at ? fmtDateTimeZone(localInputToIso(d.proposals_close_at)) : "Not set"],
@@ -1979,7 +2000,7 @@ export function RequestDetailPage() {
             ...(r.compliance.regulations.length
               ? [["Regulations", r.compliance.regulations.join(", ")] as [string, React.ReactNode]]
               : []),
-            ["Partner may reuse the data", r.compliance.partner_reuse_allowed ? "Yes" : "No"],
+            ["Exclusivity", r.compliance.partner_reuse_allowed ? "Non-exclusive: the partner may also list it in the dataset catalogue" : "Exclusive to the client"],
           ]} />
         </Panel>
         <Panel title="People, budget and timeline">

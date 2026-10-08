@@ -75,7 +75,13 @@ INSERT INTO permission (code, module, description, requires_mfa) VALUES
   ('org.update',          'identity',    'Edit any organisation profile',            false),
   ('user.invite',         'identity',    'Invite a user into an organisation',       false),
   ('user.manage',         'identity',    'Manage users in own organisation',         false),
-  ('role.manage',         'identity',    'Manage roles and grants in own organisation', false);
+  ('role.manage',         'identity',    'Manage roles and grants in own organisation', false),
+
+  -- dataset catalogue (db/350)
+  ('catalogue.list',      'catalogue',   'List own datasets in the catalogue',       false),
+  ('catalogue.quote',     'catalogue',   'Quote for, and invoice, a dataset sale',   false),
+  ('catalogue.buy',       'catalogue',   'Request and accept dataset quotes',        false),
+  ('catalogue.review',    'catalogue',   'Publish or reject catalogue listings',     false);
 
 
 -- ---------------------------------------------------------------------------
@@ -99,7 +105,8 @@ WHERE r.code = 'client' AND p.code IN (
   'rfp.create','rfp.publish','rfp.read','proposal.read','proposal.accept',
   'contract.read','contract.approve','delivery.track','invoice.read','invoice.pay',
   'rating.write','storage.manage','vendor.read',
-  'onboarding.read','user.invite','user.manage','role.manage','profile.manage');
+  'onboarding.read','user.invite','user.manage','role.manage','profile.manage',
+  'catalogue.buy','catalogue.list','catalogue.quote');
 
 INSERT INTO role_permission (role_id, permission_id)
 SELECT r.id, p.id FROM role r, permission p
@@ -109,13 +116,15 @@ WHERE r.code = 'tenant' AND p.code IN (
   'invoice.read','invoice.raise','invoice.acknowledge','rating.write','delivery.track',
   -- the new capability: a tenant may ASK, but never approve
   'onboarding.request','onboarding.read',
-  'user.invite','user.manage','role.manage','profile.manage');
+  'user.invite','user.manage','role.manage','profile.manage',
+  'catalogue.list','catalogue.quote');
 
 INSERT INTO role_permission (role_id, permission_id)
 SELECT r.id, p.id FROM role r, permission p
 WHERE r.code = 'aggregator' AND p.code IN (
   'task.read','task.start','task.submit','roster.manage','equipment.request',
-  'profile.manage','user.invite','user.manage');
+  'profile.manage','user.invite','user.manage',
+  'catalogue.list','catalogue.quote');
 
 INSERT INTO role_permission (role_id, permission_id)
 SELECT r.id, p.id FROM role r, permission p
@@ -151,7 +160,7 @@ WHERE r.code = 'platform_admin' AND p.code IN (
   'account.read','billing.read','invoice.read','activity.read','dispute.arbitrate',
   'onboarding.request','onboarding.read','onboarding.approve','org.create','org.suspend',
   'org.update','user.invite','user.manage','role.manage','contract.read','delivery.track',
-  'vendor.read');
+  'vendor.read','catalogue.review');
 
 
 -- ---------------------------------------------------------------------------

@@ -26,6 +26,7 @@ __all__ = [
     "StorageError",
     "StorageTarget",
     "copy",
+    "copy_between",
     "delete",
     "head",
     "platform_target",
@@ -129,6 +130,22 @@ async def copy(t: StorageTarget, src: str, dst: str) -> None:
     folder once the parent has an identity.
     """
     await _adapter(t.provider).copy(t, src, dst)
+
+
+async def copy_between(
+    src: StorageTarget, src_key: str, dst: StorageTarget, dst_key: str, filename: str
+) -> None:
+    """Server-side copy from one target into another. The bytes never reach the API.
+
+    The destination fetches a short-lived signed GET of the source. Only an
+    Azure destination can do that — and the only destination this is used for
+    is platform_target(), which is always Azure. The source may be either
+    provider, but it must be reachable from Azure: a MinIO on localhost is not.
+    """
+    if dst.provider != "azure_blob":
+        raise StorageError("Copying between storages needs an Azure destination.")
+    url = await presign_get(src, src_key, filename)
+    await _adapter(dst.provider).copy_from_url(dst, dst_key, url)
 
 
 async def delete(t: StorageTarget, key: str) -> None:

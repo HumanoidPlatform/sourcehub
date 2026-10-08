@@ -131,6 +131,31 @@ export const orgStatus: StatusMap = {
   terminated: { label: "Terminated", tone: "neutral", owner: null },
 };
 
+// db/350: the dataset catalogue. The owner drafts and submits; only Ops
+// publishes or sends back.
+export const datasetStatus: StatusMap = {
+  draft: { label: "Draft", tone: "neutral", owner: "partner" },
+  in_review: { label: "In review", tone: "attention", owner: "ops" },
+  published: { label: "On sale", tone: "success", owner: null },
+  rejected: { label: "Sent back", tone: "critical", owner: "partner" },
+  withdrawn: { label: "Withdrawn", tone: "neutral", owner: null },
+};
+
+// A buyer asks, the seller quotes, the buyer accepts.
+export const dealStatus: StatusMap = {
+  requested: { label: "Quote requested", tone: "attention", owner: "partner" },
+  quoted: { label: "Quoted", tone: "attention", owner: "client" },
+  accepted: { label: "Accepted", tone: "success", owner: null },
+  declined: { label: "Declined", tone: "neutral", owner: null },
+  withdrawn: { label: "Withdrawn", tone: "neutral", owner: null },
+};
+
+export const licenceStatus: StatusMap = {
+  awaiting_payment: { label: "Awaiting payment", tone: "attention", owner: "client" },
+  active: { label: "Active", tone: "success", owner: null },
+  revoked: { label: "Revoked", tone: "critical", owner: null },
+};
+
 export function statusMeta(map: StatusMap, value: string | null | undefined): StatusMeta {
   return (
     (value && map[value]) || { label: value ?? "—", tone: "neutral", owner: null }

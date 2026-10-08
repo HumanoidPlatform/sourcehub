@@ -789,3 +789,11 @@ a.pop-item{text-decoration:none;color:inherit;display:flex;align-items:center}
   .scrim{position:fixed;inset:0;background:rgba(9,17,18,.5);z-index:55}
 }
 @media (min-width:841px){ .railtoggle,.scrim{display:none} }
+
+/* --- dataset catalogue ---------------------------------------------------- */
+/* A dataset page: what it is on the left, how to get it on the right. */
+.pubgrid{display:grid;grid-template-columns:minmax(0,2fr) minmax(280px,1fr);gap:var(--s-5);align-items:start}
+.samplegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:var(--s-3)}
+.samplegrid figure{margin:0;min-width:0}
+.samplegrid figcaption{margin-top:4px;font-size:12px;color:var(--ink-3);overflow-wrap:anywhere}
+@media (max-width:840px){ .pubgrid{grid-template-columns:minmax(0,1fr)} }

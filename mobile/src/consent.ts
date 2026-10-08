@@ -2,18 +2,24 @@
 // record of having accepted it. Pure — no storage, no React — so it can be
 // tested without a phone; consentStore.ts does the reading and writing.
 //
-// FOR THE PILOT THE RECORD LIVES ON THIS PHONE ONLY. There is no server table
-// yet (docs/mobile-pilot-build-plan.md): the durable record is the
-// acknowledgement each aggregator collects from its workers on paper or by
-// email. The record below already has the shape the server will want, so when
-// that table arrives the app uploads what it holds and nobody is asked twice.
+// The record lives on this phone and, since version 2, on the server too
+// (user_consent, db/350; consentStore.ts uploads it). The server copy is what
+// lets a capture be relisted in the dataset catalogue: only captures taken
+// after their worker accepted a notice that mentions resale are copied.
 
 import { APP_NAME } from "@/brand";
 import { PRODUCTION_API_URL } from "@/config";
 
 /** Bump to ask everyone again. It travels over the air, so a corrected notice
  *  reaches every phone without a new build. */
-export const PRIVACY_NOTICE_VERSION = "1";
+export const PRIVACY_NOTICE_VERSION = "2";
+
+/** Version 2 adds resale in the dataset catalogue. THE WORDING IS A DRAFT for
+ *  the organisation and its counsel to replace: while it carries the [DRAFT]
+ *  marker the consent screen shows its DRAFT banner (hasPlaceholders), so it
+ *  cannot go out unnoticed. It states only what the platform does. */
+export const RESALE_NOTICE =
+  "[DRAFT — wording to be approved] If the client who ordered the work did not ask for it to be exclusive, the delivery partner may also license your accepted captures to other organisations through the dataset catalogue, for example to train AI models. Only captures you take after agreeing to this notice can be resold. You are paid for the work as usual; a resale does not pay you again.";
 
 export const POLICY_URL = `${PRODUCTION_API_URL}/privacy`;
 
@@ -67,6 +73,10 @@ export const NOTICE: { title: string; intro: string; sections: NoticeSection[] }
       body: "The organisation that assigned you the work, the delivery partner it works for, and the client who ordered the captures. It is used to fulfil that order and to review and pay for your work.",
     },
     {
+      heading: "Resale in the dataset catalogue",
+      body: RESALE_NOTICE,
+    },
+    {
       heading: "How long, and your choices",
       // Two separate facts, kept separate on purpose. Captures are written
       // straight into the CLIENT's own storage, which this platform cannot
@@ -77,7 +87,8 @@ export const NOTICE: { title: string; intro: string; sections: NoticeSection[] }
   ],
 };
 
-export const hasPlaceholders = (): boolean => Object.values(OPERATOR).some((v) => /^\[.*\]$/.test(v.trim()));
+export const hasPlaceholders = (): boolean =>
+  Object.values(OPERATOR).some((v) => /^\[.*\]$/.test(v.trim())) || RESALE_NOTICE.startsWith("[DRAFT");
 
 // --- the record -------------------------------------------------------------
 

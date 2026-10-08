@@ -224,6 +224,31 @@ async def copy(t: StorageTarget, src: str, dst: str) -> None:
     await asyncio.to_thread(_copy_sync, t, src, dst)
 
 
+def _copy_from_url_sync(t: StorageTarget, dst: str, source_url: str) -> None:
+    """Put Blob From URL: Azure fetches the source itself, synchronously.
+
+    The source is a signed GET into another account or another provider, so
+    this is the cross-account counterpart of _copy_sync. Up to 5,000 MiB in
+    one call, which covers every capture the phone produces. The read timeout
+    is the call's own: the service holds the request open while it copies.
+    """
+    try:
+        _service(t).get_blob_client(t.bucket, dst).upload_blob_from_url(
+            source_url, overwrite=True, read_timeout=600,
+        )
+    except ResourceNotFoundError:
+        raise LookupError(dst) from None
+    except StorageError:
+        raise
+    except Exception as e:  # noqa: BLE001
+        raise _wrap(t.endpoint, e) from None
+
+
+async def copy_from_url(t: StorageTarget, dst: str, source_url: str) -> None:
+    _check_container(t)
+    await asyncio.to_thread(_copy_from_url_sync, t, dst, source_url)
+
+
 def _delete_sync(t: StorageTarget, key: str) -> None:
     try:
         _service(t).get_blob_client(t.bucket, key).delete_blob()

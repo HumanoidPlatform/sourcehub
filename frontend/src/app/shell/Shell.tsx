@@ -30,6 +30,9 @@ const NAV: Record<string, NavItem[]> = {
     // the platform, what each does, how its work was received. Asked for in
     // this position after the first local review.
     { to: "/vendors", label: "Vendors" },
+    // Finished datasets to license, beside commissioning new ones (the RFPs).
+    // Its own tabs reach quotes, licences and the client's own listings.
+    { to: "/catalogue", label: "Datasets" },
     { to: "/billing", label: "Billing" },
   ],
   tenant: [
@@ -41,6 +44,9 @@ const NAV: Record<string, NavItem[]> = {
     { to: "/contracts", label: "Contracts" },
     { to: "/network", label: "Network" },
     { to: "/qa", label: "QA and delivery" },
+    // the partner's listings in the dataset catalogue: its own data, and the
+    // captures of contracts that were not exclusive
+    { to: "/catalogue/mine", label: "Datasets" },
     // what the partner is owed and what the platform took — the invoices
     // exist against this org, and until now nothing linked to them
     { to: "/billing", label: "Billing" },
@@ -51,6 +57,8 @@ const NAV: Record<string, NavItem[]> = {
     { to: "/review", label: "Review" },
     { to: "/roster", label: "Crowd roster" },
     { to: "/equipment", label: "Equipment" },
+    // an aggregator may sell datasets of its own (db/350)
+    { to: "/catalogue/mine", label: "Datasets" },
   ],
   // a crowd resource who signs in here sees their assignments read-only;
   // capture happens in the phone app
@@ -77,6 +85,8 @@ const NAV: Record<string, NavItem[]> = {
     { to: "/accounts", label: "Accounts" },
     { to: "/onboarding", label: "Onboarding" },
     { to: "/contracts", label: "Contracts" },
+    // listings to review before they go on sale, and public quote requests
+    { to: "/ops/catalogue", label: "Dataset catalogue" },
     { to: "/billing", label: "Billing" },
     { to: "/activity", label: "Activity" },
   ],
