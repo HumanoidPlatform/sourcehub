@@ -133,7 +133,8 @@ def test_the_model_maps_the_json_columns_and_none_of_the_dropped():
     cols = set(Request.__table__.columns.keys())
     assert {"people_requirements", "pilot", "pilot_required"} <= cols
     assert not cols & set(DROPPED)
-    assert len(cols) == 47
+    # no total count here: later files (db/360) fold more columns, and their own
+    # tests count the table
 
 
 def test_none_reaches_the_database_as_sql_null():

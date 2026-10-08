@@ -31,8 +31,6 @@ class Request(Base):
     title: Mapped[str] = mapped_column(Text)
     category: Mapped[str] = mapped_column(RequestCategory)
     status: Mapped[str] = mapped_column(RequestStatus, server_default=text("'draft'"))
-    compliance_notes: Mapped[str | None] = mapped_column(Text)
-    acceptance: Mapped[str | None] = mapped_column(Text)
     currency: Mapped[str] = mapped_column(CHAR(3), server_default=text("'USD'"))
     starts_on: Mapped[dt.date | None] = mapped_column(Date)
     delivery_due_on: Mapped[dt.date | None] = mapped_column(Date)
@@ -51,27 +49,16 @@ class Request(Base):
 
     # --- client requirements -------------------------------------------------
     # What the client is asking for, precisely enough to bid against. The
-    # vocabularies are CHECK constraints in db/040_marketplace.sql; the API
-    # mirrors them as Literals so a bad value is a 422 rather than a 500 out of
-    # Postgres. Declared last to match the column order on disk — see the note
-    # in the DDL.
+    # vocabularies are CHECK constraints in db/040_marketplace.sql (and, for the
+    # quality bar and consent terms, in db/360); the API mirrors them as Literals
+    # so a bad value is a 422 rather than a 500 out of Postgres. Declared last to
+    # match the column order on disk — see the note in the DDL.
     objective: Mapped[str | None] = mapped_column(Text)
     use_case: Mapped[str | None] = mapped_column(Text)
     target_quantity: Mapped[int | None] = mapped_column(Integer)
     target_unit: Mapped[str | None] = mapped_column(Text)
     capture_spec: Mapped[dict[str, Any]] = mapped_column(JSONB, server_default=text("'{}'"))
     countries: Mapped[list[str]] = mapped_column(ARRAY(Text), server_default=text("'{}'"))
-    quality_thresholds: Mapped[dict[str, Any]] = mapped_column(JSONB, server_default=text("'{}'"))
-    rejection_policy: Mapped[dict[str, Any]] = mapped_column(JSONB, server_default=text("'{}'"))
-
-    people_in_frame: Mapped[str | None] = mapped_column(Text)
-    minors_policy: Mapped[str | None] = mapped_column(Text)
-    deidentification: Mapped[list[str]] = mapped_column(ARRAY(Text), server_default=text("'{}'"))
-    regulations: Mapped[list[str]] = mapped_column(ARRAY(Text), server_default=text("'{}'"))
-    lawful_basis: Mapped[str | None] = mapped_column(Text)
-    permitted_uses: Mapped[list[str]] = mapped_column(ARRAY(Text), server_default=text("'{}'"))
-    partner_reuse_allowed: Mapped[bool] = mapped_column(Boolean, server_default=text("false"))
-    biometric_processing: Mapped[bool] = mapped_column(Boolean, server_default=text("false"))
     location_type: Mapped[str | None] = mapped_column(Text)
 
     budget_disclosed: Mapped[bool] = mapped_column(Boolean, server_default=text("true"))
@@ -99,6 +86,20 @@ class Request(Base):
     # as the JSON value null, which the two shape CHECKs (rightly) refuse.
     people_requirements: Mapped[dict[str, Any] | None] = mapped_column(JSONB(none_as_null=True))
     pilot: Mapped[dict[str, Any] | None] = mapped_column(JSONB(none_as_null=True))
+
+    # --- folded into json (db/360) ---------------------------------------------
+    # quality_bar: {acceptance, quality_thresholds, rejection_policy}.
+    # consent_and_compliance: {compliance_notes, people_in_frame, minors_policy,
+    # deidentification, regulations, lawful_basis, permitted_uses,
+    # partner_reuse_allowed, biometric_processing}. The keys are the old column
+    # names and every key is always written (JSON null when empty); the 040
+    # vocabularies are checked inside the json (request_quality_bar_shape,
+    # request_consent_and_compliance_shape). Never NULL. Last, for the
+    # pg_attribute-order reason given above.
+    quality_bar: Mapped[dict[str, Any]] = mapped_column(JSONB, server_default=text("'{}'"))
+    consent_and_compliance: Mapped[dict[str, Any]] = mapped_column(
+        JSONB, server_default=text("'{}'")
+    )
 
 
 class Proposal(Base):

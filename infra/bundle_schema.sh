@@ -35,7 +35,8 @@ STRUCTURE="000_extensions 001_conventions 010_identity 020_rbac 030_onboarding
            230_org_public_profile 240_bidding_deadline 250_rfp_threads
            260_vendor_directory 270_managed_postgres 280_organisation_profile
            290_dormant_objects 300_push 310_review_defects 320_partner_invoices
-           330_onboarding_decisions 340_request_columns 350_capture_batches"
+           330_onboarding_decisions 340_request_columns 350_capture_batches
+           360_quality_and_compliance"
 
 # Required, and not demo data: without these there is no capability
 # vocabulary, no role to grant, and nobody who can approve anything.

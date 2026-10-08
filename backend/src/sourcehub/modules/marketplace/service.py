@@ -152,6 +152,10 @@ def _row(
     """
     own = viewer_org is not None and viewer_org == r.client_org_id
     show_budget = r.budget_disclosed or own
+    # db/360: the quality bar and the consent terms live in two json columns;
+    # the shape returned is the one the flat columns gave
+    qb = r.quality_bar or {}
+    cc = r.consent_and_compliance or {}
     return {
         "id": r.id,
         "reference_code": r.reference_code,
@@ -165,7 +169,7 @@ def _row(
         "status": effective,
         "stored_status": r.status,
         "proposal_count": proposal_count,
-        "compliance_notes": r.compliance_notes,
+        "compliance_notes": cc.get("compliance_notes"),
         "objective": r.objective,
         "use_case": r.use_case,
         "spec": {
@@ -175,20 +179,20 @@ def _row(
             "countries": r.countries,
             "location_type": r.location_type,
         },
-        "acceptance": r.acceptance,
+        "acceptance": qb.get("acceptance"),
         "quality": {
-            "thresholds": r.quality_thresholds,
-            "rejection_policy": r.rejection_policy,
+            "thresholds": qb.get("quality_thresholds") or {},
+            "rejection_policy": qb.get("rejection_policy") or {},
         },
         "compliance": {
-            "people_in_frame": r.people_in_frame,
-            "minors_policy": r.minors_policy,
-            "deidentification": r.deidentification,
-            "regulations": r.regulations,
-            "lawful_basis": r.lawful_basis,
-            "permitted_uses": r.permitted_uses,
-            "partner_reuse_allowed": r.partner_reuse_allowed,
-            "biometric_processing": r.biometric_processing,
+            "people_in_frame": cc.get("people_in_frame"),
+            "minors_policy": cc.get("minors_policy"),
+            "deidentification": cc.get("deidentification") or [],
+            "regulations": cc.get("regulations") or [],
+            "lawful_basis": cc.get("lawful_basis"),
+            "permitted_uses": cc.get("permitted_uses") or [],
+            "partner_reuse_allowed": bool(cc.get("partner_reuse_allowed")),
+            "biometric_processing": bool(cc.get("biometric_processing")),
         },
         # db/340: the client's optional crew requirements, None when it gave none
         "people_requirements": r.people_requirements or None,
@@ -227,7 +231,8 @@ def _row(
 # The prototype applies honest defaults on save rather than storing blanks.
 # spec_format and spec_quantity used to be here with "To be agreed"; their
 # replacements are structured and a placeholder would have to pass a CHECK, so
-# they are simply left NULL when not given.
+# they are simply left NULL when not given. Since db/360 both defaults are
+# applied inside the json (_quality_bar, _consent_and_compliance).
 _DEFAULTS = {
     "acceptance": "Client review on delivery",
     "compliance_notes": "None specified",
@@ -235,13 +240,12 @@ _DEFAULTS = {
 
 # Everything a client may set that is not defaulted, validated by the API
 # against the same vocabularies the CHECK constraints use. Listed once and
-# applied by both create and update so the two cannot drift.
+# applied by both create and update so the two cannot drift. The quality bar
+# and the consent terms are not here: since db/360 each is one json value,
+# written whole (_quality_bar, _consent_and_compliance).
 _REQUIREMENT_FIELDS = (
     "objective", "use_case", "target_quantity", "target_unit", "capture_spec",
-    "countries", "quality_thresholds", "rejection_policy",
-    "people_in_frame", "minors_policy", "deidentification", "regulations",
-    "lawful_basis", "permitted_uses", "partner_reuse_allowed",
-    "biometric_processing", "location_type",
+    "countries", "location_type",
     "budget_disclosed", "pilot_required",
 )
 # proposals_close_at is deliberately NOT in that list: _requirements() drops
@@ -282,6 +286,41 @@ def _pilot_terms(data: dict[str, Any]) -> dict[str, Any] | None:
     return out
 
 
+def _quality_bar(data: dict[str, Any]) -> dict[str, Any]:
+    """db/360 quality_bar: {acceptance, quality_thresholds, rejection_policy}.
+
+    Every key is written, and the whole value is assigned on create and on every
+    draft edit, so a client who clears the pass rate or the rejection policy
+    clears it (the flat columns kept the old value). acceptance keeps its honest
+    default.
+    """
+    return {
+        "acceptance": data.get("acceptance") or _DEFAULTS["acceptance"],
+        "quality_thresholds": dict(data.get("quality_thresholds") or {}),
+        "rejection_policy": dict(data.get("rejection_policy") or {}),
+    }
+
+
+def _consent_and_compliance(data: dict[str, Any]) -> dict[str, Any]:
+    """db/360 consent_and_compliance: the nine consent and compliance terms.
+
+    Every key is written and the value is assigned whole, like _quality_bar, so
+    a draft edit can clear people in frame, the children rule or the lawful
+    basis. The API has already checked the vocabularies the CHECK repeats.
+    """
+    return {
+        "compliance_notes": data.get("compliance_notes") or _DEFAULTS["compliance_notes"],
+        "people_in_frame": data.get("people_in_frame"),
+        "minors_policy": data.get("minors_policy"),
+        "deidentification": list(data.get("deidentification") or []),
+        "regulations": list(data.get("regulations") or []),
+        "lawful_basis": data.get("lawful_basis"),
+        "permitted_uses": list(data.get("permitted_uses") or []),
+        "partner_reuse_allowed": bool(data.get("partner_reuse_allowed")),
+        "biometric_processing": bool(data.get("biometric_processing")),
+    }
+
+
 def _requirements(data: dict[str, Any]) -> dict[str, Any]:
     """The requirement fields present in the payload, omitting the rest.
 
@@ -300,8 +339,6 @@ async def create_request(
     ref = (
         await session.execute(text("SELECT next_reference_code('RFP','seq_ref_request', 4)"))
     ).scalar_one()
-    # the prototype applies honest defaults on save rather than storing blanks
-    fields = {k: (data.get(k) or v) for k, v in _DEFAULTS.items()}
     r = Request(
         reference_code=ref,
         client_org_id=claims.org_id,
@@ -316,9 +353,12 @@ async def create_request(
         storage_target_id=data.get("storage_target_id"),
         people_requirements=_people_requirements(data),
         pilot=_pilot_terms(data),
+        # the prototype applies honest defaults on save rather than storing
+        # blanks; both builders apply them
+        quality_bar=_quality_bar(data),
+        consent_and_compliance=_consent_and_compliance(data),
         published_at=dt.datetime.now(dt.timezone.utc) if publish else None,
         created_by=claims.user_id,
-        **fields,
         **_requirements(data),
     )
     if publish:
@@ -358,9 +398,8 @@ async def update_request(
     if r.status != "draft":
         raise MarketplaceError("Only a draft can be edited.")
 
-    fields = {k: (data.get(k) or v) for k, v in _DEFAULTS.items()}
-    for k, v in fields.items():
-        setattr(r, k, v)
+    r.quality_bar = _quality_bar(data)
+    r.consent_and_compliance = _consent_and_compliance(data)
     r.title = data["title"]
     r.category = data["category"]
     r.pricing_basis = data.get("pricing_basis") or "total"
@@ -1101,7 +1140,9 @@ async def award(
         partner_org_id=p.partner_org_id, value=p.price, currency=p.currency,
         pricing_basis=r.pricing_basis, pricing_unit=r.pricing_unit,
         pricing_block=r.pricing_block, pricing_quantity=r.pricing_quantity,
-        acceptance=r.acceptance, compliance=r.compliance_notes,
+        # db/360: both are read from the json; the frozen snapshot keeps its keys
+        acceptance=(r.quality_bar or {}).get("acceptance"),
+        compliance=(r.consent_and_compliance or {}).get("compliance_notes"),
         storage_target_id=r.storage_target_id,
     )
 

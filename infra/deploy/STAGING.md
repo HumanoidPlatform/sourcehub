@@ -318,6 +318,16 @@ the sanity checks.
      ```powershell
      psql "$($env:DATABASE_ADMIN_URL -replace '\+asyncpg','')" -c "\copy (SELECT id, reference_code, geography, spec_quality, sampling_frame, people_headcount, people_training, people_experience, people_certification, residency_region, contact_user_id, proposal_requirements, pilot_quantity, pilot_due_on FROM request) TO 'request-columns-before-0037.csv' CSV HEADER"
      ```
+   - **Migration 0039 folds the quality bar and the consent terms into two jsonb columns**
+     (`quality_bar`, `consent_and_compliance`). No flag and no guard: every value is copied into the json
+     and the old column checks guarantee it passes the new ones; the downgrade brings the twelve columns
+     back. The API shape does not change, but old images read the dropped columns on every request, so it
+     runs in the stopped-API window with images from the same commit, after a readable copy of the twelve
+     columns goes into the rollback folder:
+
+     ```powershell
+     psql "$($env:DATABASE_ADMIN_URL -replace '\+asyncpg','')" -c "\copy (SELECT id, reference_code, acceptance, quality_thresholds, rejection_policy, compliance_notes, people_in_frame, minors_policy, deidentification, regulations, lawful_basis, permitted_uses, partner_reuse_allowed, biometric_processing FROM request) TO 'request-terms-before-0039.csv' CSV HEADER"
+     ```
    - Staging runs PostgreSQL 18 and dev runs 16, so a migration that does more than add things is worth
      a trial run on a `postgres:18` scratch container first.
    - Note the time before you start. Azure can restore the server to any point in its backup retention.
