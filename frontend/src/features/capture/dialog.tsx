@@ -137,7 +137,8 @@ export function AssignmentUploadDialog({ assignment: a, onClose }: { assignment:
   const [dragging, setDragging] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const uploadable = a.status === "in_progress";
+  // taken off this worker: what they sent is reviewed, nothing more goes up
+  const uploadable = a.status === "in_progress" && !a.revoked_at;
   const startable = a.status === "assigned" || a.status === "rejected";
 
   // Whatever an earlier session left half-done is still on the server and
@@ -161,7 +162,7 @@ export function AssignmentUploadDialog({ assignment: a, onClose }: { assignment:
     onSuccess: () => {
       invalidate();
       setConfirming(false);
-      toast("Submitted", "Your supplier will review it.", "success");
+      toast("Sent for review", "Your supplier will review this batch. You can keep adding files.", "success");
     },
     onError: (e) => {
       setConfirming(false);
@@ -186,8 +187,13 @@ export function AssignmentUploadDialog({ assignment: a, onClose }: { assignment:
   };
 
   const ready = rows.filter((r) => r.status === "ready").length;
-  // the server's own rule (delivery/service.py submit_assignment), not the phone's looser one
-  const canSubmit = uploadable && ready >= 1 && (!a.quantity || ready >= a.quantity) && queue.active === 0 && queue.failed === 0;
+  // Any number may be sent as a batch, and more added while it is reviewed
+  // (delivery/service.py submit_assignment). Only what has not gone yet is
+  // sent; an API from before batches sends no stage, and then every ready
+  // file is.
+  const drafts = rows.filter((r) => r.status === "ready" && (r.stage ? r.stage === "draft" : true)).length;
+  const accepted = a.progress?.accepted ?? 0;
+  const canSubmit = uploadable && drafts >= 1 && queue.active === 0 && queue.failed === 0;
   const busy = queue.active > 0 || start.isPending || submit.isPending;
   const grouped = groupRefusals(queue.refusals);
   const caveats = unverifiable(spec);
@@ -204,15 +210,15 @@ export function AssignmentUploadDialog({ assignment: a, onClose }: { assignment:
     <Dialog
       size="wide"
       title={a.task.title}
-      sub={<>{a.task.reference_code} · {ready} of {a.quantity} ready · due {fmtDate(a.due_on ?? a.task.due_on)} · <Pill tone={m.tone}>{m.label}</Pill></>}
+      sub={<>{a.task.reference_code} · {a.progress ? `${accepted} of ${a.quantity} accepted` : `${ready} of ${a.quantity} ready`} · due {fmtDate(a.due_on ?? a.task.due_on)} · <Pill tone={m.tone}>{m.label}</Pill></>}
       onClose={onClose}
       busy={busy}
       foot={
         confirming ? (
           <>
-            <span className="small muted" style={{ marginRight: "auto" }}>Submit {ready} capture{ready === 1 ? "" : "s"} for review? You cannot add more afterwards.</span>
+            <span className="small muted" style={{ marginRight: "auto" }}>Send {drafts} capture{drafts === 1 ? "" : "s"} for review? You can keep adding files while they are reviewed.</span>
             <Button onClick={() => setConfirming(false)} disabled={submit.isPending}>Not yet</Button>
-            <Button variant="primary" onClick={() => submit.mutate()} disabled={submit.isPending}>Submit</Button>
+            <Button variant="primary" onClick={() => submit.mutate()} disabled={submit.isPending}>Send</Button>
           </>
         ) : (
           <>
@@ -226,18 +232,26 @@ export function AssignmentUploadDialog({ assignment: a, onClose }: { assignment:
               <Button
                 variant="primary"
                 disabled={!canSubmit}
-                title={canSubmit ? undefined : queue.active > 0 ? "Wait for the uploads to finish" : queue.failed > 0 ? "Retry or remove the failed files first" : `${a.quantity} required, ${ready} uploaded`}
+                title={canSubmit ? undefined : queue.active > 0 ? "Wait for the uploads to finish" : queue.failed > 0 ? "Retry or remove the failed files first" : "Add a file that has not been sent yet"}
                 onClick={() => setConfirming(true)}
               >
-                Submit for review
+                {drafts ? `Send ${drafts} for review` : "Send for review"}
               </Button>
             )}
           </>
         )
       }
     >
-      {a.status === "rejected" && a.decision_note && (
-        <Callout tone="critical" title="Sent back by your supplier">{a.decision_note}</Callout>
+      {a.revoked_at && (
+        <Callout tone="neutral" title="This task was given to someone else">
+          What you uploaded was sent to your supplier for review. Nothing more is needed from you on it.
+        </Callout>
+      )}
+      {(a.status === "rejected" || (a.progress?.rework ?? 0) > 0) && (
+        <Callout tone="critical" title="Sent back by your supplier">
+          {a.progress?.rework ? `${a.progress.rework} to replace — each one says why below. The rest are accepted. ` : ""}
+          {a.decision_note ?? ""}
+        </Callout>
       )}
 
       <div className="formgrid" style={{ marginTop: 8 }}>

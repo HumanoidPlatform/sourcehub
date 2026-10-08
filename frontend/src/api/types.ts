@@ -485,6 +485,13 @@ export interface Assignment {
   reminder_count: number;
   last_reminded_at: string | null;
   assets: AssignmentAssets;
+  /** The batch round trip (db/350): uploaded and not sent, with the reviewer,
+   *  kept, and to be shot again. accepted against quantity is progress. */
+  progress?: AssignmentProgress;
+  batches?: Batch[];
+  /** Taken off this worker; the rest went to reassigned_to. */
+  revoked_at?: string | null;
+  reassigned_to?: string | null;
   task: {
     id: string;
     reference_code: string;
@@ -501,8 +508,36 @@ export interface Assignment {
   };
 }
 
+export interface AssignmentProgress {
+  draft: number;
+  in_review: number;
+  accepted: number;
+  rework: number;
+}
+
+/** One send of a worker's captures. Answered on its own: everything in it is
+ *  accepted unless marked to be shot again. */
+export interface Batch {
+  id: string;
+  batch_no: number;
+  status: "in_review" | "reviewed";
+  submitted_at: string;
+  worker_note: string | null;
+  decided_at: string | null;
+  decision_note: string | null;
+  accepted_count: number;
+  rework_count: number;
+  items: number;
+}
+
 // GET /qa/gate1 — a worker batch awaiting the supplier's own verdict
 export interface Gate1Row {
+  batch_id: string;
+  batch_no: number;
+  /** what earlier batches of this assignment already had accepted */
+  accepted_before: number;
+  /** the worker was taken off the task; this batch was sent for them */
+  revoked_at: string | null;
   assignment_id: string;
   task_id: string;
   task_ref: string;
@@ -557,6 +592,11 @@ export interface AssetRow {
   review_label?: string | null;
   review_note?: string | null;
   reviewed_at?: string | null;
+  /** the batch it was sent in, and where it stands (db/350) */
+  batch_id?: string | null;
+  batch_no?: number | null;
+  replaces_asset_id?: string | null;
+  stage?: "uploading" | "draft" | "in_review" | "accepted" | "rework" | "replaced";
 }
 
 // What the phone found before queueing a capture, and what the console found

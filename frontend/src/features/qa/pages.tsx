@@ -178,7 +178,7 @@ export function Gate1Page() {
   return (
     <View
       title="Review"
-      sub="Gate 1. Accept a batch to include it in your submission; a rejection must say what to re-capture."
+      sub="Gate 1. Each batch a crowd resource sends lands here. Everything you do not mark to retake is accepted and stays accepted."
     >
       <div className="g3">
         <Metric label="Awaiting your review" value={rows.length} />
@@ -191,14 +191,18 @@ export function Gate1Page() {
         ) : (
           <TableWrap>
             <table>
-              <thead><tr><th>Task</th><th>Crowd resource</th><th>Units</th><th>Ready</th><th>Phone check</th><th>Their note</th><th>Submitted</th><th /></tr></thead>
+              <thead><tr><th>Task</th><th>Crowd resource</th><th>Batch</th><th>In batch</th><th>Accepted so far</th><th>Phone check</th><th>Their note</th><th>Sent</th><th /></tr></thead>
               <tbody>
                 {rows.map((r) => (
-                  <tr key={r.assignment_id}>
+                  <tr key={r.batch_id}>
                     <td className="cell-primary">{r.task_title}<div className="cell-meta id">{r.task_ref}</div></td>
-                    <td>{r.worker_name ?? "—"}<div className="cell-meta id">{r.worker_ref ?? ""}</div></td>
-                    <td className="num">{r.quantity}</td>
+                    <td>
+                      {r.worker_name ?? "—"}<div className="cell-meta id">{r.worker_ref ?? ""}</div>
+                      {r.revoked_at ? <Pill>Reassigned</Pill> : null}
+                    </td>
+                    <td className="num">{r.batch_no}</td>
                     <td className="num">{r.ready_assets}</td>
+                    <td className="num">{r.accepted_before} / {r.quantity}</td>
                     <td>
                       {r.off_subject > 0
                         ? <Pill tone="attention">{r.off_subject} may be off-subject</Pill>
@@ -226,13 +230,16 @@ export function Gate1Page() {
             id: deciding.assignment_id, quantity: deciding.quantity, worker_name: deciding.worker_name,
             worker_note: deciding.worker_note, task_ref: deciding.task_ref, task_title: deciding.task_title,
             capture_spec: deciding.capture_spec, task_instructions: deciding.task_instructions,
+            batch_id: deciding.batch_id, batch_no: deciding.batch_no, accepted_before: deciding.accepted_before,
           }}
           onClose={() => setDeciding(null)}
           onDone={(outcome) => {
             setDeciding(null);
             toast(
-              outcome === "accept" ? "Batch accepted" : "Sent back to the crowd resource",
-              outcome === "accept" ? "It will be bundled when you submit the task." : "They can see your note in the app.",
+              outcome === "accept" ? "Batch accepted" : "Part of the batch sent back",
+              outcome === "accept"
+                ? "It will be bundled when you submit the task."
+                : "The rest is accepted. They see what to retake in the app.",
               outcome === "accept" ? "success" : "critical",
             );
           }}

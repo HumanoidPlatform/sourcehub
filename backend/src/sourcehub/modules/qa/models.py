@@ -32,6 +32,8 @@ class QaReview(Base):
     # worker's assignment (CHECK qa_review_one_subject)
     submission_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("submission.id"))
     assignment_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("task_assignment.id"))
+    # the batch a gate-1 verdict answered (db/350); assignment_id is set too
+    batch_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
     gate: Mapped[str] = mapped_column(QaGate)
     outcome: Mapped[str] = mapped_column(QaOutcome)
     reviewer_org_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("organisation.id"))

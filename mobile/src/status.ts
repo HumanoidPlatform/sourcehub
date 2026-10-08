@@ -26,6 +26,8 @@ export const assignmentStatus: Record<string, Meta> = {
   accepted: { label: "Accepted", tone: "success" },
   rejected: { label: "Needs rework", tone: "critical" },
   cancelled: { label: "Cancelled", tone: "neutral" },
+  // taken off this worker and given to someone else (batches.ts boardStatus)
+  reassigned: { label: "Reassigned", tone: "neutral" },
 };
 
 export const captureStatus: Record<string, Meta> = {
@@ -47,12 +49,22 @@ export const assetStatus: Record<string, Meta> = {
   erased: { label: "Erased", tone: "neutral" },
 };
 
+/** Where a capture stands in the batch round trip, when the server says. */
+export const assetStage: Record<string, Meta> = {
+  uploading: { label: "Uploading", tone: "active" },
+  draft: { label: "Not sent", tone: "neutral" },
+  in_review: { label: "In review", tone: "attention" },
+  accepted: { label: "Accepted", tone: "success" },
+  rework: { label: "Retake", tone: "critical" },
+  replaced: { label: "Retaken", tone: "neutral" },
+};
+
 export function meta(map: Record<string, Meta>, value: string | null | undefined): Meta {
   return (value && map[value]) || { label: value ?? "—", tone: "neutral" };
 }
 
 /** the order sections appear in on the board: what needs the worker first */
-export const SECTION_ORDER = ["rejected", "in_progress", "assigned", "submitted", "accepted"] as const;
+export const SECTION_ORDER = ["rejected", "in_progress", "assigned", "submitted", "accepted", "reassigned"] as const;
 
 /** Why a capture was refused, in the words a worker reads. Keys are the codes
  *  from validation/rules.ts; an unknown one falls back to the raw code so a

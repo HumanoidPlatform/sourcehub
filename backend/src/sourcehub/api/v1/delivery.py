@@ -113,6 +113,17 @@ class AssignmentDecideIn(BaseModel):
     marks: list[AssetMarkIn] = Field(default_factory=list, max_length=200)
 
 
+class ReassignIn(BaseModel):
+    """Take an assignment off its worker and give the rest to another."""
+
+    worker_user_id: uuid.UUID
+    # why — the first worker is told
+    note: str | None = Field(default=None, max_length=500)
+    # default to the old assignment's
+    due_on: dt.date | None = None
+    instructions: str | None = None
+
+
 class ApproveIn(BaseModel):
     score: int = Field(ge=1, le=5)
     comment: str = Field(min_length=3)
@@ -404,6 +415,48 @@ async def decide_assignment(
     except LookupError:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Assignment not found") from None
     except qa.QaError as e:
+        raise _conflict(e) from None
+
+
+@router.post("/batches/{batch_id}/decide")
+async def decide_batch(
+    batch_id: uuid.UUID,
+    body: AssignmentDecideIn,
+    principal: Principal = Depends(require_capability("qa.review.gate1")),
+    session: AsyncSession = Depends(get_session),
+):
+    """Gate 1 on one batch: every capture in it is accepted unless marked to
+    be shot again."""
+    try:
+        return await qa.decide_batch(
+            session,
+            principal,
+            batch_id,
+            body.outcome,
+            body.note,
+            [m.model_dump() for m in body.marks],
+        )
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Batch not found") from None
+    except qa.QaError as e:
+        raise _conflict(e) from None
+
+
+@router.post("/assignments/{assignment_id}/reassign")
+async def reassign_assignment(
+    assignment_id: uuid.UUID,
+    body: ReassignIn,
+    principal: Principal = Depends(require_capability("assignment.assign")),
+    session: AsyncSession = Depends(get_session),
+):
+    try:
+        return await delivery.reassign_assignment(
+            session, principal, assignment_id, body.worker_user_id,
+            (body.note or "").strip() or None, body.due_on, body.instructions,
+        )
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Assignment not found") from None
+    except delivery.DeliveryError as e:
         raise _conflict(e) from None
 
 

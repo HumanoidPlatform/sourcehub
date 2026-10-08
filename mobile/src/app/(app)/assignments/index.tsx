@@ -6,6 +6,7 @@ import { useMemo } from "react";
 import { Pressable, RefreshControl, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import type { Assignment } from "@/api/types";
+import { boardStatus, progressOf, summary } from "@/batches";
 import { useSession } from "@/auth/AuthProvider";
 import { useAssignments, useNotifications, useOutboxSummary } from "@/query/hooks";
 import { SECTION_ORDER, assignmentStatus, meta } from "@/status";
@@ -17,6 +18,7 @@ const SECTION_TITLE: Record<string, string> = {
   assigned: "New",
   submitted: "Awaiting review",
   accepted: "Accepted",
+  reassigned: "Given to someone else",
 };
 
 export default function Board() {
@@ -28,7 +30,9 @@ export default function Board() {
 
   const sections = useMemo(() => {
     const rows = q.data ?? [];
-    return SECTION_ORDER.map((st) => ({ status: st, rows: rows.filter((a) => a.status === st) })).filter((x) => x.rows.length);
+    // Filed by what needs the worker, read off the batch counts: an
+    // assignment stays in progress through every round on the server.
+    return SECTION_ORDER.map((st) => ({ status: st, rows: rows.filter((a) => boardStatus(a) === st) })).filter((x) => x.rows.length);
   }, [q.data]);
 
   const queued = Object.values(outbox).reduce((n, x) => n + x.queued, 0);
@@ -81,8 +85,8 @@ export default function Board() {
 }
 
 function Card({ a, queued, failed, onPress }: { a: Assignment; queued: number; failed: number; onPress: () => void }) {
-  const m = meta(assignmentStatus, a.status);
-  const unit = a.task.target_unit ?? "units";
+  const where = boardStatus(a);
+  const m = meta(assignmentStatus, where);
   return (
     <Pressable onPress={onPress} accessibilityRole="button" style={({ pressed }) => [s.card, pressed && { opacity: 0.85 }]}>
       <View style={[s.row, { justifyContent: "space-between", marginBottom: 6 }]}>
@@ -90,13 +94,13 @@ function Card({ a, queued, failed, onPress }: { a: Assignment; queued: number; f
         <Pill tone={m.tone}>{m.label}</Pill>
       </View>
       <Text style={[s.mono, { marginBottom: 8 }]}>{a.task.reference_code}{a.due_on ? ` · due ${a.due_on}` : ""}</Text>
-      <Meter value={a.assets.ready} max={a.quantity} />
+      <Meter value={progressOf(a).accepted} max={a.quantity} />
       <Text style={[s.muted, { marginTop: 6 }]}>
-        {a.assets.ready} of {a.quantity} {unit} uploaded
+        {summary(a)}
         {queued ? ` · ${queued} uploading` : ""}
         {failed ? ` · ${failed} failed` : ""}
       </Text>
-      {a.status === "rejected" && a.decision_note ? (
+      {where === "rejected" && a.decision_note ? (
         <Text style={[s.body, { color: C.danger, marginTop: 6 }]} numberOfLines={2}>{a.decision_note}</Text>
       ) : null}
     </Pressable>

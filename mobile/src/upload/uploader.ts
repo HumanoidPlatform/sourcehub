@@ -135,6 +135,8 @@ class Uploader {
             lon: row.lon,
             // what the phone found before queueing; lands in asset.check_results
             checks: parseChecks(row.checks),
+            // a retake names the capture it replaces (db/350)
+            ...(row.replaces_asset_id ? { replaces_asset_id: row.replaces_asset_id } : {}),
           });
           outcome = {
             type: "presigned",

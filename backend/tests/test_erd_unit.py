@@ -52,9 +52,10 @@ def test_every_table_is_read_and_grouped(model: Any) -> None:
     # 41 before db/310 folded qa_review_defect onto the verdict row, 40 before
     # db/320 replaced the four ledger tables (and two enums) with one invoice
     # table and the pricing_basis enum, 37 before db/330 folded
-    # onboarding_approval (and its enum) onto the request row
-    assert len(model.tables) == 36
-    assert len(model.enums) == 29
+    # onboarding_approval (and its enum) onto the request row; db/350 added
+    # capture_batch and its enum
+    assert len(model.tables) == 37
+    assert len(model.enums) == 30
     assert sorted(model.views) == []
 
 

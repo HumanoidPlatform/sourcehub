@@ -171,7 +171,8 @@ async def reviews_for_task(session: AsyncSession, task_id: uuid.UUID) -> list[di
 # ---------------------------------------------------------------------------
 
 async def gate1_queue(session: AsyncSession, claims: AccessClaims) -> list[dict[str, Any]]:
-    """Every assignment awaiting this supplier's verdict.
+    """Every batch awaiting this supplier's verdict (db/350). A worker may have
+    more than one in review at once; each is its own row and its own decision.
 
     Batches with captures their phone flagged as off-subject (a
     wrong_subject device check, kept anyway) come first, then oldest first:
@@ -181,7 +182,8 @@ async def gate1_queue(session: AsyncSession, claims: AccessClaims) -> list[dict[
     rows = (
         await session.execute(
             text(
-                "SELECT a.id AS assignment_id, a.task_id, t.reference_code AS task_ref, "
+                "SELECT b.id AS batch_id, b.batch_no, "
+                "       a.id AS assignment_id, a.task_id, t.reference_code AS task_ref, "
                 "       t.title AS task_title, t.target_unit, "
                 # What the capture was supposed to satisfy. The reviewer was
                 # judging frames against conditions they could not see: the
@@ -190,10 +192,16 @@ async def gate1_queue(session: AsyncSession, claims: AccessClaims) -> list[dict[
                 # selects them for the worker, so both ends read one brief.
                 "       t.capture_spec, t.instructions AS task_instructions, "
                 "       a.worker_user_id, coalesce(w.display_name, u.full_name) AS worker_name, "
-                "       w.reference_code AS worker_ref, a.quantity, a.worker_note, a.submitted_at, "
+                "       w.reference_code AS worker_ref, a.quantity, b.worker_note, b.submitted_at, "
+                "       a.revoked_at, "
                 "       coalesce(x.ready, 0) AS ready_assets, coalesce(x.off_subject, 0) AS off_subject, "
-                "       coalesce(x.unscored, 0) AS unscored "
-                "FROM task_assignment a "
+                "       coalesce(x.unscored, 0) AS unscored, "
+                # what earlier batches of the same assignment already settled
+                "       (SELECT count(*) FROM asset k JOIN capture_batch kb ON kb.id = k.batch_id "
+                "         WHERE k.assignment_id = a.id AND kb.status = 'reviewed' "
+                "           AND k.status = 'ready' AND k.deleted_at IS NULL) AS accepted_before "
+                "FROM capture_batch b "
+                "JOIN task_assignment a ON a.id = b.assignment_id "
                 "JOIN task t ON t.id = a.task_id "
                 "LEFT JOIN crowd_worker w ON w.user_id = a.worker_user_id "
                 "LEFT JOIN app_user u ON u.id = a.worker_user_id "
@@ -203,10 +211,10 @@ async def gate1_queue(session: AsyncSession, claims: AccessClaims) -> list[dict[
                 "                          count(*) FILTER (WHERE s.check_results->'device' "
                 "                                           @> '[{\"code\": \"subject_unscored\"}]') AS unscored "
                 "                   FROM asset s "
-                "                   WHERE s.assignment_id = a.id AND s.status = 'ready' "
+                "                   WHERE s.batch_id = b.id AND s.status = 'ready' "
                 "                     AND s.deleted_at IS NULL) x ON true "
-                "WHERE a.status = 'submitted' AND a.supplier_org_id = :me "
-                "ORDER BY (coalesce(x.off_subject, 0) > 0) DESC, a.submitted_at"
+                "WHERE b.status = 'in_review' AND b.supplier_org_id = :me "
+                "ORDER BY (coalesce(x.off_subject, 0) > 0) DESC, b.submitted_at"
             ),
             {"me": claims.org_id},
         )
@@ -217,6 +225,7 @@ async def gate1_queue(session: AsyncSession, claims: AccessClaims) -> list[dict[
             "ready_assets": int(r["ready_assets"]),
             "off_subject": int(r["off_subject"]),
             "unscored": int(r["unscored"]),
+            "accepted_before": int(r["accepted_before"]),
             # An older task may carry no spec at all; the console then shows
             # nothing rather than an empty panel.
             "capture_spec": r["capture_spec"] or {},
@@ -286,7 +295,7 @@ def plan_marks(
 async def _apply_marks(
     session: AsyncSession,
     claims: AccessClaims,
-    assignment_id: uuid.UUID,
+    batch_id: uuid.UUID,
     marks: list[dict[str, Any]],
 ) -> dict[str, int]:
     """Put each named capture where the reviewer put it, and count the reasons.
@@ -306,9 +315,9 @@ async def _apply_marks(
             await session.execute(
                 text(
                     "SELECT id, status FROM asset "
-                    "WHERE assignment_id = :a AND deleted_at IS NULL"
+                    "WHERE batch_id = :b AND deleted_at IS NULL"
                 ),
-                {"a": assignment_id},
+                {"b": batch_id},
             )
         ).mappings().all()
     }
@@ -357,64 +366,108 @@ async def decide_gate1(
     note: str | None,
     marks: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
-    """Record the gate-1 verdict on a batch, and on any capture in it.
+    """The verdict addressed to an assignment, as before batches: it answers
+    the assignment's oldest batch still in review (decide_batch)."""
+    batch_id = (
+        await session.execute(
+            text(
+                "SELECT id FROM capture_batch WHERE assignment_id = :a AND status = 'in_review' "
+                "ORDER BY batch_no LIMIT 1"
+            ),
+            {"a": assignment_id},
+        )
+    ).scalar_one_or_none()
+    if batch_id is None:
+        exists = (
+            await session.execute(
+                text("SELECT 1 FROM task_assignment WHERE id = :a"), {"a": assignment_id}
+            )
+        ).scalar_one_or_none()
+        if exists is None:
+            raise LookupError("assignment not found")
+        raise QaError("Nothing on this assignment is waiting for review.")
+    return await decide_batch(session, claims, batch_id, outcome, note, marks)
 
-    The same rule as gate 2, enforced here and by CHECKs on qa_review and
-    task_assignment: a rejection without a note is refused, because they cannot
-    act on one. Marks ride on the verdict so the two cannot disagree — see
-    _apply_marks, and the accept guard below.
+
+async def decide_batch(
+    session: AsyncSession,
+    claims: AccessClaims,
+    batch_id: uuid.UUID,
+    outcome: str,  # 'accept' | 'reject'
+    note: str | None,
+    marks: list[dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    """Answer one batch, capture by capture.
+
+    Every capture in it is accepted unless marked to be shot again. 'accept'
+    means nothing is marked; 'reject' means something is — the marks carry the
+    reasons, so a note is optional (qa_review's own CHECK gets the count when
+    there is none). Accepted captures stay accepted: a later batch never puts
+    them back in front of anyone. Then the assignment is settled
+    (delivery.settle_assignment): accepted once its accepted captures reach its
+    quantity, and on a reassigned one, rework moves to the worker who took over.
     """
+    from sourcehub.modules.delivery import service as delivery
+
     if outcome not in ("accept", "reject"):
         raise QaError("Outcome must be accept or reject.")
-    if outcome == "reject" and not (note and note.strip()):
-        raise QaError("Say what must change — they cannot act on a blank rejection.")
+    note = (note or "").strip() or None
 
-    a = (
+    b = (
         await session.execute(
             text(
-                "SELECT a.id, a.status, a.task_id, a.contract_id, a.supplier_org_id, "
-                "       a.worker_user_id, t.reference_code AS task_ref, t.title "
-                "FROM task_assignment a JOIN task t ON t.id = a.task_id WHERE a.id = :a"
+                "SELECT b.id, b.batch_no, b.status, b.assignment_id, a.task_id, a.contract_id, "
+                "       a.supplier_org_id, a.worker_user_id, a.revoked_at, "
+                "       t.reference_code AS task_ref, t.title "
+                "FROM capture_batch b "
+                "JOIN task_assignment a ON a.id = b.assignment_id "
+                "JOIN task t ON t.id = a.task_id WHERE b.id = :b"
             ),
-            {"a": assignment_id},
+            {"b": batch_id},
         )
     ).mappings().one_or_none()
-    if a is None:
-        raise LookupError("assignment not found")
-    if a["supplier_org_id"] != claims.org_id:
+    if b is None:
+        raise LookupError("batch not found")
+    if b["supplier_org_id"] != claims.org_id:
         raise QaError("Only the supplier reviews at gate 1.")
-    if a["status"] != "submitted":
-        raise QaError(f"A {a['status'].replace('_', ' ')} assignment cannot be decided.")
+    if b["status"] != "in_review":
+        raise QaError(f"Batch {b['batch_no']} has already been answered.")
+    assignment_id = b["assignment_id"]
 
-    tally = await _apply_marks(session, claims, assignment_id, marks or [])
-    retake = (
+    tally = await _apply_marks(session, claims, batch_id, marks or [])
+    counts = (
         await session.execute(
             text(
-                "SELECT count(*) FROM asset WHERE assignment_id = :a "
-                "AND status = 'rejected' AND deleted_at IS NULL"
+                "SELECT count(*) FILTER (WHERE status = 'ready') AS kept, "
+                "       count(*) FILTER (WHERE status = 'rejected') AS retake "
+                "FROM asset WHERE batch_id = :b AND deleted_at IS NULL"
             ),
-            {"a": assignment_id},
+            {"b": batch_id},
         )
-    ).scalar_one()
+    ).mappings().one()
+    kept, retake = int(counts["kept"]), int(counts["retake"])
     accepted = outcome == "accept"
-    # Accepting a batch while some of it is marked for retake would send the
-    # worker nothing to act on and hand the partner a short bundle. The two
-    # halves of the verdict have to agree.
+    # The two halves of the verdict have to agree: accepting while something
+    # is marked would send the worker nothing to act on, and sending back
+    # with nothing marked would leave them guessing which frame.
     if accepted and retake:
         raise QaError(
             f"{retake} capture{'s' if retake != 1 else ''} here "
             f"{'are' if retake != 1 else 'is'} marked to be shot again. "
             "Send the batch back, or keep them."
         )
+    if not accepted and not retake:
+        raise QaError("Mark the captures to be shot again, and say why, before sending back.")
 
     review = QaReview(
         assignment_id=assignment_id,
+        batch_id=batch_id,
         submission_id=None,
         gate="gate1_supplier",
         outcome="pass" if accepted else "fail",
         reviewer_org_id=claims.org_id,
         reviewer_user_id=claims.user_id,
-        note=note,
+        note=note or (None if accepted else f"{retake} to shoot again"),
         # which defects the verdict cited, countable per worker and per task;
         # the verdict row is append-only, so the tally rides on the INSERT
         defects=dict(sorted(tally.items())),
@@ -423,43 +476,57 @@ async def decide_gate1(
     await session.flush()
     await session.execute(
         text(
-            "UPDATE task_assignment SET status = :st, decided_at = now(), decided_by = :me, "
+            "UPDATE capture_batch SET status = 'reviewed', decided_at = now(), decided_by = :me, "
+            "       decision_note = :note, accepted_count = :k, rework_count = :r WHERE id = :b"
+        ),
+        {"me": claims.user_id, "note": note, "k": kept, "r": retake, "b": batch_id},
+    )
+    # The assignment's last word is this one, for the screens that read it.
+    await session.execute(
+        text(
+            "UPDATE task_assignment SET decided_at = now(), decided_by = :me, "
             "       decision_note = :note WHERE id = :a"
         ),
-        {
-            "st": "accepted" if accepted else "rejected",
-            "me": claims.user_id, "note": note, "a": assignment_id,
-        },
+        {"me": claims.user_id, "note": note, "a": assignment_id},
     )
+    settled = await delivery.settle_assignment(session, assignment_id)
 
-    await notifier.notify(
-        session,
-        claims.org_id,
-        f"Your work on {a['title']} was accepted."
-        if accepted
-        else (
-            f"Your work on {a['title']} was sent back"
-            + (f" — {retake} to shoot again" if retake else "")
-            + f": {note}"
-        ),
-        "assignment",
-        {"id": str(assignment_id)},
-        user_id=a["worker_user_id"],
-    )
+    # A worker taken off the task has nothing left to act on.
+    if b["revoked_at"] is None:
+        await notifier.notify(
+            session,
+            claims.org_id,
+            f"Batch {b['batch_no']} on {b['title']}: "
+            + (
+                f"all {kept} accepted."
+                if accepted
+                else f"{kept} accepted, {retake} to shoot again"
+                + (f" — {note}" if note else ".")
+            )
+            + (" The assignment is complete." if settled["status"] == "accepted" else ""),
+            "assignment",
+            {"id": str(assignment_id)},
+            user_id=b["worker_user_id"],
+        )
     await audit.log(
         session,
         "review.recorded",
-        f"{'Accepted' if accepted else 'Rejected'} a batch on {a['task_ref']} at gate 1"
+        f"{'Accepted' if accepted else 'Sent back part of'} batch {b['batch_no']} on "
+        f"{b['task_ref']} at gate 1"
         + (f" — {note}" if note else ""),
-        [assignment_id, a["task_id"], a["contract_id"], claims.org_id],
-        {"gate": "gate1_supplier", "retake": retake},
+        [assignment_id, b["task_id"], b["contract_id"], claims.org_id],
+        {"gate": "gate1_supplier", "batch_id": str(batch_id), "kept": kept, "retake": retake,
+         "moved": settled["moved"]},
     )
     return {
         "assignment_id": assignment_id,
-        "task_id": a["task_id"],
+        "batch_id": batch_id,
+        "task_id": b["task_id"],
         "outcome": outcome,
-        "assignment_status": "accepted" if accepted else "rejected",
+        "assignment_status": settled["status"],
+        "kept": kept,
         "retake": retake,
+        "moved": settled["moved"],
     }
 
 

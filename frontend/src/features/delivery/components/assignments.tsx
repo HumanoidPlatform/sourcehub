@@ -10,7 +10,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { get, post } from "@api/client";
-import type { AssetRow, Assignment, CaptureSpec, Task, TaskOffer, WorkerRow } from "@api/types";
+import type { AssetRow, Assignment, Batch, CaptureSpec, Task, TaskOffer, WorkerRow } from "@api/types";
 import {
   Button, Callout, CheckGroup, Dialog, Empty, Field, inputCls, Meter, Metric, Pill, TableWrap,
   textareaCls, useToast,
@@ -142,6 +142,32 @@ export interface DecideTarget {
    *  recorded no spec, and the brief then renders nothing. */
   capture_spec?: CaptureSpec;
   task_instructions?: string | null;
+  /** The batch being answered. Without one, the assignment's oldest batch in
+   *  review is answered (POST /assignments/{id}/decide). */
+  batch_id?: string | null;
+  batch_no?: number | null;
+  /** accepted in earlier batches, for the header */
+  accepted_before?: number;
+}
+
+/** Where an assignment stands, read off its batches: it stays in_progress on
+ *  the server through every round. */
+export function assignmentState(a: Assignment): string {
+  // Shown as reassigned even once its handed-over captures are all accepted:
+  // the server accepts it so the task can go on, but it was not finished.
+  if (a.revoked_at) return "reassigned";
+  if (!a.progress || a.status === "assigned" || a.status === "accepted" || a.status === "cancelled") return a.status;
+  if (a.progress.rework > 0) return "rejected";
+  if (a.progress.in_review > 0 && a.progress.draft === 0 && a.progress.in_review + a.progress.accepted >= a.quantity) {
+    return "submitted";
+  }
+  return a.status;
+}
+
+/** The oldest batch still waiting on the reviewer, if any. */
+export function openBatch(a: Assignment): Batch | null {
+  const waiting = (a.batches ?? []).filter((b) => b.status === "in_review");
+  return waiting.length ? waiting.reduce((x, y) => (x.batch_no < y.batch_no ? x : y)) : null;
 }
 
 /** "3 to retake: 2 blurred, 1 wrong subject" — the note the reviewer would
@@ -178,7 +204,13 @@ export function DecideAssignmentDialog({
   const [noteIsMine, setNoteIsMine] = useState(false);
   const [marks, setMarks] = useState<Record<string, Mark>>({});
   const [error, setError] = useState<string | null>(null);
-  const ready = (assets.data ?? []).filter((a) => a.status === "ready");
+  const [allReason, setAllReason] = useState("");
+  // Only this batch's captures are in front of the reviewer: what earlier
+  // batches had accepted is settled and is not judged again.
+  const inBatch = (assets.data ?? []).filter((a) =>
+    target.batch_id ? a.batch_id === target.batch_id : a.stage ? a.stage === "in_review" : true,
+  );
+  const ready = inBatch.filter((a) => a.status === "ready");
   const retake = Object.values(marks).filter((m) => m.outcome === "retake").length;
   const kept = Object.values(marks).filter((m) => m.outcome === "keep").length;
 
@@ -191,9 +223,19 @@ export function DecideAssignmentDialog({
       return next;
     });
 
+  const markAll = () => {
+    if (!allReason) return;
+    setMarks(() => {
+      const next: Record<string, Mark> = {};
+      for (const a of ready) next[a.id] = { outcome: "retake", reason: allReason, note: "" };
+      if (!noteIsMine) setNote(noteFromMarks(next));
+      return next;
+    });
+  };
+
   const decide = useMutation({
     mutationFn: (outcome: "accept" | "reject") =>
-      post(`/assignments/${target.id}/decide`, {
+      post(target.batch_id ? `/batches/${target.batch_id}/decide` : `/assignments/${target.id}/decide`, {
         outcome,
         note: note || null,
         marks: Object.entries(marks).map(([asset_id, m]) => ({
@@ -210,13 +252,20 @@ export function DecideAssignmentDialog({
   return (
     <Dialog
       size="wide"
-      title={`Review ${target.worker_name ?? "the worker"}'s batch`}
-      sub={`${target.task_ref} · ${target.task_title} · ${ready.length} of ${target.quantity} ready`}
+      title={`Review ${target.worker_name ?? "the worker"}'s batch${target.batch_no ? ` ${target.batch_no}` : ""}`}
+      sub={`${target.task_ref} · ${target.task_title} · ${ready.length} in this batch${
+        target.accepted_before != null ? ` · ${target.accepted_before} of ${target.quantity} accepted before` : ""
+      }`}
       onClose={onClose}
       foot={
         <>
           <Button onClick={onClose}>Cancel</Button>
-          <Button variant="danger" disabled={decide.isPending || !note.trim()} title={note.trim() ? undefined : "Say what must be retaken"} onClick={() => decide.mutate("reject")}>
+          <Button
+            variant="danger"
+            disabled={decide.isPending || retake === 0}
+            title={retake ? undefined : "Mark the captures to be shot again first"}
+            onClick={() => decide.mutate("reject")}
+          >
             Send back
           </Button>
           <Button
@@ -239,19 +288,34 @@ export function DecideAssignmentDialog({
       </div>
       <div style={{ marginTop: 12 }}>
         <AssetGallery
-          assets={assets.data ?? []}
+          assets={inBatch}
           loading={assets.isLoading}
-          emptyHint="Nothing has been uploaded on this assignment."
+          emptyHint="Nothing in this batch."
           marks={marks}
           onMark={mark}
         />
-        {/* Open a capture to judge it. A batch can still be decided whole:
-            an unmarked capture is one nobody objected to. */}
+        {/* Open a capture to judge it. Everything unmarked is accepted with
+            the batch and stays accepted; only what is marked goes back. */}
         <p className="small muted" style={{ marginTop: 6 }} data-testid="mark-tally">
           {retake > 0 || kept > 0
             ? `${retake} to retake · ${kept} keep · ${Math.max(ready.length - retake - kept, 0)} unmarked`
-            : "Open a capture to keep it or send it back on its own."}
+            : "Open a capture to send it back on its own. Everything unmarked is accepted."}
         </p>
+        {ready.length > 1 && (
+          <div className="row" style={{ gap: 8, marginTop: 6, alignItems: "center" }}>
+            <select
+              aria-label="Reason for sending the whole batch back"
+              className={inputCls}
+              style={{ maxWidth: 260 }}
+              value={allReason}
+              onChange={(e) => setAllReason(e.target.value)}
+            >
+              <option value="">Send the whole batch back for…</option>
+              {RETAKE_REASONS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+            </select>
+            <Button size="sm" disabled={!allReason} onClick={markAll}>Mark all to retake</Button>
+          </div>
+        )}
       </div>
       <div className="formgrid" style={{ marginTop: 12 }}>
         <Field
@@ -259,7 +323,7 @@ export function DecideAssignmentDialog({
           span
           hint={retake > 0
             ? "Written from your marks. Say more if it helps — they read this first."
-            : "Required to send back — they cannot act on a blank rejection."}
+            : "Optional. Each capture you send back carries its own reason."}
         >
           {(id) => (
             <textarea
@@ -495,7 +559,8 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
   const offers = useTaskOffers(task.id);
   const [assigning, setAssigning] = useState(false);
   const [offering, setOffering] = useState(false);
-  const [deciding, setDeciding] = useState<Assignment | null>(null);
+  const [deciding, setDeciding] = useState<{ a: Assignment; batch: Batch | null } | null>(null);
+  const [reassigning, setReassigning] = useState<Assignment | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const act = useMutation({
@@ -532,15 +597,21 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
   if (offering) {
     return <OfferTaskDialog task={task} onClose={() => setOffering(false)} onDone={() => setOffering(false)} />;
   }
+  if (reassigning) {
+    return <ReassignDialog task={task} assignment={reassigning} onClose={() => setReassigning(null)} />;
+  }
   if (deciding) {
+    const { a: d, batch } = deciding;
     return (
       <DecideAssignmentDialog
         target={{
-          id: deciding.id, quantity: deciding.quantity, worker_name: deciding.worker_name,
-          worker_note: deciding.worker_note, task_ref: task.reference_code, task_title: task.title,
+          id: d.id, quantity: d.quantity, worker_name: d.worker_name,
+          worker_note: batch?.worker_note ?? d.worker_note, task_ref: task.reference_code, task_title: task.title,
           // Task types capture_spec loosely; it is this shape, as pages.tsx
           // also assumes where it renders the same brief.
           capture_spec: task.capture_spec as CaptureSpec, task_instructions: task.instructions,
+          batch_id: batch?.id ?? null, batch_no: batch?.batch_no ?? null,
+          accepted_before: d.progress?.accepted,
         }}
         onClose={() => setDeciding(null)}
         onDone={() => setDeciding(null)}
@@ -550,7 +621,10 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
 
   const list = rows.data ?? [];
   const live = list.filter((a) => a.status !== "cancelled");
-  const awaiting = list.filter((a) => a.status === "submitted").length;
+  const awaiting = list.reduce(
+    (n, a) => n + ((a.batches ?? []).filter((b) => b.status === "in_review").length || (a.status === "submitted" ? 1 : 0)),
+    0,
+  );
   const unitsAssigned = live.reduce((s, a) => s + a.quantity, 0);
   const ready = list.reduce((s, a) => s + a.assets.ready, 0);
   const canAssign = ["assigned", "in_progress", "qa_failed"].includes(task.status);
@@ -614,28 +688,50 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
             <thead><tr><th>Crowd resource</th><th>Units</th><th>Progress</th><th>Status</th><th>Submitted</th><th>Reminded</th><th>Note</th><th /></tr></thead>
             <tbody>
               {list.map((a) => {
-                const m = statusMeta(assignmentStatus, a.status);
-                const pct = a.quantity ? Math.min(100, Math.round((100 * a.assets.ready) / a.quantity)) : 0;
+                const state = assignmentState(a);
+                const m = statusMeta(assignmentStatus, state);
+                const p = a.progress;
+                const done = p ? p.accepted : a.assets.ready;
+                const pct = a.quantity ? Math.min(100, Math.round((100 * done) / a.quantity)) : 0;
+                const batch = openBatch(a);
+                const reviewable = batch != null || a.status === "submitted";
+                const live = OPEN.has(a.status) && !a.revoked_at;
                 return (
                   <tr key={a.id}>
                     <td className="cell-primary">{a.worker_name ?? "—"}<div className="cell-meta id">{a.worker_ref ?? ""}</div></td>
                     <td className="num">{a.quantity}</td>
                     <td style={{ minWidth: 140 }}>
                       <Meter pct={pct} tone={pct >= 100 ? "success" : undefined} />
-                      <div className="cell-meta">{a.assets.ready} ready{a.assets.pending ? ` · ${a.assets.pending} uploading` : ""}{a.assets.quarantined ? ` · ${a.assets.quarantined} quarantined` : ""}</div>
+                      <div className="cell-meta">
+                        {p
+                          ? [
+                              `${p.accepted} accepted`,
+                              p.in_review ? `${p.in_review} in review` : "",
+                              p.draft ? `${p.draft} not sent` : "",
+                              p.rework ? `${p.rework} to retake` : "",
+                            ].filter(Boolean).join(" · ")
+                          : `${a.assets.ready} ready`}
+                        {a.assets.pending ? ` · ${a.assets.pending} uploading` : ""}
+                        {a.assets.quarantined ? ` · ${a.assets.quarantined} quarantined` : ""}
+                      </div>
                     </td>
                     <td><Pill tone={m.tone}>{m.label}</Pill></td>
                     <td className="num">{a.submitted_at ? fmtDateTime(a.submitted_at) : fmtDate(a.due_on) === "—" ? "—" : `due ${fmtDate(a.due_on)}`}</td>
                     <td className="small muted">{a.reminder_count ? `${a.reminder_count}× · ${fmtDateTime(a.last_reminded_at)}` : "—"}</td>
-                    <td style={{ maxWidth: 240 }} className="small muted">{a.status === "rejected" ? a.decision_note : a.worker_note ?? "—"}</td>
+                    <td style={{ maxWidth: 240 }} className="small muted">{state === "rejected" ? a.decision_note : a.worker_note ?? "—"}</td>
                     <td className="right"><div className="rowactions">
-                      {a.status === "submitted" && (
-                        <Button size="sm" variant="primary" onClick={() => setDeciding(a)}>Review</Button>
+                      {reviewable && (
+                        <Button size="sm" variant="primary" onClick={() => setDeciding({ a, batch })}>
+                          Review{batch ? ` batch ${batch.batch_no}` : ""}
+                        </Button>
                       )}
-                      {OPEN.has(a.status) && a.status !== "submitted" && (
+                      {live && state !== "submitted" && (
                         <Button size="sm" disabled={remindWorker.isPending} title="Email and notify this worker about the assignment now" onClick={() => remindWorker.mutate(a.id)}>Remind</Button>
                       )}
-                      {OPEN.has(a.status) && a.status !== "submitted" && (
+                      {live && (a.status === "assigned" || a.status === "in_progress") && (
+                        <Button size="sm" title="Take this off them and give the rest to someone else" onClick={() => setReassigning(a)}>Reassign</Button>
+                      )}
+                      {live && (a.batches ?? []).length === 0 && a.status !== "submitted" && (
                         <Button size="sm" variant="danger" disabled={act.isPending} onClick={() => act.mutate({ id: a.id, action: "cancel" })}>Cancel</Button>
                       )}
                       {a.status === "accepted" && task.status === "qa_failed" && (
@@ -655,6 +751,91 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
         <div className="eyebrow" style={{ marginBottom: 8 }}>Captured so far</div>
         <AssetGallery assets={taskAssets.data ?? []} loading={taskAssets.isLoading} emptyHint="Files uploaded from the capture app appear here as they are confirmed." />
       </div>
+    </Dialog>
+  );
+}
+
+/* --- take an assignment off one worker and give the rest to another ---------- */
+
+export function ReassignDialog({ task, assignment, onClose }: { task: Task; assignment: Assignment; onClose: () => void }) {
+  const qc = useQueryClient();
+  const toast = useToast();
+  const workers = useQuery({ queryKey: ["workers"], queryFn: () => get<WorkerRow[]>("/network/workers") });
+  const rows = useTaskAssignments(task.id);
+  const held = new Set((rows.data ?? []).filter((a) => OPEN.has(a.status)).map((a) => a.worker_user_id));
+  const eligible = (workers.data ?? []).filter(
+    (w) => w.invitation_status === "accepted" && w.status !== "offboarded" && w.user_id && !held.has(w.user_id),
+  );
+  const [worker, setWorker] = useState("");
+  const [note, setNote] = useState("");
+  const [error, setError] = useState<string | null>(null);
+
+  const p = assignment.progress ?? { draft: 0, in_review: 0, accepted: 0, rework: 0 };
+  // What the first worker keeps: everything uploaded that was not sent back.
+  // The drafts go for review now, on their behalf.
+  const kept = p.draft + p.in_review + p.accepted;
+  const moving = Math.max(0, assignment.quantity - kept);
+  const unit = task.target_unit ?? "units";
+
+  const go = useMutation({
+    mutationFn: () =>
+      post(`/assignments/${assignment.id}/reassign`, { worker_user_id: worker, note: note.trim() || null }),
+    onSuccess: () => {
+      void qc.invalidateQueries();
+      toast(
+        `${moving} ${unit} reassigned`,
+        kept ? `${assignment.worker_name ?? "The first worker"}'s ${kept} uploaded captures are in your review queue.` : undefined,
+        "success",
+      );
+      onClose();
+    },
+    onError: (e) => setError(e instanceof Error ? e.message : "Could not reassign"),
+  });
+
+  return (
+    <Dialog
+      title={`Reassign ${assignment.worker_name ?? "this assignment"}'s work`}
+      sub={`${task.reference_code} · ${task.title}`}
+      onClose={onClose}
+      busy={go.isPending}
+      foot={
+        <>
+          <Button onClick={onClose}>Cancel</Button>
+          <Button variant="primary" disabled={!worker || moving < 1 || go.isPending} onClick={() => go.mutate()}>
+            Reassign {moving} {unit}
+          </Button>
+        </>
+      }
+    >
+      <Callout tone="attention" title="What happens">
+        {kept
+          ? `${kept} uploaded capture${kept === 1 ? "" : "s"} stay with ${assignment.worker_name ?? "them"} and ${
+              p.draft ? `${p.draft} not yet sent go to your review queue now` : "are reviewed as usual"
+            }. `
+          : "Nothing has been uploaded on this assignment. "}
+        {`The remaining ${moving} ${unit} go to the person you choose. Anything you later send back from the first worker's batches goes to them too. Captures still on the first worker's phone that never uploaded are lost.`}
+      </Callout>
+      {moving < 1 && (
+        <Callout tone="neutral" title="Nothing left to give">Everything on this assignment has been uploaded and sent.</Callout>
+      )}
+      <div className="formgrid" style={{ marginTop: 12 }}>
+        <Field label="Give the rest to" required span>
+          {(id) => (
+            <select id={id} className={inputCls} value={worker} onChange={(e) => setWorker(e.target.value)}>
+              <option value="">Choose a crowd resource…</option>
+              {eligible.map((w) => (
+                <option key={w.id} value={w.user_id ?? ""}>
+                  {w.display_name}{w.skills.length ? ` — ${labelsOf(SKILLS, w.skills)}` : ""}{w.open_assignments ? ` (${w.open_assignments} open)` : ""}
+                </option>
+              ))}
+            </select>
+          )}
+        </Field>
+        <Field label="Reason" span hint={`Shown to ${assignment.worker_name ?? "the first worker"} in the app.`}>
+          {(id) => <textarea id={id} className={textareaCls} rows={2} value={note} onChange={(e) => setNote(e.target.value)} />}
+        </Field>
+      </div>
+      {error && <Callout tone="critical" title={error} />}
     </Dialog>
   );
 }

@@ -29,6 +29,8 @@ export interface CaptureRow {
   attempts: number;
   next_attempt_at: number;
   last_error: string | null;
+  /** A retake: the server's id of the capture sent back that this replaces. */
+  replaces_asset_id: string | null;
   created_at: number;
   updated_at: number;
 }
@@ -36,7 +38,7 @@ export interface CaptureRow {
 export type NewCapture = Pick<
   CaptureRow,
   "id" | "user_id" | "assignment_id" | "local_uri" | "filename" | "mime" | "size" | "captured_at" | "lat" | "lon" | "checks"
->;
+> & { replaces_asset_id?: string | null };
 
 // --- a tiny change bus, so screens re-read after the uploader moves a row ---
 
@@ -106,9 +108,13 @@ export async function insertCapture(c: NewCapture): Promise<void> {
   const now = Date.now();
   await db.runAsync(
     `INSERT INTO captures (id, user_id, assignment_id, local_uri, filename, mime, size, captured_at,
-                           lat, lon, checks, status, attempts, next_attempt_at, created_at, updated_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'captured', 0, 0, ?, ?)`,
-    [c.id, c.user_id, c.assignment_id, c.local_uri, c.filename, c.mime, c.size, c.captured_at, c.lat, c.lon, c.checks, now, now],
+                           lat, lon, checks, replaces_asset_id, status, attempts, next_attempt_at,
+                           created_at, updated_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'captured', 0, 0, ?, ?)`,
+    [
+      c.id, c.user_id, c.assignment_id, c.local_uri, c.filename, c.mime, c.size, c.captured_at, c.lat, c.lon, c.checks,
+      c.replaces_asset_id ?? null, now, now,
+    ],
   );
   emitOutboxChange();
 }

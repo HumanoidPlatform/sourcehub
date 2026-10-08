@@ -62,7 +62,11 @@ _ASSET_COLUMNS = (
     "a.filename, a.mime_type, a.size_bytes, a.sha256, a.etag, a.status, a.quarantine_reason, "
     "a.captured_at, a.captured_lat, a.captured_lon, a.uploaded_at, a.created_at, "
     "a.check_results, a.review_reason, a.review_note, a.reviewed_at, "
-    "d.label AS review_label "
+    "d.label AS review_label, a.batch_id, cb.batch_no, cb.status AS batch_status, "
+    "a.replaces_asset_id, "
+    # a retake that is still alive answers this capture's rework mark
+    "EXISTS (SELECT 1 FROM asset r WHERE r.replaces_asset_id = a.id "
+    "        AND r.deleted_at IS NULL AND r.status <> 'erased') AS replaced "
 )
 _ASSET_FROM = (
     "FROM asset a "
@@ -71,7 +75,26 @@ _ASSET_FROM = (
     # the reviewer's reason as a person reads it, so neither the console nor
     # the phone has to carry a copy of the taxonomy
     "LEFT JOIN defect_code d ON d.code = a.review_reason "
+    "LEFT JOIN capture_batch cb ON cb.id = a.batch_id "
 )
+
+
+def stage(status: str, batch_status: str | None, replaced: bool) -> str:
+    """Where one capture stands in the worker's round trip (db/350). Pure.
+
+    draft: on the server, not sent · in_review: its batch is with the
+    aggregator · accepted: its batch was answered and it was kept · rework:
+    marked to be shot again, and no retake has replaced it yet · replaced: a
+    rework capture a retake now stands in for · uploading: not finished
+    (pending or quarantined), never part of a batch.
+    """
+    if status == "rejected":
+        return "replaced" if replaced else "rework"
+    if status != "ready":
+        return "uploading"
+    if batch_status is None:
+        return "draft"
+    return "in_review" if batch_status == "in_review" else "accepted"
 
 
 def _safe_filename(name: str) -> tuple[str, str]:
@@ -161,6 +184,11 @@ def _asset_dict(r: Any) -> dict[str, Any]:
         "review_label": r["review_label"],
         "review_note": r["review_note"],
         "reviewed_at": r["reviewed_at"],
+        # the send it went out in, and where it stands now (stage above)
+        "batch_id": r["batch_id"],
+        "batch_no": r["batch_no"],
+        "replaces_asset_id": r["replaces_asset_id"],
+        "stage": stage(r["status"], r["batch_status"], bool(r["replaced"])),
     }
 
 
@@ -226,7 +254,7 @@ async def _assignment_for_upload(
         await session.execute(
             text(
                 "SELECT ta.id, ta.task_id, ta.contract_id, ta.supplier_org_id, "
-                "       ta.worker_user_id, ta.status, ta.quantity, "
+                "       ta.worker_user_id, ta.status, ta.quantity, ta.revoked_at, "
                 "       t.target_unit, t.capture_spec, "
                 "       c.reference_code AS contract_ref, t.reference_code AS task_ref, "
                 "       o.reference_code AS aggregator_ref, w.reference_code AS worker_ref "
@@ -242,6 +270,10 @@ async def _assignment_for_upload(
     ).mappings().one_or_none()
     if a is None or a["worker_user_id"] != claims.user_id:
         raise LookupError("assignment not found")
+    if a["revoked_at"] is not None:
+        raise MediaError(
+            "This task was given to someone else. Nothing more is needed from you on it."
+        )
     if a["status"] in ("assigned", "rejected"):
         raise MediaError("Start the assignment before uploading.")
     if a["status"] != "in_progress":
@@ -304,8 +336,13 @@ async def presign_capture(
     lat: float | None,
     lon: float | None,
     checks: list[dict[str, Any]] | None = None,
+    replaces_asset_id: uuid.UUID | None = None,
 ) -> dict[str, Any]:
     """Record the manifest and mint a one-object upload URL.
+
+    replaces_asset_id makes this capture a retake of one the aggregator sent
+    back: it must be a rework capture of this same assignment that nothing has
+    replaced yet. The replaced row stays, with its reason, for the record.
 
     The key is server-generated under the contract, task and assignment so a
     device can never choose where bytes land. The row is inserted as
@@ -363,6 +400,24 @@ async def presign_capture(
             "expires_in": settings.storage_presign_ttl_seconds, "status": existing["status"],
         }
 
+    if replaces_asset_id is not None:
+        old = (
+            await session.execute(
+                text(
+                    "SELECT a.status, EXISTS (SELECT 1 FROM asset r "
+                    "         WHERE r.replaces_asset_id = a.id AND r.deleted_at IS NULL "
+                    "           AND r.status <> 'erased') AS replaced "
+                    "FROM asset a WHERE a.id = :id AND a.assignment_id = :a "
+                    "  AND a.deleted_at IS NULL"
+                ),
+                {"id": replaces_asset_id, "a": assignment_id},
+            )
+        ).mappings().one_or_none()
+        if old is None or old["status"] != "rejected":
+            raise MediaError("Only a capture sent back for rework can be retaken.")
+        if old["replaced"]:
+            raise MediaError("That capture has already been retaken.")
+
     n = (
         await session.execute(
             text(
@@ -414,10 +469,10 @@ async def presign_capture(
             "INSERT INTO asset (id, task_id, assignment_id, captured_by_user_id, supplier_org_id, "
             "                   contract_id, storage_key, filename, mime_type, size_bytes, sha256, "
             "                   status, captured_at, captured_lat, captured_lon, metadata, "
-            "                   check_results, storage_target_id) "
+            "                   check_results, storage_target_id, replaces_asset_id) "
             "VALUES (:id, :task, :asg, :user, :org, :contract, :key, :name, :ct, :size, :sha, "
             "        'pending', :cat, :lat, :lon, CAST(:meta AS jsonb), "
-            "        CAST(:checks AS jsonb), :target)"
+            "        CAST(:checks AS jsonb), :target, :replaces)"
         ),
         {
             "id": asset_id, "task": a["task_id"], "asg": assignment_id, "user": claims.user_id,
@@ -430,6 +485,7 @@ async def presign_capture(
             # server, from the manifest the device sent.
             "checks": json.dumps({"device": checks or []}),
             "target": target_id,
+            "replaces": replaces_asset_id,
         },
     )
     url, extra = await storage.presign_put(target, key)
@@ -472,7 +528,11 @@ async def confirm_asset(
 
     a_status = (
         await session.execute(
-            text("SELECT status FROM task_assignment WHERE id = :a"), {"a": row["assignment_id"]}
+            text(
+                "SELECT CASE WHEN revoked_at IS NULL THEN status::text ELSE 'revoked' END "
+                "FROM task_assignment WHERE id = :a"
+            ),
+            {"a": row["assignment_id"]},
         )
     ).scalar_one_or_none()
     if a_status != "in_progress":
@@ -600,7 +660,8 @@ async def attach_to_submission(
             "UPDATE asset a SET submission_id = :s, updated_at = now() "
             "FROM task_assignment ta "
             "WHERE ta.id = a.assignment_id AND a.task_id = :t "
-            "  AND a.status = 'ready' AND a.deleted_at IS NULL AND ta.status = 'accepted'"
+            "  AND a.status = 'ready' AND a.deleted_at IS NULL AND ta.status = 'accepted' "
+            "  AND a.batch_id IS NOT NULL"
         ),
         {"s": submission_id, "t": task_id},
     )
@@ -614,12 +675,15 @@ async def discard_asset(
 
     Soft delete: the row stays for the audit trail, ready_count stops counting
     it, and the slot frees for a replacement. Only the worker who captured it,
-    and only while the assignment is still theirs to change.
+    only while the assignment is still theirs to change, and only a capture
+    that is not with the aggregator: one not yet sent, or one sent back for
+    rework. What is in review or accepted is part of the record.
     """
     row = (
         await session.execute(
             text(
-                "SELECT a.id, ta.worker_user_id, ta.status "
+                "SELECT a.id, a.status AS asset_status, a.batch_id, ta.worker_user_id, "
+                "       ta.status, ta.revoked_at "
                 "FROM asset a JOIN task_assignment ta ON ta.id = a.assignment_id "
                 "WHERE a.id = :id AND a.deleted_at IS NULL"
             ),
@@ -633,14 +697,37 @@ async def discard_asset(
     # 'rejected' means sent back for rework, and removing the frame the
     # aggregator objected to is the whole point of that round. Capture already
     # treats the two alike — the phone restarts the assignment on the way in.
-    if row["status"] not in ("in_progress", "rejected"):
+    if row["revoked_at"] is not None or row["status"] not in ("in_progress", "rejected"):
+        raise MediaError("This assignment can no longer be changed.")
+    if row["asset_status"] != "rejected" and row["batch_id"] is not None:
         raise MediaError(
-            "This batch is with your aggregator. You can change it if it comes back."
+            "This capture was sent for review. Only one sent back for rework can be removed."
         )
     await session.execute(
         text("UPDATE asset SET deleted_at = now(), updated_at = now() WHERE id = :id"),
         {"id": asset_id},
     )
+
+
+# How many of an assignment's captures stand where (stage, above), in SQL. One
+# fragment so the assignment payload, submit and the gate-1 settle all count
+# alike. :a is the assignment.
+STAGE_COUNTS = (
+    "SELECT count(*) FILTER (WHERE s.status = 'ready' AND s.batch_id IS NULL) AS draft, "
+    "       count(*) FILTER (WHERE s.status = 'ready' AND b.status = 'in_review') AS in_review, "
+    "       count(*) FILTER (WHERE s.status = 'ready' AND b.status = 'reviewed') AS accepted, "
+    "       count(*) FILTER (WHERE s.status = 'rejected' AND NOT EXISTS ("
+    "           SELECT 1 FROM asset r WHERE r.replaces_asset_id = s.id "
+    "             AND r.deleted_at IS NULL AND r.status <> 'erased')) AS rework "
+    "FROM asset s LEFT JOIN capture_batch b ON b.id = s.batch_id "
+    "WHERE s.assignment_id = :a AND s.deleted_at IS NULL"
+)
+
+
+async def stage_counts(session: AsyncSession, assignment_id: uuid.UUID) -> dict[str, int]:
+    """{draft, in_review, accepted, rework} for one assignment."""
+    r = (await session.execute(text(STAGE_COUNTS), {"a": assignment_id})).mappings().one()
+    return {k: int(r[k] or 0) for k in ("draft", "in_review", "accepted", "rework")}
 
 
 async def ready_count(session: AsyncSession, assignment_id: uuid.UUID) -> int:

@@ -97,6 +97,7 @@ GROUPS: list[tuple[str, str, str, list[str]]] = [
             "task_offer",
             "task_offer_recipient",
             "task_assignment",
+            "capture_batch",
             "engagement_reminder",
             "asset",
             "submission",
