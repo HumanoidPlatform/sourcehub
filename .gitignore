@@ -48,6 +48,7 @@ Thumbs.db
 # --- Local artefacts ---------------------------------------------------------
 *.log
 .claude/
+brag-output/
 
 # --- Build artifacts ----------------------------------------------------------
 # Generated from db/*.sql by `make bundle`. Not committed: a second copy of the
