@@ -75,7 +75,7 @@ SELECT relname AS table, n_live_tup AS rows FROM pg_stat_user_tables ORDER BY n_
 |---|---|
 | `onboarding_request` | An application to add a company. Ops adds clients and delivery partners; a delivery partner asks for an aggregator, business or sponsor under itself, and Ops approves. The latest decision is on the row — `status` says which, `decided_at` when, `decided_by` who, `decision_reason` why ([`330_onboarding_decisions.sql`](../db/330_onboarding_decisions.sql); the columns replaced the `onboarding_approval` table) — and a request that went back for changes keeps the return's reason until the next decision; earlier decisions are in `audit_event`. Only Ops may decide, on a submitted request, and an approved or rejected request is final: the `onboarding_request_transition` trigger is the rule that stops a partner approving its own network. |
 
-### C. Marketplace · [`035_storage.sql`](../db/035_storage.sql), [`040_marketplace.sql`](../db/040_marketplace.sql), [`340_request_columns.sql`](../db/340_request_columns.sql), [`360_quality_and_compliance.sql`](../db/360_quality_and_compliance.sql)
+### C. Marketplace · [`035_storage.sql`](../db/035_storage.sql), [`040_marketplace.sql`](../db/040_marketplace.sql), [`340_request_columns.sql`](../db/340_request_columns.sql), [`360_quality_and_compliance.sql`](../db/360_quality_and_compliance.sql), [`370_gcs_destinations.sql`](../db/370_gcs_destinations.sql)
 
 | Table | One row is |
 |---|---|
@@ -313,11 +313,11 @@ narrow question and is executable only by `sourcehub_app`:
 | | Platform storage | Client destination |
 |---|---|---|
 | Holds | every `attachment` (briefs, guidelines, examples, method statements, task instructions) | every captured `asset` |
-| Where | one Azure Blob container, configured in settings (`STORAGE_*`) | one `storage_target` row per destination — Azure Blob or any S3-compatible store |
-| Credential | environment variable | `storage_target.secret` (JSON, **stored unencrypted**) |
+| Where | one Azure Blob container or one Google Cloud Storage bucket, chosen per environment by `STORAGE_PROVIDER` (`STORAGE_*` settings) | one `storage_target` row per destination — Azure Blob, Google Cloud Storage or any S3-compatible store |
+| Credential | environment variable; on a Google Cloud VM none at all (keyless signing by the VM's service account) | `storage_target.secret` (JSON, **stored unencrypted**): an S3 key pair, an Azure account key, or a GCS service-account key (`{service_account_json}`) |
 | Code | `platform_target()` in [platform/storage/\_\_init\_\_.py](../backend/src/sourcehub/platform/storage/__init__.py) | [modules/storage/service.py](../backend/src/sourcehub/modules/storage/service.py) |
 
-There is no local-disk backend. `gcs` exists in the enum but is refused by a CHECK and has no adapter.
+There is no local-disk backend. Google Cloud Storage is native — V4 signed URLs from [platform/storage/gcs_store.py](../backend/src/sourcehub/platform/storage/gcs_store.py), not the S3 interoperability endpoint — and became a client destination with [`370_gcs_destinations.sql`](../db/370_gcs_destinations.sql). Platform objects carry no provider stamp, so `STORAGE_PROVIDER` is chosen when an environment is built and not changed while it holds files.
 
 ### How a destination is chosen
 
@@ -502,6 +502,13 @@ moved into two shape checks, and the API shape did not change; `request` went fr
 each value is now written whole, a draft edit can clear people in frame, the lawful basis or the rejection
 policy, which the flat columns kept. Award still freezes `acceptance` and `compliance_notes` into
 `contract.rubric_snapshot`. Migration `0039`'s downgrade brings the twelve columns back, filled from the json.
+
+**[`370_gcs_destinations.sql`](../db/370_gcs_destinations.sql) — a constraint, not a table.** `storage_provider` carried `gcs`
+since the first schema, but `storage_target_provider_supported` refused it because no adapter existed. A native
+Google Cloud Storage adapter now signs V4 URLs, so the CHECK admits `gcs` beside `s3` and `azure_blob`; a
+`gcs` destination keeps the client's service-account key in `secret` as `{service_account_json}`, with
+`endpoint` and `region` left NULL. Migration `0040`'s downgrade refuses, changing nothing, while any
+destination is on GCS.
 
 When one of these features is finally built, it gets a new `db/*.sql` file and a fresh design, with row-level
 security from the first line.

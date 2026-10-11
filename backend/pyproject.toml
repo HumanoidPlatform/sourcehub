@@ -21,21 +21,22 @@ dependencies = [
     # S3-compatible storage: AWS, MinIO, R2, Wasabi, and GCS through its
     # interoperability endpoint. One adapter covers all of them.
     "minio>=7.2",
-    # Platform storage. Not an optional extra any more: the platform's own
-    # files live in Azure Blob, so the API cannot start without it.
+    # Platform storage, and client destinations. STORAGE_PROVIDER picks Azure
+    # Blob or Google Cloud Storage for the platform's own files; a client may
+    # choose either (or S3) for their own. Both SDKs are base dependencies.
     "azure-storage-blob>=12.23",
+    "google-cloud-storage>=2.18",
     "structlog>=24.4",
     "httpx>=0.27",
 ]
 
 # A client names its own delivery destination, so the deployment has to speak
-# whichever of the two providers that client chose — minio for S3-compatible
-# storage, azure-storage-blob for Blob. Both are base dependencies rather than
-# extras: with only two, and the platform's own storage always Azure, an
-# install that cannot serve half the clients is not worth the saved megabyte.
-#
-# There was a `gcs` extra. It went with the adapter — see
-# storage_target_provider_supported in db/035_storage.sql.
+# whichever provider that client chose — minio for S3-compatible storage,
+# azure-storage-blob for Blob, google-cloud-storage for GCS. All three are base
+# dependencies rather than extras: an install that cannot serve some clients
+# is not worth the saved megabytes, and the platform itself runs on Azure or
+# GCS. (A `gcs` extra existed once and went with the first adapter; native GCS
+# came back with db/370_gcs_destinations.sql.)
 [project.optional-dependencies]
 dev = [
     "pytest>=8.3",
@@ -85,7 +86,7 @@ mypy_path = "src"
 packages = ["sourcehub"]
 
 [[tool.mypy.overrides]]
-module = ["celery.*", "minio.*", "azure.*", "testcontainers.*", "asyncpg", "asyncpg.*"]
+module = ["celery.*", "minio.*", "azure.*", "google.*", "testcontainers.*", "asyncpg", "asyncpg.*"]
 ignore_missing_imports = true
 
 

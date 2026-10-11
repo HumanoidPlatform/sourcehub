@@ -408,12 +408,19 @@ account carries a rule for the console's dev origins, set in the portal;
 a client on their own account or bucket has to add the equivalent before
 their workers can upload from the console:
 
-| | Azure Blob (storage account → Resource sharing / CORS, Blob service) | S3 / MinIO (bucket CORS) |
-|---|---|---|
-| Allowed origins | the console's origin, e.g. `https://console.example.com` | same |
-| Allowed methods | `PUT, OPTIONS` (`GET, HEAD` too, for the gallery) | same |
-| Allowed headers | `content-type, x-ms-blob-type` | `content-type` |
-| Max age | `3600` | `3600` |
+| | Azure Blob (storage account → Resource sharing / CORS, Blob service) | S3 / MinIO (bucket CORS) | Google Cloud Storage (bucket CORS, set with `gcloud storage buckets update --cors-file`) |
+|---|---|---|---|
+| Allowed origins | the console's origin, e.g. `https://console.example.com` | same | same |
+| Allowed methods | `PUT, OPTIONS` (`GET, HEAD` too, for the gallery) | same | `PUT, GET, HEAD` (GCS answers the preflight itself) |
+| Allowed headers | `content-type, x-ms-blob-type` | `content-type` | `Content-Type` (as `responseHeader`, with `Content-Disposition` and `ETag`) |
+| Max age | `3600` | `3600` | `3600` (`maxAgeSeconds`) |
+
+A GCS CORS file, for reference:
+
+```json
+[{"origin": ["https://console.example.com"], "method": ["GET", "HEAD", "PUT"],
+  "responseHeader": ["Content-Type", "Content-Disposition", "ETag"], "maxAgeSeconds": 3600}]
+```
 
 Without it the PUT fails as a status-0 network error, which the dialog reports
 as *"the client's storage may not allow uploads from this site"* after two

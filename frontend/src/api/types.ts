@@ -830,10 +830,10 @@ export interface StorageTarget {
   id: string;
   owner_org_id: string;
   label: string;
-  // The client's own storage. gcs is in the database enum and is not
-  // supported — see storage_target_provider_supported in db/035_storage.sql.
-  provider: "s3" | "azure_blob";
-  // S3 only; null on an Azure container, which has no region to sign for.
+  // The client's own storage: storage_target_provider_supported in
+  // db/370_gcs_destinations.sql lists the same three.
+  provider: "s3" | "gcs" | "azure_blob";
+  // S3 only; null on Azure and Google Cloud Storage, which sign for no region.
   region: string | null;
   endpoint: string | null;
   bucket: string;

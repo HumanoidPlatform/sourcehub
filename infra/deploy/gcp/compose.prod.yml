@@ -1,0 +1,58 @@
+# /opt/stack/compose.yml on the PROD VM (Google Cloud) — see infra/deploy/GCP.md.
+#
+# caddy (HTTPS) → web (console + /api/ proxy) → api. No database here: prod uses
+# Cloud SQL over its private IP, so nothing on this VM holds client data and a
+# lost VM is rebuilt from this file in minutes.
+#
+# Two files sit next to this one on the VM and NEVER in git:
+#   stack.env   APP_HOST, API_IMAGE, WEB_IMAGE — read by compose for ${...} below
+#   api.env     the API's secrets and settings (template: api.prod.env.example)
+#
+#   docker compose --env-file stack.env up -d
+#
+# The API keeps its reminder, bidding and push clocks inside its own process,
+# so exactly ONE prod api may run anywhere: never start a second copy of this
+# stack against the prod database (a laptop included).
+
+services:
+  api:
+    image: ${API_IMAGE}
+    container_name: api
+    restart: unless-stopped
+    env_file: [api.env]
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "5"}
+    networks: [backend]
+
+  web:
+    image: ${WEB_IMAGE}
+    container_name: web
+    restart: unless-stopped
+    depends_on: [api]
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "5"}
+    networks: [backend]
+
+  # The only published ports. Caddy gets and renews the Let's Encrypt
+  # certificate for APP_HOST by itself; /data must stay on the host or a few
+  # restarts would hit Let's Encrypt's issuance limit for the name. Start it
+  # only once APP_HOST's A record points at this VM's static IP.
+  caddy:
+    image: caddy:2
+    container_name: caddy
+    restart: unless-stopped
+    command: caddy reverse-proxy --from ${APP_HOST} --to web:80
+    ports: ["80:80", "443:443"]
+    volumes:
+      - /opt/stack/data/caddy/data:/data
+      - /opt/stack/data/caddy/config:/config
+    depends_on: [web]
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "5"}
+    networks: [backend]
+
+networks:
+  backend:

@@ -84,11 +84,13 @@ export function classify(status: number | null | undefined): "retryable" | "fata
  * upload that had actually succeeded.
  *
  * 403 is the expired signature, not a refusal of the bytes — re-presign.
+ * Google Cloud Storage says the same thing as a 400 with ExpiredToken in the
+ * body; every other 400 is still a refusal.
  */
 export function putOutcome(status: number | null | undefined, body?: string | null): Outcome {
   const s = status ?? 0;
   if (s >= 200 && s < 300) return { type: "put_ok" };
-  if (s === 403) return { type: "put_rejected" };
+  if (s === 403 || (s === 400 && /ExpiredToken/.test(body ?? ""))) return { type: "put_rejected" };
   const detail = body ? `: ${body.slice(0, 120)}` : "";
   return classify(s) === "retryable"
     ? { type: "retryable", error: `upload: storage answered ${s}` }

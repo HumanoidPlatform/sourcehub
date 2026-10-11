@@ -1,0 +1,68 @@
+# /opt/stack/compose.yml on the DEV VM (Google Cloud) — see infra/deploy/GCP.md.
+#
+# The whole platform on one small VM: caddy → web → api → db. Dev's database is
+# a container (no Cloud SQL bill for test data); its files go to the dev bucket.
+# The VM runs on a schedule (weekdays 09:00–21:00 IST) and everything here
+# restarts by itself when it boots.
+#
+# Next to this file on the VM, never in git:
+#   stack.env   APP_HOST, API_IMAGE, WEB_IMAGE, POSTGRES_PASSWORD
+#   api.env     the API's secrets and settings (template: api.dev.env.example)
+#
+#   docker compose --env-file stack.env up -d
+
+services:
+  # Unpublished on purpose: only the api reaches it, as db:5432 on this
+  # network. For psql from a laptop, tunnel through IAP (GCP.md).
+  db:
+    image: postgres:16
+    container_name: db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: dbowner
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: appdb
+      # C collation, as local dev and prod use, so ORDER BY agrees everywhere.
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C"
+    volumes:
+      - /opt/stack/data/postgres:/var/lib/postgresql/data
+    networks: [backend]
+
+  api:
+    image: ${API_IMAGE}
+    container_name: api
+    restart: unless-stopped
+    depends_on: [db]
+    env_file: [api.env]
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "5"}
+    networks: [backend]
+
+  web:
+    image: ${WEB_IMAGE}
+    container_name: web
+    restart: unless-stopped
+    depends_on: [api]
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "5"}
+    networks: [backend]
+
+  caddy:
+    image: caddy:2
+    container_name: caddy
+    restart: unless-stopped
+    command: caddy reverse-proxy --from ${APP_HOST} --to web:80
+    ports: ["80:80", "443:443"]
+    volumes:
+      - /opt/stack/data/caddy/data:/data
+      - /opt/stack/data/caddy/config:/config
+    depends_on: [web]
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "5"}
+    networks: [backend]
+
+networks:
+  backend:

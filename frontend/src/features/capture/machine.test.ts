@@ -100,6 +100,12 @@ describe("putOutcome", () => {
     expect(putOutcome(403)).toEqual({ type: "put_rejected" });
   });
 
+  it("re-presigns on Google's expired signature, a 400 naming ExpiredToken", () => {
+    const body = "<?xml version='1.0' encoding='UTF-8'?><Error><Code>ExpiredToken</Code></Error>";
+    expect(putOutcome(400, body)).toEqual({ type: "put_rejected" });
+    expect(putOutcome(400, "<Error><Code>InvalidArgument</Code></Error>").type).toBe("fatal");
+  });
+
   it("retries network and server failures", () => {
     for (const s of [0, null, undefined, 429, 500, 503]) {
       expect(putOutcome(s).type).toBe("retryable");

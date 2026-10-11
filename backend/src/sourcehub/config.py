@@ -15,7 +15,7 @@ from __future__ import annotations
 from functools import lru_cache
 from typing import Literal
 
-from pydantic import SecretStr
+from pydantic import SecretStr, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 # The user-facing names, in one place, mirroring frontend/src/shared/brand.tsx:
@@ -97,18 +97,33 @@ class Settings(BaseSettings):
     # platform/ imports a vendor SDK, so swapping one is a config change rather
     # than a migration.
     #
-    # There is no storage_backend. The PLATFORM's own storage — attachments,
-    # sample files, method statements, QA evidence — is Azure Blob and nothing
-    # else, so there is nothing to select. A client's DELIVERY DESTINATION is a
-    # separate thing entirely: S3/MinIO or Azure, the client's choice, stored
-    # per row in storage_target with its own credential, and never configured
-    # here. Confusing the two is what this setting used to invite.
+    # The PLATFORM's own storage — attachments, sample files, method
+    # statements, QA evidence, logos — is one bucket or container chosen by
+    # storage_provider below. A client's DELIVERY DESTINATION is a separate
+    # thing entirely: S3/MinIO, Azure or Google Cloud Storage, the client's
+    # choice, stored per row in storage_target with its own credential, and
+    # never configured here.
     mail_backend: Literal["smtp", "azure_email"] = "smtp"
     auth_backend: Literal["database", "keycloak"] = "database"
 
     storage_presign_ttl_seconds: int = 900
 
-    # --- Azure Blob — the platform's own storage -----------------------------
+    # Where the platform's own files live. Objects carry no provider stamp, so
+    # changing this on a deployment that already holds files strands them —
+    # pick it when an environment is built and leave it. Azure Blob (or Azurite
+    # on a laptop) is the default; Google Cloud deployments use "gcs".
+    storage_provider: Literal["azure_blob", "gcs"] = "azure_blob"
+
+    # --- Google Cloud Storage — the platform's own storage on GCP -----------
+    # The bucket holds the same layout as the Azure container. With no key
+    # set, URLs are signed keylessly by the VM's service account through IAM
+    # signBlob (it needs Service Account Token Creator on itself); a key is
+    # for running the platform on GCS from anywhere else.
+    storage_gcs_bucket: str = ""
+    storage_gcs_service_account_json: SecretStr = SecretStr("")
+
+    # --- Azure Blob — the platform's own storage when storage_provider is
+    # azure_blob (the default, and Azurite on a laptop) ------------------------
     # One container holds everything the platform owns, foldered by client and
     # RFP so it can be browsed by a person:
     #
@@ -173,6 +188,13 @@ class Settings(BaseSettings):
     log_level: str = "INFO"
     log_format: Literal["console", "json"] = "console"
     otel_enabled: bool = False
+
+    @model_validator(mode="after")
+    def _platform_storage_is_complete(self) -> Settings:
+        # Fail at boot, not on the first upload a client makes.
+        if self.storage_provider == "gcs" and not self.storage_gcs_bucket.strip():
+            raise ValueError("STORAGE_PROVIDER=gcs needs STORAGE_GCS_BUCKET.")
+        return self
 
 
 @lru_cache

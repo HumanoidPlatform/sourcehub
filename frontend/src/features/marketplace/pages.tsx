@@ -1476,17 +1476,18 @@ export function RequestNewPage() {
  * out a key is wrong when a crowd resource is standing in a shop with a capture that
  * will never upload.
  *
- * Which fields appear depends on the provider, because the two do not take the
- * same kind of credential.
+ * Which fields appear depends on the provider, because the three do not take
+ * the same kind of credential.
  *
  * This is the CLIENT's own storage, and theirs to choose. SourceHub's own
- * container — where attachments and capture examples go — is Azure, fixed, and
- * never appears in this form.
+ * bucket — where attachments and capture examples go — is set per environment
+ * on the server and never appears in this form.
  */
 
 const PROVIDERS = [
   ["azure_blob", "Azure Blob Storage"],
-  ["s3", "S3-compatible — AWS, MinIO, R2, Wasabi, GCS interop"],
+  ["gcs", "Google Cloud Storage"],
+  ["s3", "S3-compatible — AWS, MinIO, R2, Wasabi"],
 ] as const;
 
 function useTargets() {
@@ -1632,14 +1633,40 @@ function NewDestination({
     label: "", provider: "azure_blob", bucket: "", endpoint: "", region: "", key_prefix: "",
     access_key_id: "", secret_access_key: "",
     account_name: "", account_key: "",
+    service_account_json: "",
   });
+  // Which account the uploaded key belongs to — shown so the client can see
+  // they picked the right file. The email is not secret; the key stays out of
+  // the page.
+  const [keyAccount, setKeyAccount] = useState<string | null>(null);
   const set = (k: keyof typeof f) => (e: { target: { value: string } }) =>
     setF((x) => ({ ...x, [k]: e.target.value }));
+
+  const readKeyFile = async (file: File) => {
+    // FileReader rather than file.text(): it reads the same in every browser
+    // and in the test environment.
+    const text = await new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(String(reader.result ?? ""));
+      reader.onerror = () => reject(reader.error);
+      reader.readAsText(file);
+    });
+    setF((x) => ({ ...x, service_account_json: text }));
+    try {
+      const info = JSON.parse(text) as { client_email?: unknown };
+      setKeyAccount(typeof info.client_email === "string" ? info.client_email : null);
+    } catch {
+      // The server says what is wrong with it, without echoing it back.
+      setKeyAccount(null);
+    }
+  };
 
   const secretFor = (): Record<string, string> =>
     f.provider === "azure_blob"
       ? { account_name: f.account_name, account_key: f.account_key }
-      : { access_key_id: f.access_key_id, secret_access_key: f.secret_access_key };
+      : f.provider === "gcs"
+        ? { service_account_json: f.service_account_json }
+        : { access_key_id: f.access_key_id, secret_access_key: f.secret_access_key };
 
   // One button, and it does both. There is no reason to save a destination
   // that has not been proved to work.
@@ -1648,8 +1675,10 @@ function NewDestination({
       label: f.label,
       provider: f.provider,
       bucket: f.bucket,
-      endpoint: f.endpoint || null,
-      region: f.region || null,
+      // Only the S3 fields show them. A value typed there before switching
+      // provider would otherwise travel with an Azure or Google destination.
+      endpoint: f.provider === "s3" ? f.endpoint || null : null,
+      region: f.provider === "s3" ? f.region || null : null,
       key_prefix: f.key_prefix || null,
       secret: secretFor(),
     }),
@@ -1704,6 +1733,31 @@ function NewDestination({
               {(id) => <input id={id} type="password" className={inputCls} value={f.account_key} onChange={set("account_key")} autoComplete="off" />}
             </Field>
           </>
+        )}
+
+        {f.provider === "gcs" && (
+          <Field
+            label="Service account key"
+            required
+            span
+            hint="The .json key of a service account with Storage Object Admin on this bucket. The bucket also needs a CORS rule letting this site PUT, GET and HEAD."
+          >
+            {(id) => (
+              <>
+                <input
+                  id={id}
+                  type="file"
+                  accept="application/json,.json"
+                  className={inputCls}
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) void readKeyFile(file);
+                  }}
+                />
+                {keyAccount && <span className="muted">Key for {keyAccount}</span>}
+              </>
+            )}
+          </Field>
         )}
 
         <Field label="Folder" span>

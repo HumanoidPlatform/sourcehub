@@ -70,6 +70,7 @@ forbidden_modules =
     botocore
     minio
     azure
+    google
     smtplib
     redis
 allow_indirect_imports = False

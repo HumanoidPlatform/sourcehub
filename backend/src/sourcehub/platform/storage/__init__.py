@@ -1,17 +1,18 @@
-"""Storage — one façade over two providers.
+"""Storage — one façade over three providers.
 
 Callers never choose an adapter. They hand in a StorageTarget and this module
 dispatches on its provider, so modules/ stays free of any knowledge about
-whether a client is on S3 or Azure.
+whether a client is on S3, Azure or Google Cloud Storage.
 
 Adapters are imported lazily, on the first call for that provider, so a missing
 SDK surfaces as a clear message on the one destination that needs it rather
 than an import error at boot.
 
 Two storages meet here and they are not the same thing. platform_target() is
-SourceHub's own container: Azure, fixed, not configurable. Everything else
-comes from a storage_target row — the client's own storage, S3/MinIO or Azure
-as they chose when raising the RFP.
+SourceHub's own bucket or container: Azure Blob or Google Cloud Storage, chosen
+once per environment by STORAGE_PROVIDER. Everything else comes from a
+storage_target row — the client's own storage, S3/MinIO, Azure or Google Cloud
+Storage as they chose when raising the RFP.
 """
 
 from __future__ import annotations
@@ -35,12 +36,14 @@ __all__ = [
     "verify",
 ]
 
-# Two providers, both reachable only through a client's own delivery
-# destination. 'gcs' is gone: the enum still carries the label because Postgres
-# cannot drop one, but there is no adapter and a CHECK refuses the value.
+# Three providers. s3 is reachable only as a client's delivery destination;
+# azure_blob and gcs serve both a client's destination and, chosen by
+# STORAGE_PROVIDER, the platform's own storage. gcs is native (V4 signed URLs,
+# service-account key or keyless), not the S3 interoperability endpoint.
 _PACKAGES = {
     "s3": ("s3_store", "minio"),
     "azure_blob": ("azure_store", "azure-storage-blob"),
+    "gcs": ("gcs_store", "google-cloud-storage"),
 }
 
 
@@ -58,18 +61,27 @@ def _adapter(provider: str) -> ModuleType:
 
 
 def platform_target() -> StorageTarget:
-    """SourceHub's own storage, as a target. Always Azure Blob.
+    """SourceHub's own storage, as a target: Azure Blob or Google Cloud Storage.
 
     The platform's files — request attachments, capture examples, method
-    statements, QA evidence — live here, and so does any capture from a
+    statements, QA evidence, logos — live here, and so does any capture from a
     contract awarded before client destinations existed.
 
-    No parameter and no choice. One container holds everything the platform
-    owns, foldered by client and RFP inside it, and there is no setting that
-    points it anywhere else. A CLIENT's delivery destination is the thing that
-    varies — S3/MinIO or Azure, per row in storage_target — and it never comes
-    through this function.
+    No parameter. One bucket or container holds everything the platform owns,
+    foldered by client and RFP inside it, and STORAGE_PROVIDER picks which
+    service that is, once per environment. A CLIENT's delivery destination is
+    the thing that varies per RFP — per row in storage_target — and it never
+    comes through this function.
     """
+    if settings.storage_provider == "gcs":
+        key = settings.storage_gcs_service_account_json.get_secret_value()
+        return StorageTarget(
+            provider="gcs",
+            bucket=settings.storage_gcs_bucket,
+            key_prefix="",
+            # Empty means keyless: the VM's own service account signs.
+            secret={"service_account_json": key} if key.strip() else {},
+        )
     return StorageTarget(
         provider="azure_blob",
         bucket=settings.storage_container,
@@ -87,7 +99,8 @@ def platform_target() -> StorageTarget:
 async def presign_put(t: StorageTarget, key: str) -> tuple[str, dict[str, str]]:
     """Upload URL plus the headers the upload must carry.
 
-    The headers matter: Azure rejects a PUT without x-ms-blob-type.
+    The headers matter: Azure rejects a PUT without x-ms-blob-type. S3 and GCS
+    need none, and every client sends exactly what comes back here.
     """
     return await _adapter(t.provider).presign_put(t, key)
 

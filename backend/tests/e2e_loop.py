@@ -62,10 +62,10 @@ dest = next(
     (t for t in client.get("/storage-targets").json() if t["label"] == DEST_LABEL), None
 )
 if dest is None:
-    # Azure Blob, because storage_target_azure_only says a client destination
-    # can be nothing else. There is no MinIO fallback: the constraint is the
-    # point, and a loop that exercised a provider the platform refuses would
-    # be testing a path no client can take.
+    # Azure Blob, from the STORAGE_ACCOUNT_* environment. A client may also
+    # choose S3-compatible storage or Google Cloud Storage
+    # (storage_target_provider_supported, db/370_gcs_destinations.sql); this
+    # loop drives the Azure path, and tests/test_storage_adapters.py the rest.
     account = os.environ.get("STORAGE_ACCOUNT_NAME", "")
     key = os.environ.get("STORAGE_ACCOUNT_KEY", "")
     if not account or not key:

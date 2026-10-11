@@ -25,12 +25,13 @@ router = APIRouter(route_class=TxRoute)
 
 class TargetIn(BaseModel):
     label: str = Field(min_length=1, max_length=120)
-    # The client's own storage, their choice. 'gcs' is in the enum and is not
-    # supported — see storage_target_provider_supported in db/035_storage.sql.
-    provider: Literal["s3", "azure_blob"]
+    # The client's own storage, their choice: storage_target_provider_supported
+    # in db/370_gcs_destinations.sql lists the same three.
+    provider: Literal["s3", "gcs", "azure_blob"]
     bucket: str = Field(min_length=1, max_length=255)
     # Shape depends on the provider; the service validates the keys it needs.
     #   s3          access_key_id, secret_access_key
+    #   gcs         service_account_json (the key file's text, as Google issued it)
     #   azure_blob  account_name, account_key
     secret: dict[str, Any]
     endpoint: str | None = Field(default=None, max_length=255)

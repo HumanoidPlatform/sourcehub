@@ -49,17 +49,19 @@ _COLUMNS = (
 # What each provider needs, and what the console must therefore ask for.
 _REQUIRED_SECRET_KEYS: dict[str, tuple[str, ...]] = {
     "s3": ("access_key_id", "secret_access_key"),
+    "gcs": ("service_account_json",),
     "azure_blob": ("account_name", "account_key"),
 }
 
 _PROVIDER_LABEL = {
     "s3": "S3-compatible storage",
+    "gcs": "Google Cloud Storage",
     "azure_blob": "Azure Blob storage",
 }
 
-# The two the platform can actually sign for. storage_target_provider_supported
-# says the same in db/035_storage.sql; saying it here first is what makes a
-# wrong provider a sentence rather than a constraint violation.
+# The three the platform can actually sign for. storage_target_provider_supported
+# says the same in db/370_gcs_destinations.sql; saying it here first is what
+# makes a wrong provider a sentence rather than a constraint violation.
 SUPPORTED_PROVIDERS = frozenset(_REQUIRED_SECRET_KEYS)
 
 
@@ -77,14 +79,44 @@ def _check_secret(provider: str, secret: dict[str, Any]) -> None:
     if missing:
         want = ", ".join(missing)
         raise StorageTargetError(f"{_PROVIDER_LABEL[provider]} needs {want}.")
+    if provider == "gcs":
+        _check_service_account(secret["service_account_json"])
+
+
+def _check_service_account(raw: Any) -> None:
+    """The key file a client uploads, checked for shape before any probe.
+
+    The probe would refuse a wrong file too, but only as "could not be read";
+    saying what is wrong with it is the difference between a client fixing it
+    and a support ticket. The key itself is never echoed back.
+    """
+    if isinstance(raw, str):
+        try:
+            info = json.loads(raw)
+        except json.JSONDecodeError:
+            raise StorageTargetError(
+                "The service account key is not valid JSON. Upload the .json key file "
+                "Google gave you when you created the key."
+            ) from None
+    else:
+        info = raw
+    if not isinstance(info, dict) or info.get("type") != "service_account":
+        raise StorageTargetError(
+            "That is not a service account key. In Google Cloud, open IAM & Admin → "
+            "Service accounts → your account → Keys → Add key → JSON."
+        )
+    if not info.get("client_email") or not info.get("private_key"):
+        raise StorageTargetError(
+            "The service account key is missing its client_email or private_key."
+        )
 
 
 def _target_from_row(row: dict[str, Any]) -> StorageTarget:
     return StorageTarget(
         provider=row["provider"],
         bucket=row["bucket"],
-        # NULL on Azure — a container has no region to sign for. On S3 it is
-        # what keeps signing off the network; see db/035_storage.sql.
+        # NULL on Azure and GCS — neither signs for a region. On S3 it is what
+        # keeps signing off the network; see db/035_storage.sql.
         region=row["region"],
         secret=row["secret"] or {},
         endpoint=row["endpoint"],
@@ -191,7 +223,8 @@ async def create_target(
         raise StorageTargetError("Name the bucket or container to write to.")
     if provider not in SUPPORTED_PROVIDERS:
         raise StorageTargetError(
-            "A delivery destination must be S3-compatible storage or Azure Blob."
+            "A delivery destination must be S3-compatible storage, Google Cloud Storage "
+            "or Azure Blob."
         )
     _check_secret(provider, secret)
     prefix = _clean_prefix(key_prefix)
