@@ -79,19 +79,22 @@ eas build --platform android --profile preview
   do not burn them casually — most changes are an update, not a build.
 - Version codes come from EAS (`appVersionSource: "remote"` in `eas.json`), so two people cannot collide.
 
-### Staging
+### Staging (the prod app)
 
 ```sh
 cd mobile
-eas build --platform android --profile staging          # the APK, once
+eas build --platform android --profile staging          # the APK, once per app version
 eas update --channel staging --message "…"             # later JS changes to it
 ```
 
-- A staging build talks to the **staging backend** because of its channel: `src/config.ts` picks the URL from
-  `Updates.channel`. Every other build talks to production. Publishing to `preview` therefore never moves a
-  pilot phone to staging, and publishing to `staging` never reaches one.
-- It installs **beside** the pilot app (package `com.cosarathi.capture.staging`, "(staging)" in the launcher),
-  with its own sign-in and capture queue. Its signing key is its own, separate from the pilot app's.
+- There are two versions of the app. The **preview** app is dev: it talks to
+  `https://datamind360.product-dev.cosarathi.ai`. The **staging** app is prod: it talks to
+  `https://datamind360.product.cosarathi.ai`.
+- `src/config.ts` picks the URL from `Updates.channel`: `staging` and `production` go to prod, every other channel
+  to dev. Publishing to `preview` therefore never moves a prod phone to dev, and publishing to `staging` never
+  reaches a dev phone.
+- The staging app installs **beside** the preview app (package `com.cosarathi.capture.staging`, "(staging)" in the
+  launcher), with its own sign-in and capture queue. Its signing key is its own, separate from the preview app's.
 
 ---
 
@@ -129,8 +132,10 @@ Same rule stated once more, because it is the one people get wrong: `version` tr
 
 ## Before you touch anything, know where you are pointing
 
-`mobile/src/config.ts` pins the server to `https://datamind360.centralindia.cloudapp.azure.com` for every build except
-`development`, and `app.config.js` strips cleartext-HTTP permission from preview and production builds. A
+`mobile/src/config.ts` pins the server by channel: `staging` and `production` builds to
+`https://datamind360.product.cosarathi.ai`, every other build (preview included) to
+`https://datamind360.product-dev.cosarathi.ai`. `app.config.js` strips cleartext-HTTP permission from preview and
+production builds. A
 preview APK cannot be pointed at a laptop, by design. For local work use the `development` profile and
 `npx expo start --dev-client`.
 

@@ -3,16 +3,20 @@
 
 import * as Updates from "expo-updates";
 
-const PRODUCTION = "https://datamind360.centralindia.cloudapp.azure.com";
-const STAGING = "https://datamind360-staging.happywave-66a233c9.centralindia.azurecontainerapps.io";
+const PROD = "https://datamind360.product.cosarathi.ai";
+const DEV = "https://datamind360.product-dev.cosarathi.ai";
 
-/** Where a worker's phone talks to. HTTPS only. A build on the 'staging'
- *  channel (eas.json, profile staging) talks to staging; every other build,
- *  every pilot APK included, to production. The channel is compiled into the
- *  binary, so an update published to 'preview' can never move a pilot phone
- *  to staging. Moving to a company domain later is a change to one line here,
- *  delivered over the air. */
-export const PRODUCTION_API_URL = Updates.channel === "staging" ? STAGING : PRODUCTION;
+/** Builds on these channels talk to prod: 'staging' is the prod app
+ *  (eas.json, profile staging), 'production' the store build. */
+const PROD_CHANNELS = ["staging", "production"];
+
+/** Where a worker's phone talks to. HTTPS only. Prod is named, dev is the
+ *  default: the preview app talks to dev, and so does any build on a channel
+ *  nobody listed, so a mislabelled build fills the dev database, not prod's.
+ *  The channel is compiled into the binary, so an update published to
+ *  'preview' can never move a dev phone to prod. Moving host is a change to
+ *  one line here, delivered over the air. */
+export const PRODUCTION_API_URL = PROD_CHANNELS.includes(Updates.channel ?? "") ? PROD : DEV;
 
 /** Only a development bundle may be pointed somewhere else.
  *
