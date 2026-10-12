@@ -15,7 +15,7 @@ export interface CaptureRow {
   mime: string;
   size: number;
   sha256: string | null;
-  /** JSON: what validation/rules.ts found before this row was queued. */
+  /** JSON: what qa_pipeline/rules/rules.ts found before this row was queued. */
   checks: string | null;
   captured_at: string;
   lat: number | null;

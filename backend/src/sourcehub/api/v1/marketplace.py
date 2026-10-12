@@ -57,7 +57,7 @@ class CaptureSpec(BaseModel):
     # accelerometer. Bounded because beyond 45 the phone is nearer the
     # next quarter turn, and the check folds to that.
     max_tilt_deg: float | None = Field(default=None, ge=0, le=45)
-    # A clip's bounds, checked on the device (mobile validation/rules.ts and
+    # A clip's bounds, checked on the device (mobile qa_pipeline/rules/rules.ts and
     # clip.ts) like everything above. Seconds; the camera stops recording at
     # max, and a gallery pick outside the range is refused before upload.
     min_duration_s: float | None = Field(default=None, ge=0)

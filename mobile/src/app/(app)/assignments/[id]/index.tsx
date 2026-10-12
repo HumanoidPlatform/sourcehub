@@ -15,7 +15,7 @@ import {
   type Action, boardStatus, handedOver, isRevoked, nextAction, ownNote, progressOf, remaining, requirementLabels, sections,
 } from "@/batches";
 import { deleteCapture, discardCapture, discardFailed, retryCapture, retryFailed, type CaptureRow } from "@/db/outbox";
-import { exampleImages, refreshExamples } from "@/capture/examples";
+import { exampleImages, refreshExamples } from "@/qa_pipeline/examples/load";
 import { deleteLocal } from "@/capture/files";
 import { useAssignmentAssets, useAssignments, useOutbox, useRejections } from "@/query/hooks";
 import { assignmentStatus, meta, rejectionLabel } from "@/status";

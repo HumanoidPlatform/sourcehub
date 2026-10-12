@@ -1,5 +1,5 @@
 // What the phone can decide about a clip from a handful of its frames. Pure
-// and unit-tested, like rules.ts: capture/frames.ts pulls the frames out of the
+// and unit-tested, like rules.ts: qa_pipeline/clip/frames.ts pulls the frames out of the
 // file and shrinks each to a 16×16 grey patch; this says what the patches mean.
 //
 // Two things a clip gets wrong that a photo cannot:
@@ -23,7 +23,7 @@
 // and the clip; the phone does not decide.
 
 import { BLACK_MEAN, FRAME_EVERY_S, FROZEN_DIFF, MAX_FRAMES, MIN_FRAMES, STILL_BLOCK_SHARE, STILL_WARN_SHARE } from "@/config";
-import type { Finding } from "./rules";
+import type { Finding } from "@/qa_pipeline/rules/rules";
 
 /** Where to sample: one frame every FRAME_EVERY_S, spread evenly so the last
  *  one lands near the end rather than at a round number; never fewer than

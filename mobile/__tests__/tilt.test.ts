@@ -1,4 +1,4 @@
-import { anglesFrom, heldOrientation, medianOff, tiltAdvice } from "@/capture/tilt";
+import { anglesFrom, heldOrientation, medianOff, tiltAdvice } from "@/qa_pipeline/tilt/tilt";
 
 // Gravity as the accelerometer reports it, in G. The device frame: x to the
 // right of the screen, y up the screen, z out of the screen towards the user.
@@ -86,7 +86,7 @@ describe("anglesFrom", () => {
 });
 
 // Which way up the phone is, from gravity alone. The orientation check reads
-// this rather than the recording's own frame — see validation/rules.ts.
+// this rather than the recording's own frame — see qa_pipeline/rules/rules.ts.
 describe("heldOrientation", () => {
   it("calls a phone held upright portrait, and one on its side landscape", () => {
     expect(heldOrientation(0, -1, 0)).toBe("portrait");

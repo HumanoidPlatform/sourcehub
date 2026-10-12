@@ -29,7 +29,7 @@
 // not trusted to judge its own captures, and a false refusal is invisible
 // and unpaid while a false pass is caught at gate 1.
 //
-// A clip is the same check over its sampled frames (capture/frames.ts picks
+// A clip is the same check over its sampled frames (qa_pipeline/clip/frames.ts picks
 // them): scoreFrames counts how many of them pass, framesFinding warns when
 // too few do. Every frame costs one labeller call, which is why the sampling
 // has a budget rather than a fixed count.
@@ -43,7 +43,7 @@
 
 import type { SubjectSpec } from "@/api/types";
 import { MIN_SUBJECT_FRAMES, SUBJECT_FRAMES_MIN_SHARE, SUBJECT_OFF, SUBJECT_VETO } from "@/config";
-import type { Finding } from "./rules";
+import type { Finding } from "@/qa_pipeline/rules/rules";
 
 export interface Label {
   text: string;

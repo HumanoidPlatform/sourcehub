@@ -1,5 +1,5 @@
 import type { CaptureSpec } from "@/api/types";
-import { blocking, checkCapture, displayedSize, mediaKinds, type Facts } from "@/validation/rules";
+import { blocking, checkCapture, displayedSize, mediaKinds, type Facts } from "@/qa_pipeline/rules/rules";
 
 const MB = 1024 * 1024;
 

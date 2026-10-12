@@ -40,7 +40,7 @@ export const MAX_VIDEO_SECONDS = 600;
 /** a fix looser than this is a cell tower, not a location — warn, don't block */
 export const MAX_FIX_ACCURACY_M = 100;
 /** How sure the labeller must be that the subject is IN the frame
- *  (validation/subject.ts). A presence floor, not a dominance one: other
+ *  (qa_pipeline/subject/subject.ts). A presence floor, not a dominance one: other
  *  things in shot are ordinary and usually wanted, so this asks "is it there",
  *  never "is the picture mostly this". A starting point, to be set from gate-1
  *  verdicts once the pipeline records them. */
@@ -55,7 +55,7 @@ export const SUBJECT_VETO = 0.5;
 /** false = shadow mode: score and report, never ask the worker */
 export const SUBJECT_DIALOG = true;
 /** How much a capture must look like the client's own example photos
- *  (validation/examples.ts) before that stops counting against it.
+ *  (qa_pipeline/examples/examples.ts) before that stops counting against it.
  *
  *  SET FROM MEASUREMENTS, NOT FROM REASONING — and the reasoning was wrong.
  *  This was 0.15, on the argument that unrelated scenes "land near zero". They
@@ -84,8 +84,8 @@ export const EXAMPLE_OFF = 0.65;
  *  layer below every threshold here. */
 export const SUBJECT_LABEL_FLOOR = 0.15;
 
-// A clip is checked through sampled frames (validation/clip.ts, capture/
-// frames.ts): one every FRAME_EVERY_S seconds, never fewer than MIN_FRAMES
+// A clip is checked through sampled frames (qa_pipeline/clip/clip.ts,
+// qa_pipeline/clip/frames.ts): one every FRAME_EVERY_S seconds, never fewer than MIN_FRAMES
 // nor more than MAX_FRAMES, and the whole sampling gives up after
 // FRAMES_BUDGET_MS so a long clip on a slow phone still gets an answer.
 export const FRAME_EVERY_S = 5;

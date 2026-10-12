@@ -1,7 +1,7 @@
 // The face measurement, from canned detector output. No native module runs here.
 
 import type { SubjectSpec } from "@/api/types";
-import { type FaceBox, facesFinding, facesUncheckedFinding, forbidsPeople, scoreFaces } from "@/validation/faces";
+import { type FaceBox, facesFinding, facesUncheckedFinding, forbidsPeople, scoreFaces } from "@/qa_pipeline/faces/faces";
 
 const box = (width: number, height: number): FaceBox => ({ width, height, top: 0, left: 0 });
 

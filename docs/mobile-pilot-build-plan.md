@@ -129,7 +129,7 @@ to have different values. So nothing a worker runs reads the environment at all:
   Settings, the `/server` screen itself (the app registers the `cosarathi://` scheme, so hiding the link alone
   would leave `cosarathi://server` open), and whether `getBaseUrl()` honours a previously saved address at all.
   `__DEV__` is false in every preview build, production build and over-the-air update, however it was produced.
-- The same guard went onto `EXPO_PUBLIC_SUBJECT_STUB` in `mobile/src/validation/subject.ts`, for the same reason:
+- The same guard went onto `EXPO_PUBLIC_SUBJECT_STUB` in `mobile/src/qa_pipeline/subject/subject.ts`, for the same reason:
   one update published from a laptop with the stub set would have made every phone "see" fake labels.
 - **Plain HTTP only in development builds.** New `mobile/app.config.js` runs on top of `app.json` (which stays the
   base config, so the Expo tools can still write to it) and, when `EAS_BUILD_PROFILE` is `preview` or

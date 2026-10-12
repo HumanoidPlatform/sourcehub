@@ -14,9 +14,9 @@
 import { get } from "@/api/client";
 import type { Attachment } from "@/api/types";
 import { labelledExamples, loadExampleLabels, saveExampleLabels } from "@/db/examples";
-import type { ExampleSet } from "@/validation/examples";
-import { labelImage } from "@/validation/subject";
-import { deleteLocal, downloadToScratch } from "./files";
+import type { ExampleSet } from "@/qa_pipeline/examples/examples";
+import { labelImage } from "@/qa_pipeline/subject/subject";
+import { deleteLocal, downloadToScratch } from "@/capture/files";
 
 /** The slot the console files client reference photos under. */
 const SLOT = "capture_examples";

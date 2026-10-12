@@ -8,16 +8,16 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Alert, Linking, Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { clockTone, formatClock } from "@/capture/clock";
-import { exampleImages, loadExamples } from "@/capture/examples";
-import { ensureLocationPermission, type Fix, watchFix } from "@/capture/location";
-import { type Held, medianOff, type Tilt, tiltAdvice, watchTilt } from "@/capture/tilt";
-import { type CaptureOutcome, CaptureRejected, useCapture } from "@/capture/useCapture";
+import { exampleImages, loadExamples } from "@/qa_pipeline/examples/load";
+import { ensureLocationPermission, type Fix, watchFix } from "@/qa_pipeline/location/location";
+import { type Held, medianOff, type Tilt, tiltAdvice, watchTilt } from "@/qa_pipeline/tilt/tilt";
+import { type CaptureOutcome, CaptureRejected, useCapture } from "@/qa_pipeline/pipeline";
 import { MAX_VIDEO_SECONDS } from "@/config";
 import { useAssignments } from "@/query/hooks";
 import { TONE_COLOR } from "@/status";
 import { Button, C, Callout, s } from "@/ui";
-import type { ExampleSet } from "@/validation/examples";
-import { type Finding, mediaKinds } from "@/validation/rules";
+import type { ExampleSet } from "@/qa_pipeline/examples/examples";
+import { type Finding, mediaKinds } from "@/qa_pipeline/rules/rules";
 
 /** A level, shown on every task the phone can read a sensor for.
  *
@@ -28,7 +28,7 @@ import { type Finding, mediaKinds } from "@/validation/rules";
  * The ANGLE IS ALWAYS ON SCREEN, and the verdict beside it. It used to read
  * the bare word "level" until the tolerance was broken, which on a task that
  * allows 45° is every reading there can be: squareness is measured to the
- * nearest quarter turn (capture/tilt.ts quarterTurn), so roll never exceeds
+ * nearest quarter turn (qa_pipeline/tilt/tilt.ts quarterTurn), so roll never exceeds
  * 45 and the worker was told "level" while holding the phone at any angle.
  * Showing the number costs nothing and is the thing they are steering by.
  *
@@ -36,7 +36,7 @@ import { type Finding, mediaKinds } from "@/validation/rules";
  * the level is advice and nothing more: the angle, no verdict, no amber, and
  * checkCapture refuses nothing over it. It is shown anyway because a worker
  * holding the phone at 30° is usually doing it by accident, and because the
- * reading is now recorded either way (validation/rules.ts tilt_measured) — so
+ * reading is now recorded either way (qa_pipeline/rules/rules.ts tilt_measured) — so
  * the screen may as well say what is being recorded.
  */
 function Level({ tilt, tolerance }: { tilt: Tilt | null; tolerance: number | null }) {
@@ -131,7 +131,7 @@ export default function Capture() {
   }, [exampleIds]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // A position kept coming in while the camera is open, so the shutter never
-  // has to wait on a new GPS lock (capture/location.ts watchFix).
+  // has to wait on a new GPS lock (qa_pipeline/location/location.ts watchFix).
   const warmFix = useRef<Fix | null>(null);
   const readWarmFix = useCallback(() => warmFix.current, []);
   const save = useCapture(
@@ -248,7 +248,7 @@ export default function Capture() {
   // One message per line: two findings read as two things, not a paragraph.
   //
   // Only warnings. An `info` finding is a measurement recorded for the reviewer
-  // (validation/rules.ts), not something to interrupt the worker with — every
+  // (qa_pipeline/rules/rules.ts), not something to interrupt the worker with — every
   // capture carries one, and shown here it would read as though every shot had
   // a problem.
   const spoken = (findings: Finding[]) => findings.filter((f) => f.severity === "warn");

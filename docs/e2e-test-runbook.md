@@ -374,7 +374,7 @@ cannot be tied to a bundle cannot be chased.
   (requests, responses), `features/qa/pages.tsx` (gate 1),
   `features/delivery/components/assignments.tsx` (the crowd dialogs).
 - **A phone check misbehaves** — the rules are pure and unit-tested:
-  `mobile/src/validation/rules.ts` (length, frame size, orientation, tilt, GPS),
+  `mobile/src/qa_pipeline/rules/rules.ts` (length, frame size, orientation, tilt, GPS),
   `clip.ts` (dark, frozen, frame times), `subject.ts` (labels, share of frames). Run
   `npx jest` before touching the screen.
 - **A clip will not upload** — check its size against the 100 MB cap of the deployed API,

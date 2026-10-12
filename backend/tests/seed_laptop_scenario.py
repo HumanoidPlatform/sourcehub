@@ -68,7 +68,7 @@ for p in photos:
     if not p.is_file():
         raise SystemExit(f"not a file: {p}")
 if len(photos) > 5:
-    raise SystemExit("the phone labels at most 5 examples (capture/examples.ts MAX_EXAMPLES)")
+    raise SystemExit("the phone labels at most 5 examples (qa_pipeline/examples/load.ts MAX_EXAMPLES)")
 
 client = login("client@acme.example")
 northstar = login("partner@northstar.example")
