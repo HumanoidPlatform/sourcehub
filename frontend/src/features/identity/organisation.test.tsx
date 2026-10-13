@@ -28,7 +28,7 @@ import { OrganisationProfilePage } from "./organisation";
 const PARTNER: Org = {
   id: "t1", reference_code: "TN-01", kind: "tenant", name: "NorthStar", status: "active",
   parent_org_id: null, country: "India", residency_region: "APAC", billing_status: "current",
-  rating: 4.6, legal_name: "NorthStar Private Limited",
+  rating: 4.6, rating_count: 12, legal_name: "NorthStar Private Limited",
   profile: { hq: "Pune", plan: "Partner Pro", capabilities: null, fair_work_attested: true, since: "2024-03-01" },
   public_profile: {
     website: "https://northstar.example",

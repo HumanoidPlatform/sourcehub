@@ -511,8 +511,16 @@ def handle_alter_table(model: Model, stmt: str, source: str) -> None:
         if am:
             parse_column(known(), am.group(1))
             continue
+        am = re.match(r"^DROP\s+CONSTRAINT\s+(?:IF\s+EXISTS\s+)?(\w+)$", action, re.I)
+        if am:
+            # Only an unnamed UNIQUE is ever dropped by its default name
+            # (<table>_<col>_<col>_key, db/380); a dropped CHECK is not drawn.
+            t = known()
+            suffix = am.group(1).removeprefix(f"{name}_").removesuffix("_key")
+            t.uniques = [u for u in t.uniques if "_".join(u) != suffix]
+            continue
         am = re.match(r"^DROP\s+(?:COLUMN\s+)?(?:IF\s+EXISTS\s+)?(\w+)", action, re.I)
-        if am and not re.match(r"^DROP\s+CONSTRAINT\b", action, re.I):
+        if am:
             t = known()
             col = am.group(1)
             t.columns = [c for c in t.columns if c.name != col]

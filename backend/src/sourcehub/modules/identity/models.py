@@ -11,14 +11,12 @@ from __future__ import annotations
 
 import datetime as dt
 import uuid
-from decimal import Decimal
 from typing import Any
 
 from sqlalchemy import (
     Boolean,
     DateTime,
     ForeignKey,
-    Numeric,
     SmallInteger,
     Text,
     text,
@@ -53,7 +51,6 @@ class Organisation(Base):
     country: Mapped[str | None] = mapped_column(Text)
     residency_region: Mapped[str | None] = mapped_column(Text)
     billing_status: Mapped[str | None] = mapped_column(BillingStatus)
-    rating: Mapped[Decimal | None] = mapped_column(Numeric(2, 1))
     onboarded_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
     suspended_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
     suspension_reason: Mapped[str | None] = mapped_column(Text)

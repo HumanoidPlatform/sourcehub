@@ -17,7 +17,10 @@ import {
 } from "@ds/primitives";
 import { labelsOf } from "@features/marketplace/vocabularies";
 import { SKILLS } from "@features/network/vocabularies";
+import { useSession } from "@shared/auth";
 import { fmtDate, fmtDateTime } from "@shared/format";
+import { RateDialog } from "@shared/rating";
+import { can } from "@shared/rbac";
 import { assignmentStatus, offerStatus, statusMeta } from "@shared/status";
 import {
   AssetGallery, RETAKE_REASONS, useAssignmentAssets, useTaskAssets, type Mark,
@@ -554,6 +557,7 @@ function OfferPanel({ offer, assignments, onClose, onRemind, busy }: {
 export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: () => void }) {
   const qc = useQueryClient();
   const toast = useToast();
+  const session = useSession();
   const rows = useTaskAssignments(task.id);
   const taskAssets = useTaskAssets(task.id);
   const offers = useTaskOffers(task.id);
@@ -561,7 +565,11 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
   const [offering, setOffering] = useState(false);
   const [deciding, setDeciding] = useState<{ a: Assignment; batch: Batch | null } | null>(null);
   const [reassigning, setReassigning] = useState<Assignment | null>(null);
+  const [ratingOf, setRatingOf] = useState<Assignment | null>(null);
   const [error, setError] = useState<string | null>(null);
+  // The supplier rates its crowd resource once an assignment is accepted and
+  // still theirs (db/380). Only the supplier that assigned it holds the right.
+  const mayRate = can(session, "rating.write");
 
   const act = useMutation({
     mutationFn: (v: { id: string; action: "cancel" | "reopen" }) => post(`/assignments/${v.id}/${v.action}`, {}),
@@ -599,6 +607,14 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
   }
   if (reassigning) {
     return <ReassignDialog task={task} assignment={reassigning} onClose={() => setReassigning(null)} />;
+  }
+  if (ratingOf) {
+    return (
+      <RateDialog
+        target={{ kind: "worker", assignmentId: ratingOf.id, name: ratingOf.worker_name ?? "the crowd resource" }}
+        onClose={() => setRatingOf(null)}
+      />
+    );
   }
   if (deciding) {
     const { a: d, batch } = deciding;
@@ -685,7 +701,7 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
       ) : (
         <TableWrap>
           <table>
-            <thead><tr><th>Crowd resource</th><th>Units</th><th>Progress</th><th>Status</th><th>Submitted</th><th>Reminded</th><th>Note</th><th /></tr></thead>
+            <thead><tr><th>Crowd resource</th><th>Units</th><th>Progress</th><th>Status</th><th>Submitted</th><th>Reminded</th><th>Note</th><th>Rating</th><th /></tr></thead>
             <tbody>
               {list.map((a) => {
                 const state = assignmentState(a);
@@ -696,6 +712,8 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
                 const batch = openBatch(a);
                 const reviewable = batch != null || a.status === "submitted";
                 const live = OPEN.has(a.status) && !a.revoked_at;
+                const ratable = mayRate && a.status === "accepted" && !a.revoked_at && !a.rating
+                  && session.org_id === a.supplier_org_id;
                 return (
                   <tr key={a.id}>
                     <td className="cell-primary">{a.worker_name ?? "—"}<div className="cell-meta id">{a.worker_ref ?? ""}</div></td>
@@ -719,7 +737,11 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
                     <td className="num">{a.submitted_at ? fmtDateTime(a.submitted_at) : fmtDate(a.due_on) === "—" ? "—" : `due ${fmtDate(a.due_on)}`}</td>
                     <td className="small muted">{a.reminder_count ? `${a.reminder_count}× · ${fmtDateTime(a.last_reminded_at)}` : "—"}</td>
                     <td style={{ maxWidth: 240 }} className="small muted">{state === "rejected" ? a.decision_note : a.worker_note ?? "—"}</td>
+                    <td className="num" title={a.rating?.comment}>{a.rating ? `★ ${a.rating.score}` : "—"}</td>
                     <td className="right"><div className="rowactions">
+                      {ratable && (
+                        <Button size="sm" variant="primary" title="Rate how this assignment was done" onClick={() => setRatingOf(a)}>Rate</Button>
+                      )}
                       {reviewable && (
                         <Button size="sm" variant="primary" onClick={() => setDeciding({ a, batch })}>
                           Review{batch ? ` batch ${batch.batch_no}` : ""}

@@ -124,9 +124,24 @@ class ReassignIn(BaseModel):
     instructions: str | None = None
 
 
-class ApproveIn(BaseModel):
+class RatingIn(BaseModel):
+    """A score and the words behind it, for every kind of rating. The minimum
+    is the one the service and the console hold (network.RATING_COMMENT_MIN)."""
+
     score: int = Field(ge=1, le=5)
-    comment: str = Field(min_length=3)
+    comment: str = Field(min_length=network.RATING_COMMENT_MIN, max_length=network.RATING_COMMENT_MAX)
+
+    @field_validator("comment")
+    @classmethod
+    def _said_something(cls, v: str) -> str:
+        v = v.strip()
+        if len(v) < network.RATING_COMMENT_MIN:
+            raise ValueError(f"at least {network.RATING_COMMENT_MIN} characters")
+        return v
+
+
+class ApproveIn(RatingIn):
+    pass
 
 
 def _conflict(e: Exception) -> HTTPException:
@@ -544,4 +559,61 @@ async def approve(
     except LookupError:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Contract not found") from None
     except delivery.DeliveryError as e:
+        raise _conflict(e) from None
+
+
+# ---------------------------------------------------------------------------
+# Ratings the other way round (db/380). Each names its subject in the path and
+# nothing about the parties: the database works out who rates whom from the
+# subject, and refuses the wrong rater, the wrong state, or a repeat. 409
+# carries the database's own sentence. rating.write is held by every role
+# that can be the rater (client, tenant, aggregator, business).
+# ---------------------------------------------------------------------------
+
+@router.post("/contracts/{contract_id}/rating", status_code=status.HTTP_201_CREATED)
+async def rate_client(
+    contract_id: uuid.UUID,
+    body: RatingIn,
+    principal: Principal = Depends(require_capability("rating.write")),
+    session: AsyncSession = Depends(get_session),
+):
+    """The delivery partner rates its client, once, after the contract completed."""
+    try:
+        return await network.record_rating(
+            session, principal, "partner_client", contract_id, body.score, body.comment
+        )
+    except network.RatingError as e:
+        raise _conflict(e) from None
+
+
+@router.post("/tasks/{task_id}/rating", status_code=status.HTTP_201_CREATED)
+async def rate_supplier(
+    task_id: uuid.UUID,
+    body: RatingIn,
+    principal: Principal = Depends(require_capability("rating.write")),
+    session: AsyncSession = Depends(get_session),
+):
+    """The delivery partner rates the task's supplier, once, after the task passed QA."""
+    try:
+        return await network.record_rating(
+            session, principal, "partner_supplier", task_id, body.score, body.comment
+        )
+    except network.RatingError as e:
+        raise _conflict(e) from None
+
+
+@router.post("/assignments/{assignment_id}/rating", status_code=status.HTTP_201_CREATED)
+async def rate_worker(
+    assignment_id: uuid.UUID,
+    body: RatingIn,
+    principal: Principal = Depends(require_capability("rating.write")),
+    session: AsyncSession = Depends(get_session),
+):
+    """The supplier rates the crowd resource, once, after the assignment was
+    accepted and while it is still theirs (not reassigned)."""
+    try:
+        return await network.record_rating(
+            session, principal, "supplier_worker", assignment_id, body.score, body.comment
+        )
+    except network.RatingError as e:
         raise _conflict(e) from None

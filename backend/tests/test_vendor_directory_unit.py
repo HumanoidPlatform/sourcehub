@@ -150,7 +150,6 @@ def _partner(**over: Any) -> Organisation:
         "country": "India",
         "residency_region": SECRETS["residency_region"],
         "billing_status": SECRETS["billing_status"],
-        "rating": Decimal("4.9"),
         "suspended_at": dt.datetime(2026, 9, 1, tzinfo=dt.UTC),
         "suspension_reason": SECRETS["suspension_reason"],
         # db/280: the partner's profile lives on the organisation row
@@ -246,11 +245,18 @@ class _Result:
 
 class _Session:
     """Answers from a script: the figures when asked for partner_performance,
-    the scripted rows for anything else. Records every statement it was given."""
+    the received ratings when asked for org_rating_summary (db/380), the
+    scripted rows for anything else. Records every statement it was given."""
 
-    def __init__(self, rows: list[Any] | None = None, figures: list[dict[str, Any]] | None = None):
+    def __init__(
+        self,
+        rows: list[Any] | None = None,
+        figures: list[dict[str, Any]] | None = None,
+        received: list[dict[str, Any]] | None = None,
+    ):
         self.rows = rows or []
         self.figures = figures or []
+        self.received = received or []
         self.statements: list[str] = []
         self.params: list[Any] = []
         self.asked: list[Any] = []
@@ -263,6 +269,9 @@ class _Session:
         if "partner_performance" in text:
             asked = set((params or {}).get("ids", []))
             return _Result([f for f in self.figures if f["partner_org_id"] in asked])
+        if "org_rating_summary" in text:
+            asked = set((params or {}).get("ids", []))
+            return _Result([r for r in self.received if r["org_id"] in asked])
         return _Result(self.rows)
 
     def asked_for_figures(self) -> list[Any]:
@@ -270,6 +279,13 @@ class _Session:
             p["ids"]
             for s, p in zip(self.statements, self.params, strict=True)
             if "partner_performance" in s
+        ]
+
+    def asked_for_ratings(self) -> list[Any]:
+        return [
+            p["ids"]
+            for s, p in zip(self.statements, self.params, strict=True)
+            if "org_rating_summary" in s
         ]
 
 
@@ -681,7 +697,8 @@ def test_no_commercial_value_is_in_a_vendor_row(detail):
 
 
 def test_a_vendor_row_never_reads_the_seeded_figures():
-    # rating 4.9, on time 99 and QA 98 are what the seed wrote on this partner
+    # on time 99 and QA 98 are what the seed wrote on this partner's profile;
+    # 4.9 stands for the rating column the seeds wrote until db/380 dropped it
     org = _partner()
     out = directory.vendor_dict(org, None)
     leaves = _leaves(out)
@@ -1109,33 +1126,46 @@ def test_a_partners_profile_shows_calculated_figures():
 
 
 def test_without_figures_a_partner_shows_none_not_the_seeded_ones():
-    org = _partner()  # seeded: rating 4.9, on time 99, QA 98
+    org = _partner()  # the profile still carries the seeded on time 99, QA 98
     out = identity._org_dict(org, None)
-    assert out["rating"] is None
+    assert out["rating"] is None and out["rating_count"] == 0
     assert out["profile"]["on_time_rate"] is None
     assert out["profile"]["qa_pass_rate"] is None
     assert out["performance"] == directory.NO_RECORD.summary()
     leaves = _leaves(out)
-    for seeded in (Decimal("4.9"), 4.9, 99, 98):
+    for seeded in (99, 98):
         assert seeded not in leaves, seeded
 
 
-def test_other_kinds_are_untouched():
+def test_a_client_shows_what_its_partners_rated_it():
+    # db/380: a client's rating is what delivery partners gave it, through
+    # org_rating_summary(); a figure handed in as a partner's record is ignored.
     client = Organisation(
         id=uuid.uuid4(),
         reference_code="CL-01",
         kind="client",
         name="Acme",
         status="active",
-        rating=Decimal("4.2"),
         public_profile={},
         profile={"industry": "Retail"},
     )
-    out = identity._org_dict(client, None, RECORD)
-    assert out["rating"] == Decimal("4.2")
+    out = identity._org_dict(client, None, RECORD, directory.Received(4.2, 3))
+    assert out["rating"] == 4.2 and out["rating_count"] == 3
     assert "performance" not in out
     assert out["profile"]["industry"] == "Retail"
     assert "on_time_rate" not in out["profile"]
+    # and nothing rated yet is None, never zero
+    out = identity._org_dict(client, None)
+    assert out["rating"] is None and out["rating_count"] == 0
+
+
+def test_a_sponsor_is_never_rated():
+    sponsor = Organisation(
+        id=uuid.uuid4(), reference_code="DS-01", kind="sponsor", name="OptiGear",
+        status="active", public_profile={},
+    )
+    out = identity._org_dict(sponsor, None, RECORD, directory.Received(4.9, 9))
+    assert out["rating"] is None and out["rating_count"] == 0
 
 
 def test_a_counterparty_still_sees_no_commercials_beside_the_figures():
@@ -1156,7 +1186,7 @@ async def test_one_organisation_is_answered_with_its_figures():
     assert out["performance"] == RECORD.summary() and out["rating"] == 4.6
 
 
-async def test_a_client_is_answered_without_asking_for_figures():
+async def test_a_client_is_answered_with_its_received_ratings_not_a_partners_figures():
     client = Organisation(
         id=uuid.uuid4(),
         reference_code="CL-01",
@@ -1165,9 +1195,11 @@ async def test_a_client_is_answered_without_asking_for_figures():
         status="active",
         public_profile={},
     )
-    session = _Session()
+    session = _Session(received=[{"org_id": client.id, "rating_avg": Decimal("4.0"), "rating_count": 3}])
     out = await identity._org_out(session, client, None)
-    assert session.statements == [] and "performance" not in out
+    assert session.asked_for_figures() == []  # partner_performance is for partners alone
+    assert session.asked_for_ratings() == [[client.id]]
+    assert out["rating"] == 4.0 and out["rating_count"] == 3 and "performance" not in out
 
 
 async def test_a_list_of_partners_is_answered_in_one_call():
@@ -1179,20 +1211,27 @@ async def test_a_list_of_partners_is_answered_in_one_call():
     assert out[1]["rating"] is None and out[1]["profile"]["qa_pass_rate"] is None
 
 
-async def test_a_list_of_anything_else_asks_for_no_figures():
-    agg = Organisation(
-        id=uuid.uuid4(),
-        reference_code="AG-01",
-        kind="aggregator",
-        name="Crowd",
-        status="active",
-        rating=Decimal("4.1"),
-        public_profile={},
-    )
-    session = _Session(rows=[agg])
+async def test_a_list_of_suppliers_asks_for_their_received_ratings_in_one_call():
+    a = Organisation(id=uuid.uuid4(), reference_code="AG-01", kind="aggregator", name="Crowd",
+                     status="active", public_profile={})
+    b = Organisation(id=uuid.uuid4(), reference_code="AG-02", kind="aggregator", name="Guild",
+                     status="active", public_profile={})
+    session = _Session(rows=[a, b],
+                       received=[{"org_id": a.id, "rating_avg": Decimal("4.1"), "rating_count": 2}])
     out = await identity.list_orgs_of_kind(session, "aggregator", None)
     assert session.asked_for_figures() == []
-    assert out[0]["rating"] == Decimal("4.1")
+    assert session.asked_for_ratings() == [[a.id, b.id]]  # one call, both ids
+    assert out[0]["rating"] == 4.1 and out[0]["rating_count"] == 2
+    assert out[1]["rating"] is None and out[1]["rating_count"] == 0  # unrated, not the seeded 4.x
+
+
+async def test_a_list_of_sponsors_asks_for_nothing():
+    ds = Organisation(id=uuid.uuid4(), reference_code="DS-01", kind="sponsor", name="OptiGear",
+                      status="active", public_profile={})
+    session = _Session(rows=[ds])
+    out = await identity.list_orgs_of_kind(session, "sponsor", None)
+    assert session.asked_for_figures() == [] and session.asked_for_ratings() == []
+    assert out[0]["rating"] is None
 
 
 def _callers_of(path: Path, callee: str) -> set[str]:

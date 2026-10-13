@@ -29,7 +29,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sourcehub.api.security import AccessClaims, new_opaque_token
 from sourcehub.config import CAPTURE_APP, PRODUCT, settings
 from sourcehub.modules.audit import service as audit
-from sourcehub.modules.network.models import CrowdWorker, Equipment, Loan, Rating
+from sourcehub.modules.network.models import CrowdWorker, Equipment, Loan
 from sourcehub.modules.notify import service as notifier
 
 
@@ -348,11 +348,18 @@ def _friendly_stock_error(e: DBAPIError) -> str:
 # ---------------------------------------------------------------------------
 
 _WORKER_ROWS = text(
-    "SELECT w.id, w.reference_code, w.display_name, w.skills, w.status, w.trained, w.rating, "
+    "SELECT w.id, w.reference_code, w.display_name, w.skills, w.status, w.trained, "
     "       w.email, w.phone, w.user_id, u.status AS user_status, "
-    "       inv.accepted_at, inv.expires_at, coalesce(ta.open_count, 0) AS open_assignments "
+    "       inv.accepted_at, inv.expires_at, coalesce(ta.open_count, 0) AS open_assignments, "
+    "       gr.rating_avg, coalesce(gr.rating_count, 0) AS rating_count "
     "FROM crowd_worker w "
     "LEFT JOIN app_user u ON u.id = w.user_id "
+    # the supplier's own ratings of this person, under the caller's RLS: the
+    # supplier that gave them reads them, the tenant gets NULLs (db/380)
+    "LEFT JOIN LATERAL (SELECT round(avg(g.score), 1) AS rating_avg, count(*) AS rating_count "
+    "                    FROM rating g WHERE g.kind = 'supplier_worker' "
+    "                      AND g.to_user_id = w.user_id "
+    "                      AND g.from_org_id = w.aggregator_org_id) gr ON true "
     "LEFT JOIN LATERAL (SELECT i.accepted_at, i.expires_at FROM invitation i "
     "                    WHERE i.user_id = w.user_id AND i.revoked_at IS NULL "
     "                    ORDER BY i.invited_at DESC LIMIT 1) inv ON true "
@@ -380,7 +387,9 @@ def _worker_dict(r: Any) -> dict[str, Any]:
     return {
         "id": r["id"], "reference_code": r["reference_code"],
         "display_name": r["display_name"], "skills": list(r["skills"] or []),
-        "status": r["status"], "trained": r["trained"], "rating": r["rating"],
+        "status": r["status"], "trained": r["trained"],
+        "rating": None if r["rating_avg"] is None else round(float(r["rating_avg"]), 1),
+        "rating_count": int(r["rating_count"]),
         "email": r["email"], "phone": r["phone"], "user_id": r["user_id"],
         "invitation_status": _invitation_status(r),
         "open_assignments": int(r["open_assignments"]),
@@ -869,38 +878,145 @@ async def set_worker_status(
 
 
 # ---------------------------------------------------------------------------
-# Ratings
+# Ratings — four kinds, one table (db/380_ratings.sql)
+#
+# The caller names the kind, the subject, a score and a comment, and nothing
+# else: the database trigger finds both parties from the subject, refuses the
+# wrong state or the wrong rater, and stamps the row. Every refusal arrives
+# here as a DBAPIError whose text is the trigger's own sentence (or a partial
+# unique index, for a second rating), and leaves as a RatingError the console
+# can show. A rating is never edited: the login holds no UPDATE or DELETE.
+#
+# A comment is required everywhere, and short enough to be one. The console
+# gates its button on the same minimum (frontend/src/shared/rating.tsx).
 # ---------------------------------------------------------------------------
 
-async def rate_counterparty(
+RATING_COMMENT_MIN = 3
+RATING_COMMENT_MAX = 2000
+
+RATING_KINDS = ("client_partner", "partner_client", "partner_supplier", "supplier_worker")
+
+# the column the subject id lands in, per kind; the trigger derives the rest
+_SUBJECT_COLUMN = {
+    "client_partner": "contract_id",
+    "partner_client": "contract_id",
+    "partner_supplier": "task_id",
+    "supplier_worker": "assignment_id",
+}
+_RATEE = {
+    "client_partner": "delivery partner",
+    "partner_client": "client",
+    "partner_supplier": "supplier",
+    "supplier_worker": "crowd resource",
+}
+_ONCE = ("rating_once_per_contract", "rating_once_per_task", "rating_once_per_assignment")
+
+
+class RatingError(NetworkError):
+    pass
+
+
+def _rating_reason(e: DBAPIError) -> str:
+    """The database's refusal, as a sentence: the trigger's own words, or
+    the plain meaning of the partial unique index that stopped a repeat."""
+    msg = str(getattr(e, "orig", e))
+    if any(name in msg for name in _ONCE):
+        return "This work has already been rated; a rating cannot be changed."
+    at = msg.find("rating: ")
+    if at >= 0:
+        return msg[at:].split("\n", 1)[0].strip()
+    if "row-level security" in msg:
+        return "You cannot rate here."
+    return "The database refused the rating."
+
+
+async def record_rating(
     session: AsyncSession,
     claims: AccessClaims,
-    contract_id: uuid.UUID,
-    to_org_id: uuid.UUID,
+    kind: str,
+    subject_id: uuid.UUID,
     score: int,
     comment: str,
-) -> None:
-    session.add(
-        Rating(
-            contract_id=contract_id,
-            from_org_id=claims.org_id,
-            to_org_id=to_org_id,
-            score=score,
-            comment=comment,
-            created_by=claims.user_id,
+) -> dict[str, Any]:
+    """One rating of `kind`, of the subject (a contract, task or assignment
+    id). Returns the stored row, parties included, as the trigger filled it."""
+    if kind not in _SUBJECT_COLUMN:
+        raise RatingError("That is not a kind of rating.")
+    comment = (comment or "").strip()
+    if len(comment) < RATING_COMMENT_MIN:
+        raise RatingError(
+            f"Add a comment of at least {RATING_COMMENT_MIN} characters; "
+            "ratings without one are not recorded."
         )
+    if len(comment) > RATING_COMMENT_MAX:
+        raise RatingError(f"Keep the comment under {RATING_COMMENT_MAX} characters.")
+    if not 1 <= score <= 5:
+        raise RatingError("A score is 1 to 5.")
+
+    q = text(
+        "INSERT INTO rating (kind, " + _SUBJECT_COLUMN[kind] + ", score, comment, created_by) "
+        "VALUES (CAST(:kind AS rating_kind), :subject, :score, :comment, :uid) "
+        "RETURNING id, kind, contract_id, task_id, assignment_id, "
+        "          from_org_id, to_org_id, to_user_id, score, comment, created_at"
     )
-    await session.flush()
+    try:
+        row = (
+            await session.execute(
+                q,
+                {"kind": kind, "subject": subject_id, "score": score,
+                 "comment": comment, "uid": claims.user_id},
+            )
+        ).mappings().one()
+    except DBAPIError as e:
+        raise RatingError(_rating_reason(e)) from None
+    out = dict(row)
+
+    # Who hears of it. The crowd resource never does: a worker's rating is the
+    # supplier's and Ops's to see, and the phone has no screen for it.
+    if kind == "partner_client":
+        await notifier.notify(
+            session, out["to_org_id"],
+            f"Your delivery partner rated the completed work {score}/5.",
+            "deliveries", {"id": str(out["contract_id"])},
+        )
+    elif kind == "partner_supplier":
+        await notifier.notify(
+            session, out["to_org_id"],
+            f"Your delivery partner rated a task you completed {score}/5.",
+            "tasks", {"id": str(out["task_id"])},
+        )
+
+    # The comment is for the parties; the trail carries the score alone. For a
+    # worker rating the contract's partner is NOT in scope: scope is what the
+    # audit page shows an organisation, and the partner is not a party.
+    scope = [out["id"], out["contract_id"], out["from_org_id"]]
+    for key in ("task_id", "assignment_id", "to_org_id", "to_user_id"):
+        if out[key] is not None:
+            scope.append(out[key])
+    await audit.log(
+        session, "rating.recorded", f"Rated the {_RATEE[kind]} {score}/5",
+        scope, {"kind": kind, "score": score},
+    )
+    return out
 
 
 async def ratings_for(
     session: AsyncSession, contract_id: uuid.UUID | None = None
 ) -> list[dict[str, Any]]:
+    """Every rating the caller may read (RLS: a party to it, or Ops), newest
+    first; one contract's when asked. A crowd resource's name comes from the
+    roster, or failing that the person's own."""
     q = text(
-        "SELECT r.id, r.contract_id, r.score, r.comment, r.created_at, "
-        "       f.name AS from_name, t.name AS to_name "
-        "FROM rating r JOIN organisation f ON f.id = r.from_org_id "
-        "JOIN organisation t ON t.id = r.to_org_id "
+        "SELECT r.id, r.kind, r.contract_id, r.task_id, r.assignment_id, "
+        "       r.from_org_id, r.to_org_id, r.to_user_id, "
+        "       r.score, r.comment, r.created_at, "
+        "       f.name AS from_name, "
+        "       coalesce(t.name, w.display_name, u.full_name) AS to_name "
+        "FROM rating r "
+        "LEFT JOIN organisation f ON f.id = r.from_org_id "
+        "LEFT JOIN organisation t ON t.id = r.to_org_id "
+        "LEFT JOIN crowd_worker w ON w.user_id = r.to_user_id AND w.deleted_at IS NULL "
+        "LEFT JOIN app_user u ON u.id = r.to_user_id "
         + ("WHERE r.contract_id = :cid " if contract_id else "")
         + "ORDER BY r.created_at DESC"
     )

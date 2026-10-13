@@ -12,9 +12,12 @@ export interface Org {
   country: string | null;
   residency_region: string | null;
   billing_status: string | null;
-  // A delivery partner's is calculated (a number, from partner_performance);
-  // any other kind's is the stored column, which arrives as text.
-  rating: string | number | null;
+  // Calculated for every kind (db/380): a delivery partner's from what its
+  // clients scored it, a client's from its delivery partners, a supplier's
+  // from its parent partner. null is "no ratings yet", never zero. A sponsor
+  // is never rated.
+  rating: number | null;
+  rating_count: number;
   /** Delivery partners only: the figures every screen reads (db/260). */
   performance?: Performance;
   onboarded_at?: string | null;
@@ -374,6 +377,9 @@ export interface Task {
   // first (it never sees a roster) and real counts for the second
   assignment_summary: AssignmentSummary | null;
   asset_summary: AssetSummary | null;
+  /** The partner's rating of this task's supplier, once given (db/380); null
+   *  before, and null to the client, who may not read it. */
+  supplier_rating?: RatingSummary | null;
 }
 
 /** A task put to the crowd at once; the first worker_limit accepts become assignments. */
@@ -484,6 +490,9 @@ export interface Assignment {
   /** reminders sent to this worker about this assignment; 0 on a worker's own board */
   reminder_count: number;
   last_reminded_at: string | null;
+  /** The supplier's rating of the crowd resource for this assignment (db/380);
+   *  null before it is given, and null to the partner and the worker. */
+  rating?: RatingSummary | null;
   assets: AssignmentAssets;
   /** The batch round trip (db/350): uploaded and not sent, with the reviewer,
    *  kept, and to be shot again. accepted against quantity is progress. */
@@ -719,7 +728,11 @@ export interface WorkerRow {
   skills: Skill[];
   status: string;
   trained: boolean;
-  rating: string | null;
+  // what this supplier rated the person over their accepted assignments
+  // (db/380); null until the first one, and null to the partner, who may not
+  // read them
+  rating: number | null;
+  rating_count: number;
   // a roster row with a login: invited by email, signs in to the capture app
   email: string | null;
   phone: string | null;
@@ -812,14 +825,31 @@ export interface ActivityRow {
   occurred_at: string;
 }
 
+/** The four directions a rating goes (db/380_ratings.sql). */
+export type RatingKind = "client_partner" | "partner_client" | "partner_supplier" | "supplier_worker";
+
+/** One rating, as a party to it (or operations) reads it. */
 export interface RatingRow {
   id: string;
+  kind: RatingKind;
   contract_id: string;
+  task_id: string | null;
+  assignment_id: string | null;
+  from_org_id: string;
+  to_org_id: string | null;
+  to_user_id: string | null;
   score: number;
   comment: string;
   created_at: string;
   from_name: string;
-  to_name: string;
+  to_name: string | null;
+}
+
+/** A rating of one piece of work, on that work's own row. */
+export interface RatingSummary {
+  score: number;
+  comment: string;
+  created_at: string;
 }
 
 /** Where a client's captured data is delivered.

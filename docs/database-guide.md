@@ -114,7 +114,7 @@ SELECT relname AS table, n_live_tup AS rows FROM pg_stat_user_tables ORDER BY n_
 | `crowd_worker` | One person on an aggregator's roster. `user_id` links to `app_user` when that person can sign in to the phone app. |
 | `equipment` | A sponsor's equipment type and how many units exist. |
 | `loan` | A request to borrow units. A trigger refuses an approval that would lend more than exist, or lend equipment whose calibration has expired. |
-| `rating` | One party's rating of the other on a contract, written when the client accepts delivery. |
+| `rating` | One rating of one piece of work, of one of four kinds ([`380_ratings.sql`](../db/380_ratings.sql)): `client_partner` at approval, `partner_client` once the contract completed, `partner_supplier` per task once it passed QA, `supplier_worker` per accepted assignment (the ratee is a user, `to_user_id`). A BEFORE INSERT trigger derives both parties from the subject and refuses the wrong state or rater; three partial unique indexes make each once. Only the two parties and Ops read a row; the API login may never update or delete one. Averages are never stored: `partner_performance()` and `org_rating_summary()` compute them on read. |
 
 ### G. Invoices · [`320_partner_invoices.sql`](../db/320_partner_invoices.sql)
 
@@ -177,8 +177,11 @@ Which table gets a row at each step.
 10. **Gate 2.** The partner passes or fails the submission — a `qa_review` row with `gate2_partner`. The task
     becomes `qa_passed` or `qa_failed`. A failed task reopens; the next attempt is a **new** `submission` row.
 11. **Delivery.** When every task on the contract is `qa_passed`, the partner marks the `contract` `delivered`.
-12. **Acceptance.** The client approves: `contract` → `completed` and a `rating` is written. Or the client
-    disputes with a reason, and the contract returns to `active`.
+12. **Acceptance.** The client approves: `contract` → `completed` and a `client_partner` `rating` is
+    written. Or the client disputes with a reason, and the contract returns to `active`. Once completed,
+    the partner may rate the client back (`partner_client`); it rates each supplier when that task passes
+    QA (`partner_supplier`), and a supplier rates its crowd resource when the assignment is accepted
+    (`supplier_worker`). Each once, none ever edited.
 13. **Invoicing, from step 10 on.** Once a submission has passed gate 2 the partner raises an `invoice` for the
     work — a quantity at the contract's rate, or an amount on a fixed price — the client marks it `paid`, and
     the partner `acknowledged` it. Invoices follow the work, not the contract's state: a dispute leaves them be,
@@ -291,6 +294,7 @@ narrow question and is executable only by `sourcehub_app`:
 | "Is this email already used?" without revealing by whom | `email_is_taken()` |
 | Integrity that must see every row | `write_audit_event()` |
 | A partner's record, made of contracts the reader may not see | `partner_performance(uuid[])` — contracts completed, on-time %, accepted-first-time %, gate-2 pass %, and the rating as an average, a count and a count per score. **Numbers only**: never a contract, a client, a comment or a date. A percentage is NULL when there is nothing to divide by. Answers for delivery partners, to a session acting as an organisation, never to a crowd session. It is the one source of these figures for every screen ([identity/directory.py](../backend/src/sourcehub/modules/identity/directory.py)). |
+| What a client or a supplier has been rated | `org_rating_summary(uuid[])` ([`380_ratings.sql`](../db/380_ratings.sql)) — the average and the count of `partner_client` ratings for a client, of `partner_supplier` ratings for an aggregator or business. Numbers only. Answers Ops, the organisation itself, any delivery partner about a client, and the parent partner about its own supplier; anyone else gets no row. A worker's average is not a function: the roster query joins the supplier's own `supplier_worker` rows under the caller's policies. |
 
 ### Layer 4 — the database refuses what should never exist
 

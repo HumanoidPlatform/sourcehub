@@ -56,7 +56,7 @@ const SAYS_WORKER = /\bworkers?\b/i;
 
 const WORKER = {
   id: "w1", reference_code: "WKR-01", display_name: "Jitu", skills: ["shelf_capture"],
-  status: "on_shift", trained: true, rating: null, email: "jitu@example.com",
+  status: "on_shift", trained: true, rating: null, rating_count: 0, email: "jitu@example.com",
   phone: null, user_id: "u1", invitation_status: "accepted", open_assignments: 2,
 };
 

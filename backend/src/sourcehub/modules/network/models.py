@@ -11,14 +11,23 @@ from __future__ import annotations
 
 import datetime as dt
 import uuid
-from decimal import Decimal
 
-from sqlalchemy import ARRAY, Boolean, Date, DateTime, ForeignKey, Integer, Numeric, SmallInteger, Text, text
+from sqlalchemy import (
+    ARRAY,
+    Boolean,
+    Date,
+    DateTime,
+    ForeignKey,
+    Integer,
+    SmallInteger,
+    Text,
+    text,
+)
 from sqlalchemy.dialects.postgresql import CITEXT, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
 from sourcehub.db.base import Base
-from sourcehub.db.types import EquipmentStatus, LoanStatus, WorkerStatus
+from sourcehub.db.types import EquipmentStatus, LoanStatus, RatingKind, WorkerStatus
 
 UTCNOW = text("now()")
 GEN_UUID = text("gen_random_uuid()")
@@ -79,7 +88,6 @@ class CrowdWorker(Base):
     user_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("app_user.id"))
     email: Mapped[str | None] = mapped_column(CITEXT)
     phone: Mapped[str | None] = mapped_column(Text)
-    rating: Mapped[Decimal | None] = mapped_column(Numeric(2, 1))
     created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
     updated_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
     deleted_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
@@ -92,13 +100,24 @@ class CrowdWorker(Base):
 
 
 class Rating(Base):
+    """One rating, of one of four kinds (db/380_ratings.sql). The parties are
+    derived by a BEFORE INSERT trigger from the subject, so the service writes
+    the row with raw SQL naming only the kind, the subject, a score and a
+    comment; this mapping is for reading."""
+
     __tablename__ = "rating"
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, server_default=GEN_UUID)
     contract_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("contract.id"))
     from_org_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("organisation.id"))
-    to_org_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("organisation.id"))
+    # NULL for a crowd resource, who is a user (to_user_id), not an organisation
+    to_org_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("organisation.id"))
     score: Mapped[int] = mapped_column(SmallInteger)
     comment: Mapped[str] = mapped_column(Text)
     created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
     created_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
+    # Last, matching the column order db/380 produces (ADDed after the table).
+    kind: Mapped[str] = mapped_column(RatingKind)
+    task_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("task.id"))
+    assignment_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("task_assignment.id"))
+    to_user_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("app_user.id"))

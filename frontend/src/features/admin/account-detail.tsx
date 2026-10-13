@@ -25,6 +25,7 @@ import { useSession } from "@shared/auth";
 import { fmtDate, fmtDateTime, money } from "@shared/format";
 import { kindRows } from "@shared/org-profile";
 import { EditProfileDialog } from "@shared/org-profile-edit";
+import { stars } from "@shared/rating";
 import { companyRows, draftFromOrg, expertiseRows } from "@shared/org-profile-form";
 import { OrgLogo } from "@shared/org-logo";
 import { can } from "@shared/rbac";
@@ -167,7 +168,7 @@ export function AccountDetailPage() {
             ...(["client", "tenant"].includes(o.kind) ? companyRows(draftFromOrg(o)) : []),
             ...(o.kind === "tenant" ? expertiseRows(draftFromOrg(o).expertise) : []),
             ...kindRows(o),
-            ...(o.kind === "tenant" ? [] : ([["Rating", o.rating ? `★ ${o.rating}` : "—"]] as [string, ReactNode][])),
+            ...(o.kind === "tenant" || o.kind === "sponsor" ? [] : ([["Rating", stars(o.rating, o.rating_count)]] as [string, ReactNode][])),
             ["Billing", o.billing_status ?? "—"],
             ["Onboarded", fmtDate(o.onboarded_at ?? null)],
           ]}

@@ -115,13 +115,13 @@ INSERT INTO role_permission (role_id, permission_id)
 SELECT r.id, p.id FROM role r, permission p
 WHERE r.code = 'aggregator' AND p.code IN (
   'task.read','task.start','task.submit','roster.manage','equipment.request',
-  'profile.manage','user.invite','user.manage');
+  'profile.manage','user.invite','user.manage','rating.write');
 
 INSERT INTO role_permission (role_id, permission_id)
 SELECT r.id, p.id FROM role r, permission p
 WHERE r.code = 'business' AND p.code IN (
   'task.read','task.start','task.submit','profile.manage','equipment.request',
-  'user.invite','user.manage');
+  'user.invite','user.manage','rating.write');
 
 INSERT INTO role_permission (role_id, permission_id)
 SELECT r.id, p.id FROM role r, permission p

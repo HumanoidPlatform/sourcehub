@@ -10,8 +10,10 @@ import { AccountsPage } from "./pages";
 const api = vi.hoisted(() => ({ get: vi.fn((_path: string): Promise<unknown> => Promise.resolve([])) }));
 vi.mock("@api/client", () => api);
 
-const org = (id: string, name: string, rating: string | null, status = "active") => ({
-  id, name, reference_code: `CL-${id}`, kind: "client", status, rating, billing_status: "current",
+// a client's rating is calculated (db/380): a number and how many gave it
+const org = (id: string, name: string, rating: number | null, status = "active") => ({
+  id, name, reference_code: `CL-${id}`, kind: "client", status, rating, rating_count: rating ? 3 : 0,
+  billing_status: "current",
   country: "IN", residency_region: "APAC", profile: { industry: "Retail", plan: "Growth" },
 });
 
@@ -35,7 +37,7 @@ beforeEach(() => {
   api.get.mockReset().mockImplementation((path: string) =>
     Promise.resolve(
       path.includes("kind=client")
-        ? [org("7", "Northstar Retail", "4.2"), org("8", "Acme Analytics", null, "suspended"), org("9", "Bluefin Foods", "4.8")]
+        ? [org("7", "Northstar Retail", 4.2), org("8", "Acme Analytics", null, "suspended"), org("9", "Bluefin Foods", 4.8)]
         : [],
     ),
   );

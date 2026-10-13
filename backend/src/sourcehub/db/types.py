@@ -16,6 +16,9 @@ def db_enum(name: str, *values: str) -> ENUM:
 
 
 OrgKind = db_enum("org_kind", "client", "tenant", "aggregator", "business", "sponsor", "platform")
+RatingKind = db_enum(
+    "rating_kind", "client_partner", "partner_client", "partner_supplier", "supplier_worker"
+)
 OrgStatus = db_enum("org_status", "pending_approval", "active", "suspended", "terminated")
 BillingStatus = db_enum("billing_status", "current", "overdue", "suspended")
 UserStatus = db_enum("user_status", "invited", "active", "suspended", "locked", "deactivated")

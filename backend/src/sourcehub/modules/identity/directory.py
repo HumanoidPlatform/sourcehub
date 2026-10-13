@@ -7,7 +7,10 @@ record is made of other clients' contracts, gate-2 reviews and ratings, which
 RLS hides from the reader, so it comes from partner_performance() (db/260): a
 SECURITY DEFINER function that returns numbers and nothing else. Until it
 existed the console printed organisation.rating and two seeded rate columns,
-which the seed files wrote and nothing ever calculated (db/280 dropped them).
+which the seed files wrote and nothing ever calculated (db/280 dropped two,
+db/380 the last). received_ratings() is the same idea for everyone else a
+rating can land on: a client (rated by its partners) and a supplier (rated by
+its partner), through org_rating_summary() (db/380).
 
 list_vendors() and get_vendor() are what a client browsing the directory is
 given. They are written as a WHITELIST: a vendor row is built key by key from
@@ -134,6 +137,57 @@ async def performance_for(
         .all()
     )
     return {r["partner_org_id"]: shape(r) for r in rows}
+
+
+# The kinds a rating lands on other than a delivery partner: a client, rated
+# by its partners once a contract completes; an aggregator or business, rated
+# by its parent partner per task. A sponsor is never rated.
+RATED_KINDS = frozenset({"client", "aggregator", "business"})
+
+
+@dataclass(frozen=True, slots=True)
+class Received:
+    """What a client or supplier has been rated, as numbers. None, not zero,
+    when nobody has rated them yet."""
+
+    rating_avg: float | None = None
+    rating_count: int = 0
+
+
+NOT_RATED = Received()
+
+
+async def received_ratings(
+    session: AsyncSession, org_ids: Iterable[uuid.UUID]
+) -> dict[uuid.UUID, Received]:
+    """The ratings received by each client or supplier in org_ids, in ONE call.
+
+    org_rating_summary() answers only about organisations the caller may see
+    the figure of (Ops, the organisation itself, a partner about a client,
+    the parent about its supplier); any other id is absent. Read with
+    .get(id, NOT_RATED).
+    """
+    ids = list(dict.fromkeys(org_ids))
+    if not ids:
+        return {}
+    rows = (
+        (
+            await session.execute(
+                text("SELECT * FROM org_rating_summary(CAST(:ids AS uuid[]))"), {"ids": ids}
+            )
+        )
+        .mappings()
+        .all()
+    )
+    out: dict[uuid.UUID, Received] = {}
+    for r in rows:
+        count = int(r["rating_count"] or 0)
+        avg = r["rating_avg"]
+        out[r["org_id"]] = Received(
+            rating_avg=round(float(avg), 1) if count and avg is not None else None,
+            rating_count=count,
+        )
+    return out
 
 
 def years_in_business(founded_year: Any, today: dt.date | None = None) -> int | None:

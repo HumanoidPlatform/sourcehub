@@ -65,10 +65,10 @@ BEGIN
   -- The buyer. No parent: organisation_network_parent forbids one for a client.
   -- -------------------------------------------------------------------------
   INSERT INTO organisation (reference_code, kind, name, status, country, residency_region,
-                            billing_status, rating, onboarded_at, created_by,
+                            billing_status, onboarded_at, created_by,
                             plan, dpa_signed, dpa_signed_at, profile)
   VALUES (org_reference_code('client'), 'client', 'Acme Retail Analytics', 'active',
-          'United States', 'US', 'current', 4.6, now(), v_admin,
+          'United States', 'US', 'current', now(), v_admin,
           'Enterprise', true, now(), '{"industry": "Retail / CPG"}')
   RETURNING id INTO v_client;
 
@@ -77,10 +77,10 @@ BEGIN
   -- it — which is the only reason a tenant is required for this to work at all.
   -- -------------------------------------------------------------------------
   INSERT INTO organisation (reference_code, kind, name, status, country,
-                            billing_status, rating, onboarded_at, created_by,
+                            billing_status, onboarded_at, created_by,
                             plan, fair_work_attested, profile)
   VALUES (org_reference_code('tenant'), 'tenant', 'NorthStar Delivery Partners', 'active',
-          'India', 'current', 4.7, now(), v_admin,
+          'India', 'current', now(), v_admin,
           'Partner Pro', true,
           '{"hq": "Bengaluru, India", "capabilities": "Image & video capture, field operations"}')
   RETURNING id INTO v_tenant;
@@ -95,7 +95,6 @@ BEGIN
           'active', v_tenant, now(), v_admin,
           '{"crowd_size": 820, "region": "South India", "focus": "Street-level imagery"}')
   RETURNING id INTO v_agg;
-  UPDATE organisation SET rating = 4.6 WHERE id = v_agg;
 
   -- -------------------------------------------------------------------------
   -- One owner per organisation.
@@ -120,9 +119,9 @@ BEGIN
   v_worker := seed_identity_user('worker@bengaluru.example', 'Priya Nair', v_agg, 'worker', 'member');
 
   INSERT INTO crowd_worker (reference_code, aggregator_org_id, user_id, email,
-                            display_name, skills, status, trained, rating)
+                            display_name, skills, status, trained)
   VALUES (next_reference_code('WKR','seq_ref_worker'), v_agg, v_worker,
-          'worker@bengaluru.example', 'Priya Nair', '{shelf_capture}', 'on_shift', true, 4.8);
+          'worker@bengaluru.example', 'Priya Nair', '{shelf_capture}', 'on_shift', true);
 END
 $seed$;
 

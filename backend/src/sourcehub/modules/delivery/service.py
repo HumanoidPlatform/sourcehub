@@ -29,7 +29,12 @@ from sourcehub.config import CAPTURE_APP, PRODUCT, settings
 from sourcehub.db.session import anonymous_session, org_session
 from sourcehub.modules.audit import service as audit
 from sourcehub.modules.delivery.models import (
-    Contract, Submission, Task, TaskAssignment, TaskOffer, TaskOfferRecipient,
+    Contract,
+    Submission,
+    Task,
+    TaskAssignment,
+    TaskOffer,
+    TaskOfferRecipient,
 )
 from sourcehub.modules.invoices import service as invoices
 from sourcehub.modules.marketplace import pricing
@@ -304,7 +309,13 @@ async def _task_row(session: AsyncSession, t: Task) -> dict[str, Any]:
                 "            count(*) FILTER (WHERE s.status = 'quarantined') AS quarantined, "
                 "            count(*) FILTER (WHERE s.status = 'ready' AND s.submission_id IS NOT NULL) "
                 "              AS bundled "
-                "     FROM asset s WHERE s.task_id = :tid AND s.deleted_at IS NULL) z) AS asset_summary "
+                "     FROM asset s WHERE s.task_id = :tid AND s.deleted_at IS NULL) z) AS asset_summary, "
+                # the partner's rating of this task's supplier, once given; RLS
+                # hands it to the partner, the supplier and Ops, nobody else
+                "  (SELECT row_to_json(v) FROM ("
+                "     SELECT g.id, g.score, g.comment, g.created_at "
+                "     FROM rating g WHERE g.task_id = :tid AND g.kind = 'partner_supplier') v) "
+                "    AS supplier_rating "
                 "FROM task tk "
                 "JOIN organisation o ON o.id = tk.assignee_org_id "
                 "JOIN contract c ON c.id = tk.contract_id "
@@ -334,6 +345,7 @@ async def _task_row(session: AsyncSession, t: Task) -> dict[str, Any]:
         "last_submission": extra.get("last_submission"),
         "assignment_summary": extra.get("assignment_summary"),
         "asset_summary": extra.get("asset_summary"),
+        "supplier_rating": extra.get("supplier_rating"),
         "created_at": t.created_at,
     }
 
@@ -676,9 +688,14 @@ _ASSIGNMENT_ROWS = (
     "       t.due_on AS task_due_on, t.status AS task_status, "
     "       coalesce(x.pending, 0) AS pending, coalesce(x.ready, 0) AS ready, "
     "       coalesce(x.quarantined, 0) AS quarantined, coalesce(x.total, 0) AS total, "
-    "       coalesce(m.reminder_count, 0) AS reminder_count, m.last_reminded_at "
+    "       coalesce(m.reminder_count, 0) AS reminder_count, m.last_reminded_at, "
+    "       wr.score AS rating_score, wr.comment AS rating_comment, wr.created_at AS rated_at "
     "FROM task_assignment a "
     "JOIN task t ON t.id = a.task_id "
+    # the supplier's rating of the crowd resource for this assignment: the
+    # supplier and Ops read it; the partner and the worker get NULLs (db/380)
+    "LEFT JOIN LATERAL (SELECT g.score, g.comment, g.created_at FROM rating g "
+    "                   WHERE g.assignment_id = a.id AND g.kind = 'supplier_worker') wr ON true "
     "LEFT JOIN crowd_worker w ON w.user_id = a.worker_user_id "
     "LEFT JOIN app_user u ON u.id = a.worker_user_id "
     "LEFT JOIN LATERAL (SELECT count(*) FILTER (WHERE s.status = 'pending')     AS pending, "
@@ -717,6 +734,11 @@ def _assignment_dict(r: Any) -> dict[str, Any]:
         "decided_at": r["decided_at"],
         "reminder_count": int(r["reminder_count"]),
         "last_reminded_at": r["last_reminded_at"],
+        "rating": (
+            None if r["rating_score"] is None
+            else {"score": r["rating_score"], "comment": r["rating_comment"],
+                  "created_at": r["rated_at"]}
+        ),
         "assets": {
             "pending": int(r["pending"]), "ready": int(r["ready"]),
             "quarantined": int(r["quarantined"]), "total": int(r["total"]),
@@ -1448,10 +1470,13 @@ async def approve_delivery(
         request_ref=c.reference_code,
     )
 
-    await network.rate_counterparty(
-        session, claims, contract_id=c.id, to_org_id=c.partner_org_id,
-        score=score, comment=comment,
-    )
+    # The rating's trigger (db/380) reads the contract's status: the UPDATE
+    # above must reach the database before the INSERT does.
+    await session.flush()
+    try:
+        await network.record_rating(session, claims, "client_partner", c.id, score, comment)
+    except network.RatingError as e:
+        raise DeliveryError(str(e)) from None
     await notifier.notify(
         session, c.partner_org_id,
         f"{c.reference_code} was approved and is complete. Invoice any work not yet claimed.",

@@ -48,26 +48,26 @@ BEGIN
   -- Clients
   -- =========================================================================
   INSERT INTO organisation (reference_code, kind, name, status, country, residency_region,
-                            billing_status, rating, onboarded_at, created_by,
+                            billing_status, onboarded_at, created_by,
                             plan, dpa_signed, dpa_signed_at, profile)
   VALUES (org_reference_code('client'), 'client', 'Acme Retail Analytics', 'active',
-          'United States', 'US', 'current', 4.6, '2024-03-11', v_admin,
+          'United States', 'US', 'current', '2024-03-11', v_admin,
           'Enterprise', true, '2024-03-11', '{"industry": "Retail / CPG"}')
   RETURNING id INTO v_cl1;
 
   INSERT INTO organisation (reference_code, kind, name, status, country, residency_region,
-                            billing_status, rating, onboarded_at, created_by,
+                            billing_status, onboarded_at, created_by,
                             plan, dpa_signed, dpa_signed_at, profile)
   VALUES (org_reference_code('client'), 'client', 'Voltra Mobility', 'active',
-          'Germany', 'EU', 'current', 4.8, '2024-07-02', v_admin,
+          'Germany', 'EU', 'current', '2024-07-02', v_admin,
           'Enterprise', true, '2024-07-02', '{"industry": "Autonomous driving"}')
   RETURNING id INTO v_cl2;
 
   INSERT INTO organisation (reference_code, kind, name, status, country, residency_region,
-                            billing_status, rating, onboarded_at, created_by,
+                            billing_status, onboarded_at, created_by,
                             plan, dpa_signed, dpa_signed_at, profile)
   VALUES (org_reference_code('client'), 'client', 'MediScan Health AI', 'active',
-          'Singapore', 'APAC', 'overdue', 4.2, '2025-01-19', v_admin,
+          'Singapore', 'APAC', 'overdue', '2025-01-19', v_admin,
           'Growth', true, '2025-01-19', '{"industry": "Healthcare AI"}')
   RETURNING id INTO v_cl3;
 
@@ -75,28 +75,28 @@ BEGIN
   -- Tenants (delivery partners)
   -- =========================================================================
   INSERT INTO organisation (reference_code, kind, name, status, country,
-                            billing_status, rating, onboarded_at, created_by,
+                            billing_status, onboarded_at, created_by,
                             plan, fair_work_attested, profile)
   VALUES (org_reference_code('tenant'), 'tenant', 'NorthStar Delivery Partners', 'active',
-          'India', 'current', 4.7, '2024-02-01', v_admin,
+          'India', 'current', '2024-02-01', v_admin,
           'Partner Pro', true,
           '{"hq": "Bengaluru, India", "capabilities": "Image & video capture, field operations"}')
   RETURNING id INTO v_tn1;
 
   INSERT INTO organisation (reference_code, kind, name, status, country,
-                            billing_status, rating, onboarded_at, created_by,
+                            billing_status, onboarded_at, created_by,
                             plan, fair_work_attested, profile)
   VALUES (org_reference_code('tenant'), 'tenant', 'Meridian Field Ops', 'active',
-          'Philippines', 'current', 4.5, '2024-05-20', v_admin,
+          'Philippines', 'current', '2024-05-20', v_admin,
           'Partner Pro', true,
           '{"hq": "Manila, Philippines", "capabilities": "People-based deliverables, annotation"}')
   RETURNING id INTO v_tn2;
 
   INSERT INTO organisation (reference_code, kind, name, status, country,
-                            billing_status, rating, onboarded_at, created_by,
+                            billing_status, onboarded_at, created_by,
                             plan, fair_work_attested, profile)
   VALUES (org_reference_code('tenant'), 'tenant', 'Helix Data Collective', 'active',
-          'Kenya', 'current', 4.3, '2025-02-14', v_admin,
+          'Kenya', 'current', '2025-02-14', v_admin,
           'Partner Starter', true,
           '{"hq": "Nairobi, Kenya", "capabilities": "Structured data, survey panels"}')
   RETURNING id INTO v_tn3;
@@ -109,28 +109,24 @@ BEGIN
           'active', v_tn1, now(), v_admin,
           '{"crowd_size": 820, "region": "South India", "focus": "Street-level imagery"}')
   RETURNING id INTO v_ag1;
-  UPDATE organisation SET rating = 4.6 WHERE id = v_ag1;
 
   INSERT INTO organisation (reference_code, kind, name, status, parent_org_id, onboarded_at, created_by, profile)
   VALUES (org_reference_code('aggregator'), 'aggregator', 'Delhi Field Network',
           'active', v_tn1, now(), v_admin,
           '{"crowd_size": 540, "region": "North India", "focus": "Retail shelf photography"}')
   RETURNING id INTO v_ag2;
-  UPDATE organisation SET rating = 4.4 WHERE id = v_ag2;
 
   INSERT INTO organisation (reference_code, kind, name, status, parent_org_id, onboarded_at, created_by, profile)
   VALUES (org_reference_code('aggregator'), 'aggregator', 'Luzon Gig Guild',
           'active', v_tn2, now(), v_admin,
           '{"crowd_size": 1200, "region": "Luzon, PH", "focus": "Voice capture & transcription"}')
   RETURNING id INTO v_ag3;
-  UPDATE organisation SET rating = 4.5 WHERE id = v_ag3;
 
   INSERT INTO organisation (reference_code, kind, name, status, parent_org_id, onboarded_at, created_by, profile)
   VALUES (org_reference_code('aggregator'), 'aggregator', 'Rift Valley Surveyors',
           'active', v_tn3, now(), v_admin,
           '{"crowd_size": 310, "region": "East Africa", "focus": "Household surveys"}')
   RETURNING id INTO v_ag4;
-  UPDATE organisation SET rating = 4.2 WHERE id = v_ag4;
 
   -- =========================================================================
   -- Business partners
@@ -140,21 +136,18 @@ BEGIN
           'active', v_tn1, now(), v_admin,
           '{"specialty": "Studio & drone video", "capacity": "40 crews / week"}')
   RETURNING id INTO v_bz1;
-  UPDATE organisation SET rating = 4.8 WHERE id = v_bz1;
 
   INSERT INTO organisation (reference_code, kind, name, status, parent_org_id, onboarded_at, created_by, profile)
   VALUES (org_reference_code('business'), 'business', 'Cobalt Data Works',
           'active', v_tn1, now(), v_admin,
           '{"specialty": "Structured data extraction", "capacity": "25,000 records / week"}')
   RETURNING id INTO v_bz2;
-  UPDATE organisation SET rating = 4.5 WHERE id = v_bz2;
 
   INSERT INTO organisation (reference_code, kind, name, status, parent_org_id, onboarded_at, created_by, profile)
   VALUES (org_reference_code('business'), 'business', 'Pacific Linguistics Ltd',
           'active', v_tn2, now(), v_admin,
           '{"specialty": "Multilingual annotation", "capacity": "60 linguists"}')
   RETURNING id INTO v_bz3;
-  UPDATE organisation SET rating = 4.6 WHERE id = v_bz3;
 
   -- =========================================================================
   -- Device sponsors and their equipment
@@ -191,12 +184,12 @@ BEGIN
   -- =========================================================================
   -- Crowd rosters — aggregator-internal. These people are NOT platform users.
   -- =========================================================================
-  INSERT INTO crowd_worker (reference_code, aggregator_org_id, display_name, skills, status, trained, rating) VALUES
-    (next_reference_code('WKR','seq_ref_worker'), v_ag1, 'Priya Nair',     '{street_imagery}',   'on_shift',   true,  4.8),
-    (next_reference_code('WKR','seq_ref_worker'), v_ag1, 'Sana Kulkarni',  '{shelf_capture,retail_audit}', 'on_break', true, 4.4),
-    (next_reference_code('WKR','seq_ref_worker'), v_ag2, 'Karan Gill',     '{field_survey}',     'offboarded', false, 4.1),
-    (next_reference_code('WKR','seq_ref_worker'), v_ag3, 'Mateo Reyes',    '{voice_capture,transcription}', 'on_shift', true, 4.7),
-    (next_reference_code('WKR','seq_ref_worker'), v_ag4, 'Amina Otieno',   '{household_survey}', 'on_shift',   true,  4.3);
+  INSERT INTO crowd_worker (reference_code, aggregator_org_id, display_name, skills, status, trained) VALUES
+    (next_reference_code('WKR','seq_ref_worker'), v_ag1, 'Priya Nair',     '{street_imagery}',   'on_shift',   true),
+    (next_reference_code('WKR','seq_ref_worker'), v_ag1, 'Sana Kulkarni',  '{shelf_capture,retail_audit}', 'on_break', true),
+    (next_reference_code('WKR','seq_ref_worker'), v_ag2, 'Karan Gill',     '{field_survey}',     'offboarded', false),
+    (next_reference_code('WKR','seq_ref_worker'), v_ag3, 'Mateo Reyes',    '{voice_capture,transcription}', 'on_shift', true),
+    (next_reference_code('WKR','seq_ref_worker'), v_ag4, 'Amina Otieno',   '{household_survey}', 'on_shift',   true);
 
   -- =========================================================================
   -- One user per organisation.

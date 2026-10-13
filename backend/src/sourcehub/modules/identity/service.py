@@ -511,29 +511,40 @@ def _public_profile(org: Organisation) -> dict[str, Any]:
     return {"public_profile": stored, "logo_version": changed if key else None}
 
 
-# The kind whose figures are calculated. A delivery partner's rating, on-time
-# rate and QA pass rate were columns the seed files wrote and nothing updated;
-# they are answered from partner_performance() now (db/260), here and on every
-# other screen, so a partner cannot show one number on its profile and another
-# in the vendors directory.
+# The kind whose figures are calculated in full. A delivery partner's rating,
+# on-time rate and QA pass rate were columns the seed files wrote and nothing
+# updated; they are answered from partner_performance() now (db/260), here and
+# on every other screen, so a partner cannot show one number on its profile
+# and another in the vendors directory. Every other rating a page shows is
+# calculated too (db/380): a client's and a supplier's from org_rating_summary()
+# through directory.received_ratings(); a sponsor has none.
 _MEASURED_KIND = "tenant"
+_RATED_KINDS = directory.RATED_KINDS
 
 
 def _org_dict(
     org: Organisation,
     claims: AccessClaims | None = None,
     performance: directory.Performance | None = None,
+    received: directory.Received | None = None,
 ) -> dict[str, Any]:
-    """For a delivery partner pass performance (see _org_out). Without it the
-    figures are absent rather than read from the seeded columns: a blank is
+    """For a delivery partner pass performance, for a client or supplier pass
+    received (see _org_out). Without them the figures are absent: a blank is
     honest, and a number nobody calculated is not."""
     commercials = _may_see_commercials(org, claims)
     measured = org.kind == _MEASURED_KIND
     record = performance or directory.NO_RECORD
+    got = received or directory.NOT_RATED
     shown = _profile_dict(org, commercials=commercials)
     if measured and shown:
         shown["on_time_rate"] = record.on_time_pct
         shown["qa_pass_rate"] = record.qa_pass_pct
+    if measured:
+        rating_avg, rating_count = record.rating_avg, record.rating_count
+    elif org.kind in _RATED_KINDS:
+        rating_avg, rating_count = got.rating_avg, got.rating_count
+    else:
+        rating_avg, rating_count = None, 0
     out: dict[str, Any] = {
         "id": org.id,
         "reference_code": org.reference_code,
@@ -545,7 +556,8 @@ def _org_dict(
         "country": org.country,
         "residency_region": org.residency_region,
         "billing_status": org.billing_status,
-        "rating": record.rating_avg if measured else org.rating,
+        "rating": rating_avg,
+        "rating_count": rating_count,
         "onboarded_at": org.onboarded_at,
         # Why an account is suspended is between it and the platform. The
         # columns were written at suspension and returned to nobody, so the
@@ -569,12 +581,16 @@ async def _org_out(
     org: Organisation,
     claims: AccessClaims | None = None,
 ) -> dict[str, Any]:
-    """_org_dict for ONE organisation, with a delivery partner's figures looked
-    up. Lists batch the lookup instead (list_orgs_of_kind)."""
+    """_org_dict for ONE organisation, with a delivery partner's figures, or a
+    client's or supplier's received ratings, looked up. Lists batch the lookup
+    instead (list_orgs_of_kind)."""
     record = None
+    received = None
     if org.kind == _MEASURED_KIND:
         record = (await directory.performance_for(session, [org.id])).get(org.id)
-    return _org_dict(org, claims, record)
+    elif org.kind in _RATED_KINDS:
+        received = (await directory.received_ratings(session, [org.id])).get(org.id)
+    return _org_dict(org, claims, record, received)
 
 
 async def list_orgs_of_kind(
@@ -603,12 +619,14 @@ async def list_orgs_of_kind(
         where.append(Organisation.status == status)
     stmt = select(Organisation).where(*where).order_by(Organisation.reference_code)
     orgs = list((await session.execute(stmt)).scalars())
-    record = (
-        await directory.performance_for(session, [org.id for org in orgs])
-        if kind == _MEASURED_KIND
-        else {}
-    )
-    return [_org_dict(org, claims, record.get(org.id)) for org in orgs]
+    ids = [org.id for org in orgs]
+    record: dict[uuid.UUID, directory.Performance] = {}
+    received: dict[uuid.UUID, directory.Received] = {}
+    if kind == _MEASURED_KIND:
+        record = await directory.performance_for(session, ids)
+    elif kind in _RATED_KINDS:
+        received = await directory.received_ratings(session, ids)
+    return [_org_dict(org, claims, record.get(org.id), received.get(org.id)) for org in orgs]
 
 
 # What each action means, and the states it may be invoked from.

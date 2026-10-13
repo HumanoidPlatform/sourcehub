@@ -36,6 +36,7 @@ import { threadFor } from "@features/messages/state";
 import { OrgLogo } from "@shared/org-logo";
 import { OrgProfileDialog } from "@shared/org-profile";
 import { companyRows, draftFromOrg } from "@shared/org-profile-form";
+import { stars } from "@shared/rating";
 import { ReasonDialog } from "@shared/reason-dialog";
 import { countryLabel } from "@shared/countries";
 import { languageLabel } from "@shared/languages";
@@ -1803,6 +1804,9 @@ function ClientDetails({ o }: { o: Org }) {
         ...companyRows(draftFromOrg(o)),
         ["Industry", cp.industry ?? "—"],
         ["Client since", fmtDate(cp.since)],
+        // what delivery partners scored this client after completed contracts
+        // (db/380): the average and the count, never the words
+        ["Rating from delivery partners", stars(o.rating, o.rating_count)],
       ]} />
     </>
   );

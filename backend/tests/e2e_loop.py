@@ -80,6 +80,8 @@ if dest is None:
         "bucket": os.environ.get("STORAGE_CONTAINER", "platform"),
         "key_prefix": "e2e/",
         "secret": {"account_name": account, "account_key": key},
+        # a local stand-in (Azurite) is reached by its endpoint; a real account by none
+        "endpoint": os.environ.get("STORAGE_ENDPOINT_AZURE") or None,
     })
     assert made.status_code == 201, made.text
     dest = made.json()
@@ -287,6 +289,34 @@ ok("QA passes attempt 2")
 reviews = northstar.get(f"/tasks/{task['id']}/reviews").json()
 assert len(reviews) == 2, reviews
 ok("both attempts kept in the trail", f"{len(reviews)} reviews")
+
+# 6a — the partner rates the task's supplier, once, now that it has passed QA
+# (db/380). The database names who may, and refuses everyone else in words.
+supplier_before = northstar.get(f"/organisations/{ag1['id']}").json()["rating_count"]
+r = agg.post(f"/tasks/{task['id']}/rating", json={"score": 5, "comment": "We did well."})
+assert r.status_code == 409 and "only the delivery partner" in r.json()["detail"], r.text
+r = client.post(f"/tasks/{task['id']}/rating", json={"score": 5, "comment": "Nice work."})
+assert r.status_code in (403, 409), f"THE CLIENT RATED A SUPPLIER: {r.status_code} {r.text}"
+r = northstar.post(f"/tasks/{task['id']}/rating", json={"score": 4, "comment": "  "})
+assert r.status_code == 422, f"A BLANK COMMENT WAS TAKEN: {r.status_code} {r.text}"
+r = northstar.post(f"/tasks/{task['id']}/rating", json={
+    "score": 4, "comment": "Second attempt was clean; first had glare."})
+assert r.status_code == 201 and r.json()["kind"] == "partner_supplier", r.text
+assert r.json()["to_org_id"] == ag1["id"] and r.json()["task_id"] == task["id"], r.json()
+assert "comment" in r.json()
+ok("partner rates the supplier for the task", f"{task['reference_code']} 4/5")
+r = northstar.post(f"/tasks/{task['id']}/rating", json={"score": 5, "comment": "Changed my mind."})
+assert r.status_code == 409 and "already been rated" in r.json()["detail"], r.text
+ok("a second rating of the same task refused", "ratings cannot be changed")
+# the supplier reads it on its task, the client is handed nothing
+mine_task = next(t for t in agg.get("/tasks").json() if t["id"] == task["id"])
+assert mine_task["supplier_rating"]["score"] == 4, mine_task.get("supplier_rating")
+client_task = next(t for t in client.get(f"/contracts/{contract['id']}").json()["tasks"] if t["id"] == task["id"])
+assert client_task["supplier_rating"] is None, "THE CLIENT SAW THE SUPPLIER'S RATING"
+supplier_after = northstar.get(f"/organisations/{ag1['id']}").json()
+assert supplier_after["rating_count"] == supplier_before + 1, supplier_after
+assert supplier_after["rating"] is not None
+ok("supplier's average is computed from it", f"avg {supplier_after['rating']} ({supplier_after['rating_count']})")
 
 # 6b — the field half: a second task, split among crowd workers on the phone.
 #      Task 1 above keeps the legacy path (a supplier states its own count);
@@ -580,9 +610,33 @@ r = worker1.post(f"/assignments/{a1['id']}/submit", json={"note": "Retaken."})
 assert r.status_code == 200 and r.json()["assets"]["ready"] == 3, r.text
 ok("worker reworks and resubmits", "3 ready")
 
+# not before it is accepted: the trigger reads the assignment's state (db/380)
+r = agg.post(f"/assignments/{a1['id']}/rating", json={"score": 5, "comment": "Great eye."})
+assert r.status_code == 409 and "accepted assignment" in r.json()["detail"], r.text
+ok("a crowd resource cannot be rated before the assignment is accepted")
+
 r = agg.post(f"/assignments/{a1['id']}/decide", json={"outcome": "accept"})
 assert r.status_code == 200 and r.json()["assignment_status"] == "accepted", r.text
 ok("gate 1 accepts")
+
+# 6b-i — the supplier rates its crowd resource for the accepted assignment;
+# the partner may not, and neither the partner nor the worker sees the result
+r = northstar.post(f"/assignments/{a1['id']}/rating", json={"score": 5, "comment": "Great eye."})
+assert r.status_code in (403, 409), f"THE PARTNER RATED A WORKER: {r.status_code} {r.text}"
+r = agg.post(f"/assignments/{a1['id']}/rating", json={"score": 5, "comment": "Great eye for framing."})
+assert r.status_code == 201 and r.json()["kind"] == "supplier_worker", r.text
+assert r.json()["to_user_id"] == w1["user_id"] and r.json()["to_org_id"] is None, r.json()
+ok("supplier rates the crowd resource", f"{w1['reference_code']} 5/5")
+r = agg.post(f"/assignments/{a1['id']}/rating", json={"score": 4, "comment": "On reflection."})
+assert r.status_code == 409 and "already been rated" in r.json()["detail"], r.text
+roster_w1 = next(w for w in agg.get("/network/workers").json() if w["id"] == w1["id"])
+assert roster_w1["rating_count"] >= 1 and roster_w1["rating"] is not None, roster_w1
+assert next(a for a in agg.get(f"/tasks/{task2['id']}/assignments").json() if a["id"] == a1["id"])["rating"]["score"] == 5
+partner_view = next(a for a in northstar.get(f"/tasks/{task2['id']}/assignments").json() if a["id"] == a1["id"])
+assert partner_view["rating"] is None, "THE PARTNER SAW A WORKER'S RATING"
+assert all(a.get("rating") is None for a in worker1.get("/me/assignments").json()), "THE WORKER SAW THEIR RATING"
+ok("the roster shows the average; the partner and the worker see nothing",
+   f"avg {roster_w1['rating']} ({roster_w1['rating_count']})")
 
 r = agg.post(f"/tasks/{task2['id']}/submit", json={"note": "Wave 2 complete."})
 assert r.status_code == 200, r.text
@@ -780,11 +834,37 @@ r = northstar.post(f"/contracts/{contract['id']}/deliver")
 assert r.status_code == 200 and r.json()["status"] == "delivered", r.text
 ok("partner delivers")
 
+# the partner cannot rate the client before the contract is complete (db/380)
+r = northstar.post(f"/contracts/{contract['id']}/rating", json={"score": 5, "comment": "Clear brief."})
+assert r.status_code == 409 and "not complete" in r.json()["detail"], r.text
+ok("a client cannot be rated before the contract completes")
+
 # 8 — client approves with a rating
 r = client.post(f"/contracts/{contract['id']}/approve", json={
     "score": 5, "comment": "Delivered ahead of schedule; consent tracking flawless."})
 assert r.status_code == 200 and r.json()["status"] == "completed", r.text
 ok("client approves and rates", "contract completed")
+
+# 8a — and now the partner rates the client, once; the client's average is
+# what delivery partners see of it, and a rival sees none of the words
+client_org = client.get("/organisations/me").json()
+client_before = northstar.get(f"/organisations/{client_org['id']}").json()["rating_count"]
+r = client.post(f"/contracts/{contract['id']}/rating", json={"score": 5, "comment": "We were great."})
+assert r.status_code in (403, 409), f"THE CLIENT RATED ITSELF: {r.status_code} {r.text}"
+r = northstar.post(f"/contracts/{contract['id']}/rating", json={
+    "score": 4, "comment": "Clear brief; approvals took a while."})
+assert r.status_code == 201 and r.json()["kind"] == "partner_client", r.text
+assert r.json()["to_org_id"] == client_org["id"], r.json()
+ok("partner rates the client", "4/5")
+r = northstar.post(f"/contracts/{contract['id']}/rating", json={"score": 5, "comment": "Changed my mind."})
+assert r.status_code == 409 and "already been rated" in r.json()["detail"], r.text
+kinds_on_contract = {g["kind"] for g in client.get(f"/contracts/{contract['id']}").json()["ratings"]}
+assert kinds_on_contract == {"client_partner", "partner_client"}, kinds_on_contract
+client_after = northstar.get(f"/organisations/{client_org['id']}").json()
+assert client_after["rating_count"] == client_before + 1 and client_after["rating"] is not None, client_after
+assert not any(g["contract_id"] == contract["id"] for g in meridian.get("/network/ratings").json()), "A RIVAL READ THE RATINGS"
+ok("both directions on the contract; the client's average is computed; a rival sees none",
+   f"client avg {client_after['rating']} ({client_after['rating_count']})")
 
 # 9 — the partner invoices the work that passed QA; the client pays; the partner acknowledges
 detail = northstar.get(f"/contracts/{contract['id']}").json()
@@ -841,7 +921,7 @@ acts = admin.get("/activity", params={"limit": 100}).json()
 kinds = {a["event_type"] for a in acts}
 expect = {"request.published", "proposal.submitted", "contract.awarded", "task.assigned",
           "loan.requested", "loan.state_changed", "submission.received", "review.recorded",
-          "contract.delivered", "contract.accepted",
+          "contract.delivered", "contract.accepted", "rating.recorded",
           "invoice.raised", "invoice.paid", "invoice.acknowledged",
           "worker.invited", "assignment.created", "assignment.started", "assignment.submitted",
           "offer.created", "offer.accepted", "offer.declined", "offer.closed"}

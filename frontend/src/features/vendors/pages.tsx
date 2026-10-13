@@ -458,7 +458,7 @@ function OurWork({ v }: { v: Vendor }) {
   const ratings = useQuery({ queryKey: ["ratings"], queryFn: () => get<RatingRow[]>("/network/ratings") });
   const mine = (contracts.data ?? []).filter((c) => c.partner_org_id === v.id);
   const scoreOf = (contractId: string) =>
-    (ratings.data ?? []).find((r) => r.contract_id === contractId && r.to_name === v.name)?.score;
+    (ratings.data ?? []).find((r) => r.kind === "client_partner" && r.contract_id === contractId)?.score;
 
   return (
     <Panel title="Your work with this vendor" sub="Only your own contracts. Other clients' work is never shown.">

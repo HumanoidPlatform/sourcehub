@@ -17,6 +17,15 @@ vi.mock("./AssetGallery", () => ({
   useTaskAssets: () => ({ data: [], isLoading: false }),
   useAssignmentAssets: () => ({ data: [], isLoading: false }),
 }));
+// The dialog reads the session for the worker-rating button (db/380): the
+// aggregator that opens it, holding rating.write.
+vi.mock("@shared/auth", () => ({
+  useSession: () => ({
+    full_name: "Anita Rao", org_id: "o-bengaluru", org_name: "Bengaluru Crowd Collective",
+    org_kind: "aggregator", role: "aggregator", capabilities: ["rating.write"] as string[],
+  }),
+  useAuth: () => ({ logout: () => Promise.resolve() }),
+}));
 
 import { ToastProvider } from "@ds/primitives";
 import { TaskAssignmentsDialog } from "./assignments";

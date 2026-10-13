@@ -25,7 +25,7 @@ vi.mock("@api/client", () => api);
 const ORG: Org = {
   id: "o1", reference_code: "CL-0001", kind: "client", name: "Meridian", status: "active",
   parent_org_id: null, country: "India", residency_region: "APAC", billing_status: "current",
-  rating: null, legal_name: "Meridian Private Limited",
+  rating: null, rating_count: 0, legal_name: "Meridian Private Limited",
   profile: { industry: "Retail", plan: "Enterprise", dpa_signed: false },
   public_profile: { website: "https://meridian.example" },
   logo_version: "2026-09-28T10:00:00+00:00",

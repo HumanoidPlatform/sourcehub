@@ -10,6 +10,7 @@ import {
 } from "@ds/primitives";
 import { fmtDateTime } from "@shared/format";
 import { rate } from "@shared/org-profile";
+import { stars } from "@shared/rating";
 import { orgStatus, statusMeta } from "@shared/status";
 
 // status_filter=any, because the point of an operator console is to show the
@@ -127,7 +128,7 @@ function OrgTable({
           ),
         },
         ...cols,
-        { header: "Rating", cell: (o) => o.rating ?? "—", sortBy: (o) => num(o.rating), className: "num" },
+        { header: "Rating", cell: (o) => stars(o.rating, o.rating_count), sortBy: (o) => num(o.rating), className: "num" },
         { header: "Billing", cell: (o) => o.billing_status ?? "—", sortBy: (o) => o.billing_status },
         {
           header: "Status",
@@ -172,8 +173,9 @@ function rateCol(
 
 // A partner's rating is calculated and arrives as a number; any other kind's
 // is the stored column, which arrives as text.
-const num = (v: string | number | null) =>
-  v === null || v === "" || Number.isNaN(Number(v)) ? null : Number(v);
+// a calculated rating (db/380) is a number or null; the sort still keeps the
+// unrated last
+const num = (v: number | null) => (v === null || Number.isNaN(v) ? null : v);
 
 export function ActivityPage() {
   const activity = useQuery({

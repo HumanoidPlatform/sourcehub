@@ -16,9 +16,11 @@ import {
   AttachmentList, AttachmentsField, attachmentPayload, slotRows, type AttachmentDraft,
 } from "@shared/attachments";
 import { useSession } from "@shared/auth";
-import { CAPTURE_APP } from "@shared/brand";
+import { CAPTURE_APP, COMPANY } from "@shared/brand";
 import { fmtDate, fmtDateTime, mediaList, money, taskTarget } from "@shared/format";
 import { describePricing, quantityWords } from "@shared/pricing";
+import { RATING_COMMENT_MIN, RATING_LABEL, RateDialog, ScoreField, type RateTarget } from "@shared/rating";
+import { can } from "@shared/rbac";
 import { captureRequirementText, subjectRows } from "./components/brief";
 import { ContractInvoicesPanel } from "./components/invoices";
 import { assignmentStatus, contractStatus, statusMeta, taskStatus, waitingOn } from "@shared/status";
@@ -113,6 +115,7 @@ export function ContractDetailPage() {
   const [assigning, setAssigning] = useState(false);
   const [approving, setApproving] = useState(false);
   const [viewingTask, setViewingTask] = useState<Task | null>(null);
+  const [rating, setRating] = useState<RateTarget | null>(null);
 
   const contract = useQuery({
     queryKey: ["contract", id],
@@ -158,6 +161,14 @@ export function ContractDetailPage() {
   const meta = statusMeta(contractStatus, c.status);
   const isPartner = session.org_id === c.partner_org_id;
   const isClient = session.org_id === c.client_org_id;
+  // The partner's ratings (db/380): of the client once the contract completed,
+  // of each supplier once its task passed QA. One each; the database refuses
+  // a second, and the buttons go once the row exists.
+  const canRate = can(session, "rating.write");
+  const clientRated = (c.ratings ?? []).some((r) => r.kind === "partner_client");
+  // The dialog must see the task as it is now: the row it opened with is a
+  // snapshot, and the rating lands on the refetched one.
+  const liveTask = viewingTask ? (c.tasks ?? []).find((t) => t.id === viewingTask.id) ?? viewingTask : null;
   const rubric = (c.rubric_snapshot ?? {}) as { acceptance?: string; compliance?: string };
   // The agreed price on its basis (db/320); a row from before the basis
   // existed still has a value to show.
@@ -183,6 +194,11 @@ export function ContractDetailPage() {
           )}
           {isClient && c.status === "delivered" && (
             <Button variant="success" onClick={() => setApproving(true)}>Approve delivery</Button>
+          )}
+          {isPartner && c.status === "completed" && canRate && !clientRated && (
+            <Button variant="primary" onClick={() => setRating({ kind: "client", contractId: c.id, name: c.client_name ?? "the client" })}>
+              Rate the client
+            </Button>
           )}
         </>
       }
@@ -232,8 +248,16 @@ export function ContractDetailPage() {
                       <td className="num">{t.last_submission?.attempt_no ?? "—"}</td>
                       <td className="num">{t.last_submission?.asset_count ?? 0}</td>
                       <td className="num">{fmtDate(t.due_on)}</td>
-                      <td><Pill tone={tm.tone}>{tm.label}</Pill></td>
+                      <td>
+                        <Pill tone={tm.tone}>{tm.label}</Pill>
+                        {t.supplier_rating && <div className="cell-meta" title={t.supplier_rating.comment}>rated ★ {t.supplier_rating.score}</div>}
+                      </td>
                       <td className="right" onClick={(e) => e.stopPropagation()}><div className="rowactions">
+                        {isPartner && canRate && t.status === "qa_passed" && !t.supplier_rating && (
+                          <Button size="sm" variant="primary" onClick={() => setRating({ kind: "supplier", taskId: t.id, taskRef: t.reference_code, name: t.assignee_name ?? "the supplier" })}>
+                            Rate supplier
+                          </Button>
+                        )}
                         <Button size="sm" onClick={() => setViewingTask(t)}>{isClient ? "Review" : "Details"}</Button>
                         </div>
                       </td>
@@ -291,17 +315,21 @@ export function ContractDetailPage() {
       </div>
 
       {(c.ratings ?? []).length > 0 && (
-        <Panel title="Ratings">
-          {(c.ratings ?? []).map((r) => (
-            <div key={r.id} className="event">
-              <span className="spine" aria-hidden="true" />
-              <span className="dot" aria-hidden="true">·</span>
-              <div>
-                <div className="what"><b>{r.from_name} → {r.to_name}: {r.score}/5</b></div>
-                <div className="who">{r.comment}</div>
+        <Panel title="Ratings" sub="What the parties to this contract said of each other. Only they, and operations, see the words.">
+          {(c.ratings ?? []).map((r) => {
+            const task = r.task_id ? (c.tasks ?? []).find((t) => t.id === r.task_id) : null;
+            return (
+              <div key={r.id} className="event">
+                <span className="spine" aria-hidden="true" />
+                <span className="dot" aria-hidden="true">·</span>
+                <div>
+                  <div className="what"><b>{r.from_name} → {r.to_name ?? "—"}: {r.score}/5</b></div>
+                  <div className="who">{RATING_LABEL[r.kind]}{task ? ` · ${task.reference_code}` : ""} · {fmtDate(r.created_at)}</div>
+                  <div className="who">{r.comment}</div>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </Panel>
       )}
 
@@ -311,14 +339,18 @@ export function ContractDetailPage() {
       {approving && id && (
         <ApproveDialog contract={c} onClose={() => setApproving(false)} />
       )}
-      {viewingTask && (
+      {liveTask && (
         <TaskDetailDialog
-          t={viewingTask}
+          t={liveTask}
           request={brief.data}
           requestLoading={brief.isLoading}
           onClose={() => setViewingTask(null)}
+          onRateSupplier={isPartner && canRate
+            ? () => setRating({ kind: "supplier", taskId: liveTask.id, taskRef: liveTask.reference_code, name: liveTask.assignee_name ?? "the supplier" })
+            : undefined}
         />
       )}
+      {rating && <RateDialog target={rating} onClose={() => setRating(null)} />}
     </View>
   );
 }
@@ -596,6 +628,10 @@ function ApproveDialog({ contract, onClose }: { contract: Contract; onClose: () 
     onError: (e) => setError(e instanceof Error ? e.message : "Could not approve"),
   });
 
+  // Both ways out need the words: the API wants at least RATING_COMMENT_MIN
+  // characters for a rating, and the same for a dispute's reason.
+  const said = comment.trim().length >= RATING_COMMENT_MIN;
+
   // Approval is irreversible, so the client needs a way to say no. Without one
   // the only refusal was silence, and the partner had no idea what to fix.
   const dispute = useMutation({
@@ -618,13 +654,18 @@ function ApproveDialog({ contract, onClose }: { contract: Contract; onClose: () 
           <Button onClick={onClose}>Cancel</Button>
           <Button
             variant="danger"
-            disabled={!comment.trim() || dispute.isPending || approve.isPending}
-            title={comment.trim() ? undefined : "Say what needs to change"}
+            disabled={!said || dispute.isPending || approve.isPending}
+            title={said ? undefined : `Say what needs to change — at least ${RATING_COMMENT_MIN} characters`}
             onClick={() => dispute.mutate()}
           >
             Send back
           </Button>
-          <Button variant="success" disabled={!comment.trim() || approve.isPending || dispute.isPending} onClick={() => approve.mutate()}>
+          <Button
+            variant="success"
+            disabled={!said || approve.isPending || dispute.isPending}
+            title={said ? undefined : `Say something about the work — at least ${RATING_COMMENT_MIN} characters`}
+            onClick={() => approve.mutate()}
+          >
             Approve delivery
           </Button>
         </>
@@ -636,18 +677,13 @@ function ApproveDialog({ contract, onClose }: { contract: Contract; onClose: () 
         undone.
       </Callout>
       <div className="formgrid" style={{ marginTop: 12 }}>
-        <Field label="Rate your delivery partner">
-          {(id) => (
-            <select id={id} className={inputCls} value={score} onChange={(e) => setScore(e.target.value)}>
-              <option value="5">5 — Excellent</option>
-              <option value="4">4 — Good</option>
-              <option value="3">3 — Fair</option>
-              <option value="2">2 — Poor</option>
-              <option value="1">1 — Unacceptable</option>
-            </select>
-          )}
-        </Field>
-        <Field label="Comment" required span hint="Shared with the partner and shown on their profile. Ratings without one are not published.">
+        <ScoreField label="Rate your delivery partner" value={score} onChange={setScore} />
+        <Field
+          label="Comment"
+          required
+          span
+          hint={`Seen by ${contract.partner_name} and ${COMPANY} operations. Your score counts toward their average in the vendor directory; your words are never shown there. At least ${RATING_COMMENT_MIN} characters.`}
+        >
           {(id) => <textarea id={id} className={textareaCls} rows={3} value={comment} onChange={(e) => setComment(e.target.value)} />}
         </Field>
       </div>
@@ -790,11 +826,14 @@ function TaskDetailDialog({
   request,
   requestLoading,
   onClose,
+  onRateSupplier,
 }: {
   t: Task;
   request?: Rfp;
   requestLoading?: boolean;
   onClose: () => void;
+  /** Set by the contract page for the partner: opens the supplier rating. */
+  onRateSupplier?: () => void;
 }) {
   const tm = statusMeta(taskStatus, t.status);
   const reviews = useQuery({
@@ -875,6 +914,15 @@ function TaskDetailDialog({
             ["QA summary", qaSummary(reviews.data, reviews.isLoading)],
             ["Review trail", qaReviewList(reviews.data)],
             ["Due", fmtDate(t.due_on)],
+            // The partner's rating of the supplier (db/380): the partner and the
+            // supplier read it; the client is handed nothing and sees no row.
+            ...(t.supplier_rating
+              ? ([["Supplier rating", `★ ${t.supplier_rating.score} — ${t.supplier_rating.comment}`]] as [string, React.ReactNode][])
+              : onRateSupplier && t.status === "qa_passed"
+                ? ([["Supplier rating", <Button key="r" size="sm" variant="primary" onClick={onRateSupplier}>Rate supplier</Button>]] as [string, React.ReactNode][])
+                : onRateSupplier
+                  ? ([["Supplier rating", "Rated once the task has passed QA"]] as [string, React.ReactNode][])
+                  : []),
           ]} />
         </section>
       </div>
@@ -897,6 +945,9 @@ export function TasksPage() {
   const qc = useQueryClient();
   const toast = useToast();
   const isAggregator = session.org_kind === "aggregator";
+  // A business holds the same crowd rights as an aggregator (db/905):
+  // assigning, gate 1, and now rating the people who did the work (db/380).
+  const hasCrowd = isAggregator || session.org_kind === "business";
   const [submitting, setSubmitting] = useState<Task | null>(null);
   const [viewing, setViewing] = useState<Task | null>(null);
   const [workersFor, setWorkersFor] = useState<Task | null>(null);
@@ -961,7 +1012,7 @@ export function TasksPage() {
                 <thead>
                   <tr>
                     <th>Task</th><th>Contract</th><th>Target</th>
-                    {isAggregator && <th>Crowd</th>}
+                    {hasCrowd && <th>Crowd</th>}
                     <th>Due</th><th>Status</th><th>Last note</th><th />
                   </tr>
                 </thead>
@@ -976,7 +1027,7 @@ export function TasksPage() {
                         <td className="cell-primary">{t.title}<div className="cell-meta id">{t.reference_code}</div></td>
                         <td className="id">{t.contract_ref}</td>
                         <td>{taskTarget(t)}</td>
-                        {isAggregator && (
+                        {hasCrowd && (
                           <td>
                             {workers > 0 ? (
                               <>
@@ -998,7 +1049,7 @@ export function TasksPage() {
                         </td>
                         <td className="right" onClick={(e) => e.stopPropagation()}><div className="rowactions">
                           <Button size="sm" onClick={() => setViewing(t)}>Details</Button>
-                          {isAggregator && (
+                          {hasCrowd && (
                             <Button size="sm" onClick={() => setWorkersFor(t)}>Crowd</Button>
                           )}
                           {["assigned", "qa_failed"].includes(t.status) && (

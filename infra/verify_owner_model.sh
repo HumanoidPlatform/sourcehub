@@ -107,8 +107,8 @@ BEGIN
             now() - interval '20 days', now() - interval '19 days',
             CASE WHEN client = acme THEN st END)
     RETURNING id INTO cid;
-    INSERT INTO rating (contract_id, from_org_id, to_org_id, score, comment)
-    VALUES (cid, client, ns, 5, 'Owner check.');
+    INSERT INTO rating (kind, contract_id, from_org_id, to_org_id, score, comment)
+    VALUES ('client_partner', cid, client, ns, 5, 'Owner check.');
   END LOOP;
 END
 $$;
@@ -156,6 +156,17 @@ check "NorthStar's record counts both clients' contracts, asked by Acme" "2|2" \
 check "the same record, asked by Voltra" "2|2" \
   "$(printf '%s\n' "BEGIN;" "$(ctx "$VOLTRA" client)" \
      "SELECT contracts_completed || '|' || rating_count FROM partner_performance(ARRAY['$NS']::uuid[]);" "COMMIT;" | as_app)"
+
+check "a rating is never edited: the login holds neither UPDATE nor DELETE on it" "false|false" \
+  "$(as_admin -At -c "SELECT has_table_privilege('sourcehub_app', 'rating', 'UPDATE') || '|' || has_table_privilege('sourcehub_app', 'rating', 'DELETE')")"
+
+check "a delivery partner may ask a client's record (none yet), the summary runs as the owner" "0" \
+  "$(printf '%s\n' "BEGIN;" "$(ctx "$NS" tenant)" \
+     "SELECT rating_count FROM org_rating_summary(ARRAY['$ACME']::uuid[]);" "COMMIT;" | as_app)"
+
+check "an aggregator asking about a client gets no row at all" "" \
+  "$(printf '%s\n' "BEGIN;" "$(ctx "$AGG" aggregator)" \
+     "SELECT rating_count FROM org_rating_summary(ARRAY['$ACME']::uuid[]);" "COMMIT;" | as_app)"
 
 printf '%s\n' "BEGIN;" "$(ctx "$ACME" client)" \
   "SELECT write_audit_event('ownercheck.first', 'owner check, Acme') \\g /dev/null" "COMMIT;" | as_app

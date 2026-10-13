@@ -53,9 +53,9 @@ def test_every_table_is_read_and_grouped(model: Any) -> None:
     # db/320 replaced the four ledger tables (and two enums) with one invoice
     # table and the pricing_basis enum, 37 before db/330 folded
     # onboarding_approval (and its enum) onto the request row; db/350 added
-    # capture_batch and its enum
+    # capture_batch and its enum; db/380 added rating_kind
     assert len(model.tables) == 37
-    assert len(model.enums) == 30
+    assert len(model.enums) == 31
     assert sorted(model.views) == []
 
 
@@ -71,6 +71,17 @@ def test_alter_table_changes_landed(model) -> None:  # type: ignore[no-untyped-d
     worker = model.tables["crowd_worker"]
     assert worker.has_column("skills") and not worker.has_column("skill")
     assert worker.column("user_id").unique
+    assert not worker.has_column("rating")  # 380: computed from supplier_worker ratings
+    assert not model.tables["organisation"].has_column("rating")  # 380: computed per kind
+
+    rating = model.tables["rating"]
+    for col in ("kind", "task_id", "assignment_id", "to_user_id"):
+        assert rating.has_column(col), col
+    assert rating.column("to_org_id").nullable  # 380: a crowd resource is a user
+    assert rating.uniques == []  # 380 dropped the three-column UNIQUE for partial indexes
+    assert model.enums["rating_kind"].values == [
+        "client_partner", "partner_client", "partner_supplier", "supplier_worker",
+    ]
 
     assert model.tables["qa_review"].column("submission_id").nullable
     assert model.tables["qa_review"].has_column("assignment_id")

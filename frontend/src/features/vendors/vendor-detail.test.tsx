@@ -50,7 +50,9 @@ const contract = (over: Partial<Contract>): Contract => ({
 });
 
 const RATING: RatingRow = {
-  id: "g1", contract_id: "c1", score: 5, comment: "On time and complete.",
+  id: "g1", kind: "client_partner", contract_id: "c1", task_id: null, assignment_id: null,
+  from_org_id: "o-acme", to_org_id: "v-ns", to_user_id: null,
+  score: 5, comment: "On time and complete.",
   created_at: "2026-09-12T10:00:00Z", from_name: "Acme Retail Analytics", to_name: NORTHSTAR.name,
 };
 

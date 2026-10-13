@@ -11,6 +11,7 @@ import { Button, Callout, Dialog, Dl, Meter, Pill } from "@ds/primitives";
 import { fmtDate } from "@shared/format";
 import { OrgLogo } from "@shared/org-logo";
 import { companyRows, draftFromOrg, expertiseRows } from "@shared/org-profile-form";
+import { stars } from "@shared/rating";
 import { orgStatus, statusMeta } from "@shared/status";
 import type { ReactNode } from "react";
 
@@ -152,7 +153,7 @@ export function OrgProfileDialog({
             ...(o.kind === "tenant" ? expertiseRows(draftFromOrg(o).expertise) : []),
             ...kindRows(o),
             // a partner's rating is in its track record, with how many gave it
-            ...(o.kind === "tenant" ? [] : ([["Rating", o.rating ? `★ ${o.rating}` : "—"]] as [string, ReactNode][])),
+            ...(o.kind === "tenant" || o.kind === "sponsor" ? [] : ([["Rating", stars(o.rating, o.rating_count)]] as [string, ReactNode][])),
             ...(o.billing_status ? ([["Billing", o.billing_status]] as [string, ReactNode][]) : []),
           ]}
         />

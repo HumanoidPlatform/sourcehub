@@ -16,6 +16,7 @@ import { useSession } from "@shared/auth";
 import { COMPANY } from "@shared/brand";
 import { fmtDate, titleCase } from "@shared/format";
 import { OrgProfileDialog } from "@shared/org-profile";
+import { stars } from "@shared/rating";
 import { ReasonDialog } from "@shared/reason-dialog";
 import {
   invitationStatus, loanStatus, onboardingStatus, orgStatus, statusMeta, type Tone, workerStatus,
@@ -118,7 +119,7 @@ function WorkerDetailDialog({ w, onClose }: { w: WorkerRow; onClose: () => void 
         ["Open assignments", <span key="o" className="num">{w.open_assignments}</span>],
         ...(editing ? [] : [["Skills", labelsOf(SKILLS, w.skills)] as [string, React.ReactNode]]),
         ["Trained", w.trained ? "Yes" : "No"],
-        ["Rating", w.rating ?? "—"],
+        ["Rating", w.rating_count ? `★ ${w.rating?.toFixed(1)} from ${w.rating_count} assignment${w.rating_count === 1 ? "" : "s"}` : "Not rated yet"],
         ["Status", <Pill key="s" tone={m.tone}>{m.label}</Pill>],
       ]} />
       {editing && (
@@ -1107,7 +1108,7 @@ export function RosterPage() {
           ) : (
             <TableWrap>
               <table>
-                <thead><tr><th>Ref</th><th>Name</th><th>Email</th><th>Skills</th><th>App access</th><th>Status</th><th /></tr></thead>
+                <thead><tr><th>Ref</th><th>Name</th><th>Email</th><th>Skills</th><th>Rating</th><th>App access</th><th>Status</th><th /></tr></thead>
                 <tbody>
                   {rows.map((w) => {
                     const m = statusMeta(workerStatus, w.status);
@@ -1124,6 +1125,7 @@ export function RosterPage() {
                         </td>
                         <td className="small">{w.email ?? "—"}</td>
                         <td>{labelsOf(SKILLS, w.skills)}</td>
+                        <td className="num">{stars(w.rating, w.rating_count)}</td>
                         <td><Pill tone={inv.tone}>{inv.label}</Pill></td>
                         <td><Pill tone={m.tone}>{m.label}</Pill></td>
                         <td className="right" onClick={(ev) => ev.stopPropagation()}><div className="rowactions">
@@ -1284,7 +1286,7 @@ export function CapacityPage() {
             ["Reference", o.reference_code],
             ["Specialty", (o.profile.specialty as string) ?? "—"],
             ["Capacity", (o.profile.capacity as string) ?? "—"],
-            ["Rating", o.rating ?? "—"],
+            ["Rating", stars(o.rating, o.rating_count)],
             ["Status", titleCase(o.status)],
           ]} />
         )}
