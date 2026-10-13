@@ -68,7 +68,7 @@ export interface Batch {
 // media has been a LIST since a task began inheriting the client's capture
 // spec, and tasks created before that still carry a bare string. Typing it as
 // the scalar alone is what silently locked a video task into photo mode, so
-// both are declared and validation/rules.ts normalises them.
+// both are declared and qa_pipeline/rules/rules.ts normalises them.
 export interface CaptureSpec {
   media?: string | string[];
   /** seconds; the camera stops at max, rules.ts refuses outside the range */
@@ -85,7 +85,7 @@ export interface CaptureSpec {
   max_tilt_deg?: number | null;
   languages?: string[];
   notes?: string;
-  /** what a capture must show; validation/subject.ts checks photos and clips against it */
+  /** what a capture must show; qa_pipeline/subject/subject.ts checks photos and clips against it */
   subject?: SubjectSpec | null;
   [key: string]: unknown;
 }

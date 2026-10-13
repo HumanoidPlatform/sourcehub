@@ -11,7 +11,7 @@ import {
   scoreExampleFrames,
   scoreExamples,
   similarity,
-} from "@/validation/examples";
+} from "@/qa_pipeline/examples/examples";
 
 const L = (...pairs: [string, number][]) => pairs.map(([text, confidence]) => ({ text, confidence }));
 

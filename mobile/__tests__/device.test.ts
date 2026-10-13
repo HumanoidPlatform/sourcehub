@@ -1,6 +1,6 @@
 // The device profile that rides with a capture. Pure; expo-device is not read here.
 
-import { deviceFinding, memoryGb } from "@/capture/device";
+import { deviceFinding, memoryGb } from "@/qa_pipeline/device/device";
 
 describe("memoryGb", () => {
   it("rounds bytes to one decimal", () => {

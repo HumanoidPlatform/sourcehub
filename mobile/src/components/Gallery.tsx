@@ -6,7 +6,7 @@ import { Image } from "expo-image";
 import { useEffect, useState } from "react";
 import { Linking, Pressable, StyleSheet, Text, View } from "react-native";
 import type { AssetRow } from "@/api/types";
-import { frameAt } from "@/capture/frames";
+import { frameAt } from "@/qa_pipeline/clip/frames";
 import type { CaptureRow } from "@/db/outbox";
 import { useAssetUrl } from "@/query/hooks";
 import { assetStage, assetStatus, captureStatus, meta, TONE_COLOR } from "@/status";
@@ -136,7 +136,7 @@ function RemoveButton({ onPress }: { onPress: () => void }) {
  *  simply has nothing to say.
  *
  *  Warnings only. The stored checks also carry measurements recorded for the
- *  reviewer (severity "info" — validation/rules.ts), and every capture has one,
+ *  reviewer (severity "info" — qa_pipeline/rules/rules.ts), and every capture has one,
  *  so flagging them here would put an amber badge on every tile. A row written
  *  before severities were stored has none, and is still read as a warning. */
 function flagged(raw: string | null): string | null {

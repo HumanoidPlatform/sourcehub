@@ -13,7 +13,7 @@ import type { CaptureSpec } from "@/api/types";
 import { FRAMES_BUDGET_MS, MIN_SUBJECT_FRAMES, SUBJECT_DIALOG, SUBJECT_FRAMES_MIN_SHARE } from "@/config";
 import { insertCapture, recordRejections } from "@/db/outbox";
 import { uploader } from "@/upload/uploader";
-import { frameTimes, judgeFrames, stillFindings, uncheckedFinding } from "@/validation/clip";
+import { frameTimes, judgeFrames, stillFindings, uncheckedFinding } from "@/qa_pipeline/clip/clip";
 import {
   exampleFramesFinding,
   type ExampleScore,
@@ -23,10 +23,10 @@ import {
   missedExamples,
   scoreExampleFrames,
   scoreExamples,
-} from "@/validation/examples";
-import { detectFaces, facesFinding, facesUncheckedFinding, scoreFaces } from "@/validation/faces";
-import { blocking, checkCapture, displayedSize, type Finding } from "@/validation/rules";
-import { recogniseText, scoreText, textFinding, textUnreadFinding } from "@/validation/text";
+} from "@/qa_pipeline/examples/examples";
+import { detectFaces, facesFinding, facesUncheckedFinding, scoreFaces } from "@/qa_pipeline/faces/faces";
+import { blocking, checkCapture, displayedSize, type Finding } from "@/qa_pipeline/rules/rules";
+import { recogniseText, scoreText, textFinding, textUnreadFinding } from "@/qa_pipeline/text/text";
 import {
   forbiddenFinding,
   framesFinding,
@@ -38,12 +38,12 @@ import {
   type SubjectScore,
   unscoredFinding,
   type UnscoredReason,
-} from "@/validation/subject";
-import { deviceFinding, thisDevice } from "./device";
-import { deleteLocal, moveIntoPrivateDir } from "./files";
-import { frameAt, sampleFrames } from "./frames";
-import { currentFix, type Fix } from "./location";
-import type { Tilt } from "./tilt";
+} from "@/qa_pipeline/subject/subject";
+import { deviceFinding, thisDevice } from "@/qa_pipeline/device/device";
+import { deleteLocal, moveIntoPrivateDir } from "@/capture/files";
+import { frameAt, sampleFrames } from "@/qa_pipeline/clip/frames";
+import { currentFix, type Fix } from "@/qa_pipeline/location/location";
+import type { Tilt } from "@/qa_pipeline/tilt/tilt";
 
 export interface CameraResult {
   uri: string;
@@ -236,7 +236,7 @@ export function useCapture(
       const subject = spec?.subject;
 
       // The client's own photos, when they sent any AND the phone managed to
-      // read them beforehand (capture/examples.ts, on the assignment screen).
+      // read them beforehand (qa_pipeline/examples/load.ts, on the assignment screen).
       // `usable` is what matters below: examples the task carries but this
       // phone never fetched are worse than none at all, because comparing
       // against an empty set would score every capture zero and refuse

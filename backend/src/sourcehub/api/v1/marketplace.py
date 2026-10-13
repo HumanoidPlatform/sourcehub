@@ -55,7 +55,7 @@ class CaptureSpec(BaseModel):
     # accelerometer. Bounded because beyond 45 the phone is nearer the
     # next quarter turn, and the check folds to that.
     max_tilt_deg: float | None = Field(default=None, ge=0, le=45)
-    # A clip's bounds, checked on the device (mobile validation/rules.ts and
+    # A clip's bounds, checked on the device (mobile qa_pipeline/rules/rules.ts and
     # clip.ts) like everything above. Seconds; the camera stops recording at
     # max, and a gallery pick outside the range is refused before upload.
     min_duration_s: float | None = Field(default=None, ge=0)
@@ -133,6 +133,9 @@ class RequestIn(BaseModel):
     regulations: list[str] = Field(default_factory=list, max_length=20)
     lawful_basis: LawfulBasis | None = None
     permitted_uses: list[PermittedUse] = Field(default_factory=list)
+    # False (the default): exclusive to the client. True: the delivery partner
+    # may also list the delivered captures in the dataset catalogue (db/390),
+    # subject to each worker's resale consent.
     partner_reuse_allowed: bool = False
     biometric_processing: bool = False
 

@@ -1,6 +1,6 @@
 // The text measurement, from canned recogniser output. No native module runs here.
 
-import { scoreText, type TextRead, textFinding, textUnreadFinding } from "@/validation/text";
+import { scoreText, type TextRead, textFinding, textUnreadFinding } from "@/qa_pipeline/text/text";
 
 const read = (text: string, lines: { text: string; height?: number }[]): TextRead => ({
   text,

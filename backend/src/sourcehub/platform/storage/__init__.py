@@ -27,6 +27,7 @@ __all__ = [
     "StorageError",
     "StorageTarget",
     "copy",
+    "copy_between",
     "delete",
     "head",
     "platform_target",
@@ -142,6 +143,24 @@ async def copy(t: StorageTarget, src: str, dst: str) -> None:
     folder once the parent has an identity.
     """
     await _adapter(t.provider).copy(t, src, dst)
+
+
+async def copy_between(
+    src: StorageTarget, src_key: str, dst: StorageTarget, dst_key: str, filename: str
+) -> None:
+    """Copy from one target into another by way of a short-lived signed GET of the source.
+
+    The destination is platform_target(): Azure or Google, by STORAGE_PROVIDER.
+    Azure fetches the URL itself (Put Blob From URL), so the bytes never reach
+    the API; Google has no such call, so its adapter streams them through this
+    process in chunks. The source may be any provider, but it must be
+    reachable from wherever the destination reads: a MinIO on localhost is
+    not, from Azure.
+    """
+    if dst.provider not in ("azure_blob", "gcs"):
+        raise StorageError("Copying between storages needs an Azure or Google destination.")
+    url = await presign_get(src, src_key, filename)
+    await _adapter(dst.provider).copy_from_url(dst, dst_key, url)
 
 
 async def delete(t: StorageTarget, key: str) -> None:

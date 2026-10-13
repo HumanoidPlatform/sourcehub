@@ -79,6 +79,15 @@ class Settings(BaseSettings):
     bidding_sweep_enabled: bool = True
     bidding_sweep_tick_seconds: int = 60
 
+    # --- Catalogue copy sweep -----------------------------------------------
+    # The pass (modules/catalogue/sweep) that copies relisted captures out of
+    # a client's bucket into platform storage. Its own switch: it reads client
+    # storage and writes the platform's, which a laptop pointed at a shared
+    # database should not do on its own.
+    catalogue_copy_enabled: bool = True
+    catalogue_copy_tick_seconds: int = 60
+    catalogue_copy_batch: int = 20
+
     # --- Push dispatcher -----------------------------------------------------
     # The pass (modules/push) that sends a worker's bell rows to their phone
     # through the Expo push service, after the transaction that wrote them has

@@ -7,6 +7,11 @@ links). Follow it top to bottom; it takes 60–90 minutes. Re-run it after the n
 every check is written as **do this → expect exactly this**, so a change in wording is a
 finding rather than a judgement call.*
 
+> **October 2026:** the Azure VM this runbook names (`datamind360.centralindia.cloudapp.azure.com`) is gone.
+> The deployments are now on GCP: prod `https://datamind360.product.cosarathi.ai`, dev
+> `https://datamind360.product-dev.cosarathi.ai`. The preview app talks to dev; the staging app talks to
+> prod. The steps below still apply; read those hosts wherever the VM is named.
+
 ---
 
 ## 1 · Before you start
@@ -374,7 +379,7 @@ cannot be tied to a bundle cannot be chased.
   (requests, responses), `features/qa/pages.tsx` (gate 1),
   `features/delivery/components/assignments.tsx` (the crowd dialogs).
 - **A phone check misbehaves** — the rules are pure and unit-tested:
-  `mobile/src/validation/rules.ts` (length, frame size, orientation, tilt, GPS),
+  `mobile/src/qa_pipeline/rules/rules.ts` (length, frame size, orientation, tilt, GPS),
   `clip.ts` (dark, frozen, frame times), `subject.ts` (labels, share of frames). Run
   `npx jest` before touching the screen.
 - **A clip will not upload** — check its size against the 100 MB cap of the deployed API,

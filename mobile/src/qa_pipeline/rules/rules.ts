@@ -10,7 +10,7 @@
 //   orientation, the tilt tolerance, and a GPS fix where one was required.
 //   The capture is deleted and never queued, so nothing that breaks a stated
 //   condition enters the system at all. (A clip's frames are judged the same
-//   way, one step later, in validation/clip.ts.)
+//   way, one step later, in qa_pipeline/clip/clip.ts.)
 //
 //   WARN on the two signals that describe the FIX rather than the image, and
 //   that the worker cannot do anything about: a position that fell back to the
@@ -66,7 +66,7 @@ export interface Facts {
    *  only `off` is ever compared against the client's tolerance. */
   tilt?: { off: number; roll?: number; pitch?: number } | null;
   /** how the phone was actually held, sampled while the shutter was open or
-   *  the recording ran; null when nothing could be read (see capture/tilt.ts) */
+   *  the recording ran; null when nothing could be read (see qa_pipeline/tilt/tilt.ts) */
   heldOrientation?: "portrait" | "landscape" | null;
 }
 
@@ -239,7 +239,7 @@ export function checkCapture(
   // A recording's own frame is not evidence: with the app locked to portrait
   // the encoder tags every clip portrait however the phone was turned, and
   // reading the first frame refused landscape clips that were shot correctly.
-  // The accelerometer knows (capture/tilt.ts heldOrientation), and the capture
+  // The accelerometer knows (qa_pipeline/tilt/tilt.ts heldOrientation), and the capture
   // screen samples it for the length of the recording.
   //
   // A photo has no such history and does not need one: its EXIF Orientation

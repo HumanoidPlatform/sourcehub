@@ -8,7 +8,7 @@ task offers, so where the two differ, this file describes what the code does tod
 what is each table for, which ones are actually used, how does a job move through them, and what stops a user
 doing something they should not.
 
-Contents: [1 The short answer](#1-the-short-answer) · [2 The map](#2-the-map--eight-groups) ·
+Contents: [1 The short answer](#1-the-short-answer) · [2 The map](#2-the-map--nine-groups) ·
 [3 One job, start to finish](#3-one-job-start-to-finish) · [4 Status values and who may change them](#4-status-values-and-who-may-change-them) ·
 [5 How the flow is controlled](#5-how-the-flow-is-controlled--four-layers) · [6 The storage layer](#6-the-storage-layer) ·
 [7 Known gaps](#7-known-gaps) · [8 Tables that were removed](#8-tables-that-were-removed)
@@ -52,7 +52,7 @@ SELECT relname AS table, n_live_tup AS rows FROM pg_stat_user_tables ORDER BY n_
 
 ---
 
-## 2. The map — eight groups
+## 2. The map — nine groups
 
 ### A. Who — organisations, people and access · [`010_identity.sql`](../db/010_identity.sql), [`020_rbac.sql`](../db/020_rbac.sql), [`030_onboarding.sql`](../db/030_onboarding.sql)
 
@@ -135,6 +135,25 @@ this replaced are described in [section 8](#8-tables-that-were-removed).
 |---|---|
 | `audit_event` | One line of the audit log. Each row stores a hash that covers the previous row's hash, so editing or deleting any row breaks every hash after it. Partitioned by time, append-only. |
 | `notification` | One bell notification, for a whole organisation or one person, with a deep link. |
+
+### I. Dataset catalogue · [`390_catalogue.sql`](../db/390_catalogue.sql)
+
+Beside the RFP marketplace, where a client orders data that does not exist yet, the catalogue sells data
+that does. Every table carries the `datahub_` prefix except `user_consent`, which records any notice a
+person accepts and is only first read by the catalogue. Nothing reaches a buyer or the public until Ops
+publishes it, and the platform moves no money. Whether a delivered request's captures may be relisted is
+the client's choice on the request (`partner_reuse_allowed` in `request.consent_and_compliance`, false
+unless the client picks non-exclusive).
+
+| Table | One row is |
+|---|---|
+| `datahub_dataset` | A listing, owned by the organisation selling it: uploaded by its owner, or relisted from a delivered contract whose request was not exclusive. `draft` → `in_review` → `published` (Ops only) → `withdrawn`, or `rejected`. |
+| `datahub_dataset_version` | What a buyer is entitled to: `open` while the owner fills it, `final` and immutable once published. |
+| `datahub_dataset_item` | One file, in the platform's own storage. A relisted item is a copy out of the client's bucket, made by the catalogue copy clock ([catalogue/sweep.py](../backend/src/sourcehub/modules/catalogue/sweep.py); `copy_status` `pending` → `copied` or `failed`) and only for captures whose worker had accepted the resale notice before capturing. |
+| `datahub_dataset_deal` | A buyer asks, the seller quotes, the buyer accepts: `requested` `quoted` `accepted` `declined` `withdrawn`. The seller is copied from the listing by trigger; a buyer may not name one. |
+| `datahub_dataset_licence` | What accepting a deal issues, every term copied from the deal by trigger: `awaiting_payment` until the seller marks its invoice paid, then `active` (files open); `revoked`. The API login may never change the amount, the parties or the permitted uses. |
+| `datahub_lead` | A quote request from someone without an account, from the public catalogue page: `new` `contacted` `closed`. The only way in is `datahub_lead_create()`; the API login cannot insert. |
+| `user_consent` | The server's copy of a notice a person accepted (the phone's privacy notice, [mobile/src/consent.ts](../mobile/src/consent.ts)). Relisting checks it per capture, by time. |
 
 There are no views. The four the blueprint added ran with their owner's rights, which put them outside
 row-level security, and no code read them; [`290_dormant_objects.sql`](../db/290_dormant_objects.sql) dropped
@@ -460,7 +479,7 @@ The downgrade carries the same guard for the partner invoices raised since.
 satellites of `organisation`. Nothing filtered or sorted on their columns, every widening of organisation
 visibility needed a matching policy on each of them (fourteen in all, already drifting), and the API
 flattened them into one `profile` object anyway. Their values live on the organisation row now: see
-`organisation.profile` and the four typed columns in [section 2](#2-the-map--eight-groups).
+`organisation.profile` and the four typed columns in [section 2](#2-the-map--nine-groups).
 
 **[`290_dormant_objects.sql`](../db/290_dormant_objects.sql) — thirteen tables dropped.** Created from the
 blueprint and never reached by code; every one was empty on every database (`retention_policy` held one

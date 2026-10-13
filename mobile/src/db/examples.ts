@@ -2,10 +2,10 @@
 // downloaded and labelled once per task rather than once per capture.
 //
 // The images themselves are never kept — see SCHEMA_V5. Rows are written by
-// capture/examples.ts and read at the shutter.
+// qa_pipeline/examples/load.ts and read at the shutter.
 
-import type { ExampleLabels } from "@/validation/examples";
-import type { Label } from "@/validation/subject";
+import type { ExampleLabels } from "@/qa_pipeline/examples/examples";
+import type { Label } from "@/qa_pipeline/subject/subject";
 import { getDb } from "./index";
 
 interface Row {

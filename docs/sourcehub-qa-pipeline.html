@@ -252,7 +252,7 @@ figcaption b{color:var(--ink-2);font-weight:600}
           <text x="282" y="86" font-weight="600">Shown, then scored</text>
           <text x="282" y="106" font-size="12">"What to capture" card;</text>
           <text x="282" y="122" font-size="12">ML Kit labels each photo</text>
-          <text x="282" y="140" font-family="IBM Plex Mono, monospace" font-size="10.5">validation/subject.ts</text>
+          <text x="282" y="140" font-family="IBM Plex Mono, monospace" font-size="10.5">qa_pipeline/subject/subject.ts</text>
           <!-- stage 3 -->
           <rect x="520" y="40" width="200" height="110" rx="5" fill="none" stroke="currentColor" stroke-width="1.2"/>
           <text x="532" y="62" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="1.2" fill="#0a6c60">3 · UPLOAD</text>
@@ -293,7 +293,7 @@ figcaption b{color:var(--ink-2);font-weight:600}
     left the site. The requirement here was <em>basic</em>, <em>on the mobile</em>, and about the
     <em>domain</em> of the image. Three facts in the codebase made the on-phone route cheap:</p>
     <ul>
-      <li>The phone already had a check socket: <code>checkCapture()</code> in <code>mobile/src/validation/rules.ts</code>
+      <li>The phone already had a check socket: <code>checkCapture()</code> in <code>mobile/src/qa_pipeline/rules/rules.ts</code>
       produces findings that travel with the presign and land in <code>asset.check_results.device[]</code>. Nothing read
       them; now something does.</li>
       <li><code>task.capture_spec</code> is open JSON, inherited from the client's request and already sent to every
@@ -362,8 +362,8 @@ figcaption b{color:var(--ink-2);font-weight:600}
 <div class="part" id="phone">
   <div class="part-no">Part 3</div>
   <h2>On the phone</h2>
-  <p class="intro">Everything below is in <code>mobile/src/validation/subject.ts</code> (pure, unit-tested) and
-  <code>mobile/src/capture/useCapture.ts</code> (the wiring). A clip goes through the same check over its
+  <p class="intro">Everything below is in <code>mobile/src/qa_pipeline/subject/subject.ts</code> (pure, unit-tested) and
+  <code>mobile/src/qa_pipeline/pipeline.ts</code> (the wiring). A clip goes through the same check over its
   sampled frames, plus two checks of its own; see <a href="#clips">Clips</a> at the end of this part.</p>
 
   <section id="shutter">
@@ -418,7 +418,7 @@ seen  = the five most confident labels, for the reviewer</pre></div>
   <section id="dialog">
     <h3>Keep or retake</h3>
     <p>Below the cut, <code>useCapture</code> returns an outcome instead of queueing:</p>
-    <div class="code"><div class="name">mobile/src/capture/useCapture.ts</div>
+    <div class="code"><div class="name">mobile/src/qa_pipeline/pipeline.ts</div>
 <pre>type CaptureOutcome =
   | { kept: true;  findings: Finding[] }
   | { kept: false; finding: Finding; keep(): Promise&lt;Finding[]&gt;; retake(): Promise&lt;void&gt; };</pre></div>
@@ -459,7 +459,7 @@ seen  = the five most confident labels, for the reviewer</pre></div>
     outbox — and by the same rule: a stated condition blocks, a judgement warns. The server records what the phone
     found and acts on none of it. Nothing runs server-side; there is no ffmpeg, no worker, no new status.</p>
     <p><strong>The facts.</strong> A recording comes back from the camera as a file with no length and no frame
-    size. The capture screen times the recording; <code>capture/frames.ts</code> pulls the first frame with
+    size. The capture screen times the recording; <code>qa_pipeline/clip/frames.ts</code> pulls the first frame with
     <code>expo-video-thumbnails</code>, which applies the container's rotation, so a portrait clip reads taller
     than wide. A clip picked from the gallery (allowed only where the task says <code>allow_library</code>) brings
     its own length and size from the picker. <code>rules.ts</code> then refuses, before a byte is uploaded, a
@@ -795,12 +795,12 @@ seen  = the five most confident labels, for the reviewer</pre></div>
         <tr><td></td><td class="mono">features/qa/pages.tsx</td><td><em>Phone check</em> column</td></tr>
         <tr><td></td><td class="mono">features/delivery/components/AssetGallery.tsx</td><td><code>subject?</code> badge; phone check in the preview</td></tr>
         <tr><td></td><td class="mono">api/types.ts</td><td><code>SubjectSpec</code>, <code>DeviceCheck</code>, <code>off_subject</code>, <code>device_checks</code></td></tr>
-        <tr><td>Phone</td><td class="mono">src/validation/subject.ts</td><td>new: <code>words</code>, <code>scoreSubject</code>, <code>subjectFinding</code>, <code>labelImage</code>; later <code>scoreFrames</code>, <code>framesFinding</code></td></tr>
-        <tr><td></td><td class="mono">src/validation/clip.ts · src/capture/frames.ts</td><td>clips: <code>frameTimes</code>, <code>judgeFrames</code>, <code>stillFindings</code>; the frame walk over the native modules</td></tr>
-        <tr><td></td><td class="mono">src/capture/useCapture.ts</td><td><code>CaptureOutcome</code>; keep/retake; EXIF orientation passed through</td></tr>
+        <tr><td>Phone</td><td class="mono">src/qa_pipeline/subject/subject.ts</td><td>new: <code>words</code>, <code>scoreSubject</code>, <code>subjectFinding</code>, <code>labelImage</code>; later <code>scoreFrames</code>, <code>framesFinding</code></td></tr>
+        <tr><td></td><td class="mono">src/qa_pipeline/clip/clip.ts · src/qa_pipeline/clip/frames.ts</td><td>clips: <code>frameTimes</code>, <code>judgeFrames</code>, <code>stillFindings</code>; the frame walk over the native modules</td></tr>
+        <tr><td></td><td class="mono">src/qa_pipeline/pipeline.ts</td><td><code>CaptureOutcome</code>; keep/retake; EXIF orientation passed through</td></tr>
         <tr><td></td><td class="mono">src/app/(app)/assignments/[id]/capture.tsx</td><td>the dialog; forwards <code>exif.Orientation</code></td></tr>
         <tr><td></td><td class="mono">src/app/(app)/assignments/[id]/index.tsx</td><td><em>What to capture</em> card</td></tr>
-        <tr><td></td><td class="mono">src/validation/rules.ts</td><td><code>Finding.score/detail</code>; <code>displayedSize</code></td></tr>
+        <tr><td></td><td class="mono">src/qa_pipeline/rules/rules.ts</td><td><code>Finding.score/detail</code>; <code>displayedSize</code></td></tr>
         <tr><td></td><td class="mono">src/config.ts · src/status.ts · src/api/types.ts</td><td>constants; refusal label; types</td></tr>
         <tr><td></td><td class="mono">package.json · app.json · eas.json · .env.example · README.md</td><td>ML Kit + dev client; EAS project; build profiles; stub; docs</td></tr>
       </tbody>

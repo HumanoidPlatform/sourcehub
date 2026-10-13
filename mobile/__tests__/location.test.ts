@@ -10,7 +10,7 @@ jest.mock("expo-location", () => ({
   getLastKnownPositionAsync: (...a: unknown[]) => mockLast(...a),
 }));
 
-import { currentFix, type Fix } from "../src/capture/location";
+import { currentFix, type Fix } from "@/qa_pipeline/location/location";
 
 const loc = (ageMs: number) => ({ coords: { latitude: 12.9, longitude: 77.6, accuracy: 20 }, timestamp: Date.now() - ageMs });
 const never = () => new Promise(() => {});

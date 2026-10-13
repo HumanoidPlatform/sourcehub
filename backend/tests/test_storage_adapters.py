@@ -205,3 +205,28 @@ async def test_a_missing_bucket_is_not_a_missing_file(target):
     gone = dataclasses.replace(target, bucket=f"sourcehub-no-such-{uuid.uuid4().hex[:12]}")
     with pytest.raises(StorageError):
         await storage.head(gone, "whatever.pdf")
+
+
+async def test_copy_between_a_client_bucket_and_the_platform(folder):
+    """What relisting a capture into the catalogue is built out of: a signed GET
+    of the client's object, written into the platform's own storage. Needs both
+    the gcs and the gcs-client credentials; skips otherwise."""
+    src_t, dst_t = _gcs_client(), _gcs_platform()
+    if src_t is None or dst_t is None:
+        pytest.skip("needs both the gcs and the gcs-client storage credentials")
+    src = src_t.key(f"{folder}/{FILENAME}")
+    dst = dst_t.key(f"{folder}/catalogue/{FILENAME}")
+    await _put(src_t, src, content_type="image/jpeg")
+    try:
+        await storage.copy_between(src_t, src, dst_t, dst, FILENAME)
+        got = await storage.head(dst_t, dst)
+        assert got.size == len(BODY)
+        assert got.content_type == "image/jpeg"
+
+        # a source that has gone is the sweep's "give up on this one" signal
+        await storage.delete(src_t, src)
+        with pytest.raises(LookupError):
+            await storage.copy_between(src_t, src, dst_t, dst, FILENAME)
+    finally:
+        await storage.delete(src_t, src)
+        await storage.delete(dst_t, dst)

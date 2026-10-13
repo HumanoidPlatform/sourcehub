@@ -144,6 +144,30 @@ export async function api<T = unknown>(
   return data as T;
 }
 
+// A non-JSON GET (a CSV manifest, say), with the same auth and refresh. Kept
+// here so this stays the only module that calls fetch.
+export async function getText(path: string, retried = false): Promise<string> {
+  const session = loadSession();
+  const r = await fetch(BASE + path, {
+    headers: session ? { Authorization: `Bearer ${session.access_token}` } : {},
+  });
+  if (r.status === 401 && !retried) {
+    const renewed = await tryRefresh();
+    if (renewed) return getText(path, true);
+  }
+  if (!r.ok) {
+    let detail = `Request failed (${r.status})`;
+    try {
+      const data = (await r.json()) as { detail?: unknown };
+      if (typeof data?.detail === "string") detail = data.detail;
+    } catch {
+      /* not JSON */
+    }
+    throw new ApiError(r.status, detail);
+  }
+  return r.text();
+}
+
 export const get = <T = unknown>(path: string) => api<T>("GET", path);
 export const post = <T = unknown>(path: string, body?: unknown) => api<T>("POST", path, body);
 export const patch = <T = unknown>(path: string, body?: unknown) => api<T>("PATCH", path, body);

@@ -21,7 +21,7 @@
 
 import * as Device from "expo-device";
 import { Platform } from "react-native";
-import type { Finding } from "@/validation/rules";
+import type { Finding } from "@/qa_pipeline/rules/rules";
 
 export interface DeviceFacts {
   model?: string | null;

@@ -15,6 +15,7 @@ from types import SimpleNamespace
 from typing import Any
 from urllib.parse import parse_qs, unquote, urlparse
 
+import httpx
 import pytest
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
@@ -191,11 +192,35 @@ async def test_keyless_without_credentials_says_what_is_missing(monkeypatch):
 # ---------------------------------------------------------------------------
 # What each failure from Google becomes
 # ---------------------------------------------------------------------------
+class _Writer:
+    """What blob.open("wb") hands back: a resumable upload behind a file."""
+
+    def __init__(self, blob: _Blob) -> None:
+        self.blob = blob
+
+    def __enter__(self) -> _Writer:
+        return self
+
+    def __exit__(self, *_: Any) -> None:
+        return None
+
+    def write(self, data: bytes) -> int:
+        self.blob.written += data
+        return len(data)
+
+
 class _Blob:
     def __init__(self, fail: Exception | None = None, size: int = 7) -> None:
         self.fail, self.size = fail, size
         self.content_type, self.etag = "application/pdf", '"abc123"'
         self.calls: list[tuple[str, dict[str, Any]]] = []
+        self.written = bytearray()
+
+    def open(self, mode: str, **kw: Any) -> _Writer:
+        self.calls.append(("open", {"mode": mode, **kw}))
+        if self.fail:
+            raise self.fail
+        return _Writer(self)
 
     def reload(self, **kw: Any) -> None:
         self.calls.append(("reload", kw))
@@ -312,3 +337,124 @@ async def test_verify_says_which_role_is_missing(monkeypatch, key_info):
     _fake(monkeypatch, _Bucket(_NoWrite()))
     with pytest.raises(StorageError, match="Storage Object Admin"):
         await storage.verify(_target(key_info))
+
+
+# ---------------------------------------------------------------------------
+# Copy from a signed URL: what relisting a capture into the catalogue is made of
+# ---------------------------------------------------------------------------
+class _Stream:
+    """A streamed GET of the source, as httpx.stream() yields it."""
+
+    def __init__(
+        self,
+        status: int = 200,
+        chunks: tuple[bytes, ...] = (b"sourcehub ", b"capture"),
+        content_type: str | None = "image/jpeg",
+    ) -> None:
+        self.status_code, self.chunks = status, chunks
+        self.headers = {"content-type": content_type} if content_type else {}
+
+    def __enter__(self) -> _Stream:
+        return self
+
+    def __exit__(self, *_: Any) -> None:
+        return None
+
+    def iter_bytes(self) -> Any:
+        yield from self.chunks
+
+
+def _source(monkeypatch: pytest.MonkeyPatch, stream: Any) -> dict[str, Any]:
+    seen: dict[str, Any] = {}
+
+    def fake(method: str, url: str, **kw: Any) -> Any:
+        seen.update(method=method, url=url, **kw)
+        if isinstance(stream, Exception):
+            raise stream
+        return stream
+
+    monkeypatch.setattr(gcs_store.httpx, "stream", fake)
+    return seen
+
+
+async def test_copy_from_url_streams_the_source_into_the_bucket(monkeypatch, key_info):
+    blob = _Blob()
+    _fake(monkeypatch, _Bucket(blob))
+    seen = _source(monkeypatch, _Stream())
+    await gcs_store.copy_from_url(
+        _target(key_info), "catalogue/d/1.jpg", "https://src.example/s?sig=1"
+    )
+    assert (seen["method"], seen["url"]) == ("GET", "https://src.example/s?sig=1")
+    assert bytes(blob.written) == b"sourcehub capture"
+    ((_, kw),) = [c for c in blob.calls if c[0] == "open"]
+    assert kw["mode"] == "wb" and kw["content_type"] == "image/jpeg"
+    # a copy may take minutes, and the SDK's own retries and waits stay off
+    assert kw["retry"] is None and kw["timeout"][1] >= 600
+
+
+async def test_a_source_with_no_type_is_stored_as_bytes(monkeypatch, key_info):
+    blob = _Blob()
+    _fake(monkeypatch, _Bucket(blob))
+    _source(monkeypatch, _Stream(content_type=None))
+    await gcs_store.copy_from_url(_target(key_info), "k", "https://src.example/s")
+    assert blob.calls[0][1]["content_type"] == "application/octet-stream"
+
+
+async def test_a_source_that_is_gone_is_lookuperror(monkeypatch, key_info):
+    blob = _Blob()
+    _fake(monkeypatch, _Bucket(blob))
+    _source(monkeypatch, _Stream(status=404))
+    with pytest.raises(LookupError):
+        await gcs_store.copy_from_url(_target(key_info), "k", "https://src.example/s")
+    assert blob.calls == []  # nothing opened, so nothing half-written
+
+
+async def test_a_source_that_refuses_names_the_status_not_the_url(monkeypatch, key_info):
+    _fake(monkeypatch, _Bucket(_Blob()))
+    _source(monkeypatch, _Stream(status=403))
+    with pytest.raises(StorageError) as e:
+        await gcs_store.copy_from_url(_target(key_info), "k", "https://src.example/s?sig=secret")
+    assert "403" in str(e.value) and "secret" not in str(e.value)
+
+
+async def test_an_unreachable_source_is_a_storageerror(monkeypatch, key_info):
+    _fake(monkeypatch, _Bucket(_Blob()))
+    _source(monkeypatch, httpx.ConnectError("boom"))
+    with pytest.raises(StorageError) as e:
+        await gcs_store.copy_from_url(_target(key_info), "k", "https://src.example/s")
+    assert "ConnectError" in str(e.value)
+
+
+async def test_a_destination_the_account_cannot_write_is_named(monkeypatch, key_info):
+    _fake(monkeypatch, _Bucket(_Blob(Forbidden("denied"))))
+    _source(monkeypatch, _Stream())
+    t = _target(key_info)
+    with pytest.raises(StorageError) as e:
+        await gcs_store.copy_from_url(t, "k", "https://src.example/s")
+    assert t.bucket in str(e.value)
+
+
+async def test_copy_between_hands_a_gcs_destination_the_signed_source(monkeypatch, key_info):
+    calls: list[tuple[Any, ...]] = []
+
+    async def presign(t: StorageTarget, key: str, filename: str, inline: bool = False) -> str:
+        calls.append(("presign", t.bucket, key, filename))
+        return "https://signed.example/get"
+
+    async def copy_from_url(t: StorageTarget, dst: str, url: str) -> None:
+        calls.append(("copy", t.bucket, dst, url))
+
+    monkeypatch.setattr(storage, "presign_get", presign)
+    monkeypatch.setattr(gcs_store, "copy_from_url", copy_from_url)
+    src, dst = _target(key_info, bucket="client-bucket"), _target(None)
+    await storage.copy_between(src, "a/b.jpg", dst, "catalogue/x/b.jpg", "b.jpg")
+    assert calls == [
+        ("presign", "client-bucket", "a/b.jpg", "b.jpg"),
+        ("copy", "dm360-dev-files", "catalogue/x/b.jpg", "https://signed.example/get"),
+    ]
+
+
+async def test_copy_between_refuses_a_destination_that_cannot_fetch(key_info):
+    s3 = StorageTarget(provider="s3", bucket="b", secret={})
+    with pytest.raises(StorageError):
+        await storage.copy_between(_target(key_info), "k", s3, "k", "f")

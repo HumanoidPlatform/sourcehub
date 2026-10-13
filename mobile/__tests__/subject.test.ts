@@ -2,7 +2,7 @@
 
 import type { SubjectSpec } from "@/api/types";
 import { SUBJECT_OFF } from "@/config";
-import { forbiddenFinding, framesFinding, scoreFrames, scoreSubject, subjectFinding, subjectMeasured, unscoredFinding, words } from "@/validation/subject";
+import { forbiddenFinding, framesFinding, scoreFrames, scoreSubject, subjectFinding, subjectMeasured, unscoredFinding, words } from "@/qa_pipeline/subject/subject";
 
 const shelf: SubjectSpec = {
   domain: "retail shelf",
@@ -261,7 +261,7 @@ describe("labelImage", () => {
   // labelImage requires the native package lazily, at call time, from the
   // live module registry — so each case empties that registry and installs
   // its own stand-in before loading subject.ts.
-  const load = (): typeof import("@/validation/subject") => require("@/validation/subject");
+  const load = (): typeof import("@/qa_pipeline/subject/subject") => require("@/qa_pipeline/subject/subject");
 
   beforeEach(() => jest.resetModules());
   afterEach(() => {

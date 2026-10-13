@@ -139,6 +139,20 @@ GROUPS: list[tuple[str, str, str, list[str]]] = [
         [
             "audit_event",
             "notification",
+            "user_consent",
+        ],
+    ),
+    (
+        "catalogue",
+        "I · Dataset catalogue",
+        "#F3DDEB",
+        [
+            "datahub_dataset",
+            "datahub_dataset_version",
+            "datahub_dataset_item",
+            "datahub_dataset_deal",
+            "datahub_dataset_licence",
+            "datahub_lead",
         ],
     ),
 ]
@@ -151,6 +165,8 @@ SOFT_LINKS: list[tuple[str, str, str, str, str]] = [
     ("attachment", "entity_id", "proposal", "id", "entity_type = 'proposal'"),
     ("attachment", "entity_id", "task", "id", "entity_type = 'task'"),
     ("attachment", "entity_id", "qa_review", "id", "entity_type = 'qa_review'"),
+    # asset is partitioned; its key includes created_at
+    ("datahub_dataset_item", "source_asset_id", "asset", "id", "relisted capture"),
 ]
 
 # Nearly every table carries these; their edges to app_user would bury every

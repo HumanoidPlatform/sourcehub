@@ -25,11 +25,11 @@
 // rule can be moved once the reviewers' verdicts say which one to trust.
 //
 // Everything here is pure and unit-tested. The downloading and labelling of
-// the examples themselves is capture/examples.ts.
+// the examples themselves is qa_pipeline/examples/load.ts.
 
 import { EXAMPLE_OFF } from "@/config";
-import type { Finding } from "./rules";
-import type { Label, UnscoredReason } from "./subject";
+import type { Finding } from "@/qa_pipeline/rules/rules";
+import type { Label, UnscoredReason } from "@/qa_pipeline/subject/subject";
 
 /** One of the client's photos, as the labeller saw it. Stored on the device
  *  so it is labelled once per task rather than once per capture. */

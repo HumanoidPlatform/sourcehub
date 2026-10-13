@@ -1,4 +1,4 @@
-// Frames out of a clip, for validation/clip.ts and validation/subject.ts to
+// Frames out of a clip, for qa_pipeline/clip/clip.ts and qa_pipeline/subject/subject.ts to
 // judge. The one file that touches the three native pieces this needs:
 // expo-video-thumbnails pulls a frame at a timestamp, expo-image-manipulator
 // shrinks it to a 16×16 patch, jpeg-js (pure JS) turns that patch into pixels
@@ -14,8 +14,8 @@
 import { ImageManipulator, SaveFormat } from "expo-image-manipulator";
 import * as VideoThumbnails from "expo-video-thumbnails";
 import { decode } from "jpeg-js";
-import { greyOf } from "@/validation/clip";
-import { deleteLocal } from "./files";
+import { greyOf } from "@/qa_pipeline/clip/clip";
+import { deleteLocal } from "@/capture/files";
 
 export interface Frame {
   /** seconds from the start */

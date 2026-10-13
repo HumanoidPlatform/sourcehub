@@ -38,6 +38,7 @@ import uuid
 from typing import Any
 
 import google.auth
+import httpx
 from google.api_core.exceptions import Forbidden, GoogleAPIError, NotFound, Unauthorized
 from google.auth.exceptions import DefaultCredentialsError, GoogleAuthError, RefreshError
 from google.auth.transport.requests import Request as AuthRequest
@@ -238,6 +239,58 @@ def _copy_sync(t: StorageTarget, src: str, dst: str) -> None:
 async def copy(t: StorageTarget, src: str, dst: str) -> None:
     _check_bucket(t)
     await asyncio.to_thread(_copy_sync, t, src, dst)
+
+
+# A cross-bucket copy reads the whole source in one request and writes it in
+# resumable chunks, so its read timeout is the copy's own, as Azure's is.
+_COPY_TIMEOUT = (5, 600)
+_COPY_CHUNK = 8 * 1024 * 1024  # resumable uploads want a multiple of 256 KiB
+
+
+def _copy_from_url_sync(t: StorageTarget, dst: str, source_url: str) -> None:
+    """Copy into this bucket from a signed GET elsewhere: the cross-account
+    counterpart of _copy_sync, for a capture in a client's own bucket.
+
+    Google has no call that fetches a foreign URL into a bucket (Storage
+    Transfer is a batch service), so the bytes stream through this process
+    once: read in chunks, written as a resumable upload of the same chunks.
+    Nothing is held beyond one chunk and nothing touches disk. The signed URL
+    is a credential, so no message carries it.
+    """
+    client, _ = _client(t)
+    blob = client.bucket(t.bucket).blob(dst)
+    timeout = httpx.Timeout(_COPY_TIMEOUT[1], connect=_COPY_TIMEOUT[0])
+    try:
+        with httpx.stream("GET", source_url, timeout=timeout) as r:
+            if r.status_code == 404:
+                raise LookupError(dst)
+            if r.status_code >= 400:
+                raise StorageError(f"The source refused the copy: HTTP {r.status_code}.")
+            with blob.open(
+                "wb",
+                chunk_size=_COPY_CHUNK,
+                ignore_flush=True,
+                content_type=r.headers.get("content-type") or "application/octet-stream",
+                timeout=_COPY_TIMEOUT,
+                retry=None,
+            ) as out:
+                for chunk in r.iter_bytes():
+                    out.write(chunk)
+    except (LookupError, StorageError):
+        raise
+    except httpx.HTTPError as e:
+        raise StorageError(f"Could not read the source: {type(e).__name__}") from None
+    except NotFound as e:
+        if _bucket_missing(e):
+            raise StorageError(f"The bucket {t.bucket!r} does not exist.") from None
+        raise _wrap(e, t) from None
+    except Exception as e:
+        raise _wrap(e, t) from None
+
+
+async def copy_from_url(t: StorageTarget, dst: str, source_url: str) -> None:
+    _check_bucket(t)
+    await asyncio.to_thread(_copy_from_url_sync, t, dst, source_url)
 
 
 def _delete_sync(t: StorageTarget, key: str) -> None:

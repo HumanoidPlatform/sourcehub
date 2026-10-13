@@ -39,16 +39,16 @@ function rail(role: string, kind: string) {
 }
 
 describe("the Vendors link", () => {
-  it("sits in the client's rail, between Deliverables for Review and Billing", () => {
+  it("sits in the client's rail, between Deliverables for Review and the dataset catalogue", () => {
     const links = rail("client", "client");
     const labels = links.map(([label]) => label);
     expect(labels).toEqual([
-      "Overview", "RFPs", "Deliverables for Review", "Vendors", "Billing",
+      "Overview", "RFPs", "Deliverables for Review", "Vendors", "Datasets", "Billing",
     ]);
     const at = labels.indexOf("Vendors");
     expect(links[at]).toEqual(["Vendors", "/vendors"]);
     expect(labels[at - 1]).toBe("Deliverables for Review");
-    expect(labels[at + 1]).toBe("Billing");
+    expect(links[at + 1]).toEqual(["Datasets", "/catalogue"]);
   });
 
   it.each([

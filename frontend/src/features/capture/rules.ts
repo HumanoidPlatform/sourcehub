@@ -1,4 +1,4 @@
-// A COPY of mobile/src/validation/rules.ts, differing only in the two import
+// A COPY of mobile/src/qa_pipeline/rules/rules.ts, differing only in the two import
 // lines below. Not a shared package: the phone is Metro/Expo Go, and a
 // workspace dependency would cost more than it saves. The same test file runs
 // in both places. Change one and change the other — this is the pattern the

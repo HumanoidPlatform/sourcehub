@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import datetime as dt
 import html
+import logging
 import uuid
 from decimal import Decimal
 from typing import Any
@@ -28,6 +29,7 @@ from sourcehub.api.security import AccessClaims, hash_token, new_opaque_token
 from sourcehub.config import CAPTURE_APP, PRODUCT, settings
 from sourcehub.db.session import anonymous_session, org_session
 from sourcehub.modules.audit import service as audit
+from sourcehub.modules.catalogue import service as catalogue
 from sourcehub.modules.delivery.models import (
     Contract,
     Submission,
@@ -40,6 +42,8 @@ from sourcehub.modules.invoices import service as invoices
 from sourcehub.modules.marketplace import pricing
 from sourcehub.modules.media import service as media
 from sourcehub.modules.notify import service as notifier
+
+log = logging.getLogger(__name__)
 
 
 class DeliveryError(Exception):
@@ -1385,6 +1389,19 @@ async def deliver_contract(
         f"{c.reference_code} has been delivered and is ready for your approval.",
         "deliveries", {"id": str(c.id)},
     )
+    # A request that was not exclusive lets the partner sell the captures in
+    # the dataset catalogue too: open (or top up) its draft listing. Copies
+    # are made later by the catalogue sweep; nothing is published from here.
+    # A resale side-effect must never fail a contractual delivery: it runs in
+    # a savepoint, and a refusal is logged and left for the partner to list
+    # by hand.
+    try:
+        async with session.begin_nested():
+            await catalogue.relist_on_delivery(session, claims, c.id)
+    except Exception:
+        log.exception(
+            "Relisting %s for the catalogue failed; the delivery stands", c.reference_code
+        )
     await audit.log(
         session, "contract.delivered",
         f"Delivered {c.reference_code} to the client",

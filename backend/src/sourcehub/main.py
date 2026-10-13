@@ -64,6 +64,7 @@ async def _lifespan(app: FastAPI) -> AsyncIterator[None]:
     engagement clock (modules/engage) starts as a task in this process.
     Every uvicorn worker starts one; the advisory lock inside the pass lets
     only one of them do the work on any tick."""
+    from sourcehub.modules.catalogue import sweep as catalogue_copy
     from sourcehub.modules.engage import service as engage
     from sourcehub.modules.marketplace import sweep
     from sourcehub.modules.push import service as push
@@ -74,6 +75,8 @@ async def _lifespan(app: FastAPI) -> AsyncIterator[None]:
         asyncio.create_task(engage.run_forever()) if settings.engagement_enabled else None,
         asyncio.create_task(sweep.run_forever()) if settings.bidding_sweep_enabled else None,
         asyncio.create_task(push.run_forever()) if settings.push_enabled else None,
+        asyncio.create_task(catalogue_copy.run_forever())
+        if settings.catalogue_copy_enabled else None,
     ]
     try:
         yield
@@ -120,8 +123,9 @@ def create_app() -> FastAPI:
     app.add_exception_handler(StorageError, _storage_unavailable)
 
     from sourcehub.api.v1 import (
-        attachments, audit, auth, delivery, identity, invoices, marketplace, media, members,
-        network, notify, offers, onboarding, overview, push, qa, storage, threads, vendors,
+        attachments, audit, auth, catalogue, catalogue_public, delivery, identity, invoices,
+        marketplace, media, members, network, notify, offers, onboarding, overview, push, qa,
+        storage, threads, vendors,
     )
 
     app.include_router(auth.router, prefix="/api/v1/auth", tags=["auth"])
@@ -143,6 +147,10 @@ def create_app() -> FastAPI:
     app.include_router(push.router, prefix="/api/v1", tags=["push"])
     app.include_router(threads.router, prefix="/api/v1", tags=["threads"])
     app.include_router(vendors.router, prefix="/api/v1", tags=["vendors"])
+    app.include_router(catalogue.router, prefix="/api/v1", tags=["catalogue"])
+    app.include_router(
+        catalogue_public.router, prefix="/api/v1/public/catalogue", tags=["catalogue"]
+    )
 
     # Liveness: the process answers. Nothing else is touched, so a database
     # outage does not get a healthy process restarted.

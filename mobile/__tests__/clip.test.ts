@@ -2,7 +2,7 @@
 // No native module runs here.
 
 import { BLACK_MEAN, FRAME_EVERY_S, FROZEN_DIFF, MAX_FRAMES, MIN_FRAMES } from "@/config";
-import { frameTimes, greyOf, judgeFrames, stillFindings, uncheckedFinding } from "@/validation/clip";
+import { frameTimes, greyOf, judgeFrames, stillFindings, uncheckedFinding } from "@/qa_pipeline/clip/clip";
 
 /** a 16×16 patch of one grey, with an optional per-pixel wobble */
 function patch(grey: number, wobble = 0): Uint8Array {
