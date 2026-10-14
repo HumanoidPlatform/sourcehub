@@ -1,4 +1,4 @@
-"""Storage — one façade over two providers.
+"""Storage — one façade over the object stores SourceHub can sign for.
 
 Callers never choose an adapter. They hand in a StorageTarget and this module
 dispatches on its provider, so modules/ stays free of any knowledge about
@@ -9,9 +9,9 @@ SDK surfaces as a clear message on the one destination that needs it rather
 than an import error at boot.
 
 Two storages meet here and they are not the same thing. platform_target() is
-SourceHub's own container: Azure, fixed, not configurable. Everything else
-comes from a storage_target row — the client's own storage, S3/MinIO or Azure
-as they chose when raising the RFP.
+SourceHub's own bucket/container, configured from backend/.env. Everything
+else comes from a storage_target row — the client's own storage, S3/MinIO or
+Azure as they chose when raising the RFP.
 """
 
 from __future__ import annotations
@@ -35,11 +35,11 @@ __all__ = [
     "verify",
 ]
 
-# Two providers, both reachable only through a client's own delivery
-# destination. 'gcs' is gone: the enum still carries the label because Postgres
-# cannot drop one, but there is no adapter and a CHECK refuses the value.
+# S3 and Azure are client delivery destinations. GCS is available for the
+# platform bucket, and also lets older gcs storage_target rows remain readable.
 _PACKAGES = {
     "s3": ("s3_store", "minio"),
+    "gcs": ("gcs_store", "google-cloud-storage"),
     "azure_blob": ("azure_store", "azure-storage-blob"),
 }
 
@@ -58,18 +58,28 @@ def _adapter(provider: str) -> ModuleType:
 
 
 def platform_target() -> StorageTarget:
-    """SourceHub's own storage, as a target. Always Azure Blob.
+    """SourceHub's own storage, as a target.
 
     The platform's files — request attachments, capture examples, method
-    statements, QA evidence — live here, and so does any capture from a
-    contract awarded before client destinations existed.
+    statements, QA evidence — live here. New captures are also written here
+    by modules.storage.service.capture_default().
 
-    No parameter and no choice. One container holds everything the platform
-    owns, foldered by client and RFP inside it, and there is no setting that
-    points it anywhere else. A CLIENT's delivery destination is the thing that
-    varies — S3/MinIO or Azure, per row in storage_target — and it never comes
-    through this function.
+    A CLIENT's delivery destination is still separate: S3/MinIO or Azure, per
+    row in storage_target, and never configured through backend/.env.
     """
+    if settings.storage_provider == "gcs":
+        if not settings.storage_gcs_bucket:
+            raise StorageError("STORAGE_GCS_BUCKET is required when STORAGE_PROVIDER=gcs.")
+        return StorageTarget(
+            provider="gcs",
+            bucket=settings.storage_gcs_bucket,
+            key_prefix="",
+            secret={
+                "project": settings.storage_gcs_project,
+                "service_account_json": settings.storage_gcs_credentials_json.get_secret_value(),
+            },
+        )
+
     return StorageTarget(
         provider="azure_blob",
         bucket=settings.storage_container,

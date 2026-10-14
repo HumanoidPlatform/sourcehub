@@ -35,7 +35,7 @@ class StorageTarget:
 
     `secret` is provider-shaped:
         s3          {"access_key_id", "secret_access_key"}
-        gcs         {"service_account_json"}
+        gcs         {"service_account_json"} or application-default credentials
         azure_blob  {"account_name", "account_key"}
 
     Never log this object. __repr__ is overridden because a dataclass would

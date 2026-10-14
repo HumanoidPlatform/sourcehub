@@ -140,11 +140,15 @@ def test_an_expiry_before_calibration_is_refused():
     assert guarded, "no If refusing calibration_expires_on < calibrated_on"
 
 
-def test_only_the_four_detail_fields_are_editable():
+def test_only_expected_detail_fields_are_editable():
     # setattr over caller-supplied keys is how status, sponsor_org_id or
     # deleted_at would become writable by accident. The whitelist is the floor.
     assert set(service._EDITABLE) == {
         "equipment_type",
+        "make",
+        "model",
+        "location",
+        "specifications",
         "total_units",
         "calibrated_on",
         "calibration_expires_on",

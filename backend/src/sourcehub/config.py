@@ -4,10 +4,11 @@ Everything else takes settings as an argument or imports `settings` from here.
 A module that calls os.environ directly is a bug: it becomes untestable and it
 hides a deployment requirement from anyone reading config.
 
-Reads backend/.env. Compose values live in infra/.env and browser-visible
-config in frontend/.env — three files, each owned by the thing that reads it.
-Vite inlines every VITE_-prefixed variable into the bundle it ships, so keeping
-this file's secrets out of the frontend's is a safety boundary, not tidiness.
+Reads backend/.env, then backend/.env.local when present. Compose values live
+in infra/.env and browser-visible config in frontend/.env — three files, each
+owned by the thing that reads it. Vite inlines every VITE_-prefixed variable
+into the bundle it ships, so keeping this file's secrets out of the frontend's
+is a safety boundary, not tidiness.
 """
 
 from __future__ import annotations
@@ -34,7 +35,7 @@ CAPTURE_APP = "Cosarathi Capture"
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=(".env", ".env.local"),
         env_file_encoding="utf-8",
         extra="ignore",
         case_sensitive=False,
@@ -108,21 +109,34 @@ class Settings(BaseSettings):
 
     storage_presign_ttl_seconds: int = 900
 
-    # --- Azure Blob — the platform's own storage -----------------------------
-    # One container holds everything the platform owns, foldered by client and
-    # RFP so it can be browsed by a person:
+    # --- Object storage — the platform's own storage -------------------------
+    # One bucket/container holds everything the platform owns, foldered by
+    # client and RFP so it can be browsed by a person. Captured photos and
+    # videos use the same provider, under storage_capture_prefix.
     #
-    #   platform/Acme Retail Analytics/RFP-1001/compliance/dpa.pdf
-    #   platform/_staging/{org}/{uuid}/…   uploads with no parent row yet
+    #   Acme Retail Analytics/RFP-1001/compliance/dpa.pdf
+    #   _staging/{org}/{uuid}/…   uploads with no parent row yet
+    #   captures/CTR-05_TSK-06_AG-04_WKR-13_ef051366.jpg
     #
-    # Endpoint is normally left unset — the account URL is derived from the
-    # name. Set it only for a custom domain or an emulator, and set the public
-    # one only when a device must call a different host than the API does.
+    # GCS uses application-default credentials unless storage_gcs_credentials_json
+    # is set to a service-account JSON blob.
+    storage_provider: Literal["azure_blob", "gcs"] = "azure_blob"
+    storage_capture_prefix: str = "captures/"
+
+    # Azure Blob.
     storage_account_name: str = ""
     storage_account_key: SecretStr = SecretStr("")
     storage_container: str = "platform"
+    # Endpoint is normally left unset — the account URL is derived from the
+    # name. Set it only for a custom domain or an emulator, and set the public
+    # one only when a device must call a different host than the API does.
     storage_endpoint_azure: str | None = None
     storage_public_endpoint_azure: str | None = None
+
+    # Google Cloud Storage.
+    storage_gcs_bucket: str = ""
+    storage_gcs_project: str | None = None
+    storage_gcs_credentials_json: SecretStr = SecretStr("")
 
     # A real provider needs a login and an encrypted channel; a local catcher
     # needs neither. Both are the same adapter — leaving username blank is what

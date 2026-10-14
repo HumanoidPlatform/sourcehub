@@ -1,11 +1,12 @@
-"""storage — where a client's captured data is delivered.
+"""storage — object destinations used by captured data.
 
 Business rules, and the ONLY public surface of this module.
 
 A destination is named while the request is a draft, probed before it may be
-used, and pinned to the contract at award. Captures for that contract are then
-written to the client's own bucket; SourceHub holds the credential and signs
-every URL, so the phone and the console never see it.
+used, and pinned to the contract at award. Older captures may point at that
+client destination. New phone captures use the deployment's platform storage
+target, so SourceHub signs every URL and the phone never sees a long-lived
+credential.
 
 The credential is stored as given — nothing here encrypts it. Two rules follow,
 and both are load-bearing: `secret` is never in the SELECT list of a read that
@@ -17,12 +18,14 @@ from __future__ import annotations
 
 import json
 import uuid
+from dataclasses import replace
 from typing import Any
 
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.security import AccessClaims
+from sourcehub.config import settings
 from sourcehub.modules.audit import service as audit
 
 # Imported for its side effect, not its name: this registers storage_target in
@@ -97,8 +100,18 @@ def _target_from_row(row: dict[str, Any]) -> StorageTarget:
 # ---------------------------------------------------------------------------
 
 def platform_default() -> StorageTarget:
-    """SourceHub's own bucket. Assets captured before destinations existed."""
+    """SourceHub's own bucket/container."""
     return storage.platform_target()
+
+
+def capture_default() -> StorageTarget:
+    """Where new phone captures land.
+
+    The row keeps storage_target_id NULL for this path, so old assets written
+    to a client's explicit destination remain readable through resolve_by_id()
+    while new photos and videos follow backend/.env.
+    """
+    return replace(platform_default(), key_prefix=_clean_prefix(settings.storage_capture_prefix))
 
 
 async def resolve_by_id(session: AsyncSession, target_id: uuid.UUID | None) -> StorageTarget:

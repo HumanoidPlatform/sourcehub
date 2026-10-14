@@ -88,8 +88,8 @@ async def presign(
             replaces_asset_id=body.replaces_asset_id,
         )
     except StorageError as e:
-        # The capture presign runs against the CLIENT's bucket, so this is the
-        # most exposed of the three: their endpoint, their credential.
+        # Capture presign exposes the platform storage endpoint and a
+        # short-lived object URL, never a long-lived credential.
         raise HTTPException(status.HTTP_502_BAD_GATEWAY, str(e)) from None
     except (LookupError, media.MediaError, media.MediaInvalid) as e:
         raise _map(e) from None

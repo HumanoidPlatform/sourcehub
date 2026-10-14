@@ -11,6 +11,8 @@ from pydantic import BaseModel, EmailStr, Field
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.deps import Principal, TxRoute, get_principal, get_session, require_capability
+from sourcehub.api.v1.attachments import AttachmentIn
+from sourcehub.modules.attachments import service as attachments
 from sourcehub.modules.network import service as network
 
 router = APIRouter(route_class=TxRoute)
@@ -18,9 +20,13 @@ router = APIRouter(route_class=TxRoute)
 
 class EquipmentIn(BaseModel):
     equipment_type: str = Field(min_length=2)
+    make: str | None = Field(default=None, max_length=200)
+    model: str | None = Field(default=None, max_length=200)
+    location: str | None = Field(default=None, max_length=200)
+    specifications: dict[str, object] = Field(default_factory=dict)
     total_units: int = Field(gt=0)
-    calibrated_on: dt.date | None = None
-    calibration_expires_on: dt.date | None = None
+    calibrated_on: dt.date
+    calibration_expires_on: dt.date
 
 
 class LoanIn(BaseModel):
@@ -106,10 +112,14 @@ async def add_equipment(
     principal: Principal = Depends(require_capability("equipment.manage")),
     session: AsyncSession = Depends(get_session),
 ):
-    return await network.add_equipment(
-        session, principal, body.equipment_type, body.total_units,
-        body.calibrated_on, body.calibration_expires_on,
-    )
+    try:
+        return await network.add_equipment(
+            session, principal, body.equipment_type, body.total_units,
+            body.calibrated_on, body.calibration_expires_on,
+            body.make, body.model, body.location, body.specifications,
+        )
+    except network.NetworkError as e:
+        raise _conflict(e) from None
 
 
 class EquipmentPatchIn(BaseModel):
@@ -117,6 +127,10 @@ class EquipmentPatchIn(BaseModel):
     by sending null explicitly — an omitted field is left alone."""
 
     equipment_type: str | None = Field(default=None, min_length=2)
+    make: str | None = Field(default=None, max_length=200)
+    model: str | None = Field(default=None, max_length=200)
+    location: str | None = Field(default=None, max_length=200)
+    specifications: dict[str, object] | None = None
     total_units: int | None = Field(default=None, gt=0)
     calibrated_on: dt.date | None = None
     calibration_expires_on: dt.date | None = None
@@ -142,6 +156,48 @@ async def update_equipment(
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Equipment not found") from None
     except network.NetworkError as e:
         raise _conflict(e) from None
+
+
+class EquipmentPhotosIn(BaseModel):
+    photos: list[AttachmentIn] = Field(default_factory=list, max_length=10)
+
+
+class EquipmentAttachmentsIn(BaseModel):
+    attachments: list[AttachmentIn] = Field(default_factory=list, max_length=20)
+
+
+@router.post("/equipment/{equipment_id}/attachments")
+async def attach_equipment_files(
+    equipment_id: uuid.UUID,
+    body: EquipmentAttachmentsIn,
+    principal: Principal = Depends(require_capability("equipment.manage")),
+    session: AsyncSession = Depends(get_session),
+):
+    try:
+        return await network.attach_equipment_files(
+            session, principal, equipment_id, [p.model_dump() for p in body.attachments]
+        )
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Equipment not found") from None
+    except (network.NetworkError, attachments.AttachmentError) as e:
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, str(e)) from None
+
+
+@router.post("/equipment/{equipment_id}/photos")
+async def attach_equipment_photos(
+    equipment_id: uuid.UUID,
+    body: EquipmentPhotosIn,
+    principal: Principal = Depends(require_capability("equipment.manage")),
+    session: AsyncSession = Depends(get_session),
+):
+    try:
+        return await network.attach_equipment_photos(
+            session, principal, equipment_id, [p.model_dump() for p in body.photos]
+        )
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Equipment not found") from None
+    except (network.NetworkError, attachments.AttachmentError) as e:
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, str(e)) from None
 
 
 # --- loans -------------------------------------------------------------------

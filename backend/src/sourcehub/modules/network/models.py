@@ -12,9 +12,10 @@ from __future__ import annotations
 import datetime as dt
 import uuid
 from decimal import Decimal
+from typing import Any
 
 from sqlalchemy import ARRAY, Boolean, Date, DateTime, ForeignKey, Integer, Numeric, SmallInteger, Text, text
-from sqlalchemy.dialects.postgresql import CITEXT, UUID
+from sqlalchemy.dialects.postgresql import CITEXT, JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
 from sourcehub.db.base import Base
@@ -31,6 +32,12 @@ class Equipment(Base):
     reference_code: Mapped[str] = mapped_column(Text, unique=True)
     sponsor_org_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("organisation.id"))
     equipment_type: Mapped[str] = mapped_column(Text)
+    make: Mapped[str | None] = mapped_column(Text)
+    model: Mapped[str | None] = mapped_column(Text)
+    location: Mapped[str | None] = mapped_column(Text)
+    specifications: Mapped[dict[str, Any]] = mapped_column(
+        JSONB, server_default=text("'{}'::jsonb")
+    )
     total_units: Mapped[int] = mapped_column(Integer, server_default=text("0"))
     status: Mapped[str] = mapped_column(EquipmentStatus, server_default=text("'available'"))
     calibrated_on: Mapped[dt.date | None] = mapped_column(Date)

@@ -44,7 +44,7 @@ MAX_BYTES = 25 * 1024 * 1024
 # RFP response, where a bid is a deck plus a method statement plus CVs.
 MAX_PER_SLOT = 10
 
-ENTITIES = ("request", "proposal", "task", "qa_review")
+ENTITIES = ("request", "proposal", "task", "qa_review", "equipment")
 
 # Same list the request-sample uploader accepts. Content type is advisory —
 # browsers lie about it — so the extension is what gates.
@@ -53,6 +53,7 @@ _EXTENSIONS = {
     ".png", ".jpg", ".jpeg", ".webp", ".gif", ".mp4", ".mov", ".mp3", ".wav",
     ".zip", ".xlsx", ".docx", ".pptx", ".ppt", ".parquet",
 }
+IMAGE_EXTENSIONS = frozenset({".png", ".jpg", ".jpeg", ".webp", ".gif"})
 
 _COLUMNS = (
     "id, entity_type, entity_id, slot, owner_org_id, filename, "
@@ -73,6 +74,10 @@ def _safe_filename(name: str) -> str:
     if ext not in _EXTENSIONS:
         raise AttachmentError(f"Attachments of type {ext} are not accepted.")
     return name
+
+
+def _ext(name: str) -> str:
+    return "." + name.rsplit(".", 1)[-1].lower()
 
 
 def _row(r: Any) -> dict[str, Any]:
@@ -112,7 +117,11 @@ async def presign_upload(
 
 async def attach(
     session: AsyncSession, claims: AccessClaims,
-    *, entity_type: str, entity_id: uuid.UUID, items: list[dict[str, Any]],
+    *,
+    entity_type: str,
+    entity_id: uuid.UUID,
+    items: list[dict[str, Any]],
+    allowed_extensions: frozenset[str] | None = None,
 ) -> list[dict[str, Any]]:
     """Record uploaded objects against a field of an entity.
 
@@ -133,7 +142,7 @@ async def attach(
     try:
         filing = await folders.folder_for(session, entity_type, entity_id)
     except LookupError:
-        raise AttachmentError("There is no request to file these against.") from None
+        raise AttachmentError("There is no record to file these against.") from None
     except ValueError as e:
         raise AttachmentError(str(e)) from None
 
@@ -151,6 +160,8 @@ async def attach(
         if not key.startswith(own_prefix):
             raise AttachmentError("That file does not belong to your organisation.")
         safe = _safe_filename(item["filename"])
+        if allowed_extensions is not None and _ext(safe) not in allowed_extensions:
+            raise AttachmentError(f"{safe} is not an accepted file type for this field.")
 
         # The real size enforcement. A presigned PUT cannot cap what was sent,
         # so the number recorded here comes from storage, never the claim.
@@ -163,6 +174,10 @@ async def attach(
             ) from None
         if size <= 0 or size > MAX_BYTES:
             raise AttachmentError(f"{safe} exceeds the 25 MB cap.")
+        if allowed_extensions is not None:
+            served = (stored_ct or item.get("content_type") or "").split(";", 1)[0].strip().lower()
+            if served and not served.startswith("image/"):
+                raise AttachmentError(f"{safe} is not an image.")
 
         if slot not in numbered:
             # One writer at a time per parent+slot, held to the end of the

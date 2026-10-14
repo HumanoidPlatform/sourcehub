@@ -8,7 +8,13 @@ from __future__ import annotations
 
 import pytest
 
-from sourcehub.modules.attachments.folders import Filing, next_numbers, stored_name, subfolder
+from sourcehub.modules.attachments.folders import (
+    Filing,
+    base_path,
+    next_numbers,
+    stored_name,
+    subfolder,
+)
 
 BASE = "Acme Retail Analytics/RFP-1001"
 REQUEST = Filing(base=BASE, rfp_ref="RFP-1001", scope_ref=None, scope_label=None)
@@ -40,6 +46,20 @@ def test_two_tasks_can_no_longer_share_an_instructions_folder():
 
 def test_qa_evidence_files_under_the_task_it_judges():
     assert subfolder("qa_review", TASK, "verdict") == "qa/TSK-02/verdict"
+
+
+def test_equipment_photos_file_under_the_equipment_branch():
+    equipment = Filing(
+        base="device sponsors/OptiGear Devices/DV-1001",
+        rfp_ref="DV-1001",
+        scope_ref=None,
+        scope_label=None,
+    )
+    assert base_path("equipment", "OptiGear Devices", "DV-1001") == (
+        "device sponsors/OptiGear Devices/DV-1001"
+    )
+    assert subfolder("equipment", equipment, "photos") == "photos"
+    assert subfolder("equipment", equipment, "documentation") == "documentation"
 
 
 def test_a_bidder_name_cannot_smuggle_a_path_separator_into_the_tree():

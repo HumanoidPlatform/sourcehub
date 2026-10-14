@@ -368,10 +368,10 @@ async def presign_capture(
     if captured_at.tzinfo is None:
         captured_at = captured_at.replace(tzinfo=dt.timezone.utc)
 
-    # Where this contract's client asked for delivery. Resolved through a
-    # SECURITY DEFINER function: this runs in the worker's session, which
-    # cannot read storage_target and should not be able to.
-    target, target_id = await storage_svc.resolve_for_contract(session, a["contract_id"])
+    # New phone captures go to the platform storage configured in backend/.env
+    # so a deployment can route them to one bucket. Older captures that already
+    # carry a storage_target_id still read through resolve_by_id().
+    target, target_id = storage_svc.capture_default(), None
 
     # idempotent on (assignment, sha256): a retry or an expired URL reuses the row
     existing = (

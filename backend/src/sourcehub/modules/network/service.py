@@ -28,6 +28,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.security import AccessClaims, new_opaque_token
 from sourcehub.config import CAPTURE_APP, PRODUCT, settings
+from sourcehub.modules.attachments import service as attachments
 from sourcehub.modules.audit import service as audit
 from sourcehub.modules.network.models import CrowdWorker, Equipment, Loan, Rating
 from sourcehub.modules.notify import service as notifier
@@ -40,6 +41,19 @@ class NetworkError(Exception):
 # ---------------------------------------------------------------------------
 # Equipment
 # ---------------------------------------------------------------------------
+
+def _equipment_dict(
+    r: Any,
+    photos: list[dict[str, Any]] | None = None,
+    documentation: list[dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    return {
+        **dict(r),
+        "units_available": r["total_units"] - r["units_on_loan"],
+        "photos": photos or [],
+        "documentation": documentation or [],
+    }
+
 
 async def list_equipment(session: AsyncSession, claims: AccessClaims) -> list[dict[str, Any]]:
     """Sponsor: own inventory. Tenant: every sponsor in its network. Supplier:
@@ -57,6 +71,7 @@ async def list_equipment(session: AsyncSession, claims: AccessClaims) -> list[di
         await session.execute(
             text(
                 "SELECT e.id, e.reference_code, e.equipment_type, e.total_units, "
+                "       e.make, e.model, e.location, e.specifications, "
                 "       e.calibrated_on, e.calibration_expires_on, e.sponsor_org_id, "
                 "       o.name AS sponsor_name, "
                 "       equipment_units_on_loan(e.id) AS units_on_loan "
@@ -70,8 +85,13 @@ async def list_equipment(session: AsyncSession, claims: AccessClaims) -> list[di
             )
         )
     ).mappings().all()
+    files = await attachments.list_for(session, "equipment", [r["id"] for r in rows])
     return [
-        {**dict(r), "units_available": r["total_units"] - r["units_on_loan"]}
+        _equipment_dict(
+            r,
+            [a for a in files.get(r["id"], []) if a["slot"] == "photos"],
+            [a for a in files.get(r["id"], []) if a["slot"] == "documentation"],
+        )
         for r in rows
     ]
 
@@ -81,9 +101,18 @@ async def add_equipment(
     claims: AccessClaims,
     equipment_type: str,
     total_units: int,
-    calibrated_on: dt.date | None,
-    calibration_expires_on: dt.date | None,
+    calibrated_on: dt.date,
+    calibration_expires_on: dt.date,
+    make: str | None = None,
+    model: str | None = None,
+    location: str | None = None,
+    specifications: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
+    equipment_type = equipment_type.strip()
+    if not equipment_type:
+        raise NetworkError("Give the equipment a name.")
+    if calibration_expires_on < calibrated_on:
+        raise NetworkError("Calibration cannot expire before the date it was done.")
     ref = (
         await session.execute(text("SELECT next_reference_code('DV','seq_ref_equipment')"))
     ).scalar_one()
@@ -91,6 +120,10 @@ async def add_equipment(
         reference_code=ref,
         sponsor_org_id=claims.org_id,
         equipment_type=equipment_type,
+        make=(make or "").strip() or None,
+        model=(model or "").strip() or None,
+        location=(location or "").strip() or None,
+        specifications=specifications or {},
         total_units=total_units,
         calibrated_on=calibrated_on,
         calibration_expires_on=calibration_expires_on,
@@ -101,11 +134,21 @@ async def add_equipment(
     await audit.log(session, "equipment.added",
                     f"Added {equipment_type}, {total_units} units ({ref})",
                     [e.id, claims.org_id])
-    return {"id": e.id, "reference_code": ref, "equipment_type": equipment_type,
-            "total_units": total_units}
+    return {
+        "id": e.id, "reference_code": ref, "equipment_type": equipment_type,
+        "make": e.make, "model": e.model, "location": e.location,
+        "specifications": e.specifications,
+        "total_units": total_units,
+        "calibrated_on": calibrated_on, "calibration_expires_on": calibration_expires_on,
+        "sponsor_org_id": claims.org_id, "sponsor_name": claims.org_name,
+        "units_on_loan": 0, "units_available": total_units, "photos": [], "documentation": [],
+    }
 
 
-_EDITABLE = ("equipment_type", "total_units", "calibrated_on", "calibration_expires_on")
+_EDITABLE = (
+    "equipment_type", "make", "model", "location", "specifications",
+    "total_units", "calibrated_on", "calibration_expires_on",
+)
 
 
 async def update_equipment(
@@ -140,6 +183,11 @@ async def update_equipment(
         changes["equipment_type"] = changes["equipment_type"].strip()
         if len(changes["equipment_type"]) < 2:
             raise NetworkError("Give the equipment a name.")
+    for optional_text in ("make", "model", "location"):
+        if optional_text in changes and changes[optional_text] is not None:
+            changes[optional_text] = changes[optional_text].strip() or None
+    if "specifications" in changes and changes["specifications"] is None:
+        raise NetworkError("Specifications must be a JSON object.")
 
     # Own inventory only. equipment_write already refuses a foreign row, but an
     # UPDATE matching nothing is not an error: a miss has to be a miss, not a
@@ -192,9 +240,77 @@ async def update_equipment(
         )
     return {
         "id": e.id, "reference_code": e.reference_code, "equipment_type": e.equipment_type,
+        "make": e.make, "model": e.model, "location": e.location,
+        "specifications": e.specifications,
         "total_units": e.total_units,
         "calibrated_on": e.calibrated_on, "calibration_expires_on": e.calibration_expires_on,
     }
+
+
+async def attach_equipment_files(
+    session: AsyncSession,
+    claims: AccessClaims,
+    equipment_id: uuid.UUID,
+    items: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Attach staged uploads to a sponsor-owned equipment row."""
+    if not items:
+        return []
+    e = (
+        await session.execute(
+            select(Equipment).where(
+                Equipment.id == equipment_id,
+                Equipment.sponsor_org_id == claims.org_id,
+            )
+        )
+    ).scalar_one_or_none()
+    if e is None:
+        raise LookupError("equipment not found")
+    allowed_slots = {"photos", "documentation"}
+    bad_slots = sorted(
+        {str(item.get("slot") or "") for item in items if item.get("slot") not in allowed_slots}
+    )
+    if bad_slots:
+        raise NetworkError("Equipment files must use photos or documentation slots.")
+
+    rows: list[dict[str, Any]] = []
+    photo_items = [item for item in items if item.get("slot") == "photos"]
+    documentation_items = [item for item in items if item.get("slot") == "documentation"]
+    if photo_items:
+        rows.extend(await attachments.attach(
+            session,
+            claims,
+            entity_type="equipment",
+            entity_id=equipment_id,
+            items=photo_items,
+            allowed_extensions=attachments.IMAGE_EXTENSIONS,
+        ))
+    if documentation_items:
+        rows.extend(await attachments.attach(
+            session,
+            claims,
+            entity_type="equipment",
+            entity_id=equipment_id,
+            items=documentation_items,
+        ))
+    await audit.log(
+        session, "equipment.files_added",
+        f"Added {len(rows)} file{'s' if len(rows) != 1 else ''} to {e.reference_code}",
+        [e.id, claims.org_id],
+    )
+    return rows
+
+
+async def attach_equipment_photos(
+    session: AsyncSession,
+    claims: AccessClaims,
+    equipment_id: uuid.UUID,
+    items: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Backward-compatible helper for the photos-only route."""
+    if any(item.get("slot") != "photos" for item in items):
+        raise NetworkError("Equipment photos must use the photos slot.")
+    return await attach_equipment_files(session, claims, equipment_id, items)
 
 
 # ---------------------------------------------------------------------------

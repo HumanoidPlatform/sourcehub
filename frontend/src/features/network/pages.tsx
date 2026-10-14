@@ -2,9 +2,9 @@
 // prototype's instant add), equipment and loans, the crowd roster, capacity.
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
-import { get, patch, post } from "@api/client";
-import type { EquipmentRow, LoanRow, OnboardingRow, Org, Skill, WorkerRow } from "@api/types";
+import { useEffect, useRef, useState } from "react";
+import { ensureFreshSession, get, patch, post, putFile } from "@api/client";
+import type { Attachment, EquipmentRow, LoanRow, OnboardingRow, Org, Skill, WorkerRow } from "@api/types";
 import { labelsOf } from "@features/marketplace/vocabularies";
 import { ImportCrowdDialog } from "./import";
 import { SKILLS } from "./vocabularies";
@@ -13,6 +13,7 @@ import {
   TableWrap, textareaCls, useToast, View,
 } from "@ds/primitives";
 import { useSession } from "@shared/auth";
+import { AttachmentList, AttachmentsField, attachmentPayload, type AttachmentDraft } from "@shared/attachments";
 import { COMPANY } from "@shared/brand";
 import { fmtDate, titleCase } from "@shared/format";
 import { OrgProfileDialog } from "@shared/org-profile";
@@ -33,6 +34,14 @@ function EquipmentDetailDialog({ e, onClose }: { e: EquipmentRow; onClose: () =>
     >
       <Dl rows={[
         ["Sponsor", e.sponsor_name],
+        ["Photo", <EquipmentPhotoCell key="photo" photos={e.photos} name={e.equipment_type} />],
+        ["Make / model", makeModelText(e)],
+        ["Location", e.location?.trim() || "—"],
+        ["Year", specText(e.specifications, "year") || "—"],
+        ["Power", specText(e.specifications, "power") || "—"],
+        ["Connectivity", specText(e.specifications, "connectivity") || "—"],
+        ["Storage", specText(e.specifications, "storage") || "—"],
+        ["Documentation", <AttachmentList key="docs" items={e.documentation ?? []} empty="—" />],
         ["Total units", <span key="t" className="num">{e.total_units}</span>],
         ["On loan", <span key="l" className="num">{e.units_on_loan}</span>],
         ["Available", <span key="a" className="num">{e.units_available}</span>],
@@ -495,10 +504,106 @@ function OnboardRequestDialog({ kind, onClose }: { kind: NetKind; onClose: () =>
 type InventoryFilter = "all" | "on_loan" | "calibration_due";
 const CALIBRATION_EXPIRING_DAYS = 30;
 
+type EquipmentPhotoDraft = {
+  id: string;
+  name: string;
+  file: File;
+  previewUrl: string;
+};
+
+type EquipmentStagedAttachment = {
+  storage_key: string;
+  filename: string;
+  content_type: string | null;
+  slot: string;
+};
+
+type EquipmentUploadWork = {
+  photos: { file: File }[];
+  attachments: EquipmentStagedAttachment[];
+};
+
+type AddEquipmentResult = {
+  equipment: EquipmentRow;
+  warning?: string;
+  uploads?: EquipmentUploadWork;
+};
+
+type AttachmentPresign = {
+  storage_key: string;
+  url: string;
+  headers: Record<string, string>;
+};
+
+const SPEC_FIELDS = [
+  { key: "year", label: "Year", placeholder: "2026" },
+  { key: "power", label: "Power", placeholder: "Rechargeable battery, 12V adapter" },
+  { key: "connectivity", label: "Connectivity", placeholder: "Wi-Fi, Bluetooth, LTE" },
+  { key: "storage", label: "Storage", placeholder: "256 GB microSD" },
+] as const;
+
+type SpecKey = (typeof SPEC_FIELDS)[number]["key"];
+type SpecDraft = Record<SpecKey, string>;
+
+function blankSpecs(): SpecDraft {
+  return { year: "", power: "", connectivity: "", storage: "" };
+}
+
+function specText(specifications: Record<string, unknown> | undefined, key: SpecKey): string {
+  const value = specifications?.[key];
+  return typeof value === "string" || typeof value === "number" ? String(value) : "";
+}
+
+function optionalText(value: string | null | undefined): string | null {
+  const trimmed = (value ?? "").trim();
+  return trimmed || null;
+}
+
+function specsFromRow(specifications: Record<string, unknown> | undefined): SpecDraft {
+  return {
+    year: specText(specifications, "year"),
+    power: specText(specifications, "power"),
+    connectivity: specText(specifications, "connectivity"),
+    storage: specText(specifications, "storage"),
+  };
+}
+
+function specsPayload(draft: SpecDraft): Record<string, string> {
+  return Object.fromEntries(
+    SPEC_FIELDS
+      .map(({ key }) => [key, draft[key].trim()] as const)
+      .filter(([, value]) => value.length > 0),
+  );
+}
+
+function specsEqual(a: Record<string, string>, b: Record<string, string>): boolean {
+  const keys = new Set([...Object.keys(a), ...Object.keys(b)]);
+  for (const key of keys) {
+    if (a[key] !== b[key]) return false;
+  }
+  return true;
+}
+
+function upsertEquipment(rows: EquipmentRow[] | undefined, next: EquipmentRow): EquipmentRow[] {
+  const current = rows ?? [];
+  const idx = current.findIndex((row) => row.id === next.id);
+  const merged = idx === -1
+    ? [...current, next]
+    : current.map((row) => (row.id === next.id ? next : row));
+  return [...merged].sort((a, b) => a.reference_code.localeCompare(b.reference_code));
+}
+
 function equipmentSearchText(e: EquipmentRow): string {
   return [
     e.reference_code,
     e.equipment_type,
+    e.make ?? "",
+    e.model ?? "",
+    e.location ?? "",
+    specText(e.specifications, "year"),
+    specText(e.specifications, "power"),
+    specText(e.specifications, "connectivity"),
+    specText(e.specifications, "storage"),
     e.sponsor_name,
     e.total_units,
     e.units_available,
@@ -512,6 +617,75 @@ function isoDateDaysFromNow(days: number): string {
   const date = new Date();
   date.setDate(date.getDate() + days);
   return date.toISOString().slice(0, 10);
+}
+
+function dateInputDaysFromNow(days: number): string {
+  const date = new Date();
+  date.setDate(date.getDate() + days);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function hasEquipmentUploads(work: EquipmentUploadWork | undefined): work is EquipmentUploadWork {
+  return !!work && (work.photos.length > 0 || work.attachments.length > 0);
+}
+
+function errorMessage(e: unknown): string {
+  return e instanceof Error ? e.message : "Upload failed.";
+}
+
+function photoUploadWarning(warnings: string[]): string | undefined {
+  if (warnings.length === 0) return undefined;
+  if (warnings.length === 1) return `1 photo could not be uploaded: ${warnings[0]}`;
+  const sample = warnings.slice(0, 2).join("; ");
+  return `${warnings.length} photos could not be uploaded: ${sample}${warnings.length > 2 ? "; ..." : ""}`;
+}
+
+async function attachEquipmentUploads(created: EquipmentRow, work: EquipmentUploadWork): Promise<AddEquipmentResult> {
+  const uploaded: EquipmentStagedAttachment[] = [...work.attachments];
+  const warnings: string[] = [];
+
+  if (work.photos.length > 0) await ensureFreshSession();
+  for (const photo of work.photos) {
+    try {
+      const pre = await post<AttachmentPresign>("/attachments/presign", {
+        filename: photo.file.name,
+        content_type: photo.file.type || null,
+        size_bytes: photo.file.size,
+      });
+      await putFile(pre.url, photo.file, pre.headers);
+      uploaded.push({
+        storage_key: pre.storage_key,
+        filename: photo.file.name,
+        content_type: photo.file.type || null,
+        slot: "photos",
+      });
+    } catch (e) {
+      warnings.push(`${photo.file.name} (${errorMessage(e)})`);
+    }
+  }
+
+  if (uploaded.length === 0) return { equipment: created, warning: photoUploadWarning(warnings) };
+
+  try {
+    await ensureFreshSession();
+    const attached = await post<Attachment[]>(`/network/equipment/${created.id}/attachments`, { attachments: uploaded });
+    return {
+      equipment: {
+        ...created,
+        photos: attached.filter((item) => item.slot === "photos"),
+        documentation: attached.filter((item) => item.slot === "documentation"),
+      },
+      warning: photoUploadWarning(warnings),
+    };
+  } catch (e) {
+    return {
+      equipment: created,
+      warning: `Saved without photos or documents: ${errorMessage(e)}`,
+    };
+  }
 }
 
 function matchesInventoryFilter(e: EquipmentRow, filter: InventoryFilter, expiringBy: string): boolean {
@@ -529,6 +703,60 @@ function calibrationMeta(e: EquipmentRow, today: string, expiringBy: string): { 
   return { date };
 }
 
+function makeModelText(e: EquipmentRow): string {
+  const parts = [e.make ?? "", e.model ?? ""].map((v) => v.trim()).filter(Boolean);
+  return parts.length ? parts.join(" / ") : "—";
+}
+
+const thumbStyle = {
+  width: 44,
+  height: 44,
+  objectFit: "cover",
+  borderRadius: 6,
+  border: "1px solid var(--line)",
+  background: "var(--surface-2)",
+  display: "block",
+} as const;
+
+function NoEquipmentPhoto() {
+  return (
+    <span
+      className="small muted"
+      style={{
+        width: 62,
+        height: 44,
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 6,
+        border: "1px dashed var(--line)",
+        background: "var(--surface-2)",
+        whiteSpace: "nowrap",
+      }}
+    >
+      No photo
+    </span>
+  );
+}
+
+function PersistedEquipmentPhoto({ photo, name }: { photo: Attachment; name: string }) {
+  const signed = useQuery({
+    queryKey: ["attachment-url", photo.id],
+    queryFn: () => get<{ url: string }>(`/attachments/${photo.id}/url`),
+    staleTime: 13 * 60 * 1000,
+    retry: false,
+  });
+
+  if (signed.isLoading) return <span aria-label="Loading photo" style={thumbStyle} />;
+  if (!signed.data?.url) return <NoEquipmentPhoto />;
+  return <img src={signed.data.url} alt={`${name} device`} style={thumbStyle} />;
+}
+
+function EquipmentPhotoCell({ photos, name }: { photos?: Attachment[]; name: string }) {
+  const first = photos?.[0];
+  return first ? <PersistedEquipmentPhoto photo={first} name={name} /> : <NoEquipmentPhoto />;
+}
+
 export function EquipmentPage() {
   const session = useSession();
   const isSponsor = session.org_kind === "sponsor";
@@ -541,7 +769,7 @@ export function EquipmentPage() {
   const [viewingLoan, setViewingLoan] = useState<LoanRow | null>(null);
   const [inventorySearch, setInventorySearch] = useState("");
   const [inventoryFilter, setInventoryFilter] = useState<InventoryFilter>("all");
-
+  const inventoryPanelRef = useRef<HTMLDivElement>(null);
   const equipment = useQuery({ queryKey: ["equipment"], queryFn: () => get<EquipmentRow[]>("/network/equipment") });
   const loans = useQuery({ queryKey: ["loans"], queryFn: () => get<LoanRow[]>("/network/loans") });
 
@@ -556,6 +784,24 @@ export function EquipmentPage() {
       && (!inventoryNeedle || equipmentSearchText(e).includes(inventoryNeedle)))
     : equipmentRows;
   const inventoryFiltered = inventoryNeedle || inventoryFilter !== "all";
+  const returnToInventoryTable = () => {
+    const scroll = () => {
+      inventoryPanelRef.current?.scrollIntoView?.({ block: "start", behavior: "smooth" });
+    };
+    if (typeof window.requestAnimationFrame === "function") window.requestAnimationFrame(scroll);
+    else window.setTimeout(scroll, 0);
+  };
+  const finishEquipmentUploads = (created: EquipmentRow, uploads: EquipmentUploadWork | undefined) => {
+    if (!hasEquipmentUploads(uploads)) return;
+    void (async () => {
+      const result = await attachEquipmentUploads(created, uploads);
+      qc.setQueryData<EquipmentRow[]>(["equipment"], (rows) => upsertEquipment(rows, result.equipment));
+      void qc.invalidateQueries({ queryKey: ["equipment"] }).finally(() => {
+        qc.setQueryData<EquipmentRow[]>(["equipment"], (rows) => upsertEquipment(rows, result.equipment));
+      });
+      if (result.warning) toast("Equipment files need attention", result.warning, "attention");
+    })();
+  };
 
   return (
     <View
@@ -565,113 +811,116 @@ export function EquipmentPage() {
         : "Drawn from the device sponsors registered in your network, released on their approval."}
       actions={isSponsor && <Button variant="primary" onClick={() => setAdding(true)}>Add equipment</Button>}
     >
-      <Panel title={isSponsor ? "Equipment types" : "Available from your network"}>
-        <Loadable q={equipment} what="equipment">
-          {equipmentRows.length === 0 ? (
-            <Empty title="No equipment" hint={isSponsor ? "Add your first equipment type." : "No sponsors registered in your network yet."} />
-          ) : (
-            <>
-              {isSponsor && (
-                <div className="tablebar">
-                  <input
-                    className={inputCls}
-                    type="search"
-                    aria-label="Search inventory"
-                    placeholder="Search inventory"
-                    value={inventorySearch}
-                    onChange={(e) => setInventorySearch(e.target.value)}
-                  />
-                  <select
-                    className={selectCls}
-                    aria-label="Filter inventory"
-                    value={inventoryFilter}
-                    onChange={(e) => setInventoryFilter(e.target.value as InventoryFilter)}
-                    style={{ maxWidth: 190 }}
-                  >
-                    <option value="all">All inventory</option>
-                    <option value="on_loan">On Loan</option>
-                    <option value="calibration_due">Calibration Due</option>
-                  </select>
-                  <span className="small muted" role="status">
-                    {inventoryFiltered ? `${shownEquipment.length} of ${equipmentRows.length}` : ""}
-                  </span>
-                </div>
-              )}
-              {shownEquipment.length === 0 ? (
-                <Empty title="Nothing matches that" hint="Clear the search or choose All inventory." />
-              ) : (
-                <TableWrap>
-                  <table>
-                    <thead>
-                      {isSponsor ? (
-                        <tr>
-                          <th>Equipment</th><th>Make/Model</th><th>Location</th><th>Total</th>
-                          <th>Available</th><th>On Loan</th><th>Calibration</th><th>Action</th>
-                        </tr>
-                      ) : (
-                        <tr>
-                          <th>Ref</th><th>Type</th><th>Sponsor</th><th>Units</th>
-                          <th>On loan</th><th>Available</th><th>Calibrated</th><th />
-                        </tr>
-                      )}
-                    </thead>
-                    <tbody>
-                      {shownEquipment.map((e) => {
-                        const calibration = calibrationMeta(e, today, expiringBy);
-                        return (
-                          <tr key={e.id} className="tap" title="Open equipment details" onClick={() => setViewingEq(e)}>
-                            {isSponsor ? (
-                              <>
-                                <td className="cell-primary" title="Open equipment details">{e.equipment_type}</td>
-                                <td>—</td>
-                                <td>—</td>
-                                <td className="num">{e.total_units}</td>
-                                <td className="num">{e.units_available}</td>
-                                <td className="num">{e.units_on_loan}</td>
-                                <td>
-                                  <span className="num">{calibration.date}</span>
-                                  {calibration.label && (
-                                    <>
-                                      {" "}
-                                      <Pill tone={calibration.tone}>{calibration.label}</Pill>
-                                    </>
-                                  )}
-                                </td>
-                              </>
-                            ) : (
-                              <>
-                                <td className="id">{e.reference_code}</td>
-                                <td className="cell-primary" title="Open equipment details">{e.equipment_type}</td>
-                                <td>{e.sponsor_name}</td>
-                                <td className="num">{e.total_units}</td>
-                                <td className="num">{e.units_on_loan}</td>
-                                <td className="num">{e.units_available}</td>
-                                <td className="num">{fmtDate(e.calibrated_on)}</td>
-                              </>
-                            )}
-                            <td className="right" onClick={(ev) => ev.stopPropagation()}><div className="rowactions">
-                              <Button size="sm" onClick={() => setViewingEq(e)}>Details</Button>
-                              {isSponsor && (
-                                <Button size="sm" onClick={() => setEditingEq(e)}>Edit</Button>
-                              )}
-                              {!isSponsor && (
-                                <Button size="sm" variant="primary" disabled={e.units_available < 1} onClick={() => setBorrowing(e)}>
-                                  Request
-                                </Button>
-                              )}
-                              </div>
-                            </td>
+      <div ref={inventoryPanelRef}>
+        <Panel title={isSponsor ? "Equipment types" : "Available from your network"}>
+          <Loadable q={equipment} what="equipment">
+            {equipmentRows.length === 0 ? (
+              <Empty title="No equipment" hint={isSponsor ? "Add your first equipment type." : "No sponsors registered in your network yet."} />
+            ) : (
+              <>
+                {isSponsor && (
+                  <div className="tablebar">
+                    <input
+                      className={inputCls}
+                      type="search"
+                      aria-label="Search inventory"
+                      placeholder="Search inventory"
+                      value={inventorySearch}
+                      onChange={(e) => setInventorySearch(e.target.value)}
+                    />
+                    <select
+                      className={selectCls}
+                      aria-label="Filter inventory"
+                      value={inventoryFilter}
+                      onChange={(e) => setInventoryFilter(e.target.value as InventoryFilter)}
+                      style={{ maxWidth: 190 }}
+                    >
+                      <option value="all">All inventory</option>
+                      <option value="on_loan">On Loan</option>
+                      <option value="calibration_due">Calibration Due</option>
+                    </select>
+                    <span className="small muted" role="status">
+                      {inventoryFiltered ? `${shownEquipment.length} of ${equipmentRows.length}` : ""}
+                    </span>
+                  </div>
+                )}
+                {shownEquipment.length === 0 ? (
+                  <Empty title="Nothing matches that" hint="Clear the search or choose All inventory." />
+                ) : (
+                  <TableWrap>
+                    <table>
+                      <thead>
+                        {isSponsor ? (
+                          <tr>
+                            <th>Photo</th><th>Equipment</th><th>Make / Model</th><th>Location</th><th>Total</th>
+                            <th>Available</th><th>On Loan</th><th>Calibration</th><th>Action</th>
                           </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </TableWrap>
-              )}
-            </>
-          )}
-        </Loadable>
-      </Panel>
+                        ) : (
+                          <tr>
+                            <th>Ref</th><th>Type</th><th>Sponsor</th><th>Units</th>
+                            <th>On loan</th><th>Available</th><th>Calibrated</th><th />
+                          </tr>
+                        )}
+                      </thead>
+                      <tbody>
+                        {shownEquipment.map((e) => {
+                          const calibration = calibrationMeta(e, today, expiringBy);
+                          return (
+                            <tr key={e.id} className="tap" title="Open equipment details" onClick={() => setViewingEq(e)}>
+                              {isSponsor ? (
+                                <>
+                                  <td><EquipmentPhotoCell photos={e.photos} name={e.equipment_type} /></td>
+                                  <td className="cell-primary" title="Open equipment details">{e.equipment_type}</td>
+                                  <td>{makeModelText(e)}</td>
+                                  <td>{e.location?.trim() || "—"}</td>
+                                  <td className="num">{e.total_units}</td>
+                                  <td className="num">{e.units_available}</td>
+                                  <td className="num">{e.units_on_loan}</td>
+                                  <td>
+                                    <span className="num">{calibration.date}</span>
+                                    {calibration.label && (
+                                      <>
+                                        {" "}
+                                        <Pill tone={calibration.tone}>{calibration.label}</Pill>
+                                      </>
+                                    )}
+                                  </td>
+                                </>
+                              ) : (
+                                <>
+                                  <td className="id">{e.reference_code}</td>
+                                  <td className="cell-primary" title="Open equipment details">{e.equipment_type}</td>
+                                  <td>{e.sponsor_name}</td>
+                                  <td className="num">{e.total_units}</td>
+                                  <td className="num">{e.units_on_loan}</td>
+                                  <td className="num">{e.units_available}</td>
+                                  <td className="num">{fmtDate(e.calibrated_on)}</td>
+                                </>
+                              )}
+                              <td className="right" onClick={(ev) => ev.stopPropagation()}><div className="rowactions">
+                                <Button size="sm" onClick={() => setViewingEq(e)}>Details</Button>
+                                {isSponsor && (
+                                  <Button size="sm" onClick={() => setEditingEq(e)}>Edit</Button>
+                                )}
+                                {!isSponsor && (
+                                  <Button size="sm" variant="primary" disabled={e.units_available < 1} onClick={() => setBorrowing(e)}>
+                                    Request
+                                  </Button>
+                                )}
+                              </div>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </TableWrap>
+                )}
+              </>
+            )}
+          </Loadable>
+        </Panel>
+      </div>
 
       {!isSponsor && (
         <Panel title="Your requests">
@@ -717,10 +966,26 @@ export function EquipmentPage() {
         }} />
       )}
       {adding && (
-        <AddEquipmentDialog onClose={() => setAdding(false)} onDone={() => {
+        <AddEquipmentDialog onClose={() => setAdding(false)} onDone={({ equipment: created, warning, uploads }) => {
+          qc.setQueryData<EquipmentRow[]>(["equipment"], (rows) => upsertEquipment(rows, created));
+          setInventorySearch("");
+          setInventoryFilter("all");
           setAdding(false);
-          void qc.invalidateQueries({ queryKey: ["equipment"] });
-          toast("Equipment added", undefined, "success");
+          returnToInventoryTable();
+          void qc.invalidateQueries({ queryKey: ["equipment"] }).finally(() => {
+            qc.setQueryData<EquipmentRow[]>(["equipment"], (rows) => {
+              const current = rows?.find((row) => row.id === created.id);
+              return upsertEquipment(rows, {
+                ...created,
+                photos: current?.photos ?? created.photos,
+                documentation: current?.documentation ?? created.documentation,
+              });
+            });
+            returnToInventoryTable();
+          });
+          finishEquipmentUploads(created, uploads);
+          const uploadNote = hasEquipmentUploads(uploads) ? "Photos and documents are uploading in the background." : undefined;
+          toast("Equipment added", [warning, uploadNote].filter(Boolean).join(" ") || undefined, warning ? "attention" : "success");
         }} />
       )}
       {viewingEq && <EquipmentDetailDialog e={viewingEq} onClose={() => setViewingEq(null)} />}
@@ -782,32 +1047,109 @@ function BorrowDialog({ equipment, onClose, onDone }: { equipment: EquipmentRow;
   );
 }
 
-function AddEquipmentDialog({ onClose, onDone }: { onClose: () => void; onDone: () => void }) {
+function AddEquipmentDialog({ onClose, onDone }: { onClose: () => void; onDone: (result: AddEquipmentResult) => void }) {
   const [type, setType] = useState("");
   const [units, setUnits] = useState("");
-  const [calibrated, setCalibrated] = useState("");
-  const [expires, setExpires] = useState("");
+  const [make, setMake] = useState("");
+  const [model, setModel] = useState("");
+  const [location, setLocation] = useState("");
+  const [specifications, setSpecifications] = useState<SpecDraft>(() => blankSpecs());
+  const [photos, setPhotos] = useState<EquipmentPhotoDraft[]>([]);
+  const [documentation, setDocumentation] = useState<AttachmentDraft[]>([]);
+  const [photoError, setPhotoError] = useState<string | null>(null);
+  const [calibrated, setCalibrated] = useState(() => dateInputDaysFromNow(0));
+  const [expires, setExpires] = useState(() => dateInputDaysFromNow(365));
   const [error, setError] = useState<string | null>(null);
+  const photoInputRef = useRef<HTMLInputElement>(null);
+  const photosRef = useRef<EquipmentPhotoDraft[]>([]);
+
+  useEffect(() => {
+    photosRef.current = photos;
+  }, [photos]);
+
+  useEffect(() => () => {
+    for (const photo of photosRef.current) URL.revokeObjectURL(photo.previewUrl);
+  }, []);
+
+  const pickPhotos = (files: FileList | null) => {
+    if (!files?.length) return;
+    setPhotoError(null);
+    const accepted: EquipmentPhotoDraft[] = [];
+    for (const file of Array.from(files)) {
+      if (!file.type.startsWith("image/")) {
+        setPhotoError("Choose image files for device photos.");
+        continue;
+      }
+      accepted.push({
+        id: `${file.name}-${file.lastModified}-${Math.random().toString(36).slice(2)}`,
+        name: file.name,
+        file,
+        previewUrl: URL.createObjectURL(file),
+      });
+    }
+    if (accepted.length) setPhotos((prev) => [...prev, ...accepted]);
+  };
+
+  const removePhoto = (id: string) => {
+    setPhotos((prev) => {
+      const removed = prev.find((photo) => photo.id === id);
+      if (removed) URL.revokeObjectURL(removed.previewUrl);
+      return prev.filter((photo) => photo.id !== id);
+    });
+  };
 
   const submit = useMutation({
-    mutationFn: () =>
-      post("/network/equipment", {
-        equipment_type: type, total_units: Number(units),
-        calibrated_on: calibrated || null, calibration_expires_on: expires || null,
-      }),
+    mutationFn: async () => {
+      await ensureFreshSession();
+      const created = await post<EquipmentRow>("/network/equipment", {
+        equipment_type: type.trim(),
+        make: optionalText(make),
+        model: optionalText(model),
+        location: optionalText(location),
+        specifications: specsPayload(specifications),
+        total_units: Number(units),
+        calibrated_on: calibrated,
+        calibration_expires_on: expires,
+      });
+
+      const uploads: EquipmentUploadWork = {
+        photos: photos.map((photo) => ({ file: photo.file })),
+        attachments: attachmentPayload(documentation, "documentation"),
+      };
+      const skippedDocumentation = documentation.filter((item) => item.status === "error").length;
+      const skippedWarning = skippedDocumentation > 0
+        ? `${skippedDocumentation} document${skippedDocumentation === 1 ? "" : "s"} could not be uploaded and was skipped.`
+        : undefined;
+      return {
+        equipment: created,
+        warning: skippedWarning,
+        uploads: hasEquipmentUploads(uploads) ? uploads : undefined,
+      };
+    },
     onSuccess: onDone,
     onError: (e) => setError(e instanceof Error ? e.message : "Could not add"),
   });
+
+  const documentationUploading = documentation.some((item) => item.status === "uploading");
+  const canSubmit = type.trim().length >= 2
+    && Number(units) >= 1
+    && !!calibrated
+    && !!expires
+    && !documentationUploading;
 
   return (
     <Dialog
       title="Add equipment"
       onClose={onClose}
+      busy={submit.isPending}
       foot={
         <>
           <Button onClick={onClose}>Cancel</Button>
-          <Button variant="primary" disabled={!type.trim() || !units || submit.isPending} onClick={() => submit.mutate()}>
-            Add to inventory
+          <Button variant="primary" disabled={!canSubmit || submit.isPending} onClick={() => {
+            setError(null);
+            submit.mutate();
+          }}>
+            {submit.isPending ? "Adding..." : "Add to inventory"}
           </Button>
         </>
       }
@@ -816,15 +1158,99 @@ function AddEquipmentDialog({ onClose, onDone }: { onClose: () => void; onDone: 
         <Field label="Equipment type" required span>
           {(id) => <input id={id} className={inputCls} value={type} onChange={(e) => setType(e.target.value)} placeholder="Helmet camera, 4K" />}
         </Field>
+        <Field label="Make">
+          {(id) => <input id={id} className={inputCls} value={make} onChange={(e) => setMake(e.target.value)} placeholder="GoPro" />}
+        </Field>
+        <Field label="Model">
+          {(id) => <input id={id} className={inputCls} value={model} onChange={(e) => setModel(e.target.value)} placeholder="HERO12 Black" />}
+        </Field>
+        <Field label="Location" span>
+          {(id) => <input id={id} className={inputCls} value={location} onChange={(e) => setLocation(e.target.value)} placeholder="Bengaluru warehouse" />}
+        </Field>
         <Field label="Units" required>
           {(id) => <input id={id} className={inputCls} type="number" min={1} value={units} onChange={(e) => setUnits(e.target.value)} />}
         </Field>
-        <Field label="Calibrated on">
+        <Field label="Calibrated on" required>
           {(id) => <input id={id} className={inputCls} type="date" value={calibrated} onChange={(e) => setCalibrated(e.target.value)} />}
         </Field>
-        <Field label="Calibration expires" hint="Expired calibration blocks new loans automatically.">
+        <Field label="Calibration expires" required hint="Expired calibration blocks new loans automatically.">
           {(id) => <input id={id} className={inputCls} type="date" value={expires} onChange={(e) => setExpires(e.target.value)} />}
         </Field>
+        {SPEC_FIELDS.map(({ key, label, placeholder }) => (
+          <Field key={key} label={label}>
+            {(id) => (
+              <input
+                id={id}
+                className={inputCls}
+                value={specifications[key]}
+                onChange={(e) => setSpecifications((prev) => ({ ...prev, [key]: e.target.value }))}
+                placeholder={placeholder}
+              />
+            )}
+          </Field>
+        ))}
+        <Field label="Device photos" span error={photoError}>
+          {(id) => (
+            <div style={{ display: "flex", flexDirection: "column", gap: 10, alignItems: "flex-start" }}>
+              <input
+                ref={photoInputRef}
+                id={id}
+                type="file"
+                accept="image/*"
+                multiple
+                hidden
+                onChange={(e) => {
+                  pickPhotos(e.target.files);
+                  e.target.value = "";
+                }}
+              />
+              <Button size="sm" onClick={() => photoInputRef.current?.click()}>
+                Choose photos
+              </Button>
+              {photos.length > 0 && (
+                <div style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fill, minmax(104px, 1fr))",
+                  gap: 10,
+                  width: "100%",
+                }}>
+                  {photos.map((photo) => (
+                    <div key={photo.id} style={{ minWidth: 0 }}>
+                      <img
+                        src={photo.previewUrl}
+                        alt={photo.name}
+                        style={{
+                          width: "100%",
+                          aspectRatio: "1 / 1",
+                          objectFit: "cover",
+                          borderRadius: 6,
+                          border: "1px solid var(--line)",
+                          background: "var(--surface-2)",
+                        }}
+                      />
+                      <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 6 }}>
+                        <span className="small muted" style={{ minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                          {photo.name}
+                        </span>
+                        <Button size="sm" variant="quiet" onClick={() => removePhoto(photo.id)}>
+                          Remove
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </Field>
+        <AttachmentsField
+          label="Device documentation"
+          span
+          hint="Manuals, calibration certificates, spec sheets or other equipment files."
+          items={documentation}
+          onChange={setDocumentation}
+          max={10}
+        />
       </div>
       {error && <Callout tone="critical" title={error} />}
     </Dialog>
@@ -834,6 +1260,10 @@ function AddEquipmentDialog({ onClose, onDone }: { onClose: () => void; onDone: 
 function EditEquipmentDialog({ e, onClose, onDone }: { e: EquipmentRow; onClose: () => void; onDone: () => void }) {
   const [type, setType] = useState(e.equipment_type);
   const [units, setUnits] = useState(String(e.total_units));
+  const [make, setMake] = useState(e.make ?? "");
+  const [model, setModel] = useState(e.model ?? "");
+  const [location, setLocation] = useState(e.location ?? "");
+  const [specifications, setSpecifications] = useState<SpecDraft>(() => specsFromRow(e.specifications));
   const [calibrated, setCalibrated] = useState(e.calibrated_on ?? "");
   const [expires, setExpires] = useState(e.calibration_expires_on ?? "");
   const [error, setError] = useState<string | null>(null);
@@ -843,6 +1273,13 @@ function EditEquipmentDialog({ e, onClose, onDone }: { e: EquipmentRow; onClose:
   // present, so nothing to send means nothing to save.
   const changes: Record<string, unknown> = {};
   if (type.trim() !== e.equipment_type) changes.equipment_type = type.trim();
+  if (optionalText(make) !== optionalText(e.make)) changes.make = optionalText(make);
+  if (optionalText(model) !== optionalText(e.model)) changes.model = optionalText(model);
+  if (optionalText(location) !== optionalText(e.location)) changes.location = optionalText(location);
+  const nextSpecs = specsPayload(specifications);
+  if (!specsEqual(nextSpecs, specsPayload(specsFromRow(e.specifications)))) {
+    changes.specifications = nextSpecs;
+  }
   if (Number(units) !== e.total_units) changes.total_units = Number(units);
   if ((calibrated || null) !== e.calibrated_on) changes.calibrated_on = calibrated || null;
   if ((expires || null) !== e.calibration_expires_on) changes.calibration_expires_on = expires || null;
@@ -875,6 +1312,15 @@ function EditEquipmentDialog({ e, onClose, onDone }: { e: EquipmentRow; onClose:
         <Field label="Equipment type" required span>
           {(id) => <input id={id} className={inputCls} value={type} onChange={(ev) => setType(ev.target.value)} />}
         </Field>
+        <Field label="Make">
+          {(id) => <input id={id} className={inputCls} value={make} onChange={(ev) => setMake(ev.target.value)} />}
+        </Field>
+        <Field label="Model">
+          {(id) => <input id={id} className={inputCls} value={model} onChange={(ev) => setModel(ev.target.value)} />}
+        </Field>
+        <Field label="Location" span>
+          {(id) => <input id={id} className={inputCls} value={location} onChange={(ev) => setLocation(ev.target.value)} />}
+        </Field>
         <Field
           label="Units"
           required
@@ -888,6 +1334,19 @@ function EditEquipmentDialog({ e, onClose, onDone }: { e: EquipmentRow; onClose:
         <Field label="Calibration expires" hint="Expired calibration blocks new loans automatically.">
           {(id) => <input id={id} className={inputCls} type="date" value={expires} onChange={(ev) => setExpires(ev.target.value)} />}
         </Field>
+        {SPEC_FIELDS.map(({ key, label, placeholder }) => (
+          <Field key={key} label={label}>
+            {(id) => (
+              <input
+                id={id}
+                className={inputCls}
+                value={specifications[key]}
+                onChange={(ev) => setSpecifications((prev) => ({ ...prev, [key]: ev.target.value }))}
+                placeholder={placeholder}
+              />
+            )}
+          </Field>
+        ))}
       </div>
       {error && <Callout tone="critical" title={error} />}
     </Dialog>

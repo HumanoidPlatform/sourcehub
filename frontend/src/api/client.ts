@@ -64,6 +64,19 @@ export function bindSessionListener(fn: (s: Session | null, ended?: SessionEnd) 
 
 let refreshing: Promise<Session | null> | null = null;
 
+function tokenExpiresSoon(token: string, minValidMs: number): boolean {
+  const payloadPart = token.split(".")[1];
+  if (!payloadPart) return false;
+  try {
+    const base64 = payloadPart.replace(/-/g, "+").replace(/_/g, "/");
+    const padded = base64 + "=".repeat((4 - (base64.length % 4)) % 4);
+    const payload = JSON.parse(atob(padded)) as { exp?: unknown };
+    return typeof payload.exp === "number" && payload.exp * 1000 <= Date.now() + minValidMs;
+  } catch {
+    return false;
+  }
+}
+
 async function tryRefresh(): Promise<Session | null> {
   const current = loadSession();
   if (!current?.refresh_token) return null;
@@ -100,6 +113,13 @@ async function tryRefresh(): Promise<Session | null> {
     })();
   }
   return refreshing;
+}
+
+export async function ensureFreshSession(minValidMs = 120_000): Promise<Session | null> {
+  const current = loadSession();
+  if (!current?.refresh_token) return current;
+  if (!tokenExpiresSoon(current.access_token, minValidMs)) return current;
+  return tryRefresh();
 }
 
 export async function api<T = unknown>(
@@ -160,9 +180,21 @@ export async function putFile(
   // and the headers a PUT must carry depend on the provider behind the URL —
   // the phone app learned this the hard way with Azure.
   headers: Record<string, string> = {},
+  timeoutMs = 120_000,
 ): Promise<void> {
-  const r = await fetch(url, { method: "PUT", body: file, headers });
-  if (!r.ok) throw new ApiError(r.status, "Upload failed — try the file again");
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const r = await fetch(url, { method: "PUT", body: file, headers, signal: controller.signal });
+    if (!r.ok) throw new ApiError(r.status, "Upload failed — try the file again");
+  } catch (e) {
+    if (e instanceof Error && e.name === "AbortError") {
+      throw new ApiError(0, "Upload timed out — try the file again");
+    }
+    throw e;
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 export interface PutResult {

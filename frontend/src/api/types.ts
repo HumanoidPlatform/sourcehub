@@ -667,6 +667,10 @@ export interface EquipmentRow {
   id: string;
   reference_code: string;
   equipment_type: string;
+  make: string | null;
+  model: string | null;
+  location: string | null;
+  specifications: Record<string, unknown>;
   total_units: number;
   calibrated_on: string | null;
   calibration_expires_on: string | null;
@@ -674,6 +678,8 @@ export interface EquipmentRow {
   sponsor_name: string;
   units_on_loan: number;
   units_available: number;
+  photos: Attachment[];
+  documentation: Attachment[];
 }
 
 export interface LoanRow {
@@ -861,7 +867,7 @@ export interface StorageTarget {
     methodology, a task's instructions, a QA verdict's evidence. */
 export interface Attachment {
   id: string;
-  entity_type: "request" | "proposal" | "task" | "qa_review";
+  entity_type: "request" | "proposal" | "task" | "qa_review" | "equipment";
   entity_id: string;
   /** Which field it belongs to: compliance, acceptance, methodology, … */
   slot: string;

@@ -10,6 +10,10 @@ workflow — who attached the file and to what:
         tasks/TSK-02/instructions/
         qa/TSK-02/verdict/
 
+    platform/device sponsors/OptiGear Devices/DV-1001/
+        photos/
+        documentation/
+
 so two tasks' instructions, or two bidders' method statements, can never share
 a folder. A stored file is named
 
@@ -49,16 +53,20 @@ from __future__ import annotations
 
 import re
 import uuid
-from collections.abc import Iterable
 from dataclasses import dataclass
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from sqlalchemy import text
-from sqlalchemy.ext.asyncio import AsyncSession
 
-from sourcehub.platform.storage.types import StorageTarget
+if TYPE_CHECKING:
+    from collections.abc import Iterable
+
+    from sqlalchemy.ext.asyncio import AsyncSession
+
+    from sourcehub.platform.storage.types import StorageTarget
 
 STAGING = "_staging"
+DEVICE_SPONSORS = "device sponsors"
 
 # How many times a name collision is retried before giving up. Each attempt
 # draws fresh randomness, so reaching the end means something else is wrong.
@@ -70,7 +78,13 @@ _COLLISION_TRIES = 5
 _UNSAFE = re.compile(r'[\\/:*?"<>|\x00-\x1f]+')
 
 # The branch of the tree each kind of parent files under.
-_BRANCH = {"request": "request", "proposal": "proposals", "task": "tasks", "qa_review": "qa"}
+_BRANCH = {
+    "request": "request",
+    "proposal": "proposals",
+    "task": "tasks",
+    "qa_review": "qa",
+    "equipment": "equipment",
+}
 
 
 class NoFreeNameError(RuntimeError):
@@ -112,6 +126,20 @@ def _segment(raw: str, fallback: str) -> str:
     return s or fallback
 
 
+def base_path(entity_type: str, owner_name: str, ref: str) -> str:
+    """The stable root for one parent record's files."""
+    owner = _segment(
+        owner_name,
+        fallback="Unnamed sponsor" if entity_type == "equipment" else "Unnamed client",
+    )
+    if owner.casefold() == STAGING:
+        raise ValueError(f"{STAGING!r} is reserved and cannot be used as a client folder.")
+    ref_segment = _segment(ref, fallback="Unreferenced")
+    if entity_type == "equipment":
+        return f"{DEVICE_SPONSORS}/{owner}/{ref_segment}"
+    return f"{owner}/{ref_segment}"
+
+
 async def folder_for(
     session: AsyncSession, entity_type: str, entity_id: uuid.UUID
 ) -> Filing:
@@ -131,16 +159,14 @@ async def folder_for(
         )
     ).mappings().one_or_none()
     if row is None or not row["request_ref"]:
-        raise LookupError(f"no request behind {entity_type} {entity_id}")
-    if entity_type != "request" and not row["scope_ref"]:
+        raise LookupError(f"no reference behind {entity_type} {entity_id}")
+    if entity_type not in ("request", "equipment") and not row["scope_ref"]:
         raise LookupError(f"no reference behind {entity_type} {entity_id}")
 
-    client = _segment(row["client_name"] or "", fallback="Unnamed client")
-    if client.casefold() == STAGING:
-        raise ValueError(f"{STAGING!r} is reserved and cannot be used as a client folder.")
-    rfp = _segment(row["request_ref"], fallback="Unreferenced")
+    ref = _segment(row["request_ref"], fallback="Unreferenced")
     return Filing(
-        base=f"{client}/{rfp}", rfp_ref=rfp,
+        base=base_path(entity_type, row["client_name"] or "", row["request_ref"]),
+        rfp_ref=ref,
         scope_ref=row["scope_ref"], scope_label=row["scope_label"],
     )
 
@@ -152,9 +178,12 @@ def subfolder(entity_type: str, filing: Filing, slot: str) -> str:
         proposal   proposals/{PRO-ref TN-ref Partner}/{slot}
         task       tasks/{TSK-ref}/{slot}
         qa_review  qa/{TSK-ref}/{slot}
+        equipment  {slot} under the equipment reference
     """
     branch = _BRANCH[entity_type]
     leaf = _segment(slot, "files")
+    if entity_type == "equipment":
+        return leaf
     if entity_type == "request":
         return f"{branch}/{leaf}"
     who = " ".join(p for p in (filing.scope_ref, filing.scope_label) if p)
