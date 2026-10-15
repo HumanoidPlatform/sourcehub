@@ -173,13 +173,26 @@ def test_every_signed_in_catalogue_route_names_a_guard_or_the_principal():
         assert re.search(r"require_(any_)?capability\(|Depends\(get_principal\)", src), fn.name
 
 
-def test_the_relisting_hook_runs_inside_delivery():
+def test_delivery_lists_nothing_by_itself():
+    # Listing a contract's captures is the partner's choice, after approval.
     text = (SRC / "modules" / "delivery" / "service.py").read_text(encoding="utf-8")
-    body = text[text.index("async def deliver_contract("):text.index("async def dispute_delivery(")]
-    assert "await catalogue.relist_on_delivery(session, claims, c.id)" in body
-    assert body.index('c.status = "delivered"') < body.index("relist_on_delivery")
-    # a resale side-effect may not fail the delivery: savepoint, then log
-    hook = body[body.index("try:"):body.index("relist_on_delivery")]
-    assert "async with session.begin_nested():" in hook
-    after = body[body.index("relist_on_delivery"):]
-    assert "except Exception:" in after and "log.exception(" in after
+    assert "relist" not in text and "modules.catalogue" not in text
+
+
+def test_relisting_waits_for_the_clients_approval():
+    text = (SRC / "modules" / "catalogue" / "service.py").read_text(encoding="utf-8")
+    body = text[text.index("async def relist_contract("):]
+    assert 'req["status"] != "completed"' in body
+    assert 'not req["partner_reuse_allowed"]' in body
+    # both checks come before anything is written
+    assert body.index('"completed"') < body.index("INSERT INTO datahub_dataset")
+
+
+def test_relisting_does_not_ask_the_worker():
+    # The crowd's part ends when the captures are handed on (db/400).
+    service = (SRC / "modules" / "catalogue" / "service.py").read_text(encoding="utf-8")
+    body = service[service.index("async def relist_contract("):]
+    assert "resale_consented" not in body and "left_out" not in body
+    assert "user_consent" not in service
+    api = (SRC / "api" / "v1" / "catalogue.py").read_text(encoding="utf-8")
+    assert "/me/consents" not in api

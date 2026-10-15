@@ -117,7 +117,8 @@ WHERE r.code = 'tenant' AND p.code IN (
   -- the new capability: a tenant may ASK, but never approve
   'onboarding.request','onboarding.read',
   'user.invite','user.manage','role.manage','profile.manage',
-  'catalogue.list','catalogue.quote');
+  -- a delivery partner sells datasets and buys them too
+  'catalogue.buy','catalogue.list','catalogue.quote');
 
 INSERT INTO role_permission (role_id, permission_id)
 SELECT r.id, p.id FROM role r, permission p

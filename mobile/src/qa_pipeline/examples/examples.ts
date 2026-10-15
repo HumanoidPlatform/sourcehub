@@ -186,11 +186,21 @@ export function exampleFramesFinding(f: ExampleFramesScore): Finding {
  *  do — but recorded, and the word check decides alone. A capture that was
  *  never compared must not be filed as one that matched. */
 export function examplesUncheckedFinding(expected: number, reason?: UnscoredReason): Finding {
-  const why = reason === "no_labeller" ? "this build has no image labeller" : "they could not be fetched";
   return {
     code: "examples_unchecked",
     severity: "info",
-    message: `Not compared against the client's ${expected} example${expected === 1 ? "" : "s"} (${why}).`,
+    message: `Not compared against the client's ${expected} example${expected === 1 ? "" : "s"} (${WHY[reason ?? "unavailable"]}).`,
     detail: { expected, reason: reason ?? "unavailable" },
   };
 }
+
+/** No reason means the examples never became usable on this phone — not
+ *  fetched, or fetched and never labelled; the assignment screen cannot tell
+ *  which. A reason means they were ready and this capture could not be
+ *  labelled to compare with them. */
+const WHY: Record<UnscoredReason | "unavailable", string> = {
+  unavailable: "they could not be fetched or read on this phone",
+  no_labeller: "this build has no image labeller",
+  timeout: "labelling this capture took too long",
+  error: "labelling this capture failed",
+};

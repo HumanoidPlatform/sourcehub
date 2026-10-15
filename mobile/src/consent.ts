@@ -2,24 +2,17 @@
 // record of having accepted it. Pure — no storage, no React — so it can be
 // tested without a phone; consentStore.ts does the reading and writing.
 //
-// The record lives on this phone and, since version 2, on the server too
-// (user_consent, db/390; consentStore.ts uploads it). The server copy is what
-// lets a capture be relisted in the dataset catalogue: only captures taken
-// after their worker accepted a notice that mentions resale are copied.
+// The record lives on this phone only. Version 2 added a resale section for
+// the dataset catalogue; version 3 takes it out again, because relisting no
+// longer asks the worker (db/400): their part ends when the captures are
+// handed on.
 
 import { APP_NAME } from "@/brand";
 import { PRODUCTION_API_URL } from "@/config";
 
 /** Bump to ask everyone again. It travels over the air, so a corrected notice
  *  reaches every phone without a new build. */
-export const PRIVACY_NOTICE_VERSION = "2";
-
-/** Version 2 adds resale in the dataset catalogue. THE WORDING IS A DRAFT for
- *  the organisation and its counsel to replace: while it carries the [DRAFT]
- *  marker the consent screen shows its DRAFT banner (hasPlaceholders), so it
- *  cannot go out unnoticed. It states only what the platform does. */
-export const RESALE_NOTICE =
-  "[DRAFT — wording to be approved] If the client who ordered the work did not ask for it to be exclusive, the delivery partner may also license your accepted captures to other organisations through the dataset catalogue, for example to train AI models. Only captures you take after agreeing to this notice can be resold. You are paid for the work as usual; a resale does not pay you again.";
+export const PRIVACY_NOTICE_VERSION = "3";
 
 export const POLICY_URL = `${PRODUCTION_API_URL}/privacy`;
 
@@ -73,10 +66,6 @@ export const NOTICE: { title: string; intro: string; sections: NoticeSection[] }
       body: "The organisation that assigned you the work, the delivery partner it works for, and the client who ordered the captures. It is used to fulfil that order and to review and pay for your work.",
     },
     {
-      heading: "Resale in the dataset catalogue",
-      body: RESALE_NOTICE,
-    },
-    {
       heading: "How long, and your choices",
       // Two separate facts, kept separate on purpose. Captures are written
       // straight into the CLIENT's own storage, which this platform cannot
@@ -88,13 +77,14 @@ export const NOTICE: { title: string; intro: string; sections: NoticeSection[] }
 };
 
 export const hasPlaceholders = (): boolean =>
-  Object.values(OPERATOR).some((v) => /^\[.*\]$/.test(v.trim())) || RESALE_NOTICE.startsWith("[DRAFT");
+  Object.values(OPERATOR).some((v) => /^\[.*\]$/.test(v.trim()));
 
 // --- the record -------------------------------------------------------------
 
 export const CONSENT_DOCUMENT = "worker_privacy_notice";
 
-/** Exactly what the server-side user_consent row will hold. Keep it that way. */
+/** What the phone keeps. Changing its shape makes every saved record unreadable,
+ *  and everyone is asked again. */
 export interface ConsentRecord {
   document: typeof CONSENT_DOCUMENT;
   version: string;

@@ -71,12 +71,11 @@ def test_the_migration_follows_0041():
     assert re.search(r'^down_revision = "0041"$', MIGRATION_TEXT, re.M)
 
 
-def test_the_new_file_follows_380_in_the_bundle_and_is_last():
+def test_the_new_file_follows_380_in_the_bundle():
     m = re.search(r'^STRUCTURE="([^"]*)"', BUNDLE.read_text(encoding="utf-8"), re.M)
     assert m
     listed = m.group(1).split()
-    assert listed[-1] == "390_catalogue"
-    assert listed[-2] == "380_ratings"
+    assert listed[listed.index("390_catalogue") - 1] == "380_ratings"
 
 
 def test_no_comment_line_ends_a_statement_or_opens_a_body():
@@ -140,7 +139,7 @@ def test_the_seed_and_the_migration_grant_the_same_capabilities():
         assert f"('{cap}'" in SEED_TEXT, f"db/900 lacks {cap}"
         assert f"('{cap}'" in SEED, f"_SEED lacks {cap}"
         assert f"'{cap}'" in DOWN
-    assert SEED.count("ON CONFLICT DO NOTHING") == 4
+    assert SEED.count("ON CONFLICT DO NOTHING") == 5
 
 
 def test_only_operations_reviews_listings():
@@ -148,7 +147,8 @@ def test_only_operations_reviews_listings():
     holders = {role for role, caps in rows if "'catalogue.review'" in caps}
     assert holders == {"platform_admin"}
     buyers = {role for role, caps in rows if "'catalogue.buy'" in caps}
-    assert buyers == {"client"}
+    # clients and delivery partners buy; aggregators only sell
+    assert buyers == {"client", "tenant"}
 
 
 # ---------------------------------------------------------------------------
@@ -261,13 +261,6 @@ def test_no_definer_function_is_left_executable_by_public():
     grant_block = SQL_TEXT[SQL_TEXT.index("FOREACH f IN ARRAY ARRAY["):]
     for name, _ in definers:
         assert f"'{name}(" in grant_block, f"{name} keeps PUBLIC execute"
-
-
-def test_relisting_needs_the_resale_notice_before_the_capture():
-    body = _function("datahub_relist_candidates")
-    assert "k.partner_org_id = current_org_id()" in body
-    assert "c.version >= 2" in body
-    assert "c.accepted_at <= coalesce(s.captured_at, s.created_at)" in body
 
 
 def test_new_requests_stay_exclusive_unless_the_client_says_otherwise():

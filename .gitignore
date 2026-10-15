@@ -49,6 +49,9 @@ Thumbs.db
 *.log
 .claude/
 brag-output/
+marketing 
+marketing/teasers/out/
+marketing/teasers/.tts/
 
 # --- Build artifacts ----------------------------------------------------------
 # Generated from db/*.sql by `make bundle`. Not committed: a second copy of the

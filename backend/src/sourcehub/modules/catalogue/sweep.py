@@ -1,6 +1,6 @@
 """catalogue.sweep — the clock that copies relisted captures into platform storage.
 
-Relisting a delivered contract (service.relist_on_delivery) records one
+Relisting an approved contract (service.relist_contract) records one
 pending datahub_dataset_item per capture and copies nothing: a contract can hold
 thousands of files and delivery is a click in the console. This pass does the
 copying, a batch per owner per tick: the platform's storage fetches a

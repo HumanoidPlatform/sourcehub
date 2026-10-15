@@ -13,8 +13,9 @@
 --                            it. Two ways in: uploaded by its owner (a delivery
 --                            partner's or an aggregator's own data, or a
 --                            client's exclusive data it now wants to sell), or
---                            relisted from a delivered contract whose request
---                            was not exclusive (owner: the delivery partner).
+--                            relisted, at the delivery partner's choice, from a
+--                            contract the client approved whose request was
+--                            not exclusive (owner: the delivery partner).
 --   datahub_dataset_version  what a buyer is entitled to. Open while the owner
 --                            fills it; final, and immutable, once Ops publishes.
 --   datahub_dataset_item     one file, in SourceHub's own storage. Relisted

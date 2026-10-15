@@ -341,6 +341,10 @@ export interface Contract {
   delivered_at: string | null;
   completed_at: string | null;
   progress: Progress;
+  /** false: exclusive to the client. true: once approved, the partner may list the captures (db/350). */
+  partner_reuse_allowed?: boolean;
+  /** The partner's catalogue listing of these captures, once it chose to list them. */
+  catalogue_dataset_id?: string | null;
   tasks?: Task[];
   ratings?: RatingRow[];
 }
@@ -1057,7 +1061,6 @@ export interface DatasetEvidence {
   captured_to: string | null;
   with_device_checks: number;
   passed_review: boolean;
-  capturer_resale_consent: boolean;
   /** never recorded today, so always null */
   people_in_frame_consent: boolean | null;
 }

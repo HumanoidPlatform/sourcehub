@@ -16,7 +16,6 @@ from __future__ import annotations
 
 import datetime as dt
 import html
-import logging
 import uuid
 from decimal import Decimal
 from typing import Any
@@ -29,7 +28,6 @@ from sourcehub.api.security import AccessClaims, hash_token, new_opaque_token
 from sourcehub.config import CAPTURE_APP, PRODUCT, settings
 from sourcehub.db.session import anonymous_session, org_session
 from sourcehub.modules.audit import service as audit
-from sourcehub.modules.catalogue import service as catalogue
 from sourcehub.modules.delivery.models import (
     Contract,
     Submission,
@@ -42,8 +40,6 @@ from sourcehub.modules.invoices import service as invoices
 from sourcehub.modules.marketplace import pricing
 from sourcehub.modules.media import service as media
 from sourcehub.modules.notify import service as notifier
-
-log = logging.getLogger(__name__)
 
 
 class DeliveryError(Exception):
@@ -153,11 +149,15 @@ async def _contract_row(session: AsyncSession, c: Contract) -> dict[str, Any]:
         await session.execute(
             text(
                 "SELECT r.title, r.reference_code AS request_ref, r.delivery_due_on, "
+                "  coalesce((r.consent_and_compliance ->> 'partner_reuse_allowed')::boolean, false) "
+                "    AS partner_reuse_allowed, "
                 "  (SELECT name FROM organisation WHERE id = :cl) AS client_name, "
-                "  (SELECT name FROM organisation WHERE id = :pt) AS partner_name "
+                "  (SELECT name FROM organisation WHERE id = :pt) AS partner_name, "
+                # the partner's listing of it, once listed (RLS hides it from others)
+                "  (SELECT id FROM datahub_dataset WHERE contract_id = :cid) AS catalogue_dataset_id "
                 "FROM request r WHERE r.id = :rid"
             ),
-            {"rid": c.request_id, "cl": c.client_org_id, "pt": c.partner_org_id},
+            {"rid": c.request_id, "cl": c.client_org_id, "pt": c.partner_org_id, "cid": c.id},
         )
     ).mappings().one_or_none() or {}
     return {
@@ -184,6 +184,10 @@ async def _contract_row(session: AsyncSession, c: Contract) -> dict[str, Any]:
         "delivered_at": c.delivered_at,
         "completed_at": c.completed_at,
         "progress": await progress_of(session, c.id),
+        # false: exclusive to the client. true: once the client approves, the
+        # partner may list the captures in the dataset catalogue.
+        "partner_reuse_allowed": bool(names.get("partner_reuse_allowed")),
+        "catalogue_dataset_id": names.get("catalogue_dataset_id"),
     }
 
 
@@ -466,12 +470,12 @@ async def create_task(
     # for video could become a task that happily accepted photographs. The
     # partner can still override either; they simply cannot lose them by
     # omission, which is what the console did on every task it created.
-    # `not capture_spec` rather than `is None`: the API model defaults it to
-    # {} (api/v1/delivery.py:31), so a console that never sends the field
-    # arrives here with an empty dict, and an `is None` test would inherit
-    # nothing while looking like it worked. An empty spec and no spec mean the
-    # same thing to _allowed_kinds anyway. A partner who genuinely wants no
-    # media restriction sends {"media": []}, which is truthy and overrides.
+    # `not capture_spec` rather than `is None`, in both places below: no spec
+    # and an empty spec {} both mean "the partner said nothing", and an
+    # `is None` test let {} through as an override that inherited nothing. An
+    # empty spec and no spec mean the same thing to _allowed_kinds anyway. A
+    # partner who genuinely wants no media restriction sends {"media": []},
+    # which is truthy and overrides.
     if not capture_spec or target_unit is None:
         wanted = (
             await session.execute(
@@ -483,7 +487,7 @@ async def create_task(
             )
         ).mappings().one_or_none()
         if wanted is not None:
-            if capture_spec is None:
+            if not capture_spec:
                 capture_spec = wanted["capture_spec"] or None
             if target_unit is None:
                 target_unit = wanted["target_unit"]
@@ -1389,19 +1393,6 @@ async def deliver_contract(
         f"{c.reference_code} has been delivered and is ready for your approval.",
         "deliveries", {"id": str(c.id)},
     )
-    # A request that was not exclusive lets the partner sell the captures in
-    # the dataset catalogue too: open (or top up) its draft listing. Copies
-    # are made later by the catalogue sweep; nothing is published from here.
-    # A resale side-effect must never fail a contractual delivery: it runs in
-    # a savepoint, and a refusal is logged and left for the partner to list
-    # by hand.
-    try:
-        async with session.begin_nested():
-            await catalogue.relist_on_delivery(session, claims, c.id)
-    except Exception:
-        log.exception(
-            "Relisting %s for the catalogue failed; the delivery stands", c.reference_code
-        )
     await audit.log(
         session, "contract.delivered",
         f"Delivered {c.reference_code} to the client",

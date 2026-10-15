@@ -13,7 +13,7 @@ from typing import Any, Literal
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from fastapi.responses import PlainTextResponse
-from pydantic import AwareDatetime, BaseModel, Field
+from pydantic import BaseModel, Field
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.deps import (
@@ -100,14 +100,6 @@ class LeadStatusIn(BaseModel):
     status: LeadStatus
 
 
-class ConsentIn(BaseModel):
-    document: Literal["worker_privacy_notice"]
-    version: int = Field(ge=1)
-    accepted_at: AwareDatetime | None = None
-    app_version: str | None = Field(default=None, max_length=50)
-    platform: str | None = Field(default=None, max_length=20)
-
-
 def _conflict(e: Exception) -> HTTPException:
     return HTTPException(status.HTTP_409_CONFLICT, str(e))
 
@@ -190,6 +182,21 @@ async def create_dataset(
 ) -> dict[str, Any]:
     try:
         return await catalogue.create_dataset(session, principal, body.model_dump())
+    except catalogue.CatalogueError as e:
+        raise _conflict(e) from None
+
+
+@router.post("/catalogue/contracts/{contract_id}/list")
+async def list_contract(
+    contract_id: uuid.UUID,
+    principal: Principal = Depends(require_capability("catalogue.list")),
+    session: AsyncSession = Depends(get_session),
+) -> dict[str, Any]:
+    """The partner lists the captures of an approved, non-exclusive contract."""
+    try:
+        return {"dataset_id": await catalogue.relist_contract(session, principal, contract_id)}
+    except LookupError:
+        raise _not_found("Contract") from None
     except catalogue.CatalogueError as e:
         raise _conflict(e) from None
 
@@ -605,36 +612,3 @@ async def revoke(
         raise _not_found("Licence") from None
     except catalogue.CatalogueError as e:
         raise _conflict(e) from None
-
-
-# ---------------------------------------------------------------------------
-# Notices the signed-in person accepted (the phone keeps its own copy too)
-# ---------------------------------------------------------------------------
-
-
-@router.get("/me/consents")
-async def my_consents(
-    principal: Principal = Depends(get_principal),
-    session: AsyncSession = Depends(get_session),
-) -> dict[str, Any]:
-    return await catalogue.my_consents(session, principal)
-
-
-@router.post("/me/consents")
-async def record_consent(
-    body: ConsentIn,
-    principal: Principal = Depends(get_principal),
-    session: AsyncSession = Depends(get_session),
-) -> dict[str, Any]:
-    try:
-        return await catalogue.record_consent(
-            session,
-            principal,
-            document=body.document,
-            version=body.version,
-            accepted_at=body.accepted_at,
-            app_version=body.app_version,
-            platform=body.platform,
-        )
-    except catalogue.CatalogueError as e:
-        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, str(e)) from None

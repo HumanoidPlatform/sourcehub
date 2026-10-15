@@ -33,7 +33,7 @@ vi.mock("@shared/auth", () => ({
   useAuth: () => ({ session: auth.session, logout: () => Promise.resolve() }),
 }));
 
-import { DealPage, LicencesPage } from "./buyer";
+import { DatasetPage, DealPage, LicencesPage } from "./buyer";
 import { PublicDatasetPage } from "./public";
 
 const CLIENT = {
@@ -143,6 +143,25 @@ describe("the deal room", () => {
     fireEvent.click(await screen.findByRole("button", { name: "Accept the quote" }));
     fireEvent.click(await screen.findByRole("button", { name: /Accept .*5,000/ }));
     await waitFor(() => expect(api.post).toHaveBeenCalledWith("/catalogue/deals/k1/accept"));
+  });
+});
+
+describe("a delivery partner as a buyer", () => {
+  const DATASET = {
+    id: "d1", slug: "street-abc123", title: "Street scenes, Pune", summary: null, description: null,
+    category: "image", owner_org_id: "o-helix", owner_name: "Helix Data Collective", source: "contract",
+    status: "published", is_owner: false, use_cases: [], regions: [], languages: [], permitted_uses: [],
+    licence_terms: null, indicative_price_text: null, versions: [], items: [], evidence: null, my_deal: null,
+  };
+
+  it("may ask for a quote on another seller's dataset", async () => {
+    auth.session = {
+      full_name: "Ravi Menon", org_id: "o-north", org_name: "NorthStar", org_kind: "tenant", role: "tenant",
+      capabilities: ["catalogue.buy", "catalogue.quote", "catalogue.list"],
+    };
+    api.get.mockImplementation(() => Promise.resolve(DATASET));
+    show("/catalogue/street-abc123", "/catalogue/:slug", <DatasetPage />);
+    expect(await screen.findByRole("button", { name: "Request a quote" })).toBeTruthy();
   });
 });
 

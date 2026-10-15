@@ -18,54 +18,29 @@ jest.mock("../src/db/kv", () => ({
   }),
 }));
 
+// The record stays on the phone: relisting no longer asks the worker (db/400),
+// so nothing is sent to the server.
 const mockPost = jest.fn(async (_path: string, _body?: unknown): Promise<unknown> => ({}));
 jest.mock("../src/api/client", () => ({ post: (p: string, b?: unknown) => mockPost(p, b) }));
 
-import { PRIVACY_NOTICE_VERSION, consentKey, isCurrent, makeRecord } from "../src/consent";
-import { _resetConsentCache, acceptConsent, loadConsent, uploadConsent } from "../src/consentStore";
+import { PRIVACY_NOTICE_VERSION, consentKey, isCurrent } from "../src/consent";
+import { _resetConsentCache, acceptConsent, loadConsent } from "../src/consentStore";
 
 beforeEach(() => {
   mockKv.clear();
   mockState.failWrites = false;
   mockState.readGate = null;
   mockPost.mockReset();
-  mockPost.mockImplementation(async () => ({}));
   _resetConsentCache();
 });
 
-describe("the server copy", () => {
-  it("accepting sends the record to the server, with the version as a number", async () => {
-    const rec = await acceptConsent("u1");
-    await Promise.resolve();
-    expect(mockPost).toHaveBeenCalledWith("/me/consents", {
-      document: "worker_privacy_notice",
-      version: Number(PRIVACY_NOTICE_VERSION),
-      accepted_at: rec.accepted_at,
-      app_version: rec.app_version,
-      platform: rec.platform,
-    });
-  });
-
-  it("no signal never blocks the worker, and the next read sends it again", async () => {
-    mockPost.mockImplementation(async () => {
-      throw new Error("offline");
-    });
-    const rec = await acceptConsent("u1");
-    expect(isCurrent(rec)).toBe(true);
-    await Promise.resolve();
-    mockPost.mockReset();
-    mockPost.mockImplementation(async () => ({}));
+describe("the record stays on the phone", () => {
+  it("accepting and reading send nothing to the server", async () => {
+    await acceptConsent("u1");
     _resetConsentCache();
     await loadConsent("u1");
     await Promise.resolve();
-    expect(mockPost).toHaveBeenCalledTimes(1);
-  });
-
-  it("sends a record once per session, not on every read", async () => {
-    const rec = makeRecord(new Date(), "1.0.0", "android");
-    expect(await uploadConsent("u1", rec)).toBe(true);
-    expect(await uploadConsent("u1", rec)).toBe(true);
-    expect(mockPost).toHaveBeenCalledTimes(1);
+    expect(mockPost).not.toHaveBeenCalled();
   });
 });
 
@@ -81,7 +56,7 @@ describe("consent store", () => {
     expect(isCurrent(await loadConsent("u1"))).toBe(true);
   });
 
-  it("writes the five-field record the server will want", async () => {
+  it("writes the five-field record", async () => {
     await acceptConsent("u1");
     const saved = JSON.parse(mockKv.get(consentKey("u1"))!);
     expect(Object.keys(saved).sort()).toEqual(["accepted_at", "app_version", "document", "platform", "version"]);

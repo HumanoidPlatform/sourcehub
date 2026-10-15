@@ -4,8 +4,8 @@ list -> upload -> samples -> submit -> (refused: seller publishes) -> Ops
 publishes -> public page (samples only, no storage keys) -> public quote
 request -> client browses (samples only) -> asks for a quote -> seller quotes
 -> client accepts -> licence awaiting payment (files still closed) -> seller
-marks paid -> manifest and every file open -> seller withdraws a file -> the
-client is told.
+marks paid -> manifest and every file open -> another delivery partner buys
+it too -> seller withdraws a file -> the client is told.
 
 Needs the compose stack and the API (E2E_API, default :8000). Uploads go to
 the platform's own storage under catalogue/<dataset id>/, and are deleted at
@@ -47,6 +47,7 @@ def refused(r: httpx.Response, *codes: int) -> None:
 seller = login("partner@helix.example")
 buyer = login("client@acme.example")
 other = login("client@voltra.example")
+partner_buyer = login("partner@northstar.example")
 admin = login("admin@sourcehub.local")
 public = httpx.Client(base_url=B, timeout=T)
 
@@ -146,8 +147,10 @@ DEAL = r.json()["id"]
 refused(buyer.post(f"/catalogue/datasets/{DID}/deals",
                    json={"intended_use": "again", "requested_uses": []}), 409)
 ok("client asked for a quote; a second open request is REFUSED")
+# A delivery partner holds catalogue.buy too, so its own listing is refused by
+# the service, not the capability.
 refused(seller.post(f"/catalogue/datasets/{DID}/deals",
-                    json={"intended_use": "my own", "requested_uses": []}), 403)
+                    json={"intended_use": "my own", "requested_uses": []}), 409)
 refused(other.get(f"/catalogue/deals/{DEAL}"), 404)
 ok("the seller cannot buy; another client cannot see the deal")
 # A client holds catalogue.quote too (it may sell its own exclusive data), so
@@ -178,6 +181,27 @@ full = buyer.get(f"/catalogue/items/{items['full.jpg']['id']}/url")
 full.raise_for_status()
 assert httpx.get(full.json()["url"], timeout=T).content == files["full.jpg"]
 ok("seller marked it paid; manifest and every file open to the client", f"{len(rows) - 1} files")
+
+# 7b — another delivery partner buys it the same way
+r = partner_buyer.post(f"/catalogue/datasets/{DID}/deals",
+                       json={"intended_use": "benchmark our QA", "requested_uses": ["research"]})
+r.raise_for_status()
+PDEAL = r.json()["id"]
+seller.post(f"/catalogue/deals/{PDEAL}/quote", json={
+    "amount": "1200.00", "currency": "USD", "uses": ["research"]}).raise_for_status()
+r = partner_buyer.post(f"/catalogue/deals/{PDEAL}/accept")
+r.raise_for_status()
+PLIC = r.json()["licence_id"]
+seller.post(f"/catalogue/licences/{PLIC}/paid", json={}).raise_for_status()
+full = partner_buyer.get(f"/catalogue/items/{items['full.jpg']['id']}/url")
+full.raise_for_status()
+assert httpx.get(full.json()["url"], timeout=T).content == files["full.jpg"]
+ok("a delivery partner asked, was quoted, accepted, and downloads once paid")
+
+# 7c — listing a contract's captures is the partner's own call, on its own contract
+refused(seller.post(f"/catalogue/contracts/{uuid.uuid4()}/list"), 404)
+refused(buyer.post(f"/catalogue/contracts/{uuid.uuid4()}/list"), 404)
+ok("listing an unknown or someone else's contract is NOT FOUND")
 
 # 8 — a file comes out of a sold version
 r = seller.post(f"/catalogue/items/{items['full.jpg']['id']}/withdraw",

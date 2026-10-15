@@ -12,6 +12,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.deps import Principal, TxRoute, get_principal, get_session, require_capability
 from sourcehub.api.v1.attachments import AttachmentIn
+from sourcehub.api.v1.marketplace import CaptureSpec
 from sourcehub.modules.delivery import service as delivery
 from sourcehub.modules.engage import service as engage
 from sourcehub.modules.network import service as network
@@ -51,10 +52,10 @@ class TaskIn(BaseModel):
     target_quantity: int | None = Field(default=None, gt=0)
     target_unit: str | None = Field(default=None, max_length=40)
     instructions: str | None = None
-    # None, not {}: "not supplied" has to be distinguishable from "supplied
-    # empty" for delivery.create_task to know whether to inherit the
-    # client's capture spec from the request.
-    capture_spec: dict[str, Any] | None = None
+    # The same model the request is checked with, so a partner calling the API
+    # directly cannot set what the console would refuse (a 90° tilt, an
+    # hour-long clip). None and {} both mean "inherit the client's".
+    capture_spec: CaptureSpec | None = None
     # Separate from capture_spec on purpose: a capture_spec sent here REPLACES
     # the one inherited from the request, and the console only wants to add
     # the subject to it, not retype media and tilt.
@@ -181,7 +182,11 @@ async def create_task(
             session, principal, contract_id, body.assignee_org_id,
             body.title, body.target, body.due_on,
             target_quantity=body.target_quantity, target_unit=body.target_unit,
-            instructions=body.instructions, capture_spec=body.capture_spec,
+            instructions=body.instructions,
+            # exclude_unset: CaptureSpec defaults media and languages to [],
+            # and a full dump would hand create_task a spec that overrides
+            # the client's media with nothing.
+            capture_spec=body.capture_spec.model_dump(exclude_unset=True) if body.capture_spec else None,
             subject=body.subject.model_dump() if body.subject else None,
             attachments=[a.model_dump() for a in body.attachments],
         )

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { CaptureSpec } from "@api/types";
-import { blocking, checkCapture, mediaKinds, type Facts } from "./rules";
+import { blocking, checkCapture, displayedSize, mediaKinds, type Facts } from "./rules";
 
 const MB = 1024 * 1024;
 
@@ -84,13 +84,100 @@ describe("checkCapture", () => {
     expect(checkCapture({ ...good, width: undefined, height: undefined }, spec)).toEqual([]);
   });
 
+  it("refuses a clip outside the length the client asked for", () => {
+    const spec: CaptureSpec = { media: ["video"], min_duration_s: 30, max_duration_s: 120 };
+    const clip: Facts = { ...good, kind: "video", width: 1920, height: 1080 };
+    expect(checkCapture({ ...clip, duration: 45 }, spec)).toEqual([]);
+    expect(checkCapture({ ...clip, duration: 12 }, spec)[0]).toMatchObject({
+      code: "duration",
+      severity: "block",
+      message: "This task asks for clips of at least 30 s; that one is 12 s.",
+    });
+    expect(checkCapture({ ...clip, duration: 130 }, spec)[0]).toMatchObject({
+      code: "duration",
+      message: "This task takes clips of up to 120 s; that one is 130 s.",
+    });
+  });
+
+  it("gives a clip a second either way: the timer and the file disagree by a frame", () => {
+    const spec: CaptureSpec = { media: ["video"], min_duration_s: 30, max_duration_s: 120 };
+    const clip: Facts = { ...good, kind: "video", width: 1920, height: 1080 };
+    expect(checkCapture({ ...clip, duration: 29.2 }, spec)).toEqual([]);
+    expect(checkCapture({ ...clip, duration: 120.8 }, spec)).toEqual([]);
+  });
+
+  it("caps a clip at the global limit when the client set none, and never above it", () => {
+    const clip: Facts = { ...good, kind: "video", width: 1920, height: 1080 };
+    expect(checkCapture({ ...clip, duration: 599 }, { media: ["video"] })).toEqual([]);
+    expect(codes(checkCapture({ ...clip, duration: 700 }, { media: ["video"] }))).toEqual(["duration"]);
+    expect(codes(checkCapture({ ...clip, duration: 700 }, { media: ["video"], max_duration_s: 900 }))).toEqual(["duration"]);
+    // no timer, no verdict
+    expect(checkCapture({ ...clip, duration: null }, { media: ["video"], min_duration_s: 30 })).toEqual([]);
+  });
+
+  it("holds a clip's short side to the lines asked for, whichever way it was held", () => {
+    const spec: CaptureSpec = { media: ["video"], min_video_lines: 1080 };
+    expect(checkCapture({ ...good, kind: "video", width: 1920, height: 1080 }, spec)).toEqual([]);
+    expect(checkCapture({ ...good, kind: "video", width: 1080, height: 1920 }, spec)).toEqual([]);
+    expect(checkCapture({ ...good, kind: "video", width: 1280, height: 720 }, spec)[0]).toMatchObject({
+      code: "video_lines",
+      severity: "block",
+      message: "This task asks for 1080p video; that clip is 720p.",
+    });
+    // a photo is held to megapixels, not lines; unknown dimensions say nothing
+    expect(checkCapture({ ...good, width: 1280, height: 720 }, { ...spec, media: ["photo", "video"] })).toEqual([]);
+    expect(checkCapture({ ...good, kind: "video", width: null, height: null }, spec)).toEqual([]);
+  });
+
+  // A clip is judged by how the phone was HELD, not by the frame the encoder
+  // wrote: an app locked to portrait tags every recording portrait, and reading
+  // the frame refused landscape clips that were shot correctly.
+  it("judges a clip by the hold, whatever the frame says", () => {
+    const spec: CaptureSpec = { media: ["video"], orientation: "landscape" };
+    const portraitFrame: Facts = { ...good, kind: "video", width: 1080, height: 1920 };
+    expect(checkCapture({ ...portraitFrame, heldOrientation: "landscape" }, spec)).toEqual([]);
+    expect(checkCapture({ ...portraitFrame, heldOrientation: "portrait" }, spec)[0]).toMatchObject({
+      code: "orientation",
+      severity: "block",
+      message: "This task asks for landscape captures; the phone was held portrait.",
+    });
+  });
+
+  it("falls back to the frame for a clip with no hold recorded, as a gallery pick has", () => {
+    const spec: CaptureSpec = { media: ["video"], orientation: "landscape" };
+    expect(codes(checkCapture({ ...good, kind: "video", width: 1080, height: 1920 }, spec))).toEqual(["orientation"]);
+    expect(checkCapture({ ...good, kind: "video", width: 1920, height: 1080 }, spec)).toEqual([]);
+    // nothing to go on at all: no complaint rather than a guess
+    expect(checkCapture({ ...good, kind: "video", width: null, height: null }, spec)).toEqual([]);
+  });
+
+  it("holds a photo to its own frame, hold or no hold", () => {
+    const spec: CaptureSpec = { media: ["photo"], orientation: "landscape" };
+    expect(codes(checkCapture({ ...good, width: 3024, height: 4032, heldOrientation: "landscape" }, spec))).toEqual(["orientation"]);
+    expect(checkCapture({ ...good, heldOrientation: "portrait" }, spec)).toEqual([]);
+  });
+
   it("refuses the wrong orientation", () => {
     const spec: CaptureSpec = { media: ["photo"], orientation: "landscape" };
-    expect(checkCapture({ ...good, width: 3024, height: 4032 }, spec)[0]!).toMatchObject({
+    expect(checkCapture({ ...good, width: 3024, height: 4032 }, spec)[0]).toMatchObject({
       code: "orientation",
       severity: "block",
     });
     expect(checkCapture(good, spec)).toEqual([]);
+  });
+
+  it("reads orientation as displayed, not as stored: EXIF 5-8 turn the frame", () => {
+    const portrait: CaptureSpec = { media: ["photo"], orientation: "portrait" };
+    // an Android portrait shot: sensor frame 4000x3000, tag 6 = rotate 90
+    expect(checkCapture({ ...good, width: 4000, height: 3000, exifOrientation: 6 }, portrait)).toEqual([]);
+    expect(checkCapture({ ...good, width: 4000, height: 3000, exifOrientation: 8 }, portrait)).toEqual([]);
+    // upright tag, or none: the pixels are what they say
+    expect(checkCapture({ ...good, width: 4000, height: 3000, exifOrientation: 1 }, portrait)[0]?.code).toBe("orientation");
+    expect(checkCapture({ ...good, width: 4000, height: 3000, exifOrientation: null }, portrait)[0]?.code).toBe("orientation");
+    // genuinely landscape on a device that rotates the other way
+    expect(checkCapture({ ...good, width: 3000, height: 4000, exifOrientation: 6 }, portrait)[0]?.code).toBe("orientation");
+    expect(displayedSize(3000, 4000, 6)).toEqual({ width: 4000, height: 3000 });
+    expect(displayedSize(3000, 4000, 3)).toEqual({ width: 3000, height: 4000 });
   });
 
   it("says nothing about orientation when the client did not ask", () => {
@@ -137,17 +224,84 @@ describe("checkCapture · location", () => {
     expect(checkCapture({ ...good, fix: { accuracy: 9, stale: false } }, spec)).toEqual([]);
     expect(checkCapture({ ...good, fix: { accuracy: null, stale: false } }, spec)).toEqual([]);
   });
+
+  // The two quality signals describe a fix that DID arrive, so they apply
+  // wherever there is one to describe. They used to sit inside require_gps,
+  // which made MAX_FIX_ACCURACY_M unreachable on every task that merely
+  // recorded a location — most of them — so a capture carrying a position two
+  // kilometres wide was filed without a word.
+  it("describes a poor fix even on a task that did not require one", () => {
+    const loose = checkCapture({ ...good, fix: { accuracy: 2000, stale: false } }, { media: ["photo"] });
+    expect(codes(loose)).toEqual(["gps_accuracy"]);
+    expect(blocking(loose)).toEqual([]);
+
+    const stale = checkCapture({ ...good, fix: { accuracy: 8, stale: true } }, { media: ["photo"] });
+    expect(codes(stale)).toEqual(["gps_stale"]);
+  });
+
+  // ...but it describes it to the REVIEWER, not to the worker.
+  //
+  // A worker filming a laptop at a desk on a task that never asked for a
+  // position cannot do anything about slow satellites, and being interrupted
+  // about it is how people learn to dismiss warnings without reading them. The
+  // finding is still recorded either way; only who is shown it changes.
+  it("tells the worker about a poor fix only where the client asked for one", () => {
+    const free = { media: ["photo"] };
+    const asked = { media: ["photo"], require_gps: true };
+
+    for (const fix of [{ accuracy: 8, stale: true }, { accuracy: 2000, stale: false }]) {
+      expect(checkCapture({ ...good, fix }, free)[0]!.severity).toBe("info");
+      expect(checkCapture({ ...good, fix }, asked)[0]!.severity).toBe("warn");
+    }
+  });
+
+  // The refusal stays where it was. A task that never asked for a location must
+  // not refuse work for the want of one.
+  it("still refuses a missing fix only where the client required it", () => {
+    expect(checkCapture({ ...good, fix: null }, { media: ["photo"] })).toEqual([]);
+    expect(codes(checkCapture({ ...good, fix: null }, spec))).toEqual(["gps_missing"]);
+  });
 });
 
 describe("checkCapture · tilt", () => {
   const spec: CaptureSpec = { media: ["photo"], max_tilt_deg: 10 };
 
-  it("is silent when the client did not ask for squareness", () => {
-    expect(checkCapture({ ...good, tilt: { off: 40 } }, { media: ["photo"] })).toEqual([]);
+  // Refuses nothing where the client set no tolerance — but the reading is
+  // recorded rather than discarded, which is the whole point: a tilt figure
+  // never used to reach a reviewer, because a capture was either destroyed for
+  // being crooked or said nothing at all about how it was held.
+  it("refuses nothing when the client did not ask for squareness, but records it", () => {
+    const f = checkCapture({ ...good, tilt: { off: 40 } }, { media: ["photo"] });
+    expect(codes(f)).toEqual(["tilt_measured"]);
+    expect(f[0]!.severity).toBe("info");
+    expect(blocking(f)).toEqual([]);
+    expect(f[0]!.message).toContain("40");
   });
 
-  it("accepts a capture within tolerance", () => {
-    expect(checkCapture({ ...good, tilt: { off: 6 } }, spec)).toEqual([]);
+  it("accepts a capture within tolerance, and records how square it was", () => {
+    const f = checkCapture({ ...good, tilt: { off: 6 } }, spec);
+    expect(codes(f)).toEqual(["tilt_measured"]);
+    expect(f[0]!.severity).toBe("info");
+    expect(blocking(f)).toEqual([]);
+  });
+
+  it("records both angles, so a reviewer can see which way it leaned", () => {
+    const f = checkCapture({ ...good, tilt: { off: 6.34, roll: 6.34, pitch: -1.2 } }, spec);
+    expect(f[0]!.detail).toEqual({ off: 6.3, roll: 6.3, pitch: -1.2 });
+  });
+
+  // A clip's off is the median across the recording while roll and pitch are
+  // whatever the last sample held, so publishing all three would state a
+  // contradiction: 12 degrees off beside a roll of 2. The median is the number
+  // the verdict used, so it is the one that survives.
+  it("drops the axes when they do not explain the number", () => {
+    const f = checkCapture({ ...good, tilt: { off: 12, roll: 2, pitch: 1 } }, { media: ["photo"] });
+    expect(f[0]!.detail).toEqual({ off: 12 });
+  });
+
+  it("records nothing but the angle when the device reported no axes", () => {
+    const f = checkCapture({ ...good, tilt: { off: 9 } }, { media: ["photo"] });
+    expect(f[0]!.detail).toEqual({ off: 9 });
   });
 
   it("refuses a capture beyond the tolerance", () => {
@@ -155,6 +309,13 @@ describe("checkCapture · tilt", () => {
     expect(codes(f)).toEqual(["tilt"]);
     expect(f[0]!.severity).toBe("block");
     expect(f[0]!.message).toContain("23");
+  });
+
+  // The refusal already carries the number; a measurement beside it would be
+  // the same fact twice, and a blocked capture is destroyed before either could
+  // be uploaded anyway.
+  it("does not also record a measurement for a capture it refuses", () => {
+    expect(codes(checkCapture({ ...good, tilt: { off: 23 } }, spec))).not.toContain("tilt_measured");
   });
 
   // A device with no accelerometer, or one that reported nothing usable in

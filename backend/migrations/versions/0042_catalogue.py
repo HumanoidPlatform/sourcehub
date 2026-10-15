@@ -47,8 +47,9 @@ _UP = """
 --                            it. Two ways in: uploaded by its owner (a delivery
 --                            partner's or an aggregator's own data, or a
 --                            client's exclusive data it now wants to sell), or
---                            relisted from a delivered contract whose request
---                            was not exclusive (owner: the delivery partner).
+--                            relisted, at the delivery partner's choice, from a
+--                            contract the client approved whose request was
+--                            not exclusive (owner: the delivery partner).
 --   datahub_dataset_version  what a buyer is entitled to. Open while the owner
 --                            fills it; final, and immutable, once Ops publishes.
 --   datahub_dataset_item     one file, in SourceHub's own storage. Relisted
@@ -905,7 +906,14 @@ ON CONFLICT DO NOTHING;
 INSERT INTO role_permission (role_id, permission_id)
 SELECT r.id, p.id
 FROM   role r, permission p
-WHERE  r.code IN ('tenant', 'aggregator') AND r.is_system
+WHERE  r.code = 'tenant' AND r.is_system
+  AND  p.code IN ('catalogue.buy', 'catalogue.list', 'catalogue.quote')
+ON CONFLICT DO NOTHING;
+
+INSERT INTO role_permission (role_id, permission_id)
+SELECT r.id, p.id
+FROM   role r, permission p
+WHERE  r.code = 'aggregator' AND r.is_system
   AND  p.code IN ('catalogue.list', 'catalogue.quote')
 ON CONFLICT DO NOTHING;
 

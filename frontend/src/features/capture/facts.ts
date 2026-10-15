@@ -45,7 +45,7 @@ export interface Dimensions {
 /** The pieces of the browser a test can stand in for. */
 export interface Probes {
   image(file: File): Promise<Dimensions | null>;
-  video(file: File): Promise<(Dimensions & { duration: number }) | null>;
+  video(file: File): Promise<(Dimensions & { duration: number | null }) | null>;
   exif(file: File): Promise<{ capturedAt: Date | null; lat: number | null; lon: number | null }>;
 }
 
@@ -64,21 +64,21 @@ async function imageProbe(file: File): Promise<Dimensions | null> {
   }
 }
 
-async function videoProbe(file: File): Promise<(Dimensions & { duration: number }) | null> {
+async function videoProbe(file: File): Promise<(Dimensions & { duration: number | null }) | null> {
   const url = URL.createObjectURL(file);
   try {
     return await new Promise((resolve) => {
       const v = document.createElement("video");
       v.preload = "metadata";
       v.muted = true;
-      const done = (r: (Dimensions & { duration: number }) | null) => {
+      const done = (r: (Dimensions & { duration: number | null }) | null) => {
         v.onloadedmetadata = null;
         v.onerror = null;
         v.removeAttribute("src");
         resolve(r);
       };
       v.onloadedmetadata = () =>
-        done({ width: v.videoWidth, height: v.videoHeight, duration: Number.isFinite(v.duration) ? v.duration : 0 });
+        done({ width: v.videoWidth, height: v.videoHeight, duration: Number.isFinite(v.duration) && v.duration > 0 ? v.duration : null });
       v.onerror = () => done(null);
       setTimeout(() => done(null), 10_000);
       v.src = url;

@@ -140,4 +140,12 @@ describe("examplesUncheckedFinding", () => {
     expect(f.message).toContain("3 examples");
     expect(f.detail).toMatchObject({ expected: 3 });
   });
+
+  it("says why: never usable on this phone, or this capture could not be labelled", () => {
+    expect(examplesUncheckedFinding(2).message).toContain("could not be fetched or read on this phone");
+    expect(examplesUncheckedFinding(2).detail).toMatchObject({ reason: "unavailable" });
+    expect(examplesUncheckedFinding(2, "no_labeller").message).toContain("no image labeller");
+    expect(examplesUncheckedFinding(2, "timeout").message).toContain("took too long");
+    expect(examplesUncheckedFinding(2, "error").detail).toMatchObject({ reason: "error" });
+  });
 });

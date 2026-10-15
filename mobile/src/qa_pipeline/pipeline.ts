@@ -30,6 +30,7 @@ import { recogniseText, scoreText, textFinding, textUnreadFinding } from "@/qa_p
 import {
   forbiddenFinding,
   framesFinding,
+  framesForbiddenFinding,
   labelImage,
   scoreFrames,
   scoreSubject,
@@ -41,7 +42,17 @@ import {
 } from "@/qa_pipeline/subject/subject";
 import { deviceFinding, thisDevice } from "@/qa_pipeline/device/device";
 import { deleteLocal, moveIntoPrivateDir } from "@/capture/files";
-import { frameAt, sampleFrames } from "@/qa_pipeline/clip/frames";
+import { frameAt, greyImage, sampleFrames } from "@/qa_pipeline/clip/frames";
+import { blurFinding, framesBlurFinding, measureSharpness, type Sharpness } from "@/qa_pipeline/blur/blur";
+import {
+  type Exposure,
+  exposureFinding,
+  framesExposureFinding,
+  framesQualityMeasured,
+  measureExposure,
+  qualityMeasured,
+  qualityUncheckedFinding,
+} from "@/qa_pipeline/exposure/exposure";
 import { currentFix, type Fix } from "@/qa_pipeline/location/location";
 import type { Tilt } from "@/qa_pipeline/tilt/tilt";
 
@@ -212,7 +223,11 @@ export function useCapture(
       findings.push(deviceFinding(thisDevice()));
       if (kind === "photo") {
         const shown = width && height ? displayedSize(width, height, result.exifOrientation) : null;
-        const [read, faces] = await Promise.all([recogniseText(moved.uri), detectFaces(moved.uri)]);
+        const [read, faces, pixels] = await Promise.all([
+          recogniseText(moved.uri),
+          detectFaces(moved.uri),
+          greyImage(moved.uri).catch((e: unknown) => (e instanceof Error ? e : new Error(String(e)))),
+        ]);
         findings.push(
           "unscored" in read
             ? textUnreadFinding(read.unscored, read.error)
@@ -223,6 +238,22 @@ export function useCapture(
             ? facesUncheckedFinding(faces.unscored, faces.error)
             : facesFinding(scoreFaces(faces.faces, shown?.width, shown?.height), spec?.subject),
         );
+        // Focus and light. A photo clearly out of focus is refused here, like
+        // any rules.ts block — before the labeller spends seconds on it.
+        if (pixels instanceof Error) {
+          findings.push(qualityUncheckedFinding(pixels.message));
+        } else {
+          const sharp = measureSharpness(pixels);
+          const expo = measureExposure(pixels);
+          findings.push(qualityMeasured(sharp, expo));
+          const soft = blurFinding(sharp);
+          const lit = exposureFinding(expo);
+          if (lit) findings.push(lit);
+          if (soft) {
+            findings.push(soft);
+            if (soft.severity === "block") await refuse(session.user_id, assignmentId, moved.uri, [soft]);
+          }
+        }
       }
 
       // The subject check. A task without a subject skips it. A phone that
@@ -251,6 +282,8 @@ export function useCapture(
       if (kind === "video") {
         const times = frameTimes(result.duration ?? 0);
         const greys: Uint8Array[] = [];
+        const sharps: Sharpness[] = [];
+        const expos: Exposure[] = [];
         const scores: SubjectScore[] = [];
         const exampleScores: ExampleScore[] = [];
         // One frame the labeller could not answer is skipped, not the clip:
@@ -264,6 +297,8 @@ export function useCapture(
           FRAMES_BUDGET_MS,
           async (frame) => {
             greys.push(frame.grey);
+            sharps.push(measureSharpness(frame.image));
+            expos.push(measureExposure(frame.image));
             if ((!subject && !usable) || noLabeller) return;
             const seen = await labelImage(frame.uri);
             if ("unscored" in seen) {
@@ -284,6 +319,13 @@ export function useCapture(
         findings.push(...still);
         const stuck = blocking(still);
         if (stuck.length > 0) await refuse(session.user_id, assignmentId, moved.uri, stuck);
+        // Focus and light across the frames: warnings only, never a refusal.
+        const measured = framesQualityMeasured(sharps, expos);
+        if (measured) findings.push(measured);
+        const soft = framesBlurFinding(sharps);
+        if (soft) findings.push(soft);
+        const lit = framesExposureFinding(expos);
+        if (lit) findings.push(lit);
 
         let wordMiss: Finding | null = null;
         if (subject) {
@@ -294,6 +336,8 @@ export function useCapture(
             // out why was to shoot it again.
             findings.push(subjectMeasured(scores[0], across));
             wordMiss = framesFinding(across, subject);
+            const banned = framesForbiddenFinding(scores, subject);
+            if (banned) findings.push(banned);
           } else {
             const miss: { reason: UnscoredReason; error?: string } = lastMiss ?? { reason: "timeout" };
             findings.push(unscoredFinding(miss.reason, miss.error));
@@ -307,14 +351,29 @@ export function useCapture(
           // samples a 0.3 share is one frame, and one frame is an accident.
           exampleMiss =
             shot.hits < Math.min(MIN_SUBJECT_FRAMES, shot.frames) || shot.share < SUBJECT_FRAMES_MIN_SHARE;
+        } else if (usable && examples) {
+          // The examples were ready and not one frame could be labelled to
+          // compare with them. Said, so a reviewer does not read the silence
+          // as a match.
+          const miss: { reason: UnscoredReason } = lastMiss ?? { reason: "timeout" };
+          findings.push(examplesUncheckedFinding(examples.expected, miss.reason));
         }
         if (wordMiss) findings.push(wordMiss);
         finding = prompted(wordMiss, exampleMiss, usable !== null);
-        onSubject = wordMiss === null && !exampleMiss;
+        // "Looks like the subject" only where a check actually looked and
+        // passed. A clip with no subject and no examples, or one whose frames
+        // could not be labelled, was never judged and must not be praised.
+        const wordsPassed = subject ? scores.length > 0 && wordMiss === null : true;
+        const examplesPassed = usable ? exampleScores.length > 0 && !exampleMiss : true;
+        onSubject = (subject != null || usable != null) && wordsPassed && examplesPassed;
       } else if (subject || usable) {
         const seen = await labelImage(moved.uri);
         if ("unscored" in seen) {
-          findings.push(unscoredFinding(seen.unscored, seen.error));
+          if (subject) findings.push(unscoredFinding(seen.unscored, seen.error));
+          // The same missing labels cost the example comparison; say so
+          // rather than leave a capture that was never compared looking like
+          // one that matched.
+          if (usable && examples) findings.push(examplesUncheckedFinding(examples.expected, seen.unscored));
           return { kept: true, findings: await queue(findings) };
         }
         let wordMiss: Finding | null = null;

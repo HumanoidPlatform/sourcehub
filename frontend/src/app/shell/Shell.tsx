@@ -44,9 +44,9 @@ const NAV: Record<string, NavItem[]> = {
     { to: "/contracts", label: "Contracts" },
     { to: "/network", label: "Network" },
     { to: "/qa", label: "QA and delivery" },
-    // the partner's listings in the dataset catalogue: its own data, and the
-    // captures of contracts that were not exclusive
-    { to: "/catalogue/mine", label: "Datasets" },
+    // the dataset catalogue: a partner buys from it, and its tabs reach the
+    // partner's own listings (its own data, and approved non-exclusive contracts)
+    { to: "/catalogue", label: "Datasets" },
     // what the partner is owed and what the platform took — the invoices
     // exist against this org, and until now nothing linked to them
     { to: "/billing", label: "Billing" },

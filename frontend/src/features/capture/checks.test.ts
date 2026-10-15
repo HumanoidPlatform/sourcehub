@@ -61,6 +61,15 @@ describe("webChecks", () => {
     expect(f.find((x) => x.code === "duration")?.message).toContain("600");
   });
 
+  it("does not refuse a clip whose length the browser could not read", () => {
+    const d = derived({ duration: null }, { kind: "video", width: 1920, height: 1080 });
+    const f = webChecks(d, { media: ["video"], min_duration_s: 30 });
+    expect(blocking(f)).toEqual([]);
+    expect(codes(f)).toContain("duration_unknown");
+    // and says nothing about it where the task set no bounds
+    expect(codes(webChecks(d, { media: ["video"] }))).not.toContain("duration_unknown");
+  });
+
   it("honours the range the client stated, never a cap above the global one", () => {
     const d = derived({ duration: 45 }, { kind: "video", width: 1920, height: 1080 });
     expect(codes(blocking(webChecks(d, { media: ["video"], max_duration_s: 30 })))).toEqual(["duration"]);

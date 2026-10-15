@@ -125,8 +125,9 @@ function axes(t: { off: number; roll?: number; pitch?: number }): Record<string,
   return { roll: round1(t.roll), pitch: round1(t.pitch) };
 }
 
-/** a positive finite number, or null for "the client did not say" */
-function numeric(v: unknown): number | null {
+/** a positive finite number, or null for "the client did not say". Exported
+ *  so the capture screen reads a limit exactly as the check enforces it. */
+export function numeric(v: unknown): number | null {
   const n = typeof v === "number" ? v : typeof v === "string" ? Number(v) : NaN;
   return Number.isFinite(n) && n > 0 ? n : null;
 }
@@ -148,7 +149,7 @@ export function displayedSize(
   return turned ? { width: height, height: width } : { width, height };
 }
 
-function wantedOrientation(v: unknown): "landscape" | "portrait" | null {
+export function wantedOrientation(v: unknown): "landscape" | "portrait" | null {
   const s = String(v ?? "").trim().toLowerCase();
   return s === "landscape" || s === "portrait" ? s : null;
 }

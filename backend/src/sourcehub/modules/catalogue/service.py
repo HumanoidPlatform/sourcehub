@@ -7,9 +7,9 @@ yet, the catalogue sells data that does (db/390). Two ways a dataset comes to ex
 
   * its owner uploads it — a delivery partner's or an aggregator's own data,
     or a client's exclusive data it now wants to sell;
-  * a contract whose request was not exclusive is delivered, and the
-    delivery partner gets a draft holding copies of the accepted captures
-    whose workers had accepted the resale notice before capturing them.
+  * the client approves a contract whose request was not exclusive, and the
+    delivery partner chooses to list it: a draft holding copies of the
+    accepted captures.
 
 Either way the owner describes it, picks the sample files the public will
 see, and submits it; operations publish it or send it back. A buyer asks for
@@ -53,11 +53,6 @@ from sourcehub.platform import storage
 class CatalogueError(Exception):
     pass
 
-
-# The notice version from which the worker privacy notice says captures may
-# be resold in the catalogue (mobile/src/consent.ts PRIVACY_NOTICE_VERSION).
-RESALE_NOTICE_VERSION = 2
-NOTICE_DOCUMENTS = frozenset({"worker_privacy_notice"})
 
 SELLER_KINDS = frozenset({"tenant", "aggregator", "client"})
 MAX_UPLOADS_PER_CALL = 200
@@ -114,7 +109,9 @@ _DATASET_COLUMNS = (
     "d.category, d.use_cases, d.regions, d.languages, d.permitted_uses, d.licence_terms, "
     "d.indicative_price_text, d.status, d.submitted_at, d.review_note, d.reviewed_at, "
     "d.published_at, d.withdrawn_at, d.withdrawn_reason, d.created_at, d.updated_at, "
-    "o.name AS owner_name"
+    # the seller's name, which organisation's own policies hide from another
+    # partner (db/410); never a join, or the listing would vanish with it
+    "datahub_org_name(d.owner_org_id) AS owner_name"
 )
 
 
@@ -194,8 +191,7 @@ async def _one(session: AsyncSession, sql: str, params: dict[str, Any]) -> Any:
 async def _dataset_row(session: AsyncSession, dataset_id: uuid.UUID) -> Any:
     m = await _one(
         session,
-        f"SELECT {_DATASET_COLUMNS} FROM datahub_dataset d "
-        "JOIN organisation o ON o.id = d.owner_org_id WHERE d.id = :id",
+        f"SELECT {_DATASET_COLUMNS} FROM datahub_dataset d WHERE d.id = :id",
         {"id": dataset_id},
     )
     if m is None:
@@ -260,7 +256,7 @@ async def list_published(
                     "       v.total_bytes, "
                     "       (SELECT count(*) FROM datahub_dataset_item i WHERE i.version_id = v.id "
                     "          AND i.is_sample AND i.withdrawn_at IS NULL) AS sample_count "
-                    "FROM datahub_dataset d JOIN organisation o ON o.id = d.owner_org_id "
+                    "FROM datahub_dataset d "
                     "JOIN LATERAL (SELECT * FROM datahub_dataset_version v WHERE v.dataset_id = d.id "
                     "              AND v.status = 'final' ORDER BY v.number DESC LIMIT 1) v ON true "
                     f"WHERE {' AND '.join(where)} ORDER BY d.published_at DESC"
@@ -290,10 +286,9 @@ async def _evidence(session: AsyncSession, version_id: uuid.UUID, source: str) -
     """What can be said about how the files were made, from what is recorded.
 
     Relisted captures carry their capture time and the device checks from the
-    phone; every one passed the aggregator's and the partner's review (only
-    'ready' captures are relisted) and every one's worker had accepted the
-    resale notice before capturing it (datahub_relist_candidates). Nothing is
-    claimed about the people shown in them: no consent from them is recorded.
+    phone, and every one passed the aggregator's and the partner's review (only
+    'ready' captures are relisted). Nothing is claimed about the people shown
+    in them: no consent from them is recorded.
     """
     m = await _one(
         session,
@@ -309,7 +304,6 @@ async def _evidence(session: AsyncSession, version_id: uuid.UUID, source: str) -
         "captured_to": m["last"] if m else None,
         "with_device_checks": int(m["with_checks"]) if m else 0,
         "passed_review": relisted,
-        "capturer_resale_consent": relisted,
         "people_in_frame_consent": None,
     }
 
@@ -401,7 +395,7 @@ async def my_datasets(session: AsyncSession, claims: AccessClaims) -> list[dict[
                     "     AND i.copy_status = 'pending') AS pending_copies, "
                     "  (SELECT count(*) FROM datahub_dataset_deal k WHERE k.dataset_id = d.id "
                     "     AND k.status = 'requested') AS open_requests "
-                    "FROM datahub_dataset d JOIN organisation o ON o.id = d.owner_org_id "
+                    "FROM datahub_dataset d "
                     "WHERE d.owner_org_id = :org ORDER BY d.updated_at DESC"
                 ),
                 {"org": claims.org_id},
@@ -846,7 +840,7 @@ async def review_queue(session: AsyncSession, claims: AccessClaims) -> list[dict
                 text(
                     f"SELECT {_DATASET_COLUMNS}, "
                     "  (SELECT count(*) FROM datahub_dataset_item i WHERE i.dataset_id = d.id) AS item_count "
-                    "FROM datahub_dataset d JOIN organisation o ON o.id = d.owner_org_id "
+                    "FROM datahub_dataset d "
                     "WHERE d.status IN ('in_review', 'published', 'rejected') "
                     "ORDER BY (d.status = 'in_review') DESC, d.submitted_at DESC NULLS LAST"
                 )
@@ -963,12 +957,11 @@ async def set_lead_status(
 
 _DEAL_SELECT = (
     "SELECT k.*, d.title AS dataset_title, d.slug AS dataset_slug, v.number AS version_number, "
-    "       b.name AS buyer_name, s.name AS seller_name, l.id AS licence_id, "
+    "       datahub_org_name(k.buyer_org_id) AS buyer_name, "
+    "       datahub_org_name(k.seller_org_id) AS seller_name, l.id AS licence_id, "
     "       l.status AS licence_status "
     "FROM datahub_dataset_deal k JOIN datahub_dataset d ON d.id = k.dataset_id "
     "JOIN datahub_dataset_version v ON v.id = k.version_id "
-    "LEFT JOIN organisation b ON b.id = k.buyer_org_id "
-    "LEFT JOIN organisation s ON s.id = k.seller_org_id "
     "LEFT JOIN datahub_dataset_licence l ON l.deal_id = k.id "
 )
 
@@ -1257,13 +1250,12 @@ async def accept(session: AsyncSession, claims: AccessClaims, deal_id: uuid.UUID
 _LICENCE_SELECT = (
     "SELECT l.*, d.title AS dataset_title, d.slug AS dataset_slug, d.status AS dataset_status, "
     "       v.number AS version_number, v.item_count, v.total_bytes, "
-    "       b.name AS buyer_name, s.name AS seller_name, "
+    "       datahub_org_name(l.buyer_org_id) AS buyer_name, "
+    "       datahub_org_name(l.seller_org_id) AS seller_name, "
     "       (SELECT count(*) FROM datahub_dataset_item i WHERE i.version_id = l.version_id "
     "          AND i.withdrawn_at IS NOT NULL) AS withdrawn_count "
     "FROM datahub_dataset_licence l JOIN datahub_dataset d ON d.id = l.dataset_id "
     "JOIN datahub_dataset_version v ON v.id = l.version_id "
-    "LEFT JOIN organisation b ON b.id = l.buyer_org_id "
-    "LEFT JOIN organisation s ON s.id = l.seller_org_id "
 )
 
 
@@ -1605,86 +1597,36 @@ async def create_lead(
 
 
 # ---------------------------------------------------------------------------
-# Notices a person accepted
-# ---------------------------------------------------------------------------
-
-
-async def record_consent(
-    session: AsyncSession,
-    claims: AccessClaims,
-    *,
-    document: str,
-    version: int,
-    accepted_at: Any | None,
-    app_version: str | None,
-    platform: str | None,
-) -> dict[str, Any]:
-    """Keep the server's copy of a notice the person accepted on their phone.
-    Idempotent: the phone sends it again until it hears back."""
-    if document not in NOTICE_DOCUMENTS:
-        raise CatalogueError("Unknown notice.")
-    await session.execute(
-        text(
-            "INSERT INTO user_consent (user_id, document, version, accepted_at, app_version, "
-            "  platform) VALUES (:u, :doc, :ver, coalesce(:at, now()), :app, :plat) "
-            "ON CONFLICT (user_id, document, version) DO NOTHING"
-        ),
-        {
-            "u": claims.user_id,
-            "doc": document,
-            "ver": version,
-            "at": accepted_at,
-            "app": app_version,
-            "plat": platform,
-        },
-    )
-    return await my_consents(session, claims)
-
-
-async def my_consents(session: AsyncSession, claims: AccessClaims) -> dict[str, Any]:
-    rows = (
-        (
-            await session.execute(
-                text(
-                    "SELECT document, version, accepted_at FROM user_consent WHERE user_id = :u "
-                    "ORDER BY accepted_at"
-                ),
-                {"u": claims.user_id},
-            )
-        )
-        .mappings()
-        .all()
-    )
-    return {"consents": [dict(r) for r in rows]}
-
-
-# ---------------------------------------------------------------------------
 # Relisting a delivered contract
 # ---------------------------------------------------------------------------
 
 
-async def relist_on_delivery(
+async def relist_contract(
     session: AsyncSession, claims: AccessClaims, contract_id: uuid.UUID
-) -> uuid.UUID | None:
-    """Called as a non-exclusive contract is delivered, in the partner's own
-    transaction. Opens (or tops up) the partner's draft listing with one
-    pending copy per accepted capture whose worker had accepted the resale
-    notice before capturing it; the sweep then copies them out of the
-    client's bucket. Captures without that consent are left out and counted.
+) -> uuid.UUID:
+    """The partner's choice, once the client has approved a delivery whose
+    request was not exclusive. Opens (or tops up) the partner's draft listing
+    with one pending copy per accepted capture; the sweep then copies them out
+    of the client's bucket. The workers are not asked: their part ended when
+    the captures were handed on (db/400). Asking again returns the same listing.
 
-    Returns the dataset id, or None for an exclusive request.
+    Returns the dataset id.
     """
     req = await _one(
         session,
-        "SELECT r.title, r.category, r.countries, c.reference_code, "
+        "SELECT r.title, r.category, r.countries, c.reference_code, c.status, "
         "       coalesce((r.consent_and_compliance ->> 'partner_reuse_allowed')::boolean, false) "
         "         AS partner_reuse_allowed "
         "FROM contract c JOIN request r ON r.id = c.request_id "
-        "WHERE c.id = :c AND c.partner_org_id = :org",
+        "WHERE c.id = :c AND c.partner_org_id = :org AND c.deleted_at IS NULL",
         {"c": contract_id, "org": claims.org_id},
     )
-    if req is None or not req["partner_reuse_allowed"]:
-        return None
+    if req is None:
+        raise LookupError("contract not found")
+    if not req["partner_reuse_allowed"]:
+        raise CatalogueError("This request was exclusive to the client; its captures cannot be listed.")
+    if req["status"] != "completed":
+        raise CatalogueError("A contract's captures can be listed once the client has approved the delivery.")
 
     existing = await _one(
         session, "SELECT id, status FROM datahub_dataset WHERE contract_id = :c", {"c": contract_id}
@@ -1716,6 +1658,9 @@ async def relist_on_delivery(
             ),
             {"d": ds, "o": claims.org_id},
         )
+    elif existing["status"] != "draft":
+        # In review, on sale or withdrawn: listing again changes nothing.
+        return existing["id"]
     else:
         ds = existing["id"]
     v = await _one(
@@ -1725,7 +1670,7 @@ async def relist_on_delivery(
         {"d": ds},
     )
     if v is None:
-        # Already published: a re-delivery after a dispute does not reopen it.
+        # Already submitted and published: listing again does not reopen it.
         return ds
 
     candidates = (
@@ -1737,12 +1682,9 @@ async def relist_on_delivery(
         .mappings()
         .all()
     )
-    added = left_out = 0
+    added = 0
     for a in candidates:
-        if not a["resale_consented"]:
-            left_out += 1
-            continue
-        name = _safe_filename(a["filename"] or f"{a['asset_id']}")
+        name =_safe_filename(a["filename"] or f"{a['asset_id']}")
         got = (
             await session.execute(
                 text(
@@ -1774,31 +1716,20 @@ async def relist_on_delivery(
             )
         ).scalar_one_or_none()
         added += got is not None
-    note = (
-        f"{left_out} accepted captures were left out: their workers had not accepted the "
-        "resale notice before capturing them."
-        if left_out
-        else None
-    )
-    await session.execute(
-        text("UPDATE datahub_dataset_version SET notes = :n WHERE id = :v"), {"n": note, "v": v["id"]}
-    )
     await notifier.notify(
         session,
         claims.org_id,
-        f"{req['reference_code']} was not exclusive, so its captures are being copied into a draft "
-        f"dataset you can list ({added} added"
-        + (f", {left_out} left out for want of the worker's resale consent" if left_out else "")
-        + ").",
+        f"The captures of {req['reference_code']} are being copied into a draft dataset "
+        f"({added} added).",
         "catalogue_listing",
         {"id": str(ds)},
     )
     await audit.log(
         session,
         "catalogue.relisted",
-        f"Opened {req['reference_code']} for resale: {added} captures to copy, {left_out} left out",
+        f"Opened {req['reference_code']} for resale: {added} captures to copy",
         [ds, contract_id, claims.org_id],
-        {"added": added, "left_out": left_out},
+        {"added": added},
     )
     return ds
 

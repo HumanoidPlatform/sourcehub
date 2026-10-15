@@ -2,7 +2,7 @@
 
 import type { SubjectSpec } from "@/api/types";
 import { SUBJECT_OFF } from "@/config";
-import { forbiddenFinding, framesFinding, scoreFrames, scoreSubject, subjectFinding, subjectMeasured, unscoredFinding, words } from "@/qa_pipeline/subject/subject";
+import { forbiddenFinding, framesFinding, framesForbiddenFinding, scoreFrames, scoreSubject, subjectFinding, subjectMeasured, unscoredFinding, words } from "@/qa_pipeline/subject/subject";
 
 const shelf: SubjectSpec = {
   domain: "retail shelf",
@@ -234,6 +234,31 @@ describe("forbiddenFinding", () => {
 
   it("says nothing when nothing is forbidden", () => {
     expect(forbiddenFinding(scoreSubject(L(["Shelf", 0.9]), shelf), shelf)).toBeNull();
+  });
+});
+
+describe("framesForbiddenFinding: a clip's forbidden check", () => {
+  const shelfFrame = scoreSubject(L(["Shelf", 0.9]), shelf);
+  const personFrame = scoreSubject(L(["Shelf", 0.9], ["Person", 0.8]), shelf);
+
+  it("lets one passer-by in one frame go", () => {
+    expect(framesForbiddenFinding([shelfFrame, personFrame, shelfFrame, shelfFrame], shelf)).toBeNull();
+  });
+
+  it("warns when the forbidden thing is clearly there in two frames or more", () => {
+    const f = framesForbiddenFinding([personFrame, shelfFrame, personFrame, shelfFrame], shelf);
+    expect(f).toMatchObject({ code: "forbidden_subject", severity: "warn", score: 0.8 });
+    expect(f?.detail).toMatchObject({ veto: ["Person"], frames: 4, vetoed: 2 });
+    expect(f?.message).toContain("2 of 4 frames");
+  });
+
+  it("counts the only frame there was, like the presence check", () => {
+    expect(framesForbiddenFinding([personFrame], shelf)).not.toBeNull();
+  });
+
+  it("ignores faint guesses", () => {
+    const faint = scoreSubject(L(["Shelf", 0.9], ["Person", 0.2]), shelf);
+    expect(framesForbiddenFinding([faint, faint, faint], shelf)).toBeNull();
   });
 });
 

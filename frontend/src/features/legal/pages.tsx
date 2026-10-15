@@ -28,10 +28,10 @@ const LAST_UPDATED = "19 September 2026";
 // The dataset catalogue (db/390) resells captures from requests that were not
 // exclusive. What follows says only what the platform does; THE WORDING IS A
 // DRAFT for the organisation and its counsel to replace, and while it carries
-// the [DRAFT] marker the page shows its draft banner. The phone's notice says
-// the same (mobile/src/consent.ts RESALE_NOTICE); change them together.
+// the [DRAFT] marker the page shows its draft banner. Relisting does not ask
+// the worker who took a capture (db/400), so neither does this.
 const RESALE =
-  "[DRAFT — wording to be approved] When the client who ordered the work did not ask for it to be exclusive, the delivery partner may also license accepted captures to other organisations through our dataset catalogue — for example to train AI models. Only captures taken after the worker accepted a notice saying so are included. Each sale is a licence on the seller's own terms; the platform reviews every listing before it is offered.";
+  "[DRAFT — wording to be approved] When the client who ordered the work did not ask for it to be exclusive, the delivery partner may, once the client has approved the delivery, also license the accepted captures to other organisations through our dataset catalogue — for example to train AI models. Each sale is a licence on the seller's own terms; the platform reviews every listing before it is offered.";
 const isDraft = Object.values(OPERATOR).some((v) => /^\[.*\]$/.test(v)) || RESALE.startsWith("[DRAFT");
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {

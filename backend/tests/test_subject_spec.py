@@ -88,3 +88,31 @@ def test_presign_takes_a_clip_of_minutes_but_not_of_hours():
     assert PresignIn(size_bytes=MAX_VIDEO_BYTES, **common).size_bytes == MAX_VIDEO_BYTES
     with pytest.raises(ValidationError):
         PresignIn(size_bytes=MAX_VIDEO_BYTES + 1, **common)
+
+
+def test_a_clip_limit_past_the_phones_cap_is_refused():
+    from sourcehub.api.v1.marketplace import CaptureSpec
+
+    assert CaptureSpec(max_duration_s=600).max_duration_s == 600
+    with pytest.raises(ValidationError):
+        CaptureSpec(max_duration_s=601)
+
+
+def test_a_task_spec_is_checked_like_the_requests():
+    """TaskIn took any dict, so a direct API call could set what the console
+    refuses. It is the request's own model now."""
+    import uuid
+
+    from sourcehub.api.v1.delivery import TaskIn
+
+    base = dict(assignee_org_id=uuid.uuid4(), title="Shelf photos")
+    with pytest.raises(ValidationError):
+        TaskIn(**base, capture_spec={"max_tilt_deg": 90})
+    with pytest.raises(ValidationError):
+        TaskIn(**base, capture_spec={"max_duration_s": 3600})
+    # only what the partner actually sent goes on: the model's own default
+    # media=[] must not override the client's media with nothing
+    t = TaskIn(**base, capture_spec={"orientation": "landscape", "custom": 1})
+    assert t.capture_spec is not None
+    assert t.capture_spec.model_dump(exclude_unset=True) == {"orientation": "landscape", "custom": 1}
+    assert TaskIn(**base).capture_spec is None

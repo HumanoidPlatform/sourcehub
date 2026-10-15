@@ -1244,8 +1244,8 @@ export function RequestNewPage() {
                 <span>
                   Non-exclusive
                   <span className="cl-sub">
-                    You get the data. The delivery partner may also offer the accepted captures to others in the dataset
-                    catalogue — only those whose capturing worker agreed to resale.
+                    You get the data. Once you approve the delivery, the delivery partner may choose to offer the accepted
+                    captures to others in the dataset catalogue.
                   </span>
                 </span>
               </label>

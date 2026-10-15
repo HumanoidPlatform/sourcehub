@@ -130,6 +130,54 @@ export const BLACK_MEAN = 16;
 /** mean absolute grey difference under which two consecutive frames are the same picture */
 export const FROZEN_DIFF = 2;
 
+// Image quality (qa_pipeline/blur, qa_pipeline/exposure): every photo, and
+// every sampled frame of a clip, is shrunk to QUALITY_WIDTH pixels wide and
+// read as grey. Big enough for an edge to survive, small enough that a frame
+// costs one resize and a few milliseconds of arithmetic.
+export const QUALITY_WIDTH = 320;
+/** Sharpness (variance of the Laplacian in the sharpest tiles, at
+ *  QUALITY_WIDTH) under which a capture is soft: kept, with a warning.
+ *
+ *  Calibrated on the scikit-image sample photos (October 2026) put through the
+ *  phone's own resize, defocused with a Gaussian of σ = a share of the width:
+ *  sharp photos measured 424–7100; σ 0.4% (visibly soft) 23–107; σ 0.8%
+ *  (clearly out of focus) 6–14. 60 sits far below every sharp photo and
+ *  catches the softer half of the visibly-soft ones. Provisional, like
+ *  SUBJECT_OFF: every capture records its sharpness (quality_measured) so this
+ *  can be moved on gate-1 evidence rather than sample images. */
+export const BLUR_WARN = 60;
+/** ...and under which a PHOTO is clearly out of focus and refused — but only
+ *  when it still has the contrast of a real scene (BLUR_MIN_CONTRAST). On the
+ *  samples every σ 0.8% photo of a real scene fell under 15 and no sharp one
+ *  came near. Clips are never refused for blur: a pan blurs frames on purpose. */
+export const BLUR_BLOCK = 15;
+/** Grey standard deviation (0..255) a photo needs before blur can refuse it.
+ *  A plain wall is smooth because the wall is; and fine texture (grass,
+ *  gravel, small print) loses its contrast when defocused, so a blurred one
+ *  falls under this and is warned about rather than refused. */
+export const BLUR_MIN_CONTRAST = 20;
+/** below this a frame is featureless (black, a lens cap, a blank wall) and
+ *  says nothing about focus */
+export const FEATURELESS_CONTRAST = 8;
+/** share of a clip's judged frames that must be soft before it is warned about */
+export const BLUR_FRAMES_WARN_SHARE = 0.5;
+/** Mean grey under which a capture is too dark, over which too bright.
+ *
+ *  On the same samples: correctly exposed photos averaged 61–172 with almost
+ *  nothing blown out; two stops under, 15–42 (all caught at 45); pushed 1.6×
+ *  brighter, 7–58% of pixels blown to white. A white page or wall shot
+ *  normally can sit near the bright line, which is one reason exposure only
+ *  ever warns. */
+export const DARK_MEAN = 45;
+export const BRIGHT_MEAN = 215;
+/** share of pixels crushed to black (≤5) or blown to white (≥250) that
+ *  also counts as badly exposed, whatever the mean */
+export const CRUSHED_SHARE = 0.5;
+export const CLIPPED_SHARE = 0.25;
+/** share of a clip's frames (black frames aside) that must be badly exposed
+ *  before it is warned about */
+export const EXPOSURE_FRAMES_WARN_SHARE = 0.5;
+
 /** how often the app re-asks the server while in the foreground */
 export const POLL_MS = 30_000;
 /** re-presign when a signed URL has less than this left */

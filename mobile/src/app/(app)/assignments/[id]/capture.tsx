@@ -17,7 +17,7 @@ import { useAssignments } from "@/query/hooks";
 import { TONE_COLOR } from "@/status";
 import { Button, C, Callout, s } from "@/ui";
 import type { ExampleSet } from "@/qa_pipeline/examples/examples";
-import { type Finding, mediaKinds } from "@/qa_pipeline/rules/rules";
+import { type Finding, mediaKinds, numeric, wantedOrientation } from "@/qa_pipeline/rules/rules";
 
 /** A level, shown on every task the phone can read a sensor for.
  *
@@ -144,17 +144,19 @@ export default function Capture() {
   const kinds = mediaKinds(spec, a?.task.target_unit);
   // A fresh array every render, so the effect below watches its contents.
   const kindKey = kinds.join(",");
-  const maxSeconds = Math.min(MAX_VIDEO_SECONDS, spec?.max_duration_s ?? MAX_VIDEO_SECONDS);
-  const minSeconds = typeof spec?.min_duration_s === "number" && spec.min_duration_s > 0 ? spec.min_duration_s : null;
+  // Every limit below is read through the same numeric()/wantedOrientation()
+  // the rules enforce with, so the screen never hides a limit the check then
+  // refuses on ("Landscape", "10" as text).
+  const maxSeconds = Math.min(MAX_VIDEO_SECONDS, numeric(spec?.max_duration_s) ?? MAX_VIDEO_SECONDS);
+  const minSeconds = numeric(spec?.min_duration_s);
   // Picking a clip the phone already holds is allowed only where the client
   // said so: a recording made here is provably from this place and time, a
   // file from the gallery is whatever the worker had.
   const allowLibrary = spec?.allow_library === true && kinds.includes("video");
   // Only a client who asked for squareness gets the sensor, the level, or the
   // warning. A number the console never sent means tilt is not part of this job.
-  const maxTilt = typeof spec?.max_tilt_deg === "number" && spec.max_tilt_deg > 0 ? spec.max_tilt_deg : null;
-  const wantOrientation =
-    spec?.orientation === "landscape" || spec?.orientation === "portrait" ? spec.orientation : null;
+  const maxTilt = numeric(spec?.max_tilt_deg);
+  const wantOrientation = wantedOrientation(spec?.orientation);
 
   useEffect(() => {
     if (!camPerm?.granted) void requestCam();

@@ -13,7 +13,7 @@
 import type { CaptureSpec, DeviceCheck } from "@api/types";
 import { MAX_CHECK_CODE, MAX_CHECK_MESSAGE, MAX_CHECKS } from "./config";
 import type { Derived } from "./facts";
-import { checkCapture, type Finding } from "./rules";
+import { checkCapture, type Finding, numeric } from "./rules";
 
 export function webChecks(d: Derived, spec: CaptureSpec | null | undefined, targetUnit?: string | null): Finding[] {
   const out: Finding[] = [];
@@ -32,8 +32,8 @@ export function webChecks(d: Derived, spec: CaptureSpec | null | undefined, targ
     }
   }
 
-  const tilt = spec?.max_tilt_deg;
-  if (typeof tilt === "number" && tilt > 0) {
+  const tilt = numeric(spec?.max_tilt_deg);
+  if (tilt != null) {
     out.push({
       code: "tilt_unverified",
       severity: "warn",
@@ -46,6 +46,17 @@ export function webChecks(d: Derived, spec: CaptureSpec | null | undefined, targ
       code: "dimensions_unknown",
       severity: "warn",
       message: "The browser could not read this image's dimensions, so its size and orientation were not checked.",
+    });
+  }
+
+  // A clip whose length the browser could not read is not checked against
+  // the client's bounds; it used to be read as 0 s and refused as too short.
+  const bounded = numeric(spec?.min_duration_s) != null || numeric(spec?.max_duration_s) != null;
+  if (d.facts.kind === "video" && d.facts.duration == null && bounded) {
+    out.push({
+      code: "duration_unknown",
+      severity: "warn",
+      message: "The browser could not read this clip's length, so it was not checked against the task's limits.",
     });
   }
 

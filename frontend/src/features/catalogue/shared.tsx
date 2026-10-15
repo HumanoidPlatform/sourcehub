@@ -73,7 +73,6 @@ export function Preview({
 export function EvidencePanel({ evidence }: { evidence: DatasetEvidence | null | undefined }) {
   if (!evidence) return null;
   const relisted = evidence.source === "contract";
-  const yes = (b: boolean) => (b ? "Yes" : "Not recorded");
   return (
     <Dl
       rows={[
@@ -81,7 +80,6 @@ export function EvidencePanel({ evidence }: { evidence: DatasetEvidence | null |
         ["Captured", evidence.captured_from ? `${fmtDate(evidence.captured_from)} – ${fmtDate(evidence.captured_to)}` : "Not recorded"],
         ["Device checks on capture", evidence.with_device_checks ? `${evidence.with_device_checks.toLocaleString()} files` : "Not recorded"],
         ["Passed the aggregator's and partner's review", relisted ? "Every file" : "Not applicable"],
-        ["Capturer agreed to resale", relisted ? yes(evidence.capturer_resale_consent) : "The seller's warranty"],
         ["Consent from people shown", "Not recorded by the platform — see the seller's licence terms"],
       ]}
     />

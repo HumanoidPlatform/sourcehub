@@ -59,7 +59,9 @@ class CaptureSpec(BaseModel):
     # clip.ts) like everything above. Seconds; the camera stops recording at
     # max, and a gallery pick outside the range is refused before upload.
     min_duration_s: float | None = Field(default=None, ge=0)
-    max_duration_s: float | None = Field(default=None, gt=0)
+    # 600 is the phone's hard cap (mobile config MAX_VIDEO_SECONDS): the camera
+    # stops there, so a longer limit could never be met.
+    max_duration_s: float | None = Field(default=None, gt=0, le=600)
     # The short side of a clip's frame: "at least 1080p".
     min_video_lines: int | None = Field(default=None, ge=1)
     # Whether a worker may send a clip the phone already holds rather than
@@ -133,9 +135,9 @@ class RequestIn(BaseModel):
     regulations: list[str] = Field(default_factory=list, max_length=20)
     lawful_basis: LawfulBasis | None = None
     permitted_uses: list[PermittedUse] = Field(default_factory=list)
-    # False (the default): exclusive to the client. True: the delivery partner
-    # may also list the delivered captures in the dataset catalogue (db/390),
-    # subject to each worker's resale consent.
+    # False (the default): exclusive to the client. True: once the client
+    # approves the delivery, the delivery partner may choose to list the
+    # captures in the dataset catalogue (db/390).
     partner_reuse_allowed: bool = False
     biometric_processing: bool = False
 

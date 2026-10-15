@@ -204,6 +204,27 @@ export function framesFinding(f: FramesScore, subject: SubjectSpec): Finding | n
   };
 }
 
+/** A photo's forbidden check, run over a clip's frames; null when nothing
+ *  forbidden was clearly in shot often enough to mean it.
+ *
+ *  The same bar as presence (framesFinding): one frame is an accident — a
+ *  passer-by crossing the aisle for a second — so the forbidden thing has to
+ *  be clearly there (SUBJECT_VETO) in at least MIN_SUBJECT_FRAMES frames, or
+ *  every frame of a shorter clip. A warning, never a prompt, like the photo's. */
+export function framesForbiddenFinding(perFrame: SubjectScore[], subject: SubjectSpec): Finding | null {
+  const vetoed = perFrame.filter((r) => r.forbidden >= SUBJECT_VETO && r.veto.length > 0);
+  if (vetoed.length === 0 || vetoed.length < Math.min(MIN_SUBJECT_FRAMES, perFrame.length)) return null;
+  const veto = mostCommon(vetoed.map((r) => r.veto)).slice(0, 5);
+  const which = veto[0].toLowerCase();
+  return {
+    code: "forbidden_subject",
+    severity: "warn",
+    message: `${subject.domain} was asked for without ${subject.must_not_show.join(" or ")}; ${which} is in ${vetoed.length} of ${perFrame.length} frames.`,
+    score: Number(Math.max(...vetoed.map((r) => r.forbidden)).toFixed(3)),
+    detail: { veto, frames: perFrame.length, vetoed: vetoed.length },
+  };
+}
+
 /** What the check saw, recorded whether or not it had a complaint.
  *
  *  subjectFinding and framesFinding both return null on success, so until now
