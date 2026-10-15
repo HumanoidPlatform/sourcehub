@@ -1,18 +1,15 @@
 // catalogue — pieces every catalogue screen uses: labels, sample previews,
-// dataset cards, and the list of quote requests from the public page.
+// dataset cards.
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
-import { get, patch, post } from "@api/client";
-import type { CatalogueLead, DatasetSample, LeadReply, PermittedUse } from "@api/types";
-import {
-  Button, Callout, DataTable, Dialog, Empty, Field, Panel, Pill, Skeleton, textareaCls, useToast,
-} from "@ds/primitives";
+import { get } from "@api/client";
+import type { DatasetDeal, DatasetSample, PermittedUse } from "@api/types";
 import { labelOf, labelsOf, PERMITTED_USES } from "@features/marketplace/vocabularies";
 import { fmtBytes } from "@features/delivery/components/AssetGallery";
 import { countryLabel } from "@shared/countries";
-import { fmtDateTime } from "@shared/format";
+import type { Tone } from "@shared/status";
+import { dealStatus, statusMeta } from "@shared/status";
 
 export { fmtBytes };
 
@@ -122,138 +119,15 @@ export function DatasetCard({
   );
 }
 
-/* --- quote requests from the public page ------------------------------------ */
-
 /**
- * People without an account asking for a quote (db/430). The seller sees the
- * requests on its own listings, replies from here (the platform emails it,
- * Reply-To the seller) and marks them; Ops see every request, its seller and
- * the replies, and change none.
+ * A deal's status as people read it. A request from the public page (db/440)
+ * is only ever open or closed: New until the seller has written, Contacted
+ * once they have, Closed when declined.
  */
-export function LeadsPanel({ leads, loading, readOnly = false }: {
-  leads: CatalogueLead[] | undefined;
-  loading: boolean;
-  readOnly?: boolean;
-}) {
-  const qc = useQueryClient();
-  const toast = useToast();
-  const [open, setOpen] = useState<CatalogueLead | null>(null);
-  const mark = useMutation({
-    mutationFn: ({ id, status }: { id: string; status: CatalogueLead["status"] }) => patch(`/catalogue/leads/${id}`, { status }),
-    onSuccess: () => void qc.invalidateQueries({ queryKey: ["catalogue-leads"] }),
-    onError: (e) => toast("Not saved", e instanceof Error ? e.message : "Something went wrong", "critical"),
-  });
-  return (
-    <Panel flush>
-      {loading ? <Skeleton rows={4} label="Loading quote requests" /> : !leads?.length ? (
-        <Empty
-          title="No quote requests yet"
-          hint={readOnly
-            ? "People without an account ask for quotes on the public dataset pages; each request goes to the dataset's seller."
-            : "People without an account can ask for a quote on your published listings. Their requests appear here."}
-        />
-      ) : (
-        <DataTable
-          rows={leads}
-          rowKey={(r) => r.id}
-          filter={{ label: "Filter requests", placeholder: "Filter by company, email or dataset…", text: (r) => `${r.company} ${r.email} ${r.dataset_title} ${r.seller_name}` }}
-          columns={[
-            { header: "Received", cell: (r) => fmtDateTime(r.created_at), sortBy: (r) => r.created_at },
-            { header: "From", className: "cell-primary", cell: (r) => <>{r.name} · {r.company}<div className="cell-meta">{r.email}</div></> },
-            { header: "Dataset", cell: (r) => <Link to={`/catalogue/${r.dataset_slug}`}>{r.dataset_title}</Link> },
-            ...(readOnly ? [{ header: "Seller", cell: (r: CatalogueLead) => r.seller_name, sortBy: (r: CatalogueLead) => r.seller_name }] : []),
-            {
-              header: "Intended use",
-              cell: (r) => <>{r.intended_use}{r.message && <div className="cell-meta">{r.message}</div>}</>,
-            },
-            {
-              header: "Status",
-              cell: (r) => <>
-                <Pill tone={r.status === "new" ? "attention" : r.status === "contacted" ? "active" : "neutral"}>
-                  {r.status === "new" ? "New" : r.status === "contacted" ? "Contacted" : "Closed"}
-                </Pill>
-                {r.reply_count > 0 && <div className="cell-meta">{r.reply_count} {r.reply_count === 1 ? "reply" : "replies"} sent</div>}
-              </>,
-            },
-            {
-              header: "Actions", hideHeader: true, className: "right",
-              cell: (r) => (
-                <div className="rowactions">
-                  {readOnly ? (
-                    r.reply_count > 0 && <Button size="sm" onClick={() => setOpen(r)}>Replies</Button>
-                  ) : (
-                    <>
-                      <Button size="sm" variant={r.status === "new" ? "primary" : undefined} onClick={() => setOpen(r)}>
-                        {r.status === "closed" ? "Replies" : "Reply"}
-                      </Button>
-                      {r.status === "new" && <Button size="sm" onClick={() => mark.mutate({ id: r.id, status: "contacted" })}>Contacted</Button>}
-                      {r.status !== "closed" && <Button size="sm" onClick={() => mark.mutate({ id: r.id, status: "closed" })}>Close</Button>}
-                    </>
-                  )}
-                </div>
-              ),
-            },
-          ]}
-        />
-      )}
-      {open && <LeadReplyDialog lead={open} canReply={!readOnly && open.status !== "closed"} onClose={() => setOpen(null)} />}
-    </Panel>
-  );
-}
-
-function LeadReplyDialog({ lead, canReply, onClose }: { lead: CatalogueLead; canReply: boolean; onClose: () => void }) {
-  const qc = useQueryClient();
-  const toast = useToast();
-  const [body, setBody] = useState("");
-  const replies = useQuery({
-    queryKey: ["catalogue-lead-replies", lead.id],
-    queryFn: () => get<LeadReply[]>(`/catalogue/leads/${lead.id}/replies`),
-  });
-  const send = useMutation({
-    mutationFn: () => post<LeadReply>(`/catalogue/leads/${lead.id}/replies`, { body: body.trim() }),
-    onSuccess: () => {
-      setBody("");
-      toast("Reply sent", `Emailed to ${lead.email}. Their answer comes to your inbox.`);
-      void qc.invalidateQueries({ queryKey: ["catalogue-leads"] });
-      void qc.invalidateQueries({ queryKey: ["catalogue-lead-replies", lead.id] });
-    },
-  });
-  return (
-    <Dialog
-      title={canReply ? `Reply to ${lead.name}` : "Replies"}
-      sub={`${lead.company} · ${lead.dataset_title}`}
-      onClose={onClose}
-      busy={send.isPending}
-      foot={
-        <>
-          <Button onClick={onClose}>{canReply ? "Cancel" : "Close"}</Button>
-          {canReply && (
-            <Button variant="primary" disabled={!body.trim() || send.isPending} onClick={() => send.mutate()}>
-              {send.isPending ? "Sending…" : "Send email"}
-            </Button>
-          )}
-        </>
-      }
-    >
-      <div className="small" style={{ background: "var(--ground)", borderRadius: 6, padding: "8px 10px" }}>
-        <div style={{ fontWeight: 600 }}>{lead.name} asked, {fmtDateTime(lead.created_at)}</div>
-        <div>{lead.intended_use}</div>
-        {lead.message && <div style={{ whiteSpace: "pre-wrap", marginTop: 4 }}>{lead.message}</div>}
-      </div>
-      {replies.isLoading ? <Skeleton rows={2} label="Loading replies" /> : (replies.data ?? []).map((r) => (
-        <div key={r.id} className="small" style={{ borderLeft: "3px solid var(--line)", padding: "4px 10px" }}>
-          <div style={{ fontWeight: 600 }}>{r.sender_name}, {fmtDateTime(r.created_at)}</div>
-          <div style={{ whiteSpace: "pre-wrap" }}>{r.body}</div>
-        </div>
-      ))}
-      {canReply && (
-        <>
-          <Field label="Your reply" required hint={`Sent to ${lead.email} from the platform, with your address to reply to.`}>
-            {(id) => <textarea id={id} className={textareaCls} rows={7} value={body} onChange={(e) => setBody(e.target.value)} />}
-          </Field>
-          {send.isError && <Callout tone="critical" title="Not sent">{(send.error as Error).message}</Callout>}
-        </>
-      )}
-    </Dialog>
-  );
+export function dealStatusMeta(d: Pick<DatasetDeal, "channel" | "status" | "message_count">): { label: string; tone: Tone } {
+  if (d.channel === "public") {
+    if (d.status === "declined") return { label: "Closed", tone: "neutral" };
+    return d.message_count > 0 ? { label: "Contacted", tone: "active" } : { label: "New", tone: "attention" };
+  }
+  return statusMeta(dealStatus, d.status);
 }

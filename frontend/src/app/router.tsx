@@ -14,7 +14,7 @@ import {
 } from "@features/catalogue/buyer";
 import { CatalogueReviewPage } from "@features/catalogue/ops";
 import { PublicCataloguePage, PublicDatasetPage } from "@features/catalogue/public";
-import { DatasetEditorPage, DatasetNewPage, LeadsPage, MyDatasetsPage } from "@features/catalogue/seller";
+import { DatasetEditorPage, DatasetNewPage, MyDatasetsPage } from "@features/catalogue/seller";
 import { ContractsPage, ContractDetailPage, TasksPage } from "@features/delivery/pages";
 import {
   AcceptInvitationPage, ForcedPasswordChange, LoginPage, ResetPasswordPage, TaskOfferPage,
@@ -153,7 +153,6 @@ export function AppRouter() {
         <Route path="/catalogue/mine" element={<MyDatasetsPage />} />
         <Route path="/catalogue/mine/new" element={<DatasetNewPage />} />
         <Route path="/catalogue/mine/:id" element={<DatasetEditorPage />} />
-        <Route path="/catalogue/requests" element={<LeadsPage />} />
         <Route path="/catalogue/:slug" element={<DatasetPage />} />
         <Route path="/ops/catalogue" element={<CatalogueReviewPage />} />
 

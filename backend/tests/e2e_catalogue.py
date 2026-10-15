@@ -122,25 +122,27 @@ refused(public.post(f"/public/catalogue/{SLUG}/leads", json={
 r = public.post(f"/public/catalogue/{SLUG}/leads", json={
     "name": "A Buyer", "email": "buyer@lab.example", "company": "Lab Co", "intended_use": "evaluation"})
 assert r.status_code == 201, r.text
-ok("an incomplete lead is REFUSED; a complete one was received")
+ok("an incomplete public request is REFUSED; a complete one was received")
 
-# the request is the seller's: it reads and marks it; Ops only read; nobody else sees it
-lead = next(x for x in seller.get("/catalogue/leads").json() if x["dataset_slug"] == SLUG)
-assert lead["email"] == "buyer@lab.example" and lead["status"] == "new"
-assert any(x["id"] == lead["id"] for x in admin.get("/catalogue/leads").json())
-assert not any(x["id"] == lead["id"] for x in partner_buyer.get("/catalogue/leads").json())
-refused(admin.patch(f"/catalogue/leads/{lead['id']}", json={"status": "closed"}), 403, 404)
-refused(partner_buyer.patch(f"/catalogue/leads/{lead['id']}", json={"status": "closed"}), 404)
-refused(admin.post(f"/catalogue/leads/{lead['id']}/replies", json={"body": "hi"}), 403)
-r = seller.post(f"/catalogue/leads/{lead['id']}/replies", json={"body": "Yes: USD [x] for 500."})
-assert r.status_code == 201, r.text
-assert r.json()["reply_to"] == "partner@helix.example"
-lead = next(x for x in seller.get("/catalogue/leads").json() if x["id"] == lead["id"])
-assert lead["status"] == "contacted" and lead["reply_count"] == 1
-seller.patch(f"/catalogue/leads/{lead['id']}", json={"status": "closed"}).raise_for_status()
-refused(seller.post(f"/catalogue/leads/{lead['id']}/replies", json={"body": "again"}), 409)
-ok("the seller sees the request and replies by email from the platform; Ops only read it;"
-   " another seller sees nothing; a closed request takes no reply")
+# the request is a public deal: the seller answers by email; Ops only read; nobody else sees it
+pub = next(x for x in seller.get("/catalogue/deals").json()
+           if x["dataset_slug"] == SLUG and x["channel"] == "public")
+assert pub["contact_email"] == "buyer@lab.example" and pub["buyer_org_id"] is None
+assert pub["status"] == "requested" and pub["buyer_name"] == "Lab Co"
+assert any(x["id"] == pub["id"] for x in admin.get("/catalogue/deals").json())
+refused(partner_buyer.get(f"/catalogue/deals/{pub['id']}"), 404)
+refused(admin.post(f"/catalogue/deals/{pub['id']}/messages", json={"body": "hi"}), 403, 409)
+refused(seller.post(f"/catalogue/deals/{pub['id']}/quote",
+                    json={"amount": "1", "currency": "USD", "uses": ["research"]}), 409)
+r = seller.post(f"/catalogue/deals/{pub['id']}/messages", json={"body": "Yes: USD [x] for 500."})
+assert r.status_code in (200, 201), r.text
+assert r.json()["emailed_to"] == "buyer@lab.example"
+r = seller.post(f"/catalogue/deals/{pub['id']}/decline", json={})
+r.raise_for_status()
+assert r.json()["status"] == "declined"
+refused(seller.post(f"/catalogue/deals/{pub['id']}/messages", json={"body": "again"}), 409)
+ok("the public request is a deal: the seller replies by email and closes it; it cannot be quoted;"
+   " Ops only read it; another seller sees nothing")
 
 # 6 — a client asks for 500 of the 3,000, and the two agree in the chat
 refused(buyer.post(f"/catalogue/datasets/{DID}/deals",

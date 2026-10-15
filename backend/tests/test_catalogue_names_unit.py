@@ -120,6 +120,7 @@ def test_the_catalogue_never_joins_organisation():
     service = SERVICE.read_text(encoding="utf-8")
     assert "JOIN organisation" not in service
     assert "datahub_org_name(d.owner_org_id) AS owner_name" in service
-    # licences went in db/420; the deal is the agreement
-    for side in ("buyer", "seller"):
-        assert f"datahub_org_name(k.{side}_org_id) AS {side}_name" in service
+    # licences went in db/420; the deal is the agreement. A public request
+    # (db/440) has no buyer organisation: the visitor's company stands in.
+    assert "coalesce(datahub_org_name(k.buyer_org_id), k.contact_company) AS buyer_name" in service
+    assert "datahub_org_name(k.seller_org_id) AS seller_name" in service

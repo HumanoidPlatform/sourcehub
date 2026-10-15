@@ -5,7 +5,9 @@
 // accepts, and the seller marks the deal paid and then delivered. The files
 // change hands outside the platform. The deal page shows each side its own
 // next step (my_side from the API); the rules themselves are the database's
-// (db/420), and a button here only offers a move the API would accept.
+// (db/420), and a button here only offers a move the API would accept. A
+// request from the public page is a deal too (db/440): the seller replies by
+// email from its page and closes it.
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
@@ -20,23 +22,23 @@ import { useSession } from "@shared/auth";
 import { fmtDate, fmtDateTime, money } from "@shared/format";
 import { can } from "@shared/rbac";
 import { ReasonDialog } from "@shared/reason-dialog";
-import { datasetStatus, dealStatus, statusMeta } from "@shared/status";
+import { datasetStatus, statusMeta } from "@shared/status";
 import { PERMITTED_USES } from "@features/marketplace/vocabularies";
 import {
-  CATEGORIES, categoryLabel, DatasetCard, quantityText, regionsText, SamplePreview, sizeText, sourceText,
+  CATEGORIES, categoryLabel, DatasetCard, dealStatusMeta, quantityText, regionsText, SamplePreview, sizeText,
+  sourceText,
   usesText,
 } from "./shared";
 
 const errText = (e: unknown) => (e instanceof Error ? e.message : "Something went wrong");
 
 /** The catalogue's own tabs, so a buyer moves between them without the rail. */
-function CatalogueTabs({ current }: { current: "browse" | "deals" | "mine" | "requests" }) {
+function CatalogueTabs({ current }: { current: "browse" | "deals" | "mine" }) {
   const session = useSession();
   const tabs: [string, string, string, boolean][] = [
     ["browse", "/catalogue", "Browse", true],
     ["deals", "/catalogue/deals", "Quotes", can(session, "catalogue.buy") || can(session, "catalogue.quote")],
     ["mine", "/catalogue/mine", "My listings", can(session, "catalogue.list")],
-    ["requests", "/catalogue/requests", "Public requests", can(session, "catalogue.list")],
   ];
   return (
     <nav className="seg" aria-label="Dataset catalogue" style={{ marginBottom: 16 }}>
@@ -284,7 +286,7 @@ export function DealsPage() {
   const deals = useQuery({ queryKey: ["catalogue-deals"], queryFn: () => get<DatasetDeal[]>("/catalogue/deals") });
   const rows = deals.data ?? [];
   return (
-    <View title="Quotes" sub="Quote requests you have made, and those made to you as a seller.">
+    <View title="Quotes" sub="Quote requests you have made, and those made to you as a seller, from the console or the public page.">
       <CatalogueTabs current="deals" />
       <Panel flush>
         {deals.isLoading ? <Skeleton rows={4} label="Loading quotes" /> : rows.length === 0 ? (
@@ -293,17 +295,22 @@ export function DealsPage() {
           <DataTable
             rows={rows}
             rowKey={(r) => r.id}
-            filter={{ label: "Filter quotes", placeholder: "Filter by dataset or organisation…", text: (r) => `${r.dataset_title} ${r.buyer_name} ${r.seller_name}` }}
+            filter={{ label: "Filter quotes", placeholder: "Filter by dataset or organisation…", text: (r) => `${r.dataset_title} ${r.buyer_name} ${r.seller_name} ${r.contact_email ?? ""}` }}
             columns={[
               { header: "Dataset", cell: (r) => r.dataset_title, sortBy: (r) => r.dataset_title, className: "cell-primary" },
               { header: "You are", cell: (r) => (r.my_side === "buyer" ? "Buying" : r.my_side === "seller" ? "Selling" : "Operations") },
-              { header: "With", cell: (r) => (r.my_side === "buyer" ? r.seller_name : r.buyer_name) },
+              {
+                header: "With",
+                cell: (r) => r.my_side === "buyer" ? r.seller_name : (
+                  <>{r.buyer_name}{r.channel === "public" && <> <Pill tone="neutral">Public page</Pill></>}</>
+                ),
+              },
               { header: "Files", className: "num", cell: (r) => quantityText(r.quote_quantity ?? r.requested_quantity, r.file_count) },
               {
                 header: "Status",
                 sortBy: (r) => r.status,
                 cell: (r) => {
-                  const m = statusMeta(dealStatus, r.status);
+                  const m = dealStatusMeta(r);
                   return <Pill tone={m.tone}>{m.label}</Pill>;
                 },
               },
@@ -345,10 +352,13 @@ export function DealPage() {
   if (deal.isLoading) return <View title="Quote"><Skeleton rows={5} label="Loading the quote" /></View>;
   if (!k) return <View title="Quote"><Panel><Empty title="Quote not found" /></Panel></View>;
 
-  const st = statusMeta(dealStatus, k.status);
+  const st = dealStatusMeta(k);
   const live = ["requested", "quoted"].includes(k.status);
   const seller = k.my_side === "seller";
   const buyer = k.my_side === "buyer";
+  if (k.channel === "public") {
+    return <PublicRequestPage deal={k} onChanged={refresh} />;
+  }
   return (
     <View
       title={`Quote · ${k.dataset_title}`}
@@ -463,10 +473,15 @@ function DealChat({ deal }: { deal: DatasetDeal }) {
   });
   const closed = deal.status === "declined" || deal.status === "withdrawn";
   const party = deal.my_side !== "operations";
+  const emailed = deal.channel === "public";
   return (
     <Panel
-      title="Chat"
-      sub={party ? `With ${deal.my_side === "buyer" ? deal.seller_name : deal.buyer_name}: agree which files, how many, and the price` : "Between the buyer and the seller; operations read only"}
+      title={emailed ? "Replies" : "Chat"}
+      sub={emailed
+        ? (party
+          ? `Each reply is emailed to ${deal.contact_email}, with your address to reply to: their answer comes to your inbox`
+          : "The seller's replies, emailed to the person who asked; operations read only")
+        : party ? `With ${deal.my_side === "buyer" ? deal.seller_name : deal.buyer_name}: agree which files, how many, and the price` : "Between the buyer and the seller; operations read only"}
     >
       <div style={{ display: "flex", flexDirection: "column", gap: 8, maxHeight: 360, overflowY: "auto" }} aria-live="polite">
         {messages.isLoading ? <Skeleton rows={3} label="Loading the chat" /> : rows.length === 0 ? (
@@ -477,7 +492,9 @@ function DealChat({ deal }: { deal: DatasetDeal }) {
             background: m.mine ? "var(--accent-soft, var(--surface-2))" : "var(--surface-2)",
             border: "1px solid var(--line)", borderRadius: "var(--r-control)", padding: "8px 10px",
           }}>
-            <div className="small muted">{m.sender_name} · {fmtDateTime(m.created_at)}</div>
+            <div className="small muted">
+              {m.sender_name} · {fmtDateTime(m.created_at)}{m.emailed_to && <> · emailed to {m.emailed_to}</>}
+            </div>
             <div style={{ whiteSpace: "pre-wrap" }}>{m.body}</div>
           </div>
         ))}
@@ -491,18 +508,79 @@ function DealChat({ deal }: { deal: DatasetDeal }) {
             if (body.trim()) send.mutate();
           }}
         >
-          <textarea className={textareaCls} aria-label="Message" placeholder="Write a message…" maxLength={4000}
+          <textarea className={textareaCls} aria-label={emailed ? "Reply by email" : "Message"}
+            placeholder={emailed ? "Write your reply…" : "Write a message…"} maxLength={4000}
             value={body} onChange={(e) => setBody(e.target.value)} />
           <div className="btnrow">
             <Button type="submit" variant="primary" disabled={!body.trim() || send.isPending}>
-              {send.isPending ? "Sending…" : "Send"}
+              {send.isPending ? "Sending…" : emailed ? "Send email" : "Send"}
             </Button>
             {send.isError && <span className="small" style={{ color: "var(--t-critical)" }}>{errText(send.error)}</span>}
           </div>
         </form>
       )}
-      {closed && <p className="small muted" style={{ margin: "8px 0 0" }}>This deal is closed; the chat is read-only.</p>}
+      {closed && <p className="small muted" style={{ margin: "8px 0 0" }}>
+        {emailed ? "This request is closed; no further reply can be sent." : "This deal is closed; the chat is read-only."}
+      </p>}
     </Panel>
+  );
+}
+
+/** A quote request from the public page (db/440): someone without an account.
+ *  The seller replies by email from here and closes it; it is never quoted on
+ *  the platform. Ops read it. */
+function PublicRequestPage({ deal: k, onChanged }: { deal: DatasetDeal; onChanged: () => void }) {
+  const [closing, setClosing] = useState(false);
+  const st = dealStatusMeta(k);
+  const seller = k.my_side === "seller";
+  return (
+    <View
+      title={`Request · ${k.dataset_title}`}
+      sub={`From the public page · ${k.contact_name}, ${k.buyer_name}`}
+      actions={<Pill tone={st.tone}>{st.label}</Pill>}
+    >
+      <CatalogueTabs current="deals" />
+      <div className="pubgrid">
+        <div style={{ display: "flex", flexDirection: "column", gap: 16, minWidth: 0 }}>
+          <Panel title="What they asked" sub={`Sent ${fmtDateTime(k.created_at)}`}>
+            <Dl rows={[
+              ["Dataset", <Link key="d" to={`/catalogue/${k.dataset_slug}`}>{k.dataset_title}</Link>],
+              ["From", `${k.contact_name} · ${k.contact_company}`],
+              ["Email", k.contact_email ?? "—"],
+              ["Intended use", k.intended_use],
+              ["Message", <div key="m" style={{ whiteSpace: "pre-wrap" }}>{k.message || "—"}</div>],
+            ]} />
+          </Panel>
+          <DealChat deal={k} />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <Panel title="Next step">
+            {k.status === "requested" ? (seller ? (
+              <>
+                <p className="small" style={{ margin: 0 }}>
+                  {k.contact_name} has no account. Reply here; it is emailed to them, and the rest is agreed by email.
+                  Close the request when it is done.
+                </p>
+                <Button onClick={() => setClosing(true)}>Close the request</Button>
+              </>
+            ) : <p className="small muted" style={{ margin: 0 }}>The seller answers this request by email.</p>) : (
+              <p className="small muted" style={{ margin: 0 }}>Closed{k.decided_at ? ` on ${fmtDate(k.decided_at)}` : ""}. Nothing more to do.</p>
+            )}
+            {k.decision_note && <Callout tone="neutral" title="Note">{k.decision_note}</Callout>}
+          </Panel>
+        </div>
+      </div>
+      {closing && (
+        <ReasonDialog
+          title="Close this request"
+          warning="The person is not told. No further reply can be sent from here."
+          confirmLabel="Close"
+          minLength={0}
+          onConfirm={(note) => post(`/catalogue/deals/${k.id}/decline`, { note }).then(onChanged)}
+          onClose={() => setClosing(false)}
+        />
+      )}
+    </View>
   );
 }
 

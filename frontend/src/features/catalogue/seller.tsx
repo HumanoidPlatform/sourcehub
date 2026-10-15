@@ -12,7 +12,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ApiError, del, get, patch, post, put, xhrPut } from "@api/client";
-import type { CatalogueLead, ContractCapture, Dataset, PermittedUse, UploadSlot } from "@api/types";
+import type { ContractCapture, Dataset, PermittedUse, UploadSlot } from "@api/types";
 import {
   Button, Callout, CheckGroup, DataTable, Dialog, Empty, Field, inputCls, Panel, Pill, selectCls,
   Skeleton, TagInput, textareaCls, useToast, View,
@@ -22,7 +22,7 @@ import { ReasonDialog } from "@shared/reason-dialog";
 import { datasetStatus, statusMeta } from "@shared/status";
 import { PERMITTED_USES } from "@features/marketplace/vocabularies";
 import { CatalogueTabs } from "./buyer";
-import { CATEGORIES, categoryLabel, fmtBytes, LeadsPanel, Preview, SamplePreview, sizeText } from "./shared";
+import { CATEGORIES, categoryLabel, fmtBytes, Preview, SamplePreview, sizeText } from "./shared";
 
 const errText = (e: unknown) => (e instanceof Error ? e.message : "Something went wrong");
 const MAX_SAMPLES = 50;
@@ -73,21 +73,6 @@ export function MyDatasetsPage() {
           />
         )}
       </Panel>
-    </View>
-  );
-}
-
-/* --- quote requests from the public page ---------------------------------------- */
-
-export function LeadsPage() {
-  const leads = useQuery({ queryKey: ["catalogue-leads"], queryFn: () => get<CatalogueLead[]>("/catalogue/leads") });
-  return (
-    <View
-      title="Quote requests"
-      sub="People without an account asking for a quote on your published listings. Your reply is emailed to them, and their answer comes to your own inbox."
-    >
-      <CatalogueTabs current="requests" />
-      <LeadsPanel leads={leads.data} loading={leads.isLoading} />
     </View>
   );
 }

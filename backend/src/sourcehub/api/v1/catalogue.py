@@ -32,7 +32,6 @@ router = APIRouter(route_class=TxRoute)
 # field rather than a 500 out of Postgres.
 PermittedUse = Literal["model_training", "internal_analysis", "research", "audit", "publication"]
 Category = Literal["image", "video", "structured_data", "unstructured_data", "people_deliverable"]
-LeadStatus = Literal["new", "contacted", "closed"]
 
 
 class DatasetIn(BaseModel):
@@ -104,14 +103,6 @@ class PaidIn(BaseModel):
 
 class MessageIn(BaseModel):
     body: str = Field(min_length=1, max_length=catalogue.MAX_MESSAGE)
-
-
-class LeadStatusIn(BaseModel):
-    status: LeadStatus
-
-
-class LeadReplyIn(BaseModel):
-    body: str = Field(min_length=1, max_length=10000)
 
 
 def _conflict(e: Exception) -> HTTPException:
@@ -405,57 +396,6 @@ async def reject(
         return await catalogue.reject(session, principal, dataset_id, body.reason)
     except LookupError:
         raise _not_found("Dataset") from None
-    except catalogue.CatalogueError as e:
-        raise _conflict(e) from None
-
-
-# Public quote requests. The seller reads and works those on its own listings;
-# Ops read every one and change none (db/430: RLS decides which rows).
-@router.get("/catalogue/leads")
-async def list_leads(
-    principal: Principal = Depends(require_any_capability("catalogue.list", "catalogue.review")),
-    session: AsyncSession = Depends(get_session),
-) -> list[dict[str, Any]]:
-    return await catalogue.list_leads(session)
-
-
-@router.patch("/catalogue/leads/{lead_id}")
-async def set_lead_status(
-    lead_id: uuid.UUID,
-    body: LeadStatusIn,
-    principal: Principal = Depends(require_capability("catalogue.list")),
-    session: AsyncSession = Depends(get_session),
-) -> dict[str, Any]:
-    try:
-        return await catalogue.set_lead_status(session, principal, lead_id, body.status)
-    except LookupError:
-        raise _not_found("Lead") from None
-
-
-@router.get("/catalogue/leads/{lead_id}/replies")
-async def lead_replies(
-    lead_id: uuid.UUID,
-    principal: Principal = Depends(require_any_capability("catalogue.list", "catalogue.review")),
-    session: AsyncSession = Depends(get_session),
-) -> list[dict[str, Any]]:
-    try:
-        return await catalogue.list_lead_replies(session, lead_id)
-    except LookupError:
-        raise _not_found("Lead") from None
-
-
-# The platform emails the seller's reply, Reply-To the seller.
-@router.post("/catalogue/leads/{lead_id}/replies", status_code=status.HTTP_201_CREATED)
-async def reply_to_lead(
-    lead_id: uuid.UUID,
-    body: LeadReplyIn,
-    principal: Principal = Depends(require_capability("catalogue.list")),
-    session: AsyncSession = Depends(get_session),
-) -> dict[str, Any]:
-    try:
-        return await catalogue.reply_to_lead(session, principal, lead_id, body.body)
-    except LookupError:
-        raise _not_found("Lead") from None
     except catalogue.CatalogueError as e:
         raise _conflict(e) from None
 

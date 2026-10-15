@@ -876,141 +876,13 @@ async def reject(
     return await dataset_detail(session, claims, dataset_id)
 
 
-async def list_leads(session: AsyncSession) -> list[dict[str, Any]]:
-    rows = (
-        (
-            await session.execute(
-                text(
-                    "SELECT l.*, d.title AS dataset_title, d.slug AS dataset_slug, "
-                    "       datahub_org_name(d.owner_org_id) AS seller_name, "
-                    "       (SELECT count(*) FROM datahub_lead_reply r WHERE r.lead_id = l.id) "
-                    "         AS reply_count, "
-                    "       (SELECT max(r.created_at) FROM datahub_lead_reply r "
-                    "         WHERE r.lead_id = l.id) AS last_reply_at "
-                    "FROM datahub_lead l JOIN datahub_dataset d ON d.id = l.dataset_id "
-                    "ORDER BY (l.status = 'new') DESC, l.created_at DESC LIMIT 500"
-                )
-            )
-        )
-        .mappings()
-        .all()
-    )
-    return [dict(r) for r in rows]
-
-
-async def set_lead_status(
-    session: AsyncSession, claims: AccessClaims, lead_id: uuid.UUID, status: str
-) -> dict[str, Any]:
-    m = await _one(
-        session,
-        "UPDATE datahub_lead SET status = :s, handled_by = :who WHERE id = :id RETURNING *",
-        {"s": status, "who": claims.user_id, "id": lead_id},
-    )
-    if m is None:
-        raise LookupError("lead not found")
-    return dict(m)
-
-
-async def list_lead_replies(session: AsyncSession, lead_id: uuid.UUID) -> list[dict[str, Any]]:
-    """What the seller has written back on a request, oldest first. RLS: the
-    seller's own and, for Ops, every one."""
-    if await _one(session, "SELECT 1 FROM datahub_lead WHERE id = :id", {"id": lead_id}) is None:
-        raise LookupError("lead not found")
-    rows = (
-        (
-            await session.execute(
-                text(
-                    "SELECT id, lead_id, sender_name, reply_to, body, created_at "
-                    "FROM datahub_lead_reply WHERE lead_id = :id ORDER BY created_at"
-                ),
-                {"id": lead_id},
-            )
-        )
-        .mappings()
-        .all()
-    )
-    return [dict(r) for r in rows]
-
-
-async def reply_to_lead(
-    session: AsyncSession, claims: AccessClaims, lead_id: uuid.UUID, body: str
-) -> dict[str, Any]:
-    """The seller answers a public quote request from the console. The
-    platform emails it with Reply-To the seller's own address, so whatever
-    the person writes back reaches the seller directly. A new request becomes
-    contacted. If the mail server refuses, nothing is recorded."""
-    from sourcehub.config import PRODUCT, settings
-    from sourcehub.platform.mail.smtp import send_mail
-
-    body = body.strip()
-    if not body:
-        raise CatalogueError("Write a reply first.")
-    lead = await _one(
-        session,
-        "SELECT l.id, l.name, l.email, l.status, d.title, d.slug, d.owner_org_id "
-        "FROM datahub_lead l JOIN datahub_dataset d ON d.id = l.dataset_id "
-        "WHERE l.id = :id FOR UPDATE OF l",
-        {"id": lead_id},
-    )
-    if lead is None or lead["owner_org_id"] != claims.org_id:
-        raise LookupError("lead not found")
-    if lead["status"] == "closed":
-        raise CatalogueError("This request is closed.")
-    await session.execute(
-        text(
-            "INSERT INTO datahub_lead_reply "
-            "(lead_id, org_id, sent_by, sender_name, reply_to, body) "
-            "VALUES (:lead, :org, :who, :name, :reply_to, :body)"
-        ),
-        {
-            "lead": lead_id,
-            "org": claims.org_id,
-            "who": claims.user_id,
-            "name": claims.full_name,
-            "reply_to": claims.email,
-            "body": body,
-        },
-    )
-    if lead["status"] == "new":
-        await session.execute(
-            text("UPDATE datahub_lead SET status = 'contacted', handled_by = :who WHERE id = :id"),
-            {"who": claims.user_id, "id": lead_id},
-        )
-    text_body = (
-        f"{body}\n\n"
-        f"-- \n{claims.full_name}, {claims.org_name}\n"
-        f"Reply to this email to reach {claims.org_name} directly.\n\n"
-        f"You asked about \"{lead['title']}\" on {PRODUCT}:\n"
-        f"{settings.app_base_url.rstrip('/')}/datasets/{lead['slug']}\n"
-    )
-    try:
-        await send_mail(
-            lead["email"],
-            f"Re: your quote request for {lead['title']}",
-            text_body,
-            reply_to=formataddr((f"{claims.full_name}, {claims.org_name}", claims.email)),
-        )
-    except OSError:
-        raise CatalogueError(
-            "The email could not be sent. Nothing was recorded; try again in a moment."
-        ) from None
-    await audit.log(
-        session,
-        "catalogue.lead.replied",
-        f"Replied by email to a quote request on {lead['title']}",
-        [lead_id, claims.org_id],
-    )
-    replies = await list_lead_replies(session, lead_id)
-    return replies[-1]
-
-
 # ---------------------------------------------------------------------------
 # Deals — buyer and seller
 # ---------------------------------------------------------------------------
 
 _DEAL_SELECT = (
     "SELECT k.*, d.title AS dataset_title, d.slug AS dataset_slug, d.file_count, "
-    "       datahub_org_name(k.buyer_org_id) AS buyer_name, "
+    "       coalesce(datahub_org_name(k.buyer_org_id), k.contact_company) AS buyer_name, "
     "       datahub_org_name(k.seller_org_id) AS seller_name, "
     "       (SELECT count(*) FROM datahub_deal_message g WHERE g.deal_id = k.id) AS message_count "
     "FROM datahub_dataset_deal k JOIN datahub_dataset d ON d.id = k.dataset_id "
@@ -1034,6 +906,10 @@ def _deal(m: Any, claims: AccessClaims) -> dict[str, Any]:
         "file_count": m["file_count"],
         "buyer_org_id": m["buyer_org_id"],
         "buyer_name": m["buyer_name"],
+        "channel": m["channel"],
+        "contact_name": m["contact_name"],
+        "contact_email": m["contact_email"],
+        "contact_company": m["contact_company"],
         "seller_org_id": m["seller_org_id"],
         "seller_name": m["seller_name"],
         "intended_use": m["intended_use"],
@@ -1188,6 +1064,10 @@ async def quote(
     k = await _deal_row(session, deal_id)
     if k["seller_org_id"] != claims.org_id:
         raise CatalogueError("Only the seller quotes.")
+    if k["channel"] == "public":
+        raise CatalogueError(
+            "A request from the public page is answered by email; it cannot be quoted here."
+        )
     if not uses:
         raise CatalogueError("Say which uses the quote covers.")
     if quantity is not None and k["file_count"] and quantity > k["file_count"]:
@@ -1235,19 +1115,22 @@ async def decline(
         "declined",
         {"decision_note": (note or "").strip() or None},
     )
-    await notifier.notify(
-        session,
-        k["buyer_org_id"],
-        f"{k['seller_name']} declined your quote request for {k['dataset_title']}"
-        + (f": {note.strip()}" if note and note.strip() else "."),
-        "catalogue_deal",
-        {"id": str(deal_id)},
-    )
+    # A public request has nobody on the platform to tell: closing it is the
+    # seller's own record.
+    if k["buyer_org_id"] is not None:
+        await notifier.notify(
+            session,
+            k["buyer_org_id"],
+            f"{k['seller_name']} declined your quote request for {k['dataset_title']}"
+            + (f": {note.strip()}" if note and note.strip() else "."),
+            "catalogue_deal",
+            {"id": str(deal_id)},
+        )
     await audit.log(
         session,
         "catalogue.deal.declined",
         f"Declined a quote request for {k['dataset_title']}",
-        [deal_id, k["dataset_id"], k["buyer_org_id"], k["seller_org_id"]],
+        [x for x in (deal_id, k["dataset_id"], k["buyer_org_id"], k["seller_org_id"]) if x],
     )
     return await get_deal(session, claims, deal_id)
 
@@ -1359,7 +1242,11 @@ def _clean_message(body: str | None) -> str:
 
 
 async def _append_message(
-    session: AsyncSession, claims: AccessClaims, deal_id: uuid.UUID, body: str
+    session: AsyncSession,
+    claims: AccessClaims,
+    deal_id: uuid.UUID,
+    body: str,
+    emailed_to: str | None = None,
 ) -> dict[str, Any]:
     # Serialise on a name rather than a row: under RLS a FOR UPDATE needs the
     # deal's UPDATE policy, which the chat should not depend on.
@@ -1380,12 +1267,12 @@ async def _append_message(
                 await session.execute(
                     text(
                         "INSERT INTO datahub_deal_message "
-                        "  (deal_id, seq, sender_org_id, sender_user_id, sender_name, body) "
+                        "  (deal_id, seq, sender_org_id, sender_user_id, sender_name, body, emailed_to) "
                         "VALUES (:d, :seq, :org, :user, "
                         "        coalesce(nullif(:name, ''), "
                         "                 (SELECT full_name FROM app_user WHERE id = :user), 'Someone'), "
-                        "        :body) "
-                        "RETURNING id, seq, sender_org_id, sender_name, body, created_at"
+                        "        :body, :emailed_to) "
+                        "RETURNING id, seq, sender_org_id, sender_name, body, emailed_to, created_at"
                     ),
                     {
                         "d": deal_id,
@@ -1394,6 +1281,7 @@ async def _append_message(
                         "user": claims.user_id,
                         "name": claims.full_name or "",
                         "body": body,
+                        "emailed_to": emailed_to,
                     },
                 )
             )
@@ -1412,6 +1300,7 @@ def _message(m: Any, claims: AccessClaims) -> dict[str, Any]:
         "sender_org_id": m["sender_org_id"],
         "sender_name": m["sender_name"],
         "body": m["body"],
+        "emailed_to": m["emailed_to"],
         "created_at": m["created_at"],
         "mine": m["sender_org_id"] == claims.org_id,
     }
@@ -1427,7 +1316,7 @@ async def list_messages(
         (
             await session.execute(
                 text(
-                    "SELECT id, seq, sender_org_id, sender_name, body, created_at "
+                    "SELECT id, seq, sender_org_id, sender_name, body, emailed_to, created_at "
                     "FROM datahub_deal_message WHERE deal_id = :d ORDER BY seq"
                 ),
                 {"d": deal_id},
@@ -1443,7 +1332,8 @@ async def post_message(
     session: AsyncSession, claims: AccessClaims, deal_id: uuid.UUID, body: str
 ) -> dict[str, Any]:
     """Append one message and tell the other side. No audit line of its own:
-    the row is the record."""
+    the row is the record. On a public request the other side has no
+    account: the message is emailed to them instead, Reply-To the seller."""
     body = _clean_message(body)
     k = await _deal_row(session, deal_id)
     side = _side(k, claims)
@@ -1451,6 +1341,8 @@ async def post_message(
         raise CatalogueError("Operations read the conversation and do not post in it.")
     if k["status"] in ("declined", "withdrawn"):
         raise CatalogueError("This deal is closed; the conversation is read-only.")
+    if k["channel"] == "public":
+        return await _email_public_reply(session, claims, k, body)
     msg = await _append_message(session, claims, deal_id, body)
     other = k["seller_org_id"] if side == "buyer" else k["buyer_org_id"]
     excerpt = body if len(body) <= 80 else body[:79] + "…"
@@ -1460,6 +1352,44 @@ async def post_message(
         f"{claims.org_name} on {k['dataset_title']}: {excerpt}",
         "catalogue_deal",
         {"id": str(deal_id)},
+    )
+    return msg
+
+
+async def _email_public_reply(
+    session: AsyncSession, claims: AccessClaims, k: Any, body: str
+) -> dict[str, Any]:
+    """The seller answers a request from the public page. The platform emails
+    it with Reply-To the seller's own address, so whatever the person writes
+    back reaches the seller directly. If the mail server refuses, nothing is
+    recorded."""
+    from sourcehub.config import PRODUCT, settings
+    from sourcehub.platform.mail.smtp import send_mail
+
+    msg = await _append_message(session, claims, k["id"], body, emailed_to=k["contact_email"])
+    text_body = (
+        f"{body}\n\n"
+        f"-- \n{claims.full_name}, {claims.org_name}\n"
+        f"Reply to this email to reach {claims.org_name} directly.\n\n"
+        f"You asked about \"{k['dataset_title']}\" on {PRODUCT}:\n"
+        f"{settings.app_base_url.rstrip('/')}/datasets/{k['dataset_slug']}\n"
+    )
+    try:
+        await send_mail(
+            k["contact_email"],
+            f"Re: your quote request for {k['dataset_title']}",
+            text_body,
+            reply_to=formataddr((f"{claims.full_name}, {claims.org_name}", claims.email)),
+        )
+    except OSError:
+        raise CatalogueError(
+            "The email could not be sent. Nothing was recorded; try again in a moment."
+        ) from None
+    await audit.log(
+        session,
+        "catalogue.deal.emailed",
+        f"Replied by email to a quote request on {k['dataset_title']}",
+        [k["id"], k["dataset_id"], claims.org_id],
     )
     return msg
 
@@ -1547,13 +1477,13 @@ async def public_dataset(slug: str) -> dict[str, Any]:
 async def create_lead(
     slug: str, *, name: str, email: str, company: str, intended_use: str, message: str | None
 ) -> None:
-    """A quote request from someone with no account. Operations follow it up
-    and, if it is real, invite the organisation through onboarding."""
+    """A quote request from someone with no account. It opens a public deal
+    the listing's seller answers by email from the console (db/440)."""
     async with anonymous_session() as s:
         try:
             got = (
                 await s.execute(
-                    text("SELECT datahub_lead_create(:slug, :n, :e, :c, :u, :m)"),
+                    text("SELECT datahub_public_request_create(:slug, :n, :e, :c, :u, :m)"),
                     {
                         "slug": slug,
                         "n": name,

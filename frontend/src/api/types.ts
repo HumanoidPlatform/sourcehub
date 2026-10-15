@@ -1103,8 +1103,15 @@ export interface DatasetDeal {
   dataset_slug: string;
   /** what the listing holds */
   file_count: number;
-  buyer_org_id: string;
+  /** null on a request from the public page */
+  buyer_org_id: string | null;
+  /** the buyer organisation, or the visitor's organisation on a public request */
   buyer_name: string | null;
+  /** account: asked in the console; public: asked on the public page, answered by email (db/440) */
+  channel: "account" | "public";
+  contact_name: string | null;
+  contact_email: string | null;
+  contact_company: string | null;
   seller_org_id: string;
   seller_name: string | null;
   intended_use: string;
@@ -1137,35 +1144,10 @@ export interface DealMessage {
   sender_org_id: string;
   sender_name: string;
   body: string;
+  /** set when the message was emailed to a public request's visitor */
+  emailed_to: string | null;
   created_at: string;
   mine: boolean;
-}
-
-export interface CatalogueLead {
-  id: string;
-  dataset_id: string;
-  dataset_title: string;
-  dataset_slug: string;
-  seller_name: string;
-  name: string;
-  email: string;
-  company: string;
-  intended_use: string;
-  message: string | null;
-  status: "new" | "contacted" | "closed";
-  reply_count: number;
-  last_reply_at: string | null;
-  created_at: string;
-}
-
-/** A seller's reply to a public quote request, emailed by the platform (db/430). */
-export interface LeadReply {
-  id: string;
-  lead_id: string;
-  sender_name: string;
-  reply_to: string;
-  body: string;
-  created_at: string;
 }
 
 /** What the public catalogue returns: no ids, no storage, no internals. */

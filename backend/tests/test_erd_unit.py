@@ -57,8 +57,9 @@ def test_every_table_is_read_and_grouped(model: Any) -> None:
     # seven catalogue tables and no enum (their states are CHECKed text);
     # db/400 dropped user_consent; db/420 dropped the version, item and
     # licence tables and added datahub_dataset_sample and datahub_deal_message;
-    # db/430 added datahub_lead_reply
-    assert len(model.tables) == 43
+    # db/430 added datahub_lead_reply; db/440 folded it and datahub_lead
+    # into the deal tables
+    assert len(model.tables) == 41
     assert len(model.enums) == 31
     assert sorted(model.views) == []
 

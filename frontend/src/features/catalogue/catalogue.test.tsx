@@ -36,7 +36,6 @@ vi.mock("@shared/auth", () => ({
 import { DatasetPage, DealPage } from "./buyer";
 import { CatalogueReviewPage } from "./ops";
 import { PublicDatasetPage } from "./public";
-import { LeadsPage } from "./seller";
 
 const CLIENT = {
   full_name: "Priya Nair", org_id: "o-acme", org_name: "Acme Retail Analytics",
@@ -66,6 +65,7 @@ const PUBLIC = {
 const DEAL = {
   id: "k1", dataset_id: "d1", dataset_title: "Street scenes, Pune", dataset_slug: "street-abc123",
   file_count: 2400, buyer_org_id: "o-acme", buyer_name: "Acme Retail Analytics",
+  channel: "account", contact_name: null, contact_email: null, contact_company: null,
   seller_org_id: "o-helix", seller_name: "Helix Data Collective", intended_use: "Train a detector",
   requested_uses: ["model_training"], requested_quantity: 500, message: null, status: "quoted",
   quote_amount: "5000.00", currency: "USD", quote_terms: "Training only", quote_uses: ["model_training"],
@@ -250,52 +250,61 @@ describe("catalogue notifications", () => {
     // licences went with db/420: an old licence alert opens the deals
     expect(notificationHref(n("catalogue_licences", "l1"))).toBe("/catalogue/deals");
     expect(notificationHref(n("catalogue_review"))).toBe("/ops/catalogue");
-    expect(notificationHref(n("catalogue_leads"))).toBe("/catalogue/requests");
+    expect(notificationHref(n("catalogue_leads"))).toBe("/catalogue/deals");
   });
 });
 
-describe("quote requests from the public page", () => {
-  const LEAD = {
-    id: "l1", dataset_id: "d1", dataset_title: "Street scenes, Pune", dataset_slug: "street-abc123",
-    seller_name: "Helix Data Collective", name: "A Buyer", email: "a@gmail.com", company: "Lab Co",
-    intended_use: "Evaluation", message: "Daytime only?", status: "new", reply_count: 0, last_reply_at: null,
-    created_at: "2026-10-15T00:00:00Z",
+describe("a quote request from the public page", () => {
+  const PUBLIC_DEAL = {
+    ...DEAL, id: "p1", buyer_org_id: null, buyer_name: "Lab Co", channel: "public",
+    contact_name: "A Buyer", contact_email: "a@gmail.com", contact_company: "Lab Co",
+    intended_use: "Evaluation", message: "Daytime only?", requested_quantity: null, status: "requested",
+    quote_amount: null, currency: null, quote_terms: null, quote_uses: [], quote_quantity: null, quoted_at: null,
+    message_count: 0, my_side: "seller",
   };
   const REPLY = {
-    id: "r1", lead_id: "l1", sender_name: "Achieng Otieno", reply_to: "partner@helix.example",
-    body: "Yes, daytime only. USD 2,000 for 200.", created_at: "2026-10-15T01:00:00Z",
+    id: "m9", seq: 1, sender_org_id: "o-helix", sender_name: "Achieng Otieno", body: "Yes, USD 2,000 for 200.",
+    emailed_to: "a@gmail.com", created_at: "2026-10-15T01:00:00Z", mine: true,
   };
-  const answers = (lead: Record<string, unknown>, replies: unknown[]) => (p: string) =>
-    Promise.resolve(p === "/catalogue/leads" ? [lead] : p.endsWith("/replies") ? replies : []);
+  const room = (deal: Record<string, unknown>, msgs: unknown[]) => (p: string) =>
+    Promise.resolve(p.endsWith("/messages") ? msgs : deal);
 
-  it("go to the seller, who replies from the console and marks them", async () => {
+  it("shows the seller the visitor and a reply by email, and no quote", async () => {
     auth.session = SELLER;
-    api.get.mockImplementation(answers(LEAD, []));
+    api.get.mockImplementation(room(PUBLIC_DEAL, []));
     api.post.mockResolvedValue(REPLY);
-    show("/catalogue/requests", "/catalogue/requests", <LeadsPage />);
-    expect(await screen.findByText("Daytime only?")).toBeTruthy();
-    fireEvent.click(screen.getByRole("button", { name: "Reply" }));
-    const send = await screen.findByRole("button", { name: "Send email" });
-    expect((send as HTMLButtonElement).disabled).toBe(true);
-    fireEvent.change(screen.getByLabelText(/Your reply/), { target: { value: "Yes, daytime only. USD 2,000 for 200." } });
-    fireEvent.click(send);
-    await waitFor(() => expect(api.post).toHaveBeenCalledWith(
-      "/catalogue/leads/l1/replies", { body: "Yes, daytime only. USD 2,000 for 200." }));
-    fireEvent.click(screen.getByRole("button", { name: "Cancel" }));
-    fireEvent.click(screen.getByRole("button", { name: "Contacted" }));
-    await waitFor(() => expect(api.patch).toHaveBeenCalledWith("/catalogue/leads/l1", { status: "contacted" }));
+    show("/catalogue/deals/p1", "/catalogue/deals/:id", <DealPage />);
+    expect(await screen.findByText("a@gmail.com")).toBeTruthy();
+    expect(screen.getByText("Daytime only?")).toBeTruthy();
+    expect(screen.getByText("New")).toBeTruthy();
+    expect(screen.queryByRole("button", { name: /Send a quote/ })).toBeNull();
+    expect(screen.queryByRole("button", { name: /Accept/ })).toBeNull();
+    fireEvent.change(screen.getByLabelText("Reply by email"), { target: { value: "Yes, USD 2,000 for 200." } });
+    fireEvent.click(screen.getByRole("button", { name: "Send email" }));
+    await waitFor(() => expect(api.post).toHaveBeenCalledWith("/catalogue/deals/p1/messages", { body: "Yes, USD 2,000 for 200." }));
+    expect(screen.getByRole("button", { name: "Close the request" })).toBeTruthy();
   });
 
-  it("are read-only for operations, who see each one's seller and its replies", async () => {
+  it("is read-only for operations, who see the emailed reply", async () => {
     auth.session = { ...CLIENT, org_kind: "platform", role: "platform_admin", capabilities: ["catalogue.review"] };
-    api.get.mockImplementation(answers({ ...LEAD, status: "contacted", reply_count: 1 }, [REPLY]));
+    api.get.mockImplementation(room({ ...PUBLIC_DEAL, my_side: "operations", message_count: 1 }, [{ ...REPLY, mine: false }]));
+    show("/catalogue/deals/p1", "/catalogue/deals/:id", <DealPage />);
+    expect(await screen.findByText("Yes, USD 2,000 for 200.")).toBeTruthy();
+    expect(screen.getByText(/emailed to a@gmail.com/)).toBeTruthy();
+    expect(screen.getByText("Contacted")).toBeTruthy();
+    expect(screen.queryByRole("button", { name: "Send email" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "Close the request" })).toBeNull();
+  });
+
+  it("is listed on the Ops page with its seller, opening the deal", async () => {
+    auth.session = { ...CLIENT, org_kind: "platform", role: "platform_admin", capabilities: ["catalogue.review"] };
+    api.get.mockImplementation((p: string) => Promise.resolve(
+      p === "/catalogue/deals" ? [{ ...PUBLIC_DEAL, my_side: "operations" }, DEAL] : []));
     show("/ops/catalogue", "/ops/catalogue", <CatalogueReviewPage />);
     fireEvent.click(await screen.findByRole("tab", { name: /Public quote requests/ }));
-    expect(await screen.findByText("Helix Data Collective")).toBeTruthy();
-    expect(screen.queryByRole("button", { name: "Contacted" })).toBeNull();
-    expect(screen.queryByRole("button", { name: "Reply" })).toBeNull();
-    fireEvent.click(screen.getByRole("button", { name: "Replies" }));
-    expect(await screen.findByText("Yes, daytime only. USD 2,000 for 200.")).toBeTruthy();
-    expect(screen.queryByRole("button", { name: "Send email" })).toBeNull();
+    expect(await screen.findByText("a@gmail.com")).toBeTruthy();
+    expect(screen.getByText("Helix Data Collective")).toBeTruthy();
+    expect(screen.getByRole("link", { name: "Open" }).getAttribute("href")).toBe("/catalogue/deals/p1");
+    expect(screen.queryByText("Acme Retail Analytics")).toBeNull();
   });
 });

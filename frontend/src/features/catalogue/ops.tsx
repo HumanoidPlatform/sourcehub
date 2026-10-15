@@ -1,5 +1,6 @@
 // catalogue — operations: the listing review queue, and a read-only view of
-// quote requests from people without an account (each goes to its seller).
+// quote requests from people without an account. Each is a public deal its
+// seller answers by email (db/440); Ops open it and read, nothing more.
 //
 // Nothing reaches the catalogue or the public page until Ops publishes it
 // (db/390's transition trigger refuses anyone else). Review reads the samples
@@ -10,14 +11,16 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { get, post } from "@api/client";
-import type { CatalogueLead, Dataset } from "@api/types";
+import type { Dataset, DatasetDeal } from "@api/types";
 import {
   Button, Callout, DataTable, Dialog, Dl, Empty, Panel, Pill, Skeleton, useToast, View,
 } from "@ds/primitives";
 import { fmtDate, fmtDateTime } from "@shared/format";
 import { ReasonDialog } from "@shared/reason-dialog";
 import { datasetStatus, statusMeta } from "@shared/status";
-import { categoryLabel, LeadsPanel, regionsText, SamplePreview, sizeText, sourceText, usesText } from "./shared";
+import {
+  categoryLabel, dealStatusMeta, regionsText, SamplePreview, sizeText, sourceText, usesText,
+} from "./shared";
 
 const errText = (e: unknown) => (e instanceof Error ? e.message : "Something went wrong");
 
@@ -25,9 +28,10 @@ export function CatalogueReviewPage() {
   const [tab, setTab] = useState<"listings" | "leads">("listings");
   const [open, setOpen] = useState<string | null>(null);
   const queue = useQuery({ queryKey: ["catalogue-review"], queryFn: () => get<Dataset[]>("/catalogue/review") });
-  const leads = useQuery({ queryKey: ["catalogue-leads"], queryFn: () => get<CatalogueLead[]>("/catalogue/leads") });
+  const deals = useQuery({ queryKey: ["catalogue-deals"], queryFn: () => get<DatasetDeal[]>("/catalogue/deals") });
+  const requests = (deals.data ?? []).filter((d) => d.channel === "public");
   const waiting = (queue.data ?? []).filter((d) => d.status === "in_review").length;
-  const fresh = (leads.data ?? []).filter((l) => l.status === "new").length;
+  const fresh = requests.filter((d) => dealStatusMeta(d).label === "New").length;
   return (
     <View title="Dataset catalogue" sub="Listings waiting for review, what is on sale, and quote requests from the public page, which their sellers answer.">
       <div className="seg" role="tablist" aria-label="Catalogue operations" style={{ marginBottom: 16 }}>
@@ -71,7 +75,31 @@ export function CatalogueReviewPage() {
           )}
         </Panel>
       ) : (
-        <LeadsPanel leads={leads.data} loading={leads.isLoading} readOnly />
+        <Panel flush>
+          {deals.isLoading ? <Skeleton rows={4} label="Loading quote requests" /> : requests.length === 0 ? (
+            <Empty title="No quote requests yet" hint="People without an account ask on the public dataset pages; each request goes to the dataset's seller." />
+          ) : (
+            <DataTable
+              rows={requests}
+              rowKey={(r) => r.id}
+              filter={{ label: "Filter requests", placeholder: "Filter by company, email or dataset…", text: (r) => `${r.buyer_name} ${r.contact_email ?? ""} ${r.dataset_title} ${r.seller_name}` }}
+              columns={[
+                { header: "Received", cell: (r) => fmtDateTime(r.created_at), sortBy: (r) => r.created_at },
+                { header: "From", className: "cell-primary", cell: (r) => <>{r.contact_name} · {r.buyer_name}<div className="cell-meta">{r.contact_email}</div></> },
+                { header: "Dataset", cell: (r) => r.dataset_title, sortBy: (r) => r.dataset_title },
+                { header: "Seller", cell: (r) => r.seller_name, sortBy: (r) => r.seller_name ?? "" },
+                {
+                  header: "Status",
+                  cell: (r) => {
+                    const m = dealStatusMeta(r);
+                    return <Pill tone={m.tone}>{m.label}</Pill>;
+                  },
+                },
+                { header: "Actions", hideHeader: true, className: "right", cell: (r) => <Link className="btn" data-size="sm" to={`/catalogue/deals/${r.id}`}>Open</Link> },
+              ]}
+            />
+          )}
+        </Panel>
       )}
       {open && <ReviewDialog id={open} onClose={() => setOpen(null)} />}
     </View>

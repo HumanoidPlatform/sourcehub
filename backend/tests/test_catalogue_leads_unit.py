@@ -39,11 +39,11 @@ def test_the_migration_follows_0045():
     assert re.search(r'^down_revision = "0045"$', MIGRATION_TEXT, re.M)
 
 
-def test_the_new_file_is_last_in_the_bundle():
+def test_the_new_file_follows_420_in_the_bundle():
     m = re.search(r'^STRUCTURE="([^"]*)"', BUNDLE.read_text(encoding="utf-8"), re.M)
     assert m
-    last = m.group(1).split()[-2:]
-    assert last == ["420_catalogue_quotes_and_chat", "430_catalogue_leads_to_seller"]
+    names = m.group(1).split()
+    assert names[names.index("420_catalogue_quotes_and_chat") + 1] == "430_catalogue_leads_to_seller"
 
 
 def test_the_seller_reads_and_works_its_leads_and_ops_only_read():

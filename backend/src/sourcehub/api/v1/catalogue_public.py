@@ -3,7 +3,8 @@
 Runs without an org context, like offers.py: the reads go through the
 SECURITY DEFINER datahub_public_* functions, which answer for published
 listings and their sample files only, and the one write — a quote request
-from someone without an account — through datahub_lead_create(). So this
+from someone without an account — through datahub_public_request_create(),
+which opens a public deal for the listing's seller (db/440). So this
 router has no TxRoute and no get_session; the service opens its own
 transaction.
 """

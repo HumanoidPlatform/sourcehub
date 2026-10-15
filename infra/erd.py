@@ -152,9 +152,8 @@ GROUPS: list[tuple[str, str, str, list[str]]] = [
             "datahub_dataset_sample",
             "datahub_dataset_deal",
             "datahub_deal_message",
-            "datahub_lead",
-            # db/430: the seller's emailed replies to a public request
-            "datahub_lead_reply",
+            # db/440: a public quote request is a deal too (channel
+            # 'public'); datahub_lead and datahub_lead_reply were folded in
         ],
     ),
 ]
