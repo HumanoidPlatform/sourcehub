@@ -6,7 +6,7 @@ Beside the RFP marketplace, where a client orders data that does not exist
 yet, the catalogue lists data that does (db/390, reshaped by db/420). Two ways
 a listing comes to exist:
 
-  * its owner creates it — a delivery partner's or an aggregator's own data,
+  * its owner creates it — a delivery partner's own data,
     or a client's exclusive data it now wants to sell — saying how many files
     it holds and uploading a few samples;
   * the client approves a contract whose request was not exclusive, and the
@@ -57,7 +57,9 @@ class CatalogueError(Exception):
     pass
 
 
-SELLER_KINDS = frozenset({"tenant", "aggregator", "client"})
+# Aggregators take no part in the catalogue (0048): they hand captures to
+# the partner, who sells.
+SELLER_KINDS = frozenset({"tenant", "client"})
 MAX_UPLOADS_PER_CALL = 50
 MAX_SAMPLES = 50
 # captures offered to a contract listing's owner to pick samples from
@@ -366,7 +368,7 @@ async def create_dataset(
     session: AsyncSession, claims: AccessClaims, fields: dict[str, Any]
 ) -> dict[str, Any]:
     if claims.org_kind not in SELLER_KINDS:
-        raise CatalogueError("Delivery partners, aggregators and clients list datasets.")
+        raise CatalogueError("Delivery partners and clients list datasets.")
     title = (fields.get("title") or "").strip()
     if not title:
         raise CatalogueError("Give the dataset a title.")
@@ -839,7 +841,7 @@ async def approve(
     await notifier.notify(
         session,
         m["owner_org_id"],
-        f"{m['title']} is published in the dataset catalogue.",
+        f"{m['title']} is published in DataHub.",
         "catalogue_listing",
         {"id": str(dataset_id)},
     )
@@ -884,8 +886,11 @@ _DEAL_SELECT = (
     "SELECT k.*, d.title AS dataset_title, d.slug AS dataset_slug, d.file_count, "
     "       coalesce(datahub_org_name(k.buyer_org_id), k.contact_company) AS buyer_name, "
     "       datahub_org_name(k.seller_org_id) AS seller_name, "
-    "       (SELECT count(*) FROM datahub_deal_message g WHERE g.deal_id = k.id) AS message_count "
+    "       (SELECT count(*) FROM datahub_deal_message g WHERE g.deal_id = k.id) AS message_count, "
+    "       iv.id AS invoice_id, iv.reference_code AS invoice_reference, "
+    "       iv.status::text AS invoice_status, iv.payment_reference AS invoice_payment_reference "
     "FROM datahub_dataset_deal k JOIN datahub_dataset d ON d.id = k.dataset_id "
+    "LEFT JOIN invoice iv ON iv.deal_id = k.id "
 )
 
 
@@ -931,6 +936,11 @@ def _deal(m: Any, claims: AccessClaims) -> dict[str, Any]:
         "created_at": m["created_at"],
         "updated_at": m["updated_at"],
         "message_count": m["message_count"],
+        # issued by the platform when the buyer accepts (db/450)
+        "invoice_id": m["invoice_id"],
+        "invoice_reference": m["invoice_reference"],
+        "invoice_status": m["invoice_status"],
+        "invoice_payment_reference": m["invoice_payment_reference"],
         "my_side": _side(m, claims),
     }
 
@@ -1162,8 +1172,8 @@ async def accept(session: AsyncSession, claims: AccessClaims, deal_id: uuid.UUID
     await notifier.notify(
         session,
         k["seller_org_id"],
-        f"{k['buyer_name']} accepted your quote for {k['dataset_title']}. Invoice them, mark the "
-        "deal paid when the money arrives, then mark it delivered once you have handed over the files.",
+        f"{k['buyer_name']} accepted your quote for {k['dataset_title']}. The platform has invoiced "
+        "them; acknowledge the payment once it arrives, then mark the deal delivered.",
         "catalogue_deal",
         {"id": str(deal_id)},
     )
@@ -1172,32 +1182,6 @@ async def accept(session: AsyncSession, claims: AccessClaims, deal_id: uuid.UUID
         "catalogue.deal.accepted",
         f"Accepted the quote for {k['dataset_title']} ({k['currency']} {_money(k['quote_amount'])}, "
         f"{_quantity(k['quote_quantity'], k['file_count'])})",
-        [deal_id, k["dataset_id"], k["buyer_org_id"], k["seller_org_id"]],
-    )
-    return await get_deal(session, claims, deal_id)
-
-
-async def mark_paid(
-    session: AsyncSession, claims: AccessClaims, deal_id: uuid.UUID, invoice_number: str | None
-) -> dict[str, Any]:
-    """The seller says the buyer has paid. The platform takes no part in the
-    money; this records what the seller says."""
-    k = await _deal_row(session, deal_id)
-    if k["seller_org_id"] != claims.org_id:
-        raise CatalogueError("Only the seller marks a deal paid.")
-    invoice = (invoice_number or "").strip() or None
-    await _deal_move(session, deal_id, ("accepted",), "paid", {"invoice_number": invoice})
-    await notifier.notify(
-        session,
-        k["buyer_org_id"],
-        f"{k['seller_name']} marked your deal for {k['dataset_title']} paid.",
-        "catalogue_deal",
-        {"id": str(deal_id)},
-    )
-    await audit.log(
-        session,
-        "catalogue.deal.paid",
-        f"Marked the deal for {k['dataset_title']} paid" + (f" (invoice {invoice})" if invoice else ""),
         [deal_id, k["dataset_id"], k["buyer_org_id"], k["seller_org_id"]],
     )
     return await get_deal(session, claims, deal_id)
@@ -1372,7 +1356,7 @@ async def _email_public_reply(
         f"-- \n{claims.full_name}, {claims.org_name}\n"
         f"Reply to this email to reach {claims.org_name} directly.\n\n"
         f"You asked about \"{k['dataset_title']}\" on {PRODUCT}:\n"
-        f"{settings.app_base_url.rstrip('/')}/datasets/{k['dataset_slug']}\n"
+        f"{settings.app_base_url.rstrip('/')}/datahub/public/{k['dataset_slug']}\n"
     )
     try:
         await send_mail(

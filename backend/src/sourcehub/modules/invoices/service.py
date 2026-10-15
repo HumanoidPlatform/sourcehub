@@ -1,4 +1,4 @@
-"""invoices — a partner's claim for payment on a contract.
+"""invoices — a partner's claim for payment on a contract, and a dataset deal's invoice.
 
 Business rules, and the ONLY public surface of this module.
 
@@ -13,6 +13,12 @@ invoice. Three things the database does so this module cannot get them wrong:
     stamps them itself;
   * the application login may UPDATE status, payment_reference and
     withdrawn_reason only.
+
+A dataset deal's invoice (db/450) lives in the same table: the platform issues
+it when the buyer accepts the seller's quote (client_org_id is the buyer,
+partner_org_id the seller), the buyer marks it paid, the seller acknowledges,
+and that acknowledgement moves the deal to paid. It is never withdrawn and
+never raised here.
 
 So every move here is one conditional UPDATE gated on the state it leaves —
 never read-then-write — and a refusal from the trigger (a race, or a caller
@@ -41,13 +47,19 @@ class InvoiceError(Exception):
 
 _INVOICEABLE = ("active", "delivered", "completed")
 
+# A deal's two sides may be two partners, which organisation's policies never
+# let see each other: datahub_org_name answers with the name alone (db/410).
 _SELECT = """
     SELECT i.*, c.reference_code AS contract_ref, c.request_id,
            r.title AS request_title,
-           cl.name AS client_name, pt.name AS partner_name
+           d.title AS dataset_title,
+           coalesce(cl.name, datahub_org_name(i.client_org_id)) AS client_name,
+           coalesce(pt.name, datahub_org_name(i.partner_org_id)) AS partner_name
     FROM   invoice i
-    JOIN   contract c ON c.id = i.contract_id
+    LEFT   JOIN contract c ON c.id = i.contract_id
     LEFT   JOIN request r ON r.id = c.request_id
+    LEFT   JOIN datahub_dataset_deal k ON k.id = i.deal_id
+    LEFT   JOIN datahub_dataset d ON d.id = k.dataset_id
     LEFT   JOIN organisation cl ON cl.id = i.client_org_id
     LEFT   JOIN organisation pt ON pt.id = i.partner_org_id
 """
@@ -65,6 +77,8 @@ def _row(m: Any) -> dict[str, Any]:
         "reference_code": m["reference_code"],
         "contract_id": m["contract_id"],
         "contract_ref": m.get("contract_ref"),
+        "deal_id": m["deal_id"],
+        "dataset_title": m.get("dataset_title"),
         "request_id": m.get("request_id"),
         "request_title": m.get("request_title"),
         "client_org_id": m["client_org_id"],
@@ -96,6 +110,12 @@ def _row(m: Any) -> dict[str, Any]:
         "withdrawn_by": m["withdrawn_by"],
         "withdrawn_reason": m["withdrawn_reason"],
     }
+
+
+def _subjects(m: Any) -> list[Any]:
+    """What an audit line names: a deal's invoice has no contract or request."""
+    return [x for x in (m["id"], m["contract_id"], m["deal_id"], m["request_id"],
+                        m["client_org_id"], m["partner_org_id"]) if x]
 
 
 async def _fetch(session: AsyncSession, invoice_id: uuid.UUID) -> Any:
@@ -338,7 +358,7 @@ async def mark_paid(
         session, "invoice.paid",
         f"Marked {m['reference_code']} paid"
         + (f" (reference {m['payment_reference']})" if m["payment_reference"] else ""),
-        [m["id"], m["contract_id"], m["request_id"], m["client_org_id"], m["partner_org_id"]],
+        _subjects(m),
     )
     return _row(m)
 
@@ -362,7 +382,7 @@ async def acknowledge(
     await audit.log(
         session, "invoice.acknowledged",
         f"Acknowledged payment of {m['reference_code']}",
-        [m["id"], m["contract_id"], m["request_id"], m["client_org_id"], m["partner_org_id"]],
+        _subjects(m),
     )
     return _row(m)
 
@@ -375,6 +395,8 @@ async def withdraw(
     i = await _fetch(session, invoice_id)
     if i["partner_org_id"] != claims.org_id:
         raise InvoiceError("Only the partner that raised an invoice withdraws it.")
+    if i["deal_id"] is not None:
+        raise InvoiceError("A dataset deal's invoice cannot be withdrawn.")
     if i["status"] != "issued":
         raise InvoiceError(f"A {i['status']} invoice cannot be withdrawn.")
     # withdraw: UPDATE … WHERE id = :id AND status = 'issued'
@@ -392,7 +414,7 @@ async def withdraw(
         session, "invoice.withdrawn",
         f"Withdrew {m['reference_code']}"
         + (f": {m['withdrawn_reason']}" if m["withdrawn_reason"] else ""),
-        [m["id"], m["contract_id"], m["request_id"], m["client_org_id"], m["partner_org_id"]],
+        _subjects(m),
     )
     return _row(m)
 

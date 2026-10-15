@@ -1,11 +1,11 @@
-// Billing — the invoices partners raise on contracts (db/320). A client sees the
-// ones on its contracts, a partner the ones it raised, Ops everyone's. Same
-// endpoint, RLS decides. The platform moves no money: the partner raises, the
-// client marks paid, the partner acknowledges.
+// Billing — the invoices partners raise on contracts (db/320), and those the
+// platform issues on accepted dataset deals (db/450). Each party sees its own,
+// Ops everyone's. Same endpoint, RLS decides. The platform moves no money: the
+// one billed marks paid, the one who billed acknowledges.
 
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { get } from "@api/client";
 import type { InvoiceRow } from "@api/types";
 import {
@@ -13,7 +13,7 @@ import {
 } from "@ds/primitives";
 import { useSession } from "@shared/auth";
 import { fmtDate, money } from "@shared/format";
-import { InvoiceActions, InvoiceDetailDialog, invoiceClaim } from "@shared/invoices";
+import { InvoiceActions, InvoiceDetailDialog, invoiceClaim, InvoiceSubject } from "@shared/invoices";
 import { invoiceStatus, statusMeta } from "@shared/status";
 
 export function BillingPage() {
@@ -48,8 +48,8 @@ export function BillingPage() {
       sub={isOps
         ? "Every invoice on the platform. Ops reads; the two parties move them."
         : isClient
-          ? "Invoices your delivery partners have raised against your contracts. Mark each one paid once the money has gone out."
-          : "Invoices you have raised. Raise one from a contract once some of its work has passed QA; acknowledge each payment when it arrives."}
+          ? "Invoices on your contracts and dataset purchases. Mark each one paid once the money has gone out; acknowledge payment of a dataset you sold."
+          : "Invoices you have raised, and those on datasets you buy or sell. Raise one from a contract once some of its work has passed QA; acknowledge each payment when it arrives."}
     >
       <div className="g3">
         <Metric label="Awaiting payment" value={money(awaiting, currency)} loading={invoices.isLoading} />
@@ -80,9 +80,8 @@ export function BillingPage() {
             <table>
               <thead>
                 <tr>
-                  <th>Reference</th><th>Contract</th>
-                  {(isOps || !isClient) && <th>Client</th>}
-                  {(isOps || isClient) && <th>Partner</th>}
+                  <th>Reference</th><th>For</th>
+                  <th>From</th><th>Billed to</th>
                   <th>Claim</th><th>Amount</th><th>Raised</th><th>Status</th><th />
                 </tr>
               </thead>
@@ -93,10 +92,10 @@ export function BillingPage() {
                     <tr key={i.id} className="tap" onClick={() => setViewingId(i.id)}>
                       <td className="id">{i.reference_code}</td>
                       <td className="id" onClick={(e) => e.stopPropagation()}>
-                        <Link to={`/contracts/${i.contract_id}`}>{i.contract_ref ?? "Open"}</Link>
+                        <InvoiceSubject i={i} />
                       </td>
-                      {(isOps || !isClient) && <td>{i.client_name ?? "—"}</td>}
-                      {(isOps || isClient) && <td>{i.partner_name ?? "—"}</td>}
+                      <td>{i.partner_name ?? "—"}</td>
+                      <td>{i.client_name ?? "—"}</td>
                       <td>{invoiceClaim(i)}</td>
                       <td className="num">{money(i.amount, i.currency)}</td>
                       <td className="num">{fmtDate(i.issued_at)}</td>

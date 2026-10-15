@@ -19,7 +19,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sourcehub.api.deps import (
     Principal,
     TxRoute,
-    get_principal,
     get_session,
     require_any_capability,
     require_capability,
@@ -89,16 +88,13 @@ class QuoteRequestIn(BaseModel):
 
 
 class QuoteIn(BaseModel):
-    amount: Decimal = Field(ge=0, max_digits=14, decimal_places=2)
+    # above zero: the accepted quote becomes an invoice (db/450)
+    amount: Decimal = Field(gt=0, max_digits=14, decimal_places=2)
     currency: str = Field(pattern=r"^[A-Za-z]{3}$")
     # how many files the quote covers, as agreed in the chat; none = all
     quantity: int | None = Field(default=None, gt=0)
     terms: str | None = Field(default=None, max_length=20000)
     uses: list[PermittedUse] = Field(min_length=1)
-
-
-class PaidIn(BaseModel):
-    invoice_number: str | None = Field(default=None, max_length=100)
 
 
 class MessageIn(BaseModel):
@@ -117,12 +113,16 @@ def _not_found(what: str) -> HTTPException:
 # Browsing
 # ---------------------------------------------------------------------------
 
+# Anyone with a part in the catalogue browses it; an aggregator has none
+# (0048), so it is refused here as everywhere else in the catalogue.
+_BROWSERS = ("catalogue.buy", "catalogue.list", "catalogue.quote", "catalogue.review")
+
 
 @router.get("/catalogue/datasets")
 async def list_published(
     q: str | None = Query(default=None, max_length=200),
     category: Category | None = Query(default=None),
-    principal: Principal = Depends(get_principal),
+    principal: Principal = Depends(require_any_capability(*_BROWSERS)),
     session: AsyncSession = Depends(get_session),
 ) -> list[dict[str, Any]]:
     return await catalogue.list_published(session, principal, q=q, category=category)
@@ -131,7 +131,7 @@ async def list_published(
 @router.get("/catalogue/datasets/by-slug/{slug}")
 async def dataset_by_slug(
     slug: str,
-    principal: Principal = Depends(get_principal),
+    principal: Principal = Depends(require_any_capability(*_BROWSERS)),
     session: AsyncSession = Depends(get_session),
 ) -> dict[str, Any]:
     try:
@@ -143,7 +143,7 @@ async def dataset_by_slug(
 @router.get("/catalogue/datasets/{dataset_id}")
 async def dataset_detail(
     dataset_id: uuid.UUID,
-    principal: Principal = Depends(get_principal),
+    principal: Principal = Depends(require_any_capability(*_BROWSERS)),
     session: AsyncSession = Depends(get_session),
 ) -> dict[str, Any]:
     try:
@@ -155,7 +155,7 @@ async def dataset_detail(
 @router.get("/catalogue/samples/{sample_id}/url")
 async def sample_url(
     sample_id: uuid.UUID,
-    principal: Principal = Depends(get_principal),
+    principal: Principal = Depends(require_any_capability(*_BROWSERS)),
     session: AsyncSession = Depends(get_session),
 ) -> dict[str, Any]:
     try:
@@ -511,21 +511,6 @@ async def accept(
 ) -> dict[str, Any]:
     try:
         return await catalogue.accept(session, principal, deal_id)
-    except LookupError:
-        raise _not_found("Quote") from None
-    except catalogue.CatalogueError as e:
-        raise _conflict(e) from None
-
-
-@router.post("/catalogue/deals/{deal_id}/paid")
-async def mark_paid(
-    deal_id: uuid.UUID,
-    body: PaidIn,
-    principal: Principal = Depends(require_capability("catalogue.quote")),
-    session: AsyncSession = Depends(get_session),
-) -> dict[str, Any]:
-    try:
-        return await catalogue.mark_paid(session, principal, deal_id, body.invoice_number)
     except LookupError:
         raise _not_found("Quote") from None
     except catalogue.CatalogueError as e:

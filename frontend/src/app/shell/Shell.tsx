@@ -32,7 +32,7 @@ const NAV: Record<string, NavItem[]> = {
     { to: "/vendors", label: "Vendors" },
     // Finished datasets to license, beside commissioning new ones (the RFPs).
     // Its own tabs reach quotes, licences and the client's own listings.
-    { to: "/catalogue", label: "Datasets" },
+    { to: "/datahub", label: "DataHub" },
     { to: "/billing", label: "Billing" },
   ],
   tenant: [
@@ -44,9 +44,9 @@ const NAV: Record<string, NavItem[]> = {
     { to: "/contracts", label: "Contracts" },
     { to: "/network", label: "Network" },
     { to: "/qa", label: "QA and delivery" },
-    // the dataset catalogue: a partner buys from it, and its tabs reach the
+    // DataHub: a partner buys from it, and its tabs reach the
     // partner's own listings (its own data, and approved non-exclusive contracts)
-    { to: "/catalogue", label: "Datasets" },
+    { to: "/datahub", label: "DataHub" },
     // what the partner is owed and what the platform took — the invoices
     // exist against this org, and until now nothing linked to them
     { to: "/billing", label: "Billing" },
@@ -57,8 +57,7 @@ const NAV: Record<string, NavItem[]> = {
     { to: "/review", label: "Review" },
     { to: "/roster", label: "Crowd roster" },
     { to: "/equipment", label: "Equipment" },
-    // an aggregator may sell datasets of its own (db/390)
-    { to: "/catalogue/mine", label: "Datasets" },
+    // no DataHub: an aggregator takes no part in DataHub (0048)
   ],
   // a crowd resource who signs in here sees their assignments read-only;
   // capture happens in the phone app
@@ -86,7 +85,7 @@ const NAV: Record<string, NavItem[]> = {
     { to: "/onboarding", label: "Onboarding" },
     { to: "/contracts", label: "Contracts" },
     // listings to review before they go on sale, and public quote requests
-    { to: "/ops/catalogue", label: "Dataset catalogue" },
+    { to: "/ops/datahub", label: "DataHub" },
     { to: "/billing", label: "Billing" },
     { to: "/activity", label: "Activity" },
   ],

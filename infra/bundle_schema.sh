@@ -39,7 +39,8 @@ STRUCTURE="000_extensions 001_conventions 010_identity 020_rbac 030_onboarding
            360_quality_and_compliance 370_gcs_destinations 380_ratings
            390_catalogue 400_no_worker_consent 410_catalogue_names
            420_catalogue_quotes_and_chat 430_catalogue_leads_to_seller
-           440_catalogue_public_requests_as_deals"
+           440_catalogue_public_requests_as_deals 450_dataset_deal_invoices
+           460_datahub_name"
 
 # Required, and not demo data: without these there is no capability
 # vocabulary, no role to grant, and nobody who can approve anything.

@@ -226,11 +226,12 @@ def test_nothing_is_downloaded_through_the_platform():
         assert gone not in _SERVICE, gone
 
 
-def test_the_seller_marks_paid_then_delivered():
-    assert '("accepted",), "paid"' in _body("mark_paid")
+def test_paid_comes_from_the_invoice_and_the_seller_marks_delivered():
+    # db/450: acknowledging the deal's invoice makes it paid; there is no
+    # Mark paid of the seller's own any more
+    assert not hasattr(catalogue, "mark_paid")
     assert '("paid",), "delivered"' in _body("mark_delivered")
-    for fn in ("mark_paid", "mark_delivered"):
-        assert 'k["seller_org_id"] != claims.org_id' in _body(fn)
+    assert 'k["seller_org_id"] != claims.org_id' in _body("mark_delivered")
 
 
 def test_operations_read_the_chat_and_do_not_post():

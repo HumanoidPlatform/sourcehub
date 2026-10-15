@@ -155,14 +155,14 @@ export function ContractDetailPage() {
     onError: (e) => toast("Cannot deliver", e instanceof Error ? e.message : "", "critical"),
   });
   // Non-exclusive and approved: the partner may list the captures in the
-  // dataset catalogue. Opens a draft; nothing is on sale until Ops publishes.
+  // DataHub. Opens a draft; nothing is on sale until Ops publishes.
   const navigate = useNavigate();
   const listInCatalogue = useMutation({
     mutationFn: () => post<{ dataset_id: string }>(`/catalogue/contracts/${id}/list`),
     onSuccess: (r) => {
       void qc.invalidateQueries({ queryKey: ["contract", id] });
       toast("Draft listing opened", "The captures are being copied in. Describe it and submit it for review.", "success");
-      navigate(`/catalogue/mine/${r.dataset_id}`);
+      navigate(`/datahub/mine/${r.dataset_id}`);
     },
     onError: (e) => toast("Cannot list", e instanceof Error ? e.message : "", "critical"),
   });
@@ -214,10 +214,10 @@ export function ContractDetailPage() {
           )}
           {isPartner && c.status === "completed" && c.partner_reuse_allowed && can(session, "catalogue.list") && (
             c.catalogue_dataset_id
-              ? <Link className="btn" to={`/catalogue/mine/${c.catalogue_dataset_id}`}>Open listing</Link>
+              ? <Link className="btn" to={`/datahub/mine/${c.catalogue_dataset_id}`}>Open listing</Link>
               : <Button onClick={() => listInCatalogue.mutate()} disabled={listInCatalogue.isPending}
                   title="The client did not ask for exclusivity. The accepted captures go into a draft listing.">
-                  List in catalogue
+                  List in DataHub
                 </Button>
           )}
         </>
@@ -828,7 +828,7 @@ function complianceRows(request: Rfp | undefined, loading: boolean): [string, Re
   return [
     ["Permitted uses", labelsOf(PERMITTED_USES, request.compliance.permitted_uses)],
     ["Exclusivity", request.compliance.partner_reuse_allowed
-      ? "Non-exclusive: once the client approves, the partner may choose to list the captures in the dataset catalogue"
+      ? "Non-exclusive: once the client approves, the partner may choose to list the captures in DataHub"
       : "Exclusive to the client; partner reuse is not allowed"],
     ["Lawful basis", labelOf(LAWFUL_BASES, request.compliance.lawful_basis)],
     ["De-identification", labelsOf(DEIDENTIFICATION, request.compliance.deidentification)],

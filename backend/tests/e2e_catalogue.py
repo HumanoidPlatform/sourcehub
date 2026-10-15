@@ -3,7 +3,8 @@
 list (with a file count) -> upload a sample -> submit -> (refused: seller
 publishes) -> Ops publishes -> public page (samples only, no storage keys) ->
 public quote request -> a client asks for 500 of the files -> the two chat ->
-seller quotes for 500 -> client accepts -> seller marks it paid, then delivered
+seller quotes for 500 -> client accepts, which issues an invoice -> client
+marks the invoice paid -> seller acknowledges it (the deal is paid) -> delivered
 -> another delivery partner buys the whole dataset the same way -> seller
 withdraws the listing; agreed deals stand.
 
@@ -52,6 +53,7 @@ buyer = login("client@acme.example")
 other = login("client@voltra.example")
 partner_buyer = login("partner@northstar.example")
 admin = login("admin@sourcehub.local")
+crowd = login("crowd@bengaluru.example")
 public = httpx.Client(base_url=B, timeout=T)
 
 # 1 — the seller starts a listing and says how many files it holds
@@ -166,7 +168,7 @@ assert [m["seq"] for m in msgs] == [1, 2, 3]
 refused(admin.post(f"/catalogue/deals/{DEAL}/messages", json={"body": "hi"}), 403, 409)
 ok("buyer and seller chatted; Ops cannot post", f"{len(msgs)} messages")
 
-# 7 — quote, accept, paid, delivered
+# 7 — quote, accept (the platform invoices), paid, acknowledged, delivered
 refused(buyer.post(f"/catalogue/deals/{DEAL}/quote",
                    json={"amount": "1", "currency": "USD", "uses": ["model_training"]}), 403, 409)
 r = seller.post(f"/catalogue/deals/{DEAL}/quote", json={
@@ -174,20 +176,34 @@ r = seller.post(f"/catalogue/deals/{DEAL}/quote", json={
 r.raise_for_status()
 assert r.json()["status"] == "quoted" and r.json()["quote_quantity"] == 500 and r.json()["currency"] == "USD"
 ok("only the seller quotes", f"USD {r.json()['quote_amount']} for 500 files")
-refused(seller.post(f"/catalogue/deals/{DEAL}/paid", json={}), 409)
+refused(seller.post(f"/catalogue/deals/{DEAL}/quote", json={
+    "amount": "0", "currency": "USD", "uses": ["model_training"]}), 422)
 r = buyer.post(f"/catalogue/deals/{DEAL}/accept")
 r.raise_for_status()
-assert r.json()["status"] == "accepted"
-ok("marking paid before acceptance is REFUSED; the client accepted")
+assert r.json()["status"] == "accepted" and r.json()["invoice_status"] == "issued"
+INV, REF = r.json()["invoice_id"], r.json()["invoice_reference"]
+inv = next(x for x in buyer.get("/invoices").json() if x["id"] == INV)
+assert inv["deal_id"] == DEAL and inv["contract_id"] is None
+assert inv["amount"] == "5000.00" and inv["currency"] == "USD"
+assert any(x["id"] == INV for x in seller.get("/invoices").json())
+ok("a zero quote is REFUSED; the client accepted and the platform invoiced it", REF)
+refused(seller.post(f"/catalogue/deals/{DEAL}/paid", json={}), 404, 405)
 refused(seller.post(f"/catalogue/deals/{DEAL}/delivered"), 409)
-refused(buyer.post(f"/catalogue/deals/{DEAL}/paid", json={}), 403, 409)
-r = seller.post(f"/catalogue/deals/{DEAL}/paid", json={"invoice_number": "INV-E2E-1"})
-r.raise_for_status()
-assert r.json()["status"] == "paid" and r.json()["invoice_number"] == "INV-E2E-1"
+refused(seller.post(f"/invoices/{INV}/withdraw", json={}), 409)
+refused(seller.post(f"/invoices/{INV}/acknowledge"), 409)
+refused(seller.post(f"/invoices/{INV}/pay", json={}), 403, 409)
+r = buyer.post(f"/invoices/{INV}/pay", json={"payment_reference": "E2E-BANK-1"})
+assert r.status_code == 200, r.text
+assert buyer.get(f"/catalogue/deals/{DEAL}").json()["status"] == "accepted"
+r = seller.post(f"/invoices/{INV}/acknowledge")
+assert r.status_code == 200, r.text
+d = seller.get(f"/catalogue/deals/{DEAL}").json()
+assert d["status"] == "paid" and d["invoice_number"] == REF and d["invoice_status"] == "acknowledged"
 r = seller.post(f"/catalogue/deals/{DEAL}/delivered")
 r.raise_for_status()
 assert r.json()["status"] == "delivered" and r.json()["delivered_at"]
-ok("delivered before paid, or paid by the buyer, is REFUSED; the seller marked it paid, then delivered")
+ok("the seller cannot mark paid, withdraw the invoice or acknowledge it early; the client paid it,"
+   " the seller acknowledged (deal paid), then delivered")
 
 # 8 — another delivery partner buys the whole dataset the same way
 r = partner_buyer.post(f"/catalogue/datasets/{DID}/deals",
@@ -197,12 +213,22 @@ PDEAL = r.json()["id"]
 assert r.json()["requested_quantity"] is None
 seller.post(f"/catalogue/deals/{PDEAL}/quote", json={
     "amount": "12000.00", "currency": "USD", "uses": ["research"]}).raise_for_status()
-partner_buyer.post(f"/catalogue/deals/{PDEAL}/accept").raise_for_status()
-seller.post(f"/catalogue/deals/{PDEAL}/paid", json={}).raise_for_status()
+r = partner_buyer.post(f"/catalogue/deals/{PDEAL}/accept")
+r.raise_for_status()
+PINV = r.json()["invoice_id"]
+assert partner_buyer.post(f"/invoices/{PINV}/pay", json={}).status_code == 200
+assert seller.post(f"/invoices/{PINV}/acknowledge").status_code == 200
 r = seller.post(f"/catalogue/deals/{PDEAL}/delivered")
 r.raise_for_status()
 assert r.json()["status"] == "delivered" and r.json()["quote_quantity"] is None
-ok("a delivery partner bought the whole dataset: asked, quoted, accepted, paid, delivered")
+ok("a delivery partner bought the whole dataset: asked, quoted, accepted, invoice paid and"
+   " acknowledged, delivered")
+
+# 8b — an aggregator takes no part in the catalogue (0048)
+for path in ("/catalogue/datasets", f"/catalogue/datasets/{DID}", "/catalogue/mine", "/catalogue/deals"):
+    refused(crowd.get(path), 403)
+refused(crowd.post("/catalogue/datasets", json={"title": "Crowd data", "category": "image", "file_count": 1}), 403)
+ok("an aggregator can neither browse, list, nor see quotes: every catalogue route is REFUSED")
 
 # 9 — listing a contract's captures is the partner's own call, on its own contract
 refused(seller.post(f"/catalogue/contracts/{uuid.uuid4()}/list"), 404)

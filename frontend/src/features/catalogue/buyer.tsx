@@ -13,7 +13,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ApiError, get, post } from "@api/client";
-import type { Dataset, DatasetDeal, DealMessage, PermittedUse } from "@api/types";
+import type { Dataset, DatasetDeal, DealMessage, InvoiceRow, PermittedUse } from "@api/types";
 import {
   Button, Callout, CheckGroup, DataTable, Dialog, Dl, Empty, Field, inputCls, Panel, Pill, Skeleton,
   textareaCls, useToast, View,
@@ -22,7 +22,8 @@ import { useSession } from "@shared/auth";
 import { fmtDate, fmtDateTime, money } from "@shared/format";
 import { can } from "@shared/rbac";
 import { ReasonDialog } from "@shared/reason-dialog";
-import { datasetStatus, statusMeta } from "@shared/status";
+import { InvoiceActions } from "@shared/invoices";
+import { datasetStatus, invoiceStatus, statusMeta } from "@shared/status";
 import { PERMITTED_USES } from "@features/marketplace/vocabularies";
 import {
   CATEGORIES, categoryLabel, DatasetCard, dealStatusMeta, quantityText, regionsText, SamplePreview, sizeText,
@@ -36,12 +37,12 @@ const errText = (e: unknown) => (e instanceof Error ? e.message : "Something wen
 function CatalogueTabs({ current }: { current: "browse" | "deals" | "mine" }) {
   const session = useSession();
   const tabs: [string, string, string, boolean][] = [
-    ["browse", "/catalogue", "Browse", true],
-    ["deals", "/catalogue/deals", "Quotes", can(session, "catalogue.buy") || can(session, "catalogue.quote")],
-    ["mine", "/catalogue/mine", "My listings", can(session, "catalogue.list")],
+    ["browse", "/datahub", "Browse", true],
+    ["deals", "/datahub/deals", "Quotes", can(session, "catalogue.buy") || can(session, "catalogue.quote")],
+    ["mine", "/datahub/mine", "My listings", can(session, "catalogue.list")],
   ];
   return (
-    <nav className="seg" aria-label="Dataset catalogue" style={{ marginBottom: 16 }}>
+    <nav className="seg" aria-label="DataHub" style={{ marginBottom: 16 }}>
       {tabs.filter(([, , , show]) => show).map(([key, to, label]) => (
         <Link key={key} to={to} className="seg-btn" aria-current={current === key ? "page" : undefined}
           style={{ display: "inline-flex", alignItems: "center", textDecoration: "none",
@@ -54,13 +55,30 @@ function CatalogueTabs({ current }: { current: "browse" | "deals" | "mine" }) {
 }
 export { CatalogueTabs };
 
+/** Whether this workspace takes part in DataHub at all. An aggregator
+ *  does not (0048): it hands captures to the partner, who sells. */
+export function inCatalogue(session: ReturnType<typeof useSession>): boolean {
+  return ["catalogue.buy", "catalogue.list", "catalogue.quote", "catalogue.review"].some((c) => can(session, c));
+}
+
+/** What a workspace outside DataHub sees if it reaches a DataHub page by URL. */
+export function NotInCatalogue() {
+  return (
+    <View title="DataHub">
+      <Panel><Empty title="DataHub is not part of your workspace" hint="Delivery partners and clients buy and sell datasets here." /></Panel>
+    </View>
+  );
+}
+
 /* --- browse ---------------------------------------------------------------- */
 
 export function CataloguePage() {
+  const allowed = inCatalogue(useSession());
   const [q, setQ] = useState("");
   const [category, setCategory] = useState("");
   const list = useQuery({
     queryKey: ["catalogue", q, category],
+    enabled: allowed,
     queryFn: () => {
       const p = new URLSearchParams();
       if (q.trim()) p.set("q", q.trim());
@@ -69,11 +87,12 @@ export function CataloguePage() {
     },
   });
   const rows = list.data ?? [];
+  if (!allowed) return <NotInCatalogue />;
   return (
     <View
-      title="Datasets"
+      title="DataHub"
       sub="Finished datasets, reviewed by the platform before they are listed. Ask the seller for the files you need."
-      actions={<Link className="btn" to="/datasets">Public page</Link>}
+      actions={<Link className="btn" to="/datahub/public">Public page</Link>}
     >
       <CatalogueTabs current="browse" />
       <div className="btnrow" style={{ marginBottom: 12 }}>
@@ -94,7 +113,7 @@ export function CataloguePage() {
           {rows.map((d) => (
             <DatasetCard
               key={d.id}
-              to={`/catalogue/${d.slug}`}
+              to={`/datahub/${d.slug}`}
               title={d.title}
               summary={d.summary}
               seller={d.owner_name}
@@ -138,9 +157,9 @@ export function DatasetPage() {
       actions={
         <>
           {d.status !== "published" && <Pill tone={st.tone}>{st.label}</Pill>}
-          {d.is_owner && <Link className="btn" to={`/catalogue/mine/${d.id}`}>Manage listing</Link>}
+          {d.is_owner && <Link className="btn" to={`/datahub/mine/${d.id}`}>Manage listing</Link>}
           {!d.is_owner && d.my_deal && (
-            <Link className="btn" to={`/catalogue/deals/${d.my_deal.id}`}>
+            <Link className="btn" to={`/datahub/deals/${d.my_deal.id}`}>
               {open ? "Open your quote request" : "Your last deal"}
             </Link>
           )}
@@ -225,7 +244,7 @@ function AskQuoteDialog({ dataset, onClose }: { dataset: Dataset; onClose: () =>
     onSuccess: (deal) => {
       void qc.invalidateQueries({ queryKey: ["catalogue-dataset"] });
       void qc.invalidateQueries({ queryKey: ["catalogue-deals"] });
-      navigate(`/catalogue/deals/${deal.id}`);
+      navigate(`/datahub/deals/${deal.id}`);
     },
   });
   return (
@@ -290,7 +309,7 @@ export function DealsPage() {
       <CatalogueTabs current="deals" />
       <Panel flush>
         {deals.isLoading ? <Skeleton rows={4} label="Loading quotes" /> : rows.length === 0 ? (
-          <Empty title="No quotes yet" hint="Ask for one from any dataset's page." action={<Link className="btn" to="/catalogue">Browse datasets</Link>} />
+          <Empty title="No quotes yet" hint="Ask for one from any dataset's page." action={<Link className="btn" to="/datahub">Browse datasets</Link>} />
         ) : (
           <DataTable
             rows={rows}
@@ -316,7 +335,7 @@ export function DealsPage() {
               },
               { header: "Quote", className: "num", cell: (r) => (r.quote_amount ? money(r.quote_amount, r.currency ?? "USD") : "—") },
               { header: "Updated", cell: (r) => fmtDate(r.updated_at), sortBy: (r) => r.updated_at },
-              { header: "Actions", hideHeader: true, className: "right", cell: (r) => <Link className="btn" data-size="sm" to={`/catalogue/deals/${r.id}`}>Open</Link> },
+              { header: "Actions", hideHeader: true, className: "right", cell: (r) => <Link className="btn" data-size="sm" to={`/datahub/deals/${r.id}`}>Open</Link> },
             ]}
           />
         )}
@@ -332,7 +351,6 @@ export function DealPage() {
   const [quoting, setQuoting] = useState(false);
   const [declining, setDeclining] = useState(false);
   const [accepting, setAccepting] = useState(false);
-  const [paying, setPaying] = useState(false);
   const deal = useQuery({ queryKey: ["catalogue-deal", id], queryFn: () => get<DatasetDeal>(`/catalogue/deals/${id}`) });
   const refresh = () => {
     void qc.invalidateQueries({ queryKey: ["catalogue-deal", id] });
@@ -371,7 +389,7 @@ export function DealPage() {
           <DealChat deal={k} />
           <Panel title="The request" sub={`Asked ${fmtDateTime(k.created_at)}`}>
             <Dl rows={[
-              ["Dataset", <Link key="d" to={`/catalogue/${k.dataset_slug}`}>{k.dataset_title}</Link>],
+              ["Dataset", <Link key="d" to={`/datahub/${k.dataset_slug}`}>{k.dataset_title}</Link>],
               ["Buyer", k.buyer_name ?? "—"],
               ["Files asked for", quantityText(k.requested_quantity, k.file_count)],
               ["Intended use", k.intended_use],
@@ -387,12 +405,13 @@ export function DealPage() {
                 ["Files", quantityText(k.quote_quantity, k.file_count)],
                 ["Uses covered", usesText(k.quote_uses)],
                 ["Terms", <div key="t" style={{ whiteSpace: "pre-wrap" }}>{k.quote_terms || "The listing's licence terms"}</div>],
-                ...(k.paid_at ? [["Paid", `${fmtDate(k.paid_at)}${k.invoice_number ? ` · invoice ${k.invoice_number}` : ""}`] as [string, string]] : []),
+                ...(k.paid_at ? [["Paid", `${fmtDate(k.paid_at)}${k.invoice_number ? ` · ${k.invoice_number}` : ""}`] as [string, string]] : []),
                 ...(k.delivered_at ? [["Delivered", fmtDate(k.delivered_at)] as [string, string]] : []),
               ]} />
             ) : <p className="muted" style={{ margin: 0 }}>{seller ? "Agree the files and price in the chat, then send a quote." : "The seller has not quoted yet."}</p>}
             {k.decision_note && <Callout tone="neutral" title="Note">{k.decision_note}</Callout>}
           </Panel>
+          {k.invoice_id && <DealInvoice deal={k} />}
           <Panel title="Next step">
             {seller && live && (
               <div className="btnrow">
@@ -413,11 +432,18 @@ export function DealPage() {
               </>
             )}
             {k.status === "accepted" && (seller ? (
-              <>
-                <p className="small" style={{ margin: 0 }}>Invoice the buyer, and mark the deal paid once the money arrives.</p>
-                <Button variant="primary" onClick={() => setPaying(true)}>Mark paid</Button>
-              </>
-            ) : <p className="small" style={{ margin: 0 }}>The seller will invoice you. Payment is between you and them.</p>)}
+              <p className="small" style={{ margin: 0 }}>
+                {k.invoice_status === "paid"
+                  ? `The buyer marked ${k.invoice_reference} paid. Acknowledge it once the money has arrived; the deal is then paid.`
+                  : `The platform issued ${k.invoice_reference ?? "an invoice"} to the buyer. Once they mark it paid, acknowledge the payment.`}
+              </p>
+            ) : (
+              <p className="small" style={{ margin: 0 }}>
+                {k.invoice_status === "paid"
+                  ? "You marked the invoice paid. The seller acknowledges once the money arrives."
+                  : `Pay ${k.seller_name} as invoiced, then mark ${k.invoice_reference ?? "the invoice"} paid.`}
+              </p>
+            ))}
             {k.status === "paid" && (seller ? (
               <>
                 <p className="small" style={{ margin: 0 }}>
@@ -442,9 +468,36 @@ export function DealPage() {
           onClose={() => setDeclining(false)}
         />
       )}
-      {accepting && <AcceptDialog deal={k} onClose={() => setAccepting(false)} onDone={() => { refresh(); toast("Quote accepted", "The seller will invoice you."); }} />}
-      {paying && <MarkPaidDialog deal={k} onClose={() => setPaying(false)} onDone={() => { refresh(); toast("Marked paid"); }} />}
+      {accepting && <AcceptDialog deal={k} onClose={() => setAccepting(false)} onDone={() => { refresh(); toast("Quote accepted", "An invoice has been issued to you."); }} />}
     </View>
+  );
+}
+
+/** The deal's invoice (db/450), issued when the buyer accepted: the buyer
+ *  marks it paid, the seller acknowledges, and that makes the deal paid. The
+ *  buttons are Billing's own. */
+function DealInvoice({ deal }: { deal: DatasetDeal }) {
+  const invoices = useQuery({ queryKey: ["invoices"], queryFn: () => get<InvoiceRow[]>("/invoices") });
+  const i = (invoices.data ?? []).find((x) => x.id === deal.invoice_id);
+  const m = statusMeta(invoiceStatus, deal.invoice_status ?? "issued");
+  return (
+    <Panel title="Invoice" sub={deal.invoice_reference ?? undefined}>
+      {invoices.isLoading ? <Skeleton rows={2} label="Loading the invoice" /> : !i ? (
+        <p className="muted" style={{ margin: 0 }}>The invoice is on the Billing page.</p>
+      ) : (
+        <>
+          <Dl rows={[
+            ["Amount", <b key="a">{money(i.amount, i.currency)}</b>],
+            ["From", i.partner_name ?? "—"],
+            ["Billed to", i.client_name ?? "—"],
+            ["Status", <Pill key="s" tone={m.tone}>{m.label}</Pill>],
+            ...(i.paid_at ? [["Marked paid", `${fmtDateTime(i.paid_at)}${i.payment_reference ? ` · ref ${i.payment_reference}` : ""}`] as [string, string]] : []),
+            ...(i.acknowledged_at ? [["Acknowledged", fmtDateTime(i.acknowledged_at)] as [string, string]] : []),
+          ]} />
+          <div className="btnrow" style={{ marginTop: 8 }}><InvoiceActions i={i} /></div>
+        </>
+      )}
+    </Panel>
   );
 }
 
@@ -544,7 +597,7 @@ function PublicRequestPage({ deal: k, onChanged }: { deal: DatasetDeal; onChange
         <div style={{ display: "flex", flexDirection: "column", gap: 16, minWidth: 0 }}>
           <Panel title="What they asked" sub={`Sent ${fmtDateTime(k.created_at)}`}>
             <Dl rows={[
-              ["Dataset", <Link key="d" to={`/catalogue/${k.dataset_slug}`}>{k.dataset_title}</Link>],
+              ["Dataset", <Link key="d" to={`/datahub/${k.dataset_slug}`}>{k.dataset_title}</Link>],
               ["From", `${k.contact_name} · ${k.contact_company}`],
               ["Email", k.contact_email ?? "—"],
               ["Intended use", k.intended_use],
@@ -683,32 +736,3 @@ function AcceptDialog({ deal, onClose, onDone }: { deal: DatasetDeal; onClose: (
   );
 }
 
-function MarkPaidDialog({ deal, onClose, onDone }: { deal: DatasetDeal; onClose: () => void; onDone: () => void }) {
-  const [inv, setInv] = useState("");
-  const paid = useMutation({
-    mutationFn: () => post(`/catalogue/deals/${deal.id}/paid`, { invoice_number: inv.trim() || null }),
-    onSuccess: () => { onDone(); onClose(); },
-  });
-  return (
-    <Dialog
-      title="Mark this deal paid?"
-      sub={`${deal.dataset_title} · ${deal.buyer_name}`}
-      onClose={onClose}
-      busy={paid.isPending}
-      foot={
-        <>
-          <Button onClick={onClose}>Cancel</Button>
-          <Button variant="primary" disabled={paid.isPending} onClick={() => paid.mutate()}>
-            {paid.isPending ? "Saving…" : `Paid: ${money(deal.quote_amount, deal.currency ?? "USD")}`}
-          </Button>
-        </>
-      }
-    >
-      <p className="small muted" style={{ margin: 0 }}>
-        Do this once the money has arrived. It cannot be undone. Mark the deal delivered after you hand the files over.
-      </p>
-      <Field label="Your invoice number">{(id) => <input id={id} className={inputCls} value={inv} onChange={(e) => setInv(e.target.value)} />}</Field>
-      {paid.isError && <Callout tone="critical" title="Not saved">{errText(paid.error)}</Callout>}
-    </Dialog>
-  );
-}

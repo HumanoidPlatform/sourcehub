@@ -131,7 +131,7 @@ export const orgStatus: StatusMap = {
   terminated: { label: "Terminated", tone: "neutral", owner: null },
 };
 
-// db/390: the dataset catalogue. The owner drafts and submits; only Ops
+// db/390: DataHub. The owner drafts and submits; only Ops
 // publishes or sends back.
 export const datasetStatus: StatusMap = {
   draft: { label: "Draft", tone: "neutral", owner: "partner" },

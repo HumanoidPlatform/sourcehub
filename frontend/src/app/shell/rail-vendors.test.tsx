@@ -39,16 +39,16 @@ function rail(role: string, kind: string) {
 }
 
 describe("the Vendors link", () => {
-  it("sits in the client's rail, between Deliverables for Review and the dataset catalogue", () => {
+  it("sits in the client's rail, between Deliverables for Review and DataHub", () => {
     const links = rail("client", "client");
     const labels = links.map(([label]) => label);
     expect(labels).toEqual([
-      "Overview", "RFPs", "Deliverables for Review", "Vendors", "Datasets", "Billing",
+      "Overview", "RFPs", "Deliverables for Review", "Vendors", "DataHub", "Billing",
     ]);
     const at = labels.indexOf("Vendors");
     expect(links[at]).toEqual(["Vendors", "/vendors"]);
     expect(labels[at - 1]).toBe("Deliverables for Review");
-    expect(links[at + 1]).toEqual(["Datasets", "/catalogue"]);
+    expect(links[at + 1]).toEqual(["DataHub", "/datahub"]);
   });
 
   it.each([
@@ -56,5 +56,15 @@ describe("the Vendors link", () => {
     ["sponsor", "sponsor"], ["worker", "aggregator"], ["platform_admin", "platform"],
   ])("is not in the %s rail", (role, kind) => {
     expect(rail(role, kind).map(([label]) => label)).not.toContain("Vendors");
+  });
+});
+
+describe("DataHub", () => {
+  it("is not in the aggregator's rail: an aggregator takes no part in it (0048)", () => {
+    expect(rail("aggregator", "aggregator").map(([label]) => label)).not.toContain("DataHub");
+  });
+
+  it.each([["client", "client"], ["tenant", "tenant"]])("is in the %s rail", (role, kind) => {
+    expect(rail(role, kind).map(([label]) => label)).toContain("DataHub");
   });
 });

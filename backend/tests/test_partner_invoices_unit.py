@@ -216,7 +216,9 @@ def test_the_seed_and_the_migration_grant_the_same_capabilities():
     tenant = re.search(matrix % "tenant", SEED_TEXT, re.S).group(1)
     assert "'invoice.pay'" in client and "'invoice.raise'" not in client
     assert "'invoice.raise'" in tenant and "'invoice.acknowledge'" in tenant
-    assert "'invoice.pay'" not in tenant
+    # 0049: a partner pays the invoice for a dataset it buys, and a client
+    # acknowledges the payment for one it sells; contracts still run one way
+    assert "'invoice.pay'" in tenant and "'invoice.acknowledge'" in client
     # the mfa flag follows the blueprint's rule: paying moves money
     assert re.search(r"\('invoice\.pay',\s+'invoices',\s+'[^']*',\s+true\)", SEED_TEXT)
     assert "INSERT INTO ledger_account" not in SEED_TEXT

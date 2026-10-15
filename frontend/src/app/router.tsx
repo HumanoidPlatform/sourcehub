@@ -5,7 +5,7 @@
 // capabilities, and RLS decides what any query returns. Deep-linking to a page
 // your role never uses just shows you an empty, harmless view.
 
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation, useParams } from "react-router-dom";
 import { DesignSystemRoute } from "@ds/DesignSystemRoute";
 import { AccountDetailPage } from "@features/admin/account-detail";
 import { AccountsPage, ActivityPage } from "@features/admin/pages";
@@ -40,6 +40,12 @@ import { NotFoundPage } from "./not-found";
 import { OverviewPage } from "./overview";
 import { Shell } from "./shell/Shell";
 
+
+/** An address that moved: the same parameters, the new path. */
+function Moved({ to }: { to: (params: Readonly<Record<string, string | undefined>>) => string }) {
+  return <Navigate to={to(useParams())} replace />;
+}
+
 export function AppRouter() {
   const { session } = useAuth();
   // Read before the early returns below, as the rules of hooks require.
@@ -61,17 +67,22 @@ export function AppRouter() {
     </>
   );
 
-  // The public dataset catalogue: its own chrome, signed in or not. A signed-in
+  // DataHub's public pages: their own chrome, signed in or not. A signed-in
   // visitor gets the same page (a link someone shared should look the same to
-  // everyone), with a way into the console instead of the quote form.
-  const publicCatalogue = (
+  // everyone), with a way into the console instead of the quote form. The
+  // old /datasets addresses still land here.
+  const publicDataHub = (
     <>
-      <Route path="/datasets" element={<PublicCataloguePage />} />
-      <Route path="/datasets/:slug" element={<PublicDatasetPage />} />
+      <Route path="/datahub/public" element={<PublicCataloguePage />} />
+      <Route path="/datahub/public/:slug" element={<PublicDatasetPage />} />
+      <Route path="/datasets" element={<Navigate to="/datahub/public" replace />} />
+      <Route path="/datasets/:slug" element={<Moved to={(p) => `/datahub/public/${p.slug}`} />} />
     </>
   );
-  if (location.pathname === "/datasets" || location.pathname.startsWith("/datasets/")) {
-    return <Routes>{publicCatalogue}</Routes>;
+  const path = location.pathname;
+  if (path === "/datahub/public" || path.startsWith("/datahub/public/")
+      || path === "/datasets" || path.startsWith("/datasets/")) {
+    return <Routes>{publicDataHub}</Routes>;
   }
 
   // anonymous surface
@@ -146,15 +157,24 @@ export function AppRouter() {
         {/* invoices */}
         <Route path="/billing" element={<BillingPage />} />
 
-        {/* dataset catalogue — static paths rank above /catalogue/:slug */}
-        <Route path="/catalogue" element={<CataloguePage />} />
-        <Route path="/catalogue/deals" element={<DealsPage />} />
-        <Route path="/catalogue/deals/:id" element={<DealPage />} />
-        <Route path="/catalogue/mine" element={<MyDatasetsPage />} />
-        <Route path="/catalogue/mine/new" element={<DatasetNewPage />} />
-        <Route path="/catalogue/mine/:id" element={<DatasetEditorPage />} />
-        <Route path="/catalogue/:slug" element={<DatasetPage />} />
-        <Route path="/ops/catalogue" element={<CatalogueReviewPage />} />
+        {/* DataHub, the data marketplace — static paths rank above /datahub/:slug */}
+        <Route path="/datahub" element={<CataloguePage />} />
+        <Route path="/datahub/deals" element={<DealsPage />} />
+        <Route path="/datahub/deals/:id" element={<DealPage />} />
+        <Route path="/datahub/mine" element={<MyDatasetsPage />} />
+        <Route path="/datahub/mine/new" element={<DatasetNewPage />} />
+        <Route path="/datahub/mine/:id" element={<DatasetEditorPage />} />
+        <Route path="/datahub/:slug" element={<DatasetPage />} />
+        <Route path="/ops/datahub" element={<CatalogueReviewPage />} />
+        {/* its old addresses, still in emails, bookmarks and bells */}
+        <Route path="/catalogue" element={<Navigate to="/datahub" replace />} />
+        <Route path="/catalogue/deals" element={<Navigate to="/datahub/deals" replace />} />
+        <Route path="/catalogue/deals/:id" element={<Moved to={(p) => `/datahub/deals/${p.id}`} />} />
+        <Route path="/catalogue/mine" element={<Navigate to="/datahub/mine" replace />} />
+        <Route path="/catalogue/mine/new" element={<Navigate to="/datahub/mine/new" replace />} />
+        <Route path="/catalogue/mine/:id" element={<Moved to={(p) => `/datahub/mine/${p.id}`} />} />
+        <Route path="/catalogue/:slug" element={<Moved to={(p) => `/datahub/${p.slug}`} />} />
+        <Route path="/ops/catalogue" element={<Navigate to="/ops/datahub" replace />} />
 
         {/* platform ops */}
         <Route path="/onboarding" element={<OnboardingQueuePage />} />

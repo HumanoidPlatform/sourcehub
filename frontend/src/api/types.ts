@@ -761,8 +761,12 @@ export type InvoiceStatus = "issued" | "paid" | "acknowledged" | "withdrawn";
 export interface InvoiceRow {
   id: string;
   reference_code: string;
-  contract_id: string;
+  /** null on a dataset deal's invoice (db/450) */
+  contract_id: string | null;
   contract_ref: string | null;
+  /** the dataset deal this invoice bills, instead of a contract */
+  deal_id: string | null;
+  dataset_title: string | null;
   request_id: string | null;
   request_title: string | null;
   client_org_id: string;
@@ -1022,7 +1026,7 @@ export interface Overview {
   attention: OverviewAttention[];
 }
 
-/* --- dataset catalogue (db/390 + db/420, api/v1/catalogue.py) ---------------
+/* --- DataHub, the data marketplace (db/390 + db/420, api/v1/catalogue.py) ---
  * A listing shows the dataset, how many files it holds and a few samples. The
  * buyer and seller agree the quantity and price in the deal's chat; the files
  * change hands outside the platform. */
@@ -1135,6 +1139,11 @@ export interface DatasetDeal {
   created_at: string;
   updated_at: string;
   message_count: number;
+  /** issued by the platform when the buyer accepts (db/450) */
+  invoice_id: string | null;
+  invoice_reference: string | null;
+  invoice_status: "issued" | "paid" | "acknowledged" | "withdrawn" | null;
+  invoice_payment_reference: string | null;
   my_side: "buyer" | "seller" | "operations";
 }
 
@@ -1150,7 +1159,7 @@ export interface DealMessage {
   mine: boolean;
 }
 
-/** What the public catalogue returns: no ids, no storage, no internals. */
+/** What the DataHub public page returns: no ids, no storage, no internals. */
 export interface PublicDataset {
   slug: string;
   title: string;

@@ -1,4 +1,4 @@
-// catalogue — the public pages at /datasets and /datasets/:slug.
+// catalogue — the public pages at /datahub/public and /datahub/public/:slug.
 //
 // Public on purpose (the research, decisions.md §17: 20 of 41 platforms list
 // publicly, and gating applies to samples and prices, not to whether a dataset
@@ -38,13 +38,13 @@ function PublicFrame({ children, title }: { children: React.ReactNode; title: st
           background: "var(--surface)", borderBottom: "1px solid var(--line)",
         }}
       >
-        <BrandMark to="/datasets" />
-        <nav aria-label="Catalogue" style={{ display: "flex", gap: 14, fontSize: 13.5 }}>
-          <Link to="/datasets">Datasets</Link>
+        <BrandMark to="/datahub/public" />
+        <nav aria-label="DataHub" style={{ display: "flex", gap: 14, fontSize: 13.5 }}>
+          <Link to="/datahub/public">DataHub</Link>
         </nav>
         <div style={{ flex: 1 }} />
         {session
-          ? <Link className="btn" data-size="sm" to="/catalogue">Open the console</Link>
+          ? <Link className="btn" data-size="sm" to="/datahub">Open the console</Link>
           : <Link className="btn" data-size="sm" to="/login">Sign in</Link>}
       </header>
       <main id="main" style={{ maxWidth: 1180, margin: "0 auto", padding: "24px 16px 48px" }}>
@@ -67,8 +67,8 @@ export function PublicCataloguePage() {
       (!q.trim() || `${d.title} ${d.summary ?? ""} ${d.seller_name}`.toLowerCase().includes(q.trim().toLowerCase())),
   );
   return (
-    <PublicFrame title="Datasets">
-      <h1 tabIndex={-1} style={{ margin: "0 0 4px", fontSize: 24 }}>Datasets</h1>
+    <PublicFrame title="DataHub">
+      <h1 tabIndex={-1} style={{ margin: "0 0 4px", fontSize: 24 }}>DataHub</h1>
       <p className="muted" style={{ margin: "0 0 18px", maxWidth: 720 }}>
         Photo and video datasets collected through {PRODUCT} and by its partners. Every listing is reviewed before it
         appears here. Sample files are free to view; ask the seller for a quote on all of a dataset or part of it.
@@ -96,7 +96,7 @@ export function PublicCataloguePage() {
       {list.isLoading ? (
         <Skeleton rows={4} label="Loading datasets" />
       ) : list.isError ? (
-        <Callout tone="critical" title="The catalogue could not be loaded">Try again in a moment.</Callout>
+        <Callout tone="critical" title="DataHub could not be loaded">Try again in a moment.</Callout>
       ) : rows.length === 0 ? (
         <Empty title={list.data?.length ? "Nothing matches" : "No datasets yet"} hint="New datasets appear here once they are reviewed." />
       ) : (
@@ -104,7 +104,7 @@ export function PublicCataloguePage() {
           {rows.map((d) => (
             <DatasetCard
               key={d.slug}
-              to={`/datasets/${d.slug}`}
+              to={`/datahub/public/${d.slug}`}
               title={d.title}
               summary={d.summary}
               seller={d.seller_name}
@@ -133,7 +133,7 @@ export function PublicDatasetPage() {
   const d = ds.data;
   return (
     <PublicFrame title={d?.title ?? "Dataset"}>
-      <p className="small" style={{ margin: "0 0 10px" }}><Link to="/datasets">← All datasets</Link></p>
+      <p className="small" style={{ margin: "0 0 10px" }}><Link to="/datahub/public">← DataHub</Link></p>
       {ds.isLoading ? (
         <Skeleton rows={6} label="Loading the dataset" />
       ) : !d ? (
@@ -187,7 +187,7 @@ export function PublicDatasetPage() {
                   ]}
                 />
                 {session ? (
-                  <Link className="btn" data-variant="primary" to={`/catalogue/${d.slug}`}>Request a quote</Link>
+                  <Link className="btn" data-variant="primary" to={`/datahub/${d.slug}`}>Request a quote</Link>
                 ) : null}
               </div>
             </section>

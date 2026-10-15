@@ -25,13 +25,13 @@ const OPERATOR = {
   retention: "90 days",
 };
 const LAST_UPDATED = "19 September 2026";
-// The dataset catalogue (db/390) resells captures from requests that were not
+// DataHub (db/390) resells captures from requests that were not
 // exclusive. What follows says only what the platform does; THE WORDING IS A
 // DRAFT for the organisation and its counsel to replace, and while it carries
 // the [DRAFT] marker the page shows its draft banner. Relisting does not ask
 // the worker who took a capture (db/400), so neither does this.
 const RESALE =
-  "[DRAFT — wording to be approved] When the client who ordered the work did not ask for it to be exclusive, the delivery partner may, once the client has approved the delivery, also license the accepted captures to other organisations through our dataset catalogue — for example to train AI models. Each sale is a licence on the seller's own terms; the platform reviews every listing before it is offered.";
+  "[DRAFT — wording to be approved] When the client who ordered the work did not ask for it to be exclusive, the delivery partner may, once the client has approved the delivery, also license the accepted captures to other organisations through DataHub, our data marketplace — for example to train AI models. Each sale is a licence on the seller's own terms; the platform reviews every listing before it is offered.";
 const isDraft = Object.values(OPERATOR).some((v) => /^\[.*\]$/.test(v)) || RESALE.startsWith("[DRAFT");
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -101,7 +101,7 @@ export function PrivacyPage() {
             </p>
           </Section>
 
-          <Section title="Resale in the dataset catalogue">
+          <Section title="Resale in DataHub">
             <p style={{ margin: 0 }}>{RESALE}</p>
           </Section>
 
@@ -109,7 +109,7 @@ export function PrivacyPage() {
             <p style={{ margin: 0 }}>
               To fulfil the client's order, to check the quality of captures, to pay for accepted work, to keep accounts
               secure, to resolve disputes about what was delivered, and — where the order was not exclusive — to offer
-              accepted captures in the dataset catalogue as described above.
+              accepted captures in DataHub as described above.
             </p>
           </Section>
 
@@ -128,7 +128,7 @@ export function PrivacyPage() {
               {OPERATOR.contactEmail}. A person will handle your request and tell you the outcome. Some records — for
               example of payments already made — may have to be kept, and we will tell you if that applies. You can stop
               using the app at any time. Captures you have already submitted stay with the order they were made for and,
-              if the order was not exclusive, in the dataset catalogue, unless you ask otherwise; a buyer who already
+              if the order was not exclusive, in DataHub, unless you ask otherwise; a buyer who already
               holds a licence is told when a capture is withdrawn.
             </p>
           </Section>

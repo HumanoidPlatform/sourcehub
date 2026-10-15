@@ -65,38 +65,38 @@ beforeEach(() => {
   auth.session = PARTNER;
 });
 
-describe("List in catalogue", () => {
+describe("List in DataHub", () => {
   it("is offered to the partner on an approved, non-exclusive contract, and opens the draft", async () => {
     api.post.mockResolvedValue({ dataset_id: "d9" });
     const router = show(CONTRACT);
-    fireEvent.click(await screen.findByRole("button", { name: "List in catalogue" }));
+    fireEvent.click(await screen.findByRole("button", { name: "List in DataHub" }));
     await waitFor(() => expect(api.post).toHaveBeenCalledWith("/catalogue/contracts/c1/list"));
-    await waitFor(() => expect(router.state.location.pathname).toBe("/catalogue/mine/d9"));
+    await waitFor(() => expect(router.state.location.pathname).toBe("/datahub/mine/d9"));
   });
 
   it("is not offered before the client approves", async () => {
     show({ ...CONTRACT, status: "delivered" });
     await screen.findByText("CTR-09", { exact: false });
-    expect(screen.queryByRole("button", { name: "List in catalogue" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "List in DataHub" })).toBeNull();
   });
 
   it("is not offered on an exclusive contract", async () => {
     show({ ...CONTRACT, partner_reuse_allowed: false });
     await screen.findByText("CTR-09", { exact: false });
-    expect(screen.queryByRole("button", { name: "List in catalogue" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "List in DataHub" })).toBeNull();
   });
 
   it("is not offered to the client", async () => {
     auth.session = { ...PARTNER, org_id: "o-acme", org_kind: "client", role: "client" };
     show(CONTRACT);
     await screen.findByText("CTR-09", { exact: false });
-    expect(screen.queryByRole("button", { name: "List in catalogue" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "List in DataHub" })).toBeNull();
   });
 
   it("becomes Open listing once listed", async () => {
     show({ ...CONTRACT, catalogue_dataset_id: "d9" });
     const link = await screen.findByRole("link", { name: "Open listing" });
-    expect(link.getAttribute("href")).toBe("/catalogue/mine/d9");
-    expect(screen.queryByRole("button", { name: "List in catalogue" })).toBeNull();
+    expect(link.getAttribute("href")).toBe("/datahub/mine/d9");
+    expect(screen.queryByRole("button", { name: "List in DataHub" })).toBeNull();
   });
 });

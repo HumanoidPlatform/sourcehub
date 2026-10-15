@@ -17,11 +17,13 @@ import {
   Button, Callout, CheckGroup, DataTable, Dialog, Empty, Field, inputCls, Panel, Pill, selectCls,
   Skeleton, TagInput, textareaCls, useToast, View,
 } from "@ds/primitives";
+import { useSession } from "@shared/auth";
 import { fmtDate, fmtDateTime } from "@shared/format";
+import { can } from "@shared/rbac";
 import { ReasonDialog } from "@shared/reason-dialog";
 import { datasetStatus, statusMeta } from "@shared/status";
 import { PERMITTED_USES } from "@features/marketplace/vocabularies";
-import { CatalogueTabs } from "./buyer";
+import { CatalogueTabs, NotInCatalogue } from "./buyer";
 import { CATEGORIES, categoryLabel, fmtBytes, Preview, SamplePreview, sizeText } from "./shared";
 
 const errText = (e: unknown) => (e instanceof Error ? e.message : "Something went wrong");
@@ -30,13 +32,15 @@ const MAX_SAMPLES = 50;
 /* --- my listings ---------------------------------------------------------------- */
 
 export function MyDatasetsPage() {
-  const mine = useQuery({ queryKey: ["catalogue-mine"], queryFn: () => get<Dataset[]>("/catalogue/mine") });
+  const allowed = can(useSession(), "catalogue.list");
+  const mine = useQuery({ queryKey: ["catalogue-mine"], queryFn: () => get<Dataset[]>("/catalogue/mine"), enabled: allowed });
   const rows = mine.data ?? [];
-  const start = <Link className="btn" data-variant="primary" to="/catalogue/mine/new">List a dataset</Link>;
+  const start = <Link className="btn" data-variant="primary" to="/datahub/mine/new">List a dataset</Link>;
+  if (!allowed) return <NotInCatalogue />;
   return (
     <View
       title="My listings"
-      sub="Datasets your organisation offers in the catalogue. Operations review each one before it goes on sale."
+      sub="Datasets your organisation offers in DataHub. Operations review each one before it goes on sale."
       actions={start}
     >
       <CatalogueTabs current="mine" />
@@ -68,7 +72,7 @@ export function MyDatasetsPage() {
                 },
               },
               { header: "Updated", cell: (r) => fmtDate(r.updated_at), sortBy: (r) => r.updated_at ?? "" },
-              { header: "Actions", hideHeader: true, className: "right", cell: (r) => <Link className="btn" data-size="sm" to={`/catalogue/mine/${r.id}`}>Open</Link> },
+              { header: "Actions", hideHeader: true, className: "right", cell: (r) => <Link className="btn" data-size="sm" to={`/datahub/mine/${r.id}`}>Open</Link> },
             ]}
           />
         )}
@@ -88,7 +92,7 @@ export function DatasetNewPage() {
   const ready = title.trim() && Number.isInteger(n) && n > 0;
   const create = useMutation({
     mutationFn: () => post<Dataset>("/catalogue/datasets", { title: title.trim(), category, file_count: n }),
-    onSuccess: (d) => navigate(`/catalogue/mine/${d.id}`, { replace: true }),
+    onSuccess: (d) => navigate(`/datahub/mine/${d.id}`, { replace: true }),
   });
   return (
     <View title="List a dataset" sub="Start with a name and how many files it holds. You add the description and samples next.">
@@ -118,7 +122,7 @@ export function DatasetNewPage() {
             <Button type="submit" variant="primary" disabled={!ready || create.isPending}>
               {create.isPending ? "Creating…" : "Create draft"}
             </Button>
-            <Link className="btn" to="/catalogue/mine">Cancel</Link>
+            <Link className="btn" to="/datahub/mine">Cancel</Link>
           </div>
           {create.isError && <div style={{ gridColumn: "1 / -1" }}><Callout tone="critical" title="Not created">{errText(create.error)}</Callout></div>}
         </form>
@@ -175,7 +179,7 @@ export function DatasetEditorPage() {
   if (ds.isLoading) return <View title="Listing"><Skeleton rows={6} label="Loading the listing" /></View>;
   if (!d) return <View title="Listing"><Panel><Empty title="Listing not found" /></Panel></View>;
   if (!d.is_owner) {
-    return <View title={d.title}><Panel><Empty title="This listing belongs to another organisation" action={<Link className="btn" to={`/catalogue/${d.slug}`}>View it</Link>} /></Panel></View>;
+    return <View title={d.title}><Panel><Empty title="This listing belongs to another organisation" action={<Link className="btn" to={`/datahub/${d.slug}`}>View it</Link>} /></Panel></View>;
   }
 
   const st = statusMeta(datasetStatus, d.status);
@@ -189,7 +193,7 @@ export function DatasetEditorPage() {
       actions={
         <>
           <Pill tone={st.tone}>{st.label}</Pill>
-          {d.status === "published" && <Link className="btn" to={`/datasets/${d.slug}`}>Public page</Link>}
+          {d.status === "published" && <Link className="btn" to={`/datahub/public/${d.slug}`}>Public page</Link>}
           {editable && (
             <Button variant="primary" onClick={() => submit.mutate()} disabled={submit.isPending}>
               {submit.isPending ? "Submitting…" : "Submit for review"}
@@ -224,7 +228,7 @@ export function DatasetEditorPage() {
       {withdrawing && (
         <ReasonDialog
           title="Withdraw this listing from sale"
-          warning="It leaves the catalogue and the public page. Buyers still negotiating are told; deals already agreed stand."
+          warning="It leaves DataHub and its public page. Buyers still negotiating are told; deals already agreed stand."
           confirmLabel="Withdraw"
           onConfirm={(reason) => post<Dataset>(`/catalogue/datasets/${id}/withdraw`, { reason }).then(setData)}
           onClose={() => setWithdrawing(false)}
@@ -276,7 +280,7 @@ function DetailsPanel({ dataset, editable, onSaved }: { dataset: Dataset; editab
   return (
     <Panel
       title="What buyers read"
-      sub={editable ? "Shown on the catalogue and public pages once published." : priceOnly ? "Published: only the price note can change." : "Locked while in review."}
+      sub={editable ? "Shown in DataHub and on its public page once published." : priceOnly ? "Published: only the price note can change." : "Locked while in review."}
       foot={(editable || priceOnly) ? (
         <div className="btnrow">
           <Button variant="primary" disabled={!dirty || save.isPending} onClick={() => save.mutate()}>
@@ -288,7 +292,7 @@ function DetailsPanel({ dataset, editable, onSaved }: { dataset: Dataset; editab
     >
       <div className="formgrid">
         <Field label="Title" required span>{(id) => <input id={id} className={inputCls} disabled={locked} value={f.title} onChange={on("title")} />}</Field>
-        <Field label="One-line summary" required span hint="The line under the title in the catalogue.">
+        <Field label="One-line summary" required span hint="The line under the title in DataHub.">
           {(id) => <input id={id} className={inputCls} disabled={locked} maxLength={400} value={f.summary} onChange={on("summary")} />}
         </Field>
         <Field label="Description" span hint="What is in it, how it was collected, how it is labelled, what it is good for.">

@@ -33,7 +33,8 @@ vi.mock("@shared/auth", () => ({
   useAuth: () => ({ session: auth.session, logout: () => Promise.resolve() }),
 }));
 
-import { DatasetPage, DealPage } from "./buyer";
+import { CataloguePage, DatasetPage, DealPage } from "./buyer";
+import { MyDatasetsPage } from "./seller";
 import { CatalogueReviewPage } from "./ops";
 import { PublicDatasetPage } from "./public";
 
@@ -94,7 +95,7 @@ describe("the public dataset page", () => {
   it("shows a signed-out visitor the samples and the quote form, and nothing to buy", async () => {
     api.get.mockImplementation((p: string) =>
       Promise.resolve(p === "/public/catalogue/street-abc123" ? PUBLIC : null));
-    show("/datasets/street-abc123", "/datasets/:slug", <PublicDatasetPage />);
+    show("/datahub/public/street-abc123", "/datahub/public/:slug", <PublicDatasetPage />);
     expect(await screen.findByRole("heading", { name: "Street scenes, Pune" })).toBeTruthy();
     expect(screen.getByRole("img", { name: "a.jpg" }).getAttribute("src")).toBe("https://signed/a.jpg");
     expect(screen.getByRole("button", { name: "Send request" })).toBeTruthy();
@@ -104,7 +105,7 @@ describe("the public dataset page", () => {
 
   it("sends a quote request to the public endpoint", async () => {
     api.get.mockImplementation(() => Promise.resolve(PUBLIC));
-    show("/datasets/street-abc123", "/datasets/:slug", <PublicDatasetPage />);
+    show("/datahub/public/street-abc123", "/datahub/public/:slug", <PublicDatasetPage />);
     await screen.findByRole("button", { name: "Send request" });
     const fill = (label: RegExp, value: string) =>
       fireEvent.change(screen.getByLabelText(label), { target: { value } });
@@ -123,9 +124,9 @@ describe("the public dataset page", () => {
   it("sends a signed-in visitor to the console instead of the form", async () => {
     auth.session = CLIENT;
     api.get.mockImplementation(() => Promise.resolve(PUBLIC));
-    show("/datasets/street-abc123", "/datasets/:slug", <PublicDatasetPage />);
+    show("/datahub/public/street-abc123", "/datahub/public/:slug", <PublicDatasetPage />);
     const link = await screen.findByRole("link", { name: "Request a quote" });
-    expect(link.getAttribute("href")).toBe("/catalogue/street-abc123");
+    expect(link.getAttribute("href")).toBe("/datahub/street-abc123");
     expect(screen.queryByRole("button", { name: "Send request" })).toBeNull();
   });
 });
@@ -134,7 +135,7 @@ describe("the deal room", () => {
   it("offers the buyer accept and withdraw on a quote, and nothing of the seller's", async () => {
     auth.session = CLIENT;
     api.get.mockImplementation(dealRoom(DEAL));
-    show("/catalogue/deals/k1", "/catalogue/deals/:id", <DealPage />);
+    show("/datahub/deals/k1", "/datahub/deals/:id", <DealPage />);
     expect(await screen.findByRole("button", { name: "Accept the quote" })).toBeTruthy();
     expect(screen.getByRole("button", { name: "Withdraw" })).toBeTruthy();
     expect(screen.queryByRole("button", { name: /Send a quote|Revise the quote/ })).toBeNull();
@@ -145,7 +146,7 @@ describe("the deal room", () => {
   it("offers the seller the quote and decline, and not accept", async () => {
     auth.session = SELLER;
     api.get.mockImplementation(dealRoom({ ...DEAL, status: "requested", quote_amount: null, my_side: "seller" }));
-    show("/catalogue/deals/k1", "/catalogue/deals/:id", <DealPage />);
+    show("/datahub/deals/k1", "/datahub/deals/:id", <DealPage />);
     expect(await screen.findByRole("button", { name: "Send a quote" })).toBeTruthy();
     expect(screen.getByRole("button", { name: "Decline" })).toBeTruthy();
     expect(screen.queryByRole("button", { name: "Accept the quote" })).toBeNull();
@@ -154,7 +155,7 @@ describe("the deal room", () => {
   it("accepts through the one endpoint, after showing the price and the files", async () => {
     auth.session = CLIENT;
     api.get.mockImplementation(dealRoom(DEAL));
-    show("/catalogue/deals/k1", "/catalogue/deals/:id", <DealPage />);
+    show("/datahub/deals/k1", "/datahub/deals/:id", <DealPage />);
     fireEvent.click(await screen.findByRole("button", { name: "Accept the quote" }));
     const dlg = await screen.findByRole("dialog");
     expect(within(dlg).getByText("500 files")).toBeTruthy();
@@ -162,19 +163,47 @@ describe("the deal room", () => {
     await waitFor(() => expect(api.post).toHaveBeenCalledWith("/catalogue/deals/k1/accept"));
   });
 
-  it("gives the seller Mark paid once accepted, and the buyer nothing to do", async () => {
-    auth.session = SELLER;
-    api.get.mockImplementation(dealRoom({ ...DEAL, status: "accepted", my_side: "seller" }));
-    show("/catalogue/deals/k1", "/catalogue/deals/:id", <DealPage />);
-    fireEvent.click(await screen.findByRole("button", { name: "Mark paid" }));
-    fireEvent.click(await screen.findByRole("button", { name: /Paid: .*5,000/ }));
-    await waitFor(() => expect(api.post).toHaveBeenCalledWith("/catalogue/deals/k1/paid", { invoice_number: null }));
+  // db/450: accepting issued an invoice; the buyer marks it paid, the seller
+  // acknowledges, and that makes the deal paid. The seller has no Mark paid.
+  const INVOICE = {
+    id: "i1", reference_code: "INV-07", contract_id: null, contract_ref: null, deal_id: "k1",
+    dataset_title: "Street scenes, Pune", request_id: null, request_title: null,
+    client_org_id: "o-acme", client_name: "Acme Retail Analytics",
+    partner_org_id: "o-helix", partner_name: "Helix Data Collective", currency: "USD",
+    quantity: null, unit: null, block: null, rate: null, amount: "5000.00", line_text: null,
+    accepted_assets_at_issue: null, note: null, status: "issued", issued_at: "2026-10-03T00:00:00Z",
+    issued_by: null, paid_at: null, paid_by: null, payment_reference: null, acknowledged_at: null,
+    acknowledged_by: null, withdrawn_at: null, withdrawn_by: null, withdrawn_reason: null,
+  };
+  const invoiced = (deal: Record<string, unknown>, invoice: Record<string, unknown>) => (p: string) =>
+    Promise.resolve(p === "/invoices" ? [invoice] : p.endsWith("/messages") ? MESSAGES : deal);
+  const accepted = { ...DEAL, status: "accepted", invoice_id: "i1", invoice_reference: "INV-07" };
+
+  it("shows the buyer the invoice to mark paid, and no withdraw", async () => {
+    auth.session = { ...CLIENT, capabilities: [...CLIENT.capabilities, "invoice.pay"] };
+    api.get.mockImplementation(invoiced({ ...accepted, invoice_status: "issued" }, INVOICE));
+    show("/datahub/deals/k1", "/datahub/deals/:id", <DealPage />);
+    expect(await screen.findByRole("button", { name: "Mark paid" })).toBeTruthy();
+    expect(screen.getAllByText(/INV-07/).length).toBeGreaterThan(0);
+    expect(screen.queryByRole("button", { name: "Withdraw" })).toBeNull();
+  });
+
+  it("gives the seller Acknowledge payment once the buyer has paid, and no Mark paid of its own", async () => {
+    auth.session = { ...SELLER, capabilities: [...SELLER.capabilities, "invoice.acknowledge"] };
+    api.get.mockImplementation(invoiced(
+      { ...accepted, invoice_status: "paid", my_side: "seller" },
+      { ...INVOICE, status: "paid", paid_at: "2026-10-04T00:00:00Z" }));
+    show("/datahub/deals/k1", "/datahub/deals/:id", <DealPage />);
+    fireEvent.click(await screen.findByRole("button", { name: "Acknowledge payment" }));
+    await waitFor(() => expect(api.post).toHaveBeenCalledWith("/invoices/i1/acknowledge"));
+    expect(screen.queryByRole("button", { name: "Mark paid" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "Withdraw" })).toBeNull();
   });
 
   it("gives the seller Mark delivered once paid", async () => {
     auth.session = SELLER;
     api.get.mockImplementation(dealRoom({ ...DEAL, status: "paid", paid_at: "2026-10-03T00:00:00Z", my_side: "seller" }));
-    show("/catalogue/deals/k1", "/catalogue/deals/:id", <DealPage />);
+    show("/datahub/deals/k1", "/datahub/deals/:id", <DealPage />);
     fireEvent.click(await screen.findByRole("button", { name: "Mark delivered" }));
     await waitFor(() => expect(api.post).toHaveBeenCalledWith("/catalogue/deals/k1/delivered"));
   });
@@ -182,7 +211,7 @@ describe("the deal room", () => {
   it("tells the buyer the seller hands the files over once paid", async () => {
     auth.session = CLIENT;
     api.get.mockImplementation(dealRoom({ ...DEAL, status: "paid", paid_at: "2026-10-03T00:00:00Z" }));
-    show("/catalogue/deals/k1", "/catalogue/deals/:id", <DealPage />);
+    show("/datahub/deals/k1", "/datahub/deals/:id", <DealPage />);
     expect(await screen.findByText(/hand the files over to you directly/)).toBeTruthy();
     expect(screen.queryByRole("button", { name: "Mark delivered" })).toBeNull();
   });
@@ -192,7 +221,7 @@ describe("the deal chat", () => {
   it("shows the conversation and sends a message", async () => {
     auth.session = CLIENT;
     api.get.mockImplementation(dealRoom(DEAL));
-    show("/catalogue/deals/k1", "/catalogue/deals/:id", <DealPage />);
+    show("/datahub/deals/k1", "/datahub/deals/:id", <DealPage />);
     expect(await screen.findByText("Could we take 500 from Pune?")).toBeTruthy();
     fireEvent.change(screen.getByLabelText("Message"), { target: { value: "  Any from Mumbai too?  " } });
     fireEvent.click(screen.getByRole("button", { name: "Send" }));
@@ -204,7 +233,7 @@ describe("the deal chat", () => {
   it("is read-only for operations and on a closed deal", async () => {
     auth.session = { ...CLIENT, org_id: "o-platform", org_kind: "platform", role: "platform_admin" };
     api.get.mockImplementation(dealRoom({ ...DEAL, my_side: "operations" }));
-    show("/catalogue/deals/k1", "/catalogue/deals/:id", <DealPage />);
+    show("/datahub/deals/k1", "/datahub/deals/:id", <DealPage />);
     await screen.findByText("Could we take 500 from Pune?");
     expect(screen.queryByLabelText("Message")).toBeNull();
   });
@@ -226,7 +255,7 @@ describe("a delivery partner as a buyer", () => {
     };
     api.get.mockImplementation(() => Promise.resolve(DATASET));
     api.post.mockResolvedValue({ id: "k9" });
-    show("/catalogue/street-abc123", "/catalogue/:slug", <DatasetPage />);
+    show("/datahub/street-abc123", "/datahub/:slug", <DatasetPage />);
     expect(await screen.findAllByText("3,000 files")).toBeTruthy();
     fireEvent.click(await screen.findByRole("button", { name: "Request a quote" }));
     const dlg = await screen.findByRole("dialog");
@@ -245,12 +274,12 @@ describe("catalogue notifications", () => {
   const n = (link_page: string, id?: string) =>
     ({ id: "n", body: "", link_page, link_params: id ? { id } : {} }) as unknown as NotificationRow;
   it("lead to the listing, the deal and the review page", () => {
-    expect(notificationHref(n("catalogue_listing", "d1"))).toBe("/catalogue/mine/d1");
-    expect(notificationHref(n("catalogue_deal", "k1"))).toBe("/catalogue/deals/k1");
+    expect(notificationHref(n("catalogue_listing", "d1"))).toBe("/datahub/mine/d1");
+    expect(notificationHref(n("catalogue_deal", "k1"))).toBe("/datahub/deals/k1");
     // licences went with db/420: an old licence alert opens the deals
-    expect(notificationHref(n("catalogue_licences", "l1"))).toBe("/catalogue/deals");
-    expect(notificationHref(n("catalogue_review"))).toBe("/ops/catalogue");
-    expect(notificationHref(n("catalogue_leads"))).toBe("/catalogue/deals");
+    expect(notificationHref(n("catalogue_licences", "l1"))).toBe("/datahub/deals");
+    expect(notificationHref(n("catalogue_review"))).toBe("/ops/datahub");
+    expect(notificationHref(n("catalogue_leads"))).toBe("/datahub/deals");
   });
 });
 
@@ -273,7 +302,7 @@ describe("a quote request from the public page", () => {
     auth.session = SELLER;
     api.get.mockImplementation(room(PUBLIC_DEAL, []));
     api.post.mockResolvedValue(REPLY);
-    show("/catalogue/deals/p1", "/catalogue/deals/:id", <DealPage />);
+    show("/datahub/deals/p1", "/datahub/deals/:id", <DealPage />);
     expect(await screen.findByText("a@gmail.com")).toBeTruthy();
     expect(screen.getByText("Daytime only?")).toBeTruthy();
     expect(screen.getByText("New")).toBeTruthy();
@@ -288,7 +317,7 @@ describe("a quote request from the public page", () => {
   it("is read-only for operations, who see the emailed reply", async () => {
     auth.session = { ...CLIENT, org_kind: "platform", role: "platform_admin", capabilities: ["catalogue.review"] };
     api.get.mockImplementation(room({ ...PUBLIC_DEAL, my_side: "operations", message_count: 1 }, [{ ...REPLY, mine: false }]));
-    show("/catalogue/deals/p1", "/catalogue/deals/:id", <DealPage />);
+    show("/datahub/deals/p1", "/datahub/deals/:id", <DealPage />);
     expect(await screen.findByText("Yes, USD 2,000 for 200.")).toBeTruthy();
     expect(screen.getByText(/emailed to a@gmail.com/)).toBeTruthy();
     expect(screen.getByText("Contacted")).toBeTruthy();
@@ -300,11 +329,32 @@ describe("a quote request from the public page", () => {
     auth.session = { ...CLIENT, org_kind: "platform", role: "platform_admin", capabilities: ["catalogue.review"] };
     api.get.mockImplementation((p: string) => Promise.resolve(
       p === "/catalogue/deals" ? [{ ...PUBLIC_DEAL, my_side: "operations" }, DEAL] : []));
-    show("/ops/catalogue", "/ops/catalogue", <CatalogueReviewPage />);
+    show("/ops/datahub", "/ops/datahub", <CatalogueReviewPage />);
     fireEvent.click(await screen.findByRole("tab", { name: /Public quote requests/ }));
     expect(await screen.findByText("a@gmail.com")).toBeTruthy();
     expect(screen.getByText("Helix Data Collective")).toBeTruthy();
-    expect(screen.getByRole("link", { name: "Open" }).getAttribute("href")).toBe("/catalogue/deals/p1");
+    expect(screen.getByRole("link", { name: "Open" }).getAttribute("href")).toBe("/datahub/deals/p1");
     expect(screen.queryByText("Acme Retail Analytics")).toBeNull();
+  });
+});
+
+describe("an aggregator", () => {
+  const AGGREGATOR = {
+    full_name: "Anita", org_id: "o-crowd", org_name: "Bengaluru Crowd", org_kind: "aggregator",
+    role: "aggregator", capabilities: ["task.read", "roster.manage"],
+  };
+
+  it("is told the catalogue is not part of its workspace, and nothing is fetched", async () => {
+    auth.session = AGGREGATOR;
+    show("/datahub", "/datahub", <CataloguePage />);
+    expect(await screen.findByText("DataHub is not part of your workspace")).toBeTruthy();
+    expect(api.get).not.toHaveBeenCalled();
+  });
+
+  it("gets the same on its old My listings link", async () => {
+    auth.session = AGGREGATOR;
+    show("/datahub/mine", "/datahub/mine", <MyDatasetsPage />);
+    expect(await screen.findByText("DataHub is not part of your workspace")).toBeTruthy();
+    expect(api.get).not.toHaveBeenCalled();
   });
 });

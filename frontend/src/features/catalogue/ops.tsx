@@ -2,7 +2,7 @@
 // quote requests from people without an account. Each is a public deal its
 // seller answers by email (db/440); Ops open it and read, nothing more.
 //
-// Nothing reaches the catalogue or the public page until Ops publishes it
+// Nothing reaches DataHub or the public page until Ops publishes it
 // (db/390's transition trigger refuses anyone else). Review reads the samples
 // above all: they are what the public will see, and the platform records no
 // consent from the people shown in them.
@@ -33,8 +33,8 @@ export function CatalogueReviewPage() {
   const waiting = (queue.data ?? []).filter((d) => d.status === "in_review").length;
   const fresh = requests.filter((d) => dealStatusMeta(d).label === "New").length;
   return (
-    <View title="Dataset catalogue" sub="Listings waiting for review, what is on sale, and quote requests from the public page, which their sellers answer.">
-      <div className="seg" role="tablist" aria-label="Catalogue operations" style={{ marginBottom: 16 }}>
+    <View title="DataHub" sub="Listings waiting for review, what is on sale, and quote requests from the public page, which their sellers answer.">
+      <div className="seg" role="tablist" aria-label="DataHub operations" style={{ marginBottom: 16 }}>
         <button type="button" role="tab" className="seg-btn" aria-selected={tab === "listings"} onClick={() => setTab("listings")}>
           Listings{waiting ? ` · ${waiting} to review` : ""}
         </button>
@@ -95,7 +95,7 @@ export function CatalogueReviewPage() {
                     return <Pill tone={m.tone}>{m.label}</Pill>;
                   },
                 },
-                { header: "Actions", hideHeader: true, className: "right", cell: (r) => <Link className="btn" data-size="sm" to={`/catalogue/deals/${r.id}`}>Open</Link> },
+                { header: "Actions", hideHeader: true, className: "right", cell: (r) => <Link className="btn" data-size="sm" to={`/datahub/deals/${r.id}`}>Open</Link> },
               ]}
             />
           )}
@@ -171,7 +171,7 @@ function ReviewDialog({ id, onClose }: { id: string; onClose: () => void }) {
             ["Submitted", fmtDateTime(d.submitted_at)],
           ]} />
           {approve.isError && <Callout tone="critical" title="Not published">{errText(approve.error)}</Callout>}
-          <p className="small" style={{ margin: 0 }}><Link to={`/catalogue/${d.slug}`}>Open the full listing</Link></p>
+          <p className="small" style={{ margin: 0 }}><Link to={`/datahub/${d.slug}`}>Open the full listing</Link></p>
         </>
       )}
       {rejecting && (
@@ -186,7 +186,7 @@ function ReviewDialog({ id, onClose }: { id: string; onClose: () => void }) {
       {withdrawing && (
         <ReasonDialog
           title="Withdraw this listing from sale"
-          warning="It leaves the catalogue. Buyers still negotiating are told; deals already agreed stand."
+          warning="It leaves DataHub. Buyers still negotiating are told; deals already agreed stand."
           confirmLabel="Withdraw"
           onConfirm={(reason) => post(`/catalogue/datasets/${id}/withdraw`, { reason }).then(() => { done("Withdrawn"); onClose(); })}
           onClose={() => setWithdrawing(false)}

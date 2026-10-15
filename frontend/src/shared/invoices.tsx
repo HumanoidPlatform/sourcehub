@@ -1,5 +1,6 @@
-// Partner-raised invoices (db/320): the dialogs, the row actions and the
-// detail view shared by the contract page and the Billing page.
+// Partner-raised invoices (db/320), and a dataset deal's invoice the platform
+// issues when the buyer accepts (db/450): the dialogs, the row actions and the
+// detail view shared by the contract page, the deal page and the Billing page.
 //
 // Who may do what is decided twice — here, so the button only appears for the
 // party whose move it is, and in the database, whose transition trigger refuses
@@ -20,8 +21,16 @@ import { invoiceStatus, statusMeta } from "@shared/status";
 
 /** "39 photos at $2,900 per 1,000 photos", or what a fixed-price claim is. */
 export function invoiceClaim(i: InvoiceRow): string {
+  if (i.deal_id) return "Dataset deal, the accepted quote";
   if (i.quantity === null || i.rate === null) return "Fixed-price claim";
   return `${quantityWords(i.quantity, i.unit)} at ${money(i.rate, i.currency)} per ${unitWords(i.unit, i.block)}`;
+}
+
+/** What an invoice bills: its contract, or the dataset deal. */
+export function InvoiceSubject({ i }: { i: InvoiceRow }) {
+  return i.deal_id
+    ? <Link to={`/datahub/deals/${i.deal_id}`}>{i.dataset_title ?? "Dataset deal"}</Link>
+    : <Link to={`/contracts/${i.contract_id}`}>{i.contract_ref ?? "Open"}</Link>;
 }
 
 function describeError(e: unknown, fallback: string): string {
@@ -238,7 +247,8 @@ export function InvoiceActions({ i, size }: { i: InvoiceRow; size?: "sm" }) {
         </Button>,
       );
     }
-    if (i.status === "issued") {
+    // a dataset deal's invoice is never withdrawn: the deal has no step to go back to
+    if (i.status === "issued" && !i.deal_id) {
       buttons.push(<Button key="wd" size={size} onClick={() => setWithdrawing(true)}>Withdraw</Button>);
     }
   }
@@ -256,8 +266,8 @@ export function InvoiceActions({ i, size }: { i: InvoiceRow; size?: "sm" }) {
 export function InvoiceDetailDialog({ i, onClose }: { i: InvoiceRow; onClose: () => void }) {
   const m = statusMeta(invoiceStatus, i.status);
   const rows: [string, ReactNode][] = [
-    ["Contract", <Link key="c" to={`/contracts/${i.contract_id}`}>{i.contract_ref ?? "Open contract"}</Link>],
-    ["Raised by", i.partner_name ?? "—"],
+    [i.deal_id ? "Dataset" : "Contract", <InvoiceSubject key="c" i={i} />],
+    [i.deal_id ? "From (the seller)" : "Raised by", i.partner_name ?? "—"],
     ["Billed to", i.client_name ?? "—"],
     ["Claim", invoiceClaim(i)],
     ["Amount", money(i.amount, i.currency)],
@@ -266,7 +276,7 @@ export function InvoiceDetailDialog({ i, onClose }: { i: InvoiceRow; onClose: ()
       : []),
     ...(i.note ? ([["Note", i.note]] as [string, ReactNode][]) : []),
     ["Status", <Pill key="s" tone={m.tone}>{m.label}</Pill>],
-    ["Raised", fmtDateTime(i.issued_at)],
+    [i.deal_id ? "Issued by the platform" : "Raised", fmtDateTime(i.issued_at)],
     ["Marked paid", i.paid_at
       ? `${fmtDateTime(i.paid_at)}${i.payment_reference ? ` · ref ${i.payment_reference}` : ""}`
       : "Not yet"],
