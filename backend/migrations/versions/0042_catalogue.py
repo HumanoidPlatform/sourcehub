@@ -906,14 +906,7 @@ ON CONFLICT DO NOTHING;
 INSERT INTO role_permission (role_id, permission_id)
 SELECT r.id, p.id
 FROM   role r, permission p
-WHERE  r.code = 'tenant' AND r.is_system
-  AND  p.code IN ('catalogue.buy', 'catalogue.list', 'catalogue.quote')
-ON CONFLICT DO NOTHING;
-
-INSERT INTO role_permission (role_id, permission_id)
-SELECT r.id, p.id
-FROM   role r, permission p
-WHERE  r.code = 'aggregator' AND r.is_system
+WHERE  r.code IN ('tenant', 'aggregator') AND r.is_system
   AND  p.code IN ('catalogue.list', 'catalogue.quote')
 ON CONFLICT DO NOTHING;
 

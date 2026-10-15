@@ -78,6 +78,42 @@ def test_the_downgrade_drops_it():
     assert "DROP FUNCTION IF EXISTS datahub_org_name(uuid);" in _literal("_DOWN")
 
 
+# ---------------------------------------------------------------------------
+# A delivery partner buys: the grant rides in 0044, not in 0042, so a
+# database that already ran 0042 gets it too.
+# ---------------------------------------------------------------------------
+def test_0044_grants_a_partner_catalogue_buy():
+    seed = _code(_literal("_SEED"))
+    assert "r.code = 'tenant' AND r.is_system AND p.code = 'catalogue.buy'" in seed
+    assert "ON CONFLICT DO NOTHING" in seed
+
+
+def test_upgrade_runs_the_schema_then_the_grant():
+    up = MIGRATION_TEXT[MIGRATION_TEXT.index("def upgrade()"):MIGRATION_TEXT.index("def downgrade()")]
+    assert "_statements(_UP) + _statements(_SEED)" in up
+
+
+def test_the_downgrade_takes_the_grant_back():
+    down = _code(_literal("_DOWN"))
+    assert "DELETE FROM role_permission" in down
+    assert "code = 'tenant'" in down and "code = 'catalogue.buy'" in down
+
+
+def test_0042_still_grants_a_partner_only_list_and_quote():
+    # 0042 is left as it may already have run somewhere; editing it would
+    # change nothing there.
+    m42 = (ROOT / "backend" / "migrations" / "versions" / "0042_catalogue.py").read_text(encoding="utf-8")
+    seed42 = re.search(r'_SEED = """(.*?)"""', m42, re.S).group(1)
+    assert "r.code IN ('tenant', 'aggregator') AND r.is_system" in seed42
+    assert "r.code = 'tenant'" not in seed42
+
+
+def test_a_fresh_build_seeds_the_same_grant():
+    seed900 = (ROOT / "db" / "900_seed.sql").read_text(encoding="utf-8")
+    tenant = re.search(r"WHERE r\.code = 'tenant' AND p\.code IN \((.*?)\);", seed900, re.S).group(1)
+    assert "'catalogue.buy'" in tenant
+
+
 def test_the_catalogue_never_joins_organisation():
     # a join on a row the caller may not see drops the listing with it
     service = SERVICE.read_text(encoding="utf-8")

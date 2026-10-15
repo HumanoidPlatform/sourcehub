@@ -1,14 +1,19 @@
-"""catalogue: the names a buyer and a seller may see of each other.
+"""catalogue: a delivery partner buys too, and buyer and seller see each other's name.
 
-A delivery partner now buys as well as sells, and organisation's policies
-never let one partner see another; joining organisation hid every other
-partner's published listing outright. datahub_org_name answers with the name
-alone, and only for an organisation with a listing on sale, a counterpart on a
-deal or a licence, the caller's own, or to operations.
+The partner role (tenant) gets catalogue.buy, as db/900 now seeds it; 0042
+granted partners only list and quote. The row rides in _SEED, after the
+schema, the way 0042 carries its own capability rows.
+
+A partner buying meets organisation's policies, which never let one partner
+see another; joining organisation hid every other partner's published listing
+outright. datahub_org_name answers with the name alone, and only for an
+organisation with a listing on sale, a counterpart on a deal or a licence, the
+caller's own, or to operations.
 
 SQL copied verbatim from db/410_catalogue_names.sql so the bootstrap and
 migration paths keep producing identical schemas; a test asserts the two stay
-byte-identical. The downgrade drops the function; nothing stores its answers.
+byte-identical. The downgrade takes the grant back and drops the function;
+nothing stores its answers.
 
 Executed one statement at a time, with the splitter 0030 uses, because asyncpg
 refuses two statements in one execute.
@@ -63,7 +68,19 @@ REVOKE EXECUTE ON FUNCTION datahub_org_name(uuid) FROM PUBLIC;
 GRANT EXECUTE ON FUNCTION datahub_org_name(uuid) TO sourcehub_app;
 """
 
+_SEED = """
+-- A delivery partner buys from the catalogue as well as selling in it.
+INSERT INTO role_permission (role_id, permission_id)
+SELECT r.id, p.id
+FROM   role r, permission p
+WHERE  r.code = 'tenant' AND r.is_system AND p.code = 'catalogue.buy'
+ON CONFLICT DO NOTHING;
+"""
+
 _DOWN = """
+DELETE FROM role_permission
+WHERE  role_id IN (SELECT id FROM role WHERE code = 'tenant' AND is_system)
+  AND  permission_id IN (SELECT id FROM permission WHERE code = 'catalogue.buy');
 DROP FUNCTION IF EXISTS datahub_org_name(uuid);
 """
 
@@ -87,7 +104,7 @@ def _statements(ddl: str) -> list[str]:
 
 
 def upgrade() -> None:
-    for stmt in _statements(_UP):
+    for stmt in _statements(_UP) + _statements(_SEED):
         op.execute(stmt)
 
 

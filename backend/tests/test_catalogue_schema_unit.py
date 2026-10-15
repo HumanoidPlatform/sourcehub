@@ -139,7 +139,7 @@ def test_the_seed_and_the_migration_grant_the_same_capabilities():
         assert f"('{cap}'" in SEED_TEXT, f"db/900 lacks {cap}"
         assert f"('{cap}'" in SEED, f"_SEED lacks {cap}"
         assert f"'{cap}'" in DOWN
-    assert SEED.count("ON CONFLICT DO NOTHING") == 5
+    assert SEED.count("ON CONFLICT DO NOTHING") == 4
 
 
 def test_only_operations_reviews_listings():
@@ -147,7 +147,8 @@ def test_only_operations_reviews_listings():
     holders = {role for role, caps in rows if "'catalogue.review'" in caps}
     assert holders == {"platform_admin"}
     buyers = {role for role, caps in rows if "'catalogue.buy'" in caps}
-    # clients and delivery partners buy; aggregators only sell
+    # clients and delivery partners buy; aggregators only sell. A partner's
+    # grant reaches a migrated database through 0044, not 0042.
     assert buyers == {"client", "tenant"}
 
 
