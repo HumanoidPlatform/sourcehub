@@ -778,11 +778,14 @@ async def withdraw_dataset(
     if not reason:
         raise CatalogueError("Say why it is being withdrawn.")
     await _move(session, dataset_id, "published", "withdrawn", {"withdrawn_reason": reason})
+    # A public request (db/440) has no buyer organisation to ring: its visitor
+    # hears from the seller by email, and the request stays open for that.
     buyers = (
         await session.execute(
             text(
                 "SELECT id, buyer_org_id, status FROM datahub_dataset_deal "
-                "WHERE dataset_id = :d AND status <> ALL(ARRAY['declined', 'withdrawn'])"
+                "WHERE dataset_id = :d AND status <> ALL(ARRAY['declined', 'withdrawn']) "
+                "  AND buyer_org_id IS NOT NULL"
             ),
             {"d": dataset_id},
         )

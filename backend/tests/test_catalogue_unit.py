@@ -211,6 +211,14 @@ def _body(name: str) -> str:
     return _SERVICE[start:nxt if nxt > 0 else None]
 
 
+def test_withdrawing_tells_only_buyers_with_an_organisation():
+    # a public request (db/440) has no buyer_org_id, and a notification
+    # needs an org: ringing it would fail the insert and undo the withdrawal
+    body = _body("withdraw_dataset")
+    assert "AND buyer_org_id IS NOT NULL" in body
+    assert body.index("buyer_org_id IS NOT NULL") < body.index("notifier.notify(")
+
+
 def test_relisting_counts_the_captures_and_copies_none():
     body = _body("relist_contract")
     assert "count(*)::integer AS n" in body and "datahub_relist_candidates" in body

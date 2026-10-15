@@ -235,12 +235,19 @@ refused(seller.post(f"/catalogue/contracts/{uuid.uuid4()}/list"), 404)
 refused(buyer.post(f"/catalogue/contracts/{uuid.uuid4()}/list"), 404)
 ok("listing an unknown or someone else's contract is NOT FOUND")
 
-# 10 — off sale; agreed deals stand
+# 10 — off sale, with a public request still open; agreed deals stand
+r = public.post(f"/public/catalogue/{SLUG}/leads", json={
+    "name": "Late Visitor", "email": "late@lab.example", "company": "Late Lab", "intended_use": "research"})
+assert r.status_code == 201, r.text
+OPEN = next(x["id"] for x in seller.get("/catalogue/deals").json()
+            if x["dataset_slug"] == SLUG and x["contact_email"] == "late@lab.example")
 r = seller.post(f"/catalogue/datasets/{DID}/withdraw", json={"reason": "end of the e2e run"})
 r.raise_for_status()
 assert not any(d["slug"] == SLUG for d in public.get("/public/catalogue").json())
 assert buyer.get(f"/catalogue/deals/{DEAL}").json()["status"] == "delivered"
-ok("seller withdrew the listing; it left the public page and the deals stand")
+assert seller.get(f"/catalogue/deals/{OPEN}").json()["status"] == "requested"
+ok("seller withdrew the listing with a public request open; it left the public page,"
+   " the deals stand and the public request stays open for the seller")
 
 from sourcehub.platform import storage  # noqa: E402
 
